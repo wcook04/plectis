@@ -223,6 +223,28 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "examples/macro_projection_import_protocol/exported_projection_import_bundle"
         ),
     },
+    "executable_grammar_metabolism_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The executable-grammar metabolism specimen now carries exact copied "
+            "non-secret README, grammar-board, and receipt bodies inside "
+            "Microcosm, bound to the executable doctrine grammar standard and "
+            "validated by digest, anchor, runtime, and secret-exclusion checks."
+        ),
+        "landed_evidence_refs": [
+            "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
+            "standards/std_microcosm_executable_doctrine_grammar.json",
+            "receipts/first_wave/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm executable-doctrine-grammar "
+            "validate-executable-grammar-metabolism-bundle --input "
+            "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle"
+        ),
+    },
     "runtime_reveal_import_bridge": {
         "projection_status": "runtime_bridge_landed",
         "cell_state": "bridged_runtime_surface",

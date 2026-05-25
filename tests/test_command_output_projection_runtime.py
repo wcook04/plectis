@@ -129,6 +129,9 @@ BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
+EXECUTABLE_GRAMMAR_METABOLISM_MANIFEST = (
+    BUNDLE_INPUT / "executable_grammar_metabolism_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -662,6 +665,29 @@ def test_navigation_clusterability_source_manifest_matches_exact_macro_sources()
         manifest_id="navigation_clusterability_source_modules_import",
         module_count=2,
     )
+
+
+def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        EXECUTABLE_GRAMMAR_METABOLISM_MANIFEST,
+        manifest_id="executable_grammar_metabolism_source_modules_import",
+        module_count=3,
+    )
+
+    material_classes = {row["material_class"] for row in manifest["modules"]}
+    assert material_classes == {"public_macro_tool_body", "public_macro_receipt_body"}
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    board = json.loads(
+        (
+            source_modules_root
+            / "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert board["schema_version"] == "executable_grammar_metabolism_specimen_v0"
+    assert board["status"] == "ok"
+    assert len(board["grammar_rules"]) == 5
+    assert len(board["provider_replay_bridge"]) == 4
+    assert len(board["source_capsule_provenance"]) == 10
 
 
 def test_navigation_clusterability_sources_compile_and_carry_clusterability_contract() -> None:

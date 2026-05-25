@@ -1,0 +1,142 @@
+{
+  "anti_claim": "This standard governs public executable-doctrine grammar fixtures and imported public grammar specimens only; it does not publish private doctrine bodies, prove doctrine completeness, authorize provider calls, or grant release/publication authority.",
+  "authority_boundary": "public_executable_doctrine_grammar_runtime_and_macro_specimen_standard_not_macro_doctrine_authority",
+  "authority_ceiling": {
+    "doctrine_completeness_authority": false,
+    "private_data_equivalence_authority": false,
+    "private_standards_engine_exported": false,
+    "provider_calls_authorized": false,
+    "raw_operator_voice_export_authority": false,
+    "release_authority": false,
+    "source_mutation_authority": false,
+    "status": "pass"
+  },
+  "kind_id": "executable_doctrine_grammar",
+  "public_private_boundary": {
+    "allowed_public_material": [
+      "public-safe standards rows",
+      "paper-module grammar fixtures",
+      "expected negative-case ids and error codes",
+      "public executable-grammar metabolism specimen bodies",
+      "source-to-target digests",
+      "public-relative receipt refs"
+    ],
+    "forbidden_public_material": [
+      "private standards engine bodies",
+      "raw operator notes or raw seed bodies",
+      "provider request or response payload bodies",
+      "credential values",
+      "browser/HUD live-access state",
+      "account/session state",
+      "recipient-send state"
+    ],
+    "status": "pass"
+  },
+  "receipt_contract": {
+    "body_in_receipt": false,
+    "must_emit": [
+      "standards_validation_report.json",
+      "paper_module_validation_report.json",
+      "standards_group_index.json",
+      "exported_standards_bundle_validation_result.json",
+      "exported_executable_grammar_metabolism_bundle_validation_result.json"
+    ],
+    "public_relative_refs_required": true
+  },
+  "receipt_expectations": [
+    "report accepted and rejected standard rows",
+    "report expected negative-case coverage",
+    "report paper-module grammar findings",
+    "report imported executable-grammar metabolism source refs, artifact refs, and digests without duplicating body text",
+    "include authority ceiling, anti-claim, and secret-exclusion status"
+  ],
+  "relationships": {
+    "governed_by": [
+      "std_microcosm_organ",
+      "std_microcosm_receipt",
+      "std_microcosm_macro_projection_import_protocol"
+    ],
+    "imports_macro_patterns": [
+      "executable_grammar_metabolism",
+      "paper_module_authoring_runtime_self_describing",
+      "standards_registry_executable_grammar_index"
+    ],
+    "used_by_organs": [
+      "executable_doctrine_grammar",
+      "macro_projection_import_protocol"
+    ]
+  },
+  "required_fields": [
+    "schema_version",
+    "bundle_id",
+    "bundle_kind",
+    "organ_id",
+    "source_root",
+    "runtime_surfaces",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_refs": [
+    {
+      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "role": "macro_public_specimen_entry"
+    },
+    {
+      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "role": "macro_public_specimen_body"
+    },
+    {
+      "path": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "role": "macro_public_specimen_receipt_body"
+    },
+    {
+      "path": "microcosm-substrate/src/microcosm_core/organs/executable_doctrine_grammar.py",
+      "role": "public_runtime_validator"
+    },
+    {
+      "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
+      "role": "source_to_target_digest_manifest"
+    }
+  ],
+  "standard_id": "std_microcosm_executable_doctrine_grammar",
+  "standard_payload": {
+    "anti_purpose": "A prose-only doctrine note, a receipt archive, or a validator that passes while copied macro specimen bodies remain unconsumed.",
+    "failure_modes": [
+      "private doctrine body exported as public fixture",
+      "grammar pass claims doctrine completeness",
+      "standard row accepted without teleology, governing standard, receipt expectations, or anti-claim",
+      "paper module accepted without governing standard or receipt expectations",
+      "macro executable-grammar specimen imported without exact source-to-target digest checks",
+      "provider replay bridge treated as real provider transcript or reliability proof",
+      "receipt duplicates macro body text instead of carrying refs, hashes, and verdicts"
+    ],
+    "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar specimen bodies.",
+    "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require standard rows to carry teleology, governing standard, receipt expectations, and anti-claim",
+    "reject duplicate standard slugs deterministically",
+    "reject prose-only standards that claim executable authority",
+    "reject grammar or paper-module fixtures that claim doctrine completeness",
+    "reject copied macro doctrine or provider payload bodies in public fixtures",
+    "require imported executable-grammar metabolism specimens to pass exact digest and source-ref checks",
+    "require receipts to omit body text and expose only refs, hashes, counts, authority ceilings, and verdicts"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "standard_row_grammar",
+      "paper_module_shape",
+      "negative_cases",
+      "source_digest_match",
+      "secret_exclusion"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.executable_doctrine_grammar"
+  },
+  "validator_refs": [
+    "src/microcosm_core/organs/executable_doctrine_grammar.py",
+    "tests/test_executable_doctrine_grammar.py"
+  ]
+}

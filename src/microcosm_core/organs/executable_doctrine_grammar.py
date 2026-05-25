@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from collections import Counter, defaultdict
@@ -24,6 +25,7 @@ GROUP_INDEX_NAME = "standards_group_index.json"
 PAPER_REPORT_NAME = "paper_module_validation_report.json"
 ACCEPTANCE_RECEIPT_REL = "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
 STANDARDS_BUNDLE_RESULT_NAME = "exported_standards_bundle_validation_result.json"
+METABOLISM_BUNDLE_RESULT_NAME = "exported_executable_grammar_metabolism_bundle_validation_result.json"
 
 GRAMMAR_AUTHORITY_CEILING = {
     "status": PASS,
@@ -58,6 +60,24 @@ EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/executable_doctrine_grammar/standards_validation_report.json",
     ACCEPTANCE_RECEIPT_REL,
 ]
+METABOLISM_REQUIRED_FILES = (
+    "bundle_manifest.json",
+    "README.md",
+    "grammar_board.json",
+    "receipt.json",
+)
+METABOLISM_REQUIRED_BOARD_KEYS = (
+    "schema_version",
+    "status",
+    "grammar_rules",
+    "cases",
+    "grammar_loop",
+    "provider_replay_bridge",
+    "source_capsule_provenance",
+    "public_safety_boundary",
+    "claim_boundary",
+    "anti_claims",
+)
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -77,6 +97,10 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _sha256_file(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _finding(
@@ -753,6 +777,218 @@ def validate_standards_bundle(
     return result
 
 
+def _scan_metabolism_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    return scan_paths(
+        [input_dir / filename for filename in METABOLISM_REQUIRED_FILES],
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
+
+
+def _metabolism_bundle_findings(
+    *,
+    manifest: dict[str, Any],
+    board: dict[str, Any],
+    receipt: dict[str, Any],
+    readme_text: str,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    if manifest.get("organ_id") != ORGAN_ID:
+        findings.append(_finding("METABOLISM_BUNDLE_ORGAN_MISMATCH", "Bundle manifest does not target executable_doctrine_grammar."))
+    if manifest.get("bundle_kind") != "exported_executable_grammar_metabolism_bundle":
+        findings.append(_finding("METABOLISM_BUNDLE_KIND_MISSING", "Bundle manifest lacks the expected exported executable-grammar metabolism bundle kind."))
+    if "private standards engine" not in str(manifest.get("anti_claim") or "").lower():
+        findings.append(_finding("METABOLISM_BUNDLE_ANTI_CLAIM_WEAK", "Bundle manifest anti-claim must reject private standards-engine export."))
+
+    missing_board_keys = [
+        key for key in METABOLISM_REQUIRED_BOARD_KEYS if key not in board
+    ]
+    if missing_board_keys:
+        findings.append(
+            _finding(
+                "METABOLISM_BOARD_REQUIRED_KEYS_MISSING",
+                "Grammar board is missing required public specimen keys.",
+                subject_id=",".join(missing_board_keys),
+                subject_kind="grammar_board",
+            )
+        )
+    if board.get("schema_version") != "executable_grammar_metabolism_specimen_v0":
+        findings.append(_finding("METABOLISM_BOARD_SCHEMA_UNEXPECTED", "Grammar board schema is not the executable grammar metabolism specimen schema."))
+    if board.get("status") not in {PASS, "ok"}:
+        findings.append(_finding("METABOLISM_BOARD_STATUS_NOT_OK", "Grammar board does not carry an ok/pass status."))
+    if not _string_list(board.get("grammar_rules")):
+        findings.append(_finding("METABOLISM_BOARD_RULES_MISSING", "Grammar board has no executable grammar rules."))
+    if not _string_list(board.get("cases")):
+        findings.append(_finding("METABOLISM_BOARD_CASES_MISSING", "Grammar board has no public fixture cases."))
+    if not _string_list(board.get("provider_replay_bridge")):
+        findings.append(_finding("METABOLISM_PROVIDER_REPLAY_BRIDGE_MISSING", "Provider replay bridge rows are absent."))
+    source_capsules = board.get("source_capsule_provenance")
+    if not isinstance(source_capsules, dict) or not source_capsules:
+        findings.append(_finding("METABOLISM_SOURCE_CAPSULES_MISSING", "Source capsule provenance is absent."))
+    if "not a public release" not in str(board.get("claim_boundary") or "").lower():
+        findings.append(_finding("METABOLISM_CLAIM_BOUNDARY_WEAK", "Claim boundary must reject public-release authority."))
+    if "private registry" not in str(board.get("public_safety_boundary") or "").lower():
+        findings.append(_finding("METABOLISM_PUBLIC_SAFETY_BOUNDARY_WEAK", "Public safety boundary must reject private registry export."))
+    if not _string_list(board.get("anti_claims")):
+        findings.append(_finding("METABOLISM_ANTI_CLAIMS_MISSING", "Grammar board has no anti-claim rows."))
+
+    if receipt.get("schema_version") != "receipt_v0":
+        findings.append(_finding("METABOLISM_RECEIPT_SCHEMA_UNEXPECTED", "Macro specimen receipt schema is unexpected."))
+    if receipt.get("status") not in {PASS, "ok"} or receipt.get("result") not in {PASS, "ok"}:
+        findings.append(_finding("METABOLISM_RECEIPT_STATUS_NOT_OK", "Macro specimen receipt does not carry ok/pass status and result."))
+    if not _string_list(receipt.get("evidence_refs")):
+        findings.append(_finding("METABOLISM_RECEIPT_EVIDENCE_REFS_MISSING", "Macro specimen receipt has no evidence refs."))
+    if not _string_list(receipt.get("omissions")):
+        findings.append(_finding("METABOLISM_RECEIPT_OMISSIONS_MISSING", "Macro specimen receipt has no omission anti-claims."))
+    summary = receipt.get("summary")
+    if not isinstance(summary, dict) or int(summary.get("source_capsule_count") or 0) <= 0:
+        findings.append(_finding("METABOLISM_RECEIPT_SOURCE_CAPSULE_COUNT_MISSING", "Macro specimen receipt summary does not count source capsules."))
+    if "private standards engine" not in readme_text.lower():
+        findings.append(_finding("METABOLISM_README_BOUNDARY_MISSING", "Specimen README does not state the private-standards-engine boundary."))
+    return findings
+
+
+def _write_metabolism_bundle_receipt(
+    out_dir: str | Path,
+    validation_result: dict[str, Any],
+    *,
+    public_root: Path,
+) -> str:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    target.mkdir(parents=True, exist_ok=True)
+    path = target / METABOLISM_BUNDLE_RESULT_NAME
+    receipt_path = public_relative_path(path, display_root=public_root)
+    if Path(receipt_path).is_absolute() and "receipts" in path.parts:
+        receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
+        receipt_path = Path(*path.parts[receipts_index:]).as_posix()
+    payload = _common_receipt(
+        validation_result,
+        schema_version="executable_doctrine_grammar_metabolism_bundle_validation_v1",
+        receipt_paths=[receipt_path],
+    )
+    payload.update(
+        {
+            "artifact_refs": validation_result["artifact_refs"],
+            "artifact_digests": validation_result["artifact_digests"],
+            "source_root": validation_result["source_root"],
+            "source_refs": validation_result["source_refs"],
+            "grammar_rule_count": validation_result["grammar_rule_count"],
+            "grammar_case_count": validation_result["grammar_case_count"],
+            "source_capsule_count": validation_result["source_capsule_count"],
+            "provider_replay_bridge_case_count": validation_result[
+                "provider_replay_bridge_case_count"
+            ],
+            "body_text_in_receipt": False,
+            "fixture_regression_required_elsewhere": True,
+        }
+    )
+    write_json_atomic(path, payload)
+    return receipt_path
+
+
+def validate_executable_grammar_metabolism_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    manifest_path = input_path / "bundle_manifest.json"
+    readme_path = input_path / "README.md"
+    board_path = input_path / "grammar_board.json"
+    receipt_path = input_path / "receipt.json"
+    manifest = read_json_strict(manifest_path)
+    board = read_json_strict(board_path)
+    receipt = read_json_strict(receipt_path)
+    if not isinstance(manifest, dict):
+        raise ValueError(f"{manifest_path}: manifest must be a JSON object")
+    if not isinstance(board, dict):
+        raise ValueError(f"{board_path}: grammar board must be a JSON object")
+    if not isinstance(receipt, dict):
+        raise ValueError(f"{receipt_path}: receipt must be a JSON object")
+    readme_text = readme_path.read_text(encoding="utf-8")
+
+    scan_result = _receipt_safe_scan_result(
+        _scan_metabolism_bundle_inputs(input_path, public_root)
+    )
+    findings = _metabolism_bundle_findings(
+        manifest=manifest,
+        board=board,
+        receipt=receipt,
+        readme_text=readme_text,
+    )
+    source_capsules = board.get("source_capsule_provenance")
+    source_capsule_count = len(source_capsules) if isinstance(source_capsules, dict) else 0
+    artifact_paths = [readme_path, board_path, receipt_path]
+    artifact_refs = [
+        public_relative_path(path, display_root=public_root) for path in artifact_paths
+    ]
+
+    result = base_receipt(
+        ORGAN_ID,
+        f"{FIXTURE_ID}.executable_grammar_metabolism_bundle",
+        command=command,
+    )
+    result.update(
+        {
+            "status": PASS if not findings and scan_result["status"] == PASS else "blocked",
+            "input_mode": "exported_executable_grammar_metabolism_bundle",
+            "bundle_id": str(manifest.get("bundle_id") or ""),
+            "anti_claim": (
+                "The exported executable-grammar metabolism bundle validates an exact "
+                "public macro specimen copy. It does not publish private standards "
+                "engines, raw operator notes, provider transcripts, account/session "
+                "state, doctrine completeness, or release authority."
+            ),
+            "authority_ceiling": {
+                "status": PASS,
+                "authority_ceiling": "executable_doctrine_grammar_macro_specimen_validation_not_doctrine_authority",
+                "doctrine_completeness_authority": False,
+                "private_standards_engine_exported": False,
+                "provider_payload_bodies_exported": False,
+                "publication_authorized": False,
+                "release_authorized": False,
+            },
+            "expected_negative_cases": {},
+            "observed_negative_cases": {},
+            "missing_negative_cases": [],
+            "error_codes": sorted(str(finding["error_code"]) for finding in findings),
+            "findings": findings,
+            "private_state_scan": scan_result,
+            "artifact_refs": artifact_refs,
+            "artifact_digests": {
+                public_relative_path(path, display_root=public_root): _sha256_file(path)
+                for path in artifact_paths
+            },
+            "source_root": str(manifest.get("source_root") or ""),
+            "source_refs": [
+                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+            ],
+            "grammar_rule_count": len(_string_list(board.get("grammar_rules"))),
+            "grammar_case_count": len(_string_list(board.get("cases"))),
+            "source_capsule_count": source_capsule_count,
+            "provider_replay_bridge_case_count": len(
+                _string_list(board.get("provider_replay_bridge"))
+            ),
+            "body_text_in_receipt": False,
+        }
+    )
+    receipt_ref = _write_metabolism_bundle_receipt(
+        out_dir,
+        result,
+        public_root=public_root,
+    )
+    result["receipt_paths"] = [receipt_ref]
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
@@ -762,6 +998,9 @@ def main(argv: list[str] | None = None) -> int:
     bundle_parser = subparsers.add_parser("validate-standards-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    metabolism_parser = subparsers.add_parser("validate-executable-grammar-metabolism-bundle")
+    metabolism_parser.add_argument("--input", required=True)
+    metabolism_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.command_name == "validate":
         command = (
@@ -775,8 +1014,22 @@ def main(argv: list[str] | None = None) -> int:
             f"validate-standards-bundle --input {args.input} --out {args.out}"
         )
         result = validate_standards_bundle(args.input, args.out, command=command)
+    elif args.command_name == "validate-executable-grammar-metabolism-bundle":
+        command = (
+            "python -m microcosm_core.organs.executable_doctrine_grammar "
+            "validate-executable-grammar-metabolism-bundle "
+            f"--input {args.input} --out {args.out}"
+        )
+        result = validate_executable_grammar_metabolism_bundle(
+            args.input,
+            args.out,
+            command=command,
+        )
     else:
-        parser.error("expected subcommand: validate or validate-standards-bundle")
+        parser.error(
+            "expected subcommand: validate, validate-standards-bundle, "
+            "or validate-executable-grammar-metabolism-bundle"
+        )
     return 0 if result["status"] == PASS else 1
 
 

@@ -1,0 +1,2468 @@
+{
+  "anti_claims": [
+    "private standards engine exported",
+    "real provider reliability measured",
+    "candidate portfolio proves public novelty",
+    "public release approved",
+    "clone readiness replaces hosted publication review"
+  ],
+  "authority_posture": "public_safe_synthetic_executable_grammar_fixture_not_private_standard_authority",
+  "candidate_id": "executable_grammar_metabolism_microcosm",
+  "cases": [
+    {
+      "case_id": "case.valid_release_candidate",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [],
+        "observed_rule_ids": [],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [],
+        "status": "pass",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "pass",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": null,
+        "value_summary": "base candidate row unchanged"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.valid_release_candidate.record_fixture_pass",
+        "action_type": "record_fixture_pass",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "pass",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.valid_release_candidate:evaluation"
+        ],
+        "target_fields": [],
+        "transaction_effect": "proof_recorded_no_publication_side_effect",
+        "transaction_status": "closed_local_fixture_only"
+      }
+    },
+    {
+      "case_id": "case.missing_improvement_delta",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "field": "improvement_delta",
+            "reason": "missing required field"
+          },
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "field": "improvement_delta",
+            "reason": "must not be empty"
+          }
+        ],
+        "observed_rule_ids": [
+          "required_improvement_delta"
+        ],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [
+          {
+            "field": "improvement_delta",
+            "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+            "rule_id": "required_improvement_delta",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "field": "improvement_delta",
+              "reason": "missing required field"
+            }
+          },
+          {
+            "field": "improvement_delta",
+            "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+            "rule_id": "required_improvement_delta",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "field": "improvement_delta",
+              "reason": "must not be empty"
+            }
+          }
+        ],
+        "status": "block",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "block",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": "improvement_delta",
+        "value_summary": "blank improvement_delta"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+        "action_type": "route_field_repairs",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.missing_improvement_delta:repair:required_improvement_delta",
+          "case.missing_improvement_delta:repair:required_improvement_delta"
+        ],
+        "target_fields": [
+          "improvement_delta"
+        ],
+        "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+        "transaction_status": "repair_routed_fail_closed"
+      }
+    },
+    {
+      "case_id": "case.empty_source_refs",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "field": "source_refs",
+            "reason": "must not be empty"
+          }
+        ],
+        "observed_rule_ids": [
+          "source_refs_required"
+        ],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [
+          {
+            "field": "source_refs",
+            "repair_contract": "Add public-safe source, standard, fixture, or receipt refs before ranking the row.",
+            "rule_id": "source_refs_required",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "field": "source_refs",
+              "reason": "must not be empty"
+            }
+          }
+        ],
+        "status": "block",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "block",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": "source_refs",
+        "value_summary": "source_refs removed"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.empty_source_refs.route_repairs",
+        "action_type": "route_field_repairs",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.empty_source_refs:repair:source_refs_required"
+        ],
+        "target_fields": [
+          "source_refs"
+        ],
+        "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+        "transaction_status": "repair_routed_fail_closed"
+      }
+    },
+    {
+      "case_id": "case.unknown_projection_strategy",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "field": "projection_strategy",
+            "reason": "unknown projection strategy"
+          }
+        ],
+        "observed_rule_ids": [
+          "allowed_projection_strategy"
+        ],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [
+          {
+            "field": "projection_strategy",
+            "repair_contract": "Choose one allowed projection mode and keep copy-then-sanitize out of the primitive.",
+            "rule_id": "allowed_projection_strategy",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "field": "projection_strategy",
+              "reason": "unknown projection strategy"
+            }
+          }
+        ],
+        "status": "block",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "block",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": "projection_strategy",
+        "value_summary": "invalid copy-then-sanitize projection"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+        "action_type": "route_field_repairs",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.unknown_projection_strategy:repair:allowed_projection_strategy"
+        ],
+        "target_fields": [
+          "projection_strategy"
+        ],
+        "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+        "transaction_status": "repair_routed_fail_closed"
+      }
+    },
+    {
+      "case_id": "case.vague_praise_instead_of_mechanism",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "phrase": "cool idea",
+            "reason": "candidate uses vague praise instead of mechanism"
+          }
+        ],
+        "observed_rule_ids": [
+          "anti_vague_praise"
+        ],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [
+          {
+            "field": "mechanism_text",
+            "repair_contract": "Replace praise with the mechanism, the proof surface, and the next executable action.",
+            "rule_id": "anti_vague_praise",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "phrase": "cool idea",
+              "reason": "candidate uses vague praise instead of mechanism"
+            }
+          }
+        ],
+        "status": "block",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "block",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": "next_action",
+        "value_summary": "vague praise replaces executable repair"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+        "action_type": "route_field_repairs",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.vague_praise_instead_of_mechanism:repair:anti_vague_praise"
+        ],
+        "target_fields": [
+          "mechanism_text"
+        ],
+        "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+        "transaction_status": "repair_routed_fail_closed"
+      }
+    },
+    {
+      "case_id": "case.publish_before_gates",
+      "case_status": "ok",
+      "evaluation": {
+        "grammar_failures": [
+          {
+            "candidate_id": "executable_grammar_metabolism_microcosm",
+            "field": "next_action",
+            "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+            "rule_id": "no_publication_before_gates"
+          }
+        ],
+        "observed_rule_ids": [
+          "no_publication_before_gates"
+        ],
+        "provider_or_artifact_self_status_used_as_authority": false,
+        "repair_rows": [
+          {
+            "field": "next_action",
+            "repair_contract": "Route to a fail-closed gate or probe refresh instead of a public claim.",
+            "rule_id": "no_publication_before_gates",
+            "source_failure": {
+              "candidate_id": "executable_grammar_metabolism_microcosm",
+              "field": "next_action",
+              "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+              "rule_id": "no_publication_before_gates"
+            }
+          }
+        ],
+        "status": "block",
+        "status_authority": "grammar_evaluator_only"
+      },
+      "expected_status": "block",
+      "input_candidate_id": "executable_grammar_metabolism_microcosm",
+      "mutation": {
+        "field": "next_action",
+        "value_summary": "publication instruction before gates"
+      },
+      "worker_action": {
+        "action_id": "worker_action.case.publish_before_gates.route_repairs",
+        "action_type": "route_field_repairs",
+        "authority_rule": "grammar_evaluator_result_drives_worker_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "case.publish_before_gates:repair:no_publication_before_gates"
+        ],
+        "target_fields": [
+          "next_action"
+        ],
+        "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+        "transaction_status": "repair_routed_fail_closed"
+      }
+    }
+  ],
+  "claim_boundary": "Fixture-level proof of release-candidate grammar and repair routing; not a public release, private-root equivalence claim, or novelty proof.",
+  "failures": [],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "grammar_loop": [
+    "standards",
+    "projection_case",
+    "metabolism",
+    "worker_action",
+    "proof",
+    "transaction",
+    "publish-later"
+  ],
+  "grammar_rules": [
+    {
+      "blocks": "Candidate rows that do not name how the release version improves the source surface.",
+      "field": "improvement_delta",
+      "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+      "rule_id": "required_improvement_delta"
+    },
+    {
+      "blocks": "Candidate rows without provenance or source anchors.",
+      "field": "source_refs",
+      "repair_contract": "Add public-safe source, standard, fixture, or receipt refs before ranking the row.",
+      "rule_id": "source_refs_required"
+    },
+    {
+      "blocks": "Projection strategies outside the declared release vocabulary.",
+      "field": "projection_strategy",
+      "repair_contract": "Choose one allowed projection mode and keep copy-then-sanitize out of the primitive.",
+      "rule_id": "allowed_projection_strategy"
+    },
+    {
+      "blocks": "Rows that substitute vague praise for a mechanism, evidence boundary, or repair action.",
+      "field": "mechanism_text",
+      "repair_contract": "Replace praise with the mechanism, the proof surface, and the next executable action.",
+      "rule_id": "anti_vague_praise"
+    },
+    {
+      "blocks": "Rows that instruct publication before disclosure, license, citation, and probe gates are current.",
+      "field": "next_action",
+      "repair_contract": "Route to a fail-closed gate or probe refresh instead of a public claim.",
+      "rule_id": "no_publication_before_gates"
+    }
+  ],
+  "improvement_delta": "The release specimen turns candidate standards and provider canary status channels into deterministic grammar-to-worker-action transaction rows.",
+  "kind": "executable_grammar_metabolism_specimen",
+  "provider_replay_bridge": [
+    {
+      "bridge_case_id": "provider_replay_bridge.case.good_json_answer",
+      "evaluator_status": "pass",
+      "failure_class": null,
+      "final_status_authority": "evaluator_decision",
+      "grammar_projection": {
+        "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+        "status": "pass",
+        "status_authority": "evaluator_only"
+      },
+      "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+      "owner_lane": "receipt_gate",
+      "preserved_evidence": [
+        "provider_response",
+        "evaluator_decision",
+        "claim_boundary"
+      ],
+      "provider_case_id": "case.good_json_answer",
+      "provider_self_attestation_used_as_authority": false,
+      "provider_self_attested_status": "pass",
+      "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route",
+      "restart_from": "receipt_record",
+      "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer]",
+      "status_channel_names": [
+        "answer_status",
+        "evaluator_status",
+        "final_status_authority",
+        "provider_output_status",
+        "provider_route_status",
+        "provider_self_attested_status",
+        "receipt_status",
+        "schema_status"
+      ],
+      "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+      "worker_action": {
+        "action_id": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass",
+        "action_type": "record_provider_fixture_pass",
+        "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+        "input_status": "pass",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route"
+        ],
+        "restart_from": "receipt_record",
+        "target_lane": "receipt_gate",
+        "transaction_effect": "provider_canary_pass_recorded_no_publication_side_effect",
+        "transaction_status": "closed_local_fixture_only"
+      }
+    },
+    {
+      "bridge_case_id": "provider_replay_bridge.case.bad_json_self_attested_pass",
+      "evaluator_status": "fail",
+      "failure_class": "schema_failure",
+      "final_status_authority": "evaluator_decision",
+      "grammar_projection": {
+        "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+        "status": "block",
+        "status_authority": "evaluator_only"
+      },
+      "next_action": "repair_output_schema_contract_before_answer_evaluation",
+      "owner_lane": "schema_adapter",
+      "preserved_evidence": [
+        "raw_output",
+        "schema_failures",
+        "provider_self_attested_status"
+      ],
+      "provider_case_id": "case.bad_json_self_attested_pass",
+      "provider_self_attestation_used_as_authority": false,
+      "provider_self_attested_status": "pass",
+      "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route",
+      "restart_from": "schema_validation",
+      "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass]",
+      "status_channel_names": [
+        "answer_status",
+        "evaluator_status",
+        "final_status_authority",
+        "provider_output_status",
+        "provider_route_status",
+        "provider_self_attested_status",
+        "receipt_status",
+        "schema_status"
+      ],
+      "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+      "worker_action": {
+        "action_id": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair",
+        "action_type": "route_provider_replay_repair",
+        "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route"
+        ],
+        "restart_from": "schema_validation",
+        "target_lane": "schema_adapter",
+        "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+        "transaction_status": "provider_replay_routed_fail_closed"
+      }
+    },
+    {
+      "bridge_case_id": "provider_replay_bridge.case.wrong_answer_self_attested_pass",
+      "evaluator_status": "fail",
+      "failure_class": "answer_mismatch",
+      "final_status_authority": "evaluator_decision",
+      "grammar_projection": {
+        "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+        "status": "block",
+        "status_authority": "evaluator_only"
+      },
+      "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+      "owner_lane": "provider_prompt_or_model_output",
+      "preserved_evidence": [
+        "schema_status",
+        "observed_answer",
+        "expected_answer"
+      ],
+      "provider_case_id": "case.wrong_answer_self_attested_pass",
+      "provider_self_attestation_used_as_authority": false,
+      "provider_self_attested_status": "pass",
+      "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route",
+      "restart_from": "provider_call_with_same_schema_contract",
+      "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass]",
+      "status_channel_names": [
+        "answer_status",
+        "evaluator_status",
+        "final_status_authority",
+        "provider_output_status",
+        "provider_route_status",
+        "provider_self_attested_status",
+        "receipt_status",
+        "schema_status"
+      ],
+      "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+      "worker_action": {
+        "action_id": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair",
+        "action_type": "route_provider_replay_repair",
+        "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route"
+        ],
+        "restart_from": "provider_call_with_same_schema_contract",
+        "target_lane": "provider_prompt_or_model_output",
+        "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+        "transaction_status": "provider_replay_routed_fail_closed"
+      }
+    },
+    {
+      "bridge_case_id": "provider_replay_bridge.case.timeout",
+      "evaluator_status": "block",
+      "failure_class": "provider_route_unavailable",
+      "final_status_authority": "evaluator_decision",
+      "grammar_projection": {
+        "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+        "status": "block",
+        "status_authority": "evaluator_only"
+      },
+      "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+      "owner_lane": "provider_transport",
+      "preserved_evidence": [
+        "case_id",
+        "prompt",
+        "expected_answer",
+        "provider_variant",
+        "timeout_status"
+      ],
+      "provider_case_id": "case.timeout",
+      "provider_self_attestation_used_as_authority": false,
+      "provider_self_attested_status": "unavailable",
+      "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route",
+      "restart_from": "provider_call",
+      "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout]",
+      "status_channel_names": [
+        "answer_status",
+        "evaluator_status",
+        "final_status_authority",
+        "provider_output_status",
+        "provider_route_status",
+        "provider_self_attested_status",
+        "receipt_status",
+        "schema_status"
+      ],
+      "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+      "worker_action": {
+        "action_id": "worker_action.provider_replay.case.timeout.route_repair",
+        "action_type": "route_provider_replay_repair",
+        "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+        "input_status": "block",
+        "publication_permission_granted": false,
+        "required_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/provider_harness_canary/canary_board.json",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+          "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route"
+        ],
+        "restart_from": "provider_call",
+        "target_lane": "provider_transport",
+        "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+        "transaction_status": "provider_replay_routed_fail_closed"
+      }
+    }
+  ],
+  "provider_replay_bridge_contract": {
+    "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+    "claim_boundary": "Provider replay rows are synthetic fixture routing only; they do not measure real provider reliability or grant hosted-public status.",
+    "source_board": "microcosms/provider_harness_canary/canary_board.json",
+    "source_receipt": "microcosms/provider_harness_canary/receipt.json"
+  },
+  "public_safety_boundary": "Synthetic candidate mutations only; no private root, raw operator voice, private registry, or private standards engine is included.",
+  "publication_boundary": "Website cards and external claims stay blocked until registry, disclosure, license, citation, clean-run, clone, and hosted gates are current.",
+  "schema_version": "executable_grammar_metabolism_specimen_v0",
+  "source_capsule_provenance": {
+    "anti_claims": [
+      "local executable grammar capsules only",
+      "not private standards authority",
+      "not real provider reliability evidence",
+      "not public release approval"
+    ],
+    "carryforward_contract": {
+      "required_fields": [
+        "source_clip",
+        "clip_hash",
+        "semantic_carryforward",
+        "worker_action_ref",
+        "anti_claims"
+      ],
+      "rule": "Every grammar or provider replay decision that becomes a reusable route must carry its source clip, deterministic hash, evaluator authority, worker action, transaction status, and anti-claims."
+    },
+    "grammar_case_capsules": [
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.valid_release_candidate",
+        "clip_hash": "c89e47f2d4e73f41b117f02a13bdd7f41a6a006266b248dc4b2431751e863302",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.valid_release_candidate",
+          "decision_status": "pass",
+          "observed_rule_ids": [],
+          "publication_permission_granted": false,
+          "repair_row_count": 0,
+          "target_fields": [],
+          "transaction_status": "closed_local_fixture_only",
+          "worker_action_id": "worker_action.case.valid_release_candidate.record_fixture_pass",
+          "worker_action_type": "record_fixture_pass"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.valid_release_candidate",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [],
+            "observed_rule_ids": [],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [],
+            "status": "pass",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "pass",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": null,
+            "value_summary": "base candidate row unchanged"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.valid_release_candidate.record_fixture_pass",
+            "action_type": "record_fixture_pass",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "pass",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.valid_release_candidate:evaluation"
+            ],
+            "target_fields": [],
+            "transaction_effect": "proof_recorded_no_publication_side_effect",
+            "transaction_status": "closed_local_fixture_only"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.valid_release_candidate",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.valid_release_candidate.record_fixture_pass"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.missing_improvement_delta",
+        "clip_hash": "46d703d9ddf8abfe65496b7d2f8738ee0c89b0ec670035a809213400113766b9",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "required_improvement_delta"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.missing_improvement_delta",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "required_improvement_delta"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 2,
+          "target_fields": [
+            "improvement_delta"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.missing_improvement_delta",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "missing required field"
+              },
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "required_improvement_delta"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "missing required field"
+                }
+              },
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "improvement_delta",
+            "value_summary": "blank improvement_delta"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.missing_improvement_delta:repair:required_improvement_delta",
+              "case.missing_improvement_delta:repair:required_improvement_delta"
+            ],
+            "target_fields": [
+              "improvement_delta"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.missing_improvement_delta",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.missing_improvement_delta.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.empty_source_refs",
+        "clip_hash": "39ff21596216397a76253e21537e1485b49c002787715cb7a4c7cfaeaa94dd66",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "source_refs_required"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.empty_source_refs",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "source_refs_required"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "source_refs"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.empty_source_refs.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.empty_source_refs",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "source_refs",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "source_refs_required"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "source_refs",
+                "repair_contract": "Add public-safe source, standard, fixture, or receipt refs before ranking the row.",
+                "rule_id": "source_refs_required",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "source_refs",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "source_refs",
+            "value_summary": "source_refs removed"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.empty_source_refs.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.empty_source_refs:repair:source_refs_required"
+            ],
+            "target_fields": [
+              "source_refs"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.empty_source_refs",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.empty_source_refs.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.unknown_projection_strategy",
+        "clip_hash": "fee241e498ea71e3fb18a97c306abd5bd7300876cfd69640e8b9639bd7084ec0",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "allowed_projection_strategy"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.unknown_projection_strategy",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "allowed_projection_strategy"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "projection_strategy"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.unknown_projection_strategy",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "projection_strategy",
+                "reason": "unknown projection strategy"
+              }
+            ],
+            "observed_rule_ids": [
+              "allowed_projection_strategy"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "projection_strategy",
+                "repair_contract": "Choose one allowed projection mode and keep copy-then-sanitize out of the primitive.",
+                "rule_id": "allowed_projection_strategy",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "projection_strategy",
+                  "reason": "unknown projection strategy"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "projection_strategy",
+            "value_summary": "invalid copy-then-sanitize projection"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.unknown_projection_strategy:repair:allowed_projection_strategy"
+            ],
+            "target_fields": [
+              "projection_strategy"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.unknown_projection_strategy",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.unknown_projection_strategy.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.vague_praise_instead_of_mechanism",
+        "clip_hash": "c65504548c3004c16e46eee0974390744ba789ce0204494fb363f10b4618065c",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "anti_vague_praise"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.vague_praise_instead_of_mechanism",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "anti_vague_praise"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "mechanism_text"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.vague_praise_instead_of_mechanism",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "phrase": "cool idea",
+                "reason": "candidate uses vague praise instead of mechanism"
+              }
+            ],
+            "observed_rule_ids": [
+              "anti_vague_praise"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "mechanism_text",
+                "repair_contract": "Replace praise with the mechanism, the proof surface, and the next executable action.",
+                "rule_id": "anti_vague_praise",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "phrase": "cool idea",
+                  "reason": "candidate uses vague praise instead of mechanism"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "vague praise replaces executable repair"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.vague_praise_instead_of_mechanism:repair:anti_vague_praise"
+            ],
+            "target_fields": [
+              "mechanism_text"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.vague_praise_instead_of_mechanism",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.publish_before_gates",
+        "clip_hash": "77718a4bbb1e432f6f98484264bc16774dc839c44266aa637b3b2ee586e9d74c",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "no_publication_before_gates"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.publish_before_gates",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "no_publication_before_gates"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "next_action"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.publish_before_gates.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.publish_before_gates",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "next_action",
+                "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                "rule_id": "no_publication_before_gates"
+              }
+            ],
+            "observed_rule_ids": [
+              "no_publication_before_gates"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "next_action",
+                "repair_contract": "Route to a fail-closed gate or probe refresh instead of a public claim.",
+                "rule_id": "no_publication_before_gates",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "next_action",
+                  "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                  "rule_id": "no_publication_before_gates"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "publication instruction before gates"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.publish_before_gates.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.publish_before_gates:repair:no_publication_before_gates"
+            ],
+            "target_fields": [
+              "next_action"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.publish_before_gates",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.publish_before_gates.route_repairs"
+      }
+    ],
+    "hash_algorithm": "sha256",
+    "kind": "source_capsule_provenance",
+    "provider_replay_capsules": [
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.good_json_answer",
+        "clip_hash": "1ff774664df454534504071085077e6c9904fefbe4c9a552352de660d61790e5",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.good_json_answer",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "pass",
+          "failure_class": null,
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "receipt_gate",
+          "provider_case_id": "case.good_json_answer",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "receipt_record",
+          "transaction_status": "closed_local_fixture_only",
+          "worker_action_id": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.good_json_answer",
+          "evaluator_status": "pass",
+          "failure_class": null,
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "pass",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+          "owner_lane": "receipt_gate",
+          "preserved_evidence": [
+            "provider_response",
+            "evaluator_decision",
+            "claim_boundary"
+          ],
+          "provider_case_id": "case.good_json_answer",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route",
+          "restart_from": "receipt_record",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass",
+            "action_type": "record_provider_fixture_pass",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "pass",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route"
+            ],
+            "restart_from": "receipt_record",
+            "target_lane": "receipt_gate",
+            "transaction_effect": "provider_canary_pass_recorded_no_publication_side_effect",
+            "transaction_status": "closed_local_fixture_only"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.good_json_answer",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.bad_json_self_attested_pass",
+        "clip_hash": "9fe288d3fc9bfcf9b5e47ee4a1d04d3759463bafc0e8d64771d5310f6430b019",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.bad_json_self_attested_pass",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "schema_failure",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "schema_adapter",
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "schema_validation",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.bad_json_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "schema_failure",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "repair_output_schema_contract_before_answer_evaluation",
+          "owner_lane": "schema_adapter",
+          "preserved_evidence": [
+            "raw_output",
+            "schema_failures",
+            "provider_self_attested_status"
+          ],
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route",
+          "restart_from": "schema_validation",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route"
+            ],
+            "restart_from": "schema_validation",
+            "target_lane": "schema_adapter",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.bad_json_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.wrong_answer_self_attested_pass",
+        "clip_hash": "d8aadc1846dccfe8e47f1a4fb9da59e439d67d5d74bc3a2a9ee2f794f16343e2",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.wrong_answer_self_attested_pass",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "answer_mismatch",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_prompt_or_model_output",
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "provider_call_with_same_schema_contract",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.wrong_answer_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "answer_mismatch",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+          "owner_lane": "provider_prompt_or_model_output",
+          "preserved_evidence": [
+            "schema_status",
+            "observed_answer",
+            "expected_answer"
+          ],
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route",
+          "restart_from": "provider_call_with_same_schema_contract",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route"
+            ],
+            "restart_from": "provider_call_with_same_schema_contract",
+            "target_lane": "provider_prompt_or_model_output",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.wrong_answer_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.timeout",
+        "clip_hash": "2b4e0d29d0a1b60de9fe8c7d1250bbb99c6bd36c1e9593c4eecd109b5c86bd99",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.timeout",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "provider_route_unavailable",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_transport",
+          "provider_case_id": "case.timeout",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "provider_call",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.timeout.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.timeout",
+          "evaluator_status": "block",
+          "failure_class": "provider_route_unavailable",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+          "owner_lane": "provider_transport",
+          "preserved_evidence": [
+            "case_id",
+            "prompt",
+            "expected_answer",
+            "provider_variant",
+            "timeout_status"
+          ],
+          "provider_case_id": "case.timeout",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "unavailable",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route",
+          "restart_from": "provider_call",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.timeout.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route"
+            ],
+            "restart_from": "provider_call",
+            "target_lane": "provider_transport",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.timeout",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.timeout.route_repair"
+      }
+    ],
+    "schema_version": "source_capsule_provenance_v0",
+    "source_capsules": [
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.valid_release_candidate",
+        "clip_hash": "c89e47f2d4e73f41b117f02a13bdd7f41a6a006266b248dc4b2431751e863302",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.valid_release_candidate",
+          "decision_status": "pass",
+          "observed_rule_ids": [],
+          "publication_permission_granted": false,
+          "repair_row_count": 0,
+          "target_fields": [],
+          "transaction_status": "closed_local_fixture_only",
+          "worker_action_id": "worker_action.case.valid_release_candidate.record_fixture_pass",
+          "worker_action_type": "record_fixture_pass"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.valid_release_candidate",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [],
+            "observed_rule_ids": [],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [],
+            "status": "pass",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "pass",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": null,
+            "value_summary": "base candidate row unchanged"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.valid_release_candidate.record_fixture_pass",
+            "action_type": "record_fixture_pass",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "pass",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.valid_release_candidate:evaluation"
+            ],
+            "target_fields": [],
+            "transaction_effect": "proof_recorded_no_publication_side_effect",
+            "transaction_status": "closed_local_fixture_only"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.valid_release_candidate",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.valid_release_candidate.record_fixture_pass"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.missing_improvement_delta",
+        "clip_hash": "46d703d9ddf8abfe65496b7d2f8738ee0c89b0ec670035a809213400113766b9",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "required_improvement_delta"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.missing_improvement_delta",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "required_improvement_delta"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 2,
+          "target_fields": [
+            "improvement_delta"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.missing_improvement_delta",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "missing required field"
+              },
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "required_improvement_delta"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "missing required field"
+                }
+              },
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "improvement_delta",
+            "value_summary": "blank improvement_delta"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.missing_improvement_delta:repair:required_improvement_delta",
+              "case.missing_improvement_delta:repair:required_improvement_delta"
+            ],
+            "target_fields": [
+              "improvement_delta"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.missing_improvement_delta",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.missing_improvement_delta.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.empty_source_refs",
+        "clip_hash": "39ff21596216397a76253e21537e1485b49c002787715cb7a4c7cfaeaa94dd66",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "source_refs_required"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.empty_source_refs",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "source_refs_required"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "source_refs"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.empty_source_refs.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.empty_source_refs",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "source_refs",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "source_refs_required"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "source_refs",
+                "repair_contract": "Add public-safe source, standard, fixture, or receipt refs before ranking the row.",
+                "rule_id": "source_refs_required",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "source_refs",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "source_refs",
+            "value_summary": "source_refs removed"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.empty_source_refs.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.empty_source_refs:repair:source_refs_required"
+            ],
+            "target_fields": [
+              "source_refs"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.empty_source_refs",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.empty_source_refs.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.unknown_projection_strategy",
+        "clip_hash": "fee241e498ea71e3fb18a97c306abd5bd7300876cfd69640e8b9639bd7084ec0",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "allowed_projection_strategy"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.unknown_projection_strategy",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "allowed_projection_strategy"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "projection_strategy"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.unknown_projection_strategy",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "projection_strategy",
+                "reason": "unknown projection strategy"
+              }
+            ],
+            "observed_rule_ids": [
+              "allowed_projection_strategy"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "projection_strategy",
+                "repair_contract": "Choose one allowed projection mode and keep copy-then-sanitize out of the primitive.",
+                "rule_id": "allowed_projection_strategy",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "projection_strategy",
+                  "reason": "unknown projection strategy"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "projection_strategy",
+            "value_summary": "invalid copy-then-sanitize projection"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.unknown_projection_strategy:repair:allowed_projection_strategy"
+            ],
+            "target_fields": [
+              "projection_strategy"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.unknown_projection_strategy",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.unknown_projection_strategy.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.vague_praise_instead_of_mechanism",
+        "clip_hash": "c65504548c3004c16e46eee0974390744ba789ce0204494fb363f10b4618065c",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "anti_vague_praise"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.vague_praise_instead_of_mechanism",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "anti_vague_praise"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "mechanism_text"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.vague_praise_instead_of_mechanism",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "phrase": "cool idea",
+                "reason": "candidate uses vague praise instead of mechanism"
+              }
+            ],
+            "observed_rule_ids": [
+              "anti_vague_praise"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "mechanism_text",
+                "repair_contract": "Replace praise with the mechanism, the proof surface, and the next executable action.",
+                "rule_id": "anti_vague_praise",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "phrase": "cool idea",
+                  "reason": "candidate uses vague praise instead of mechanism"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "vague praise replaces executable repair"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.vague_praise_instead_of_mechanism:repair:anti_vague_praise"
+            ],
+            "target_fields": [
+              "mechanism_text"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.vague_praise_instead_of_mechanism",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "grammar capsule is not private standards engine authority",
+          "grammar capsule is not public release approval",
+          "grammar capsule is not novelty proof"
+        ],
+        "authority_boundary": "A grammar capsule proves deterministic fixture carryforward only; it is not public release approval, private standards authority, or novelty evidence.",
+        "capsule_id": "source_capsule.executable_grammar.case.publish_before_gates",
+        "clip_hash": "77718a4bbb1e432f6f98484264bc16774dc839c44266aa637b3b2ee586e9d74c",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe release-candidate fixture mutation data and grammar repair routing; no private registry, raw operator voice, or private standards engine is included.",
+        "rule_refs": [
+          "no_publication_before_gates"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Carry the grammar decision with the exact mutated source clip, rule ids, worker action, transaction status, and anti-claim boundary before treating the rule as reusable.",
+          "case_id": "case.publish_before_gates",
+          "decision_status": "block",
+          "observed_rule_ids": [
+            "no_publication_before_gates"
+          ],
+          "publication_permission_granted": false,
+          "repair_row_count": 1,
+          "target_fields": [
+            "next_action"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_id": "worker_action.case.publish_before_gates.route_repairs",
+          "worker_action_type": "route_field_repairs"
+        },
+        "source_class": "public_safe_executable_grammar_case",
+        "source_clip": {
+          "case_id": "case.publish_before_gates",
+          "case_status": "ok",
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "next_action",
+                "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                "rule_id": "no_publication_before_gates"
+              }
+            ],
+            "observed_rule_ids": [
+              "no_publication_before_gates"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "next_action",
+                "repair_contract": "Route to a fail-closed gate or probe refresh instead of a public claim.",
+                "rule_id": "no_publication_before_gates",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "next_action",
+                  "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                  "rule_id": "no_publication_before_gates"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "expected_status": "block",
+          "input_candidate_id": "executable_grammar_metabolism_microcosm",
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "publication instruction before gates"
+          },
+          "worker_action": {
+            "action_id": "worker_action.case.publish_before_gates.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.publish_before_gates:repair:no_publication_before_gates"
+            ],
+            "target_fields": [
+              "next_action"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases.case.publish_before_gates",
+        "status": "ok",
+        "worker_action_ref": "worker_action.case.publish_before_gates.route_repairs"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.good_json_answer",
+        "clip_hash": "1ff774664df454534504071085077e6c9904fefbe4c9a552352de660d61790e5",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.good_json_answer",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "pass",
+          "failure_class": null,
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "receipt_gate",
+          "provider_case_id": "case.good_json_answer",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "receipt_record",
+          "transaction_status": "closed_local_fixture_only",
+          "worker_action_id": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.good_json_answer",
+          "evaluator_status": "pass",
+          "failure_class": null,
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "pass",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "record_fixture_pass_without_public_or_hosted_claim",
+          "owner_lane": "receipt_gate",
+          "preserved_evidence": [
+            "provider_response",
+            "evaluator_decision",
+            "claim_boundary"
+          ],
+          "provider_case_id": "case.good_json_answer",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route",
+          "restart_from": "receipt_record",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass",
+            "action_type": "record_provider_fixture_pass",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "pass",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.good_json_answer].repair_route"
+            ],
+            "restart_from": "receipt_record",
+            "target_lane": "receipt_gate",
+            "transaction_effect": "provider_canary_pass_recorded_no_publication_side_effect",
+            "transaction_status": "closed_local_fixture_only"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.good_json_answer",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.good_json_answer.record_fixture_pass"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.bad_json_self_attested_pass",
+        "clip_hash": "9fe288d3fc9bfcf9b5e47ee4a1d04d3759463bafc0e8d64771d5310f6430b019",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.bad_json_self_attested_pass",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "schema_failure",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "schema_adapter",
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "schema_validation",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.bad_json_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "schema_failure",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "repair_output_schema_contract_before_answer_evaluation",
+          "owner_lane": "schema_adapter",
+          "preserved_evidence": [
+            "raw_output",
+            "schema_failures",
+            "provider_self_attested_status"
+          ],
+          "provider_case_id": "case.bad_json_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route",
+          "restart_from": "schema_validation",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.bad_json_self_attested_pass].repair_route"
+            ],
+            "restart_from": "schema_validation",
+            "target_lane": "schema_adapter",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.bad_json_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.bad_json_self_attested_pass.route_repair"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.wrong_answer_self_attested_pass",
+        "clip_hash": "d8aadc1846dccfe8e47f1a4fb9da59e439d67d5d74bc3a2a9ee2f794f16343e2",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.wrong_answer_self_attested_pass",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "answer_mismatch",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_prompt_or_model_output",
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "provider_call_with_same_schema_contract",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.wrong_answer_self_attested_pass",
+          "evaluator_status": "fail",
+          "failure_class": "answer_mismatch",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "rerun_or_mutate_provider_output_then_reapply_evaluator",
+          "owner_lane": "provider_prompt_or_model_output",
+          "preserved_evidence": [
+            "schema_status",
+            "observed_answer",
+            "expected_answer"
+          ],
+          "provider_case_id": "case.wrong_answer_self_attested_pass",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "pass",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route",
+          "restart_from": "provider_call_with_same_schema_contract",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.wrong_answer_self_attested_pass].repair_route"
+            ],
+            "restart_from": "provider_call_with_same_schema_contract",
+            "target_lane": "provider_prompt_or_model_output",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.wrong_answer_self_attested_pass",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.wrong_answer_self_attested_pass.route_repair"
+      },
+      {
+        "anti_claims": [
+          "provider replay capsule is not real provider reliability evidence",
+          "provider replay capsule is not hosted-public proof",
+          "provider replay capsule is not public release approval"
+        ],
+        "authority_boundary": "A provider replay capsule preserves evaluator routing only; it is not real provider reliability evidence or hosted-public proof.",
+        "capsule_id": "source_capsule.provider_replay_bridge.case.timeout",
+        "clip_hash": "2b4e0d29d0a1b60de9fe8c7d1250bbb99c6bd36c1e9593c4eecd109b5c86bd99",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only public-safe provider canary fixture routing; no real provider transcript, hosted CI, account state, or private evaluation data is included.",
+        "semantic_carryforward": {
+          "bridge_case_id": "provider_replay_bridge.case.timeout",
+          "carryforward_rule": "Carry provider replay rows forward only with evaluator authority, owner lane, restart point, worker action, and the original provider canary refs intact.",
+          "decision_status": "block",
+          "failure_class": "provider_route_unavailable",
+          "final_status_authority": "evaluator_decision",
+          "owner_lane": "provider_transport",
+          "provider_case_id": "case.timeout",
+          "provider_self_attestation_used_as_authority": false,
+          "publication_permission_granted": false,
+          "restart_point": "provider_call",
+          "transaction_status": "provider_replay_routed_fail_closed",
+          "worker_action_id": "worker_action.provider_replay.case.timeout.route_repair"
+        },
+        "source_class": "public_safe_provider_replay_bridge_row",
+        "source_clip": {
+          "bridge_case_id": "provider_replay_bridge.case.timeout",
+          "evaluator_status": "block",
+          "failure_class": "provider_route_unavailable",
+          "final_status_authority": "evaluator_decision",
+          "grammar_projection": {
+            "claim_tier": "provider_canary_replay_fixture_not_real_provider_evidence",
+            "status": "block",
+            "status_authority": "evaluator_only"
+          },
+          "next_action": "retry_or_replace_provider_route_before_schema_or_answer_evaluation",
+          "owner_lane": "provider_transport",
+          "preserved_evidence": [
+            "case_id",
+            "prompt",
+            "expected_answer",
+            "provider_variant",
+            "timeout_status"
+          ],
+          "provider_case_id": "case.timeout",
+          "provider_self_attestation_used_as_authority": false,
+          "provider_self_attested_status": "unavailable",
+          "repair_route_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route",
+          "restart_from": "provider_call",
+          "source_case_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout]",
+          "status_channel_names": [
+            "answer_status",
+            "evaluator_status",
+            "final_status_authority",
+            "provider_output_status",
+            "provider_route_status",
+            "provider_self_attested_status",
+            "receipt_status",
+            "schema_status"
+          ],
+          "status_channels_ref": "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+          "worker_action": {
+            "action_id": "worker_action.provider_replay.case.timeout.route_repair",
+            "action_type": "route_provider_replay_repair",
+            "authority_rule": "provider_canary_evaluator_result_drives_grammar_replay_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "microcosms/provider_harness_canary/canary_board.json",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].status_channels",
+              "microcosms/provider_harness_canary/canary_board.json::cases[case.timeout].repair_route"
+            ],
+            "restart_from": "provider_call",
+            "target_lane": "provider_transport",
+            "transaction_effect": "provider_canary_failure_routes_to_owner_lane_without_publication_side_effect",
+            "transaction_status": "provider_replay_routed_fail_closed"
+          }
+        },
+        "source_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:provider_replay_bridge.case.timeout",
+        "status": "ok",
+        "status_channel_refs": [
+          "answer_status",
+          "evaluator_status",
+          "final_status_authority",
+          "provider_output_status",
+          "provider_route_status",
+          "provider_self_attested_status",
+          "receipt_status",
+          "schema_status"
+        ],
+        "worker_action_ref": "worker_action.provider_replay.case.timeout.route_repair"
+      }
+    ],
+    "status": "ok",
+    "summary": {
+      "capsule_count": 10,
+      "grammar_case_capsule_count": 6,
+      "hashed_source_clip_count": 10,
+      "provider_replay_capsule_count": 4,
+      "public_safe_source_count": 10,
+      "semantic_carryforward_count": 10
+    }
+  },
+  "source_refs": [
+    "registry/release_candidates.json",
+    "microcosms/executable_grammar_metabolism/grammar_board.json",
+    "microcosms/executable_grammar_metabolism/README.md",
+    "microcosms/provider_harness_canary/canary_board.json",
+    "src/idea_microcosm/executable_grammar_specimen.py",
+    "src/idea_microcosm/provider_harness_canary_specimen.py",
+    "src/idea_microcosm/release_candidates.py"
+  ],
+  "status": "ok",
+  "summary": {
+    "block_count": 5,
+    "case_count": 6,
+    "closed_transaction_count": 1,
+    "grammar_case_source_capsule_count": 6,
+    "hashed_source_clip_count": 10,
+    "observed_rule_ids": [
+      "allowed_projection_strategy",
+      "anti_vague_praise",
+      "no_publication_before_gates",
+      "required_improvement_delta",
+      "source_refs_required"
+    ],
+    "pass_count": 1,
+    "provider_replay_bridge_authority_collapse_count": 0,
+    "provider_replay_bridge_case_count": 4,
+    "provider_replay_bridge_failure_count": 3,
+    "provider_replay_bridge_owner_lanes": [
+      "provider_prompt_or_model_output",
+      "provider_transport",
+      "receipt_gate",
+      "schema_adapter"
+    ],
+    "provider_replay_bridge_pass_count": 1,
+    "provider_replay_bridge_repair_route_count": 4,
+    "provider_replay_bridge_restart_points": [
+      "provider_call",
+      "provider_call_with_same_schema_contract",
+      "receipt_record",
+      "schema_validation"
+    ],
+    "provider_replay_bridge_status_channel_count": 32,
+    "provider_replay_source_capsule_count": 4,
+    "public_claim_block_count": 1,
+    "publication_permission_count": 0,
+    "repair_routed_count": 5,
+    "repair_row_count": 6,
+    "semantic_carryforward_count": 10,
+    "source_capsule_count": 10,
+    "status_authority_nodes": [
+      "grammar_evaluator",
+      "receipt_gate"
+    ],
+    "transaction_authority_nodes": [
+      "worker_action_router",
+      "transaction_receipt"
+    ],
+    "worker_action_count": 6
+  }
+}

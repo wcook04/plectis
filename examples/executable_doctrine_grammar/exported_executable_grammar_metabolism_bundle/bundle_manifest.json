@@ -1,0 +1,16 @@
+{
+  "schema_version": "executable_doctrine_grammar_metabolism_bundle_v1",
+  "bundle_id": "public_executable_grammar_metabolism_macro_specimen",
+  "bundle_kind": "exported_executable_grammar_metabolism_bundle",
+  "organ_id": "executable_doctrine_grammar",
+  "source_root": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism",
+  "runtime_surfaces": [
+    "README.md",
+    "grammar_board.json",
+    "receipt.json"
+  ],
+  "authority_ceiling": "public macro specimen validation only",
+  "body_storage_policy": "exact non-secret macro specimen bodies are copied into Microcosm examples and source_modules; receipt bodies carry paths, hashes, counts, and verdicts only",
+  "source_open_payload_boundary": "open source except keys, credentials, cookies, account/session state, provider payload bodies, browser/HUD live access, recipient-send state, and credential-equivalent material",
+  "anti_claim": "This bundle imports a public executable-grammar metabolism specimen. It does not expose private standards engines, raw operator notes, provider transcripts, account/session state, publication authority, or clone-ready release authority."
+}

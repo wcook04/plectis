@@ -1,0 +1,96 @@
+{
+  "schema_version": "macro_projection_executable_grammar_metabolism_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "executable_grammar_metabolism_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_public_macro_tools_or_bundle_source_modules",
+  "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "public_runtime_policy": "public validation uses exact source-to-target digest checks, anchor checks, focused runtime validation, and secret-exclusion scans without treating provenance refs as live runtime dependencies",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 3,
+  "modules": [
+    {
+      "module_id": "executable_grammar_metabolism_readme_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "source_role": "Public executable-grammar metabolism entry card, boundaries, commands, and leaf route refs",
+      "required_anchors": [
+        "Executable Grammar Metabolism",
+        "private standards engine",
+        "source_capsule_provenance",
+        "Leaf Entry Card"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
+      "source_sha256": "16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+      "target_sha256": "16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+      "sha256_match": true,
+      "line_count": 60,
+      "byte_count": 3181,
+      "anchor_count": 4
+    },
+    {
+      "module_id": "executable_grammar_metabolism_board_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "source_role": "Public executable-grammar metabolism board with grammar rules, cases, source capsules, provider replay bridge, and claim boundaries",
+      "required_anchors": [
+        "\"schema_version\": \"executable_grammar_metabolism_specimen_v0\"",
+        "\"grammar_rules\"",
+        "\"provider_replay_bridge\"",
+        "\"source_capsule_provenance\"",
+        "\"public_safety_boundary\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
+      "source_sha256": "020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+      "target_sha256": "020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+      "sha256_match": true,
+      "line_count": 2468,
+      "byte_count": 121246,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "executable_grammar_metabolism_receipt_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "source_role": "Public executable-grammar metabolism receipt with omissions, evidence refs, source capsule counts, and fixture-valid claim tier",
+      "required_anchors": [
+        "\"schema_version\": \"receipt_v0\"",
+        "\"owner\": \"idea_microcosm.executable_grammar_specimen\"",
+        "\"evidence_refs\"",
+        "\"omissions\"",
+        "\"source_capsule_count\""
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
+      "source_sha256": "3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+      "target_sha256": "3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+      "sha256_match": true,
+      "line_count": 77,
+      "byte_count": 3046,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_ref": "standards/std_microcosm_executable_doctrine_grammar.json"
+}

@@ -188,7 +188,11 @@
     "system/lib/kernel/commands/navigate.py",
     "system/server/tests/test_task_ledger_priority_scheduler.py",
     "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
+    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -7158,6 +7162,153 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "executable_grammar_metabolism_readme_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "source_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json"
+      ],
+      "provenance_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "microcosm-substrate/standards/std_microcosm_executable_doctrine_grammar.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+      "credential_exposure_risk": "none",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": {
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+        "source_body_digest": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+        "target_body_digest": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 60,
+        "target_line_count": 60,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "executable_grammar_metabolism_board_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "source_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json"
+      ],
+      "provenance_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "microcosm-substrate/standards/std_microcosm_executable_doctrine_grammar.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+      "credential_exposure_risk": "none",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": {
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+        "source_body_digest": "sha256:020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+        "target_body_digest": "sha256:020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 2468,
+        "target_line_count": 2468,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "executable_grammar_metabolism_receipt_body_import",
+      "material_class": "public_macro_receipt_body",
+      "classification": "copied_non_secret_macro_body",
+      "source_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json"
+      ],
+      "provenance_refs": [
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "microcosm-substrate/standards/std_microcosm_executable_doctrine_grammar.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_digest": "sha256:3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+      "credential_exposure_risk": "none",
+      "public_safe_mode": "direct_verified_macro_body",
+      "claim_ceiling": {
+        "release_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "private_data_equivalence_claim": false,
+        "whole_system_correctness_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false
+      },
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+        "source_body_digest": "sha256:3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+        "target_body_digest": "sha256:3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+        "source_to_target_relation": "exact_copy",
+        "source_line_count": 77,
+        "target_line_count": 77,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -7310,7 +7461,13 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/task_ledger_priority.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_task_ledger_priority_scheduler.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+    "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle",
+    "standards/std_microcosm_executable_doctrine_grammar.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -7438,7 +7595,11 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_formal_math_proofline_spine_sources_compile_and_preserve_body_safe_lineage_contract",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_formal_math_proofline_spine_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "receipts/first_wave/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle_validation_result.json",
+    "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_executable_grammar_metabolism_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
@@ -7465,6 +7626,11 @@
       "step_id": "task_ledger_startup_pressure_source_modules_import",
       "action": "Import exact public-safe Task Ledger startup-pressure scheduler, navigation, doctrine, and regression-test source bodies into the Microcosm projection bundle with hash and anchor verification.",
       "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources"
+    },
+    {
+      "step_id": "executable_grammar_metabolism_source_modules_import",
+      "action": "Import exact public-safe executable grammar metabolism specimen bodies into the Microcosm projection bundle with hash, anchor, runtime-validator, and secret-exclusion checks.",
+      "validation_ref": "microcosm-substrate/tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle"
     }
   ],
   "authority_ceiling": {

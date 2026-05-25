@@ -8,6 +8,7 @@ from microcosm_core.organs.executable_doctrine_grammar import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     validate,
+    validate_executable_grammar_metabolism_bundle,
     validate_standards_bundle,
 )
 
@@ -15,6 +16,10 @@ from microcosm_core.organs.executable_doctrine_grammar import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 GRAMMAR_FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/executable_doctrine_grammar/input"
 GRAMMAR_EXPORTED_BUNDLE_INPUT = MICROCOSM_ROOT / "examples/executable_doctrine_grammar/exported_standards_bundle"
+METABOLISM_BUNDLE_INPUT = (
+    MICROCOSM_ROOT
+    / "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle"
+)
 
 
 def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: Path) -> None:
@@ -69,6 +74,49 @@ def test_executable_doctrine_grammar_accepts_exported_standards_bundle(tmp_path:
     text = json.dumps(receipt, sort_keys=True)
     assert "matched_excerpt" not in text
     assert '"body"' not in text
+
+
+def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabolism_bundle(
+    tmp_path: Path,
+) -> None:
+    result = validate_executable_grammar_metabolism_bundle(
+        METABOLISM_BUNDLE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_executable_grammar_metabolism_bundle"
+    assert result["bundle_id"] == "public_executable_grammar_metabolism_macro_specimen"
+    assert result["grammar_rule_count"] == 5
+    assert result["grammar_case_count"] == 6
+    assert result["source_capsule_count"] == 10
+    assert result["provider_replay_bridge_case_count"] == 4
+    assert result["private_state_scan"]["status"] == "pass"
+    assert result["private_state_scan"]["body_redacted"] is True
+    assert result["receipt_paths"] == [
+        "receipts/exported_executable_grammar_metabolism_bundle_validation_result.json"
+    ]
+
+    receipt = json.loads(
+        (
+            tmp_path
+            / "receipts/exported_executable_grammar_metabolism_bundle_validation_result.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert receipt["body_text_in_receipt"] is False
+    assert receipt["source_root"] == (
+        "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism"
+    )
+    assert sorted(receipt["artifact_refs"]) == [
+        "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/README.md",
+        "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/grammar_board.json",
+        "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/receipt.json",
+    ]
+    text = json.dumps(receipt, sort_keys=True)
+    assert "matched_excerpt" not in text
+    assert "private standards engine" in text
+    assert "/Users/" not in text
 
 
 def test_executable_doctrine_grammar_receipts_are_public_relative_and_redacted(

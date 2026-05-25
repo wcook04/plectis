@@ -401,7 +401,14 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(work_landing_control_parser)
 
     grammar_parser = subparsers.add_parser("executable-doctrine-grammar")
-    grammar_parser.add_argument("action", choices=["validate", "validate-standards-bundle"])
+    grammar_parser.add_argument(
+        "action",
+        choices=[
+            "validate",
+            "validate-standards-bundle",
+            "validate-executable-grammar-metabolism-bundle",
+        ],
+    )
     _add_input_out(grammar_parser)
 
     proof_parser = subparsers.add_parser("proof-diagnostic-evidence-spine")

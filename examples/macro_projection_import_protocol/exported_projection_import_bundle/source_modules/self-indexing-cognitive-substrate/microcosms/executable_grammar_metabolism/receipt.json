@@ -1,0 +1,77 @@
+{
+  "claim_ref": "candidate.executable_grammar_metabolism_microcosm",
+  "claim_tier": "fixture_validated",
+  "command": "python -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+  "evidence_refs": [
+    "microcosms/executable_grammar_metabolism/grammar_board.json",
+    "microcosms/executable_grammar_metabolism/grammar_board.json:source_capsule_provenance",
+    "microcosms/executable_grammar_metabolism/README.md",
+    "microcosms/provider_harness_canary/canary_board.json",
+    "microcosms/provider_harness_canary/receipt.json",
+    "registry/release_candidates.json",
+    "src/idea_microcosm/executable_grammar_specimen.py",
+    "src/idea_microcosm/provider_harness_canary_specimen.py",
+    "src/idea_microcosm/release_candidates.py",
+    "src/idea_microcosm/validators.py"
+  ],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "id": "receipt.executable_grammar_metabolism",
+  "kind": "receipt",
+  "omissions": [
+    "This receipt validates synthetic release-candidate mutations and provider-canary replay rows only; it does not include the private standards engine, private registry data, raw operator notes, real provider transcripts, hosted CI, or publication approval.",
+    "The grammar loop and provider replay bridge are fixture-level evidence. Public novelty, private-root equivalence, real provider reliability, and release readiness remain non-claims."
+  ],
+  "owner": "idea_microcosm.executable_grammar_specimen",
+  "result": "ok",
+  "schema_version": "receipt_v0",
+  "status": "ok",
+  "summary": {
+    "block_count": 5,
+    "case_count": 6,
+    "closed_transaction_count": 1,
+    "grammar_case_source_capsule_count": 6,
+    "hashed_source_clip_count": 10,
+    "observed_rule_ids": [
+      "allowed_projection_strategy",
+      "anti_vague_praise",
+      "no_publication_before_gates",
+      "required_improvement_delta",
+      "source_refs_required"
+    ],
+    "pass_count": 1,
+    "provider_replay_bridge_authority_collapse_count": 0,
+    "provider_replay_bridge_case_count": 4,
+    "provider_replay_bridge_failure_count": 3,
+    "provider_replay_bridge_owner_lanes": [
+      "provider_prompt_or_model_output",
+      "provider_transport",
+      "receipt_gate",
+      "schema_adapter"
+    ],
+    "provider_replay_bridge_pass_count": 1,
+    "provider_replay_bridge_repair_route_count": 4,
+    "provider_replay_bridge_restart_points": [
+      "provider_call",
+      "provider_call_with_same_schema_contract",
+      "receipt_record",
+      "schema_validation"
+    ],
+    "provider_replay_bridge_status_channel_count": 32,
+    "provider_replay_source_capsule_count": 4,
+    "public_claim_block_count": 1,
+    "publication_permission_count": 0,
+    "repair_routed_count": 5,
+    "repair_row_count": 6,
+    "semantic_carryforward_count": 10,
+    "source_capsule_count": 10,
+    "status_authority_nodes": [
+      "grammar_evaluator",
+      "receipt_gate"
+    ],
+    "transaction_authority_nodes": [
+      "worker_action_router",
+      "transaction_receipt"
+    ],
+    "worker_action_count": 6
+  }
+}
