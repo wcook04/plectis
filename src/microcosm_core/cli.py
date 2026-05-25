@@ -89,6 +89,36 @@ hosting, proof-correctness, or credential-equivalent live-access authority.
 Receipts are evidence drilldowns after the behavior route is visible.
 """
 
+PUBLIC_LENS_COMMAND_HELP = (
+    ("workingness", "show behavior evidence and failure modes"),
+    ("prediction-lens", "inspect prediction ledger behavior and receipts"),
+    ("market-boundary", "show source-open market-boundary anti-claim lens"),
+    ("corpus-lens", "inspect corpus readiness and evidence density"),
+    ("trace-lens", "inspect route/event trace evidence"),
+    ("repair-loop", "show verifier trace repair-loop surface"),
+    ("evidence-cells", "show formal evidence cell status"),
+    ("proof-loop-depth", "inspect proof loop depth without proving correctness"),
+    ("verifier-lab-execution-spine-lens", "show verifier lab execution spine lens"),
+    ("landing-replay", "replay durable work-landing control behavior"),
+    ("view-quality", "check observatory/read-model quality gates"),
+    ("projection-safety", "inspect projection safety and exclusion guards"),
+    ("drift-control", "show world-model projection drift controls"),
+    ("spatial-simulation", "replay spatial world-model simulation specimen"),
+    ("circuit-attribution", "replay mechanistic circuit attribution specimen"),
+    ("route-cleanup", "show navigation route cleanup evidence"),
+    ("projection-import-map", "map macro projection import cells"),
+    ("import-projector", "run source-open projection import preview"),
+    ("option-surface-lens", "inspect local option-surface routing lens"),
+    ("stripping-guard", "show credential stripping boundary checks"),
+    ("standards-control", "inspect standards control-plane diagnostics"),
+    ("hook-coverage", "show hook coverage and guardrail evidence"),
+    ("replay-gauntlet", "run accepted replay gauntlet surface"),
+    ("benchmark-lab", "show benchmark integrity replay lab"),
+    ("legibility-scorecard", "score first-screen legibility and gaps"),
+    ("intake", "show runtime projection intake board"),
+    ("reveal", "show public reveal walkthrough board"),
+)
+
 
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--root", required=True)
@@ -104,6 +134,11 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--readiness", required=True)
     parser.add_argument("--negative-matrix", required=True)
     parser.add_argument("--out", required=True)
+
+
+def _add_public_lens_parsers(subparsers) -> None:
+    for command, help_text in PUBLIC_LENS_COMMAND_HELP:
+        subparsers.add_parser(command, help=help_text)
 
 
 def _print_json(payload: dict) -> int:
@@ -268,33 +303,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     tour_parser.add_argument("project", nargs="?")
     subparsers.add_parser("authority", help="show authority ceilings and anti-claims")
-    subparsers.add_parser("workingness")
-    subparsers.add_parser("prediction-lens")
-    subparsers.add_parser("market-boundary")
-    subparsers.add_parser("corpus-lens")
-    subparsers.add_parser("trace-lens")
-    subparsers.add_parser("repair-loop")
-    subparsers.add_parser("evidence-cells")
-    subparsers.add_parser("proof-loop-depth")
-    subparsers.add_parser("verifier-lab-execution-spine-lens")
-    subparsers.add_parser("landing-replay")
-    subparsers.add_parser("view-quality")
-    subparsers.add_parser("projection-safety")
-    subparsers.add_parser("drift-control")
-    subparsers.add_parser("spatial-simulation")
-    subparsers.add_parser("circuit-attribution")
-    subparsers.add_parser("route-cleanup")
-    subparsers.add_parser("projection-import-map")
-    subparsers.add_parser("import-projector")
-    subparsers.add_parser("option-surface-lens")
-    subparsers.add_parser("stripping-guard")
-    subparsers.add_parser("standards-control")
-    subparsers.add_parser("hook-coverage")
-    subparsers.add_parser("replay-gauntlet")
-    subparsers.add_parser("benchmark-lab")
-    subparsers.add_parser("legibility-scorecard")
-    subparsers.add_parser("intake")
-    subparsers.add_parser("reveal")
+    _add_public_lens_parsers(subparsers)
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
     serve_parser = subparsers.add_parser(

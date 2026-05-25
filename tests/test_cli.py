@@ -103,6 +103,43 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "evidence",
     ]:
         assert command in output
+    for command in [
+        "workingness",
+        "prediction-lens",
+        "market-boundary",
+        "corpus-lens",
+        "trace-lens",
+        "repair-loop",
+        "evidence-cells",
+        "proof-loop-depth",
+        "verifier-lab-execution-spine-lens",
+        "landing-replay",
+        "view-quality",
+        "projection-safety",
+        "drift-control",
+        "spatial-simulation",
+        "circuit-attribution",
+        "route-cleanup",
+        "projection-import-map",
+        "import-projector",
+        "option-surface-lens",
+        "stripping-guard",
+        "standards-control",
+        "hook-coverage",
+        "replay-gauntlet",
+        "benchmark-lab",
+        "legibility-scorecard",
+        "intake",
+        "reveal",
+    ]:
+        assert command in output
+    for help_text in [
+        "inspect proof loop depth without proving correctness",
+        "show navigation route cleanup evidence",
+        "show runtime projection intake board",
+        "show public reveal walkthrough board",
+    ]:
+        assert help_text in output
     for drilldown_command in [
         "private-state-scan",
         "macro-projection-import-protocol",
