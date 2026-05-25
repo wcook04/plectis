@@ -1965,17 +1965,23 @@ def _registry_context_pack_anchors(repo_root: Path, query: str) -> list[dict[str
                 if not isinstance(item, dict):
                     continue
                 item_triggers = item.get("trigger_phrases")
-                if isinstance(item_triggers, list) and not _context_anchor_matches(query, item_triggers):
-                    continue
+                item_trigger_matched = False
+                if isinstance(item_triggers, list):
+                    item_trigger_matched = _context_anchor_matches(query, item_triggers)
+                    if not item_trigger_matched:
+                        continue
                 kind_id = str(item.get("kind") or item.get("kind_id") or "").strip()
                 row_id = str(item.get("id") or item.get("row_id") or "").strip()
                 if not kind_id or not row_id:
                     continue
+                score = float(item.get("relevance") or item.get("score") or 0.9)
+                if item_trigger_matched:
+                    score = max(score, 0.985)
                 rows.append(
                     {
                         "kind_id": kind_id,
                         "id": row_id,
-                        "score": float(item.get("relevance") or item.get("score") or 0.9),
+                        "score": score,
                         "reason": str(item.get("reason") or f"Selected by {skill_id}.context_pack_anchors."),
                         "source_kind": "skill_registry_context_pack_anchor",
                         "facet": skill_id,
@@ -5847,6 +5853,7 @@ def _budget_trim(
                     "drilldown_command",
                     "evidence_command",
                     "selection_source_kind",
+                    "selection_facet",
                     "matched_validation_rules",
                 )
                 if row.get(key) not in (None, "", [], {})
@@ -5934,7 +5941,16 @@ def _budget_trim(
             if isinstance(row.get("affordance_passport"), Mapping):
                 compact_row["affordance_passport"] = compact_hard_ceiling_mapping(
                     row.get("affordance_passport"),
-                    keys=("status", "source"),
+                    keys=("status", "source", "cluster_keys", "sufficiency_claims"),
+                )
+            if isinstance(row.get("affordance_compatibility"), Mapping):
+                compact_row["affordance_compatibility"] = compact_hard_ceiling_mapping(
+                    row.get("affordance_compatibility"),
+                    keys=(
+                        "compatibility_label",
+                        "compatibility_bucket",
+                        "affordance_boost",
+                    ),
                 )
             if isinstance(row.get("context_pack_contract"), Mapping):
                 contract = row.get("context_pack_contract") or {}
@@ -6253,6 +6269,7 @@ def _budget_trim(
             "state_axis_artifact_anchor",
             "config_plane_protocol_anchor",
             "operator_thread_continuation_card_anchor",
+            "skill_registry_context_pack_anchor",
             "type_a_autonomous_seed_anchor",
             "speed_refinement_command_telemetry_anchor",
         }
