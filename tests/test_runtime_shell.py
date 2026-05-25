@@ -1290,6 +1290,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "trace": "pass",
         "verifier_lab_execution_spine": "pass",
         "view_quality": "pass",
+        "workingness": "pass",
     }
     assert tour["first_screen"]["schema_version"] == (
         "microcosm_cold_reader_first_screen_v1"
@@ -1299,6 +1300,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "compile_project",
         "inspect_first_screen",
+        "inspect_status_and_workingness",
         "inspect_python_routes",
         "inspect_route_causal_chain",
         "open_observatory",
@@ -1322,6 +1324,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert [row["card_id"] for row in tour["route_cards"]] == [
         "compile",
         "front_door_status",
+        "status_and_workingness",
         "runtime_spine",
         "authority",
         "prediction_and_corpus",
@@ -1341,7 +1344,22 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["front_door_status"]["authority_ceiling"][
         "provider_calls_authorized"
     ] is False
+    assert route_cards_by_id["status_and_workingness"]["status"] == "pass"
+    assert route_cards_by_id["status_and_workingness"]["endpoint"] == "/workingness"
+    assert route_cards_by_id["status_and_workingness"]["status_card_command"] == (
+        "microcosm status --card"
+    )
+    assert route_cards_by_id["status_and_workingness"]["workingness_command"] == (
+        "microcosm workingness"
+    )
+    assert route_cards_by_id["status_and_workingness"]["workingness_summary"][
+        "missing_failure_modes_count"
+    ] >= 1
+    assert route_cards_by_id["status_and_workingness"]["authority_ceiling"][
+        "release_authorized"
+    ] is False
     assert "/tour" in tour["endpoint_path"]
+    assert "/workingness" in tour["endpoint_path"]
     assert "/trace" in tour["endpoint_path"]
     assert "/repair-loop" in tour["endpoint_path"]
     assert "/evidence-cells" in tour["endpoint_path"]
@@ -1386,6 +1404,8 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "microcosm replay-gauntlet" in tour["command_path"]
     assert "microcosm benchmark-lab" in tour["command_path"]
     assert "microcosm legibility-scorecard" in tour["command_path"]
+    assert "microcosm status --card" in tour["command_path"]
+    assert "microcosm workingness" in tour["command_path"]
     assert (
         route_cards_by_id["prediction_and_corpus"]["endpoint"]
         == "/prediction + /corpus + /trace + /repair-loop + /evidence-cells + /proof-loop-depth + /landing-replay + /view-quality + /projection-safety + /market-boundary + /drift-control + /spatial-simulation + /circuit-attribution + /route-cleanup + /projection-import-map + /import-projector + /option-surface-lens + /stripping-guard + /standards-control + /hook-coverage + /replay-gauntlet + /benchmark-lab + /legibility-scorecard"
@@ -1417,6 +1437,8 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["runtime_summary"]["stripping_guard_negative_case_count"] == 8
     assert tour["runtime_summary"]["standards_control_row_count"] == 8
     assert tour["runtime_summary"]["standards_control_negative_case_count"] == 8
+    assert tour["runtime_summary"]["workingness_mapped_organ_count"] >= 1
+    assert tour["runtime_summary"]["workingness_missing_failure_modes_count"] >= 1
     assert "microcosm evidence inspect <receipt>" in tour["command_path"]
     assert tour["authority_ceiling"]["release_authorized"] is False
     assert tour["safe_to_show"]["body_in_receipt"] is False

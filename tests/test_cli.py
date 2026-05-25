@@ -551,6 +551,18 @@ def test_cli_tour_smoke(
     assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
+    assert "microcosm status --card" in payload["command_path"]
+    assert "microcosm workingness" in payload["command_path"]
+    assert "/workingness" in payload["endpoint_path"]
+    assert any(
+        row["step_id"] == "inspect_status_and_workingness"
+        for row in payload["first_screen"]["minimal_command_path"]
+    )
+    assert any(
+        card["card_id"] == "status_and_workingness"
+        and card["workingness_command"] == "microcosm workingness"
+        for card in payload["route_cards"]
+    )
     assert payload["first_screen_proof_lab"]["status"] == "pass"
     assert payload["first_screen_proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"

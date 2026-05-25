@@ -1045,6 +1045,19 @@ def _cold_reader_first_screen_card(
                 ],
             },
             {
+                "step_id": "inspect_status_and_workingness",
+                "command": "microcosm status --card && microcosm workingness",
+                "shows": [
+                    "compressed first-screen status",
+                    "workingness failure-envelope counts",
+                    "missing standards and failure-mode gaps",
+                    "not a score, maturity board, release gate, or proof authority",
+                ],
+                "status_card_command": "microcosm status --card",
+                "workingness_command": "microcosm workingness",
+                "workingness_endpoint": "/workingness",
+            },
+            {
                 "step_id": "inspect_python_routes",
                 "command": "microcosm python-lens <project>",
                 "state_ref": f"{project_substrate.STATE_DIR}/python_lens.json",
@@ -3369,6 +3382,8 @@ class RuntimeShell:
         replay_gauntlet = self.replay_gauntlet()
         benchmark_lab = self.benchmark_lab()
         legibility_scorecard = self.legibility_scorecard()
+        workingness = self.workingness_map(persist_receipt=persist_receipt)
+        workingness_summary = _workingness_status_summary(workingness)
         intake = self.intake()
         reveal = self.reveal(persist_receipt=persist_receipt)
 
@@ -3409,6 +3424,7 @@ class RuntimeShell:
                         replay_gauntlet.get("replay_gauntlet_lens_ref"),
                         benchmark_lab.get("benchmark_lab_ref"),
                         legibility_scorecard.get("legibility_scorecard_ref"),
+                        workingness.get("workingness_map_ref"),
                         reveal.get("evidence_ref"),
                         *[
                             item
@@ -3454,6 +3470,7 @@ class RuntimeShell:
             "replay_gauntlet": replay_gauntlet.get("status"),
             "benchmark_lab": benchmark_lab.get("status"),
             "legibility_scorecard": legibility_scorecard.get("status"),
+            "workingness": workingness.get("status"),
             "intake": intake.get("status"),
             "reveal": reveal.get("status"),
         }
@@ -3529,6 +3546,8 @@ class RuntimeShell:
             "microcosm replay-gauntlet",
             "microcosm benchmark-lab",
             "microcosm legibility-scorecard",
+            "microcosm status --card",
+            "microcosm workingness",
             "microcosm intake",
             "microcosm reveal",
             "microcosm serve <project>",
@@ -3568,6 +3587,29 @@ class RuntimeShell:
                 "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
                 "safe_to_show": front_door_status["safe_to_show"],
                 "authority_ceiling": front_door_status["authority_ceiling"],
+            },
+            {
+                "card_id": "status_and_workingness",
+                "minute_budget": 0.5,
+                "command": "microcosm status --card && microcosm workingness",
+                "endpoint": "/workingness",
+                "shows": [
+                    "compressed runtime status card",
+                    "workingness failure-envelope summary",
+                    "missing standards and failure-mode gaps before receipts",
+                    "not a score, maturity board, release signal, or release gate",
+                ],
+                "status": workingness.get("status"),
+                "status_card_command": "microcosm status --card",
+                "workingness_command": "microcosm workingness",
+                "workingness_map_ref": workingness.get("workingness_map_ref"),
+                "workingness_summary": workingness_summary,
+                "authority_ceiling": {
+                    "release_authorized": False,
+                    "provider_calls_authorized": False,
+                    "source_mutation_authorized": False,
+                    "proof_correctness_claim": False,
+                },
             },
             {
                 "card_id": "runtime_spine",
@@ -3812,6 +3854,7 @@ class RuntimeShell:
                 "/replay-gauntlet",
                 "/benchmark-lab",
                 "/legibility-scorecard",
+                "/workingness",
                 "/intake",
                 "/reveal",
                 "/evidence",
@@ -3840,6 +3883,15 @@ class RuntimeShell:
                 )
                 if isinstance(authority.get("surface_counts"), dict)
                 else None,
+                "workingness_mapped_organ_count": workingness_summary.get(
+                    "mapped_organ_count"
+                ),
+                "workingness_missing_standard_count": workingness_summary.get(
+                    "missing_standard_count"
+                ),
+                "workingness_missing_failure_modes_count": workingness_summary.get(
+                    "missing_failure_modes_count"
+                ),
                 "prediction_mechanic_count": len(prediction.get("mechanics", []))
                 if isinstance(prediction.get("mechanics"), list)
                 else 0,

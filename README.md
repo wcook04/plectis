@@ -16,6 +16,7 @@ microcosm python-lens .
 microcosm explain . readme_onboarding_route
 microcosm evidence list .
 microcosm status --card
+microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 microcosm serve . --host 127.0.0.1 --port 8765
@@ -23,7 +24,8 @@ microcosm serve . --host 127.0.0.1 --port 8765
 
 The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
 the local `.microcosm/` state files, the route/work/event/evidence chain, the
-observatory command, the proof-lab command, and the authority ceiling. Open
+status card, workingness map, observatory command, proof-lab command, and the
+authority ceiling. Open
 `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 
