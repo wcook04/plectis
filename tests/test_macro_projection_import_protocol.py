@@ -168,6 +168,18 @@ COMMAND_NODE_CACHE_BODY_MATERIAL_IDS = [
     "command_node_cache_body_import",
     "command_node_cache_test_body_import",
 ]
+NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS = [
+    "navigation_clusterability_body_import",
+    "navigation_clusterability_test_body_import",
+]
+ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS = [
+    "annex_routing_coverage_body_import",
+    "annex_routing_coverage_test_body_import",
+]
+ANNEX_CURRENTNESS_BODY_MATERIAL_IDS = [
+    "annex_currentness_body_import",
+    "annex_currentness_test_body_import",
+]
 
 
 def _copy_dependency_preflight_receipt(public_root: Path) -> Path:
@@ -315,13 +327,13 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["projection_cell_count"] == 24
-    assert result["ready_projection_cell_count"] == 24
+    assert result["projection_cell_count"] == 27
+    assert result["ready_projection_cell_count"] == 27
     assert result["blocked_projection_cell_count"] == 0
     assert result["source_ref_count"] >= 2
     assert result["public_runtime_ref_count"] >= 2
     assert result["validation_ref_count"] >= 2
-    assert result["public_safe_body_material_count"] == 63
+    assert result["public_safe_body_material_count"] == 69
     assert result["public_safe_body_import_status"] == "pass"
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_dependency_status"] == "pass"
@@ -343,21 +355,21 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert result["projection_board"]["next_best_lane"] == "real_substrate_import_path"
     assert result["projection_board"]["intake_board_ref"] == "projection_import_intake_board.json"
     assert result["projection_board"]["runtime_severance_board_embedded"] is True
-    assert result["projection_intake_board"]["ready_cell_count"] == 24
+    assert result["projection_intake_board"]["ready_cell_count"] == 27
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
-    assert result["projection_intake_board"]["landed_cell_count"] == 24
+    assert result["projection_intake_board"]["landed_cell_count"] == 27
     assert result["projection_intake_board"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 22,
+        "public_runtime_import_landed": 25,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }
     assert result["projection_intake_board"]["omitted_material_count"] == 2
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 63
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 69
     assert result["projection_intake_board"]["public_safe_body_import_routes"] == {
-        "verified_light_edit": 63
+        "verified_light_edit": 69
     }
     by_material = {
         row["material_id"]: row
@@ -518,6 +530,17 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
             "verification_mode"
         ] == "exact_source_digest_match"
     for material_id in COMMAND_NODE_CACHE_BODY_MATERIAL_IDS:
+        assert by_material[material_id]["material_class"] == "public_macro_tool_body"
+        assert by_material[material_id]["classification_status"] == "pass"
+        assert by_material[material_id]["body_text_in_receipt"] is False
+        assert by_material[material_id]["body_import_verification"][
+            "verification_mode"
+        ] == "exact_source_digest_match"
+    for material_id in [
+        *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
+        *ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
+        *ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
+    ]:
         assert by_material[material_id]["material_class"] == "public_macro_tool_body"
         assert by_material[material_id]["classification_status"] == "pass"
         assert by_material[material_id]["body_text_in_receipt"] is False
@@ -726,6 +749,42 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
     assert by_cell["command_node_cache_source_modules_import"][
         "action_required"
     ] is False
+    assert by_cell["navigation_clusterability_source_modules_import"][
+        "copy_policy"
+    ] == "verified_macro_body_with_claim_floor"
+    assert by_cell["navigation_clusterability_source_modules_import"][
+        "public_safe_body_material_ids"
+    ] == NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS
+    assert by_cell["navigation_clusterability_source_modules_import"][
+        "projection_status"
+    ] == "public_runtime_import_landed"
+    assert by_cell["navigation_clusterability_source_modules_import"][
+        "action_required"
+    ] is False
+    assert by_cell["annex_routing_coverage_source_modules_import"][
+        "copy_policy"
+    ] == "verified_macro_body_with_claim_floor"
+    assert by_cell["annex_routing_coverage_source_modules_import"][
+        "public_safe_body_material_ids"
+    ] == ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS
+    assert by_cell["annex_routing_coverage_source_modules_import"][
+        "projection_status"
+    ] == "public_runtime_import_landed"
+    assert by_cell["annex_routing_coverage_source_modules_import"][
+        "action_required"
+    ] is False
+    assert by_cell["annex_currentness_source_modules_import"][
+        "copy_policy"
+    ] == "verified_macro_body_with_claim_floor"
+    assert by_cell["annex_currentness_source_modules_import"][
+        "public_safe_body_material_ids"
+    ] == ANNEX_CURRENTNESS_BODY_MATERIAL_IDS
+    assert by_cell["annex_currentness_source_modules_import"][
+        "projection_status"
+    ] == "public_runtime_import_landed"
+    assert by_cell["annex_currentness_source_modules_import"][
+        "action_required"
+    ] is False
     severance_board = result["runtime_severance_board"]
     assert severance_board["standalone_runtime_candidate"] is True
     assert severance_board["dependency_preflight_gate_status"] == "pass"
@@ -894,13 +953,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 24
-    assert result["projection_intake_board"]["ready_cell_count"] == 24
+    assert result["projection_cell_count"] == 27
+    assert result["projection_intake_board"]["ready_cell_count"] == 27
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 63
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 63
+    assert result["public_safe_body_material_count"] == 69
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 69
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -933,9 +992,12 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *NAVIGATION_METABOLISM_LEDGER_BODY_MATERIAL_IDS,
         *NAVIGATION_SURFACE_AUDIT_BODY_MATERIAL_IDS,
         *COMMAND_NODE_CACHE_BODY_MATERIAL_IDS,
+        *NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
+        *ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
+        *ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 63
+    assert result["public_safe_body_digest_count"] == 69
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1049,7 +1111,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 24
+    assert result["projection_intake_board"]["ready_cell_count"] == 27
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -1059,12 +1121,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 63
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 69
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 1,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 4,
-        "public_macro_tool_body": 57,
+        "public_macro_tool_body": 63,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -1086,7 +1148,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 63
+    assert result["public_safe_body_material_count"] == 69
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -2262,6 +2324,108 @@ def test_command_node_cache_source_modules_body_import_is_unified_under_macro_pr
     assert cell["action_required"] is False
     assert cell["public_safe_body_material_ids"] == (
         COMMAND_NODE_CACHE_BODY_MATERIAL_IDS
+    )
+
+
+def _assert_exact_source_module_body_import(
+    *,
+    result: dict[str, Any],
+    public_root: Path,
+    material_ids: list[str],
+    cell_id: str,
+) -> None:
+    by_material = {
+        row["material_id"]: row
+        for row in result["projection_intake_board"]["public_safe_body_imports"]
+    }
+    for material_id in material_ids:
+        row = by_material[material_id]
+        target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
+        target = public_root / target_ref
+        source = MICROCOSM_ROOT.parent / row["source_refs"][0]
+        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
+        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
+
+        assert target.is_file()
+        assert row["material_class"] == "public_macro_tool_body"
+        assert row["classification"] == ["copied_non_secret_macro_body"]
+        assert row["body_digest"] == digest
+        assert row["body_import_verification"]["source_body_digest"] == source_digest
+        assert row["body_import_verification"]["target_body_digest"] == digest
+        assert row["body_import_verification"]["verification_mode"] == (
+            "exact_source_digest_match"
+        )
+        assert row["body_import_verification"]["source_line_count"] == (
+            row["body_import_verification"]["target_line_count"]
+        )
+        assert row["body_text_in_receipt"] is False
+
+    by_cell = {
+        row["cell_id"]: row
+        for row in result["projection_intake_board"]["projection_cells"]
+    }
+    cell = by_cell[cell_id]
+    assert cell["projection_status"] == "public_runtime_import_landed"
+    assert cell["classification"] == [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt",
+    ]
+    assert cell["action_required"] is False
+    assert cell["public_safe_body_material_ids"] == material_ids
+
+
+def test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=NAVIGATION_CLUSTERABILITY_BODY_MATERIAL_IDS,
+        cell_id="navigation_clusterability_source_modules_import",
+    )
+
+
+def test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=ANNEX_ROUTING_COVERAGE_BODY_MATERIAL_IDS,
+        cell_id="annex_routing_coverage_source_modules_import",
+    )
+
+
+def test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=ANNEX_CURRENTNESS_BODY_MATERIAL_IDS,
+        cell_id="annex_currentness_source_modules_import",
     )
 
 

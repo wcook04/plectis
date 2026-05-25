@@ -99,7 +99,16 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
     "system/lib/command_node_cache.py",
     "system/server/tests/test_command_node_cache.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json",
+    "system/lib/navigation_clusterability.py",
+    "system/server/tests/test_navigation_clusterability.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
+    "system/lib/annex_routing_coverage.py",
+    "system/server/tests/test_annex_routing_coverage.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
+    "system/lib/annex_currentness.py",
+    "system/server/tests/test_annex_currentness.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -3732,6 +3741,294 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "navigation_clusterability_body_import",
+      "source_ref": "system/lib/navigation_clusterability.py",
+      "source_refs": [
+        "system/lib/navigation_clusterability.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_clusterability_source_bodies_into_public_projection_bundle",
+        "bind_navigation_clusterability_source_bodies_to_macro_projection_body_floor",
+        "preserve_navigation_clusterability_sources_without_claiming_live_macro_kernel_execution_or_private_route_state_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation clusterability source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, annex mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/navigation_clusterability.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
+        "source_body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
+        "target_body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
+        "source_line_count": 409,
+        "target_line_count": 409,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "navigation_clusterability_test_body_import",
+      "source_ref": "system/server/tests/test_navigation_clusterability.py",
+      "source_refs": [
+        "system/server/tests/test_navigation_clusterability.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_clusterability_source_bodies_into_public_projection_bundle",
+        "bind_navigation_clusterability_source_bodies_to_macro_projection_body_floor",
+        "preserve_navigation_clusterability_sources_without_claiming_live_macro_kernel_execution_or_private_route_state_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation clusterability source-body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, annex mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:15482985eb768fe6cab091df9aaeffb4d09d36878e83885a820b26e28444826c",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_navigation_clusterability.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
+        "source_body_digest": "sha256:15482985eb768fe6cab091df9aaeffb4d09d36878e83885a820b26e28444826c",
+        "target_body_digest": "sha256:15482985eb768fe6cab091df9aaeffb4d09d36878e83885a820b26e28444826c",
+        "source_line_count": 101,
+        "target_line_count": 101,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "annex_routing_coverage_body_import",
+      "source_ref": "system/lib/annex_routing_coverage.py",
+      "source_refs": [
+        "system/lib/annex_routing_coverage.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_annex_routing_coverage_source_bodies_into_public_projection_bundle",
+        "bind_annex_routing_coverage_source_bodies_to_macro_projection_body_floor",
+        "preserve_annex_routing_coverage_sources_without_claiming_live_annex_pull_or_annex_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public annex routing coverage source-body import only; not live annex repository pull, provider calls, credential export, account/session state, browser/HUD live access, annex metadata mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:52e9f6e43ea0960c18ba1577b7c8ea26f5ac95cfe92785f4f1ad6069411310c5",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/annex_routing_coverage.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
+        "source_body_digest": "sha256:52e9f6e43ea0960c18ba1577b7c8ea26f5ac95cfe92785f4f1ad6069411310c5",
+        "target_body_digest": "sha256:52e9f6e43ea0960c18ba1577b7c8ea26f5ac95cfe92785f4f1ad6069411310c5",
+        "source_line_count": 259,
+        "target_line_count": 259,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "annex_routing_coverage_test_body_import",
+      "source_ref": "system/server/tests/test_annex_routing_coverage.py",
+      "source_refs": [
+        "system/server/tests/test_annex_routing_coverage.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_annex_routing_coverage_source_bodies_into_public_projection_bundle",
+        "bind_annex_routing_coverage_source_bodies_to_macro_projection_body_floor",
+        "preserve_annex_routing_coverage_sources_without_claiming_live_annex_pull_or_annex_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public annex routing coverage source-body import only; not live annex repository pull, provider calls, credential export, account/session state, browser/HUD live access, annex metadata mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:71efa8e947b461217d23104740b13c41fc147905261b79a130f1e8bde9fc3703",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_annex_routing_coverage.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
+        "source_body_digest": "sha256:71efa8e947b461217d23104740b13c41fc147905261b79a130f1e8bde9fc3703",
+        "target_body_digest": "sha256:71efa8e947b461217d23104740b13c41fc147905261b79a130f1e8bde9fc3703",
+        "source_line_count": 59,
+        "target_line_count": 59,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "annex_currentness_body_import",
+      "source_ref": "system/lib/annex_currentness.py",
+      "source_refs": [
+        "system/lib/annex_currentness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_annex_currentness_source_bodies_into_public_projection_bundle",
+        "bind_annex_currentness_source_bodies_to_macro_projection_body_floor",
+        "preserve_annex_currentness_sources_without_claiming_live_annex_refresh_or_annex_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public annex currentness source-body import only; not live annex refresh, provider calls, credential export, account/session state, browser/HUD live access, annex mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:8aa7f8a95aa91b4e1e7308b4a44720d3378b2574ce758586836df78e05955cf0",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/annex_currentness.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
+        "source_body_digest": "sha256:8aa7f8a95aa91b4e1e7308b4a44720d3378b2574ce758586836df78e05955cf0",
+        "target_body_digest": "sha256:8aa7f8a95aa91b4e1e7308b4a44720d3378b2574ce758586836df78e05955cf0",
+        "source_line_count": 1036,
+        "target_line_count": 1036,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "annex_currentness_test_body_import",
+      "source_ref": "system/server/tests/test_annex_currentness.py",
+      "source_refs": [
+        "system/server/tests/test_annex_currentness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_annex_currentness_source_bodies_into_public_projection_bundle",
+        "bind_annex_currentness_source_bodies_to_macro_projection_body_floor",
+        "preserve_annex_currentness_sources_without_claiming_live_annex_refresh_or_annex_mutation_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public annex currentness source-body import only; not live annex refresh, provider calls, credential export, account/session state, browser/HUD live access, annex mutation, shared-index mutation, private-root equivalence, release, publication, source-mutation authority, or proof-correctness authority",
+      "body_in_receipt": false,
+      "body_digest": "sha256:3cca910e7e86464d3e51257cda983cc2712468befed271f7539ed5b02e7cb178",
+      "body_text_in_receipt": false,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_annex_currentness.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py",
+        "source_body_digest": "sha256:3cca910e7e86464d3e51257cda983cc2712468befed271f7539ed5b02e7cb178",
+        "target_body_digest": "sha256:3cca910e7e86464d3e51257cda983cc2712468befed271f7539ed5b02e7cb178",
+        "source_line_count": 601,
+        "target_line_count": 601,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -3825,7 +4122,16 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_surface_audit_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_clusterability.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_routing_coverage_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_routing_coverage.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_currentness.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/annex_currentness_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_annex_currentness.py"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -3888,7 +4194,16 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_surface_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_routing_coverage_sources_compile_and_carry_routing_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_routing_coverage_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_annex_currentness_sources_compile_and_carry_currentness_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_annex_currentness_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

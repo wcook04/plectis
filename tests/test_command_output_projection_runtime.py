@@ -56,6 +56,15 @@ NAVIGATION_SURFACE_AUDIT_MANIFEST = (
 COMMAND_NODE_CACHE_MANIFEST = (
     BUNDLE_INPUT / "command_node_cache_source_module_manifest.json"
 )
+NAVIGATION_CLUSTERABILITY_MANIFEST = (
+    BUNDLE_INPUT / "navigation_clusterability_source_module_manifest.json"
+)
+ANNEX_ROUTING_COVERAGE_MANIFEST = (
+    BUNDLE_INPUT / "annex_routing_coverage_source_module_manifest.json"
+)
+ANNEX_CURRENTNESS_MANIFEST = (
+    BUNDLE_INPUT / "annex_currentness_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -529,6 +538,119 @@ def test_command_node_cache_sources_compile_and_carry_cache_contract() -> None:
         in test_text
     )
     assert "dynamic_inputs_manifested" in test_text
+
+
+def _assert_source_manifest_matches_exact_macro_sources(
+    manifest_path: Path,
+    *,
+    manifest_id: str,
+    module_count: int,
+) -> dict:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    assert manifest["manifest_id"] == manifest_id
+    assert manifest["module_count"] == module_count
+    assert manifest["public_runtime_policy"].startswith("public validation uses exact")
+    for row in manifest["modules"]:
+        source = REPO_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        assert source.is_file()
+        assert target.is_file()
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        target_text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
+    return manifest
+
+
+def test_navigation_clusterability_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        NAVIGATION_CLUSTERABILITY_MANIFEST,
+        manifest_id="navigation_clusterability_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_navigation_clusterability_sources_compile_and_carry_clusterability_contract() -> None:
+    clusterability_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/navigation_clusterability.py"
+    )
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_navigation_clusterability.py"
+    )
+
+    clusterability_text = clusterability_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(clusterability_text, str(clusterability_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "def build_navigation_clusterability_audit(" in clusterability_text
+    assert '"kind": "navigation_clusterability_audit"' in clusterability_text
+    assert "HIGH_CARDINALITY_THRESHOLD" in clusterability_text
+    assert "cluster_flag_status" in clusterability_text
+    assert (
+        "test_clusterability_quick_profile_defers_measuring_implemented_cluster_payloads"
+        in test_text
+    )
+
+
+def test_annex_routing_coverage_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        ANNEX_ROUTING_COVERAGE_MANIFEST,
+        manifest_id="annex_routing_coverage_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_annex_routing_coverage_sources_compile_and_carry_routing_contract() -> None:
+    routing_source = BUNDLE_INPUT / "source_modules/system/lib/annex_routing_coverage.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_annex_routing_coverage.py"
+    )
+
+    routing_text = routing_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(routing_text, str(routing_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "DEFAULT_UNROUTED_RATE_THRESHOLD" in routing_text
+    assert "def build_annex_routing_coverage(" in routing_text
+    assert '"kind": "annex_routing_coverage"' in routing_text
+    assert "routing_coverage:annex_patterns:unrouted" in routing_text
+    assert "test_annex_routing_coverage_cli_emits_json" in test_text
+
+
+def test_annex_currentness_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        ANNEX_CURRENTNESS_MANIFEST,
+        manifest_id="annex_currentness_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_annex_currentness_sources_compile_and_carry_currentness_contract() -> None:
+    currentness_source = BUNDLE_INPUT / "source_modules/system/lib/annex_currentness.py"
+    test_source = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_annex_currentness.py"
+    )
+
+    currentness_text = currentness_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(currentness_text, str(currentness_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert 'SCHEMA_VERSION = "annex_currentness_v0"' in currentness_text
+    assert "def build_annex_currentness(" in currentness_text
+    assert "annex_sync_digest" in currentness_text
+    assert "movement_to_row_job" in currentness_text
+    assert "test_kernel_annex_currentness_cli_emits_packet" in test_text
 
 
 def _load_trace_capsule_source_module():
