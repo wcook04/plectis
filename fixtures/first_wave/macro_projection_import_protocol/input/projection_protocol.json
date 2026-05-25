@@ -114,7 +114,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/entrypoint_health_source_module_manifest.json",
     "system/lib/agent_entrypoint_audit.py",
     "system/server/tests/test_agent_entrypoint_audit.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
+    "system/lib/navigation_fitness.py",
+    "system/server/tests/test_navigation_fitness.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -4227,6 +4230,102 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "navigation_fitness_body_import",
+      "source_ref": "system/lib/navigation_fitness.py",
+      "source_refs": [
+        "system/lib/navigation_fitness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_fitness.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_fitness_source_bodies_into_public_projection_bundle",
+        "bind_navigation_fitness_source_bodies_to_macro_projection_body_floor",
+        "preserve_navigation_fitness_sources_without_claiming_live_macro_kernel_execution_semantic_route_probe_provider_payload_or_private_session_state_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation fitness source-body import only; not live macro kernel execution, semantic route probe authority, provider calls, credential export, account/session state, browser/HUD live access, private route state, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:9c03e9e0918d9908ae0eb556912a0773dfd4d7d7915c5dd6568fc6cbc749b9d8",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/navigation_fitness.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_fitness.py",
+        "source_body_digest": "sha256:9c03e9e0918d9908ae0eb556912a0773dfd4d7d7915c5dd6568fc6cbc749b9d8",
+        "target_body_digest": "sha256:9c03e9e0918d9908ae0eb556912a0773dfd4d7d7915c5dd6568fc6cbc749b9d8",
+        "source_line_count": 1667,
+        "target_line_count": 1667,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "navigation_fitness_test_body_import",
+      "source_ref": "system/server/tests/test_navigation_fitness.py",
+      "source_refs": [
+        "system/server/tests/test_navigation_fitness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_navigation_fitness_source_bodies_into_public_projection_bundle",
+        "bind_navigation_fitness_source_bodies_to_macro_projection_body_floor",
+        "preserve_navigation_fitness_sources_without_claiming_live_macro_kernel_execution_semantic_route_probe_provider_payload_or_private_session_state_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public navigation fitness source-body import only; not live macro kernel execution, semantic route probe authority, provider calls, credential export, account/session state, browser/HUD live access, private route state, generated entrypoint mutation, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:a2f7bccda818a8dd81eada41bb9c1a70ffb61e3b3246a05e30b5302448ae3fc2",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_navigation_fitness.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py",
+        "source_body_digest": "sha256:a2f7bccda818a8dd81eada41bb9c1a70ffb61e3b3246a05e30b5302448ae3fc2",
+        "target_body_digest": "sha256:a2f7bccda818a8dd81eada41bb9c1a70ffb61e3b3246a05e30b5302448ae3fc2",
+        "source_line_count": 360,
+        "target_line_count": 360,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -4335,7 +4434,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_entrypoint_health.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_entrypoint_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_entrypoint_audit_source_module_manifest.json",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_entrypoint_audit.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_fitness.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_fitness.py"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -4413,7 +4515,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_entrypoint_health_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_entrypoint_audit_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_fitness_sources_compile_and_carry_fitness_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

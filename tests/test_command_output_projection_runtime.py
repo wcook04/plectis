@@ -71,6 +71,9 @@ ENTRYPOINT_HEALTH_MANIFEST = (
 AGENT_ENTRYPOINT_AUDIT_MANIFEST = (
     BUNDLE_INPUT / "agent_entrypoint_audit_source_module_manifest.json"
 )
+NAVIGATION_FITNESS_MANIFEST = (
+    BUNDLE_INPUT / "navigation_fitness_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -718,6 +721,38 @@ def test_agent_entrypoint_audit_sources_compile_and_carry_audit_contract() -> No
     assert '"kind": "agent_entrypoint_audit"' in audit_text
     assert "test_kernel_route_emits_audit_shape" in test_text
     assert "test_generated_block_drift_compares_against_rendered_projection" in test_text
+
+
+def test_navigation_fitness_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        NAVIGATION_FITNESS_MANIFEST,
+        manifest_id="navigation_fitness_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_navigation_fitness_sources_compile_and_carry_fitness_contract() -> None:
+    fitness_source = BUNDLE_INPUT / "source_modules/system/lib/navigation_fitness.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_navigation_fitness.py"
+    )
+
+    fitness_text = fitness_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(fitness_text, str(fitness_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "FITNESS_TASKS: tuple[FitnessTask, ...] = (" in fitness_text
+    assert "HELDOUT_TASKS: tuple[FitnessTask, ...] = (" in fitness_text
+    assert "ADVERSARIAL_TASKS: tuple[FitnessTask, ...] = (" in fitness_text
+    assert "def build_navigation_fitness(" in fitness_text
+    assert '"schema_version": "navigation_fitness_v0"' in fitness_text
+    assert (
+        "test_navigation_fitness_smoke_proves_expected_ids_without_legacy_first_routes"
+        in test_text
+    )
+    assert "test_navigation_fitness_cli_and_semantic_modes_are_explicit" in test_text
 
 
 def _load_trace_capsule_source_module():
