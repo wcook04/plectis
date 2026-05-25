@@ -8,8 +8,23 @@ It does not mutate your source files or call providers.
 
 ## Try It On Your Repo
 
+From `microcosm-substrate/`, install the console command:
+
 ```bash
 python -m pip install -e '.[test]'
+```
+
+Or run the same product CLI directly from the checkout without installing the
+entry point:
+
+```bash
+PYTHONPATH=src python -m microcosm_core.cli compile .
+PYTHONPATH=src python -m microcosm_core.cli tour .
+```
+
+After the console command is installed, the first-screen path is:
+
+```bash
 microcosm compile .
 microcosm tour .
 microcosm python-lens .
