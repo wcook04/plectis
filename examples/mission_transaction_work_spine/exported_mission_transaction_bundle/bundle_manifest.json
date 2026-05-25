@@ -16,7 +16,11 @@
       "system/lib/task_ledger_events.py",
       "tools/meta/factory/task_ledger_apply.py",
       "system/lib/task_ledger_priority.py",
-      "tools/meta/factory/task_ledger_project.py"
+      "tools/meta/factory/task_ledger_project.py",
+      "tools/meta/factory/work_ledger.py",
+      "system/lib/work_ledger.py",
+      "system/lib/work_ledger_runtime.py",
+      "codex/standards/std_work_ledger.json"
     ],
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
@@ -24,7 +28,11 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
-      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py"
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
     ],
     "body_in_receipt": false
   },
@@ -45,6 +53,13 @@
     "source_modules/system/lib/task_ledger_events.py",
     "source_modules/tools/meta/factory/task_ledger_apply.py",
     "source_modules/system/lib/task_ledger_priority.py",
-    "source_modules/tools/meta/factory/task_ledger_project.py"
-  ]
+    "source_modules/tools/meta/factory/task_ledger_project.py",
+    "work_ledger_source_module_manifest.json",
+    "work_ledger_control_runtime_contract.json",
+    "source_modules/tools/meta/factory/work_ledger.py",
+    "source_modules/system/lib/work_ledger.py",
+    "source_modules/system/lib/work_ledger_runtime.py",
+    "source_modules/codex/standards/std_work_ledger.json"
+  ],
+  "work_ledger_control_source_import_status": "public_runtime_import_landed"
 }

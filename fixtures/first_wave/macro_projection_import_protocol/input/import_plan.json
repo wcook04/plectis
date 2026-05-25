@@ -11,8 +11,7 @@
         "target_shape_tactic_routing_gate"
       ],
       "source_refs": [
-        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
       ],
       "target_refs": [
         "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
@@ -39,7 +38,7 @@
         "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
       ],
       "target_refs": [
-        "fixtures/first_wave/macro_projection_import_protocol/input/pattern_ledger_rows.jsonl",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
         "standards/std_microcosm_macro_projection_import_protocol.json",
         "paper_modules/macro_projection_import_protocol.md"
       ],
@@ -432,6 +431,50 @@
       "body_copied": false,
       "body_in_receipt": false,
       "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-transaction-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+    },
+    {
+      "cell_id": "work_ledger_control_source_modules_import",
+      "selected_pattern_ids": [
+        "work_ledger_runtime_claims",
+        "claim_lease_expired_at_audit_trail",
+        "controller_continuity_heartbeat"
+      ],
+      "source_refs": [
+        "tools/meta/factory/work_ledger.py",
+        "system/lib/work_ledger.py",
+        "system/lib/work_ledger_runtime.py",
+        "codex/standards/std_work_ledger.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+        "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json"
+      ],
+      "target_refs": [
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+        "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+        "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "work_ledger_tool_body_import",
+        "work_ledger_event_body_import",
+        "work_ledger_runtime_body_import",
+        "work_ledger_standard_body_import"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "authority_ceiling": "verified_public_work_ledger_control_source_bodies_not_live_work_ledger_task_ledger_git_private_index_provider_credential_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm mission-transaction-work-spine validate-mission-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
     }
   ],
   "body_in_receipt": false

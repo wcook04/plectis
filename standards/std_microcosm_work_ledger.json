@@ -5,16 +5,20 @@
     "rule": "fixture-backed proof must state what it does not prove"
   },
   "anti_claims": [
-    "This public standard does not copy private source bodies or prove public runtime completeness.",
-    "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
+    "This public standard plus bundle imports Work Ledger source bodies and schema contracts, but it does not authorize live Work Ledger mutation, session finalization, claim release, Git mutation, provider calls, release, hosted publication, recipient work, or private-data equivalence.",
+    "The copied source bodies are public substrate for inspection and validation; runtime receipts carry paths, hashes, counts, and anchors rather than duplicating full source text."
   ],
-  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_boundary": "public_safe_schema_and_exact_work_ledger_control_body_import_contract_not_live_runtime_authority",
   "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "public_schema_contract_plus_exact_source_body_import_receipts",
+    "source_body_authority": "exact_copied_non_secret_body_floor_only",
+    "live_work_ledger_mutation_authority": false,
+    "live_task_ledger_mutation_authority": false,
+    "git_mutation_authority": false,
+    "provider_call_authority": false,
     "private_data_equivalence_authority": false,
-    "release_authority": false,
-    "source_body_authority": false,
-    "standard_authority": "schema_contract_and_validator_expectation_only",
-    "status": "pass"
+    "release_authority": false
   },
   "first_wave_required": true,
   "kind_id": "work_ledger",
@@ -68,7 +72,10 @@
     "receipt.microcosm.work_ledger",
     "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json"
+  ],
   "relationships": {
     "canonical_organ_model_ref": null,
     "source_pattern_id_count": 120,
@@ -149,6 +156,30 @@
         "continuous_loop_three_lane_parallel_oracle_comparator",
         "controller_continuity_heartbeat"
       ]
+    },
+    {
+      "path": "tools/meta/factory/work_ledger.py",
+      "role": "exact_public_body_source"
+    },
+    {
+      "path": "system/lib/work_ledger.py",
+      "role": "exact_public_body_source"
+    },
+    {
+      "path": "system/lib/work_ledger_runtime.py",
+      "role": "exact_public_body_source"
+    },
+    {
+      "path": "codex/standards/std_work_ledger.json",
+      "role": "exact_public_standard_body_source"
+    },
+    {
+      "path": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+      "role": "public_body_import_manifest"
+    },
+    {
+      "path": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+      "role": "public_runtime_contract"
     }
   ],
   "standard_id": "std_microcosm_work_ledger",
@@ -165,7 +196,7 @@
     "rebuild_action": "project",
     "teleology": "Coordinate claims, leases, path ownership, and concurrency."
   },
-  "status": "draft",
+  "status": "body_floor_imported",
   "validation_rules": [
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
@@ -182,6 +213,56 @@
     "required": true,
     "validator_id": "validator.microcosm.work_ledger"
   },
-  "validator_refs": [],
-  "wave": "w1_route_and_work_runtime"
+  "validator_refs": [
+    "validator.microcosm.organs.mission_transaction_work_spine",
+    "validator.microcosm.organs.macro_projection_import_protocol"
+  ],
+  "wave": "w1_route_and_work_runtime",
+  "work_ledger_payload": {
+    "schema_version": "std_microcosm_work_ledger_body_floor_v1",
+    "classification": [
+      "copied_non_secret_macro_body",
+      "source_faithful_refactor",
+      "real_runtime_receipt",
+      "secret_exclusion"
+    ],
+    "module_count": 4,
+    "module_ids": [
+      "work_ledger_tool_body_import",
+      "work_ledger_event_body_import",
+      "work_ledger_runtime_body_import",
+      "work_ledger_standard_body_import"
+    ],
+    "source_refs": [
+      "tools/meta/factory/work_ledger.py",
+      "system/lib/work_ledger.py",
+      "system/lib/work_ledger_runtime.py",
+      "codex/standards/std_work_ledger.json"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
+    ],
+    "total_line_count": 10671,
+    "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+    "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+    "runtime_contract_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+    "manifest_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+    ],
+    "not_authorized": [
+      "live Task Ledger mutation",
+      "live Work Ledger mutation",
+      "live Git mutation",
+      "shared or private index mutation",
+      "broad staging",
+      "release/publication",
+      "credentials or provider-private payload disclosure"
+    ],
+    "body_in_receipt": false
+  }
 }

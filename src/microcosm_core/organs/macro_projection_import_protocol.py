@@ -434,6 +434,26 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
         ),
     },
+    "work_ledger_control_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The Work Ledger control-plane source modules are landed as exact copied "
+            "non-secret macro bodies inside the mission transaction bundle and "
+            "consumed by the mission transaction work spine runtime."
+        ),
+        "landed_evidence_refs": [
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+            "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",
+            "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+        ],
+        "next_runtime_surface": (
+            "microcosm mission-transaction-work-spine validate-mission-bundle "
+            "--input examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
+        ),
+    },
 }
 
 

@@ -1,0 +1,465 @@
+{
+  "kind": "standard",
+  "schema_version": "std_work_ledger_v1",
+  "id": "std_work_ledger",
+  "slug": "work-ledger",
+  "title": "Unified Work Ledger Standard",
+  "status": "active",
+  "scope": "repository-wide",
+  "purpose": "Define the repo-native event-sourced work ledger for Type A agents: append-only raw substrate, deterministic derived projections, compact work-memory items, recipe-based retrieval, and runtime-enforced participation through host lifecycle hooks.",
+  "statement": "The work ledger is raw_seed applied to agent work-voice: open work, progress, closure, supersession, and reopening are lifecycle events over one durable thread substrate, not separate files or mutable rows.",
+  "authority_surfaces": {
+    "standard": "codex/standards/std_work_ledger.json",
+    "raw_substrate": "codex/ledger/<phase_id>/work_ledger.jsonl",
+    "authoritative_projection": "codex/ledger/<phase_id>/work_ledger_index.json",
+    "runtime_status": "state/work_ledger/runtime_status.json",
+    "writer_cli": "tools/meta/factory/work_ledger.py",
+    "git_guard": "repo-git",
+    "core_runtime": "system/lib/work_ledger.py",
+    "hook_runtime": "system/lib/work_ledger_runtime.py",
+    "host_runtime_cli": "tools/meta/factory/work_ledger.py session-bootstrap|session-activity|session-activity --full|session-heartbeat|session-heartbeat --full|session-finalize|session-finalize --full|session-finalize --allow-missing-append|session-status|session-status --overview|session-status --seed-speed|session-status --full|session-import-codex|session-import-host-surfaces|session-preflight|mutation-check|agent-seed-handoffs|session-claim|session-claim-path|session-release-claim|session-sweep"
+  },
+  "forward_integration_contract": {
+    "standard": "codex/standards/std_forward_integration_policy.json",
+    "entrypoint": "./repo-python kernel.py --workitem-entrypoint [PHASE]",
+    "default_mode": "forward_integration",
+    "rule": "Work Ledger coordination is load-bearing when claims collide or read receipts are required, but a dirty tree by itself is not a blocker. Runtime policy classifies dirty surfaces, reserves destructive_override_required for loss-risk actions, and keeps claim/session closeout obligations visible without turning advisory dirt into a global stop sign.",
+    "destructive_boundary": [
+      "restore",
+      "checkout -- path",
+      "reset --hard",
+      "clean -f",
+      "delete unknown or generated work",
+      "regenerate over dirty projection without owner-tool or adoption receipt"
+    ],
+    "closeout_order": [
+      "Task Ledger sign-off or residual capture",
+      "projection rebuild/check",
+      "Work Ledger closeout append while read receipt is live",
+      "session-finalize last; it refuses touched/no-append sessions by default and releases active claims only after the append exists"
+    ]
+  },
+  "id_contract": {
+    "thread_id_prefix": "td_",
+    "event_id_prefix": "wle_",
+    "read_receipt_id_prefix": "wlr_",
+    "claim_id_prefix": "wlc_",
+    "pass_id_prefix": "wlp_",
+    "sweep_event_id_prefix": "wls_",
+    "rule": "Thread ids are minted once and never reused. todo_supersede is the only lifecycle operation that mints a successor thread id. Reopen reuses the same td_*. Claim ids (wlc_*), pass ids (wlp_*), and sweep event ids (wls_*) are runtime-only — they live in state/work_ledger/runtime_status.json, never in the append-only JSONL substrate."
+  },
+  "event_kinds": {
+    "todo_open": {
+      "semantics": "Open a new work thread interval.",
+      "required_fields": [
+        "title"
+      ]
+    },
+    "progress_note": {
+      "semantics": "Append a non-closing note to an existing thread.",
+      "required_fields": [
+        "body"
+      ]
+    },
+    "todo_close": {
+      "semantics": "Invalidate the currently open interval on the same td_* and record explicit resolution provenance.",
+      "required_fields": [
+        "resolution_episode"
+      ]
+    },
+    "todo_supersede": {
+      "semantics": "Mint a successor td_* and preserve an explicit old->new supersession edge while resolving the prior thread with provenance.",
+      "required_fields": [
+        "resolution_episode",
+        "supersedes_td_id",
+        "title"
+      ]
+    },
+    "todo_reopen": {
+      "semantics": "Reactivate a previously closed td_* by opening a new valid interval on the same thread id.",
+      "required_fields": []
+    }
+  },
+  "event_row_contract": {
+    "required_top_level_keys": [
+      "event_id",
+      "td_id",
+      "event_kind",
+      "actor",
+      "actor_session_id",
+      "phase_id",
+      "family_id",
+      "created_at",
+      "valid_at",
+      "invalid_at",
+      "expired_at",
+      "title",
+      "body",
+      "evidence_refs"
+    ],
+    "optional_edge_keys": [
+      "supersedes_td_id",
+      "successor_td_id",
+      "read_receipt_id",
+      "resolution_episode",
+      "metadata"
+    ]
+  },
+  "event_metadata_contract": {
+    "purpose": "Optional structured context for work rows whose source is another substrate or coordination surface. Metadata is additive and backwards-compatible; old rows without metadata remain valid.",
+    "optional_keys": [
+      "source_substrate",
+      "source_paragraph_id",
+      "source_section_id",
+      "source_line_start",
+      "source_line_end",
+      "work_kind",
+      "plane_home",
+      "target_paths",
+      "commands",
+      "blocking_on",
+      "dedupe_key",
+      "confidence"
+    ],
+    "rules": [
+      "metadata.source_substrate names the upstream evidence plane such as agent_seed, raw_seed, bridge, metabolism, or host_surface.",
+      "metadata.source_paragraph_id must carry the exact par_agent_* / par_* id when a row is promoted from a seed paragraph.",
+      "metadata.dedupe_key is stable enough for importers to avoid opening duplicate work rows.",
+      "metadata is projected onto thread cards and work_memory_items, but it never replaces evidence_refs."
+    ]
+  },
+  "bi_temporal_semantics": {
+    "created_at": "When the event row was appended.",
+    "valid_at": "When the represented work claim becomes valid for its current interval.",
+    "invalid_at": "When the represented interval is invalidated or resolved. Null while open.",
+    "expired_at": "Optional time-bounded expiry marker; null in v1 unless an external policy sets it."
+  },
+  "resolution_episode_contract": {
+    "required_keys": [
+      "kind",
+      "ref"
+    ],
+    "allowed_kinds": [
+      "git_commit",
+      "orchestration_event",
+      "raw_seed_paragraph",
+      "artifact",
+      "session"
+    ],
+    "rule": "todo_close and todo_supersede require a structured resolution episode. Bare 'done' strings are invalid."
+  },
+  "projection_contract": {
+    "path": "codex/ledger/<phase_id>/work_ledger_index.json",
+    "secondary_family_path": "codex/ledger/<phase_id>/work_ledger_index.<family_id>.json",
+    "required_sections": [
+      "open_by_actor",
+      "open_by_family",
+      "recently_closed",
+      "supersession_chains",
+      "cross_agent_handoffs",
+      "stale_open",
+      "work_memory_items",
+      "threads",
+      "counts"
+    ],
+    "rule": "The projection is deterministic and rebuildable from raw JSONL. UI and API surfaces read projections; they do not own ledger business logic. work_memory_items are derived recall cards over ledger events, not an independent memory store.",
+    "mixed_phase_family_rule": "When a raw phase bucket contains events for more than one family_id, the first observed family keeps the legacy work_ledger_index.json path and secondary families use work_ledger_index.<family_id>.json. A single generated index file must never be expected to be fresh for two different family-scoped source reductions at once."
+  },
+  "runtime_status_contract": {
+    "path": "state/work_ledger/runtime_status.json",
+    "required_sections": [
+      "sessions",
+      "stale_sessions",
+      "recent_sweep_events",
+      "cohort_overview",
+      "counts",
+      "triggers"
+    ],
+    "cohort_overview_schema": "work_ledger_session_cohort_overview_v1",
+    "rule": "The runtime status keeps the full session map for machines and also projects a compact cohort_overview for Type A agents coordinating concurrent autonomous seeds. Agent-facing lifecycle/status CLI commands must emit compact projections by default; the full sessions map is a diagnostic escape hatch only through explicit --full flags. The overview must preserve active sessions, effective active sessions, orphaned active sessions, stale sessions, actor/phase buckets, touched-thread contention, unknown-scope active sessions, unclaimed touched-work sessions, active claims, td_* claim collisions, path/scope claim collisions, recent sweep events, host-observed external sessions, pass-level awareness cards, heartbeat participation summary, and recommended coordination actions. Orphaned active sessions remain visible as stale coordination obligations, but they do not contribute to touched-thread, unknown-scope, unclaimed-touched, or claim-collision live contention."
+  },
+  "pass_heartbeat_contract": {
+    "schema": "runtime_pass_heartbeat_v0",
+    "purpose": "Runtime-only pass-level workspace awareness: a bounded public now/done strip for live Type A coordination without raw transcript reading or hidden-reasoning extraction.",
+    "command": "./repo-python tools/meta/factory/work_ledger.py session-heartbeat --session-id <id> --state <state> --now '<public current pass>' [--done '<public previous result>'] [--scope-ref <ref>]",
+    "states": [
+      "orienting",
+      "inspecting",
+      "editing",
+      "validating",
+      "blocked",
+      "closing",
+      "idle",
+      "done"
+    ],
+    "line_limits": {
+      "current_pass_line_chars": 180,
+      "last_pass_result_line_chars": 220
+    },
+    "projection_rules": [
+      "session-status --overview --cards-only must include awareness_cards with session id, actor, phase, freshness, current_pass_line, last_pass_result_line, pass state, source, scope refs, and claim refs; full per-card repair rows must collapse to repair_summary plus drilldown, while aggregate repair_rows keep the actionable commands.",
+      "session-status --overview --cards-only must include cohort_speed_summary with effective active session count, active claim count, active claim session ids, heartbeat participation counts, orphan count, and the claims/heartbeat fast paths for parallel Type A seed coordination.",
+      "session-status --seed-speed is the first-contact active-seed speed packet. It must omit awareness_cards, monitor_cards, repair_rows, recommended_actions, and full claim/session rows while preserving active claim-session cards, heartbeat counts, contention scalars, first_action, and drilldowns to cards/full evidence.",
+      "session-status overview must include heartbeat_participation with effective active session count, explicit current-pass count, projected_unknown count, participation ratio, first-contact ordering evidence, source/freshness counts, and the no-transcript-summarization policy.",
+      "First-contact cards must prioritize explicit live manual_cli/hook current_pass_line heartbeats over source=projected_unknown imports before applying compact output limits.",
+      "Sessions without an explicit heartbeat must project source=projected_unknown and current_pass_line=null rather than mining raw transcripts.",
+      "Orphaned or expired heartbeat rows must remain visible but demoted through freshness_state so stale sessions cannot masquerade as live current work.",
+      "Heartbeat updates are runtime coordination state, not durable task truth and not a replacement for Work Ledger progress/closeout appends."
+    ],
+    "participation_contract": {
+      "schema": "work_ledger_heartbeat_participation_contract_v0",
+      "when": [
+        "long_pass_start",
+        "plan_pivot",
+        "before_validation",
+        "closeout"
+      ],
+      "rule": "Participating sessions that can write should publish explicit public now/done pass lines at meaningful pass boundaries. Imported or read-only sessions may truthfully remain source=projected_unknown; the failure mode is participating writable sessions staying unknown or explicit heartbeats being hidden behind unknown imports."
+    }
+  },
+  "external_session_observation_contract": {
+    "purpose": "Runtime-only parity lane for agents whose host surface is visible but whose process cannot yet call the hook-backed SessionStart bootstrap path. Initial use: local Codex threads from ~/.codex/state_5.sqlite.",
+    "command": "./repo-python tools/meta/factory/work_ledger.py session-import-codex --since-minutes <N> OR ./repo-python tools/meta/factory/work_ledger.py session-import-host-surfaces --since-minutes <N>",
+    "session_id_shape": "codex:<thread_id> for imported Codex host threads",
+    "rules": [
+      "The importer opens Codex SQLite read-only and never writes into ~/.codex.",
+      "Imported sessions set external_observed=true, preserve external metadata, and carry no read_receipt_id; they make runtime coordination visible but do not bypass receipt-gated ledger writes.",
+      "session-import-host-surfaces imports both Codex threads and Claude IDE lock observations; Claude lock imports strip secrets such as authToken and preserve only coordination metadata (pid, workspace folders, IDE name, transport, todo counts).",
+      "When rollout_path is available, the importer tails the Codex rollout read-only and records a bounded codex_rollout_activity_summary_v1 in external_metadata.rollout_activity with recent tool names, command lines, referenced repo paths, and definite apply_patch mutation paths.",
+      "The full rollout_activity object stays on the per-session runtime row; compact cohort_overview rows must carry only a bounded digest so --overview remains usable during multi-agent bursts.",
+      "Rollout-derived paths are observations only; they must not create or imply session-claim / session-claim-path leases without an explicit claim command.",
+      "A fresh host update reopens or refreshes the runtime-only session; stale imported sessions age through the same orphan-display and orphan-sweep policy as hook-backed sessions."
+    ]
+  },
+  "session_preflight_contract": {
+    "purpose": "One-command manual lifecycle entry for Codex/Cursor/manual agents until host hooks exist.",
+    "command": "./repo-python tools/meta/factory/work_ledger.py session-preflight --session-slug <slug> [--path <repo/path>] [--td-id <td>] [--write-profile <profile>] [--require-exclusive] [--full]",
+    "sequence": [
+      "Optionally import recent Codex host threads as runtime-only external observations.",
+      "Bootstrap the current session and mint a read_receipt_id.",
+      "Expand named write profiles into their known generated write sets before claiming paths.",
+      "Claim requested td_* and/or path scopes using the same wlc_* claim lifecycle.",
+      "Compare requested path scopes against rollout-derived recent mutation/reference paths from imported Codex peers and surface observed_path_overlaps.",
+      "Scan imported Codex rollout commands for shared-worktree git risks through the shared detector used by ./repo-git and surface shared_worktree_git_risks.",
+      "Return a compact preflight payload by default: read_receipt_id, import summary, claim summary, compact cohort risk/counts, and explicit closeout commands.",
+      "When --full is passed, return the full bootstrap object, imported candidates/observations, full claim rows, and full cohort lists for diagnostics."
+    ],
+    "write_profiles": {
+      "agent_bootstrap_projection": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "CODEX.md",
+        "codex/doctrine/agent_bootstrap_live.json",
+        "codex/doctrine/agent_bootstrap_injection_strip.json"
+      ],
+      "paper_module_index": [
+        "codex/doctrine/paper_modules/README.md",
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_validation_report.json",
+        "codex/doctrine/paper_modules/_doctrine_to_paper_modules.json",
+        "codex/doctrine/paper_modules/_route_coverage.json"
+      ],
+      "skill_catalog_projection": [
+        "AGENTS.md",
+        "codex/doctrine/skills/skill_registry.json",
+        "codex/doctrine/skills/skill_map.md"
+      ],
+      "annex_catalog_projection": [
+        "annexes/annex_distillation_index.json",
+        "docs/annex_registry.md"
+      ],
+      "annex_assimilation": [
+        "annexes",
+        "annexes/annex_distillation_index.json",
+        "docs/annex_registry.md"
+      ],
+      "raw_seed_family_projection": [
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed.snapshot.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed"
+      ],
+      "agent_seed_family_projection": [
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.json",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.md",
+        "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/agent_seed.snapshot.md"
+      ],
+      "doctrine_skill_projection": [
+        "codex/doctrine/skills",
+        "codex/doctrine/skills/skill_registry.json",
+        "codex/doctrine/skills/skill_map.md",
+        "AGENTS.md"
+      ],
+      "orchestration_runtime_projection": [
+        "tools/meta/control/orchestration_state.json",
+        "tools/meta/control/orchestration_brief.json",
+        "tools/meta/control/orchestration_brief.md",
+        "tools/meta/control/orchestration_events.jsonl"
+      ],
+      "navigation_hologram_projection": [
+        "codex/navigation_hologram"
+      ],
+      "architectural_projection": [
+        "state/architectural_projection",
+        "system/lib/architectural_projection.py",
+        "tools/meta/factory/build_architectural_projection.py",
+        "codex/standards/std_architectural_projection.json",
+        "codex/doctrine/paper_modules/architectural_projection_plane.md"
+      ],
+      "task_ledger": [
+        "state/task_ledger/events.jsonl",
+        "state/task_ledger/events_audit.jsonl",
+        "state/task_ledger/ledger.json",
+        "state/task_ledger/views"
+      ],
+      "autonomous_seed": [
+        "state/meta_missions/type_a_autonomous_seed_loop/README.md",
+        "state/meta_missions/type_a_autonomous_seed_loop/seeds"
+      ]
+    },
+    "rules": [
+      "Preflight never bypasses read_receipt validation; it only returns the receipt minted by bootstrap_session.",
+      "Preflight claims are normal claims and therefore can be soft collisions or --require-exclusive refusals.",
+      "Write profiles are only claim expansion macros for known generated outputs; they do not run the generator and they do not bypass normal path-claim collision policy.",
+      "task_ledger and autonomous_seed are broad coordination macros for shared event/projection/seed-loop surfaces; agents touching one specific seed or one exact non-generated path may still use explicit --path claims to avoid unnecessary sibling collisions.",
+      "observed_path_overlaps are advisory signals from imported host telemetry; they never create or imply a claim lease and must be resolved by explicit coordination or an explicit claim.",
+      "observed_path_overlaps identity fields must not carry unbounded prompt, packet, or title bodies. Long session titles must be projected as bounded handles with title_preview, title_bytes, title_hash, title_kind, title_full_omitted, title_ref or drilldown, and an omission_receipt; the full source remains recoverable by rerunning the same session-preflight with --full instead of repeating per overlap row.",
+      "shared_worktree_git_risks are advisory signals for commands such as git stash, git reset --hard, git checkout --, git restore, and git clean -fd*. In a dirty multi-agent worktree, broad stash/apply/pop or restore/reset operations are unsafe unless every affected path is intentionally claimed and restored path-specifically.",
+      "mutation-check performs the read-only subset of write-profile/path collision detection and returns non-zero when --require-exclusive would block mutation; when --session-id is provided, that session's own active claims are ignored so a holder can re-check its claimed scope.",
+      "When multiple known td/path scopes belong to the same session, pass them through one session-preflight call with repeated --td-id/--path arguments instead of launching parallel lower-level claim commands.",
+      "./repo-git is the guarded git lane for agent worktree/index mutations. It must pass read-only git commands through and block destructive worktree/index commands when the tree is dirty unless a human deliberately uses the explicit unsafe override.",
+      "The default compact payload must stay small enough for every autonomous seed to read at turn start without flooding context.",
+      "Preflight closeout commands are advisory but should be copied into host instructions and final-turn discipline until real Codex hooks replace the manual lifecycle.",
+      "session-finalize is the normal one-command closeout path after a touched session has written its Work Ledger append. If touched work has no append, session-finalize blocks before ending the session and returns the append-before-finalize repair route. --allow-missing-append is a diagnostic escape hatch that preserves the old stale-finalize path; --no-release-claims is diagnostic only and a finalized session with active claims is not considered cleanly closed unless that flag was intentionally used for runtime inspection."
+    ]
+  },
+  "same_session_mutation_ordering": {
+    "purpose": "Prevent agents from treating independent path scopes as permission to run concurrent writes against the same runtime_status session row.",
+    "applies_to": [
+      "session-preflight",
+      "session-claim",
+      "session-claim-path",
+      "session-release-claim",
+      "session-finalize",
+      "session-sweep when it can touch the same session"
+    ],
+    "rules": [
+      "Work Ledger lifecycle and claim commands that mutate one session are a single-writer sequence. Do not launch them in parallel for the same session.",
+      "Use session-preflight as the batch lane for known startup scope: repeated --path, repeated --td-id, and --write-profile expansion are serialized inside one command.",
+      "If new scopes are discovered after preflight, run each session-claim, session-claim-path, or session-release-claim command only after the prior command returns; finalize last.",
+      "Read-only commands such as mutation-check, session-status, and session-claims may be parallelized because they do not mutate the session row.",
+      "A future batch-claim command must preserve this contract by performing its internal writes serially and returning one ordered claim_summary."
+    ],
+    "blocked_exit_pattern": "same_session_parallel_claim_or_finalize_mutation",
+    "source_pressure_refs": [
+      "cap_quick_work_ledger_same_session_claims_launched_in_parallel",
+      "cap_quick_do_not_parallelize_work_ledger_claim_mut_0a44dd9f5819"
+    ]
+  },
+  "workitem_write_admission_contract": {
+    "schema": "workitem_write_admission_v0",
+    "purpose": "Host-neutral pre-edit gate for write-capable agents. It verifies the WorkItem-first entry result has been bound to a live Work Ledger execution attempt before source mutation.",
+    "command": "./repo-python tools/meta/control/work_landing.py admission-check --subject-id <work_item_id> --owned-path <repo_path> --session-id <session_id>",
+    "can_write_true_only_when": [
+      "the Task Ledger WorkItem exists",
+      "the WorkItem selector classifies the subject as agent-executable, or the caller explicitly declares an exact-subject override",
+      "a work_landing_attempt_binding_v0 exists for the subject/session",
+      "the Work Ledger session is active",
+      "the attempt td thread is open",
+      "the WorkItem claim, td claim, and every owned path claim are active for the same session",
+      "owned_paths is nonempty",
+      "no overlapping active claim collision exists",
+      "kernel_phase_required is false and active_phase_consulted is false"
+    ],
+    "false_result_contract": "A false admission result must include reason, missing_fields, claim_collisions, and required_next_command so an agent can repair the envelope instead of editing from chat memory.",
+    "non_goals": [
+      "admission-check does not create sessions, claims, td threads, Task Ledger events, commits, receipts, or projections",
+      "admission-check does not make kernel or phase state execution authority",
+      "admission-check does not grant durable proof status to external/signoff work without an explicit subject override plus valid claims"
+    ]
+  },
+  "claim_contract": {
+    "purpose": "Forward-looking lease on a td_* or repo-relative path for multi-agent coordination BEFORE mutation, complementing the post-hoc touched_td_ids signal. Claims are runtime-only coordination state, never persisted to the append-only JSONL substrate.",
+    "location": "Per-session `claims` array inside state/work_ledger/runtime_status.json. Also surfaced in cohort_overview.active_claims and cohort_overview.contention.claim_collisions.",
+    "claim_row_shape": {
+      "claim_id": "wlc_<16hex> — minted once per claim",
+      "scope_kind": "td_id | path",
+      "scope_id": "target td_* or normalized repo-relative path",
+      "td_id": "target thread id when scope_kind=td_id; retained for backwards compatibility",
+      "path": "normalized repo-relative path when scope_kind=path",
+      "claimed_at": "iso 8601 utc",
+      "leased_until": "iso 8601 utc; set at claim time as now + lease_minutes, clamped to ACTIVE_CLAIM_LEASE_MAX (12h)",
+      "released_at": "iso 8601 utc when released explicitly; null while active",
+      "expired_at": "iso 8601 utc when sweep marks the lease past; null while active or released; preserved even after expiry",
+      "note": "optional free-form context",
+      "release_reason": "null | released_by_operator | lease_expired | session_auto_swept",
+      "require_exclusive": "bool — when true, the claim is refused at record time if another active session holds an unexpired overlapping claim on the same scope"
+    },
+    "lifecycle_states": {
+      "active": "released_at == null AND expired_at == null AND leased_until > now",
+      "expired": "released_at == null AND expired_at != null (sweep stamped expired_at = leased_until)",
+      "released": "released_at != null (operator or session_auto_swept)"
+    },
+    "collision_policy": "Soft by default: `session-claim` and `session-claim-path` record the claim even when a collision exists and return a `claim_collisions` list so the calling agent can decide. With --require-exclusive the claim is refused when a collision exists and the runtime is not mutated. td_* collisions are exact-match; path collisions treat a directory claim and any child path claim as overlapping. Expired or released claims never count as collisions. Mission landing decisions must evaluate same-mission td/path claim collisions before shared-index or private-index review lanes, so an active collision cannot be downgraded to a staged-index review.",
+    "unclaimed_touch_policy": "If an effective-active session marks session-activity with a td_id but has no live claim for that td_id, cohort_overview must surface the session under contention.unclaimed_touched_sessions, increment counts.unclaimed_touched_sessions, emit the unclaimed_touched_work signal, and recommend claiming or finalizing before mutation proceeds.",
+    "bi_temporal_invariants": [
+      "Claims are never deleted — released_at / expired_at are always stamped rather than removing the row.",
+      "A crashed holder leaves a visible `was-claimed-but-never-released` trail rather than silently disappearing.",
+      "Sweep is idempotent: re-running sweep_expired_claims or sweep_orphan_sessions yields the same state."
+    ],
+    "annex_provenance": "Pattern transferred 2026-04-21 from annexes/graphiti (bi-temporal edge lifecycle, n004) and annexes/continuous-claude-v3 (lease-based coordination checkpoint). No substrate imported; shape translated into runtime_status.json."
+  },
+  "sweep_policy": {
+    "orphan_hide_after_seconds": 14400,
+    "orphan_sweep_after_seconds": 86400,
+    "rule": "Two thresholds separate display hygiene from cleanup. ACTIVE_SESSION_ORPHAN_AFTER (4h) hides a session from live contention math in cohort_overview. ACTIVE_SESSION_ORPHAN_SWEEP_AFTER (24h) triggers auto-finalization on the next bootstrap_session and/or on explicit session-sweep runs. Sweep sets ended_at, end_action=auto_orphan_sweep, and releases all active claims (release_reason=session_auto_swept). Session rows, touched_td_ids, stale flags, and claim history are preserved for audit.",
+    "triggers": [
+      "bootstrap_session auto-sweep (excludes the in-flight session)",
+      "session-sweep CLI (operator-initiated, supports --dry-run and --orphan-after-hours override)",
+      "session-sweep CLI is SAFE-registerable for the reactions engine on future signal digests"
+    ],
+    "recent_sweep_events_limit": 50,
+    "recent_sweep_events_shape": {
+      "event_id": "wls_<16hex>",
+      "kind": "orphan_sweep | claim_expiry",
+      "swept_at": "iso 8601 utc",
+      "swept_count": "integer",
+      "details": "list of compact per-item rows (session_id, claim_id, td_id, reasons)"
+    }
+  },
+  "query_recipe_vocabulary": [
+    "open_in_family",
+    "open_for_actor",
+    "closed_this_session",
+    "supersession_chain",
+    "cross_agent_handoffs",
+    "stale_open",
+    "work_memory_items",
+    "thread"
+  ],
+  "write_invariants": [
+    "No direct hand-editing of work_ledger.jsonl in normal operation; use tools/meta/factory/work_ledger.py.",
+    "Raw substrate is append-only; never mutate prior rows in place.",
+    "todo_close and todo_reopen preserve reversal history instead of flattening state.",
+    "todo_supersede is explicit and links old thread to successor thread.",
+    "Mutating writes require a valid read_receipt_id issued by the runtime helper."
+  ],
+  "runtime_enforcement": {
+    "hook_owner": ".claude/hooks/runtime_hook.py",
+    "host_runtime_cli": "Non-Claude hosts may explicitly call `session-preflight` for the normal autonomous-seed entry path, or the lower-level `session-bootstrap`, `session-activity`, `session-heartbeat`, `session-finalize`, `session-status --seed-speed`, `session-status --overview`, `session-import-codex`, `session-claim`, `session-claim-path`, `session-release-claim`, and `session-sweep` commands when they need individual lifecycle steps. Participating writable sessions should call `session-heartbeat` at long pass start, plan pivot, before validation, and closeout; this publishes bounded public now/done coordination text only, not transcript summaries or durable progress. `session-activity`, `session-heartbeat`, `session-finalize`, and `session-status` are compact by default; use `--full` only when debugging `state/work_ledger/runtime_status.json` itself. `session-finalize` blocks before ending a touched session that has no Work Ledger append, and releases active claims by default after the append exists; use `--allow-missing-append` only for intentional stale-finalize diagnostics and `--no-release-claims` only for diagnostic cases that intentionally preserve unreleased claim state.",
+    "session_start": "Emit a bounded open slice and mint a read_receipt_id.",
+    "activity_events": [
+      "UserPromptSubmit",
+      "PostToolUse"
+    ],
+    "session_end": "If work was touched and the obligation was not cleared by a ledger append, block session-finalize before ending the session. Only explicit --allow-missing-append diagnostic finalization marks the session stale in runtime_status.json.",
+    "reaction_expectation": "Reactions consume runtime_status.json through the work_ledger_status source kind and may trigger deterministic projection refreshes. They never invent missing progress rows."
+  },
+  "v1_non_goals": [
+    "No vector store or graph database backing store.",
+    "No backend write routes.",
+    "No automatic transcript summarization into ledger events or pass heartbeat lines.",
+    "No separate vector or graph-backed work-memory item store; work_memory_items are deterministic projection rows.",
+    "No automatic Codex or Cursor hook enforcement until their host lifecycle surfaces exist; host-neutral CLI lifecycle commands are the interim contract."
+  ]
+}

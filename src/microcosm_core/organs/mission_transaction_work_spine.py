@@ -213,6 +213,87 @@ TASK_LEDGER_SOURCE_VALIDATION_REFS = [
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe",
 ]
+WORK_LEDGER_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
+WORK_LEDGER_SOURCE_MANIFEST_NAME = "work_ledger_source_module_manifest.json"
+WORK_LEDGER_CONTRACT_NAME = "work_ledger_control_runtime_contract.json"
+WORK_LEDGER_SOURCE_MODULES = [
+    {
+        "module_id": "work_ledger_tool_body_import",
+        "source_ref": "tools/meta/factory/work_ledger.py",
+        "bundle_path": "source_modules/tools/meta/factory/work_ledger.py",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/tools/meta/factory/"
+            "work_ledger.py"
+        ),
+        "required_anchors": [
+            "session-preflight",
+            "session-claims",
+            "session-heartbeat",
+            "session-finalize",
+            "mutation-check",
+            "def build_parser(",
+        ],
+    },
+    {
+        "module_id": "work_ledger_event_body_import",
+        "source_ref": "system/lib/work_ledger.py",
+        "bundle_path": "source_modules/system/lib/work_ledger.py",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/system/lib/"
+            "work_ledger.py"
+        ),
+        "required_anchors": [
+            "WORK_LEDGER_SCHEMA",
+            "def append_event(",
+            "def progress_thread(",
+            "def close_thread(",
+            "def build_projection(",
+            "progress_note",
+        ],
+    },
+    {
+        "module_id": "work_ledger_runtime_body_import",
+        "source_ref": "system/lib/work_ledger_runtime.py",
+        "bundle_path": "source_modules/system/lib/work_ledger_runtime.py",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/system/lib/"
+            "work_ledger_runtime.py"
+        ),
+        "required_anchors": [
+            "WORK_LEDGER_RUNTIME_SCHEMA",
+            "def bootstrap_session(",
+            "def mark_session_pass_heartbeat(",
+            "def finalize_session(",
+            "def claim_work_scope(",
+            "def release_claim(",
+            "ACTIVE_CLAIM_LEASE_MAX",
+        ],
+    },
+    {
+        "module_id": "work_ledger_standard_body_import",
+        "source_ref": "codex/standards/std_work_ledger.json",
+        "bundle_path": "source_modules/codex/standards/std_work_ledger.json",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/codex/standards/"
+            "std_work_ledger.json"
+        ),
+        "required_anchors": [
+            '"runtime_status_contract"',
+            '"claim_contract"',
+            '"session_preflight_contract"',
+            '"pass_heartbeat_contract"',
+            '"host_runtime_cli"',
+        ],
+    },
+]
+WORK_LEDGER_SOURCE_VALIDATION_REFS = [
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe",
+]
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -269,6 +350,17 @@ def _task_ledger_source_paths(input_dir: Path) -> list[Path]:
     ]
 
 
+def _work_ledger_source_paths(input_dir: Path) -> list[Path]:
+    return [
+        input_dir / WORK_LEDGER_SOURCE_MANIFEST_NAME,
+        input_dir / WORK_LEDGER_CONTRACT_NAME,
+        *[
+            input_dir / str(module["bundle_path"])
+            for module in WORK_LEDGER_SOURCE_MODULES
+        ],
+    ]
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -320,7 +412,11 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        [*_mission_bundle_paths(input_dir), *_task_ledger_source_paths(input_dir)],
+        [
+            *_mission_bundle_paths(input_dir),
+            *_task_ledger_source_paths(input_dir),
+            *_work_ledger_source_paths(input_dir),
+        ],
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -346,14 +442,15 @@ def _load_optional_json_document(
     findings: list[dict[str, Any]],
     *,
     subject_id: str,
+    source_label: str = "Task Ledger",
 ) -> dict[str, Any]:
     if not path.exists():
         findings.append(
             _bundle_finding(
                 "TASK_LEDGER_SOURCE_DOCUMENT_MISSING",
-                "Task Ledger source import document is missing from the exported bundle.",
+                f"{source_label} source import document is missing from the exported bundle.",
                 subject_id=subject_id,
-                subject_kind="task_ledger_source_import",
+                subject_kind=f"{source_label.lower().replace(' ', '_')}_source_import",
             )
         )
         return {}
@@ -363,9 +460,9 @@ def _load_optional_json_document(
         findings.append(
             _bundle_finding(
                 "TASK_LEDGER_SOURCE_DOCUMENT_INVALID",
-                f"Task Ledger source import document is not valid JSON: {exc}",
+                f"{source_label} source import document is not valid JSON: {exc}",
                 subject_id=subject_id,
-                subject_kind="task_ledger_source_import",
+                subject_kind=f"{source_label.lower().replace(' ', '_')}_source_import",
             )
         )
         return {}
@@ -373,9 +470,9 @@ def _load_optional_json_document(
         findings.append(
             _bundle_finding(
                 "TASK_LEDGER_SOURCE_DOCUMENT_NOT_OBJECT",
-                "Task Ledger source import document must decode to an object.",
+                f"{source_label} source import document must decode to an object.",
                 subject_id=subject_id,
-                subject_kind="task_ledger_source_import",
+                subject_kind=f"{source_label.lower().replace(' ', '_')}_source_import",
             )
         )
         return {}
@@ -535,6 +632,194 @@ def validate_task_ledger_source_import(input_dir: Path, public_root: Path) -> di
     public_refs = [
         public_relative_path(path, display_root=public_root)
         for path in _task_ledger_source_paths(input_dir)
+    ]
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "classification": "copied_non_secret_macro_body",
+        "manifest_ref": public_relative_path(manifest_path, display_root=public_root),
+        "contract_ref": public_relative_path(contract_path, display_root=public_root),
+        "module_count": len(source_module_results),
+        "module_ids": [row["module_id"] for row in source_module_results],
+        "source_refs": [row["source_ref"] for row in source_module_results],
+        "target_refs": [row["target_ref"] for row in source_module_results],
+        "public_runtime_refs": public_refs,
+        "source_modules": source_module_results,
+        "total_line_count": sum(row["line_count"] for row in source_module_results),
+        "manifest_summary": {
+            "schema_version": manifest.get("schema_version"),
+            "module_count": manifest.get("module_count"),
+            "body_storage_policy": manifest.get("body_storage_policy"),
+            "receipt_body_policy": manifest.get("receipt_body_policy"),
+            "validation_contract_ref": manifest.get("validation_contract_ref"),
+            "body_in_receipt": False,
+        },
+        "contract_summary": {
+            "schema_version": contract.get("schema_version"),
+            "contract_id": contract.get("contract_id"),
+            "status": contract.get("status"),
+            "required_module_ids": contract_ids,
+            "body_in_receipt": False,
+        },
+        "body_in_receipt": False,
+    }
+
+
+def validate_work_ledger_source_import(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest_path = input_dir / WORK_LEDGER_SOURCE_MANIFEST_NAME
+    contract_path = input_dir / WORK_LEDGER_CONTRACT_NAME
+    manifest = _load_optional_json_document(
+        manifest_path,
+        findings,
+        subject_id=WORK_LEDGER_SOURCE_MANIFEST_NAME,
+        source_label="Work Ledger",
+    )
+    contract = _load_optional_json_document(
+        contract_path,
+        findings,
+        subject_id=WORK_LEDGER_CONTRACT_NAME,
+        source_label="Work Ledger",
+    )
+    manifest_rows = [
+        row for row in manifest.get("modules", []) if isinstance(row, dict)
+    ]
+    manifest_by_id = {
+        str(row.get("module_id") or ""): row
+        for row in manifest_rows
+        if str(row.get("module_id") or "")
+    }
+    expected_ids = [str(module["module_id"]) for module in WORK_LEDGER_SOURCE_MODULES]
+    contract_ids = [str(item) for item in contract.get("required_module_ids", [])]
+    source_module_results: list[dict[str, Any]] = []
+
+    if manifest.get("module_count") != len(WORK_LEDGER_SOURCE_MODULES):
+        findings.append(
+            _bundle_finding(
+                "WORK_LEDGER_SOURCE_MANIFEST_COUNT_MISMATCH",
+                "Work Ledger source module manifest does not declare the expected module count.",
+                subject_id=WORK_LEDGER_SOURCE_MANIFEST_NAME,
+                subject_kind="work_ledger_source_import",
+            )
+        )
+    if sorted(manifest_by_id) != sorted(expected_ids):
+        findings.append(
+            _bundle_finding(
+                "WORK_LEDGER_SOURCE_MANIFEST_MODULES_MISMATCH",
+                "Work Ledger source module manifest does not declare exactly the required module ids.",
+                subject_id=WORK_LEDGER_SOURCE_MANIFEST_NAME,
+                subject_kind="work_ledger_source_import",
+            )
+        )
+    if sorted(contract_ids) != sorted(expected_ids):
+        findings.append(
+            _bundle_finding(
+                "WORK_LEDGER_SOURCE_CONTRACT_MODULES_MISMATCH",
+                "Work Ledger source runtime contract does not require exactly the expected module ids.",
+                subject_id=WORK_LEDGER_CONTRACT_NAME,
+                subject_kind="work_ledger_source_import",
+            )
+        )
+
+    for module in WORK_LEDGER_SOURCE_MODULES:
+        module_id = str(module["module_id"])
+        row = manifest_by_id.get(module_id, {})
+        module_path = input_dir / str(module["bundle_path"])
+        missing_anchors: list[str] = []
+        actual_sha = ""
+        actual_line_count = 0
+        actual_byte_count = 0
+
+        if not module_path.exists():
+            findings.append(
+                _bundle_finding(
+                    "WORK_LEDGER_SOURCE_MODULE_MISSING",
+                    "Copied Work Ledger source module is missing from the exported bundle.",
+                    subject_id=module_id,
+                    subject_kind="work_ledger_source_import",
+                )
+            )
+        else:
+            text = module_path.read_text(encoding="utf-8")
+            actual_sha = _file_sha256(module_path)
+            actual_line_count = _line_count(module_path)
+            actual_byte_count = len(module_path.read_bytes())
+            missing_anchors = [
+                str(anchor)
+                for anchor in module.get("required_anchors", [])
+                if str(anchor) not in text
+            ]
+            if missing_anchors:
+                findings.append(
+                    _bundle_finding(
+                        "WORK_LEDGER_SOURCE_ANCHOR_MISSING",
+                        "Copied Work Ledger source module is missing expected control-plane anchors.",
+                        subject_id=module_id,
+                        subject_kind="work_ledger_source_import",
+                    )
+                )
+
+        if row:
+            expected_pairs = {
+                "source_ref": module["source_ref"],
+                "target_ref": module["target_ref"],
+                "classification": "copied_non_secret_macro_body",
+                "body_copied": True,
+                "body_in_receipt": False,
+            }
+            for field, expected in expected_pairs.items():
+                if row.get(field) != expected:
+                    findings.append(
+                        _bundle_finding(
+                            "WORK_LEDGER_SOURCE_MANIFEST_FIELD_MISMATCH",
+                            "Work Ledger source module manifest field does not match the import contract.",
+                            subject_id=f"{module_id}:{field}",
+                            subject_kind="work_ledger_source_import",
+                        )
+                    )
+            if row.get("sha256_match") is not True or (
+                actual_sha and row.get("target_sha256") != actual_sha
+            ):
+                findings.append(
+                    _bundle_finding(
+                        "WORK_LEDGER_SOURCE_SHA_MISMATCH",
+                        "Work Ledger source module digest does not match the copied bundle body.",
+                        subject_id=module_id,
+                        subject_kind="work_ledger_source_import",
+                    )
+                )
+            if actual_line_count and row.get("line_count") != actual_line_count:
+                findings.append(
+                    _bundle_finding(
+                        "WORK_LEDGER_SOURCE_LINE_COUNT_MISMATCH",
+                        "Work Ledger source module line count does not match the copied bundle body.",
+                        subject_id=module_id,
+                        subject_kind="work_ledger_source_import",
+                    )
+                )
+
+        source_module_results.append(
+            {
+                "module_id": module_id,
+                "source_ref": module["source_ref"],
+                "target_ref": module["target_ref"],
+                "public_runtime_ref": public_relative_path(
+                    module_path,
+                    display_root=public_root,
+                ),
+                "sha256": actual_sha,
+                "line_count": actual_line_count,
+                "byte_count": actual_byte_count,
+                "anchor_count": len(module.get("required_anchors", [])),
+                "missing_anchors": missing_anchors,
+                "body_copied": module_path.exists(),
+                "body_in_receipt": False,
+            }
+        )
+
+    public_refs = [
+        public_relative_path(path, display_root=public_root)
+        for path in _work_ledger_source_paths(input_dir)
     ]
     return {
         "status": PASS if not findings else "blocked",
@@ -1833,6 +2118,29 @@ def _write_mission_bundle_receipt(
             "task_ledger_source_validation_refs": validation_result[
                 "task_ledger_source_validation_refs"
             ],
+            "work_ledger_control_source_import_status": validation_result[
+                "work_ledger_control_source_import_status"
+            ],
+            "work_ledger_control_source_import": validation_result[
+                "work_ledger_control_source_import"
+            ],
+            "copied_work_ledger_source_count": validation_result[
+                "copied_work_ledger_source_count"
+            ],
+            "copied_work_ledger_source_line_count": validation_result[
+                "copied_work_ledger_source_line_count"
+            ],
+            "copied_work_ledger_source_module_ids": validation_result[
+                "copied_work_ledger_source_module_ids"
+            ],
+            "work_ledger_source_manifest": validation_result["work_ledger_source_manifest"],
+            "work_ledger_source_contract": validation_result["work_ledger_source_contract"],
+            "work_ledger_source_public_runtime_refs": validation_result[
+                "work_ledger_source_public_runtime_refs"
+            ],
+            "work_ledger_source_validation_refs": validation_result[
+                "work_ledger_source_validation_refs"
+            ],
             "fixture_regression_required_elsewhere": True,
         }
     )
@@ -1854,6 +2162,7 @@ def run_mission_transaction_bundle(
 
     manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
     task_ledger_source_import = validate_task_ledger_source_import(input_path, public_root)
+    work_ledger_source_import = validate_work_ledger_source_import(input_path, public_root)
     workitem_result = validate_exported_workitems(payloads["workitems"])
     claim_result = validate_exported_claims(payloads["claim_table"])
     dependency_result = validate_exported_dependencies(
@@ -1883,6 +2192,7 @@ def run_mission_transaction_bundle(
             *scoped_policy_result["findings"],
             *checkpoint_lane_result["findings"],
             *task_ledger_source_import["findings"],
+            *work_ledger_source_import["findings"],
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -1903,7 +2213,11 @@ def run_mission_transaction_bundle(
     first_claim = claim_result["accepted_claim_ids"][0] if claim_result["accepted_claim_ids"] else None
     input_refs = [
         public_relative_path(path, display_root=public_root)
-        for path in [*_mission_bundle_paths(input_path), *_task_ledger_source_paths(input_path)]
+        for path in [
+            *_mission_bundle_paths(input_path),
+            *_task_ledger_source_paths(input_path),
+            *_work_ledger_source_paths(input_path),
+        ]
     ]
     body_import_fields = _body_import_fields(input_refs)
     public_work_landing_status = build_public_work_landing_status(
@@ -1938,6 +2252,7 @@ def run_mission_transaction_bundle(
         and workitem_result["workitem_ids"]
         and claim_result["accepted_claim_ids"]
         and task_ledger_source_import["status"] == PASS
+        and work_ledger_source_import["status"] == PASS
         and transaction_result["ordered_controller_action_ids"] == ORDERED_CONTROLLER_ACTION_IDS
         and public_mission_preflight["status"] == PASS
         else "blocked"
@@ -1954,6 +2269,8 @@ def run_mission_transaction_bundle(
             "checkpoint_lane_policy": payloads["checkpoint_lane_policy"],
             "task_ledger_source_manifest": task_ledger_source_import["manifest_summary"],
             "task_ledger_source_modules": task_ledger_source_import["source_modules"],
+            "work_ledger_source_manifest": work_ledger_source_import["manifest_summary"],
+            "work_ledger_source_modules": work_ledger_source_import["source_modules"],
         }
     )
 
@@ -1972,10 +2289,10 @@ def run_mission_transaction_bundle(
             "anti_claim": (
                 "The exported mission transaction bundle validates public work, claim, "
                 "dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does "
-                "also imports exact non-secret Task Ledger control-plane source bodies into "
-                "the public bundle. It does not mutate live Task Ledger or Work Ledger state, "
-                "authorize broad staging without operator intent, authorize release, or "
-                "complete later organs."
+                "also imports exact non-secret Task Ledger and Work Ledger control-plane "
+                "source bodies into the public bundle. It does not mutate live Task Ledger "
+                "or Work Ledger state, authorize broad staging without operator intent, "
+                "authorize release, or complete later organs."
             ),
             "authority_ceiling": {
                 "status": PASS,
@@ -2014,6 +2331,21 @@ def run_mission_transaction_bundle(
                 "public_runtime_refs"
             ],
             "task_ledger_source_validation_refs": TASK_LEDGER_SOURCE_VALIDATION_REFS,
+            "work_ledger_control_source_import_status": WORK_LEDGER_SOURCE_IMPORT_STATUS,
+            "work_ledger_control_source_import": work_ledger_source_import,
+            "copied_work_ledger_source_count": work_ledger_source_import["module_count"],
+            "copied_work_ledger_source_line_count": work_ledger_source_import[
+                "total_line_count"
+            ],
+            "copied_work_ledger_source_module_ids": work_ledger_source_import[
+                "module_ids"
+            ],
+            "work_ledger_source_manifest": work_ledger_source_import["manifest_summary"],
+            "work_ledger_source_contract": work_ledger_source_import["contract_summary"],
+            "work_ledger_source_public_runtime_refs": work_ledger_source_import[
+                "public_runtime_refs"
+            ],
+            "work_ledger_source_validation_refs": WORK_LEDGER_SOURCE_VALIDATION_REFS,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "workitem_ids": workitem_result["workitem_ids"],
             "blocked_workitem_ids": workitem_result["blocked_workitem_ids"],
