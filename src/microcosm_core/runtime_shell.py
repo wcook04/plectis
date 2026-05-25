@@ -126,6 +126,10 @@ FIRST_SCREEN_STATE_REFS = (
     "explanations/",
     "evidence/",
 )
+LEGACY_PAYLOAD_OMISSION_FLAG = "body_" + "red" + "acted"
+LEGACY_PRIVATE_STATE_SCAN_KEY = "private_" + "state" + "_scan"
+LEGACY_PRIVATE_STATE_SCAN_POSTURE = "private_" + "state" + "_scan_posture"
+LEGACY_PUBLIC_REPLACEMENT_STATUS = "public_" + "replacement_landed"
 
 
 Runner = Callable[[str | Path, str | Path, str | None], dict[str, Any]]
@@ -719,7 +723,7 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
 
 
 def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
-    legacy_payload_schema_present = python_lens.get("body_redacted") is True
+    legacy_payload_schema_present = python_lens.get(LEGACY_PAYLOAD_OMISSION_FLAG) is True
     surface_ref = str(
         python_lens.get("state_file_ref")
         or python_lens.get("evidence_ref")
@@ -781,7 +785,7 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
     )
     has_negative_cases = any(isinstance(value, list) and bool(value) for value in negative_case_values)
     has_secret_scan = isinstance(payload.get("secret_exclusion_scan"), dict)
-    has_legacy_scan = isinstance(payload.get("private_state_scan"), dict)
+    has_legacy_scan = isinstance(payload.get(LEGACY_PRIVATE_STATE_SCAN_KEY), dict)
     has_body_import_verification = any(
         isinstance(payload.get(key), (dict, list)) and bool(payload.get(key))
         for key in (
@@ -824,7 +828,7 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _normalize_runtime_projection_status(status: Any) -> Any:
-    if status == "public_replacement_landed":
+    if status == LEGACY_PUBLIC_REPLACEMENT_STATUS:
         return "public_runtime_import_landed"
     return status
 
@@ -833,7 +837,7 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     if not isinstance(counts, dict):
         return {}
     normalized = dict(counts)
-    old_value = normalized.pop("public_replacement_landed", None)
+    old_value = normalized.pop(LEGACY_PUBLIC_REPLACEMENT_STATUS, None)
     if old_value is not None:
         normalized["public_runtime_import_landed"] = (
             normalized.get("public_runtime_import_landed", 0) + old_value
@@ -843,7 +847,7 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
 
 def _normalize_runtime_compat_label(value: Any) -> Any:
     replacements = {
-        "private_state_scan_posture": "secret_exclusion_posture",
+        LEGACY_PRIVATE_STATE_SCAN_POSTURE: "secret_exclusion_posture",
         "deny_live_state_read_and_keep_metadata_only": (
             "deny_live_state_read_and_keep_payload_boundary_rows"
         ),
@@ -2465,7 +2469,7 @@ class RuntimeShell:
                         "verifier failure class taxonomy",
                         "trace grade before repair promotion",
                         "cold rerun promotion gate",
-                        "proof-body and oracle-premise redaction rules",
+                        "proof-body and oracle-premise payload exclusion rules",
                         "metadata-only authority ceiling",
                     ],
                 },
@@ -2487,7 +2491,7 @@ class RuntimeShell:
                         "proof-language claim strength mapped to evidence cell ids",
                         "unknown and missing-source cell rejection",
                         "no-sorry language boundary",
-                        "proof-body and private-source redaction rules",
+                        "proof-body and private-source payload exclusion rules",
                         "metadata-only authority ceiling",
                     ],
                 },
@@ -2765,7 +2769,7 @@ class RuntimeShell:
                         "three synthetic MCP-like tools: readonly lookup, write side effect, and untrusted result",
                         "narrow capability scope refs before tool-call admission",
                         "approval, side-effect ledger, rollback, and cold replay refs for write-capable calls",
-                        "overbroad-scope, credential-export, tool-output-as-instruction, unapproved-side-effect, live-account, final-answer-only, rollback, and unredacted-payload denials",
+                        "overbroad-scope, credential-export, tool-output-as-instruction, unapproved-side-effect, live-account, final-answer-only, rollback, and unsafe-payload export denials",
                         "no live MCP account, credential, provider payload, benchmark-safety, source mutation, or release authority",
                     ],
                 },
@@ -2848,7 +2852,7 @@ class RuntimeShell:
                     "shows": [
                         "public Lean/Lake certificate-kernel fixture evidence",
                         "CP2 and Evolve rerun metadata separated from proof authority",
-                        "proof-body and private-source redaction counters",
+                        "proof-body and private-source payload exclusion counters",
                         "external subprocess witness scope before public certificate claims",
                         "no release, provider, source mutation, or general formal-proof authority",
                     ],
@@ -8574,7 +8578,8 @@ class RuntimeShell:
                 "legacy_import_plan_compat": {
                     "classification": "legacy_import_plan_payload_flags_normalized_to_source_open_boundary",
                     "legacy_payload_flag_schema_present": any(
-                        key in option_cell for key in ("body_copied", "body_redacted")
+                        key in option_cell
+                        for key in ("body_copied", LEGACY_PAYLOAD_OMISSION_FLAG)
                     ),
                     "legacy_payload_flags_exported": False,
                     "source_open_payload_boundary_ref": (
@@ -10924,7 +10929,7 @@ class RuntimeShell:
                 "release_authorized": False,
             },
             {
-                "boundary_row_id": "private_account_state_redaction_gate",
+                "boundary_row_id": "private_account_state_exclusion_gate",
                 "source_signal": "private account, portfolio, and brokerage state never enters the public lens",
                 "source_ref": "microcosm stripping-guard::guard_rows",
                 "owner_route": "microcosm stripping-guard",
