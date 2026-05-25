@@ -3558,6 +3558,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Front-door gate" in html
     assert "Blocking surfaces" in html
     assert "Warning drilldowns" in html
+    assert "Route Proof" in html
+    assert "microcosm tour &lt;project&gt;::selected_route_id" in html
     assert "front_door_status" in html
     assert LOCAL_FIRST_SCREEN_ROUTE_REF in html
     assert "Source-Open Body Import Floor" in html
@@ -3749,6 +3751,31 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert favicon_status == 204
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
+    route_proof = observatory["first_screen_route_proof"]
+    assert route_proof["schema_version"] == (
+        "microcosm_observatory_first_screen_route_proof_v1"
+    )
+    assert route_proof["status"] == "pass"
+    assert route_proof["selected_route_id"] == "readme_onboarding_route"
+    assert route_proof["tour_selected_route_id"] == "readme_onboarding_route"
+    assert route_proof["first_screen_selected_route_id"] == "readme_onboarding_route"
+    assert route_proof["compile_selected_route_id"] == "readme_onboarding_route"
+    assert route_proof["route_proof_ids_match"] is True
+    assert route_proof["route_id_source"] == (
+        "microcosm tour <project>::selected_route_id or "
+        "microcosm tour <project>::first_screen.selected_route_id or "
+        "microcosm compile <project>::selected_route_id"
+    )
+    assert route_proof["route_explanation_endpoint"] == (
+        "/project/explain/readme_onboarding_route"
+    )
+    assert route_proof["route_explanation_command"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert route_proof["blocking_surface_ids"] == []
+    assert route_proof["source_files_mutated"] is False
+    assert route_proof["safe_to_show"]["provider_calls_authorized"] is False
+    assert route_proof["safe_to_show"]["release_authorized"] is False
     assert observatory["local_first_screen_route"]["route_ref"] == (
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )

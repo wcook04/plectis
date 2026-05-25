@@ -14450,6 +14450,27 @@ class RuntimeShell:
         explanation = _read_json_if_exists(explanation_path)
         if route_id and not explanation:
             explanation = project_substrate.explain_route(project_path, route_id)
+        tour_first_screen = (
+            tour.get("first_screen", {})
+            if isinstance(tour.get("first_screen"), dict)
+            else {}
+        )
+        tour_compile_summary = (
+            tour.get("compile_summary", {})
+            if isinstance(tour.get("compile_summary"), dict)
+            else {}
+        )
+        route_proof_ids = [
+            value
+            for value in [
+                route_id,
+                tour.get("selected_route_id"),
+                tour_first_screen.get("selected_route_id"),
+                tour_compile_summary.get("selected_route_id"),
+            ]
+            if isinstance(value, str) and value
+        ]
+        route_proof_ids_match = len(set(route_proof_ids)) <= 1
         work_items = project_substrate._load_work_items(project_path)
         selected_work = next(
             (row for row in work_items if row.get("route_id") == route_id),
@@ -14489,6 +14510,68 @@ class RuntimeShell:
                     "source_mutation_authorized": False,
                 },
                 "selected_route_id": route_id,
+                "first_screen_route_proof": {
+                    "schema_version": "microcosm_observatory_first_screen_route_proof_v1",
+                    "status": PASS
+                    if route_id
+                    and route_proof_ids_match
+                    and front_door_status.get("blocking_surface_ids") == []
+                    else "blocked",
+                    "command": "microcosm tour <project>",
+                    "selected_route_id": route_id or None,
+                    "tour_selected_route_id": tour.get("selected_route_id"),
+                    "first_screen_selected_route_id": tour_first_screen.get(
+                        "selected_route_id"
+                    ),
+                    "compile_selected_route_id": tour_compile_summary.get(
+                        "selected_route_id"
+                    ),
+                    "route_id_source": (
+                        "microcosm tour <project>::selected_route_id or "
+                        "microcosm tour <project>::first_screen.selected_route_id "
+                        "or microcosm compile <project>::selected_route_id"
+                    ),
+                    "route_proof_ids_match": route_proof_ids_match,
+                    "route_explanation_endpoint": f"/project/explain/{route_id}"
+                    if route_id
+                    else None,
+                    "route_explanation_command": (
+                        f"microcosm explain <project> {route_id}"
+                        if route_id
+                        else "microcosm explain <project> <selected_route_id>"
+                    ),
+                    "status_card_ref": "microcosm status --card <project>",
+                    "front_door_status_ref": (
+                        "microcosm tour <project>::front_door_status"
+                    ),
+                    "blocking_surface_ids": front_door_status.get(
+                        "blocking_surface_ids", []
+                    ),
+                    "warning_drilldown_surface_ids": front_door_status.get(
+                        "drilldown_warning_surface_ids", []
+                    ),
+                    "generated_state_refs": (
+                        tour_first_screen.get("generated_state", {}).get("refs", [])
+                        if isinstance(tour_first_screen.get("generated_state"), dict)
+                        else []
+                    ),
+                    "source_files_mutated": (
+                        selected_work.get("source_files_mutated") is True
+                        if isinstance(selected_work, dict)
+                        else False
+                    ),
+                    "safe_to_show": {
+                        "project_local_state_refs_visible": True,
+                        "source_files_mutated": False,
+                        "provider_calls_authorized": False,
+                        "release_authorized": False,
+                        "proof_correctness_claim": False,
+                    },
+                    "reader_action": (
+                        "Use this selected_route_id for explain and observatory "
+                        "drilldowns before opening raw receipts."
+                    ),
+                },
                 "catalog_summary": {
                     "file_count": catalog.get("file_count", 0),
                     "role_counts": catalog.get("role_counts", {}),
@@ -14659,6 +14742,11 @@ class RuntimeShell:
             if isinstance(model.get("local_first_screen_route"), dict)
             else tour.get("local_first_screen_route", {})
             if isinstance(tour.get("local_first_screen_route"), dict)
+            else {}
+        )
+        first_screen_route_proof = (
+            model.get("first_screen_route_proof", {})
+            if isinstance(model.get("first_screen_route_proof"), dict)
             else {}
         )
         source_open_body_import_floor = (
@@ -15488,6 +15576,7 @@ class RuntimeShell:
           <div class="node"><strong>Patterns</strong><span>{_badge_list([str(row.get("pattern_id")) for row in pattern_bindings if isinstance(row, dict) and row.get("pattern_id")])}</span></div>
           <div class="node"><strong>Standards</strong><span>{_badge_list([str(row.get("standard_id")) for row in standard_bindings if isinstance(row, dict) and row.get("standard_id")][:4])}</span></div>
           <div class="node"><strong>Route</strong><span>{html.escape(route_id)}</span></div>
+          <div class="node"><strong>Route Proof</strong><span>{html.escape(_safe_text(first_screen_route_proof.get("status")))} · <code>/project/explain/{html.escape(route_id)}</code></span></div>
           <div class="node"><strong>Work</strong><span>{html.escape(_safe_text(work.get("work_id") or "not yet created"))}</span></div>
           <div class="node"><strong>Events</strong><span>{len(events)} shown</span></div>
           <div class="node"><strong>Evidence</strong><span>{len(evidence)} refs</span></div>
@@ -15513,6 +15602,12 @@ class RuntimeShell:
         </div>
         <table>
           {row("Route", route_id)}
+          {row("Route id source", first_screen_route_proof.get("route_id_source"))}
+          {row("Tour selected route", first_screen_route_proof.get("tour_selected_route_id"))}
+          {row("First-screen selected route", first_screen_route_proof.get("first_screen_selected_route_id"))}
+          {row("Compile selected route", first_screen_route_proof.get("compile_selected_route_id"))}
+          {row("Route proof ids match", first_screen_route_proof.get("route_proof_ids_match"))}
+          {row("Route proof endpoint", first_screen_route_proof.get("route_explanation_endpoint"))}
           {row("Python lens", project_python_lens.get("lens_id") or "project_python_route_lens")}
           {row("Python ready routes", project_python_lens.get("ready_route_count"))}
           {row("Authority", route.get("authority") or causal.get("authority_boundary"))}
@@ -15582,7 +15677,8 @@ class RuntimeShell:
           {row("Status", tour.get("status"))}
           {row("Project ref", tour.get("project_ref"))}
           {row("Compile headline", (tour.get("compile_summary") or {}).get("headline") if isinstance(tour.get("compile_summary"), dict) else "")}
-          {row("Selected route", (tour.get("compile_summary") or {}).get("selected_route_id") if isinstance(tour.get("compile_summary"), dict) else "")}
+          {row("Selected route", first_screen_route_proof.get("selected_route_id") or ((tour.get("compile_summary") or {}).get("selected_route_id") if isinstance(tour.get("compile_summary"), dict) else ""))}
+          {row("Route id source", first_screen_route_proof.get("route_id_source"))}
           {row("Local first-screen route", local_first_screen_route.get("route_ref"))}
           {row("Tour ref", tour.get("tour_ref"))}
           {row("Front-door gate", front_door_status.get("top_level_status_rule"))}

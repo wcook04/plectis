@@ -105,7 +105,7 @@
       "proof_lab_route"
     ],
     "cold_clone_validation_suite": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
-    "selected_route_id_source": "microcosm tour <project>::first_screen.selected_route_id or microcosm compile <project>::selected_route_id",
+    "selected_route_id_source": "microcosm tour <project>::selected_route_id or microcosm tour <project>::first_screen.selected_route_id or microcosm compile <project>::selected_route_id",
     "route_selection_rule": "Use the selected_route_id emitted by tour/compile. readme_onboarding_route is a generated route only when the project has a README.",
     "authority": "project-local behavioral route only, not release, provider, source mutation, production, or proof-correctness authority",
     "safe_to_show": {

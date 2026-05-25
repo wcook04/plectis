@@ -508,7 +508,11 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "microcosm explain <project> <selected_route_id>"
         in route["command_path"]
     )
-    assert route["selected_route_id_source"].startswith("microcosm tour")
+    assert route["selected_route_id_source"] == (
+        "microcosm tour <project>::selected_route_id or "
+        "microcosm tour <project>::first_screen.selected_route_id or "
+        "microcosm compile <project>::selected_route_id"
+    )
     assert "readme_onboarding_route is a generated route only" in route[
         "route_selection_rule"
     ]
