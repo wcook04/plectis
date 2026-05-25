@@ -1,0 +1,73 @@
+{
+  "schema_version": "macro_projection_kind_atlas_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "kind_atlas_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_kind_atlas_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing Kind Atlas regression contract; copied source modules are body evidence, not authority to run live macro kernel state, mutate generated Atlas sidecars, read raw operator voice, access provider payloads, or claim private session state.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "kind_atlas_body_import",
+      "source_ref": "system/lib/kind_atlas.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+      "source_role": "Kind Atlas control-plane enumerator that exposes supported artifact kinds, option-surface commands, cluster-first navigation rungs, currentness, and first-contact guardrails without keyword-search authority.",
+      "required_anchors": [
+        "PAPER_MODULE_INDEX = Path(\"codex/doctrine/paper_modules/_index.json\")",
+        "SUPPORTED_BANDS = {\"flag\", \"card\"}",
+        "def build_kind_atlas(",
+        "\"schema_version\": \"kind_atlas_v0\"",
+        "\"not_keyword_search\": True"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "70a8aa80e45b8141e1cc01ca39aeb93aa1136911a8abf918a3fc12c4fbb7585e",
+      "target_sha256": "70a8aa80e45b8141e1cc01ca39aeb93aa1136911a8abf918a3fc12c4fbb7585e",
+      "sha256_match": true,
+      "line_count": 2323,
+      "byte_count": 119888,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "kind_atlas_test_body_import",
+      "source_ref": "system/server/tests/test_kind_atlas.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
+      "source_role": "Focused regression tests for Kind Atlas row enumeration, option-surface parity, card-band rung support, kernel command JSON output, legacy query guidance, and kinds alias routing.",
+      "required_anchors": [
+        "test_kind_atlas_flag_enumerates_required_kinds_without_query",
+        "test_kind_atlas_marks_supported_rows_and_projection_gaps",
+        "test_kind_atlas_card_exposes_rung_support_and_omissions",
+        "test_kind_atlas_kernel_command_emits_json",
+        "test_option_surface_kinds_alias_uses_kind_atlas"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "f8474777d468b84772bc3871aa3ad130c39c210aab9997bc7eee04b68f040c33",
+      "target_sha256": "f8474777d468b84772bc3871aa3ad130c39c210aab9997bc7eee04b68f040c33",
+      "sha256_match": true,
+      "line_count": 584,
+      "byte_count": 29193,
+      "anchor_count": 5
+    }
+  ]
+}

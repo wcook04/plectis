@@ -120,7 +120,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
     "system/lib/dynamic_paper_lattice.py",
     "system/server/tests/test_dynamic_paper_lattice.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/dynamic_paper_lattice_source_module_manifest.json",
+    "system/lib/kind_atlas.py",
+    "system/server/tests/test_kind_atlas.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -4425,6 +4428,102 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "kind_atlas_body_import",
+      "source_ref": "system/lib/kind_atlas.py",
+      "source_refs": [
+        "system/lib/kind_atlas.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_kind_atlas_source_bodies_into_public_projection_bundle",
+        "bind_kind_atlas_source_bodies_to_macro_projection_body_floor",
+        "preserve_kind_atlas_sources_without_claiming_live_macro_kernel_generated_atlas_provider_payload_or_private_session_state_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Kind Atlas source-body import only; not live macro kernel execution, generated Atlas or option-surface mutation authority, raw operator voice export, provider calls, credential export, account/session state, browser/HUD live access, private route state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:70a8aa80e45b8141e1cc01ca39aeb93aa1136911a8abf918a3fc12c4fbb7585e",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/kind_atlas.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+        "source_body_digest": "sha256:70a8aa80e45b8141e1cc01ca39aeb93aa1136911a8abf918a3fc12c4fbb7585e",
+        "target_body_digest": "sha256:70a8aa80e45b8141e1cc01ca39aeb93aa1136911a8abf918a3fc12c4fbb7585e",
+        "source_line_count": 2323,
+        "target_line_count": 2323,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "kind_atlas_test_body_import",
+      "source_ref": "system/server/tests/test_kind_atlas.py",
+      "source_refs": [
+        "system/server/tests/test_kind_atlas.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_kind_atlas_source_bodies_into_public_projection_bundle",
+        "bind_kind_atlas_source_bodies_to_macro_projection_body_floor",
+        "preserve_kind_atlas_sources_without_claiming_live_macro_kernel_generated_atlas_provider_payload_or_private_session_state_authority_in_microcosm"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public Kind Atlas source-body import only; not live macro kernel execution, generated Atlas or option-surface mutation authority, raw operator voice export, provider calls, credential export, account/session state, browser/HUD live access, private route state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:f8474777d468b84772bc3871aa3ad130c39c210aab9997bc7eee04b68f040c33",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_kind_atlas.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
+        "source_body_digest": "sha256:f8474777d468b84772bc3871aa3ad130c39c210aab9997bc7eee04b68f040c33",
+        "target_body_digest": "sha256:f8474777d468b84772bc3871aa3ad130c39c210aab9997bc7eee04b68f040c33",
+        "source_line_count": 584,
+        "target_line_count": 584,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -4620,7 +4719,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_dynamic_paper_lattice_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {

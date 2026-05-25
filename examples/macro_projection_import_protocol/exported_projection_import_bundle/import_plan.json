@@ -1122,6 +1122,42 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "kind_atlas_source_modules_import",
+      "selected_pattern_ids": [
+        "kind_atlas",
+        "artifact_kind_option_surface_enumeration",
+        "cluster_first_navigation_control_plane"
+      ],
+      "source_refs": [
+        "system/lib/kind_atlas.py",
+        "system/server/tests/test_kind_atlas.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_atlas.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_kind_atlas.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_sources_compile_and_carry_option_surface_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "kind_atlas_body_import",
+        "kind_atlas_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_kind_atlas_bodies_not_live_macro_kernel_execution_generated_atlas_mutation_provider_browser_account_private_state_raw_operator_voice_or_option_surface_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kind_atlas_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

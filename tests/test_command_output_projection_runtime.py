@@ -77,6 +77,7 @@ NAVIGATION_FITNESS_MANIFEST = (
 DYNAMIC_PAPER_LATTICE_MANIFEST = (
     BUNDLE_INPUT / "dynamic_paper_lattice_source_module_manifest.json"
 )
+KIND_ATLAS_MANIFEST = BUNDLE_INPUT / "kind_atlas_source_module_manifest.json"
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -794,6 +795,35 @@ def test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract() -> N
         "test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error"
         in test_text
     )
+
+
+def test_kind_atlas_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        KIND_ATLAS_MANIFEST,
+        manifest_id="kind_atlas_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_kind_atlas_sources_compile_and_carry_option_surface_contract() -> None:
+    atlas_source = BUNDLE_INPUT / "source_modules/system/lib/kind_atlas.py"
+    test_source = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_kind_atlas.py"
+    )
+
+    atlas_text = atlas_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(atlas_text, str(atlas_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "PAPER_MODULE_INDEX = Path(" in atlas_text
+    assert 'SUPPORTED_BANDS = {"flag", "card"}' in atlas_text
+    assert "def build_kind_atlas(" in atlas_text
+    assert '"schema_version": "kind_atlas_v0"' in atlas_text
+    assert '"not_keyword_search": True' in atlas_text
+    assert "test_kind_atlas_marks_supported_rows_and_projection_gaps" in test_text
+    assert "test_kind_atlas_kernel_command_emits_json" in test_text
+    assert "test_option_surface_kinds_alias_uses_kind_atlas" in test_text
 
 
 def _load_trace_capsule_source_module():
