@@ -308,7 +308,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["route_explanation"][
         "source_files_mutated"
     ] is False
-    assert status_card["workingness"]["status"] == "actionable"
+    assert status_card["workingness"]["status"] == "clear"
     assert status_card["proof_lab"]["status"] == "pass"
     assert status_card["macro_body_import_floor"]["source_body_imports"][
         "verified_source_module_family_count"
@@ -672,9 +672,9 @@ def test_cli_workingness_smoke(
     assert payload["status"] == "pass"
     assert payload["command"] == "microcosm workingness"
     assert payload["endpoint"] == "/workingness"
-    assert payload["completeness_status"] == "partial_failure_modes"
+    assert payload["completeness_status"] == "complete_failure_modes"
     assert payload["surface_counts"]["mapped_organ_count"] == 46
-    assert payload["surface_counts"]["missing_failure_modes_count"] >= 1
+    assert payload["surface_counts"]["missing_failure_modes_count"] == 0
     rows_by_id = {row["thing_id"]: row for row in payload["thing_failure_map"]}
     assert rows_by_id["verifier_lab_kernel"]["workingness_state"] == (
         "evidence_backed_runtime_spine"

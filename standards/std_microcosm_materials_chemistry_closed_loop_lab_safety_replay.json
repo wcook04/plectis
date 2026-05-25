@@ -117,6 +117,31 @@
       "role": "public_runtime_bundle_source"
     }
   ],
+  "standard_payload": {
+    "anti_purpose": "A wetlab protocol, hazardous synthesis guide, material discovery claim, benchmark score claim, robot command surface, live lab integration, provider execution route, release signal, or proof of materials-domain correctness.",
+    "compression_bands": [
+      "candidate_material_metadata",
+      "safety_screen_refs",
+      "simulator_only_assay_rows",
+      "active_learning_decision_refs",
+      "lab_action_denials",
+      "negative_case_coverage",
+      "source_faithful_replay_refs",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "simulator replay is treated as wetlab validation, material discovery, or safety certification",
+      "candidate material metadata is promoted into a synthesis recommendation, reagent recipe, or deployment instruction",
+      "wetlab protocol body, hazardous synthesis step, reagent quantity, robot command, live credential, private lab note, or live assay body appears in public output",
+      "controlled substance target, bioactivity target, benchmark score, release claim, or provider-call authority is admitted as public progress",
+      "simulator-only safety screen passes without explicit no-wetlab and no-discovery authority ceilings",
+      "negative case for unsafe lab action is accepted instead of rejected with a typed denial",
+      "source-faithful replay mutates source, launches an external lab/provider action, or hides omitted payload classes",
+      "receipt reports closed-loop progress without candidate refs, safety screen refs, simulator refs, active-learning refs, validation refs, negative-case coverage, and boundary counters"
+    ],
+    "ontology": "A public-safe materials chemistry lab-safety replay organ that carries body-free candidate-material metadata, safety-screen refs, simulator-only assay rows, active-learning decision refs, negative-case denials, source-faithful replay receipts, and authority ceilings without wetlab, robot, credential, provider, private notebook, live assay, discovery, benchmark, or release authority.",
+    "teleology": "Let a cold reader run and inspect a closed-loop materials-lab safety replay as real local Microcosm substrate while seeing exactly where simulator metadata ends and wetlab, discovery, robot, provider, correctness, and release authority do not begin."
+  },
   "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
   "status": "draft",
   "validation_rules": [

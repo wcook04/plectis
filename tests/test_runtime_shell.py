@@ -137,6 +137,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
     shutil.copytree(MICROCOSM_ROOT / "src", public_root / "src")
+    shutil.copytree(MICROCOSM_ROOT / "standards", public_root / "standards")
     shutil.copytree(MICROCOSM_ROOT / "receipts/first_wave", public_root / "receipts/first_wave")
     shutil.copytree(MICROCOSM_ROOT / "receipts/preflight", public_root / "receipts/preflight")
     return public_root
@@ -581,9 +582,9 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         assert len(family["source_refs"]) <= 2
         assert family["material_ids"]
         assert len(family["material_ids"]) <= 2
-    assert card["workingness"]["status"] == "actionable"
+    assert card["workingness"]["status"] == "clear"
     assert card["workingness"]["map_generation_status"] == "pass"
-    assert card["workingness"]["failure_envelope_status"] == "actionable"
+    assert card["workingness"]["failure_envelope_status"] == "clear"
     assert (
         card["workingness"]["top_level_status_rule"]
         == "status describes bounded failure-envelope debt; "
@@ -591,31 +592,17 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     )
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
-    assert card["workingness"]["completeness_status"] == "partial_failure_modes"
+    assert card["workingness"]["completeness_status"] == "complete_failure_modes"
     assert card["workingness"]["mapped_organ_count"] == 46
     assert card["workingness"]["adapter_backed_organ_count"] == 42
     assert card["workingness"]["demoted_drilldown_count"] == 4
     assert card["workingness"]["missing_standard_count"] == 0
-    assert card["workingness"]["missing_failure_modes_count"] >= 1
+    assert card["workingness"]["missing_failure_modes_count"] == 0
     gap_preview = card["workingness"]["gap_preview"]
-    assert gap_preview["status"] == "actionable"
+    assert gap_preview["status"] == "clear"
     assert gap_preview["limit"] == 3
     assert gap_preview["drilldown_command"] == "microcosm workingness"
-    assert len(gap_preview["rows"]) <= 3
-    first_gap = gap_preview["rows"][0]
-    assert set(first_gap) == {
-        "thing_id",
-        "runtime_mode",
-        "workingness_state",
-        "missing_requirement_ids",
-        "target_refs",
-    }
-    assert first_gap["thing_id"]
-    assert set(first_gap["missing_requirement_ids"]).issubset(
-        {"owning_standard_present", "known_failure_modes_present"}
-    )
-    assert first_gap["missing_requirement_ids"]
-    assert first_gap["target_refs"]
+    assert gap_preview["rows"] == []
     assert card["workingness"]["accepted_status_is_not_evidence_strength"] is True
     assert card["workingness"]["not_a_scorecard"] is True
     assert card["next_commands"][0] == card["front_door"]["primary_command"]
@@ -1091,13 +1078,13 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["schema_version"] == "microcosm_workingness_failure_map_v1"
     assert workingness["status"] == "pass"
     assert workingness["map_generation_status"] == "pass"
-    assert workingness["failure_envelope_status"] == "actionable"
+    assert workingness["failure_envelope_status"] == "clear"
     assert (
         workingness["top_level_status_rule"]
         == "status describes map generation; failure_envelope_status describes "
         "bounded missing-standard or missing-failure-mode debt"
     )
-    assert workingness["completeness_status"] == "partial_failure_modes"
+    assert workingness["completeness_status"] == "complete_failure_modes"
     assert workingness["command"] == "microcosm workingness"
     assert workingness["endpoint"] == "/workingness"
     assert workingness["map_policy"]["not_a_scorecard"] is True
@@ -1107,8 +1094,8 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["surface_counts"]["adapter_backed_organ_count"] == 42
     assert workingness["surface_counts"]["demoted_drilldown_count"] == 4
     assert workingness["surface_counts"]["missing_standard_count"] == 0
-    assert workingness["surface_counts"]["missing_failure_modes_count"] >= 1
-    assert workingness["surface_counts"]["rows_with_failure_modes"] >= 30
+    assert workingness["surface_counts"]["missing_failure_modes_count"] == 0
+    assert workingness["surface_counts"]["rows_with_failure_modes"] == 46
 
     rows_by_id = {
         row["thing_id"]: row for row in workingness["thing_failure_map"]
@@ -1161,6 +1148,27 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert all(
         target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
         for target in certificate["future_work_targets"]
+    )
+
+    materials = rows_by_id["materials_chemistry_closed_loop_lab_safety_replay"]
+    assert materials["workingness_state"] == "evidence_backed_runtime_spine"
+    assert materials["needs_to_work"]["standard_ref"] == (
+        "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json"
+    )
+    assert materials["needs_to_work"]["standard_status"] == "draft"
+    assert {
+        "owning_standard_present",
+        "known_failure_modes_present",
+        "public_private_boundary_declared",
+    }.isdisjoint(materials["needs_to_work"]["missing_requirement_ids"])
+    assert (
+        "simulator replay is treated as wetlab validation, material discovery, "
+        "or safety certification"
+    ) in materials["known_failure_modes"]
+    assert materials["failure_mode_count"] >= 8
+    assert all(
+        target["target_id"] not in {"add_standard_contract", "add_standard_failure_modes"}
+        for target in materials["future_work_targets"]
     )
 
     monitor = rows_by_id["agent_monitor_redteam_falsification_replay"]
@@ -1645,14 +1653,14 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["front_door_status"]["authority_ceiling"][
         "provider_calls_authorized"
     ] is False
-    assert route_cards_by_id["status_and_workingness"]["status"] == "actionable"
+    assert route_cards_by_id["status_and_workingness"]["status"] == "clear"
     assert (
         route_cards_by_id["status_and_workingness"]["map_generation_status"]
         == "pass"
     )
     assert (
         route_cards_by_id["status_and_workingness"]["failure_envelope_status"]
-        == "actionable"
+        == "clear"
     )
     assert (
         route_cards_by_id["status_and_workingness"]["top_level_status_rule"]
@@ -1668,7 +1676,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert route_cards_by_id["status_and_workingness"]["workingness_summary"][
         "missing_failure_modes_count"
-    ] >= 1
+    ] == 0
     assert (
         route_cards_by_id["status_and_workingness"]["workingness_summary"][
             "map_generation_status"
@@ -1679,14 +1687,14 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         route_cards_by_id["status_and_workingness"]["workingness_summary"][
             "failure_envelope_status"
         ]
-        == "actionable"
+        == "clear"
     )
     tour_gap_preview = route_cards_by_id["status_and_workingness"][
         "workingness_summary"
     ]["gap_preview"]
-    assert tour_gap_preview["status"] == "actionable"
+    assert tour_gap_preview["status"] == "clear"
     assert tour_gap_preview["drilldown_command"] == "microcosm workingness"
-    assert tour_gap_preview["rows"][0]["missing_requirement_ids"]
+    assert tour_gap_preview["rows"] == []
     assert route_cards_by_id["status_and_workingness"]["authority_ceiling"][
         "release_authorized"
     ] is False
@@ -1770,7 +1778,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["runtime_summary"]["standards_control_row_count"] == 8
     assert tour["runtime_summary"]["standards_control_negative_case_count"] == 8
     assert tour["runtime_summary"]["workingness_mapped_organ_count"] >= 1
-    assert tour["runtime_summary"]["workingness_missing_failure_modes_count"] >= 1
+    assert tour["runtime_summary"]["workingness_missing_failure_modes_count"] == 0
     assert "microcosm evidence inspect <receipt>" in tour["command_path"]
     assert tour["authority_ceiling"]["release_authorized"] is False
     assert tour["safe_to_show"]["body_in_receipt"] is False
