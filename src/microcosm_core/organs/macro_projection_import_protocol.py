@@ -1221,6 +1221,49 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "operator_handoff_linkage_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The operator-handoff linkage confidence-edge projector now "
+            "carries the exact copied non-secret projector, prompt-fingerprint "
+            "dependency, and synthetic-only validator source bodies inside the "
+            "projection bundle, validated by digest/anchor checks, syntax "
+            "compilation, and synthetic confidence-edge assertions without "
+            "scanning live ~/.claude or ~/.codex sessions, reading prompt-shelf "
+            "raw events, calling providers, exporting prompt/provider/"
+            "tool-output bodies, account/session state, hidden reasoning, "
+            "browser/HUD live access, recipient-send state, generated state, "
+            "or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "operator_handoff_linkage_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "observability/operator_handoff_linkage.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "observability/prompt_shelf_fingerprints.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_operator_handoff_linkage.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 

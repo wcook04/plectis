@@ -168,7 +168,11 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_classification_source_module_manifest.json",
     "system/lib/agent_mission_status.py",
     "system/server/tests/test_agent_mission_status.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_mission_status_source_module_manifest.json",
+    "tools/meta/observability/operator_handoff_linkage.py",
+    "tools/meta/observability/prompt_shelf_fingerprints.py",
+    "system/server/tests/test_operator_handoff_linkage.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -6273,6 +6277,153 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "operator_handoff_linkage_source_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "tools/meta/observability/operator_handoff_linkage.py",
+      "source_refs": [
+        "tools/meta/observability/operator_handoff_linkage.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
+      "body_digest": "sha256:06b108d4f13dd866534c1b9717fa874ae35eaec28e73f0e2a9395c1f4b0e4e9f",
+      "claim_ceiling": "public operator handoff linkage projector source-body import only; not live ~/.claude or ~/.codex session scanning, prompt-shelf raw-event export, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_operator_handoff_linkage_sources_into_public_projection_bundle",
+        "bind_operator_handoff_confidence_edge_projector_to_macro_projection_body_floor",
+        "preserve_handoff_linkage_projector_without_exporting_live_prompt_shelf_events_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "tools/meta/observability/operator_handoff_linkage.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/operator_handoff_linkage.py",
+        "source_body_digest": "sha256:06b108d4f13dd866534c1b9717fa874ae35eaec28e73f0e2a9395c1f4b0e4e9f",
+        "target_body_digest": "sha256:06b108d4f13dd866534c1b9717fa874ae35eaec28e73f0e2a9395c1f4b0e4e9f",
+        "source_line_count": 1648,
+        "target_line_count": 1648,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "operator_handoff_prompt_fingerprints_dependency_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
+      "source_refs": [
+        "tools/meta/observability/prompt_shelf_fingerprints.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+      "body_digest": "sha256:70e163e19e73c5e69dbe48d790f3f85dd6826d30696acd082d9ddcd89dbdeef2",
+      "claim_ceiling": "public operator handoff linkage projector source-body import only; not live ~/.claude or ~/.codex session scanning, prompt-shelf raw-event export, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_operator_handoff_linkage_sources_into_public_projection_bundle",
+        "bind_operator_handoff_confidence_edge_projector_to_macro_projection_body_floor",
+        "preserve_handoff_linkage_projector_without_exporting_live_prompt_shelf_events_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "tools/meta/observability/prompt_shelf_fingerprints.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/prompt_shelf_fingerprints.py",
+        "source_body_digest": "sha256:70e163e19e73c5e69dbe48d790f3f85dd6826d30696acd082d9ddcd89dbdeef2",
+        "target_body_digest": "sha256:70e163e19e73c5e69dbe48d790f3f85dd6826d30696acd082d9ddcd89dbdeef2",
+        "source_line_count": 327,
+        "target_line_count": 327,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "operator_handoff_linkage_test_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "source_ref": "system/server/tests/test_operator_handoff_linkage.py",
+      "source_refs": [
+        "system/server/tests/test_operator_handoff_linkage.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+      "body_digest": "sha256:6713a43c723cc72c50a43f427674cf5c2d8062ba9641c4f8efefdca50e6081c2",
+      "claim_ceiling": "public operator handoff linkage projector source-body import only; not live ~/.claude or ~/.codex session scanning, prompt-shelf raw-event export, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, prompt bodies, hidden reasoning, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "applied_edits": [
+        "exact_copy_macro_operator_handoff_linkage_sources_into_public_projection_bundle",
+        "bind_operator_handoff_confidence_edge_projector_to_macro_projection_body_floor",
+        "preserve_handoff_linkage_projector_without_exporting_live_prompt_shelf_events_provider_payloads_prompt_bodies_hidden_reasoning_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/operator_handoff_linkage_source_module_manifest.json",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_import_verification": {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "system/server/tests/test_operator_handoff_linkage.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_operator_handoff_linkage.py",
+        "source_body_digest": "sha256:6713a43c723cc72c50a43f427674cf5c2d8062ba9641c4f8efefdca50e6081c2",
+        "target_body_digest": "sha256:6713a43c723cc72c50a43f427674cf5c2d8062ba9641c4f8efefdca50e6081c2",
+        "source_line_count": 997,
+        "target_line_count": 997,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -6536,7 +6687,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_classification_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_mission_status_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_operator_handoff_linkage_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
@@ -6553,6 +6707,11 @@
       "step_id": "land_public_runtime_import",
       "action": "Land fixture, standard, paper module, runtime, tests, receipts, and reusable body imports before marking accepted.",
       "validation_ref": "receipts/preflight/fixture_runner_freshness.json"
+    },
+    {
+      "step_id": "operator_handoff_linkage_source_modules_import",
+      "action": "Import exact public-safe operator handoff linkage projector, prompt fingerprint dependency, and synthetic-only test source bodies into the Microcosm projection bundle with hash and anchor verification.",
+      "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources"
     }
   ],
   "authority_ceiling": {

@@ -117,6 +117,9 @@ AGENT_OBSERVABILITY_CLASSIFICATION_MANIFEST = (
 AGENT_MISSION_STATUS_MANIFEST = (
     BUNDLE_INPUT / "agent_mission_status_source_module_manifest.json"
 )
+OPERATOR_HANDOFF_LINKAGE_MANIFEST = (
+    BUNDLE_INPUT / "operator_handoff_linkage_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -2284,6 +2287,112 @@ def test_agent_mission_status_sources_compile_and_preserve_noise_demotion_contra
     demoted = {row["session_id"]: row for row in payload["demoted_missions"]}
     assert demoted["obs-noise"]["demote_reason"] == "auth_failure_loop"
     assert "message.assistant" in payload["constants"]["activity_canonical_types"]
+
+
+def test_operator_handoff_linkage_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        OPERATOR_HANDOFF_LINKAGE_MANIFEST,
+        manifest_id="operator_handoff_linkage_source_modules_import",
+        module_count=3,
+    )
+
+
+def test_operator_handoff_linkage_sources_compile_and_preserve_confidence_edge_contract() -> None:
+    module_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/operator_handoff_linkage.py"
+    )
+    dependency_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/observability/prompt_shelf_fingerprints.py"
+    )
+    test_path = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_operator_handoff_linkage.py"
+    )
+    source_text = module_path.read_text(encoding="utf-8")
+    dependency_text = dependency_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(module_path), "exec")
+    compile(dependency_text, str(dependency_path), "exec")
+    compile(test_text, str(test_path), "exec")
+    assert "SCHEMA_VERSION = \"operator_handoff_linkage_projection_v0\"" in source_text
+    assert "SOFT_SELECTION_POLICY" in source_text
+    assert "def compute_edges(" in source_text
+    assert "def conversation_links(" in source_text
+    assert "def _normalize(" in dependency_text
+    assert "Synthetic fixtures only" in test_text
+
+    spec = importlib.util.spec_from_file_location(
+        "microcosm_operator_handoff_linkage_source_module",
+        module_path,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    previous_dont_write = sys.dont_write_bytecode
+    previous_prompt_fingerprints = sys.modules.pop(
+        "prompt_shelf_fingerprints", None
+    )
+    previous_path = list(sys.path)
+    sys.dont_write_bytecode = True
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = previous_dont_write
+        sys.path[:] = previous_path
+        if previous_prompt_fingerprints is not None:
+            sys.modules["prompt_shelf_fingerprints"] = previous_prompt_fingerprints
+        else:
+            sys.modules.pop("prompt_shelf_fingerprints", None)
+
+    module._clear_norm_cache()
+    assistant_text = (
+        "Here is the handoff linkage rule. A Type B assistant response should "
+        "be matched to the Type A paste by containment, anchor position, token "
+        "overlap, and bounded time proximity. The edge remains probabilistic, "
+        "and ambiguous candidate sessions must stay visible instead of being "
+        "promoted to a false single source of truth."
+    )
+    type_b = module.TypeBCapture(
+        prompt_run_id="rid_microcosm_operator_handoff",
+        prompt_slot="B6",
+        prompt_slug="autonomous_seed",
+        captured_at="2026-05-25T11:00:00+00:00",
+        conversation_id="conv_microcosm_handoff",
+        conversation_url="https://chatgpt.com/c/conv_microcosm_handoff",
+        assistant_sha256=hashlib.sha256(
+            assistant_text.encode("utf-8")
+        ).hexdigest(),
+        assistant_raw_text=assistant_text,
+    )
+    type_a = module.TypeAUserInput(
+        surface="codex",
+        session_id="codex_microcosm_seed1",
+        session_started_at="2026-05-25T10:59:00+00:00",
+        session_ended_at="2026-05-25T11:30:00+00:00",
+        source_path="/synthetic/rollouts/codex_microcosm_seed1.jsonl",
+        cwd="/synthetic/ai_workflow",
+        timestamp="2026-05-25T11:01:00+00:00",
+        raw_text=assistant_text + "\n\nOperator delta: land the import.",
+        turn_uuid="turn_microcosm_seed1",
+    )
+    edges = module.compute_edges([type_b], [type_a])
+    assert edges
+    top = edges[0]
+    assert top.confidence_band == "strong"
+    assert top.evidence.containment is True
+    assert top.evidence.anchor_match is True
+    assert top.evidence.operator_delta_detected is True
+
+    projection = module.build_projection([type_b], [type_a], edges)
+    assert projection["schema_version"] == module.SCHEMA_VERSION
+    assert projection["counts"]["strong"] == 1
+    links = module.conversation_links(projection, "conv_microcosm_handoff")
+    assert len(links) == 1
+    assert links[0]["surface_label"] == "Codex"
+    assert links[0]["confidence_band"] == "strong"
 
 
 def _load_trace_capsule_source_module():
