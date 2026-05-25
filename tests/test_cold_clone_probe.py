@@ -44,9 +44,15 @@ def test_cold_clone_probe_reports_secret_exclusion_scan(monkeypatch, tmp_path: P
     monkeypatch.setattr(cold_clone_probe, "validate_secret_exclusion_scan", fake_secret_scan)
     monkeypatch.setattr(cold_clone_probe, "validate_pattern_binding", fake_pattern_binding)
 
-    receipt = cold_clone_probe.run_probe(tmp_path)
+    receipt = cold_clone_probe.run_probe(tmp_path, emit_ref="receipts/custom_cold_clone.json")
 
     assert receipt["status"] == "pass"
+    assert (
+        receipt["command"]
+        == "./bootstrap.sh --suite first-wave --emit receipts/custom_cold_clone.json"
+    )
+    assert receipt["emit_ref"] == "receipts/custom_cold_clone.json"
+    assert receipt["receipt_paths"][0] == "receipts/custom_cold_clone.json"
     assert receipt["secret_exclusion_scan"]["status"] == "pass"
     assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
     assert receipt["private_state_scan"]["compatibility_alias_for"] == "secret_exclusion_scan"

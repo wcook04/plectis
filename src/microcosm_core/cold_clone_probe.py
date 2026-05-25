@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import shlex
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -26,9 +27,23 @@ PATTERN_RECEIPTS = [
 ]
 
 
-def run_probe(root: str | Path, suite: str = "first-wave") -> dict[str, Any]:
+def _bootstrap_command(suite: str, emit_ref: str) -> str:
+    return f"./bootstrap.sh --suite {shlex.quote(suite)} --emit {shlex.quote(emit_ref)}"
+
+
+def run_probe(
+    root: str | Path,
+    suite: str = "first-wave",
+    emit_ref: str | Path = "receipts/cold_clone_probe.json",
+) -> dict[str, Any]:
     root_path = Path(root)
-    receipt = base_receipt("cold_clone_probe", suite, command=f"./bootstrap.sh --suite {suite}")
+    emit_ref_text = str(emit_ref)
+    receipt = base_receipt(
+        "cold_clone_probe",
+        suite,
+        command=_bootstrap_command(suite, emit_ref_text),
+    )
+    receipt.update({"emit_ref": emit_ref_text, "receipt_paths": [emit_ref_text]})
     missing_inputs = [path for path in REQUIRED_INPUTS if not (root_path / path).is_file()]
     if missing_inputs:
         receipt.update(
@@ -92,7 +107,7 @@ def run_probe(root: str | Path, suite: str = "first-wave") -> dict[str, Any]:
                 **scan_receipt["secret_exclusion_scan"],
             },
             "first_wave_receipts_observed": PATTERN_RECEIPTS,
-            "receipt_paths": ["receipts/cold_clone_probe.json", *PATTERN_RECEIPTS],
+            "receipt_paths": [emit_ref_text, *PATTERN_RECEIPTS],
         }
     )
     return receipt
@@ -103,7 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--suite", default="first-wave")
     parser.add_argument("--emit", required=True)
     args = parser.parse_args(argv)
-    receipt = run_probe(Path.cwd(), suite=args.suite)
+    receipt = run_probe(Path.cwd(), suite=args.suite, emit_ref=args.emit)
     write_receipt(args.emit, receipt)
     return 0 if receipt["status"] == "pass" else 1
 
