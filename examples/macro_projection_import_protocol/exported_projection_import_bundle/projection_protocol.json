@@ -8046,6 +8046,270 @@
         "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_world_model_projection_drift_source_modules_into_public_bundles",
+        "bind_world_model_projection_drift_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_route_repair_source_mutation_provider_payload_browser_hud_live_access_or_release_authority"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:3c34b143d1d87830302538701f53d965dd9af308a91d9fbfdfd3963c621a217b",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:3c34b143d1d87830302538701f53d965dd9af308a91d9fbfdfd3963c621a217b",
+        "source_line_count": 17302,
+        "source_ref": "system/server/world_model.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:3c34b143d1d87830302538701f53d965dd9af308a91d9fbfdfd3963c621a217b",
+        "target_line_count": 17302,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 17302,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "world_model_drift_aggregate_source_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/world_model.py",
+      "source_refs": [
+        "system/server/world_model.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_world_model_projection_drift_source_modules_into_public_bundles",
+        "bind_world_model_projection_drift_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_route_repair_source_mutation_provider_payload_browser_hud_live_access_or_release_authority"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
+        "source_line_count": 8384,
+        "source_ref": "system/server/main.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
+        "target_line_count": 8384,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 8384,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "world_model_drift_endpoint_source_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/main.py",
+      "source_refs": [
+        "system/server/main.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_world_model_projection_drift_source_modules_into_public_bundles",
+        "bind_world_model_projection_drift_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_route_repair_source_mutation_provider_payload_browser_hud_live_access_or_release_authority"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
+        "source_line_count": 3412,
+        "source_ref": "tools/meta/observability/view_quality_census.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
+        "target_line_count": 3412,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 3412,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "view_quality_action_map_source_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/observability/view_quality_census.py",
+      "source_refs": [
+        "tools/meta/observability/view_quality_census.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/view_quality_census.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_world_model_projection_drift_source_modules_into_public_bundles",
+        "bind_world_model_projection_drift_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_route_repair_source_mutation_provider_payload_browser_hud_live_access_or_release_authority"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9",
+        "source_line_count": 1003,
+        "source_ref": "system/server/tests/test_view_quality_census.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9",
+        "target_line_count": 1003,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 1003,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "view_quality_action_map_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_view_quality_census.py",
+      "source_refs": [
+        "system/server/tests/test_view_quality_census.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_view_quality_census.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -8221,7 +8485,13 @@
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
-    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
+    "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/view_quality_census.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_view_quality_census.py"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -8431,7 +8701,13 @@
     "checkpoint",
     "tools/meta/control/checkpoint_private_backup.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
-    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json"
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
+    "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+    "system/server/world_model.py",
+    "system/server/main.py",
+    "tools/meta/observability/view_quality_census.py",
+    "system/server/tests/test_view_quality_census.py"
   ],
   "steps": [
     {
@@ -8607,6 +8883,8 @@
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_exported_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

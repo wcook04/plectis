@@ -41,7 +41,7 @@
   },
   "body_in_receipt": false,
   "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run",
-  "created_at": "2026-05-23T07:02:08+00:00",
+  "created_at": "2026-05-25T17:17:07+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -164,7 +164,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "input_mode": "fixture",
-  "input_ref": "microcosm-substrate/fixtures/first_wave/world_model_projection_drift_control_room/input",
+  "input_ref": "fixtures/first_wave/world_model_projection_drift_control_room/input",
   "negative_case_findings": [
     {
       "body_in_receipt": false,
@@ -301,6 +301,17 @@
     "entry_payload_admission_nonnegotiable_floor"
   ],
   "selected_route_id": "world_model_projection_drift_control_room",
+  "source_module_import_status": "not_present",
+  "source_module_manifest_ref": null,
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "findings": [],
+    "module_count": 0,
+    "module_ids": [],
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": null,
+    "status": "not_present"
+  },
   "source_refs": [
     "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",

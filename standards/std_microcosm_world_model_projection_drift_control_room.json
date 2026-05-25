@@ -106,6 +106,16 @@
       "release claims"
     ]
   },
+  "failure_modes": [
+    "world-model drift rows cite source refs but no copied non-secret source-module bodies are present in an exported bundle",
+    "copied world-model or view-quality source-module digest diverges from the macro source digest",
+    "copied source-module manifest omits the world-model reducer, /api/drift endpoint, view-quality action-map builder, or focused action-map regression test",
+    "copied source-module anchors fail to prove the drift_aggregate_v1, /api/drift, or view_quality_action_map_v1 mechanisms are present",
+    "source-module bodies are duplicated into receipts instead of remaining bundle files with receipt-level paths, hashes, counts, and anchor evidence",
+    "selected pattern ids drift from the validated drift row ids",
+    "projection-drift rows authorize live repair, source mutation, automatic doctrine promotion, provider payload export, private runtime export, or release",
+    "macro projection import accounting treats source refs or runtime receipts as body imports without exact target files and digest verification"
+  ],
   "authority_ceiling": {
     "status": "pass",
     "standard_authority": "public_projection_drift_control_runtime_receipt_only",

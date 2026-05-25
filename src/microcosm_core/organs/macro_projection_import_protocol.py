@@ -671,6 +671,48 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "world_model_projection_drift_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The world-model projection drift control room now carries exact "
+            "copied non-secret world-model reducer, /api/drift endpoint, "
+            "view-quality action-map, and focused regression-test bodies "
+            "inside public source-module bundles, validated by digest, "
+            "anchor, syntax, and source-module manifest checks without "
+            "exporting live browser/HUD access, provider payloads, "
+            "account/session state, route-repair authority, or source "
+            "mutation authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/world_model_projection_drift_control_room/"
+                "exported_projection_drift_control_bundle/source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "world_model_projection_drift_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/server/"
+                "world_model.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "observability/view_quality_census.py"
+            ),
+            "tests/test_world_model_projection_drift_control_room.py",
+            "tests/test_macro_projection_import_protocol.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_world_model_projection_drift_control_room.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "navigation_coverage_matrix_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

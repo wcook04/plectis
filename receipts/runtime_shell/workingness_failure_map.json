@@ -32,10 +32,10 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 8,
+    "missing_failure_modes_count": 7,
     "missing_standard_count": 1,
-    "rows_with_failure_modes": 38,
-    "rows_with_future_work_targets": 36,
+    "rows_with_failure_modes": 39,
+    "rows_with_future_work_targets": 35,
     "thing_count": 46
   },
   "thing_failure_map": [
@@ -2227,16 +2227,19 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_world_model_projection_drift_control_room.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 8,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "world-model drift rows cite source refs but no copied non-secret source-module bodies are present in an exported bundle",
+        "copied world-model or view-quality source-module digest diverges from the macro source digest",
+        "copied source-module manifest omits the world-model reducer, /api/drift endpoint, view-quality action-map builder, or focused action-map regression test",
+        "copied source-module anchors fail to prove the drift_aggregate_v1, /api/drift, or view_quality_action_map_v1 mechanisms are present",
+        "source-module bodies are duplicated into receipts instead of remaining bundle files with receipt-level paths, hashes, counts, and anchor evidence",
+        "selected pattern ids drift from the validated drift row ids",
+        "projection-drift rows authorize live repair, source mutation, automatic doctrine promotion, provider payload export, private runtime export, or release",
+        "macro projection import accounting treats source refs or runtime receipts as body imports without exact target files and digest verification"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
         "anti_purpose": null,
         "authority_boundary": "public_projection_drift_control_runtime_receipt_not_source_or_repair_authority",
@@ -2253,9 +2256,7 @@
           "status": "pass"
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
+        "missing_requirement_ids": [],
         "ontology": null,
         "receipt_expectation_count": 2,
         "required_field_count": 12,
@@ -2264,7 +2265,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,

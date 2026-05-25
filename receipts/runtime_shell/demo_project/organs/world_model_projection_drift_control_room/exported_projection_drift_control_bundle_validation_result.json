@@ -40,8 +40,8 @@
     ]
   },
   "body_in_receipt": false,
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-23T12:56:53+00:00",
+  "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run-drift-control-bundle",
+  "created_at": "2026-05-25T17:17:11+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -199,7 +199,7 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 4,
+    "scanned_path_count": 9,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -214,6 +214,23 @@
     "entry_payload_admission_nonnegotiable_floor"
   ],
   "selected_route_id": "world_model_projection_drift_control_room",
+  "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "findings": [],
+    "module_count": 4,
+    "module_ids": [
+      "world_model_drift_aggregate_source_body_import",
+      "world_model_drift_endpoint_source_body_import",
+      "view_quality_action_map_source_body_import",
+      "view_quality_action_map_test_body_import"
+    ],
+    "source_module_import_status": "copied_non_secret_macro_body_landed",
+    "source_module_manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+    "status": "pass",
+    "verified_module_count": 4
+  },
   "source_refs": [
     "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",

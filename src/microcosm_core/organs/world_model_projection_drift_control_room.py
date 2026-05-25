@@ -34,6 +34,7 @@ INPUT_NAMES = (
     "drift_policy.json",
     "drift_rows.json",
 )
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 NEGATIVE_INPUT_NAMES = (
     "drift_row_without_source_ref.json",
     "repair_route_without_validation_ref.json",
@@ -102,6 +103,7 @@ ANTI_CLAIM = (
     "export provider payloads, claim source authority, or authorize release."
 )
 BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
 SOURCE_REFS = [
     "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
@@ -157,12 +159,158 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _sha256_digest(path: Path) -> str:
+    import hashlib
+
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return [manifest_path]
+    paths = [manifest_path]
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {
+            "status": "not_present",
+            "source_module_import_status": "not_present",
+            "source_module_manifest_ref": None,
+            "module_count": 0,
+            "module_ids": [],
+            "body_in_receipt": False,
+            "findings": [],
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    module_ids: list[str] = []
+    verified_count = 0
+    for row in _rows(manifest, "modules"):
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        target_ref = str(row.get("target_ref") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "DRIFT_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "source module rows must copy body into the bundle while keeping receipts body-free",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "DRIFT_SOURCE_MODULE_TARGET_MISSING",
+                    "source module target must exist inside the public Microcosm bundle",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256_digest(target)
+        expected = f"sha256:{row.get('source_sha256') or ''}"
+        target_expected = f"sha256:{row.get('target_sha256') or ''}"
+        if actual != expected or actual != target_expected:
+            findings.append(
+                _finding(
+                    "DRIFT_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "source module digest declarations must match the copied target body",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "DRIFT_SOURCE_MODULE_ANCHOR_MISSING",
+                        "source module must carry the declared macro mechanism anchors",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        if not any(finding.get("subject_id") == module_id for finding in findings):
+            verified_count += 1
+
+    status = PASS if module_ids and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "module_count": len(module_ids),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "body_in_receipt": False,
+        "findings": findings,
+    }
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    paths = list(_input_paths(input_dir, include_negative=include_negative))
+    public_root = _public_root_for_path(input_dir)
+    paths.extend(_source_module_paths(input_dir, public_root=public_root))
     return paths
 
 
@@ -343,6 +491,7 @@ def _build_result(
     projection_protocol = payloads.get("projection_protocol", {})
     drift_policy = payloads.get("drift_policy", {})
     drift_rows = _rows(payloads.get("drift_rows", {}), "drift_rows")
+    source_module_result = _source_module_manifest_result(input_dir, public_root=public_root)
     observed_negative_codes: dict[str, set[str]] = defaultdict(set)
     positive_findings: list[dict[str, Any]] = []
 
@@ -458,10 +607,11 @@ def _build_result(
             row.get("automatic_doctrine_promotion_authorized") is False
             for row in drift_rows
         )
+        and source_module_result["status"] in {PASS, "not_present"}
     )
 
     scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=load_forbidden_classes(
             public_root / "core/private_state_forbidden_classes.json"
         ),
@@ -483,6 +633,13 @@ def _build_result(
         "drift_rows": drift_rows,
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_module_import_status": source_module_result[
+            "source_module_import_status"
+        ],
+        "source_module_manifest_ref": source_module_result[
+            "source_module_manifest_ref"
+        ],
+        "source_module_summary": source_module_result,
         "source_refs": SOURCE_REFS,
         "target_refs": TARGET_REFS,
         "drift_summary": {
@@ -552,6 +709,8 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "authority_ceiling": AUTHORITY_CEILING,
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_summary": result.get("source_module_summary"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
     }
@@ -594,6 +753,8 @@ def _write_receipts(
         "authority_ceiling": AUTHORITY_CEILING,
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_summary": result.get("source_module_summary"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -621,6 +782,8 @@ def _write_receipts(
         "authority_ceiling": AUTHORITY_CEILING,
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_summary": result.get("source_module_summary"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],

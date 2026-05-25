@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import py_compile
 import shutil
 from pathlib import Path
 from typing import Any
@@ -22,6 +24,12 @@ BUNDLE_INPUT = (
     / "examples/world_model_projection_drift_control_room/"
     "exported_projection_drift_control_bundle"
 )
+SOURCE_MODULE_IDS = [
+    "world_model_drift_aggregate_source_body_import",
+    "world_model_drift_endpoint_source_body_import",
+    "view_quality_action_map_source_body_import",
+    "view_quality_action_map_test_body_import",
+]
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -113,6 +121,53 @@ def test_world_model_projection_drift_receipts_consume_public_runtime_refs(
         assert "provider_payload" not in keys
 
 
+def test_world_model_projection_drift_source_modules_are_exact_macro_body_imports(
+    tmp_path: Path,
+) -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    by_module = {row["module_id"]: row for row in manifest["modules"]}
+
+    assert manifest["classification"] == "copied_non_secret_macro_body"
+    assert manifest["module_count"] == len(SOURCE_MODULE_IDS)
+    assert set(by_module) == set(SOURCE_MODULE_IDS)
+
+    for module_id in SOURCE_MODULE_IDS:
+        row = by_module[module_id]
+        source = MICROCOSM_ROOT.parent / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
+            "microcosm-substrate/"
+        )
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+
+        assert target.is_file()
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert source_digest == target_digest
+        assert row["sha256_match"] is True
+        assert row["line_count"] == len(target.read_text(encoding="utf-8").splitlines())
+        py_compile.compile(str(target), doraise=True)
+
+    result = run_drift_control_bundle(
+        BUNDLE_INPUT,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "world_model_projection_drift_control_room",
+        command="pytest",
+    )
+    assert result["status"] == "pass"
+    assert result["source_module_import_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["module_ids"] == SOURCE_MODULE_IDS
+    assert result["source_module_summary"]["verified_module_count"] == len(
+        SOURCE_MODULE_IDS
+    )
+    assert result["source_module_summary"]["body_in_receipt"] is False
+
+
 def test_world_model_projection_drift_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
@@ -135,5 +190,9 @@ def test_world_model_projection_drift_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["body_import_status"] == "real_runtime_receipt_landed"
     assert result["body_import_verification"]["status"] == "pass"
+    assert result["source_module_import_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["module_count"] == len(SOURCE_MODULE_IDS)
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"

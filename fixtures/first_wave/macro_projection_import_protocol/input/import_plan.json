@@ -1998,6 +1998,63 @@
         "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_route_repair_authorized": false,
+        "live_source_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": false,
+      "body_in_receipt": false,
+      "body_included": false,
+      "cell_id": "world_model_projection_drift_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_world_model_projection_drift_control_room.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
+      "public_safe_body_material_ids": [
+        "world_model_drift_aggregate_source_body_import",
+        "world_model_drift_endpoint_source_body_import",
+        "view_quality_action_map_source_body_import",
+        "view_quality_action_map_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "world_model_cross_plane_drift_aggregate",
+        "view_quality_all_view_action_map"
+      ],
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
+        "system/server/world_model.py",
+        "system/server/main.py",
+        "tools/meta/observability/view_quality_census.py",
+        "system/server/tests/test_view_quality_census.py"
+      ],
+      "target_refs": [
+        "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/view_quality_census.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_view_quality_census.py"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

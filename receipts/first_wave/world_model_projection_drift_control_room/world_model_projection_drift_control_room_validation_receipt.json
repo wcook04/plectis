@@ -17,7 +17,7 @@
     "source_mutation_authorized": false,
     "status": "pass"
   },
-  "board_ref": "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+  "board_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -41,18 +41,18 @@
     ]
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-23T07:02:08+00:00",
+  "created_at": "2026-05-25T17:17:07+00:00",
   "expected_negative_case_count": 8,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "observed_negative_case_count": 8,
   "organ_id": "world_model_projection_drift_control_room",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
-    "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
-    "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json"
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_board.json",
+    "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json"
   ],
   "release_authorized": false,
-  "result_ref": "microcosm-substrate/receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
+  "result_ref": "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_result.json",
   "row_count": 8,
   "schema_version": "world_model_projection_drift_control_room_validation_receipt_v1",
   "secret_exclusion_scan": {
@@ -70,6 +70,16 @@
     "scanned_path_count": 11,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "not_present",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "findings": [],
+    "module_count": 0,
+    "module_ids": [],
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": null,
+    "status": "not_present"
   },
   "status": "pass",
   "target_refs": [
