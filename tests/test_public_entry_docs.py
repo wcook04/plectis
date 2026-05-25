@@ -414,6 +414,20 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert proof_lab["command"] in entry_packet["allowed_drilldowns"]
     assert proof_lab["receipt_ref"] in entry_packet["receipt_dependencies"]
 
+    front_door = entry_packet["tour_front_door_status_route"]
+    assert front_door["surface_id"] == "microcosm_tour_front_door_status"
+    assert front_door["command"] == "microcosm tour <project>"
+    assert front_door["endpoint"] == "/tour"
+    assert front_door["status_ref"] in entry_packet["allowed_drilldowns"]
+    assert front_door["receipt_ref"] in entry_packet["allowed_drilldowns"]
+    assert "receipts/runtime_shell/public_ten_minute_tour.json" in entry_packet[
+        "receipt_dependencies"
+    ]
+    assert front_door["warning_drilldown_surface_ids"] == ["authority", "intake"]
+    assert front_door["safe_to_show"]["release_authorized"] is False
+    assert front_door["safe_to_show"]["source_mutation_authorized"] is False
+    assert "blocking_surface_ids" in front_door["top_level_status_rule"]
+
     doctrine_route = entry_packet["doctrine_navigation_route"]
     assert doctrine_route["surface_id"] == "microcosm_doctrine_navigation"
     assert doctrine_route["band_ladder"] == [

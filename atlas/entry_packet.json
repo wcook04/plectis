@@ -15,6 +15,8 @@
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "microcosm proof-loop-depth",
     "microcosm verifier-lab-execution-spine-lens",
+    "microcosm tour <project>::front_door_status",
+    "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
     "microcosm python-lens <project>",
     ".microcosm/python_lens.json",
     ".microcosm/python_lens.json::navigation_assay",
@@ -94,6 +96,30 @@
       "global_doctrine_promotion_authorized": false
     },
     "authority": "project-local causal-chain explanation only, not source authority, release authority, provider authority, live Task Ledger mutation authority, or global doctrine-promotion authority"
+  },
+  "tour_front_door_status_route": {
+    "surface_id": "microcosm_tour_front_door_status",
+    "command": "microcosm tour <project>",
+    "endpoint": "/tour",
+    "status_ref": "microcosm tour <project>::front_door_status",
+    "receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
+    "entry_role": "cold-reader status rule that separates required first-screen blockers from authority/intake warning drilldowns",
+    "top_level_status_rule": "tour passes only when front_door_status.blocking_surface_ids is empty; authority and intake may still appear in drilldown_blocked_surface_ids as warning drilldowns",
+    "warning_drilldown_surface_ids": [
+      "authority",
+      "intake"
+    ],
+    "reader_action": "If blocking_surface_ids is empty, continue the first-screen path and inspect authority/intake as bounded warnings; if blocking_surface_ids is non-empty, repair the named required surface before claiming the cold path is green.",
+    "safe_to_show": {
+      "status_model_visible": true,
+      "surface_status_ids_visible": true,
+      "authority_warning_visible": true,
+      "intake_warning_visible": true,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "provider_calls_authorized": false
+    },
+    "authority": "tour status routing only, not source authority, release authority, provider authority, proof authority, or permission to hide blocked drilldowns"
   },
   "proof_lab_route": {
     "surface_id": "first_screen_verifier_lab_kernel",
@@ -299,6 +325,7 @@
     "receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
     "receipts/first_wave/pattern_binding_contract/route_readiness/exported_route_readiness_bundle_validation_result.json",
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+    "receipts/runtime_shell/public_ten_minute_tour.json",
     "receipts/cold_clone_probe.json"
   ],
   "authority_ceiling": "entry packet routes public Microcosm navigation; it is not source, release, provider, proof, or mutation authority",

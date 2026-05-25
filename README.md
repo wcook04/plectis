@@ -27,6 +27,12 @@ observatory command, the proof-lab command, and the authority ceiling. Open
 `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 
+Read `front_door_status` before treating the tour's `status` as a blanket
+health claim. `blocking_surface_ids=[]` means the required first-screen path is
+green; `drilldown_blocked_surface_ids=["authority","intake"]` means those
+surfaces remain visible bounded warnings to inspect, not hidden failures or
+release authority.
+
 Use `microcosm authority` before trusting any organ label. It shows each
 organ's explicit `evidence_class`, and `accepted_current_authority` is not an
 evidence-strength claim.
