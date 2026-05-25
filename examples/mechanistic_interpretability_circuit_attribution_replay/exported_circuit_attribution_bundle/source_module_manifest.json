@@ -1,0 +1,68 @@
+{
+  "body_storage_policy": "exact_non_secret_oracle_attribution_node_bodies_copied_into_public_source_module_bundle",
+  "bundle_id": "exported_circuit_attribution_bundle",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "mechanistic_interpretability_oracle_attribution_source_modules_import",
+  "module_count": 2,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 1989,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 23,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "oracle_attribution_legacy_node_body_import",
+      "required_anchors": [
+        "Oracle Attribution Mapper",
+        "what_subject_pointed_to_realized_outcome",
+        "subject_evidence_ledger_ids",
+        "cp2_reconstruction_guidance",
+        "Only subject-side ledger ids"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
+      "source_ref": "codex/nodes/oracle/oracle_attribution_map.json",
+      "source_role": "Legacy Oracle attribution-map node that maps realized truth back to subject-side evidence and preserves the older attribution output contract.",
+      "source_sha256": "659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+      "target_sha256": "659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 3665,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 24,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "oracle_attribution_substrate_node_body_import",
+      "required_anchors": [
+        "Oracle Critique Mapper",
+        "oracle_truth_diff_equity",
+        "critique_items",
+        "eligible_ledger_ids",
+        "Only subject-side refs"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
+      "source_ref": "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "source_role": "Current substrate Oracle critique mapper that emits scoped CP2 critique items, realized refs, error classes, and reconstruction guidance.",
+      "source_sha256": "fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+      "target_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "target_sha256": "fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d"
+    }
+  ],
+  "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",
+  "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "schema_version": "public_microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": "no_keys_credentials_account_session_state_provider_payloads_browser_hud_live_access_raw_operator_voice_recipient_send_state_or_credential_equivalent_material",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

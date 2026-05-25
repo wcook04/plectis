@@ -8505,6 +8505,102 @@
         "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_oracle_attribution_node_into_mechanistic_and_macro_projection_source_module_bundles",
+        "bind subject-to-truth attribution node bodies to circuit-attribution replay without provider payloads or private model internals",
+        "validate source-to-target digest equality, required anchors, and secret-exclusion boundaries"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+        "source_line_count": 23,
+        "source_ref": "codex/nodes/oracle/oracle_attribution_map.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+        "target_line_count": 23,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public Oracle attribution-map node body import only; not provider execution, provider payload export, private model weights, raw activations, hidden reasoning, account/session state, browser/HUD live access, benchmark transparency authority, private-root equivalence, release, or publication authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_pattern_body",
+      "material_id": "mechanistic_oracle_attribution_legacy_node_body_import",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+        "codex/nodes/oracle/oracle_attribution_map.json",
+        "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/nodes/oracle/oracle_attribution_map.json",
+      "source_refs": [
+        "codex/nodes/oracle/oracle_attribution_map.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_macro_oracle_attribution_node_into_mechanistic_and_macro_projection_source_module_bundles",
+        "bind subject-to-truth attribution node bodies to circuit-attribution replay without provider payloads or private model internals",
+        "validate source-to-target digest equality, required anchors, and secret-exclusion boundaries"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+        "source_line_count": 24,
+        "source_ref": "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+        "target_line_count": 24,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public Oracle attribution-map node body import only; not provider execution, provider payload export, private model weights, raw activations, hidden reasoning, account/session state, browser/HUD live access, benchmark transparency authority, private-root equivalence, release, or publication authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_pattern_body",
+      "material_id": "mechanistic_oracle_attribution_substrate_node_body_import",
+      "provenance_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+        "codex/nodes/oracle/oracle_attribution_map.json",
+        "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "source_refs": [
+        "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -8691,7 +8787,9 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+    "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -8910,7 +9008,9 @@
     "system/server/tests/test_view_quality_census.py",
     "tools/meta/factory/check_station_geometry.py",
     "system/server/tests/test_station_geometry_check.py",
-    "system/server/ui/package.json"
+    "system/server/ui/package.json",
+    "codex/nodes/oracle/oracle_attribution_map.json",
+    "codex/substrate/nodes/oracle/oracle_attribution_map.json"
   ],
   "steps": [
     {
@@ -9090,6 +9190,8 @@
     "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

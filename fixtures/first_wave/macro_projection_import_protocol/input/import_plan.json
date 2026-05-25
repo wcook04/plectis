@@ -2107,6 +2107,54 @@
         "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": {
+        "hidden_chain_of_thought_exported": false,
+        "live_macro_source_authority": false,
+        "live_source_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_model_weights_exported": false,
+        "provider_calls_authorized": false,
+        "provider_payload_exported": false,
+        "publication_authorized": false,
+        "raw_activation_dump_exported": false,
+        "release_authorized": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": false,
+      "body_in_receipt": false,
+      "body_included": false,
+      "cell_id": "mechanistic_oracle_attribution_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
+      "public_safe_body_material_ids": [
+        "mechanistic_oracle_attribution_legacy_node_body_import",
+        "mechanistic_oracle_attribution_substrate_node_body_import"
+      ],
+      "selected_pattern_ids": [
+        "mechanistic_interpretability_circuit_attribution_replay_compound",
+        "oracle_attribution_map"
+      ],
+      "source_refs": [
+        "codex/nodes/oracle/oracle_attribution_map.json",
+        "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      ],
+      "target_refs": [
+        "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

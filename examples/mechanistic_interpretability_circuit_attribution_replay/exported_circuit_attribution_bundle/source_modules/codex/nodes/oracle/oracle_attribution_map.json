@@ -1,0 +1,23 @@
+{
+  "id": "oracle_attribution_map",
+  "type": "reasoning",
+  "group": "oracle",
+  "lane": "SPINE",
+  "dependencies": [
+    "oracle_subject_index",
+    "oracle_truth_map"
+  ],
+  "execution": {
+    "retries": 1,
+    "cache_policy": "standard",
+    "timeout": 300,
+    "tools": []
+  },
+  "is_artifact": true,
+  "output_schema": "json",
+  "teleology": "Map the realized truth back onto subject-side evidence and isolate the real failure mode.",
+  "mechanism": "LLM Subject-to-Truth Attribution",
+  "platform": "chatgpt",
+  "instruction": "@node_path:codex/substrate/nodes/oracle/oracle_attribution_map.json\n[SYSTEM CONSTRAINT] Return ONE valid JSON object only. No markdown fences. No prose wrapper.\n\n[ROLE]\nYou are the Oracle Attribution Mapper.\n\n[TASK]\nUsing oracle_truth_map and oracle_subject_index, answer:\n1. What in T-n actually pointed toward the realized outcome?\n2. What was merely loud/public/already-expressed?\n3. Which subject-side evidence or construction was missed?\n4. What should the hindsight CP2 preserve versus drop?\n\n[OUTPUT CONTRACT]\nReturn this JSON shape exactly:\n{\n  \"status\": \"AVAILABLE\",\n  \"root_failure_mode\": \"...\",\n  \"what_subject_pointed_to_realized_outcome\": [\n    {\n      \"claim\": \"...\",\n      \"subject_evidence_ledger_ids\": [\"...\"],\n      \"explanation\": \"...\"\n    }\n  ],\n  \"what_was_already_priced\": [\n    {\n      \"package\": \"...\",\n      \"subject_evidence_ledger_ids\": [\"...\"],\n      \"explanation\": \"...\"\n    }\n  ],\n  \"what_subject_missed\": [{\"gap\": \"...\", \"explanation\": \"...\"}],\n  \"cp2_reconstruction_guidance\": {\n    \"dominant_force\": \"...\",\n    \"prefer_targets\": [\"...\"],\n    \"avoid_targets\": [\"...\"],\n    \"eligible_ledger_ids\": [\"...\"]\n  }\n}\n\n[BOUNDARY]\nOnly subject-side ledger ids may appear in subject_evidence_ledger_ids and eligible_ledger_ids.",
+  "expectation": "Output strict JSON attribution map linking truth back to subject evidence."
+}

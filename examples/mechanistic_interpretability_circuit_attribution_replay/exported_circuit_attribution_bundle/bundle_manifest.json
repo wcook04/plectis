@@ -7,7 +7,9 @@
     "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
     "source_refs": [
       "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
-      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+      "codex/nodes/oracle/oracle_attribution_map.json",
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json"
     ],
     "status": "pass",
     "target_refs": [
@@ -25,16 +27,20 @@
     "attribution_protocol.json",
     "intervention_policy.json",
     "feature_catalog.json",
-    "attribution_replays.json"
+    "attribution_replays.json",
+    "source_module_manifest.json"
   ],
   "input_mode": "exported_circuit_attribution_bundle",
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "release_authorized": false,
   "schema_version": "mechanistic_interpretability_bundle_manifest_v1",
   "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
+  "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
     "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
-    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
   ]
 }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import shutil
 from pathlib import Path
 from typing import Any
@@ -22,6 +23,14 @@ BUNDLE_INPUT = (
     / "examples/mechanistic_interpretability_circuit_attribution_replay/"
     "exported_circuit_attribution_bundle"
 )
+ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS = [
+    "oracle_attribution_legacy_node_body_import",
+    "oracle_attribution_substrate_node_body_import",
+]
+
+
+def _sha256_ref(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -72,6 +81,12 @@ def test_mechanistic_interpretability_circuit_attribution_replay_observes_negati
     assert result["authority_ceiling"]["proprietary_prompt_export_authorized"] is False
     assert result["authority_ceiling"]["hidden_chain_of_thought_export_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+    assert result["source_module_import_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["public_safe_body_material_ids"] == (
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
     for case_id, codes in EXPECTED_NEGATIVE_CASES.items():
         assert result["negative_case_summary"]["observed_codes"][case_id] == codes
 
@@ -101,6 +116,10 @@ def test_mechanistic_interpretability_circuit_attribution_receipts_consume_publi
     assert result["body_in_receipt"] is False
     assert result["body_import_verification"]["classification"] == "real_runtime_receipt"
     assert result["body_import_verification"]["body_in_receipt"] is False
+    assert result["source_module_import_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["status"] == "pass"
     assert result["attribution_summary"]["target_ref_count"] == 6
     assert result["secret_exclusion_scan"]["status"] == "pass"
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
@@ -146,5 +165,42 @@ def test_mechanistic_interpretability_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["body_import_status"] == "real_runtime_receipt_landed"
     assert result["body_import_verification"]["status"] == "pass"
+    assert result["source_module_import_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_module_summary"]["module_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
+
+
+def test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports(
+    tmp_path: Path,
+) -> None:
+    result = run_attribution_bundle(
+        BUNDLE_INPUT,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        command="pytest",
+    )
+
+    modules = {
+        row["module_id"]: row
+        for row in result["source_module_summary"]["modules"]
+    }
+    assert set(modules) == set(ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS)
+    for material_id in ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS:
+        row = modules[material_id]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
+        source = MICROCOSM_ROOT.parent / row["source_ref"]
+        assert source.is_file()
+        assert target.is_file()
+        assert row["status"] == "pass"
+        assert row["material_class"] == "public_macro_pattern_body"
+        assert row["classification"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["target_body_digest"] == _sha256_ref(target)
+        assert _sha256_ref(source) == _sha256_ref(target)

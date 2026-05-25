@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-25T17:43:36+00:00",
+  "created_at": "2026-05-25T18:19:48+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
@@ -102,7 +102,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 243,
+  "macro_origin_ref_count": 246,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -141,7 +141,7 @@
   "organ_lifecycle_coverage_status": "pass",
   "plan_id": "public_macro_projection_import_plan_v1",
   "policy_id": "verified_macro_projection_cleaning_policy_v1",
-  "projection_cell_count": 54,
+  "projection_cell_count": 55,
   "projection_cell_ids": [
     "active_execution_constellation_source_modules_import",
     "agent_entrypoint_audit_source_modules_import",
@@ -175,6 +175,7 @@
     "kernel_bridge_config_source_modules_import",
     "kernel_state_registry_source_modules_import",
     "kind_atlas_source_modules_import",
+    "mechanistic_oracle_attribution_source_modules_import",
     "multi_agent_fanin_replay_import",
     "navigation_clusterability_source_modules_import",
     "navigation_coverage_matrix_source_modules_import",
@@ -199,7 +200,7 @@
     "world_model_projection_drift_source_modules_import"
   ],
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 156,
+  "public_runtime_ref_count": 158,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -248,6 +249,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
@@ -263,9 +265,11 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
@@ -369,6 +373,7 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+    "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
@@ -447,14 +452,14 @@
     "standards/std_microcosm_macro_projection_import_protocol.json",
     "standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
-  "public_safe_body_import_count": 158,
+  "public_safe_body_import_count": 160,
   "public_safe_body_import_routes": {
     "direct_verified_public": 3,
-    "verified_light_edit": 155
+    "verified_light_edit": 157
   },
   "public_safe_body_import_status": "pass",
-  "public_safe_body_material_count": 158,
-  "ready_projection_cell_count": 54,
+  "public_safe_body_material_count": 160,
+  "ready_projection_cell_count": 55,
   "receipt_id": "macro_projection_import_protocol_result_receipt_v1",
   "receipt_paths": [
     "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
@@ -519,7 +524,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 243,
+    "macro_origin_ref_count": 246,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       "checkpoint",
@@ -540,6 +545,7 @@
       "codex/doctrine/skills/bridge_runtime/resume_contract.md",
       "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
       "codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md::Startup pressure lane rule",
+      "codex/nodes/oracle/oracle_attribution_map.json",
       "codex/standards/std_agent_execution_trace.json",
       "codex/standards/std_command_output_projection.json",
       "codex/standards/std_continuation_packet.json",
@@ -548,6 +554,7 @@
       "codex/standards/std_microcosm.json#direct_import_with_verification",
       "codex/standards/std_navigation_contract.json",
       "codex/standards/std_work_ledger.json",
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json",
       "docs/bridge_resume_protocol.md",
       "docs/controller_continuity.md",
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
@@ -634,6 +641,7 @@
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#task_ledger_startup_pressure_lane_split",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#view_quality_all_view_action_map",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl#world_model_cross_plane_drift_aggregate",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
@@ -781,20 +789,20 @@
     },
     "organ_lifecycle_coverage_status": "pass",
     "private_data_equivalence_claim": false,
-    "projection_cell_count": 54,
+    "projection_cell_count": 55,
     "public_safe_body_import_classes": {
-      "public_macro_pattern_body": 1,
+      "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 13,
       "public_macro_tool_body": 143
     },
-    "public_safe_body_import_count": 158,
+    "public_safe_body_import_count": 160,
     "public_safe_body_import_routes": {
       "direct_verified_public": 3,
-      "verified_light_edit": 155
+      "verified_light_edit": 157
     },
     "publication_authorized": false,
-    "ready_projection_cell_count": 54,
+    "ready_projection_cell_count": 55,
     "release_authorized": false,
     "runtime_dependencies": [
       {
@@ -1668,6 +1676,13 @@
       {
         "dependency_role": "import_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -1810,6 +1825,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "import_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+        "ref": "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
         "status": "pass"
       },
       {
@@ -2032,6 +2054,13 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "status": "pass"
@@ -2048,6 +2077,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
         "status": "pass"
       },
       {
@@ -3271,6 +3307,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
         "status": "pass"
@@ -3355,8 +3398,22 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
         "status": "pass"
       },
       {
@@ -3950,6 +4007,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+        "ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
         "ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
         "status": "pass"
@@ -4335,6 +4399,13 @@
       {
         "dependency_role": "landed_evidence",
         "leak_reason": null,
+        "normalized_ref": "tests/test_mechanistic_interpretability_circuit_attribution_replay.py",
+        "ref": "tests/test_mechanistic_interpretability_circuit_attribution_replay.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
         "normalized_ref": "tests/test_spatial_world_model_counterfactual_simulation_replay.py",
         "ref": "tests/test_spatial_world_model_counterfactual_simulation_replay.py",
         "status": "pass"
@@ -4664,6 +4735,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
         "status": "pass"
@@ -4769,6 +4847,13 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
         "status": "pass"
@@ -4785,6 +4870,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
         "status": "pass"
       },
       {
@@ -5506,6 +5598,13 @@
         "leak_reason": null,
         "normalized_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
         "ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+        "ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
         "status": "pass"
       },
       {
@@ -6869,6 +6968,13 @@
       {
         "dependency_role": "projection_cell_validation",
         "leak_reason": null,
+        "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
         "status": "pass"
@@ -6990,6 +7096,13 @@
         "leak_reason": null,
         "normalized_ref": "tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
         "ref": "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_validation",
+        "leak_reason": null,
+        "normalized_ref": "tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+        "ref": "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
         "status": "pass"
       },
       {
@@ -7126,7 +7239,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 904,
+    "runtime_dependency_count": 919,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -7175,6 +7288,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_bridge_config_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/kind_atlas_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/mechanistic_oracle_attribution_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_clusterability_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_coverage_matrix_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_fitness_source_module_manifest.json",
@@ -7190,9 +7304,11 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/skills/task_ledger/cap_reflex_improvement_playbook.md",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_command_output_projection.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_contract.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
@@ -7296,6 +7412,7 @@
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/task_ledger_startup_pressure_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
       "examples/macro_projection_import_protocol/exported_projection_import_bundle/world_model_projection_drift_source_module_manifest.json",
+      "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
@@ -7470,6 +7587,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -7491,6 +7609,7 @@
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_tool_body_is_imported_as_light_edit",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
       "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
       "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
       "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
       "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
@@ -7550,6 +7669,7 @@
       "standards/std_microcosm_provider_context_recipe_budget_policy.json",
       "tests/test_command_output_projection_runtime.py",
       "tests/test_macro_projection_import_protocol.py",
+      "tests/test_mechanistic_interpretability_circuit_attribution_replay.py",
       "tests/test_spatial_world_model_counterfactual_simulation_replay.py",
       "tests/test_world_model_projection_drift_control_room.py"
     ],
@@ -7597,7 +7717,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 215,
+  "source_ref_count": 217,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -7813,10 +7933,12 @@
     "system/server/tests/test_view_quality_census.py",
     "tools/meta/factory/check_station_geometry.py",
     "system/server/tests/test_station_geometry_check.py",
-    "system/server/ui/package.json"
+    "system/server/ui/package.json",
+    "codex/nodes/oracle/oracle_attribution_map.json",
+    "codex/substrate/nodes/oracle/oracle_attribution_map.json"
   ],
   "status": "pass",
-  "validation_ref_count": 166,
+  "validation_ref_count": 168,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
     "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
@@ -7944,6 +8066,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kind_atlas_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_mechanistic_oracle_attribution_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_coverage_matrix_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_fitness_source_modules_body_import_is_unified_under_macro_projection_spine",
@@ -7962,6 +8085,7 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_landing_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",

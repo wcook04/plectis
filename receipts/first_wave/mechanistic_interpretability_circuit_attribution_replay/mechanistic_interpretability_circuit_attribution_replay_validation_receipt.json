@@ -17,7 +17,7 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "board_ref": "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+  "board_ref": "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -26,33 +26,37 @@
     "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
     "source_refs": [
       "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
-      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+      "codex/nodes/oracle/oracle_attribution_map.json",
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json"
     ],
     "status": "pass",
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
       "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
-      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
     ],
     "validation_refs": [
       "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
-      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs"
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports"
     ]
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-23T07:22:53+00:00",
+  "created_at": "2026-05-25T18:19:35+00:00",
   "expected_negative_case_count": 8,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "observed_negative_case_count": 8,
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
-    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
-    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json"
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json"
   ],
   "release_authorized": false,
   "replay_count": 6,
-  "result_ref": "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+  "result_ref": "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
   "schema_version": "mechanistic_interpretability_circuit_attribution_replay_validation_receipt_v1",
   "secret_exclusion_scan": {
     "blocking_hit_count": 0,
@@ -66,15 +70,81 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 13,
+    "scanned_path_count": 16,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_summary": {
+    "body_import_status": "copied_non_secret_macro_body_landed",
+    "body_text_in_receipt": false,
+    "bundle_id": "first_wave_mechanistic_interpretability_fixture",
+    "findings": [],
+    "manifest_id": "mechanistic_interpretability_fixture_oracle_attribution_source_modules_import",
+    "module_count": 2,
+    "module_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import"
+    ],
+    "modules": [
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 23,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "oracle_attribution_legacy_node_body_import",
+        "required_anchors": [
+          "Oracle Attribution Mapper",
+          "what_subject_pointed_to_realized_outcome",
+          "subject_evidence_ledger_ids",
+          "cp2_reconstruction_guidance",
+          "Only subject-side ledger ids"
+        ],
+        "source_ref": "codex/nodes/oracle/oracle_attribution_map.json",
+        "source_sha256": "659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+        "status": "pass",
+        "target_body_digest": "sha256:659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "target_sha256": "659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 24,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "oracle_attribution_substrate_node_body_import",
+        "required_anchors": [
+          "Oracle Critique Mapper",
+          "oracle_truth_diff_equity",
+          "critique_items",
+          "eligible_ledger_ids",
+          "Only subject-side refs"
+        ],
+        "source_ref": "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "source_sha256": "fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+        "status": "pass",
+        "target_body_digest": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "target_sha256": "fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d"
+      }
+    ],
+    "public_safe_body_material_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import"
+    ],
+    "status": "pass",
+    "verified_module_count": 2
   },
   "status": "pass",
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
     "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
-    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+    "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
   ],
   "validator_id": "validator.microcosm.organs.mechanistic_interpretability_circuit_attribution_replay"
 }

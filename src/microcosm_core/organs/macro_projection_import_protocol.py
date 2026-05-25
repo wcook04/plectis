@@ -761,6 +761,48 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "mechanistic_oracle_attribution_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The mechanistic interpretability replay now carries exact copied "
+            "non-secret Oracle attribution-map node bodies inside public "
+            "source-module bundles, validated by digest, anchor, source-module "
+            "manifest, and secret-exclusion checks without exporting provider "
+            "payloads, private model weights, raw activations, hidden reasoning, "
+            "browser/HUD live access, account/session state, benchmark "
+            "authority, release, or publication authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/mechanistic_interpretability_circuit_attribution_replay/"
+                "exported_circuit_attribution_bundle/source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "mechanistic_oracle_attribution_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/codex/nodes/"
+                "oracle/oracle_attribution_map.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/codex/substrate/"
+                "nodes/oracle/oracle_attribution_map.json"
+            ),
+            "tests/test_mechanistic_interpretability_circuit_attribution_replay.py",
+            "tests/test_macro_projection_import_protocol.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/"
+            "test_mechanistic_interpretability_circuit_attribution_replay.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "navigation_coverage_matrix_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

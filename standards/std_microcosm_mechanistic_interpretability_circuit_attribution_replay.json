@@ -121,6 +121,20 @@
       "role": "source_pattern_projection_ref"
     }
   ],
+  "standard_payload": {
+    "anti_purpose": "A pretty circuit graph, feature-name story, or provider transcript that claims model transparency without copied public-safe attribution machinery, causal intervention receipts, failure limits, and secret exclusion.",
+    "failure_modes": [
+      "private model weights or raw activation tensors copied into public fixtures",
+      "proprietary prompt bodies, hidden chain-of-thought, or provider payloads treated as inspectable circuit evidence",
+      "screenshot-only attribution graph accepted without machine-readable nodes and edges",
+      "feature labels asserted without catalog ids, visualization summary refs, or validation anchors",
+      "transparency or faithfulness claim made without causal intervention receipts and sufficiency limits",
+      "synthetic attribution fixture counted as macro body instead of being wrapped by exact copied source modules or named blocked-import debt",
+      "Oracle attribution-map prompt body or runtime receipt treated as live provider execution, benchmark result, or product transparency authority"
+    ],
+    "ontology": "A public-safe circuit-attribution replay organ that combines body-free replay rows with exact copied non-secret attribution-map source nodes, explicit causal-intervention refs, and failure-mode boundaries before any interpretability claim is allowed.",
+    "teleology": "Make interpretability evidence falsifiable and source-open without leaking private model internals, provider payloads, prompt bodies, hidden reasoning, or benchmark/product authority."
+  },
   "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
   "status": "draft",
   "validation_rules": [

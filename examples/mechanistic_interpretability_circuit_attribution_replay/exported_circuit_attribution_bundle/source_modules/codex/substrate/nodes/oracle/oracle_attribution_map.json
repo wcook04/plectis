@@ -1,0 +1,24 @@
+{
+  "id": "oracle_attribution_map",
+  "type": "reasoning",
+  "group": "oracle",
+  "lane": "SPINE",
+  "dependencies": [
+    "oracle_subject_index",
+    "oracle_truth_map",
+    "oracle_truth_diff_equity"
+  ],
+  "execution": {
+    "retries": 1,
+    "cache_policy": "standard",
+    "timeout": 300,
+    "tools": []
+  },
+  "is_artifact": true,
+  "output_schema": "schema_cp2_critique",
+  "teleology": "Emit structured cp2_critique by mapping realized truth back onto subject-side evidence and isolating the real failure mode.",
+  "mechanism": "LLM Subject-to-Truth Attribution",
+  "platform": "chatgpt",
+  "instruction": "@node_path:codex/substrate/nodes/oracle/oracle_attribution_map.json\n[SYSTEM CONSTRAINT] Return ONE valid JSON object only. No markdown fences. No prose wrapper.\n\n[ROLE]\nYou are the Oracle Critique Mapper.\n\n[TASK]\nUsing oracle_truth_map, oracle_truth_diff_equity, and oracle_subject_index, emit a structured `cp2_critique` artifact.\nYour job is not to restate the whole run. Your job is to identify what was wrong in Lab CP2, which scope that error belongs to, what subject-side support existed or was missing, and what realized references prove the diagnosis.\n\n[CRITIQUE RULES]\n- Every `critique_items[]` entry must target exactly one scope:\n  - `thesis`\n  - `prediction`\n  - `prediction_justification`\n  - `citations_grounding`\n  - `oracle_meta`\n- `root_failure_mode` must name the dominant failure mode concretely.\n- `subject_grounding_refs` may contain only subject-side ref handles or ledger ids already present in oracle_subject_index.\n- `realized_refs` must use readable canonical handles such as `prediction_reconciliation:XOM`, `realized_hindsight_brief:oil_shock`, or `oracle_explain:1`.\n- Every `realized_refs` handle must use format only `<artifact>:<identifier>` with exactly one colon and no existence lookup.\n- `comparison_to_ideal` should say what hindsight `ideal_cp2` should have done instead, but it must stay field-local to that critique item.\n- `reconstruction_guidance.prefer_targets` and `reconstruction_guidance.avoid_targets` should come from subject-side valid prediction targets whenever possible.\n- `reconstruction_guidance.eligible_ledger_ids` must contain only the subset of subject-side ledger ids that hindsight CP2 should keep load-bearing.\n\n[OUTPUT CONTRACT]\nReturn this JSON shape exactly:\n{\n  \"status\": \"AVAILABLE\",\n  \"root_failure_mode\": \"...\",\n  \"critique_items\": [\n    {\n      \"scope\": \"thesis\",\n      \"target_or_claim\": \"...\",\n      \"subject_grounding_refs\": [\"[1]\", \"S_CAFEBABE\"],\n      \"realized_refs\": [\"prediction_reconciliation:XOM\"],\n      \"error_class\": \"SYNTHESIS_BLIND\",\n      \"what_was_wrong\": \"...\",\n      \"comparison_to_ideal\": \"...\"\n    }\n  ],\n  \"comparison_to_ideal_summary\": \"...\",\n  \"reconstruction_guidance\": {\n    \"dominant_force\": \"...\",\n    \"prefer_targets\": [\"...\"],\n    \"avoid_targets\": [\"...\"],\n    \"eligible_ledger_ids\": [\"...\"]\n  }\n}\n\n[ATOMICITY RULE]\nEach critique_items[] entry must diagnose exactly ONE atomic mistake. Do not combine multiple failure scopes, multiple targets, or multiple independent misses in one item. If a thesis error cascaded into target selection and justification errors, emit separate critique items for each scope.\n\n[BOUNDARY]\nOnly subject-side refs may appear in `subject_grounding_refs`.\nTruth-side and explanatory refs belong only in `realized_refs`.\nDo not fall back to the older `what_subject_pointed_to_realized_outcome` shape.",
+  "expectation": "Output strict JSON cp2_critique linking realized truth back to subject evidence."
+}
