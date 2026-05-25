@@ -99,6 +99,9 @@ KERNEL_BRIDGE_CONFIG_MANIFEST = (
 OBSERVE_RUNTIME_MANIFEST = (
     BUNDLE_INPUT / "observe_runtime_source_module_manifest.json"
 )
+KERNEL_STATE_REGISTRY_MANIFEST = (
+    BUNDLE_INPUT / "kernel_state_registry_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1211,7 +1214,7 @@ from system.lib.kernel import config as kernel_config
 from system.lib.kernel import state as kernel_state
 
 with tempfile.TemporaryDirectory() as tmp:
-    root = Path(tmp)
+    root = Path(tmp).resolve()
     kernel_state.REPO_ROOT = root
     (root / "master_config.json").write_text(
         json.dumps({{
@@ -1452,6 +1455,115 @@ with tempfile.TemporaryDirectory() as tmp:
         "responses/done.surface.json",
         "responses/done.md",
     ]
+
+
+def test_kernel_state_registry_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        KERNEL_STATE_REGISTRY_MANIFEST,
+        manifest_id="kernel_state_registry_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_kernel_state_registry_sources_compile_and_preserve_path_and_registry_contract() -> None:
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    source_paths = [
+        source_modules_root / "system/lib/observe_assets.py",
+        source_modules_root / "system/lib/standards_registry.py",
+    ]
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    observe_assets_text = source_paths[0].read_text(encoding="utf-8")
+    standards_registry_text = source_paths[1].read_text(encoding="utf-8")
+    assert "def observe_asset_paths(" in observe_assets_text
+    assert "OBSERVE_TREE_RUNTIME_RELS = (" in observe_assets_text
+    assert "def build_standards_catalog(" in standards_registry_text
+    assert "STANDARDS_REGISTRY_PATH" in standards_registry_text
+
+    code = f"""
+import json
+import sys
+import tempfile
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import observe_assets, standards_registry
+
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp).resolve()
+    authority_index = root / "codex/standards/observe/authority_index.json"
+    authority_index.parent.mkdir(parents=True, exist_ok=True)
+    authority_index.write_text(
+        json.dumps({{
+            "artifacts": {{
+                "observe_plan": {{
+                    "description": "fixture observe plan",
+                    "json_standard": "codex/standards/observe/std_observe_general.json",
+                    "path_globs": ["tools/meta/apply/observe_plans/*.json"],
+                    "lifecycle": "runtime_fixture",
+                    "authority_rule": "source_only_fixture",
+                }}
+            }},
+            "supporting_assets": {{"template": {{"path": "templates/observe.json"}}}},
+        }}),
+        encoding="utf-8",
+    )
+    registry = root / standards_registry.STANDARDS_REGISTRY_PATH
+    registry.parent.mkdir(parents=True, exist_ok=True)
+    registry.write_text(
+        json.dumps({{
+            "root": "codex/standards",
+            "purpose": "fixture registry",
+            "kernel_navigation_hints": ["fixture"],
+            "groups": [
+                {{
+                    "group_id": "observe",
+                    "title": "Observe",
+                    "group_root": "codex/standards/observe",
+                    "authority_index": "codex/standards/observe/authority_index.json",
+                    "summary": "fixture group",
+                    "storage_status": "local_fixture",
+                    "kernel_navigation_hints": ["observe"],
+                }}
+            ],
+        }}),
+        encoding="utf-8",
+    )
+    assets = observe_assets.observe_asset_paths(root)
+    catalog = standards_registry.build_standards_catalog(repo_root=root)
+    payload = {{
+        "observe_plan": str(assets.observe_plan.relative_to(root)),
+        "tree_manifest": str(assets.tree_manifest.relative_to(root)),
+        "runtime_rel_count": len(observe_assets.OBSERVE_TREE_RUNTIME_RELS),
+        "canonical_doc_count": len(observe_assets.OBSERVE_TREE_CANONICAL_DOC_RELS),
+        "registry_path": catalog["registry_path"],
+        "group_count": len(catalog["groups"]),
+        "artifact_count": catalog["groups"][0]["artifact_count"],
+        "supporting_asset_count": catalog["groups"][0]["supporting_asset_count"],
+        "artifact_kind": catalog["groups"][0]["artifacts"][0]["artifact_kind"],
+    }}
+    print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [sys.executable, "-c", code],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload == {
+        "artifact_count": 1,
+        "artifact_kind": "observe_plan",
+        "canonical_doc_count": 13,
+        "group_count": 1,
+        "observe_plan": "tools/meta/apply/observe_plan.json",
+        "registry_path": "codex/standards/standards_registry.json",
+        "runtime_rel_count": 14,
+        "supporting_asset_count": 1,
+        "tree_manifest": "codex/derived/observe/tree_manifest.json",
+    }
 
 
 def _load_trace_capsule_source_module():

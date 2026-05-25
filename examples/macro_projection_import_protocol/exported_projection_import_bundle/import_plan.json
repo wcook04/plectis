@@ -1424,6 +1424,42 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "kernel_state_registry_source_modules_import",
+      "selected_pattern_ids": [
+        "kernel_state_path_registry",
+        "standards_registry_executable_grammar_index",
+        "macro_body_floor_import"
+      ],
+      "source_refs": [
+        "system/lib/observe_assets.py",
+        "system/lib/standards_registry.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_assets.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/kernel_state_registry_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_state_registry_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_state_registry_sources_compile_and_preserve_path_and_registry_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_state_registry_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "observe_assets_body_import",
+        "standards_registry_body_import"
+      ],
+      "authority_ceiling": "public kernel state dependency source-body import only; not live bridge dispatch, provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_state_registry_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

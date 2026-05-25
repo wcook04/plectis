@@ -1,0 +1,75 @@
+{
+  "schema_version": "macro_projection_kernel_state_registry_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "kernel_state_registry_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access",
+  "body_storage_policy": "exact_non_secret_kernel_state_registry_dependency_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and local tmpdir path/registry behavior checks but never duplicate full source bodies, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "CLI subprocess execution payloads",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and local tmpdir path/registry behavior checks; copied source modules are body evidence, not authority to dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit provider payload bodies, write generated state, mutate private state, or claim release authority.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "observe_assets_body_import",
+      "source_ref": "system/lib/observe_assets.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/observe_assets.py",
+      "source_role": "Canonical observe/apply path registry that centralizes runtime, standards, derived, and doctrine observe asset locations for kernel state without reading or mutating observe payloads.",
+      "required_anchors": [
+        "def observe_asset_paths(",
+        "class ObserveAssetPaths",
+        "OBSERVE_TREE_RUNTIME_RELS = (",
+        "OBSERVE_TREE_CANONICAL_DOC_RELS = (",
+        "Non-goal: This module does not read, validate, or mutate observe plans"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_or_account_session_state",
+      "source_sha256": "447e98d81791e6d5a5223a7ed9d9400e687607be3e47d06d054f908a31404594",
+      "target_sha256": "447e98d81791e6d5a5223a7ed9d9400e687607be3e47d06d054f908a31404594",
+      "sha256_match": true,
+      "line_count": 179,
+      "byte_count": 7932,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "standards_registry_body_import",
+      "source_ref": "system/lib/standards_registry.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standards_registry.py",
+      "source_role": "Grouped standards registry loader that reads the top-level standards registry and group authority indexes into a compact kernel/observe catalog without validating semantics or mutating standards files.",
+      "required_anchors": [
+        "STANDARDS_REGISTRY_PATH = \"codex/standards/standards_registry.json\"",
+        "def load_standards_registry(",
+        "def load_group_authority_index(",
+        "def build_standards_catalog(",
+        "Guarantee: Missing or unreadable registry/authority files degrade to empty mappings"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_or_account_session_state",
+      "source_sha256": "ccbe1a658b5540fcd547497ac385e0dec3d91a8bc42d6fe33f39f33a6f1310ef",
+      "target_sha256": "ccbe1a658b5540fcd547497ac385e0dec3d91a8bc42d6fe33f39f33a6f1310ef",
+      "sha256_match": true,
+      "line_count": 165,
+      "byte_count": 9074,
+      "anchor_count": 5
+    }
+  ]
+}
