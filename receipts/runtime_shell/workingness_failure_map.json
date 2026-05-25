@@ -32,9 +32,9 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 14,
+    "missing_failure_modes_count": 13,
     "missing_standard_count": 3,
-    "rows_with_failure_modes": 32,
+    "rows_with_failure_modes": 33,
     "rows_with_future_work_targets": 37,
     "thing_count": 46
   },
@@ -594,23 +594,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 8,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_tactic_portfolio_availability_probe.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "copied Lean probe source artifact missing from public bundle",
+        "copied Lean probe source artifact digest differs from macro source",
+        "tactic row omits compile status",
+        "Mathlib-dependent tactic marked available without a passing Mathlib probe",
+        "consumer references a tactic absent from the declared portfolio",
+        "private theorem proof body or provider payload appears in public output",
+        "availability row upgraded into theorem proof or benchmark authority",
+        "release or provider-call authority implied by an environment-scoped probe"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "Treating availability rows, copied tactic probes, or Mathlib absence as theorem proof authority, benchmark performance, or release authority.",
         "authority_boundary": "public_tactic_availability_probe_real_lean_std_affordance_refs_not_proof_authority",
         "authority_ceiling": {
           "benchmark_performance_authority": false,
@@ -621,10 +625,8 @@
           "tactic_availability_authority": "environment_scoped_real_probe_rows"
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public tactic availability probe made from copied macro rows plus copied Lean probe source bodies, with digest coupling and explicit no-proof-authority boundaries.",
         "receipt_expectation_count": 4,
         "required_field_count": 7,
         "required_substrate": {
@@ -632,7 +634,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -640,8 +642,8 @@
         },
         "standard_ref": "standards/std_microcosm_tactic_portfolio_availability_probe.json",
         "standard_status": "accepted_public_runtime_standard",
-        "teleology": null,
-        "validation_rule_count": 4
+        "teleology": "Let a cold reader inspect the actual public-safe Lean source that produced the tactic availability rows before relying on the normalized portfolio projection.",
+        "validation_rule_count": 5
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",

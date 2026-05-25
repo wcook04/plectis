@@ -5,10 +5,14 @@
   "pass_statuses": ["compile_pass", "available", "pass"],
   "fail_statuses": ["environment_fail", "compile_fail", "unavailable"],
   "mathlib_dependent_tactics_require_passing_mathlib_probe": true,
-  "proof_bodies_allowed": false,
+  "private_theorem_proof_bodies_allowed": false,
+  "public_lean_probe_source_bodies_allowed": true,
+  "source_artifact_count_required": 10,
+  "source_artifact_digest_verification_required": true,
   "provider_payloads_allowed": false,
   "release_authorized": false,
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
   "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows"
 }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -50,14 +51,76 @@ SOURCE_TARGET_REFS = [
     "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
     ACCEPTANCE_RECEIPT_REL,
     "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/mathlib_probe.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
 ]
 SOURCE_DIGESTS = {
     SOURCE_REFS[0]: "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
     SOURCE_REFS[1]: "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
     SOURCE_REFS[2]: "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
 }
+PROBE_SOURCE_REL_PATHS = (
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+    "source_artifacts/tactic_affordance_probe/mathlib_probe.lean",
+    "source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
+)
+PROBE_SOURCE_REF_BY_REL = {
+    rel: (
+        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/"
+        f"{rel.removeprefix('source_artifacts/')}"
+    )
+    for rel in PROBE_SOURCE_REL_PATHS
+}
+PROBE_SOURCE_DIGESTS = {
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean"
+    ]: "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean"
+    ]: "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean"
+    ]: "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean"
+    ]: "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean"
+    ]: "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean"
+    ]: "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean"
+    ]: "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean"
+    ]: "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/mathlib_probe.lean"
+    ]: "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    PROBE_SOURCE_REF_BY_REL[
+        "source_artifacts/tactic_affordance_probe/trace_state_probe.lean"
+    ]: "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+}
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 TACTIC_AVAILABILITY_STATUS = "real_lean_std_tactic_affordance_probe_rows"
+PROBE_SOURCE_BODY_STATUS = "copied_non_secret_lean_probe_source_bodies_with_digest_verification"
 BODY_IN_RECEIPT = False
 
 INPUT_NAMES = (
@@ -144,7 +207,7 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    return [input_dir / name for name in names] + _probe_source_paths(input_dir)
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -166,6 +229,74 @@ def _walk_dicts(value: object) -> list[dict[str, Any]]:
 
 def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
+
+
+def _probe_source_paths(input_dir: Path) -> list[Path]:
+    return [input_dir / rel for rel in PROBE_SOURCE_REL_PATHS]
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _probe_source_imports(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    imports: list[dict[str, Any]] = []
+    findings: list[dict[str, Any]] = []
+    for rel in PROBE_SOURCE_REL_PATHS:
+        source_ref = PROBE_SOURCE_REF_BY_REL[rel]
+        expected = PROBE_SOURCE_DIGESTS[source_ref]
+        target = input_dir / rel
+        target_ref = _display(target, public_root=public_root)
+        if not target.is_file():
+            imports.append(
+                {
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "sha256": expected,
+                    "actual_sha256": None,
+                    "body_copied": False,
+                    "copy_policy": "exact_public_safe_lean_probe_source",
+                    "body_material_status": "missing_public_probe_source_body",
+                }
+            )
+            findings.append(
+                _finding(
+                    "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_MISSING",
+                    "A copied Lean tactic probe source artifact is missing.",
+                    case_id="probe_source_artifacts",
+                    subject_id=target_ref,
+                    subject_kind="source_artifact",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        body_copied = actual == expected
+        imports.append(
+            {
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "sha256": expected,
+                "actual_sha256": actual,
+                "body_copied": body_copied,
+                "copy_policy": "exact_public_safe_lean_probe_source",
+                "body_material_status": PROBE_SOURCE_BODY_STATUS,
+            }
+        )
+        if not body_copied:
+            findings.append(
+                _finding(
+                    "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_DIGEST_MISMATCH",
+                    "A copied Lean tactic probe source artifact digest does not match its macro source.",
+                    case_id="probe_source_artifacts",
+                    subject_id=target_ref,
+                    subject_kind="source_artifact",
+                )
+            )
+    return imports, findings
 
 
 def _finding(
@@ -413,10 +544,17 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "availability_probe_scoped_to_environment": True,
             "mathlib_absence_surfaces_as_environment_fail": True,
             "unprobed_tactics_rejected": True,
-            "proof_bodies_excluded": True,
+            "private_theorem_proof_bodies_excluded": True,
+            "public_lean_probe_source_bodies_allowed": True,
             "lean_lake_not_run_by_public_organ": True,
+            "lean_probe_source_bodies_copied": True,
+            "lean_probe_source_bodies_digest_verified": result[
+                "source_artifact_count"
+            ]
+            == result["copied_source_artifact_count"],
             "body_in_receipt": BODY_IN_RECEIPT,
             "body_material_status": BODY_MATERIAL_STATUS,
+            "probe_source_body_status": PROBE_SOURCE_BODY_STATUS,
         },
         "portfolio_projection": {
             "portfolio_id": result["portfolio_id"],
@@ -440,6 +578,11 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
         "source_target_refs": SOURCE_TARGET_REFS,
         "source_digests": SOURCE_DIGESTS,
+        "probe_source_digest_refs": PROBE_SOURCE_DIGESTS,
+        "source_artifact_imports": result["source_artifact_imports"],
+        "source_artifact_count": result["source_artifact_count"],
+        "copied_source_artifact_count": result["copied_source_artifact_count"],
+        "probe_source_body_status": PROBE_SOURCE_BODY_STATUS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": BODY_IN_RECEIPT,
@@ -475,6 +618,11 @@ def _common_receipt(
         "receipt_anchor_refs",
         "source_target_refs",
         "source_digests",
+        "probe_source_digest_refs",
+        "source_artifact_imports",
+        "source_artifact_count",
+        "copied_source_artifact_count",
+        "probe_source_body_status",
         "authority_ceiling",
         "anti_claim",
         "portfolio_id",
@@ -522,6 +670,10 @@ def _build_result(
         display_root=public_root,
     )
     secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
+    source_imports, source_findings = _probe_source_imports(
+        input_dir,
+        public_root=public_root,
+    )
 
     portfolio_payload = payloads["tactic_portfolio_probe"]
     environment_probe = payloads["environment_probe"]
@@ -540,7 +692,7 @@ def _build_result(
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     observed = negative["observed_negative_cases"]
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*positive_findings, *negative["findings"]]
+    findings = [*source_findings, *positive_findings, *negative["findings"]]
     error_codes = sorted({finding["error_code"] for finding in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
@@ -557,7 +709,8 @@ def _build_result(
     ]
     status = (
         PASS
-        if not positive_findings
+        if not source_findings
+        and not positive_findings
         and not missing
         and not secret_scan["blocking_hit_count"]
         else "blocked"
@@ -587,6 +740,13 @@ def _build_result(
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
         "source_target_refs": SOURCE_TARGET_REFS,
         "source_digests": SOURCE_DIGESTS,
+        "probe_source_digest_refs": PROBE_SOURCE_DIGESTS,
+        "source_artifact_imports": source_imports,
+        "source_artifact_count": len(source_imports),
+        "copied_source_artifact_count": sum(
+            1 for row in source_imports if row["body_copied"] is True
+        ),
+        "probe_source_body_status": PROBE_SOURCE_BODY_STATUS,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "portfolio_id": str(portfolio_payload.get("portfolio_id") or ""),

@@ -6,10 +6,22 @@
   "files": [
     "tactic_portfolio_probe.json",
     "environment_probe.json",
-    "availability_policy.json"
+    "availability_policy.json",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+    "source_artifacts/tactic_affordance_probe/mathlib_probe.lean",
+    "source_artifacts/tactic_affordance_probe/trace_state_probe.lean"
   ],
+  "source_artifact_count": 10,
   "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
   "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
   "release_authorized": false
 }

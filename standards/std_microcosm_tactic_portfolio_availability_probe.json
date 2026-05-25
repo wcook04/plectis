@@ -14,6 +14,80 @@
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
   },
+  "probe_source_digests": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5"
+  },
+  "copied_source_body_imports": [
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "sha256": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "sha256": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "sha256": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "sha256": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "sha256": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "sha256": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "sha256": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/mathlib_probe.lean",
+      "sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "body_copied": true
+    },
+    {
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+      "target_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
+      "sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "body_copied": true
+    }
+  ],
   "receipt_anchor_refs": [
     "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_result.json",
     "receipts/first_wave/target_shape_tactic_routing_gate/target_shape_tactic_routing_board.json",
@@ -43,7 +117,8 @@
     "Each tactic row declares compile_status in a scoped pass/fail vocabulary.",
     "Mathlib-dependent tactics cannot be marked available unless the Mathlib import probe passed.",
     "Consumers cannot reference tactics absent from the declared portfolio probe.",
-    "Proof bodies, raw provider payloads, benchmark claims, release authority, and private paths are rejected."
+    "Copied Lean probe source bodies must be present and match declared source digests.",
+    "Private theorem proof bodies, raw provider payloads, benchmark claims, release authority, and private paths are rejected."
   ],
   "receipt_expectations": [
     "tactic_portfolio_availability_result.json",
@@ -60,6 +135,9 @@
     "status_field": "status",
     "body_material_status": "copied_non_secret_macro_body_with_provenance",
     "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+    "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+    "source_artifact_count": 10,
+    "source_artifact_digest_verification_required": true,
     "secret_exclusion_scan_required": true,
     "required_negative_cases": [
       "missing_compile_status",
@@ -70,9 +148,9 @@
     ]
   },
   "public_private_boundary": {
-    "public_inputs": "copied non-secret Lean/Std tactic affordance rows, scoped Mathlib absence probe result, and corpus readiness boundary refs from the 2026-05-11 smoke run",
+    "public_inputs": "copied non-secret Lean/Std tactic affordance rows, copied Lean probe source bodies, scoped Mathlib absence probe result, and corpus readiness boundary refs from the 2026-05-11 smoke run",
     "private_inputs_forbidden": [
-      "private Lean proof bodies",
+      "private theorem proof bodies",
       "provider payloads",
       "private source paths",
       "live benchmark claims"
@@ -86,6 +164,30 @@
     "provider_calls_authorized": false,
     "benchmark_performance_authority": false,
     "release_authorized": false
+  },
+  "standard_payload": {
+    "ontology": "A public tactic availability probe made from copied macro rows plus copied Lean probe source bodies, with digest coupling and explicit no-proof-authority boundaries.",
+    "teleology": "Let a cold reader inspect the actual public-safe Lean source that produced the tactic availability rows before relying on the normalized portfolio projection.",
+    "anti_purpose": "Treating availability rows, copied tactic probes, or Mathlib absence as theorem proof authority, benchmark performance, or release authority.",
+    "compression_bands": [
+      "copied_probe_sources",
+      "availability_rows",
+      "mathlib_absence_boundary",
+      "consumer_tactic_gating",
+      "negative_cases",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "copied Lean probe source artifact missing from public bundle",
+      "copied Lean probe source artifact digest differs from macro source",
+      "tactic row omits compile status",
+      "Mathlib-dependent tactic marked available without a passing Mathlib probe",
+      "consumer references a tactic absent from the declared portfolio",
+      "private theorem proof body or provider payload appears in public output",
+      "availability row upgraded into theorem proof or benchmark authority",
+      "release or provider-call authority implied by an environment-scoped probe"
+    ],
+    "rebuild_action": "validate tactic portfolio fixture, exported bundle, and workingness map"
   },
   "anti_claim": "Tactic portfolio availability is an environment-scoped probe artifact; it does not prove theorem correctness, authorize provider output, claim benchmark performance, or authorize release."
 }

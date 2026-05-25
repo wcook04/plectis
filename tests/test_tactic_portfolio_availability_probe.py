@@ -70,6 +70,15 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     assert result["tactic_availability_status"] == (
         "real_lean_std_tactic_affordance_probe_rows"
     )
+    assert result["probe_source_body_status"] == (
+        "copied_non_secret_lean_probe_source_bodies_with_digest_verification"
+    )
+    assert result["source_artifact_count"] == 10
+    assert result["copied_source_artifact_count"] == 10
+    assert all(row["body_copied"] for row in result["source_artifact_imports"])
+    assert result["probe_source_digest_refs"][
+        "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean"
+    ] == "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696"
     assert result["body_in_receipt"] is False
     assert result["source_digests"][
         "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
@@ -115,6 +124,9 @@ def test_tactic_portfolio_availability_receipts_are_public_relative_and_real_sub
         assert payload["body_material_status"] == (
             "copied_non_secret_macro_body_with_provenance"
         )
+        assert payload["source_artifact_count"] == 10
+        assert payload["copied_source_artifact_count"] == 10
+        assert all(row["body_copied"] for row in payload["source_artifact_imports"])
         assert payload["body_in_receipt"] is False
         assert "private_state_scan" not in payload
         assert "body_redacted" not in payload
@@ -151,6 +163,9 @@ def test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape(
     assert result["tactic_availability_status"] == (
         "real_lean_std_tactic_affordance_probe_rows"
     )
+    assert result["source_artifact_count"] == 10
+    assert result["copied_source_artifact_count"] == 10
+    assert all(row["body_copied"] for row in result["source_artifact_imports"])
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["receipt_paths"] == [
         (
