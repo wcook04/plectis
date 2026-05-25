@@ -3189,6 +3189,22 @@ class RuntimeShell:
             "intake": intake.get("status"),
             "reveal": reveal.get("status"),
         }
+        drilldown_warning_surface_ids = ["authority", "intake"]
+        front_door_required_surface_ids = [
+            surface_id
+            for surface_id in surface_statuses
+            if surface_id not in drilldown_warning_surface_ids
+        ]
+        blocking_surface_ids = [
+            surface_id
+            for surface_id in front_door_required_surface_ids
+            if surface_statuses.get(surface_id) != PASS
+        ]
+        drilldown_blocked_surface_ids = [
+            surface_id
+            for surface_id in drilldown_warning_surface_ids
+            if surface_statuses.get(surface_id) != PASS
+        ]
         commands = [
             "microcosm tour <project>",
             "microcosm compile <project>",
@@ -3415,7 +3431,7 @@ class RuntimeShell:
         payload = {
             "schema_version": "microcosm_public_ten_minute_tour_v1",
             "created_at": utc_now(),
-            "status": PASS if all(value == PASS for value in surface_statuses.values()) else "blocked",
+            "status": PASS if not blocking_surface_ids else "blocked",
             "tour_id": "public_ten_minute_tour",
             "command": "microcosm tour <project>",
             "endpoint": "/tour",
@@ -3486,6 +3502,18 @@ class RuntimeShell:
             ],
             "route_cards": route_cards,
             "surface_statuses": surface_statuses,
+            "front_door_status": {
+                "schema_version": "microcosm_tour_front_door_status_v1",
+                "status_scope": "required_behavioral_first_screen_surfaces",
+                "required_surface_ids": front_door_required_surface_ids,
+                "blocking_surface_ids": blocking_surface_ids,
+                "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
+                "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
+                "top_level_status_rule": (
+                    "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_"
+                    "drilldowns_report_blocked"
+                ),
+            },
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "file_count": compiled.get("file_count"),

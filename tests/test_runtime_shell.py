@@ -1085,6 +1085,14 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["command"] == "microcosm tour <project>"
     assert tour["endpoint"] == "/tour"
     assert tour["time_budget_minutes"] == 10
+    assert tour["front_door_status"]["status_scope"] == (
+        "required_behavioral_first_screen_surfaces"
+    )
+    assert tour["front_door_status"]["blocking_surface_ids"] == []
+    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
     assert tour["compile_summary"]["headline"] == "repo -> .microcosm"
     assert tour["compile_summary"]["source_files_mutated"] is False
     assert tour["snapshot_policy"] == {
@@ -1109,7 +1117,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ],
     }
     assert tour["surface_statuses"] == {
-        "authority": "pass",
+        "authority": "blocked",
         "benchmark_lab": "pass",
         "compile": "pass",
         "corpus": "pass",
@@ -1117,7 +1125,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "evidence_cells": "pass",
         "hook_coverage": "pass",
         "import_projector": "pass",
-        "intake": "pass",
+        "intake": "blocked",
         "landing_replay": "pass",
         "legibility_scorecard": "pass",
         "market_boundary": "pass",
@@ -2994,6 +3002,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
+    assert tour["front_door_status"]["blocking_surface_ids"] == []
+    assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 42
@@ -3088,9 +3101,9 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert python_lens["unsafe_payload_bodies_in_receipt"] is False
     assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
-    assert python_lens["payload_boundary"]["legacy_schema_compat_present"] is True
+    assert python_lens["payload_boundary"]["legacy_schema_compat_present"] is False
     assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
-    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_schema_present"] is True
+    assert python_lens["legacy_payload_schema_compat"]["legacy_payload_schema_present"] is False
     assert python_lens["legacy_payload_schema_compat"]["legacy_payload_flags_exported"] is False
     assert "legacy_body_redacted_compat_present" not in python_lens
     assert "body_redacted" not in python_lens
@@ -3165,7 +3178,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     assert observatory["runtime_bridge"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 13,
+        "public_runtime_import_landed": 14,
         "runtime_bridge_landed": 1,
         "self_hosted_status_protocol_landed": 1,
     }

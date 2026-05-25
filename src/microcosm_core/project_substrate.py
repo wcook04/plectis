@@ -8,6 +8,10 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core import architecture_kernel
+from microcosm_core.public_payload_boundary import (
+    SOURCE_OPEN_BODY_POLICY,
+    public_payload_boundary,
+)
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
 
@@ -49,6 +53,7 @@ README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
 PYTHON_LENS_STATE = "python_lens.json"
+PROJECT_PYTHON_LENS_BOUNDARY_ID = "project_python_lens_read_model"
 STD_PYTHON_NAVIGATION_LADDER = [
     "module_docs",
     "file_card",
@@ -67,6 +72,23 @@ ROUTE_UTILITY_DISPOSITION_OUTCOMES = [
     "macro_standard_amendment_candidate",
     "nothing_to_refine",
 ]
+
+
+def _source_body_boundary_row() -> dict[str, Any]:
+    return {
+        "payload_boundary_ref": PROJECT_PYTHON_LENS_BOUNDARY_ID,
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "source_bodies_exported": False,
+    }
+
+
+def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
+    return public_payload_boundary(
+        boundary_id=PROJECT_PYTHON_LENS_BOUNDARY_ID,
+        command=command,
+        surface_ref=f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        legacy_schema_compat_present=False,
+    )
 
 
 def _project_name(project: Path) -> str:
@@ -538,7 +560,7 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
         "line_start": 1,
         "line_end": line_count,
         "depth_band": "source_span",
-        "body_redacted": True,
+        **_source_body_boundary_row(),
         "authority": "source_span_locator_not_source_body_or_correctness_authority",
     }
     try:
@@ -554,7 +576,7 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
                 "path": rel,
                 "line": exc.lineno,
                 "message": exc.msg,
-                "body_redacted": True,
+                **_source_body_boundary_row(),
             },
         }
 
@@ -579,7 +601,7 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
                         "line_start": line_start,
                         "line_end": line_end,
                         "depth_band": "source_span",
-                        "body_redacted": True,
+                        **_source_body_boundary_row(),
                         "authority": "source_span_locator_not_source_body_or_correctness_authority",
                     }
                 )
@@ -591,7 +613,7 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
                         "symbol_kind": symbol_kind,
                         "source_span_ref": span_id,
                         "depth_band": "symbol_capsule",
-                        "body_redacted": True,
+                        **_source_body_boundary_row(),
                     }
                 )
                 visit_scope(child, [*parents, child.name])
@@ -701,7 +723,7 @@ def _python_probe_disposition_rows(
                 "expected_depth_band": "source_span",
                 "reentry_condition": "syntax parses or file is removed from Python lens scope",
                 "line": row.get("line"),
-                "body_redacted": True,
+                **_source_body_boundary_row(),
             }
         )
     return rows
@@ -799,7 +821,7 @@ def _route_utility_task(
         "failure_class": "none" if requirement_met else ("not_applicable" if not_applicable else failure_class),
         "disposition": final_disposition,
         "reentry_condition": reentry_condition,
-        "body_redacted": True,
+        **_source_body_boundary_row(),
     }
 
 
@@ -849,7 +871,7 @@ def _route_utility_ratchet(
         "symbol_capsule_locator",
         "graph_context_locator",
         "probe_disposition_closure",
-        "redaction_boundary",
+        "payload_boundary",
     ]
     if write_state:
         return {
@@ -866,7 +888,7 @@ def _route_utility_ratchet(
             "last_run_result": "curriculum_current",
             "next_reentry_condition": (
                 "rerun non-writing route utility ratchet after source, test, entry, "
-                "symbol, graph, or redaction-boundary surfaces change"
+                "symbol, graph, or payload-boundary surfaces change"
             ),
         }
     if not state_path.is_file():
@@ -1089,15 +1111,15 @@ def _python_route_utility_curriculum(
             reentry_condition="probe disposition grammar or parse status changes",
         ),
         _route_utility_task(
-            task_id="route_utility:redaction_boundary",
+            task_id="route_utility:payload_boundary",
             task_intent="Verify route utility uses refs and spans without exporting source bodies.",
             expected_start_band="file_card",
             selected_band="file_card",
             route_hops=["python_navigation_route", "authority_ceiling.source_bodies_exported"],
-            requirement_met=all(row.get("body_redacted") is True for row in path_rows),
+            requirement_met=all(row.get("source_bodies_exported") is False for row in path_rows),
             failure_class="local_projection_defect",
             disposition="local_projection_defect",
-            reentry_condition="redaction or authority-ceiling fields change",
+            reentry_condition="payload-boundary or authority-ceiling fields change",
         ),
     ]
     task_surface_refs = {
@@ -1128,7 +1150,7 @@ def _python_route_utility_curriculum(
         "route_utility:probe_disposition_closure": _existing_project_refs(
             project, source_refs + test_refs + pyproject_refs + entrypoint_refs
         ),
-        "route_utility:redaction_boundary": _existing_project_refs(
+        "route_utility:payload_boundary": _existing_project_refs(
             project, source_refs + test_refs + pyproject_refs + entrypoint_refs
         ),
     }
@@ -1181,9 +1203,10 @@ def _python_route_utility_curriculum(
             for row in tasks
             if row.get("disposition") == "nothing_to_refine"
         ],
-        "redaction_boundary_ok": all(row.get("body_redacted") is True for row in path_rows),
-        "source_bodies_exported": False,
-        "body_redacted": True,
+        "payload_boundary_ok": all(
+            row.get("source_bodies_exported") is False for row in path_rows
+        ),
+        **_source_body_boundary_row(),
         "state_written": write_state,
         "authority": "route_utility_curriculum_is_public_safe_read_model_not_source_or_release_authority",
         "reentry_condition": "rerun after entry route, Python lens, source-span, graph, symbol, or std_python policy changes",
@@ -1235,7 +1258,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
                     for line in text.splitlines()
                     if line.strip().startswith("import ") or line.strip().startswith("from ")
                 ),
-                "body_redacted": True,
+                **_source_body_boundary_row(),
             }
         )
     package_refs = roles.get("package_manifest", [])
@@ -1394,8 +1417,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         "route_utility_ratchet_ref": (
             f"{STATE_DIR}/{PYTHON_LENS_STATE}::route_utility_curriculum.ratchet"
         ),
-        "source_bodies_exported": False,
-        "body_redacted": True,
+        **_source_body_boundary_row(),
         "authority": "route_selector_over_project_local_read_model_not_release_or_static_analysis_authority",
     }
     implementation_atlas = {
@@ -1433,8 +1455,7 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
                 or [str(row["path"]) for row in path_rows]
             )[:12],
             "primary_source_spans": primary_source_spans,
-            "body_redacted": True,
-            "source_bodies_exported": False,
+            **_source_body_boundary_row(),
             "authority": navigation_assay["authority"],
             "reentry_condition": navigation_assay["reentry_condition"],
         },
@@ -1491,6 +1512,16 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             "Microcosm exposes Python project route readiness as path-level metadata "
             "without source bodies, provider calls, or source mutation."
         ),
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": _project_python_lens_payload_boundary(
+            "microcosm python-lens <project>"
+        ),
+        "safe_to_show": {
+            "project_source_bodies_omitted": True,
+            "python_lens_rows_are_public_payload_boundary_rows": True,
+            "public_refs_are_drilldowns_not_replacements": True,
+        },
         "python_file_count": len(path_rows),
         "package_roots": package_roots,
         "path_rows": path_rows,
@@ -1525,7 +1556,6 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
             "source_span_authority_claim": False,
             "private_data_equivalence_authorized": False,
         },
-        "body_redacted": True,
         "anti_claim": (
             "The Python lens is a public-safe path, source-span, and route-readiness "
             "read-model. It does not execute Python, infer correctness, export source "
@@ -2095,7 +2125,7 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
         **_base_payload("microcosm_project_evidence_card_v1", project),
         "evidence_ref": evidence_ref,
         "evidence": {key: payload.get(key) for key in safe_keys if key in payload},
-        "body_redacted": True,
+        **_source_body_boundary_row(),
     }
 
 

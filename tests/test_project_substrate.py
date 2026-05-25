@@ -6,6 +6,7 @@ from pathlib import Path
 
 from microcosm_core import project_substrate
 from microcosm_core import cli
+from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
 
 
 def _scratch_project(tmp_path: Path) -> Path:
@@ -63,7 +64,11 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert python_lens["missing_check_count"] == 1
     assert python_lens["ready_route_count"] == 3
     assert python_lens["package_roots"] == ["src/scratch_app"]
-    assert python_lens["body_redacted"] is True
+    assert python_lens["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
+    assert python_lens["payload_boundary"]["source_open_default"] is True
+    assert python_lens["payload_boundary"]["unsafe_payload_bodies_in_receipt"] is False
+    assert python_lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
     assert python_lens["state_written"] is True
     assert python_lens["authority_ceiling"]["source_bodies_exported"] is False
     assert python_lens["source_span_count"] == 3
@@ -156,7 +161,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "macro_standard_amendment_candidate": 0,
         "nothing_to_refine": 10,
     }
-    assert route_curriculum["redaction_boundary_ok"] is True
+    assert route_curriculum["payload_boundary_ok"] is True
     assert route_curriculum["source_bodies_exported"] is False
     assert route_curriculum["route_utility_metrics"]["stale_task_count"] == 0
     assert route_curriculum["ratchet"]["schema_version"] == (
@@ -176,14 +181,15 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         == "tests/test_smoke.py::test_value"
     )
     assert task_by_id["route_utility:entrypoint_source_span"]["correctness"] == "not_applicable"
+    assert task_by_id["route_utility:payload_boundary"]["source_bodies_exported"] is False
     test_span = next(
         row
         for row in python_lens["source_span_rows"]
         if row["span_id"] == "tests/test_smoke.py::test_value"
     )
     assert test_span["line_start"] == 4
-    assert test_span["body_redacted"] is True
-    assert all(row["body_redacted"] is True for row in python_lens["path_rows"])
+    assert test_span["source_bodies_exported"] is False
+    assert all(row["source_bodies_exported"] is False for row in python_lens["path_rows"])
     assert {row["route_id"]: row["readiness"] for row in python_lens["route_rows"]} == {
         "python_package_metadata_route": "pass",
         "python_source_core_route": "pass",
@@ -296,7 +302,8 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert any(edge["relation"] == "resolves_standard_pressure_against" for edge in graph["edges"])
     assert evidence["evidence_count"] >= 6
     assert inspected["status"] == "pass"
-    assert inspected["body_redacted"] is True
+    assert inspected["payload_boundary_ref"] == "project_python_lens_read_model"
+    assert inspected["source_bodies_exported"] is False
     assert compiled["status"] == "pass"
     assert compiled["headline"] == "repo -> .microcosm"
     assert compiled["selected_route_id"] == "readme_onboarding_route"
@@ -399,7 +406,7 @@ def test_python_lens_route_utility_ratchet_marks_changed_surface_without_writing
     assert ratchet["last_run_result"] == "curriculum_stale_for_changed_surface"
     assert ratchet["changed_surface_refs"] == ["tests/test_smoke.py"]
     assert "route_utility:test_behavior_source_span" in ratchet["affected_task_ids"]
-    assert "route_utility:redaction_boundary" in ratchet["affected_task_ids"]
+    assert "route_utility:payload_boundary" in ratchet["affected_task_ids"]
     assert sorted(ratchet["stale_task_ids"]) == sorted(ratchet["affected_task_ids"])
     assert ratchet["generated_task_count"] == len(ratchet["affected_task_ids"])
     assert python_lens["navigation_assay"]["route_utility_ratchet_status"] == (
