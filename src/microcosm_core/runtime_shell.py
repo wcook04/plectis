@@ -919,6 +919,9 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
         "evidence_class": "semantic_validator",
         "classification": "real_runtime_receipt",
         "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+        "endpoint": "/proof-lab",
+        "alias_endpoints": ["/verifier-lab-kernel"],
+        "source_lens_endpoint": "/proof-loop-depth",
         "bundle_ref": PROOF_LAB_BUNDLE_REF,
         "route_ref": PROOF_LAB_ROUTE_REF,
         "receipt_ref": PROOF_LAB_RECEIPT_REF,
@@ -3596,7 +3599,9 @@ class RuntimeShell:
                 "card_id": "verifier_lab_kernel",
                 "minute_budget": 1,
                 "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
-                "endpoint": "/proof-loop-depth",
+                "endpoint": proof_lab.get("endpoint"),
+                "alias_endpoints": proof_lab.get("alias_endpoints"),
+                "source_lens_endpoint": proof_lab.get("source_lens_endpoint"),
                 "shows": [
                     "route id and nine-component proof-lab composition",
                     "Lean return code and compiled declaration count",
@@ -3710,6 +3715,7 @@ class RuntimeShell:
                 "/trace",
                 "/repair-loop",
                 "/evidence-cells",
+                "/proof-lab",
                 "/proof-loop-depth",
                 "/verifier-lab-execution-spine",
                 "/verifier-lab-kernel",
@@ -5354,6 +5360,9 @@ class RuntimeShell:
         payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
+
+    def proof_lab(self) -> dict[str, Any]:
+        return _proof_lab_first_screen_card(self.root)
 
     def landing_replay(self) -> dict[str, Any]:
         attempt_ref = "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json"
@@ -13215,6 +13224,7 @@ class RuntimeShell:
                 "trace": "/trace",
                 "repair_loop": "/repair-loop",
                 "evidence_cells": "/evidence-cells",
+                "proof_lab": "/proof-lab",
                 "proof_loop_depth": "/proof-loop-depth",
                 "landing_replay": "/landing-replay",
                 "view_quality": "/view-quality",
@@ -14685,6 +14695,7 @@ class RuntimeShell:
       <h2>Proof Loop Depth Lens</h2>
       <div class="content">
         <div class="chain">
+          <div class="node"><strong>Proof Lab</strong><span><code>/proof-lab</code></span></div>
           <div class="node"><strong>Proof Loop</strong><span><code>/proof-loop-depth</code></span></div>
           <div class="node"><strong>Gates</strong><span>{html.escape(_safe_text(len(proof_loop_depth_rows)))}</span></div>
           <div class="node"><strong>Evidence refs</strong><span>{html.escape(_safe_text((proof_loop_depth_lens.get("proof_loop_summary") or {}).get("evidence_ref_count") if isinstance(proof_loop_depth_lens.get("proof_loop_summary"), dict) else ""))}</span></div>
@@ -15233,6 +15244,8 @@ class RuntimeShell:
                     self._send(200, shell.repair_loop())
                 elif path == "/evidence-cells":
                     self._send(200, shell.evidence_cells())
+                elif path in {"/proof-lab", "/verifier-lab-kernel"}:
+                    self._send(200, shell.proof_lab())
                 elif path == "/proof-loop-depth":
                     self._send(200, shell.proof_loop_depth())
                 elif path == "/verifier-lab-execution-spine":

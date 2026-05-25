@@ -1330,6 +1330,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "/trace" in tour["endpoint_path"]
     assert "/repair-loop" in tour["endpoint_path"]
     assert "/evidence-cells" in tour["endpoint_path"]
+    assert "/proof-lab" in tour["endpoint_path"]
     assert "/proof-loop-depth" in tour["endpoint_path"]
     assert "/verifier-lab-execution-spine" in tour["endpoint_path"]
     assert "/verifier-lab-kernel" in tour["endpoint_path"]
@@ -1373,6 +1374,14 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert (
         route_cards_by_id["prediction_and_corpus"]["endpoint"]
         == "/prediction + /corpus + /trace + /repair-loop + /evidence-cells + /proof-loop-depth + /landing-replay + /view-quality + /projection-safety + /market-boundary + /drift-control + /spatial-simulation + /circuit-attribution + /route-cleanup + /projection-import-map + /import-projector + /option-surface-lens + /stripping-guard + /standards-control + /hook-coverage + /replay-gauntlet + /benchmark-lab + /legibility-scorecard"
+    )
+    assert route_cards_by_id["verifier_lab_kernel"]["endpoint"] == "/proof-lab"
+    assert route_cards_by_id["verifier_lab_kernel"]["alias_endpoints"] == [
+        "/verifier-lab-kernel"
+    ]
+    assert (
+        route_cards_by_id["verifier_lab_kernel"]["source_lens_endpoint"]
+        == "/proof-loop-depth"
     )
     assert tour["runtime_summary"]["projection_drift_row_count"] == 8
     assert tour["runtime_summary"]["projection_drift_repair_route_count"] == 8
@@ -3023,6 +3032,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             repair_loop = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/evidence-cells", timeout=5) as response:
             evidence_cells = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/proof-lab", timeout=5) as response:
+            proof_lab = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/verifier-lab-kernel", timeout=5) as response:
+            verifier_lab_kernel = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/proof-loop-depth", timeout=5) as response:
             proof_loop_depth = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/landing-replay", timeout=5) as response:
@@ -3097,6 +3110,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "/trace" in html
     assert "/repair-loop" in html
     assert "/evidence-cells" in html
+    assert "/proof-lab" in html
     assert "/proof-loop-depth" in html
     assert "/landing-replay" in html
     assert "/view-quality" in html
@@ -3182,6 +3196,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert evidence_cells["schema_version"] == "microcosm_public_formal_evidence_cell_lens_v1"
     assert evidence_cells["authority_ceiling"]["formal_proof_authority"] is False
     assert evidence_cells["authority_ceiling"]["general_theorem_solution_claim"] is False
+    assert proof_lab["status"] == "pass"
+    assert proof_lab["endpoint"] == "/proof-lab"
+    assert proof_lab["alias_endpoints"] == ["/verifier-lab-kernel"]
+    assert proof_lab["source_lens_endpoint"] == "/proof-loop-depth"
+    assert proof_lab["route_id"] == "formal_prover_context_strategy_gate"
+    assert verifier_lab_kernel == proof_lab
     assert proof_loop_depth["schema_version"] == "microcosm_public_proof_loop_depth_lens_v1"
     assert proof_loop_depth["authority_ceiling"]["formal_proof_authority"] is False
     assert proof_loop_depth["authority_ceiling"]["benchmark_score_claim"] is False

@@ -649,6 +649,7 @@ def validate_legibility(
                 "trace",
                 "repair_loop",
                 "evidence_cells",
+                "proof_lab",
                 "proof_loop_depth",
                 "landing_replay",
                 "view_quality",

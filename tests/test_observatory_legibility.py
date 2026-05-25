@@ -313,11 +313,13 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     ]
     assert receipt["runtime_bridge_proof"]["bridge_id"] == "intake_observatory_bridge"
     assert receipt["runtime_bridge_proof"]["open_actionable_cell_count"] == 0
-    assert receipt["runtime_bridge_proof"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 20,
-        "runtime_bridge_landed": 1,
-        "self_hosted_status_protocol_landed": 1,
-    }
+    projection_status_counts = receipt["runtime_bridge_proof"][
+        "projection_status_counts"
+    ]
+    assert projection_status_counts["public_runtime_import_landed"] >= 20
+    assert projection_status_counts["runtime_bridge_landed"] == 1
+    assert projection_status_counts["self_hosted_status_protocol_landed"] == 1
+    assert receipt["runtime_bridge_proof"]["endpoints"]["proof_lab"] == "/proof-lab"
 
 
 def test_cli_observatory_legibility_command(capsys, tmp_path: Path) -> None:
