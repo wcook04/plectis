@@ -90,6 +90,9 @@ NVIDIA_NIM_PROVIDER_BOUNDARY_MANIFEST = (
 AGENT_PROVIDER_ROUTER_MANIFEST = (
     BUNDLE_INPUT / "agent_provider_router_source_module_manifest.json"
 )
+BRIDGE_ROUTE_CONFIG_MANIFEST = (
+    BUNDLE_INPUT / "bridge_route_config_source_module_manifest.json"
+)
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -1064,6 +1067,100 @@ print(
         "openrouter-free": "ask_openrouter",
     }
     assert payload["paid_blocked"] is True
+
+
+def test_bridge_route_config_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        BRIDGE_ROUTE_CONFIG_MANIFEST,
+        manifest_id="bridge_route_config_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior() -> None:
+    bridge_source = BUNDLE_INPUT / "source_modules/system/lib/bridge_routes.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_bridge_routes.py"
+    )
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+
+    bridge_text = bridge_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+
+    compile(bridge_text, str(bridge_source), "exec")
+    compile(test_text, str(test_source), "exec")
+    assert "def merge_bridge_config_with_route(" in bridge_text
+    assert "def bridge_timeout_seconds(" in bridge_text
+    assert "test_merge_bridge_config_with_route_merges_timings_and_meta" in test_text
+    assert "test_bridge_timeout_seconds_prefers_route_override" in test_text
+
+    code = f"""
+import json
+import sys
+
+sys.path.insert(0, {str(source_modules_root)!r})
+from system.lib import bridge_routes
+
+config = {{
+    "platform": "gemini",
+    "meta": {{"launch_profile": "experimental"}},
+    "bridge": {{
+        "monitor_timeout_s": {{"value": 1500}},
+        "timings": {{
+            "post_paste_sleep": {{"value": 1.5}},
+            "transport_retry_sleep": {{"value": 0.75}},
+        }},
+        "routes": {{
+            "kernel_probe": {{
+                "meta": {{"lane": "kernel_probe"}},
+                "monitor_timeout_s": {{"value": 2400}},
+                "timings": {{
+                    "post_paste_sleep": {{"value": 1.75}},
+                }},
+            }}
+        }},
+    }},
+}}
+merged, route_name = bridge_routes.merge_bridge_config_with_route(
+    config,
+    explicit_route="kernel_probe",
+)
+payload = {{
+    "route_name": route_name,
+    "bridge_route": merged["bridge_route"],
+    "meta": merged["meta"],
+    "timings": merged["bridge"]["timings"],
+    "timeout": bridge_routes.bridge_timeout_seconds(
+        config,
+        default=1500.0,
+        route_name="kernel_probe",
+    ),
+    "original_post_paste_sleep": config["bridge"]["timings"]["post_paste_sleep"]["value"],
+}}
+print(json.dumps(payload, sort_keys=True))
+"""
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            code,
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(probe.stdout)
+    assert payload["route_name"] == "kernel_probe"
+    assert payload["bridge_route"] == "kernel_probe"
+    assert payload["meta"] == {
+        "lane": "kernel_probe",
+        "launch_profile": "experimental",
+    }
+    assert payload["timings"]["post_paste_sleep"]["value"] == 1.75
+    assert payload["timings"]["transport_retry_sleep"]["value"] == 0.75
+    assert payload["timeout"] == 2400.0
+    assert payload["original_post_paste_sleep"] == 1.5
 
 
 def _load_trace_capsule_source_module():

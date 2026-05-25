@@ -1,0 +1,76 @@
+{
+  "schema_version": "macro_projection_bridge_route_config_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "bridge_route_config_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_and_credential_equivalent_live_access",
+  "body_storage_policy": "exact_non_secret_bridge_route_config_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and pure-route behavior checks but never duplicate full source bodies, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "CLI subprocess execution payloads",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and pure route-overlay behavior checks; copied source modules are body evidence, not authority to call providers, execute local CLIs, access browser/HUD state, emit provider payload bodies, write generated state, mutate private state, or claim release authority.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "bridge_routes_body_import",
+      "source_ref": "system/lib/bridge_routes.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/bridge_routes.py",
+      "source_role": "Pure bridge-route configuration helper that resolves route names, overlays route-specific timing and metadata, preserves caller config isolation, and returns effective timeout values without dispatching providers or touching live bridge state.",
+      "required_anchors": [
+        "def config_value(",
+        "def resolve_bridge_route_name(",
+        "def merge_bridge_config_with_route(",
+        "def bridge_timeout_seconds(",
+        "explicit_route -> root bridge_route -> nested bridge.route -> default_route",
+        "All helpers are pure and return fresh mappings rather than mutating caller-owned config objects."
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_or_generated_state",
+      "source_sha256": "7893c42c164bf8a32b6f796d5286b50d75816a184fc943d854a60e4842867f49",
+      "target_sha256": "7893c42c164bf8a32b6f796d5286b50d75816a184fc943d854a60e4842867f49",
+      "sha256_match": true,
+      "line_count": 192,
+      "byte_count": 8837,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "bridge_routes_test_body_import",
+      "source_ref": "system/server/tests/test_bridge_routes.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_routes.py",
+      "source_role": "Pure macro regression test body that proves bridge route metadata/timing overlay and monitor-timeout precedence without filesystem, network, provider, browser, or session dependencies.",
+      "required_anchors": [
+        "from system.lib.bridge_routes import bridge_timeout_seconds, merge_bridge_config_with_route",
+        "def test_merge_bridge_config_with_route_merges_timings_and_meta()",
+        "def test_bridge_timeout_seconds_prefers_route_override()",
+        "route-specific timings and metadata overlay the base bridge config",
+        "Tests stay pure and fixture-local with no filesystem or network involvement."
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_or_generated_state",
+      "source_sha256": "c094b581ee6bf5cca3a07af23968736a2195ac65ebbb06c7286ca9232c558df4",
+      "target_sha256": "c094b581ee6bf5cca3a07af23968736a2195ac65ebbb06c7286ca9232c558df4",
+      "sha256_match": true,
+      "line_count": 89,
+      "byte_count": 4330,
+      "anchor_count": 5
+    }
+  ]
+}

@@ -137,7 +137,10 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/nvidia_nim_provider_boundary_source_module_manifest.json",
     "system/lib/agent_providers.py",
     "system/lib/openrouter_free_runtime.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json",
+    "system/lib/bridge_routes.py",
+    "system/server/tests/test_bridge_routes.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json"
   ],
   "material_classes": [
     "pattern_metadata",
@@ -4970,6 +4973,102 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_provider_router_source_modules_body_import_is_unified_under_macro_projection_spine"
         ]
       }
+    },
+    {
+      "material_id": "bridge_routes_body_import",
+      "source_ref": "system/lib/bridge_routes.py",
+      "source_refs": [
+        "system/lib/bridge_routes.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/bridge_routes.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_bridge_route_config_source_bodies_into_public_projection_bundle",
+        "bind_bridge_route_config_source_bodies_to_macro_projection_body_floor",
+        "preserve_bridge_route_config_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public bridge-route config source-body import only; not live provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:7893c42c164bf8a32b6f796d5286b50d75816a184fc943d854a60e4842867f49",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/lib/bridge_routes.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/bridge_routes.py",
+        "source_body_digest": "sha256:7893c42c164bf8a32b6f796d5286b50d75816a184fc943d854a60e4842867f49",
+        "target_body_digest": "sha256:7893c42c164bf8a32b6f796d5286b50d75816a184fc943d854a60e4842867f49",
+        "source_line_count": 192,
+        "target_line_count": 192,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
+    },
+    {
+      "material_id": "bridge_routes_test_body_import",
+      "source_ref": "system/server/tests/test_bridge_routes.py",
+      "source_refs": [
+        "system/server/tests/test_bridge_routes.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_routes.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "classification": "copied_non_secret_macro_body",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "applied_edits": [
+        "exact_copy_macro_bridge_route_config_source_bodies_into_public_projection_bundle",
+        "bind_bridge_route_config_source_bodies_to_macro_projection_body_floor",
+        "preserve_bridge_route_config_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "claim_ceiling": "public bridge-route config source-body import only; not live provider calls, CLI subprocess execution, API-key value export, provider request or response payload bodies, account/session state, cookies, browser/HUD live access, generated state mutation, recipient-send state, private-root equivalence, release, publication, source-mutation authority, or whole-system correctness authority",
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "body_digest": "sha256:c094b581ee6bf5cca3a07af23968736a2195ac65ebbb06c7286ca9232c558df4",
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_ref": "system/server/tests/test_bridge_routes.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_routes.py",
+        "source_body_digest": "sha256:c094b581ee6bf5cca3a07af23968736a2195ac65ebbb06c7286ca9232c558df4",
+        "target_body_digest": "sha256:c094b581ee6bf5cca3a07af23968736a2195ac65ebbb06c7286ca9232c558df4",
+        "source_line_count": 89,
+        "target_line_count": 89,
+        "source_to_target_relation": "exact_copy",
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      }
     }
   ],
   "cleaned_material": [
@@ -5091,7 +5190,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/embedding_substrate_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_providers.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/openrouter_free_runtime.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_provider_router_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/bridge_routes.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_bridge_routes.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_route_config_source_module_manifest.json"
   ],
   "validation_refs": [
     "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
@@ -5187,7 +5289,10 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_embedding_substrate_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_provider_router_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_provider_router_sources_compile_and_expose_no_live_probe_dispatch",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_provider_router_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_provider_router_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bridge_route_config_sources_compile_and_preserve_route_overlay_behavior",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bridge_route_config_source_modules_body_import_is_unified_under_macro_projection_spine"
   ],
   "steps": [
     {
