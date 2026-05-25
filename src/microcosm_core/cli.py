@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 from pathlib import Path
 
 from microcosm_core import project_substrate
@@ -151,6 +152,11 @@ def _proof_lab_first_screen_card(
     command: str,
 ) -> dict:
     metrics = result.get("proof_lab_component_metrics") or {}
+    receipt_refs = _receipt_refs_for_out(result, out_dir)
+    if receipt_refs:
+        evidence_drilldown = f"microcosm evidence inspect {shlex.quote(receipt_refs[0])}"
+    else:
+        evidence_drilldown = "microcosm evidence inspect <proof-lab-receipt>"
     return {
         "schema_version": "microcosm_proof_lab_first_screen_card_v1",
         "status": result.get("status"),
@@ -161,7 +167,7 @@ def _proof_lab_first_screen_card(
         ),
         "input_ref": _public_ref(input_path),
         "out_ref": out_dir,
-        "receipt_refs": _receipt_refs_for_out(result, out_dir),
+        "receipt_refs": receipt_refs,
         "proof_lab_route_id": result.get("proof_lab_route_id"),
         "proof_lab_route_component_count": result.get(
             "proof_lab_route_component_count"
@@ -190,7 +196,7 @@ def _proof_lab_first_screen_card(
         "next_commands": [
             "microcosm status --card",
             "microcosm proof-loop-depth",
-            "microcosm evidence list",
+            evidence_drilldown,
         ],
     }
 

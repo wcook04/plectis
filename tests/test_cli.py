@@ -149,6 +149,12 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["safe_to_show"]["provider_payloads_exported"] is False
     assert receipt.is_file()
     assert payload["receipt_refs"] == [str(receipt)]
+    assert payload["next_commands"] == [
+        "microcosm status --card",
+        "microcosm proof-loop-depth",
+        f"microcosm evidence inspect {receipt}",
+    ]
+    assert "microcosm evidence list" not in payload["next_commands"]
     assert str(MICROCOSM_ROOT) not in output
     assert "/private/tmp" not in output
 
@@ -305,7 +311,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 63
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 77
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -1021,7 +1027,7 @@ def test_cli_intake_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_v1"
     assert payload["bridge_id"] == "runtime_reveal_import_bridge"
-    assert payload["projection_cell_count"] == 24
+    assert payload["projection_cell_count"] == 31
     by_cell = {row["cell_id"]: row for row in payload["cell_status"]}
     assert by_cell["agent_observability_store_import"]["projection_status"] == (
         "public_runtime_import_landed"
@@ -1064,7 +1070,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 24
+    assert payload["projection_intake_board"]["ready_cell_count"] == 31
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
