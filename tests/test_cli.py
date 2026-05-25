@@ -198,6 +198,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert front_door_status["blocking_surface_ids"] == []
     assert front_door_status["actionable_surface_ids"] == []
     assert front_door_status["surface_statuses"]["project_state"] == "pass"
+    assert front_door_status["surface_statuses"]["route_selection_proof"] == "pass"
     assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
     assert (
         front_door_status["surface_statuses"]["workingness_failure_envelope"]
@@ -210,6 +211,18 @@ def test_cli_status_card_can_overlay_project_route_state(
     )
     assert payload["front_door"]["project_state_status"] == "pass"
     assert payload["front_door"]["selected_route_id"] == "readme_onboarding_route"
+    route_selection_proof = payload["front_door"]["route_selection_proof"]
+    assert route_selection_proof["status"] == "pass"
+    assert (
+        route_selection_proof["schema_version"]
+        == "microcosm_project_route_selection_proof_v1"
+    )
+    assert route_selection_proof["selected_route_id"] == "readme_onboarding_route"
+    assert route_selection_proof["route_id_available_in_state"] is True
+    assert route_selection_proof["route_explanation_status"] == "pass"
+    assert route_selection_proof["observatory_route_proof_ref"] == (
+        "microcosm serve <project>::first_screen_route_proof"
+    )
     assert payload["front_door"]["route_explanation_command"] == (
         "microcosm explain <project> readme_onboarding_route"
     )
@@ -327,6 +340,13 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     )
     assert status_card["front_door"]["project_state_status"] == "pass"
     assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
+    assert status_card["front_door"]["route_selection_proof"]["status"] == "pass"
+    assert (
+        status_card["front_door_status"]["surface_statuses"][
+            "route_selection_proof"
+        ]
+        == "pass"
+    )
     assert status_card["front_door"]["state_dir_exists"] is True
     assert status_card["front_door"]["route_explanation"]["status"] == "pass"
     assert status_card["front_door"]["route_explanation"][

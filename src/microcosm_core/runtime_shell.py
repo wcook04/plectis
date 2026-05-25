@@ -1998,6 +1998,73 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
         or routes.get("project_id")
         or project.name
     )
+    available_project_route_ids = [
+        str(row.get("route_id"))
+        for row in route_rows
+        if row.get("route_id")
+    ]
+    route_explanation = _compact_project_route_explanation(
+        project,
+        selected_route_id,
+    )
+    route_id_available_in_state = (
+        selected_route_id in available_project_route_ids
+        if selected_route_id
+        else False
+    )
+    if not state_exists:
+        route_selection_proof_status = "missing_state"
+    elif not selected_route_id:
+        route_selection_proof_status = "missing_route"
+    elif not route_id_available_in_state:
+        route_selection_proof_status = "route_not_in_state"
+    elif route_explanation.get("status") != PASS:
+        route_selection_proof_status = "missing_explanation"
+    else:
+        route_selection_proof_status = PASS
+    route_selection_proof = {
+        "schema_version": "microcosm_project_route_selection_proof_v1",
+        "status": route_selection_proof_status,
+        "selected_route_id": selected_route_id or None,
+        "selected_route_id_source": (
+            ".microcosm/routes.json via microcosm status --card <project>; "
+            "compare with microcosm tour/compile selected_route_id"
+        ),
+        "selected_route_ref": (
+            f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
+            if selected_route_id
+            else None
+        ),
+        "route_id_available_in_state": route_id_available_in_state,
+        "available_project_route_ids": available_project_route_ids,
+        "route_explanation_status": route_explanation.get("status"),
+        "route_explanation_status_required": PASS,
+        "route_explanation_command": (
+            f"microcosm explain <project> {selected_route_id}"
+            if selected_route_id
+            else "microcosm explain <project> <selected_route_id>"
+        ),
+        "observatory_route_proof_ref": (
+            "microcosm serve <project>::first_screen_route_proof"
+        ),
+        "state_refs_checked": [
+            f"{project_substrate.STATE_DIR}/routes.json",
+            f"{project_substrate.STATE_DIR}/explanations/{selected_route_id}.json"
+            if selected_route_id
+            else f"{project_substrate.STATE_DIR}/explanations/<selected_route_id>.json",
+        ],
+        "safe_to_show": {
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "credential_equivalent_live_access_exported": False,
+            "proof_correctness_claim": False,
+        },
+        "reader_action": (
+            "Use this selected_route_id for explain and observatory drilldowns."
+            if route_selection_proof_status == PASS
+            else "Run microcosm tour <project> and then status --card again."
+        ),
+    }
     return {
         "schema_version": "microcosm_project_status_overlay_v1",
         "status": status,
@@ -2008,11 +2075,7 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
         "state_refs": state_refs,
         "existing_state_refs": existing_state_refs,
         "route_count": len(route_rows),
-        "available_project_route_ids": [
-            str(row.get("route_id"))
-            for row in route_rows
-            if row.get("route_id")
-        ],
+        "available_project_route_ids": available_project_route_ids,
         "selected_route_id": selected_route_id or None,
         "selected_route_ref": (
             f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
@@ -2024,10 +2087,8 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
             if selected_route_id
             else "microcosm explain <project> <selected_route_id>"
         ),
-        "route_explanation": _compact_project_route_explanation(
-            project,
-            selected_route_id,
-        ),
+        "route_explanation": route_explanation,
+        "route_selection_proof": route_selection_proof,
         "route_selection_rule": (
             "derived from compiled .microcosm/routes.json; run microcosm "
             "tour <project> or microcosm compile <project> first if empty"
@@ -2056,6 +2117,11 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
         if isinstance(front_door.get("route_explanation"), dict)
         else {}
     )
+    route_selection_proof = (
+        front_door.get("route_selection_proof", {})
+        if isinstance(front_door.get("route_selection_proof"), dict)
+        else {}
+    )
     workingness = (
         card.get("workingness", {})
         if isinstance(card.get("workingness"), dict)
@@ -2069,6 +2135,7 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
 
     add_surface("runtime_status", card.get("status"))
     add_surface("project_state", front_door.get("project_state_status"))
+    add_surface("route_selection_proof", route_selection_proof.get("status"))
     add_surface("route_explanation", route_explanation.get("status"))
     add_surface(
         "macro_body_import_floor",
@@ -2518,6 +2585,9 @@ def _runtime_status_card(
             )
             card["front_door"]["route_explanation"] = project_overlay.get(
                 "route_explanation"
+            )
+            card["front_door"]["route_selection_proof"] = project_overlay.get(
+                "route_selection_proof"
             )
         card["front_door"]["route_selection_rule"] = project_overlay.get(
             "route_selection_rule"

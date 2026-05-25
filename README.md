@@ -50,9 +50,11 @@ when the project has a README. Open
 Use `microcosm status --card <project>` after `tour` or `compile` for the
 compressed first-screen lens over local `.microcosm/` route state plus the full
 runtime status. It includes the selected project route id,
-`front_door.route_explanation` with the compact route/work/event/evidence
-chain, `front_door.source_open_body_import_floor` with verified source-open
-body-import counts and body-text exclusion flags,
+`front_door.route_selection_proof` with the `.microcosm/routes.json` source,
+route-explanation status, and observatory proof ref, `front_door.route_explanation`
+with the compact route/work/event/evidence chain,
+`front_door.source_open_body_import_floor` with verified source-open body-import
+counts and body-text exclusion flags,
 `source_files_mutated=false`, the `microcosm workingness` counts, and a small
 `gap_preview` of the first missing-standard or failure-mode rows and their
 target refs before opening the full organ-by-organ map; `microcosm status`
