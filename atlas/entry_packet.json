@@ -45,9 +45,9 @@
     ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
     ".microcosm/python_lens.json::route_utility_curriculum",
     ".microcosm/python_lens.json::route_utility_curriculum.ratchet",
-    "microcosm explain <project> readme_onboarding_route",
-    ".microcosm/explanations/readme_onboarding_route.json",
-    ".microcosm/evidence/explain_readme_onboarding_route.json",
+    "microcosm explain <project> <selected_route_id>",
+    ".microcosm/explanations/<selected_route_id>.json",
+    ".microcosm/evidence/explain_<selected_route_id>.json",
     ".microcosm/work_items.json",
     ".microcosm/events.jsonl"
   ],
@@ -58,7 +58,7 @@
       "microcosm tour <project>",
       "microcosm compile <project>",
       "microcosm python-lens <project>",
-      "microcosm explain <project> readme_onboarding_route",
+      "microcosm explain <project> <selected_route_id>",
       "microcosm evidence list <project>",
       "microcosm serve <project> --host 127.0.0.1 --port 8765"
     ],
@@ -72,13 +72,13 @@
       ".microcosm/evidence/",
       ".microcosm/graph.json",
       ".microcosm/python_lens.json",
-      ".microcosm/explanations/readme_onboarding_route.json"
+      ".microcosm/explanations/<selected_route_id>.json"
     ],
     "observatory_endpoints": [
       "/tour",
       "/workingness",
       "/project/python-lens",
-      "/project/explain/readme_onboarding_route"
+      "/project/explain/<selected_route_id>"
     ],
     "drilldown_routes": [
       "tour_front_door_status_route",
@@ -88,6 +88,8 @@
       "proof_lab_route"
     ],
     "cold_clone_validation_suite": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+    "selected_route_id_source": "microcosm tour <project>::first_screen.selected_route_id or microcosm compile <project>::selected_route_id",
+    "route_selection_rule": "Use the selected_route_id emitted by tour/compile. readme_onboarding_route is a generated route only when the project has a README.",
     "authority": "project-local behavioral route only, not release, provider, source mutation, production, or proof-correctness authority",
     "safe_to_show": {
       "project_local_state_refs_visible": true,
@@ -128,12 +130,13 @@
   },
   "route_explanation_chain_route": {
     "surface_id": "project_route_explanation_causal_chain",
-    "command": "microcosm explain <project> readme_onboarding_route",
+    "command": "microcosm explain <project> <selected_route_id>",
     "endpoint": "/project/explain/<route_id>",
-    "route_id": "readme_onboarding_route",
-    "route_state_ref": ".microcosm/routes.json::readme_onboarding_route",
-    "explanation_ref": ".microcosm/explanations/readme_onboarding_route.json",
-    "evidence_ref": ".microcosm/evidence/explain_readme_onboarding_route.json",
+    "route_id_source": "microcosm tour/compile selected_route_id",
+    "example_route_id_when_readme_present": "readme_onboarding_route",
+    "route_state_ref": ".microcosm/routes.json::<selected_route_id>",
+    "explanation_ref": ".microcosm/explanations/<selected_route_id>.json",
+    "evidence_ref": ".microcosm/evidence/explain_<selected_route_id>.json",
     "work_state_ref": ".microcosm/work_items.json",
     "event_stream_ref": ".microcosm/events.jsonl",
     "standard_pressure_ref": ".microcosm/architecture.json::standard_pressure_surface",

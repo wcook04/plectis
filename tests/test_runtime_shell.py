@@ -206,7 +206,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert source_body_lens["verified_source_module_family_count"] >= 20
     source_families = {
         row["family_id"]: row
-        for row in source_body_lens["latest_verified_source_module_families"]
+        for row in source_body_lens["verified_source_module_families"]
     }
     assert source_families["observe_runtime"] == {
         "family_id": "observe_runtime",
@@ -248,6 +248,11 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
         "surface_id": LOCAL_FIRST_SCREEN_SURFACE_ID,
     }
+    assert status["front_door"]["selected_route_id"] is None
+    assert status["front_door"]["route_explanation_command"] == (
+        "microcosm explain <project> <route_id>"
+    )
+    assert "selected_route_id" in status["front_door"]["route_selection_rule"]
     assert status["front_door"]["generated_state"]["state_dir"] == ".microcosm"
     assert ".microcosm/graph.json" in status["front_door"]["generated_state"]["refs"]
     assert status["front_door"]["behavior_surfaces"] == {
@@ -1494,6 +1499,18 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["first_screen"]["local_first_screen_route"]["route_ref"] == (
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )
+    assert tour["first_screen"]["selected_route_id"] == (
+        tour["compile_summary"]["selected_route_id"]
+    )
+    assert tour["first_screen"]["selected_route_id"] in tour["first_screen"][
+        "available_project_route_ids"
+    ]
+    assert tour["first_screen"]["route_explanation"]["command"] == (
+        f"microcosm explain <project> {tour['first_screen']['selected_route_id']}"
+    )
+    assert tour["first_screen"]["route_explanation"]["route_id_source"] == (
+        "microcosm tour/compile selected_route_id"
+    )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "inspect_first_screen",
         "compile_project",
@@ -1657,6 +1674,50 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     encoded = json.dumps(tour, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "no_readme_project"
+    (project / "src/app").mkdir(parents=True)
+    (project / "tests").mkdir()
+    (project / "pyproject.toml").write_text(
+        '[project]\nname = "scratch-project"\nversion = "0.1.0"\n',
+        encoding="utf-8",
+    )
+    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "tests/test_app.py").write_text(
+        "from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n",
+        encoding="utf-8",
+    )
+
+    compiled = project_substrate.compile_project(project)
+    first_screen = runtime_shell._cold_reader_first_screen_card(
+        project_ref=project.name,
+        compiled=compiled,
+        proof_lab={
+            "status": "pass",
+            "route_ref": PROOF_LAB_ROUTE_REF,
+            "receipt_ref": PROOF_LAB_RECEIPT_REF,
+            "route_component_count": 9,
+            "lean_lake_return_code": 0,
+        },
+    )
+
+    assert compiled["selected_route_id"] == "package_runtime_route"
+    assert "readme_onboarding_route" not in first_screen["available_project_route_ids"]
+    assert first_screen["selected_route_id"] == "package_runtime_route"
+    assert first_screen["route_explanation"]["command"] == (
+        "microcosm explain <project> package_runtime_route"
+    )
+    route_step = next(
+        row
+        for row in first_screen["minimal_command_path"]
+        if row["step_id"] == "inspect_route_causal_chain"
+    )
+    assert route_step["command"] == "microcosm explain <project> package_runtime_route"
+    assert route_step["selected_route_id"] == "package_runtime_route"
 
 
 def test_runtime_shell_trace_lens_uses_payload_boundary(tmp_path: Path) -> None:

@@ -553,6 +553,12 @@ def test_cli_tour_smoke(
     assert payload["first_screen"]["minimal_command_path"][0]["command"] == (
         payload["first_screen"]["primary_command"]
     )
+    assert payload["first_screen"]["selected_route_id"] == (
+        payload["compile_summary"]["selected_route_id"]
+    )
+    assert payload["first_screen"]["route_explanation"]["command"] == (
+        f"microcosm explain <project> {payload['first_screen']['selected_route_id']}"
+    )
     assert payload["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert payload["first_screen"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"

@@ -18,13 +18,19 @@ are represented by `body_in_receipt: false` plus public runtime refs.
 
 The accepted path is:
 
-1. `microcosm compile <project>`
-2. `microcosm explain <project> readme_onboarding_route`
-3. `microcosm serve <project> --host 127.0.0.1 --port 8765`
-4. `microcosm spine`
-5. `microcosm intake`
-6. `microcosm reveal`
-7. `microcosm cold-reader-route-map run-route-map-bundle`
+1. `microcosm tour <project>`
+2. `microcosm compile <project>`
+3. Read `first_screen.selected_route_id` from tour or `selected_route_id` from compile.
+4. `microcosm explain <project> <selected_route_id>`
+5. `microcosm serve <project> --host 127.0.0.1 --port 8765`
+6. `microcosm spine`
+7. `microcosm intake`
+8. `microcosm reveal`
+9. `microcosm cold-reader-route-map run-route-map-bundle`
+
+`readme_onboarding_route` is the selected route only for projects with a README;
+folders without one still get a route/work/event/evidence path through the
+selected route emitted by `tour` and `compile`.
 
 Each route card must include a command and public docs refs. Each route id must
 also resolve to at least one receipt ref. The sequence must be ordinal sorted

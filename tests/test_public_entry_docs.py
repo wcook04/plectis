@@ -442,16 +442,20 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     ]
     assert "microcosm python-lens <project>" in route["command_path"]
     assert (
-        "microcosm explain <project> readme_onboarding_route"
+        "microcosm explain <project> <selected_route_id>"
         in route["command_path"]
     )
+    assert route["selected_route_id_source"].startswith("microcosm tour")
+    assert "readme_onboarding_route is a generated route only" in route[
+        "route_selection_rule"
+    ]
     assert "microcosm evidence list <project>" in route["command_path"]
     assert ".microcosm/events.jsonl" in route["state_refs"]
     assert ".microcosm/evidence/" in route["state_refs"]
     assert ".microcosm/graph.json" in route["state_refs"]
     assert "/tour" in route["observatory_endpoints"]
     assert "/workingness" in route["observatory_endpoints"]
-    assert "/project/explain/readme_onboarding_route" in route["observatory_endpoints"]
+    assert "/project/explain/<selected_route_id>" in route["observatory_endpoints"]
     assert "tour_front_door_status_route" in route["drilldown_routes"]
     assert "status_and_workingness_route" in route["drilldown_routes"]
     assert "proof_lab_route" in route["drilldown_routes"]

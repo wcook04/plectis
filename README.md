@@ -28,7 +28,7 @@ After the console command is installed, the first-screen path is:
 microcosm tour .
 microcosm compile .
 microcosm python-lens .
-microcosm explain . readme_onboarding_route
+microcosm explain . <selected_route_id>
 microcosm evidence list .
 microcosm status --card
 microcosm workingness
@@ -38,9 +38,12 @@ microcosm serve . --host 127.0.0.1 --port 8765
 ```
 
 The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
-the local `.microcosm/` state files, the route/work/event/evidence chain, the
-status card, workingness map, observatory command, proof-lab command, and the
-authority ceiling. Open
+the local `.microcosm/` state files, the selected project route id, the
+route/work/event/evidence chain, the status card, workingness map,
+observatory command, proof-lab command, and the authority ceiling. Use
+`selected_route_id` from `microcosm tour .` or `microcosm compile .` for
+`microcosm explain . <selected_route_id>`; `readme_onboarding_route` is present
+when the project has a README. Open
 `http://127.0.0.1:8765` to see the causal chain. The output folder is
 `.microcosm/`.
 

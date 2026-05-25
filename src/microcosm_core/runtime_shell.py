@@ -1034,7 +1034,18 @@ def _cold_reader_first_screen_card(
     compiled = compiled if isinstance(compiled, dict) else {}
     graph_summary = compiled.get("graph_summary")
     graph_summary = graph_summary if isinstance(graph_summary, dict) else {}
-    selected_route_id = str(compiled.get("selected_route_id") or "readme_onboarding_route")
+    route_ids_raw = compiled.get("route_ids")
+    available_route_ids = [
+        str(route_id)
+        for route_id in route_ids_raw
+        if isinstance(route_id, str) and route_id
+    ] if isinstance(route_ids_raw, list) else []
+    selected_route_id = str(
+        compiled.get("selected_route_id")
+        or (available_route_ids[0] if available_route_ids else "")
+    )
+    explain_route_id = selected_route_id or "<route_id>"
+    route_explanation_command = f"microcosm explain <project> {explain_route_id}"
     compile_status = compiled.get("status")
     state_refs = [
         f"{project_substrate.STATE_DIR}/{state_ref}"
@@ -1050,6 +1061,33 @@ def _cold_reader_first_screen_card(
         "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
         "project_ref": project_ref,
         "primary_command": "microcosm tour <project>",
+        "selected_route_id": selected_route_id or None,
+        "available_project_route_ids": available_route_ids,
+        "route_explanation_command": route_explanation_command,
+        "route_selection_rule": (
+            "Use selected_route_id from the tour or compile output; "
+            "readme_onboarding_route is only present when the project has a README."
+        ),
+        "route_explanation": {
+            "command": route_explanation_command,
+            "endpoint": f"/project/explain/{explain_route_id}",
+            "route_id_source": "microcosm tour/compile selected_route_id",
+            "route_state_ref": (
+                f"{project_substrate.STATE_DIR}/routes.json::{explain_route_id}"
+            ),
+            "explanation_ref": (
+                f"{project_substrate.STATE_DIR}/explanations/"
+                f"{explain_route_id}.json"
+            ),
+            "evidence_ref": (
+                f"{project_substrate.STATE_DIR}/evidence/"
+                f"explain_{explain_route_id}.json"
+            ),
+            "selection_rule": (
+                "Use selected_route_id from the tour or compile output; "
+                "readme_onboarding_route is only present when the project has a README."
+            ),
+        },
         "minimal_command_path": [
             {
                 "step_id": "inspect_first_screen",
@@ -1100,7 +1138,10 @@ def _cold_reader_first_screen_card(
             },
             {
                 "step_id": "inspect_route_causal_chain",
-                "command": f"microcosm explain <project> {selected_route_id}",
+                "command": route_explanation_command,
+                "selected_route_id": selected_route_id or None,
+                "available_project_route_ids": available_route_ids,
+                "route_id_source": "microcosm tour/compile selected_route_id",
                 "state_refs": [
                     f"{project_substrate.STATE_DIR}/routes.json",
                     f"{project_substrate.STATE_DIR}/work_items.json",
@@ -1571,11 +1612,13 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
             if validation_ref not in family["validation_refs"]:
                 family["validation_refs"].append(validation_ref)
 
-    latest_families = [families[family_id] for family_id in family_order[-5:]]
+    verified_families = [families[family_id] for family_id in family_order]
+    latest_families = verified_families[-5:]
     return {
         "schema_version": "microcosm_macro_source_body_import_lens_v1",
         "status": PASS if families else "blocked",
         "verified_source_module_family_count": len(families),
+        "verified_source_module_families": verified_families,
         "latest_verified_source_module_families": latest_families,
         "latest_source_refs": latest_source_refs[-10:],
         "body_text_exported_in_status": False,
@@ -1836,6 +1879,11 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         if isinstance(proof_lab.get("safe_to_show"), dict)
         else {}
     )
+    route_explanation = (
+        front_door.get("route_explanation", {})
+        if isinstance(front_door.get("route_explanation"), dict)
+        else {}
+    )
     source_body_imports = (
         body_floor.get("source_body_import_lens", {})
         if isinstance(body_floor.get("source_body_import_lens"), dict)
@@ -1850,16 +1898,34 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
                 continue
             compact_families.append(
                 {
-                    key: value
-                    for key, value in family.items()
-                    if key != "validation_refs"
+                    "family_id": family.get("family_id"),
+                    "status": family.get("status"),
+                    "module_count": family.get("module_count"),
+                    "source_refs": [
+                        ref
+                        for ref in family.get("source_refs", [])
+                        if isinstance(ref, str)
+                    ][:3],
+                    "material_ids": [
+                        material_id
+                        for material_id in family.get("material_ids", [])
+                        if isinstance(material_id, str)
+                    ][:3],
                 }
             )
         source_body_imports = {
             key: value
             for key, value in source_body_imports.items()
-            if key != "reader_use"
+            if key not in {"reader_use", "verified_source_module_families"}
         }
+        source_body_imports["full_family_list_ref"] = (
+            "microcosm status::macro_body_import_floor."
+            "source_body_import_lens.verified_source_module_families"
+        )
+        if isinstance(source_body_imports.get("latest_source_refs"), list):
+            source_body_imports["latest_source_refs"] = source_body_imports[
+                "latest_source_refs"
+            ][-3:]
         source_body_imports[
             "latest_verified_source_module_families"
         ] = compact_families
@@ -1889,6 +1955,9 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
             ),
             "state_dir": generated_state.get("state_dir"),
             "route_state_ref": behavior_surfaces.get("route_state_ref"),
+            "selected_route_id": front_door.get("selected_route_id"),
+            "route_explanation_command": route_explanation.get("command"),
+            "route_selection_rule": "use selected_route_id from tour or compile",
             "work_state_ref": behavior_surfaces.get("work_state_ref"),
             "event_log_ref": behavior_surfaces.get("event_log_ref"),
             "evidence_dir_ref": behavior_surfaces.get("evidence_dir_ref"),
@@ -3006,7 +3075,8 @@ class RuntimeShell:
                 },
                 {
                     "step_id": "inspect_route",
-                    "command": "microcosm explain <project> readme_onboarding_route",
+                    "command": "microcosm explain <project> <selected_route_id>",
+                    "route_id_source": "microcosm tour/compile selected_route_id",
                     "shows": [
                         "grounded_refs",
                         "resolved pattern bindings",
