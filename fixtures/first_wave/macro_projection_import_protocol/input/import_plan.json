@@ -834,6 +834,42 @@
         "source_faithful_refactor",
         "real_runtime_receipt"
       ]
+    },
+    {
+      "cell_id": "command_node_cache_source_modules_import",
+      "selected_pattern_ids": [
+        "command_node_cache",
+        "persistent_cli_cache_singleflight",
+        "stale_ok_cache_peek_with_input_manifest_guard"
+      ],
+      "source_refs": [
+        "system/lib/command_node_cache.py",
+        "system/server/tests/test_command_node_cache.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/command_node_cache_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "public_safe_body_material_ids": [
+        "command_node_cache_body_import",
+        "command_node_cache_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_command_node_cache_bodies_not_live_macro_kernel_provider_browser_account_private_state_or_private_command_cache_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

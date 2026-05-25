@@ -1,0 +1,78 @@
+{
+  "schema_version": "macro_projection_command_node_cache_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "command_node_cache_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_command_node_cache_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing command-node cache regression contract; copied source modules are body evidence, not authority to inspect live private command-cache state or run the macro kernel.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "command_node_cache_body_import",
+      "source_ref": "system/lib/command_node_cache.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/command_node_cache.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Persistent cross-process command-node cache with file locks, static input manifests, TTL and refresh controls, stale-ok peeks, and honest dynamic-input freshness labels.",
+      "required_anchors": [
+        "SCHEMA_VERSION = \"command_node_cache_v1\"",
+        "def cached_command_node(",
+        "def peek_cached_command_node(",
+        "AIW_COMMAND_CACHE_REFRESH",
+        "dynamic_inputs_manifested"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "2889c0fdbebe34bcc3e6c68f266966940cd25c1cd8d1a86f3c83d63ca791abe0",
+      "target_sha256": "2889c0fdbebe34bcc3e6c68f266966940cd25c1cd8d1a86f3c83d63ca791abe0",
+      "sha256_match": true,
+      "line_count": 392,
+      "byte_count": 13843,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "command_node_cache_test_body_import",
+      "source_ref": "system/server/tests/test_command_node_cache.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_command_node_cache.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Focused regression tests for cache reuse and invalidation, directory manifests, stale-ok peek refusal, disable/refresh controls, corrupt JSON rebuilds, freshness-policy labels, and multiprocessing singleflight.",
+      "required_anchors": [
+        "test_command_node_cache_reuses_value_until_input_manifest_changes",
+        "test_peek_command_node_refuses_changed_declared_inputs_without_rebuild",
+        "test_command_node_cache_singleflights_across_processes",
+        "AIW_COMMAND_CACHE_REFRESH=1",
+        "dynamic_inputs_manifested"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_sha256": "cf90e7b9cfd10e6d889fc548eb04d09fd8aa5804b1426aab0b8371bc8c98d78a",
+      "target_sha256": "cf90e7b9cfd10e6d889fc548eb04d09fd8aa5804b1426aab0b8371bc8c98d78a",
+      "sha256_match": true,
+      "line_count": 348,
+      "byte_count": 10319,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_command_node_cache_sources_compile_and_carry_cache_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_command_node_cache_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}
