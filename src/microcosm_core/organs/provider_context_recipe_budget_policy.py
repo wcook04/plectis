@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from collections import defaultdict
@@ -35,6 +36,34 @@ SOURCE_REFS = [
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
 ]
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+
+EXPECTED_SOURCE_MODULES = {
+    "provider_context_graph_benchmark_body_import": {
+        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "target_ref": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "required_anchors": [
+            "PROVIDER_CONTEXT_RECIPES = (",
+            "DEFAULT_PROVIDER_CONTEXT_RECIPES =",
+            "def _provider_context_recipe(recipe_id: str) -> dict[str, Any]:",
+            "def _provider_context_pack(",
+            "def run_provider_context_sweep(",
+            '"schema_version": "prover_provider_context_sweep_run_v0"',
+        ],
+    },
+    "provider_context_formal_ladder_eval_body_import": {
+        "source_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "target_ref": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "required_anchors": [
+            'DEFAULT_RECIPES = ("minimal_4kb", "skill_32kb", "repair_32kb")',
+            "def compile_jobs(",
+            "harness._provider_context_pack(",
+            '"schema_version": "provider_context_pack_manifest_v0"',
+            "def reduce_dispatched_receipts(",
+            '"schema_version": "prover_formal_problem_ladder_recipe_policy_metrics_v0"',
+        ],
+    },
+}
 
 EXPECTED_RECIPE_BUDGETS = {
     "minimal_4kb": 4096,
@@ -145,7 +174,178 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    source_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_manifest.is_file():
+        paths.append(source_manifest)
+        for target_ref in _source_module_target_refs(input_dir):
+            paths.append(input_dir / target_ref)
+    return paths
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    text = path.read_text(encoding="utf-8")
+    return text.count("\n") + (0 if text.endswith("\n") else 1)
+
+
+def _source_module_target_refs(input_dir: Path) -> list[str]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    refs: list[str] = []
+    for row in _rows(manifest, "modules"):
+        target_ref = row.get("target_ref")
+        if isinstance(target_ref, str) and target_ref.startswith("source_modules/"):
+            refs.append(target_ref)
+    return refs
+
+
+def _source_module_findings(input_dir: Path) -> dict[str, Any]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    findings: list[dict[str, Any]] = []
+    imports: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": SOURCE_MODULE_MANIFEST_NAME,
+            "source_module_count": 0,
+            "source_module_ids": [],
+            "source_module_imports": [],
+            "source_module_error_codes": [
+                "PROVIDER_CONTEXT_SOURCE_MODULE_MANIFEST_MISSING"
+            ],
+            "source_module_findings": [
+                _finding(
+                    "PROVIDER_CONTEXT_SOURCE_MODULE_MANIFEST_MISSING",
+                    "Provider context source module imports require a manifest.",
+                    case_id="source_module_floor",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="source_module_manifest",
+                )
+            ],
+        }
+
+    manifest = read_json_strict(manifest_path)
+    module_rows = _rows(manifest, "modules")
+    by_id = {str(row.get("module_id") or ""): row for row in module_rows}
+    expected_ids = sorted(EXPECTED_SOURCE_MODULES)
+    missing_ids = sorted(set(expected_ids) - set(by_id))
+    unexpected_ids = sorted(set(by_id) - set(expected_ids) - {""})
+    for module_id in missing_ids:
+        findings.append(
+            _finding(
+                "PROVIDER_CONTEXT_SOURCE_MODULE_MISSING",
+                "Expected provider context source module is absent from the manifest.",
+                case_id="source_module_floor",
+                subject_id=module_id,
+                subject_kind="source_module",
+            )
+        )
+    for module_id in unexpected_ids:
+        findings.append(
+            _finding(
+                "PROVIDER_CONTEXT_SOURCE_MODULE_UNEXPECTED",
+                "Provider context source module manifest contains an unexpected module id.",
+                case_id="source_module_floor",
+                subject_id=module_id,
+                subject_kind="source_module",
+            )
+        )
+
+    for module_id in expected_ids:
+        expected = EXPECTED_SOURCE_MODULES[module_id]
+        row = by_id.get(module_id, {})
+        target_ref = str(row.get("target_ref") or expected["target_ref"])
+        target = input_dir / target_ref
+        anchor_results: list[dict[str, Any]] = []
+        target_sha256 = None
+        line_count = 0
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "PROVIDER_CONTEXT_SOURCE_MODULE_TARGET_MISSING",
+                    "Copied provider context source module target file is missing.",
+                    case_id="source_module_floor",
+                    subject_id=target_ref,
+                    subject_kind="source_module",
+                )
+            )
+        else:
+            target_text = target.read_text(encoding="utf-8")
+            target_sha256 = _sha256(target)
+            line_count = _line_count(target)
+            if row.get("target_sha256") != target_sha256:
+                findings.append(
+                    _finding(
+                        "PROVIDER_CONTEXT_SOURCE_MODULE_DIGEST_MISMATCH",
+                        "Source module manifest digest must match the copied target file.",
+                        case_id="source_module_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            if row.get("source_sha256") != row.get("target_sha256"):
+                findings.append(
+                    _finding(
+                        "PROVIDER_CONTEXT_SOURCE_MODULE_SOURCE_TARGET_MISMATCH",
+                        "Source and target module digests must match for exact macro body imports.",
+                        case_id="source_module_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            for anchor in expected["required_anchors"]:
+                present = anchor in target_text
+                anchor_results.append(
+                    {
+                        "anchor": anchor,
+                        "present": present,
+                        "body_redacted": True,
+                    }
+                )
+                if not present:
+                    findings.append(
+                        _finding(
+                            "PROVIDER_CONTEXT_SOURCE_MODULE_ANCHOR_MISSING",
+                            "Copied source module is missing a required provider-context anchor.",
+                            case_id="source_module_floor",
+                            subject_id=module_id,
+                            subject_kind="source_module",
+                        )
+                    )
+
+        imports.append(
+            {
+                "module_id": module_id,
+                "source_ref": row.get("source_ref") or expected["source_ref"],
+                "target_ref": target_ref,
+                "source_sha256": row.get("source_sha256"),
+                "target_sha256": target_sha256,
+                "sha256_match": bool(target_sha256 and row.get("source_sha256") == target_sha256),
+                "line_count": line_count,
+                "required_anchor_count": len(expected["required_anchors"]),
+                "present_anchor_count": sum(1 for item in anchor_results if item["present"]),
+                "anchor_results": anchor_results,
+                "body_copied": True,
+                "body_in_receipt": False,
+            }
+        )
+
+    error_codes = sorted({finding["error_code"] for finding in findings})
+    return {
+        "status": PASS if not findings else "blocked",
+        "source_module_manifest_ref": SOURCE_MODULE_MANIFEST_NAME,
+        "source_module_count": len(imports),
+        "source_module_ids": [row["module_id"] for row in imports],
+        "source_module_imports": imports,
+        "source_module_error_codes": error_codes,
+        "source_module_findings": findings,
+    }
 
 
 def _strings(value: Any) -> list[str]:
@@ -415,6 +615,14 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "deliverable_routes": result["deliverable_routes"],
             "body_redacted": True,
         },
+        "source_module_import": {
+            "status": result["source_module_import_status"],
+            "source_module_manifest_ref": result["source_module_manifest_ref"],
+            "source_module_count": result["source_module_count"],
+            "source_module_ids": result["source_module_ids"],
+            "source_module_imports": result["source_module_imports"],
+            "body_in_receipt": False,
+        },
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
@@ -443,6 +651,12 @@ def _common_receipt(
         "missing_negative_cases",
         "error_codes",
         "findings",
+        "source_module_import_status",
+        "source_module_manifest_ref",
+        "source_module_count",
+        "source_module_ids",
+        "source_module_imports",
+        "source_module_error_codes",
         "private_state_scan",
         "authority_ceiling",
         "anti_claim",
@@ -502,10 +716,15 @@ def _build_result(
         if include_negative
         else {"findings": [], "observed_negative_cases": {}}
     )
+    source_modules = _source_module_findings(input_dir)
     observed = negative["observed_negative_cases"]
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*floor_findings, *negative["findings"]]
+    findings = [
+        *floor_findings,
+        *negative["findings"],
+        *source_modules["source_module_findings"],
+    ]
     error_codes = sorted({finding["error_code"] for finding in findings})
     recipe_ids = sorted(str(row.get("recipe_id") or "") for row in recipe_rows)
     all_expectations_met = recipe_ids == sorted(EXPECTED_RECIPE_BUDGETS)
@@ -513,6 +732,7 @@ def _build_result(
         PASS
         if not missing
         and not floor_findings
+        and source_modules["status"] == PASS
         and all_expectations_met
         and not private_scan["blocking_hit_count"]
         else "blocked"
@@ -541,6 +761,12 @@ def _build_result(
         "missing_negative_cases": missing,
         "error_codes": error_codes,
         "findings": findings,
+        "source_module_import_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_count": source_modules["source_module_count"],
+        "source_module_ids": source_modules["source_module_ids"],
+        "source_module_imports": source_modules["source_module_imports"],
+        "source_module_error_codes": source_modules["source_module_error_codes"],
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,

@@ -1406,6 +1406,45 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "provider_context_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The provider-context recipe budget policy carries exact copied "
+            "non-secret graph-benchmark and formal-ladder evaluator source "
+            "bodies inside its public bundle. The import is validated by "
+            "digest and anchor checks while excluding provider payload bodies, "
+            "proof bodies, live access state, credentials, and release authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/"
+                "source_module_manifest.json"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "tools/meta/factory/run_prover_graph_benchmark.py"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+            ),
+            (
+                "receipts/runtime_shell/demo_project/organs/"
+                "provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle_validation_result.json"
+            ),
+            "standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
 }
 
 

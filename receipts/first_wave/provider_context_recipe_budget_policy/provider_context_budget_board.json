@@ -19,7 +19,7 @@
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
+    "scanned_path_count": 11,
     "status": "pass"
   },
   "public_contract": {
@@ -304,5 +304,107 @@
   "selected_pattern_ids": [
     "provider_context_recipe_budget_policy"
   ],
+  "source_module_import": {
+    "body_in_receipt": false,
+    "source_module_count": 2,
+    "source_module_ids": [
+      "provider_context_formal_ladder_eval_body_import",
+      "provider_context_graph_benchmark_body_import"
+    ],
+    "source_module_imports": [
+      {
+        "anchor_results": [
+          {
+            "anchor": "DEFAULT_RECIPES = (\"minimal_4kb\", \"skill_32kb\", \"repair_32kb\")",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "def compile_jobs(",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "harness._provider_context_pack(",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "\"schema_version\": \"provider_context_pack_manifest_v0\"",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "def reduce_dispatched_receipts(",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "\"schema_version\": \"prover_formal_problem_ladder_recipe_policy_metrics_v0\"",
+            "body_redacted": true,
+            "present": true
+          }
+        ],
+        "body_copied": true,
+        "body_in_receipt": false,
+        "line_count": 1478,
+        "module_id": "provider_context_formal_ladder_eval_body_import",
+        "present_anchor_count": 6,
+        "required_anchor_count": 6,
+        "sha256_match": true,
+        "source_ref": "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "source_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
+        "target_ref": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "target_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6"
+      },
+      {
+        "anchor_results": [
+          {
+            "anchor": "PROVIDER_CONTEXT_RECIPES = (",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "DEFAULT_PROVIDER_CONTEXT_RECIPES =",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "def _provider_context_recipe(recipe_id: str) -> dict[str, Any]:",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "def _provider_context_pack(",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "def run_provider_context_sweep(",
+            "body_redacted": true,
+            "present": true
+          },
+          {
+            "anchor": "\"schema_version\": \"prover_provider_context_sweep_run_v0\"",
+            "body_redacted": true,
+            "present": true
+          }
+        ],
+        "body_copied": true,
+        "body_in_receipt": false,
+        "line_count": 7168,
+        "module_id": "provider_context_graph_benchmark_body_import",
+        "present_anchor_count": 6,
+        "required_anchor_count": 6,
+        "sha256_match": true,
+        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "source_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "target_ref": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "target_sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590"
+      }
+    ],
+    "source_module_manifest_ref": "source_module_manifest.json",
+    "status": "pass"
+  },
   "status": "pass"
 }

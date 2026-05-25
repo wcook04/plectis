@@ -32,9 +32,9 @@
     "adapter_backed_organ_count": 42,
     "demoted_drilldown_count": 4,
     "mapped_organ_count": 46,
-    "missing_failure_modes_count": 12,
+    "missing_failure_modes_count": 10,
     "missing_standard_count": 3,
-    "rows_with_failure_modes": 34,
+    "rows_with_failure_modes": 36,
     "rows_with_future_work_targets": 37,
     "thing_count": 46
   },
@@ -1250,23 +1250,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 8,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "source artifact named only as a source_ref while no copied target file exists under Microcosm",
+        "copied source artifact digest diverges from the macro source digest",
+        "oracle-needed premise ids leak into provider-facing rankings",
+        "proof body, provider payload, or private source body appears in public fixtures or receipts",
+        "test split labels are used to tune retrieval instead of after-the-fact metrics",
+        "precision/recall metrics claim theorem-proof, benchmark, release, publication, or provider authority",
+        "adversarial decoy/miss case is absent from the evaluation policy",
+        "retrieval hit is conflated with proof success instead of reporting proof_failure_despite_hit"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "Turning copied retrieval metrics or source artifacts into theorem-proof, benchmark, provider, private-equivalence, or release authority.",
         "authority_boundary": {
           "allowed_claim": "Copied non-secret Ring-2 premise-retrieval run rankings can be scored against after-the-fact labels to report precision, recall, adversarial misses, and retrieval-versus-proof failure attribution.",
           "forbidden_claims": [
@@ -1288,18 +1292,16 @@
           "test_split_tuning_authorized": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe Ring2 premise-retrieval precision/recall harness over copied macro run rankings, after-the-fact metric labels, and exact copied macro run source artifacts.",
         "receipt_expectation_count": 4,
-        "required_field_count": 10,
+        "required_field_count": 12,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -1307,8 +1309,8 @@
         },
         "standard_ref": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
         "standard_status": "accepted",
-        "teleology": null,
-        "validation_rule_count": 6
+        "teleology": "Make the real Ring2 retrieval measurement substrate inspectable in Microcosm while keeping proof bodies, provider payloads, live access, and release authority excluded.",
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -1448,23 +1450,28 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 9,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "provider-context macro source is named only as a source_ref while no copied target module exists inside Microcosm",
+        "copied provider-context source module digest diverges from the macro source digest",
+        "provider context recipe compiler anchors are absent from the copied graph benchmark source",
+        "formal ladder transform-job or reduction anchors are absent from the copied ladder evaluator source",
+        "truth-side sections, proof bodies, oracle-needed premise ids, or provider payload bodies enter public context packets",
+        "provider call authority is smuggled into a public recipe or source-module receipt",
+        "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
+        "recipe deliverable type drifts from the reducer route contract",
+        "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "Turning copied recipe-policy source or metadata into provider-call authority, proof authority, private-root equivalence, hosted publication, or release authority.",
         "authority_boundary": {
           "allowed_claim": "Public provider context recipes can describe bounded byte budgets, ordered section fill, omitted-section manifests, graph roles, and reducer deliverable types.",
           "forbidden_claims": [
@@ -1484,18 +1491,16 @@
           "truth_side_material_authorized": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
-        "receipt_expectation_count": 4,
-        "required_field_count": 8,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe provider-context recipe budget organ over copied macro source modules plus redacted public recipe metadata.",
+        "receipt_expectation_count": 5,
+        "required_field_count": 13,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -1503,8 +1508,8 @@
         },
         "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
         "standard_status": "accepted",
-        "teleology": null,
-        "validation_rule_count": 6
+        "teleology": "Make the real provider-context recipe compiler and formal ladder consumer inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
+        "validation_rule_count": 8
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",

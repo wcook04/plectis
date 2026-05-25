@@ -38,7 +38,12 @@
     "provider_context_recipes.recipes[].deliverable_type",
     "provider_context_recipes.recipes[].emit_omitted_sections_manifest",
     "section_materials.sections[].section_id",
-    "section_materials.sections[].declared_byte_size"
+    "section_materials.sections[].declared_byte_size",
+    "source_module_manifest.modules[].source_ref",
+    "source_module_manifest.modules[].target_ref",
+    "source_module_manifest.modules[].source_sha256",
+    "source_module_manifest.modules[].target_sha256",
+    "source_module_manifest.modules[].required_anchors"
   ],
   "validation_rules": [
     "Every recipe budget must match the public recipe table ceiling.",
@@ -46,10 +51,13 @@
     "Truth-side, oracle-only, provider body, and proof body fields are forbidden.",
     "Provider call authority must stay false.",
     "Every recipe deliverable type must match its reducer route contract.",
+    "The provider-context source module manifest must carry exact copied macro source bodies for the recipe compiler and formal ladder evaluator.",
+    "Copied source module digests must match source-to-target and retain required provider-context anchors.",
     "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected."
   ],
   "receipt_expectations": [
     "result receipt with recipe projections and omitted-section metadata",
+    "source module import receipt fields with paths, digests, anchor results, and no copied source body text",
     "board receipt with public contract and authority ceiling",
     "validation receipt with negative-case coverage",
     "fixture acceptance receipt"
@@ -67,10 +75,11 @@
   },
   "public_private_boundary": {
     "private_source_bodies_included": false,
+    "public_macro_source_bodies_included": true,
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "oracle_labels_included": false,
-    "fixture_kind": "synthetic_public_metadata"
+    "fixture_kind": "copied_non_secret_macro_source_plus_synthetic_public_regression_metadata"
   },
   "authority_ceiling": {
     "provider_calls_authorized": false,
@@ -79,5 +88,45 @@
     "truth_side_material_authorized": false,
     "release_authorized": false
   },
-  "anti_claim": "This standard governs public provider context recipe budgets only; it does not call providers, expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence."
+  "anti_claim": "This standard governs public provider context recipe budgets and exact copied non-secret source modules only; it does not call providers, expose proof bodies, certify theorem correctness, authorize Lean/Lake, authorize release, or prove private macro equivalence.",
+  "known_failure_modes": [
+    "provider-context macro source is named only as a source_ref while no copied target module exists inside Microcosm",
+    "copied provider-context source module digest diverges from the macro source digest",
+    "provider context recipe compiler anchors are absent from the copied graph benchmark source",
+    "formal ladder transform-job or reduction anchors are absent from the copied ladder evaluator source",
+    "truth-side sections, proof bodies, oracle-needed premise ids, or provider payload bodies enter public context packets",
+    "provider call authority is smuggled into a public recipe or source-module receipt",
+    "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
+    "recipe deliverable type drifts from the reducer route contract",
+    "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+  ],
+  "standard_payload": {
+    "ontology": "A public-safe provider-context recipe budget organ over copied macro source modules plus redacted public recipe metadata.",
+    "teleology": "Make the real provider-context recipe compiler and formal ladder consumer inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
+    "anti_purpose": "Turning copied recipe-policy source or metadata into provider-call authority, proof authority, private-root equivalence, hosted publication, or release authority.",
+    "compression_bands": [
+      "source_module",
+      "recipe_budget",
+      "section_projection",
+      "negative_case",
+      "receipt"
+    ],
+    "failure_modes": [
+      "provider-context macro source is named only as a source_ref while no copied target module exists inside Microcosm",
+      "copied provider-context source module digest diverges from the macro source digest",
+      "provider context recipe compiler anchors are absent from the copied graph benchmark source",
+      "formal ladder transform-job or reduction anchors are absent from the copied ladder evaluator source",
+      "truth-side sections, proof bodies, oracle-needed premise ids, or provider payload bodies enter public context packets",
+      "provider call authority is smuggled into a public recipe or source-module receipt",
+      "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
+      "recipe deliverable type drifts from the reducer route contract",
+      "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+    ],
+    "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then refresh macro projection import accounting and workingness"
+  },
+  "source_digests": {
+    "tools/meta/factory/run_prover_graph_benchmark.py": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py": "sha256:5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6"
+  },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance"
 }

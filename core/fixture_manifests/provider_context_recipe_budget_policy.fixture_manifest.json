@@ -2,10 +2,13 @@
   "schema_version": "microcosm_fixture_manifest_v1",
   "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
   "organ_id": "provider_context_recipe_budget_policy",
-  "purpose": "Validate source-available provider context recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
+  "purpose": "Validate copied non-secret provider context source modules and public recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
   "inputs": [
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json", "role": "synthetic public provider context recipe budget table"},
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json", "role": "synthetic redacted context section metadata"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json", "role": "exact copied macro source module manifest with source-to-target hashes and required anchors"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py", "role": "exact copied non-secret macro provider-context recipe compiler source body"},
+    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py", "role": "exact copied non-secret macro formal ladder provider-context consumer source body"},
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json", "role": "negative case: recipe exceeds bounded byte contract"},
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/truth_side_section.json", "role": "negative case: truth-side or oracle-only section selected"},
     {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/proof_body_leakage.json", "role": "negative case: proof body or oracle body field leakage"},
@@ -36,5 +39,5 @@
     "truth_side_material_authorized": false,
     "release_authorized": false
   },
-  "anti_claim": "Provider context recipe budget fixtures validate context-shape metadata only; they do not call providers, prove goals, run Lean/Lake, expose proof or oracle bodies, authorize release, or claim private macro equivalence."
+  "anti_claim": "Provider context recipe budget fixtures validate copied source-module hashes plus context-shape metadata only; they do not call providers, prove goals, run Lean/Lake, expose proof or oracle bodies, authorize release, or claim private macro equivalence."
 }
