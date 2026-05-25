@@ -521,6 +521,47 @@
       "body_copied": false,
       "body_in_receipt": false,
       "next_runtime_surface": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle"
+    },
+    {
+      "cell_id": "trace_capsule_prompt_edit_capture_source_modules_import",
+      "selected_pattern_ids": [
+        "agent_trace_capsule_prompt_edit_capture",
+        "agent_trace_lossless_clip",
+        "prompt_shelf_native_clipboard_capture"
+      ],
+      "source_refs": [
+        "tools/meta/observability/cli_prompt_trace.py",
+        "system/server/tests/test_cli_prompt_trace_capsule.py",
+        "tools/agent_trace_structurer/parser.mjs",
+        "tools/agent_trace_structurer/parser.test.mjs"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_agent_trace_structurer_parser_source_module_runs_node_fixture_tests",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs"
+      ],
+      "public_safe_body_material_ids": [
+        "trace_capsule_cli_prompt_trace_body_import",
+        "trace_capsule_cli_prompt_trace_test_body_import",
+        "agent_trace_structurer_parser_body_import",
+        "agent_trace_structurer_parser_test_body_import"
+      ],
+      "authority_ceiling": "verified_public_trace_capsule_prompt_edit_capture_source_bodies_not_live_provider_browser_account_session_cookie_credential_or_recipient_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ]
     }
   ],
   "body_in_receipt": false

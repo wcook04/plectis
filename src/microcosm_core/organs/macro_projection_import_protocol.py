@@ -477,6 +477,29 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "examples/macro_projection_import_protocol/exported_projection_import_bundle"
         ),
     },
+    "trace_capsule_prompt_edit_capture_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The trace-capsule prompt/edit-capture lane carries exact copied "
+            "non-secret cli_prompt_trace and Agent Trace Structurer source "
+            "modules inside the projection bundle, and validates them through "
+            "public fixture rendering plus the deterministic parser test suite "
+            "without reading live provider payloads, browser/HUD state, "
+            "account/session state, cookies, credentials, or recipient-send "
+            "material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/trace_capsule_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
 }
 
 
