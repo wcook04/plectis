@@ -1,0 +1,247 @@
+{
+  "schema_version": "public_microcosm_standard_v1",
+  "standard_id": "std_microcosm_agent_route_observability_runtime",
+  "kind_id": "agent_route_observability_runtime",
+  "kind_name": "Agent route observability runtime",
+  "status": "draft",
+  "first_wave_required": true,
+  "authority_boundary": "public_route_observability_runtime_metadata_and_copied_macro_trace_bodies_not_live_session_provider_browser_hud_or_hook_authority",
+  "body_import_status": "existing_public_macro_body_imports_landed",
+  "body_import_verification": {
+    "verification_status": "verified",
+    "verification_mode": "existing_exact_and_source_faithful_route_observability_imports",
+    "source_refs": [
+      "system/lib/agent_execution_trace.py",
+      "system/lib/agent_observability.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "system/server/tests/test_agent_execution_trace.py",
+      "system/server/tests/test_agent_observability.py"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability.py",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py"
+    ],
+    "manifest_refs": [
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+      "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json"
+    ],
+    "validation_refs": [
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py",
+      "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+    ]
+  },
+  "body_in_receipt": false,
+  "source_refs": [
+    {
+      "field": "fixture_manifest",
+      "path": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+      "role": "public_fixture_manifest"
+    },
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/agent_route_observability_runtime.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "paper_module",
+      "path": "paper_modules/agent_route_observability_runtime.md",
+      "role": "public_explanation_surface"
+    },
+    {
+      "field": "macro_body_import_floor",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
+      "role": "public_macro_body_import_plan"
+    },
+    {
+      "field": "agent_execution_trace_source_modules",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+      "role": "exact_non_secret_macro_body_manifest"
+    },
+    {
+      "field": "agent_observability_source_modules",
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+      "role": "exact_non_secret_macro_body_manifest"
+    },
+    {
+      "field": "runtime_bundle",
+      "path": "examples/agent_route_observability_runtime/exported_observability_bundle",
+      "role": "public_runtime_bundle_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#agent_route_observability_runtime",
+    "source_pattern_id_sample": [
+      "agent_route_observability_runtime",
+      "agent_trace_to_route_repair_observability_compound",
+      "agent_self_observability_plane",
+      "agent_execution_trace",
+      "trace_feedback_behavior_change_gate",
+      "computer_use_action_trace_replay_compound"
+    ],
+    "used_by_organs": [
+      "agent_route_observability_runtime"
+    ]
+  },
+  "required_fields": [
+    "agent_trace",
+    "anti_pattern_debt",
+    "hook_shadow_cases",
+    "route_compliance_audit",
+    "hook_shadow_coverage",
+    "debt_retirement_receipt",
+    "route_lease_mode_control_receipt",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "require every route trace to declare actor axis, expected route, observed route, decision, replacement route, and validator asserted pattern refs",
+    "require route-lease receipts to prove lease consumption, first action after lease, selected lane, legitimate return reason, mode-control decision, and error codes",
+    "require hook-shadow coverage to remain advisory metadata unless a live hook receipt is separately imported and public-safe",
+    "retire anti-pattern debt only when correction evidence exists and regression evidence remains visible",
+    "reject Type B advisory traces, telemetry-only rows, or static metadata as mutation authority",
+    "reject transcript bodies, provider payload bodies, hidden reasoning, browser HUD state, account/session state, credentials, cookies, live hook state, recipient-send payloads, and benchmark-score claims",
+    "require copied macro trace or observability body refs to retain source refs, target refs, and body-in-receipt false policy"
+  ],
+  "receipt_expectations": [
+    "receipt.microcosm.agent_route_observability_runtime",
+    "receipt must cite route, hook, debt, lease, public bundle, macro body import refs, secret-exclusion status, body_in_receipt, authority ceiling, and anti-claim"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+    "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
+    "minimum_checks": [
+      "route_compliance_audit",
+      "hook_shadow_coverage",
+      "debt_retirement_receipt",
+      "route_lease_mode_control",
+      "public_bundle_shape",
+      "macro_body_ref_floor",
+      "secret_exclusion_scan"
+    ]
+  },
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.agent_route_observability_runtime",
+    "must_record": [
+      "route_compliance_audit",
+      "hook_shadow_coverage",
+      "debt_retirement_receipt",
+      "route_lease_mode_control_receipt",
+      "validator_asserted_feeds_patterns",
+      "macro_body_import_refs",
+      "secret_exclusion_scan",
+      "body_in_receipt",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_route_observability_metadata_with_exact_non_secret_macro_body_refs",
+    "allowed_public_inputs": [
+      "synthetic route trace ids",
+      "actor-axis labels",
+      "route decision metadata",
+      "hook-shadow advisory rows",
+      "anti-pattern debt ids",
+      "route lease ids",
+      "public source module refs and digests",
+      "public runtime receipt refs",
+      "negative case ids"
+    ],
+    "forbidden_public_inputs": [
+      "transcript bodies",
+      "provider payload bodies",
+      "hidden reasoning bodies",
+      "browser HUD state",
+      "operator thread bodies",
+      "account or session state",
+      "credentials",
+      "cookies",
+      "live hook state",
+      "recipient-send payloads",
+      "benchmark score claims"
+    ]
+  },
+  "authority_ceiling": {
+    "status": "pass",
+    "standard_authority": "public_route_observability_runtime_schema_and_failure_envelope",
+    "live_session_authority": false,
+    "live_hook_authority": false,
+    "provider_authority": false,
+    "browser_hud_authority": false,
+    "account_or_session_authority": false,
+    "credential_authority": false,
+    "source_mutation_authority": false,
+    "benchmark_score_authority": false,
+    "release_authority": false
+  },
+  "anti_claim": "This standard governs public route-observability runtime metadata, synthetic trace fixtures, and copied non-secret macro trace-body refs only; it does not inspect live sessions, export transcript or provider bodies, read browser HUD state, expose credentials or cookies, control accounts, send recipients, mutate source, prove benchmark performance, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Route-observability language must state that public traces and hook-shadow rows are not live introspection, account/session, browser/HUD, provider, benchmark, source-mutation, or release authority"
+  },
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "Macro trace and observability bodies remain coupled through source module manifests, target refs, validation refs, and body-in-receipt false receipts"
+  },
+  "paper_module_contract": {
+    "required": true,
+    "module_slug": "agent_route_observability_runtime"
+  },
+  "receipt_refs": [
+    "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+    "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+    "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+  ],
+  "omission_receipt": {
+    "drilldown": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+    "omitted": [
+      "transcript bodies",
+      "provider payload bodies",
+      "hidden reasoning bodies",
+      "browser HUD state",
+      "operator thread bodies",
+      "account or session state",
+      "credentials",
+      "cookies",
+      "live hook state",
+      "recipient-send payloads",
+      "benchmark score claims"
+    ],
+    "reason": "public slice carries synthetic route and hook metadata, body-free receipts, copied non-secret macro source refs, and negative-case evidence only"
+  },
+  "standard_payload": {
+    "ontology": "A public route-observability runtime that binds synthetic agent traces, actor axes, route leases, hook-shadow advisory rows, anti-pattern debt, copied macro trace bodies, and bounded receipts into a failure envelope.",
+    "teleology": "Make observability evidence change future agent routing behavior without mistaking public metadata or synthetic traces for live session introspection or provider/browser authority.",
+    "anti_purpose": "A telemetry receipt archive that claims live observability, mutation authority, or product progress without route feedback, body import provenance, public/private boundaries, and negative-case checks.",
+    "compression_bands": [
+      "trace",
+      "actor_axis",
+      "route_decision",
+      "hook_shadow",
+      "debt",
+      "lease",
+      "macro_body_ref",
+      "receipt"
+    ],
+    "failure_modes": [
+      "route trace classified without actor-axis authority boundary",
+      "banned cold-start route accepted without replacement route evidence",
+      "route lease treated as reusable after consumption",
+      "hook shadow advisory promoted to live hook authority",
+      "anti-pattern debt retired without behavior-change evidence",
+      "telemetry-only row counted as product evidence",
+      "Type B advisory trace admitted as mutation authority",
+      "transcript, provider payload, browser HUD, account/session, credential, cookie, or recipient-send material exported",
+      "synthetic fixture verdict treated as live observability accuracy",
+      "copied macro trace body digest or source ref omitted from public body import verification"
+    ],
+    "rebuild_action": "draft"
+  },
+  "wave": "w1_agent_route_observability_runtime_standard_floor"
+}

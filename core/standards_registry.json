@@ -9,10 +9,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 79,
+  "first_wave_required_standard_count": 80,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 91,
+  "standard_count": 92,
   "standards": [
     {
       "first_wave_required": true,
@@ -28,6 +28,20 @@
       ],
       "validator_id": null,
       "wave": "w1_behavior_boundary_continuity"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "agent_route_observability_runtime",
+      "kind_name": "Agent route observability runtime",
+      "path": "standards/std_microcosm_agent_route_observability_runtime.json",
+      "receipt_id": "receipt.microcosm.agent_route_observability_runtime",
+      "standard_id": "std_microcosm_agent_route_observability_runtime",
+      "status": "draft",
+      "used_by_organs": [
+        "agent_route_observability_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.agent_route_observability_runtime",
+      "wave": "w1_agent_route_observability_runtime_standard_floor"
     },
     {
       "first_wave_required": true,
