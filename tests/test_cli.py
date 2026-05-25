@@ -55,6 +55,23 @@ def _copy_workingness_root(tmp_path: Path) -> Path:
     return public_root
 
 
+def _make_scratch_project(tmp_path: Path) -> Path:
+    project = tmp_path / "scratch"
+    (project / "src/app").mkdir(parents=True)
+    (project / "tests").mkdir()
+    (project / "README.md").write_text("# Scratch\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text(
+        '[project]\nname = "scratch"\nversion = "0.1.0"\n',
+        encoding="utf-8",
+    )
+    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "tests/test_app.py").write_text(
+        "from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n",
+        encoding="utf-8",
+    )
+    return project
+
+
 def test_package_metadata_describes_runtime_spine() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     project = payload["project"]
@@ -164,19 +181,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
-    project = tmp_path / "scratch"
-    (project / "src/app").mkdir(parents=True)
-    (project / "tests").mkdir()
-    (project / "README.md").write_text("# Scratch\n", encoding="utf-8")
-    (project / "pyproject.toml").write_text(
-        '[project]\nname = "scratch"\nversion = "0.1.0"\n',
-        encoding="utf-8",
-    )
-    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
-    (project / "tests/test_app.py").write_text(
-        "from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n",
-        encoding="utf-8",
-    )
+    project = _make_scratch_project(tmp_path)
     project_substrate.compile_project(project)
 
     assert cli.main(["status", "--card", str(project)]) == 0
@@ -192,6 +197,89 @@ def test_cli_status_card_can_overlay_project_route_state(
         "available_project_route_ids"
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
+
+
+def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    source_tour = MICROCOSM_ROOT / "receipts/runtime_shell/public_ten_minute_tour.json"
+    source_tour_before = source_tour.read_text(encoding="utf-8")
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+    project = _make_scratch_project(tmp_path)
+
+    assert cli.main(["tour", str(project)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    first_screen = payload["first_screen"]
+    front_door_status = payload["front_door_status"]
+
+    assert payload["status"] == "pass"
+    assert first_screen["schema_version"] == "microcosm_cold_reader_first_screen_v1"
+    assert first_screen["intent"] == "bring_folder_run_local_path_inspect_state_then_drill_receipts"
+    assert first_screen["selected_route_id"] == "readme_onboarding_route"
+    assert first_screen["generated_state"]["state_dir"] == ".microcosm"
+    expected_state_refs = {
+        ".microcosm/project_manifest.json",
+        ".microcosm/architecture.json",
+        ".microcosm/state_index.json",
+        ".microcosm/graph.json",
+        ".microcosm/catalog.json",
+        ".microcosm/python_lens.json",
+        ".microcosm/patterns.json",
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/explanations/",
+        ".microcosm/evidence/",
+    }
+    assert set(first_screen["generated_state"]["refs"]) == expected_state_refs
+    for ref in expected_state_refs:
+        assert (project / ref).exists()
+    assert first_screen["behavior_surfaces"] == {
+        "route_state_ref": ".microcosm/routes.json",
+        "work_state_ref": ".microcosm/work_items.json",
+        "event_log_ref": ".microcosm/events.jsonl",
+        "evidence_dir_ref": ".microcosm/evidence/",
+        "graph_ref": ".microcosm/graph.json",
+        "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    }
+    assert first_screen["route_explanation"]["command"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert first_screen["route_explanation"]["endpoint"] == (
+        "/project/explain/readme_onboarding_route"
+    )
+    assert first_screen["proof_surface"]["status"] == "pass"
+    assert first_screen["proof_surface"]["route_id"] == "formal_prover_context_strategy_gate"
+    assert first_screen["safe_to_show"]["project_local_state_refs_visible"] is True
+    assert first_screen["safe_to_show"]["credential_equivalent_payloads_exported"] is False
+    assert first_screen["safe_to_show"]["receipt_refs_visible_after_behavior"] is True
+    assert front_door_status["blocking_surface_ids"] == []
+    assert front_door_status["drilldown_warning_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
+    assert front_door_status["safe_to_show"]["blocking_surface_ids_visible"] is True
+    step_ids = [row["step_id"] for row in first_screen["minimal_command_path"]]
+    assert step_ids.index("inspect_first_screen") < step_ids.index(
+        "drill_receipts_only_after_behavior"
+    )
+
+    assert cli.main(["status", "--card", str(project)]) == 0
+    status_card = json.loads(capsys.readouterr().out)
+    assert status_card["status"] == "pass"
+    assert status_card["front_door"]["project_state_status"] == "pass"
+    assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
+    assert status_card["front_door"]["state_dir_exists"] is True
+    assert status_card["workingness"]["status"] == "actionable"
+    assert status_card["proof_lab"]["status"] == "pass"
+    assert status_card["macro_body_import_floor"]["source_body_imports"][
+        "verified_source_module_family_count"
+    ] >= 39
+    assert status_card["payload_boundary_audit"]["status"] == "pass"
+    assert source_tour.read_text(encoding="utf-8") == source_tour_before
 
 
 def test_cli_proof_lab_alias_prints_first_screen_card(
