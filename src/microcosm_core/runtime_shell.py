@@ -1647,6 +1647,9 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
         "proof_lab": {
             "status": proof_lab.get("status"),
             "command": proof_lab.get("command"),
+            "endpoint": proof_lab.get("endpoint"),
+            "alias_endpoints": proof_lab.get("alias_endpoints"),
+            "source_lens_endpoint": proof_lab.get("source_lens_endpoint"),
             "route_id": proof_lab.get("route_id"),
             "route_component_count": proof_lab.get("route_component_count"),
             "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),

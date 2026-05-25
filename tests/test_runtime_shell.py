@@ -385,6 +385,9 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["front_door"]["evidence_dir_ref"] == ".microcosm/evidence/"
     assert card["front_door"]["graph_ref"] == ".microcosm/graph.json"
     assert card["proof_lab"]["status"] == "pass"
+    assert card["proof_lab"]["endpoint"] == "/proof-lab"
+    assert card["proof_lab"]["alias_endpoints"] == ["/verifier-lab-kernel"]
+    assert card["proof_lab"]["source_lens_endpoint"] == "/proof-loop-depth"
     assert card["proof_lab"]["route_id"] == "formal_prover_context_strategy_gate"
     assert card["proof_lab"]["route_component_count"] == 9
     assert card["proof_lab"]["lean_lake_return_code"] == 0
