@@ -6,6 +6,22 @@
     "resume_contract",
     "mission_controller"
   ],
+  "shared_subagent_governance": {
+    "source_refs": [
+      "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+      "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "codex/doctrine/concepts/con_029_bridge_graph_delegation_economics.json"
+    ],
+    "conductor_final_authority": true,
+    "subagents_declare_lane_and_boundary": true,
+    "parent_lane_progress_required": true,
+    "reports_integrated_before_progress_claim": true,
+    "disjoint_write_sets_only": true,
+    "fanin_validation_required": true,
+    "up_propagation_once": true,
+    "live_dispatch_in_fixture": false,
+    "body_in_receipt": false
+  },
   "live_subagent_spawn_authorized": false,
   "live_bridge_dispatch_authorized": false,
   "browser_hud_cockpit_state_read": false,

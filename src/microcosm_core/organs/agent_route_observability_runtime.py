@@ -274,6 +274,22 @@ MULTI_AGENT_FANIN_ANTI_CLAIM = (
     "account state, send recipient material, mutate Work Ledger or source, claim "
     "private-root equivalence, or authorize release."
 )
+MULTI_AGENT_FANIN_SHARED_GOVERNANCE_SOURCE_REF = (
+    "codex/doctrine/paper_modules/claude_subagent_delegation.md"
+)
+MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_TRUE = (
+    "conductor_final_authority",
+    "subagents_declare_lane_and_boundary",
+    "parent_lane_progress_required",
+    "reports_integrated_before_progress_claim",
+    "disjoint_write_sets_only",
+    "fanin_validation_required",
+    "up_propagation_once",
+)
+MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_FALSE = (
+    "live_dispatch_in_fixture",
+    "body_in_receipt",
+)
 
 SOURCE_PATTERN_IDS = [
     "agent_route_observability_runtime",
@@ -1583,12 +1599,49 @@ def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any
                 subject_kind="multi_agent_fanin_policy",
             )
         )
+    governance = (
+        policy.get("shared_subagent_governance")
+        if isinstance(policy.get("shared_subagent_governance"), dict)
+        else {}
+    )
+    governance_source_refs = _strings(governance.get("source_refs"))
+    if MULTI_AGENT_FANIN_SHARED_GOVERNANCE_SOURCE_REF not in governance_source_refs:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_SHARED_GOVERNANCE_SOURCE_REF_MISSING",
+                "Fan-in policy must bind the shared subagent-governance owner before replaying delegated-worker metadata.",
+                subject_id=str(policy.get("policy_id") or "fanin_policy"),
+                subject_kind="multi_agent_fanin_policy",
+            )
+        )
+    for field in MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_TRUE:
+        if governance.get(field) is not True:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SHARED_GOVERNANCE_FLAG_MISSING",
+                    "Fan-in policy must enforce conductor authority, declared worker boundaries, parent-lane progress, report integration, disjoint writes, fan-in validation, and one up-propagation.",
+                    subject_id=field,
+                    subject_kind="multi_agent_fanin_policy",
+                )
+            )
+    for field in MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_FALSE:
+        if governance.get(field) is not False:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SHARED_GOVERNANCE_AUTHORITY_OVERCLAIM",
+                    "Fan-in policy must keep the replay as metadata only without live dispatch or receipt body export.",
+                    subject_id=field,
+                    subject_kind="multi_agent_fanin_policy",
+                )
+            )
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
         "policy_id": policy.get("policy_id"),
         "allowed_wait_kinds": sorted(allowed_wait_kinds),
         "forbidden_authority_rejected": True,
+        "shared_subagent_governance_validated": not findings,
+        "shared_subagent_governance_source_refs": governance_source_refs,
         "metadata_envelope_only": True,
         "body_in_receipt": False,
     }
@@ -1668,12 +1721,89 @@ def validate_exported_multi_agent_fanin_inputs(
                         subject_kind="multi_agent_fanin_worker_trace",
                     )
                 )
+        worker_boundary = worker.get("worker_boundary")
+        if not isinstance(worker_boundary, dict):
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_BOUNDARY_MISSING",
+                    "Worker trace rows must declare lane, write boundary, report integration, fan-in validation, and up-propagation ownership.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+            continue
+        if not str(worker_boundary.get("lane_id") or ""):
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_LANE_MISSING",
+                    "Worker trace rows must declare their delegated lane.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+        if not isinstance(worker_boundary.get("write_scope"), list):
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_WRITE_SCOPE_MISSING",
+                    "Worker trace rows must declare an explicit disjoint write scope, even when zero-write.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+        for field in (
+            "boundary_declared",
+            "parent_lane_progress_observed",
+            "report_integrated_by_controller",
+            "fanin_validation_required",
+        ):
+            if worker_boundary.get(field) is not True:
+                findings.append(
+                    _bundle_finding(
+                        "MULTI_AGENT_FANIN_WORKER_GOVERNANCE_FLAG_MISSING",
+                        "Worker trace boundaries must prove declared scope, parent progress, controller integration, and fan-in validation.",
+                        subject_id=f"{worker_id or 'worker_trace'}::{field}",
+                        subject_kind="multi_agent_fanin_worker_trace",
+                    )
+                )
+        if worker_boundary.get("worker_report_is_progress") is not False:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_REPORT_OVERCLAIM",
+                    "Worker reports are not progress until the controller integrates them.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
+        if worker_boundary.get("up_propagation_count") != 1:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_WORKER_UP_PROPAGATION_COUNT_INVALID",
+                    "Worker trace rows must bind exactly one up-propagation owner decision.",
+                    subject_id=worker_id or "worker_trace",
+                    subject_kind="multi_agent_fanin_worker_trace",
+                )
+            )
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
         "continuation_context_count": len(contexts),
         "worker_trace_count": len(workers),
         "forbidden_payload_keys": leaked_keys,
+        "worker_boundary_count": sum(
+            1 for worker in workers if isinstance(worker.get("worker_boundary"), dict)
+        ),
+        "controller_integrated_report_count": sum(
+            1
+            for worker in workers
+            if isinstance(worker.get("worker_boundary"), dict)
+            and worker["worker_boundary"].get("report_integrated_by_controller")
+            is True
+        ),
+        "up_propagation_count": sum(
+            int(worker.get("worker_boundary", {}).get("up_propagation_count") or 0)
+            for worker in workers
+            if isinstance(worker.get("worker_boundary"), dict)
+        ),
         "metadata_envelope_only": True,
         "body_in_receipt": False,
     }
@@ -1703,9 +1833,31 @@ def validate_exported_multi_agent_fanin_expected_summary(
             for packet in packets
             if str(packet.get("fingerprint") or "")
         ),
+        "worker_boundary_count": sum(
+            1 for worker in workers if isinstance(worker.get("worker_boundary"), dict)
+        ),
+        "controller_integrated_report_count": sum(
+            1
+            for worker in workers
+            if isinstance(worker.get("worker_boundary"), dict)
+            and worker["worker_boundary"].get("report_integrated_by_controller")
+            is True
+        ),
+        "up_propagation_count": sum(
+            int(worker.get("worker_boundary", {}).get("up_propagation_count") or 0)
+            for worker in workers
+            if isinstance(worker.get("worker_boundary"), dict)
+        ),
     }
     expected_summary = expected.get("summary") if isinstance(expected.get("summary"), dict) else {}
-    for field in ("continuation_packet_count", "worker_trace_count", "fanin_join_count"):
+    for field in (
+        "continuation_packet_count",
+        "worker_trace_count",
+        "fanin_join_count",
+        "worker_boundary_count",
+        "controller_integrated_report_count",
+        "up_propagation_count",
+    ):
         if field in expected_summary and expected_summary[field] != actual_summary[field]:
             findings.append(
                 _bundle_finding(

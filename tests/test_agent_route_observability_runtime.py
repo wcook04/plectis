@@ -429,9 +429,27 @@ def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["fanin_input_validation"]["metadata_envelope_only"] is True
+    assert result["fanin_input_validation"]["worker_boundary_count"] == 2
+    assert (
+        result["fanin_input_validation"]["controller_integrated_report_count"] == 2
+    )
+    assert result["fanin_input_validation"]["up_propagation_count"] == 2
     assert result["fanin_policy"]["forbidden_authority_rejected"] is True
+    assert result["fanin_policy"]["shared_subagent_governance_validated"] is True
+    assert "codex/doctrine/paper_modules/claude_subagent_delegation.md" in result[
+        "fanin_policy"
+    ]["shared_subagent_governance_source_refs"]
     assert result["expected_summary_validation"]["actual_summary"][
         "continuation_packet_count"
+    ] == 2
+    assert result["expected_summary_validation"]["actual_summary"][
+        "worker_boundary_count"
+    ] == 2
+    assert result["expected_summary_validation"]["actual_summary"][
+        "controller_integrated_report_count"
+    ] == 2
+    assert result["expected_summary_validation"]["actual_summary"][
+        "up_propagation_count"
     ] == 2
     assert result["body_import_verification"]["verification_mode"] == (
         "source_faithful_public_refactor"

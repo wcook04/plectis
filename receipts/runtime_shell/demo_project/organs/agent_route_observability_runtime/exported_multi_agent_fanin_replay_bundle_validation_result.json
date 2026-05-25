@@ -29,39 +29,45 @@
   "bundle_fingerprint": "f028a84e094ca5c7a41b1a39ffda2bed76c528a2edcf90f3eb263fa86798a58b",
   "bundle_id": "public_multi_agent_fanin_replay_runtime_example",
   "bundle_manifest_schema_version": "multi_agent_fanin_replay_bundle_v1",
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-multi-agent-fanin-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-multi-agent-fanin-bundle --input examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle --out receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime",
   "continuation_packet_count": 2,
   "continuation_packet_fingerprints": [
     "92210dcee59d9c61",
     "9fa13cf1d28e3931"
   ],
   "continuation_packet_schema": "public_continuation_packet_v1",
-  "created_at": "2026-05-24T04:11:38+00:00",
+  "created_at": "2026-05-25T20:19:36+00:00",
   "credential_or_cookie_exported": false,
   "error_codes": [],
   "expected_negative_cases": {},
   "expected_summary_validation": {
     "actual_summary": {
       "continuation_packet_count": 2,
+      "controller_integrated_report_count": 2,
       "fanin_join_count": 1,
       "fingerprints": [
         "92210dcee59d9c61",
         "9fa13cf1d28e3931"
       ],
+      "up_propagation_count": 2,
       "wait_kinds": [
         "pipeline_signal",
         "resume_contract"
       ],
+      "worker_boundary_count": 2,
       "worker_trace_count": 2
     },
     "body_in_receipt": false,
     "expected_summary": {
       "continuation_packet_count": 2,
+      "controller_integrated_report_count": 2,
       "fanin_join_count": 1,
+      "up_propagation_count": 2,
       "wait_kinds": [
         "pipeline_signal",
         "resume_contract"
       ],
+      "worker_boundary_count": 2,
       "worker_trace_count": 2
     },
     "findings": [],
@@ -70,10 +76,13 @@
   "fanin_input_validation": {
     "body_in_receipt": false,
     "continuation_context_count": 2,
+    "controller_integrated_report_count": 2,
     "findings": [],
     "forbidden_payload_keys": [],
     "metadata_envelope_only": true,
     "status": "pass",
+    "up_propagation_count": 2,
+    "worker_boundary_count": 2,
     "worker_trace_count": 2
   },
   "fanin_join_count": 1,
@@ -88,6 +97,12 @@
     "forbidden_authority_rejected": true,
     "metadata_envelope_only": true,
     "policy_id": "public_multi_agent_fanin_metadata_boundary",
+    "shared_subagent_governance_source_refs": [
+      "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+      "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "codex/doctrine/concepts/con_029_bridge_graph_delegation_economics.json"
+    ],
+    "shared_subagent_governance_validated": true,
     "status": "pass"
   },
   "findings": [],
@@ -135,6 +150,7 @@
     "tools/meta/control/mission_transaction_preflight.py",
     "tools/meta/factory/work_ledger.py",
     "system/lib/agent_execution_trace.py",
+    "codex/doctrine/paper_modules/claude_subagent_delegation.md",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
   ],
   "status": "pass",

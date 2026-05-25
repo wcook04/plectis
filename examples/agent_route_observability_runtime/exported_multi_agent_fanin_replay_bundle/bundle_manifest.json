@@ -5,6 +5,7 @@
   "organ_id": "agent_route_observability_runtime",
   "source_pattern_ids": [
     "multi_agent_handoff_fanin_replay_compound",
+    "claude_subagent_cohort_delegation",
     "bridge_runtime_dispatch_yield_resume",
     "agent_trace_to_route_repair_observability_compound"
   ],
@@ -13,6 +14,7 @@
     "tools/meta/control/mission_transaction_preflight.py",
     "tools/meta/factory/work_ledger.py",
     "system/lib/agent_execution_trace.py",
+    "codex/doctrine/paper_modules/claude_subagent_delegation.md",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#multi_agent_handoff_fanin_replay_compound"
   ],
   "target_refs": [

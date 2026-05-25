@@ -4,6 +4,9 @@
     "continuation_packet_count": 2,
     "worker_trace_count": 2,
     "fanin_join_count": 1,
+    "worker_boundary_count": 2,
+    "controller_integrated_report_count": 2,
+    "up_propagation_count": 2,
     "wait_kinds": [
       "pipeline_signal",
       "resume_contract"
