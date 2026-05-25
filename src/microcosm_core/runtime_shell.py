@@ -3205,6 +3205,31 @@ class RuntimeShell:
             for surface_id in drilldown_warning_surface_ids
             if surface_statuses.get(surface_id) != PASS
         ]
+        front_door_status = {
+            "schema_version": "microcosm_tour_front_door_status_v1",
+            "status_scope": "required_behavioral_first_screen_surfaces",
+            "required_surface_ids": front_door_required_surface_ids,
+            "blocking_surface_ids": blocking_surface_ids,
+            "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
+            "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
+            "top_level_status_rule": (
+                "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_"
+                "drilldowns_report_blocked"
+            ),
+            "safe_to_show": {
+                "surface_status_ids_visible": True,
+                "blocking_surface_ids_visible": True,
+                "drilldown_warning_surface_ids_visible": True,
+                "authority_warning_visible": True,
+                "intake_warning_visible": True,
+            },
+            "authority_ceiling": {
+                "release_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "proof_correctness_claim": False,
+            },
+        }
         commands = [
             "microcosm tour <project>",
             "microcosm compile <project>",
@@ -3255,6 +3280,26 @@ class RuntimeShell:
                     ".microcosm/evidence/",
                 ],
                 "status": compiled.get("status"),
+            },
+            {
+                "card_id": "front_door_status",
+                "minute_budget": 0.5,
+                "command": "microcosm tour <project>",
+                "endpoint": "/tour",
+                "shows": [
+                    "front_door_status.blocking_surface_ids",
+                    "front_door_status.drilldown_warning_surface_ids",
+                    "front_door_status.drilldown_blocked_surface_ids",
+                    "release/provider/source/proof authority ceiling",
+                ],
+                "status": PASS if not blocking_surface_ids else "blocked",
+                "status_ref": "front_door_status",
+                "top_level_status_rule": front_door_status["top_level_status_rule"],
+                "blocking_surface_ids": blocking_surface_ids,
+                "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
+                "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
+                "safe_to_show": front_door_status["safe_to_show"],
+                "authority_ceiling": front_door_status["authority_ceiling"],
             },
             {
                 "card_id": "runtime_spine",
@@ -3502,18 +3547,7 @@ class RuntimeShell:
             ],
             "route_cards": route_cards,
             "surface_statuses": surface_statuses,
-            "front_door_status": {
-                "schema_version": "microcosm_tour_front_door_status_v1",
-                "status_scope": "required_behavioral_first_screen_surfaces",
-                "required_surface_ids": front_door_required_surface_ids,
-                "blocking_surface_ids": blocking_surface_ids,
-                "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
-                "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
-                "top_level_status_rule": (
-                    "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_"
-                    "drilldowns_report_blocked"
-                ),
-            },
+            "front_door_status": front_door_status,
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "file_count": compiled.get("file_count"),
@@ -13057,6 +13091,11 @@ class RuntimeShell:
             project_path if project_path is not None else DEFAULT_PROJECT_REL,
             persist_receipt=persist_receipts,
         )
+        front_door_status = (
+            tour.get("front_door_status", {})
+            if isinstance(tour.get("front_door_status"), dict)
+            else {}
+        )
         runtime_bridge = self.observatory_intake_bridge(persist_receipt=persist_receipts)
         authority_map = self.authority(persist_receipts=persist_receipts)
         prediction_lens = self.prediction_lens()
@@ -13089,6 +13128,7 @@ class RuntimeShell:
             "status": PASS,
             "runtime_status": status,
             "tour": tour,
+            "front_door_status": front_door_status,
             "runtime_bridge": runtime_bridge,
             "authority_map": authority_map,
             "prediction_lens": prediction_lens,
@@ -13354,6 +13394,13 @@ class RuntimeShell:
         )
         runtime_bridge = model.get("runtime_bridge", {}) if isinstance(model.get("runtime_bridge"), dict) else {}
         tour = model.get("tour", {}) if isinstance(model.get("tour"), dict) else {}
+        front_door_status = (
+            model.get("front_door_status", {})
+            if isinstance(model.get("front_door_status"), dict)
+            else tour.get("front_door_status", {})
+            if isinstance(tour.get("front_door_status"), dict)
+            else {}
+        )
         tour_cards = tour.get("route_cards", []) if isinstance(tour.get("route_cards"), list) else []
         bridge_cells = _rows(runtime_bridge, "cell_status")
         authority_map = model.get("authority_map", {}) if isinstance(model.get("authority_map"), dict) else {}
@@ -13700,6 +13747,13 @@ class RuntimeShell:
                 f"<td>{html.escape(_safe_text(value))}</td>"
                 "</tr>"
             )
+
+        def list_text(values: Any) -> str:
+            if not isinstance(values, list):
+                return ""
+            if not values:
+                return "none"
+            return ", ".join(str(value) for value in values)
 
         def binding_rows(rows: list[Any], id_key: str) -> str:
             if not rows:
@@ -14235,7 +14289,13 @@ class RuntimeShell:
           {row("Compile headline", (tour.get("compile_summary") or {}).get("headline") if isinstance(tour.get("compile_summary"), dict) else "")}
           {row("Selected route", (tour.get("compile_summary") or {}).get("selected_route_id") if isinstance(tour.get("compile_summary"), dict) else "")}
           {row("Tour ref", tour.get("tour_ref"))}
+          {row("Front-door gate", front_door_status.get("top_level_status_rule"))}
+          {row("Blocking surfaces", list_text(front_door_status.get("blocking_surface_ids")))}
+          {row("Warning drilldowns", list_text(front_door_status.get("drilldown_warning_surface_ids")))}
+          {row("Blocked drilldowns", list_text(front_door_status.get("drilldown_blocked_surface_ids")))}
           {row("Release authorized", tour.get("release_authorized") is True)}
+          {row("Provider calls authorized", ((front_door_status.get("authority_ceiling") or {}).get("provider_calls_authorized") is True) if isinstance(front_door_status.get("authority_ceiling"), dict) else False)}
+          {row("Source mutation authorized", ((front_door_status.get("authority_ceiling") or {}).get("source_mutation_authorized") is True) if isinstance(front_door_status.get("authority_ceiling"), dict) else False)}
         </table>
         <h3>Route cards</h3>
         <table>

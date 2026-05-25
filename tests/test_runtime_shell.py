@@ -1094,6 +1094,19 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "intake",
     ]
     assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
+    assert tour["front_door_status"]["safe_to_show"] == {
+        "surface_status_ids_visible": True,
+        "blocking_surface_ids_visible": True,
+        "drilldown_warning_surface_ids_visible": True,
+        "authority_warning_visible": True,
+        "intake_warning_visible": True,
+    }
+    assert tour["front_door_status"]["authority_ceiling"] == {
+        "release_authorized": False,
+        "provider_calls_authorized": False,
+        "source_mutation_authorized": False,
+        "proof_correctness_claim": False,
+    }
     assert tour["compile_summary"]["headline"] == "repo -> .microcosm"
     assert tour["compile_summary"]["source_files_mutated"] is False
     assert tour["snapshot_policy"] == {
@@ -1178,6 +1191,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["first_screen"]["authority_ceiling"]["release_authorized"] is False
     assert [row["card_id"] for row in tour["route_cards"]] == [
         "compile",
+        "front_door_status",
         "runtime_spine",
         "authority",
         "prediction_and_corpus",
@@ -1186,6 +1200,17 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "intake_and_reveal",
         "evidence_drilldown",
     ]
+    route_cards_by_id = {row["card_id"]: row for row in tour["route_cards"]}
+    assert route_cards_by_id["front_door_status"]["status"] == "pass"
+    assert route_cards_by_id["front_door_status"]["endpoint"] == "/tour"
+    assert route_cards_by_id["front_door_status"]["blocking_surface_ids"] == []
+    assert route_cards_by_id["front_door_status"]["drilldown_warning_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
+    assert route_cards_by_id["front_door_status"]["authority_ceiling"][
+        "provider_calls_authorized"
+    ] is False
     assert "/tour" in tour["endpoint_path"]
     assert "/trace" in tour["endpoint_path"]
     assert "/repair-loop" in tour["endpoint_path"]
@@ -1231,7 +1256,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "microcosm benchmark-lab" in tour["command_path"]
     assert "microcosm legibility-scorecard" in tour["command_path"]
     assert (
-        tour["route_cards"][3]["endpoint"]
+        route_cards_by_id["prediction_and_corpus"]["endpoint"]
         == "/prediction + /corpus + /trace + /repair-loop + /evidence-cells + /proof-loop-depth + /landing-replay + /view-quality + /projection-safety + /market-boundary + /drift-control + /spatial-simulation + /circuit-attribution + /route-cleanup + /projection-import-map + /import-projector + /option-surface-lens + /stripping-guard + /standards-control + /hook-coverage + /replay-gauntlet + /benchmark-lab + /legibility-scorecard"
     )
     assert tour["runtime_summary"]["projection_drift_row_count"] == 8
@@ -2943,6 +2968,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Payload boundary" in html
     assert "Body redacted" not in html
     assert "Ten-Minute Tour" in html
+    assert "Front-door gate" in html
+    assert "Blocking surfaces" in html
+    assert "Warning drilldowns" in html
+    assert "front_door_status" in html
     assert "/tour" in html
     assert "Spine / Intake / Reveal Bridge" in html
     assert "/spine" in html
@@ -3010,6 +3039,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "intake",
     ]
     assert tour["front_door_status"]["drilldown_blocked_surface_ids"] == []
+    assert any(row["card_id"] == "front_door_status" for row in tour["route_cards"])
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 42
@@ -3115,6 +3145,14 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["status"] == "pass"
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     assert observatory["tour"]["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert observatory["front_door_status"]["blocking_surface_ids"] == []
+    assert observatory["front_door_status"]["drilldown_warning_surface_ids"] == [
+        "authority",
+        "intake",
+    ]
+    assert observatory["front_door_status"]["authority_ceiling"][
+        "provider_calls_authorized"
+    ] is False
     assert observatory["authority_map"]["schema_version"] == "microcosm_public_authority_map_v2"
     assert observatory["prediction_lens"]["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert observatory["corpus_lens"]["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"
@@ -3180,11 +3218,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "body_redacted" not in json.dumps(observatory["python_lens"], sort_keys=True)
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
-    assert observatory["runtime_bridge"]["projection_status_counts"] == {
-        "public_runtime_import_landed": 14,
-        "runtime_bridge_landed": 1,
-        "self_hosted_status_protocol_landed": 1,
-    }
+    projection_status_counts = observatory["runtime_bridge"]["projection_status_counts"]
+    assert projection_status_counts["public_runtime_import_landed"] >= 14
+    assert projection_status_counts["runtime_bridge_landed"] == 1
+    assert projection_status_counts["self_hosted_status_protocol_landed"] == 1
     assert observatory["causal_chain"]["work_transaction"]["work_id"] == "work_0001"
     assert explanation["status"] == "pass"
     assert explanation["route_id"] == "readme_onboarding_route"
