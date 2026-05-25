@@ -1633,6 +1633,42 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "standard_option_surface_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The standard option-surface lane now carries the exact copied "
+            "non-secret option-surface builder and focused regression-test "
+            "source bodies inside the projection bundle, validated by "
+            "digest/anchor checks and syntax compilation without exporting "
+            "generated option-surface outputs, live Task Ledger mutations, "
+            "prompt bodies, raw seed bodies, provider payloads, account/session "
+            "state, browser/HUD live access, recipient-send state, or "
+            "credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "standard_option_surface_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "standard_option_surface.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_standard_option_surface.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
     "bridge_runtime_continuity_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

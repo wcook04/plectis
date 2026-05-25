@@ -21,6 +21,6 @@
   ],
   "source_body_material_status": "exact_non_secret_macro_route_control_source_modules_with_provenance",
   "source_module_manifest_ref": "source_module_manifest.json",
-  "source_module_manifest_sha256": "sha256:6c57c6fc961fcfb710bad7caac4b8046680c7cacb142f297a93640e21ed3660b",
+  "source_module_manifest_sha256": "sha256:3eb236b849bb536fb42c4a060cdac707cf3c9523d5e07ce204ba4862331473ab",
   "copied_source_module_count": 5
 }

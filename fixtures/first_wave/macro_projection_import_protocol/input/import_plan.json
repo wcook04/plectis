@@ -2309,6 +2309,46 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_prompt_shelf_runs_index_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": "verified_public_standard_option_surface_source_bodies_not_generated_option_surface_outputs_task_ledger_mutation_prompt_payloads_provider_payloads_raw_seed_bodies_or_release_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "standard_option_surface_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "standard_option_surface_body_import",
+        "standard_option_surface_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "task_ledger_organizer_routing_surface",
+        "mechanism_affinity_workitem_clusters",
+        "system_atlas_source_coupling_gate",
+        "operator_autonomy_phrase_active_standard_bridge"
+      ],
+      "source_refs": [
+        "system/lib/standard_option_surface.py",
+        "system/server/tests/test_standard_option_surface.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/standard_option_surface_source_module_manifest.json",
+        "codex/standards/std_kind_atlas.json",
+        "codex/standards/std_navigation_rosetta_grammar.json",
+        "codex/standards/std_task_ledger.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_standard_option_surface.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/standard_option_surface_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

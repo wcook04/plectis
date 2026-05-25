@@ -135,6 +135,9 @@ PROMPT_SHELF_UPPROPAGATION_DIGEST_MANIFEST = (
 PROMPT_SHELF_RUNS_INDEX_MANIFEST = (
     BUNDLE_INPUT / "prompt_shelf_runs_index_source_module_manifest.json"
 )
+STANDARD_OPTION_SURFACE_MANIFEST = (
+    BUNDLE_INPUT / "standard_option_surface_source_module_manifest.json"
+)
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
@@ -2610,6 +2613,38 @@ def test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_
     assert "def test_index_surfaces_b3_packet_lint_status_from_raw_event(" in test_text
     assert "def test_metadata_only_index_stats_raw_event_without_reading_body(" in test_text
     assert fixture_path.is_file()
+
+
+def test_standard_option_surface_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        STANDARD_OPTION_SURFACE_MANIFEST,
+        manifest_id="standard_option_surface_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract() -> None:
+    source_path = BUNDLE_INPUT / "source_modules/system/lib/standard_option_surface.py"
+    test_path = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_standard_option_surface.py"
+    )
+    source_text = source_path.read_text(encoding="utf-8")
+    test_text = test_path.read_text(encoding="utf-8")
+    compile(source_text, str(source_path), "exec")
+    compile(test_text, str(test_path), "exec")
+
+    assert "def build_option_surface(" in source_text
+    assert "def _task_ledger_cluster_rows(" in source_text
+    assert "def build_python_files_option_surface(" in source_text
+    assert "def build_python_scopes_option_surface(" in source_text
+    assert "def _option_surface_lens_packet(" in source_text
+    assert "_RUNTIME_PRESSURE_AUTONOMY_PHRASES" in source_text
+    assert "source_coupling_status" in source_text
+    assert "routing_scent_not_authority" in source_text
+    assert "def test_task_ledger_cluster_flag_groups_workitem_views(" in test_text
+    assert "def test_python_files_cluster_flag_groups_before_row_expansion(" in test_text
+    assert "def test_principles_card_all_redirects_to_cluster_flag(" in test_text
+    assert "provider payload" in source_text.lower()
 
 
 def test_bridge_runtime_continuity_source_manifest_matches_exact_macro_sources() -> None:

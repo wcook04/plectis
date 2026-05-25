@@ -106,11 +106,11 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "596d11694023eba5cc788181a7c4d0c767ebb38bc158fe1dcd1a6eca9b5f14a4",
-      "target_sha256": "596d11694023eba5cc788181a7c4d0c767ebb38bc158fe1dcd1a6eca9b5f14a4",
+      "source_sha256": "c097db7c73602fce3c910cc0984eb6a21409fca3323c0191fba203e46fa7a8e7",
+      "target_sha256": "c097db7c73602fce3c910cc0984eb6a21409fca3323c0191fba203e46fa7a8e7",
       "sha256_match": true,
-      "line_count": 16052,
-      "byte_count": 708488,
+      "line_count": 16169,
+      "byte_count": 713431,
       "anchor_count": 5
     },
     {

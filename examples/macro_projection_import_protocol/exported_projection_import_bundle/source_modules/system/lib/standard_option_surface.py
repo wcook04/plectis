@@ -7542,6 +7542,48 @@ def _microcosm_extracted_pattern_binding_summary(
     }
 
 
+def _microcosm_extracted_pattern_binding_overlay(
+    entry: dict[str, Any],
+    *,
+    route_readiness_index: Mapping[str, Any] | None,
+    binding_index: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    membership = _microcosm_extracted_pattern_route_readiness_membership(
+        entry,
+        route_readiness_index=route_readiness_index,
+    )
+    binding = _microcosm_extracted_pattern_binding_summary(
+        entry,
+        binding_index=binding_index,
+    )
+    route_status = str(membership.get("status") or "unknown")
+    binding_status = str(binding.get("status") or "unknown")
+    routed = route_status == "routed_to_organ_bundle"
+    detailed = binding_status == "detailed_binding_available"
+    if routed and detailed:
+        overlay_status = "routed_with_detailed_binding"
+    elif routed:
+        overlay_status = "routed_missing_detailed_binding"
+    elif detailed:
+        overlay_status = "detailed_binding_not_routed"
+    else:
+        overlay_status = "unrouted_missing_detailed_binding"
+    return {
+        "status": overlay_status,
+        "route_readiness_status": route_status,
+        "substrate_binding_status": binding_status,
+        "route_to_organ_ids": _string_list(membership.get("route_to_organ_ids"))[:6],
+        "readiness_ids": _string_list(membership.get("readiness_ids"))[:6],
+        "binding_ref": str(MICROCOSM_EXTRACTED_PATTERN_BINDINGS),
+        "readiness_ref": str(MICROCOSM_EXTRACTED_PATTERN_READINESS_AUDIT),
+        "authority": (
+            "binding-aware routability overlay only; current_microcosm_status remains the "
+            "raw extraction snapshot, and public Microcosm release authority stays with the "
+            "target organ, tests, receipts, and owner tools"
+        ),
+    }
+
+
 def _microcosm_extracted_pattern_route_readiness_index(repo_root: Path) -> dict[str, Any]:
     try:
         router = _load_json(repo_root / MICROCOSM_EXTRACTED_PATTERN_ROW_TO_ORGAN_ROUTER)
@@ -7735,11 +7777,22 @@ def _microcosm_extracted_pattern_omission_receipt(
     }
 
 
-def _microcosm_extracted_pattern_flag_row(entry: dict[str, Any], *, repo_root: Path) -> dict[str, Any]:
+def _microcosm_extracted_pattern_flag_row(
+    entry: dict[str, Any],
+    *,
+    repo_root: Path,
+    route_readiness_index: Mapping[str, Any] | None = None,
+    binding_index: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     pattern = entry["pattern"]
     pattern_id = entry["pattern_id"]
     one_line = _truncate_words(str(pattern.get("one_line") or ""), max_chars=420)
     source_refs = _string_list(pattern.get("source_refs"))
+    binding_overlay = _microcosm_extracted_pattern_binding_overlay(
+        entry,
+        route_readiness_index=route_readiness_index,
+        binding_index=binding_index,
+    )
     return {
         "row_id": f"microcosm_extracted_pattern:{pattern_id}::flag",
         "artifact_kind": "microcosm_extracted_pattern",
@@ -7754,6 +7807,11 @@ def _microcosm_extracted_pattern_flag_row(entry: dict[str, Any], *, repo_root: P
         "novelty_band": str(pattern.get("novelty_band") or ""),
         "private_state_risk": str(pattern.get("private_state_risk") or ""),
         "current_microcosm_status": str(pattern.get("current_microcosm_status") or ""),
+        "binding_overlay_status": binding_overlay["status"],
+        "route_readiness_status": binding_overlay["route_readiness_status"],
+        "substrate_binding_status": binding_overlay["substrate_binding_status"],
+        "route_to_organ_ids": binding_overlay["route_to_organ_ids"],
+        "readiness_ids": binding_overlay["readiness_ids"],
         "candidate_leaf_name": str(pattern.get("candidate_leaf_name") or ""),
         "candidate_paper_module_slug": str(pattern.get("candidate_paper_module_slug") or ""),
         "source_refs": source_refs[:6],
@@ -7779,7 +7837,12 @@ def _microcosm_extracted_pattern_card_row(
     route_readiness_index: Mapping[str, Any] | None = None,
     binding_index: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    row = _microcosm_extracted_pattern_flag_row(entry, repo_root=repo_root)
+    row = _microcosm_extracted_pattern_flag_row(
+        entry,
+        repo_root=repo_root,
+        route_readiness_index=route_readiness_index,
+        binding_index=binding_index,
+    )
     pattern = entry["pattern"]
     row.update(
         {
@@ -7822,6 +7885,11 @@ def _microcosm_extracted_pattern_card_row(
                 str(MICROCOSM_EXTRACTED_PATTERN_WEAK_BINDINGS),
                 str(MICROCOSM_EXTRACTED_PATTERN_READINESS_AUDIT),
             ],
+            "binding_overlay": _microcosm_extracted_pattern_binding_overlay(
+                entry,
+                route_readiness_index=route_readiness_index,
+                binding_index=binding_index,
+            ),
             "route_readiness_membership": _microcosm_extracted_pattern_route_readiness_membership(
                 entry,
                 route_readiness_index=route_readiness_index,
@@ -7843,10 +7911,20 @@ def _microcosm_extracted_pattern_card_row(
     return row
 
 
-def _microcosm_extracted_pattern_cluster_rows(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _microcosm_extracted_pattern_cluster_rows(
+    entries: list[dict[str, Any]],
+    *,
+    route_readiness_index: Mapping[str, Any] | None = None,
+    binding_index: Mapping[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     grouped: dict[str, dict[str, Any]] = {}
     for entry in sorted(entries, key=lambda item: str(item.get("pattern_id") or "")):
         pattern = entry["pattern"]
+        binding_overlay = _microcosm_extracted_pattern_binding_overlay(
+            entry,
+            route_readiness_index=route_readiness_index,
+            binding_index=binding_index,
+        )
         family = str(pattern.get("organ_family") or "missing")
         bucket = grouped.setdefault(
             family,
@@ -7857,6 +7935,10 @@ def _microcosm_extracted_pattern_cluster_rows(entries: list[dict[str, Any]]) -> 
                 "_novelty": [],
                 "_risk": [],
                 "_status": [],
+                "_binding_overlay_status": [],
+                "_route_readiness_status": [],
+                "_substrate_binding_status": [],
+                "_route_to_organ_ids": [],
             },
         )
         bucket["count"] += 1
@@ -7865,12 +7947,35 @@ def _microcosm_extracted_pattern_cluster_rows(entries: list[dict[str, Any]]) -> 
         bucket["_novelty"].append(pattern.get("novelty_band") or "unknown")
         bucket["_risk"].append(pattern.get("private_state_risk") or "unknown")
         bucket["_status"].append(pattern.get("current_microcosm_status") or "unknown")
+        bucket["_binding_overlay_status"].append(binding_overlay["status"])
+        bucket["_route_readiness_status"].append(binding_overlay["route_readiness_status"])
+        bucket["_substrate_binding_status"].append(binding_overlay["substrate_binding_status"])
+        bucket["_route_to_organ_ids"].extend(binding_overlay["route_to_organ_ids"])
 
     rows = sorted(grouped.values(), key=lambda row: (-int(row.get("count") or 0), str(row.get("cluster_id") or "")))
     for row in rows:
         row["novelty_band_counts"] = _python_counter(row.pop("_novelty", []))
         row["private_state_risk_counts"] = _python_counter(row.pop("_risk", []))
         row["current_microcosm_status_counts"] = _python_counter(row.pop("_status", []))
+        row["binding_overlay_status_counts"] = _python_counter(row.pop("_binding_overlay_status", []))
+        row["route_readiness_status_counts"] = _python_counter(row.pop("_route_readiness_status", []))
+        row["substrate_binding_status_counts"] = _python_counter(row.pop("_substrate_binding_status", []))
+        route_to_organ_counts = _python_counter(row.pop("_route_to_organ_ids", []))
+        row["top_route_to_organ_ids"] = [
+            key
+            for key, _count in sorted(
+                route_to_organ_counts.items(),
+                key=lambda item: (-item[1], item[0]),
+            )[:6]
+        ]
+        row["route_to_organ_id_counts"] = {
+            key: route_to_organ_counts[key] for key in row["top_route_to_organ_ids"]
+        }
+        row["status_boundary"] = (
+            "current_microcosm_status_counts is the raw extraction snapshot; "
+            "binding_overlay_status_counts and route_readiness_status_counts are "
+            "computed from the binding/readiness sidecars for routability."
+        )
         row["claim"] = f"{row['cluster_id']}: {row['count']} macro-side distilled Microcosm patterns"
     return rows
 
@@ -7910,11 +8015,15 @@ def build_microcosm_extracted_patterns_option_surface(
         rows_source = entries
         missing_ids = []
 
+    route_readiness_index = _microcosm_extracted_pattern_route_readiness_index(repo_root)
+    binding_index = _microcosm_extracted_pattern_binding_index(repo_root)
     if band == "cluster_flag":
-        rows = _microcosm_extracted_pattern_cluster_rows(rows_source)
+        rows = _microcosm_extracted_pattern_cluster_rows(
+            rows_source,
+            route_readiness_index=route_readiness_index,
+            binding_index=binding_index,
+        )
     elif band == "card":
-        route_readiness_index = _microcosm_extracted_pattern_route_readiness_index(repo_root)
-        binding_index = _microcosm_extracted_pattern_binding_index(repo_root)
         rows = [
             _microcosm_extracted_pattern_card_row(
                 entry,
@@ -7925,7 +8034,15 @@ def build_microcosm_extracted_patterns_option_surface(
             for entry in rows_source
         ]
     else:
-        rows = [_microcosm_extracted_pattern_flag_row(entry, repo_root=repo_root) for entry in rows_source]
+        rows = [
+            _microcosm_extracted_pattern_flag_row(
+                entry,
+                repo_root=repo_root,
+                route_readiness_index=route_readiness_index,
+                binding_index=binding_index,
+            )
+            for entry in rows_source
+        ]
 
     return {
         "kind": "standard_owned_option_surface",
