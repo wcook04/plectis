@@ -245,7 +245,7 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
     ],
-    "total_line_count": 10986,
+    "total_line_count": 11014,
     "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
     "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
     "runtime_contract_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_control_runtime_contract.json",

@@ -1198,16 +1198,41 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
     ]
     claim_collision_count = len(claim_collision_rows)
     projected_unknown_count = int(heartbeat.get("projected_unknown_count") or 0)
+    first_action_kind: str
+    first_action_command: str | None = None
+    first_action_ref: str | None = None
     if claim_collision_count:
+        first_action_kind = "claim_collision"
         first_action = (
             "Resolve active claim collisions listed in claim_collision_actions before "
             "starting or widening a seed."
         )
+        first_action_command = str(
+            (claim_collision_actions[0] if claim_collision_actions else {}).get(
+                "safe_next_command"
+            )
+            or ""
+        ).strip() or None
+        first_action_ref = "claim_collision_actions[0].safe_next_command"
     elif heartbeat_gap_claim_sessions:
+        first_action_kind = "heartbeat_gap"
         first_action = "Publish heartbeat for claim-owning seed sessions listed in heartbeat_gap_claim_sessions."
+        first_action_command = str(
+            heartbeat_gap_claim_sessions[0].get("heartbeat_command") or ""
+        ).strip() or None
+        first_action_ref = "heartbeat_gap_claim_sessions[0].heartbeat_command"
     elif projected_unknown_count:
+        first_action_kind = "projected_unknown_heartbeat"
         first_action = "Publish session-heartbeat for participating live seeds that can write."
+        first_action_command = (
+            "./repo-python tools/meta/factory/work_ledger.py "
+            "session-heartbeat --session-id <id> --state <state> "
+            "--now '<public current pass>' --done '<public previous result>' "
+            "--scope-ref <path-or-claim>"
+        )
+        first_action_ref = "fast_paths.heartbeat"
     else:
+        first_action_kind = "choose_disjoint_write_lane"
         first_action = "Use the seed claim session cards to choose the disjoint write lane."
 
     return {
@@ -1230,6 +1255,9 @@ def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, 
             "signals": list(contention.get("signals") or []),
         },
         "first_action": first_action,
+        "first_action_kind": first_action_kind,
+        "first_action_command": first_action_command,
+        "first_action_ref": first_action_ref,
         "claim_collision_actions": claim_collision_actions[:safe_limit],
         "claim_collision_actions_omitted": max(
             0, len(claim_collision_actions) - safe_limit

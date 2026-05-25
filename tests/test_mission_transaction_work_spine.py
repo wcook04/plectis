@@ -79,7 +79,7 @@ WORK_LEDGER_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
 ]
-WORK_LEDGER_SOURCE_LINE_COUNT = 10986
+WORK_LEDGER_SOURCE_LINE_COUNT = 11014
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",

@@ -1694,16 +1694,16 @@
         "source_authority_above_macro_contracts": false,
         "live_macro_source_authority": false
       },
-      "body_digest": "sha256:b5219a831d5ed3133b32f1f8c2dc193cc965094b2220f69361047c6076e4ceae",
-      "body_line_count": 3904,
+      "body_digest": "sha256:1cc3210a1d1eb548bceba05ad22f63926f200a9d19ccb0d5c7b58bd6ba8d643d",
+      "body_line_count": 3932,
       "body_import_verification": {
         "verification_status": "verified",
         "verification_mode": "exact_source_digest_match",
-        "source_body_digest": "sha256:b5219a831d5ed3133b32f1f8c2dc193cc965094b2220f69361047c6076e4ceae",
-        "target_body_digest": "sha256:b5219a831d5ed3133b32f1f8c2dc193cc965094b2220f69361047c6076e4ceae",
+        "source_body_digest": "sha256:1cc3210a1d1eb548bceba05ad22f63926f200a9d19ccb0d5c7b58bd6ba8d643d",
+        "target_body_digest": "sha256:1cc3210a1d1eb548bceba05ad22f63926f200a9d19ccb0d5c7b58bd6ba8d643d",
         "source_to_target_relation": "exact_copy",
-        "source_line_count": 3904,
-        "target_line_count": 3904,
+        "source_line_count": 3932,
+        "target_line_count": 3932,
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_work_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_work_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
