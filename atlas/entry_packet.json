@@ -212,6 +212,7 @@
       "demoted_drilldown_count",
       "missing_standard_count",
       "missing_failure_modes_count",
+      "gap_preview",
       "rows_with_failure_modes",
       "rows_with_future_work_targets",
       "accepted_status_is_not_evidence_strength",

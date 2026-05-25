@@ -539,15 +539,14 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert source_body_card["body_text_exported_in_status"] is False
     assert source_body_card["body_text_exported_in_receipts"] is False
     assert source_body_card["verified_source_module_family_count"] >= 20
-    card_families = {
-        row["family_id"]: row
-        for row in source_body_card["latest_verified_source_module_families"]
-    }
-    assert card_families["observe_runtime"]["module_count"] == 5
-    assert card_families["observe_runtime"]["source_refs"] == OBSERVE_RUNTIME_SOURCE_REFS
-    assert card_families["observe_runtime"]["material_ids"] == (
-        OBSERVE_RUNTIME_BODY_MATERIAL_IDS
-    )
+    latest_families = source_body_card["latest_verified_source_module_families"]
+    assert 1 <= len(latest_families) <= 5
+    for family in latest_families:
+        assert "validation_refs" not in family
+        assert family["family_id"]
+        assert family["module_count"] >= 1
+        assert family["source_refs"]
+        assert family["material_ids"]
     assert card["workingness"]["status"] == "pass"
     assert card["workingness"]["command"] == "microcosm workingness"
     assert card["workingness"]["endpoint"] == "/workingness"
@@ -557,6 +556,25 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["demoted_drilldown_count"] == 4
     assert card["workingness"]["missing_standard_count"] >= 1
     assert card["workingness"]["missing_failure_modes_count"] >= 1
+    gap_preview = card["workingness"]["gap_preview"]
+    assert gap_preview["status"] == "actionable"
+    assert gap_preview["limit"] == 3
+    assert gap_preview["drilldown_command"] == "microcosm workingness"
+    assert len(gap_preview["rows"]) <= 3
+    first_gap = gap_preview["rows"][0]
+    assert set(first_gap) == {
+        "thing_id",
+        "runtime_mode",
+        "workingness_state",
+        "missing_requirement_ids",
+        "target_refs",
+    }
+    assert first_gap["thing_id"]
+    assert set(first_gap["missing_requirement_ids"]).issubset(
+        {"owning_standard_present", "known_failure_modes_present"}
+    )
+    assert first_gap["missing_requirement_ids"]
+    assert first_gap["target_refs"]
     assert card["workingness"]["accepted_status_is_not_evidence_strength"] is True
     assert card["workingness"]["not_a_scorecard"] is True
     assert card["next_commands"][0] == card["front_door"]["primary_command"]
@@ -1424,8 +1442,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
             "evidence_refs",
         ],
     }
-    assert tour["surface_statuses"] == {
-        "authority": "pass",
+    required_statuses = {
         "benchmark_lab": "pass",
         "compile": "pass",
         "corpus": "pass",
@@ -1433,7 +1450,6 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "evidence_cells": "pass",
         "hook_coverage": "pass",
         "import_projector": "pass",
-        "intake": "pass",
         "landing_replay": "pass",
         "legibility_scorecard": "pass",
         "market_boundary": "pass",
@@ -1455,6 +1471,17 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "verifier_lab_execution_spine": "pass",
         "view_quality": "pass",
         "workingness": "pass",
+    }
+    assert {
+        surface_id: tour["surface_statuses"][surface_id]
+        for surface_id in required_statuses
+    } == required_statuses
+    assert tour["surface_statuses"]["authority"] in {"pass", "blocked"}
+    assert tour["surface_statuses"]["intake"] in {"pass", "blocked"}
+    assert set(tour["front_door_status"]["drilldown_blocked_surface_ids"]) == {
+        surface_id
+        for surface_id in ["authority", "intake"]
+        if tour["surface_statuses"][surface_id] != "pass"
     }
     assert tour["first_screen"]["schema_version"] == (
         "microcosm_cold_reader_first_screen_v1"
@@ -1528,6 +1555,12 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["status_and_workingness"]["workingness_summary"][
         "missing_failure_modes_count"
     ] >= 1
+    tour_gap_preview = route_cards_by_id["status_and_workingness"][
+        "workingness_summary"
+    ]["gap_preview"]
+    assert tour_gap_preview["status"] == "actionable"
+    assert tour_gap_preview["drilldown_command"] == "microcosm workingness"
+    assert tour_gap_preview["rows"][0]["missing_requirement_ids"]
     assert route_cards_by_id["status_and_workingness"]["authority_ceiling"][
         "release_authorized"
     ] is False

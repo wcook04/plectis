@@ -595,6 +595,7 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     )
     assert "missing_standard_count" in workingness["expected_fields"]
     assert "missing_failure_modes_count" in workingness["expected_fields"]
+    assert "gap_preview" in workingness["expected_fields"]
     assert workingness["safe_to_show"]["score_based_progress_authority"] is False
     assert workingness["safe_to_show"]["proof_correctness_claim"] is False
     assert workingness["safe_to_show"]["release_authorized"] is False

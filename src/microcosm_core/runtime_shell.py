@@ -1992,6 +1992,7 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
                 "accepted_status_is_not_evidence_strength"
             ),
             "not_a_scorecard": workingness.get("not_a_scorecard"),
+            "gap_preview": workingness.get("gap_preview"),
             "reader_action": workingness.get("reader_action"),
         },
         "authority_ceiling": {
@@ -2055,6 +2056,82 @@ def _runtime_status_card(status: dict[str, Any]) -> dict[str, Any]:
     return card
 
 
+def _workingness_gap_preview(
+    workingness: dict[str, Any],
+    *,
+    limit: int = 3,
+) -> dict[str, Any]:
+    rows = workingness.get("thing_failure_map", [])
+    if not isinstance(rows, list):
+        rows = []
+
+    watched_missing_ids = {
+        "owning_standard_present",
+        "known_failure_modes_present",
+    }
+    watched_target_ids = {
+        "add_standard_contract",
+        "add_standard_failure_modes",
+    }
+    preview_rows = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        needs_to_work = row.get("needs_to_work", {})
+        missing_ids = (
+            needs_to_work.get("missing_requirement_ids", [])
+            if isinstance(needs_to_work, dict)
+            else []
+        )
+        if not isinstance(missing_ids, list):
+            missing_ids = []
+        actionable_missing_ids = [
+            str(item)
+            for item in missing_ids
+            if str(item) in watched_missing_ids
+        ]
+        if not actionable_missing_ids:
+            continue
+
+        future_targets = row.get("future_work_targets", [])
+        if not isinstance(future_targets, list):
+            future_targets = []
+        target_refs = []
+        for target in future_targets:
+            if not isinstance(target, dict):
+                continue
+            if target.get("target_id") not in watched_target_ids:
+                continue
+            target_ref = target.get("target_ref")
+            if isinstance(target_ref, str) and target_ref not in target_refs:
+                target_refs.append(target_ref)
+            if len(target_refs) >= 2:
+                break
+
+        preview_rows.append(
+            {
+                "thing_id": row.get("thing_id"),
+                "runtime_mode": row.get("runtime_mode"),
+                "workingness_state": row.get("workingness_state"),
+                "missing_requirement_ids": actionable_missing_ids,
+                "target_refs": target_refs,
+            }
+        )
+        if len(preview_rows) >= limit:
+            break
+
+    return {
+        "status": "actionable" if preview_rows else "clear",
+        "limit": limit,
+        "drilldown_command": "microcosm workingness",
+        "rows": preview_rows,
+        "reader_action": (
+            "Open microcosm workingness for the full row before treating "
+            "accepted status as evidence strength."
+        ),
+    }
+
+
 def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
     surface_counts = (
         workingness.get("surface_counts", {})
@@ -2088,6 +2165,7 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
             "accepted_status_is_not_evidence_strength"
         ),
         "not_a_scorecard": map_policy.get("not_a_scorecard"),
+        "gap_preview": _workingness_gap_preview(workingness),
         "reader_action": (
             "Use microcosm workingness for per-organ failure modes and future "
             "work targets; treat missing standards or failure modes as bounded "
