@@ -200,6 +200,8 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert front_door_status["surface_statuses"]["project_state"] == "pass"
     assert front_door_status["surface_statuses"]["route_selection_proof"] == "pass"
     assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
+    assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
+    assert front_door_status["surface_statuses"]["observatory"] == "pass"
     assert (
         front_door_status["surface_statuses"]["workingness_failure_envelope"]
         == "clear"
@@ -243,6 +245,27 @@ def test_cli_status_card_can_overlay_project_route_state(
         "available_project_route_ids"
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
+    proof_lab = payload["front_door"]["proof_lab"]
+    assert proof_lab["status"] == "pass"
+    assert proof_lab["endpoint"] == "/proof-lab"
+    assert proof_lab["route_id"] == "formal_prover_context_strategy_gate"
+    assert proof_lab["route_component_count"] == 9
+    assert proof_lab["safe_to_show"]["proof_bodies_exported"] is False
+    assert proof_lab["safe_to_show"]["proof_correctness_claim"] is False
+    observatory = payload["front_door"]["observatory"]
+    assert observatory["status"] == "pass"
+    assert observatory["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
+    assert observatory["endpoint"] == "/project/observatory"
+    assert observatory["route_explanation_endpoint"] == (
+        "/project/explain/readme_onboarding_route"
+    )
+    assert observatory["first_screen_route_proof_ref"] == (
+        "microcosm serve <project>::first_screen_route_proof"
+    )
+    assert observatory["safe_to_show"]["source_files_mutated"] is False
+    assert observatory["safe_to_show"]["provider_calls_authorized"] is False
     body_floor = payload["front_door"]["source_open_body_import_floor"]
     assert body_floor["status"] == "pass"
     assert body_floor["summary_ref"] == (
@@ -347,6 +370,8 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         ]
         == "pass"
     )
+    assert status_card["front_door_status"]["surface_statuses"]["proof_lab"] == "pass"
+    assert status_card["front_door_status"]["surface_statuses"]["observatory"] == "pass"
     assert status_card["front_door"]["state_dir_exists"] is True
     assert status_card["front_door"]["route_explanation"]["status"] == "pass"
     assert status_card["front_door"]["route_explanation"][
@@ -357,6 +382,15 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     ] is False
     assert status_card["workingness"]["status"] == "actionable"
     assert status_card["proof_lab"]["status"] == "pass"
+    assert status_card["front_door"]["proof_lab"]["status"] == "pass"
+    assert (
+        status_card["front_door"]["proof_lab"]["receipt_ref"]
+        == PROOF_LAB_RECEIPT_REF
+    )
+    assert status_card["front_door"]["observatory"]["endpoint"] == (
+        "/project/observatory"
+    )
+    assert status_card["front_door"]["observatory"]["status"] == "pass"
     assert status_card["macro_body_import_floor"]["source_body_imports"][
         "verified_source_module_family_count"
     ] >= 39

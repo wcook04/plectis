@@ -238,6 +238,156 @@ def _proof_lab_first_screen_card(
     }
 
 
+def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
+    proof_lab = payload.get("proof_lab")
+    if not isinstance(proof_lab, dict):
+        return None
+    return {
+        "schema_version": "microcosm_status_card_proof_lab_ref_v1",
+        "status": proof_lab.get("status"),
+        "command": proof_lab.get("command")
+        or "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "endpoint": proof_lab.get("endpoint") or "/proof-lab",
+        "alias_endpoints": proof_lab.get("alias_endpoints", []),
+        "source_lens_endpoint": proof_lab.get("source_lens_endpoint"),
+        "route_id": proof_lab.get("route_id"),
+        "route_ref": proof_lab.get("route_ref"),
+        "receipt_ref": proof_lab.get("receipt_ref"),
+        "route_component_count": proof_lab.get("route_component_count"),
+        "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+        "lean_compiled_declaration_count": proof_lab.get(
+            "lean_compiled_declaration_count"
+        ),
+        "safe_to_show": {
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "proof_bodies_exported": False,
+            "provider_payload_bodies_exported": False,
+            "credential_equivalent_payloads_exported": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "authority": (
+            "first-screen proof-lab route reference only, not theorem proof "
+            "authority, provider authority, release authority, or source "
+            "mutation authority"
+        ),
+    }
+
+
+def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
+    front_door = payload.get("front_door")
+    if not isinstance(front_door, dict):
+        return None
+    route_selection_proof = front_door.get("route_selection_proof")
+    if not isinstance(route_selection_proof, dict):
+        route_selection_proof = {}
+    command = front_door.get("observatory_command")
+    raw_selected_route_id = front_door.get("selected_route_id")
+    selected_route_id = raw_selected_route_id or "<selected_route_id>"
+    route_proof_status = route_selection_proof.get("status")
+    status = (
+        "pass"
+        if command and route_proof_status == "pass"
+        else "actionable"
+        if command and not raw_selected_route_id
+        else "missing_route_proof"
+        if command
+        else "missing_command"
+    )
+    return {
+        "schema_version": "microcosm_status_card_observatory_ref_v1",
+        "status": status,
+        "command": command,
+        "endpoint": "/project/observatory",
+        "html_endpoint": "/",
+        "status_endpoint": "/status",
+        "tour_endpoint": "/tour",
+        "workingness_endpoint": "/workingness",
+        "proof_lab_endpoint": "/proof-lab",
+        "python_lens_endpoint": "/project/python-lens",
+        "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
+        "first_screen_route_proof_ref": route_selection_proof.get(
+            "observatory_route_proof_ref"
+        ),
+        "status_card_ref": "microcosm status --card <project>",
+        "reader_action": (
+            "Run microcosm tour <project> and then status --card <project> "
+            "when the project route proof is not yet present."
+        ),
+        "expected_model_fields": [
+            "project_summary",
+            "selected_route_id",
+            "first_screen_route_proof",
+            "front_door_status",
+            "source_open_body_import_floor",
+            "python_lens",
+            "causal_chain",
+            "graph_summary",
+            "json_drilldowns",
+            "evidence_is_drilldown",
+            "proof_loop_depth_lens",
+            "runtime_bridge",
+        ],
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "body_text_exported_in_observatory": False,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "authority": (
+            "local observatory/read-model route reference only, not hosting, "
+            "release, provider, source mutation, or proof-correctness authority"
+        ),
+    }
+
+
+def _status_card_surface_is_nonblocking(status: object) -> bool:
+    return status in {"pass", "clear", "actionable"}
+
+
+def _attach_status_card_front_door_refs(payload: dict) -> dict:
+    front_door = payload.get("front_door")
+    if not isinstance(front_door, dict):
+        return payload
+    proof_lab_ref = _status_card_proof_lab_front_door_ref(payload)
+    observatory_ref = _status_card_observatory_front_door_ref(payload)
+    if proof_lab_ref is not None:
+        front_door["proof_lab"] = proof_lab_ref
+    if observatory_ref is not None:
+        front_door["observatory"] = observatory_ref
+
+    front_door_status = payload.get("front_door_status")
+    if not isinstance(front_door_status, dict):
+        return payload
+    surface_statuses = front_door_status.get("surface_statuses")
+    if not isinstance(surface_statuses, dict):
+        surface_statuses = {}
+    if proof_lab_ref is not None and proof_lab_ref.get("status") is not None:
+        surface_statuses["proof_lab"] = proof_lab_ref.get("status")
+    if observatory_ref is not None and observatory_ref.get("status") is not None:
+        surface_statuses["observatory"] = observatory_ref.get("status")
+    front_door_status["surface_statuses"] = surface_statuses
+    front_door_status["blocking_surface_ids"] = [
+        surface_id
+        for surface_id, surface_status in surface_statuses.items()
+        if not _status_card_surface_is_nonblocking(surface_status)
+    ]
+    front_door_status["actionable_surface_ids"] = [
+        surface_id
+        for surface_id, surface_status in surface_statuses.items()
+        if surface_status == "actionable"
+    ]
+    front_door_status["status"] = (
+        "pass" if not front_door_status["blocking_surface_ids"] else "blocked"
+    )
+    return payload
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="microcosm",
@@ -718,7 +868,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "status":
         command_args = ["status"]
         if args.card:
-            command_args.append("--card")
+            shell = runtime_shell.RuntimeShell()
+            return _print_json(
+                _attach_status_card_front_door_refs(shell.status_card(args.project))
+            )
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args)

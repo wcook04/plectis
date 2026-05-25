@@ -18,9 +18,10 @@ The compact behavioral path is:
 4. `microcosm explain <project> <selected_route_id>` opens the route/work/event
    and evidence chain selected by `tour` or `compile`.
 5. `microcosm evidence list <project>` lists project-local evidence refs.
-6. `microcosm status --card <project>` reads the compressed status and
-   `front_door.route_explanation` lens plus
-   `front_door.source_open_body_import_floor`.
+6. `microcosm status --card <project>` reads the compressed status,
+   `front_door.route_explanation`, `front_door.proof_lab`,
+   `front_door.observatory`, and
+   `front_door.source_open_body_import_floor` lenses.
 7. `microcosm workingness` opens the bounded behavior/failure map.
 8. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
@@ -71,8 +72,8 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    drilldowns.
    Open `atlas/entry_packet.json::status_and_workingness_route` before raw
    receipts when the question is whether the first screen is honest about
-   missing standards, failure modes, source-open body imports, and bounded
-   authority.
+   missing standards, failure modes, proof-lab route refs, observatory route
+   refs, source-open body imports, and bounded authority.
    Open `atlas/entry_packet.json::observatory_route` when the question is how
    the local browser/read-model ties route, work, evidence, graph, status, and
    proof surfaces together.
