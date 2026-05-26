@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.public_reveal_walkthrough import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_reveal_bundle,
 )
@@ -116,3 +118,83 @@ def test_public_reveal_exported_bundle_validates_runtime_shape(tmp_path: Path) -
     assert result["public_runtime_refs"]
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
+
+
+def test_public_reveal_exported_bundle_card_is_compact(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "bundle-card"
+
+    rc = main(
+        [
+            "run-reveal-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    full_receipt = out_dir / "exported_public_reveal_bundle_validation_result.json"
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 4000
+    assert full_receipt.is_file()
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["organ_id"] == "public_reveal_walkthrough"
+    assert card["input_mode"] == "exported_public_reveal_bundle"
+    assert card["bundle_id"] == "public_reveal_walkthrough_runtime_example"
+    assert card["reveal_summary"]["step_count"] == 5
+    assert card["reveal_summary"]["command_count"] == 8
+    assert card["reveal_summary"]["evidence_ref_count"] == 11
+    assert card["negative_case_coverage"]["expected_case_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["hits_exported"] is False
+    assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["no_export_guards"]["step_rows_exported"] is False
+    assert card["no_export_guards"]["commands_exported"] is False
+    assert card["no_export_guards"]["public_runtime_refs_exported"] is False
+    assert card["output_economy"]["full_payload_drilldown"] == "rerun without --card"
+    assert "steps" not in card
+    assert "commands" not in card
+    assert "evidence_refs" not in card
+    assert "public_runtime_refs" not in card
+
+
+def test_public_reveal_fixture_card_honors_acceptance_out(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "fixture-card"
+    acceptance_out = tmp_path / "acceptance.json"
+
+    rc = main(
+        [
+            "run",
+            "--input",
+            str(FIXTURE_INPUT),
+            "--out",
+            str(out_dir),
+            "--acceptance-out",
+            str(acceptance_out),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 4000
+    assert acceptance_out.is_file()
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["input_mode"] == "first_wave_fixture"
+    assert card["negative_case_coverage"]["expected_case_count"] == 4
+    assert card["negative_case_coverage"]["observed_case_count"] == 4
+    assert card["negative_case_coverage"]["missing_negative_cases"] == []
+    assert card["no_export_guards"]["step_rows_exported"] is False

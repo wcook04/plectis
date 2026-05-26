@@ -19,6 +19,7 @@ from microcosm_core.schemas import read_json_strict
 ORGAN_ID = "public_reveal_walkthrough"
 FIXTURE_ID = "first_wave.public_reveal_walkthrough"
 VALIDATOR_ID = "validator.microcosm.organs.public_reveal_walkthrough"
+CARD_SCHEMA_VERSION = "public_reveal_walkthrough_command_card_v1"
 
 RESULT_NAME = "public_reveal_walkthrough_result.json"
 BOARD_NAME = "ten_minute_reveal_board.json"
@@ -667,27 +668,179 @@ def run_reveal_bundle(
     return result
 
 
+def _scan_card(scan: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(scan, dict):
+        return {
+            "status": "missing",
+            "blocking_hit_count": None,
+            "hit_count": None,
+            "scanned_path_count": None,
+            "body_in_receipt": False,
+            "hits_exported": False,
+            "scan_scope_exported": False,
+        }
+    return {
+        "status": scan.get("status"),
+        "blocking_hit_count": scan.get("blocking_hit_count"),
+        "hit_count": scan.get("hit_count"),
+        "scanned_path_count": scan.get("scanned_path_count"),
+        "body_in_receipt": scan.get("body_in_receipt") is True,
+        "hits_exported": False,
+        "scan_scope_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling", {})
+    if not isinstance(ceiling, dict):
+        ceiling = {}
+    return {
+        "authority_ceiling": ceiling.get("authority_ceiling"),
+        "release_authorized": ceiling.get("release_authorized") is True,
+        "hosted_public_authorized": ceiling.get("hosted_public_authorized") is True,
+        "publication_authorized": ceiling.get("publication_authorized") is True,
+        "recipient_work_authorized": ceiling.get("recipient_work_authorized") is True,
+        "provider_calls_authorized": ceiling.get("provider_calls_authorized") is True,
+        "private_data_equivalence_claim": (
+            ceiling.get("private_data_equivalence_claim") is True
+        ),
+        "whole_system_correctness_claim": (
+            ceiling.get("whole_system_correctness_claim") is True
+        ),
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    input_mode = result.get("input_mode")
+    action = "run-reveal-bundle" if input_mode == "exported_public_reveal_bundle" else "run"
+    card_id = (
+        "public_reveal_walkthrough_bundle_card"
+        if action == "run-reveal-bundle"
+        else "public_reveal_walkthrough_fixture_card"
+    )
+    reveal_board = result.get("reveal_board", {})
+    if not isinstance(reveal_board, dict):
+        reveal_board = {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": "compact_card_no_step_tables_or_ref_lists",
+        "full_output_available": True,
+        "full_output_drilldown": f"rerun {action} without --card",
+        "receipt_paths": result.get("receipt_paths", []),
+        "reveal_summary": {
+            "walkthrough_id": result.get("walkthrough_id"),
+            "target_reader": result.get("target_reader"),
+            "time_budget_minutes": result.get("time_budget_minutes"),
+            "step_count": result.get("step_count"),
+            "command_count": result.get("command_count"),
+            "evidence_ref_count": result.get("evidence_ref_count"),
+            "substrate_ref_count": result.get("substrate_ref_count"),
+            "first_command": reveal_board.get("first_command"),
+            "primary_loop": reveal_board.get("primary_loop"),
+            "evidence_is_drilldown": reveal_board.get("evidence_is_drilldown") is True,
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(result.get("expected_negative_cases", [])),
+            "observed_case_count": len(result.get("observed_negative_cases", {})),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "secret_exclusion_scan_summary": _scan_card(result.get("secret_exclusion_scan")),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "runtime_receipt": {
+            "body_in_receipt": result.get("body_in_receipt") is True,
+            "real_runtime_receipt": result.get("real_runtime_receipt") is True,
+            "synthetic_receipt_standin_allowed": (
+                result.get("synthetic_receipt_standin_allowed") is True
+            ),
+        },
+        "no_export_guards": {
+            "step_rows_exported": False,
+            "commands_exported": False,
+            "evidence_refs_exported": False,
+            "substrate_refs_exported": False,
+            "public_runtime_refs_exported": False,
+            "private_state_scan_exported": False,
+            "provider_payloads_exported": False,
+            "release_authority_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "steps",
+                "commands",
+                "evidence_refs",
+                "substrate_refs",
+                "public_runtime_refs",
+                "findings",
+                "secret_exclusion_scan.hits",
+                "secret_exclusion_scan.scan_scope",
+                "anti_claim",
+                "reveal_board.steps",
+            ],
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate public reveal walkthrough")
     subparsers = parser.add_subparsers(dest="action")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     bundle_parser = subparsers.add_parser("run-reveal-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        card_suffix = " --card" if args.card else ""
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}" if args.acceptance_out else ""
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs.public_reveal_walkthrough "
+                f"run --input {args.input} --out {args.out}{acceptance_suffix}{card_suffix}"
+            ),
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-reveal-bundle":
-        result = run_reveal_bundle(args.input, args.out)
+        card_suffix = " --card" if args.card else ""
+        result = run_reveal_bundle(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs.public_reveal_walkthrough "
+                f"run-reveal-bundle --input {args.input} --out {args.out}{card_suffix}"
+            ),
+        )
     else:
         return 2
-    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
