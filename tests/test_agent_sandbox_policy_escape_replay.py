@@ -8,8 +8,11 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_sandbox_policy_trace,
 )
+import microcosm_core.organs.agent_sandbox_policy_escape_replay as sandbox_replay
 from microcosm_core.organs.agent_sandbox_policy_escape_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_sandbox_bundle,
 )
@@ -183,6 +186,55 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
     assert {
         span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
     } == {"sandbox_policy_action"}
+
+
+def test_agent_sandbox_policy_escape_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "agent_sandbox_policy_escape_replay"
+    )
+    args = [
+        "run-sandbox-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["sandbox_policy"]["action_request_count"] == 6
+    assert first_card["sandbox_policy"]["policy_verdict_count"] == 6
+    assert first_card["sandbox_policy"]["blocked_without_execution_count"] == 4
+    assert first_card["validation"]["public_agent_execution_trace_span_count"] == 6
+    assert "request_rows" not in _walk_keys(first_card)
+    assert "policy_verdict_rows" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "public_agent_execution_trace" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(sandbox_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_public_agent_execution_trace_refactor_builds_sandbox_policy_spans() -> None:

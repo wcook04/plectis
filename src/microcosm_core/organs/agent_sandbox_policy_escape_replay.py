@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -28,6 +30,25 @@ ACCEPTANCE_RECEIPT_REL = (
     "agent_sandbox_policy_escape_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_sandbox_policy_escape_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "agent_sandbox_policy_escape_replay_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "findings",
+    "secret_exclusion_scan",
+    "public_agent_execution_trace",
+    "source_refs",
+    "projection_receipt_refs",
+    "target_refs",
+    "target_symbols",
+    "public_runtime_refs",
+    "omitted_secret_or_live_access_material",
+    "request_rows",
+    "policy_verdict_rows",
+    "side_effect_rows",
+    "rollback_rows",
+    "cold_replay_rows",
+    "authority_ceiling",
+    "anti_claim",
+)
 BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "extension_of_existing_public_refactor"
 PRODUCT_PATH_ROLE = "source_faithful_public_agent_execution_trace_refactor"
@@ -166,6 +187,102 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     if bundle_manifest.is_file():
         paths.append(bundle_manifest)
     return paths
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return f"sha256:{digest.hexdigest()}"
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _input_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "agent_sandbox_policy_escape_replay_result_v1"
+        if include_negative
+        else "exported_sandbox_policy_escape_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "agent_sandbox_policy_escape_replay_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, ValueError, TypeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_sandbox_policy_escape_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_sandbox_policy_escape_bundle":
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -1055,6 +1172,8 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -1069,15 +1188,24 @@ def run_sandbox_bundle(
         "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay "
         "run-sandbox-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_bundle_receipt(source, out)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_sandbox_policy_escape_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -1089,6 +1217,84 @@ def run_sandbox_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    trace = result.get("public_agent_execution_trace")
+    trace_summary = trace.get("summary", {}) if isinstance(trace, dict) else {}
+    body_verification = result.get("body_import_verification")
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "sandbox_policy": {
+            "action_request_count": result.get("action_request_count"),
+            "policy_verdict_count": result.get("policy_verdict_count"),
+            "allow_count": result.get("allow_count"),
+            "block_count": result.get("block_count"),
+            "review_count": result.get("review_count"),
+            "side_effect_receipt_count": result.get("side_effect_receipt_count"),
+            "blocked_without_execution_count": result.get(
+                "blocked_without_execution_count"
+            ),
+            "rollback_verified_count": result.get("rollback_verified_count"),
+            "cold_replay_pass_count": result.get("cold_replay_pass_count"),
+        },
+        "validation": {
+            "expected_negative_case_count": len(
+                result.get("expected_negative_cases") or []
+            ),
+            "missing_negative_case_count": len(
+                result.get("missing_negative_cases") or []
+            ),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "public_agent_execution_trace_status": (
+                trace.get("status") if isinstance(trace, dict) else None
+            ),
+            "public_agent_execution_trace_span_count": (
+                trace.get("span_count") if isinstance(trace, dict) else None
+            ),
+            "trace_outcome_counts": trace_summary.get("outcome_counts"),
+        },
+        "body_floor": {
+            "body_import_status": result.get("body_import_status"),
+            "body_import_classification": result.get("body_import_classification"),
+            "body_import_verification_mode": (
+                body_verification.get("verification_mode")
+                if isinstance(body_verification, dict)
+                else None
+            ),
+            "body_in_receipt": result.get("body_in_receipt") is True,
+        },
+        "authority_boundary": {
+            "live_agent_execution_authorized": False,
+            "live_sandbox_escape_authorized": False,
+            "live_secret_or_credential_handling_authorized": False,
+            "live_network_access_authorized": False,
+            "host_filesystem_mutation_authorized": False,
+            "executable_escape_payload_export_authorized": False,
+            "raw_environment_export_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agent_sandbox_policy_escape_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -1096,21 +1302,45 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-sandbox-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        command = (
+            "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay "
+            f"run --input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-sandbox-bundle":
-        result = run_sandbox_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay "
+            f"run-sandbox-bundle --input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run_sandbox_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(result["status"])
     return 0 if result["status"] == PASS else 1
 
 
