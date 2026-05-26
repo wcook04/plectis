@@ -26,7 +26,7 @@
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-23T21:32:03+00:00",
+  "created_at": "2026-05-26T19:54:37+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -135,9 +135,9 @@
   "real_runtime_receipt": true,
   "receipt_id": "prediction_oracle_reconciliation_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
     "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
   ],
   "reconciliation_rows": [
@@ -170,6 +170,7 @@
   ],
   "schema_version": "prediction_oracle_reconciliation_fixture_acceptance_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -181,6 +182,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

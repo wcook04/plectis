@@ -19,6 +19,8 @@ from microcosm_core.schemas import read_json_strict
 ORGAN_ID = "prediction_oracle_reconciliation"
 FIXTURE_ID = "first_wave.prediction_oracle_reconciliation"
 VALIDATOR_ID = "validator.microcosm.organs.prediction_oracle_reconciliation"
+MODULE_PATH = "microcosm_core.organs.prediction_oracle_reconciliation"
+CARD_SCHEMA_VERSION = "prediction_oracle_reconciliation_command_card_v1"
 
 RESULT_NAME = "prediction_oracle_reconciliation_result.json"
 BOARD_NAME = "prediction_reconciliation_board.json"
@@ -853,6 +855,169 @@ def run_prediction_bundle(
     return result
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    scan_row = scan if isinstance(scan, dict) else {}
+    return {
+        "status": scan_row.get("status"),
+        "blocking_hit_count": scan_row.get("blocking_hit_count"),
+        "hit_count": scan_row.get("hit_count"),
+        "scanned_path_count": scan_row.get("scanned_path_count"),
+        "body_in_receipt": scan_row.get("body_in_receipt") is True,
+        "hits_exported": False,
+        "scan_scope_exported": False,
+        "source_excerpt_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling", {})
+    if not isinstance(ceiling, dict):
+        ceiling = {}
+    return {
+        "status": ceiling.get("status"),
+        "authority_ceiling": ceiling.get("authority_ceiling"),
+        "trading_authorized": ceiling.get("trading_authorized") is True,
+        "financial_advice_authorized": (
+            ceiling.get("financial_advice_authorized") is True
+        ),
+        "investment_advice_authorized": (
+            ceiling.get("investment_advice_authorized") is True
+        ),
+        "live_market_data_authorized": (
+            ceiling.get("live_market_data_authorized") is True
+        ),
+        "live_provider_calls_authorized": (
+            ceiling.get("live_provider_calls_authorized") is True
+        ),
+        "provider_calls_authorized": ceiling.get("provider_calls_authorized") is True,
+        "publication_authorized": ceiling.get("publication_authorized") is True,
+        "release_authorized": ceiling.get("release_authorized") is True,
+        "private_data_equivalence_claim": (
+            ceiling.get("private_data_equivalence_claim") is True
+        ),
+        "dossier_mutation_authority": ceiling.get("dossier_mutation_authority"),
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    input_mode = result.get("input_mode")
+    action = (
+        "run-prediction-bundle"
+        if input_mode == "exported_prediction_oracle_bundle"
+        else "run"
+    )
+    expected_cases = result.get("expected_negative_cases", [])
+    observed_cases = result.get("observed_negative_cases", {})
+    receipt_name = BUNDLE_RESULT_NAME if action == "run-prediction-bundle" else RESULT_NAME
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": (
+            "prediction_oracle_exported_bundle_card"
+            if action == "run-prediction-bundle"
+            else "prediction_oracle_fixture_card"
+        ),
+        "output_profile": "compact_card_no_findings_tables_source_refs_or_scan_scope",
+        "full_output_available": True,
+        "full_output_drilldown": f"rerun {action} without --card",
+        "receipt_summary": {
+            "receipt_count": len(result.get("receipt_paths", [])),
+            "receipt_paths_exported": False,
+            "result_receipt_name": receipt_name,
+            "board_receipt_name": None
+            if action == "run-prediction-bundle"
+            else BOARD_NAME,
+            "validation_receipt_name": None
+            if action == "run-prediction-bundle"
+            else VALIDATION_RECEIPT_NAME,
+        },
+        "prediction_reconciliation_summary": {
+            "packet_id": result.get("packet_id"),
+            "source_pattern_count": len(result.get("source_pattern_ids", [])),
+            "source_ref_count": len(result.get("source_refs", [])),
+            "projection_receipt_ref_count": len(
+                result.get("projection_receipt_refs", [])
+            ),
+            "public_runtime_ref_count": len(result.get("public_runtime_refs", [])),
+            "valid_prediction_target_count": len(
+                result.get("valid_prediction_targets", [])
+            ),
+            "cp1_branch_count": result.get("cp1_branch_count"),
+            "cp1_selected_branch_count": len(
+                result.get("cp1_selected_branch_ids", [])
+            ),
+            "cp2_prediction_count": result.get("cp2_prediction_count"),
+            "oracle_diff_graded_count": result.get("oracle_diff_graded_count"),
+            "oracle_diff_hit_count": result.get("oracle_diff_hit_count"),
+            "dossier_mutation_count": result.get("dossier_mutation_count"),
+            "reconciliation_row_count": len(result.get("reconciliation_rows", [])),
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(expected_cases)
+            if isinstance(expected_cases, list)
+            else 0,
+            "observed_case_count": len(observed_cases)
+            if isinstance(observed_cases, dict)
+            else 0,
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "secret_exclusion_scan_summary": _scan_card(
+            result.get("secret_exclusion_scan")
+        ),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "runtime_authority": {
+            "body_in_receipt": result.get("body_in_receipt") is True,
+            "real_runtime_receipt": result.get("real_runtime_receipt") is True,
+            "synthetic_receipt_standin_allowed": (
+                result.get("synthetic_receipt_standin_allowed") is True
+            ),
+        },
+        "no_export_guards": {
+            "findings_exported": False,
+            "error_codes_exported": False,
+            "source_refs_exported": False,
+            "receipt_paths_exported": False,
+            "observed_negative_cases_exported": False,
+            "prediction_targets_exported": False,
+            "reconciliation_rows_exported": False,
+            "dossier_mutation_ids_exported": False,
+            "secret_scan_hits_exported": False,
+            "secret_scan_scope_exported": False,
+            "anti_claim_exported": False,
+            "private_bodies_exported": False,
+            "provider_payloads_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "findings",
+                "error_codes",
+                "expected_negative_cases",
+                "observed_negative_cases",
+                "source_pattern_ids",
+                "source_refs",
+                "projection_receipt_refs",
+                "public_runtime_refs",
+                "valid_prediction_targets",
+                "dossier_mutation_ids",
+                "reconciliation_rows",
+                "prediction_reconciliation_board",
+                "receipt_paths",
+                "secret_exclusion_scan.hits",
+                "secret_exclusion_scan.scan_scope",
+                "anti_claim",
+            ],
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate prediction oracle reconciliation")
     subparsers = parser.add_subparsers(dest="action", required=True)
@@ -860,16 +1025,37 @@ def _parser() -> argparse.ArgumentParser:
         action_parser = subparsers.add_parser(action)
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
+        action_parser.add_argument(
+            "--card",
+            action="store_true",
+            help="Print a compact command card; write the full receipt to --out.",
+        )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out)
+        result = run(
+            args.input,
+            args.out,
+            command=(
+                f"python -m {MODULE_PATH} run --input {args.input} "
+                f"--out {args.out}{card_suffix}"
+            ),
+        )
     else:
-        result = run_prediction_bundle(args.input, args.out)
-    print(json.dumps(result, indent=2, sort_keys=True))
+        result = run_prediction_bundle(
+            args.input,
+            args.out,
+            command=(
+                f"python -m {MODULE_PATH} run-prediction-bundle "
+                f"--input {args.input} --out {args.out}{card_suffix}"
+            ),
+        )
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

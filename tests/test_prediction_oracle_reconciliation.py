@@ -7,7 +7,10 @@ from typing import Any
 
 from microcosm_core.organs.prediction_oracle_reconciliation import (
     BUNDLE_RESULT_NAME,
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    RESULT_NAME,
+    main,
     run,
     run_prediction_bundle,
 )
@@ -165,3 +168,107 @@ def test_prediction_oracle_exported_bundle_receipt_is_public_safe(
     assert "public_replacement_refs" not in payload
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
+
+
+def test_prediction_oracle_fixture_card_stdout_is_compact_and_keeps_full_receipts(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/prediction_oracle_reconciliation",
+        public_root / "fixtures/first_wave/prediction_oracle_reconciliation",
+    )
+    out_dir = public_root / "receipts/first_wave/prediction_oracle_reconciliation"
+
+    status = main(
+        [
+            "run",
+            "--input",
+            str(public_root / "fixtures/first_wave/prediction_oracle_reconciliation/input"),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert status == 0
+    assert len(captured.out.encode("utf-8")) < 5000
+    card = json.loads(captured.out)
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "first_wave_fixture"
+    assert card["receipt_summary"]["receipt_count"] == 4
+    assert card["receipt_summary"]["receipt_paths_exported"] is False
+    assert card["receipt_summary"]["result_receipt_name"] == RESULT_NAME
+    assert card["prediction_reconciliation_summary"]["cp2_prediction_count"] == 2
+    assert card["prediction_reconciliation_summary"]["oracle_diff_hit_count"] == 1
+    assert card["negative_case_coverage"]["expected_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["observed_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["missing_negative_cases"] == []
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["authority_ceiling"]["trading_authorized"] is False
+    assert card["no_export_guards"]["findings_exported"] is False
+
+    card_keys = set(_walk_keys(card))
+    assert "findings" not in card_keys
+    assert "observed_negative_cases" not in card_keys
+    assert "source_refs" not in card_keys
+    assert "reconciliation_rows" not in card_keys
+    assert "receipt_paths" not in card_keys
+    assert "anti_claim" not in card_keys
+    full_receipt = json.loads((out_dir / RESULT_NAME).read_text(encoding="utf-8"))
+    assert full_receipt["status"] == "pass"
+    assert set(full_receipt["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+
+
+def test_prediction_oracle_bundle_card_stdout_is_compact_and_keeps_full_receipt(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/prediction_oracle_reconciliation",
+        public_root / "examples/prediction_oracle_reconciliation",
+    )
+    out_dir = public_root / "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation"
+
+    status = main(
+        [
+            "run-prediction-bundle",
+            "--input",
+            str(
+                public_root
+                / "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle"
+            ),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert status == 0
+    assert len(captured.out.encode("utf-8")) < 4500
+    card = json.loads(captured.out)
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "exported_prediction_oracle_bundle"
+    assert card["receipt_summary"]["receipt_count"] == 1
+    assert card["receipt_summary"]["result_receipt_name"] == BUNDLE_RESULT_NAME
+    assert card["receipt_summary"]["board_receipt_name"] is None
+    assert card["negative_case_coverage"]["expected_case_count"] == 0
+    assert card["negative_case_coverage"]["observed_case_count"] == 0
+    assert card["prediction_reconciliation_summary"]["reconciliation_row_count"] == 2
+    assert card["no_export_guards"]["reconciliation_rows_exported"] is False
+    assert "reconciliation_rows" not in set(_walk_keys(card))
+    full_receipt = json.loads((out_dir / BUNDLE_RESULT_NAME).read_text(encoding="utf-8"))
+    assert full_receipt["status"] == "pass"
+    assert full_receipt["input_mode"] == "exported_prediction_oracle_bundle"
