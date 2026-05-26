@@ -1,4 +1,6 @@
 {
+  "accepted_status_is_not_evidence_strength": true,
+  "adapter_backed_organ_count": 43,
   "anti_claim": "The workingness map is an organ-by-organ failure envelope over public standards, commands, evidence classes, and receipt refs. It is not a maturity board, activation score, release signal, provider evaluation, or whole-system correctness claim.",
   "authority_ceiling": {
     "hosted_public_authorized": false,
@@ -11,9 +13,17 @@
     "whole_system_correctness_claim": false
   },
   "command": "microcosm workingness",
-  "completeness_status": "partial_failure_modes",
+  "completeness_status": "complete_failure_modes",
+  "demoted_drilldown_count": 4,
   "endpoint": "/workingness",
-  "failure_envelope_status": "actionable",
+  "failure_envelope_status": "clear",
+  "gap_preview": {
+    "drilldown_command": "microcosm workingness",
+    "limit": 3,
+    "reader_action": "Open microcosm workingness for the full row before treating accepted status as evidence strength.",
+    "rows": [],
+    "status": "clear"
+  },
   "map_generation_status": "pass",
   "map_id": "runtime_organ_workingness_failure_map",
   "map_policy": {
@@ -24,19 +34,30 @@
     "future_work_targets_are_concrete_substrate_targets": true,
     "not_a_scorecard": true
   },
+  "mapped_organ_count": 47,
+  "missing_failure_modes_count": 0,
+  "missing_standard_count": 0,
+  "not_a_scorecard": true,
   "projection_not_authority": true,
+  "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
+  "rows_with_failure_modes": 47,
+  "rows_with_future_work_targets": 30,
+  "rows_with_source_body_imports": 3,
   "schema_version": "microcosm_workingness_failure_map_v1",
+  "source_open_body_material_count": 25,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
-    "adapter_backed_organ_count": 42,
+    "adapter_backed_organ_count": 43,
     "demoted_drilldown_count": 4,
-    "mapped_organ_count": 46,
-    "missing_failure_modes_count": 6,
-    "missing_standard_count": 1,
-    "rows_with_failure_modes": 40,
-    "rows_with_future_work_targets": 34,
-    "thing_count": 46
+    "mapped_organ_count": 47,
+    "missing_failure_modes_count": 0,
+    "missing_standard_count": 0,
+    "rows_with_failure_modes": 47,
+    "rows_with_future_work_targets": 30,
+    "rows_with_source_body_imports": 3,
+    "source_open_body_material_count": 25,
+    "thing_count": 47
   },
   "thing_failure_map": [
     {
@@ -105,6 +126,7 @@
           "receipts/first_wave/pattern_binding_contract/omission_receipt.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.pattern_binding_contract validate --input fixtures/first_wave/pattern_binding_contract/input --out receipts/first_wave/pattern_binding_contract",
         "verdict_source": "validator_computation"
@@ -112,6 +134,7 @@
       "ordinal": 1,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_pattern_binding_contract.json",
         "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
@@ -193,6 +216,7 @@
           "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
         "verdict_source": "validator_computation"
@@ -200,6 +224,7 @@
       "ordinal": 2,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_executable_doctrine_grammar.json",
         "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
@@ -290,6 +315,48 @@
           "receipts/acceptance/first_wave/proof_diagnostic_evidence_spine_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "runtime_correctness_claim": false
+          },
+          "body_material_count": 13,
+          "body_material_ids": [
+            "ring2_premise_retrieval_root_aggregate_report_body_import",
+            "ring2_premise_retrieval_graph_aggregate_report_body_import",
+            "ring2_premise_retrieval_cost_metrics_body_import",
+            "ring2_premise_retrieval_graph_variant_body_import",
+            "ring2_premise_retrieval_run_summary_body_import",
+            "ring2_premise_retrieval_failure_taxonomy_body_import",
+            "ring2_premise_retrieval_graph_update_body_import",
+            "ring2_oracle_repair_aggregate_report_body_import",
+            "ring2_oracle_repair_cost_metrics_body_import",
+            "ring2_oracle_repair_failure_taxonomy_body_import",
+            "ring2_oracle_repair_graph_update_body_import",
+            "ring2_oracle_repair_graph_variant_body_import",
+            "ring2_oracle_repair_run_summary_body_import"
+          ],
+          "body_material_status": "exact_copied_public_safe_ring2_runtime_artifacts_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_proof_body",
+            "public_macro_receipt_body"
+          ],
+          "reader_action": "Run microcosm workingness and inspect proof_diagnostic_evidence_spine to see which copied Ring2 runtime artifacts back this proof-diagnostic organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
         "verdict_source": "derived_projection_metric"
@@ -297,6 +364,48 @@
       "ordinal": 3,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false
+        },
+        "body_material_count": 13,
+        "body_material_ids": [
+          "ring2_premise_retrieval_root_aggregate_report_body_import",
+          "ring2_premise_retrieval_graph_aggregate_report_body_import",
+          "ring2_premise_retrieval_cost_metrics_body_import",
+          "ring2_premise_retrieval_graph_variant_body_import",
+          "ring2_premise_retrieval_run_summary_body_import",
+          "ring2_premise_retrieval_failure_taxonomy_body_import",
+          "ring2_premise_retrieval_graph_update_body_import",
+          "ring2_oracle_repair_aggregate_report_body_import",
+          "ring2_oracle_repair_cost_metrics_body_import",
+          "ring2_oracle_repair_failure_taxonomy_body_import",
+          "ring2_oracle_repair_graph_update_body_import",
+          "ring2_oracle_repair_graph_variant_body_import",
+          "ring2_oracle_repair_run_summary_body_import"
+        ],
+        "body_material_status": "exact_copied_public_safe_ring2_runtime_artifacts_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_proof_body",
+          "public_macro_receipt_body"
+        ],
+        "reader_action": "Run microcosm workingness and inspect proof_diagnostic_evidence_spine to see which copied Ring2 runtime artifacts back this proof-diagnostic organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_proof_diagnostic_evidence_spine.json",
         "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
@@ -382,6 +491,7 @@
           "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate",
         "verdict_source": "derived_projection_metric"
@@ -389,6 +499,7 @@
       "ordinal": 4,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_formal_math_readiness_gate.json",
         "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
@@ -475,6 +586,7 @@
           "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
         "verdict_source": "derived_projection_metric"
@@ -482,6 +594,7 @@
       "ordinal": 5,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json",
         "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
@@ -567,6 +680,7 @@
           "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
         "verdict_source": "derived_projection_metric"
@@ -574,6 +688,7 @@
       "ordinal": 6,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json",
         "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
@@ -660,6 +775,7 @@
           "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
         "verdict_source": "derived_projection_metric"
@@ -667,6 +783,7 @@
       "ordinal": 7,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_tactic_portfolio_availability_probe.json",
         "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
@@ -761,6 +878,7 @@
           "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.target_shape_tactic_routing_gate run --input fixtures/first_wave/target_shape_tactic_routing_gate/input --out receipts/first_wave/target_shape_tactic_routing_gate",
         "verdict_source": "derived_projection_metric"
@@ -768,6 +886,7 @@
       "ordinal": 8,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_target_shape_tactic_routing_gate.json",
         "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
@@ -853,6 +972,7 @@
           "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.lean_std_premise_index run --input fixtures/first_wave/lean_std_premise_index/input --out receipts/first_wave/lean_std_premise_index",
         "verdict_source": "derived_projection_metric"
@@ -860,6 +980,7 @@
       "ordinal": 9,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_lean_std_premise_index.json",
         "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
@@ -943,6 +1064,7 @@
           "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
         "verdict_source": "derived_projection_metric"
@@ -950,6 +1072,7 @@
       "ordinal": 10,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_formal_math_premise_retrieval.json",
         "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
@@ -1036,6 +1159,7 @@
           "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
         "verdict_source": "derived_projection_metric"
@@ -1043,6 +1167,7 @@
       "ordinal": 11,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
         "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
@@ -1130,6 +1255,7 @@
           "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver",
         "verdict_source": "derived_projection_metric"
@@ -1137,6 +1263,7 @@
       "ordinal": 12,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
         "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
@@ -1223,6 +1350,7 @@
           "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
         "verdict_source": "derived_projection_metric"
@@ -1230,6 +1358,7 @@
       "ordinal": 13,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
         "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
@@ -1327,6 +1456,7 @@
           "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
         "verdict_source": "derived_projection_metric"
@@ -1334,6 +1464,7 @@
       "ordinal": 14,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
         "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
@@ -1347,7 +1478,7 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "evidence_strength_claim": "fixture_echo_smoke",
         "evidence_truth_bucket": "regression_negative_fixture",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
@@ -1409,11 +1540,11 @@
         "validation_rule_count": 6
       },
       "observed_workingness": {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "classification_basis": "regression-negative synthetic benchmark integrity rows are checked for body-free fixture refs, locked evaluator refs, anti-gaming denials, and explicit no-benchmark-score/no-product-progress authority",
         "counts_as_real_substrate_progress": false,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
-        "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
+        "evaluator_basis": "fixture_supplied_verdicts_or_safety_flags_checked_for_shape; fixture-supplied score-like fields are not benchmark scores or product progress evidence",
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,
         "generated_receipts": [
@@ -1423,6 +1554,7 @@
           "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "regression_negative_fixture",
         "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
         "verdict_source": "fixture_supplied_fields"
@@ -1430,6 +1562,7 @@
       "ordinal": 15,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agent_benchmark_integrity_anti_gaming_replay.json",
         "receipts/acceptance/first_wave/agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
@@ -1526,6 +1659,7 @@
           "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
         "verdict_source": "derived_projection_metric"
@@ -1533,6 +1667,7 @@
       "ordinal": 16,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_provider_context_recipe_budget_policy.json",
         "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
@@ -1617,6 +1752,7 @@
           "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
         ],
         "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
         "verdict_source": "subprocess_or_tool_witness"
@@ -1624,6 +1760,7 @@
       "ordinal": 17,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_formal_math_lean_proof_witness.json",
         "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
@@ -1705,6 +1842,7 @@
           "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
         "verdict_source": "validator_computation"
@@ -1712,6 +1850,7 @@
       "ordinal": 18,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_verifier_lab_kernel.json",
         "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
@@ -1799,6 +1938,7 @@
           "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
         ],
         "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine",
         "verdict_source": "subprocess_or_tool_witness"
@@ -1806,6 +1946,7 @@
       "ordinal": 19,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_verifier_lab_execution_spine.json",
         "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
@@ -1902,6 +2043,7 @@
           "receipts/first_wave/navigation_hologram_route_plane/toy_kind_cluster_flag.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.navigation_hologram_route_plane run --input fixtures/first_wave/navigation_hologram_route_plane/input --out receipts/first_wave/navigation_hologram_route_plane",
         "verdict_source": "validator_computation"
@@ -1909,6 +2051,7 @@
       "ordinal": 20,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_navigation_hologram_route_plane.json",
         "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
@@ -2018,6 +2161,7 @@
           "receipts/first_wave/mission_transaction_work_spine/work_landing_reconcile_plan.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.mission_transaction_work_spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
         "verdict_source": "derived_projection_metric"
@@ -2025,6 +2169,7 @@
       "ordinal": 21,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_mission_transaction_work_spine.json",
         "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
@@ -2106,6 +2251,7 @@
           "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay",
         "verdict_source": "validator_computation"
@@ -2113,6 +2259,7 @@
       "ordinal": 22,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_durable_agent_work_landing_replay.json",
         "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
@@ -2200,6 +2347,7 @@
           "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
         "verdict_source": "derived_projection_metric"
@@ -2207,6 +2355,7 @@
       "ordinal": 23,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_research_replication_rubric_artifact_replay.json",
         "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
@@ -2291,6 +2440,7 @@
           "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room",
         "verdict_source": "validator_computation"
@@ -2298,6 +2448,7 @@
       "ordinal": 24,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_world_model_projection_drift_control_room.json",
         "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
@@ -2380,6 +2531,7 @@
           "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
         "verdict_source": "validator_computation"
@@ -2387,6 +2539,7 @@
       "ordinal": 25,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
         "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
@@ -2407,18 +2560,20 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 7,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "private model weights or raw activation tensors copied into public fixtures",
+        "proprietary prompt bodies, hidden chain-of-thought, or provider payloads treated as inspectable circuit evidence",
+        "screenshot-only attribution graph accepted without machine-readable nodes and edges",
+        "feature labels asserted without catalog ids, visualization summary refs, or validation anchors",
+        "transparency or faithfulness claim made without causal intervention receipts and sufficiency limits",
+        "synthetic attribution fixture counted as macro body instead of being wrapped by exact copied source modules or named blocked-import debt",
+        "Oracle attribution-map prompt body or runtime receipt treated as live provider execution, benchmark result, or product transparency authority"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "A pretty circuit graph, feature-name story, or provider transcript that claims model transparency without copied public-safe attribution machinery, causal intervention receipts, failure limits, and secret exclusion.",
         "authority_boundary": "public_circuit_attribution_runtime_receipt_not_model_transparency_or_private_internals_authority",
         "authority_ceiling": {
           "benchmark_score_claim_authorized": false,
@@ -2435,10 +2590,8 @@
           "status": "pass"
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe circuit-attribution replay organ that combines body-free replay rows with exact copied non-secret attribution-map source nodes, explicit causal-intervention refs, and failure-mode boundaries before any interpretability claim is allowed.",
         "receipt_expectation_count": 2,
         "required_field_count": 24,
         "required_substrate": {
@@ -2446,7 +2599,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -2454,7 +2607,7 @@
         },
         "standard_ref": "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
         "standard_status": "draft",
-        "teleology": null,
+        "teleology": "Make interpretability evidence falsifiable and source-open without leaking private model internals, provider payloads, prompt bodies, hidden reasoning, or benchmark/product authority.",
         "validation_rule_count": 3
       },
       "observed_workingness": {
@@ -2472,6 +2625,7 @@
           "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
         "verdict_source": "validator_computation"
@@ -2479,6 +2633,7 @@
       "ordinal": 26,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json",
         "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
@@ -2499,49 +2654,57 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_contract",
-          "target_ref": "standards/std_microcosm_agent_route_observability_runtime.json",
-          "why": "workingness cannot be bounded without an owning standard"
-        },
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_agent_route_observability_runtime.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 10,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "route trace classified without actor-axis authority boundary",
+        "banned cold-start route accepted without replacement route evidence",
+        "route lease treated as reusable after consumption",
+        "hook shadow advisory promoted to live hook authority",
+        "anti-pattern debt retired without behavior-change evidence",
+        "telemetry-only row counted as product evidence",
+        "Type B advisory trace admitted as mutation authority",
+        "transcript, provider payload, browser HUD, account/session, credential, cookie, or recipient-send material exported",
+        "synthetic fixture verdict treated as live observability accuracy",
+        "copied macro trace body digest or source ref omitted from public body import verification"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
-        "authority_boundary": null,
-        "authority_ceiling": {},
-        "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "owning_standard_present",
-          "known_failure_modes_present",
-          "public_private_boundary_declared"
-        ],
-        "ontology": null,
-        "receipt_expectation_count": 0,
-        "required_field_count": 0,
+        "anti_purpose": "A telemetry receipt archive that claims live observability, mutation authority, or product progress without route feedback, body import provenance, public/private boundaries, and negative-case checks.",
+        "authority_boundary": "public_route_observability_runtime_metadata_and_copied_macro_trace_bodies_not_live_session_provider_browser_hud_or_hook_authority",
+        "authority_ceiling": {
+          "account_or_session_authority": false,
+          "benchmark_score_authority": false,
+          "browser_hud_authority": false,
+          "credential_authority": false,
+          "live_hook_authority": false,
+          "live_session_authority": false,
+          "provider_authority": false,
+          "release_authority": false,
+          "source_mutation_authority": false,
+          "standard_authority": "public_route_observability_runtime_schema_and_failure_envelope",
+          "status": "pass"
+        },
+        "generated_receipt_count": 6,
+        "missing_requirement_ids": [],
+        "ontology": "A public route-observability runtime that binds synthetic agent traces, actor axes, route leases, hook-shadow advisory rows, anti-pattern debt, copied macro trace bodies, and bounded receipts into a failure envelope.",
+        "receipt_expectation_count": 2,
+        "required_field_count": 9,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
-          "owning_standard_present": false,
-          "public_private_boundary_declared": false,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
           "validator_command_present": true
         },
         "standard_ref": "standards/std_microcosm_agent_route_observability_runtime.json",
-        "standard_status": null,
-        "teleology": null,
-        "validation_rule_count": 0
+        "standard_status": "draft",
+        "teleology": "Make observability evidence change future agent routing behavior without mistaking public metadata or synthetic traces for live session introspection or provider/browser authority.",
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -2555,9 +2718,49 @@
           "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
           "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
           "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
-          "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+          "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+          "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+          "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+          "authority_ceiling": {
+            "account_session_state_exported": false,
+            "body_text_in_receipt": false,
+            "browser_hud_live_access_authorized": false,
+            "credential_or_cookie_exported": false,
+            "live_hook_install_authorized": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 7,
+          "body_material_ids": [
+            "agent_execution_trace_body_import",
+            "agent_trace_route_repair_body_import",
+            "agent_observability_store_body_import",
+            "agent_session_attribution_body_import",
+            "continuation_packet_body_import",
+            "bridge_resume_body_import",
+            "controller_heartbeat_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Run microcosm workingness and inspect agent_route_observability_runtime to see which public macro bodies back this route/observability organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
         "verdict_source": "validator_computation"
@@ -2565,6 +2768,44 @@
       "ordinal": 27,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+        "authority_ceiling": {
+          "account_session_state_exported": false,
+          "body_text_in_receipt": false,
+          "browser_hud_live_access_authorized": false,
+          "credential_or_cookie_exported": false,
+          "live_hook_install_authorized": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 7,
+        "body_material_ids": [
+          "agent_execution_trace_body_import",
+          "agent_trace_route_repair_body_import",
+          "agent_observability_store_body_import",
+          "agent_session_attribution_body_import",
+          "continuation_packet_body_import",
+          "bridge_resume_body_import",
+          "controller_heartbeat_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agent_route_observability_runtime.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Run microcosm workingness and inspect agent_route_observability_runtime to see which public macro bodies back this route/observability organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agent_route_observability_runtime.json",
         "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
@@ -2572,6 +2813,169 @@
       ],
       "status": "accepted_current_authority",
       "thing_id": "agent_route_observability_runtime",
+      "thing_kind": "organ",
+      "workingness_state": "evidence_backed_runtime_spine"
+    },
+    {
+      "evaluation_comparison": {
+        "accepted_status_is_not_evidence_strength": true,
+        "claim_ceiling": "validates declared public contract only",
+        "evidence_strength_claim": "semantic_validator",
+        "evidence_truth_bucket": "real_import_validation",
+        "gap_class": "contract_validated_but_scope_bound",
+        "status_claim": "accepted_current_authority"
+      },
+      "evidence_gap_class": "contract_validated_but_scope_bound",
+      "failure_mode_count": 10,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "resumable job accepted without a continuation packet",
+        "continuation packet missing required fields accepted",
+        "already consumed packet resumes twice",
+        "heartbeat freshness treated as resume authority",
+        "stale heartbeat treated as live runtime evidence",
+        "resource pressure block recorded as pass or omitted",
+        "resume receipt claims work landed without closeout transition receipt",
+        "worker skip receipt silently closes a claim",
+        "live bridge, provider, HUD/browser, live phase, prompt shelf, private memory, or website surface body exported",
+        "synthetic fixture receipt treated as provider/UI uptime, source-mutation, work-landing, or release authority"
+      ],
+      "needs_to_work": {
+        "anti_purpose": "A bridge-runtime health claim, provider/UI uptime claim, or work-landing story inferred from synthetic heartbeat or continuation metadata.",
+        "authority_boundary": "public_fake_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
+        "authority_ceiling": {
+          "browser_hud_authority": false,
+          "live_bridge_transport_authority": false,
+          "live_phase_runtime_authority": false,
+          "private_memory_authority": false,
+          "prompt_shelf_authority": false,
+          "provider_authority": false,
+          "release_authority": false,
+          "source_mutation_authority": false,
+          "standard_authority": "public_fake_transport_bridge_continuity_runtime_schema_and_failure_envelope",
+          "status": "pass",
+          "work_landing_authority": false
+        },
+        "generated_receipt_count": 5,
+        "missing_requirement_ids": [],
+        "ontology": "A public fake-transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
+        "receipt_expectation_count": 2,
+        "required_field_count": 13,
+        "required_substrate": {
+          "claim_ceiling_declared": true,
+          "current_authority_receipt_present": true,
+          "evidence_class_declared": true,
+          "generated_receipts_present": true,
+          "known_failure_modes_present": true,
+          "owning_standard_present": true,
+          "public_private_boundary_declared": true,
+          "runtime_or_drilldown_mode_declared": true,
+          "validator_command_present": true
+        },
+        "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+        "standard_status": "draft",
+        "teleology": "Make bridge and subagent continuity reusable by future agents without requiring them to rediscover the observe/apply fixture, continuation packet contract, receipt boundary, or live-authority ceiling.",
+        "validation_rule_count": 7
+      },
+      "observed_workingness": {
+        "claim_ceiling": "validates declared public contract only",
+        "classification_basis": "derived fake-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
+        "counts_as_real_substrate_progress": true,
+        "current_authority_receipt": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+        "evaluator_basis": "derived_checks_over_public_runtime_or_fixture_state",
+        "evidence_class": "semantic_validator",
+        "evidence_strength_rank": 5,
+        "generated_receipts": [
+          "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+          "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+          "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+          "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+          "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+        ],
+        "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "live_bridge_transport_authorized": false,
+            "live_phase_runtime_state_read": false,
+            "operator_hud_or_browser_state_read": false,
+            "prompt_shelf_or_private_memory_body_read": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 5,
+          "body_material_ids": [
+            "codex_paths_body_import",
+            "markdown_routing_body_import",
+            "observe_memory_body_import",
+            "observe_surfaces_body_import",
+            "observe_runtime_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Run microcosm workingness and inspect bridge_phase_continuity_runtime to see which public observe-runtime bodies back the synthetic continuity organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
+        "truth_accounting_bucket": "real_import_validation",
+        "validator_command": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime",
+        "verdict_source": "validator_computation"
+      },
+      "ordinal": 28,
+      "product_path_role": "runtime_spine",
+      "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "live_bridge_transport_authorized": false,
+          "live_phase_runtime_state_read": false,
+          "operator_hud_or_browser_state_read": false,
+          "prompt_shelf_or_private_memory_body_read": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 5,
+        "body_material_ids": [
+          "codex_paths_body_import",
+          "markdown_routing_body_import",
+          "observe_memory_body_import",
+          "observe_surfaces_body_import",
+          "observe_runtime_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Run microcosm workingness and inspect bridge_phase_continuity_runtime to see which public observe-runtime bodies back the synthetic continuity organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
+      "source_refs": [
+        "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input"
+      ],
+      "status": "accepted_current_authority",
+      "thing_id": "bridge_phase_continuity_runtime",
       "thing_kind": "organ",
       "workingness_state": "evidence_backed_runtime_spine"
     },
@@ -2639,13 +3043,15 @@
           "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 28,
+      "ordinal": 29,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_pattern_assimilation_step.json",
         "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
@@ -2721,13 +3127,15 @@
           "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 29,
+      "ordinal": 30,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_public_reveal_walkthrough.json",
         "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
@@ -2806,13 +3214,15 @@
           "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator can fail on missing targets, placeholder digests, unverified body imports, forbidden body classes, or release/private-equivalence overclaims",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "copied_non_secret_macro_body",
         "validator_command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
         "verdict_source": "verified_public_body_import_contract"
       },
-      "ordinal": 30,
+      "ordinal": 31,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_macro_projection_import_protocol.json",
         "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
@@ -2900,13 +3310,15 @@
           "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 31,
+      "ordinal": 32,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_prediction_oracle_reconciliation.json",
         "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
@@ -2927,18 +3339,25 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_standards_meta_diagnostics.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 12,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "accepted organ admitted without a standards inventory row",
+        "accepted organ inventory row lacks standard_id, standard_ref, or registry_row_ref",
+        "accepted organ inventory row lacks current receipt refs",
+        "accepted organ lacks a runtime contract with CLI command and runtime step",
+        "standards coverage projection treated as standards registry authority",
+        "release, publication, provider-call, private-data equivalence, trading or financial advice, or whole-system correctness overclaim accepted",
+        "private source body, raw seed body, provider payload body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through public diagnostics",
+        "secret-exclusion scan omitted or body material embedded in diagnostics receipts",
+        "synthetic receipt stand-in accepted instead of real runtime receipt refs",
+        "diagnostics bundle accepted without fixture, paper-module, standards inventory, runtime contract, and acceptance-receipt source refs",
+        "coverage map pass claimed as release readiness, product maturity, source mutation authorization, or whole-system correctness",
+        "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "A standards coverage board that points at registry rows and acceptance receipts while missing runtime contracts, negative-case rejection, public/private boundaries, or source-open validator evidence.",
         "authority_boundary": "public_standards_meta_diagnostics_projection_only",
         "authority_ceiling": {
           "private_data_equivalence_claim": false,
@@ -2951,10 +3370,8 @@
           "whole_system_correctness_claim": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, and secret-exclusion results.",
         "receipt_expectation_count": 4,
         "required_field_count": 10,
         "required_substrate": {
@@ -2962,7 +3379,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -2970,7 +3387,7 @@
         },
         "standard_ref": "standards/std_microcosm_standards_meta_diagnostics.json",
         "standard_status": "accepted_public_runtime_standard",
-        "teleology": null,
+        "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
         "validation_rule_count": 4
       },
       "observed_workingness": {
@@ -2988,13 +3405,15 @@
           "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 32,
+      "ordinal": 33,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_standards_meta_diagnostics.json",
         "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
@@ -3015,18 +3434,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 0,
-      "future_work_target_count": 1,
-      "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_cold_reader_route_map.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        }
+      "failure_mode_count": 14,
+      "future_work_target_count": 0,
+      "future_work_targets": [],
+      "known_failure_modes": [
+        "route card admitted without a runnable command ref",
+        "route card admitted without public docs refs",
+        "required route id missing from the first-run route map",
+        "first-run sequence missing compile_project or no longer ordinal sorted",
+        "route id accepted without at least one evidence receipt ref",
+        "route receipt row exists but its receipt_refs are empty or disconnected from the route id",
+        "cold-reader route map accepted as route-registry authority",
+        "release, publication, provider-call, private-data equivalence, trading or financial advice, or whole-system correctness overclaim accepted",
+        "private macro source body, raw seed body, provider payload body, secret value, account/session state, browser/HUD live access, or credential-equivalent material exported through the route map",
+        "secret-exclusion scan omitted or body material embedded in route-map receipts",
+        "synthetic receipt stand-in accepted instead of real runtime receipt refs",
+        "exported route-map bundle accepted without route_map, route_receipts, route_policy, manifest, public runtime refs, and runtime validation receipt",
+        "cold-reader route map claims product progress from route-list metadata without validating the public first-run command chain",
+        "receipt duplicates route or macro body text instead of carrying public refs, verdicts, hashes, and omission boundaries"
       ],
-      "known_failure_modes": [],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "A glossy onboarding route list, status-card shortcut, or receipt archive that lacks runnable commands, receipt-backed route ids, first-run ordering, negative cases, public/private boundaries, or real runtime validation.",
         "authority_boundary": "public_cold_reader_route_map_projection_only",
         "authority_ceiling": {
           "cold_reader_route_map_authority": "projection_only_not_route_registry_authority",
@@ -3039,10 +3467,8 @@
           "whole_system_correctness_claim": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public cold-reader route-map organ that validates Microcosm first-run route order, command refs, docs refs, receipt refs, public runtime refs, negative cases, and authority ceilings without private macro context.",
         "receipt_expectation_count": 4,
         "required_field_count": 8,
         "required_substrate": {
@@ -3050,7 +3476,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -3058,7 +3484,7 @@
         },
         "standard_ref": "standards/std_microcosm_cold_reader_route_map.json",
         "standard_status": "accepted_public_runtime_standard",
-        "teleology": null,
+        "teleology": "Make the first ten minutes runnable and evidence-backed for a cold technical reader while keeping route maps projection-only and source-open without secrets, provider payloads, account/session material, browser/HUD live access, or release authority.",
         "validation_rule_count": 4
       },
       "observed_workingness": {
@@ -3076,13 +3502,15 @@
           "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 33,
+      "ordinal": 34,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_cold_reader_route_map.json",
         "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
@@ -3096,7 +3524,7 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "evidence_strength_claim": "fixture_echo_smoke",
         "evidence_truth_bucket": "regression_negative_fixture",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
@@ -3158,11 +3586,11 @@
         "validation_rule_count": 6
       },
       "observed_workingness": {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "classification_basis": "regression-negative synthetic monitor verdict rows are checked for body-free fixture refs, adversarial probes, escalation/mitigation refs, and explicit no-product-performance authority",
         "counts_as_real_substrate_progress": false,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
-        "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
+        "evaluator_basis": "fixture_supplied_verdicts_or_safety_flags_checked_for_shape; fixture-supplied score-like fields are not benchmark scores or product progress evidence",
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,
         "generated_receipts": [
@@ -3172,13 +3600,15 @@
           "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "regression_negative_fixture",
         "validator_command": "python -m microcosm_core.organs.agent_monitor_redteam_falsification_replay run --input fixtures/first_wave/agent_monitor_redteam_falsification_replay/input --out receipts/first_wave/agent_monitor_redteam_falsification_replay",
         "verdict_source": "fixture_supplied_fields"
       },
-      "ordinal": 34,
+      "ordinal": 35,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agent_monitor_redteam_falsification_replay.json",
         "receipts/acceptance/first_wave/agent_monitor_redteam_falsification_replay_fixture_acceptance.json",
@@ -3192,7 +3622,7 @@
     {
       "evaluation_comparison": {
         "accepted_status_is_not_evidence_strength": true,
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "evidence_strength_claim": "fixture_echo_smoke",
         "evidence_truth_bucket": "regression_negative_fixture",
         "gap_class": "kept_out_of_product_path_until_evidence_strengthens",
@@ -3255,11 +3685,11 @@
         "validation_rule_count": 4
       },
       "observed_workingness": {
-        "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+        "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
         "classification_basis": "regression-negative synthetic scheming episodes, per-step monitor scores, counterfactual/cold replay refs, and body-free fixture refs are checked with explicit no-product-performance authority",
         "counts_as_real_substrate_progress": false,
         "current_authority_receipt": "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
-        "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
+        "evaluator_basis": "fixture_supplied_verdicts_or_safety_flags_checked_for_shape; fixture-supplied score-like fields are not benchmark scores or product progress evidence",
         "evidence_class": "fixture_echo_smoke",
         "evidence_strength_rank": 1,
         "generated_receipts": [
@@ -3269,13 +3699,15 @@
           "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "regression_negative_fixture",
         "validator_command": "python -m microcosm_core.organs.agent_sabotage_scheming_monitor_replay run --input fixtures/first_wave/agent_sabotage_scheming_monitor_replay/input --out receipts/first_wave/agent_sabotage_scheming_monitor_replay --acceptance-out receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
         "verdict_source": "fixture_supplied_fields"
       },
-      "ordinal": 35,
+      "ordinal": 36,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
         "receipts/acceptance/first_wave/agent_sabotage_scheming_monitor_replay_fixture_acceptance.json",
@@ -3364,13 +3796,15 @@
           "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 36,
+      "ordinal": 37,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
         "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
@@ -3461,13 +3895,15 @@
           "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 37,
+      "ordinal": 38,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
         "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
@@ -3558,13 +3994,15 @@
           "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 38,
+      "ordinal": 39,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_mcp_tool_authority_replay.json",
         "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
@@ -3649,13 +4087,15 @@
           "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 39,
+      "ordinal": 40,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
         "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
@@ -3745,13 +4185,15 @@
           "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 40,
+      "ordinal": 41,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_belief_state_process_reward_replay.json",
         "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
@@ -3844,13 +4286,15 @@
           "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 41,
+      "ordinal": 42,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
         "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
@@ -3943,13 +4387,15 @@
           "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 42,
+      "ordinal": 43,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
         "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
@@ -4042,13 +4488,15 @@
           "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay run --input fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input --out receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay --acceptance-out receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 43,
+      "ordinal": 44,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
         "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
@@ -4069,23 +4517,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 8,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "strengthen_projection_evidence",
           "target_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle",
           "why": "algorithmic projections work as public mechanics, but future claims need independent validators, copied macro bodies with provenance, or bounded tool witnesses"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "simulator replay is treated as wetlab validation, material discovery, or safety certification",
+        "candidate material metadata is promoted into a synthesis recommendation, reagent recipe, or deployment instruction",
+        "wetlab protocol body, hazardous synthesis step, reagent quantity, robot command, live credential, private lab note, or live assay body appears in public output",
+        "controlled substance target, bioactivity target, benchmark score, release claim, or provider-call authority is admitted as public progress",
+        "simulator-only safety screen passes without explicit no-wetlab and no-discovery authority ceilings",
+        "negative case for unsafe lab action is accepted instead of rejected with a typed denial",
+        "source-faithful replay mutates source, launches an external lab/provider action, or hides omitted payload classes",
+        "receipt reports closed-loop progress without candidate refs, safety screen refs, simulator refs, active-learning refs, validation refs, negative-case coverage, and boundary counters"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "A wetlab protocol, hazardous synthesis guide, material discovery claim, benchmark score claim, robot command surface, live lab integration, provider execution route, release signal, or proof of materials-domain correctness.",
         "authority_boundary": "source_faithful_public_lab_evolve_replay_metadata_not_wetlab_or_discovery_authority",
         "authority_ceiling": {
           "benchmark_score_claim_authorized": false,
@@ -4106,10 +4558,8 @@
           "wetlab_protocol_authorized": false
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public-safe materials chemistry lab-safety replay organ that carries body-free candidate-material metadata, safety-screen refs, simulator-only assay rows, active-learning decision refs, negative-case denials, source-faithful replay receipts, and authority ceilings without wetlab, robot, credential, provider, private notebook, live assay, discovery, benchmark, or release authority.",
         "receipt_expectation_count": 2,
         "required_field_count": 14,
         "required_substrate": {
@@ -4117,7 +4567,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -4125,7 +4575,7 @@
         },
         "standard_ref": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
         "standard_status": "draft",
-        "teleology": null,
+        "teleology": "Let a cold reader run and inspect a closed-loop materials-lab safety replay as real local Microcosm substrate while seeing exactly where simulator metadata ends and wetlab, discovery, robot, provider, correctness, and release authority do not begin.",
         "validation_rule_count": 4
       },
       "observed_workingness": {
@@ -4143,13 +4593,15 @@
           "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
       },
-      "ordinal": 44,
+      "ordinal": 45,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
@@ -4170,23 +4622,27 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "tool_witness_present_but_not_general_authority",
-      "failure_mode_count": 0,
-      "future_work_target_count": 2,
+      "failure_mode_count": 8,
+      "future_work_target_count": 1,
       "future_work_targets": [
-        {
-          "target_id": "add_standard_failure_modes",
-          "target_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
-          "why": "future work needs typed failure modes before upgrade claims"
-        },
         {
           "target_id": "pin_and_rerun_tool_witness",
           "target_ref": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
           "why": "external witness rows must stay tied to tool versions and cold rerun receipts before any broader claim"
         }
       ],
-      "known_failure_modes": [],
+      "known_failure_modes": [
+        "Lean/Lake return code is treated as general proof correctness instead of bounded fixture witness",
+        "compiled declaration count is reported without source hash, import, and manifest coupling",
+        "proof body or raw tactic script is exported in a public packet or receipt",
+        "provider text, oracle ideal answer, or oracle-needed premise id is counted as forward success",
+        "CP2 residual request is emitted as an untyped provider instruction instead of a typed action candidate",
+        "Evolve mutation changes arbitrary source or omits rerun evidence",
+        "private source path, stdout/stderr body, credential, or account-bound payload leaks into public receipt",
+        "certificate fixture is promoted to benchmark solve-rate, release, or general theorem authority"
+      ],
       "needs_to_work": {
-        "anti_purpose": null,
+        "anti_purpose": "Treating the public certificate fixture, Lean/Lake return code, analyzer metadata, provider rows, oracle sidecars, or Evolve reruns as general theorem proof authority or benchmark solve-rate authority.",
         "authority_boundary": "public_bounded_certificate_kernel_execution_receipt_not_general_proof_authority",
         "authority_ceiling": {
           "formal_proof_authority": "bounded_public_certificate_kernel_fixture_rows_only",
@@ -4200,10 +4656,8 @@
           "status": "pass"
         },
         "generated_receipt_count": 4,
-        "missing_requirement_ids": [
-          "known_failure_modes_present"
-        ],
-        "ontology": null,
+        "missing_requirement_ids": [],
+        "ontology": "A public certificate-kernel execution lab that carries Lean/Lake tool-witness metadata, analyzer receipts, typed CP2 action translation, bounded Evolve policy reruns, negative cases, and authority ceilings without exporting proof, provider, oracle, private-source, stdout, stderr, credential, or account-bound payload bodies.",
         "receipt_expectation_count": 2,
         "required_field_count": 13,
         "required_substrate": {
@@ -4211,7 +4665,7 @@
           "current_authority_receipt_present": true,
           "evidence_class_declared": true,
           "generated_receipts_present": true,
-          "known_failure_modes_present": false,
+          "known_failure_modes_present": true,
           "owning_standard_present": true,
           "public_private_boundary_declared": true,
           "runtime_or_drilldown_mode_declared": true,
@@ -4219,7 +4673,7 @@
         },
         "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
         "standard_status": "draft",
-        "teleology": null,
+        "teleology": "Let a cold reader rerun proof-adjacent Microcosm substrate locally while seeing exactly where execution evidence stops and proof correctness, provider authority, and release authority do not begin.",
         "validation_rule_count": 8
       },
       "observed_workingness": {
@@ -4237,13 +4691,15 @@
           "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
         ],
         "negative_case_independence": "bounded_to_declared_toy_witness_scope",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
         "verdict_source": "subprocess_or_tool_witness"
       },
-      "ordinal": 45,
+      "ordinal": 46,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_certificate_kernel_execution_lab.json",
         "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
@@ -4322,13 +4778,15 @@
           "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
+        "source_open_body_imports": {},
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
         "verdict_source": "validator_computation"
       },
-      "ordinal": 46,
+      "ordinal": 47,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
+      "source_open_body_imports": {},
       "source_refs": [
         "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",

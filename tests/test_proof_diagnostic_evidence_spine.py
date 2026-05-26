@@ -213,6 +213,43 @@ def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
     assert all(row["body_copied"] is True for row in copied_by_id.values())
 
 
+def test_proof_diagnostic_fixture_manifest_exposes_ring2_body_floor() -> None:
+    fixture_manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/proof_diagnostic_evidence_spine.fixture_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    body_imports = fixture_manifest["source_open_body_imports"]
+    expected_ids = [
+        artifact["artifact_id"] for artifact in PUBLIC_RING2_ARTIFACT_IMPORTS
+    ]
+
+    assert fixture_manifest["body_copied_material_count"] == len(
+        PUBLIC_RING2_ARTIFACT_IMPORTS
+    )
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_count"] == len(PUBLIC_RING2_ARTIFACT_IMPORTS)
+    assert body_imports["body_material_ids"] == expected_ids
+    assert body_imports["source_manifest_refs"] == [
+        "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    ]
+    assert (
+        body_imports["aggregate_floor_ref"]
+        == "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json::copied_macro_body_artifacts"
+    )
+    assert body_imports["body_in_receipt"] is False
+    assert body_imports["authority_ceiling"] == {
+        "body_text_in_receipt": False,
+        "proof_body_or_oracle_proof_text_exported": False,
+        "provider_payload_exported": False,
+        "lean_lake_execution_authorized": False,
+        "formal_proof_authority": False,
+        "runtime_correctness_claim": False,
+        "release_authorized": False,
+    }
+
+
 def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_body_free(
     tmp_path: Path,
 ) -> None:
