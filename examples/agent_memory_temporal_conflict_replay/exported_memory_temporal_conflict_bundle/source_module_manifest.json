@@ -1,0 +1,137 @@
+{
+  "anti_claim": "These copied agent-memory macro bodies make the public organ accountable to real macro trace, doctrine, pattern, and standard substrate. They do not authorize private memory-body export, live user-memory claims, active injection as authority, provider calls, source mutation, release, or public product claims.",
+  "body_in_receipt": false,
+  "body_storage_policy": "source_faithful_non_secret_agent_memory_macro_bodies_copied_into_public_bundle_source_artifacts",
+  "manifest_id": "agent_memory_temporal_conflict_replay_macro_body_source_module_manifest",
+  "module_count": 5,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 5158,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_memory_macro_agent_execution_trace_tool_body_import",
+      "path": "source_artifacts/macro_source/system/lib/agent_execution_trace.py",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py",
+      "validation_refs": [
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 157,
+      "material_class": "public_macro_doctrine_body",
+      "module_id": "agent_memory_macro_memory_injection_tiers_body_import",
+      "path": "source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "codex/doctrine/paper_modules/memory_injection_tiers.md",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
+      "validation_refs": [
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 256,
+      "material_class": "public_macro_standard_body",
+      "module_id": "agent_memory_std_agent_execution_trace_public_slice_body_import",
+      "path": "source_artifacts/macro_standard/codex/standards/std_agent_execution_trace.public_memory_trace_slice.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "sha256": "sha256:f561233ef38614bfc46c11730abdaa6228daaa34190bf67e92656323c3cb24a6",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "codex/standards/std_agent_execution_trace.json::strict_boundary+trace_ontology_contract",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_standard/codex/standards/std_agent_execution_trace.public_memory_trace_slice.json",
+      "validation_refs": [
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 90,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "agent_memory_extracted_pattern_ledger_rows_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "sha256": "sha256:42530c87e1d44c0f1849f92a22c673a0e8ce9f4a0910a22cd2176f1722134a48",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_337",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json",
+      "validation_refs": [
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 61,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "agent_memory_high_novelty_growth_receipt_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "sha256": "sha256:bf4378c4c60cd33a6175033be479c3dbd2be2f85789b604d204b027403956e8f",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.json",
+      "validation_refs": [
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+        "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "omitted_material": [
+    {
+      "reason": "exact body includes user identity/contact carve-out material; public-safe doctrine import should be split by a governed future slice before counting it as copied body",
+      "replacement_criteria": "copy a source-faithful public doctrine slice that preserves the five plane invariants while omitting user/contact private material, with digest validation",
+      "source_ref": "codex/doctrine/paper_modules/claude_memory_plane_contract.md"
+    },
+    {
+      "reason": "tool owns private operator thread body projection and live ignored state; exact body needs a tighter public-safe refactor before public import",
+      "replacement_criteria": "extract non-secret projection-boundary helpers or a public-safe fixture-only refactor with no raw thread text handling",
+      "source_ref": "tools/meta/observability/operator_thread_memory.py"
+    }
+  ],
+  "organ_id": "agent_memory_temporal_conflict_replay",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private thread or memory bodies",
+    "no raw operator voice or user contact material",
+    "no active memory injection text as authority"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_private_thread_bodies_raw_operator_voice_and_credential_equivalent_material",
+  "source_run_id": "agent_memory_temporal_conflict_replay_macro_body_floor_import_20260526_seed1",
+  "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_memory_temporal_conflict_replay_compound"
+}

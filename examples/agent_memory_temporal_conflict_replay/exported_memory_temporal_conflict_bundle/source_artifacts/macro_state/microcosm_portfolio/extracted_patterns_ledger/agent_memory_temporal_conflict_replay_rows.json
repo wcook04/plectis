@@ -1,0 +1,90 @@
+{
+  "body_in_receipt": false,
+  "pattern_ids": [
+    "agent_memory_temporal_conflict_replay_compound"
+  ],
+  "row_count": 1,
+  "rows": [
+    {
+      "axioms_principles_likely_instantiated": [
+        "memory_is_routed_state_not_chat_history",
+        "temporal_conflict_edges_before_memory_update",
+        "private_thread_memory_projects_metadata_not_bodies",
+        "stale_memory_downgrades_before_answer_authority",
+        "memory_utility_requires_paired_replay_receipts"
+      ],
+      "candidate_fixture": "Synthetic three-episode agent memory fixture: episode A records a user preference and a tool-result fact, episode B invalidates the fact and changes the preference scope, episode C replays the task with memory enabled and disabled. The fixture records memory write route, ADD/UPDATE/DELETE/NOOP decision, conflict edge, stale-memory downgrade, private-thread metadata-only reference, prompt-adoption observation, answer delta, and cold replay receipt. Negative cases reject raw transcript export, private candidate auto-promotion, stale preference override, memory as source authority, vector recall without evidence handle, final-answer-only memory credit, and active injection as authoritative.",
+      "candidate_leaf_name": "agent_memory_temporal_conflict_replay",
+      "candidate_paper_module_slug": "agent_memory_temporal_conflict_replay",
+      "current_microcosm_status": "absent",
+      "depends_on_patterns": [
+        "claude_memory_plane_three_tier",
+        "memory_plane_shadow_doctrine_gate",
+        "memory_routing_decision_tree_six_step",
+        "memory_injection_tier_active_gap",
+        "operator_thread_memory_private_event_projection",
+        "operator_thread_lesson_candidate_advisory_gate",
+        "prompt_trace_adoption_state_machine",
+        "agent_trace_to_route_repair_observability_compound",
+        "status_preserving_control_plane"
+      ],
+      "direct_leaf_allowed": false,
+      "evidence_kind": [
+        "ledger",
+        "paper_module",
+        "code",
+        "test",
+        "standard",
+        "external_research_signal"
+      ],
+      "external_attention_refs": [
+        "https://arxiv.org/abs/2605.18421",
+        "https://arxiv.org/abs/2508.19828",
+        "https://arxiv.org/abs/2605.13941",
+        "https://arxiv.org/abs/2502.12110"
+      ],
+      "extracted_at": "2026-05-21T15:05:00Z",
+      "extracted_by": "codex_gpt5_memory_deep_research_growth_pass",
+      "failure_mode_prevented": "A public memory-agent demo credits generic recall while stale preferences override current instructions, private thread bodies leak into tracked fixtures, lesson candidates mutate doctrine automatically, active memory injection becomes authoritative, or memory benefit is asserted without paired replay evidence.",
+      "feeds_patterns": [
+        "agent_trace_to_route_repair_observability_compound",
+        "durable_agent_work_landing_replay_compound",
+        "operator_thread_lesson_candidate_advisory_gate",
+        "operator_response_attention_human_loop_compound",
+        "truth_maintenance_typed_authority_classes"
+      ],
+      "macro_subdomain": "subdomain_agent_memory_evaluation",
+      "microcosm_projection_decision": "folded_compound_candidate_with_synthetic_temporal_memory_conflict_replay_fixture",
+      "notes": "Added after external attention review of evolving agent-memory benchmarks and self-evolving memory architectures. This row is a folded synthetic fixture contract, not a private operator-thread export or a claim that the current public root implements active memory.",
+      "novelty_band": "high",
+      "one_line": "A public-safe memory-agent fixture evaluates whether an agent can route, update, downgrade, and replay memories across conflicting episodes without treating private memories, stale preferences, or vector recall as authority.",
+      "organ_family": "memory_substrate",
+      "pattern_id": "agent_memory_temporal_conflict_replay_compound",
+      "private_state_risk": "low",
+      "source_refs": [
+        "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+        "codex/doctrine/paper_modules/claude_memory_plane_contract.md",
+        "codex/doctrine/paper_modules/memory_injection_tiers.md",
+        "tools/meta/observability/operator_thread_memory.py::append_event",
+        "tools/meta/observability/operator_thread_memory.py::project_thread_records",
+        "tools/meta/observability/operator_thread_memory.py::check_privacy_boundary",
+        "tools/meta/observability/operator_thread_memory.py::build_lesson_candidate_packet",
+        "tools/meta/observability/operator_turn_stack_projection.py",
+        "system/lib/navigation_context_pack.py::_load_operator_thread_memory_module",
+        "system/server/tests/test_operator_thread_memory.py",
+        "system/lib/agent_execution_trace.py",
+        "codex/standards/std_agent_execution_trace.json"
+      ],
+      "target_existing_organs": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "bridge_phase_continuity_runtime"
+      ],
+      "title": "Agent memory temporal-conflict replay compound",
+      "why_load_bearing": "Persistent memory is becoming a frontier agent capability, but the impressive part is not recall volume. It is temporal conflict handling, scoped write routing, privacy-preserving projections, stale-memory demotion, and paired memory-on/memory-off behavioral evidence. This row turns the existing memory plane and operator-thread projections into a synthetic benchmark-shaped compound that can be shown publicly without exporting private thread bodies."
+    }
+  ],
+  "schema_version": "agent_memory_temporal_conflict_replay_pattern_rows_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_337"
+}

@@ -1,0 +1,61 @@
+{
+  "body_in_receipt": false,
+  "key": "actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+  "schema_version": "agent_memory_temporal_conflict_replay_growth_slice_v1",
+  "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+  "value": {
+    "anti_claim": "This row does not authorize private memory-body export, active memory injection as authority, automatic doctrine mutation from private threads, vector-recall performance claims, live user-memory claims, release, or public-root implementation.",
+    "assigned_lane": "public_microcosm_pattern_ledger_growth",
+    "authority_boundary": "macro-side ledger/projection refinement only; no raw private thread body, prompt body, provider payload, live user memory, or public-root implementation file was used as authority",
+    "external_attention_inputs": [
+      {
+        "signal": "Agent memory evaluation is moving toward self-evolving memory across in-episode/cross-episode and knowledge/execution axes, with current memory systems still not a general solution.",
+        "source": "EvoMemBench arXiv:2605.18421",
+        "url": "https://arxiv.org/abs/2605.18421"
+      },
+      {
+        "signal": "Agent memory is being framed as learned structured operations such as ADD, UPDATE, DELETE, and NOOP rather than passive retrieval only.",
+        "source": "Memory-R1 arXiv:2508.19828",
+        "url": "https://arxiv.org/abs/2508.19828"
+      },
+      {
+        "signal": "Self-evolving memory architectures now optimize retrieval configuration using failure logs, guarded meta-analysis, and revert-on-regression safeguards.",
+        "source": "EvolveMem arXiv:2605.13941",
+        "url": "https://arxiv.org/abs/2605.13941"
+      },
+      {
+        "signal": "Agentic memory systems are organizing memories as linked evolving knowledge networks rather than flat vector stores.",
+        "source": "A-MEM arXiv:2502.12110",
+        "url": "https://arxiv.org/abs/2502.12110"
+      }
+    ],
+    "forbidden_surfaces_mined": false,
+    "ledger_row_count_observed": 373,
+    "new_ledger_rows_added": true,
+    "new_pattern_ids": [
+      "agent_memory_temporal_conflict_replay_compound"
+    ],
+    "pass_id": "actual_substrate_agent_memory_temporal_conflict_replay_growth_20260521a",
+    "projection_contract": "Project this only as agent_memory_temporal_conflict_replay synthetic receipts folded under agent_route_observability_runtime, external_boundary_anti_corruption_runtime, and bridge_phase_continuity_runtime. It is not a live memory product, private transcript export, authoritative active-injection lane, or claim that memory improves agents generally.",
+    "public_roots_mutated": false,
+    "ran_at": "2026-05-21T15:05:00Z",
+    "schema_version": "actual_substrate_agent_memory_temporal_conflict_replay_growth_v1",
+    "source_component_pattern_ids": [
+      "claude_memory_plane_three_tier",
+      "memory_plane_shadow_doctrine_gate",
+      "memory_routing_decision_tree_six_step",
+      "memory_injection_tier_active_gap",
+      "operator_thread_memory_private_event_projection",
+      "operator_thread_lesson_candidate_advisory_gate",
+      "prompt_trace_adoption_state_machine",
+      "agent_trace_to_route_repair_observability_compound",
+      "status_preserving_control_plane"
+    ],
+    "status": "one_agent_memory_temporal_conflict_replay_compound_row_appended",
+    "target_existing_organs": [
+      "agent_route_observability_runtime",
+      "external_boundary_anti_corruption_runtime",
+      "bridge_phase_continuity_runtime"
+    ]
+  }
+}

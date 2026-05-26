@@ -1,0 +1,256 @@
+{
+  "body_in_receipt": false,
+  "compliance_scanner_contract": {
+    "builder": "tools/meta/factory/build_agent_execution_trace.py",
+    "coverage_inputs": [
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/doctrine/process/trace_rules.json",
+      "system/lib/agent_execution_trace.py",
+      "tools/meta/factory/build_agent_execution_trace.py",
+      "codex/hologram/process/ledger.json",
+      "codex/hologram/process/audit.json",
+      "codex/hologram/process/navigation_cache.json",
+      "codex/hologram/process/patterns.json",
+      "codex/hologram/process/summary.json"
+    ],
+    "finding_policy": {
+      "generated_projection_error": "error",
+      "generated_projection_warning": "warning",
+      "missing_required_atom": "error",
+      "missing_required_field": "error",
+      "privacy_boundary_violation": "error",
+      "schema_violation": "error"
+    },
+    "governed_artifact_kind": "agent_execution_trace",
+    "ledger_row": "codex/hologram/compliance/ledger.json::by_standard[std_agent_execution_trace]",
+    "runtime": "system/lib/agent_execution_trace.py",
+    "scanner": "system/lib/compliance/agent_execution_trace_adapter.py::scan_agent_execution_trace",
+    "validation_probe": "./repo-python tools/meta/factory/build_agent_execution_trace.py --check --limit 5 --summary"
+  },
+  "id": "std_agent_execution_trace",
+  "omitted_from_public_slice": [
+    "governance.source_of_truth.observable_action_substrate local home/session path globs",
+    "any live transcript/session payload bodies"
+  ],
+  "purpose": "Treat agent work as an auditable process. Project the observable external action trace of each Claude / Codex session into a span-and-trace substrate: timings, sequences, bottlenecks, anti-pattern detections, observed-vs-intended navigation-route compliance, and task-relative path fitness when explicit task-intent metadata exists. This is the observability pipeline for agent work itself \u2014 financial accounting for the AI session, not a harness, and explicitly NOT hidden chain-of-thought.",
+  "schema_version": "std_agent_execution_trace_public_memory_slice_v1",
+  "source_ref": "codex/standards/std_agent_execution_trace.json",
+  "strict_boundary": {
+    "never_parses": [
+      "message.content[].text prose as raw body, task-intent source, or reasoning reconstruction; bounded status-update classification may emit hashes/rule ids only",
+      "message.content[].thinking blocks (model-internal reasoning)",
+      "tool_result / function_call_output content bodies beyond truncation markers, error flags, and privacy-safe byte/line counts",
+      "prompt bodies",
+      "operator chat content"
+    ],
+    "parses": [
+      "observable records: timestamp, type, uuid, parentUuid",
+      "tool_use / tool_result blocks on Claude (matched by tool_use_id)",
+      "function_call / function_call_output records on Codex (matched by call_id)",
+      "Bash command strings (observable command substrate)",
+      "Read / Edit / Write / Grep / Glob inputs (observable target paths)",
+      "is_error flags on results (observable outcome)",
+      "tool-result / function-output byte and line counts, plus stdout/stderr byte counts when the provider exposes them as separate fields",
+      "retry / throttle / wait markers embedded in result content"
+    ],
+    "rationale": "The observability budget is externalized process only. Raw prose and reasoning are explicitly out of scope \u2014 this keeps the substrate a ledger of actions, not a capture of the agent's mind. A status-update classifier may detect bounded repair episode families from assistant-visible updates only when it emits counts, rule ids, timestamps, and text hashes without bodies. Task-intent binding is permitted only from explicit metadata surfaces such as WorkItems, Type B handoff packets, prompt_trace refs, source_refs, operator-provided task labels, or Task Ledger caps; never by mining prompt bodies, assistant prose bodies, or hidden reasoning."
+  },
+  "title": "Agent Execution Trace Standard",
+  "trace_ontology_contract": {
+    "authority_posture": {
+      "hidden_reasoning_excluded": true,
+      "operator_chat_mining_excluded": true,
+      "projection_not_authority": true,
+      "prompt_body_mining_excluded": true,
+      "source_bound_required": true,
+      "trace_is_not_generic_transcript": true
+    },
+    "concept_ref": "codex/doctrine/concepts/con_040_agent_trace_as_source_bound_interaction_record.json",
+    "definition": "An agent trace is a source-bound interaction record that preserves observable evidence, authority boundaries, extraction lineage, projection lineage, live/current status, omissions, and receipt-bearing transformations across Type A substrate agents and operator-mediated Type B cognition.",
+    "frontend_api_projection": {
+      "api_routes": [
+        "/api/agent-observability/status",
+        "/api/agent-observability/events",
+        "/api/agent-observability/mission-status",
+        "/api/agent-trace/mission-index",
+        "/api/agent-trace/session-projection",
+        "/ws/agent-observability"
+      ],
+      "consumer_contract": "Frontend trace consumers should render backend-owned primitives and carry trust/status/receipt fields through the view model. They must not create authority by parsing prose summaries."
+    },
+    "live_source": {
+      "definition": "A trace source that is still being appended, tailed, polled, sampled, or explicitly captured by the operator with freshness evidence.",
+      "refresh_contract": "A live-source claim must be recomputed or rechecked before it is reused as current state in a later task.",
+      "state_values": [
+        "live",
+        "recent_snapshot",
+        "stale_snapshot",
+        "archive",
+        "unknown"
+      ]
+    },
+    "paper_module_ref": "codex/doctrine/paper_modules/agent_trace_ontology.md",
+    "raw_current_active_trace": {
+      "definition": "The newest source-backed trace slice for the active interaction.",
+      "invalid_claims": [
+        "latest visible browser tab implies current trace",
+        "copied transcript implies complete trace",
+        "frontend-rendered text implies source authority",
+        "tab ordinal implies durable session id"
+      ],
+      "required_fields_or_equivalents": [
+        "source_ref",
+        "source_authority_class",
+        "source_observed_at_or_generated_at",
+        "currentness_basis",
+        "live_source_status",
+        "extraction_boundary",
+        "projection_boundary"
+      ]
+    },
+    "source_authority_ladder": [
+      {
+        "authority_class": "live_source",
+        "contract": "May support current-state claims only when the packet carries source ref, freshness/currentness posture, and read boundary.",
+        "examples": [
+          "active AgentTraceStore event stream",
+          "active Codex rollout JSONL being tailed",
+          "active Claude transcript JSONL being tailed",
+          "current system-bar clip or trace capture with timestamp and source hash"
+        ]
+      },
+      {
+        "authority_class": "source_artifact",
+        "contract": "Durable identity candidate. Use for trace joins and re-openable evidence.",
+        "examples": [
+          "rollout JSONL path",
+          "AgentEvent seq window",
+          "prompt_trace_id",
+          "source_text_hash",
+          "clip id",
+          "WorkItem id",
+          "Task Ledger CAP id",
+          "commit or receipt id"
+        ]
+      },
+      {
+        "authority_class": "generated_projection",
+        "contract": "A bounded view over source artifacts. It must carry source refs, generated_at/freshness metadata when available, and omission posture.",
+        "examples": [
+          "codex/hologram/process/*.json",
+          "state/agent_telemetry/process/<ts>/*.jsonl",
+          "mission_index.json",
+          "frontend trace view model",
+          "trace capsule text"
+        ]
+      },
+      {
+        "authority_class": "viewport_alias",
+        "contract": "Useful for navigation, not durable identity. Promote only when bound to provider/session/source/work/receipt ids.",
+        "examples": [
+          "browser tab number",
+          "browser title",
+          "system-bar label",
+          "visible DOM observation",
+          "operator shorthand"
+        ]
+      },
+      {
+        "authority_class": "advisory_reasoning_packet",
+        "contract": "Can guide Type A action but cannot prove private substrate state until Type A verifies against live/source artifacts.",
+        "examples": [
+          "ChatGPT Web response",
+          "Type B bridge response",
+          "cleaned restatement",
+          "voice-note clarity transform"
+        ]
+      }
+    ],
+    "system_bar_interaction": {
+      "contract": "System-bar copy/capture actions create operator-facing trace packets and prompt packets. They do not automatically ingest into the canonical event store unless a typed ingest path explicitly consumes them.",
+      "controls": [
+        "Latest Clip",
+        "Agent Trace",
+        "Prompts"
+      ],
+      "surface": "AIW System Bar"
+    },
+    "tab_session_naming": {
+      "contract": "Tab numbers can make active browser state navigable, but they must not be used as durable trace identity without a bound source artifact.",
+      "durable_identity_candidates": [
+        "provider_thread_id",
+        "provider_session_id",
+        "prompt_run_id",
+        "source_text_hash",
+        "clip_id",
+        "artifact_id",
+        "WorkItem id",
+        "Task Ledger CAP id",
+        "commit id",
+        "receipt id"
+      ],
+      "tab_number_role": "volatile_viewport_alias"
+    },
+    "trace_extraction": {
+      "definition": "The bounded act of selecting source facts into typed rows, spans, capsules, packets, or view-model primitives.",
+      "must_label": [
+        "source facts",
+        "inferred narrative",
+        "omitted raw bodies",
+        "privacy boundary",
+        "lossy compression",
+        "receipts or hashes"
+      ],
+      "must_not_extract": [
+        "hidden reasoning",
+        "prompt bodies unless explicitly allowed by a private source-bound packet",
+        "operator chat content as inferred task intent",
+        "DOM text as private-source truth"
+      ]
+    },
+    "trace_kinds": {
+      "type_a_trace": {
+        "authority_boundary": "May support substrate claims when source-backed and within the observable-action boundary.",
+        "definition": "Trace from a substrate-native actor with live repo/tool affordances.",
+        "examples": [
+          "Codex rollout",
+          "Claude Code transcript",
+          "Core Code-style tool session",
+          "AgentEvent stream",
+          "process-trace span tape"
+        ]
+      },
+      "type_b_trace": {
+        "authority_boundary": "Advisory until Type A verifies. It must not claim direct access to private files, command results, or generated state unless those were included as source artifacts.",
+        "definition": "Operator-mediated web/bridge reasoning trace produced from injected context plus prompt and response.",
+        "examples": [
+          "ChatGPT Web prompt plus trace capsule",
+          "prompt-shelf run",
+          "operator HUD copy response",
+          "clarity-transformed voice note"
+        ]
+      }
+    },
+    "trace_projection": {
+      "definition": "A bounded view emitted for human operator use, Type B context packets, APIs, frontend lenses, or cold-agent navigation.",
+      "examples": [
+        "agent_trace_capsule_text_v3",
+        "cli_prompt_trace_v0 json",
+        "process trace tape",
+        "mission-index row",
+        "AgentTraceViewModel",
+        "AgentLiveInstrumentViewModel"
+      ],
+      "required_posture": "Projection, not authority. Preserve source refs and omissions."
+    },
+    "type_a_type_b_flow": [
+      "raw operator cognition, raw trace, screenshot, or active clip",
+      "clarity transform or trace capsule extraction",
+      "Type B reasoning packet with prompt, context, omissions, and source refs",
+      "Type B advisory response",
+      "Type A execution packet with substrate-open targets and assumptions to falsify",
+      "Type A live substrate action, validation, and receipts",
+      "durable binding to WorkItem, CAP, paper module, standard, API/frontend contract, or generated projection"
+    ]
+  }
+}

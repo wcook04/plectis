@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 22,
+  "rows_with_source_body_imports": 23,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 304,
+  "source_open_body_material_count": 309,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 22,
-    "source_open_body_material_count": 304,
+    "rows_with_source_body_imports": 23,
+    "source_open_body_material_count": 309,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -5538,7 +5538,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe memory temporal-conflict replay: memory event trace spans, conflict edges, stale downgrade refs, metadata-only private refs, paired cold replay receipts, answer-delta refs, and falsification fixtures.",
         "receipt_expectation_count": 2,
-        "required_field_count": 14,
+        "required_field_count": 18,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -5553,7 +5553,7 @@
         "standard_ref": "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how agent-memory honesty claims are gated by public trace spans, temporal conflict edges, stale-memory downgrades, negative cases, and authority ceilings before any public claim is admitted.",
-        "validation_rule_count": 7
+        "validation_rule_count": 10
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -5570,7 +5570,43 @@
           "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "active_injection_authority_authorized": false,
+            "live_memory_product_claim_authorized": false,
+            "memory_as_source_authority_authorized": false,
+            "private_candidate_auto_promotion_authorized": false,
+            "private_transcript_export_authorized": false,
+            "provider_calls_authorized": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 5,
+          "body_material_ids": [
+            "agent_memory_macro_agent_execution_trace_tool_body_import",
+            "agent_memory_macro_memory_injection_tiers_body_import",
+            "agent_memory_std_agent_execution_trace_public_slice_body_import",
+            "agent_memory_extracted_pattern_ledger_rows_body_import",
+            "agent_memory_high_novelty_growth_receipt_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agent_memory_temporal_conflict_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_doctrine_body",
+            "public_macro_pattern_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied agent-memory macro bodies; receipts carry digests and status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run --input fixtures/first_wave/agent_memory_temporal_conflict_replay/input --out receipts/first_wave/agent_memory_temporal_conflict_replay",
         "verdict_source": "derived_projection_metric"
@@ -5578,7 +5614,43 @@
       "ordinal": 37,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "active_injection_authority_authorized": false,
+          "live_memory_product_claim_authorized": false,
+          "memory_as_source_authority_authorized": false,
+          "private_candidate_auto_promotion_authorized": false,
+          "private_transcript_export_authorized": false,
+          "provider_calls_authorized": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 5,
+        "body_material_ids": [
+          "agent_memory_macro_agent_execution_trace_tool_body_import",
+          "agent_memory_macro_memory_injection_tiers_body_import",
+          "agent_memory_std_agent_execution_trace_public_slice_body_import",
+          "agent_memory_extracted_pattern_ledger_rows_body_import",
+          "agent_memory_high_novelty_growth_receipt_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agent_memory_temporal_conflict_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_doctrine_body",
+          "public_macro_pattern_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied agent-memory macro bodies; receipts carry digests and status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agent_memory_temporal_conflict_replay.json",
         "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",

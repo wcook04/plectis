@@ -1,14 +1,20 @@
 {
   "anti_claim": "This fixture validates public memory temporal-conflict replay boundaries with public agent-execution trace spans; synthetic rows remain fixture inputs and negative cases. It does not claim live memory product quality, expose private transcripts, auto-promote private candidates, treat memory as source authority, adopt active injection, call providers, mutate source, or authorize release.",
   "authority_ceiling": "public agent-execution trace refactor with memory temporal-conflict fixture regression inputs; no live memory product, private transcript, private auto-promotion, memory source-authority, active injection, provider, source-mutation, or release authority",
-  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_copied_material_count": 5,
+  "body_import_status": "real_macro_body_floor_landed",
   "body_import_verification": {
-    "source_ref": "system/lib/agent_execution_trace.py",
-    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
-    "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
-    "verification_mode": "extension_of_existing_public_refactor"
+    "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_memory_temporal_conflict_replay_compound plus copied trace tool/doctrine/standard/scout bodies",
+    "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+    "validation_refs": [
+      "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+      "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+    ],
+    "verification_mode": "digest_verified_copied_non_secret_macro_body",
+    "verification_status": "verified_by_agent_memory_temporal_conflict_replay_validator"
   },
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
   "expected_negative_cases": [
     "raw_transcript_export",
     "private_candidate_auto_promotion",
@@ -71,8 +77,54 @@
       "role": "negative case: active_injection_as_authoritative"
     }
   ],
+  "omitted_secret_or_live_access_material": [
+    "account/session/cookie material",
+    "active injection text as authority",
+    "browser/HUD live-access state",
+    "operator thread bodies",
+    "private memory candidate bodies",
+    "private transcript bodies",
+    "provider payloads",
+    "user contact carve-out material from claude_memory_plane_contract.md"
+  ],
   "organ_id": "agent_memory_temporal_conflict_replay",
   "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "active_injection_authority_authorized": false,
+      "live_memory_product_claim_authorized": false,
+      "memory_as_source_authority_authorized": false,
+      "private_candidate_auto_promotion_authorized": false,
+      "private_transcript_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "agent_memory_macro_agent_execution_trace_tool_body_import",
+      "agent_memory_macro_memory_injection_tiers_body_import",
+      "agent_memory_std_agent_execution_trace_public_slice_body_import",
+      "agent_memory_extracted_pattern_ledger_rows_body_import",
+      "agent_memory_high_novelty_growth_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+    "material_classes": [
+      "public_macro_doctrine_body",
+      "public_macro_pattern_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied agent-memory macro bodies; receipts carry digests and status only.",
+    "schema_version": "agent_memory_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "stable_error_codes": [
     "MEMORY_CONFLICT_RAW_TRANSCRIPT_FORBIDDEN",
     "MEMORY_CONFLICT_PRIVATE_CANDIDATE_AUTO_PROMOTION",

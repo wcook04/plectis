@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -31,6 +32,9 @@ ACCEPTANCE_RECEIPT_REL = (
     "agent_memory_temporal_conflict_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_memory_temporal_conflict_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = "copied_non_secret_macro_agent_memory_body_with_provenance"
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -97,6 +101,16 @@ FORBIDDEN_KEYS = (
     "credential_value",
     "secret_value",
 )
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_doctrine_body",
+    "public_macro_pattern_body",
+    "public_macro_standard_body",
+    "public_macro_tool_body",
+}
+SOURCE_MODULE_RELATIONS = {
+    "exact_copy",
+    "source_faithful_json_slice",
+}
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -161,10 +175,267 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return paths
 
 
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        return public_root / target_ref, target_ref
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, _display(target, public_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    paths = [manifest_path]
+    for row in _rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
+
+
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
+    }
+
+
+def validate_source_module_imports(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_SOURCE_MODULE_MANIFEST_MISSING",
+                "Agent memory body floor requires a source_module_manifest.json for copied macro source bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    module_rows = _rows(manifest, "modules")
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied agent-memory macro bodies may live in source_artifacts, not in receipts.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(module_rows):
+        findings.append(
+            _finding(
+                "MEMORY_CONFLICT_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in module_rows:
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        material_class = str(row.get("material_class") or "")
+        expected_digest = str(row.get("sha256") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Agent memory body imports may include only public macro doctrine, pattern, standard, and tool bodies.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy or source_faithful_json_slice.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual_digest = _sha256(target_path)
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "MEMORY_CONFLICT_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": str(row.get("source_ref") or ""),
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _empty_source_module_imports() -> dict[str, Any]:
+    return {
+        "status": PASS,
+        "source_module_manifest_ref": "",
+        "module_count": 0,
+        "modules": [],
+        "findings": [],
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _rows(source_imports, "modules")
+    module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
+    return {
+        "schema_version": "agent_memory_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {str(row.get("material_class")) for row in modules if row.get("material_class")}
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref")
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref")
+            else ""
+        ),
+        "body_in_receipt": False,
+        "authority_ceiling": {
+            "live_memory_product_claim_authorized": False,
+            "private_transcript_export_authorized": False,
+            "private_candidate_auto_promotion_authorized": False,
+            "memory_as_source_authority_authorized": False,
+            "active_injection_authority_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json and source_artifacts/ for copied "
+            "agent-memory macro bodies; receipts carry digests and status only."
+        )
+        if modules
+        else "",
     }
 
 
@@ -246,6 +517,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     body_import_status = str(protocol.get("body_import_status") or "")
     body_import_verification = protocol.get("body_import_verification", {})
+    verification_mode = (
+        str(body_import_verification.get("verification_mode") or "")
+        if isinstance(body_import_verification, dict)
+        else ""
+    )
     copied = _strings(protocol.get("copied"))
     reimplemented = _strings(protocol.get("reimplemented"))
     cleaned = _strings(protocol.get("cleaned"))
@@ -256,10 +532,17 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         or "agent_memory_temporal_conflict_replay_compound"
         not in source_pattern_ids
         or len(projection_receipts) < 2
-        or body_import_status != "extension_of_existing_public_refactor_landed"
+        or body_import_status
+        not in {
+            "extension_of_existing_public_refactor_landed",
+            "real_macro_body_floor_landed",
+        }
         or not isinstance(body_import_verification, dict)
-        or body_import_verification.get("verification_mode")
-        != "extension_of_existing_public_refactor"
+        or verification_mode
+        not in {
+            "extension_of_existing_public_refactor",
+            "digest_verified_copied_non_secret_macro_body",
+        }
         or len(target_refs) < 2
         or len(target_symbols) < 2
         or len(public_runtime_refs) < 2
@@ -661,8 +944,16 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    source_artifact_paths = (
+        _source_artifact_paths(input_dir, public_root=public_root)
+        if input_mode == "exported_memory_temporal_conflict_bundle"
+        else []
+    )
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        [
+            *_input_paths(input_dir, include_negative=include_negative),
+            *source_artifact_paths,
+        ],
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -684,10 +975,16 @@ def _build_result(
         payloads["replay_observations"],
         negative_payloads,
     )
-    observed = _merge_observed(projection, memory_policy, episodes, replays)
+    source_imports = (
+        validate_source_module_imports(input_dir, public_root=public_root)
+        if input_mode == "exported_memory_temporal_conflict_bundle"
+        else _empty_source_module_imports()
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_imports)
+    observed = _merge_observed(projection, memory_policy, episodes, replays, source_imports)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, memory_policy, episodes, replays)
+    findings = _merge_findings(projection, memory_policy, episodes, replays, source_imports)
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -699,6 +996,7 @@ def _build_result(
         and memory_policy["status"] == PASS
         and episodes["status"] == PASS
         and replays["status"] == PASS
+        and source_imports["status"] == PASS
         else "blocked"
     )
     return {
@@ -723,6 +1021,9 @@ def _build_result(
         "protocol_id": projection["protocol_id"],
         "source_refs": projection["source_refs"],
         "source_pattern_ids": projection["source_pattern_ids"],
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports["body_material_count"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "target_refs": projection["target_refs"],
         "target_symbols": projection["target_symbols"],
@@ -744,6 +1045,9 @@ def _build_result(
         "answer_delta_claim_effect": replays["answer_delta_claim_effect"],
         "memory_rows": episodes["memory_rows"],
         "replay_rows": replays["replay_rows"],
+        "body_in_receipt": False,
+        "real_runtime_receipt": status == PASS,
+        "synthetic_receipt_standin_allowed": False,
     }
 
 
@@ -778,6 +1082,9 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "decision_counts": result["decision_counts"],
         "memory_rows": result["memory_rows"],
         "replay_rows": result["replay_rows"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_material_status": result["body_material_status"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_import_status": result["body_import_status"],
         "body_import_verification": result["body_import_verification"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
@@ -838,6 +1145,9 @@ def _write_receipts(
         "answer_delta_ref": result["answer_delta_ref"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_material_status": result["body_material_status"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -855,6 +1165,9 @@ def _write_receipts(
         "error_codes": result["error_codes"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_material_status": result["body_material_status"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_import_verification": result["body_import_verification"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

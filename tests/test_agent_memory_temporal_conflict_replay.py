@@ -127,7 +127,25 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_memory_temporal_conflict_bundle"
     assert result["bundle_id"] == "agent_memory_temporal_conflict_replay_trace_refactor"
-    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_status"] == "real_macro_body_floor_landed"
+    assert result["body_material_status"] == (
+        "copied_non_secret_macro_agent_memory_body_with_provenance"
+    )
+    assert result["body_copied_material_count"] == 5
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 5
+    assert source_imports["body_in_receipt"] is False
+    assert source_imports["source_manifest_refs"] == [
+        "examples/agent_memory_temporal_conflict_replay/"
+        "exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+    ]
+    assert set(source_imports["material_classes"]) == {
+        "public_macro_doctrine_body",
+        "public_macro_pattern_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
+    }
     assert result["public_agent_execution_trace"]["status"] == "pass"
     assert result["public_agent_execution_trace"]["span_count"] == 7
     assert result["public_agent_execution_trace"]["audit"]["coverage"][
@@ -137,6 +155,7 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
         "cold_replay_receipt_coverage"
     ] is True
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["secret_exclusion_scan"]["scanned_path_count"] >= 11
     assert "public_replacement_refs" not in result
     assert "private_state_scan" not in result
     assert result["expected_negative_cases"] == []
@@ -147,6 +166,60 @@ def test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape(
     assert result["conflict_edge_count"] == 2
     assert result["stale_downgrade_count"] == 2
     assert result["authority_ceiling"]["live_memory_product_claim_authorized"] is False
+
+
+def test_agent_memory_source_modules_are_digest_verified() -> None:
+    manifest_path = BUNDLE_INPUT / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 5
+    assert [row["module_id"] for row in manifest["modules"]]
+    for row in manifest["modules"]:
+        target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
+        target_path = MICROCOSM_ROOT / target_ref
+        assert target_path.is_file()
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["sha256"].startswith("sha256:")
+        assert row["source_to_target_relation"] in {
+            "exact_copy",
+            "source_faithful_json_slice",
+        }
+
+
+def test_agent_memory_source_module_digest_mismatch_blocks_bundle(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/agent_memory_temporal_conflict_replay/"
+        "exported_memory_temporal_conflict_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    source_artifact = (
+        bundle
+        / "source_artifacts/macro_state/microcosm_portfolio/"
+        "extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json"
+    )
+    source_artifact.write_text(
+        source_artifact.read_text(encoding="utf-8") + "\n",
+        encoding="utf-8",
+    )
+
+    result = run_memory_bundle(
+        bundle,
+        tmp_path / "receipts/runtime_shell/demo_project/organs/agent_memory",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "MEMORY_CONFLICT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["source_open_body_imports"]["status"] == "blocked"
+    assert result["body_copied_material_count"] == 5
 
 
 def test_public_agent_execution_trace_refactor_builds_memory_conflict_spans() -> None:

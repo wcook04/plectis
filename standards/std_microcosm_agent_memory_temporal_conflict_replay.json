@@ -78,7 +78,10 @@
       "body_import_verification",
       "authority_ceiling",
       "anti_claim",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_open_body_imports",
+      "body_material_status",
+      "body_copied_material_count"
     ],
     "receipt_id": "receipt.microcosm.agent_memory_temporal_conflict_replay",
     "required": true
@@ -115,12 +118,118 @@
     "replay_observations",
     "public_agent_execution_trace",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "source_open_body_imports",
+    "source_module_manifest",
+    "body_material_status",
+    "body_copied_material_count"
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
+    "body_floor": {
+      "allowed_relations": [
+        "exact_copy",
+        "source_faithful_json_slice"
+      ],
+      "body_in_receipt": false,
+      "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+      "manifest_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+      "material_classes": [
+        "public_macro_doctrine_body",
+        "public_macro_pattern_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body"
+      ],
+      "minimum_body_material_count": 5,
+      "omitted_material": [
+        {
+          "reason": "exact body includes user identity/contact carve-out material; public-safe doctrine import should be split by a governed future slice before counting it as copied body",
+          "replacement_criteria": "copy a source-faithful public doctrine slice that preserves the five plane invariants while omitting user/contact private material, with digest validation",
+          "source_ref": "codex/doctrine/paper_modules/claude_memory_plane_contract.md"
+        },
+        {
+          "reason": "tool owns private operator thread body projection and live ignored state; exact body needs a tighter public-safe refactor before public import",
+          "replacement_criteria": "extract non-secret projection-boundary helpers or a public-safe fixture-only refactor with no raw thread text handling",
+          "source_ref": "tools/meta/observability/operator_thread_memory.py"
+        }
+      ],
+      "required": true,
+      "required_row_fields": [
+        "module_id",
+        "source_ref",
+        "target_ref",
+        "material_class",
+        "source_to_target_relation",
+        "sha256",
+        "body_copied",
+        "body_in_receipt"
+      ],
+      "schema_version": "agent_memory_source_open_body_imports_contract_v1",
+      "secret_exclusion_boundary": [
+        "no keys or credentials",
+        "no account/session/cookie material",
+        "no provider payload bodies",
+        "no browser/HUD live-access state",
+        "no recipient-send state",
+        "no private thread or memory bodies",
+        "no raw operator voice or user contact material",
+        "no active memory injection text as authority"
+      ],
+      "source_import_class": "copied_non_secret_macro_body"
+    },
     "required": true,
-    "rule": "macro source refs stay path-level metadata, public trace target refs stay public-root relative, and private memory bodies remain excluded"
+    "rule": "source_open body imports require copied source_artifacts with manifest digests; macro source refs alone are not body evidence, and private memory/thread bodies remain excluded"
+  },
+  "source_open_body_imports_contract": {
+    "allowed_relations": [
+      "exact_copy",
+      "source_faithful_json_slice"
+    ],
+    "body_in_receipt": false,
+    "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+    "manifest_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+    "material_classes": [
+      "public_macro_doctrine_body",
+      "public_macro_pattern_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "minimum_body_material_count": 5,
+    "omitted_material": [
+      {
+        "reason": "exact body includes user identity/contact carve-out material; public-safe doctrine import should be split by a governed future slice before counting it as copied body",
+        "replacement_criteria": "copy a source-faithful public doctrine slice that preserves the five plane invariants while omitting user/contact private material, with digest validation",
+        "source_ref": "codex/doctrine/paper_modules/claude_memory_plane_contract.md"
+      },
+      {
+        "reason": "tool owns private operator thread body projection and live ignored state; exact body needs a tighter public-safe refactor before public import",
+        "replacement_criteria": "extract non-secret projection-boundary helpers or a public-safe fixture-only refactor with no raw thread text handling",
+        "source_ref": "tools/meta/observability/operator_thread_memory.py"
+      }
+    ],
+    "required": true,
+    "required_row_fields": [
+      "module_id",
+      "source_ref",
+      "target_ref",
+      "material_class",
+      "source_to_target_relation",
+      "sha256",
+      "body_copied",
+      "body_in_receipt"
+    ],
+    "schema_version": "agent_memory_source_open_body_imports_contract_v1",
+    "secret_exclusion_boundary": [
+      "no keys or credentials",
+      "no account/session/cookie material",
+      "no provider payload bodies",
+      "no browser/HUD live-access state",
+      "no recipient-send state",
+      "no private thread or memory bodies",
+      "no raw operator voice or user contact material",
+      "no active memory injection text as authority"
+    ],
+    "source_import_class": "copied_non_secret_macro_body"
   },
   "source_refs": [
     {
@@ -132,6 +241,21 @@
       "field": "runtime_example",
       "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+      "role": "source_open_body_manifest"
+    },
+    {
+      "field": "macro_agent_execution_trace_tool",
+      "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py",
+      "role": "copied_macro_tool_body"
+    },
+    {
+      "field": "macro_memory_injection_tiers",
+      "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
+      "role": "copied_macro_doctrine_body"
     }
   ],
   "standard_id": "std_microcosm_agent_memory_temporal_conflict_replay",
@@ -167,7 +291,10 @@
     "require metadata-only private thread refs and body_exported false",
     "require paired memory-enabled and memory-disabled cold replay receipts with answer-delta ref",
     "reject raw transcript exports, private auto-promotion, stale overrides, source-authority overclaims, vector-only recall, final-answer-only credit, and active-injection authority",
-    "emit body-free receipts, public agent-execution trace, and secret-exclusion scan"
+    "emit body-free receipts, public agent-execution trace, and secret-exclusion scan",
+    "require source_module_manifest rows for exported bundle source-open body imports",
+    "verify copied macro body digests and body_in_receipt=false before exported bundle can pass",
+    "count copied body material from source_open_body_imports rather than source refs alone"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -178,7 +305,10 @@
       "stale_downgrade_refs",
       "paired_replay_receipts",
       "safety_boundary_rejections",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_presence",
+      "source_module_digest_verification",
+      "source_open_body_import_count"
     ],
     "required": true,
     "validator_id": "validator.microcosm.organs.agent_memory_temporal_conflict_replay"

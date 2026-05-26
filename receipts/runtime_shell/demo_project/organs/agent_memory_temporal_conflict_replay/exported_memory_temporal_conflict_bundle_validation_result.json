@@ -21,17 +21,24 @@
     "status": "pass",
     "vector_recall_without_evidence_authorized": false
   },
-  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_copied_material_count": 5,
+  "body_import_status": "real_macro_body_floor_landed",
   "body_import_verification": {
-    "source_ref": "system/lib/agent_execution_trace.py",
-    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
-    "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
-    "verification_mode": "extension_of_existing_public_refactor"
+    "source_ref": "system/lib/agent_execution_trace.py plus copied memory doctrine, pattern, scout, and trace-standard bodies",
+    "target_ref": "microcosm-substrate/examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+    "validation_refs": [
+      "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_source_modules_are_digest_verified",
+      "tests/test_agent_memory_temporal_conflict_replay.py::test_agent_memory_temporal_conflict_exported_bundle_validates_runtime_shape"
+    ],
+    "verification_mode": "digest_verified_copied_non_secret_macro_body",
+    "verification_status": "verified_by_agent_memory_temporal_conflict_replay_validator"
   },
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "created_at": "2026-05-26T21:30:24+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
@@ -443,6 +450,7 @@
     "python -m microcosm_core.macro_tools.agent_execution_trace memory-conflict",
     "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle"
   ],
+  "real_runtime_receipt": true,
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json"
   ],
@@ -501,9 +509,45 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 5,
+    "scanned_path_count": 11,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "active_injection_authority_authorized": false,
+      "live_memory_product_claim_authorized": false,
+      "memory_as_source_authority_authorized": false,
+      "private_candidate_auto_promotion_authorized": false,
+      "private_transcript_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "agent_memory_macro_agent_execution_trace_tool_body_import",
+      "agent_memory_macro_memory_injection_tiers_body_import",
+      "agent_memory_std_agent_execution_trace_public_slice_body_import",
+      "agent_memory_extracted_pattern_ledger_rows_body_import",
+      "agent_memory_high_novelty_growth_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
+    "material_classes": [
+      "public_macro_doctrine_body",
+      "public_macro_pattern_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied agent-memory macro bodies; receipts carry digests and status only.",
+    "schema_version": "agent_memory_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "agent_memory_temporal_conflict_replay_compound",
@@ -519,6 +563,7 @@
   ],
   "stale_downgrade_count": 2,
   "status": "pass",
+  "synthetic_receipt_standin_allowed": false,
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_memory_temporal_conflict_replay.py",
