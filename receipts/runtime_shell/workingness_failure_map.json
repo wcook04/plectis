@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 28,
+  "rows_with_source_body_imports": 29,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 336,
+  "source_open_body_material_count": 342,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 28,
-    "source_open_body_material_count": 336,
+    "rows_with_source_body_imports": 29,
+    "source_open_body_material_count": 342,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -3614,20 +3614,20 @@
       ],
       "needs_to_work": {
         "anti_purpose": "Treating dirty-tree work, metadata blockers, or validation-only patches as landed commits or release-ready state.",
-        "authority_boundary": "synthetic_work_landing_replay_not_live_commit_authority",
+        "authority_boundary": "source_open_work_landing_replay_not_live_commit_authority",
         "authority_ceiling": {
           "broad_checkpoint_authority": false,
           "live_git_mutation_authority": false,
           "release_authority": false,
           "source_mutation_authority": false,
-          "standard_authority": "synthetic_work_landing_replay_schema_only",
+          "standard_authority": "source_open_work_landing_replay_schema_and_digest_checked_body_import_contract_only",
           "status": "pass"
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
         "ontology": "A public-safe work landing replay: lane policy, path claims, validation refs, scoped commit attempt refs, blocker capture refs, Work Ledger closeout refs, and negative cases.",
         "receipt_expectation_count": 2,
-        "required_field_count": 9,
+        "required_field_count": 13,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -3642,7 +3642,7 @@
         "standard_ref": "standards/std_microcosm_durable_agent_work_landing_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how durable agent work lands through claims, validation, scoped commit attempts, blockers, and ledger finalizers before any landed-language claim.",
-        "validation_rule_count": 6
+        "validation_rule_count": 8
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -3659,7 +3659,41 @@
           "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "broad_checkpoint_authorized": false,
+            "credential_or_account_bound_payload_exported": false,
+            "live_git_mutation_authorized": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "workitem_runtime_entrypoint_source_body_import",
+            "work_landing_status_source_body_import",
+            "work_landing_cli_source_body_import",
+            "mission_transaction_preflight_source_body_import",
+            "scoped_commit_private_index_source_body_import",
+            "work_ledger_runtime_claims_source_body_import"
+          ],
+          "body_material_status": "copied_non_secret_durable_agent_work_landing_control_plane_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_ledger_body",
+            "public_macro_tool_body",
+            "public_macro_transaction_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported work-landing bundle for copied macro control-plane source bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay",
         "verdict_source": "validator_computation"
@@ -3667,7 +3701,41 @@
       "ordinal": 22,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "broad_checkpoint_authorized": false,
+          "credential_or_account_bound_payload_exported": false,
+          "live_git_mutation_authorized": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "workitem_runtime_entrypoint_source_body_import",
+          "work_landing_status_source_body_import",
+          "work_landing_cli_source_body_import",
+          "mission_transaction_preflight_source_body_import",
+          "scoped_commit_private_index_source_body_import",
+          "work_ledger_runtime_claims_source_body_import"
+        ],
+        "body_material_status": "copied_non_secret_durable_agent_work_landing_control_plane_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/durable_agent_work_landing_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_ledger_body",
+          "public_macro_tool_body",
+          "public_macro_transaction_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported work-landing bundle for copied macro control-plane source bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_durable_agent_work_landing_replay.json",
         "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",

@@ -30,9 +30,27 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_work_landing_replay_bundle_validation_result.json"
 CARD_SCHEMA_VERSION = "durable_agent_work_landing_replay_command_card_v1"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = (
+    "copied_non_secret_durable_agent_work_landing_control_plane_bodies_"
+    "with_digest_provenance"
+)
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_tool_body",
+    "public_macro_ledger_body",
+    "public_macro_transaction_body",
+}
+SOURCE_MODULE_RELATIONS = {"exact_copy"}
+SOURCE_REF_PREFIXES = (
+    "system/lib/",
+    "tools/meta/control/",
+    "tools/meta/factory/",
+)
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "findings",
     "secret_exclusion_scan",
+    "source_module_imports",
     "source_refs",
     "projection_receipt_refs",
     "public_runtime_refs",
@@ -149,6 +167,305 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_manifest_path(input_dir: str | Path) -> Path:
+    return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        target = public_root / target_ref
+        if target.exists() or not row_path:
+            return target, target_ref
+        relocated = manifest_path.parent / row_path
+        return relocated, _display(relocated, public_root=public_root)
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, _display(target, public_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except (OSError, ValueError, TypeError):
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
+
+
+def validate_source_module_imports(
+    input_dir: str | Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "WORK_LANDING_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported work-landing bundles require source_module_manifest.json for copied macro landing/control-plane bodies.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    if not isinstance(manifest, dict):
+        manifest = {}
+    module_rows = _rows(manifest, "modules")
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "WORK_LANDING_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "WORK_LANDING_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied work-landing source bodies may live in the exported bundle, not in receipts.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(module_rows):
+        findings.append(
+            _finding(
+                "WORK_LANDING_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in module_rows:
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        source_ref = str(row.get("source_ref") or "")
+        material_class = str(row.get("material_class") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        expected_digest = str(row.get("sha256") or "")
+        actual_digest = ""
+        subject = module_id or target_ref or "source_module"
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_manifest",
+                    subject_id=subject,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Work-landing body imports may include only public macro tool, ledger, or transaction bodies.",
+                    case_id="source_module_manifest",
+                    subject_id=subject,
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest",
+                    subject_id=subject,
+                    subject_kind="source_module",
+                )
+            )
+        if relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy.",
+                    case_id="source_module_manifest",
+                    subject_id=subject,
+                    subject_kind="source_module",
+                )
+            )
+        if not source_ref.startswith(SOURCE_REF_PREFIXES):
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_REF_UNEXPECTED",
+                    "Source module rows must point at macro work-landing/control-plane source files.",
+                    case_id="source_module_manifest",
+                    subject_id=subject,
+                    subject_kind="source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the exported work-landing bundle.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or subject,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual_digest = f"sha256:{_sha256(target_path)}"
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or subject,
+                    subject_kind="source_module",
+                )
+            )
+        target_text = target_path.read_text(encoding="utf-8")
+        missing_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if isinstance(anchor, str) and anchor not in target_text
+        ]
+        if missing_anchors:
+            findings.append(
+                _finding(
+                    "WORK_LANDING_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Source module target is missing one or more required anchors.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or subject,
+                    subject_kind="source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    return {
+        "status": "not_applicable",
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "module_count": 0,
+        "modules": [],
+        "findings": [],
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _rows(source_imports, "modules")
+    module_ids = [
+        str(row.get("module_id")) for row in modules if row.get("module_id")
+    ]
+    return {
+        "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {
+                str(row.get("material_class"))
+                for row in modules
+                if row.get("material_class")
+            }
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref") and modules
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref") and modules
+            else ""
+        ),
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_payload_exported": False,
+            "live_git_mutation_authorized": False,
+            "broad_checkpoint_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported work-landing bundle for copied macro control-plane source "
+            "bodies; receipts carry refs, digests, counts, and verdicts only."
+        )
+        if modules
+        else "",
+    }
+
+
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     source = Path(input_dir)
     if not source.is_absolute():
@@ -156,7 +473,11 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     public_root = _public_root_for_path(source)
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
-    for path in _input_paths(source, include_negative=include_negative):
+    paths = [
+        *_input_paths(source, include_negative=include_negative),
+        *_source_artifact_paths(source, public_root=public_root),
+    ]
+    for path in paths:
         display = _display(path, public_root=public_root)
         if path.is_file():
             rows.append(
@@ -585,8 +906,20 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    input_paths = [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_artifact_paths(input_dir, public_root=public_root),
+    ]
+    source_module_imports = (
+        validate_source_module_imports(input_dir, public_root=public_root)
+        if input_mode == "exported_work_landing_replay_bundle"
+        else _empty_source_module_imports(input_dir, public_root=public_root)
+    )
+    source_open_body_imports = _source_open_body_import_summary(
+        source_module_imports
+    )
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        input_paths,
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -602,16 +935,30 @@ def _build_result(
         payloads["work_landing_runs"],
         negative_payloads,
     )
-    observed = _merge_observed(projection, landing_policy, landing_runs)
+    observed = _merge_observed(
+        projection,
+        landing_policy,
+        landing_runs,
+        source_module_imports,
+    )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, landing_policy, landing_runs)
+    findings = _merge_findings(
+        projection,
+        landing_policy,
+        landing_runs,
+        source_module_imports,
+    )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
         PASS
         if not missing
         and secret_scan["blocking_hit_count"] == 0
+        and (
+            input_mode != "exported_work_landing_replay_bundle"
+            or source_module_imports["status"] == PASS
+        )
         and projection["status"] == PASS
         and landing_policy["status"] == PASS
         and landing_runs["status"] == PASS
@@ -640,6 +987,14 @@ def _build_result(
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_runtime_refs": projection["public_runtime_refs"],
+        "source_module_imports": source_module_imports,
+        "source_module_manifest_ref": source_module_imports[
+            "source_module_manifest_ref"
+        ],
+        "source_open_body_imports": source_open_body_imports,
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "policy_id": landing_policy["policy_id"],
         "lane_ids": landing_policy["lane_ids"],
         "lane_decision_table": landing_policy["lane_decision_table"],
@@ -683,6 +1038,8 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
             },
         ],
         "lane_ids": result["lane_ids"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
         "real_runtime_receipt": result["status"] == PASS,
         "synthetic_receipt_standin_allowed": False,
@@ -738,6 +1095,10 @@ def _write_receipts(
         "landed_commit_count": result["landed_commit_count"],
         "validation_order_required_count": result["validation_order_required_count"],
         "validation_order_pass_count": result["validation_order_pass_count"],
+        "source_module_imports": result["source_module_imports"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -753,6 +1114,10 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
+        "source_module_imports": result["source_module_imports"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -828,6 +1193,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     secret_scan = result.get("secret_exclusion_scan")
     scan = secret_scan if isinstance(secret_scan, dict) else {}
+    source_imports = result.get("source_module_imports")
+    source_module = source_imports if isinstance(source_imports, dict) else {}
+    source_open_imports = result.get("source_open_body_imports")
+    source_open = source_open_imports if isinstance(source_open_imports, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -850,12 +1219,26 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "validation_order_pass_count": result.get("validation_order_pass_count"),
             "lane_ids": result.get("lane_ids", []),
         },
+        "source_open_body_imports": {
+            "status": source_open.get("status"),
+            "body_material_count": source_open.get("body_material_count", 0),
+            "body_material_ids": source_open.get("body_material_ids", []),
+            "material_classes": source_open.get("material_classes", []),
+            "source_manifest_refs": source_open.get("source_manifest_refs", []),
+            "body_text_exported_in_receipts": False,
+            "body_text_exported_in_workingness": False,
+        },
         "validation": {
             "missing_negative_case_count": len(
                 result.get("missing_negative_cases") or []
             ),
             "error_code_count": len(result.get("error_codes") or []),
             "finding_count": len(result.get("findings") or []),
+            "source_module_status": source_module.get("status"),
+            "source_module_count": source_module.get("module_count", 0),
+            "body_copied_material_count": result.get(
+                "body_copied_material_count", 0
+            ),
             "body_in_receipt": scan.get("body_in_receipt") is True,
             "blocking_hit_count": scan.get("blocking_hit_count"),
         },

@@ -1,16 +1,16 @@
 {
-  "anti_claim": "This standard governs synthetic work-landing replay receipts only; it does not mutate Git, prove a commit landed, expose private source bodies, run providers, or authorize release/publication work.",
+  "anti_claim": "This standard governs public work-landing replay receipts and copied macro landing/control-plane source bodies; it does not mutate Git, prove arbitrary commits landed, expose private source bodies, run providers, or authorize release/publication work.",
   "anti_claim_contract": {
     "required": true,
     "rule": "work-landing replay material must state that synthetic replay is not live commit authority"
   },
-  "authority_boundary": "synthetic_work_landing_replay_not_live_commit_authority",
+  "authority_boundary": "source_open_work_landing_replay_not_live_commit_authority",
   "authority_ceiling": {
     "broad_checkpoint_authority": false,
     "live_git_mutation_authority": false,
     "release_authority": false,
     "source_mutation_authority": false,
-    "standard_authority": "synthetic_work_landing_replay_schema_only",
+    "standard_authority": "source_open_work_landing_replay_schema_and_digest_checked_body_import_contract_only",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -60,7 +60,11 @@
       "negative_case_coverage",
       "private_state_scan",
       "authority_ceiling",
-      "anti_claim"
+      "anti_claim",
+      "source_module_imports",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
+      "body_copied_material_count"
     ],
     "receipt_id": "receipt.microcosm.durable_agent_work_landing_replay",
     "required": true
@@ -92,12 +96,52 @@
     "lane_decision_table",
     "work_landing_runs",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "source_module_imports",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
+    "body_copied_material_count"
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "broad_checkpoint_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 6,
+    "body_material_ids": [
+      "workitem_runtime_entrypoint_source_body_import",
+      "work_landing_status_source_body_import",
+      "work_landing_cli_source_body_import",
+      "mission_transaction_preflight_source_body_import",
+      "scoped_commit_private_index_source_body_import",
+      "work_ledger_runtime_claims_source_body_import"
+    ],
+    "body_material_status": "copied_non_secret_durable_agent_work_landing_control_plane_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_ledger_body",
+      "public_macro_tool_body",
+      "public_macro_transaction_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported work-landing bundle for copied macro control-plane source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_refs": [
     {
@@ -109,6 +153,41 @@
       "field": "runtime_example",
       "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_open_body_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+      "role": "copied_macro_landing_source_body_manifest"
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/workitem_runtime_entrypoint.py",
+      "role": "Macro runtime entrypoint packet that composes Task Ledger state, Work Ledger cohort state, phase context, projection affordances, and closeout obligations for write-capable Type A work."
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/system/lib/work_landing_status.py",
+      "role": "Macro work-landing status and reconcile controller library that classifies finalizers, receipt-intake state, commit landing, and Work Ledger closeout readiness."
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/work_landing.py",
+      "role": "Macro CLI surface for work-landing status, reconcile, begin, and admission-check commands over WorkItem landing attempts."
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "role": "Macro read-only mission transaction preflight CLI for owned path admission, shared-index quarantine, workspace bloat pressure, and closeout control summaries."
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "role": "Macro scoped-commit actuator that uses a private Git index and HEAD compare-and-swap to land owned pathsets without staging unrelated dirty work."
+    },
+    {
+      "field": "source_module_imports",
+      "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
+      "role": "Macro Work Ledger lifecycle CLI for session preflight, active claim cards, heartbeats, progress/finalize flows, and dirty-tree coordination."
     }
   ],
   "standard_id": "std_microcosm_durable_agent_work_landing_replay",
@@ -146,7 +225,9 @@
     "require owner-native validation to be recorded before commit-path attempts",
     "require Work Ledger closeout or append-exempt finalizer refs",
     "reject landed-commit claims without HEAD advance",
-    "reject live Git mutation, unrelated dirty staging, private path/body leakage, and release overclaims"
+    "reject live Git mutation, unrelated dirty staging, private path/body leakage, and release overclaims",
+    "require exported work-landing bundles to carry source_module_manifest.json rows for copied macro work-landing/control-plane source bodies",
+    "verify copied source module targets exist and match source_module_manifest sha256 digests before counting source_open_body_imports"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay",
@@ -160,6 +241,10 @@
       "release_overclaim",
       "uncaptured_blocker",
       "validation_after_commit_attempt"
+    ],
+    "minimum_checks": [
+      "source_module_manifest_digest_verification",
+      "source_open_body_import_count"
     ],
     "validator_id": "validator.microcosm.organs.durable_agent_work_landing_replay"
   }

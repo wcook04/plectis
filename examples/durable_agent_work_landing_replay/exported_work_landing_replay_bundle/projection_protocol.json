@@ -10,7 +10,9 @@
   "public_runtime_refs": [
     "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
     "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
-    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle"
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
+    "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules"
   ],
   "source_pattern_ids": [
     "durable_agent_work_landing_replay_compound",
@@ -22,6 +24,7 @@
     "tools/meta/control/work_landing.py",
     "tools/meta/control/mission_transaction_preflight.py",
     "tools/meta/control/scoped_commit.py",
-    "system/lib/work_landing_status.py"
+    "system/lib/work_landing_status.py",
+    "tools/meta/factory/work_ledger.py"
   ]
 }

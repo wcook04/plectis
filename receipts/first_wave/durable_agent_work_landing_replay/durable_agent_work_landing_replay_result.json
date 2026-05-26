@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Durable agent work-landing replay validates synthetic transaction evidence for owned-path claims, validation receipts, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed, export private source bodies, run providers, publish, host, or authorize release.",
+  "anti_claim": "Durable agent work-landing replay emits real runtime receipts over imported work-landing rows, macro tool refs, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD advance evidence, export credential/account-bound bodies, run providers, publish, host, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_work_landing_replay_receipts_only",
+    "authority_ceiling": "durable_work_landing_real_runtime_replay_receipts_only",
     "broad_checkpoint_authorized": false,
     "commit_landed_claim_authorized_without_head_advance": false,
     "live_git_mutation_authorized": false,
@@ -11,9 +11,10 @@
     "status": "pass",
     "unrelated_dirty_paths_authorized": false
   },
+  "body_copied_material_count": 0,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run",
-  "created_at": "2026-05-22T20:17:18+00:00",
+  "command": "python -m microcosm_core.organs.durable_agent_work_landing_replay run --input fixtures/first_wave/durable_agent_work_landing_replay/input --out receipts/first_wave/durable_agent_work_landing_replay",
+  "created_at": "2026-05-26T23:41:57+00:00",
   "error_codes": [
     "WORK_LANDING_BLOCKER_CAPTURE_MISSING",
     "WORK_LANDING_DIRTY_TREE_BOUNDARY_MISSING",
@@ -38,7 +39,7 @@
   ],
   "findings": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_LEDGER_CLOSEOUT_MISSING",
       "message": "Work landing replay row must cite Work Ledger progress or append-exempt finalizer evidence.",
       "negative_case_id": "claim_without_work_ledger_closeout",
@@ -46,7 +47,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_HEAD_ADVANCE_MISSING",
       "message": "A landed-commit claim requires a HEAD advance.",
       "negative_case_id": "commit_claim_without_head_change",
@@ -54,7 +55,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_DIRTY_TREE_BOUNDARY_MISSING",
       "message": "Scoped work landing cannot stage unrelated dirty paths.",
       "negative_case_id": "dirty_tree_boundary_missing",
@@ -62,7 +63,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_LIVE_GIT_MUTATION_AUTHORITY",
       "message": "Public replay cannot authorize live Git mutation.",
       "negative_case_id": "live_git_mutation_authorized",
@@ -70,7 +71,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_EVIDENCE_REF_MISSING",
       "message": "Work landing replay row must cite owner-native validation refs.",
       "negative_case_id": "missing_evidence_ref",
@@ -78,7 +79,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_PRIVATE_PATH_LEAKAGE",
       "message": "Work landing replay must keep private paths and source bodies out of public fixtures.",
       "negative_case_id": "private_path_leakage",
@@ -86,7 +87,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_RELEASE_OVERCLAIM",
       "message": "Work landing replay cannot authorize release.",
       "negative_case_id": "release_overclaim",
@@ -94,7 +95,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_BLOCKER_CAPTURE_MISSING",
       "message": "Metadata-blocked work landing requires a Task Ledger blocker capture ref.",
       "negative_case_id": "uncaptured_blocker",
@@ -102,7 +103,7 @@
       "subject_kind": "work_landing_run"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "error_code": "WORK_LANDING_VALIDATION_ORDER_MISSING",
       "message": "Commit-path work landing must record validation before the commit attempt.",
       "negative_case_id": "validation_after_commit_attempt",
@@ -111,6 +112,78 @@
     }
   ],
   "fixture_id": "first_wave.durable_agent_work_landing_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:3a9b15cf18990973b57b387e897e1008bd4a8445b0cce5b3c35acba3eecc180f",
+    "card_schema_version": "durable_agent_work_landing_replay_command_card_v1",
+    "include_negative": true,
+    "input_count": 12,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/projection_protocol.json",
+        "sha256": "c13b2679d02ae726bcce9ec1c967305be0093c85a00cfce62f375c1e4c0edcba",
+        "size_bytes": 1135
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
+        "sha256": "06619e6beed535c9af21d58162c7bcead292f694290ec488e2633d56c4ed007c",
+        "size_bytes": 1693
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
+        "sha256": "fb123a2214508c937f0b84cbd43c44e3ddb5082b8161aef914710e1149a6cb42",
+        "size_bytes": 2581
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/missing_evidence_ref.json",
+        "sha256": "06838c32891c20194fc47000e55b2be768074db9d69c9d1857dc0609e5845939",
+        "size_bytes": 653
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/claim_without_work_ledger_closeout.json",
+        "sha256": "4876d9f46b49ea463ce992b06b9321289ac4a5b94a2adfb0f9bbe8de699e21fd",
+        "size_bytes": 709
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/commit_claim_without_head_change.json",
+        "sha256": "23d4faf0176515b1a806263840b15bdf5e8f8ec959fcc63bf6a1eae8ca6c9b0a",
+        "size_bytes": 733
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/validation_after_commit_attempt.json",
+        "sha256": "121dfb0459cb33e22ef06910079cba8f1aa7f35c6d8c07bd252d6f5ba034ca89",
+        "size_bytes": 695
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/live_git_mutation_authorized.json",
+        "sha256": "f852148669d403280706d3c03baf1913e5c834cc9b1beb7c13159cb41c85eca9",
+        "size_bytes": 725
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/dirty_tree_boundary_missing.json",
+        "sha256": "8a67b7a42324fd94da18382628102788513942f29662dc29df3e545f3e7ea891",
+        "size_bytes": 723
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/uncaptured_blocker.json",
+        "sha256": "e451ac0ef34cc9f464ed535ff378a5c12864d7c61a134e6cd1f83c7a7386183d",
+        "size_bytes": 678
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/release_overclaim.json",
+        "sha256": "ac93a932e439545c84e63ee265fbd216bb91268f5d6737f19b65c47d497eec3c",
+        "size_bytes": 703
+      },
+      {
+        "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/private_path_leakage.json",
+        "sha256": "43a24fb2083e75ad1837d7b8af882a190054f31c2d7b123d0b9892b351c14c0b",
+        "size_bytes": 743
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "durable_agent_work_landing_replay_freshness_basis_v1",
+    "validator_schema_version": "durable_agent_work_landing_replay_result_v1"
+  },
   "input_mode": "fixture",
   "landed_commit_count": 1,
   "lane_decision_table": [
@@ -200,22 +273,13 @@
   },
   "organ_id": "durable_agent_work_landing_replay",
   "policy_id": "durable_agent_work_landing_policy_v1",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 12,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/runtime_shell/public_work_landing_replay_lens.json",
     "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json",
     "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
   ],
   "protocol_id": "durable_agent_work_landing_replay_public_projection_v1",
-  "public_replacement_refs": [
+  "public_runtime_refs": [
     "fixtures/first_wave/durable_agent_work_landing_replay/input/landing_policy.json",
     "fixtures/first_wave/durable_agent_work_landing_replay/input/work_landing_runs.json",
     "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle"
@@ -226,8 +290,67 @@
     "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json"
   ],
+  "receipt_reused": false,
   "run_count": 3,
   "schema_version": "durable_agent_work_landing_replay_result_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 12,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 0,
+    "modules": [],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "fixtures/first_wave/durable_agent_work_landing_replay/input/source_module_manifest.json",
+    "status": "not_applicable"
+  },
+  "source_module_manifest_ref": "fixtures/first_wave/durable_agent_work_landing_replay/input/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "broad_checkpoint_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_applicable"
+  },
   "source_pattern_ids": [
     "durable_agent_work_landing_replay_compound",
     "mission_transaction_landing",
@@ -247,7 +370,7 @@
   "work_landing_runs": [
     {
       "blocker_capture_ref": "",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/src/microcosm_core/runtime_shell.py",
         "microcosm-substrate/tests/test_runtime_shell.py"
@@ -268,7 +391,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_git_metadata_blocker",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/AGENTS.md",
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
@@ -290,7 +413,7 @@
     },
     {
       "blocker_capture_ref": "wie_fixture_secret_hard_stop",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "claimed_path_refs": [
         "microcosm-substrate/standards/std_microcosm_durable_agent_work_landing_replay.json"
       ],
@@ -304,7 +427,7 @@
       "unrelated_dirty_paths_staged": false,
       "validation_precedes_commit_attempt": true,
       "validation_refs": [
-        "microcosm_core.private_state_scan"
+        "microcosm_core.secret_exclusion_scan"
       ],
       "work_ledger_closeout_ref": "wlr_fixture_hard_stop_closeout"
     }

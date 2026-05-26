@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Durable agent work-landing replay validates synthetic transaction evidence for owned-path claims, validation receipts, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed, export private source bodies, run providers, publish, host, or authorize release.",
+  "anti_claim": "Durable agent work-landing replay emits real runtime receipts over imported work-landing rows, macro tool refs, scoped commit attempts, Git metadata blockers, Task Ledger capture, and Work Ledger finalizers. It does not mutate Git, stage unrelated dirty paths, prove a commit landed without HEAD advance evidence, export credential/account-bound bodies, run providers, publish, host, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_work_landing_replay_receipts_only",
+    "authority_ceiling": "durable_work_landing_real_runtime_replay_receipts_only",
     "broad_checkpoint_authorized": false,
     "commit_landed_claim_authorized_without_head_advance": false,
     "live_git_mutation_authorized": false,
@@ -11,7 +11,8 @@
     "status": "pass",
     "unrelated_dirty_paths_authorized": false
   },
-  "created_at": "2026-05-22T20:17:18+00:00",
+  "body_copied_material_count": 0,
+  "created_at": "2026-05-26T23:41:57+00:00",
   "fixture_id": "first_wave.durable_agent_work_landing_replay",
   "landed_commit_count": 1,
   "metadata_blocked_count": 1,
@@ -59,15 +60,6 @@
     }
   },
   "organ_id": "durable_agent_work_landing_replay",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 12,
-    "status": "pass"
-  },
   "receipt_paths": [
     "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_result.json",
     "receipts/first_wave/durable_agent_work_landing_replay/durable_agent_work_landing_replay_board.json",
@@ -76,6 +68,64 @@
   ],
   "run_count": 3,
   "schema_version": "durable_agent_work_landing_replay_validation_receipt_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 12,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 0,
+    "modules": [],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "fixtures/first_wave/durable_agent_work_landing_replay/input/source_module_manifest.json",
+    "status": "not_applicable"
+  },
+  "source_module_manifest_ref": "fixtures/first_wave/durable_agent_work_landing_replay/input/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "broad_checkpoint_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_applicable"
+  },
   "status": "pass",
   "validation_order_pass_count": 2,
   "validation_order_required_count": 2,

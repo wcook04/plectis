@@ -12,6 +12,7 @@ from microcosm_core.organs.durable_agent_work_landing_replay import (
     main,
     run,
     run_work_landing_bundle,
+    validate_source_module_imports,
 )
 
 
@@ -129,9 +130,35 @@ def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
     assert result["metadata_blocked_count"] == 1
     assert result["validation_order_required_count"] == 2
     assert result["validation_order_pass_count"] == 2
+    assert result["source_module_imports"]["status"] == "pass"
+    assert result["source_module_imports"]["module_count"] == 6
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["body_copied_material_count"] == 6
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["authority_ceiling"]["commit_landed_claim_authorized_without_head_advance"] is False
+
+
+def test_durable_agent_work_landing_source_module_manifest_is_exact_public_body_floor() -> None:
+    result = validate_source_module_imports(BUNDLE_INPUT, public_root=MICROCOSM_ROOT)
+
+    assert result["status"] == "pass"
+    assert result["module_count"] == 6
+    assert result["findings"] == []
+
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 6
+    for row in manifest["modules"]:
+        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
+        target_path = BUNDLE_INPUT / row["path"]
+        assert source_path.is_file()
+        assert target_path.is_file()
+        assert target_path.read_bytes() == source_path.read_bytes()
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["source_to_target_relation"] == "exact_copy"
 
 
 def test_durable_agent_work_landing_card_reuses_fresh_bundle_receipt(
@@ -161,8 +188,12 @@ def test_durable_agent_work_landing_card_reuses_fresh_bundle_receipt(
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
     assert first_card["work_landing"]["run_count"] == 3
     assert first_card["work_landing"]["metadata_blocked_count"] == 1
+    assert first_card["source_open_body_imports"]["body_material_count"] == 6
+    assert first_card["validation"]["source_module_status"] == "pass"
+    assert first_card["validation"]["body_copied_material_count"] == 6
     assert first_card["validation"]["blocking_hit_count"] == 0
     assert "work_landing_runs" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "authority_ceiling" not in _walk_keys(first_card)
 

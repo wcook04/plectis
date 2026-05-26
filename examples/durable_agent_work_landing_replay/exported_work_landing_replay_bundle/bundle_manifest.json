@@ -1,8 +1,47 @@
 {
-  "body_redacted": true,
+  "body_copied_material_count": 6,
+  "body_in_receipt": false,
+  "body_redacted": false,
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
   "input_mode": "exported_work_landing_replay_bundle",
   "organ_id": "durable_agent_work_landing_replay",
   "release_authorized": false,
-  "schema_version": "durable_agent_work_landing_replay_bundle_manifest_v1"
+  "schema_version": "durable_agent_work_landing_replay_bundle_manifest_v1",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "broad_checkpoint_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 6,
+    "body_material_ids": [
+      "workitem_runtime_entrypoint_source_body_import",
+      "work_landing_status_source_body_import",
+      "work_landing_cli_source_body_import",
+      "mission_transaction_preflight_source_body_import",
+      "scoped_commit_private_index_source_body_import",
+      "work_ledger_runtime_claims_source_body_import"
+    ],
+    "body_material_status": "copied_non_secret_durable_agent_work_landing_control_plane_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_ledger_body",
+      "public_macro_tool_body",
+      "public_macro_transaction_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported work-landing bundle for copied macro control-plane source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "durable_agent_work_landing_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
 }
