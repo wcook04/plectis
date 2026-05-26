@@ -18,7 +18,54 @@
     "formal_proof_authority": false,
     "oracle_label_visibility_authorized": false,
     "provider_calls_authorized": false,
-    "release_authorized": false
+    "release_authorized": false,
+    "copied_public_tool_bodies_allowed": true
   },
-  "anti_claim": "This exported bundle is a runtime example for public strategy scoring; it is not proof authority, oracle visibility, provider output, or release readiness."
+  "anti_claim": "This exported bundle is a runtime example for public strategy scoring; it is not proof authority, oracle visibility, provider output, or release readiness.",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_module_import_status": "copied_strategy_atlas_macro_tool_source_modules_verified",
+  "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+  "copied_macro_body_artifacts": [
+    {
+      "module_id": "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
+      "material_class": "public_macro_tool_body",
+      "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "line_count": 7168,
+      "body_in_receipt": false,
+      "body_copied": true,
+      "source_to_target_relation": "exact_copy"
+    },
+    {
+      "module_id": "tools_meta_factory_reduce_prover_provider_receipts_py_body_import",
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "material_class": "public_macro_tool_body",
+      "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "line_count": 926,
+      "body_in_receipt": false,
+      "body_copied": true,
+      "source_to_target_relation": "exact_copy"
+    }
+  ],
+  "source_open_body_import_summary": {
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+    "body_material_count": 2,
+    "body_material_ids": [
+      "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+      "tools_meta_factory_reduce_prover_provider_receipts_py_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false
+  }
 }

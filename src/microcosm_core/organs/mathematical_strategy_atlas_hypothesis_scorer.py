@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -28,6 +29,19 @@ ACCEPTANCE_RECEIPT_REL = (
     "mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_mathematical_strategy_atlas_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+BODY_MATERIAL_STATUS = (
+    "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance"
+)
+SOURCE_MODULE_IMPORT_STATUS = (
+    "copied_strategy_atlas_macro_tool_source_modules_verified"
+)
+PUBLIC_SAFE_BODY_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body",
+}
 
 SOURCE_PATTERN_IDS = [
     "mathematical_strategy_atlas_hypothesis_scorer",
@@ -64,13 +78,15 @@ AUTHORITY_CEILING = {
     "provider_calls_authorized": False,
     "test_split_tuning_authorized": False,
     "release_authorized": False,
+    "copied_public_tool_bodies_allowed": True,
+    "provider_payload_bodies_allowed": False,
 }
 
 ANTI_CLAIM = (
     "Mathematical strategy atlas projection is a drilldown regression surface "
-    "for public pre-oracle strategy hypotheses and retrieval lenses only. It is "
-    "not a Microcosm product organ, does not import a macro substrate body, does "
-    "not run Lean or Lake, prove theorem correctness, expose proof bodies or "
+    "for public pre-oracle strategy hypotheses, retrieval lenses, and copied "
+    "non-secret macro tool bodies only. It does not run Lean or Lake, prove "
+    "theorem correctness, expose proof bodies, provider payload bodies, or "
     "oracle labels, tune on test answers, call providers, or authorize release."
 )
 
@@ -126,9 +142,67 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _read_source_module_manifest(input_dir: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {}
+    payload = read_json_strict(manifest_path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _source_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    return _rows(manifest, "modules")
+
+
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_target_path(input_dir: Path, row: dict[str, Any]) -> Path:
+    row_path = str(row.get("path") or "")
+    if row_path:
+        return input_dir / row_path
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    public_root = _public_root_for_path(input_dir)
+    return public_root / target_ref if target_ref else input_dir
+
+
+def _source_artifact_paths(input_dir: Path) -> list[Path]:
+    manifest = _read_source_module_manifest(input_dir)
+    return [
+        _source_module_target_path(input_dir, row)
+        for row in _source_module_rows(manifest)
+    ]
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    manifest_path = _source_module_manifest_path(input_dir)
+    if manifest_path.is_file():
+        paths.append(manifest_path)
+    paths.extend(_source_artifact_paths(input_dir))
+    return paths
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _normalize_sha256(value: object) -> str:
+    digest = str(value or "")
+    if digest and not digest.startswith("sha256:"):
+        return f"sha256:{digest}"
+    return digest
+
+
+def _line_count(path: Path) -> int:
+    return len(path.read_text(encoding="utf-8").splitlines())
 
 
 def _finding(
@@ -169,6 +243,150 @@ def _record(
         )
     )
     observed[case_id].add(code)
+
+
+def validate_source_module_imports(
+    input_dir: Path,
+    *,
+    required: bool,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest = _read_source_module_manifest(input_dir)
+    rows = _source_module_rows(manifest)
+    findings: list[dict[str, Any]] = []
+    imports: list[dict[str, Any]] = []
+    manifest_ref = _display(manifest_path, public_root=public_root)
+
+    if required and not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "MATH_STRATEGY_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported strategy atlas bundle must include a source_module_manifest.json for copied macro tool bodies.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest_path.is_file() and manifest.get("source_import_class") != (
+        "copied_non_secret_macro_body"
+    ):
+        findings.append(
+            _finding(
+                "MATH_STRATEGY_SOURCE_IMPORT_CLASS_UNSUPPORTED",
+                "Strategy atlas source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if required and manifest_path.is_file() and not rows:
+        findings.append(
+            _finding(
+                "MATH_STRATEGY_SOURCE_MODULE_ROWS_MISSING",
+                "Exported strategy atlas bundle must carry at least one copied source module row.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in rows:
+        module_id = str(row.get("module_id") or "source_module")
+        target = _source_module_target_path(input_dir, row)
+        expected_digest = _normalize_sha256(row.get("sha256"))
+        exists = target.is_file()
+        actual_digest = _sha256(target) if exists else None
+        material_class = str(row.get("material_class") or "")
+        source_ref = str(row.get("source_ref") or "")
+        target_ref = _display(target, public_root=public_root)
+        digest_match = actual_digest == expected_digest
+        import_row = {
+            "module_id": module_id,
+            "source_ref": source_ref,
+            "target_ref": target_ref,
+            "material_class": material_class,
+            "source_sha256": expected_digest,
+            "target_sha256": actual_digest,
+            "exists": exists,
+            "digest_match": digest_match,
+            "source_to_target_relation": str(
+                row.get("source_to_target_relation") or "exact_copy"
+            ),
+            "source_line_count": _line_count(target) if exists else None,
+            "target_line_count": _line_count(target) if exists else None,
+            "body_in_receipt": False,
+            "body_material_status": BODY_MATERIAL_STATUS,
+        }
+        imports.append(import_row)
+
+        if str(row.get("source_import_class") or "") != "copied_non_secret_macro_body":
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_IMPORT_CLASS_UNSUPPORTED",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_CLASS_UNSUPPORTED",
+                    "Source module rows must use a public-safe macro body material class.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_in_receipt") is True:
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_BODY_RECEIPT_EXPORT_FORBIDDEN",
+                    "Copied source module bodies may live in bundle source_artifacts, not in generated receipts.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not exists:
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_TARGET_MISSING",
+                    "Copied source module target file is missing from the exported bundle.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_match:
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied source module digest must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+    copied_count = sum(1 for row in imports if row["exists"] and row["digest_match"])
+    return {
+        "source_module_manifest_ref": manifest_ref,
+        "source_module_import_status": SOURCE_MODULE_IMPORT_STATUS,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "source_module_imports": imports,
+        "source_module_import_count": len(imports),
+        "copied_source_artifact_count": copied_count,
+        "source_modules_pass": not findings,
+        "source_refs": sorted({row["source_ref"] for row in imports if row["source_ref"]}),
+        "target_refs": [row["target_ref"] for row in imports],
+        "material_classes": sorted(
+            {row["material_class"] for row in imports if row["material_class"]}
+        ),
+        "findings": findings,
+    }
 
 
 def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
@@ -452,6 +670,18 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
             "scored_cases": result["scored_cases"],
             "body_redacted": True,
         },
+        "source_body_import_projection": {
+            "source_module_manifest_ref": result["source_module_manifest_ref"],
+            "body_material_status": result["body_material_status"],
+            "source_module_import_status": result["source_module_import_status"],
+            "source_module_import_count": result["source_module_import_count"],
+            "copied_source_artifact_count": result["copied_source_artifact_count"],
+            "source_modules_pass": result["source_modules_pass"],
+            "source_refs": result["source_refs"],
+            "target_refs": result["source_module_target_refs"],
+            "material_classes": result["source_module_material_classes"],
+            "body_in_receipt": False,
+        },
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
@@ -486,16 +716,22 @@ def _build_result(
         payloads["hypothesis_cases"],
         negative_payloads=negative_payloads,
     )
+    source_imports = validate_source_module_imports(
+        input_dir,
+        required=input_mode == "exported_mathematical_strategy_atlas_bundle",
+        public_root=public_root,
+    )
     observed = _merge_observed(scoring)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(scoring)
+    findings = _merge_findings(scoring, source_imports)
     error_codes = sorted({finding["error_code"] for finding in findings})
     status = (
         PASS
         if not missing
         and not private_scan["blocking_hit_count"]
         and scoring["all_expectations_met"]
+        and source_imports["source_modules_pass"]
         else "blocked"
     )
     bundle_manifest = (
@@ -526,6 +762,15 @@ def _build_result(
         "private_state_scan": private_scan,
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
+        "body_material_status": source_imports["body_material_status"],
+        "source_module_import_status": source_imports["source_module_import_status"],
+        "source_module_manifest_ref": source_imports["source_module_manifest_ref"],
+        "source_module_imports": source_imports["source_module_imports"],
+        "source_module_import_count": source_imports["source_module_import_count"],
+        "copied_source_artifact_count": source_imports["copied_source_artifact_count"],
+        "source_modules_pass": source_imports["source_modules_pass"],
+        "source_module_target_refs": source_imports["target_refs"],
+        "source_module_material_classes": source_imports["material_classes"],
         "strategy_ids": scoring["strategy_ids"],
         "strategy_count": scoring["strategy_count"],
         "problem_count": scoring["problem_count"],
@@ -564,6 +809,12 @@ def _common_receipt(
         "private_state_scan",
         "authority_ceiling",
         "anti_claim",
+        "body_material_status",
+        "source_module_import_status",
+        "source_module_manifest_ref",
+        "source_module_import_count",
+        "copied_source_artifact_count",
+        "source_modules_pass",
         "strategy_ids",
         "strategy_count",
         "problem_count",

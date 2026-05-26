@@ -1,0 +1,59 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "mathematical_strategy_atlas_macro_tool_source_module_manifest",
+  "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_PROVER_strategy_atlas_tool_bodies_copied_into_public_strategy_atlas_bundle",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private theorem proof bodies or oracle proof text"
+  ],
+  "source_run_id": "PROVER_strategy_atlas_macro_tool_source_import",
+  "source_run_ref": "tools/meta/factory",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
+      "path": "source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
+      "source_import_class": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "line_count": 7168,
+      "body_in_receipt": false,
+      "body_copied": true,
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
+        "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_scorer_accepts_exported_bundle"
+      ]
+    },
+    {
+      "module_id": "tools_meta_factory_reduce_prover_provider_receipts_py_body_import",
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "path": "source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "source_import_class": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "line_count": 926,
+      "body_in_receipt": false,
+      "body_copied": true,
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
+        "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_scorer_accepts_exported_bundle"
+      ]
+    }
+  ],
+  "anti_claim": "These copied tool bodies make the public strategy atlas accountable to the real prover harness and reducer code. They do not authorize provider calls, expose provider payload bodies, run Lean/Lake, prove theorem correctness, reveal oracle labels, or authorize release."
+}

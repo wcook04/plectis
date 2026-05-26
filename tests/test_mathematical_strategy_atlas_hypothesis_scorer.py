@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -22,6 +23,10 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle"
 )
+SOURCE_ARTIFACT_REFS = [
+    "tools/meta/factory/run_prover_graph_benchmark.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+]
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -91,9 +96,91 @@ def test_mathematical_strategy_atlas_scorer_accepts_exported_bundle(
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
     assert result["strategy_selection_miss_case_ids"] == ["typed_unknown_strategy_miss"]
+    assert result["body_material_status"] == (
+        "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance"
+    )
+    assert (
+        result["source_module_import_status"]
+        == "copied_strategy_atlas_macro_tool_source_modules_verified"
+    )
+    assert result["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["source_modules_pass"] is True
+    assert all(row["exists"] is True for row in result["source_module_imports"])
+    assert all(row["digest_match"] is True for row in result["source_module_imports"])
+    assert result["strategy_board"]["source_body_import_projection"][
+        "copied_source_artifact_count"
+    ] == len(SOURCE_ARTIFACT_REFS)
     assert result["receipt_paths"] == [
         "receipts/exported_mathematical_strategy_atlas_bundle_validation_result.json"
     ]
+
+
+def test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads(
+        (EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    modules = {row["source_ref"]: row for row in manifest["modules"]}
+    assert sorted(modules) == sorted(SOURCE_ARTIFACT_REFS)
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+
+    bundle_manifest = json.loads(
+        (EXPORTED_BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    assert bundle_manifest["source_module_manifest_ref"] == "source_module_manifest.json"
+    assert len(bundle_manifest["copied_macro_body_artifacts"]) == len(
+        SOURCE_ARTIFACT_REFS
+    )
+
+    for source_ref in SOURCE_ARTIFACT_REFS:
+        source = MICROCOSM_ROOT.parent / source_ref
+        target = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
+        assert target.is_file()
+        source_bytes = source.read_bytes()
+        target_bytes = target.read_bytes()
+        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+        assert source_bytes == target_bytes
+        assert modules[source_ref]["sha256"] == digest
+        assert modules[source_ref]["body_in_receipt"] is False
+
+
+def test_mathematical_strategy_atlas_exported_bundle_receipt_omits_source_bodies(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/mathematical_strategy_atlas_hypothesis_scorer",
+        public_root / "examples/mathematical_strategy_atlas_hypothesis_scorer",
+    )
+
+    result = run_strategy_bundle(
+        public_root
+        / "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
+        public_root / "receipts/mathematical_strategy_atlas_hypothesis_scorer",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    for receipt_ref in result["receipt_paths"]:
+        receipt_file = public_root / receipt_ref
+        assert receipt_file.is_file()
+        text = receipt_file.read_text(encoding="utf-8")
+        assert str(public_root) not in text
+        assert "/Users/" not in text
+        assert "src/ai_workflow" not in text
+        assert "def _strategy_cards" not in text
+        assert "def _provider_value" not in text
+        payload = json.loads(text)
+        assert payload["status"] == "pass"
+        assert payload["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
+        assert payload["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
+        assert payload["source_modules_pass"] is True
+        assert "matched_excerpt" not in _walk_keys(payload)
+        assert "body" not in _walk_keys(payload)
 
 
 def test_mathematical_strategy_atlas_receipts_are_redacted_and_public_relative(

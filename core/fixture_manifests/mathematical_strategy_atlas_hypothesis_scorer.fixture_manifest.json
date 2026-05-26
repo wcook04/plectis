@@ -61,7 +61,38 @@
     "formal_proof_authority": false,
     "oracle_label_visibility_authorized": false,
     "provider_calls_authorized": false,
-    "release_authorized": false
+    "release_authorized": false,
+    "copied_public_tool_bodies_allowed": true
   },
-  "anti_claim": "This fixture validates public strategy hypothesis scoring only; it is not proof execution, oracle visibility, provider output, test tuning, or release authority."
+  "anti_claim": "This fixture validates public strategy hypothesis scoring and exact copied non-secret macro tool bodies only; it is not proof execution, oracle visibility, provider output, test tuning, or release authority.",
+  "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+  "body_copied_material_count": 2,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+    "body_material_count": 2,
+    "body_material_ids": [
+      "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+      "tools_meta_factory_reduce_prover_provider_receipts_py_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+    "source_manifest_refs": [
+      "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Run microcosm workingness and inspect mathematical_strategy_atlas_hypothesis_scorer to see which copied prover strategy tool bodies back this organ.",
+    "authority_ceiling": {
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "oracle_label_visibility_authorized": false,
+      "release_authorized": false,
+      "body_text_in_receipt": false
+    }
+  }
 }

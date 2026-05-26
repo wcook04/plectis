@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 5,
+  "rows_with_source_body_imports": 6,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 42,
+  "source_open_body_material_count": 44,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 5,
-    "source_open_body_material_count": 42,
+    "rows_with_source_body_imports": 6,
+    "source_open_body_material_count": 44,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -773,7 +773,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "kept_out_of_product_path_until_evidence_strengthens",
-      "failure_mode_count": 5,
+      "failure_mode_count": 8,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
@@ -787,12 +787,16 @@
         "proof body rides alongside a strategy label",
         "oracle strategy label is visible before scoring",
         "strategy is selected after oracle feedback",
-        "strategy scoring claims release or proof authority"
+        "strategy scoring claims release or proof authority",
+        "source module manifest names macro tool refs without copying bodies",
+        "copied macro tool body digest drifts from source",
+        "receipt includes copied macro source body text instead of refs and digests"
       ],
       "needs_to_work": {
         "anti_purpose": "Turning strategy selection into proof authority, oracle leakage, provider output, or release authority.",
         "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_authority",
         "authority_ceiling": {
+          "copied_public_tool_bodies_allowed": true,
           "formal_proof_authority": false,
           "lean_lake_authority": false,
           "mathlib_dependent_proof_authority": false,
@@ -804,9 +808,9 @@
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A public-safe formal-math strategy atlas that maps problem feature tags to a known strategy enum before retrieval or proof execution.",
+        "ontology": "A public-safe formal-math strategy atlas that maps problem feature tags to a known strategy enum before retrieval or proof execution, backed by copied non-secret prover strategy harness and reducer tool bodies.",
         "receipt_expectation_count": 2,
-        "required_field_count": 8,
+        "required_field_count": 14,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -820,8 +824,8 @@
         },
         "standard_ref": "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json",
         "standard_status": "draft",
-        "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses, not by hidden oracle labels or undifferentiated tactic search.",
-        "validation_rule_count": 8
+        "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses grounded in real macro control-plane code, not by hidden oracle labels, receipt-only pointers, or undifferentiated tactic search.",
+        "validation_rule_count": 11
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -838,7 +842,36 @@
           "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "oracle_label_visibility_authorized": false,
+            "provider_calls_authorized": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 2,
+          "body_material_ids": [
+            "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+            "tools_meta_factory_reduce_prover_provider_receipts_py_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/mathematical_strategy_atlas_hypothesis_scorer.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Run microcosm workingness and inspect mathematical_strategy_atlas_hypothesis_scorer to see which copied prover strategy tool bodies back this organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
         "verdict_source": "derived_projection_metric"
@@ -846,7 +879,36 @@
       "ordinal": 6,
       "product_path_role": "drilldown_regression_not_runtime_spine",
       "runtime_mode": "drilldown_only",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "oracle_label_visibility_authorized": false,
+          "provider_calls_authorized": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 2,
+        "body_material_ids": [
+          "tools_meta_factory_run_prover_graph_benchmark_py_body_import",
+          "tools_meta_factory_reduce_prover_provider_receipts_py_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/mathematical_strategy_atlas_hypothesis_scorer.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Run microcosm workingness and inspect mathematical_strategy_atlas_hypothesis_scorer to see which copied prover strategy tool bodies back this organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json",
         "receipts/acceptance/first_wave/mathematical_strategy_atlas_hypothesis_scorer_fixture_acceptance.json",
