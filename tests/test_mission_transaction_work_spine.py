@@ -94,6 +94,20 @@ CHECKPOINT_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
 ]
 CHECKPOINT_SOURCE_LINE_COUNT = 1166
+MISSION_CONTROL_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
+MISSION_CONTROL_SOURCE_MODULE_IDS = [
+    "scoped_commit_tool_body_import",
+    "mission_transaction_preflight_tool_body_import",
+]
+MISSION_CONTROL_SOURCE_REFS = [
+    "tools/meta/control/scoped_commit.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+]
+MISSION_CONTROL_SOURCE_TARGET_REFS = [
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+]
+MISSION_CONTROL_SOURCE_LINE_COUNT = 1922
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",
@@ -501,6 +515,19 @@ def test_mission_transaction_work_spine_exported_bundle_validates_runtime_shape(
     assert result["checkpoint_lane_source_import"]["module_ids"] == (
         CHECKPOINT_SOURCE_MODULE_IDS
     )
+    assert result["mission_control_source_import_status"] == (
+        MISSION_CONTROL_SOURCE_IMPORT_STATUS
+    )
+    assert result["copied_mission_control_source_count"] == len(
+        MISSION_CONTROL_SOURCE_MODULE_IDS
+    )
+    assert result["copied_mission_control_source_line_count"] == (
+        MISSION_CONTROL_SOURCE_LINE_COUNT
+    )
+    assert result["mission_control_source_import"]["status"] == "pass"
+    assert result["mission_control_source_import"]["module_ids"] == (
+        MISSION_CONTROL_SOURCE_MODULE_IDS
+    )
     assert all(not Path(path).is_absolute() for path in result["public_runtime_refs"])
 
 
@@ -628,6 +655,50 @@ def test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules(
         assert len(module["sha256"]) == 64
         assert module["line_count"] > 0
         assert module["anchor_count"] >= 5
+
+
+def test_mission_transaction_work_spine_imports_mission_control_source_modules(
+    tmp_path: Path,
+) -> None:
+    result = run_mission_transaction_bundle(
+        MISSION_BUNDLE_INPUT,
+        tmp_path / "receipts/first_wave/mission_transaction_work_spine",
+        command="pytest",
+    )
+
+    source_import = result["mission_control_source_import"]
+    assert result["status"] == "pass"
+    assert source_import["classification"] == "copied_non_secret_macro_body"
+    assert source_import["module_count"] == len(MISSION_CONTROL_SOURCE_MODULE_IDS)
+    assert source_import["module_ids"] == MISSION_CONTROL_SOURCE_MODULE_IDS
+    assert source_import["source_refs"] == MISSION_CONTROL_SOURCE_REFS
+    assert source_import["target_refs"] == MISSION_CONTROL_SOURCE_TARGET_REFS
+    assert source_import["total_line_count"] == MISSION_CONTROL_SOURCE_LINE_COUNT
+    assert source_import["manifest_summary"]["body_storage_policy"] == (
+        "exact_non_secret_macro_bodies_copied_into_bundle_source_modules"
+    )
+    assert source_import["manifest_summary"]["receipt_body_policy"] == (
+        "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies"
+    )
+    assert source_import["contract_summary"]["status"] == (
+        MISSION_CONTROL_SOURCE_IMPORT_STATUS
+    )
+    assert all(
+        not Path(path).is_absolute()
+        for path in result["mission_control_source_public_runtime_refs"]
+    )
+
+    modules_by_id = {
+        module["module_id"]: module for module in source_import["source_modules"]
+    }
+    for module_id in MISSION_CONTROL_SOURCE_MODULE_IDS:
+        module = modules_by_id[module_id]
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False
+        assert module["missing_anchors"] == []
+        assert len(module["sha256"]) == 64
+        assert module["line_count"] > 0
+        assert module["anchor_count"] >= 6
 
 
 def test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe(

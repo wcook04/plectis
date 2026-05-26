@@ -1,0 +1,33 @@
+{
+  "schema_version": "mission_transaction_work_spine_mission_control_runtime_contract_v1",
+  "contract_id": "mission_control_source_modules_import",
+  "organ_id": "mission_transaction_work_spine",
+  "status": "public_runtime_import_landed",
+  "classification": "copied_non_secret_macro_body",
+  "required_module_ids": [
+    "scoped_commit_tool_body_import",
+    "mission_transaction_preflight_tool_body_import"
+  ],
+  "required_target_refs": [
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+  ],
+  "public_runtime_boundary": "exact macro control-plane bodies copied for inspection, receipts carry paths hashes counts and anchor results only",
+  "must_not_authorize": [
+    "live git mutation",
+    "live Task Ledger mutation",
+    "live Work Ledger mutation",
+    "broad staging without operator authorization",
+    "private backup execution",
+    "secret or credential export",
+    "release authority"
+  ],
+  "validation_expectations": [
+    "exact source body target exists under exported_mission_transaction_bundle/source_modules",
+    "source and target sha256 match",
+    "required anchors are present",
+    "body_copied is true",
+    "body_in_receipt is false",
+    "public runtime refs are repo-relative"
+  ]
+}

@@ -237,5 +237,49 @@
   },
   "authority_ceiling": "public_work_landing_refactor_over_mission_transaction_bundle",
   "body_import_status": "extension_of_existing_public_refactor_landed",
+  "source_open_body_imports": {
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_mission_transaction_control_bodies_with_digest_provenance",
+    "body_material_count": 12,
+    "body_material_ids": [
+      "task_ledger_events_body_import",
+      "task_ledger_apply_tool_body_import",
+      "task_ledger_priority_body_import",
+      "task_ledger_project_tool_body_import",
+      "work_ledger_tool_body_import",
+      "work_ledger_event_body_import",
+      "work_ledger_runtime_body_import",
+      "work_ledger_standard_body_import",
+      "checkpoint_script_body_import",
+      "checkpoint_private_backup_body_import",
+      "scoped_commit_tool_body_import",
+      "mission_transaction_preflight_tool_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body",
+      "public_macro_control_plane_body",
+      "public_macro_standard_body"
+    ],
+    "aggregate_floor_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle::copied_control_source_modules",
+    "source_manifest_refs": [
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/work_ledger_source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Run microcosm workingness and the mission_transaction_work_spine exported-bundle validator to inspect the exact copied Task Ledger, Work Ledger, checkpoint, scoped-commit, and mission-transaction control bodies.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "live_task_ledger_mutation_authorized": false,
+      "live_work_ledger_mutation_authorized": false,
+      "live_git_mutation_authorized": false,
+      "broad_stage_authorized": false,
+      "private_backup_execution_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    }
+  },
   "anti_claim": "Mission transaction receipts validate public work-landing, dependency, claim, checkpoint-lane, exact-drain, and schedulability evidence plus bounded negative fixtures. They do not mutate live work state, certify live mission closeout, authorize broad staging without operator intent, authorize later organs, or prove whole Wave 1."
 }

@@ -1,0 +1,72 @@
+{
+  "schema_version": "mission_transaction_work_spine_mission_control_source_module_manifest_v1",
+  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
+  "manifest_id": "mission_control_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys",
+  "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+  "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "scoped_commit_tool_body_import",
+      "source_ref": "tools/meta/control/scoped_commit.py",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "source_role": "scoped commit controller for exact pathspec staging, mission preflight admission, private-index guardrails, and Work Ledger claim checks",
+      "required_anchors": [
+        "def perform_scoped_commit(",
+        "def perform_tracked_removals_commit(",
+        "perform_remote_full_paths_landing",
+        "--work-ledger-session-id",
+        "--allow-multi-hunk-full-paths",
+        "scoped_commit_work_ledger_mutation_guard_v0"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+      "target_sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+      "sha256_match": true,
+      "line_count": 1422,
+      "byte_count": 55059,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "mission_transaction_preflight_tool_body_import",
+      "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "source_role": "mission transaction preflight CLI binding Work Ledger claims, owned paths, dirty-tree classification, and scoped commit admission before landing",
+      "required_anchors": [
+        "def build_parser(",
+        "build_mission_transaction_landing_preflight",
+        "--subject-id",
+        "--owned-path",
+        "--require-exclusive",
+        "--fail-on-status"
+      ],
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "sha256_match": true,
+      "line_count": 500,
+      "byte_count": 19500,
+      "anchor_count": 6
+    }
+  ],
+  "validation_contract_ref": "mission_control_runtime_contract.json"
+}

@@ -2,7 +2,7 @@
   "accepted_claim_ids": [
     "claim_public_mission_adapter_runtime"
   ],
-  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does import exact non-secret Task Ledger, Work Ledger, and checkpoint-lane control-plane source bodies into the public bundle. It does not mutate live Task Ledger, Work Ledger, or Git state, authorize broad staging or private backup execution without operator intent, authorize release, or complete later organs.",
+  "anti_claim": "The exported mission transaction bundle validates public work, claim, dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does import exact non-secret Task Ledger, Work Ledger, checkpoint-lane, scoped-commit, and mission-transaction control-plane source bodies into the public bundle. It does not mutate live Task Ledger, Work Ledger, or Git state, authorize broad staging or private backup execution without operator intent, authorize release, or complete later organs.",
   "authority_ceiling": {
     "authority_ceiling": "public_work_landing_refactor_over_mission_transaction_bundle",
     "broad_checkpoint_requires_operator_authorization": true,
@@ -28,6 +28,8 @@
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/claim_table.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/closeout_projection_packet.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/dependency_graph.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_runtime_contract.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/receipt_drain_plan.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/scoped_mutation_policy.json",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_module_manifest.json",
@@ -38,6 +40,8 @@
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
       "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
@@ -159,7 +163,7 @@
     "verification_mode": "source_faithful_public_refactor"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "b61d9a2cc0f1dc77619bffa7b00f343ad2016f471c31d11e87c954169a8533c3",
+  "bundle_fingerprint": "facd6870f90d632daf393474abfb7b4fa18ce1c309e24a44e3cf21a6654b5458",
   "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
   "bundle_manifest_schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
   "cannot_fake_predicate_status": "pass",
@@ -356,6 +360,12 @@
     "checkpoint_script_body_import",
     "checkpoint_private_backup_body_import"
   ],
+  "copied_mission_control_source_count": 2,
+  "copied_mission_control_source_line_count": 1922,
+  "copied_mission_control_source_module_ids": [
+    "scoped_commit_tool_body_import",
+    "mission_transaction_preflight_tool_body_import"
+  ],
   "copied_task_ledger_source_count": 4,
   "copied_task_ledger_source_line_count": 14820,
   "copied_task_ledger_source_module_ids": [
@@ -365,14 +375,14 @@
     "task_ledger_project_tool_body_import"
   ],
   "copied_work_ledger_source_count": 4,
-  "copied_work_ledger_source_line_count": 11158,
+  "copied_work_ledger_source_line_count": 11242,
   "copied_work_ledger_source_module_ids": [
     "work_ledger_tool_body_import",
     "work_ledger_event_body_import",
     "work_ledger_runtime_body_import",
     "work_ledger_standard_body_import"
   ],
-  "created_at": "2026-05-25T16:44:33+00:00",
+  "created_at": "2026-05-26T18:36:54+00:00",
   "dependency_refs": [
     "cap_navigation_adapter_accepted"
   ],
@@ -416,6 +426,109 @@
   "fixture_regression_required_elsewhere": true,
   "input_mode": "exported_mission_transaction_bundle",
   "missing_negative_cases": [],
+  "mission_control_source_contract": {
+    "body_in_receipt": false,
+    "contract_id": "mission_control_source_modules_import",
+    "required_module_ids": [
+      "scoped_commit_tool_body_import",
+      "mission_transaction_preflight_tool_body_import"
+    ],
+    "schema_version": "mission_transaction_work_spine_mission_control_runtime_contract_v1",
+    "status": "public_runtime_import_landed"
+  },
+  "mission_control_source_import": {
+    "body_in_receipt": false,
+    "classification": "copied_non_secret_macro_body",
+    "contract_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_runtime_contract.json",
+    "contract_summary": {
+      "body_in_receipt": false,
+      "contract_id": "mission_control_source_modules_import",
+      "required_module_ids": [
+        "scoped_commit_tool_body_import",
+        "mission_transaction_preflight_tool_body_import"
+      ],
+      "schema_version": "mission_transaction_work_spine_mission_control_runtime_contract_v1",
+      "status": "public_runtime_import_landed"
+    },
+    "findings": [],
+    "manifest_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
+    "manifest_summary": {
+      "body_in_receipt": false,
+      "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+      "module_count": 2,
+      "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+      "schema_version": "mission_transaction_work_spine_mission_control_source_module_manifest_v1",
+      "validation_contract_ref": "mission_control_runtime_contract.json"
+    },
+    "module_count": 2,
+    "module_ids": [
+      "scoped_commit_tool_body_import",
+      "mission_transaction_preflight_tool_body_import"
+    ],
+    "public_runtime_refs": [
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_runtime_contract.json",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+    ],
+    "source_modules": [
+      {
+        "anchor_count": 6,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 55059,
+        "line_count": 1422,
+        "missing_anchors": [],
+        "module_id": "scoped_commit_tool_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+        "sha256": "8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "source_ref": "tools/meta/control/scoped_commit.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py"
+      },
+      {
+        "anchor_count": 6,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "byte_count": 19500,
+        "line_count": 500,
+        "missing_anchors": [],
+        "module_id": "mission_transaction_preflight_tool_body_import",
+        "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+      }
+    ],
+    "source_refs": [
+      "tools/meta/control/scoped_commit.py",
+      "tools/meta/control/mission_transaction_preflight.py"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+    ],
+    "total_line_count": 1922
+  },
+  "mission_control_source_import_status": "public_runtime_import_landed",
+  "mission_control_source_manifest": {
+    "body_in_receipt": false,
+    "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+    "module_count": 2,
+    "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+    "schema_version": "mission_transaction_work_spine_mission_control_source_module_manifest_v1",
+    "validation_contract_ref": "mission_control_runtime_contract.json"
+  },
+  "mission_control_source_public_runtime_refs": [
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_runtime_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
+  ],
+  "mission_control_source_validation_refs": [
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_mission_control_source_modules",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe"
+  ],
   "negative_case_binding_status": "pass",
   "observed_negative_cases": {},
   "organ_id": "mission_transaction_work_spine",
@@ -576,7 +689,11 @@
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_lane_runtime_contract.json",
     "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
-    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py"
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_runtime_contract.json",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+    "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
   ],
   "public_work_landing_not_live_ledger_authority": true,
   "public_work_landing_status": {
@@ -684,6 +801,7 @@
     "status": "pass"
   },
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -695,7 +813,16 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 24,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 28,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -1091,12 +1218,12 @@
         "anchor_count": 6,
         "body_copied": true,
         "body_in_receipt": false,
-        "byte_count": 149874,
-        "line_count": 3737,
+        "byte_count": 150048,
+        "line_count": 3745,
         "missing_anchors": [],
         "module_id": "work_ledger_tool_body_import",
         "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
-        "sha256": "57e37dc4083296d4b847789603e1e08c0811b9731202d46e3d5c7bb14a65dd6b",
+        "sha256": "bb6efa84564c4300a1c6d5c1c5599ba0fe7f94cbcc21d0c1b17aed51d4c4f940",
         "source_ref": "tools/meta/factory/work_ledger.py",
         "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py"
       },
@@ -1117,12 +1244,12 @@
         "anchor_count": 7,
         "body_copied": true,
         "body_in_receipt": false,
-        "byte_count": 213038,
-        "line_count": 5187,
+        "byte_count": 215830,
+        "line_count": 5263,
         "missing_anchors": [],
         "module_id": "work_ledger_runtime_body_import",
         "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
-        "sha256": "3f7c5c813212bce45caa27dd86edde65c2964f4d2f4cff36b82cd201b1ca5799",
+        "sha256": "26a940f532c72c5f1b778ab45dccc3b96ea8663886c9037477c24a3da9815f28",
         "source_ref": "system/lib/work_ledger_runtime.py",
         "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py"
       },
@@ -1153,7 +1280,7 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
     ],
-    "total_line_count": 11158
+    "total_line_count": 11242
   },
   "work_ledger_control_source_import_status": "public_runtime_import_landed",
   "work_ledger_source_contract": {

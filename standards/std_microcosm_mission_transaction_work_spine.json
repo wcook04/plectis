@@ -31,6 +31,11 @@
       "field": "checkpoint_source_manifest",
       "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/checkpoint_source_module_manifest.json",
       "role": "copied_checkpoint_lane_source_body_manifest"
+    },
+    {
+      "field": "mission_control_source_manifest",
+      "path": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/mission_control_source_module_manifest.json",
+      "role": "copied_scoped_commit_and_mission_preflight_source_body_manifest"
     }
   ],
   "relationships": {
@@ -62,6 +67,7 @@
     "task_ledger_control_source_import",
     "work_ledger_control_source_import",
     "checkpoint_lane_source_import",
+    "mission_control_source_import",
     "body_import_verification",
     "authority_ceiling",
     "anti_claim"
@@ -70,7 +76,7 @@
     "require exported WorkItem, claim, dependency, transaction, receipt-drain, and closeout rows to remain projections and not live ledger authority",
     "require scoped commit to remain the normal lane while broad checkpoint requires explicit operator authorization",
     "require suspected secret or credential-equivalent material to hard-stop instead of entering a checkpoint lane",
-    "require copied Task Ledger, Work Ledger, and checkpoint lane source modules to match source-to-target digests and anchor checks",
+    "require copied Task Ledger, Work Ledger, checkpoint lane, scoped-commit, and mission-transaction preflight source modules to match source-to-target digests and anchor checks",
     "reject live Task Ledger mutation, live Work Ledger mutation, live Git mutation, private backup push execution, private-index mutation, provider calls, browser/HUD live access, account/session export, recipient work, publication, release, and whole-system correctness claims",
     "require secret-exclusion scanning over mission bundle files and copied source modules with body text omitted from receipts"
   ],
@@ -111,6 +117,7 @@
       "task_ledger_control_source_import",
       "work_ledger_control_source_import",
       "checkpoint_lane_source_import",
+      "mission_control_source_import",
       "secret_exclusion_scan",
       "authority_ceiling",
       "anti_claim"
@@ -126,6 +133,7 @@
       "exact copied non-secret Task Ledger control modules",
       "exact copied non-secret Work Ledger control modules",
       "exact copied non-secret checkpoint lane modules",
+      "exact copied non-secret scoped commit and mission transaction preflight modules",
       "source refs, hashes, and anchor checks",
       "synthetic negative cases around public mission transaction behavior"
     ],
@@ -164,7 +172,7 @@
     "whole_system_correctness_claim": false
   },
   "standard_payload": {
-    "ontology": "A public-safe mission transaction organ that validates work, claim, dependency, scoped commit, checkpoint lane, receipt-drain, and closeout projections while carrying exact copied non-secret Task Ledger, Work Ledger, and checkpoint lane source modules.",
+    "ontology": "A public-safe mission transaction organ that validates work, claim, dependency, scoped commit, checkpoint lane, receipt-drain, and closeout projections while carrying exact copied non-secret Task Ledger, Work Ledger, checkpoint lane, scoped-commit, and mission transaction preflight source modules.",
     "teleology": "Give a cold reader the real control-plane body needed to inspect how Microcosm closes mission work without replacing live ledgers, live Git state, or private backup execution with receipt theater.",
     "anti_purpose": "A transaction receipt archive that describes Task Ledger, Work Ledger, or checkpoint behavior while omitting the public-safe source bodies and their digest, anchor, and secret-exclusion checks.",
     "failure_modes": [
@@ -180,6 +188,7 @@
       "Task Ledger source module missing from the public bundle",
       "Work Ledger source module missing from the public bundle",
       "checkpoint lane source module missing from the public bundle",
+      "scoped-commit or mission transaction preflight source module missing from the public bundle",
       "copied source module digest does not match macro source digest",
       "copied source module lacks required ledger, transaction, checkpoint, rescue-ref, private-backup, or force-with-lease anchors",
       "receipt duplicates full source body instead of refs, hashes, and verdicts",

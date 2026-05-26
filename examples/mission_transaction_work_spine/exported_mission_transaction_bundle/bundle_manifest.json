@@ -14,7 +14,8 @@
       "tools/meta/factory/work_ledger.py",
       "system/lib/work_ledger.py",
       "system/lib/work_ledger_runtime.py",
-      "codex/standards/std_work_ledger.json"
+      "codex/standards/std_work_ledger.json",
+      "tools/meta/control/scoped_commit.py"
     ],
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py",
@@ -26,7 +27,9 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
-      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
+      "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py"
     ],
     "verification_mode": "source_faithful_public_refactor"
   },
@@ -34,6 +37,7 @@
   "fixture_regression_required_elsewhere": true,
   "input_mode": "exported_mission_transaction_bundle",
   "live_ledger_authority": false,
+  "mission_control_source_import_status": "public_runtime_import_landed",
   "organ_id": "mission_transaction_work_spine",
   "release_authorized": false,
   "required_files": [
@@ -61,7 +65,11 @@
     "checkpoint_source_module_manifest.json",
     "checkpoint_lane_runtime_contract.json",
     "source_modules/checkpoint",
-    "source_modules/tools/meta/control/checkpoint_private_backup.py"
+    "source_modules/tools/meta/control/checkpoint_private_backup.py",
+    "mission_control_source_module_manifest.json",
+    "mission_control_runtime_contract.json",
+    "source_modules/tools/meta/control/scoped_commit.py",
+    "source_modules/tools/meta/control/mission_transaction_preflight.py"
   ],
   "schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
   "task_ledger_control_source_import_status": "public_runtime_import_landed",

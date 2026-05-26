@@ -338,6 +338,51 @@ CHECKPOINT_SOURCE_VALIDATION_REFS = [
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_checkpoint_lane_source_modules",
     "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe",
 ]
+MISSION_CONTROL_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
+MISSION_CONTROL_SOURCE_MANIFEST_NAME = "mission_control_source_module_manifest.json"
+MISSION_CONTROL_CONTRACT_NAME = "mission_control_runtime_contract.json"
+MISSION_CONTROL_SOURCE_MODULES = [
+    {
+        "module_id": "scoped_commit_tool_body_import",
+        "source_ref": "tools/meta/control/scoped_commit.py",
+        "bundle_path": "source_modules/tools/meta/control/scoped_commit.py",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/tools/meta/control/"
+            "scoped_commit.py"
+        ),
+        "required_anchors": [
+            "def perform_scoped_commit(",
+            "def perform_tracked_removals_commit(",
+            "perform_remote_full_paths_landing",
+            "--work-ledger-session-id",
+            "--allow-multi-hunk-full-paths",
+            "scoped_commit_work_ledger_mutation_guard_v0",
+        ],
+    },
+    {
+        "module_id": "mission_transaction_preflight_tool_body_import",
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "bundle_path": "source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "target_ref": (
+            "microcosm-substrate/examples/mission_transaction_work_spine/"
+            "exported_mission_transaction_bundle/source_modules/tools/meta/control/"
+            "mission_transaction_preflight.py"
+        ),
+        "required_anchors": [
+            "def build_parser(",
+            "build_mission_transaction_landing_preflight",
+            "--subject-id",
+            "--owned-path",
+            "--require-exclusive",
+            "--fail-on-status",
+        ],
+    },
+]
+MISSION_CONTROL_SOURCE_VALIDATION_REFS = [
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_mission_control_source_modules",
+    "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_exported_bundle_receipt_is_public_safe",
+]
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -416,6 +461,17 @@ def _checkpoint_source_paths(input_dir: Path) -> list[Path]:
     ]
 
 
+def _mission_control_source_paths(input_dir: Path) -> list[Path]:
+    return [
+        input_dir / MISSION_CONTROL_SOURCE_MANIFEST_NAME,
+        input_dir / MISSION_CONTROL_CONTRACT_NAME,
+        *[
+            input_dir / str(module["bundle_path"])
+            for module in MISSION_CONTROL_SOURCE_MODULES
+        ],
+    ]
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -472,6 +528,7 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
             *_task_ledger_source_paths(input_dir),
             *_work_ledger_source_paths(input_dir),
             *_checkpoint_source_paths(input_dir),
+            *_mission_control_source_paths(input_dir),
         ],
         forbidden_classes=policy,
         display_root=public_root,
@@ -1064,6 +1121,196 @@ def validate_checkpoint_source_import(input_dir: Path, public_root: Path) -> dic
     public_refs = [
         public_relative_path(path, display_root=public_root)
         for path in _checkpoint_source_paths(input_dir)
+    ]
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "classification": "copied_non_secret_macro_body",
+        "manifest_ref": public_relative_path(manifest_path, display_root=public_root),
+        "contract_ref": public_relative_path(contract_path, display_root=public_root),
+        "module_count": len(source_module_results),
+        "module_ids": [row["module_id"] for row in source_module_results],
+        "source_refs": [row["source_ref"] for row in source_module_results],
+        "target_refs": [row["target_ref"] for row in source_module_results],
+        "public_runtime_refs": public_refs,
+        "source_modules": source_module_results,
+        "total_line_count": sum(row["line_count"] for row in source_module_results),
+        "manifest_summary": {
+            "schema_version": manifest.get("schema_version"),
+            "module_count": manifest.get("module_count"),
+            "body_storage_policy": manifest.get("body_storage_policy"),
+            "receipt_body_policy": manifest.get("receipt_body_policy"),
+            "validation_contract_ref": manifest.get("validation_contract_ref"),
+            "body_in_receipt": False,
+        },
+        "contract_summary": {
+            "schema_version": contract.get("schema_version"),
+            "contract_id": contract.get("contract_id"),
+            "status": contract.get("status"),
+            "required_module_ids": contract_ids,
+            "body_in_receipt": False,
+        },
+        "body_in_receipt": False,
+    }
+
+
+def validate_mission_control_source_import(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest_path = input_dir / MISSION_CONTROL_SOURCE_MANIFEST_NAME
+    contract_path = input_dir / MISSION_CONTROL_CONTRACT_NAME
+    manifest = _load_optional_json_document(
+        manifest_path,
+        findings,
+        subject_id=MISSION_CONTROL_SOURCE_MANIFEST_NAME,
+        source_label="Mission Control",
+    )
+    contract = _load_optional_json_document(
+        contract_path,
+        findings,
+        subject_id=MISSION_CONTROL_CONTRACT_NAME,
+        source_label="Mission Control",
+    )
+    manifest_rows = [
+        row for row in manifest.get("modules", []) if isinstance(row, dict)
+    ]
+    manifest_by_id = {
+        str(row.get("module_id") or ""): row
+        for row in manifest_rows
+        if str(row.get("module_id") or "")
+    }
+    expected_ids = [
+        str(module["module_id"]) for module in MISSION_CONTROL_SOURCE_MODULES
+    ]
+    contract_ids = [str(item) for item in contract.get("required_module_ids", [])]
+    source_module_results: list[dict[str, Any]] = []
+
+    if manifest.get("module_count") != len(MISSION_CONTROL_SOURCE_MODULES):
+        findings.append(
+            _bundle_finding(
+                "MISSION_CONTROL_SOURCE_MANIFEST_COUNT_MISMATCH",
+                "Mission-control source module manifest does not declare the expected module count.",
+                subject_id=MISSION_CONTROL_SOURCE_MANIFEST_NAME,
+                subject_kind="mission_control_source_import",
+            )
+        )
+    if sorted(manifest_by_id) != sorted(expected_ids):
+        findings.append(
+            _bundle_finding(
+                "MISSION_CONTROL_SOURCE_MANIFEST_MODULES_MISMATCH",
+                "Mission-control source module manifest does not declare exactly the required module ids.",
+                subject_id=MISSION_CONTROL_SOURCE_MANIFEST_NAME,
+                subject_kind="mission_control_source_import",
+            )
+        )
+    if sorted(contract_ids) != sorted(expected_ids):
+        findings.append(
+            _bundle_finding(
+                "MISSION_CONTROL_SOURCE_CONTRACT_MODULES_MISMATCH",
+                "Mission-control runtime contract does not require exactly the expected module ids.",
+                subject_id=MISSION_CONTROL_CONTRACT_NAME,
+                subject_kind="mission_control_source_import",
+            )
+        )
+
+    for module in MISSION_CONTROL_SOURCE_MODULES:
+        module_id = str(module["module_id"])
+        row = manifest_by_id.get(module_id, {})
+        module_path = input_dir / str(module["bundle_path"])
+        missing_anchors: list[str] = []
+        actual_sha = ""
+        actual_line_count = 0
+        actual_byte_count = 0
+
+        if not module_path.exists():
+            findings.append(
+                _bundle_finding(
+                    "MISSION_CONTROL_SOURCE_MODULE_MISSING",
+                    "Copied mission-control source module is missing from the exported bundle.",
+                    subject_id=module_id,
+                    subject_kind="mission_control_source_import",
+                )
+            )
+        else:
+            text = module_path.read_text(encoding="utf-8")
+            actual_sha = _file_sha256(module_path)
+            actual_line_count = _line_count(module_path)
+            actual_byte_count = len(module_path.read_bytes())
+            missing_anchors = [
+                str(anchor)
+                for anchor in module.get("required_anchors", [])
+                if str(anchor) not in text
+            ]
+            if missing_anchors:
+                findings.append(
+                    _bundle_finding(
+                        "MISSION_CONTROL_SOURCE_ANCHOR_MISSING",
+                        "Copied mission-control source module is missing expected control-plane anchors.",
+                        subject_id=module_id,
+                        subject_kind="mission_control_source_import",
+                    )
+                )
+
+        if row:
+            expected_pairs = {
+                "source_ref": module["source_ref"],
+                "target_ref": module["target_ref"],
+                "classification": "copied_non_secret_macro_body",
+                "body_copied": True,
+                "body_in_receipt": False,
+            }
+            for field, expected in expected_pairs.items():
+                if row.get(field) != expected:
+                    findings.append(
+                        _bundle_finding(
+                            "MISSION_CONTROL_SOURCE_MANIFEST_FIELD_MISMATCH",
+                            "Mission-control source module manifest field does not match the import contract.",
+                            subject_id=f"{module_id}:{field}",
+                            subject_kind="mission_control_source_import",
+                        )
+                    )
+            if row.get("sha256_match") is not True or (
+                actual_sha and row.get("target_sha256") != actual_sha
+            ):
+                findings.append(
+                    _bundle_finding(
+                        "MISSION_CONTROL_SOURCE_SHA_MISMATCH",
+                        "Mission-control source module digest does not match the copied bundle body.",
+                        subject_id=module_id,
+                        subject_kind="mission_control_source_import",
+                    )
+                )
+            if actual_line_count and row.get("line_count") != actual_line_count:
+                findings.append(
+                    _bundle_finding(
+                        "MISSION_CONTROL_SOURCE_LINE_COUNT_MISMATCH",
+                        "Mission-control source module line count does not match the copied bundle body.",
+                        subject_id=module_id,
+                        subject_kind="mission_control_source_import",
+                    )
+                )
+
+        source_module_results.append(
+            {
+                "module_id": module_id,
+                "source_ref": module["source_ref"],
+                "target_ref": module["target_ref"],
+                "public_runtime_ref": public_relative_path(
+                    module_path,
+                    display_root=public_root,
+                ),
+                "sha256": actual_sha,
+                "line_count": actual_line_count,
+                "byte_count": actual_byte_count,
+                "anchor_count": len(module.get("required_anchors", [])),
+                "missing_anchors": missing_anchors,
+                "body_copied": module_path.exists(),
+                "body_in_receipt": False,
+            }
+        )
+
+    public_refs = [
+        public_relative_path(path, display_root=public_root)
+        for path in _mission_control_source_paths(input_dir)
     ]
     return {
         "status": PASS if not findings else "blocked",
@@ -2408,6 +2655,33 @@ def _write_mission_bundle_receipt(
             "checkpoint_source_validation_refs": validation_result[
                 "checkpoint_source_validation_refs"
             ],
+            "mission_control_source_import_status": validation_result[
+                "mission_control_source_import_status"
+            ],
+            "mission_control_source_import": validation_result[
+                "mission_control_source_import"
+            ],
+            "copied_mission_control_source_count": validation_result[
+                "copied_mission_control_source_count"
+            ],
+            "copied_mission_control_source_line_count": validation_result[
+                "copied_mission_control_source_line_count"
+            ],
+            "copied_mission_control_source_module_ids": validation_result[
+                "copied_mission_control_source_module_ids"
+            ],
+            "mission_control_source_manifest": validation_result[
+                "mission_control_source_manifest"
+            ],
+            "mission_control_source_contract": validation_result[
+                "mission_control_source_contract"
+            ],
+            "mission_control_source_public_runtime_refs": validation_result[
+                "mission_control_source_public_runtime_refs"
+            ],
+            "mission_control_source_validation_refs": validation_result[
+                "mission_control_source_validation_refs"
+            ],
             "fixture_regression_required_elsewhere": True,
         }
     )
@@ -2431,6 +2705,10 @@ def run_mission_transaction_bundle(
     task_ledger_source_import = validate_task_ledger_source_import(input_path, public_root)
     work_ledger_source_import = validate_work_ledger_source_import(input_path, public_root)
     checkpoint_source_import = validate_checkpoint_source_import(input_path, public_root)
+    mission_control_source_import = validate_mission_control_source_import(
+        input_path,
+        public_root,
+    )
     workitem_result = validate_exported_workitems(payloads["workitems"])
     claim_result = validate_exported_claims(payloads["claim_table"])
     dependency_result = validate_exported_dependencies(
@@ -2462,6 +2740,7 @@ def run_mission_transaction_bundle(
             *task_ledger_source_import["findings"],
             *work_ledger_source_import["findings"],
             *checkpoint_source_import["findings"],
+            *mission_control_source_import["findings"],
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -2487,6 +2766,7 @@ def run_mission_transaction_bundle(
             *_task_ledger_source_paths(input_path),
             *_work_ledger_source_paths(input_path),
             *_checkpoint_source_paths(input_path),
+            *_mission_control_source_paths(input_path),
         ]
     ]
     body_import_fields = _body_import_fields(input_refs)
@@ -2524,6 +2804,7 @@ def run_mission_transaction_bundle(
         and task_ledger_source_import["status"] == PASS
         and work_ledger_source_import["status"] == PASS
         and checkpoint_source_import["status"] == PASS
+        and mission_control_source_import["status"] == PASS
         and transaction_result["ordered_controller_action_ids"] == ORDERED_CONTROLLER_ACTION_IDS
         and public_mission_preflight["status"] == PASS
         else "blocked"
@@ -2544,6 +2825,12 @@ def run_mission_transaction_bundle(
             "work_ledger_source_modules": work_ledger_source_import["source_modules"],
             "checkpoint_source_manifest": checkpoint_source_import["manifest_summary"],
             "checkpoint_source_modules": checkpoint_source_import["source_modules"],
+            "mission_control_source_manifest": mission_control_source_import[
+                "manifest_summary"
+            ],
+            "mission_control_source_modules": mission_control_source_import[
+                "source_modules"
+            ],
         }
     )
 
@@ -2562,8 +2849,9 @@ def run_mission_transaction_bundle(
             "anti_claim": (
                 "The exported mission transaction bundle validates public work, claim, "
                 "dependency, checkpoint-lane, receipt-drain, and closeout metadata. It does "
-                "import exact non-secret Task Ledger, Work Ledger, and checkpoint-lane "
-                "control-plane source bodies into the public bundle. It does not mutate "
+                "import exact non-secret Task Ledger, Work Ledger, checkpoint-lane, "
+                "scoped-commit, and mission-transaction control-plane source bodies "
+                "into the public bundle. It does not mutate "
                 "live Task Ledger, Work Ledger, or Git state, authorize broad staging or "
                 "private backup execution without operator intent, authorize release, or "
                 "complete later organs."
@@ -2635,6 +2923,27 @@ def run_mission_transaction_bundle(
                 "public_runtime_refs"
             ],
             "checkpoint_source_validation_refs": CHECKPOINT_SOURCE_VALIDATION_REFS,
+            "mission_control_source_import_status": MISSION_CONTROL_SOURCE_IMPORT_STATUS,
+            "mission_control_source_import": mission_control_source_import,
+            "copied_mission_control_source_count": mission_control_source_import[
+                "module_count"
+            ],
+            "copied_mission_control_source_line_count": mission_control_source_import[
+                "total_line_count"
+            ],
+            "copied_mission_control_source_module_ids": mission_control_source_import[
+                "module_ids"
+            ],
+            "mission_control_source_manifest": mission_control_source_import[
+                "manifest_summary"
+            ],
+            "mission_control_source_contract": mission_control_source_import[
+                "contract_summary"
+            ],
+            "mission_control_source_public_runtime_refs": mission_control_source_import[
+                "public_runtime_refs"
+            ],
+            "mission_control_source_validation_refs": MISSION_CONTROL_SOURCE_VALIDATION_REFS,
             "source_pattern_ids": SOURCE_PATTERN_IDS,
             "workitem_ids": workitem_result["workitem_ids"],
             "blocked_workitem_ids": workitem_result["blocked_workitem_ids"],
