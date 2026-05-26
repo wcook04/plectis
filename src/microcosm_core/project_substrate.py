@@ -1849,6 +1849,210 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
     }
 
 
+def _run_work_for_route(project: Path, route_id: str) -> dict[str, Any]:
+    rows = _load_work_items(project)
+    matching_rows = [
+        row for row in rows if str(row.get("route_id") or "") == route_id
+    ]
+    selected = next(
+        (row for row in matching_rows if row.get("status") != "closed"),
+        matching_rows[-1] if matching_rows else None,
+    )
+    if selected is None:
+        created = create_work(project, route_id)
+        if created.get("status") == "blocked":
+            return created
+        work_id = str(created.get("work_id") or "")
+    else:
+        work_id = str(selected.get("work_id") or "")
+    return run_work(project, work_id)
+
+
+def _work_row_for_chain(
+    project: Path,
+    *,
+    route_id: str,
+    work_id: Any,
+) -> dict[str, Any]:
+    rows = _load_work_items(project)
+    if work_id:
+        selected = next((row for row in rows if row.get("work_id") == work_id), None)
+        if selected is not None:
+            return selected
+    route_rows = [row for row in rows if str(row.get("route_id") or "") == route_id]
+    return next(
+        (row for row in route_rows if row.get("status") == "closed"),
+        route_rows[-1] if route_rows else {},
+    )
+
+
+def _dedupe_refs(*groups: Any) -> list[str]:
+    refs: list[str] = []
+    seen: set[str] = set()
+    for group in groups:
+        if isinstance(group, str):
+            candidates = [group]
+        elif isinstance(group, list):
+            candidates = group
+        else:
+            candidates = []
+        for candidate in candidates:
+            if not isinstance(candidate, str) or not candidate:
+                continue
+            if candidate in seen:
+                continue
+            refs.append(candidate)
+            seen.add(candidate)
+    return refs
+
+
+def _state_names(history: Any) -> list[str]:
+    if not isinstance(history, list):
+        return []
+    return [
+        str(row.get("state"))
+        for row in history
+        if isinstance(row, dict) and row.get("state")
+    ]
+
+
+def _reader_causal_chain_card(
+    project: Path,
+    *,
+    route_id: str,
+    work_result: dict[str, Any],
+    explanation: dict[str, Any],
+    observed: dict[str, Any],
+    graph: dict[str, Any],
+    evidence: dict[str, Any],
+) -> dict[str, Any]:
+    proof = explanation.get("causal_chain_proof")
+    proof = proof if isinstance(proof, dict) else {}
+    work_id = work_result.get("work_id") or proof.get("selected_work_id")
+    work_row = _work_row_for_chain(project, route_id=route_id, work_id=work_id)
+    selected_work_id = str(
+        work_row.get("work_id") or work_id or proof.get("selected_work_id") or ""
+    )
+    selected_work_status = (
+        work_row.get("status") or proof.get("selected_work_status")
+    )
+    work_evidence_refs = (
+        work_row.get("evidence_refs") if isinstance(work_row, dict) else []
+    )
+    proof_evidence_refs = proof.get("evidence_refs")
+    evidence_refs = _dedupe_refs(
+        proof_evidence_refs,
+        work_evidence_refs,
+        explanation.get("evidence_ref"),
+        work_result.get("evidence_ref"),
+    )
+    proof_event_refs = proof.get("event_refs")
+    work_event_refs = work_row.get("event_refs") if isinstance(work_row, dict) else []
+    event_ref_count = proof.get("event_ref_count")
+    if not isinstance(event_ref_count, int):
+        event_ref_count = (
+            len(proof_event_refs)
+            if isinstance(proof_event_refs, list)
+            else observed.get("event_count", 0)
+        )
+    evidence_ref_count = proof.get("evidence_ref_count")
+    if not isinstance(evidence_ref_count, int):
+        evidence_ref_count = len(evidence_refs) or evidence.get("evidence_count", 0)
+    state_history = (
+        proof.get("state_history")
+        if isinstance(proof.get("state_history"), list)
+        else _state_names(
+            work_row.get("state_history") if isinstance(work_row, dict) else []
+        )
+    )
+    status = (
+        PASS
+        if route_id
+        and selected_work_id
+        and selected_work_status == "closed"
+        and explanation.get("status") == PASS
+        and proof.get("status") == PASS
+        else "partial"
+    )
+    return {
+        "schema_version": "microcosm_compile_reader_causal_chain_v1",
+        "status": status,
+        "selected_route_id": route_id or None,
+        "selected_route_ref": (
+            f"{STATE_DIR}/routes.json::{route_id}" if route_id else None
+        ),
+        "selected_work_id": selected_work_id or None,
+        "selected_work_status": selected_work_status,
+        "work_state_ref": (
+            f"{STATE_DIR}/work_items.json::{selected_work_id}"
+            if selected_work_id
+            else f"{STATE_DIR}/work_items.json"
+        ),
+        "route_explanation_ref": (
+            f"{STATE_DIR}/explanations/{route_id}.json" if route_id else None
+        ),
+        "route_explanation_command": (
+            f"microcosm explain <project> {route_id}"
+            if route_id
+            else "microcosm explain <project> <selected_route_id>"
+        ),
+        "event_log_ref": f"{STATE_DIR}/{EVENT_STREAM}",
+        "event_ref_count": event_ref_count,
+        "work_event_refs": work_event_refs if isinstance(work_event_refs, list) else [],
+        "evidence_refs": evidence_refs,
+        "evidence_ref_count": evidence_ref_count,
+        "reader_drilldowns": _dedupe_refs(
+            proof.get("reader_drilldowns"),
+            [
+                f"{STATE_DIR}/routes.json",
+                f"{STATE_DIR}/work_items.json",
+                f"{STATE_DIR}/{EVENT_STREAM}",
+                f"{STATE_DIR}/evidence/",
+                f"{STATE_DIR}/graph.json",
+                f"{STATE_DIR}/explanations/{route_id}.json" if route_id else "",
+            ],
+        ),
+        "state_history": state_history,
+        "graph": {
+            "graph_ref": graph.get("graph_ref") or f"{STATE_DIR}/graph.json",
+            "node_count": graph.get("node_count", 0),
+            "edge_count": graph.get("edge_count", 0),
+        },
+        "observatory": {
+            "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+            "compact_endpoint": "/project/observatory-card",
+            "expanded_endpoint": "/project/observatory",
+            "route_explanation_endpoint": f"/project/explain/{route_id}"
+            if route_id
+            else "/project/explain/<selected_route_id>",
+        },
+        "proof_lab": {
+            "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+            "endpoint": "/proof-lab",
+            "role": "first_screen_formal_route_smoke_not_project_correctness_proof",
+        },
+        "receipts_are_drilldown_evidence": True,
+        "source_files_mutated": (
+            work_row.get("source_files_mutated") is True
+            if isinstance(work_row, dict)
+            else False
+        ),
+        "authority_boundary": (
+            proof.get("authority_boundary")
+            or "project_local_lineage_not_release_or_proof_correctness_authority"
+        ),
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+    }
+
+
 def observe_project(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     architecture_kernel.write_project_architecture(project)
@@ -1980,12 +2184,23 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         route_rows[0] if route_rows else {},
     )
     route_id = str(selected_route.get("route_id") or "")
-    work_result = run_work(project)
+    work_result = (
+        _run_work_for_route(project, route_id) if route_id else run_work(project)
+    )
     explanation = explain_route(project, route_id) if route_id else {}
     observed = observe_project(project)
     graph = state_graph(project)
     evidence = list_evidence(project)
     work_id = work_result.get("work_id")
+    reader_causal_chain = _reader_causal_chain_card(
+        project,
+        route_id=route_id,
+        work_result=work_result,
+        explanation=explanation,
+        observed=observed,
+        graph=graph,
+        evidence=evidence,
+    )
     state_files = [
         f"{STATE_DIR}/catalog.json",
         f"{STATE_DIR}/{PYTHON_LENS_STATE}",
@@ -2075,6 +2290,7 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         "resolved_pattern_refs": explanation.get("pattern_refs", []),
         "resolved_standard_pressure_refs": explanation.get("standard_pressure_refs", []),
         "work_id": work_id,
+        "reader_causal_chain": reader_causal_chain,
         "transaction_status": work_result.get("transaction_status"),
         "idempotent_replay": work_result.get("idempotent_replay", False),
         "event_count": observed.get("event_count", 0),

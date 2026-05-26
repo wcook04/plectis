@@ -364,6 +364,27 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
     assert "microcosm serve <project>" in compiled["open_observatory"]
+    reader_chain = compiled["reader_causal_chain"]
+    assert reader_chain["status"] == "pass"
+    assert reader_chain["selected_route_id"] == "readme_onboarding_route"
+    assert reader_chain["selected_route_ref"] == (
+        ".microcosm/routes.json::readme_onboarding_route"
+    )
+    assert reader_chain["selected_work_id"] == "work_0001"
+    assert reader_chain["selected_work_status"] == "closed"
+    assert reader_chain["work_state_ref"] == ".microcosm/work_items.json::work_0001"
+    assert reader_chain["event_log_ref"] == ".microcosm/events.jsonl"
+    assert reader_chain["graph"]["graph_ref"] == ".microcosm/graph.json"
+    assert reader_chain["observatory"]["compact_endpoint"] == "/project/observatory-card"
+    assert reader_chain["observatory"]["expanded_endpoint"] == "/project/observatory"
+    assert reader_chain["proof_lab"]["endpoint"] == "/proof-lab"
+    assert ".microcosm/evidence/work_create_work_0001.json" in reader_chain["evidence_refs"]
+    assert ".microcosm/evidence/work_run_work_0001.json" in reader_chain["evidence_refs"]
+    assert ".microcosm/work_items.json" in reader_chain["reader_drilldowns"]
+    assert ".microcosm/graph.json" in reader_chain["reader_drilldowns"]
+    assert reader_chain["receipts_are_drilldown_evidence"] is True
+    assert reader_chain["safe_to_show"]["provider_calls_authorized"] is False
+    assert reader_chain["safe_to_show"]["proof_correctness_claim"] is False
 
     state_files = {
         ".microcosm/project_manifest.json",
@@ -390,6 +411,48 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in sorted((project / ".microcosm").rglob("*.json")))
     assert tmp_path.as_posix() not in state_text
     assert "/Users/" not in state_text
+
+
+def test_compile_project_runs_work_for_selected_readme_route_when_old_work_exists(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+
+    project_substrate.init_project(project)
+    project_substrate.index_project(project)
+    project_substrate.propose_routes(project)
+    old = project_substrate.create_work(project, "test_behavior_route")
+    project_substrate.run_work(project, str(old["work_id"]))
+
+    compiled = project_substrate.compile_project(project)
+    explanation = project_substrate.explain_route(project, "readme_onboarding_route")
+    proof = explanation["causal_chain_proof"]
+    work_payload = json.loads(
+        (project / ".microcosm/work_items.json").read_text(encoding="utf-8")
+    )
+    rows_by_route = {
+        row["route_id"]: row
+        for row in work_payload["work_items"]
+        if isinstance(row, dict)
+    }
+
+    assert compiled["selected_route_id"] == "readme_onboarding_route"
+    assert compiled["work_id"] == rows_by_route["readme_onboarding_route"]["work_id"]
+    assert compiled["reader_causal_chain"]["status"] == "pass"
+    assert compiled["reader_causal_chain"]["selected_route_id"] == (
+        "readme_onboarding_route"
+    )
+    assert compiled["reader_causal_chain"]["selected_work_id"] == (
+        rows_by_route["readme_onboarding_route"]["work_id"]
+    )
+    assert compiled["reader_causal_chain"]["work_state_ref"] == (
+        ".microcosm/work_items.json::"
+        f"{rows_by_route['readme_onboarding_route']['work_id']}"
+    )
+    assert proof["status"] == "pass"
+    assert proof["selected_work_status"] == "closed"
+    assert rows_by_route["test_behavior_route"]["status"] == "closed"
+    assert rows_by_route["readme_onboarding_route"]["status"] == "closed"
 
 
 def test_python_lens_can_emit_navigation_assay_without_writing_state(tmp_path: Path) -> None:
