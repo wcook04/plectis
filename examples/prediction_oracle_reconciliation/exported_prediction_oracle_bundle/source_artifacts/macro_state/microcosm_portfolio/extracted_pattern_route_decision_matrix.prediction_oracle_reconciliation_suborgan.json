@@ -1,0 +1,25 @@
+{
+  "body_in_receipt": false,
+  "route_delta": {
+    "decision": "private_fixture_only",
+    "delta_id": "live_ledger_rows_226_232_prediction_oracle_reconciliation",
+    "latent_child_suborgan_id": "prediction_oracle_reconciliation_suborgan",
+    "pattern_ids": [
+      "cp1_bifurcation_reconciliation_spine",
+      "epistemic_hierarchy_lane_resolution_order",
+      "cp2_universe_constraint_valid_prediction_targets_gate",
+      "oracle_deterministic_equity_diff_grading_surface",
+      "oracle_hindsight_brief_realized_driver_classification",
+      "oracle_cp2_grounding_firewall",
+      "evolve_oracle_to_dossier_mutation_loop"
+    ],
+    "route_to_organ_ids": [
+      "proof_diagnostic_evidence_spine",
+      "external_boundary_anti_corruption_runtime",
+      "voice_to_doctrine_self_improvement_loop"
+    ],
+    "routing_effect": "Prediction/oracle rows are domain reasoning machinery that only becomes portable over a synthetic evidence graph. Fold them under proof, external-boundary, and self-improvement organs; do not select CP1/CP2/oracle rows as public microcosm leaves."
+  },
+  "schema_version": "prediction_oracle_route_decision_body_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json::post_dag_delta_routing.live_ledger_rows_226_232_prediction_oracle_reconciliation"
+}

@@ -1,0 +1,196 @@
+{
+  "id": "schema_evolve_delta",
+  "type": "contract",
+  "version": "1.0",
+  "status": "NORMATIVE",
+  "description": "Structured delta report emitted by Evolve delta_analyzer. Maps Oracle hindsight findings to specific dossier and doctrine mutations.",
+  "purpose": "This contract defines `evolve_delta_report`, the primary Evolve artifact. It bridges Oracle critique outputs to actionable substrate mutations with full provenance.",
+  "schema": {
+    "status": {
+      "type": "string",
+      "required": true,
+      "enum": ["AVAILABLE"],
+      "constraint": "Exactly AVAILABLE when the artifact exists."
+    },
+    "run_pair": {
+      "type": "RunPair",
+      "required": true,
+      "constraint": "Must reference the Oracle run that produced the inputs."
+    },
+    "pattern_summary": {
+      "type": "PatternSummary",
+      "required": true,
+      "constraint": "Aggregated analysis of Oracle findings."
+    },
+    "dossier_deltas": {
+      "type": "array[DossierDelta]",
+      "required": true,
+      "constraint": "Non-empty when actionable changes exist. Empty array if Oracle found no actionable patterns."
+    },
+    "doctrine_flags": {
+      "type": "array[DoctrineFlag]",
+      "required": true,
+      "constraint": "May be empty. Each flag must cite evidence from at least one Oracle artifact."
+    },
+    "learning_entries": {
+      "type": "array[string]",
+      "required": true,
+      "constraint": "Non-empty. Compact learning statements for the ledger."
+    }
+  },
+  "run_pair": {
+    "subject_run_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty Lab run id."
+    },
+    "truth_run_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty truth run id."
+    }
+  },
+  "pattern_summary": {
+    "root_failure_mode": {
+      "type": "string",
+      "required": true,
+      "constraint": "Primary error class from cp2_critique. Must be a valid error_class enum value."
+    },
+    "error_class_distribution": {
+      "type": "object",
+      "required": true,
+      "constraint": "Keys are error_class enum values, values are integer counts."
+    },
+    "directional_accuracy": {
+      "type": "object",
+      "required": true,
+      "constraint": "From prediction_reconciliation.summary: {correct: int, incorrect: int, total: int}."
+    },
+    "regime_classification": {
+      "type": "string",
+      "required": true,
+      "constraint": "From realized_hindsight_brief: dominant realized regime descriptor."
+    },
+    "systematic_patterns": {
+      "type": "array[string]",
+      "required": true,
+      "constraint": "Non-empty. Each entry is a concise pattern statement citing specific Oracle findings."
+    }
+  },
+  "dossier_delta": {
+    "lane": {
+      "type": "string",
+      "required": true,
+      "constraint": "Uppercase lane label: STOCK, ETF, MACRO, SPINE."
+    },
+    "dossier_path": {
+      "type": "string",
+      "required": true,
+      "constraint": "Repo-relative path to the target dossier file."
+    },
+    "operations": {
+      "type": "array[DossierOperation]",
+      "required": true,
+      "constraint": "Non-empty. Ordered list of proposed CRUD operations."
+    }
+  },
+  "dossier_operation": {
+    "type": {
+      "type": "string",
+      "required": true,
+      "enum": ["CREATE", "UPDATE", "DELETE"],
+      "constraint": "Operation type for this dossier key."
+    },
+    "key": {
+      "type": "string",
+      "required": true,
+      "constraint": "Slash-delimited dossier path (e.g., 'SECTOR_ROTATION/tech_sensitivity')."
+    },
+    "value": {
+      "type": "any",
+      "required": false,
+      "constraint": "Required for CREATE and UPDATE. The proposed new value or merge payload."
+    },
+    "rationale": {
+      "type": "string",
+      "required": true,
+      "constraint": "Must cite the Oracle artifact and field that motivated this change."
+    },
+    "source_artifact": {
+      "type": "string",
+      "required": true,
+      "enum": ["prediction_reconciliation", "realized_hindsight_brief", "cp2_critique", "ideal_cp2", "lab_cp2"],
+      "constraint": "The Oracle artifact (or Lab CP2) that motivated this change."
+    },
+    "source_field": {
+      "type": "string",
+      "required": true,
+      "constraint": "Specific field or path within the source artifact."
+    }
+  },
+  "doctrine_flag": {
+    "flag_type": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "epistemic_hierarchy_override",
+        "pre_pricing_threshold",
+        "target_selection_bias",
+        "lane_reliability_shift",
+        "contradiction_handling",
+        "regime_sensitivity"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "constraint": "Concise description of the proposed doctrine change."
+    },
+    "evidence_runs": {
+      "type": "array[string]",
+      "required": true,
+      "constraint": "Non-empty list of run pair ids that support this flag."
+    },
+    "severity": {
+      "type": "string",
+      "required": true,
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "constraint": "Based on frequency and magnitude of the pattern."
+    }
+  },
+  "dossier_target_allowlist": {
+    "description": "Canonical lane-to-dossier mapping. Reject dossier_path values not in this list.",
+    "allowed_targets": {
+      "STOCK": "codex/substrate/dossiers/stock.json",
+      "ETF": "codex/substrate/dossiers/etf.json",
+      "MACRO": "codex/substrate/dossiers/macro.json",
+      "SPINE": "codex/substrate/dossiers/oracle_error_taxonomy.json"
+    }
+  },
+  "evidence_gates": {
+    "description": "Minimum evidence thresholds before mutations are committed. Prevents overfitting to single runs.",
+    "rules": [
+      "CREATE operations on new top-level sections require severity >= MEDIUM or explicit human approval.",
+      "DELETE operations always require explicit human approval regardless of evidence.",
+      "UPDATE operations with a single source_field from a single run may be committed directly only if severity is LOW (cosmetic correction).",
+      "Doctrine flags require at least 2 evidence_runs before severity can be raised to HIGH.",
+      "If multiple dossier operations target the same key with contradictory values, emit a conflict_detected flag and require human review."
+    ]
+  },
+  "validation_rules": [
+    "Every dossier_delta must target a dossier_path in the dossier_target_allowlist.",
+    "Every dossier_operation must cite a source_artifact and source_field.",
+    "CREATE and UPDATE operations require non-null value; DELETE operations require value to be null or omitted.",
+    "doctrine_flags must have at least one evidence_run.",
+    "learning_entries must be non-empty (always something to learn).",
+    "error_class_distribution keys must match oracle_error_taxonomy.json mechanisms."
+  ],
+  "stage_responsibilities": {
+    "delta_analyzer": {
+      "role": "Primary emitter of the evolve_delta_report."
+    },
+    "dossier_updater": {
+      "role": "Converts dossier_deltas into unified patch vocabulary for version_committer."
+    }
+  }
+}

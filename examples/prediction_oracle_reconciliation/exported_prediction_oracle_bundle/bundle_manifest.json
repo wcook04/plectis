@@ -1,19 +1,72 @@
 {
-  "schema_version": "microcosm_exported_bundle_manifest_v1",
-  "bundle_id": "public_prediction_oracle_reconciliation_runtime_example",
-  "organ_id": "prediction_oracle_reconciliation",
-  "input_mode": "exported_prediction_oracle_bundle",
-  "fixture_refs": [
-    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
-  ],
+  "anti_claim": "This exported bundle is a synthetic prediction-reconciliation demo only, not trading, financial advice, investment advice, or live market prediction authority.",
   "authority_ceiling": {
-    "trading_authorized": false,
     "financial_advice_authorized": false,
     "investment_advice_authorized": false,
     "live_market_data_authorized": false,
+    "private_data_equivalence_claim": false,
     "provider_calls_authorized": false,
     "release_authorized": false,
-    "private_data_equivalence_claim": false
+    "trading_authorized": false
   },
-  "anti_claim": "This exported bundle is a synthetic prediction-reconciliation demo only, not trading, financial advice, investment advice, or live market prediction authority."
+  "bundle_id": "public_prediction_oracle_reconciliation_runtime_example",
+  "fixture_refs": [
+    "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
+  ],
+  "input_mode": "exported_prediction_oracle_bundle",
+  "omitted_secret_or_live_access_material": [
+    "live market data",
+    "provider payload bodies",
+    "account/session/cookie material",
+    "browser/HUD live-access state",
+    "private prediction dossiers",
+    "trading recommendations",
+    "forecast performance claims"
+  ],
+  "organ_id": "prediction_oracle_reconciliation",
+  "schema_version": "microcosm_exported_bundle_manifest_v1",
+  "source_module_manifest_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "financial_advice_authorized": false,
+      "investment_advice_authorized": false,
+      "live_market_data_authorized": false,
+      "private_data_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "trading_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 14,
+    "body_material_ids": [
+      "prediction_oracle_contract_cross_corr_v1_body_import",
+      "prediction_oracle_contract_cross_corr_v2_body_import",
+      "prediction_oracle_contract_schema_cp1_body_import",
+      "prediction_oracle_contract_schema_cp2_body_import",
+      "prediction_oracle_contract_schema_evolve_delta_body_import",
+      "prediction_oracle_contract_schema_prediction_reconciliation_body_import",
+      "prediction_oracle_extracted_pattern_ledger_rows_body_import",
+      "prediction_oracle_fixture_spec_body_import",
+      "prediction_oracle_node_lab_cross_corr_v2_body_import",
+      "prediction_oracle_node_lab_decide_body_import",
+      "prediction_oracle_node_oracle_cp2_emitter_body_import",
+      "prediction_oracle_node_oracle_truth_diff_equity_body_import",
+      "prediction_oracle_route_decision_body_import",
+      "prediction_oracle_tool_truth_diff_equity_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_prediction_oracle_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied prediction-oracle macro bodies; receipts carry digests and status only.",
+    "schema_version": "prediction_oracle_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
 }

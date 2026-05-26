@@ -1,0 +1,85 @@
+{
+  "body_in_receipt": false,
+  "fixture_spec": {
+    "carry_with_pattern_ids": [
+      "market_situation_evidence_graph",
+      "cross_feed_refusal_first_readiness_gate",
+      "cross_lane_lab_two_phase_pattern_mapper"
+    ],
+    "decision": "private_fixture_only",
+    "fixture_contract": {
+      "anti_claim": "This fixture proves reconciliation mechanics over fake market data; it is not a prediction product or trading signal.",
+      "expected_artifacts": [
+        "toy_cp1_reconciliation.json",
+        "toy_evidence_hierarchy_resolution.json",
+        "toy_cp2_target_gate.json",
+        "toy_oracle_diff_grade.json",
+        "toy_oracle_grounding_firewall.json",
+        "toy_dossier_mutation_plan.json"
+      ],
+      "fixture_id": "toy_prediction_oracle_reconciliation",
+      "negative_cases": [
+        "unresolved contradiction cannot lock CP1",
+        "Tier 4 evidence overrides Tier 1 without defense",
+        "target outside valid universe is rejected",
+        "truth-side ledger id appears in subject evidence"
+      ],
+      "required_steps": [
+        "force CP1 to resolve every named bifurcation",
+        "apply epistemic hierarchy with explicit override defense",
+        "reject CP2 target outside valid universe",
+        "grade realized target diff before interpretive oracle critique",
+        "confine truth-side influence to oracle metadata",
+        "emit gated dossier mutation proposals"
+      ],
+      "synthetic_inputs": [
+        "toy cross-lane evidence graph",
+        "CP1 contradiction set",
+        "CP2 valid target list",
+        "realized price table",
+        "oracle hindsight labels",
+        "dossier mutation proposals"
+      ],
+      "validator_or_check": "synthetic graph validator, target-universe gate, deterministic diff grader, and grounding-id firewall"
+    },
+    "hidden_infrastructure_to_carry": [
+      "synthetic evidence graph",
+      "valid target universe",
+      "truth-side oracle metadata boundary",
+      "deterministic diff grader",
+      "dossier mutation gate"
+    ],
+    "parent_pattern_ids": [
+      "cp1_bifurcation_reconciliation_spine",
+      "epistemic_hierarchy_lane_resolution_order",
+      "cp2_universe_constraint_valid_prediction_targets_gate",
+      "oracle_deterministic_equity_diff_grading_surface",
+      "oracle_hindsight_brief_realized_driver_classification",
+      "oracle_cp2_grounding_firewall",
+      "evolve_oracle_to_dossier_mutation_loop"
+    ],
+    "prerequisite_organ_ids": [
+      "proof_diagnostic_evidence_spine",
+      "external_boundary_anti_corruption_runtime"
+    ],
+    "route_to_organ_ids": [
+      "proof_diagnostic_evidence_spine",
+      "external_boundary_anti_corruption_runtime",
+      "voice_to_doctrine_self_improvement_loop"
+    ],
+    "should_become_standalone_leaf": false,
+    "spec_id": "prediction_oracle_reconciliation_suborgan",
+    "standalone_exclusions": [
+      "cp1_bifurcation_reconciliation_spine",
+      "epistemic_hierarchy_lane_resolution_order",
+      "cp2_universe_constraint_valid_prediction_targets_gate",
+      "oracle_deterministic_equity_diff_grading_surface",
+      "oracle_hindsight_brief_realized_driver_classification",
+      "oracle_cp2_grounding_firewall",
+      "evolve_oracle_to_dossier_mutation_loop"
+    ],
+    "why_this_is_one_organ": "The prediction/oracle rows are a domain-specific reconciliation membrane: cross-lane contradictions, evidence hierarchy, valid target universe, deterministic grading, hindsight classification, grounding firewall, and dossier mutation are one proof-to-learning loop."
+  },
+  "schema_version": "prediction_oracle_fixture_spec_body_v1",
+  "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json::organ_fixture_specs.prediction_oracle_reconciliation_suborgan"
+}

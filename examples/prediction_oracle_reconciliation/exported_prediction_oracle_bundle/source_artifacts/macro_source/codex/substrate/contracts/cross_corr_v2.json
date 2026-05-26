@@ -1,0 +1,79 @@
+{
+  "id": "cross_corr_v2",
+  "type": "contract",
+  "version": "1.0",
+  "status": "NORMATIVE",
+  "description": "Phase 2 cross-lane target convergence map. Maps directional convergence on specific prediction targets from Phase 2 miner outputs.",
+  "purpose": "This contract defines the output of lab_cross_corr_v2. The target map feeds into lab_director for CP2 emission. valid_prediction_targets is the authoritative gate for CP2 target selection.",
+  "schema": {
+    "target_swarms": {
+      "type": "array[TargetSwarmEntry]",
+      "required": true,
+      "constraint": "Non-empty when target convergence exists. Multi-lane directional agreement on specific tickers.",
+      "semantics": "Tickers where multiple Phase 2 miners agree on directional exposure. These are the strongest CP2 candidates."
+    },
+    "directional_conflicts": {
+      "type": "array[ConflictEntry]",
+      "required": true,
+      "constraint": "Non-empty when directional disagreement exists on specific tickers.",
+      "semantics": "Tickers where Phase 2 miners disagree on direction. Director must resolve or omit."
+    },
+    "solo_targets": {
+      "type": "array[SoloTargetEntry]",
+      "required": true,
+      "constraint": "May be empty. Tickers with single-lane support only.",
+      "semantics": "Tickers supported by only one lane. Lower confidence but may still be valid CP2 targets."
+    },
+    "thesis_stress": {
+      "type": "array[ThesisStressEntry]",
+      "required": true,
+      "constraint": "May be empty. Material contradictions to the locked CP1 thesis.",
+      "semantics": "Signals that directly challenge the CP1 epicentre. Director MUST acknowledge material thesis stress per Lab mission doctrine."
+    },
+    "valid_prediction_targets": {
+      "type": "array[string]",
+      "required": true,
+      "constraint": "Unique uppercase tickers. Must equal the union of tickers from target_swarms and solo_targets (excluding 'NONE').",
+      "semantics": "The authoritative gate for CP2 target selection. Director may only predict targets in this list."
+    }
+  },
+  "target_swarm_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^ts_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "tickers": { "type": "array[string]", "required": true, "constraint": "Uppercase ticker symbols." },
+    "lanes": { "type": "array[string]", "required": true, "constraint": "Uppercase lane labels." },
+    "direction_consensus": { "type": "string", "required": true, "enum": ["BULLISH", "BEARISH", "CONTESTED", "N/A"] },
+    "summary": { "type": "string", "required": true, "constraint": "One sentence structural description only." }
+  },
+  "conflict_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^dc_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "tickers": { "type": "array[string]", "required": true },
+    "lanes": { "type": "array[string]", "required": true },
+    "direction_consensus": { "type": "string", "required": true, "enum": ["CONTESTED"] },
+    "summary": { "type": "string", "required": true }
+  },
+  "solo_target_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^so_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "tickers": { "type": "array[string]", "required": true },
+    "lanes": { "type": "array[string]", "required": true },
+    "direction_consensus": { "type": "string", "required": true, "enum": ["BULLISH", "BEARISH"] },
+    "summary": { "type": "string", "required": true }
+  },
+  "thesis_stress_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^st_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "tickers": { "type": "array[string]", "required": true, "constraint": "May be ['NONE'] for non-ticker-specific stress." },
+    "lanes": { "type": "array[string]", "required": true },
+    "direction_consensus": { "type": "string", "required": true, "enum": ["N/A"] },
+    "summary": { "type": "string", "required": true, "constraint": "One sentence describing the thesis challenge." }
+  },
+  "language_rules": {
+    "allowed": "Observational and relational language only.",
+    "forbidden": "Predictive/hypothesis framing. direction_consensus is a structural label, not a prediction."
+  },
+  "stage_responsibilities": {
+    "lab_cross_corr_v2": { "role": "Primary and sole emitter." }
+  }
+}

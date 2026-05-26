@@ -1,0 +1,328 @@
+{
+  "id": "schema_prediction_reconciliation",
+  "type": "contract",
+  "version": "1.1",
+  "status": "NORMATIVE",
+  "description": "Deterministic Oracle grading surface for comparing Lab prediction targets at T-n against realized truth at T.",
+  "purpose": "This contract defines `prediction_reconciliation`, the first Oracle artifact. It is emitted by the deterministic equity diff layer before interpretive truth mapping. The artifact answers: what did Lab predict, what actually happened, and how large was the miss? It is deliberately factual and low-hallucination.",
+  "schema": {
+    "status": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "AVAILABLE"
+      ],
+      "constraint": "Exactly AVAILABLE when the artifact exists."
+    },
+    "subject_run_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty Lab run id."
+    },
+    "truth_run_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty truth run id."
+    },
+    "rows": {
+      "type": "array[PredictionReconciliationRow]",
+      "required": true,
+      "constraint": "Non-empty. Must cover every comparable STOCK or ETF prediction target from Lab CP2.",
+      "semantics": "Primary deterministic grading table."
+    },
+    "macro_rows": {
+      "type": "array[MacroReconciliationRow]",
+      "required": false,
+      "constraint": "Optional. Present only when Oracle is grading an explicit macro prediction target that is deterministic and comparable."
+    },
+    "summary": {
+      "type": "PredictionReconciliationSummary",
+      "required": true,
+      "constraint": "Must summarize row coverage, direction accuracy, and largest misses."
+    },
+    "feed_health": {
+      "type": "EquityFeedHealth",
+      "required": false,
+      "constraint": "Optional deterministic readiness block emitted by oracle_truth_diff_equity. Present when the tool can summarize subject/truth stock+ETF coverage for Lab CP2 prediction targets.",
+      "semantics": "Separates missing feed coverage from actual prediction failure before interpretive Oracle or Evolve stages read the reconciliation rows."
+    }
+  },
+  "prediction_reconciliation_row": {
+    "target_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Uppercase STOCK or ETF ticker."
+    },
+    "asset_class": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "STOCK",
+        "ETF"
+      ]
+    },
+    "prediction_direction": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "UP",
+        "DOWN"
+      ]
+    },
+    "subject_snapshot_price": {
+      "type": "number",
+      "required": true,
+      "constraint": "Finite T-n baseline price."
+    },
+    "predicted_target_price": {
+      "type": "number",
+      "required": true,
+      "constraint": "Finite Lab-predicted target level."
+    },
+    "realized_truth_price": {
+      "type": "number",
+      "required": true,
+      "constraint": "Finite realized T price."
+    },
+    "absolute_delta": {
+      "type": "number",
+      "required": true,
+      "constraint": "Absolute difference between predicted_target_price and realized_truth_price."
+    },
+    "percent_delta": {
+      "type": "number",
+      "required": true,
+      "constraint": "Percent miss measured against predicted_target_price or subject_snapshot_price per tool implementation."
+    },
+    "directional_correct": {
+      "type": "boolean",
+      "required": true,
+      "constraint": "True when realized move matched prediction_direction."
+    },
+    "rank": {
+      "type": "integer",
+      "required": false,
+      "constraint": "Optional stable ranking field for ordering largest misses or movers."
+    },
+    "finance_forecast_extension": {
+      "type": "FinanceForecastResolutionFields",
+      "required": false,
+      "constraint": "Optional additive field set used when rows are emitted by tools/finance/resolve_forecasts.py for finance_forecast_claim_v1 replay. These fields do not change the legacy Oracle equity-diff row contract.",
+      "semantics": "Binds a row to an admitted finance forecast claim's event window, benchmark, and outcome basis so eval_replay can score the declared claim-level event rather than accidental member diagnostics."
+    }
+  },
+  "finance_forecast_resolution_fields": {
+    "forecast_id": {
+      "type": "string",
+      "required": false,
+      "constraint": "Admitted finance forecast claim id."
+    },
+    "candidate_ref": {
+      "type": "string",
+      "required": false,
+      "constraint": "Original calculator candidate_forecast_card id."
+    },
+    "truth_join_key": {
+      "type": "string",
+      "required": false,
+      "constraint": "Stable finance truth join key from finance_forecast_claim_v1.truth_binding."
+    },
+    "subject_as_of": {
+      "type": "string",
+      "required": false,
+      "constraint": "Subject-time T-n boundary for the admitted claim."
+    },
+    "event_start": {
+      "type": "string",
+      "required": false,
+      "constraint": "Forecast event-window start."
+    },
+    "event_end": {
+      "type": "string",
+      "required": false,
+      "constraint": "Forecast event-window end."
+    },
+    "horizon": {
+      "type": "string",
+      "required": false,
+      "constraint": "Horizon label bound at CP1 admission."
+    },
+    "benchmark": {
+      "type": "string",
+      "required": false,
+      "constraint": "Benchmark id used for relative-return scoring."
+    },
+    "event_type": {
+      "type": "string",
+      "required": false,
+      "constraint": "Finance forecast event semantic, e.g. group_return_direction_vs_benchmark."
+    },
+    "outcome_basis": {
+      "type": "string",
+      "required": false,
+      "constraint": "Claim-level outcome basis, e.g. equal_weight_group_return_direction or mean_member_binary_hit."
+    },
+    "benchmark_member_policy": {
+      "type": "string",
+      "required": false,
+      "constraint": "Benchmark-as-member policy copied from the admitted claim so replay can prove truth rows describe the same outcome contract."
+    },
+    "member_return": {
+      "type": "number",
+      "required": false,
+      "constraint": "Resolved member return over event_start -> event_end."
+    },
+    "benchmark_return": {
+      "type": "number",
+      "required": false,
+      "constraint": "Resolved benchmark return over event_start -> event_end."
+    },
+    "truth_quality_status": {
+      "type": "string",
+      "required": false,
+      "constraint": "OK / degraded / stale-style status used by eval_replay data-quality refusals."
+    },
+    "truth_source": {
+      "type": "string",
+      "required": false,
+      "constraint": "Truth materialization source, e.g. price_history_artifact."
+    }
+  },
+  "macro_reconciliation_row": {
+    "series_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty comparable macro series identifier."
+    },
+    "subject_value": {
+      "type": "number|string",
+      "required": true
+    },
+    "realized_value": {
+      "type": "number|string",
+      "required": true
+    },
+    "comparison_basis": {
+      "type": "string",
+      "required": true,
+      "constraint": "Must say why this macro row is deterministic and comparable."
+    }
+  },
+  "prediction_reconciliation_summary": {
+    "row_count": {
+      "type": "integer",
+      "required": true
+    },
+    "directionally_correct_count": {
+      "type": "integer",
+      "required": true
+    },
+    "directionally_incorrect_count": {
+      "type": "integer",
+      "required": true
+    },
+    "largest_absolute_miss_target": {
+      "type": "string",
+      "required": false
+    },
+    "largest_percent_miss_target": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "equity_feed_health": {
+    "status": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED"
+      ],
+      "constraint": "READY when every prediction target has subject and truth prices; DEGRADED when at least one but not all targets are comparable; BLOCKED when no deterministic equity target can be graded."
+    },
+    "subject": {
+      "type": "EquityFeedSideHealth",
+      "required": true
+    },
+    "truth": {
+      "type": "EquityFeedSideHealth",
+      "required": true
+    },
+    "common_ticker_count": {
+      "type": "integer",
+      "required": true
+    },
+    "prediction_target_count": {
+      "type": "integer",
+      "required": true
+    },
+    "comparable_prediction_targets": {
+      "type": "array[string]",
+      "required": true
+    },
+    "missing_subject_price_targets": {
+      "type": "array[string]",
+      "required": true
+    },
+    "missing_truth_price_targets": {
+      "type": "array[string]",
+      "required": true
+    },
+    "diagnostics": {
+      "type": "array[string]",
+      "required": true,
+      "constraint": "Human-readable deterministic reasons for DEGRADED or BLOCKED status."
+    }
+  },
+  "equity_feed_side_health": {
+    "stock_ticker_count": {
+      "type": "integer",
+      "required": true
+    },
+    "etf_ticker_count": {
+      "type": "integer",
+      "required": true
+    },
+    "stock_price_count": {
+      "type": "integer",
+      "required": true
+    },
+    "etf_price_count": {
+      "type": "integer",
+      "required": true
+    },
+    "ticker_count": {
+      "type": "integer",
+      "required": true
+    }
+  },
+  "coverage_rules": {
+    "required_rows": [
+      "Every comparable STOCK target in Lab CP2 must appear exactly once.",
+      "Every comparable ETF target in Lab CP2 must appear exactly once."
+    ],
+    "macro_rule": "Macro rows appear only when there is an explicit deterministic macro prediction target.",
+    "hard_failures": [
+      "Missing comparable target row",
+      "Duplicate target row",
+      "Non-comparable target silently included as if deterministic"
+    ]
+  },
+  "determinism_rules": {
+    "rules": [
+      "This artifact is deterministic-first and should be produced without semantic blame.",
+      "Do not infer motive or causal mechanism inside rows.",
+      "Interpretive explanation belongs in realized_hindsight_brief or cp2_critique, not here."
+    ]
+  },
+  "stage_responsibilities": {
+    "oracle_truth_diff_equity": {
+      "role": "Primary emitter for comparable STOCK and ETF reconciliation rows."
+    },
+    "oracle_truth_diff_macro": {
+      "role": "Optional emitter for explicitly comparable macro rows only."
+    }
+  },
+  "validator": "system.lib.schema_validator.validate_prediction_reconciliation"
+}

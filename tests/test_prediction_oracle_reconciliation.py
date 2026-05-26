@@ -120,6 +120,12 @@ def test_prediction_oracle_exported_bundle_validates_runtime_shape(
     assert result["error_codes"] == []
     assert result["reconciliation_rows"][0]["direction_hit"] is True
     assert result["reconciliation_rows"][1]["direction_hit"] is False
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 14
+    assert result["body_material_status"] == (
+        "copied_non_secret_macro_prediction_oracle_body_with_provenance"
+    )
+    assert result["body_copied_material_count"] == 14
     assert result["authority_ceiling"]["trading_authorized"] is False
     assert result["authority_ceiling"]["financial_advice_authorized"] is False
     assert result["real_runtime_receipt"] is True
@@ -127,6 +133,35 @@ def test_prediction_oracle_exported_bundle_validates_runtime_shape(
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
     assert "public_replacement_refs" not in result
+
+
+def test_prediction_oracle_source_modules_are_digest_verified(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/prediction_oracle_reconciliation",
+        public_root / "examples/prediction_oracle_reconciliation",
+    )
+    tampered = (
+        public_root
+        / "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle"
+        / "source_artifacts/macro_source/tools/oracle/truth_diff_equity.py"
+    )
+    tampered.write_text(
+        tampered.read_text(encoding="utf-8") + "\n# tampered digest check\n",
+        encoding="utf-8",
+    )
+
+    result = run_prediction_bundle(
+        public_root / "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle",
+        public_root / "receipts/runtime_shell/demo_project/organs/prediction_oracle_reconciliation",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert "PREDICTION_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["source_open_body_imports"]["body_material_count"] == 14
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
 
 
 def test_prediction_oracle_exported_bundle_receipt_is_public_safe(
@@ -159,6 +194,8 @@ def test_prediction_oracle_exported_bundle_receipt_is_public_safe(
     payload = json.loads(text)
     assert payload["status"] == "pass"
     assert payload["input_mode"] == "exported_prediction_oracle_bundle"
+    assert payload["source_open_body_imports"]["body_material_count"] == 14
+    assert payload["source_open_body_imports"]["body_in_receipt"] is False
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["real_runtime_receipt"] is True
@@ -267,6 +304,8 @@ def test_prediction_oracle_bundle_card_stdout_is_compact_and_keeps_full_receipt(
     assert card["negative_case_coverage"]["expected_case_count"] == 0
     assert card["negative_case_coverage"]["observed_case_count"] == 0
     assert card["prediction_reconciliation_summary"]["reconciliation_row_count"] == 2
+    assert card["source_open_body_imports_summary"]["body_material_count"] == 14
+    assert card["source_open_body_imports_summary"]["body_in_receipt"] is False
     assert card["no_export_guards"]["reconciliation_rows_exported"] is False
     assert "reconciliation_rows" not in set(_walk_keys(card))
     full_receipt = json.loads((out_dir / BUNDLE_RESULT_NAME).read_text(encoding="utf-8"))

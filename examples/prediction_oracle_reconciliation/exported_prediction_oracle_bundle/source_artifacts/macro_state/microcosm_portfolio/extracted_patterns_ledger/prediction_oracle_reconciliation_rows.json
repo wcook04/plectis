@@ -1,0 +1,387 @@
+{
+  "body_in_receipt": false,
+  "row_count": 8,
+  "rows": [
+    {
+      "pattern_id": "cp1_bifurcation_reconciliation_spine",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "truth_maintenance",
+          "falsifiability_as_contract_requirement",
+          "single_dominant_force_rule"
+        ],
+        "candidate_fixture": "Toy CP1 with 2 cross-lane bifurcations; bifurcation_resolutions array contains both entries with selected_side, rationale, opposite_side_invalidation; missing resolution fails CP1 validation.",
+        "candidate_leaf_name": "cp1_bifurcation_reconciliation_spine",
+        "candidate_paper_module_slug": "cp1_bifurcation_reconciliation",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "node_reasoning_node_tool",
+          "data_feed_market_evidence_fusion"
+        ],
+        "evidence_kind": [
+          "standard",
+          "code"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Silent contradiction absorption: model picks a thesis that implicitly resolves a bifurcation but records no decision trace, so Oracle cannot later determine whether a miss was caused by bad evidence reading or bad contradiction resolution.",
+        "feeds_patterns": [
+          "cp_artifact_schema_validation_result",
+          "cp2_universe_constraint_valid_prediction_targets_gate"
+        ],
+        "macro_subdomain": "subdomain_thesis_synthesis",
+        "notes": "The bifurcation_resolutions contract is structurally the most important constraint in CP1: the model cannot produce a valid CP1 without explicitly taking a side on every cross-lane conflict. Instruction in lab_decide.json: address all bifurcations, cite both sides, state what would make the other side correct.",
+        "novelty_band": "high",
+        "one_line": "Lab Decide must explicitly resolve every cross-lane contradiction surfaced by cross_corr_v1 (named selected_side, rationale, opposite_side_invalidation) before the CP1 epicentre thesis can be locked \u2014 making the thesis falsifiable at the input-contradiction layer rather than only at the output-direction layer.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "cp1_bifurcation_reconciliation_spine",
+        "private_state_risk": "none",
+        "source_refs": [
+          "codex/substrate/contracts/schema_cp1.json",
+          "codex/substrate/contracts/cross_corr_v1.json",
+          "codex/substrate/nodes/lab/decide.json"
+        ],
+        "title": "CP1 bifurcation reconciliation spine",
+        "why_load_bearing": "Without explicit bifurcation_resolutions, a contradiction between (e.g.) Stockgrid flow and News narrative would silently collapse into whichever evidence the model happened to weight last. The structured array forces named side-selection plus opposite_side_invalidation, making the thesis falsifiable at the input-contradiction layer. This is the mechanism that prevents the thesis from being a winner-of-whatever tournament."
+      },
+      "source_line": 226
+    },
+    {
+      "pattern_id": "epistemic_hierarchy_lane_resolution_order",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "signal_hierarchy_over_recency",
+          "explicit_override_defense_requirement",
+          "pre_pricing_check_three_tests"
+        ],
+        "candidate_fixture": "Two CP1 runs: one FLOW_LED where Stockgrid Tier 1 prevails without override; one NARRATIVE_LED with explicit defense of the News override; pre_pricing three-tests (Polymarket >75%, >1-sigma price action, flow alignment) executed at the News/Poly boundary.",
+        "candidate_leaf_name": "epistemic_hierarchy_lane_resolution",
+        "candidate_paper_module_slug": "epistemic_hierarchy",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "data_feed_market_evidence_fusion",
+          "cp1_bifurcation_reconciliation_spine"
+        ],
+        "evidence_kind": [
+          "standard",
+          "node_manifest"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Narrative bias in thesis construction: model anchors on News catalysts (most salient, most recent) rather than slower institutional flow signals with greater predictive value.",
+        "feeds_patterns": [
+          "cp_artifact_schema_validation_result",
+          "cp2_universe_constraint_valid_prediction_targets_gate"
+        ],
+        "macro_subdomain": "subdomain_evidence_weighting",
+        "notes": "Codified as [EPISTEMIC HIERARCHY v3.0]. Produces machine-checkable dominant_evidence_track field. Pre_pricing three-tests are the concrete operational form at the News/Poly boundary.",
+        "novelty_band": "high",
+        "one_line": "A fixed four-tier resolution order (Stockgrid/Calc > ETF/Macro > Poly/Stock > News) governs how Lab Decide ranks conflicting cross-lane signals when building the CP1 thesis; any override of Tier 1 by Tier 4 must be explicitly defended in the dominant_evidence_track field.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "epistemic_hierarchy_lane_resolution_order",
+        "private_state_risk": "low",
+        "source_refs": [
+          "codex/substrate/nodes/lab/decide.json",
+          "codex/substrate/contracts/schema_cp1.json"
+        ],
+        "title": "Epistemic hierarchy \u2014 4-tier lane resolution order",
+        "why_load_bearing": "Without a fixed hierarchy, a model producing a NARRATIVE_LED thesis driven by News could not be distinguished from one that correctly identified a case where News had genuinely new forward-looking information. The hierarchy makes this judgment auditable: any override of Tier 1 by Tier 4 must be defended, and Oracle can later check whether the override was justified."
+      },
+      "source_line": 227
+    },
+    {
+      "pattern_id": "cp2_universe_constraint_valid_prediction_targets_gate",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "grounding_before_prediction",
+          "equity_lane_requirement",
+          "machine_checkable_boundary"
+        ],
+        "candidate_fixture": "cross_corr_v2 valid_prediction_targets as intersection of target_swarm and solo_target tickers; CP2 with predictions_t target_ids all in that set; one synthetic UNGROUNDED_TARGET attempt rejected by validate_cp2.",
+        "candidate_leaf_name": "cp2_universe_constraint_valid_prediction_targets",
+        "candidate_paper_module_slug": "cp2_universe_constraint",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "data_feed_market_evidence_fusion",
+          "cp1_bifurcation_reconciliation_spine"
+        ],
+        "evidence_kind": [
+          "standard",
+          "node_manifest"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Unbounded target space: model predicts low-liquidity names where grading is noisy, or targets with no equity-lane grounding where direction calls cannot be evaluated by the deterministic diff layer.",
+        "feeds_patterns": [
+          "cp_artifact_schema_validation_result",
+          "oracle_deterministic_equity_diff_grading_surface"
+        ],
+        "macro_subdomain": "subdomain_prediction_target_selection",
+        "notes": "Equity-lane confirmation is the key novelty: thesis-level plausibility cannot substitute for structural market evidence. UNGROUNDED_TARGET error code in schema_cp2.json is the machine enforcement.",
+        "novelty_band": "high",
+        "one_line": "cross_corr_v2 produces an authoritative valid_prediction_targets list; lab_director may only predict tickers in this list, and a ticker requires equity-lane confirmation (STOCK, ETF, or STOCKGRID) before entry.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "cp2_universe_constraint_valid_prediction_targets_gate",
+        "private_state_risk": "low",
+        "source_refs": [
+          "codex/substrate/contracts/cross_corr_v2.json",
+          "codex/substrate/contracts/schema_cp2.json",
+          "codex/substrate/nodes/lab/cross_corr_v2.json",
+          "codex/substrate/nodes/lab/director.json"
+        ],
+        "title": "CP2 universe constraint \u2014 valid_prediction_targets gate",
+        "why_load_bearing": "Without a universe constraint, lab_director could predict any ticker it finds plausible, producing non-comparable grading results and enabling cherry-picking of highly asymmetric targets with no cross-lane support. The gate enforces multi-lane structural backing AND at least one equity-sensitive supporting lane. Tickers supported only by MACRO, NEWS, POLY, or CALC are explicitly excluded."
+      },
+      "source_line": 228
+    },
+    {
+      "pattern_id": "oracle_deterministic_equity_diff_grading_surface",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "determinism_before_interpretation",
+          "feed_health_separation",
+          "grading_before_blame"
+        ],
+        "candidate_fixture": "Synthetic 3-target run with one direction_hit=true, one direction_hit=false, one DEGRADED feed_health (ungraded); realized_target_table per row with snapshot_price/predicted_direction/realized_price/directional_correct/pred_error_pct; feed_health block status per target.",
+        "candidate_leaf_name": "oracle_equity_diff_grading",
+        "candidate_paper_module_slug": "oracle_equity_diff_grading",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "cp2_universe_constraint_valid_prediction_targets_gate",
+          "data_feed_market_evidence_fusion"
+        ],
+        "evidence_kind": [
+          "standard",
+          "run_artifact"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Conflation of feed unavailability with prediction failure; Oracle interpretive stages introducing narrative contamination into what should be purely arithmetic grading.",
+        "feeds_patterns": [
+          "oracle_hindsight_brief_realized_driver_classification",
+          "oracle_cp2_grounding_firewall",
+          "evolve_oracle_to_dossier_mutation_loop"
+        ],
+        "macro_subdomain": "subdomain_oracle_grading",
+        "notes": "Private state risk high because realized_target_table contains specific ticker prices and prediction miss amounts. Organ (schema + diff mechanism) is not private. Public fixtures must use synthetic or obfuscated prices.",
+        "novelty_band": "high",
+        "one_line": "oracle_truth_diff_equity computes a deterministic row-level grading table comparing Lab CP2 prediction targets against realized prices at T, emitting direction_hit, pred_error_pct, and a feed_health block (READY/DEGRADED/BLOCKED per target) before any interpretive Oracle stage runs.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "oracle_deterministic_equity_diff_grading_surface",
+        "private_state_risk": "high",
+        "source_refs": [
+          "codex/substrate/contracts/schema_prediction_reconciliation.json",
+          "codex/substrate/nodes/oracle/oracle_truth_diff_equity.json"
+        ],
+        "title": "Oracle deterministic equity-diff grading surface",
+        "why_load_bearing": "This is the ground-truth scoring organ: the only machine-checkable verdict on whether a prediction was directionally correct, and it separates that verdict from any narrative explanation. The feed_health block ensures Oracle interpretive stages do not blame prediction failure for missing price feeds."
+      },
+      "source_line": 229
+    },
+    {
+      "pattern_id": "oracle_hindsight_brief_realized_driver_classification",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "pre_pricing_check_retrospective_validation",
+          "mutual_exclusion_classification",
+          "interpretive_separation_from_deterministic_diff"
+        ],
+        "candidate_fixture": "Toy hindsight brief with one SURPRISE driver, one ALREADY_PRICED driver, one PARTIAL_REPRICING; mutual-exclusion check enforced; prediction_target_outcomes covering all targets from paired prediction_reconciliation.",
+        "candidate_leaf_name": "oracle_realized_driver_classification",
+        "candidate_paper_module_slug": "oracle_realized_driver_classification",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "oracle_deterministic_equity_diff_grading_surface"
+        ],
+        "evidence_kind": [
+          "standard"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Misdiagnosed calibration failure: a run with 0% direction accuracy might look like systematic bias but could be entirely attributable to ALREADY_PRICED events where thesis was correct but market had front-run.",
+        "feeds_patterns": [
+          "oracle_cp2_grounding_firewall",
+          "evolve_oracle_to_dossier_mutation_loop"
+        ],
+        "macro_subdomain": "subdomain_oracle_truth_synthesis",
+        "notes": "Pre_pricing_assessment field in CP1 is the forward-time claim this artifact validates in hindsight. Pair (forward assessment, backward classification) forms the full calibration loop for the Polymarket/pre-pricing subsystem.",
+        "novelty_band": "high",
+        "one_line": "oracle_truth_map emits a realized_hindsight_brief classifying each major realized driver as SURPRISE / ALREADY_PRICED / PARTIAL_REPRICING (mutually exclusive), providing interpretive context for the deterministic diff before critique or ideal_cp2 reconstruction begins.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "oracle_hindsight_brief_realized_driver_classification",
+        "private_state_risk": "medium",
+        "source_refs": [
+          "codex/substrate/contracts/schema_realized_hindsight_brief.json",
+          "codex/substrate/contracts/schema_cp2.json",
+          "codex/substrate/nodes/oracle/oracle_truth_map.json"
+        ],
+        "title": "Oracle hindsight brief \u2014 realized driver SURPRISE/ALREADY_PRICED/PARTIAL_REPRICING classification",
+        "why_load_bearing": "Prediction miss analysis without this classification conflates two distinct failure modes: (A) the model correctly identified the force but the force was already priced, so no directional move occurred; (B) the model identified the wrong force entirely. The SURPRISE/ALREADY_PRICED/PARTIAL_REPRICING classification makes this distinction auditable. The pre_pricing_assessment field in CP1 is the forward-time analog; this is the backward-time validation."
+      },
+      "source_line": 230
+    },
+    {
+      "pattern_id": "oracle_cp2_grounding_firewall",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "grounding_admissibility_law",
+          "temporal_isolation_subject_side",
+          "oracle_meta_as_explanatory_not_admissible"
+        ],
+        "candidate_fixture": "Toy ideal_cp2 with evidence_dictionary referencing T-n ledger IDs from paired Lab run; one synthetic post-T id rejected by validate_golden_ids; oracle_meta with truth_influence_refs and explicit_exclusions for what shaped reconstruction but was excluded from evidence.",
+        "candidate_leaf_name": "oracle_cp2_grounding_firewall",
+        "candidate_paper_module_slug": "oracle_cp2_grounding_firewall",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "cp2_universe_constraint_valid_prediction_targets_gate",
+          "oracle_deterministic_equity_diff_grading_surface",
+          "oracle_hindsight_brief_realized_driver_classification"
+        ],
+        "evidence_kind": [
+          "standard",
+          "node_manifest"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Hindsight contamination: Oracle produces an ideal_cp2 that looks well-grounded but whose evidence_dictionary silently contains truth-side signals unavailable at T-n; Evolve learns from contaminated ideal examples and overfits to post-hoc information.",
+        "feeds_patterns": [
+          "evolve_oracle_to_dossier_mutation_loop"
+        ],
+        "macro_subdomain": "subdomain_oracle_grounding_integrity",
+        "notes": "Schema explicitly states 'Oracle does not get a second CP2 schema. It reuses the same CP2-core.' grounding_law array has five normative rules including 'Golden-ID enforcement still applies'. explicit_exclusions field in oracle_meta is the audit surface \u2014 each exclusion says what was seen, why it was relevant, and why it was not admissible.",
+        "novelty_band": "high",
+        "one_line": "Oracle's ideal_cp2 must preserve the CP2-core grounding law (only subject-side T-n ledger IDs in evidence_dictionary) while truth-side influence is confined to oracle_meta; the golden_id guard enforces that every evidence ledger_id existed in the original Lab run's ledger set.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "oracle_cp2_grounding_firewall",
+        "private_state_risk": "none",
+        "source_refs": [
+          "codex/substrate/contracts/schema_cp2.json",
+          "codex/substrate/nodes/oracle/oracle_cp2_emitter.json"
+        ],
+        "title": "Oracle CP2 grounding firewall \u2014 subject-side ledger ID enforcement",
+        "why_load_bearing": "Without this firewall, an Oracle that has seen realized truth prices could trivially construct an ideal_cp2 that cherry-picks hindsight-compatible evidence, making the ideal_cp2 useless as a training signal because it would reflect what the truth was rather than what the best subject-side reasoning should have been. The golden_id guard adds the machine-checkable enforcement layer."
+      },
+      "source_line": 231
+    },
+    {
+      "pattern_id": "evolve_oracle_to_dossier_mutation_loop",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "multi_run_evidence_gates_before_mutation",
+          "provenance_required_per_mutation",
+          "dossier_allowlist_write_constraint",
+          "learning_entries_always_non_empty"
+        ],
+        "candidate_fixture": "Toy evolve_delta_report with one UPDATE dossier_delta (rationale citing oracle artifact + field) and one HIGH-severity doctrine_flag requiring 2+ evidence_runs; overnight plan shows budget-aware run selection; codex_review_after_runs:3 escalation policy triggers Type A gate before next wave.",
+        "candidate_leaf_name": "evolve_oracle_to_dossier_mutation_loop",
+        "candidate_paper_module_slug": "evolve_oracle_dossier_loop",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "oracle_cp2_grounding_firewall",
+          "oracle_hindsight_brief_realized_driver_classification",
+          "oracle_deterministic_equity_diff_grading_surface"
+        ],
+        "evidence_kind": [
+          "standard",
+          "code"
+        ],
+        "extracted_at": "2026-05-17T22:00:00Z",
+        "extracted_by": "claude_opus_4_7_scout_prediction",
+        "failure_mode_prevented": "Single-run overfitting (Evolve updates dossiers after one anomalous run, encoding anomaly as learned pattern); mutation without provenance; writes outside the dossier_target_allowlist.",
+        "feeds_patterns": [
+          "data_feed_market_evidence_fusion"
+        ],
+        "macro_subdomain": "subdomain_learning_metabolism",
+        "notes": "Overnight planner adds budget-aware scheduling: pairs scored by readiness (READY/DEGRADED/BLOCKED), cost-estimated by target count, selected within abstract bridge budget. codex_review_after_runs:3 means every 3 Evolve outputs triggers a Type A review gate.",
+        "novelty_band": "high",
+        "one_line": "The Evolve delta_analyzer converts Oracle critique artifacts (cp2_critique + prediction_reconciliation + realized_hindsight_brief) into structured dossier CRUD operations and doctrine flags, with evidence gates requiring multiple run-pairs before high-severity mutations are committed.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "evolve_oracle_to_dossier_mutation_loop",
+        "private_state_risk": "low",
+        "source_refs": [
+          "codex/substrate/contracts/schema_evolve_delta.json",
+          "system/lib/lab_oracle_evolve_overnight.py"
+        ],
+        "title": "Evolve \u2014 Oracle-to-dossier mutation loop with multi-run evidence gates",
+        "why_load_bearing": "Without this loop, Oracle grading is a dead-end observability exercise \u2014 predictions are scored but nothing learns. The evolve_delta_report is the mechanism by which Oracle findings feed back into substrate dossiers that lab_director reads as prior knowledge. Multi-run evidence gates prevent overfitting to single-run noise. The lab_oracle_evolve_overnight planner operationalizes this with budget-aware run pair selection."
+      },
+      "source_line": 232
+    },
+    {
+      "pattern_id": "synthetic_science_oracle_dossier_reconciliation_compound",
+      "row": {
+        "axioms_principles_likely_instantiated": [
+          "prediction_target_universe_before_score",
+          "epistemic_hierarchy_resolves_before_mutation",
+          "oracle_grade_is_deterministic_receipt",
+          "dossier_mutation_requires_traceable_diff",
+          "synthetic_fixture_not_market_claim"
+        ],
+        "candidate_fixture": "Synthetic lab-oracle packet with two CP1 branches, one CP2 invalid universe target, one equity-lane confirmation requirement, one deterministic oracle diff, one low-authority evidence decoy, and one evolve mutation that rewrites a dossier claim only after hierarchy resolution. The receipt emits reconciliation rows, invalid_target_reason, equity_confirmation_status, oracle_diff_grade, mutation_delta, authority_resolution_order, and public_safe_claim_boundary.",
+        "candidate_leaf_name": "synthetic_science_oracle_dossier_reconciliation_compound",
+        "candidate_paper_module_slug": "synthetic_science_oracle_dossier_reconciliation_compound",
+        "current_microcosm_status": "absent",
+        "depends_on_patterns": [
+          "cp1_bifurcation_reconciliation_spine",
+          "cp2_universe_constraint_valid_prediction_targets_gate",
+          "epistemic_hierarchy_lane_resolution_order",
+          "oracle_deterministic_equity_diff_grading_surface",
+          "evolve_oracle_to_dossier_mutation_loop"
+        ],
+        "evidence_kind": [
+          "code",
+          "test",
+          "synthetic_receipt"
+        ],
+        "extracted_at": "2026-05-21T07:48:00Z",
+        "extracted_by": "codex_gpt5_impressive_combo_pattern_pass",
+        "failure_mode_prevented": "A public prediction demo scores out-of-universe targets, mutates dossiers from low-authority evidence, treats equity-lane confirmation as optional, or leaks private market reasoning while claiming scientific rigor.",
+        "feeds_patterns": [
+          "public_microcosm_release_gate",
+          "validation_and_receipts",
+          "prediction_engine"
+        ],
+        "macro_subdomain": "subdomain_prediction_engine",
+        "microcosm_projection_decision": "microcosm_compound_candidate_with_synthetic_science_prediction_reconciliation_fixture",
+        "notes": "Demand rank 4. AI-for-science and forecasting are attention-grabbing, but this ledger row is boundary-heavy by design: schema-only, synthetic-only, no live market claims, no private forecast state, and no public prediction authority until a constrained science fixture exists.",
+        "novelty_band": "high",
+        "one_line": "A public-safe prediction tranche combines CP1 bifurcation reconciliation, CP2 universe constraints, four-tier epistemic resolution, deterministic equity diff grading, and evolve-to-dossier mutation into a synthetic scientific-forecasting loop.",
+        "organ_family": "prediction_engine",
+        "pattern_id": "synthetic_science_oracle_dossier_reconciliation_compound",
+        "private_state_risk": "low",
+        "refined_at": "2026-05-21T13:20:00Z",
+        "refined_by": "codex_gpt5_demand_weighted_compound_refinement_pass",
+        "source_refs": [
+          "tools/meta/factory/build_lab_oracle_evolve_synthetic_receipt.py",
+          "system/lib/schema_validator.py::validate_prediction_reconciliation",
+          "system/server/tests/test_schema_validator.py::test_validate_prediction_reconciliation_happy_path",
+          "tools/oracle/truth_diff_equity.py",
+          "tools/refinement/run_evolve.py",
+          "tools/finance/eval_replay.py",
+          "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+          "codex/substrate/contracts/schema_cp1.json",
+          "codex/substrate/contracts/schema_cp2.json",
+          "codex/substrate/contracts/cross_corr_v1.json",
+          "codex/substrate/contracts/cross_corr_v2.json",
+          "codex/substrate/nodes/lab/decide.json",
+          "codex/substrate/nodes/lab/cross_corr_v2.json"
+        ],
+        "title": "Synthetic science oracle-dossier reconciliation compound",
+        "why_load_bearing": "Scientific reasoning and forecasting are attention-grabbing when the system can show how hypotheses, constraints, oracle evidence, and dossier mutation reconcile under deterministic grading. Demand-weighted, this remains a powerful fourth-place lane because the public claim is fragile: it must demonstrate constrained reconciliation on synthetic data and must not present private market state or live forecasts as public truth."
+      },
+      "source_line": 328
+    }
+  ],
+  "schema_version": "prediction_oracle_extracted_pattern_rows_body_v1",
+  "selected_pattern_ids": [
+    "cp1_bifurcation_reconciliation_spine",
+    "cp2_universe_constraint_valid_prediction_targets_gate",
+    "epistemic_hierarchy_lane_resolution_order",
+    "evolve_oracle_to_dossier_mutation_loop",
+    "oracle_cp2_grounding_firewall",
+    "oracle_deterministic_equity_diff_grading_surface",
+    "oracle_hindsight_brief_realized_driver_classification",
+    "synthetic_science_oracle_dossier_reconciliation_compound"
+  ],
+  "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl"
+}

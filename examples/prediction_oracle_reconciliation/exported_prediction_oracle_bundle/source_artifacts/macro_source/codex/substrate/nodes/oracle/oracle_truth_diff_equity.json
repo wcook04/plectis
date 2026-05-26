@@ -1,0 +1,31 @@
+{
+  "id": "oracle_truth_diff_equity",
+  "type": "tool",
+  "group": "oracle",
+  "lane": "SPINE",
+  "dependencies": [
+    "oracle_subject_stock_feed",
+    "oracle_subject_etf_feed",
+    "global_stock_feed",
+    "global_etf_feed",
+    "oracle_subject_lab_director"
+  ],
+  "output_schema": "schema_prediction_reconciliation",
+  "instruction": "@node_path:codex/substrate/nodes/oracle/oracle_truth_diff_equity.json\n[ROLE] Oracle Truth Diff (Equity)\n[TASK] Perform deterministic subject-vs-truth comparison across the explicit T-n stock/ETF proxy feeds and the truth-side stock/ETF feeds, and emit the canonical prediction_reconciliation artifact for every comparable Lab prediction target.\n[OUTPUT] JSON payload with status=AVAILABLE, subject/truth run ids, strict rows, optional macro_rows only when explicitly deterministic, and summary.",
+  "config": {
+    "module": "tools.oracle.truth_diff_equity"
+  },
+  "execution": {
+    "cache_policy": "standard",
+    "retries": 1,
+    "timeout": 60,
+    "tools": []
+  },
+  "is_artifact": true,
+  "teleology": "Compute deterministic stock+ETF before/after truth diff for Oracle v1 from explicit subject and truth feed surfaces.",
+  "mechanism": "Python Oracle Equity Diff",
+  "expectation": "Output deterministic prediction_reconciliation JSON for comparable stock and ETF targets.",
+  "meta": {
+    "role": "tool"
+  }
+}

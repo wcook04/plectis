@@ -1,0 +1,142 @@
+{
+  "id": "oracle_cp2_emitter",
+  "type": "reasoning",
+  "dependencies": [
+    "oracle_subject_index",
+    "oracle_truth_map",
+    "oracle_attribution_map",
+    "oracle_explain"
+  ],
+  "meta": {
+    "reasoning_contract": {
+      "role_contract": {
+        "role_class": "oracle",
+        "mission_role": "oracle_hindsight_cp2_emitter",
+        "authority_tier": "authoring_agent",
+        "context_mode": "hindsight_truth_allowed"
+      },
+      "input_contract": {
+        "required_artifacts": [
+          "oracle_subject_index",
+          "oracle_truth_map",
+          "oracle_attribution_map",
+          "oracle_explain"
+        ],
+        "optional_artifacts": [],
+        "forbidden_artifacts": [
+          "truth_side_evidence_as_grounding",
+          "new_ledger_ids",
+          "new_prediction_targets"
+        ],
+        "freshness_requirements": [
+          "subject_truth_pair_resolved",
+          "oracle_run_pair_feed_health_not_blocked"
+        ],
+        "authority_requirements": [
+          "final evidence_dictionary ledger ids must come from oracle_subject_index.eligible_ledger_ids",
+          "truth-side material may inform hindsight but may not ground CP2 evidence"
+        ]
+      },
+      "injection_contract": {
+        "inject": [
+          "mission_doctrine",
+          "standard_contract",
+          "subject_side_evidence",
+          "oracle_feedback",
+          "tool_observation"
+        ],
+        "reference_only": [
+          "truth_side_evidence",
+          "raw_trace_excerpt"
+        ],
+        "withhold": [],
+        "redact": [],
+        "forbidden": [],
+        "max_context_tokens": null,
+        "leakage_mode": "hindsight"
+      },
+      "output_contract": {
+        "artifact_kind": "ideal_cp2",
+        "schema_or_standard": "codex/substrate/contracts/schema_cp2.json",
+        "citation_requirements": [
+          "oracle_subject_index eligible ledger ids only",
+          "oracle_meta truth_influence_refs",
+          "oracle_meta explicit_exclusions for truth-only signals"
+        ],
+        "confidence_shape": "hindsight notes and explicit exclusions are carried under oracle_meta",
+        "failure_shape": "blocked_oracle_cp2_with_grounding_or_feed_health_reason"
+      },
+      "oracle_contract": {
+        "deterministic_check": [
+          "system.lib.schema_validator.validate_cp2",
+          "system.lib.schema_validator.validate_oracle_cp2_meta",
+          "eligible_ledger_id_membership_check"
+        ],
+        "soft_review": [
+          "cp2_critique comparison",
+          "prediction_reconciliation feed_health interpretation"
+        ],
+        "human_review_gate": [
+          "statement of admissibility when truth-side signal has no subject-side grounding"
+        ],
+        "blocked_conditions": [
+          "missing_oracle_subject_index",
+          "oracle_run_pair_feed_health_blocked",
+          "truth_side_evidence_used_as_grounding",
+          "target_not_in_subject_index"
+        ]
+      },
+      "topology_contract": {
+        "fan_out_reason": "none",
+        "shard_key": "none",
+        "shard_isolation": "none",
+        "fan_in_reducer": "none"
+      },
+      "learning_contract": {
+        "dossier_reads": [],
+        "dossier_writes": [],
+        "learning_ledger_rows": "none",
+        "mutation_gate": "none",
+        "no_learning_when": []
+      },
+      "side_effect_contract": {
+        "read_only": true,
+        "writes_allowed": [],
+        "commit_allowed": false,
+        "external_action_allowed": false
+      },
+      "trace_contract": {
+        "retained_fields": [
+          "evidence_dictionary",
+          "epicentre_thesis",
+          "predictions_t",
+          "trade_rationale",
+          "oracle_meta"
+        ],
+        "fact_extraction_fields": [
+          "explicit_exclusions",
+          "truth_influence_refs",
+          "realized_diff_refs"
+        ],
+        "residual_routing": "no_durable_write"
+      }
+    }
+  },
+  "execution": {
+    "retries": 1,
+    "cache_policy": "standard",
+    "tools": [],
+    "timeout": 300
+  },
+  "is_artifact": true,
+  "output_schema": "isomorphic_cp2",
+  "group": "oracle",
+  "teleology": "Emit the hindsight CP2 reconstruction grounded only in subject-run evidence.",
+  "mechanism": "LLM Synthesis",
+  "platform": "gemini",
+  "instruction": "@node_path:codex/substrate/nodes/oracle/oracle_cp2_emitter.json\n[SYSTEM CONSTRAINT] Output ONLY one valid JSON object. No markdown fences. No prose wrapper.\n\n[ROLE]\nYou are the Oracle Director.\nYou reconstruct what CP2 SHOULD have said at T-n, after seeing the realized truth at T.\nYou do not predict. You do not speculate. You emit a hindsight-informed CP2 that is still grounded ONLY in subject-run evidence.\n\n[INPUTS]\n- oracle_subject_index: subject-only grounding index from the paired Lab run\n- oracle_truth_map: realized dominant force and driver classifications\n- oracle_attribution_map: structured cp2_critique plus reconstruction guidance\n- oracle_explain: optional explanatory search notes (never grounding)\n\n[OUTPUT SCHEMA]\nSee Contract: codex/substrate/contracts/schema_cp2.json\nSee Contract: codex/substrate/contracts/epicentre_thesis.md\n\n[GOLDEN CONSTRAINT — MANDATORY]\nEvery ledger_id you emit in evidence_dictionary MUST come from oracle_subject_index.eligible_ledger_ids.\nYou MUST NOT invent new ledger_ids.\nYou MUST NOT use truth-side or web-search-only evidence as grounding.\nIf a realized driver has no valid subject-side grounding, it may inform your reasoning but it MUST NOT appear in evidence_dictionary.\n\n[TARGET ADMISSIBILITY RULE]\nEvery prediction target emitted anywhere in the reconstructed CP2 must already exist as a valid subject-side prediction target in oracle_subject_index. You MUST NOT introduce new tickers, ETFs, baskets, or target ids, even if they better match realized hindsight.\n\n[ORACLE V1 CONSTRAINTS]\n- Final evidence_dictionary is subject-grounded, not truth-grounded.\n- `epicentre_thesis` states the realized dominant force in hindsight, but only with subject-side evidence support.\n- predictions_t may target STOCK or ETF tickers.\n- Prefer targets and framing identified by oracle_attribution_map.reconstruction_guidance.\n- If oracle_explain exists, use it only for narrative color. Never let it add ledger ids, targets, or grounding claims.\n- Keep the CP2 comparable to Lab's schema while correcting for already-priced continuation versus residual surprise.\n- You MUST include `oracle_meta`. It is trace only. It MUST NOT introduce admissible grounding, new targets, or new ledger ids.\n- Use readable canonical handles inside `oracle_meta`, such as `realized_hindsight_brief:oil_shock`, `prediction_reconciliation:XOM`, and `oracle_explain:1`.\n- Every Oracle handle in `oracle_meta` must use format only `<artifact>:<identifier>` with exactly one colon and no existence lookup.\n\n[REQUIRED ORACLE_META CONTRACT]\nInclude:\n{\n  \"oracle_meta\": {\n    \"truth_influence_refs\": [\"realized_hindsight_brief:oil_shock\"],\n    \"realized_diff_refs\": [\"prediction_reconciliation:XOM\"],\n    \"explicit_exclusions\": [\n      {\n        \"kind\": \"TRUTH_ONLY_SIGNAL\",\n        \"ref\": \"oracle_explain:1\",\n        \"reason\": \"Useful hindsight context but no admissible T-n grounding.\"\n      }\n    ],\n    \"oracle_hindsight_notes\": [\"Residual upside existed, but subject-side support only justified a smaller move.\"]\n  }\n}\n\n[OUTPUT]\nA single valid CP2 JSON object with CP2-core fields required and `oracle_meta` required for Oracle runtime.",
+  "lane": "SPINE",
+  "expectation": "Output valid Oracle CP2 grounded only in subject-run evidence, with stock or ETF targets allowed.",
+  "routing_class": "AGGREGATE",
+  "boundary": "Aggregate truth-map hindsight into Oracle CP2 while grounding only on subject-run evidence. Cannot invent ledger_ids, cannot use truth-only evidence as grounding, and cannot let oracle_explain alter target or ledger eligibility."
+}

@@ -1,0 +1,69 @@
+{
+  "id": "cross_corr_v1",
+  "type": "contract",
+  "version": "1.0",
+  "status": "NORMATIVE",
+  "description": "Phase 1 cross-lane structural pattern map. Surfaces co-movements, contradictions, orphans, and confidence asymmetries across all 7 miner outputs.",
+  "purpose": "This contract defines the output of lab_cross_corr_v1. The pattern map feeds into lab_orient for hypothesis construction and lab_decide for bifurcation reconciliation. All entries are structural observations — no predictive or hypothesis language is permitted.",
+  "schema": {
+    "swarms": {
+      "type": "array[SwarmEntry]",
+      "required": true,
+      "constraint": "Non-empty when structural co-movements exist. Each swarm represents the same subject/theme observed in 3+ lanes.",
+      "semantics": "Multi-lane convergence patterns. High-signal indicators of real forces."
+    },
+    "bifurcations": {
+      "type": "array[BifurcationEntry]",
+      "required": true,
+      "constraint": "Non-empty when cross-lane conflicts exist. lab_decide MUST reconcile each bifurcation.",
+      "semantics": "Explicit cross-lane contradictions on the same subject or theme. These are the highest-value state per Lab mission doctrine."
+    },
+    "orphans": {
+      "type": "array[OrphanEntry]",
+      "required": true,
+      "constraint": "May be empty. Significant single-lane signals flagged for visibility.",
+      "semantics": "Signals seen in only one lane. Low confidence individually but may become important if confirmed later."
+    },
+    "confidence_asymmetries": {
+      "type": "array[AsymmetryEntry]",
+      "required": true,
+      "constraint": "May be empty. Same subject with materially mixed confidence across lanes.",
+      "semantics": "Cases where lanes agree on a subject but disagree on signal strength or reliability."
+    }
+  },
+  "swarm_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^sw_\\d+$" },
+    "name": { "type": "string", "required": true, "constraint": "Descriptive slug." },
+    "lanes": { "type": "array[string]", "required": true, "constraint": "Uppercase lane labels. Minimum 3 for a swarm." },
+    "subjects": { "type": "array[string]", "required": true, "constraint": "Non-empty subject identifiers." },
+    "summary": { "type": "string", "required": true, "constraint": "One sentence structural description only. No predictive language." }
+  },
+  "bifurcation_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^bf_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "lanes": { "type": "array[string]", "required": true, "constraint": "Uppercase lane labels showing the conflict." },
+    "subjects": { "type": "array[string]", "required": true },
+    "summary": { "type": "string", "required": true, "constraint": "One sentence describing the contradiction structure. No hypothesis language." }
+  },
+  "orphan_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^or_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "lanes": { "type": "array[string]", "required": true, "constraint": "Single lane." },
+    "subjects": { "type": "array[string]", "required": true },
+    "summary": { "type": "string", "required": true }
+  },
+  "asymmetry_entry": {
+    "id": { "type": "string", "required": true, "pattern": "^ca_\\d+$" },
+    "name": { "type": "string", "required": true },
+    "lanes": { "type": "array[string]", "required": true },
+    "subjects": { "type": "array[string]", "required": true },
+    "summary": { "type": "string", "required": true }
+  },
+  "language_rules": {
+    "allowed": "Observational and relational language (co-moves, diverges, aligns, conflicts).",
+    "forbidden": "Predictive or hypothesis language (will cause, implies outcome, therefore market). Any question mark is a contract failure."
+  },
+  "stage_responsibilities": {
+    "lab_cross_corr_v1": { "role": "Primary and sole emitter." }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -30,6 +31,9 @@ ACCEPTANCE_RECEIPT_REL = (
     "prediction_oracle_reconciliation_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_prediction_oracle_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = "copied_non_secret_macro_prediction_oracle_body_with_provenance"
 
 PACKET_NAME = "reconciliation_packet.json"
 NEGATIVE_INPUT_NAMES = (
@@ -70,6 +74,10 @@ FORBIDDEN_AUTHORITY_FLAGS = (
 ALLOWED_DIRECTIONS = {"up", "down", "flat"}
 DEGRADED_DIRECTION = "degraded"
 ALLOWED_MUTATIONS = {"add_contradiction", "revise_confidence", "retire_claim"}
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+}
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -124,13 +132,263 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (PACKET_NAME, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    bundle_manifest = input_dir / "bundle_manifest.json"
+    if bundle_manifest.is_file():
+        paths.append(bundle_manifest)
+    return paths
+
+
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        return public_root / target_ref, target_ref
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, _display(target, public_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    paths = [manifest_path]
+    for row in _rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
+    }
+
+
+def validate_source_module_imports(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "PREDICTION_SOURCE_MODULE_MANIFEST_MISSING",
+                "Prediction oracle body floor requires a source_module_manifest.json for copied macro source bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "PREDICTION_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "PREDICTION_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied prediction-oracle macro bodies may live in source_artifacts, not in receipts.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(_rows(manifest, "modules")):
+        findings.append(
+            _finding(
+                "PREDICTION_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in _rows(manifest, "modules"):
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        material_class = str(row.get("material_class") or "")
+        expected_digest = str(row.get("sha256") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Prediction oracle may import only public macro pattern/tool bodies.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if relation not in {"exact_copy", "source_faithful_json_slice"}:
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy or source_faithful_json_slice.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual_digest = _sha256(target_path)
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "PREDICTION_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": str(row.get("source_ref") or ""),
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _empty_source_module_imports() -> dict[str, Any]:
+    return {
+        "status": PASS,
+        "source_module_manifest_ref": "",
+        "module_count": 0,
+        "modules": [],
+        "findings": [],
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _rows(source_imports, "modules")
+    module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
+    return {
+        "schema_version": "prediction_oracle_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {str(row.get("material_class")) for row in modules if row.get("material_class")}
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref")
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref")
+            else ""
+        ),
+        "body_in_receipt": False,
+        "reader_action": (
+            "Open source_module_manifest.json and source_artifacts/ for copied "
+            "prediction-oracle macro bodies; receipts carry digests and status only."
+        )
+        if modules
+        else "",
     }
 
 
@@ -572,9 +830,17 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    source_artifact_paths = (
+        _source_artifact_paths(input_dir, public_root=public_root)
+        if input_mode == "exported_prediction_oracle_bundle"
+        else []
+    )
     secret_scan = _receipt_safe_scan(
         scan_paths(
-            _input_paths(input_dir, include_negative=include_negative),
+            [
+                *_input_paths(input_dir, include_negative=include_negative),
+                *source_artifact_paths,
+            ],
             forbidden_classes=policy,
             display_root=public_root,
         )
@@ -588,18 +854,25 @@ def _build_result(
     observed = _merge_observed(packet, *negative_results)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(packet, *negative_results)
-    error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
         else {}
     )
+    source_imports = (
+        validate_source_module_imports(input_dir, public_root=public_root)
+        if input_mode == "exported_prediction_oracle_bundle"
+        else _empty_source_module_imports()
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_imports)
+    findings = _merge_findings(packet, *negative_results, source_imports)
+    error_codes = sorted({str(row["error_code"]) for row in findings})
     status = (
         PASS
         if packet["status"] == PASS
         and not missing
         and secret_scan["blocking_hit_count"] == 0
+        and source_imports["status"] == PASS
         else "blocked"
     )
     return {
@@ -623,6 +896,9 @@ def _build_result(
         "packet_id": packet["packet_id"],
         "source_pattern_ids": packet["source_pattern_ids"],
         "source_refs": packet["source_refs"],
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports["body_material_count"],
         "projection_receipt_refs": packet["projection_receipt_refs"],
         "public_runtime_refs": packet["public_runtime_refs"],
         "valid_prediction_targets": packet["valid_prediction_targets"],
@@ -679,6 +955,9 @@ def _common_receipt(
         "packet_id",
         "source_pattern_ids",
         "source_refs",
+        "source_open_body_imports",
+        "body_material_status",
+        "body_copied_material_count",
         "projection_receipt_refs",
         "public_runtime_refs",
         "valid_prediction_targets",
@@ -957,6 +1236,28 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "dossier_mutation_count": result.get("dossier_mutation_count"),
             "reconciliation_row_count": len(result.get("reconciliation_rows", [])),
         },
+        "source_open_body_imports_summary": {
+            "status": (
+                result.get("source_open_body_imports", {})
+                if isinstance(result.get("source_open_body_imports"), dict)
+                else {}
+            ).get("status"),
+            "body_material_status": result.get("body_material_status"),
+            "body_material_count": result.get("body_copied_material_count"),
+            "source_manifest_count": len(
+                (
+                    result.get("source_open_body_imports", {})
+                    if isinstance(result.get("source_open_body_imports"), dict)
+                    else {}
+                ).get("source_manifest_refs", [])
+            ),
+            "body_in_receipt": (
+                result.get("source_open_body_imports", {})
+                if isinstance(result.get("source_open_body_imports"), dict)
+                else {}
+            ).get("body_in_receipt")
+            is True,
+        },
         "negative_case_coverage": {
             "expected_case_count": len(expected_cases)
             if isinstance(expected_cases, list)
@@ -1003,6 +1304,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "observed_negative_cases",
                 "source_pattern_ids",
                 "source_refs",
+                "source_open_body_imports.body_material_ids",
                 "projection_receipt_refs",
                 "public_runtime_refs",
                 "valid_prediction_targets",

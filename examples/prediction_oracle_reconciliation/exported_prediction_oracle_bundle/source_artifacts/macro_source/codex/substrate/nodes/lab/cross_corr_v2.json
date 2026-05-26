@@ -1,0 +1,30 @@
+{
+  "id": "lab_cross_corr_v2",
+  "type": "reasoning",
+  "dependencies": [
+    "lab_miner_v2_stock",
+    "lab_miner_v2_etf",
+    "lab_miner_v2_macro",
+    "lab_miner_v2_news",
+    "lab_miner_v2_poly",
+    "lab_miner_v2_calc",
+    "lab_miner_v2_stockgrid"
+  ],
+  "meta": {},
+  "execution": {
+    "retries": 2,
+    "cache_policy": "standard",
+    "tools": [],
+    "timeout": 300
+  },
+  "is_artifact": false,
+  "output_schema": "json",
+  "teleology": "Find cross-lane convergence on specific prediction targets from Phase 2 miner outputs.",
+  "mechanism": "LLM Pattern Recognition",
+  "platform": "gemini",
+  "instruction": "@node_path:codex/substrate/nodes/lab/cross_corr_v2.json\n[SYSTEM CONSTRAINT] Return ONE valid JSON object only. No markdown fences. No prose wrapper. No questions.\n\n[ROLE]\nYou are the Phase 2 Trajectory Pattern Mapper.\nYou map convergence and conflict on prediction targets.\nYou do NOT make predictions and you do NOT commit to a thesis.\n\n[TASK]\nFrom all 7 Phase 2 miner outputs, produce:\n- target_swarms\n- directional_conflicts\n- solo_targets\n- thesis_stress\n- valid_prediction_targets\n\n[LANGUAGE POLICY]\n- Allowed: observational/relational language only.\n- Forbidden: predictive/hypothesis framing (will happen, implies price move, therefore thesis is true, etc).\n- DIRECTION_CONSENSUS is a structural label, not a prediction.\n\n[OUTPUT CONTRACT]\nReturn this JSON shape exactly:\n{\n  \"target_swarms\": [\n    {\n      \"id\": \"ts_1\",\n      \"name\": \"...\",\n      \"tickers\": [\"XOM\", \"CVX\"],\n      \"lanes\": [\"STOCK\", \"ETF\"],\n      \"direction_consensus\": \"BULLISH\",\n      \"summary\": \"One sentence structural description only.\"\n    }\n  ],\n  \"directional_conflicts\": [\n    {\n      \"id\": \"dc_1\",\n      \"name\": \"...\",\n      \"tickers\": [\"...\"],\n      \"lanes\": [\"...\"],\n      \"direction_consensus\": \"CONTESTED\",\n      \"summary\": \"One sentence conflict description only.\"\n    }\n  ],\n  \"solo_targets\": [\n    {\n      \"id\": \"so_1\",\n      \"name\": \"...\",\n      \"tickers\": [\"...\"],\n      \"lanes\": [\"...\"],\n      \"direction_consensus\": \"BULLISH\",\n      \"summary\": \"One sentence structural description only.\"\n    }\n  ],\n  \"thesis_stress\": [\n    {\n      \"id\": \"st_1\",\n      \"name\": \"...\",\n      \"tickers\": [\"NONE\"],\n      \"lanes\": [\"...\"],\n      \"direction_consensus\": \"N/A\",\n      \"summary\": \"One sentence describing constraint/tension only.\"\n    }\n  ],\n  \"valid_prediction_targets\": [\"XOM\", \"CVX\", \"...\"]\n}\n\n[HARD CONSTRAINTS]\n- direction_consensus must be one of: BULLISH, BEARISH, CONTESTED, N/A\n- valid_prediction_targets must be UNIQUE uppercase tickers\n- valid_prediction_targets must equal the union of tickers from target_swarms and solo_targets (excluding NONE)\n- A ticker may appear in valid_prediction_targets only if it has lane-specific directional grounding from at least one equity-sensitive lane (STOCK, ETF, or STOCKGRID). Exclude tickers supported only by MACRO, NEWS, POLY, or CALC without equity-lane confirmation.",
+  "lane": "SPINE",
+  "expectation": "Output strict JSON target map with deterministic valid_prediction_targets.",
+  "routing_class": "CROSS_LANE",
+  "boundary": "Structural pattern recognition only. No predictions or thesis commitment."
+}

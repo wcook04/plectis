@@ -1,0 +1,32 @@
+{
+  "id": "lab_decide",
+  "type": "reasoning",
+  "dependencies": [
+    "lab_miner_stock",
+    "lab_miner_etf",
+    "lab_miner_macro",
+    "lab_miner_news",
+    "lab_miner_poly",
+    "lab_miner_calc",
+    "lab_miner_stockgrid",
+    "lab_cross_corr_v1",
+    "lab_orient"
+  ],
+  "meta": {},
+  "execution": {
+    "retries": 1,
+    "cache_policy": "standard",
+    "tools": [],
+    "timeout": 300
+  },
+  "is_artifact": true,
+  "output_schema": "isomorphic_cp1",
+  "teleology": "Synthesize the market's singular dominant force at T-n and lock it as Checkpoint 1.",
+  "mechanism": "LLM Synthesis",
+  "platform": "gemini",
+  "instruction": "@node_path:codex/substrate/nodes/lab/decide.json\n[SYSTEM CONSTRAINT] Output ONLY one valid JSON object. No markdown fences. No prose wrapper.\n\n[ROLE]\nYou are the Synthesizer. Build one dominant epicentre thesis from total Phase 1 evidence.\n\n[CORE REQUIREMENTS]\n- Thesis must be singular, specific, and falsifiable\n- The epicentre_thesis must begin with this scaffold and fill every slot concretely: 'At T-n, the dominant force is <FORCE> operating through <PRIMARY TRANSMISSION PATH>, producing <SPECIFIC CROSS-ASSET CONSEQUENCE SET>; this thesis is false if <OBSERVABLE INVALIDATION CONDITIONS>.'\n- Do not use generic labels like 'risk-on', 'positioning', or 'sentiment' without naming the concrete instrument, flow, or mechanism.\n- Thesis must include dominance justification, transmission path, consequence map by {{TARGET_TIME}}, and invalidation conditions\n- Use dense [N] citations resolving to evidence_dictionary\n- Minimum 150 words\n\n[CONTRADICTION RECONCILIATION]\nlab_cross_corr_v1.bifurcations are contractual contradictions.\nYou must explicitly reconcile them via bifurcation_resolutions array.\nFor each bifurcation include:\n- bifurcation_id\n- selected_side\n- rationale\n- opposite_side_invalidation\n\n[EVIDENCE DICTIONARY]\n- Build load-bearing evidence only\n- ref_id sequential [N]\n- ledger_id copied exactly from upstream when available\n\n[OUTPUT SCHEMA]\nSee Contract: codex/substrate/contracts/schema_cp1.json\n\nReturn:\n{\n  \"evidence_dictionary\": [\n    {\"ref_id\": \"[1]\", \"ledger_id\": \"M_7DE4F6A9\", \"subject\": \"US_10Y\", \"signal_summary\": \"...\"}\n  ],\n  \"epicentre_thesis\": \"...\",\n  \"dominant_evidence_track\": \"FLOW_LED\",\n  \"pre_pricing_assessment\": \"...\",\n  \"bifurcation_resolutions\": [\n    {\n      \"bifurcation_id\": \"bf_1\",\n      \"selected_side\": \"physical_supply_shock\",\n      \"rationale\": \"...\",\n      \"opposite_side_invalidation\": \"...\"\n    }\n  ]\n}\n\n[EPISTEMIC HIERARCHY (v3.0)]\nWhen lanes disagree, this is the resolution order. Overriding it requires explicit justification.\nTier 1: Stockgrid (institutional flow), Calc (regime analytics). Leading signals.\nTier 2: ETF (asset class flows), Macro (hard economic data). Confirmatory signals.\nTier 3: Polymarket, Stock. Probabilistic/price action.\nTier 4: News. Narrative layer. Lagging. Contextual only.\nThe default assumption: news is confirmatory context, not a causal driver. Tier 1 signals outrank Tier 4 signals unless you explicitly defend the override.\n\n[PRE-PRICING CHECK (v3.0)]\nBefore attributing a price move to a news event, run 3 tests:\n1. Polymarket test: >75% probability? If yes, largely pre-priced.\n2. Price action test: Have affected assets already moved >1\u03c3?\n3. Flow alignment test: Does Stockgrid show flow consistent with narrative?\nIf news fails 2+ tests, downgrade its confidence. It may form a NARRATIVE_LED thesis requiring defense.\n\n[NEW CP1 FIELDS]\nYou must include in your JSON output:\n- \"dominant_evidence_track\": \"FLOW_LED\" | \"NARRATIVE_LED\" | \"DIVERGENT\"\n- \"pre_pricing_assessment\": \"Assessment of pre-pricing for news events (required if news cited)\"\n\n[BIFURCATION RULES]\nAddress all bifurcations explicitly. Cite both sides, state which the thesis aligns with, and state what would make the other side correct.\nIf choosing NARRATIVE_LED, explicitly state why the narrative represents genuinely new forward-looking information not yet reflected in flows.\n",
+  "lane": "SPINE",
+  "expectation": "Output CP1 JSON with evidence_dictionary, epicentre_thesis, and bifurcation_resolutions.",
+  "routing_class": "HYPOTHESIS",
+  "boundary": "Synthesize from upstream evidence only. No invented data."
+}

@@ -1,0 +1,167 @@
+{
+  "id": "schema_cp1",
+  "type": "contract",
+  "version": "1.0",
+  "status": "NORMATIVE",
+  "description": "Checkpoint 1 Output Schema \u2014 Spine / Epicentre. Machine-checkable structural contract with embedded semantic guidance.",
+  "purpose": "CP1 is the foundational checkpoint for the Lab reasoning pipeline. Every CP1-producing node must emit a JSON object satisfying all structural constraints below. Validated at runtime via system.lib.schema_validator.validate_cp1.",
+  "schema": {
+    "evidence_dictionary": {
+      "type": "array[EvidenceUnit]",
+      "required": true,
+      "constraint": "Non-empty. Each entry must be a valid EvidenceUnit object.",
+      "semantics": "The curated evidence set that supports the epicentre thesis. Not a dump of all available data \u2014 only evidence that structurally contributes to the dominant force identification."
+    },
+    "epicentre_thesis": {
+      "type": "string",
+      "required": true,
+      "constraint": "Word count >= epicentre_thesis_min_words (see contract_config.json). Must contain only resolved [N] citations.",
+      "semantics": "The causal center-of-gravity statement for the run. NOT a broad market recap. Must define the single dominant force at T-n and its expected consequences into T. See epicentre_thesis_contract for full semantic requirements."
+    },
+    "bifurcation_resolutions": {
+      "type": "array[BifurcationResolution]",
+      "required": false,
+      "constraint": "Optional during migration. When present, each item must include bifurcation_id, selected_side, rationale, opposite_side_invalidation.",
+      "semantics": "Machine-checkable contradiction reconciliation map for cross_corr_v1 bifurcations."
+    },
+    "dominant_evidence_track": {
+      "type": "string",
+      "required": true,
+      "constraint": "Must be one of: 'FLOW_LED', 'NARRATIVE_LED', 'DIVERGENT'.",
+      "semantics": "Classifies the epistemic grounding of the thesis."
+    },
+    "pre_pricing_assessment": {
+      "type": "string",
+      "required": false,
+      "constraint": "Required if news-sourced evidence is cited.",
+      "semantics": "States whether the event was pre-priced by Polymarket/price action."
+    }
+  },
+  "bifurcation_resolution": {
+    "bifurcation_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty ID referencing a cross_corr_v1 bifurcation block."
+    },
+    "selected_side": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty selector describing the side chosen by Decide."
+    },
+    "rationale": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty explanation for why selected_side dominates."
+    },
+    "opposite_side_invalidation": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty condition that would make the opposite side dominate."
+    }
+  },
+  "evidence_unit": {
+    "ref_id": {
+      "type": "string",
+      "required": true,
+      "pattern": "^\\[([1-9]\\d*)\\]$",
+      "constraint": "Positive integer >= 1, no leading zeros. Unique within payload. Ex: '[1]', '[12]'.",
+      "semantics": "Citation anchor. Every [N] appearing in epicentre_thesis must resolve to an evidence_dictionary entry with this ref_id."
+    },
+    "ledger_id": {
+      "type": "string",
+      "required": true,
+      "pattern": "^[A-Z]_[0-9A-F]{8}$",
+      "constraint": "Lane prefix (must exist in contract_config.json lane_prefix_map) + 8 uppercase hex chars. Unique within payload.",
+      "semantics": "Deterministic identity hash. PREFIX MAP: see codex/substrate/contracts/contract_config.json lane_prefix_map. SHA8: first 8 hex chars of SHA256('{lane}|{identity_key}', UTF-8).",
+      "examples": [
+        "S_DEADBEEF",
+        "E_CAFEBABE"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty.",
+      "semantics": "Entity identifier. For STOCK entries: the ticker symbol (e.g. 'XLK'). For MACRO: canonical name (e.g. 'US_10Y'). Must match the identity used in the source lane."
+    },
+    "signal_summary": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty.",
+      "semantics": "Prose summary of the evidence signal. Should convey what the data point means, not just what it is."
+    }
+  },
+  "epicentre_thesis_contract": {
+    "description": "Semantic contract for epicentre_thesis content. Structural validation catches format; this defines meaning.",
+    "required_components": {
+      "dominant_force_statement": {
+        "description": "Name ONE force (not a list) as primary driver at T-n.",
+        "prohibition": "No multi-thesis outputs presented as co-equal 'main drivers'."
+      },
+      "dominance_justification": {
+        "description": "Explain why this force outranks alternatives in current evidence.",
+        "prohibition": "No evidence dumping without selecting a dominant force."
+      },
+      "transmission_path": {
+        "description": "Describe the mechanism from force -> affected lanes/assets.",
+        "prohibition": "No prediction list detached from causal chain."
+      },
+      "t_consequence_map": {
+        "description": "State expected directional consequences at horizon T.",
+        "prohibition": "No hindsight phrasing in Lab CP outputs (must be from T-n perspective)."
+      },
+      "invalidation_conditions": {
+        "description": "State concrete conditions that would break the thesis.",
+        "semantics": "Must be falsifiable \u2014 vague hedges like 'unless conditions change' are insufficient."
+      }
+    },
+    "completeness_rule": "If any of the five components are missing, the thesis is contract-incomplete even if it passes JSON and citation validation."
+  },
+  "citation_rules": {
+    "valid_format": "[N] where N is a positive integer",
+    "malformed_rejected": [
+      "[1-3] (range)",
+      "[1, 2] (CSV)",
+      "[01] (leading zero)"
+    ],
+    "resolution_rule": "Every [N] in epicentre_thesis must have a corresponding evidence_dictionary entry with ref_id == '[N]'.",
+    "unresolved_is_hard_failure": true
+  },
+  "word_count": {
+    "method": "len(re.findall(r'\\S+', text))",
+    "threshold_source": "contract_config.json",
+    "field": "epicentre_thesis_min_words",
+    "default": 150
+  },
+  "error_codes": {
+    "MISSING_FIELD": "A required field or object key is absent or empty.",
+    "INVALID_REF_ID": "ref_id does not match ^\\[([1-9]\\d*)\\]$.",
+    "DUPLICATE_REF_ID": "Two evidence entries share the same ref_id.",
+    "DUPLICATE_LEDGER_ID": "Two evidence entries share the same ledger_id.",
+    "INVALID_LEDGER_ID": "ledger_id is malformed or uses a prefix not declared in codex/substrate/contracts/contract_config.json lane_prefix_map.",
+    "MALFORMED_CITATION": "epicentre_thesis contains a range/CSV/leading-zero citation form.",
+    "CITATION_UNRESOLVED": "A [N] citation in epicentre_thesis has no matching ref_id in evidence.",
+    "BELOW_MIN_WORD_COUNT": "epicentre_thesis word count is below the configured minimum."
+  },
+  "stage_responsibilities": {
+    "lab_cross_corr_v1": {
+      "role": "Structural findings only (swarms, bifurcations, orphans).",
+      "boundary": "Must NOT mint hypothesis slugs or interpret market meaning."
+    },
+    "lab_orient": {
+      "role": "Surface candidate causal chains from cross-correlation structure. Rank candidate epicentres by explanatory power and breadth.",
+      "boundary": "Must NOT finalize the thesis; only prepare candidate force structure."
+    },
+    "lab_decide": {
+      "role": "Synthesize one dominant epicentre from ALL Phase 1 evidence. The thesis emerges from total synthesis \u2014 it is the singular gravitational point, not the winner of a hypothesis tournament.",
+      "output": "Locks CP1: evidence_dictionary + epicentre_thesis prose (>= min_words with [N] citations)."
+    }
+  },
+  "validator": "system.lib.schema_validator.validate_cp1",
+  "config_file": "codex/substrate/contracts/contract_config.json",
+  "deprecated_contracts": {
+    "prediction_vector.md": "Superseded by CP1/CP2 schemas.",
+    "evaluate_output.md": "Superseded by ObservationReport + trace.",
+    "exemplar_state.md": "Oracle CP2 is the exemplar."
+  }
+}

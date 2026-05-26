@@ -1,0 +1,295 @@
+{
+  "id": "schema_cp2",
+  "type": "contract",
+  "version": "1.1",
+  "status": "NORMATIVE",
+  "inherits": "schema_cp1",
+  "description": "Checkpoint 2 output schema for forward Lab CP2 and Oracle hindsight reconstruction. Preserves one shared CP2-core contract while allowing Oracle-only meta trace fields.",
+  "purpose": "CP2 is the machine-checkable schema for directional consequence claims. `lab_director` emits forward CP2 at T-n. `oracle_cp2_emitter` emits an hindsight `ideal_cp2` that preserves the same CP2-core fields (`evidence_dictionary`, `epicentre_thesis`, `predictions_t`, `trade_rationale`) and may add an optional `oracle_meta` object. Engine ownership split remains unchanged: the model emits semantic fields including snapshot_price and target_price; the engine injects deterministic temporal fields and audits model-emitted snapshot_price against the subject-run equity baseline. `system.lib.schema_validator.validate_cp2` continues to validate the CP2-core and tolerate additive Oracle-meta fields without weakening grounding or temporal enforcement, while Oracle runtime requires `oracle_meta` plus Oracle-only handle validation for `ideal_cp2` without changing the shared schema.",
+  "schema": {
+    "evidence_dictionary": {
+      "type": "array[EvidenceUnit]",
+      "required": true,
+      "constraint": "Inherited from CP1. Must also satisfy CP2 grounding rules.",
+      "comparison_scope": "citations_grounding",
+      "semantics": "The only admissible grounding set for CP2-core claims. For Oracle, every ledger_id in this array must come from the subject-side T-n admissible set. Truth-side or explanatory refs may not appear here."
+    },
+    "epicentre_thesis": {
+      "type": "string",
+      "required": true,
+      "constraint": "Inherited from CP1 + epicentre_thesis semantic contract.",
+      "comparison_scope": "thesis",
+      "semantics": "Single dominant-force claim. Predictions must be consequences of this thesis. For Oracle, the thesis may be hindsight-informed but it must still be defendable using subject-side grounding only."
+    },
+    "predictions_t": {
+      "type": "array[PredictionUnit]",
+      "required": true,
+      "constraint": "Non-empty. Each entry must be a valid PredictionUnit.",
+      "comparison_scope": "prediction",
+      "semantics": "Directional consequence claims that are explicit consequences of epicentre_thesis, not independent calls. Oracle uses the same field to express the best subject-grounded hindsight reconstruction of what should have been forecast."
+    },
+    "trade_rationale": {
+      "type": "string",
+      "required": true,
+      "constraint": "Word count >= trade_rationale_base_words + trade_rationale_per_prediction_words * len(predictions_t). Must contain only resolved [N] citations.",
+      "comparison_scope": "prediction_justification",
+      "semantics": "Narrates the force -> transmission -> prediction consequence chain. Not a list of isolated trade ideas. For Oracle, the rationale may reference hindsight only through optional Oracle-meta trace, not by contaminating evidence_dictionary."
+    },
+    "oracle_meta": {
+      "type": "OracleMeta",
+      "required": false,
+      "constraint": "Optional Oracle-only additive object at the shared-schema level. Present only on hindsight `ideal_cp2`. Never used as admissible grounding and never required for Lab CP2. Oracle runtime requires it when validating `ideal_cp2`.",
+      "comparison_scope": "oracle_meta",
+      "semantics": "Trace layer recording how realized T evidence informed the hindsight reconstruction without changing the admissibility law for CP2-core fields."
+    }
+  },
+  "prediction_unit": {
+    "target_id": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty. For equity predictions: uppercase ticker symbol.",
+      "semantics": "The entity being predicted. Must exist in the T-n stock+ETF ticker universe when out-of-universe enforcement is active.",
+      "examples": [
+        "XLK",
+        "NVDA",
+        "TLT"
+      ]
+    },
+    "direction": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "UP",
+        "DOWN"
+      ],
+      "constraint": "Exactly 'UP' or 'DOWN' (case-sensitive).",
+      "semantics": "Expected directional move at horizon T. Must be a consequence of the epicentre thesis transmission path."
+    },
+    "snapshot_time": {
+      "type": "string",
+      "required": true,
+      "constraint": "ISO 8601 datetime string. Engine-owned deterministic field; must equal runtime snapshot anchor.",
+      "semantics": "When the T-n snapshot was taken. Enables deterministic evaluation window."
+    },
+    "target_time_iso": {
+      "type": "string",
+      "required": true,
+      "constraint": "ISO 8601 datetime string. Must be after snapshot_time. Engine-owned deterministic field; must equal resolved runtime horizon target.",
+      "semantics": "When the prediction resolves (T). Defines the falsification window."
+    },
+    "snapshot_price": {
+      "type": "number",
+      "required": true,
+      "constraint": "Finite numeric baseline price captured at snapshot_time. Model-emitted and engine-audited against T-n stock+ETF feed prices.",
+      "semantics": "Baseline for direction evaluation at target_time_iso."
+    },
+    "target_price": {
+      "type": "number",
+      "required": true,
+      "constraint": "Finite numeric projected price level at target_time_iso.",
+      "semantics": "The projected price level by target_time_iso. Must be logically consistent with snapshot_price and direction."
+    },
+    "invalidation": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty string. Must state a specific falsifiable condition for this individual prediction target.",
+      "semantics": "Per-prediction invalidation condition. Distinct from the global thesis invalidation in trade_rationale."
+    },
+    "confidence": {
+      "type": "string",
+      "required": false,
+      "enum": ["HIGH", "MEDIUM", "LOW"],
+      "constraint": "Optional confidence level for this prediction. When present, must be one of HIGH, MEDIUM, LOW.",
+      "semantics": "Strength of evidence supporting this specific prediction target. HIGH = multi-lane convergence with strong thesis link. MEDIUM = directional agreement with some uncertainty. LOW = single-lane or weak thesis link. Evolve uses this for learning: which confidence levels track actual hit rates."
+    },
+    "transmission_path": {
+      "type": "string",
+      "required": false,
+      "constraint": "Optional. When present, must name the specific causal mechanism from epicentre_thesis to this target.",
+      "semantics": "Explicit link between the dominant force and this prediction. Improves comparability between Lab and Oracle CP2 and enables Evolve to track which transmission paths succeed or fail."
+    }
+  },
+  "oracle_meta": {
+    "truth_influence_refs": {
+      "type": "array[string]",
+      "required": false,
+      "constraint": "Optional list of truth-side or explanatory refs that influenced the hindsight reconstruction. When present in Oracle runtime, each entry must match `<artifact>:<identifier>` with exactly one colon.",
+      "semantics": "These refs may explain why Oracle changed the thesis or target mix, but they are not admissible grounding."
+    },
+    "realized_diff_refs": {
+      "type": "array[string]",
+      "required": false,
+      "constraint": "Optional refs into deterministic Oracle diff artifacts such as prediction_reconciliation. When present in Oracle runtime, each entry must match `<artifact>:<identifier>` with exactly one colon.",
+      "semantics": "Preserves which realized comparisons materially shaped the hindsight reconstruction."
+    },
+    "explicit_exclusions": {
+      "type": "array[ExplicitExclusion]",
+      "required": false,
+      "constraint": "Optional non-empty objects when a realized driver influenced reasoning but had to be excluded from grounding.",
+      "semantics": "Makes the grounding firewall inspectable. Each exclusion says what was seen, why it was relevant, and why it was not admissible."
+    },
+    "oracle_hindsight_notes": {
+      "type": "array[string]",
+      "required": false,
+      "constraint": "Optional concise notes. No new grounding claims, ledger ids, or targets may be introduced here.",
+      "semantics": "Freeform hindsight trace for auditability and critique authoring."
+    }
+  },
+  "explicit_exclusion": {
+    "kind": {
+      "type": "string",
+      "required": true,
+      "constraint": "Short classifier such as TRUTH_ONLY_SIGNAL, WEAK_SUBJECT_SUPPORT, or NON_COMPARABLE_MACRO.",
+      "semantics": "Why the item was excluded from CP2-core grounding."
+    },
+    "ref": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty Oracle handle matching `<artifact>:<identifier>` with exactly one colon.",
+      "semantics": "The excluded truth-side or contextual reference. Oracle runtime validates format only and does not perform existence lookup."
+    },
+    "reason": {
+      "type": "string",
+      "required": true,
+      "constraint": "Non-empty explanation.",
+      "semantics": "Narrates why the excluded item informed hindsight but could not ground the final CP2-core."
+    }
+  },
+  "comparison_scopes": {
+    "thesis": {
+      "fields": [
+        "epicentre_thesis"
+      ],
+      "question": "Was the dominant-force claim itself correct, incomplete, or overfit?",
+      "critique_contract": "schema_cp2_critique.scope=thesis"
+    },
+    "prediction": {
+      "fields": [
+        "predictions_t"
+      ],
+      "question": "Were the chosen targets, directions, and projected outcomes the right consequences of the thesis?",
+      "critique_contract": "schema_cp2_critique.scope=prediction"
+    },
+    "prediction_justification": {
+      "fields": [
+        "trade_rationale"
+      ],
+      "question": "Did the rationale correctly connect evidence -> force -> transmission -> target?",
+      "critique_contract": "schema_cp2_critique.scope=prediction_justification"
+    },
+    "citations_grounding": {
+      "fields": [
+        "evidence_dictionary"
+      ],
+      "question": "Did the grounding set contain the right subject-side support, and only admissible support?",
+      "critique_contract": "schema_cp2_critique.scope=citations_grounding"
+    },
+    "oracle_meta": {
+      "fields": [
+        "oracle_meta"
+      ],
+      "question": "Which realized-truth inputs influenced hindsight reconstruction without becoming grounding?",
+      "critique_contract": "schema_cp2_critique.scope=oracle_meta"
+    }
+  },
+  "oracle_contract_model": {
+    "description": "Oracle does not get a second CP2 schema. It reuses the same CP2-core and may append optional hindsight trace.",
+    "cp2_core_fields": [
+      "evidence_dictionary",
+      "epicentre_thesis",
+      "predictions_t",
+      "trade_rationale"
+    ],
+    "oracle_meta_field": "oracle_meta",
+    "validator_tolerance": "validate_cp2 enforces CP2-core and ignores additive Oracle-meta keys; Oracle runtime layers a stricter validator that requires oracle_meta on ideal_cp2 and validates Oracle handle syntax without changing the shared schema.",
+    "grounding_law": [
+      "Only subject-side T-n ledger ids may appear in evidence_dictionary.",
+      "Truth-side refs may orient reconstruction but must live outside evidence_dictionary.",
+      "Oracle-meta is explanatory trace, not admissible support.",
+      "Golden-ID enforcement still applies to the CP2-core evidence_dictionary.",
+      "Oracle handle fields use format only `<artifact>:<identifier>` with exactly one colon and no existence lookup."
+    ]
+  },
+  "consequence_coherence": {
+    "description": "CP2 predictions are not independent calls. They must be explicit consequences of epicentre_thesis.",
+    "rules": [
+      "epicentre_thesis declares one dominant force at T-n.",
+      "Each predictions_t[i] is explainable as a transmission consequence of that force.",
+      "trade_rationale must narrate force -> transmission -> prediction consequence chain.",
+      "If a prediction depends on an alternative driver, that alternative must be subordinated to (or shown as derivative of) the epicentre force — not introduced as a second co-equal thesis."
+    ]
+  },
+  "grounding_rule": {
+    "description": "Every prediction must be grounded in explicitly sourced equity lane data.",
+    "requirement": "For every PredictionUnit in predictions_t, there must exist at least one evidence_dictionary entry where: subject == target_id (case-normalized .upper().strip()) AND ledger_id starts with 'S_' or 'E_'.",
+    "rationale": "A prediction that references only MACRO or NEWS evidence without a stock/ETF grounding entry is a grounding failure. Oracle-meta never satisfies this rule."
+  },
+  "out_of_universe": {
+    "description": "When subject_run_dir is provided, every target_id must exist in the T-n stock+ETF ticker universe.",
+    "fallback": "If ticker universe cannot be loaded, MISSING_CONTEXT is emitted and OUT_OF_UNIVERSE check is skipped (degraded mode)."
+  },
+  "oracle_golden_id_guard": {
+    "description": "Oracle runs add an additional invariant over the CP2-core grounding set.",
+    "requirement": "Every ledger_id in evidence_dictionary must exist in the T-n snapshot ledger set from the corresponding Lab run.",
+    "enforcement": "validate_golden_ids(evidence_dictionary, subject_run_dir) — called from engine Oracle path, not from validate_cp2 itself.",
+    "error_code": "INVALID_GOLDEN_ID"
+  },
+  "trade_rationale_word_count": {
+    "formula": "trade_rationale_base_words + trade_rationale_per_prediction_words * len(predictions_t)",
+    "threshold_source": "contract_config.json",
+    "defaults": {
+      "trade_rationale_base_words": 75,
+      "trade_rationale_per_prediction_words": 30
+    }
+  },
+  "citation_rules": {
+    "description": "Same rules as CP1 epicentre_thesis, applied to both epicentre_thesis and trade_rationale.",
+    "valid_format": "[N] where N is a positive integer",
+    "malformed_rejected": [
+      "[1-3] (range)",
+      "[1, 2] (CSV)",
+      "[01] (leading zero)"
+    ],
+    "resolution_rule": "Every [N] must resolve to an evidence_dictionary entry with matching ref_id."
+  },
+  "validation_sequence": [
+    "1. validate_cp1(payload) — structural + citation + word-count for CP1 fields",
+    "2. Validate CP2-specific fields — predictions_t presence, direction enum, snapshot_price + target_price numeric validity, direction/target coherence, temporal fields, trade_rationale, and engine price-audit flags",
+    "3. Grounding checks — per-prediction evidence with S_ or E_ ledger",
+    "4. Out-of-universe checks — if subject_run_dir provided",
+    "5. [Oracle only] Golden ID guard — Phase 10, engine-level",
+    "6. [Oracle ideal_cp2 only] Require oracle_meta and validate Oracle handle syntax for truth_influence_refs, realized_diff_refs, and explicit_exclusions[].ref",
+    "7. Ignore additive Oracle-meta keys outside Oracle-specific validation"
+  ],
+  "error_codes": {
+    "_inherited": "All CP1 error codes apply (MISSING_FIELD, INVALID_REF_ID, DUPLICATE_REF_ID, DUPLICATE_LEDGER_ID, INVALID_LEDGER_ID, MALFORMED_CITATION, CITATION_UNRESOLVED, BELOW_MIN_WORD_COUNT).",
+    "INVALID_FIELD": "A field value is present but invalid (e.g. direction not in {UP, DOWN}).",
+    "MISSING_SNAPSHOT_PRICE": "snapshot_price is missing for a prediction target.",
+    "MISSING_TARGET_PRICE": "target_price is missing for a prediction target.",
+    "INVALID_TARGET_DIRECTION": "direction and target_price are not logically consistent with snapshot_price.",
+    "SNAPSHOT_PRICE_MISMATCH": "Model-emitted snapshot_price diverges from feed baseline beyond allowed tolerance.",
+    "TEMPORAL_ORDER_INVALID": "target_time_iso is not strictly after snapshot_time.",
+    "TEMPORAL_MISMATCH": "prediction temporal fields diverge from canonical runtime values.",
+    "GROUNDING_FAILED_WRONG_LANE": "A target_id has no evidence entry with subject == target_id AND ledger_id starting with S_ or E_.",
+    "UNGROUNDED_TARGET": "A target_id is not present in the cross_corr_v2 TARGET_SWARM or SOLO_TARGET sets. Prediction was not structurally grounded by the cross-correlator.",
+    "MISSING_CONTEXT": "Ticker universe could not be loaded from subject_run_dir.",
+    "OUT_OF_UNIVERSE": "A target_id is not present in the T-n ticker set."
+  },
+  "stage_responsibilities": {
+    "lab_director": {
+      "role": "Extend locked CP1 thesis with forward predictions and trade rationale.",
+      "boundary": "Must ensure predictions_t are direct consequences of epicentre_thesis, emit snapshot_price + target_price per prediction, ground targets with subject-matching stock or ETF evidence, and must not introduce a second co-equal thesis."
+    },
+    "oracle_cp2_emitter": {
+      "role": "Emit hindsight `ideal_cp2` using the same CP2-core plus Oracle-meta trace that is required by Oracle runtime.",
+      "boundary": "Must preserve the full CP2-core contract, obey golden ID enforcement, keep grounding strictly subject-side, place all truth-side influence outside evidence_dictionary, and include oracle_meta for Oracle runtime using format-only `<artifact>:<identifier>` handles."
+    }
+  },
+  "validator": "system.lib.schema_validator.validate_cp2",
+  "config_file": "codex/substrate/contracts/contract_config.json",
+  "deferred_contracts": {
+    "scorecard.md": "LAYERED/DEFERRED: depends on confidence/magnitude semantics removed from v0.",
+    "counter_vector.md": "Non-normative prose guide only; not validated by engine.",
+    "hypothesis_slug.md": "Non-normative prose guide only; not validated by engine."
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "anti_claim": "These copied prediction-oracle macro bodies make the public organ accountable to real macro contracts, node manifests, tool code, and route decisions. They do not authorize trading, financial advice, investment advice, live market data, provider calls, publication, release, private-data equivalence, or forecast performance claims.",
+  "body_in_receipt": false,
+  "body_storage_policy": "source_faithful_non_secret_prediction_oracle_macro_bodies_copied_into_public_bundle_source_artifacts",
+  "manifest_id": "prediction_oracle_macro_body_source_module_manifest",
+  "module_count": 14,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 69,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_cross_corr_v1_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:20a9adbed7cf5ebb10390263302f2c66180aea27dc2e4615a26883d8b18661f4",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/cross_corr_v1.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v1.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 79,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_cross_corr_v2_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v2.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:17d7f30b74b2becf3dc636d309a44b653d63c0dcdc8d1a27710d0acf3cf1de9a",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/cross_corr_v2.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v2.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 167,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_schema_cp1_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_cp1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:2b2a96dfd68e72ff4fb4d656b646a87ee133bec1641624a342f981d86a3b8cd9",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/schema_cp1.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_cp1.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 295,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_schema_cp2_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_cp2.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:b6db678bae8ad86b194b95060df8b2dfb17b4ca557d458f0012c84890fe23400",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/schema_cp2.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_cp2.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 196,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_schema_evolve_delta_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_evolve_delta.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:180c70b28d65e0f9c13e2eeb872870042a090efb93febc231520c39e040aae10",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/schema_evolve_delta.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_evolve_delta.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 328,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_contract_schema_prediction_reconciliation_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_prediction_reconciliation.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:1a33aca7b9134f9faf4b3455a1bf77654df07cac3fe719be0b97113425ab5cb7",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/contracts/schema_prediction_reconciliation.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_prediction_reconciliation.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 387,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "prediction_oracle_extracted_pattern_ledger_rows_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/prediction_oracle_reconciliation_rows.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:0bd29e375d13f8a48725414cee18d25345b1ed17f1c6df8f7012d6ae886fe387",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_226_232_328",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/prediction_oracle_reconciliation_rows.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 85,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "prediction_oracle_fixture_spec_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.prediction_oracle_reconciliation_suborgan.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:dca64f3d93cb7cd70f381ca31b4cfca65323a8084f7ad71ec86ebabf4b321df2",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json::organ_fixture_specs.prediction_oracle_reconciliation_suborgan",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.prediction_oracle_reconciliation_suborgan.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 30,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_node_lab_cross_corr_v2_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/cross_corr_v2.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:c8c312696ff52080c3cf773747f279c735ff9bd0547ec8ebffa04ac266f6383f",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/nodes/lab/cross_corr_v2.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/lab/cross_corr_v2.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 32,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_node_lab_decide_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:150dda712099972ef327f28347b2cc12bfa079133593546dc595ed1f7d91e770",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/nodes/lab/decide.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 142,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_node_oracle_cp2_emitter_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:f73d0013388fd56bd1f3efcf6140429e50748d50cb953657fbfa9f609237b02a",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 31,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_node_oracle_truth_diff_equity_body_import",
+      "path": "source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:384b2230af3ec9d2e28f0acd67d19caaf13ea5d12eaf809e328b2b3c4ef7bbde",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 25,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "prediction_oracle_route_decision_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_route_decision_matrix.prediction_oracle_reconciliation_suborgan.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:83891374d592556c25318cb1d23b2a02b905a14084bfb366694eab8bff80f5cc",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json::post_dag_delta_routing.live_ledger_rows_226_232_prediction_oracle_reconciliation",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_pattern_route_decision_matrix.prediction_oracle_reconciliation_suborgan.json",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 197,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prediction_oracle_tool_truth_diff_equity_body_import",
+      "path": "source_artifacts/macro_source/tools/oracle/truth_diff_equity.py",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:64f76e0527c099fe225c28b60b5b242e5ec1858d07e3c874bd746e055307f242",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "tools/oracle/truth_diff_equity.py",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/tools/oracle/truth_diff_equity.py",
+      "validation_refs": [
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
+        "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "organ_id": "prediction_oracle_reconciliation",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private prediction dossiers or live market feed bodies",
+    "no trading or investment advice authority"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "source_run_id": "prediction_oracle_macro_body_floor_import_20260526_seed1",
+  "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::lines_226_232_328"
+}
