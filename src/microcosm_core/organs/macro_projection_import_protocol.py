@@ -4242,6 +4242,180 @@ def run_projection_bundle(
     return result
 
 
+def _top_level_json_mtime_refs(input_path: Path) -> list[dict[str, Any]]:
+    if not input_path.is_dir():
+        return []
+    rows: list[dict[str, Any]] = []
+    public_root = _public_root_for_path(input_path)
+    for path in sorted(input_path.glob("*.json")):
+        try:
+            stat = path.stat()
+        except FileNotFoundError:
+            continue
+        rows.append(
+            {
+                "ref": _display(path, public_root=public_root),
+                "mtime_ns": stat.st_mtime_ns,
+            }
+        )
+    return rows
+
+
+def _cached_receipt_source_mtime_refs(
+    payload: dict[str, Any],
+    *,
+    public_root: Path,
+) -> list[dict[str, Any]]:
+    refs = payload.get("source_refs")
+    if not isinstance(refs, list):
+        return []
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for source_ref in refs:
+        if not isinstance(source_ref, str) or not source_ref:
+            continue
+        for candidate in _source_ref_file_candidates(source_ref, public_root=public_root):
+            if not candidate.is_file():
+                continue
+            resolved = str(candidate.resolve(strict=False))
+            if resolved in seen:
+                break
+            seen.add(resolved)
+            try:
+                stat = candidate.stat()
+            except FileNotFoundError:
+                break
+            rows.append(
+                {
+                    "source_ref": source_ref,
+                    "ref": _display(candidate, public_root=public_root),
+                    "mtime_ns": stat.st_mtime_ns,
+                }
+            )
+            break
+    return rows
+
+
+def projection_bundle_cached_card(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    public_root = _public_root_for_path(input_path)
+    receipt_path = target / BUNDLE_RESULT_NAME
+    display_input = _display(input_path, public_root=public_root)
+    command_text = command or (
+        "python -m microcosm_core.organs.macro_projection_import_protocol "
+        f"run-projection-bundle --card --input {display_input} --out {out_dir}"
+    )
+    if not receipt_path.is_file():
+        return {
+            "schema_version": "macro_projection_bundle_cached_card_v1",
+            "card_id": "projection_bundle_cached_validation",
+            "status": "missing_cached_receipt",
+            "command": command_text,
+            "input_ref": display_input,
+            "out_ref": str(out_dir),
+            "cache_status": "missing_cached_receipt",
+            "cached_receipt_ref": _display(receipt_path, public_root=public_root),
+            "cached_receipt_bytes": 0,
+            "run_required": (
+                "microcosm macro-projection-import-protocol "
+                f"run-projection-bundle --input {display_input} "
+                f"--out {out_dir}"
+            ),
+            "anti_claim": (
+                "Cached projection-bundle cards read public receipts only; run "
+                "the full projection-bundle route when the receipt is missing "
+                "or stale."
+            ),
+        }
+
+    receipt_stat = receipt_path.stat()
+    payload = read_json_strict(receipt_path)
+    if not isinstance(payload, dict):
+        raise ValueError(f"Projection bundle receipt must be a JSON object: {receipt_path}")
+    input_refs = _top_level_json_mtime_refs(input_path)
+    source_refs = _cached_receipt_source_mtime_refs(payload, public_root=public_root)
+    newest_input = max((row["mtime_ns"] for row in input_refs), default=0)
+    newest_source = max((row["mtime_ns"] for row in source_refs), default=0)
+    input_stale = newest_input > receipt_stat.st_mtime_ns
+    source_stale = newest_source > receipt_stat.st_mtime_ns
+    stale = input_stale or source_stale
+    status = "stale_cached_receipt" if stale else payload.get("status")
+    return {
+        "schema_version": "macro_projection_bundle_cached_card_v1",
+        "card_id": "projection_bundle_cached_validation",
+        "status": status,
+        "command": command_text,
+        "expanded_command": (
+            "microcosm macro-projection-import-protocol run-projection-bundle "
+            f"--input {display_input} --out {out_dir}"
+        ),
+        "input_ref": display_input,
+        "out_ref": str(out_dir),
+        "cache_status": "stale_cached_receipt" if stale else "cached_receipt_read",
+        "cached_receipt_ref": _display(receipt_path, public_root=public_root),
+        "cached_receipt_bytes": receipt_stat.st_size,
+        "cache_freshness": {
+            "status": "stale" if stale else "current",
+            "input_status": "stale" if input_stale else "current",
+            "source_ref_status": "stale" if source_stale else "current",
+            "tracked_top_level_json_count": len(input_refs),
+            "tracked_source_ref_count": len(source_refs),
+            "newest_input_mtime_ns": newest_input,
+            "newest_source_mtime_ns": newest_source,
+            "receipt_mtime_ns": receipt_stat.st_mtime_ns,
+        },
+        "input_mode": payload.get("input_mode"),
+        "projection_cell_count": payload.get("projection_cell_count"),
+        "ready_projection_cell_count": payload.get("ready_projection_cell_count"),
+        "blocked_projection_cell_count": payload.get("blocked_projection_cell_count"),
+        "public_safe_body_import_status": payload.get("public_safe_body_import_status"),
+        "public_safe_body_import_count": payload.get("public_safe_body_import_count"),
+        "runtime_severance_status": payload.get("runtime_severance_status"),
+        "runtime_dependency_status": payload.get("runtime_dependency_status"),
+        "dependency_preflight_gate_status": payload.get(
+            "dependency_preflight_gate_status"
+        ),
+        "organ_lifecycle_coverage_status": payload.get(
+            "organ_lifecycle_coverage_status"
+        ),
+        "source_ref_count": payload.get("source_ref_count"),
+        "public_runtime_ref_count": payload.get("public_runtime_ref_count"),
+        "validation_ref_count": payload.get("validation_ref_count"),
+        "next_best_lane": payload.get("next_best_lane"),
+        "safe_to_show": {
+            "body_in_receipt": payload.get("body_in_receipt"),
+            "provider_payloads_exported": False,
+            "credential_equivalent_payloads_exported": False,
+            "raw_operator_voice_exported": False,
+            "release_authorized": False,
+            "private_data_equivalence_claim": False,
+            "receipt_metadata_visible": True,
+        },
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": ANTI_CLAIM,
+        "reader_action": (
+            "Use the cached card for repeat projection-bundle validation state; "
+            "run the expanded command when cache_freshness.status is stale or "
+            "when full findings/source refs are needed."
+        ),
+        "next_commands": [
+            "microcosm intake --card",
+            "microcosm projection-import-map",
+            (
+                "microcosm macro-projection-import-protocol run-projection-bundle "
+                f"--input {display_input} --out {out_dir}"
+            ),
+        ],
+    }
+
+
 def preview_import_plan(input_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
     include_negative = all((input_path / name).is_file() for name in NEGATIVE_INPUT_NAMES)
@@ -4284,6 +4458,11 @@ def _parser() -> argparse.ArgumentParser:
     bundle_parser = subparsers.add_parser("run-projection-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="read the cached projection-bundle validation receipt without rerunning",
+    )
     plan_parser = subparsers.add_parser("plan")
     plan_parser.add_argument("--input", required=True)
     return parser
@@ -4295,6 +4474,8 @@ def main(argv: list[str] | None = None) -> int:
         result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     elif args.action == "plan":
         result = preview_import_plan(args.input)
+    elif args.card:
+        result = projection_bundle_cached_card(args.input, args.out)
     else:
         result = run_projection_bundle(args.input, args.out)
     print(json.dumps(result, indent=2, sort_keys=True))

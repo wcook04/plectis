@@ -93,7 +93,6 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm serve <project>       open the local observatory
   microcosm compile --card <project> read cached .microcosm state without rebuilding
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
-
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 Receipts are evidence drilldowns after the behavior route is visible.
@@ -847,6 +846,11 @@ def main(argv: list[str] | None = None) -> int:
     macro_projection_parser.add_argument("action", choices=["run", "run-projection-bundle", "plan"])
     macro_projection_parser.add_argument("--input", required=True)
     macro_projection_parser.add_argument("--out")
+    macro_projection_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="read cached projection-bundle validation state without rerunning",
+    )
 
     prediction_parser = subparsers.add_parser("prediction-oracle-reconciliation")
     prediction_parser.add_argument("action", choices=["run", "run-prediction-bundle"])
@@ -1371,6 +1375,13 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "macro-projection-import-protocol":
         macro_args = [args.action, "--input", args.input]
+        if args.card:
+            if args.action != "run-projection-bundle":
+                parser.error(
+                    "--card is only supported with "
+                    "macro-projection-import-protocol run-projection-bundle"
+                )
+            macro_args.append("--card")
         if args.out:
             macro_args.extend(["--out", args.out])
         elif args.action != "plan":
