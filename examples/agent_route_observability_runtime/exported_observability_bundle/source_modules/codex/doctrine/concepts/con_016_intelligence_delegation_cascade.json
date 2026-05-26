@@ -1,0 +1,424 @@
+{
+  "kind": "doctrine_concept",
+  "schema_version": "doctrine_concept_v1",
+  "id": "con_016",
+  "slug": "intelligence-delegation-cascade",
+  "title": "Type A/B Actor Axes and Delegation Cascade",
+  "statement": "AI workflow actors must be classified along independent axes: substrate_type (Type A vs Type B vs mechanical) describes substrate authority, class_tier (low / middle / high) describes capability quality, surface describes invocation interface, delegation_role describes topology, context_mode describes evidence access, lane describes purpose, and thinking_budget describes inference depth. Type A and Type B are not a quality ladder or a worker ladder; low/middle/high applies independently inside both. Type B can be an operator-carried HUD/web lane, bridge lane, provider/API lane, NIM/OpenRouter lane, or injected-context cognition lane. Tool-using native subagents with live repo affordances are delegated Type A substrate actors. The historical 'smartest agent organizing work for the next-smartest' framing is retained as a legacy economic/delegation view (cascade_tiers) but is not the canonical Type A/B ontology; see actor_axes for the canonical multi-axis model. The most valuable output of high-class actors remains well-structured delegation contracts, bounded context frames, and falsifiable handoffs, but those handoffs flow along delegation_role, not along substrate_type.",
+  "scope": "universal",
+  "status": "active",
+  "provenance": "declared",
+  "tags": [
+    "delegation",
+    "cascade",
+    "orchestration",
+    "intelligence-hierarchy",
+    "bridge",
+    "leverage",
+    "meta",
+    "bounded-context",
+    "manager-process",
+    "handoff",
+    "type-a",
+    "type-b",
+    "actor-axes",
+    "operator-hud",
+    "substrate-authority"
+  ],
+  "principle_edges": [
+    {
+      "target": "pri_003",
+      "relation": "refines",
+      "gloss": "Bridge-reasons-kernel-mutates is one tier of the cascade; the full cascade has multiple reasoning tiers above the bridge."
+    },
+    {
+      "target": "pri_006",
+      "relation": "refines",
+      "gloss": "Wake-agents-only-at-real-gates is delegation scheduling — the top tier decides when lower tiers need to activate."
+    },
+    {
+      "target": "pri_004",
+      "relation": "implements",
+      "gloss": "Intent is the substrate that flows down the cascade: human intent → opus realization → orchestrator plan → bridge prompt → typed receipt."
+    },
+    {
+      "target": "pri_001",
+      "relation": "implements",
+      "gloss": "JSON contracts are the protocol between cascade tiers — each tier's output is the next tier's input contract."
+    }
+  ],
+  "mechanism_edges": [
+    {
+      "target": "mech_003",
+      "relation": "instantiated_by",
+      "gloss": "Bridge dispatch is the bottom of the cascade: cheap bulk reasoning on pre-scoped prompts."
+    },
+    {
+      "target": "mech_009",
+      "relation": "instantiated_by",
+      "gloss": "Observe group wave dispatch structures work for the bridge tier."
+    },
+    {
+      "target": "mech_001",
+      "relation": "instantiated_by",
+      "gloss": "The observe-apply loop is the mid-tier orchestration engine."
+    },
+    {
+      "target": "mech_014",
+      "relation": "instantiated_by",
+      "gloss": "Campaign runner automates the mechanical advancement tier."
+    },
+    {
+      "target": "mech_011",
+      "relation": "instantiated_by",
+      "gloss": "Signal watcher decides when to escalate from mechanical tier to agent tier."
+    }
+  ],
+  "evidence": [
+    {
+      "ref": "grp_autonomous_loop",
+      "role": "exemplar",
+      "gloss": "141 paragraphs on the autonomous loop — the cascade running unattended."
+    },
+    {
+      "ref": "grp_bridge_native_execution",
+      "role": "exemplar",
+      "gloss": "141 paragraphs on bridge-native execution — the cheapest reasoning tier."
+    },
+    {
+      "ref": "sec_phase_08_raw_seed__the_insight",
+      "role": "motivation",
+      "gloss": "The Insight: observe groups = mission nodes. Each node is a delegation unit."
+    },
+    {
+      "ref": "grp_mission_state_machine",
+      "role": "exemplar",
+      "gloss": "61 paragraphs on mission state machines — the orchestration tier."
+    }
+  ],
+  "tests": [
+    {
+      "check": "The smartest available agent (Opus/IDE) produces structured observe plans or synth seeds, not direct code — its output is a delegation contract for cheaper agents",
+      "locus": "Session transcripts, observe plan authoring, synth_seed compilation",
+      "violation": "Opus-tier agent writes implementation code that a cheaper agent could have written given a well-scoped prompt"
+    },
+    {
+      "check": "Each tier's output is typed and validated before the next tier consumes it",
+      "locus": "synth_seed.json → observe_plan → .receipt.json → apply ops",
+      "violation": "A tier passes untyped prose to the next tier, forcing re-inference of structure"
+    },
+    {
+      "check": "Bridge prompts are pre-scoped with response_schema so the cheap tier doesn't waste tokens on framing",
+      "locus": "tools/meta/apply/observe_session.py prompt construction",
+      "violation": "Bridge receives an open-ended question with no response surface, producing unvalidatable output"
+    },
+    {
+      "check": "Type A/B references in entry, vocabulary, prompt-shelf, subagent, and bridge surfaces route to actor_axes before making handoff decisions",
+      "locus": "AGENTS.override.md, codex/doctrine/system_vocabulary/term_registry.json, codex/doctrine/agent_bootstrap.json, obsidian/prompt_shelf/items/instantiation.md, subagent/bridge doctrine",
+      "violation": "A local surface defines Type B only as a bounded worker, delegated worker, provider call, or native subagent lane without citing actor_axes"
+    },
+    {
+      "check": "A request to ask Type B is classified by substrate authority and surface, not by the word delegated",
+      "locus": "Type A entry traces, operator HUD handoffs, bridge dispatches, native subagent invocations",
+      "violation": "A Type A controller treats an operator-carried Type B ask as native subagent delegation, or treats a tool-using subagent as Type B merely because it is delegated"
+    }
+  ],
+  "failure_modes": [
+    "Flat delegation: smart agent does everything itself instead of designing contracts for cheaper agents — burns expensive tokens on commodity work.",
+    "Missing contracts: delegation happens but without typed surfaces, so the receiving tier re-derives structure from prose — the cascade leaks intelligence at every handoff.",
+    "Tier confusion: orchestrator agent does bulk reasoning (bridge work) or bridge tries to make architectural decisions (orchestrator work).",
+    "Redundant re-inference: each tier re-discovers what the previous tier already knew because the handoff contract doesn't carry enough context.",
+    "Cascade collapse: all tiers collapse to one agent doing everything — no leverage, maximum cost.",
+    "Wrong worker surface: using bridge when the task needs context discovery (should be subagent), or using subagent when context is already injectable (should be bridge, which is free).",
+    "Subagent without groundwork: spawning subagents before the conductor has laid down clear instructions, schema, and exemplars — subagents flail because they lack the architectural frame.",
+    "Bridge for iterative work: dispatching to bridge when the task needs try-then-refine cycles — bridge is one-shot, it cannot iterate.",
+    "Concept scatter: entry prompts, vocabulary rows, bridge docs, prompt-shelf items, and subagent doctrine define Type A/B locally instead of routing to actor_axes first.",
+    "Surface collapse: Type B is treated as synonymous with bounded worker, provider call, passive API, bridge, or native subagent instead of substrate-authority without private repo mutation."
+  ],
+  "decision_examples": [
+    "Human raw_seed (tier 0) → Opus realizes meta-patterns and writes synth_seed (tier 1) → Codex/Claude orchestrates observe plan from synth_seed (tier 2) → Bridge executes group prompts with typed receipts (tier 3) → Kernel applies validated changes (tier 4)",
+    "EXAMPLE OF CLAUDE AGENT DEPLOYMENT shows sub-agent cascade: lead plans → developer implements → reviewer validates — each tier's output is the next tier's input",
+    "Annex ruflo (L2151): 'take from ruflo their agent patterns' — swarm topologies are cascade patterns",
+    "doctrine_surface.json navigation_flows: different agent contexts get different reading orders — the surface itself is a delegation aid",
+    "A control-room manager process defines a directive and completion basis, a bridge worker gathers bounded evidence, an IDE agent reconciles exact files against that basis, and the next handoff is compared against the original task criteria instead of vibes."
+  ],
+  "actor_axes": {
+    "status": "canonical",
+    "statement": "Type A and Type B describe actor substrate and authority, not intelligence level. Type A actors operate inside substrate-native harnesses with live discovery, tool, validation, filesystem, test, patch, git, apply-lane, state, or mutation affordances. Type B actors operate through operator, bridge, API, NIM, provider, web, HUD, or injected-context surfaces and produce decisions, research, transformations, critiques, or candidate outputs for Type A or the operator to apply. The operator can serve as Type B transport by carrying a Type A-prepared ask into ChatGPT Web / operator Chrome HUD and pasting the response back; that does not give the Type B actor live private-substrate authority. Low, middle, and high class tiers apply independently inside both Type A and Type B. Surface, delegation role, lane, context mode, and thinking budget are independent axes; doctrine that collapses them into one ladder is legacy or wrong.",
+    "axes": {
+      "substrate_type": {
+        "values": ["type_a", "type_b", "mechanical"],
+        "definitions": {
+          "type_a": "Substrate-native actor or harness with live discovery, tool, validation, filesystem, test, patch, git, apply-lane, state, or mutation affordances.",
+          "type_b": "Inference/cognition actor operating through operator, bridge, API, NIM, provider, web, or injected-context surfaces without direct private-substrate authority unless mediated by Type A.",
+          "mechanical": "Deterministic machinery applying validated transitions without AI judgment."
+        }
+      },
+      "class_tier": {
+        "values": ["low", "middle", "high"],
+        "resolution_modes": ["per_invocation", "not_applicable_for_mechanical"],
+        "definitions": {
+          "low": "Weak, unreliable, narrow, buggy, low-reasoning, brittle, schema-bound, or low-observability within its substrate type. Examples: half-wired Codex testing ground (low-class Type A); schema-bound 7B transform call (low-class Type B).",
+          "middle": "Useful bounded capability with moderate reasoning, reliability, or harness quality. Examples: Sonnet/Haiku subagent inside Claude Code with tools (middle-class Type A); Kimi K2 thinking on a tightly-scoped routing decision (middle-class Type B).",
+          "high": "Broad, reliable, high-reasoning, research-capable, synthesis-capable, architecture-capable, or operator-decision-capable within its substrate type. Examples: Opus or extra-high thinking inside Claude Code/Codex (high-class Type A); GPT-5.5 Pro in operator Chrome window producing ontology corrections (high-class Type B).",
+          "per_invocation": "Resolution marker — class is determined at invocation time rather than statically (e.g. provider call where model+task+context envelope decide tier).",
+          "not_applicable_for_mechanical": "Resolution marker — mechanical actors do not carry a class tier."
+        }
+      },
+      "surface": {
+        "values": ["claude_code", "codex", "github_harness", "testing_ground", "claude_agent_tool", "codex_subagent", "chatgpt_web", "operator_chrome_hud", "bridge_runtime", "nvidia_nim", "openrouter_api", "provider_api", "lab_oracle", "evolve", "metabolism_scheduler", "mechanical_kernel"],
+        "note": "Invocation/interface surface. Open enum — extend the values list when a new surface lands. Multiple surfaces may apply to one actor; encode as an array."
+      },
+      "authority": {
+        "values": ["decide", "research", "critique", "transform", "classify", "inspect_private_substrate", "context_discovery", "patch", "patch_if_allowed", "maybe_patch", "test", "test_if_allowed", "maybe_test", "commit", "apply", "candidate_only", "receipt_only", "uppropagate", "bounded_reasoning", "structured_output", "apply_validated_transition"],
+        "note": "What the actor may do. Open enum — extend when a new authority surface emerges. Conditional authorities (`patch_if_allowed`, `maybe_patch`, etc.) are first-class and indicate that the authority depends on harness configuration or runtime allowlist."
+      },
+      "context_mode": {
+        "values": ["live_substrate", "operator_hud", "injected_context", "provider_payload", "shard_payload", "public_web", "generated_state", "mechanical_state"],
+        "note": "How evidence reaches the actor. Multiple modes may apply; encode as an array."
+      },
+      "lane": {
+        "values": ["operator_decision", "substrate_execution", "research", "provider_metabolism", "seed_shard_processing", "mission_evolution", "validation", "routing", "uppropagation", "integration", "testing_ground", "deterministic_execution"],
+        "note": "Purpose lane. Open enum — extend when a new repo lane lands. Multiple lanes may apply; encode as an array."
+      },
+      "thinking_budget": {
+        "values": ["low", "medium", "high", "extra_high", "unknown"],
+        "resolution_modes": ["model_and_request_dependent"],
+        "note": "Inference-depth setting or effective reasoning budget. When budget is determined at invocation time (e.g. by request thinking parameter), use resolution mode `model_and_request_dependent` and optionally pair with an array of plausible values."
+      },
+      "delegation_role": {
+        "values": ["operator", "controller", "orchestrator", "delegated_substrate_actor", "bridge_actor", "provider_actor", "metabolism_actor", "mechanical_executor", "operator_visible_cognitive_actor"],
+        "note": "Topology role. Independent from substrate_type — a delegated substrate actor (subagent with tools) is Type A; a delegated bridge actor is Type B. `operator_visible_cognitive_actor` is the operator-Chrome/HUD high-class Type B role."
+      }
+    },
+    "axis_independence_invariant": "None of these axes implies another by default. A surface may have defaults (see legacy_surface_compatibility), but invocation-level facts override defaults. Specifically: delegated does not mean Type B; provider does not mean low-class; Chrome/HUD does not mean high-class; operator-carried does not mean Type A; Type A does not mean controller; Type B does not mean worker.",
+    "classification_examples": [
+      {
+        "example": "GPT-5.5 Pro in operator Chrome/HUD producing this ontology correction",
+        "substrate_type": "type_b",
+        "class_tier": "high",
+        "surface": "operator_chrome_hud",
+        "authority": ["decide", "research", "critique", "uppropagate"],
+        "context_mode": ["operator_hud", "injected_context", "public_web"],
+        "lane": ["operator_decision", "research", "uppropagation"],
+        "thinking_budget": "high",
+        "delegation_role": "operator_visible_cognitive_actor",
+        "constraint": "Cannot claim private repo state beyond what Type A pasted or what tools expose. Anchor: axiom_candidate_high_class_type_b_as_prefrontal_cortex."
+      },
+      {
+        "example": "NVIDIA NIM or OpenRouter model invoked for bounded transform via type_a_worker_harness",
+        "substrate_type": "type_b",
+        "class_tier": "per_invocation",
+        "surface": ["nvidia_nim", "openrouter_api", "provider_api"],
+        "authority": ["transform", "classify", "candidate_only", "receipt_only"],
+        "context_mode": ["provider_payload", "injected_context"],
+        "lane": ["provider_metabolism", "seed_shard_processing", "routing"],
+        "thinking_budget_resolution": "model_and_request_dependent",
+        "thinking_budget_plausible": ["low", "medium", "high"],
+        "delegation_role": "provider_actor",
+        "constraint": "Provider surface is Type B, but class tier depends on model quality, prompt, context envelope, schema, and task. Do not globally label NIM/OpenRouter as low-class."
+      },
+      {
+        "example": "Opus or GPT-5.5-high inside Claude Code/Codex with full repo tools",
+        "substrate_type": "type_a",
+        "class_tier": "high",
+        "surface": ["claude_code", "codex"],
+        "authority": ["inspect_private_substrate", "patch", "test", "apply", "commit"],
+        "context_mode": "live_substrate",
+        "lane": ["substrate_execution", "validation", "integration"],
+        "thinking_budget": ["high", "extra_high"],
+        "delegation_role": ["controller", "orchestrator"]
+      },
+      {
+        "example": "Sonnet/Haiku/GPT-5.4-mini subagent spawned via Claude Agent tool with repo tools",
+        "substrate_type": "type_a",
+        "class_tier": "middle",
+        "surface": ["claude_agent_tool", "codex_subagent"],
+        "authority": ["inspect_private_substrate", "context_discovery", "patch_if_allowed", "test_if_allowed"],
+        "context_mode": "live_substrate",
+        "lane": ["substrate_execution", "research", "validation"],
+        "delegation_role": "delegated_substrate_actor",
+        "correction": "Delegated does not mean Type B. A subagent with file_access + tools + browsing is a delegated Type A substrate actor, not type_b_worker."
+      },
+      {
+        "example": "GitHub harness, Codex testing ground, or apply lane with broken hooks / flaky validators / weak receipts",
+        "substrate_type": "type_a",
+        "class_tier": "low",
+        "surface": ["github_harness", "testing_ground"],
+        "authority": ["inspect_private_substrate", "maybe_patch", "maybe_test"],
+        "context_mode": "live_substrate",
+        "lane": ["substrate_execution", "testing_ground"],
+        "constraint": "Still Type A because it has substrate authority. The fix is capability-lift inside Type A (better hooks, receipts, tests, replay, validation), not reclassification as Type B."
+      },
+      {
+        "example": "kernel.py --apply, deterministic pipeline scripts, signal watchers",
+        "substrate_type": "mechanical",
+        "class_tier": "not_applicable",
+        "surface": "mechanical_kernel",
+        "authority": ["apply_validated_transition"],
+        "context_mode": "mechanical_state",
+        "lane": "deterministic_execution",
+        "note": "Not Type A or Type B unless an AI actor is making decisions inside the harness."
+      }
+    ]
+  },
+  "operator_mediated_type_b": {
+    "status": "canonical_instance",
+    "description": "From a Type A repo-agent thread, Type B may be an operator-carried external cognition lane: the Type A agent explores the live substrate, prepares a bounded paste-ready ask for ChatGPT Web / operator Chrome HUD / bridge, and consumes the operator-pasted response as advisory synthesis and handoff evidence.",
+    "type_a_duties": [
+      "materialize the private context Type B needs",
+      "state the audience, authority boundary, and requested output shape",
+      "include ASK_TYPE_A return requirements for missing live evidence",
+      "verify the returned claims against live repo state before mutating"
+    ],
+    "not_authorization_for": [
+      "native Codex/Claude subagent spawn",
+      "private filesystem claims by Type B",
+      "direct patch, test, commit, or apply authority by Type B"
+    ],
+    "classification": {
+      "substrate_type": "type_b",
+      "surface": ["chatgpt_web", "operator_chrome_hud", "bridge_runtime"],
+      "context_mode": ["operator_hud", "injected_context"],
+      "delegation_role": "operator_visible_cognitive_actor",
+      "authority": ["decide", "research", "critique", "candidate_only"]
+    }
+  },
+  "legacy_surface_compatibility": {
+    "status": "compatibility_layer",
+    "note": "`worker_surface` is retained for runtime and mission-template compatibility — it is heavily load-bearing in system/lib, tools/meta/factory, codex/standards/observe/mission_templates/, and codex/standards/std_autonomy_runtime.json. It is NOT the canonical Type A/B ontology; use actor_axes for that. This block maps existing worker_surface values into canonical axis defaults so old code keeps working while new code classifies by actor_axes.",
+    "worker_surface": {
+      "subagent": {
+        "legacy_meaning": "Delegated worker surface with tool/context-discovery affordances in the legacy cascade.",
+        "canonical_default_axes": {
+          "substrate_type": "type_a",
+          "delegation_role": "delegated_substrate_actor",
+          "surface": ["claude_agent_tool", "codex_subagent"],
+          "context_mode": "live_substrate",
+          "authority": ["inspect_private_substrate", "context_discovery", "patch_if_allowed", "test_if_allowed"]
+        },
+        "caveat": "If a future subagent surface receives only injected context and no substrate authority, classify by actual authority instead of by this default."
+      },
+      "bridge": {
+        "legacy_meaning": "Injected-context bridge worker surface (ChatGPT/Gemini web via CDP).",
+        "canonical_default_axes": {
+          "substrate_type": "type_b",
+          "delegation_role": "bridge_actor",
+          "surface": "bridge_runtime",
+          "context_mode": "injected_context",
+          "authority": ["bounded_reasoning", "structured_output", "candidate_only"]
+        }
+      },
+      "controller": {
+        "legacy_meaning": "Top-of-cascade IDE session.",
+        "canonical_default_axes": {
+          "substrate_type": "type_a",
+          "delegation_role": ["controller", "orchestrator"],
+          "surface": ["claude_code", "codex"],
+          "context_mode": "live_substrate",
+          "authority": ["inspect_private_substrate", "patch", "test", "apply", "commit", "decide"]
+        }
+      }
+    }
+  },
+  "cascade_tiers": {
+    "view_status": "legacy_economic_delegation_view",
+    "canonicality_note": "cascade_tiers preserves the historical cost/delegation ladder. It is NOT the canonical Type A/B ontology. Use actor_axes for substrate type, class tier, surface, authority, context mode, lane, thinking budget, and delegation role. This view conflates substrate-authority, class tier, surface, delegation role, and tier-cost into a single ladder; consumers reading protocol_role here should treat it as a legacy topology label, not as a substrate-authority claim. cascade_tiers is retained for downstream readers (claude_subagent_delegation.md, doctrine_surface.json, navigation_hologram nav nodes) and will be migrated deliberately rather than rewritten in place.",
+    "note": "The concrete tiers in ai_workflow's cascade, from most to least expensive intelligence. LEGACY VIEW: this block frames Type A as 'controller session' and Type B as 'delegated-worker family with subagent and bridge surfaces.' That binary is the legacy cascade framing; the canonical ontology in actor_axes states that substrate-authority and delegation-role are independent axes — a subagent with tools is a delegated Type A substrate actor, not type_b_worker.",
+    "tiers": [
+      {
+        "tier": 0,
+        "name": "Human intent",
+        "medium": "raw_seed.md, voice memos, Obsidian notes",
+        "output_contract": "Append-only raw seed paragraphs with embedded ideas",
+        "cost": "irreplaceable — the only source of genuine intent"
+      },
+      {
+        "tier": 1,
+        "name": "Conductor (Opus / full-context IDE session)",
+        "medium": "Claude Code Opus, Codex Opus, Cursor with full repo context",
+        "output_contract": "Meta-realizations, synth_seed.json, doctrine entries, observe plan designs, delegation structures, groundwork docs for lower tiers",
+        "cost": "highest tokens, limited capacity — use for architecture, delegation design, groundwork authoring. NOT for bulk work.",
+        "protocol_role": "type_a_controller",
+        "capabilities": ["tools", "file_access", "state", "browsing", "spawns_subagents", "dispatches_bridge"]
+      },
+      {
+        "tier": 2,
+        "name": "Orchestrator (IDE in execution mode)",
+        "medium": "Claude Code, Codex, Cursor executing a known plan",
+        "output_contract": "Observe plans, apply ops, code changes, phase scaffolds",
+        "cost": "moderate — use for structured execution of well-scoped tasks",
+        "protocol_role": "type_a_controller",
+        "capabilities": ["tools", "file_access", "state", "browsing", "dispatches_bridge"]
+      },
+      {
+        "tier": 3,
+        "name": "Subagent worker (Sonnet / Haiku / GPT-5.4-mini)",
+        "medium": "Claude Agent tool (Sonnet/Haiku), Codex subagents (GPT-5.4-mini), spawned by conductor or orchestrator",
+        "output_contract": "Scoped code changes, file-level analysis, populated docstrings/atoms, bridge dispatch results",
+        "cost": "cheap tokens — use for mechanical-but-intelligent work where context discovery or iteration is needed",
+        "protocol_role": "type_b_worker",
+        "worker_surface": "subagent",
+        "capabilities": ["tools", "file_access", "browsing", "context_discovery", "dispatches_bridge"],
+        "limitations": ["separate context window", "no recursive subagent spawning", "scoped to delegated task"],
+        "when_over_bridge": "Task needs context discovery (browsing files to decide what to inject), iteration (try-then-refine), or tool access (running tests, kernel commands). Bridge cannot do these.",
+        "when_bridge_instead": "Context is already known and injectable, task is pure bounded reasoning, or cost must be zero."
+      },
+      {
+        "tier": 4,
+        "name": "Bridge worker (ChatGPT / Gemini web UI via CDP)",
+        "medium": "system/core/bridge.py → Chrome DevTools Protocol",
+        "output_contract": "Typed .receipt.json responses to pre-scoped group prompts",
+        "cost": "near-zero marginal — unlimited reasoning if prompts are well-typed",
+        "protocol_role": "type_b_worker",
+        "worker_surface": "bridge",
+        "capabilities": ["bounded_reasoning", "structured_output"],
+        "limitations": ["no tools", "no file access", "no state between calls", "sees only injected prompt body", "one-shot"],
+        "when_over_subagent": "Context is pre-known, task decomposes into independent bounded slices, parallelism matters, cost must be zero."
+      },
+      {
+        "tier": 5,
+        "name": "Mechanical executor",
+        "medium": "kernel.py --apply, pipeline scripts, signal watchers",
+        "output_contract": "File mutations, state transitions, wake signals",
+        "cost": "zero intelligence — deterministic execution of validated plans",
+        "protocol_role": "mechanical"
+      }
+    ],
+    "valid_chains": [
+      {
+        "chain": "type_a.controller -> type_a.delegated_substrate_actor -> type_b.bridge",
+        "description": "Type A designs groundwork, delegated Type A subagents discover context and optionally dispatch bridge, bridge does bounded reasoning on already-curated slices. Maximum leverage: each tier has a narrower contract than the last.",
+        "example": "Phase 6 routing atom population: Type A writes the skill + schema + exemplars, Codex/Sonnet subagents browse files and either populate atoms directly or curate exact bridge packets per file."
+      },
+      {
+        "chain": "type_a.controller -> type_b.bridge",
+        "description": "Direct bridge dispatch when context is already curated. Skip the subagent worker surface when the Type A controller already knows the scope.",
+        "example": "Standard observe plan dispatch: conductor builds plan, bridge executes groups."
+      },
+      {
+        "chain": "type_a.controller -> type_a.delegated_substrate_actor",
+        "description": "Subagent does the work directly without bridge. Use when the task needs live substrate agency and iteration but not the controller's full architectural judgment.",
+        "example": "Mechanical refactoring across known files where each file needs test-run-fix cycles."
+      },
+      {
+        "chain": "type_a.controller -> type_b.bridge",
+        "description": "Execution-mode IDE dispatches pre-designed plans to bridge. The most common bridge pattern.",
+        "example": "Running an observe session from a pre-built plan."
+      }
+    ]
+  },
+  "note": "This is the repo's actor-axis concept. Type A/B names substrate authority, not intelligence level, cost tier, worker status, or interface. The historical office-of-workers cascade remains as a legacy economic/delegation view, but new entry, vocabulary, bridge, provider, prompt-shelf, and subagent surfaces should route Type A/B claims through actor_axes first. Type A can be controller, orchestrator, or delegated substrate actor when it has live substrate authority. Type B can be operator-HUD, bridge, provider/API, NIM/OpenRouter, public web, or other external/injected-context cognition with no direct private-substrate mutation authority. High-class Type B can decide, research, critique, and correct over materialized context; Type A verifies and mutates the substrate.",
+  "synthesis": {
+    "schema_version": "concept_synthesis_v0",
+    "generated_at": "2026-03-25T01:32:33.610504+00:00",
+    "status": "stub",
+    "raw_seed_citations": [],
+    "teleological_justification": "",
+    "ontological_scope": "",
+    "when_needed": "",
+    "body": "",
+    "cross_refs": [],
+    "evolution_notes": ""
+  }
+}

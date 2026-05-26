@@ -1,0 +1,238 @@
+{
+  "kind": "standard",
+  "schema_version": "standard_v1",
+  "id": "std_navigation_mechanism_acceptance",
+  "title": "Navigation Mechanism Acceptance Standard",
+  "purpose": "Define the minimum gate between candidate route learning, validated route learning, accepted mechanism affordance, projected entry behavior, and observed future behavior.",
+  "authority": {
+    "base_mechanism_standard": "codex/standards/principles/std_mechanism.json",
+    "projection_ledger_standard": "codex/standards/std_mechanism_projection_ledger.json",
+    "validation_command": "./repo-python tools/meta/factory/validate_navigation_mechanism_facets.py"
+  },
+  "state_model": [
+    {
+      "state": "candidate",
+      "meaning": "A trace-derived or provider-suggested claim is visible as route-learning evidence but cannot mutate owner artifacts."
+    },
+    {
+      "state": "validated",
+      "meaning": "The claim passed local schema, verb, provider-authority, and replay checks but is not owner-accepted."
+    },
+    {
+      "state": "blocked_before_acceptance",
+      "meaning": "A validated claim has a recorded transaction blocker before owner acceptance."
+    },
+    {
+      "state": "owner_packet_created",
+      "meaning": "A non-authoritative packet asks owner surfaces for proof, materialization target, rejection, or reroute."
+    },
+    {
+      "state": "owner_locus_verified_candidate",
+      "meaning": "A candidate owner code/tool locus has been verified, but the acceptance gate has not yet promoted it to owner acceptance."
+    },
+    {
+      "state": "owner_acceptance_requested",
+      "meaning": "The claim has been submitted to the owner surface for an explicit acceptance decision."
+    },
+    {
+      "state": "accepted",
+      "meaning": "The owner standard or owner tool accepted the claim for downstream materialization."
+    },
+    {
+      "state": "projected",
+      "meaning": "An owner tool materialized the accepted claim into a mechanism, standard, skill, WorkItem, or entry surface."
+    },
+    {
+      "state": "observed",
+      "meaning": "Future trace evidence shows the projected route behavior changed or improved."
+    }
+  ],
+  "required_for_acceptance": [
+    "candidate_claim",
+    "facet_manifest",
+    "owner_standard",
+    "passed_replay_result",
+    "code_or_tool_loci",
+    "evidence_command",
+    "validator_pass",
+    "owner_acceptance_ref"
+  ],
+  "forbidden": [
+    "provider mutation authority",
+    "accepted claim without replay proof",
+    "accepted claim without owner standard/tool acceptance proof",
+    "active mechanism without code/tool loci",
+    "entrypoint patch without entrypoint audit",
+    "direct canonical mutation from a candidate projection"
+  ],
+  "acceptance_transaction_spine": {
+    "schema_version": "navigation_mechanism_acceptance_event_v0",
+    "purpose": "Append-only transaction events are the source of truth for navigation mechanism acceptance state; dossiers, candidate cards, metabolism counters, and future observation queues are read-model projections.",
+    "event_stream": "codex/ledger/navigation_mechanism_acceptance/events.jsonl",
+    "required_fields": [
+      "schema_version",
+      "event_id",
+      "claim_id",
+      "event_type",
+      "created_at",
+      "actor",
+      "authority_posture",
+      "state_before",
+      "state_after",
+      "proof_refs",
+      "missing_refs",
+      "next_legal_events"
+    ],
+    "legal_event_types": [
+      "acceptance.blocked.recorded",
+      "owner_packet.created",
+      "owner_locus.verified_candidate",
+      "owner_acceptance.requested",
+      "claim.rejected",
+      "claim.superseded",
+      "owner_acceptance.recorded",
+      "projection.recorded",
+      "observation.recorded",
+      "rollback.recorded"
+    ],
+    "authority_postures": [
+      "transaction_event_not_owner_acceptance",
+      "owner_packet_not_owner_acceptance",
+      "owner_locus_candidate_not_owner_acceptance",
+      "owner_acceptance_proof",
+      "projection_proof",
+      "observation_proof",
+      "rollback_or_compensation_proof"
+    ],
+    "blocked_event_rule": "acceptance.blocked.recorded may improve blocker provenance and next legal events, but it must not increment accepted_count, projected_count, or observed_count.",
+    "owner_packet_event_rule": "owner_packet.created must be appended as a transaction event after a blocked event, use authority_posture owner_packet_not_owner_acceptance, reference the owner packet in proof_refs.owner_packet_ref, and must not increment accepted_count, projected_count, or observed_count.",
+    "owner_locus_event_rule": "owner_locus.verified_candidate may record candidate code/tool loci after owner_packet.created, but it uses authority_posture owner_locus_candidate_not_owner_acceptance and must not increment accepted_count, projected_count, or observed_count.",
+    "owner_acceptance_request_event_rule": "owner_acceptance.requested may be appended after owner_locus.verified_candidate only when proof_refs.replay_ref resolves to a durable replay receipt. It is a request event, not owner acceptance, and must keep owner_acceptance_ref, projection_ref, and observation_ref null.",
+    "observation_event_rule": "observation.recorded may be appended after projection.recorded only when proof_refs.observation_ref identifies a replayable post-projection trace window, the event carries observation_proof authority, missing_refs is empty, and post_count is lower than baseline_count for the declared metric.",
+    "observed_debt_retirement_rule": "When a claim reaches observed, navigation metabolism must retire the matching process-audit anti-pattern from active behavior_debt and top_repairs while preserving the row as advisory evidence until a later regression event reopens it. Downstream enforcement surfaces such as coverage_enforcement_matrix and navigation_index_spine must carry active_debt/advisory lifecycle fields so retired rows are not reissued as active repair targets.",
+    "source_authority_rule": "The event stream owns transaction state. Dossiers and cards may expose latest event refs, but they do not become transaction authority."
+  },
+  "owner_packet": {
+    "schema_version": "navigation_mechanism_owner_packet_v0",
+    "purpose": "Ask the relevant owner surfaces whether a candidate route repair is already embodied, should be materialized, should be rejected, or should be rerouted.",
+    "authority_posture": "owner_packet_not_owner_acceptance",
+    "required_fields": [
+      "packet_id",
+      "claim_id",
+      "anti_pattern_id",
+      "packet_event_type",
+      "acceptance_event_ref",
+      "next_owner_surface",
+      "owner_surfaces",
+      "candidate_loci",
+      "owner_questions",
+      "non_authority_rules"
+    ],
+    "required_questions": [
+      "Does existing code already embody this repair?",
+      "Which owner locus proves it?",
+      "If not embodied, what minimal owner-owned materialization is acceptable?",
+      "What trace window proves improvement after projection?"
+    ]
+  },
+  "owner_locus_verification": {
+    "schema_version": "navigation_mechanism_owner_locus_verification_v0",
+    "purpose": "Record local evidence that existing owner code/tool loci embody a candidate repair, without promoting that evidence to owner acceptance.",
+    "authority_posture": "owner_locus_candidate_not_owner_acceptance",
+    "required_fields": [
+      "verification_id",
+      "claim_id",
+      "anti_pattern_id",
+      "event_ref",
+      "owner_packet_ref",
+      "owner_surfaces_checked",
+      "verified_loci",
+      "owner_questions_answered",
+      "non_authority_rules"
+    ],
+    "non_authority_rule": "Owner-locus verification can satisfy candidate code/tool-loci evidence but cannot satisfy owner_acceptance_ref, projection_ref, or observation_ref."
+  },
+  "durable_replay_receipt": {
+    "schema_version": "navigation_mechanism_replay_receipt_v0",
+    "purpose": "Persist a passed route replay result so request events and read models can resolve replay evidence from disk instead of relying on an ephemeral command result.",
+    "authority_posture": "durable_replay_evidence_not_acceptance",
+    "required_fields": [
+      "receipt_id",
+      "claim_id",
+      "anti_pattern_id",
+      "case_id",
+      "created_at",
+      "actor",
+      "authority_posture",
+      "replay_command",
+      "validator_command",
+      "result",
+      "source_refs",
+      "non_authority_rules"
+    ],
+    "satisfies_only": [
+      "durable_replay_receipt_lane_unresolved"
+    ],
+    "does_not_satisfy": [
+      "owner_acceptance_ref_missing",
+      "projection_ref",
+      "observation_ref",
+      "future_observation_window_unverified"
+    ],
+    "non_acceptance_rule": "A durable replay receipt may remove durable_replay_receipt_lane_unresolved from missing_refs, but it must not set acceptance_eligibility=accepted or increment accepted_count, projected_count, or observed_count."
+  },
+  "authority_boundary": {
+    "transaction_event": "Records state movement and blockers, not owner acceptance by itself.",
+    "blocked_dossier": "Read-model projection over the latest blocked transaction state.",
+    "owner_packet": "Request packet to owner surfaces, not acceptance proof.",
+    "durable_replay_receipt": "Durable replay evidence only; satisfies the replay receipt lane but not owner acceptance.",
+    "owner_acceptance_proof": "Explicit owner standard/tool acceptance ref plus code/tool loci proof.",
+    "projection_proof": "Owner materialization ref after acceptance.",
+    "observation_proof": "Post-projection trace window or equivalent replayable observation evidence.",
+    "non_authoritative_surfaces": {
+      "transform_job_receipts": "Provider work evidence only; may not satisfy owner_acceptance_ref.",
+      "row_patches": "Materialization candidates only; may not satisfy owner_acceptance_ref.",
+      "compliance_ledger": "Compliance evidence only; may not satisfy owner_acceptance_ref.",
+      "route_replay_result": "Fitness/conformance evidence only; may not satisfy owner_acceptance_ref.",
+      "navigation_mechanism_replay_receipt": "Durable replay evidence only; may not satisfy owner_acceptance_ref, projection_ref, or observation_ref."
+    }
+  },
+  "acceptance_dossier": {
+    "schema_version": "navigation_mechanism_acceptance_dossier_v0",
+    "purpose": "Project why one validated route-learning claim is still blocked before owner acceptance.",
+    "authority_posture": "blocker_dossier_not_acceptance",
+    "required_fields": [
+      "dossier_id",
+      "claim_id",
+      "anti_pattern_id",
+      "read_model_projection",
+      "owner_surface",
+      "validator_ref",
+      "replay_ref",
+      "replay_receipt_ref",
+      "acceptance_eligibility",
+      "missing_refs",
+      "candidate_owner_loci",
+      "future_observation",
+      "no_count_increment_reason"
+    ],
+    "blocked_state": "blocked_before_acceptance",
+    "blocked_before_acceptance_requires": [
+      "missing_refs",
+      "no_count_increment_reason"
+    ],
+    "accepted_state_requires": [
+      "owner_acceptance_ref",
+      "code_or_tool_loci_ref",
+      "projection_ref",
+      "rollback_ref"
+    ],
+    "observed_state_requires": [
+      "observation_ref",
+      "future_observation.status=observed",
+      "future_observation.future_observation_window_status=recorded",
+      "future_observation.baseline_count > future_observation.post_count",
+      "missing_refs=[]"
+    ]
+  }
+}

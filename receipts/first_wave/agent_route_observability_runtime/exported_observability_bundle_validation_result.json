@@ -51,15 +51,22 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "74918654018cb031ad7e16198dfa0c3f7092fdc3a18802134082cad481b8ba58",
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "copied_macro_source_count": 7,
+    "verification_mode": "exact_source_digest_line_byte_and_anchor_match"
+  },
+  "body_in_receipt": false,
+  "bundle_fingerprint": "69ff68be672088133d41888f9c92c8242a60a3f36502049ec08151578f4d68f6",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input examples/agent_route_observability_runtime/exported_observability_bundle --out receipts/first_wave/agent_route_observability_runtime",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-observability-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
   "consumed_route_lease_ids": [
     "lease_public_advisory_boundary",
     "lease_public_observability_runtime"
   ],
-  "created_at": "2026-05-20T16:47:17+00:00",
+  "copied_macro_source_count": 7,
+  "created_at": "2026-05-26T12:50:44+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {
@@ -82,6 +89,48 @@
     "status": "pass"
   },
   "error_codes": [],
+  "exact_source_body_import": {
+    "body_in_receipt": false,
+    "source_body_digests": [
+      "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+      "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
+    ],
+    "source_refs": [
+      "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "codex/doctrine/process/trace_rules.json",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_navigation_mechanism_acceptance.json",
+      "system/lib/agent_execution_trace.py",
+      "system/lib/navigation_metabolism_ledger.py",
+      "system/lib/navigation_route_intervention.py"
+    ],
+    "source_to_target_relation": "exact_copy",
+    "target_body_digests": [
+      "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+      "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py"
+    ],
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "pass"
+  },
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.agent_route_observability_runtime.exported_observability_bundle",
@@ -89,11 +138,59 @@
   "hook_shadow_coverage": {
     "covered_hook_ids": [
       "public_actor_axis_boundary_shadow",
-      "public_route_lease_feedback_shadow"
+      "public_first_contact_route_guard_shadow",
+      "public_route_lease_feedback_shadow",
+      "public_unowned_hook_shadow"
     ],
     "findings": [],
+    "hook_shadow_case_count": 4,
     "hook_shadow_coverage_status": "public_metadata_coverage_only",
+    "hook_shadow_decisions": [
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "admit_after_consumed_trace_feedback",
+        "hook_id": "public_route_lease_feedback_shadow",
+        "repair_class": "route_lease_mode_control"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "reject_mutation_claim_from_advisory_actor_axis",
+        "hook_id": "public_actor_axis_boundary_shadow",
+        "repair_class": "authority_boundary_repair"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "covered_by_public_metadata",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "block_banned_route_and_require_kernel_entry",
+        "hook_id": "public_first_contact_route_guard_shadow",
+        "repair_class": "navigation_entry_repair"
+      },
+      {
+        "body_redacted": true,
+        "coverage_status": "advisory_until_authority_declared",
+        "decision": "accepted",
+        "error_codes": [],
+        "expected_intervention": "retain_as_advisory_until_authority_source_declared",
+        "hook_id": "public_unowned_hook_shadow",
+        "repair_class": "authority_boundary_repair"
+      }
+    ],
     "hook_shadow_projection_not_authority": true,
+    "hook_shadow_repair_class_count": 3,
+    "mapped_repair_classes": [
+      "authority_boundary_repair",
+      "navigation_entry_repair",
+      "route_lease_mode_control"
+    ],
+    "missing_authority_count": 1,
     "status": "pass"
   },
   "input_mode": "exported_observability_bundle",
@@ -110,12 +207,22 @@
   "observed_negative_cases": {},
   "organ_id": "agent_route_observability_runtime",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 9,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "process_audit_rows": {
@@ -130,6 +237,7 @@
   },
   "public_replacement_refs": [
     "examples/agent_route_observability_runtime/exported_observability_bundle/bundle_manifest.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
     "examples/agent_route_observability_runtime/exported_observability_bundle/route_events.json",
     "examples/agent_route_observability_runtime/exported_observability_bundle/agent_path_observations.json",
     "examples/agent_route_observability_runtime/exported_observability_bundle/session_diagnostics.json",
@@ -137,7 +245,14 @@
     "examples/agent_route_observability_runtime/exported_observability_bundle/actor_axis_checks.json",
     "examples/agent_route_observability_runtime/exported_observability_bundle/anti_pattern_debt.json",
     "examples/agent_route_observability_runtime/exported_observability_bundle/process_audit_rows.json",
-    "examples/agent_route_observability_runtime/exported_observability_bundle/observability_policy.json"
+    "examples/agent_route_observability_runtime/exported_observability_bundle/observability_policy.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
+    "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py"
   ],
   "receipt_id": "agent_route_observability_runtime_exported_observability_bundle_validation_v1",
   "receipt_paths": [
@@ -177,14 +292,123 @@
       "session_id": "public_observability_session_projection"
     }
   ],
+  "source_module_manifest": {
+    "all_expected_byte_counts_matched": true,
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "body_in_receipt": false,
+    "copied_macro_source_count": 7,
+    "findings": [],
+    "module_count": 7,
+    "observed_modules": [
+      {
+        "body_in_receipt": false,
+        "byte_count": 29828,
+        "line_count": 424,
+        "material_class": "public_macro_pattern_body",
+        "path": "source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+        "sha256": "e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+        "source_ref": "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 7252,
+        "line_count": 156,
+        "material_class": "public_macro_pattern_body",
+        "path": "source_modules/codex/doctrine/process/trace_rules.json",
+        "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+        "source_ref": "codex/doctrine/process/trace_rules.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 45577,
+        "line_count": 623,
+        "material_class": "public_standard_body",
+        "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+        "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 11376,
+        "line_count": 238,
+        "material_class": "public_standard_body",
+        "path": "source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+        "sha256": "98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+        "source_ref": "codex/standards/std_navigation_mechanism_acceptance.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 224689,
+        "line_count": 5158,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/agent_execution_trace.py",
+        "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 243510,
+        "line_count": 5240,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
+        "sha256": "05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+        "source_ref": "system/lib/navigation_metabolism_ledger.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 17443,
+        "line_count": 348,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/navigation_route_intervention.py",
+        "sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "source_ref": "system/lib/navigation_route_intervention.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py"
+      }
+    ],
+    "required_module_count": 7,
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
-    "trace_feedback_behavior_change_gate"
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+    "codex/doctrine/process/trace_rules.json",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_navigation_mechanism_acceptance.json",
+    "system/lib/agent_execution_trace.py",
+    "system/lib/navigation_metabolism_ledger.py",
+    "system/lib/navigation_route_intervention.py"
   ],
   "status": "pass",
+  "target_refs": [
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py"
+  ],
   "validator_asserted_feeds_patterns": [
     {
       "assertion_id": "route_lease_feedback_requires_consumed_trace",
@@ -199,6 +423,26 @@
     {
       "assertion_id": "debt_retirement_requires_behavior_change_evidence",
       "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+      "source_pattern_id": "agent_principle_lens",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+      "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+      "source_pattern_id": "egress_compliance_stop_hook_mirror",
       "status": "pass"
     }
   ],

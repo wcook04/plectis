@@ -1,0 +1,156 @@
+{
+  "schema_version": "agent_route_observability_runtime_observability_source_module_manifest_v1",
+  "bundle_id": "public_agent_route_observability_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "module_count": 7,
+  "modules": [
+    {
+      "module_id": "trace_rules_source_body_import",
+      "source_ref": "codex/doctrine/process/trace_rules.json",
+      "path": "source_modules/codex/doctrine/process/trace_rules.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Trace-rule body defining navigation reference sequences, observability boundary truncation, anti-pattern severities, and metadata-only privacy rules for public route-observability traces.",
+      "required_anchors": [
+        "\"navigation_reference_sequence\"",
+        "\"observability_boundary\"",
+        "\"anti_pattern_grep_before_kernel\"",
+        "\"privacy_rule\""
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 156,
+      "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "byte_count": 7252,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_standard_body_import",
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "material_class": "public_standard_body",
+      "source_role": "Agent execution trace standard defining public process observability, strict privacy boundary, trace ontology, route-compliance contract, and agent-observability API surfaces.",
+      "required_anchors": [
+        "\"schema_version\"",
+        "\"strict_boundary\"",
+        "\"trace_ontology_contract\"",
+        "\"navigation_reference_sequence_contract\"",
+        "\"/api/agent-observability/status\""
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 623,
+      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "byte_count": 45577,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "navigation_mechanism_acceptance_standard_body_import",
+      "source_ref": "codex/standards/std_navigation_mechanism_acceptance.json",
+      "path": "source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
+      "material_class": "public_standard_body",
+      "source_role": "Navigation mechanism acceptance standard that governs observed anti-pattern debt retirement and prevents trace-derived projections from becoming source authority without owner acceptance.",
+      "required_anchors": [
+        "\"observed_debt_retirement_rule\"",
+        "\"source_authority_rule\"",
+        "\"anti_pattern_id\"",
+        "\"observation.recorded\""
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 238,
+      "sha256": "98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+      "byte_count": 11376,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "actor_axes_concept_body_import",
+      "source_ref": "codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "path": "source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Actor-axis doctrine body that distinguishes Type A substrate authority from Type B advisory surfaces and anchors the public actor-axis checks in the observability bundle.",
+      "required_anchors": [
+        "\"actor_axes\"",
+        "\"substrate_type\"",
+        "\"type_a\"",
+        "\"type_b\""
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 424,
+      "sha256": "e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "byte_count": 29828,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_source_body_import",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Agent execution trace owner that builds public trace ledgers, route-compliance signals, anti-pattern detections, and privacy-boundary receipts without provider payload bodies or hidden reasoning.",
+      "required_anchors": [
+        "LEDGER_SCHEMA_VERSION = \"agent_execution_trace_ledger_v1\"",
+        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
+        "def _detect_anti_patterns(",
+        "def build_agent_execution_trace("
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 5158,
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "byte_count": 224689,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "navigation_route_intervention_source_body_import",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "path": "source_modules/system/lib/navigation_route_intervention.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Route-intervention owner that maps navigation anti-pattern ids to repair classes and hook-shadow coverage rows used by public route-observability validation.",
+      "required_anchors": [
+        "class RouteRepairSuggestion",
+        "ROUTE_REPAIR_SUGGESTIONS",
+        "def route_repair_for(",
+        "def build_hook_shadow_coverage(",
+        "def suggestion_message("
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 348,
+      "sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "byte_count": 17443,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "navigation_metabolism_ledger_source_body_import",
+      "source_ref": "system/lib/navigation_metabolism_ledger.py",
+      "path": "source_modules/system/lib/navigation_metabolism_ledger.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Navigation metabolism ledger owner that composes process-audit rows, hook-shadow coverage, route lifecycle, observed anti-pattern debt retirement, and control-entry quality signals.",
+      "required_anchors": [
+        "def _process_audit_payload(",
+        "def _process_audit_behavior_rows(",
+        "def _retire_observed_navigation_mechanism_debt_rows(",
+        "def build_navigation_metabolism_ledger(",
+        "\"hook_shadow_coverage\""
+      ],
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 5240,
+      "sha256": "05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+      "byte_count": 243510,
+      "body_in_receipt": false
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material",
+    "raw private transcript bodies",
+    "live process-audit bodies",
+    "live hook state"
+  ]
+}
