@@ -1,0 +1,2429 @@
+{
+  "anti_claims": [
+    "this manifest does not claim Erdos #257 is solved",
+    "this manifest does not promote pilot evidence into universal proof",
+    "this manifest does not call providers or update upstream registries",
+    "cells are addressable evidence rows, not standalone publication-grade citations"
+  ],
+  "authority_posture": "private_pilot_cell_projection_not_publication_authority",
+  "cell_count": 7,
+  "cells": [
+    {
+      "artifact_refs": [
+        "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
+        "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+        "formal_math/erdos257_period_noncollapse/lakefile.toml",
+        "formal_math/erdos257_period_noncollapse/lean-toolchain"
+      ],
+      "candidate_obligation_node_ref_reason": "bounded pilot Lean certificate kernel relates to the kernel-package and period-noncollapse routes; explicit authority for an exact node match is reserved for a domain-aware author",
+      "candidate_obligation_node_refs": [
+        "lean_kernel_package_to_irrationality",
+        "kernel_package_boundary",
+        "period_noncollapse_conjecture_17_20"
+      ],
+      "cell_id": "erdos257.issue217.period_noncollapse.selector_interface_kernel",
+      "certificate_kernel_status": "lean_frontier_portfolio_b10_L6_A11_row_signature_new_period_target_verified_no_sorry_pending_frontier_portfolio_feedback_or_next_family_candidate",
+      "claim": "The Lean selector interface / certificate kernel was checked with no `sorry` on the bounded pilot corpus.",
+      "claim_boundary": "finite_period_noncollapse_strike_not_erdos257_solution",
+      "evidence_class": "bounded_pilot_lean_lane_receipt",
+      "lean_microkernel_banned_token_hit_count": null,
+      "next_decisive_experiment": {
+        "case_ref": null,
+        "next_step": "Lean-check the order-drop-to-ModEq supplier, then compose the one-direction collapse-divisor theorem before selector/existence work.",
+        "outcome": "candidate_paper_proof_closure_emitted_pending_referee_and_lean"
+      },
+      "non_claims": [
+        "not a universal proof",
+        "not an Erdos257 solution",
+        "not a witness-existence kernel",
+        "not upstream registry action"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": false,
+      "oracle_split": {
+        "formal_proof": "bounded_kernel_or_interface_check_only_not_witness_existence",
+        "registry_status": "not_asserted_here",
+        "research_validity": "not_erdos257_solution"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike.json"
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "bounded canonical-witness selector receipt is evidence of stable witness-hit reduction; explicit DAG-node match is reserved for a domain-aware author",
+      "candidate_obligation_node_refs": [
+        "height_jump_stable_witness_lemmas",
+        "period_noncollapse_conjecture_17_20"
+      ],
+      "canonical_selector_check_count": 24810,
+      "canonical_singleton_minimal_count": 24810,
+      "canonical_witness_selector_kernel_status": "PASS",
+      "canonical_witness_selector_status": "PASS",
+      "case_count": 7925,
+      "cell_id": "erdos257.issue217.period_noncollapse.canonical_witness_selector_kernel",
+      "certified_case_count": 7925,
+      "claim": "On the bounded pilot grid, the canonical witness selector reduced every searched prime-component row to a singleton-minimal witness (selector kernel status PASS).",
+      "claim_boundary": "bounded_finite_grid_only_not_universal_theorem",
+      "evidence_class": "bounded_pilot_search_receipt",
+      "non_claims": [
+        "not a Lean proof of universal selector existence",
+        "bounded grid does not generalize without an existence theorem"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": false,
+      "oracle_split": {
+        "formal_proof": "bounded_finite_search_not_lean_universal_proof",
+        "registry_status": "not_asserted_here",
+        "research_validity": "not_erdos257_solution"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json"
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "collapse-divisor criterion is the bounded local-check for the LCM-exactness / period-noncollapse conjecture; explicit DAG-node match is reserved for a domain-aware author",
+      "candidate_obligation_node_refs": [
+        "period_noncollapse_conjecture_17_20"
+      ],
+      "cell_id": "erdos257.issue217.period_noncollapse.collapse_divisor_criterion",
+      "claim": "The collapse-divisor criterion check passed across the bounded pilot case set with zero collapse-divisor collapses.",
+      "claim_boundary": "bounded_pilot_only_not_universal",
+      "collapse_divisor_collapse_count": 0,
+      "collapse_divisor_criterion_status": "PASS",
+      "evidence_class": "bounded_pilot_search_receipt",
+      "non_claims": [
+        "not a Lean proof of the universal collapse-divisor lemma"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": false,
+      "oracle_split": {
+        "formal_proof": "bounded_check_not_universal_lean_theorem",
+        "registry_status": "not_asserted_here",
+        "research_validity": "not_erdos257_solution"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json"
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "boundary cell: a private capability inventory is not a node in the public obligation DAG; no link should be drawn",
+      "candidate_obligation_node_refs": [],
+      "capability_count": 12,
+      "capability_map_status": "PASS",
+      "cell_id": "erdos257.issue217.capability_map",
+      "claim": "A research-operations capability map exists for the formal-math pilot lane, with explicit capability and external-source counts.",
+      "claim_boundary": "private_capability_map_not_public_math_claim",
+      "evidence_class": "capability_map_boundary",
+      "external_source_count": 6,
+      "non_claims": [
+        "not publication authority",
+        "not public proof",
+        "not external registry update"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": true,
+      "oracle_split": {
+        "formal_proof": "not_asserted_here",
+        "registry_status": "not_asserted_here",
+        "research_validity": "private_capability_inventory_not_public_claim"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/capability_map_receipt.json"
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "boundary cell: a leakage audit is a safety control over the lane, not a node in the public obligation DAG; no link should be drawn",
+      "candidate_obligation_node_refs": [],
+      "cell_id": "erdos257.issue217.leakage_audit",
+      "claim": "During the period-noncollapse strike, no provider proof calls were made for Erdos257 and no upstream registry/repo action was taken; the strike Lean microkernel reported zero banned-token hits.",
+      "claim_boundary": "leakage_audit_not_proof_authority",
+      "evidence_class": "leakage_audit_boundary",
+      "lean_microkernel_banned_token_hit_count": null,
+      "no_provider_proof_calls_for_erdos257": true,
+      "no_upstream_action": true,
+      "non_claims": [
+        "not a proof claim",
+        "not registry status change",
+        "not provider attribution"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": true,
+      "oracle_split": {
+        "formal_proof": "leakage_audit_only_not_proof_evidence",
+        "registry_status": "registry_status_unchanged_not_proof_claim",
+        "research_validity": "not_erdos257_solution"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json"
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "forward Lean target catalog spans the kernel-package, density-package, and shell-to-kernel route obligations; explicit per-target DAG-node mapping is reserved for a domain-aware author",
+      "candidate_obligation_node_refs": [
+        "lean_kernel_package_to_irrationality",
+        "lean_density_package_to_claim",
+        "kernel_package_boundary",
+        "density_package_boundary",
+        "shell_to_kernel_boundary"
+      ],
+      "cell_id": "erdos257.issue217.period_noncollapse.lean_formalization_targets",
+      "claim": "The strike state declares a catalog of Lean formalization targets plus per-target boundaries and dependencies; this is a forward-direction obligation list, not proof of any target.",
+      "claim_boundary": "forward_obligation_catalog_not_proof_claim_for_listed_targets",
+      "evidence_class": "obligation_catalog",
+      "non_claims": [
+        "not proof of any listed target",
+        "not Lean-checked closure of the named lemmas"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": false,
+      "oracle_split": {
+        "formal_proof": "targets_declared_not_yet_proved",
+        "registry_status": "not_asserted_here",
+        "research_validity": "not_erdos257_solution"
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike.json"
+      ],
+      "status": "evidence_present",
+      "target_count": 214,
+      "targets": [
+        {
+          "boundary": "selector lemma only; still needs primitive-divisor and exception proofs",
+          "depends_on": [
+            "primitive_prime_maximality_blocks_collapse",
+            "zsigmondy_exception_2_blocks_collapse",
+            "zsigmondy_exception_6_q3_singleton_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite theorem route only; still not an Erdos #257 proof",
+          "depends_on": [
+            "witness_certificate_implies_period_noncollapse",
+            "canonical_witness_singleton_minimality",
+            "canonical_witness_certificate_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite-sum congruence algebra only; no residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Finset.induction_on",
+            "Nat.ModEq.add"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generic finite common-denominator ModEq fold only; no number-theoretic selector or finite theorem claim",
+          "depends_on": [
+            "finset_sum_modEq_of_forall",
+            "Finset.sum_mul",
+            "Finset.mul_prod_erase",
+            "Nat.ModEq.mul_right"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime finite residue formula only; assumes odd-prime order/LTE component rows and does not prove nonzero residue, selector existence, finite theorem, or Erdos #257",
+          "depends_on": [
+            "finset_sum_mul_prod_erase_modEq",
+            "odd_prime_order_component_term_residue_crossmul",
+            "Nat.ModEq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure Nat.ModEq divisibility bookkeeping only; no residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.modEq_zero_iff_dvd",
+            "Nat.ModEq.symm",
+            "Nat.ModEq.trans"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "common-denominator residue obstruction only; no denominator-unit cancellation, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "not_dvd_of_modEq_not_dvd",
+            "dvd_mul_of_dvd_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "formula-certificate nondivisibility bridge only; assumes the formula residue is nonzero and proves no selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "odd_prime_order_residue_formula",
+            "not_dvd_sum_of_common_denominator_residue"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "first-order residue/unit formula only; no selector existence, finite theorem, primitive-prime existence, or Erdos #257 claim",
+          "depends_on": [
+            "exact_pow_div_modEq_of_eq_mul_add_pow_succ",
+            "odd_prime_order_pow_sub_one_eq_mul_add_pow_succ",
+            "exists_pow_q_iter_first_order",
+            "exists_pow_first_order_any_exponent",
+            "odd_prime_order_normalized_pow_sub_one_not_dvd",
+            "Mathlib.Data.Nat.Choose.Sum",
+            "Nat.ModEq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure normalized-product factorization helper only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "factorization_pow_unit_mul_self",
+            "Nat.factorization_mul",
+            "pow_add"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "component normalized-product equality only; no Nat.ModEq residue theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "normalized_factorization_mul_eq",
+            "pow_sub_one_component_factor",
+            "odd_prime_order_factorization_pow_sub_one",
+            "odd_prime_order_component_term_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "component residue formula only; no finite-sum selector theorem or Erdos #257 claim",
+          "depends_on": [
+            "odd_prime_order_component_term_normalized_crossmul_eq",
+            "odd_prime_order_component_term_normalized_not_dvd",
+            "odd_prime_order_normalized_pow_sub_one_modEq",
+            "Nat.ModEq.mul"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "formula-to-certificate bridge only; assumes an explicit nonzero common-denominator residue certificate and does not prove primitive-divisor existence, selector existence, finite theorem, or Erdos #257",
+          "depends_on": [
+            "odd_prime_order_residue_formula_not_dvd_sum",
+            "LocalLayerCertificate.of_q_pow_decomposition",
+            "local_layer_certificate_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generic singleton finite-sum residue adapter only; no residue formula, canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "not_dvd_sum_of_subset_complement_dvd",
+            "Finset.mem_singleton"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton residue certificate adapter only; assumes distinguished-unit and complement-divisibility premises and proves no canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "not_dvd_sum_of_singleton_unit_and_complement_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton residue certificate bridge only; assumes explicit singleton residue data and decomposition/valuation hypotheses; no canonical selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "residue_formula_singleton_nonzero_certificate",
+            "residue_formula_certificate_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure prime divisibility helper only; no residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime.dvd_mul"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton residue-unit supplier only; assumes nonzero normalized factors and proves no canonical selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "not_dvd_mul_of_prime_not_dvd",
+            "normalized_factorization_unit_not_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton finite-set residue-premise supplier only; assumes singleton-row decomposition and valuation hypotheses; no canonical selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "residue_formula_singleton_certificate_blocks_collapse",
+            "residue_formula_singleton_residue_unit_not_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton-minimal row adapter only; assumes explicit row decomposition and high-layer divisibility data, and proves no canonical selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "minimal_layer_decomposition_supplies_PrimeComponentWitness",
+            "Finset.mem_singleton"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "singleton-minimal row collapse blocker only; assumes explicit row decomposition, complement divisibility, nonzero A, and valuation deficit; no canonical selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "singleton_minimal_layer_row_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure factorization-to-normalized-divisibility helper only; no selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime.pow_dvd_iff_le_factorization",
+            "Nat.mul_div_cancel_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure exact-normalization q-unit helper only; no selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "normalized_factorization_unit_not_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "factorization-row supplier only; assumes explicit per-row valuations, quotient nonzero, and valuation deficit; no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "singleton_minimal_layer_row_supplies_PrimeComponentWitness",
+            "dvd_div_pow_of_lt_factorization",
+            "not_dvd_div_pow_of_factorization_eq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "factorization-row collapse blocker only; assumes explicit per-row valuations and does not prove primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "singleton_minimal_factorization_row_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite certificate extraction route only; assumes finite row coverage and does not prove primitive-divisor existence, generated row existence, or Erdos #257",
+          "depends_on": [
+            "FiniteCanonicalWitnessRows",
+            "finite_certificate_rows_supply_CanonicalWitnessRowCase",
+            "finite_period_noncollapse_from_witness_route"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite row coverage predicate only; does not prove generated rows exist or any primitive-divisor theorem",
+          "depends_on": [
+            "Finset",
+            "CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite certificate extraction only; consumes finite coverage and row cases without proving generated row existence",
+          "depends_on": [
+            "FiniteCanonicalWitnessRows",
+            "CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generated row support predicate only; does not prove generated row cases exist or any primitive-divisor theorem",
+          "depends_on": [
+            "Nat.factorization.support",
+            "CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generated row support extraction only; consumes row cases on factorization support and does not prove row existence",
+          "depends_on": [
+            "GeneratedFiniteCanonicalWitnessRows",
+            "FiniteCanonicalWitnessRows",
+            "Nat.Prime.factorization_pos_of_dvd",
+            "Finsupp.mem_support_iff"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generated row support route only; assumes generated row cases and does not prove every finite F has such rows or Erdos #257",
+          "depends_on": [
+            "generated_finite_certificate_rows_supply_FiniteCanonicalWitnessRows",
+            "finite_period_noncollapse_from_residue_shapes"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "support-table adapter only; consumes emitted row-table coverage and row cases without proving arbitrary row existence",
+          "depends_on": [
+            "GeneratedFiniteCanonicalWitnessRows",
+            "CanonicalWitnessRowCase",
+            "Finset"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "family-tagged emitted-row predicate only; not a synonym for CanonicalWitnessRowCase and no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "Q2ExceptionCanonicalCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "row-case projection only; consumes emitted family tags and does not prove row payload existence",
+          "depends_on": [
+            "EmittedGeneratedRowCase",
+            "CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "emitted row-table projection only; consumes support coverage and tagged row payloads without proving arbitrary generated-row existence",
+          "depends_on": [
+            "generated_support_table_supplies_GeneratedFiniteCanonicalWitnessRows",
+            "EmittedGeneratedRowCase.supplies_CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "certificate-table interface only; packages row-table evidence without proving arbitrary row existence",
+          "depends_on": [
+            "Finset",
+            "EmittedGeneratedRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "certificate-table bridge only; consumes packaged emitted evidence without proving arbitrary generated-row existence",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "emitted_generated_row_table_supplies_GeneratedFiniteCanonicalWitnessRows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "broader generated table route only; does not bind concrete generator output for arbitrary finite F or prove Erdos #257",
+          "depends_on": [
+            "emitted_generated_row_table_supplies_GeneratedFiniteCanonicalWitnessRows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "emitted certificate-table consumer only; assumes packaged emitted evidence, period divisibility, and denominator normalization",
+          "depends_on": [
+            "emitted_certificate_table_supplies_generated_finite_rows",
+            "finite_period_noncollapse_from_generated_finite_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "emitted row-table consumer only; assumes emitted coverage, row payloads, period divisibility, and denominator normalization, and proves no arbitrary generated-row existence or Erdos #257",
+          "depends_on": [
+            "emitted_generated_row_table_supplies_GeneratedFiniteCanonicalWitnessRows",
+            "finite_period_noncollapse_from_generated_finite_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_F2 order fixture only; no arbitrary generated-row or Erdos #257 claim",
+          "depends_on": [
+            "orderOf_eq_prime_iff",
+            "ZMod.unitOfCoprime"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_F2 support enumeration only; no arbitrary support coverage claim",
+          "depends_on": [
+            "Nat.support_factorization",
+            "Nat.prime_dvd_prime_iff_eq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single generated fixture row only; no primitive-divisor existence or arbitrary row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F2_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single concrete row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F2_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete generated fixture binding only; does not prove generated rows exist for arbitrary finite F",
+          "depends_on": [
+            "GeneratedFiniteCanonicalWitnessRows",
+            "concrete_generated_b2_F2_factorization_support_cases",
+            "concrete_generated_b2_F2_CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_F2 generated-row period smoke only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_generated_finite_rows",
+            "concrete_generated_finite_certificate_rows_supply_GeneratedFiniteCanonicalWitnessRows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single generated q=2 fixture row only; no arbitrary exception-row or generated-row existence claim",
+          "depends_on": [
+            "Q2ExceptionCanonicalCase",
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single concrete q=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b3_F2_q2_exception_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "additional concrete generated q=2 fixture binding only; does not prove generated rows exist for arbitrary finite F",
+          "depends_on": [
+            "generated_support_table_supplies_GeneratedFiniteCanonicalWitnessRows",
+            "concrete_generated_b2_F2_factorization_support_cases",
+            "concrete_generated_b3_F2_CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_F6 support enumeration only; no arbitrary support coverage claim",
+          "depends_on": [
+            "Nat.support_factorization",
+            "Nat.mem_primeFactors",
+            "Nat.le_of_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row in the concrete multi-support fixture only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F2_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F6_p2_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_F6 p=3 order fixture only; no arbitrary generated-row or Erdos #257 claim",
+          "depends_on": [
+            "orderOf_eq_prime_iff",
+            "ZMod.unitOfCoprime"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row in the concrete multi-support fixture only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F6_p3_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F6_p3_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete multi-support generated fixture binding only; does not prove generated rows exist for arbitrary finite F",
+          "depends_on": [
+            "generated_support_table_supplies_GeneratedFiniteCanonicalWitnessRows",
+            "concrete_generated_b2_F6_factorization_support_cases",
+            "concrete_generated_b2_F6_p2_CanonicalWitnessRowCase",
+            "concrete_generated_b2_F6_p3_CanonicalWitnessRowCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete named emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F6_factorization_support_cases",
+            "concrete_generated_b2_F6_p2_odd_component_case",
+            "concrete_generated_b2_F6_p3_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete emitted certificate-table period smoke only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L6_A1"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete multi-support generated-row period smoke only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_generated_finite_rows",
+            "multi_support_generated_fixture_or_emitter_row_projection"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_L10 support enumeration only; no arbitrary support coverage claim",
+          "depends_on": [
+            "Nat.support_factorization",
+            "Nat.mem_primeFactors",
+            "Nat.le_of_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row in the concrete b2_L10 certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F2_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_p2_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_L10 p=5 order fixture only; no arbitrary generated-row or Erdos #257 claim",
+          "depends_on": [
+            "orderOf_eq_iff",
+            "ZMod.unitOfCoprime"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row in the concrete b2_L10 certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F10_p5_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_p5_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete non-toy emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F10_factorization_support_cases",
+            "concrete_generated_b2_F10_p2_odd_component_case",
+            "concrete_generated_b2_F10_p5_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete non-toy emitted certificate-table period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L10_A1"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_L30 support enumeration only; no arbitrary support coverage claim",
+          "depends_on": [
+            "Nat.support_factorization",
+            "Nat.mem_primeFactors",
+            "Nat.le_of_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row in the concrete b2_L30 certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F2_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_p2_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row in the concrete b2_L30 certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F6_p3_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_p3_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row in the concrete b2_L30 certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "concrete_generated_b2_F10_p5_orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_p5_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete L30 emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F30_factorization_support_cases",
+            "concrete_generated_b2_F30_p2_odd_component_case",
+            "concrete_generated_b2_F30_p3_odd_component_case",
+            "concrete_generated_b2_F30_p5_odd_component_case"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete L30 emitted certificate-table period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L30_A1"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 direct witness row in the concrete A31 denominator-normalization certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_A31_p2_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 direct witness row in the concrete A31 denominator-normalization certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_A31_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete A31 denominator-normalization certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F10_factorization_support_cases",
+            "concrete_generated_b2_F10_A31_p2_prime_witness",
+            "concrete_generated_b2_F10_A31_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete A31 denominator-normalization period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L10_A31"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 direct witness row in the concrete A3 denominator-normalization certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_A3_p2_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 direct witness row in the concrete A3 denominator-normalization certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F10_A3_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete A3 denominator-normalization witness-reselection certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F10_factorization_support_cases",
+            "concrete_generated_b2_F10_A3_p2_prime_witness",
+            "concrete_generated_b2_F10_A3_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete A3 denominator-normalization witness-reselection period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L10_A3"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 direct witness row in the concrete L30 A9 larger-denominator certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A9_p2_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 direct witness row in the concrete L30 A9 larger-denominator certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A9_p3_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 direct witness row in the concrete L30 A9 larger-denominator certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A9_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete L30 A9 larger-denominator acceptance certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F30_factorization_support_cases",
+            "concrete_generated_b2_F30_A9_p2_prime_witness",
+            "concrete_generated_b2_F30_A9_p3_prime_witness",
+            "concrete_generated_b2_F30_A9_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete L30 A9 larger-denominator acceptance period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L30_A9"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 direct witness row in the concrete b2_L30_A99 emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=2 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A99_p2_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 direct witness row in the concrete b2_L30_A99 emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=3 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A99_p3_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 direct witness row in the concrete b2_L30_A99 emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single p=5 row-case adapter only; no finite certificate or global existence claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase",
+            "concrete_generated_b2_F30_A99_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_L30_A99 emitted certificate only; no arbitrary generated-row existence claim",
+          "depends_on": [
+            "EmittedCertificateTable",
+            "concrete_generated_b2_F30_factorization_support_cases",
+            "concrete_generated_b2_F30_A99_p2_prime_witness",
+            "concrete_generated_b2_F30_A99_p3_prime_witness",
+            "concrete_generated_b2_F30_A99_p5_prime_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "concrete b2_L30_A99 period target only; no arbitrary finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "finite_period_noncollapse_from_emitted_certificate_table",
+            "emittedCertificate_b2_L30_A99"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "predicate definition only; no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime",
+            "Finset.sum"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "abstract q-adic local-layer valuation theorem only; assumes per-summand q^m divisibility and nonzero normalized residue; no primitive-divisor existence, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime",
+            "Nat.factorization_mul",
+            "Nat.factorization_eq_zero_of_not_dvd",
+            "Nat.Prime.factorization_pow",
+            "Nat.mul_div_cancel'",
+            "Finset.mul_sum",
+            "Finset.sum_congr"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "consumes an explicit strict factorization inequality and quotient nonzero hypothesis; does not prove primitive divisor existence, finite theorem, reverse equivalence, or Erdos #257 claim",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "consumes an explicit local-layer certificate and an A=sum equality; does not prove primitive divisor existence, canonical selector existence, finite theorem, reverse equivalence, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.sum_factorization",
+            "local_layer_certificate_supplies_PrimeComponentWitness",
+            "PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "certificate-ingestion constructor only; no primitive divisor theorem, canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate",
+            "Finset.sum_congr",
+            "Nat.mul_div_cancel_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes explicit normalized decomposition and residue nonzero; no selector existence, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.of_q_pow_decomposition",
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes per-prime normalized local-layer decomposition data; no proof that the canonical selector supplies it, no finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "local_layer_decomposition_supplies_PrimeComponentWitness",
+            "witness_existence_implies_period_noncollapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite-sum divisibility algebra only; no number-theoretic selector or finite theorem claim",
+          "depends_on": [
+            "Finset.sum_filter_add_sum_filter_not",
+            "Finset.dvd_sum",
+            "Nat.dvd_add_iff_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "certificate-ingestion constructor only; no selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.of_q_pow_decomposition",
+            "not_dvd_sum_of_subset_complement_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes explicit minimal-layer decomposition data and valuation bound; no selector existence, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.of_minimal_layer_decomposition",
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes per-prime minimal-layer decomposition rows; no proof that the canonical selector supplies them, no finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "minimal_layer_decomposition_supplies_PrimeComponentWitness",
+            "witness_existence_implies_period_noncollapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single-index constructor only; does not prove witness existence, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate",
+            "Finset.mem_singleton"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single-index q-power-exact constructor only; does not prove witness existence, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.singleton",
+            "Nat.mul_div_cancel_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes per-prime LocalLayerCertificate rows; no proof of canonical selector existence, primitive divisor theorem, finite theorem, reverse equivalence, or Erdos #257",
+          "depends_on": [
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness",
+            "witness_existence_implies_period_noncollapse",
+            "LocalLayerCertificate"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes a LocalLayerCertificate, A=sum equality, quotient nonzero, and strict quotient valuation; no canonical selector existence, primitive-divisor theorem, finite theorem, reverse equivalence, or Erdos #257 claim",
+          "depends_on": [
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.singleton_q_pow_exact"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F2_localLayerCertificate_fixture",
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness",
+            "Nat.Prime.factorization_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F2_localLayerCertificate_fixture",
+            "local_layer_certificate_blocks_collapse",
+            "Nat.Prime.factorization_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded Zsigmondy-exception corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate.singleton_q_pow_exact"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded Zsigmondy-exception corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F6_p2_localLayerCertificate_fixture",
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness",
+            "Nat.factorization_pow_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded Zsigmondy-exception corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F6_p2_localLayerCertificate_fixture",
+            "local_layer_certificate_blocks_collapse",
+            "Nat.factorization_pow_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded multi-minimal residue-repair corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "LocalLayerCertificate",
+            "Finset.univ"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded multi-minimal residue-repair corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F3_6_p3_multiLocalLayerCertificate_fixture",
+            "local_layer_sum_certificate_supplies_PrimeComponentWitness",
+            "Nat.factorization_mul",
+            "Nat.Prime.factorization_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one bounded multi-minimal residue-repair corpus row only; not a universal theorem, finite theorem, primitive-divisor theorem, or Erdos #257 claim",
+          "depends_on": [
+            "b2_F3_6_p3_multiLocalLayerCertificate_fixture",
+            "local_layer_certificate_blocks_collapse",
+            "Nat.factorization_mul",
+            "Nat.Prime.factorization_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "period assembly microkernel only; no denominator arithmetic or Erdos #257 infinite statement",
+          "depends_on": [
+            "Nat.exists_prime_and_dvd",
+            "Nat.mul_div_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "elementary divisibility lemma; no Erdos #257 infinite statement",
+          "depends_on": [
+            "Nat.Prime",
+            "Nat.factorization",
+            "padicValNat"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional certificate assembly only; assumes collapse implication and valuation witnesses, with no witness-existence, finite-theorem, or Erdos #257 claim",
+          "depends_on": [
+            "no_prime_drop_implies_eq",
+            "valuation_deficit_blocks_divisibility"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional denominator-factorization bridge only; no order theorem, witness existence, finite-theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat divisibility",
+            "Nat multiplication cancellation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure denominator normalization helper only; no order theorem, witness existence, finite-theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.gcd_dvd_right",
+            "Nat.div_mul_cancel"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional denominator bridge only; assumes Q divides C and does not prove an order theorem, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "collapse_divisor_core",
+            "gcd_denominator_factor",
+            "Nat.gcd_dvd_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional period-witness bridge only; assumes Q divides b^d-1 and d divides e; no proof that d is ord_Q(b), no finite theorem, no Erdos #257 claim",
+          "depends_on": [
+            "Nat.pow_sub_one_dvd_pow_sub_one"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional collapse bridge only; assumes denominator normalization and a period witness; no order-supplier theorem, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "collapse_divisor_from_gcd_denominator",
+            "period_witness_dvd_component"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional certificate route only; assumes period witness, denominator/component factorization, and q-adic deficits; no proof that d is ord_Q(b), no witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "valuation_witnesses_imply_no_prime_drop",
+            "collapse_divisor_from_period_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "converts an explicit Nat.ModEq congruence into period-witness divisibility; no orderOf, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.modEq_iff_dvd'"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional modular-period bridge only; assumes explicit Nat.ModEq period congruence and exponent divisibility; no orderOf, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "collapse_divisor_from_period_witness",
+            "modEq_one_supplies_period_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional certificate route only; assumes explicit Nat.ModEq period congruence, component factors, and q-adic deficits; no orderOf, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "period_witness_certificate_implies_no_prime_drop",
+            "modEq_one_supplies_period_witness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "converts order divisibility of the ZMod unit into explicit Nat.ModEq period congruence; no collapse theorem, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "ZMod.unitOfCoprime",
+            "ZMod.coe_unitOfCoprime",
+            "orderOf_dvd_iff_pow_eq_one",
+            "ZMod.natCast_eq_natCast_iff"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "order/congruence bridge only; no selector existence, valuation theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "ZMod.unitOfCoprime",
+            "orderOf_dvd_iff_pow_eq_one",
+            "ZMod.natCast_eq_natCast_iff",
+            "orderOf_dvd_supplies_modEq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "modular/divisibility bridge only; no valuation theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "orderOf_dvd_iff_modEq_one",
+            "Nat.modEq_iff_dvd'"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime valuation formula only; no primitive-prime existence, component quotient valuation theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Mathlib.NumberTheory.Multiplicity",
+            "padicValNat.pow_sub_pow",
+            "orderOf_dvd_iff_q_dvd_pow_sub_one",
+            "Nat.Coprime.pow_left",
+            "Nat.Prime.coprime_iff_not_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure factorization algebra only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.factorization_mul",
+            "Nat.add_sub_cancel"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure power-quotient factorization helper only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "pow_sub_one_component_factor",
+            "factorization_left_factor_of_mul_eq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime LTE/order valuation theorem in Nat.factorization language only; no component quotient theorem, residue formula, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "odd_prime_order_padicVal_pow_sub_one",
+            "Nat.factorization_def"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime component quotient valuation gateway only; no residue formula proof, selector existence, finite theorem, primitive-prime existence, or Erdos #257 claim",
+          "depends_on": [
+            "pow_sub_one_component_factorization",
+            "odd_prime_order_factorization_pow_sub_one",
+            "Nat.add_sub_add_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure exact-q-factorization unit lemma only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime.pow_dvd_iff_le_factorization",
+            "Nat.factorization_div",
+            "Nat.factorization_pow"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "normalized numerator q-unit theorem only; no first-order residue ModEq formula, component quotient residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "normalized_factorization_unit_not_dvd",
+            "odd_prime_order_factorization_pow_sub_one"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "normalized component quotient q-unit theorem only; no cross-multiplied residue formula, selector existence, finite theorem, primitive-prime existence, or Erdos #257 claim",
+          "depends_on": [
+            "normalized_factorization_unit_not_dvd",
+            "odd_prime_order_component_term_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure Nat.factorization decomposition helper only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime.pow_dvd_iff_le_factorization",
+            "Nat.mul_div_cancel'"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "exact base-unit decomposition helper only; no order theorem, binomial theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime.pow_dvd_iff_le_factorization",
+            "Nat.mul_div_cancel'"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single-term equality-with-error residue helper only; no component residue formula, selector existence, finite theorem, primitive-prime existence, or Erdos #257 claim",
+          "depends_on": [
+            "factorization_pow_unit_mul_self",
+            "odd_prime_order_base_eq_one_add_exact_unit",
+            "exists_pow_q_iter_first_order",
+            "exists_pow_first_order_any_exponent",
+            "orderOf_dvd_iff_q_dvd_pow_sub_one"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "first-order residue/unit formula only; no selector existence, finite theorem, primitive-prime existence, or Erdos #257 claim",
+          "depends_on": [
+            "exact_pow_div_modEq_of_eq_mul_add_pow_succ",
+            "odd_prime_order_pow_sub_one_eq_mul_add_pow_succ",
+            "exists_pow_q_iter_first_order",
+            "exists_pow_first_order_any_exponent",
+            "odd_prime_order_normalized_pow_sub_one_not_dvd",
+            "Mathlib.Data.Nat.Choose.Sum",
+            "Nat.ModEq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure exact-power division algebra helper only; no order theorem, binomial theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.mul_div_cancel_left",
+            "pow_succ"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure exact-power division-to-ModEq helper only; no binomial theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "exact_pow_div_eq_add_mul_of_eq_mul_add_pow_succ",
+            "Nat.modEq_zero_iff_dvd",
+            "Nat.ModEq.add_left"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generic first-order power expansion helper only; no q-power iterate theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "pow_succ",
+            "ring_nf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "single prime q-step precision-shift theorem only; no q-power iterate theorem, normalized residue ModEq, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Mathlib.Data.Nat.Choose.Dvd",
+            "Nat.Prime.dvd_choose_self",
+            "add_pow",
+            "Finset.sum_range_succ",
+            "Nat.pow_dvd_pow"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "q-power iterate first-order expansion only; no order theorem, component residue theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "exists_pow_prime_step_first_order",
+            "pow_mul",
+            "pow_succ"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure normalized-product factorization helper only; no order theorem, residue formula, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "factorization_pow_unit_mul_self",
+            "Nat.factorization_mul",
+            "pow_add"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "component normalized-product equality only; no Nat.ModEq residue theorem, selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "normalized_factorization_mul_eq",
+            "pow_sub_one_component_factor",
+            "odd_prime_order_factorization_pow_sub_one",
+            "odd_prime_order_component_term_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "component residue formula only; no finite-sum selector theorem or Erdos #257 claim",
+          "depends_on": [
+            "odd_prime_order_component_term_normalized_crossmul_eq",
+            "odd_prime_order_component_term_normalized_not_dvd",
+            "odd_prime_order_normalized_pow_sub_one_modEq",
+            "Nat.ModEq.mul"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional order-fed collapse bridge only; still assumes coprimality, component factorization, exponent divisibility, and positivity; no finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "collapse_divisor_from_modEq_period",
+            "orderOf_dvd_supplies_modEq"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure power-divisibility factorization only; no order theorem, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.pow_sub_one_dvd_pow_sub_one",
+            "Nat.div_mul_cancel"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional component collapse theorem only; assumes order divisibility, denominator normalization, exponent divisibility, coprimality, and positivity",
+          "depends_on": [
+            "collapse_divisor_from_orderOf_drop",
+            "pow_sub_one_component_factor"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "exponent arithmetic helper only; no order theorem, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat division",
+            "Nat divisibility"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "one direction only; assumes coprimality, denominator normalization, order-drop divisibility, Q positivity, and power positivity; no reverse equivalence, witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "collapse_divisor_from_orderOf_component",
+            "quotient_by_pos_divisor_dvd_self"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "conditional no-prime-drop route only; assumes order divisibility, denominator normalization, component quotient nonzero, and q-adic deficits; no witness existence, finite theorem, reverse equivalence, or Erdos #257 claim",
+          "depends_on": [
+            "valuation_witnesses_imply_no_prime_drop",
+            "collapse_divisor_equivalence_one_direction"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "legacy/special-case finite sum valuation lemma only",
+          "depends_on": [
+            "local_layer_residue_nonzero_implies_sum_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "certificate kernel only; assumes certificate witnesses and does not prove primitive divisor existence, canonical selector, finite theorem, reverse equivalence, or Erdos #257",
+          "depends_on": [
+            "collapse_one_direction_certificate_implies_no_prime_drop",
+            "orderOf/ZMod unit interface"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "notation bridge only; no witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat powers",
+            "Nat division"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "predicate only; no proof of witness existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.Prime",
+            "Nat.factorization",
+            "primeComponentQuotient"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "selects from an assumed existence proof; does not prove primitive divisor or witness existence",
+          "depends_on": [
+            "PrimeComponentWitness",
+            "Nat.find_spec"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "minimality for the assumed witness predicate only; no primitive-divisor existence or finite theorem claim",
+          "depends_on": [
+            "canonicalPrimeComponentWitness_spec",
+            "Nat.find_min'"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "assumes per-prime witness existence; no proof of canonical witness existence, primitive divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "witness_certificate_implies_period_noncollapse",
+            "canonicalPrimeComponentWitness_spec",
+            "PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "generic finite witness lemma only; Zsigmondy supplies existence outside exception families",
+          "depends_on": [
+            "Nat.orderOf",
+            "Nat.lcm",
+            "local_layer_certificate_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "explicit n0=2 exception handler only",
+          "depends_on": [
+            "padicValNat",
+            "odd exponent valuation",
+            "unique_minimal_valuation_summand"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "explicit Bang-Zsigmondy n0=6 exception handler only",
+          "depends_on": [
+            "padicValNat",
+            "Nat.factorization",
+            "unique_minimal_valuation_summand"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "explicit q=3 exception handler only",
+          "depends_on": [
+            "padicValNat",
+            "unique_minimal_valuation_summand"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite theorem only; still not an Erdos #257 proof",
+          "depends_on": [
+            "collapse_divisor_equivalence_one_direction",
+            "primitive_prime_maximality_blocks_collapse",
+            "zsigmondy_exception_2_blocks_collapse",
+            "zsigmondy_exception_6_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "primitive witness row adapter only; assumes the primitive/maximality valuation facts and proves no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "singleton_minimal_factorization_row_blocks_collapse",
+            "Nat.Prime",
+            "Nat.factorization"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure Nat arithmetic helper only; no selector existence, primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "omega"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "maximal-weight factorization-row supplier only; assumes explicit weight formula and strict maximality, and proves no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "sub_lt_sub_of_lt_right_with_le",
+            "singleton_minimal_factorization_row_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "maximal-weight factorization-row collapse blocker only; assumes explicit weight formula, strict maximality, nonzero A, and quotient deficit; no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "maximal_weight_factorization_row_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime component maximal-row supplier only; assumes component row data, strict maximality, and quotient deficit; no primitive-divisor existence, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "maximal_weight_factorization_row_supplies_PrimeComponentWitness",
+            "odd_prime_order_component_term_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime component maximal-row collapse blocker only; assumes component row data, strict maximality, nonzero A, and quotient deficit; no primitive-divisor existence, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "component_term_maximal_row_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "pure Nat.factorization helper only; no selector existence, primitive-divisor theorem, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "Nat.factorization_le_iff_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-prime component maximal-row supplier wrapper only; assumes component row data, strict maximality, and quotient deficit; no primitive-divisor existence, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "factorization_le_of_dvd_ne_zero",
+            "component_term_maximal_row_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-component canonical row supplier only; assumes canonical row component data and strict maximality; no primitive-divisor existence, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "component_term_maximal_row_supplies_PrimeComponentWitness_of_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd-component canonical row collapse blocker only; assumes canonical row component data, nonzero A, and quotient deficit; no primitive-divisor existence, q=2 exception theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "odd_component_canonical_row_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "2-adic valuation helper only; no exception-family theorem, canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "padicValNat.pow_two_sub_one",
+            "Nat.factorization_def",
+            "Nat.prime_two"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "2-adic odd-exponent valuation helper only; no exception-family theorem, canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "emultiplicity_pow_sub_pow_of_prime",
+            "Nat.factorization_def",
+            "Int.natCast_emultiplicity"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "selected q=2 exception row valuation only; assumes odd base, even K, quotient nonzero, and denominator nonzero; no global exception proof, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_pow_sub_one_factorization_even",
+            "pow_sub_one_component_factorization"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "odd nonselected q=2 row valuation helper only; assumes k | K, odd k, quotient nonzero, and K even; no finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_pow_sub_one_factorization_even",
+            "two_adic_pow_sub_one_factorization_odd",
+            "pow_sub_one_component_factorization"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "nonselected q=2 high-row gap only; assumes odd row shape and quotient data; no canonical selector existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_odd_row_component_valuation_plus_one"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "q=2 exception witness supplier only; assumes explicit high-row valuation gaps and quotient deficit; no proof of odd high-row gaps, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_selected_component_valuation",
+            "singleton_minimal_factorization_row_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "q=2 exception collapse blocker only; assumes explicit q=2 exception row data, high-row valuation gaps, nonzero A, and quotient deficit; no finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "remaining q=2 exception wrapper only; assumes explicit exception row data and high-row valuation gaps; no universal primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_exception_blocks_collapse"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "q=2 exception witness supplier only; assumes selected k=2, nonselected odd rows, quotient data, and quotient deficit; no finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness",
+            "two_adic_n0_2_odd_row_component_high_valuation"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "q=2 exception collapse blocker only; assumes selected k=2, nonselected odd rows, nonzero A, and quotient deficit; no finite theorem or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness_of_odd_rows",
+            "valuation_deficit_blocks_dvd"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "remaining q=2 exception wrapper only; assumes selected k=2 and nonselected odd-row classification; no universal primitive-divisor theorem, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "two_adic_n0_2_exception_blocks_collapse_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "row-case packaging only; assumes canonical row data and proves no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "odd_component_canonical_row_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "row-case packaging only; assumes selected k=2, nonselected odd-row classification, quotient data, and valuation deficit",
+          "depends_on": [
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "case-family classifier only; no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "Q2ExceptionCanonicalCase"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "case adapter only; consumes explicit odd-component canonical row data",
+          "depends_on": [
+            "OddComponentCanonicalCase",
+            "odd_component_canonical_row_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "case adapter only; consumes explicit q=2 exception canonical row data",
+          "depends_on": [
+            "Q2ExceptionCanonicalCase",
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "family case assembly only; no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "odd_component_canonical_case_supplies_PrimeComponentWitness",
+            "q2_exception_canonical_case_supplies_PrimeComponentWitness"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "canonical row-case witness assembly only; consumes canonical row cases and proves no primitive-divisor existence, finite theorem, or Erdos #257 claim",
+          "depends_on": [
+            "CanonicalWitnessRowCase.supplies_PrimeComponentWitness",
+            "odd_component_canonical_row_supplies_PrimeComponentWitness",
+            "two_adic_n0_2_exception_supplies_PrimeComponentWitness_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite equivalence target only; no Erdos #257 infinite statement",
+          "depends_on": [
+            "Nat.orderOf",
+            "Rat.den",
+            "Nat.dvd_iff_modEq_zero",
+            "Finset.sum"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "finite certificate theorem only; no Erdos #257 infinite statement",
+          "depends_on": [
+            "Nat.orderOf",
+            "Nat.lcm",
+            "ZMod",
+            "prime factor valuations"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "inactive until the strike finds a counterexample",
+          "depends_on": [
+            "Rat.den",
+            "Finset.sum",
+            "Nat.orderOf"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "not ready for proof completion; first prove or refute the certificate survival pattern.",
+          "depends_on": [
+            "witness_certificate_implies_period_noncollapse",
+            "primitive_witness_blocks_collapse",
+            "zsigmondy_exception_blocks_collapse_of_odd_rows"
+          ],
+          "lemma_id": null
+        },
+        {
+          "boundary": "witness-route theorem only; consumes canonical row cases and does not prove primitive-divisor existence, finite F certificate extraction, or Erdos #257",
+          "depends_on": [
+            "canonical_witness_singleton_minimality_supplies_witness_existence",
+            "witness_existence_implies_period_noncollapse"
+          ],
+          "lemma_id": null
+        }
+      ],
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    },
+    {
+      "candidate_obligation_node_ref_reason": "boundary cell: the frontier/scout lane is an operational normalized-arithmetic search and portfolio-selection surface, not a public proof obligation node; no public DAG link should be drawn without domain-aware author review",
+      "candidate_obligation_node_refs": [],
+      "cell_id": "erdos257.issue217.period_noncollapse.frontier_portfolio_operations",
+      "claim": "The period-noncollapse frontier/scout lane exposes a live normalized-arithmetic frontier state and portfolio recommendation surface for selecting the next concrete factory action.",
+      "claim_boundary": "scout_only_normalized_arithmetic_frontier_selection_no_lean_theorem",
+      "current_frontier_blocker": "The b10_L6_A11 frontier portfolio b10 L6 A11 row signature new certificate is verified through Q=90909 over support {2,3}; next frontier portfolio feedback or next family candidate.",
+      "direct_prime_denominator_lattice_scout": {
+        "blocked_candidate_count": 26,
+        "candidate_count": 207,
+        "frontier_reason": "all_unbound_frontier_candidates_are_row_equivalent_or_lift_consumed",
+        "frontier_recommended_action": "broaden_scout",
+        "frontier_status": "current_focus_exhausted",
+        "next_focus_recommendation": "broaden_denominator_lattice_scout_or_select_next_family",
+        "row_signature_count": 18,
+        "status": "PASS",
+        "verified_row_signature_count": 18
+      },
+      "evidence_class": "frontier_scout_operations_boundary",
+      "frontier_portfolio_recommendation": {
+        "action": "capture_blocker",
+        "blocker_error_class": "no_valid_lift_helper_and_no_actionable_low_risk_raw_bind",
+        "blocker_next_action": "split_wave_due_to_blast_radius",
+        "blocker_next_candidate": "b2_L210_A21371",
+        "candidate": null,
+        "current_focus_reason": "all_unbound_frontier_candidates_are_row_equivalent_or_lift_consumed",
+        "current_focus_status": "current_focus_exhausted",
+        "family": null,
+        "invalid_lift_helper_candidate_count": 4,
+        "next_candidate": {
+          "expected_target_count": 11,
+          "max_rec_depth_required_count": 4,
+          "novelty_class": "cancellation_pattern_new",
+          "risk_class": "max_rec_depth_guarded_large_witness",
+          "row_signature_id": "dprs_c8b748284354ea25",
+          "selected_qs": [
+            3,
+            3,
+            11,
+            127
+          ],
+          "spec_id": "b2_L210_A21371",
+          "support": [
+            2,
+            3,
+            5,
+            7
+          ],
+          "verification_status": "scout_only_not_bound"
+        },
+        "reason": "no actionable low-risk portfolio family survived policy filter",
+        "status": "PASS",
+        "valid_lift_helper_candidate_count": 0
+      },
+      "latest_frontier_conveyor_applied_action_count": 1,
+      "latest_frontier_conveyor_last_consumed_candidate": "b10_L6_A11",
+      "latest_frontier_conveyor_layout_artifact_authority_status": "tracked_in_current_index",
+      "latest_frontier_conveyor_layout_artifact_current_index_tracked": true,
+      "latest_frontier_conveyor_layout_artifact_ignore_status": "not_ignored",
+      "latest_frontier_conveyor_layout_artifact_origin_main_tracked": true,
+      "latest_frontier_conveyor_layout_claim_boundary": "frontier conveyor step layout verification only; checks receipt coverage, lineage, and generated-target axiom audit freshness, not a Lean theorem, primitive-divisor theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+      "latest_frontier_conveyor_layout_direct_target_count": 1,
+      "latest_frontier_conveyor_layout_prior_lineage_count": 5,
+      "latest_frontier_conveyor_layout_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_layout_receipt.json",
+      "latest_frontier_conveyor_layout_status": "PASS",
+      "latest_frontier_conveyor_layout_target_coverage_status": "PASS",
+      "latest_frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+      "latest_frontier_conveyor_status": "PASS",
+      "latest_frontier_conveyor_stop_reason": "no_applicable_frontier_action",
+      "latest_frontier_split_wave_policy_admission_status": "defer_raw_bind_until_guard_satisfied",
+      "latest_frontier_split_wave_policy_candidate": "b2_L210_A21371",
+      "latest_frontier_split_wave_policy_candidate_policy_class": "max_rec_depth_guarded_large_witness_split_wave_candidate",
+      "latest_frontier_split_wave_policy_claim_boundary": "frontier split-wave admission policy only; does not bind a raw semantic spec, emit generated Lean for the candidate, prove a primitive-divisor theorem, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+      "latest_frontier_split_wave_policy_next_safe_action": "proof_policy_required",
+      "latest_frontier_split_wave_policy_raw_bind_allowed": false,
+      "latest_frontier_split_wave_policy_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_split_wave_policy_receipt.json",
+      "latest_frontier_split_wave_policy_status": "PASS",
+      "latest_lean_target": "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm",
+      "latest_target_runner_all_targets_foundational_or_none": true,
+      "latest_target_runner_audit_mode": "frontier_conveyor_applied_direct_targets",
+      "latest_target_runner_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/lean_target_runner_receipt.json",
+      "latest_target_runner_status": "PASS",
+      "latest_target_runner_target_count": 1,
+      "next_frontier_operation": "Bind frontier_portfolio_feedback_or_next_family_candidate.",
+      "non_claims": [
+        "not a Lean theorem",
+        "not primitive-divisor existence",
+        "not arbitrary generated-row existence",
+        "not a universal finite theorem",
+        "not an Erdos #257 solution",
+        "not publication authority"
+      ],
+      "obligation_node_refs": [],
+      "obligation_node_refs_declared": true,
+      "oracle_split": {
+        "formal_proof": "not_asserted_here",
+        "registry_status": "not_asserted_here",
+        "research_validity": "scout_frontier_state_not_public_math_claim"
+      },
+      "previous_frontier_conveyor_receipt_summary": {
+        "applied_action_count": 4,
+        "applied_candidates": [
+          "b10_L6_A7",
+          "b10_L6_A91",
+          "b10_L6_A3",
+          "b10_L6_A33"
+        ],
+        "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+        "direct_period_targets": [
+          "orderOf_b10_mod142857_eq_6_from_emittedCertificate_denNorm",
+          "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm"
+        ],
+        "direct_spec_count": 2,
+        "generated_at": "2026-05-21T02:04:53Z",
+        "last_consumed_candidate": "b10_L6_A33",
+        "latest_real_period_theorem_after": "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm",
+        "lift_helper_count": 2,
+        "next_frontier_action": "bind_semantic_spec",
+        "next_frontier_candidate": "b10_L6_A11",
+        "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+        "status": "PASS",
+        "stop_reason": "direct_spec_cap_reached"
+      },
+      "previous_target_runner_receipt_summary": {
+        "all_targets_foundational_or_none": true,
+        "audit_mode": "frontier_conveyor_applied_direct_targets",
+        "axiom_dependency_class": "foundational_axioms_only",
+        "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+        "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+        "generated_at": "2026-05-21T03:16:21Z",
+        "print_axioms_status": "PASS",
+        "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+        "status": "PASS",
+        "target_check_status": "PASS",
+        "target_count": 1,
+        "target_theorem": "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm",
+        "target_theorems": [
+          "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm"
+        ]
+      },
+      "receipt_refs": [
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_layout_receipt.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_split_wave_policy_receipt.json",
+        "state/formal_math_research_operations/pilots/erdos257_issue217/lean_target_runner_receipt.json"
+      ],
+      "recent_frontier_conveyor_receipt_lineage": [
+        {
+          "applied_action_count": 4,
+          "applied_candidates": [
+            "b10_L6_A7",
+            "b10_L6_A91",
+            "b10_L6_A3",
+            "b10_L6_A33"
+          ],
+          "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+          "direct_period_targets": [
+            "orderOf_b10_mod142857_eq_6_from_emittedCertificate_denNorm",
+            "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm"
+          ],
+          "direct_spec_count": 2,
+          "generated_at": "2026-05-21T02:04:53Z",
+          "last_consumed_candidate": "b10_L6_A33",
+          "latest_real_period_theorem_after": "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm",
+          "lift_helper_count": 2,
+          "next_frontier_action": "bind_semantic_spec",
+          "next_frontier_candidate": "b10_L6_A11",
+          "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+          "status": "PASS",
+          "stop_reason": "direct_spec_cap_reached"
+        },
+        {
+          "applied_action_count": 4,
+          "applied_candidates": [
+            "b10_L6_A21",
+            "b10_L6_A777",
+            "b10_L6_A77",
+            "b10_L6_A2849"
+          ],
+          "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+          "direct_period_targets": [
+            "orderOf_b10_mod47619_eq_6_from_emittedCertificate_denNorm",
+            "orderOf_b10_mod12987_eq_6_from_emittedCertificate_denNorm"
+          ],
+          "direct_spec_count": 2,
+          "generated_at": "2026-05-21T00:44:23Z",
+          "last_consumed_candidate": "b10_L6_A2849",
+          "latest_real_period_theorem_after": "orderOf_b10_mod12987_eq_6_from_emittedCertificate_denNorm",
+          "lift_helper_count": 2,
+          "next_frontier_action": "bind_semantic_spec",
+          "next_frontier_candidate": "b10_L6_A7",
+          "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+          "status": "PASS",
+          "stop_reason": "direct_spec_cap_reached"
+        },
+        {
+          "applied_action_count": 4,
+          "applied_candidates": [
+            "b4_L12_A3",
+            "b4_L12_A15",
+            "b4_L12_A5",
+            "b10_L6_A8547"
+          ],
+          "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+          "direct_period_targets": [
+            "orderOf_b4_mod5592405_eq_12_from_emittedCertificate_denNorm",
+            "orderOf_b4_mod3355443_eq_12_from_emittedCertificate_denNorm"
+          ],
+          "direct_spec_count": 2,
+          "generated_at": "2026-05-20T23:10:28Z",
+          "last_consumed_candidate": "b10_L6_A8547",
+          "latest_real_period_theorem_after": "orderOf_b4_mod3355443_eq_12_from_emittedCertificate_denNorm",
+          "lift_helper_count": 2,
+          "next_frontier_action": "bind_semantic_spec",
+          "next_frontier_candidate": "b10_L6_A21",
+          "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+          "status": "PASS",
+          "stop_reason": "direct_spec_cap_reached"
+        },
+        {
+          "applied_action_count": 4,
+          "applied_candidates": [
+            "b4_L12_A21",
+            "b4_L12_A105",
+            "b4_L12_A17",
+            "b4_L12_A85"
+          ],
+          "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+          "direct_period_targets": [
+            "orderOf_b4_mod798915_eq_12_from_emittedCertificate_denNorm",
+            "orderOf_b4_mod986895_eq_12_from_emittedCertificate_denNorm"
+          ],
+          "direct_spec_count": 2,
+          "generated_at": "2026-05-20T21:18:37Z",
+          "last_consumed_candidate": "b4_L12_A85",
+          "latest_real_period_theorem_after": "orderOf_b4_mod986895_eq_12_from_emittedCertificate_denNorm",
+          "lift_helper_count": 2,
+          "next_frontier_action": "bind_semantic_spec",
+          "next_frontier_candidate": "b4_L12_A3",
+          "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+          "status": "PASS",
+          "stop_reason": "direct_spec_cap_reached"
+        },
+        {
+          "applied_action_count": 5,
+          "applied_candidates": [
+            "b6_L12_A5",
+            "b4_L12_A1365",
+            "b4_L12_A1785",
+            "b4_L12_A51",
+            "b4_L12_A255"
+          ],
+          "claim_boundary": "operational frontier conveyor mutation receipt only; not a Lean proof theorem, primitive-divisor existence proof, arbitrary generated-row theorem, universal finite theorem, publication authority, or Erdos #257 solution",
+          "direct_period_targets": [
+            "orderOf_b6_mod435356467_eq_12_from_emittedCertificate_denNorm",
+            "orderOf_b4_mod328965_eq_12_from_emittedCertificate_denNorm"
+          ],
+          "direct_spec_count": 2,
+          "generated_at": "2026-05-20T19:31:46Z",
+          "last_consumed_candidate": "b4_L12_A255",
+          "latest_real_period_theorem_after": "orderOf_b4_mod328965_eq_12_from_emittedCertificate_denNorm",
+          "lift_helper_count": 3,
+          "next_frontier_action": "bind_semantic_spec",
+          "next_frontier_candidate": "b4_L12_A21",
+          "schema_version": "direct_prime_frontier_conveyor_receipt_v0",
+          "status": "PASS",
+          "stop_reason": "direct_spec_cap_reached"
+        }
+      ],
+      "recent_target_runner_receipt_lineage": [
+        {
+          "all_targets_foundational_or_none": true,
+          "audit_mode": "frontier_conveyor_applied_direct_targets",
+          "axiom_dependency_class": "foundational_axioms_only",
+          "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+          "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+          "generated_at": "2026-05-21T03:16:21Z",
+          "print_axioms_status": "PASS",
+          "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+          "status": "PASS",
+          "target_check_status": "PASS",
+          "target_count": 1,
+          "target_theorem": "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm",
+          "target_theorems": [
+            "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm"
+          ]
+        },
+        {
+          "all_targets_foundational_or_none": true,
+          "audit_mode": "frontier_conveyor_applied_direct_targets",
+          "axiom_dependency_class": "foundational_axioms_only",
+          "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+          "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+          "generated_at": "2026-05-21T02:09:35Z",
+          "print_axioms_status": "PASS",
+          "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+          "status": "PASS",
+          "target_check_status": "PASS",
+          "target_count": 2,
+          "target_theorem": "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm",
+          "target_theorems": [
+            "orderOf_b10_mod142857_eq_6_from_emittedCertificate_denNorm",
+            "orderOf_b10_mod333333_eq_6_from_emittedCertificate_denNorm"
+          ]
+        },
+        {
+          "all_targets_foundational_or_none": true,
+          "audit_mode": "frontier_conveyor_applied_direct_targets",
+          "axiom_dependency_class": "foundational_axioms_only",
+          "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+          "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+          "generated_at": "2026-05-21T00:49:36Z",
+          "print_axioms_status": "PASS",
+          "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+          "status": "PASS",
+          "target_check_status": "PASS",
+          "target_count": 2,
+          "target_theorem": "orderOf_b10_mod12987_eq_6_from_emittedCertificate_denNorm",
+          "target_theorems": [
+            "orderOf_b10_mod47619_eq_6_from_emittedCertificate_denNorm",
+            "orderOf_b10_mod12987_eq_6_from_emittedCertificate_denNorm"
+          ]
+        },
+        {
+          "all_targets_foundational_or_none": true,
+          "audit_mode": "frontier_conveyor_applied_direct_targets",
+          "axiom_dependency_class": "foundational_axioms_only",
+          "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+          "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+          "generated_at": "2026-05-20T23:17:44Z",
+          "print_axioms_status": "PASS",
+          "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+          "status": "PASS",
+          "target_check_status": "PASS",
+          "target_count": 2,
+          "target_theorem": "orderOf_b4_mod3355443_eq_12_from_emittedCertificate_denNorm",
+          "target_theorems": [
+            "orderOf_b4_mod5592405_eq_12_from_emittedCertificate_denNorm",
+            "orderOf_b4_mod3355443_eq_12_from_emittedCertificate_denNorm"
+          ]
+        },
+        {
+          "all_targets_foundational_or_none": true,
+          "audit_mode": "frontier_conveyor_applied_direct_targets",
+          "axiom_dependency_class": "foundational_axioms_only",
+          "claim_boundary": "exact_generated_target_typecheck_and_axiom_audit_only_not_universal_theorem",
+          "frontier_conveyor_receipt_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+          "generated_at": "2026-05-20T21:22:28Z",
+          "print_axioms_status": "PASS",
+          "schema_version": "formal_math_erdos257_lean_target_runner_receipt_v1",
+          "status": "PASS",
+          "target_check_status": "PASS",
+          "target_count": 2,
+          "target_theorem": "orderOf_b4_mod986895_eq_12_from_emittedCertificate_denNorm",
+          "target_theorems": [
+            "orderOf_b4_mod798915_eq_12_from_emittedCertificate_denNorm",
+            "orderOf_b4_mod986895_eq_12_from_emittedCertificate_denNorm"
+          ]
+        }
+      ],
+      "status": "evidence_present",
+      "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+    }
+  ],
+  "claim_boundary": "addressable_formal_evidence_cells_over_bounded_pilot_not_erdos257_solution",
+  "owner_id": "formal_math_erdos257_issue217_formal_evidence_cells_projection",
+  "schema_version": "formal_math_erdos257_issue217_formal_evidence_cells_v0",
+  "sources": {
+    "capability_map_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/capability_map_receipt.json",
+      "sha256": "sha256:741dadebe9a7910ed3949abef5a913557754673da51281da6f043aa42f07cdf8"
+    },
+    "dossier_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/dossier_receipt.json",
+      "sha256": "sha256:280753b076c35b5680ce89e04f61926d0daef6ea4b905207a0992ec565c684b9"
+    },
+    "frontier_conveyor_layout_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_layout_receipt.json",
+      "sha256": "sha256:60918771fcab1e86a53511b5cdea6ea315a690cd3450b1b37a439ba4f02e182a"
+    },
+    "frontier_conveyor_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_conveyor_receipt.json",
+      "sha256": "sha256:9ba5e1f4a2d3e6ad2f8fc1cf4f4277295d0b51af4b9cf25017c23157c4fb8c95"
+    },
+    "frontier_split_wave_policy_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/frontier_split_wave_policy_receipt.json",
+      "sha256": "sha256:5e59f4c834a9b09adce99074128082439ed9590bcb05d142aa603e1b5828de24"
+    },
+    "lean_target_runner_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/lean_target_runner_receipt.json",
+      "sha256": "sha256:f04ebd87d1d11ca47243c717b12b07063019d3d18125f45c5257c9cc69b000b7"
+    },
+    "obligation_dag_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/obligation_dag_receipt.json",
+      "sha256": "sha256:5711d821d61be03df1c89d2330cd1d40286553456f0e9c4aed466010938a1adb"
+    },
+    "strike_receipt": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike_receipt.json",
+      "sha256": "sha256:19a56ff404bfa575ec70ed5ea226c695d2ac932acd57ba21a227f6f88e20c9ba"
+    },
+    "strike_state": {
+      "exists": true,
+      "path": "state/formal_math_research_operations/pilots/erdos257_issue217/period_noncollapse_strike.json",
+      "sha256": "sha256:e218c087d4bb1c12810867f56a845f92f064d001567b56fbd1204571f7bcb8f2"
+    }
+  },
+  "status_counts": {
+    "evidence_present": 7
+  },
+  "work_item_id": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+}

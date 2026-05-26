@@ -86,8 +86,8 @@
     {
       "module_id": "formal_evidence_cell_registry_state_body_import",
       "source_ref": "state/formal_math_research_operations/formal_evidence_cell_registry.json",
-      "path": "source_modules/state/formal_math_research_operations/formal_evidence_cell_registry.json",
-      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state/formal_math_research_operations/formal_evidence_cell_registry.json",
+      "path": "source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json",
       "material_class": "public_macro_receipt_body",
       "source_import_class": "copied_non_secret_macro_body",
       "source_role": "Generated operational registry state over formal-evidence cells, including validation summary, manifest status, per-cell anchor classes, and execution visibility.",
@@ -107,8 +107,8 @@
     {
       "module_id": "erdos257_formal_evidence_cells_manifest_body_import",
       "source_ref": "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
-      "path": "source_modules/state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
-      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+      "path": "source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+      "target_ref": "microcosm-substrate/examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
       "material_class": "public_macro_receipt_body",
       "source_import_class": "copied_non_secret_macro_body",
       "source_role": "Public formal-evidence cell manifest for the Erdos257 issue217 pilot, preserving bounded claim boundaries, receipt refs, non-claims, and forward Lean target inventory without provider payload bodies.",

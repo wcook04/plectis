@@ -53,7 +53,7 @@
     "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
     "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/lib/paper_modules.py",
     "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
-    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state/formal_math_research_operations/formal_evidence_cell_registry.json"
+    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/formal_evidence_cell_registry.json"
   ],
   "secret_exclusion_material": [
     {
