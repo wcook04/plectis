@@ -430,7 +430,7 @@ def test_cli_compile_card_reads_cached_project_state_without_rebuild(
 
     output = capsys.readouterr().out
     payload = json.loads(output)
-    assert status == 1
+    assert status == 0
     assert len(json.dumps(payload, sort_keys=True)) < 8000
     assert payload["schema_version"] == "microcosm_project_compile_cached_card_v1"
     assert payload["status"] == "pass"
@@ -439,6 +439,10 @@ def test_cli_compile_card_reads_cached_project_state_without_rebuild(
     assert payload["full_command"] == "microcosm compile <project>"
     assert payload["cache_status"] == "cached_state_read"
     assert payload["cache_source_ref"] == ".microcosm/state_index.json"
+    assert payload["cache_freshness"]["status"] == "current"
+    assert payload["cache_freshness"]["source_status"] == "current"
+    assert payload["cache_freshness"]["tracked_source_count"] >= 4
+    assert payload["cache_freshness"]["source_refs_exported"] is False
     assert payload["selected_route_id"] == "readme_onboarding_route"
     assert payload["route_explanation_status"] == "pass"
     assert payload["state_ref_status_summary"]["missing_state_ref_count"] == 0
@@ -451,6 +455,43 @@ def test_cli_compile_card_reads_cached_project_state_without_rebuild(
     assert payload["source_files_mutated"] is False
     assert payload["safe_to_show"]["source_files_mutated"] is False
     assert payload["safe_to_show"]["provider_calls_authorized"] is False
+    assert "reader_causal_chain" not in payload
+
+
+def test_cli_compile_card_marks_source_changes_stale_without_rebuild(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    project_substrate.compile_project(project)
+    state_index = project / ".microcosm/state_index.json"
+    readme = project / "README.md"
+    readme.write_text("# Scratch\n\nChanged after compile.\n", encoding="utf-8")
+    source_mtime_ns = state_index.stat().st_mtime_ns + 1_000_000_000
+    os.utime(readme, ns=(source_mtime_ns, source_mtime_ns))
+
+    def fail_if_rebuilt(*_args: object, **_kwargs: object) -> dict:
+        raise AssertionError("compile --card must not rebuild stale project state")
+
+    monkeypatch.setattr(cli.project_substrate, "compile_project", fail_if_rebuilt)
+
+    status = cli.main(["compile", "--card", str(project)])
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+    assert status == 1
+    assert len(json.dumps(payload, sort_keys=True)) < 8000
+    assert payload["schema_version"] == "microcosm_project_compile_cached_card_v1"
+    assert payload["status"] == "stale_cached_state"
+    assert payload["cache_status"] == "stale_cached_state"
+    assert payload["cache_freshness"]["status"] == "stale"
+    assert payload["cache_freshness"]["source_status"] == "stale"
+    assert payload["cache_freshness"]["tracked_source_count"] >= 4
+    assert payload["cache_freshness"]["stale_source_count"] >= 1
+    assert payload["cache_freshness"]["source_refs_exported"] is False
+    assert "source_refs" not in payload
+    assert "README.md" not in output
     assert "reader_causal_chain" not in payload
 
 

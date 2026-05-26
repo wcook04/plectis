@@ -2194,6 +2194,52 @@ def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     return row
 
 
+def _compile_source_freshness(project: Path) -> dict[str, Any]:
+    cache_ref = f"{STATE_DIR}/state_index.json"
+    cache_path = _state_dir(project) / "state_index.json"
+    cache_mtime_ns: int | None = None
+    try:
+        if cache_path.is_file():
+            cache_mtime_ns = cache_path.stat().st_mtime_ns
+    except FileNotFoundError:
+        cache_mtime_ns = None
+
+    tracked_source_count = 0
+    stale_source_count = 0
+    newest_source_mtime_ns: int | None = None
+    for row in _walk_project(project):
+        rel = str(row.get("path") or "")
+        if not rel:
+            continue
+        source_path = project / rel
+        try:
+            source_mtime_ns = source_path.stat().st_mtime_ns
+        except FileNotFoundError:
+            continue
+        tracked_source_count += 1
+        if newest_source_mtime_ns is None or source_mtime_ns > newest_source_mtime_ns:
+            newest_source_mtime_ns = source_mtime_ns
+        if cache_mtime_ns is not None and source_mtime_ns > cache_mtime_ns:
+            stale_source_count += 1
+
+    if cache_mtime_ns is None:
+        status = "missing_cache_marker"
+    elif stale_source_count:
+        status = "stale"
+    else:
+        status = "current"
+    return {
+        "status": status,
+        "source_status": status if status != "missing_cache_marker" else "unknown",
+        "cache_ref": cache_ref,
+        "cache_mtime_ns": cache_mtime_ns,
+        "tracked_source_count": tracked_source_count,
+        "stale_source_count": stale_source_count,
+        "newest_source_mtime_ns": newest_source_mtime_ns,
+        "source_refs_exported": False,
+    }
+
+
 def _selected_route_from_rows(route_rows: list[dict[str, Any]]) -> dict[str, Any]:
     return next(
         (row for row in route_rows if row.get("route_id") == "readme_onboarding_route"),
@@ -2229,8 +2275,9 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     missing_state_refs = [
         str(row.get("ref")) for row in state_ref_status if row.get("exists") is not True
     ]
+    cache_freshness = _compile_source_freshness(project)
     route_explanation_status = explanation.get("status") if route_id else "missing_route"
-    status = (
+    state_status = (
         PASS
         if _state_dir(project).is_dir()
         and not missing_state_refs
@@ -2239,8 +2286,15 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         and route_explanation_status == PASS
         else "missing_cached_compile_state"
     )
+    status = state_status
+    if state_status == PASS and cache_freshness["status"] == "stale":
+        status = "stale_cached_state"
     cache_status = (
-        "cached_state_read" if status == PASS else "missing_cached_state"
+        "cached_state_read"
+        if status == PASS
+        else "stale_cached_state"
+        if status == "stale_cached_state"
+        else "missing_cached_state"
     )
     last_event = events[-1] if events else {}
     return {
@@ -2251,6 +2305,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "full_command": "microcosm compile <project>",
         "cache_status": cache_status,
         "cache_source_ref": f"{STATE_DIR}/state_index.json",
+        "cache_freshness": cache_freshness,
         "project_ref": ".",
         "state_ref": STATE_DIR,
         "state_ref_status_summary": {
@@ -2293,7 +2348,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "reader_action": (
             "Use this cached card for repeat compile-state inspection; run "
             "`microcosm compile <project>` when cache_status is missing_cached_state "
-            "or when source files changed."
+            "or stale_cached_state."
         ),
         "next_commands": [
             "microcosm status --card <project>",
@@ -2322,8 +2377,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         },
         "anti_claim": (
             "The compile cached card is a read-only state lens. It does not "
-            "rebuild, certify freshness, mutate source files, call providers, "
-            "authorize release, or claim project correctness."
+            "rebuild, mutate source files, call providers, authorize release, "
+            "or claim project correctness."
         ),
     }
 
