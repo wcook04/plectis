@@ -25,6 +25,12 @@ BUNDLE_INPUT = (
     / "examples/research_replication_rubric_artifact_replay/"
     "exported_research_replication_bundle"
 )
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+RESEARCH_REPLICATION_SOURCE_MODULE_IDS = {
+    "research_replication_deterministic_pattern_order_body_import",
+    "research_replication_extracted_pattern_ledger_row_body_import",
+    "research_replication_high_novelty_growth_receipt_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -67,6 +73,15 @@ def test_research_replication_replay_observes_negative_cases(
     ]
     assert result["authority_ceiling"]["benchmark_performance_claim_authorized"] is False
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["source_modules_pass"] is True
+    assert result["source_module_import_count"] == len(RESEARCH_REPLICATION_SOURCE_MODULE_IDS)
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert result["source_open_body_imports"]["material_classes"] == [
+        "public_macro_pattern_body"
+    ]
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]
@@ -80,6 +95,10 @@ def test_research_replication_receipts_are_public_relative_and_secret_excluded(
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/research_replication_rubric_artifact_replay",
         public_root / "fixtures/first_wave/research_replication_rubric_artifact_replay",
+    )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/research_replication_rubric_artifact_replay",
+        public_root / "examples/research_replication_rubric_artifact_replay",
     )
 
     result = run(
@@ -105,6 +124,74 @@ def test_research_replication_receipts_are_public_relative_and_secret_excluded(
         assert "body_redacted" not in keys
 
 
+def test_research_replication_source_modules_are_digest_verified(tmp_path: Path) -> None:
+    result = run_replication_bundle(
+        BUNDLE_INPUT,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "research_replication_rubric_artifact_replay",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["source_module_manifest_ref"] == (
+        "examples/research_replication_rubric_artifact_replay/"
+        "exported_research_replication_bundle/source_module_manifest.json"
+    )
+    assert result["source_module_import_count"] == len(RESEARCH_REPLICATION_SOURCE_MODULE_IDS)
+    assert result["copied_source_artifact_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert set(row["module_id"] for row in result["source_module_imports"]) == (
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    for row in result["source_module_imports"]:
+        assert row["sha256"] == row["actual_sha256"]
+        assert row["body_in_receipt"] is False
+        assert row["material_class"] == "public_macro_pattern_body"
+        assert row["source_to_target_relation"] == "source_faithful_json_slice"
+        assert row["target_ref"].startswith(
+            "examples/research_replication_rubric_artifact_replay/"
+            "exported_research_replication_bundle/source_artifacts/"
+        )
+
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == len(RESEARCH_REPLICATION_SOURCE_MODULE_IDS)
+    assert set(row["module_id"] for row in manifest["modules"]) == (
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+
+
+def test_research_replication_fixture_manifest_counts_source_open_body_floor() -> None:
+    manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/"
+            "research_replication_rubric_artifact_replay.fixture_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    source_imports = manifest["source_open_body_imports"]
+    assert manifest["body_copied_material_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert source_imports["status"] == "pass"
+    assert source_imports["source_import_class"] == "copied_non_secret_macro_body"
+    assert source_imports["body_material_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert set(source_imports["body_material_ids"]) == (
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert source_imports["body_in_receipt"] is False
+    assert (
+        source_imports["aggregate_floor_ref"]
+        == "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json::modules"
+    )
+
+
 def test_research_replication_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
 ) -> None:
@@ -128,6 +215,11 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["publication_authorized"] is False
     assert "public_replacement_refs" not in result
     assert "private_state_scan" not in result
+    assert result["source_modules_pass"] is True
+    assert result["source_module_import_count"] == len(RESEARCH_REPLICATION_SOURCE_MODULE_IDS)
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
     assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
     assert result["body_import_verification"]["verification_mode"] == (
         "extension_of_existing_public_refactor"

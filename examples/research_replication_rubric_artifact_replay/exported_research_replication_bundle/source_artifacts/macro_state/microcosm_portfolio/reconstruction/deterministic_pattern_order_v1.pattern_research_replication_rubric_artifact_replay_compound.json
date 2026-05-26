@@ -1,0 +1,39 @@
+{
+  "acceptance_condition": "Accepted synthetic research replication rubric-artifact fixture proves paper capsule, rubric tree, artifact manifest, experiment DAG, metric scripts, grader trace, cost budget, failure taxonomy, and cold replay while rejecting hidden rubric leakage, forbidden original-code reuse, private data, report-only success, unbounded compute, and benchmark score claims.",
+  "dependencies": [
+    "pattern:ml_experiment_lineage_resource_scaling_replay_compound",
+    "pattern:deep_research_claim_citation_audit_compound",
+    "pattern:proof_diagnostic_evidence_spine",
+    "pattern:mission_transaction_landing",
+    "pattern:agent_trace_to_route_repair_observability_compound",
+    "pattern:truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "disposition": "delayed",
+  "item_id": "pattern:research_replication_rubric_artifact_replay_compound",
+  "item_type": "pattern",
+  "order": 350,
+  "primary_organ_id": "proof_diagnostic_evidence_spine",
+  "projection_mode": "synthetic_fixture_only",
+  "public_projection_posture": "synthetic_research_replication_rubric_artifact_replay; not_public_build_driver; no_live_paper_replication_benchmark_score_or_private_data_authority",
+  "route_class": "synthetic_only_private_organ",
+  "source_evidence": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
+  ],
+  "title": "Research replication rubric-artifact replay compound",
+  "why_after": [
+    "PaperBench and CORE-Bench make research replication a visible, difficult agent-evaluation frontier; local credibility requires rubric, artifact, experiment, grader, and cost evidence rather than a report or score.",
+    "ML experiment lineage, deep-research citation audit, mission transactions, and proof/evidence receipts already own the pieces; this row fuses them into a paper-to-artifact replay fixture."
+  ],
+  "why_before": [
+    "feeds proof/evidence, mission work, deep research, formal math, and public reveal fixtures with paper-to-artifact replication receipts",
+    "feeds benchmark-integrity replay with rubric leakage, original-code reuse, and grader-trace negative cases"
+  ]
+}

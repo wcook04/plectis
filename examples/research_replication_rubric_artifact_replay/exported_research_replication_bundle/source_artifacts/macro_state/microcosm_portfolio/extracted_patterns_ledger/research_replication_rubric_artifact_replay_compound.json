@@ -1,0 +1,72 @@
+{
+  "axioms_principles_likely_instantiated": [
+    "replication_claim_requires_rubric_and_artifact_replay",
+    "research_agent_success_requires_code_data_experiment_and_grader_alignment",
+    "paper_understanding_is_not_replication_without_rerun",
+    "compute_budget_and_failure_taxonomy_are_part_of_the_receipt",
+    "benchmark_context_is_not_local_capability_authority"
+  ],
+  "candidate_fixture": "Synthetic two-paper replication fixture: one ML-method paper capsule and one computational-science paper capsule, each with contribution decomposition, rubric tree, allowed public inputs, scratch repo scaffold, experiment DAG, metric scripts, artifact hashes, grader report, cost/runtime budget, ablation diff, failure taxonomy, and cold rerun receipt. Negative cases reject original-author code reuse when forbidden, hidden rubric leakage, report-only success, benchmark performance claims, private paper/data bodies, unbounded compute search, and final-answer-only grading.",
+  "candidate_leaf_name": "research_replication_rubric_artifact_replay",
+  "candidate_paper_module_slug": "research_replication_rubric_artifact_replay",
+  "current_microcosm_status": "absent",
+  "depends_on_patterns": [
+    "ml_experiment_lineage_resource_scaling_replay_compound",
+    "deep_research_claim_citation_audit_compound",
+    "proof_diagnostic_evidence_spine",
+    "mission_transaction_landing",
+    "agent_trace_to_route_repair_observability_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "evidence_kind": [
+    "ledger",
+    "code",
+    "standard",
+    "manifest",
+    "receipt",
+    "external_research_signal"
+  ],
+  "external_attention_refs": [
+    "https://openai.com/index/paperbench/",
+    "https://github.com/openai/preparedness/tree/main/project/paperbench",
+    "https://arxiv.org/abs/2409.11363",
+    "https://arxiv.org/abs/2410.05080"
+  ],
+  "extracted_at": "2026-05-21T16:18:00Z",
+  "extracted_by": "codex_gpt5_science_multimodal_integrity_growth_pass",
+  "failure_mode_prevented": "A public research-agent demo claims to replicate a paper while hiding rubric coverage, artifact lineage, failed subtasks, compute budget, grader disagreement, original-code reuse, or unreplayable experiment state.",
+  "feeds_patterns": [
+    "formal_math_readiness_proof_spine_compound",
+    "deep_research_claim_citation_audit_compound",
+    "public_reveal_walkthrough_command_evidence_gate",
+    "workingness_instrument",
+    "proof_diagnostic_evidence_spine"
+  ],
+  "macro_subdomain": "subdomain_research_replication_agent_evaluation",
+  "microcosm_projection_decision": "folded_compound_candidate_with_synthetic_research_replication_rubric_artifact_replay_fixture",
+  "notes": "Added after external attention review of PaperBench and CORE-Bench. This is a synthetic replication-receipt contract folded under existing proof/evidence, mission, and observability organs; it is not a PaperBench score, live paper replication claim, publication claim, or use of private source material.",
+  "novelty_band": "high",
+  "one_line": "A public-safe research-agent fixture replays paper-to-code replication through a paper capsule, author/rubric hierarchy, artifact manifest, experiment DAG, score rubric, grader trace, cost budget, and cold rerun.",
+  "organ_family": "test_intelligence",
+  "pattern_id": "research_replication_rubric_artifact_replay_compound",
+  "private_state_risk": "low",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/mission_transaction_work_spine.py",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json"
+  ],
+  "target_existing_organs": [
+    "proof_diagnostic_evidence_spine",
+    "mission_transaction_work_spine",
+    "agent_route_observability_runtime"
+  ],
+  "title": "Research replication rubric-artifact replay compound",
+  "why_load_bearing": "Research-replication agents are one of the most impressive public AI surfaces because the task crosses reading, implementation, experiment execution, and judgment. The credible mechanism is not a polished report or benchmark score; it is a replayable rubric-to-artifact harness that shows exactly what was reproduced, what failed, what evidence was graded, and what was kept out of scope."
+}

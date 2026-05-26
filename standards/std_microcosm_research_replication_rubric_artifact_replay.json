@@ -37,6 +37,8 @@
         "target_symbols",
         "body_import_status",
         "body_import_verification",
+        "source_open_body_imports",
+        "source_module_imports",
         "public_agent_execution_trace",
         "required_replay_fields",
     "rubric_axes",
@@ -84,6 +86,9 @@
       "negative_case_coverage",
             "secret_exclusion_scan",
             "public_agent_execution_trace",
+            "source_open_body_imports",
+            "source_module_import_status",
+            "source_module_manifest_ref",
             "body_import_verification",
             "authority_ceiling",
             "anti_claim"
@@ -138,6 +143,16 @@
         "source_ref": "system/lib/agent_execution_trace.py",
         "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
         "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace"
+    },
+    "source_open_body_import_contract": {
+        "required": true,
+        "status": "copied_non_secret_macro_body_with_provenance",
+        "source_import_class": "copied_non_secret_macro_body",
+        "body_material_count": 3,
+        "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+        "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json::modules",
+        "body_in_receipt": false,
+        "rule": "real macro pattern provenance bodies must live under source_artifacts with digest-verified manifest rows; receipts carry refs, digests, and status only"
     },
     "source_coupling_contract": {
         "required": true,

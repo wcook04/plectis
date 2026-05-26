@@ -1,0 +1,83 @@
+{
+  "anti_claim": "These copied pattern provenance bodies make the public research-replication organ accountable to real macro ledger rows and reconstruction state. They do not authorize benchmark scores, expose private paper/data/hidden-rubric/provider bodies, rerun providers, mutate repositories, or authorize publication.",
+  "body_in_receipt": false,
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_research_replication_bundle",
+  "manifest_id": "research_replication_pattern_provenance_source_module_manifest",
+  "module_count": 3,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 72,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_extracted_pattern_ledger_row_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:b46c11a8b451bb72ca3acf27bdb2ba0877dfd9d7895d791cfed02230337f15cb",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_350::research_replication_rubric_artifact_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json",
+      "validation_refs": [
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 121,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_high_novelty_growth_receipt_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "validation_refs": [
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 39,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_deterministic_pattern_order_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:research_replication_rubric_artifact_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
+      "validation_refs": [
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_source_modules_are_digest_verified",
+        "tests/test_research_replication_rubric_artifact_replay.py::test_research_replication_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "organ_id": "research_replication_rubric_artifact_replay",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private paper/data bodies, hidden rubric bodies, original-author code bodies, or benchmark score payloads"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "source_run_id": "actual_substrate_science_multimodal_benchmark_integrity_growth_20260521a",
+  "source_run_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1"
+}

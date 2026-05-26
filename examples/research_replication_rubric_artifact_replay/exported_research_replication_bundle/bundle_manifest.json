@@ -5,5 +5,13 @@
   "input_mode": "exported_research_replication_bundle",
   "authority_ceiling": "public agent-execution trace refactor over research replication replay fixture",
   "body_import_status": "extension_of_existing_public_refactor_landed",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_count": 3,
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_in_receipt": false
+  },
   "body_in_receipt": false
 }

@@ -17,6 +17,8 @@
   "body_import_verification": {
     "source_ref": "system/lib/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+    "copied_macro_pattern_body_count": 3,
     "validation_refs": [
       "microcosm-substrate/tests/test_research_replication_rubric_artifact_replay.py"
     ],
