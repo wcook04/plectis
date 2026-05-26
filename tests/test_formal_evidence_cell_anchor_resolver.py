@@ -56,6 +56,9 @@ def test_formal_evidence_cell_anchor_resolver_observes_negative_cases(
     assert result["evidence_cell_count"] == 3
     assert result["source_anchor_count"] == 8
     assert result["machine_anchor_count"] == 3
+    assert result["source_modules_pass"] is True
+    assert result["source_module_count"] == 0
+    assert result["source_open_body_imports"] == {}
     assert result["evidence_anchor_status"] == (
         "real_ring2_verifier_trace_repair_receipt_refs"
     )
@@ -158,6 +161,19 @@ def test_formal_evidence_cell_anchor_exported_bundle_validates_runtime_shape(
     assert result["resolved_cell_count"] == 3
     assert result["evidence_cell_count"] == 3
     assert result["source_anchor_count"] == 5
+    assert result["source_modules_pass"] is True
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 6
+    assert result["source_open_body_imports"]["body_material_count"] == 6
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["source_module_secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["source_module_secret_exclusion_scan"]["scanned_path_count"] == 6
+    imported_ids = set(result["source_open_body_imports"]["body_material_ids"])
+    assert "paper_module_formal_evidence_auditor_source_body_import" in imported_ids
+    assert "formal_evidence_cell_registry_builder_source_body_import" in imported_ids
+    assert "formal_evidence_cell_registry_state_body_import" in imported_ids
+    assert all(row["body_in_receipt"] is False for row in result["source_modules"])
+    assert all(row["digest_matches"] is True for row in result["source_modules"])
     assert result["evidence_anchor_status"] == (
         "real_ring2_verifier_trace_repair_receipt_refs"
     )

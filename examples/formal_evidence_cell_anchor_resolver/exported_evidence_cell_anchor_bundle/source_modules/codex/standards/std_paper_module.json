@@ -1,0 +1,1337 @@
+{
+  "kind": "standard",
+  "schema_version": "std_paper_module_v8",
+  "id": "std_paper_module",
+  "title": "Paper Module Definition Standard",
+  "purpose": "Single machine-readable authority for paper modules under codex/doctrine/paper_modules/. Defines the authored markdown contract, projection classes, density and dependency rules, action semantics, freshness and authority split, README browse projection contract, and the schemas for the generated machine sidecars consumed by kernel lookup, coverage, docs routing, and future runtime or frontend surfaces.",
+  "governance": {
+    "authority": "codex/standards/standards_registry.json -> core group",
+    "writer": "agent or human (schema changes are doctrine-grade and should route through raw seed + apply lanes before bumping schema_version)",
+    "validator": "tools/meta/factory/build_paper_module_index.py",
+    "consumers": [
+      "codex/doctrine/skills/doctrine/paper_module_authoring.md",
+      "codex/doctrine/skills/doctrine/paper_module_lookup.md",
+      "codex/doctrine/skills/doctrine/paper_module_coverage.md",
+      "codex/doctrine/paper_modules/README.md",
+      "codex/doctrine/paper_modules/_index.json",
+      "codex/doctrine/paper_modules/_validation_report.json",
+      "codex/doctrine/paper_modules/_doctrine_to_paper_modules.json",
+      "codex/doctrine/paper_modules/_route_coverage.json",
+      "codex/hologram/facts/ledger.json",
+      "codex/hologram/facts/audit.json",
+      "codex/hologram/facts/navigation_cache.json",
+      "codex/doctrine/paper_modules/_rediscovery_findings.json",
+      "codex/doctrine/paper_modules/paper_module_candidates.json",
+      "codex/standards/std_derived_fact.json",
+      "tools/meta/factory/build_paper_module_index.py",
+      "tools/meta/factory/build_fact_hologram.py",
+      "tools/meta/control/metabolismd.py",
+      "system/lib/paper_modules.py",
+      "system/lib/derived_fact_hologram.py",
+      "system/lib/kernel_navigation.py",
+      "system/server/world_model.py (future: paper-modules snapshot helper)",
+      "system/server/ui/src/pages/ (future: /station/papers lens)"
+    ],
+    "drift_sensitivity": "high"
+  },
+  "scope": {
+    "applies_to": [
+      "codex/doctrine/paper_modules/*.md"
+    ],
+    "does_not_apply_to": [
+      "codex/doctrine/paper_modules/README.md (browse surface; governed by std_markdown_doc.json)",
+      "codex/doctrine/paper_modules/_index.json (machine-regenerated sidecar)",
+      "codex/doctrine/paper_modules/_validation_report.json (machine-regenerated sidecar)",
+      "codex/doctrine/paper_modules/_doctrine_to_paper_modules.json (machine-regenerated sidecar)",
+      "codex/doctrine/paper_modules/_route_coverage.json (machine-regenerated sidecar)",
+      "codex/hologram/facts/ledger.json (machine-regenerated derived-fact ledger)",
+      "codex/hologram/facts/audit.json (machine-regenerated derived-fact provider audit)",
+      "codex/hologram/facts/navigation_cache.json (machine-regenerated derived-fact browse cache)",
+      "codex/doctrine/paper_modules/_rediscovery_findings.json (secondary rediscovery evidence owned by rediscovery_miner.py)",
+      "codex/doctrine/paper_modules/paper_module_candidates.json (typed backlog authority)",
+      "codex/doctrine/paper_modules/_deprecated.md (optional provenance log)"
+    ],
+    "primary_consumer_runtime": "system/lib/paper_modules.py"
+  },
+  "authority_split": {
+    "authored_truth": {
+      "surface": "codex/doctrine/paper_modules/*.md",
+      "role": "Only authored authority for subsystem ontology, frontmatter, sections, and code-loci claims."
+    },
+    "primary_generated_truth": {
+      "surfaces": [
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_validation_report.json",
+        "codex/doctrine/paper_modules/_doctrine_to_paper_modules.json",
+        "codex/doctrine/paper_modules/_route_coverage.json"
+      ],
+      "writer": "tools/meta/factory/build_paper_module_index.py via system/lib/paper_modules.py",
+      "role": "Machine browse, lookup, DAG, queue, doctrine reverse index, route-coverage lens, and freshness projection derived from authored markdown plus the typed candidate backlog."
+    },
+    "secondary_evidence": {
+      "surfaces": [
+        "codex/doctrine/paper_modules/_rediscovery_findings.json"
+      ],
+      "writer": "tools/meta/factory/rediscovery_miner.py",
+      "role": "Optional overlay evidence consumed after the primary queue authority is loaded; never redefines builder queue semantics."
+    },
+    "derived_fact_hologram": {
+      "surfaces": [
+        "codex/hologram/facts/ledger.json",
+        "codex/hologram/facts/audit.json",
+        "codex/hologram/facts/navigation_cache.json"
+      ],
+      "standard": "codex/standards/std_derived_fact.json",
+      "registry": "codex/doctrine/facts/fact_registry.json",
+      "writer": "tools/meta/factory/build_fact_hologram.py via system/lib/derived_fact_hologram.py",
+      "role": "Auditable current-state facts derived from disk or callable projections. Paper modules may cite volatile values only through parseable fact assertion tables; the builder reports mismatches in _validation_report.json."
+    },
+    "browse_twin": {
+      "surface": "codex/doctrine/paper_modules/README.md",
+      "role": "Human browse twin with builder-owned generated regions and small hand-authored framing only. README is not queue authority."
+    }
+  },
+  "freshness_contract": {
+    "source_manifest": "Every generated surface carries a `source_manifest` with content hashes for the standard, candidates backlog, and each authored module.",
+    "source_fingerprint": "Every generated surface carries a stable `freshness.source_fingerprint` digest derived from the source manifest.",
+    "route_fingerprints": "_route_coverage.json carries route-specific graph, attention, health, and metabolism-worklist fingerprints so route drift can be diagnosed separately from full authored-source drift and code-loci freshness drift.",
+    "derived_fact_audit": "Fact assertion tables in paper modules are audited against codex/hologram/facts/ledger.json. Mismatches are advisory warnings by default and become errors when the builder runs with --strict.",
+    "count_fields": [
+      "freshness.authored_module_count",
+      "freshness.generated_module_count"
+    ],
+    "sync_fields": [
+      "freshness.sync_status",
+      "freshness.missing_from_index",
+      "freshness.missing_from_report",
+      "freshness.route_coverage_in_sync"
+    ],
+    "generated_at_semantics": "generated_at is the UTC ISO timestamp for the current projection write. Freshness compares the current authored corpus against checked-in generated surfaces and README managed regions; stale generated surfaces are a trust downgrade, not authored truth.",
+    "sync_status_enum": [
+      "in_sync",
+      "missing_sidecars",
+      "stale_sidecars",
+      "stale_readme_projection",
+      "stale_sidecars_and_readme",
+      "not_compared"
+    ]
+  },
+  "readme_projection_contract": {
+    "target_path": "codex/doctrine/paper_modules/README.md",
+    "authoritative_note": "README owns only stable human framing. Generated browse regions are builder-owned and must never become a second manual inventory.",
+    "managed_regions": [
+      {
+        "region_id": "paper_module_browse_snapshot",
+        "begin_marker": "<!-- BEGIN paper_module_browse -->",
+        "end_marker": "<!-- END paper_module_browse -->",
+        "sections": [
+          "class_counts",
+          "status_counts",
+          "queue_counts",
+          "next_attention",
+          "inventory"
+        ]
+      }
+    ],
+    "inventory_limit": 99,
+    "next_attention_limit": 6
+  },
+  "naming_contract": {
+    "slug_format": "snake_case, matches filename without the .md extension. Example: bridge_runtime -> bridge_runtime.md",
+    "file_location": "codex/doctrine/paper_modules/<slug>.md",
+    "snapshot_suffix": "Dated snapshot modules carry a trailing _YYYY-MM-DD suffix. Non-dated slugs imply rolling refresh, not snapshot cadence."
+  },
+  "planned_surface_reference_contract": {
+    "purpose": "Allow paper modules to name future repo paths without lying that they are shipped code loci.",
+    "section_heading": "Planned surfaces (NOT YET BUILT)",
+    "placement": "Optional level-2 section immediately after Code loci and before Current state; this placement is already allowed by section_order_rule.",
+    "table_columns": [
+      "Surface",
+      "Planned path",
+      "Status",
+      "Promotion trigger"
+    ],
+    "rules": [
+      "Code loci remains shipped authority only: every path there must resolve under the working tree.",
+      "Unbuilt repo paths must move to Planned surfaces (NOT YET BUILT), with Status explicitly containing NOT YET BUILT.",
+      "The builder extracts planned surface paths into generated module packets but does not treat unresolved planned paths as code_loci_unresolved.",
+      "When a planned surface path starts resolving, the builder warns so the row can be promoted to Code loci, Current state, or a real child paper module.",
+      "Planned surfaces can make design intent findable; they cannot satisfy deliverable, freshness, or shipped-state claims."
+    ],
+    "promotion_rule": "A planned surface graduates only after the path exists and a refresh pass can state what it actually does. Promotion means moving it out of the planned table and updating Code loci / Current state / Deliverables as appropriate."
+  },
+  "code_loci_gitignored_artifact_citation_contract": {
+    "purpose": "Name the accepted citation forms for subsystems whose canonical output path is gitignored (state/, logs, build artifacts, runtime caches, generated bundles). Without this contract these patterns were tribal knowledge: agents either wrote a gitignored path and broke `code_loci_unresolved`, or rediscovered the bypass each time. The rule path-must-resolve still holds; this contract names the three forms that satisfy resolution without dropping evidence pointers.",
+    "rule_anchor": "Code loci paths must resolve under the working tree. Gitignored generated outputs do not resolve and are not valid Code loci. Cite shipped substrate that points at the generated artifact instead.",
+    "accepted_forms": [
+      {
+        "form": "shipped_substrate_substitute",
+        "preferred": true,
+        "description": "Cite the shipped writer, owning standard, or test that produces or governs the gitignored output, not the output path itself. This is the canonical form because the cited file is the authority anyway.",
+        "example": "`tools/meta/factory/build_hologram_audit.py` (writer for codex/hologram/process/audit.json)",
+        "extractor_behavior": "Normal repo-path resolution; the cited path exists in the working tree."
+      },
+      {
+        "form": "brace_expansion",
+        "preferred": false,
+        "description": "Group sibling gitignored outputs sharing a directory parent into one row using brace-expansion syntax. The path extractor in system/lib/paper_modules.py::_normalize_token drops tokens containing `{` or `}`, so a brace-expanded string is never treated as a Code loci path and never raises code_loci_unresolved. The row remains human-readable evidence of where the outputs live without satisfying or violating path resolution.",
+        "example": "`codex/hologram/process/{audit,summary}.json` (generated outputs; cite writer for shipped authority)",
+        "extractor_behavior": "_normalize_token returns empty string for any token containing `{`, `}`, `<`, `>`, or `*`; row is invisible to resolution checks.",
+        "constraint": "Use only when paired with a shipped writer or standard citation in the same row; brace-expansion alone is not evidence."
+      },
+      {
+        "form": "symbol_reference",
+        "preferred": false,
+        "description": "Cite a shipped file plus `::SYMBOL` (function, class, or constant) when the symbol is the runtime handle for a gitignored output. The extractor strips `::SYMBOL` and resolves only the file part, so the row passes resolution while the symbol stays visible as authority anchor.",
+        "example": "`system/lib/agent_execution_trace.py::LEDGER_PATH` (constant pointing at gitignored runtime ledger)",
+        "extractor_behavior": "_normalize_token splits at `::` and validates only the path component; file must exist in working tree.",
+        "constraint": "The file part must exist in the working tree. Use std_python_scope_index.json symbol ids when a stable id form is preferred over `::SYMBOL`."
+      }
+    ],
+    "anti_patterns": [
+      "Citing a gitignored output path directly as Code loci (raises code_loci_unresolved error).",
+      "Brace-expanding a row of paths that do not actually share a directory parent, to smuggle multiple unrelated tokens under one invisible row.",
+      "Using `::SYMBOL` to hide a missing file: the file part must resolve.",
+      "Treating brace-expansion or symbol-ref as substitutes for the shipped-substrate form when a writer or standard exists."
+    ],
+    "validator_relationship": "system/lib/paper_modules.py::_normalize_token and extract_code_loci_paths implement the extraction behavior these forms exploit. Changing the extractor's brace/symbol handling is a doctrine-grade change requiring schema_version bump; this contract documents the accepted forms only.",
+    "future_work_hint": "If the validator should emit a typed repair hint (e.g. `code_loci_gitignored_output_suggest_writer_citation`) when an unresolved Code loci row maps to a gitignored path, that is a validator-side enhancement; route via WorkItem capture rather than authoring it into this contract."
+  },
+  "taxonomy_role_contract": {
+    "decision_source": "Phase 09.37 wave_003: raw-seed projection taxonomy",
+    "role": "Paper modules are subsystem projections, not doctrine-node subtypes.",
+    "must_do": [
+      "Compress a bounded subsystem so agents can avoid rediscovery.",
+      "Name real files, runtime surfaces, standards, skills, and doctrine context that define the subsystem boundary.",
+      "Cite raw-seed or shard evidence in Gap sections when Will's voice is the reason the module exists."
+    ],
+    "must_not_do": [
+      "Act as the middle ontology rung between principle and mechanism.",
+      "Replace principles, mechanisms, concepts, skills, standards, or raw evidence.",
+      "Use the paper module slug as a generic route target when a specific principle, mechanism, concept, skill, standard, annex pattern, or raw-evidence route is more precise."
+    ],
+    "allowed_route_target_kind": "paper_module"
+  },
+  "standard_type_plane_projection_contract": {
+    "governing_standard": "codex/standards/std_standard_type_plane.json",
+    "rule": "Paper modules are projection surfaces inside the standards type plane. They may describe subsystem shape and route coverage, but standards own artifact write/read/navigation contracts.",
+    "paper_module_role": [
+      "Describe a bounded subsystem so agents can avoid rediscovery.",
+      "Project code loci, gaps, dependencies, route metadata, and status into a human-readable module.",
+      "Point back to governing standards when the module names an artifact kind, mutation lane, or validation rule."
+    ],
+    "must_not_land_here": [
+      "New standards-grade rules for how artifact types are written or read.",
+      "Annex adoption policies that belong in std_annex_distillation or std_standard_type_plane.",
+      "Atlas ingestion contracts that belong in std_system_atlas.",
+      "Queryable database authority; databases generated from paper-module sidecars remain projections."
+    ],
+    "projection_fields_for_type_plane": [
+      "projection_class",
+      "governing_principles",
+      "governing_concepts",
+      "governing_mechanisms",
+      "depends_on",
+      "code_loci",
+      "route_metadata",
+      "status",
+      "freshness"
+    ],
+    "repair_rule": "If a paper-module authoring pass discovers a rule that should govern many artifacts or agent navigation, refine the governing standard first and let the paper module point to it."
+  },
+  "metabolism_population_contract": {
+    "purpose": "Give always-awake runtime loops a bounded, daemon-readable route-population packet without moving authored subsystem description into the daemon. Paper modules describe; _route_coverage.json routes and prioritizes; embeddings make the packet cheap to retrieve.",
+    "separation_of_concerns": {
+      "describing_source": "codex/doctrine/paper_modules/*.md",
+      "routing_source": "codex/doctrine/paper_modules/_route_coverage.json",
+      "semantic_retrieval_source": "state/embeddings/paper_modules.json",
+      "daemon_reader": "tools/meta/control/metabolismd.py"
+    },
+    "metric_name": "paper_module_route_population_score",
+    "generated_surface": "codex/doctrine/paper_modules/_route_coverage.json.metabolism_worklist",
+    "population_fields": [
+      "route_population_score",
+      "route_metadata_integrity_average",
+      "low_integrity_module_count",
+      "missing_route_metadata_module_count",
+      "split_required_module_count",
+      "stale_density_module_count",
+      "next_population_target_count"
+    ],
+    "integration_consumers": [
+      "python3 kernel.py --paper-module-coverage",
+      "python3 kernel.py --paper-module-route <route_key-or-target>",
+      "python3 kernel.py --embed-refresh paper_modules",
+      "tools/meta/control/metabolismd.py status"
+    ],
+    "routing_rule": "The worklist must point to existing route keys or module slugs and emit commands that reopen the relevant kernel consumer. It must not author doctrine, rewrite paper modules, or treat generated suggestions as ratified truth."
+  },
+  "required_frontmatter": {
+    "projection_class": "Enum subsystem|index|snapshot|root. Declares how the module should be interpreted and which boundary rules apply.",
+    "authored": "ISO date YYYY-MM-DD. First-authored date; not updated on refresh (use refresh_contract and current-state date fields instead).",
+    "governing_principles": "Array of pri_NNN ids the module upholds (minimum 1).",
+    "governing_concepts": "Array of con_NNN ids the module instantiates (minimum 1).",
+    "_frontmatter_style": "Paper modules use plain-text frontmatter lines under the H1 title rather than YAML because the file is read by both agents and humans. Two forms are accepted: plain lines (`Projection class: subsystem`) and Markdown-bold lines (`**Projection class:** subsystem`). Trailing parenthetical annotation after a value is tolerated; the builder extracts the leading canonical value."
+  },
+  "optional_frontmatter": {
+    "subsystem_slug": "Explicit slug override when the filename and canonical id need to differ. Rarely used; default is filename.",
+    "depends_on": "Array of upstream module slugs whose TLDR this module injects. Leaves-first discipline -> dependency_rules.",
+    "governing_mechanisms": "Array of mech_NNN ids the module operates through. Optional because not every subsystem has a direct mechanism edge.",
+    "snapshot_cadence": "Required when projection_class = snapshot. Natural-language cadence or trigger window, e.g. `quarterly` or `on phase close touching file_set`.",
+    "primary_subdomain": "Optional doctrine-subdomain home for paper modules participating in a registry such as codex/doctrine/subdomains/frontend.json.",
+    "secondary_subdomains": "Optional array of adjacent doctrine-subdomain slugs for cross-cutting paper modules."
+  },
+  "projection_classes": {
+    "subsystem": {
+      "purpose": "Default case: one bounded subsystem ontology that should stand in for a folder or a rediscovery pass.",
+      "boundary_posture": "strict",
+      "code_loci_cap": 6,
+      "fixed_tldr_budget": null,
+      "requires_snapshot_cadence": false,
+      "requires_depends_on": false,
+      "allows_grouped_loci": false,
+      "default_recommended_action_on_boundary_failure": "split"
+    },
+    "index": {
+      "purpose": "Browse or routing surface that intentionally groups many subordinate slices into one lookup packet.",
+      "boundary_posture": "browse_surface",
+      "code_loci_cap": 16,
+      "fixed_tldr_budget": null,
+      "requires_snapshot_cadence": false,
+      "requires_depends_on": false,
+      "allows_grouped_loci": true,
+      "default_recommended_action_on_boundary_failure": "refresh"
+    },
+    "snapshot": {
+      "purpose": "Dated or cadence-bound snapshot that preserves state at a particular moment or review window.",
+      "boundary_posture": "timeboxed",
+      "code_loci_cap": 8,
+      "fixed_tldr_budget": null,
+      "requires_snapshot_cadence": true,
+      "requires_depends_on": false,
+      "allows_grouped_loci": true,
+      "default_recommended_action_on_boundary_failure": "refresh"
+    },
+    "root": {
+      "purpose": "Top-of-ontology or constitution surface that intentionally composes multiple upstream modules and provides the broad system entrypoint.",
+      "boundary_posture": "dependency_grouped",
+      "code_loci_cap": 16,
+      "fixed_tldr_budget": 10,
+      "requires_snapshot_cadence": false,
+      "requires_depends_on": true,
+      "allows_grouped_loci": true,
+      "default_recommended_action_on_boundary_failure": "refresh"
+    }
+  },
+  "required_sections": [
+    {
+      "slug": "tldr",
+      "heading": "TLDR (compressed view)",
+      "purpose": "Fixed-budget compressed ontology. Injected verbatim by downstream modules via Depends on: and displayed by lookup/runtime/frontend card surfaces. Must stand alone."
+    },
+    {
+      "slug": "intent",
+      "heading": "Intent",
+      "purpose": "Why this surface exists. Distinct from TLDR: intent cites authority; TLDR is the self-contained compression."
+    },
+    {
+      "slug": "shape",
+      "heading": "Shape",
+      "purpose": "Structural map. Framework, files, dataflow, key types. No redesign prose or speculative architecture."
+    },
+    {
+      "slug": "ontology",
+      "heading": "Ontology / Types & Invariants",
+      "purpose": "The density seam. Must lead with a table of canonical types with {name, kind, one-line purpose, symbol_id or file:line}, then invariants and axes of variation."
+    },
+    {
+      "slug": "code_loci",
+      "heading": "Code loci",
+      "purpose": "Real file paths, line numbers, or std_python_scope_index.json symbol ids. Every path here must resolve. Counted by grouped slices, not by individual path tokens. Not-yet-built paths belong in the optional Planned surfaces (NOT YET BUILT) section, not in Code loci."
+    },
+    {
+      "slug": "current_state",
+      "heading": "Current state",
+      "purpose": "Separate shipped, in-progress, and missing explicitly. Dated if state-sensitive. Volatile values derivable from disk or CLI projections must be bound through a fact assertion table instead of copied as standalone prose. Missing path-shaped surfaces should point back to the Planned surfaces table instead of being repeated as pseudo-loci."
+    },
+    {
+      "slug": "deliverables",
+      "heading": "Deliverables (what this subsystem lets a cold agent DO)",
+      "purpose": "Explicit action surface. Bullets of the form `<verb> <noun>` via `<surface>` where surface is a CLI command, HTTP endpoint, MCP tool, launchable op id, or frontend lens.",
+      "min_rows": 3
+    },
+    {
+      "slug": "gap",
+      "heading": "Gap (what Will is signaling)",
+      "purpose": "Preserve Will-voice and hedges. Cite raw-seed par_* ids when available. Split reversals into distinct positions."
+    },
+    {
+      "slug": "not_re_derive",
+      "heading": "What a cold agent should NOT re-derive",
+      "purpose": "Explicit bullets. Contract claims a future agent can test. Different from deliverables: deliverables are affordances, not the anti-re-exploration contract."
+    },
+    {
+      "slug": "refresh_contract",
+      "heading": "Refresh contract",
+      "purpose": "What triggers regeneration and what makes claims stale. Must name an authority source or cadence."
+    }
+  ],
+  "section_order_rule": "The required_sections list is the canonical order. Supplementary sections may appear between Code loci and Current state or between Current state and Deliverables, but required sections must remain ordered.",
+  "compression_formula": {
+    "purpose": "Importance-weighted TLDR sentence budgets. Fan-in is the default axis because downstream modules inject upstream TLDRs verbatim. Projection class may override the bracket.",
+    "sentence_brackets": [
+      {
+        "budget_sentences": 3,
+        "when": "Leaf module: zero inbound Depends on edges and projection_class != root.",
+        "rationale": "Leaves are read once in context. Three sentences is the floor."
+      },
+      {
+        "budget_sentences": 5,
+        "when": "Default. 1-2 inbound Depends on edges at normal subsystem grain.",
+        "rationale": "The natural paragraph length for a subsystem ontology without prose inflation."
+      },
+      {
+        "budget_sentences": 8,
+        "when": "High fan-in: >=3 inbound Depends on edges.",
+        "rationale": "Downstream authors need more context to make injection meaningful."
+      },
+      {
+        "budget_sentences": 10,
+        "when": "Projection class = root.",
+        "rationale": "Root modules summarize the whole system at paper-module granularity."
+      }
+    ],
+    "over_budget_policy": "Beyond the active budget, compress or split. Do not inflate a module by inflating its TLDR.",
+    "measurement": "Sentences counted by terminal punctuation at clause boundaries, ignoring common abbreviations and markdown/code fences. The builder owns the exact counter."
+  },
+  "compression_authoring_contract": {
+    "purpose": "Every paper module must expose enough authored compression metadata for cluster/atom/flag/card navigation to select the right module before opening source markdown.",
+    "required_rungs": ["atom", "flag", "card"],
+    "required_navigation_fields": [
+      "stable_id",
+      "cluster_keys",
+      "when_to_open",
+      "when_not_to_open",
+      "safe_drilldown"
+    ],
+    "field_budgets": {
+      "atom": {"max_words": 8, "max_chars": 80},
+      "flag": {"max_chars": 220},
+      "card": {"max_chars": 1400}
+    },
+    "authoring_surface": "plain-text frontmatter or machine-readable sidecar compiled from authored markdown",
+    "preferred_frontmatter_fields": [
+      "Compression atom",
+      "Compression keys",
+      "Compression flag",
+      "Open when",
+      "Do not open when",
+      "Safe drilldown"
+    ],
+    "legacy_fallback_fields": ["TLDR (compressed view)", "Search aliases", "Intent"],
+    "forbidden_low_band_fields": [
+      "full markdown body",
+      "full search-alias list",
+      "full dependency closure",
+      "full code loci list",
+      "raw operator voice beyond anchors"
+    ],
+    "sufficiency_tests_required": true,
+    "projection_rule": "cluster_flag/atom/flag/card projections must compile authored compression fields when present. TLDR/Intent inference is fallback authoring debt, not the target state. For high-cardinality cluster_flag contents pages, repeated omission detail may be hoisted to a payload-level cluster_omission_receipt while rows carry a compact omission_policy plus drilldown commands.",
+    "fallback_policy": {
+      "purpose": "Authored compression fields are the target state, but the corpus migration is staged. Until authored coverage is complete, the runtime emits compression rows from authored fields when present and from legacy substrate otherwise, with explicit per-field source markers so fallback is never invisible.",
+      "permitted_fallback_sources": {
+        "atom": "first sentence of TLDR (compressed view), truncated to atom budget",
+        "flag": "Open when authored value, otherwise first sentence of TLDR",
+        "cluster_keys": "Search aliases values"
+      },
+      "compression_status_enum": ["authored", "fallback", "missing", "invalid"],
+      "per_field_source_markers": [
+        "authored",
+        "fallback_from_tldr",
+        "fallback_from_open_when",
+        "fallback_from_search_aliases",
+        "authored_validated",
+        "default_from_slug",
+        "invalid_authored_replaced_with_default",
+        "missing",
+        "invalid"
+      ],
+      "authored_over_budget_policy": "An authored value over budget is reported `invalid` and surfaced in compression_findings; the runtime never silently truncates or rewrites operator-authored compression fields.",
+      "safe_drilldown_allowlist_exact_templates": [
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug>",
+        "./repo-python kernel.py --paper-module <slug>"
+      ],
+      "safe_drilldown_validator_mode": "exact_match_post_slug_substitution",
+      "safe_drilldown_default_template": "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug>",
+      "safe_drilldown_validator_rationale": "Exact-match (not prefix-match) is intentional: agents copy commands out of atom rows, so a trailing token must not be smuggled past validation. To extend the allowlist, add an exact template both here and to system/lib/paper_modules.py::_validate_safe_drilldown."
+    },
+    "promotion_policy": {
+      "mode": "explicit_migration_gate",
+      "rule": "Compression fields become required only after a separate WorkItem or standard update declares the corpus coverage threshold and migration state. Until then, missing/fallback compression is reported in compression_findings and the per-module compression packet, but does not flip module status, fail validation, or change action_cause.",
+      "current_state": "preferred_with_fallback"
+    }
+  },
+  "cluster_authority_collapse_rule": {
+    "purpose": "Make the paper-module contents-page rung (cluster_flag band) read like one ontology, not two parallel ones split by authoring authority. A future agent browsing clusters should see one row per canonical subdomain, with the authored-vs-heuristic split surfaced as row-level metadata, not as a duplicated cluster id.",
+    "rule": "Cluster identity in the cluster_flag band is keyed by the canonical subdomain slug (e.g. `subdomain_authority_projection`) regardless of whether the underlying value came from authored `primary_subdomain` frontmatter or from the heuristic `suggested_primary_subdomain` axis. The two contributors merge into one bucket.",
+    "preserved_signals": [
+      "Per-row `cluster_source_axis` reports the most-authoritative axis observed in the bucket (authored primary > suggested primary > hierarchy fallback > heuristic fallback > unclassified).",
+      "Per-cluster `route_metadata` keeps the four-way breakdown count (`authored_primary_count`, `suggested_primary_count`, `hierarchy_fallback_count`, `heuristic_fallback_count`, `unclassified_count`).",
+      "Per-cluster `authority_distribution` carries a chip such as `13 authored, 50 suggested` that the contents-page reader can scan without drilldown.",
+      "Payload-level `summary.cluster_authority_distribution` aggregates the corpus-wide split for the contents page itself."
+    ],
+    "anti_patterns_eliminated": [
+      "`subdomain_authority_projection` and `suggested_subdomain_authority_projection` shown as separate top-level chapters when they describe the same conceptual subdomain.",
+      "Future agent guesses that authored vs heuristic clusters live in different table-of-contents sections.",
+      "Singletons inflated by authority bifurcation rather than real subsystem boundaries."
+    ],
+    "consumer_runtime": "system/lib/standard_option_surface.py::_paper_module_cluster_key, _paper_module_cluster_rows, _paper_module_cluster_authority_summary",
+    "principles_upheld": [
+      "pri_049 minimum sufficient read graph",
+      "pri_111 paper modules preempt re-derivation",
+      "pri_121 compress via substrate-derived projection",
+      "pri_128 live projections must be entry routes"
+    ]
+  },
+  "band_contracts": {
+    "atom": {
+      "purpose": "Cheapest selection-affordance row for whole-system reasoning. Cheaper than tldr; row-shaped not paragraph-shaped.",
+      "minimum_payload": [
+        "slug",
+        "atom",
+        "compression_status",
+        "trust_chip",
+        "drilldown_command"
+      ],
+      "forbidden": [
+        "replace tldr",
+        "carry full dependency closure",
+        "claim ratified Will-voice without authored frontmatter",
+        "carry the 220-character flag or full open_when by default"
+      ],
+      "drilldown_to": "card"
+    },
+    "card_authored_navigation_fields_projection": {
+      "purpose": "When a paper module has authored compression frontmatter, the card row must project the navigation-control fields directly so the contents-page → card → evidence chain stops collapsing into TLDR-only signal.",
+      "rule": "If `module.compression.compression_status == 'authored'`, the card row exposes `open_when`, `do_not_open_when`, and `safe_drilldown` as top-level fields, populated from `module.compression`. The same values remain inside the structured `compression` packet for trust-source inspection. When status is `fallback` or `missing`, the card row MUST NOT leak fallback prose into those fields; it carries `compression.authoring_debt` instead, pointing at the coverage worklist.",
+      "consumer_runtime": "system/lib/standard_option_surface.py::_paper_module_compression_packet, _flag_row, _card_row",
+      "drilldown_to": "context_or_evidence",
+      "principles_upheld": [
+        "pri_049 minimum sufficient read graph",
+        "pri_121 compress via substrate-derived projection",
+        "pri_128 live projections must be entry routes"
+      ]
+    }
+  },
+  "navigation_contract": {
+    "profile_id": "paper_module_navigation_v0",
+    "artifact_kind": "paper_modules",
+    "navigable_bands": [
+      "atom",
+      "tldr",
+      "card",
+      "context",
+      "evidence"
+    ],
+    "band_contracts": {
+      "atom": {
+        "purpose": "Cheapest selection-affordance row for whole-system reasoning across all paper modules.",
+        "minimum_payload": ["slug", "atom", "compression_status", "trust_chip", "drilldown_command"],
+        "forbidden": ["full module body", "220-char flag", "open_when prose", "full dependency closure"],
+        "drilldown_to": "card"
+      },
+      "tldr": {
+        "purpose": "Cheapest browse row for selecting a theory/subsystem module.",
+        "minimum_payload": ["slug", "title", "TLDR first sentence or bracket-compliant TLDR", "status", "drilldown command"],
+        "forbidden": ["full module body", "full code loci list", "full dependency closure"],
+        "drilldown_to": "card"
+      },
+      "card": {
+        "purpose": "Compact working row for choosing whether to open a module.",
+        "minimum_payload": ["TLDR excerpt", "intent", "top dependencies", "nearest standard/skill", "currentness posture", "omission receipt", "compression packet"],
+        "conditional_payload": {
+          "when": "module.compression.compression_status == 'authored'",
+          "fields": ["open_when", "do_not_open_when", "safe_drilldown"],
+          "rationale": "Authored navigation-control fields must surface on the card row so the contents-page → card chain stops collapsing into TLDR-only signal. Fallback rows must not leak heuristic prose into these fields; they carry compression.authoring_debt instead."
+        },
+        "forbidden": ["pretend to replace authored markdown", "uncited live state claims", "leak fallback compression as authored navigation prose"],
+        "drilldown_to": "context"
+      },
+      "context": {
+        "purpose": "Task working packet over required sections and first-order dependency neighborhood.",
+        "minimum_payload": ["required section summaries", "ontology table summary", "deliverables", "gap", "code loci summary", "dependency edges"],
+        "forbidden": ["unbounded source paste", "stale generated sidecar as authority"],
+        "drilldown_to": "evidence"
+      },
+      "evidence": {
+        "purpose": "Source-authority read for verification or mutation.",
+        "minimum_payload": ["authored markdown path", "line or section anchors", "builder validation report", "freshness fingerprint", "code loci commands"],
+        "forbidden": ["manual edits to generated sidecars"],
+        "drilldown_to": "codex/doctrine/paper_modules/<slug>.md"
+      }
+    },
+    "telescope_facets": [
+      {"facet": "module", "rule": "The module row telescopes from TLDR to full authored markdown."},
+      {"facet": "section", "rule": "Each required section can emit its own flag/card/context packet before full section text."},
+      {"facet": "table_row", "rule": "Ontology, deliverables, planned surfaces, and fact assertion tables can be selected as row-level shards."},
+      {"facet": "code_loci", "rule": "Code loci telescope by path/symbol id, grouped purpose, freshness, and evidence command."},
+      {"facet": "gap", "rule": "Will-voice gap material preserves raw-seed anchors and expands only when the task needs source voice."},
+      {"facet": "dependency_edge", "rule": "Depends on edges carry upstream TLDR at low bands and typed dependency context at context/evidence bands."}
+    ],
+    "navigable_scopes": [
+      {"scope": "module", "rule": "The authored paper module as one selectable subsystem row."},
+      {"scope": "section", "rule": "A required markdown section such as Intent, Gap, Code loci, or Refresh contract."},
+      {"scope": "table_row", "rule": "A row inside ontology, deliverables, planned surfaces, or fact assertion tables."},
+      {"scope": "code_locus", "rule": "A cited implementation/test path or symbol reference."},
+      {"scope": "dependency_edge", "rule": "A typed relationship from this module to another module or substrate plane."}
+    ],
+    "navigable_facets": [
+      {"facet": "tldr", "rule": "Module essence and selection signal."},
+      {"facet": "intent", "rule": "Why the module exists and when to open it."},
+      {"facet": "current_state", "rule": "What is built, stale, or only planned."},
+      {"facet": "gap", "rule": "What Will/operator pressure says is missing."},
+      {"facet": "code_loci", "rule": "Implementation/test evidence pointers."},
+      {"facet": "dependency_neighborhood", "rule": "Inbound/outbound paper-module and substrate edges."}
+    ],
+    "population_policy": {
+      "band:atom": {"populated_by": "compiled_with_fallback", "source": "authored Compression atom frontmatter when present; first sentence of TLDR (compressed view) otherwise, with per-field source markers", "freshness": "paper-module index source_fingerprint plus per-row compression_status"},
+      "band:tldr": {"populated_by": "authored", "source": "paper module TLDR section/frontmatter", "freshness": "authored markdown mtime plus builder source fingerprint"},
+      "band:card": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_card_row", "source": "codex/doctrine/paper_modules/_index.json plus authored markdown sections", "freshness": "paper-module index source_fingerprint"},
+      "band:context": {"populated_by": "unpopulated", "reason": "No generic paper-module context-band telescope adapter exists yet."},
+      "band:evidence": {"populated_by": "live_computed", "emitter": "./repo-python kernel.py --paper-module <slug>", "source": "authored paper-module markdown and generated validation report"},
+      "view:dynamic_paper_lattice_exemplar": {
+        "populated_by": "live_computed",
+        "emitter": "system/lib/dynamic_paper_lattice.py::build_dynamic_paper_lattice",
+        "source": "authored paper-module markdown plus std_navigation_contract and this navigation_contract",
+        "freshness": "source_fingerprint",
+        "scope": "first exemplar is navigation_hologram_theory; this does not claim a generic context-band adapter for every paper module"
+      },
+      "facet:gap": {"populated_by": "authored", "source": "## Gap / What Will is signaling"},
+      "facet:dependency_neighborhood": {"populated_by": "compiled", "source": "frontmatter depends_on plus paper-module index depended_on_by"}
+    },
+    "edge_compression_policy": {
+      "edge_row_shape": "std_navigation_contract.edge_row_shape",
+      "bidirectional_gloss_required": true,
+      "first_order_band": "card_or_context",
+      "second_order_band": "tldr",
+      "beyond_second_order": "omit_with_count_reason_and_drilldown"
+    },
+    "creator_skill_id": "doctrine.paper_module_authoring",
+    "navigator_skill_id": "doctrine.paper_module_lookup",
+    "source_authority": {
+      "authored": "codex/doctrine/paper_modules/*.md",
+      "generated": ["codex/doctrine/paper_modules/_index.json", "codex/doctrine/paper_modules/_validation_report.json"],
+      "validator": "tools/meta/factory/build_paper_module_index.py"
+    },
+    "currentness_policy": {
+      "mode": "source_manifest_and_validation_report",
+      "rule": "Generated sidecars carry source manifests/fingerprints; authored markdown remains source authority and stale projections are a trust downgrade."
+    },
+    "dependency_neighborhood_policy": {
+      "mode": "depends_on_dag",
+      "rule": "Low bands expose dependency counts and top edges; context/evidence bands expose first-order module dependencies and omission receipts."
+    },
+    "validation_probe": [
+      "required frontmatter and required sections pass builder validation",
+      "TLDR respects compression_formula",
+      "code loci resolve or planned surfaces are explicitly marked NOT YET BUILT",
+      "generated sidecars are in sync with authored markdown",
+      "dynamic paper lattice exemplar emits source-anchored rows, governing principle inserts, typed edges, omission receipts, and budgeted band packets from authored markdown"
+    ]
+  },
+  "status_enum": {
+    "_single_source_of_truth": "These definitions are authoritative. README tables, coverage reports, kernel lookup, and runtime/frontend badges cite this enum instead of redefining it.",
+    "up_to_date": "Module current. Code loci resolve, required sections/frontmatter are present, and density rules for its projection class pass. Unresolved planned surfaces are allowed only in Planned surfaces (NOT YET BUILT).",
+    "stale_code_changed": "Module exists but at least one Code loci entry no longer resolves, a declared dependency is broken, or the depends_on graph contains a cycle involving this module.",
+    "stale_current_state": "Loci resolve but Current state contradicts observable code. Trust structure, verify state before acting.",
+    "stale_gap_shift": "Module exists but Gap cites paragraphs Will has since superseded, or the named phase/cadence boundary has passed. Refresh the intent layer.",
+    "stale_schema_v0": "Factually current but missing the current required frontmatter or section contract.",
+    "stale_density": "Structurally valid but too loose: Ontology is prose-only, TLDR breaks its bracket, Deliverables underspecify the action surface, or Code loci grouping breaks the active projection-class policy.",
+    "never_authored": "Known subsystem with no module yet. Represented in paper_module_candidates.json until authored.",
+    "deprecated": "Subsystem no longer exists in the repo. Module is kept for provenance or explicitly retired."
+  },
+  "action_semantics": {
+    "trust": "Act from the module. Spot-check one locus only if the task is risky.",
+    "refresh": "Use the existing module as the prior snapshot and rewrite only the sections or grouped loci the validator flagged.",
+    "split": "The current boundary is too broad for its projection class. Do not deepen the same module first; author or queue child modules.",
+    "verify_current_state": "Structure is useful, but current-state claims need confirmation before downstream use.",
+    "first_author": "No module exists yet; author from paper_module_candidates.json or bounded local discovery.",
+    "deprecate": "Surface is no longer live; move it to provenance or remove it by explicit decision."
+  },
+  "action_cause_enum": {
+    "trusted": "No machine-visible structural cause for intervention remains.",
+    "boundary_too_wide": "The current module boundary exceeds the active projection-class bar and should split before more depth lands in-place.",
+    "density_drift": "The module exists but compression, ontology density, or deliverable specificity is below bar.",
+    "schema_drift": "Frontmatter or required sections no longer satisfy the current paper-module standard.",
+    "dependency_broken": "A Depends on edge is missing, cyclic, or otherwise structurally broken.",
+    "code_loci_broken": "The cited code loci no longer resolve under the working tree.",
+    "freshness_drift": "Current-state or gap claims need refresh even though the structural shape is still useful.",
+    "candidate_gap": "A typed backlog item exists but no authored module exists yet.",
+    "deprecated_surface": "The subsystem is no longer live and should move to provenance or be explicitly retired."
+  },
+  "boundary_pressure_levels": {
+    "normal": "Code loci grouping fits comfortably under the class cap.",
+    "elevated": "Code loci grouping is near the class cap and should be watched on next touch.",
+    "high": "Code loci grouping is above cap but not yet designated as a split queue item because the class or module still needs human judgment.",
+    "split_required": "Boundary failure is clear enough that coverage should queue a split before more depth lands in the module."
+  },
+  "density_rules": {
+    "ontology_table_required": "Ontology / Types & Invariants must contain at least one markdown table. Prose-only ontology is stale_density.",
+    "deliverables_minimum_rows": 3,
+    "no_architectural_proposals": "Paper modules are projection, not design. Proposal or redesign sections are warnings.",
+    "no_padding": "Tell the reader what they would miss by opening only one file, not what they would trivially see by opening it.",
+    "code_loci_cap_from_projection_class": "The active code_loci cap comes from projection_classes.<projection_class>.code_loci_cap, not from a global constant.",
+    "planned_surfaces_not_code_loci": "A path can be valid as an intended repo location without being valid as a shipped locus. Use the exact optional section `## Planned surfaces (NOT YET BUILT)` for those rows; never put them in Code loci.",
+    "volatile_facts_are_audit_liabilities": "Any count, queue size, active phase, route status, or generated projection value that can be derived from disk is not stable prose truth. Put it in a fact assertion table with columns Fact id, Expected, Mode, As of, Tolerance, Why; the builder audits it against std_derived_fact.json."
+  },
+  "dependency_rules": {
+    "depends_on_injects_tldr_only": "When a module declares Depends on: upstream_slug, the authoring skill injects the upstream TLDR only.",
+    "leaves_first": "If any declared upstream module is missing or stale, author or refresh it before the downstream module.",
+    "staleness_propagates": "When an upstream flips to stale_code_changed, every module that Depends on it inherits at least stale_current_state in coverage planning.",
+    "cycles_forbidden": "The Depends on graph is a DAG. The builder flags cycles and surfaces them in both machine sidecars.",
+    "unknown_slug_is_broken_edge": "Depends on: a slug that does not exist on disk is a broken edge.",
+    "root_requires_dependencies": "Projection class root must declare its upstream ontology via Depends on: unless the repo has only one paper module."
+  },
+  "formal_evidence_cells": {
+    "_purpose": "Prevent paper-module formal-proof / Lean / theorem language from outrunning evidence-cell anchors. Authority source: codex/doctrine/paper_modules/mathematics_mission_pipeline.md §Formal Evidence Cells (2026-05-17 addendum), which encodes the three-oracles-no-collapse grammar in canonical vocabulary; the cross-domain symmetric reflex is the dissemination microcosm website-card axiom (commit b504db5a3).",
+    "scope": "Authored paper-module markdown only. Sidecar JSON, generated docs, and runtime artifacts are out of scope here; they have their own claim-boundary contracts.",
+    "signal_classes": {
+      "high_signal": [
+        "formal proof",
+        "formally proved",
+        "formally-proved",
+        "lean-proved",
+        "lean-checked",
+        "no-sorry",
+        "#print axioms",
+        "sorryax"
+      ],
+      "medium_signal": [
+        "mathlib",
+        "theorem proved",
+        "theorem-proved"
+      ],
+      "_intentionally_excluded": [
+        "bare 'Lean' (appears in section headings, navigation prose, categorical references)",
+        "bare 'theorem' (used in metaphor and ontology rows)",
+        "bare 'proof' (used in 'proof surface', 'proof of concept', dissemination metaphor)"
+      ]
+    },
+    "required_anchor_classes": {
+      "claim_boundary": [
+        "claim_boundary"
+      ],
+      "receipt": [
+        "receipt_ref",
+        "receipt_refs",
+        "receipt.json"
+      ],
+      "work_item": [
+        "work_item_id",
+        "workitem anchor",
+        "cap_quick_",
+        "cap_dissemination_",
+        "cap_quick_mathematics_"
+      ]
+    },
+    "classifications": {
+      "formal_evidence_cell_present": {
+        "trigger": "Signal vocabulary appears AND all three anchor classes are present in the module body.",
+        "severity": "info",
+        "meaning": "Compliant: formal-proof language has explicit boundary, receipt, and WorkItem anchors."
+      },
+      "formal_evidence_cell_missing_anchor": {
+        "trigger": "Signal vocabulary appears but at least one (not all) anchor class is missing.",
+        "severity": "warning",
+        "meaning": "Partial compliance: author either added missing anchor or explicitly downgraded the language."
+      },
+      "formal_evidence_overclaim": {
+        "trigger": "High-signal vocabulary appears AND all three anchor classes are absent from the module body.",
+        "severity_current_slice": "error",
+        "severity_target": "error",
+        "promotion_ratched_at": "2026-05-17 (after the surfaced corpus drift — formal_maths_direction_atlas, generalized_problem_solving_testbed, lab_oracle_evolve_pipeline — was remediated via posture paragraphs and the rebuilt report showed zero overclaim findings).",
+        "meaning": "Overclaim: proof-strength language with no evidence-cell anchors. Per mathematics_mission_pipeline::Formal Evidence Cells, downgrade to narrative-only or add claim_boundary + receipt_ref + work_item_id anchors."
+      }
+    },
+    "downgrade_rule": "Formal-proof language without claim_boundary + receipt + work_item anchors must downgrade to narrative-only or be omitted from proof-strength citation. Adding an explicit posture paragraph that names the categorical/narrative stance and cites mathematics_mission_pipeline as the evidence authority is the canonical light-touch fix when a module mentions formal-proof terms categorically rather than as a proof claim.",
+    "preferred_anchor_form_cell_id_citation": "When a generated formal-evidence cell manifest exists (e.g. state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json), paper modules SHOULD cite the cell by its dotted `cell_id` (e.g. `erdos257.issue217.period_noncollapse.selector_interface_kernel`) instead of hand-composing claim/boundary/receipt/work_item prose. Cell-id citation is the preferred anchor form because the cell itself already carries claim_boundary, receipt_refs, work_item_id, oracle_split, and non_claims; citing it gives the paper module all three required anchor classes via one symbolic reference. This is recommended, not yet required, so existing posture paragraphs and inline anchor prose remain compliant.",
+    "registry_source": "state/formal_math_research_operations/formal_evidence_cell_registry.json",
+    "registry_authority": "The formal-evidence cell registry (state/formal_math_research_operations/formal_evidence_cell_registry.json, builder tools/meta/factory/build_formal_math_evidence_cell_registry.py) is the operational inventory authority for formal-evidence cells: which manifests are registered, which cell ids exist, which cells may satisfy paper-module formal-evidence anchors. This standard remains the constitutional contract authority (signal classes, anchor classes, classifications, downgrade rule, citation semantics). The runtime validator MUST prefer the registry; the known_manifests list below is a bootstrap fallback used only when the registry is absent.",
+    "known_manifests": [
+      "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json"
+    ],
+    "known_manifests_role": "bootstrap_fallback_used_only_when_registry_absent",
+    "cell_id_resolver_contract": "system/lib/paper_modules.py::audit_formal_evidence_cells loads every manifest in known_manifests at validation time and builds a cell_id -> cell map. A cited cell_id is a literal substring match against that map. Resolved cells supply their anchor classes (claim_boundary, receipt, work_item) to the citing module's anchor presence count, so a module that cites a complete cell_id does not need to repeat boundary/receipt/work_item prose verbatim. Dotted strings matching the pilot cell_id pattern (erdos\\d+\\.[\\w.]+) that do not resolve to a known manifest emit formal_evidence_cell_id_unknown (warning). Resolved cells with status=missing_source emit formal_evidence_cell_id_missing_source (error) and do NOT supply anchors. Resolved cells missing one or more required-anchor fields emit formal_evidence_cell_id_incomplete (warning) and supply only the anchor fields they do carry.",
+    "cell_id_classifications": {
+      "formal_evidence_cell_id_present": "info",
+      "formal_evidence_cell_id_unknown": "warning",
+      "formal_evidence_cell_id_incomplete": "warning",
+      "formal_evidence_cell_id_missing_source": "error"
+    },
+    "runtime_owner": "system/lib/paper_modules.py::audit_formal_evidence_cells; module-level constants must stay aligned with this section. A focused test (system/server/tests/test_paper_module_formal_evidence_cells.py::test_runtime_vocab_matches_standard) asserts that alignment.",
+    "workitem_anchor": "cap_quick_paper_module_formal_evidence_cells_contr_07bbd9411ed2",
+    "parent_workitem": "cap_quick_mathematics_oracle_prover_evolve_lane_er_8264150e650a"
+  },
+  "consumer_absorption_brackets": {
+    "_purpose": "Each consumer has a different budget. One markdown substrate should project cleanly into each without restating rules elsewhere.",
+    "brackets": [
+      {
+        "consumer": "bridge_worker_inject",
+        "budget_kb": "50-100",
+        "projection": "Relevant paper-module TLDRs + shared principles + routing slice",
+        "rationale": "Bridge has no filesystem access."
+      },
+      {
+        "consumer": "claude_live_block",
+        "budget_kb": "<=2",
+        "projection": "Actor context + bootstrap sequence + active phase snapshot",
+        "rationale": "Projected adapter blocks stay budget-bound."
+      },
+      {
+        "consumer": "codex_live_block",
+        "budget_kb": "<=2",
+        "projection": "Same shape as claude_live_block",
+        "rationale": "Codex adapter uses the same projection discipline."
+      },
+      {
+        "consumer": "kernel_paper_module_lookup",
+        "budget_kb": "JSON object",
+        "projection": "Matched module, trust posture, dependency context, previews, suggested next commands",
+        "rationale": "Kernel lookup should not require a human to infer policy from prose."
+      },
+      {
+        "consumer": "station_homepage",
+        "budget_kb": "human-browsable",
+        "projection": "TLDR cards + authority chips + DAG view",
+        "rationale": "Human-facing browse surface over the same ontology."
+      }
+    ]
+  },
+  "bootstrap_projection_contract": {
+    "_purpose": "Paper modules are the subsystem-ontology layer of the plane. A cold agent that cannot see them from the primary bootstrap surfaces (CLAUDE.md, CODEX.md, AGENTS.md) will re-derive subsystems that already have cold-readable modules. This contract defines how every paper module's existence is surfaced into those bootstrap surfaces deterministically via the agent-bootstrap builder, compressed per consumer_absorption_brackets, without bloating either file. Authority source: par_phase_05_4_agentic_navigation_and_subsystem_convergence_raw_seed__source_7_2026_04_14_infrastructure_integration_note_101 (line 3053: 'make sure paper modules are discoverable in claude.md and codex.md deterministically without bloating via builder or something dynamic via compression in standards'). Ratification path: raw-seed paragraph + distilled shard + apply-routing lane mints the principle; this section operationalizes the principle for paper modules specifically.",
+    "global_principle_statement": "Plane artifacts that carry cold-readable subsystem ontology (paper modules today; skills, standards, and annex-local translations on the same footing when their equivalent standards are extended) MUST project into the primary bootstrap surfaces via the agent-bootstrap builder, compressed per their class-level consumer_absorption_brackets. Invisible plane artifacts are broken by construction (pri_049 'controlled routing vocabulary'; pri_111 'paper modules preempt re-derivation').",
+    "authority_source": "system/lib/paper_modules.py computes the authored-truth runtime; build_paper_module_index.py writes the generated sidecars. Bootstrap projection reads the shared runtime so discoverability stays freshness-aware even when checked-in sidecars are stale.",
+    "generated_bootstrap_host_policy": "AGENTS.md, CLAUDE.md, CODEX.md, codex/doctrine/agent_bootstrap_live.json, codex/doctrine/agent_bootstrap_injection_strip.json, codex/doctrine/routing_hologram.json, codex/doctrine/skills/skill_map.md, codex/standards/std_python_scope_index.json, tools/meta/bridge/claude_active_session.json, tools/meta/apply/observe_history/, and the orchestration snapshot/brief/event files under tools/meta/control are partially or wholly builder/runtime-managed bootstrap surfaces. Their managed-region, sidecar, registry, session, observe-history, or control-plane mtime churn must not by itself make paper-module sidecars stale; code_loci_freshness may count them as resolved generated surfaces but should ignore them for source-newer-than-module decisions. For non-generated code loci, checked-in sidecar equality ignores mtime-derived freshness movement; the visible packet still reports mtimes and source_changed/source_current state, but the hard drift fingerprint is based on resolved, checked, and ignored code-loci counts.",
+    "projection_targets": [
+      {
+        "surface": "AGENTS.md",
+        "managed_region": "<!-- BEGIN paper_module_index --> ... <!-- END paper_module_index -->",
+        "position_hint": "After <!-- END agent_bootstrap_live --> and before the skill_catalog block, so a cold agent hits paper modules on the same read pass as the bootstrap."
+      },
+      {
+        "surface": "CLAUDE.md",
+        "managed_region": "<!-- BEGIN paper_module_index --> ... <!-- END paper_module_index -->",
+        "position_hint": "Immediately after <!-- END claude_adapter_live -->, within the live-context block's read pass."
+      },
+      {
+        "surface": "CODEX.md",
+        "managed_region": "<!-- BEGIN paper_module_index --> ... <!-- END paper_module_index -->",
+        "position_hint": "Immediately after the Codex adapter live block, mirroring CLAUDE.md."
+      }
+    ],
+    "projection_shape": {
+      "format": "Compact markdown table with columns: slug | open this when | status. This block is a discoverability slice, not a second full index. Rows draw from the shared runtime module cards (`previews.tldr` or title fallback), compressed into short one-line 'open this when' excerpts.",
+      "row_ordering": "Pinned rows first in the declared pinned_slugs order, then the remaining rows by fan_in_inbound descending, authored ascending, and slug alphabetical.",
+      "pinned_slugs": [
+        "raw_seed_substrate",
+        "raw_seed_metabolism",
+        "system_constitution_seed"
+      ],
+      "tldr_excerpt_budget_chars": 96,
+      "max_rows": 5,
+      "total_region_budget_chars": 2400,
+      "overflow_policy": "The builder emits the pinned rows plus the highest-fan-in tail that fits inside max_rows and total_region_budget_chars, then appends a single '... +N more \u2014 see README/_index' row. README.md and _index.json remain the full inventory; the bootstrap block is only the deterministic entry slice."
+    },
+    "determinism_rules": [
+      "The projection is a pure function of the shared paper-module runtime plus the managed-region marker positions in each surface file. It must surface freshness state directly instead of silently trusting stale sidecars.",
+      "Builder writes all three surfaces atomically in one run; partial writes are not permitted.",
+      "If the authored source fingerprint moves while a write-mode refresh is still stale, the builder stops with paper_module_index_source_unstable instead of retrying over a moving corpus. --allow-unstable-source is diagnostic-only.",
+      "Re-running the builder on an unchanged index is a no-op at byte level (timestamp is embedded in the index, not re-read).",
+      "Adding a new paper module requires: author the .md file \u2192 run build_paper_module_index.py \u2192 run build_agent_bootstrap_projection.py. The second step refreshes _index.json; the third step projects the compact discoverability slice into every managed region. No surface file needs to be hand-edited for a new module to become discoverable.",
+      "Pinned rows must survive truncation when their modules exist on disk."
+    ],
+    "composes_with_consumer_absorption_brackets": {
+      "claude_live_block": "The paper_module_index block is a compact additive slice, not a full inventory paste. The builder keeps the inner region within projection_shape.total_region_budget_chars so the adapter read pass stays small.",
+      "codex_live_block": "Same compact-slice rule as claude_live_block.",
+      "bridge_worker_inject": "Bridge-worker inject reads the same _index.json directly and is not coupled to the bootstrap block's pinned-first ordering. The bootstrap slice is agent-facing; bridge materialization remains index-driven.",
+      "station_homepage": "The frontend /station/papers lens (target, not yet built) renders the full human-browsable index. The bootstrap projection is its compressed twin for agents; they must not diverge. A mismatch between the projected table and the Station lens is a builder bug."
+    },
+    "validator_rules": [
+      "Each projection target includes every slug listed in projection_shape.pinned_slugs when the module exists on disk.",
+      "No projection target carries a row that does not correspond to an existing paper-module file.",
+      "Each projection target includes at most projection_shape.max_rows data rows plus at most one overflow row.",
+      "Each managed-region's content is byte-identical across the three target surfaces after a single builder run (modulo the surface-specific position hints for the marker pair itself).",
+      "Overflow truncation, when it happens, surfaces the explicit '... +N more' row plus the README/_index pointer; silent drop is a bug."
+    ],
+    "ratification_posture_v1": "This contract is the operational twin of a principle Will articulated at par_phase_05_4_agentic_navigation_and_subsystem_convergence_raw_seed__source_7_2026_04_14_infrastructure_integration_note_101 and (in related form) par_phase_05_4_agentic_navigation_and_subsystem_convergence_raw_seed__source_7_2026_04_14_infrastructure_integration_note_091. Formal principle minting routes through the apply-routing lane; until the principle node ships, this contract is the standard-level authority citable in paper-module authoring and in CLAUDE.md / CODEX.md / AGENTS.md live-block regeneration."
+  },
+  "rendering_contract": {
+    "card_parse_test": "A naive markdown parser using the required section headings must be able to produce a TLDR card, ontology table, deliverables list, authority chips, and drill-to-code links without rewriting the authored module.",
+    "frontend_target": {
+      "backend_helper": "system/server/world_model.py (future): reads _index.json and module markdown to serve /api/papers",
+      "api_endpoints": {
+        "list": "GET /api/papers -> list of cards",
+        "detail": "GET /api/papers/{slug} -> { markdown, parsed_sections }"
+      },
+      "station_route": "/station/papers",
+      "dag_renderer": "system/server/ui/src/components/GraphViewer.tsx",
+      "freshness_badge": "system/server/ui/src/components/FreshnessBadge.tsx",
+      "drill_to_code": "Code loci rows clickable to file:line"
+    }
+  },
+  "machine_output_contract": {
+    "candidates_schema": {
+      "path": "codex/doctrine/paper_modules/paper_module_candidates.json",
+      "top_level_fields": [
+        "schema_version",
+        "purpose",
+        "candidates"
+      ],
+      "candidate_fields": [
+        "slug",
+        "projection_class",
+        "status",
+        "rationale",
+        "suggested_file_set",
+        "intent_sources"
+      ]
+    },
+    "index_schema": {
+      "path": "codex/doctrine/paper_modules/_index.json",
+      "top_level_fields": [
+        "schema_version",
+        "generated_at",
+        "standard",
+        "source_manifest",
+        "freshness",
+        "module_count",
+        "candidate_count",
+        "summary",
+        "status_counts",
+        "graph",
+        "modules"
+      ],
+      "freshness_fields": [
+        "generated_at",
+        "generated_at_semantics",
+        "source_fingerprint",
+        "authored_module_count",
+        "generated_module_count",
+        "sync_status",
+        "missing_from_index",
+        "missing_from_report"
+      ],
+      "summary_fields": [
+        "module_count",
+        "candidate_count",
+        "edge_count",
+        "root_count",
+        "leaf_count",
+        "projection_class_counts",
+        "status_counts",
+        "action_cause_counts",
+        "code_loci_freshness_counts"
+      ],
+      "graph_fields": [
+        "cycles",
+        "roots",
+        "leaves",
+        "edge_count",
+        "adjacency_outbound",
+        "adjacency_inbound"
+      ],
+      "module_fields": [
+        "slug",
+        "title",
+        "file",
+        "projection_class",
+        "authored",
+        "depends_on",
+        "depended_on_by",
+        "fan_in_inbound",
+        "fan_out_outbound",
+        "hierarchy_context",
+        "governing_principles",
+        "governing_concepts",
+        "governing_mechanisms",
+        "search_tokens",
+        "boundary_pressure",
+        "boundary_evidence",
+        "status",
+        "recommended_action",
+        "action_reason",
+        "action_cause",
+        "tldr_sentence_count_estimate",
+        "tldr_budget_bracket",
+        "documentation_quality",
+        "code_loci_freshness",
+        "planned_surfaces",
+        "fact_audit",
+        "previews",
+        "compression"
+      ]
+    },
+    "validation_report_schema": {
+      "path": "codex/doctrine/paper_modules/_validation_report.json",
+      "top_level_fields": [
+        "schema_version",
+        "generated_at",
+        "source_manifest",
+        "freshness",
+        "summary",
+        "rule_counts",
+        "drift_findings",
+        "graph",
+        "refresh_queue",
+        "split_queue",
+        "first_author_queue",
+        "deprecate_queue",
+        "modules"
+      ],
+      "summary_fields": [
+        "module_count",
+        "candidate_count",
+        "projection_class_counts",
+        "status_counts",
+        "action_cause_counts",
+        "code_loci_freshness_counts",
+        "severity_counts",
+        "rule_counts",
+        "queue_counts",
+        "fact_audit"
+      ],
+      "module_fields": [
+        "slug",
+        "file",
+        "projection_class",
+        "status",
+        "recommended_action",
+        "action_reason",
+        "action_cause",
+        "boundary_pressure",
+        "boundary_evidence",
+        "documentation_quality",
+        "code_loci_freshness",
+        "planned_surfaces",
+        "fact_audit",
+        "hierarchy_context",
+        "findings"
+      ]
+    },
+    "route_coverage_schema": {
+      "path": "codex/doctrine/paper_modules/_route_coverage.json",
+      "purpose": "Generated route lens that groups authored paper modules by the metadata targets they route to, then surfaces saturated routes, route-health pressure, thin metadata, missing mechanisms, missing subdomain classification, split candidates with route pressure, and generated metadata suggestions. Suggestions and health rows are drift diagnostics and curation aids, not authored doctrine truth.",
+      "top_level_fields": [
+        "schema_version",
+        "generated_at",
+        "source_manifest",
+        "freshness",
+        "fingerprints",
+        "summary",
+        "routes",
+        "route_health",
+        "suggested_routes",
+        "paper_module_routes",
+        "attention",
+        "metabolism_worklist"
+      ],
+      "summary_fields": [
+        "module_count",
+        "routed_module_count",
+        "unrouted_module_count",
+        "route_target_count",
+        "route_edge_count",
+        "route_health_target_count",
+        "route_health_attention_count",
+        "semantic_route_edge_count",
+        "suggested_route_target_count",
+        "suggested_route_edge_count",
+        "route_axis_edge_counts",
+        "suggested_route_axis_edge_counts",
+        "route_target_counts_by_axis",
+        "suggestion_counts_by_field",
+        "suggestion_status_counts",
+        "suggestion_value_status_counts",
+        "suggestable_missing_mechanism_count",
+        "suggestable_unclassified_subdomain_count",
+        "saturation_threshold",
+        "route_metadata_integrity_average",
+        "route_population_score",
+        "low_integrity_module_count",
+        "missing_route_metadata_module_count",
+        "split_required_module_count",
+        "stale_density_module_count",
+        "next_population_target_count",
+        "attention_queue_counts"
+      ],
+      "fingerprint_fields": [
+        "route_graph_fingerprint",
+        "route_attention_queue_fingerprint",
+        "route_health_fingerprint",
+        "metabolism_worklist_fingerprint"
+      ],
+      "route_axes": [
+        "governing_principle",
+        "governing_concept",
+        "governing_mechanism",
+        "primary_subdomain",
+        "secondary_subdomain",
+        "dependency_upstream",
+        "dependency_downstream",
+        "projection_class",
+        "status",
+        "recommended_action",
+        "action_cause",
+        "boundary_pressure",
+        "suggested_primary_subdomain",
+        "suggested_secondary_subdomain",
+        "suggested_governing_mechanism"
+      ],
+      "attention_queues": [
+        "route_saturation_queue",
+        "thin_route_queue",
+        "missing_mechanism_queue",
+        "unclassified_subdomain_queue",
+        "split_queue_by_route_pressure",
+        "route_metadata_suggestion_queue",
+        "route_health_queue"
+      ],
+      "route_metadata_suggestion_lifecycle": {
+        "purpose": "Generated route metadata suggestions may carry non-default disposition fields when the builder can prove a suggested value is saturated, near saturation, or already captured as a residual. This does not hide the suggestion; it changes the suggested next move.",
+        "default_status": "generated_unreviewed",
+        "optional_suggestion_fields": [
+          "suggestion_status",
+          "recommended_action",
+          "value_dispositions",
+          "cap_refs"
+        ],
+        "suggestion_status_enum": [
+          "generated_unreviewed",
+          "requires_narrower_route",
+          "blocked_by_saturation",
+          "already_captured_residual",
+          "partially_reclassified"
+        ],
+        "value_status_enum": [
+          "safe_addition_candidate",
+          "requires_narrower_route",
+          "blocked_by_saturation",
+          "lexical_false_positive",
+          "semantic_but_no_metric_gain",
+          "needs_vocabulary_split",
+          "already_captured_residual"
+        ],
+        "worklist_propagation_fields": [
+          "route_metadata_suggestion_statuses",
+          "cap_refs"
+        ],
+        "selector_diagnostic_boundary": "Authored primary_subdomain, secondary_subdomains, and governing_mechanisms are selector truth; generated suggestions, value dispositions, CAP refs, and reasons are diagnostic annotations until validated and authored.",
+        "rule": "Do not author broad route metadata whose value_dispositions mark the suggested value blocked_by_saturation, requires_narrower_route, or already_captured_residual; split/narrow the route target or resolve the linked CAP first."
+      },
+      "route_label_lifecycle_policy": {
+        "purpose": "Govern saturated route labels as routing-health signals, not automatic doctrine truth.",
+        "route_label_cardinality": "Route axes are controlled labels; route targets may be numerous, but saturation is measured per route_key.",
+        "saturation_policy": "A semantic route_key whose module_count >= saturation_threshold enters route_saturation_queue unless the builder explicitly treats it as by_construction_saturated.",
+        "subdomain_semantics": "primary_subdomain is the artifact's single ownership home; secondary_subdomains are adjacent browse/routing tags and must not replace or duplicate the primary home. See std_doctrine_subdomains.",
+        "mechanism_broad_anchor_lifecycle": {
+          "broad_anchor_candidate": "A saturated governing_mechanism route is a broad-anchor candidate, not automatically wrong.",
+          "valid_outcomes": [
+            "retain_as_intentional_anchor with rationale",
+            "tighten_route_metadata using primary/secondary subdomains or narrower mechanisms",
+            "split_required when the route covers multiple separable code-grounded mechanisms or module boundaries"
+          ],
+          "split_rule": "Do not mint child mech_* ids unless code_loci already embody the narrower mechanism; otherwise create a paper-module split or WorkItem shaping gap."
+        }
+      },
+      "metabolism_worklist_fields": [
+        "schema_version",
+        "metric",
+        "separation_of_concerns",
+        "consumer_commands",
+        "next_population_targets"
+      ]
+    },
+    "code_family_coverage_schema": {
+      "schema_version": "paper_module_code_family_coverage_v0",
+      "path": "codex/doctrine/paper_modules/_route_coverage.json#/code_family_coverage",
+      "purpose": "Bidirectional half of paper-module coverage governance. The other queues (first_author_queue, refresh_queue, etc.) validate authored documentation against generated sidecars; this surface validates the inverse direction by enumerating Python implementation families under system/ and tools/ and classifying each against authored code_loci ownership. Closes the false-negative shape where clean freshness queues hide unmapped substrate. CAP: cap_quick_paper_module_coverage_false_negative_cle_87d3ece5d8b4 (event wie_20260517T061820Z_484f5726).",
+      "owner_module": "system/lib/paper_modules.py::build_code_family_coverage",
+      "core_invariant": "first_author_queue=0 does not imply full Python-substrate paper-module coverage unless unmapped_code_family_queue=0.",
+      "roots": ["system", "tools"],
+      "materiality_policy": {
+        "min_py_files": 2,
+        "min_py_loc": 300,
+        "large_threshold_files": 6,
+        "large_threshold_loc": 1500,
+        "excluded_segments": ["__pycache__", ".venv", "node_modules", "snapshots", "_archive", "archive", "vendor", "vendored", "generated", "build", "dist"],
+        "excluded_prefixes": [
+          "tools/meta/apply/observe_dumps/",
+          "tools/meta/apply/observe_history/",
+          "tools/meta/apply/observe_plans/",
+          "tools/meta/apply/phase_packets/",
+          "tools/meta/apply/snapshots/"
+        ],
+        "index_projection_classes": ["index", "root"]
+      },
+      "status_enum": [
+        "owned_by_module",
+        "owned_by_index",
+        "owned_by_refinement",
+        "candidate_gap",
+        "unknown_unmapped",
+        "intentional_exclusion"
+      ],
+      "status_semantics": {
+        "owned_by_module": "A subsystem-class module's code_loci file resolves inside the family. Action: trust.",
+        "owned_by_index": "An index- or root-class module's code_loci file resolves inside the family. Action: trust_index.",
+        "owned_by_refinement": "Only a strict parent directory is cited; the family itself is not directly mentioned. Not success — this is the refinement queue. Action: refine_module.",
+        "candidate_gap": "Material family with no owner; small enough that the materiality threshold is the deciding factor. Action: author_or_candidate.",
+        "unknown_unmapped": "Material AND large family with no owner. The coverage failure class. Close before candidate_gap unless operator intent says otherwise. Action: coverage_failure.",
+        "intentional_exclusion": "Below materiality threshold, OR fixture/test-support subtree (segment match on 'fixtures' or 'fixture') below the large threshold with no explicit subsystem/index owner. Explicit owner classification overrides fixture exclusion. Not a dumping ground. Action: record_exclusion."
+      },
+      "ownership_evidence_rule": "Ownership maps from code_loci_resolved_paths that resolve to FILES, not directories. Directory tokens (e.g. `tools/meta/`) are intentionally ignored to prevent depth-1 parent absorption of every sibling subtree — that overclaim is precisely the false-negative shape this surface exists to detect. See self-error CAP cap_quick_self_error_in_code_family_coverage_v0_di_24852d1df98f.",
+      "queue_names": [
+        "unmapped_code_family_queue",
+        "weakly_mapped_code_family_queue",
+        "large_family_needs_index_queue",
+        "intentional_exclusion_queue"
+      ],
+      "queue_semantics": {
+        "unmapped_code_family_queue": "Families whose ownership_status is candidate_gap or unknown_unmapped. Primary work queue.",
+        "weakly_mapped_code_family_queue": "Families whose ownership_status is owned_by_refinement. Refinement work, not success.",
+        "large_family_needs_index_queue": "owned_by_module families that are also large (>= large_threshold_files or large_threshold_loc) and have >= 3 owner modules; large-family attention list (NOT pure obligation queue). Each row carries large_family_attention_status: 'decomposition_root' when owner_modules >= CODE_FAMILY_DECOMPOSITION_ROOT_MIN_OWNERS=100 (Wave 13) — broad root with saturated parent ownership; do NOT author one root index; inspect child indexes/queues for the actionable signal (recommended_action: inspect_child_indexes_or_child_queues). 'already_indexed_but_still_saturated' when index_owner_modules is nonempty (Wave 10) — verify the existing index's sufficiency or refine its Code Loci (recommended_action: verify_index_sufficiency); do NOT author a duplicate index. 'bounded_subsystem_owned_no_index_needed' when subsystem_owner_modules is nonempty and no index owner exists (Wave 12) — exact file-level subsystem ownership is sufficient for navigation (recommended_action: verify_subsystem_boundary); do NOT add an index. 'needs_index' when none of the above applies — author a new index/root module (recommended_action: author_index). Classification ladder is decomposition_root -> already_indexed -> bounded_subsystem -> needs_index. Action-bearing count is status_counts.needs_index, NOT raw queue_count. Rows expose index_owner_modules and subsystem_owner_modules so agents route between refine/verify/author/decompose without re-grepping.",
+        "intentional_exclusion_queue": "Below-materiality families recorded for completeness; not actionable."
+      },
+      "weak_row_resolution_modes": {
+        "_doc": "Operator-named vocabulary (Wave 7) for the resolution paths agents should use when draining weakly_mapped_code_family_queue. The recommended_action field on a queue row is generic (e.g. refine_module); this vocabulary is the typed routing dictionary that turns a weak row into a specific source/policy mutation lane. Modes are exhaustive and ordered roughly cheap-to-expensive. Each mode is a routing label, not ownership evidence: ownership remains file-level Code Loci, explicit index/subsystem owner, or intentional_exclusion policy.",
+        "inverse_loci_refinement": "Semantic owner exists but the paper module lacks file-level Code Loci. Action: add file-level loci to the existing owner. Proof-of-pattern: Wave 5a workingness_instrument + tools/meta/workingness.",
+        "split_owner_refinement": "Family contains files that belong to multiple existing owners. Action: add exact per-file Code Loci to each correct owner.",
+        "new_subsystem_owner": "Material coherent runtime/control substrate lacks any existing owner module. Action: author a new subsystem-class paper module with file-level Code Loci. Proof-of-pattern: Wave 6 agent_harness_configuration_audit + tools/meta/audit; Wave 7 system_lib_compliance_adapters + system_lib_pipeline_stages.",
+        "new_index_owner": "Heterogeneous recurring family lacks a coherent control plane; subsystem authoring would over-claim coherence. Action: author a new index-class paper module that owns directory locality without imposing unified runtime contract. Proof-of-pattern: Wave 7 tools_meta_annex_index + tools/meta/annex.",
+        "intentional_exclusion": "Fixture / generated / test-support / below-materiality. Action: record_exclusion via classifier policy (segment match for 'fixtures'/'fixture', threshold for materiality). Proof-of-pattern: Wave 6 fixture-subtree exclusion policy + tools/meta/bridge/fixtures.",
+        "classifier_policy_fix": "Classifier rule was too broad or underspecified to handle a family class. Action: patch build_code_family_coverage rule + extend standard semantics + add regression test. Proof-of-pattern: Wave 6 is_fixture_subtree policy patch.",
+        "dirty_projection_blocked": "Source mutation validated by builder but sidecars cannot be safely committed because unrelated paper-module .md inputs are dirty from concurrent sessions. Action: scoped-commit source-authority only; capture validated-uncommitted receipt; sidecars regenerate cleanly when dirty inputs settle. Proof-of-pattern: existing cap_quick_paper_module_sidecar_dirty_coupling tracking (357e1925d cap)."
+      },
+      "top_level_fields": [
+        "schema_version",
+        "generated_at",
+        "roots",
+        "materiality_policy",
+        "fingerprint",
+        "summary",
+        "queues",
+        "families"
+      ],
+      "summary_fields": [
+        "family_count",
+        "material_family_count",
+        "large_family_count",
+        "status_counts",
+        "queue_counts"
+      ],
+      "family_fields": [
+        "family_path",
+        "py_file_count",
+        "py_loc",
+        "representative_files",
+        "owner_modules",
+        "parent_owner_modules",
+        "ownership_status",
+        "evidence",
+        "recommended_action",
+        "is_material",
+        "is_large"
+      ],
+      "consumer_surfaces": {
+        "kernel_coverage": "./repo-python kernel.py --paper-module-coverage",
+        "kernel_attention_queue_counts": "payload.route_coverage.summary.attention_queue_counts.{unmapped_code_family_queue,weakly_mapped_code_family_queue,large_family_needs_index_queue}",
+        "kernel_status_counts": "payload.route_coverage.summary.code_family_coverage_counts"
+      },
+      "deferred_decisions": [
+        "blocked_by_saturation status reserved until route-saturation policy is wired in",
+        "Strict-mode hard-fail on unknown_unmapped is deferred until queue behavior stabilizes",
+        "Materiality thresholds are advisory v0 numbers, not contractual minimums"
+      ]
+    }
+  },
+  "validation_rules": [
+    "Required frontmatter fields all present, including projection_class.",
+    "Projection class value is one of subsystem|index|snapshot|root.",
+    "If projection_class = snapshot, snapshot_cadence is required.",
+    "If projection_class = root, Depends on: must be non-empty unless the index contains only one module.",
+    "All 10 required sections are present as level-2 headings in canonical order.",
+    "Every Code loci path resolves under the working tree.",
+    "Optional Planned surfaces (NOT YET BUILT) paths are extracted into generated packets but are not required to resolve; if one resolves, the builder warns that it should be promoted.",
+    "Code loci grouped-row count respects the active projection-class cap.",
+    "Deliverables row count >= deliverables_minimum_rows.",
+    "Ontology section contains at least one markdown table.",
+    "TLDR sentence count fits the active bracket, and root modules hit their fixed budget exactly.",
+    "Every Depends on: slug points at an existing paper-module file.",
+    "Depends on: graph is acyclic.",
+    "Authored is a valid ISO date.",
+    "Governing principles and concepts reference ids that exist under codex/doctrine/principles/ or codex/doctrine/concepts/ (soft warning only).",
+    "Generated sidecars, route coverage, and README managed browse regions stay in sync with the current authored source manifest.",
+    "_route_coverage.json emits a metabolism_worklist with a route_population_score, bounded next_population_targets, and kernel commands that reopen existing consumers.",
+    "Fact assertion tables are parsed and audited against codex/hologram/facts/ledger.json; current/advisory mismatches warn by default and current mismatches error under --strict.",
+    "Unbound volatile numeric claims in Current state or Refresh contract produce warnings until moved into a fact assertion table or marked snapshot/historical.",
+    "Proposal-smell headings remain warnings, not hard failures."
+  ],
+  "anti_patterns": [
+    "Prose-only ontology: every section is paragraphs and the ontology table is missing.",
+    "TLDR as teaser rather than self-contained compression.",
+    "Inflated boundary hidden behind many Code loci rows instead of split or index classification.",
+    "Missing deliverables: the module says what something is but not what a cold agent can do with it.",
+    "Voice theft in Gap: Will is paraphrased into the author's voice without anchors.",
+    "Co-read-neighbour smuggling: every file opened during triangulation becomes a Code loci row.",
+    "Vaporware loci: not-yet-built paths are placed in Code loci to satisfy a narrative plan instead of in Planned surfaces (NOT YET BUILT).",
+    "Dangling Depends on slug.",
+    "Invisible module: authored but not discoverable through the machine index, lookup surface, or browse README.",
+    "Coverage source of truth in prose only instead of paper_module_candidates.json.",
+    "Population queue in prose only: overnight runners have to reread narrative sections instead of consuming _route_coverage.json.metabolism_worklist.",
+    "Volatile counts copied into prose without a derived fact id, which hides future drift until a human rereads the module."
+  ],
+  "composes_with": {
+    "std_skill": "codex/standards/std_skill.json",
+    "std_markdown_doc": "codex/standards/std_markdown_doc.json",
+    "std_concept": "codex/standards/principles/std_concept.json",
+    "std_mechanism": "codex/standards/principles/std_mechanism.json",
+    "std_standards_registry": "codex/standards/std_standards_registry.json"
+  },
+  "example": {
+    "slug": "bridge_runtime",
+    "title": "Bridge Runtime",
+    "file": "codex/doctrine/paper_modules/bridge_runtime.md",
+    "projection_class": "subsystem",
+    "authored": "2026-04-17",
+    "governing_principles": [
+      "pri_111",
+      "pri_049"
+    ],
+    "governing_concepts": [
+      "con_001",
+      "con_028"
+    ],
+    "depends_on": [],
+    "fan_in_inbound": 4,
+    "tldr_budget_bracket": 8,
+    "status": "up_to_date",
+    "recommended_action": "trust"
+  },
+  "maintenance_protocol": {
+    "change_doc": "Schema changes route through raw seed + apply lanes before bumping schema_version. A schema bump is a doctrine-grade event.",
+    "required_follow_up": [
+      "Refresh codex/doctrine/paper_modules/paper_module_candidates.json if the authoritative gap backlog changed.",
+      "Refresh codex/doctrine/paper_modules/README.md generated browse regions through the builder instead of hand-maintaining inventory prose.",
+      "Refresh codex/doctrine/skills/doctrine/paper_module_authoring.md, paper_module_lookup.md, and paper_module_coverage.md to cite the new machine surfaces.",
+      "Run tools/meta/factory/build_paper_module_index.py to regenerate codex/doctrine/paper_modules/_index.json, _validation_report.json, _doctrine_to_paper_modules.json, and _route_coverage.json.",
+      "Update kernel paper-module lookup and docs-route/bootstrap surfaces if entry semantics changed.",
+      "Update AGENTS.md / CODEX.md / CLAUDE.md paper-module guidance if the lookup reflex changed."
+    ],
+    "router_rules": [
+      "Adding a required frontmatter field or projection class rule triggers a schema_version bump.",
+      "Changing machine_output_contract fields requires regenerating sidecars in the same change.",
+      "README.md is never the authority for missing-module backlog; paper_module_candidates.json is."
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,35 @@ ACCEPTANCE_RECEIPT_REL = (
     "formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_evidence_cell_anchor_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_REF = (
+    "examples/formal_evidence_cell_anchor_resolver/"
+    "exported_evidence_cell_anchor_bundle/source_module_manifest.json"
+)
+SOURCE_REFS = [
+    "system/lib/paper_modules.py",
+    "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+    "system/server/tests/test_paper_module_formal_evidence_cells.py",
+    "state/formal_math_research_operations/formal_evidence_cell_registry.json",
+    (
+        "state/formal_math_research_operations/pilots/erdos257_issue217/"
+        "formal_evidence_cells.json"
+    ),
+    "codex/standards/std_paper_module.json",
+]
+SOURCE_MODULE_IMPORT_CLASSES = {
+    "copied_non_secret_macro_body",
+    "source_faithful_public_safe_macro_body",
+}
+SOURCE_MODULE_MATERIAL_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body",
+}
+SOURCE_MODULE_BODY_MATERIAL_STATUS = (
+    "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_"
+    "with_digest_provenance"
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -125,6 +155,9 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     bundle_manifest = input_dir / "bundle_manifest.json"
     if bundle_manifest.is_file():
         paths.append(bundle_manifest)
+    source_module_manifest = input_dir / "source_module_manifest.json"
+    if source_module_manifest.is_file():
+        paths.append(source_module_manifest)
     return paths
 
 
@@ -133,6 +166,36 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
     }
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    text = path.read_text(encoding="utf-8")
+    return len(text.splitlines())
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / "source_module_manifest.json"
+
+
+def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
+    raw = str(row.get("path") or "")
+    candidate = Path(raw)
+    return candidate if candidate.is_absolute() else input_dir / candidate
+
+
+def _source_module_scan_paths(input_dir: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    return [
+        _target_path_from_module(input_dir, row)
+        for row in _rows(manifest, "modules")
+    ]
 
 
 def _finding(
@@ -359,6 +422,254 @@ def validate_claim_boundary_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def validate_source_module_manifest(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    required: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {
+            "status": "blocked" if required else "not_present",
+            "source_modules_pass": not required,
+            "source_module_manifest_ref": "",
+            "module_count": 0,
+            "verified_module_count": 0,
+            "modules": [],
+            "findings": []
+            if not required
+            else [
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_MANIFEST_MISSING",
+                    "Exported evidence-cell anchor bundles must include a source_module_manifest.json for copied macro bodies.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=SOURCE_MODULE_MANIFEST_REF,
+                    subject_kind="source_module_manifest",
+                )
+            ],
+            "observed_negative_cases": {},
+            "source_open_body_imports": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    modules = _rows(manifest, "modules")
+    findings: list[dict[str, Any]] = []
+    if manifest.get("source_import_class") not in SOURCE_MODULE_IMPORT_CLASSES:
+        findings.append(
+            _finding(
+                "EVIDENCE_CELL_SOURCE_MODULE_IMPORT_CLASS_INVALID",
+                "Source-module manifest must classify evidence-cell anchor bodies as copied or source-faithful public-safe macro bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "EVIDENCE_CELL_SOURCE_MODULE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied macro source bodies must stay in source_modules, not receipt bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+    module_source_refs = {str(row.get("source_ref") or "") for row in modules}
+    missing_source_refs = sorted(set(SOURCE_REFS) - module_source_refs)
+    unknown_source_refs = sorted(module_source_refs - set(SOURCE_REFS))
+    if required and missing_source_refs:
+        findings.append(
+            _finding(
+                "EVIDENCE_CELL_SOURCE_MODULE_SOURCE_REF_MISSING",
+                "Source-module manifest must account for every declared formal-evidence macro owner ref.",
+                case_id="source_module_manifest_floor",
+                subject_id=",".join(missing_source_refs),
+                subject_kind="source_module_manifest",
+            )
+        )
+    for source_ref in unknown_source_refs:
+        findings.append(
+            _finding(
+                "EVIDENCE_CELL_SOURCE_MODULE_UNKNOWN_SOURCE_REF",
+                "Source-module rows must cite one of the declared formal-evidence macro owner refs.",
+                case_id="source_module_manifest_floor",
+                subject_id=source_ref or "source_module",
+                subject_kind="source_module",
+            )
+        )
+
+    module_results: list[dict[str, Any]] = []
+    verified_ids: list[str] = []
+    material_classes: set[str] = set()
+    for row in modules:
+        source_ref = str(row.get("source_ref") or "")
+        material_id = str(row.get("module_id") or source_ref or "source_module")
+        material_class = str(row.get("material_class") or "")
+        material_classes.add(material_class)
+        target = _target_path_from_module(input_dir, row)
+        exists = target.is_file()
+        expected_digest = str(
+            row.get("target_sha256") or row.get("sha256") or ""
+        ).removeprefix("sha256:")
+        actual_digest = _sha256_file(target) if exists else ""
+        expected_line_count = row.get("target_line_count", row.get("line_count"))
+        actual_line_count = _line_count(target) if exists else None
+        expected_byte_count = row.get("target_byte_count", row.get("byte_count"))
+        actual_byte_count = target.stat().st_size if exists else None
+        digest_matches = bool(expected_digest) and actual_digest == expected_digest
+        line_count_matches = (
+            isinstance(expected_line_count, int)
+            and actual_line_count == expected_line_count
+        )
+        byte_count_matches = (
+            isinstance(expected_byte_count, int)
+            and actual_byte_count == expected_byte_count
+        )
+        source_import_class = str(row.get("source_import_class") or "")
+        body_in_receipt = row.get("body_in_receipt") is True
+        required_anchors = _strings(row.get("required_anchors"))
+        target_text = target.read_text(encoding="utf-8") if exists else ""
+        missing_anchors = [
+            anchor for anchor in required_anchors if anchor not in target_text
+        ]
+
+        if source_import_class not in SOURCE_MODULE_IMPORT_CLASSES:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_ROW_IMPORT_CLASS_INVALID",
+                    "Each source-module row must use a public-safe macro body import class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in SOURCE_MODULE_MATERIAL_CLASSES:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_MATERIAL_CLASS_INVALID",
+                    "Each source-module row must declare a public macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if body_in_receipt:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_ROW_BODY_IN_RECEIPT_FORBIDDEN",
+                    "Copied source-module bodies must not be embedded in receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not exists:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_TARGET_MISSING",
+                    "Declared evidence-cell anchor source module target is missing.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_matches:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied evidence-cell anchor source module digest differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not line_count_matches or not byte_count_matches:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_SIZE_MISMATCH",
+                    "Copied evidence-cell anchor source module line or byte count differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif missing_anchors:
+            findings.append(
+                _finding(
+                    "EVIDENCE_CELL_SOURCE_MODULE_REQUIRED_ANCHOR_MISSING",
+                    "Copied evidence-cell anchor source module is missing required owner anchors.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        else:
+            verified_ids.append(material_id)
+
+        module_results.append(
+            {
+                "module_id": material_id,
+                "source_ref": source_ref,
+                "target_ref": _display(target, public_root=public_root),
+                "material_class": material_class,
+                "source_import_class": source_import_class,
+                "body_copied": exists,
+                "body_in_receipt": False,
+                "expected_digest": f"sha256:{expected_digest}" if expected_digest else "",
+                "actual_digest": f"sha256:{actual_digest}" if actual_digest else "",
+                "digest_matches": digest_matches,
+                "line_count": actual_line_count,
+                "line_count_matches": line_count_matches,
+                "byte_count": actual_byte_count,
+                "byte_count_matches": byte_count_matches,
+                "required_anchor_count": len(required_anchors),
+                "missing_required_anchors": missing_anchors,
+                "source_to_target_relation": str(
+                    row.get("source_to_target_relation") or ""
+                ),
+            }
+        )
+
+    status = PASS if not findings and len(verified_ids) == len(SOURCE_REFS) else "blocked"
+    source_open_body_imports = {
+        "status": status,
+        "body_material_status": SOURCE_MODULE_BODY_MATERIAL_STATUS,
+        "body_material_count": len(verified_ids),
+        "body_material_ids": sorted(verified_ids),
+        "material_classes": sorted(material_classes),
+        "aggregate_floor_ref": (
+            "examples/formal_evidence_cell_anchor_resolver/"
+            "exported_evidence_cell_anchor_bundle/"
+            "bundle_manifest.json::source_open_body_imports"
+        ),
+        "source_manifest_refs": [SOURCE_MODULE_MANIFEST_REF],
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "theorem_correctness_authority": False,
+            "release_authorized": False,
+        },
+    }
+    return {
+        "status": status,
+        "source_modules_pass": status == PASS,
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "manifest_id": manifest.get("manifest_id"),
+        "module_count": len(modules),
+        "verified_module_count": len(verified_ids),
+        "modules": module_results,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "source_open_body_imports": source_open_body_imports,
+    }
+
+
 def _inspect_claim_row(
     row: dict[str, Any],
     *,
@@ -555,10 +866,20 @@ def _build_result(
         forbidden_classes=policy,
         display_root=public_root,
     )
+    source_module_secret_scan = scan_paths(
+        _source_module_scan_paths(input_dir),
+        forbidden_classes=policy,
+        display_root=public_root,
+    )
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
     cells = validate_cell_registry(payloads["evidence_cell_registry"])
     boundary = validate_claim_boundary_policy(payloads["claim_boundary_policy"])
+    source_modules = validate_source_module_manifest(
+        input_dir,
+        public_root=public_root,
+        required=input_mode == "exported_evidence_cell_anchor_bundle",
+    )
     claims = validate_claims(
         payloads["paper_claims"],
         payloads["evidence_cell_registry"]
@@ -571,10 +892,10 @@ def _build_result(
         },
     )
 
-    observed = _merge_observed(projection, cells, boundary, claims)
+    observed = _merge_observed(projection, cells, boundary, source_modules, claims)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, cells, boundary, claims)
+    findings = _merge_findings(projection, cells, boundary, source_modules, claims)
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -584,6 +905,8 @@ def _build_result(
         and projection["status"] == PASS
         and cells["status"] == PASS
         and boundary["status"] == PASS
+        and source_modules["source_modules_pass"]
+        and source_module_secret_scan["blocking_hit_count"] == 0
         and claims["status"] == PASS
         else "blocked"
     )
@@ -615,6 +938,13 @@ def _build_result(
         "source_pattern_ids": projection["source_pattern_ids"],
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_runtime_refs": projection["public_runtime_refs"],
+        "source_module_secret_exclusion_scan": source_module_secret_scan,
+        "source_modules_pass": source_modules["source_modules_pass"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_count": source_modules["module_count"],
+        "verified_source_module_count": source_modules["verified_module_count"],
+        "source_modules": source_modules["modules"],
+        "source_open_body_imports": source_modules["source_open_body_imports"],
         "evidence_cell_count": cells["evidence_cell_count"],
         "source_anchor_count": cells["source_anchor_count"],
         "machine_anchor_count": cells["machine_anchor_count"],
@@ -644,6 +974,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "source_pattern_ids": result["source_pattern_ids"],
         "projection_receipt_refs": result["projection_receipt_refs"],
         "public_runtime_refs": result["public_runtime_refs"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "verified_source_module_count": result["verified_source_module_count"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "mechanics": [
             {
                 "mechanic_id": "claim_to_cell_resolution",
@@ -660,7 +995,13 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "count": result["boundary_rule_count"],
                 "authority": "claim_boundary_before_claim_strength",
             },
+            {
+                "mechanic_id": "source_module_body_import",
+                "count": result["verified_source_module_count"],
+                "authority": "copied_macro_body_digest_and_anchor_validation",
+            },
         ],
+        "source_modules": result["source_modules"],
         "evidence_cells": result["evidence_cells"],
         "claim_resolution_rows": result["claim_resolution_rows"],
         "proof_language_requires_machine_anchor": result[
@@ -672,6 +1013,9 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "real_runtime_receipt": result["status"] == PASS,
         "synthetic_receipt_standin_allowed": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "source_module_secret_exclusion_scan": result[
+            "source_module_secret_exclusion_scan"
+        ],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -724,6 +1068,11 @@ def _write_receipts(
         "source_digests": result["source_digests"],
         "projection_receipt_refs": result["projection_receipt_refs"],
         "public_runtime_refs": result["public_runtime_refs"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "verified_source_module_count": result["verified_source_module_count"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "claim_count": result["claim_count"],
         "resolved_cell_count": result["resolved_cell_count"],
         "source_anchor_count": result["source_anchor_count"],
@@ -734,6 +1083,9 @@ def _write_receipts(
         "real_runtime_receipt": result["status"] == PASS,
         "synthetic_receipt_standin_allowed": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
+        "source_module_secret_exclusion_scan": result[
+            "source_module_secret_exclusion_scan"
+        ],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

@@ -10,12 +10,24 @@
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
     "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
-    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json"
+    "microcosm-substrate/receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+    "system/lib/paper_modules.py",
+    "tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+    "system/server/tests/test_paper_module_formal_evidence_cells.py",
+    "state/formal_math_research_operations/formal_evidence_cell_registry.json",
+    "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json",
+    "codex/standards/std_paper_module.json"
   ],
   "source_digests": {
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "system/lib/paper_modules.py": "sha256:2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
+    "tools/meta/factory/build_formal_math_evidence_cell_registry.py": "sha256:f75f79b6aa56f79c5f0a2447ae73c4073fe3186aa52617cd1219eee11edc0f46",
+    "system/server/tests/test_paper_module_formal_evidence_cells.py": "sha256:e158309bae918bd8f91860dc222ea873ff4fbacb21b5466935f570ef905a9694",
+    "state/formal_math_research_operations/formal_evidence_cell_registry.json": "sha256:f34e20fd6f2a95af3c75dc58c6d12f705603f86f5ff0957907972b9ab068d0cb",
+    "state/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json": "sha256:8c42706f8dd58ab76a2f63d49ed18aae496b082362c22c725dce7b080b00f1fe",
+    "codex/standards/std_paper_module.json": "sha256:566de9b00c32e92adc2786a238056a50056b6003ee99c748704b617124414547"
   },
   "real_ring2_anchor_refs": [
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json::copied_material",
@@ -37,7 +49,11 @@
     "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/paper_claims.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_result.json",
     "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
-    "paper_modules/formal_evidence_cell_anchor_resolver.md"
+    "paper_modules/formal_evidence_cell_anchor_resolver.md",
+    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
+    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/system/lib/paper_modules.py",
+    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/tools/meta/factory/build_formal_math_evidence_cell_registry.py",
+    "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state/formal_math_research_operations/formal_evidence_cell_registry.json"
   ],
   "secret_exclusion_material": [
     {
@@ -45,6 +61,12 @@
       "exclusion_receipt_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/formal_math_verifier_trace_repair_loop_validation_receipt.json",
       "exclusion_class": "non_receipt_body_payload",
       "replacement": "public cell ids, source anchors, and machine-anchor refs carried by the runtime receipt"
+    },
+    {
+      "material_id": "credential_account_provider_payload_boundaries",
+      "exclusion_receipt_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json::omitted_material",
+      "exclusion_class": "source_open_macro_body_boundary",
+      "replacement": "copied public macro bodies with source refs, digests, and anchor validation; excluded classes remain named without payload bodies"
     }
   ]
 }
