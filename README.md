@@ -40,6 +40,16 @@ subprocess receipts, algorithmic projections, metadata-only rows, or explicit
 omissions. Most projects do not publish that boundary; Microcosm puts it on the
 first screen so strong claims stay narrow.
 
+Read the evidence class counters as a claim-boundary legend:
+
+| Evidence class | What the count means | What it does not mean |
+|---|---|---|
+| `verified_macro_body_import` | Non-secret macro source body copied into the public tree with a target, digest, validator, or receipt. | Private-root equivalence, release readiness, or source authority above the validator. |
+| `external_subprocess_witness` | A bounded local tool return code or subprocess receipt exists. | General proof authority or correctness outside the declared witness. |
+| `algorithmic_projection` | A deterministic computation over public/local rows produced the value. | Domain correctness or real-world validation. |
+| `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, release authority, or source mutation permission. |
+| `fixture_schema_replay` / `fixture_echo_smoke` | Fixture or smoke coverage protects a contract and its negative cases. | Product completeness, safety validation, or benchmark evidence. |
+
 ## Try It On Your Repo
 
 From `microcosm-substrate/`, install the console command:

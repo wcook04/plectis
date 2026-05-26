@@ -43,6 +43,19 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     assert "It is not a separate proof surface." in normalized_section
     assert "Evidence counts are accounting, not maturity scores." in section
     assert "Most projects do not publish that boundary" in section
+    assert "Read the evidence class counters as a claim-boundary legend:" in section
+    for evidence_class in (
+        "verified_macro_body_import",
+        "external_subprocess_witness",
+        "algorithmic_projection",
+        "semantic_validator",
+        "fixture_schema_replay",
+        "fixture_echo_smoke",
+    ):
+        assert evidence_class in section
+    assert "Private-root equivalence" in section
+    assert "General proof authority" in section
+    assert "Product completeness" in section
 
 
 def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
