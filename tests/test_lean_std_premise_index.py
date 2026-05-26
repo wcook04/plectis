@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.lean_std_premise_index import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_index_bundle,
 )
@@ -155,6 +157,52 @@ def test_lean_std_premise_index_bundle_validates_runtime_shape(
     assert result["closed_index_only"] is True
     assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
     assert result["body_copied_material_count"] == 1
+
+
+def test_lean_std_premise_index_bundle_card_is_compact_and_source_open(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    rc = main(
+        [
+            "run-index-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE),
+            "--out",
+            str(tmp_path / "runtime/organs/lean_std_premise_index"),
+            "--card",
+        ]
+    )
+    stdout = capsys.readouterr().out
+    card = json.loads(stdout)
+
+    assert rc == 0
+    assert len(stdout.encode("utf-8")) < 3600
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["organ_id"] == "lean_std_premise_index"
+    assert card["input_mode"] == "exported_lean_std_premise_index_bundle"
+    assert card["premise_count"] == 11
+    assert set(card["namespace_counts"]) == {"Bool", "Iff", "List", "Nat"}
+    assert sum(card["namespace_counts"].values()) == 11
+    assert card["source_summary"]["source_ref_count"] == 3
+    assert card["source_summary"]["body_copied_material_count"] == 1
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["body_text_exported"] is False
+    assert card["authority_ceiling"]["mathlib_allowed"] is False
+    assert card["authority_ceiling"]["proof_bodies_allowed"] is False
+    assert card["output_economy"]["stdout_mode"] == "card"
+    assert card["output_economy"]["full_payload_drilldown"] == "rerun without --card"
+    assert "copied_material" not in card
+    assert "premise_ids" not in card
+    assert "findings" not in card
+
+    receipt_path = (
+        tmp_path
+        / "runtime/organs/lean_std_premise_index/"
+        "exported_lean_std_premise_index_bundle_validation_result.json"
+    )
+    assert receipt_path.is_file()
 
 
 def test_lean_std_premise_index_receipts_are_public_relative_and_secret_excluded(

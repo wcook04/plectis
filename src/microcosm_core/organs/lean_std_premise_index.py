@@ -20,6 +20,7 @@ ORGAN_ID = "lean_std_premise_index"
 FIXTURE_ID = "first_wave.lean_std_premise_index"
 VALIDATOR_ID = "validator.microcosm.organs.lean_std_premise_index"
 
+CARD_SCHEMA_VERSION = "lean_std_premise_index_command_card_v1"
 RESULT_NAME = "lean_std_premise_index_result.json"
 BOARD_NAME = "lean_std_premise_index_board.json"
 VALIDATION_RECEIPT_NAME = "lean_std_premise_index_validation_receipt.json"
@@ -683,6 +684,108 @@ def _build_board(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _secret_scan_card(result: dict[str, Any]) -> dict[str, Any]:
+    scan = result.get("secret_exclusion_scan")
+    payload = scan if isinstance(scan, dict) else {}
+    return {
+        "status": payload.get("status"),
+        "scanned_path_count": payload.get("scanned_path_count"),
+        "hit_count": payload.get("hit_count"),
+        "blocking_hit_count": payload.get("blocking_hit_count"),
+        "body_material_status": payload.get("body_material_status"),
+        "body_text_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling")
+    payload = ceiling if isinstance(ceiling, dict) else {}
+    return {
+        "authority_ceiling": payload.get("authority_ceiling"),
+        "mathlib_allowed": payload.get("mathlib_allowed") is True,
+        "formal_proof_authority": payload.get("formal_proof_authority") is True,
+        "proof_bodies_allowed": payload.get("proof_bodies_allowed") is True,
+        "oracle_needed_ids_public": payload.get("oracle_needed_ids_public") is True,
+        "test_split_tuning_authorized": payload.get("test_split_tuning_authorized") is True,
+        "provider_calls_authorized": payload.get("provider_calls_authorized") is True,
+        "lean_lake_execution_authorized": payload.get("lean_lake_execution_authorized") is True,
+        "release_authorized": payload.get("release_authorized") is True,
+    }
+
+
+def _source_summary_card(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "protocol_id": result.get("protocol_id"),
+        "source_pattern_count": len(result.get("source_pattern_ids", [])),
+        "source_ref_count": len(result.get("source_refs", [])),
+        "projection_receipt_ref_count": len(result.get("projection_receipt_refs", [])),
+        "public_runtime_ref_count": len(result.get("public_runtime_refs", [])),
+        "copied_material_count": result.get("copied_material_count"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
+        "omitted_material_count": result.get("omitted_material_count"),
+        "body_material_status": result.get("body_material_status"),
+        "source_refs_exported": False,
+        "copied_material_rows_exported": False,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    input_mode = result.get("input_mode")
+    action = (
+        "run-index-bundle"
+        if input_mode == "exported_lean_std_premise_index_bundle"
+        else "run"
+    )
+    card_id = (
+        "lean_std_premise_index_bundle_card"
+        if action == "run-index-bundle"
+        else "lean_std_premise_index_fixture_card"
+    )
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": "compact_card_no_premise_ids_or_copied_material_rows",
+        "full_output_available": True,
+        "full_output_drilldown": f"rerun {action} without --card",
+        "receipt_paths": result.get("receipt_paths", []),
+        "premise_count": result.get("premise_count"),
+        "namespace_counts": result.get("namespace_counts", {}),
+        "split_counts": result.get("split_counts", {}),
+        "closed_index_only": result.get("closed_index_only"),
+        "negative_case_coverage": {
+            "expected_case_count": len(result.get("expected_negative_cases", {})),
+            "observed_case_count": len(result.get("observed_negative_cases", {})),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "source_summary": _source_summary_card(result),
+        "secret_exclusion_scan_summary": _secret_scan_card(result),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "no_export_guards": {
+            "mathlib_refs_exported": False,
+            "proof_bodies_exported": False,
+            "oracle_needed_ids_exported": False,
+            "provider_payloads_exported": False,
+            "private_source_bodies_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "source_refs",
+                "copied_material",
+                "findings",
+                "premise_ids",
+                "secret_exclusion_scan.scan_scope",
+            ],
+        },
+    }
+
+
 def _write_receipts(
     result: dict[str, Any],
     out_dir: Path,
@@ -786,18 +889,29 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     bundle_parser = sub.add_parser("run-index-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.command == "run":
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.lean_std_premise_index run "
-            f"--input {args.input} --out {args.out}"
+            f"--input {args.input} --out {args.out}{card_suffix}"
         )
         result = run(
             args.input,
@@ -806,12 +920,14 @@ def main(argv: list[str] | None = None) -> int:
             acceptance_out=args.acceptance_out,
         )
     else:
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.lean_std_premise_index "
-            f"run-index-bundle --input {args.input} --out {args.out}"
+            f"run-index-bundle --input {args.input} --out {args.out}{card_suffix}"
         )
         result = run_index_bundle(args.input, args.out, command=command)
-    print(json.dumps(result, indent=2, sort_keys=True))
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
