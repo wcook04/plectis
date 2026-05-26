@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 from pathlib import Path
 from typing import Any
 
@@ -361,6 +362,21 @@ FORBIDDEN_PHRASES_BY_DOC = {
         "public-safe route",
     ],
 }
+CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
+CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
+    "microcosm tour <project>",
+    "microcosm status --card <project>",
+    "microcosm workingness",
+    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    "microcosm serve <project>",
+    "microcosm compile <project>",
+]
+CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES = [
+    "local-first only",
+    "no provider calls, source mutation, release",
+    "hosting, proof-correctness, or credential-equivalent live-access authority",
+    "Receipts are evidence drilldowns after the behavior route is visible",
+]
 
 
 def _display(path: Path, *, public_root: Path) -> str:
@@ -439,6 +455,116 @@ def _string_list(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
     return [item for item in value if isinstance(item, str)]
+
+
+def _top_level_string_assignment(source: str, name: str) -> str | None:
+    module = ast.parse(source)
+    for node in module.body:
+        if isinstance(node, ast.Assign):
+            has_name = any(
+                isinstance(target, ast.Name) and target.id == name
+                for target in node.targets
+            )
+            if has_name and isinstance(node.value, ast.Constant):
+                if isinstance(node.value.value, str):
+                    return node.value.value
+        if (
+            isinstance(node, ast.AnnAssign)
+            and isinstance(node.target, ast.Name)
+            and node.target.id == name
+            and isinstance(node.value, ast.Constant)
+            and isinstance(node.value.value, str)
+        ):
+            return node.value.value
+    return None
+
+
+def _cli_first_screen_help_contract(public_root: Path) -> dict[str, Any]:
+    path = public_root / CLI_FIRST_SCREEN_HELP_REL
+    source_ref = f"{CLI_FIRST_SCREEN_HELP_REL.as_posix()}::FIRST_SCREEN_HELP"
+    authority = (
+        "CLI help first-screen route parity only; not release, hosting, "
+        "provider, source-mutation, proof-correctness, or live-access authority"
+    )
+    if not path.is_file():
+        return {
+            "status": "missing",
+            "source_ref": source_ref,
+            "missing_help_commands": CLI_FIRST_SCREEN_HELP_COMMAND_ORDER,
+            "help_command_order_mismatch": [],
+            "missing_boundary_phrases": CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES,
+            "blocking_reasons": ["missing_cli_help_source"],
+            "authority": authority,
+        }
+    try:
+        help_text = _top_level_string_assignment(
+            path.read_text(encoding="utf-8"),
+            "FIRST_SCREEN_HELP",
+        )
+    except SyntaxError as exc:
+        return {
+            "status": "blocked",
+            "source_ref": source_ref,
+            "missing_help_commands": CLI_FIRST_SCREEN_HELP_COMMAND_ORDER,
+            "help_command_order_mismatch": [],
+            "missing_boundary_phrases": CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES,
+            "blocking_reasons": ["invalid_cli_help_source"],
+            "parse_error": type(exc).__name__,
+            "authority": authority,
+        }
+    if help_text is None:
+        return {
+            "status": "blocked",
+            "source_ref": source_ref,
+            "missing_help_commands": CLI_FIRST_SCREEN_HELP_COMMAND_ORDER,
+            "help_command_order_mismatch": [],
+            "missing_boundary_phrases": CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES,
+            "blocking_reasons": ["missing_first_screen_help_assignment"],
+            "authority": authority,
+        }
+
+    missing_commands = [
+        command
+        for command in CLI_FIRST_SCREEN_HELP_COMMAND_ORDER
+        if command not in help_text
+    ]
+    command_positions = {
+        command: help_text.index(command)
+        for command in CLI_FIRST_SCREEN_HELP_COMMAND_ORDER
+        if command in help_text
+    }
+    order_mismatch = [
+        f"{left} before {right}"
+        for left, right in zip(
+            CLI_FIRST_SCREEN_HELP_COMMAND_ORDER,
+            CLI_FIRST_SCREEN_HELP_COMMAND_ORDER[1:],
+        )
+        if left in command_positions
+        and right in command_positions
+        and command_positions[left] >= command_positions[right]
+    ]
+    missing_boundary_phrases = [
+        phrase
+        for phrase in CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES
+        if phrase not in help_text
+    ]
+    blocking_reasons: list[str] = []
+    if missing_commands:
+        blocking_reasons.append("missing_help_commands")
+    if order_mismatch:
+        blocking_reasons.append("help_command_order_mismatch")
+    if missing_boundary_phrases:
+        blocking_reasons.append("missing_boundary_phrases")
+    return {
+        "status": PASS if not blocking_reasons else "blocked",
+        "source_ref": source_ref,
+        "required_command_order": CLI_FIRST_SCREEN_HELP_COMMAND_ORDER,
+        "missing_help_commands": missing_commands,
+        "help_command_order_mismatch": order_mismatch,
+        "missing_boundary_phrases": missing_boundary_phrases,
+        "blocking_reasons": blocking_reasons,
+        "authority": authority,
+    }
 
 
 def _entry_packet_route_contract(
@@ -791,6 +917,7 @@ def validate_public_entry_docs(
         public_root,
         doc_text_by_rel,
     )
+    cli_first_screen_help_contract = _cli_first_screen_help_contract(public_root)
     missing_accepted_organs = [
         organ_id for organ_id in ACCEPTED_ORGAN_IDS if organ_id not in accepted
     ]
@@ -823,6 +950,8 @@ def validate_public_entry_docs(
         blocking_codes.append("PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH")
     if entry_packet_route_contract["status"] != PASS:
         blocking_codes.append("ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH")
+    if cli_first_screen_help_contract["status"] != PASS:
+        blocking_codes.append("CLI_FIRST_SCREEN_HELP_CONTRACT_MISMATCH")
     if scan["blocking_hit_count"]:
         blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
 
@@ -842,6 +971,7 @@ def validate_public_entry_docs(
         "accepted_current_authority_organs": accepted,
         "entry_spine_claims": entry_spine_claims,
         "entry_packet_route_contract": entry_packet_route_contract,
+        "cli_first_screen_help_contract": cli_first_screen_help_contract,
         "evidence_class_registry": evidence_class_registry,
         "missing_accepted_organs": missing_accepted_organs,
         "unexpected_accepted_organs": unexpected_accepted_organs,

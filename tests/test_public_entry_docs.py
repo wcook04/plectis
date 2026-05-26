@@ -32,6 +32,11 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     shutil.copytree(MICROCOSM_ROOT / "atlas", public_root / "atlas")
     shutil.copytree(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
     shutil.copytree(MICROCOSM_ROOT / "skills", public_root / "skills")
+    (public_root / "src/microcosm_core").mkdir(parents=True)
+    shutil.copy2(
+        MICROCOSM_ROOT / "src/microcosm_core/cli.py",
+        public_root / "src/microcosm_core/cli.py",
+    )
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")
     shutil.copy2(MICROCOSM_ROOT / "AGENTS.md", public_root / "AGENTS.md")
     return public_root
@@ -136,6 +141,23 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert route_contract["unsafe_safe_to_show_flags"] == []
     assert route_contract["cold_start_missing_phrases"] == []
     assert route_contract["blocking_reasons"] == []
+    help_contract = receipt["cli_first_screen_help_contract"]
+    assert help_contract["status"] == "pass"
+    assert help_contract["source_ref"] == (
+        "src/microcosm_core/cli.py::FIRST_SCREEN_HELP"
+    )
+    assert help_contract["required_command_order"] == [
+        "microcosm tour <project>",
+        "microcosm status --card <project>",
+        "microcosm workingness",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm serve <project>",
+        "microcosm compile <project>",
+    ]
+    assert help_contract["missing_help_commands"] == []
+    assert help_contract["help_command_order_mismatch"] == []
+    assert help_contract["missing_boundary_phrases"] == []
+    assert help_contract["blocking_reasons"] == []
     assert receipt["deferred_organs"] == []
     assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
     assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -251,6 +273,42 @@ def test_public_entry_docs_block_entry_packet_route_contract_drift(
     assert "missing_local_first_screen_commands" in receipt[
         "entry_packet_route_contract"
     ]["blocking_reasons"]
+
+
+def test_public_entry_docs_block_cli_first_screen_help_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    cli_path = public_root / "src/microcosm_core/cli.py"
+    cli_path.write_text(
+        cli_path.read_text(encoding="utf-8").replace(
+            "  microcosm status --card <project> read the compressed "
+            "project/runtime status lens\n"
+            "  microcosm workingness           inspect behavior evidence "
+            "and failure gaps\n",
+            "  microcosm workingness           inspect behavior evidence "
+            "and failure gaps\n"
+            "  microcosm status --card <project> read the compressed "
+            "project/runtime status lens\n",
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "CLI_FIRST_SCREEN_HELP_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    help_contract = receipt["cli_first_screen_help_contract"]
+    assert help_contract["status"] == "blocked"
+    assert help_contract["missing_help_commands"] == []
+    assert help_contract["help_command_order_mismatch"] == [
+        "microcosm status --card <project> before microcosm workingness"
+    ]
+    assert help_contract["blocking_reasons"] == ["help_command_order_mismatch"]
 
 
 def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
