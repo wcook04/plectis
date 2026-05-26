@@ -3631,6 +3631,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     created = project_substrate.create_work(project, "readme_onboarding_route")
     project_substrate.run_work(project, str(created["work_id"]))
     server = shell.serve("127.0.0.1", 0, project)
+
+    def fail_if_tour_recomputes(*_args: object, **_kwargs: object) -> dict[str, object]:
+        raise AssertionError("/tour should reuse the warmed project observatory tour")
+
+    shell.tour = fail_if_tour_recomputes  # type: ignore[method-assign]
     host, port = server.server_address
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -3953,6 +3958,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["tour"]["local_first_screen_route"]["route_ref"] == (
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )
+    assert tour == observatory["tour"]
     assert observatory["front_door_status"]["blocking_surface_ids"] == []
     assert observatory["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",

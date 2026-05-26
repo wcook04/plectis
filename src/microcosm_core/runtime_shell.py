@@ -16735,6 +16735,14 @@ class RuntimeShell:
             observatory_cache["html"] = body
             return body
 
+        def cached_tour_payload() -> dict[str, Any]:
+            if project_path is None:
+                return shell.tour(DEFAULT_PROJECT_REL)
+            tour = cached_observatory_model().get("tour")
+            if isinstance(tour, dict):
+                return tour
+            return shell.tour(project_path)
+
         if project_path is not None:
             cached_observatory_html()
 
@@ -16774,7 +16782,7 @@ class RuntimeShell:
                 elif path == "/spine":
                     self._send(200, shell.spine())
                 elif path == "/tour":
-                    self._send(200, shell.tour(project_path if project_path is not None else DEFAULT_PROJECT_REL))
+                    self._send(200, cached_tour_payload())
                 elif path == "/authority":
                     self._send(200, shell.authority())
                 elif path == "/workingness":
