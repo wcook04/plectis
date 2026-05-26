@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import agent_monitor_redteam_falsification_replay
 from microcosm_core.organs.agent_monitor_redteam_falsification_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_monitor_bundle,
 )
@@ -130,3 +133,61 @@ def test_agent_monitor_redteam_exported_bundle_validates_runtime_shape(
     assert ("public_" + "replace" + "ment_refs") not in result
     assert result["private_state_scan"]["body_in_receipt"] is False
     assert result["authority_ceiling"]["monitor_product_performance_claim_authorized"] is False
+
+
+def test_agent_monitor_redteam_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "agent_monitor_redteam_falsification_replay"
+    )
+    args = [
+        "run-monitor-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 6
+    assert first_card["monitor_redteam"]["trajectory_case_count"] == 3
+    assert first_card["monitor_redteam"]["observation_count"] == 3
+    assert first_card["monitor_redteam"]["adversarial_probe_count"] == 5
+    assert first_card["monitor_redteam"]["pass_count"] == 1
+    assert first_card["monitor_redteam"]["escalate_count"] == 1
+    assert first_card["monitor_redteam"]["block_count"] == 1
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert "trajectory_cases" not in _walk_keys(first_card)
+    assert "monitor_rows" not in _walk_keys(first_card)
+    assert "private_state_scan" not in _walk_keys(first_card)
+    assert "findings" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        agent_monitor_redteam_falsification_replay,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
