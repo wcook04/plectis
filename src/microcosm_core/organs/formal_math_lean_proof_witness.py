@@ -125,6 +125,59 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return paths
 
 
+def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
+    try:
+        receipt_mtime = receipt_path.stat().st_mtime_ns
+    except OSError:
+        return False
+    for path in input_paths:
+        try:
+            if path.stat().st_mtime_ns > receipt_mtime:
+                return False
+        except OSError:
+            return False
+    return True
+
+
+def _fresh_bundle_receipt(
+    *,
+    input_dir: Path,
+    result_path: Path,
+    public_root: Path,
+    command: str,
+) -> dict[str, Any] | None:
+    if not _receipt_is_current(
+        result_path,
+        _input_paths(input_dir, include_negative=False),
+    ):
+        return None
+    try:
+        payload = read_json_strict(result_path)
+    except (OSError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if (
+        payload.get("schema_version")
+        != "exported_lean_proof_witness_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_lean_proof_witness_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    receipt_paths = payload.get("receipt_paths")
+    if not isinstance(receipt_paths, list) or not receipt_paths:
+        receipt_paths = [_display(result_path, public_root=public_root)]
+    return {
+        **payload,
+        "receipt_paths": [str(path) for path in receipt_paths],
+        "cache_status": "fresh_exported_bundle_receipt_reused",
+    }
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     digest.update(path.read_bytes())
@@ -641,6 +694,7 @@ def _common_receipt(
         "source_file_count",
         "compiled_declaration_count",
         "forbidden_positive_imports",
+        "lean_witness_board",
         "body_redacted",
     )
     payload = {
@@ -785,18 +839,26 @@ def run_witness_bundle(
         "python -m microcosm_core.organs.formal_math_lean_proof_witness "
         f"run-witness-bundle --input {input_dir} --out {out_dir}"
     )
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    public_root = _public_root_for_path(input_path)
+    result_path = target / BUNDLE_RESULT_NAME
+    cached = _fresh_bundle_receipt(
+        input_dir=input_path,
+        result_path=result_path,
+        public_root=public_root,
+        command=command_text,
+    )
+    if cached is not None:
+        return cached
     result = _build_result(
         input_path,
         command=command_text,
         input_mode="exported_lean_proof_witness_bundle",
         include_negative=False,
     )
-    target = Path(out_dir)
-    if not target.is_absolute():
-        target = Path.cwd() / target
     target.mkdir(parents=True, exist_ok=True)
-    public_root = _public_root_for_path(input_path)
-    result_path = target / BUNDLE_RESULT_NAME
     receipt = _common_receipt(
         result,
         schema_version="exported_lean_proof_witness_bundle_validation_result_v1",

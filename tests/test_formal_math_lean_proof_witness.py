@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.formal_math_lean_proof_witness as witness_module
 from microcosm_core.organs.formal_math_lean_proof_witness import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -111,3 +112,27 @@ def test_formal_math_lean_proof_witness_exported_bundle_validates_runtime_shape(
     assert result["compiled_declaration_count"] == 8
     assert result["lean_witness_board"]["lean_lake_execution_authorized"] is True
     assert result["lean_witness_board"]["mathlib_authorized"] is False
+
+
+def test_formal_math_lean_proof_witness_bundle_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    target = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness"
+    )
+    first = run_witness_bundle(BUNDLE_INPUT, target, command="pytest")
+
+    def fail_command(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh bundle cache should avoid Lean command probes")
+
+    monkeypatch.setattr(witness_module, "_run_command", fail_command)
+    second = run_witness_bundle(BUNDLE_INPUT, target, command="pytest")
+
+    assert first["status"] == "pass"
+    assert second["status"] == "pass"
+    assert second["cache_status"] == "fresh_exported_bundle_receipt_reused"
+    assert second["receipt_paths"] == first["receipt_paths"]
+    assert second["compiled_declaration_count"] == first["compiled_declaration_count"]
+    assert second["lean_witness_board"]["lean_lake_execution_authorized"] is True
