@@ -184,7 +184,58 @@ def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
     return f"microcosm proof-lab --card --input {display_input} --out {out_dir}"
 
 
-def _proof_lab_cached_result(out_dir: str) -> dict:
+def _proof_lab_input_files(input_path: str) -> list[Path]:
+    input_ref = Path(input_path)
+    if not input_ref.exists():
+        return []
+    if input_ref.is_file():
+        return [input_ref]
+    return sorted(path for path in input_ref.rglob("*") if path.is_file())
+
+
+def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
+    input_ref = Path(input_path)
+    receipt_mtime_ns = receipt_path.stat().st_mtime_ns
+    if not input_ref.exists():
+        return {
+            "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+            "status": "stale",
+            "input_status": "missing_input",
+            "receipt_mtime_ns": receipt_mtime_ns,
+            "tracked_input_count": 0,
+            "stale_input_count": 0,
+            "latest_input_mtime_ns": None,
+            "input_refs_exported": False,
+        }
+
+    latest_input_mtime_ns: int | None = None
+    stale_input_count = 0
+    tracked_input_count = 0
+    for input_file in _proof_lab_input_files(input_path):
+        input_mtime_ns = input_file.stat().st_mtime_ns
+        latest_input_mtime_ns = (
+            input_mtime_ns
+            if latest_input_mtime_ns is None
+            else max(latest_input_mtime_ns, input_mtime_ns)
+        )
+        tracked_input_count += 1
+        if input_mtime_ns > receipt_mtime_ns:
+            stale_input_count += 1
+
+    input_status = "stale" if stale_input_count else "current"
+    return {
+        "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+        "status": "stale" if stale_input_count else "current",
+        "input_status": input_status,
+        "receipt_mtime_ns": receipt_mtime_ns,
+        "tracked_input_count": tracked_input_count,
+        "stale_input_count": stale_input_count,
+        "latest_input_mtime_ns": latest_input_mtime_ns,
+        "input_refs_exported": False,
+    }
+
+
+def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     receipt_path = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
     if not receipt_path.is_file():
         return {
@@ -203,6 +254,11 @@ def _proof_lab_cached_result(out_dir: str) -> dict:
             "cache_status": "missing_cached_receipt",
             "cached_receipt_ref": str(receipt_path),
             "cached_receipt_bytes": 0,
+            "cache_freshness": {
+                "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+                "status": "missing_cached_receipt",
+                "input_refs_exported": False,
+            },
         }
     payload = read_json_strict(receipt_path)
     if not isinstance(payload, dict):
@@ -210,11 +266,19 @@ def _proof_lab_cached_result(out_dir: str) -> dict:
     receipt_paths = payload.get("receipt_paths")
     if not isinstance(receipt_paths, list) or not receipt_paths:
         payload = {**payload, "receipt_paths": [str(receipt_path)]}
+    cache_freshness = _proof_lab_cache_freshness(input_path, receipt_path)
+    cache_status = "cached_receipt_read"
+    status = payload.get("status")
+    if cache_freshness["status"] == "stale":
+        cache_status = "stale_cached_receipt"
+        status = "stale_cached_receipt"
     return {
         **payload,
-        "cache_status": "cached_receipt_read",
+        "status": status,
+        "cache_status": cache_status,
         "cached_receipt_ref": str(receipt_path),
         "cached_receipt_bytes": receipt_path.stat().st_size,
+        "cache_freshness": cache_freshness,
     }
 
 
@@ -263,6 +327,7 @@ def _proof_lab_first_screen_card(
         "cache_status": result.get("cache_status", "live_receipt_rebuild"),
         "cached_receipt_ref": result.get("cached_receipt_ref"),
         "cached_receipt_bytes": result.get("cached_receipt_bytes"),
+        "cache_freshness": result.get("cache_freshness"),
         "input_ref": _public_ref(input_path),
         "out_ref": out_dir,
         "bundle_ref": runtime_shell.PROOF_LAB_BUNDLE_REF,
@@ -292,6 +357,7 @@ def _proof_lab_first_screen_card(
             "proof_bodies_exported": False,
             "provider_payloads_exported": False,
             "credential_equivalent_payloads_exported": False,
+            "input_refs_exported": False,
             "route_metadata_visible": True,
             "receipt_refs_visible": True,
         },
@@ -938,7 +1004,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "proof-lab":
         if args.card:
             command = _proof_lab_card_command(args.input, args.out)
-            result = _proof_lab_cached_result(args.out)
+            result = _proof_lab_cached_result(args.input, args.out)
         else:
             command = _proof_lab_command(args.input, args.out)
             result = verifier_lab_kernel.run_kernel_bundle(
