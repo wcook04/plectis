@@ -4,8 +4,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.standards_meta_diagnostics as standards_meta_diagnostics
 from microcosm_core.organs.standards_meta_diagnostics import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_diagnostics_bundle,
 )
@@ -109,6 +112,46 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
+
+
+def test_standards_meta_diagnostics_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = tmp_path / "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics"
+    args = [
+        "run-diagnostics-bundle",
+        "--input",
+        str(EXPORTED_BUNDLE),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["diagnostic_projection"]["accepted_organ_count"] == 44
+    assert "covered_organ_ids" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(standards_meta_diagnostics, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_standards_meta_diagnostics_receipts_use_secret_exclusion(tmp_path: Path) -> None:

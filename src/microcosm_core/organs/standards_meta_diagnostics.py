@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -27,6 +29,18 @@ ACCEPTANCE_RECEIPT_REL = (
     "standards_meta_diagnostics_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_standards_meta_diagnostics_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "standards_meta_diagnostics_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "covered_organ_ids",
+    "findings",
+    "secret_exclusion_scan",
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "source_refs",
+    "public_runtime_refs",
+    "anti_claim",
+    "authority_ceiling",
+)
 
 SOURCE_PATTERN_IDS = [
     "standards_meta_diagnostics",
@@ -133,6 +147,94 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
+
+
+def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    paths = _input_paths(input_dir, include_negative=include_negative)
+    manifest = input_dir / "bundle_manifest.json"
+    if manifest.is_file():
+        paths.append(manifest)
+    return paths
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    for path in _freshness_input_paths(source, include_negative=include_negative):
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": (
+                    "standards_meta_diagnostics_result_v1"
+                    if include_negative
+                    else "exported_standards_meta_diagnostics_bundle_validation_result_v1"
+                ),
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "standards_meta_diagnostics_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": (
+            "standards_meta_diagnostics_result_v1"
+            if include_negative
+            else "exported_standards_meta_diagnostics_bundle_validation_result_v1"
+        ),
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, ValueError, TypeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -446,6 +548,8 @@ def _common_receipt(
         "body_in_receipt",
         "real_runtime_receipt",
         "synthetic_receipt_standin_allowed",
+        "freshness_basis",
+        "receipt_reused",
     )
     payload = {
         "schema_version": schema_version,
@@ -618,6 +722,8 @@ def run(
         input_mode="first_wave_fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         target,
@@ -632,15 +738,24 @@ def run_diagnostics_bundle(
         "python -m microcosm_core.organs.standards_meta_diagnostics "
         "run-diagnostics-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     target = Path(out_dir)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_bundle_receipt(source, target)
+        if cached is not None:
+            return cached
     public_root = _public_root_for_path(target)
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_standards_meta_diagnostics_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     path = target / BUNDLE_RESULT_NAME
     path.parent.mkdir(parents=True, exist_ok=True)
     receipt_path = _display(path, public_root=public_root)
@@ -654,6 +769,62 @@ def run_diagnostics_bundle(
     return result
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": (
+                result.get("freshness_basis", {}).get("basis_digest")
+                if isinstance(result.get("freshness_basis"), dict)
+                else None
+            ),
+            "freshness_input_count": (
+                result.get("freshness_basis", {}).get("input_count")
+                if isinstance(result.get("freshness_basis"), dict)
+                else None
+            ),
+            "freshness_missing_path_count": (
+                result.get("freshness_basis", {}).get("missing_path_count")
+                if isinstance(result.get("freshness_basis"), dict)
+                else None
+            ),
+        },
+        "diagnostic_projection": {
+            "accepted_organ_count": result.get("accepted_organ_count"),
+            "standard_mapping_count": result.get("standard_mapping_count"),
+            "runtime_contract_count": result.get("runtime_contract_count"),
+            "receipt_ref_count": result.get("receipt_ref_count"),
+            "pressure_row_count": result.get("pressure_row_count"),
+        },
+        "validation": {
+            "missing_negative_case_count": len(result.get("missing_negative_cases") or []),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "real_runtime_receipt": result.get("real_runtime_receipt") is True,
+            "synthetic_receipt_standin_allowed": (
+                result.get("synthetic_receipt_standin_allowed") is True
+            ),
+        },
+        "authority_boundary": {
+            "standards_registry_authority": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+            "private_data_equivalence_claim": False,
+            "whole_system_correctness_claim": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate public standards meta diagnostics")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -661,18 +832,21 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-diagnostics-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.command == "run":
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.standards_meta_diagnostics run "
-            f"--input {args.input} --out {args.out}"
+            f"--input {args.input} --out {args.out}{card_suffix}"
         )
         result = run(
             args.input,
@@ -681,11 +855,19 @@ def main(argv: list[str] | None = None) -> int:
             acceptance_out=args.acceptance_out,
         )
     else:
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.standards_meta_diagnostics "
-            f"run-diagnostics-bundle --input {args.input} --out {args.out}"
+            f"run-diagnostics-bundle --input {args.input} --out {args.out}{card_suffix}"
         )
-        result = run_diagnostics_bundle(args.input, args.out, command=command)
+        result = run_diagnostics_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
