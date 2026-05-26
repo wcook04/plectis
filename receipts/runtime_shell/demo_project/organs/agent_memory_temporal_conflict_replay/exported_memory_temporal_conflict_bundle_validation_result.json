@@ -38,7 +38,7 @@
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
   "command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-26T21:30:24+00:00",
+  "created_at": "2026-05-26T21:39:26+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
