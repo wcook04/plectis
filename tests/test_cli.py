@@ -13,6 +13,7 @@ from microcosm_core.runtime_shell import (
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
+    RuntimeShell,
     SOURCE_OPEN_BODY_POLICY,
     VERIFIER_EXECUTION_LENS_COMMAND,
     VERIFIER_EXECUTION_RECEIPT_REF,
@@ -106,17 +107,32 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm tour <project>        build .microcosm and inspect "
         "route/work/event/evidence/proof refs"
     ) in output
-    assert "microcosm compile <project>     rebuild local .microcosm state" in output
-    assert output.index("microcosm tour <project>") < output.index(
-        "microcosm compile <project>"
-    )
     assert (
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
     assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
-    assert "microcosm serve <project>       open the local observatory" in output
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
+    assert "microcosm serve <project>       open the local observatory" in output
+    assert (
+        "microcosm compile <project>     rebuild local .microcosm state "
+        "after the first-screen check"
+    ) in output
+    assert output.index("microcosm tour <project>") < output.index(
+        "microcosm status --card <project>"
+    )
+    assert output.index("microcosm status --card <project>") < output.index(
+        "microcosm workingness"
+    )
+    assert output.index("microcosm workingness") < output.index(
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    )
+    assert output.index(
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    ) < output.index("microcosm serve <project>")
+    assert output.index("microcosm serve <project>") < output.index(
+        "microcosm compile <project>"
+    )
     assert "no provider calls, source mutation, release," in output
     assert "Receipts are evidence drilldowns after the behavior route is visible." in output
     for command in [
@@ -427,6 +443,62 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     )
     assert status_card["payload_boundary_audit"]["status"] == "pass"
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
+
+
+def test_cli_status_card_matches_observatory_card_reader_lens(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+
+    assert cli.main(["tour", str(project)]) == 0
+    capsys.readouterr()
+    assert cli.main(["status", "--card", str(project)]) == 0
+    status_card = json.loads(capsys.readouterr().out)
+    observatory = RuntimeShell(MICROCOSM_ROOT).project_observatory(
+        project,
+        persist_receipts=False,
+    )
+    observatory_card = observatory["observatory_card"]
+
+    status_front_door = status_card["front_door"]
+    status_front_door_status = status_card["front_door_status"]
+    status_body_floor = status_front_door["source_open_body_import_floor"]
+    observatory_body_floor = observatory_card["source_open_body_import_floor"]
+
+    assert status_front_door_status["status"] == "pass"
+    assert observatory_card["status"] == "pass"
+    assert observatory["front_door_status"]["status"] == "pass"
+    assert status_front_door_status["blocking_surface_ids"] == []
+    assert observatory_card["first_screen_route_proof"]["blocking_surface_ids"] == []
+    assert status_front_door["proof_lab"]["status"] == "pass"
+    assert observatory_card["proof_lab"]["status"] == "pass"
+    assert status_front_door["proof_lab"]["route_id"] == (
+        observatory_card["proof_lab"]["route_id"]
+    )
+    assert status_front_door["observatory"]["status"] == "pass"
+    assert status_front_door["observatory"]["compact_endpoint"] == (
+        observatory_card["endpoint"]
+    )
+    assert observatory["observatory_card"] == observatory_card
+    assert status_card["payload_boundary_audit"]["status"] == "pass"
+    assert observatory_card["safe_to_show"]["provider_calls_authorized"] is False
+    assert observatory_card["safe_to_show"]["source_files_mutated"] is False
+    assert observatory_card["safe_to_show"]["proof_correctness_claim"] is False
+    assert (
+        status_body_floor["public_safe_body_material_count"]
+        == observatory_body_floor["public_safe_body_material_count"]
+    )
+    assert (
+        status_body_floor["public_safe_body_material_counts_by_class"]
+        == observatory_body_floor["public_safe_body_material_counts_by_class"]
+    )
+    assert status_body_floor["latest_verified_source_module_family_ids"] == (
+        observatory_body_floor["latest_verified_source_module_family_ids"]
+    )
+    assert status_body_floor["body_text_exported_in_status"] is False
+    assert observatory_body_floor["body_text_exported_in_status"] is False
+    assert observatory_body_floor["body_text_exported_in_receipts"] is False
 
 
 def test_cli_proof_lab_alias_prints_first_screen_card(

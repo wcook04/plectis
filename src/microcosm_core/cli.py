@@ -80,11 +80,11 @@ DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
-  microcosm compile <project>     rebuild local .microcosm state
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm workingness           inspect behavior evidence and failure gaps
-  microcosm serve <project>       open the local observatory
   microcosm proof-lab --out /tmp/microcosm-proof-lab
+  microcosm serve <project>       open the local observatory
+  microcosm compile <project>     rebuild local .microcosm state after the first-screen check
 
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
