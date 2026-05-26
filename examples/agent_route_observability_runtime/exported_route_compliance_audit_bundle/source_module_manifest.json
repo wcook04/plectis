@@ -127,8 +127,8 @@
     {
       "module_id": "route_compliance_pattern_binding_source_body_import",
       "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-      "path": "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "path": "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "material_class": "public_macro_pattern_body",
       "source_import_class": "copied_non_secret_macro_body",
       "source_role": "Generated pattern-binding sidecar row set that binds agent_route_compliance_audit to its source functions, standards, validators, tests, and Microcosm bundle refs.",
@@ -138,9 +138,9 @@
         "\"system/lib/agent_execution_trace.py::_compute_route_compliance\"",
         "\"microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/bundle_manifest.json\""
       ],
-      "line_count": 9560,
-      "sha256": "d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
-      "byte_count": 633964,
+      "line_count": 9623,
+      "sha256": "0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
+      "byte_count": 637785,
       "body_in_receipt": false
     }
   ],

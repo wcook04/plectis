@@ -350,7 +350,7 @@ ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS = (
     "source_modules/system/lib/navigation_coverage_matrix.py",
     "source_modules/tools/meta/factory/build_agent_execution_trace.py",
     "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
-    "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
 )
 ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS = {
     "source_modules/codex/doctrine/process/trace_rules.json": {
@@ -407,11 +407,11 @@ ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS = {
         ),
         "material_class": "public_macro_tool_body",
     },
-    "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json": {
+    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json": {
         "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
         "target_ref": (
             "microcosm-substrate/examples/agent_route_observability_runtime/"
-            "exported_route_compliance_audit_bundle/source_modules/state/"
+            "exported_route_compliance_audit_bundle/source_modules/state_sidecars/"
             "microcosm_portfolio/extracted_pattern_substrate_bindings.json"
         ),
         "material_class": "public_macro_pattern_body",

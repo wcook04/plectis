@@ -64,7 +64,7 @@
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
   "copied_macro_source_count": 7,
-  "created_at": "2026-05-26T12:32:50+00:00",
+  "created_at": "2026-05-26T12:37:43+00:00",
   "duplicate_trace_event_ids": [],
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
@@ -77,7 +77,7 @@
     "source_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
-      "sha256:d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+      "sha256:0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
       "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
@@ -96,7 +96,7 @@
     "target_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
-      "sha256:d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+      "sha256:0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
       "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
@@ -105,7 +105,7 @@
     "target_refs": [
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
       "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py",
@@ -362,13 +362,13 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 633964,
-        "line_count": 9560,
+        "byte_count": 637785,
+        "line_count": 9623,
         "material_class": "public_macro_pattern_body",
-        "path": "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-        "sha256": "d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+        "path": "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+        "sha256": "0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
         "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
       },
       {
         "body_in_receipt": false,

@@ -36,7 +36,7 @@
     "source_modules/system/lib/navigation_coverage_matrix.py",
     "source_modules/tools/meta/factory/build_agent_execution_trace.py",
     "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
-    "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+    "source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
   ],
   "body_import_verification": {
     "verification_status": "pass",
