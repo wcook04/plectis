@@ -1081,3 +1081,58 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
     assert lattice_probe in standard["validation_probe"]
     assert "candidate-axiom promotion authority" in lattice["authority"]
     assert "candidate_axiom_promotion_authority" in standard_lattice["authority_ceiling"]
+
+
+def test_public_entry_standard_names_degraded_kernel_fallback() -> None:
+    standard = json.loads(
+        (REPO_ROOT / "codex/standards/std_microcosm.json").read_text(encoding="utf-8")
+    )
+    module_text = (
+        REPO_ROOT / "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
+    ).read_text(encoding="utf-8")
+
+    fallback = standard["first_screen_navigation_contract"][
+        "degraded_kernel_fallback"
+    ]
+    assert fallback["trigger"] == (
+        "macro_kernel_import_unavailable_due_to_unrelated_concurrent_source_dirt"
+    )
+    assert fallback["allowed_sources"] == [
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_route_coverage.json",
+        "codex/standards/std_microcosm.json",
+        "microcosm-substrate/atlas/entry_packet.json",
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "codex/doctrine/paper_modules/microcosm_substrate.md",
+    ]
+    assert fallback["required_actions"] == [
+        "capture_import_or_same_path_blocker_before_user_facing_closeout",
+        "avoid_unclaimed_source_repair_or_revert",
+        "resume_kernel_proof_routes_after_owner_lane_restores_imports",
+    ]
+    assert fallback["forbidden_actions"] == [
+        "repair_foreign_active_session_source_without_claim",
+        "treat_sidecar_route_as_source_authority",
+        "skip_validation_after_kernel_recovers",
+    ]
+    assert (
+        fallback["authority_ceiling"]
+        == "degraded_navigation_continuity_only_not_source_repair_release_provider_proof_or_candidate_axiom_authority"
+    )
+
+    validation_rule = next(
+        rule
+        for rule in standard["validation_rules"]
+        if rule["id"] == "microcosm_degraded_kernel_fallback_boundary"
+    )
+    assert validation_rule["source_ref"] == (
+        "codex/standards/std_microcosm.json::"
+        "first_screen_navigation_contract.degraded_kernel_fallback"
+    )
+    assert validation_rule["fields"] == [
+        "allowed_sources",
+        "required_actions",
+        "forbidden_actions",
+        "authority_ceiling",
+    ]
+    assert "first_screen_navigation_contract.degraded_kernel_fallback" in module_text
