@@ -8,18 +8,22 @@ It does not mutate your source files or call providers.
 
 ## Choose Your First Screen
 
-If you only read one screen, ask the package-backed card for the map:
+If you only read one terminal screen, ask the package-backed card for the map:
 
 ```bash
-microcosm first-screen <project>
+microcosm hello <project>
 ```
 
-That map is not a separate proof surface. It sends every reader through the same
-local behavior command before branching:
+`hello` is the text projection of the first-screen card. It is not a separate
+proof surface. It sends every reader through the same local behavior command
+before branching:
 
 ```bash
 microcosm tour --card <project>
 ```
+
+Use `microcosm first-screen <project>` when you want the same reader map as
+JSON instead of terminal text.
 
 After that shared card, branch by reader instead of forcing one README to carry
 every job:
@@ -48,6 +52,7 @@ Or run the same product CLI directly from the checkout without installing the
 entry point:
 
 ```bash
+PYTHONPATH=src python3 -m microcosm_core.cli hello .
 PYTHONPATH=src python3 -m microcosm_core.cli tour --card .
 PYTHONPATH=src python3 -m microcosm_core.cli first-screen .
 PYTHONPATH=src python3 -m microcosm_core.cli status --card .
@@ -57,6 +62,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proo
 After the console command is installed, the first-screen path is:
 
 ```bash
+microcosm hello .
 microcosm tour --card .
 microcosm first-screen .
 microcosm status --card .
@@ -71,8 +77,9 @@ microcosm tour .
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-The first screen is the compact `microcosm tour --card .` JSON. It writes
-the local `.microcosm/` state, names the selected project route id, exposes
+The quickest human first screen is `microcosm hello .`. The local behavior
+proof is the compact `microcosm tour --card .` JSON: it writes the local
+`.microcosm/` state, names the selected project route id, exposes
 `state_inspection` plus route/work/event/evidence/graph refs, points to the
 status card, workingness map, observatory command, proof-lab command, and
 authority ceiling, and keeps route cards plus receipt refs out of the cockpit.
