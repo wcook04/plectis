@@ -402,6 +402,48 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
     }
 
 
+def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_reader_exit_criteria_v1",
+        "purpose": "tell_cold_readers_when_the_first_screen_has_done_its_job",
+        "shared_first_command": f"microcosm tour --card {project_label}",
+        "shared_stop_rule": (
+            "The first screen is complete when the reader can choose the next "
+            "drilldown without needing the long command inventory."
+        ),
+        "criteria": [
+            {
+                "reader_route_id": "safety_evals_engineer",
+                "exit_when": (
+                    "Can name evidence-class ceilings, authority ceiling, and "
+                    "first missing or failing surface without inferring readiness."
+                ),
+                "next_if_not_met": f"microcosm status --card {project_label}",
+                "not_a_claim": "safety_evaluation_complete",
+            },
+            {
+                "reader_route_id": "hiring_reviewer",
+                "exit_when": (
+                    "Can distinguish runnable local behavior from the claims this "
+                    "card refuses to make."
+                ),
+                "next_if_not_met": "microcosm legibility-scorecard",
+                "not_a_claim": "candidate_assessed_or_interview_ready",
+            },
+            {
+                "reader_route_id": "peer_developer",
+                "exit_when": (
+                    "Can find .microcosm state refs and follow the "
+                    "route/work/event/evidence chain."
+                ),
+                "next_if_not_met": f"microcosm observe {project_label}",
+                "not_a_claim": "integration_complete",
+            },
+        ],
+        "authority": "exit_criteria_not_reader_success_or_release_authority",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -719,7 +761,9 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, reader landing packets, "
-            "behavior-proof packet, first-run ladder, local state receipt trail, overclaim tripwire matrix, evidence-count frame, evidence-class legend, doctrine-effect frame, "
+            "behavior-proof packet, first-run ladder, local state receipt trail, "
+            "overclaim tripwire matrix, reader exit criteria, evidence-count frame, "
+            "evidence-class legend, doctrine-effect frame, "
             "observatory landing frame, README-entry contract, omission receipt, and "
             "authority ceiling."
         ),
@@ -767,7 +811,9 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "first-run ladder, local state receipt trail, overclaim tripwires, reader branches, reader landing packets, public scale handles, evidence-class "
+            "first-run ladder, local state receipt trail, overclaim tripwires, "
+            "reader branches, reader landing packets, reader exit criteria, public "
+            "scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
         ),
@@ -786,6 +832,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "first_run_ladder",
             "local_state_receipt_trail",
             "overclaim_tripwire_matrix",
+            "reader_exit_criteria",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -909,6 +956,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     )
     overclaim_ids = {
         str(row.get("tripwire_id")) for row in overclaim_rows if isinstance(row, dict)
+    }
+    reader_exit_criteria = payload.get("reader_exit_criteria", {})
+    reader_exit_rows = (
+        reader_exit_criteria.get("criteria", [])
+        if isinstance(reader_exit_criteria, dict)
+        else []
+    )
+    reader_exit_ids = {
+        str(row.get("reader_route_id"))
+        for row in reader_exit_rows
+        if isinstance(row, dict)
     }
     behavior_proof_fields = (
         behavior_proof_packet.get("proof_fields", [])
@@ -1116,6 +1174,31 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and overclaim_tripwire_matrix.get("authority")
             == "overclaim_tripwire_not_marketing_or_release_authority"
         ),
+        "reader_exit_criteria": (
+            isinstance(reader_exit_criteria, dict)
+            and reader_exit_criteria.get("schema_version")
+            == "microcosm_reader_exit_criteria_v1"
+            and reader_exit_criteria.get("purpose")
+            == "tell_cold_readers_when_the_first_screen_has_done_its_job"
+            and reader_exit_criteria.get("shared_first_command")
+            == shared_first_command
+            and reader_exit_ids == REQUIRED_ROUTE_IDS
+            and isinstance(reader_exit_criteria.get("shared_stop_rule"), str)
+            and "long command inventory"
+            in reader_exit_criteria.get("shared_stop_rule", "")
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("exit_when"), str)
+                and bool(row.get("exit_when"))
+                and isinstance(row.get("next_if_not_met"), str)
+                and bool(row.get("next_if_not_met"))
+                and isinstance(row.get("not_a_claim"), str)
+                and bool(row.get("not_a_claim"))
+                for row in reader_exit_rows
+            )
+            and reader_exit_criteria.get("authority")
+            == "exit_criteria_not_reader_success_or_release_authority"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -1242,6 +1325,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "first_run_ladder",
                     "local_state_receipt_trail",
                     "overclaim_tripwire_matrix",
+                    "reader_exit_criteria",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -1312,6 +1396,7 @@ def first_screen_composition_card(
         "first_run_ladder": _first_run_ladder(project_label),
         "local_state_receipt_trail": _local_state_receipt_trail(project_label),
         "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),
+        "reader_exit_criteria": _reader_exit_criteria(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -1438,7 +1523,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         "",
         "What it is:",
-        "  A local evidence router, not a maturity brochure; doctrine appears as prevented mistakes; README inventory waits.",
+        "  A local evidence router; doctrine prevents mistakes; exit when you can choose a drilldown without the command inventory.",
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),

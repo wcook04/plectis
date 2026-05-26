@@ -230,6 +230,39 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     for row in tripwire_by_id.values():
         assert row["valid_read"]
         assert row["reader_rule"]
+    reader_exit_criteria = card["reader_exit_criteria"]
+    exit_by_id = {
+        row["reader_route_id"]: row for row in reader_exit_criteria["criteria"]
+    }
+    assert reader_exit_criteria["purpose"] == (
+        "tell_cold_readers_when_the_first_screen_has_done_its_job"
+    )
+    assert reader_exit_criteria["shared_first_command"] == (
+        card["shared_first_command"]
+    )
+    assert "long command inventory" in reader_exit_criteria["shared_stop_rule"]
+    assert reader_exit_criteria["authority"] == (
+        "exit_criteria_not_reader_success_or_release_authority"
+    )
+    assert set(exit_by_id) == route_ids
+    assert exit_by_id["safety_evals_engineer"]["next_if_not_met"] == (
+        "microcosm status --card <project>"
+    )
+    assert exit_by_id["hiring_reviewer"]["next_if_not_met"] == (
+        "microcosm legibility-scorecard"
+    )
+    assert exit_by_id["peer_developer"]["next_if_not_met"] == (
+        "microcosm observe <project>"
+    )
+    assert exit_by_id["safety_evals_engineer"]["not_a_claim"] == (
+        "safety_evaluation_complete"
+    )
+    assert exit_by_id["hiring_reviewer"]["not_a_claim"] == (
+        "candidate_assessed_or_interview_ready"
+    )
+    assert exit_by_id["peer_developer"]["not_a_claim"] == "integration_complete"
+    for row in exit_by_id.values():
+        assert row["exit_when"]
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -362,6 +395,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "overclaim tripwire matrix" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "reader exit criteria" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -460,6 +496,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "overclaim_tripwire_matrix" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "reader_exit_criteria" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -490,6 +529,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
+    assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -576,6 +616,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
+    assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -611,9 +652,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "Check state: microcosm status --card . | Trail: catalog -> routes -> "
         "events -> evidence -> graph."
     ) in text
-    assert "A local evidence router, not a maturity brochure" in text
-    assert "doctrine appears as prevented mistakes" in text
-    assert "README inventory waits" in text
+    assert "A local evidence router" in text
+    assert "doctrine prevents mistakes" in text
+    assert "exit when you can choose a drilldown" in text
+    assert "without the command inventory" in text
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
@@ -700,8 +742,9 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
-        assert "doctrine appears as prevented mistakes" in text
-        assert "README inventory waits" in text
+        assert "doctrine prevents mistakes" in text
+        assert "exit when you can choose a drilldown" in text
+        assert "without the command inventory" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
@@ -729,8 +772,9 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
-    assert "doctrine appears as prevented mistakes" in result.stdout
-    assert "README inventory waits" in result.stdout
+    assert "doctrine prevents mistakes" in result.stdout
+    assert "exit when you can choose a drilldown" in result.stdout
+    assert "without the command inventory" in result.stdout
     assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
@@ -761,8 +805,9 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
-    assert "doctrine appears as prevented mistakes" in result.stdout
-    assert "README inventory waits" in result.stdout
+    assert "doctrine prevents mistakes" in result.stdout
+    assert "exit when you can choose a drilldown" in result.stdout
+    assert "without the command inventory" in result.stdout
     assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
