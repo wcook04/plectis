@@ -534,7 +534,18 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["front_door"]["evidence_dir_ref"] == ".microcosm/evidence/"
     assert card["front_door"]["graph_ref"] == ".microcosm/graph.json"
     body_floor_front_door = card["front_door"]["source_open_body_import_floor"]
+    body_imports_alias = card["front_door"]["source_open_body_imports"]
     assert body_floor_front_door["status"] == "pass"
+    assert body_imports_alias == {
+        "status": body_floor_front_door["status"],
+        "ref": "front_door.source_open_body_import_floor",
+        "public_safe_body_material_count": body_floor_front_door[
+            "public_safe_body_material_count"
+        ],
+        "verified_source_module_family_count": body_floor_front_door[
+            "verified_source_module_family_count"
+        ],
+    }
     assert body_floor_front_door["summary_ref"] == (
         "microcosm status --card::macro_body_import_floor"
     )

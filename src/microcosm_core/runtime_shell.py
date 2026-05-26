@@ -2866,6 +2866,20 @@ def _runtime_status_card(
                     "full defects, and family drilldowns."
                 ),
             },
+            "source_open_body_imports": {
+                "status": body_floor.get("status"),
+                "ref": "front_door.source_open_body_import_floor",
+                "public_safe_body_material_count": body_floor.get(
+                    "public_safe_body_material_count"
+                ),
+                "verified_source_module_family_count": (
+                    source_body_imports.get(
+                        "verified_source_module_family_count"
+                    )
+                    if isinstance(source_body_imports, dict)
+                    else None
+                ),
+            },
         },
         "proof_lab": {
             "status": proof_lab.get("status"),

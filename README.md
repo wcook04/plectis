@@ -58,7 +58,8 @@ route-explanation status, and observatory proof ref, `front_door.route_explanati
 with the compact route/work/event/evidence chain,
 `front_door.observatory.compact_endpoint=/project/observatory-card`,
 `front_door.source_open_body_import_floor` with verified source-open body-import
-counts and body-text exclusion flags,
+counts and body-text exclusion flags, the shorter
+`front_door.source_open_body_imports` pointer for count-first scanning,
 `source_files_mutated=false`, the `microcosm workingness` counts, and a small
 `gap_preview` of the first missing-standard or failure-mode rows and their
 target refs before opening the full organ-by-organ map; `microcosm status`
