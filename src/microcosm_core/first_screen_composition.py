@@ -292,6 +292,54 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
     }
 
 
+def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_local_state_receipt_trail_v1",
+        "purpose": "show_what_the_first_run_writes_without_expanding_raw_state",
+        "producer_command": shared_first_command,
+        "state_dir": ".microcosm",
+        "trail": [
+            {
+                "surface_id": "catalog",
+                "state_ref": ".microcosm/catalog.json",
+                "reader_read": "project files became catalog rows",
+                "not_authority_for": "source_mutation_or_project_quality",
+            },
+            {
+                "surface_id": "routes",
+                "state_ref": ".microcosm/routes.json",
+                "reader_read": "one selected route is inspectable",
+                "not_authority_for": "universal_project_truth_or_release_readiness",
+            },
+            {
+                "surface_id": "work_events",
+                "state_ref": ".microcosm/events.jsonl",
+                "reader_read": "work transaction and event receipt chain exists",
+                "not_authority_for": "private_root_equivalence_or_provider_action",
+            },
+            {
+                "surface_id": "evidence_index",
+                "state_ref": ".microcosm/evidence/index.json",
+                "reader_read": "evidence refs can be opened after the card",
+                "not_authority_for": "proof_correctness_or_benchmark_score",
+            },
+            {
+                "surface_id": "graph",
+                "state_ref": ".microcosm/graph.json",
+                "reader_read": "route, work, event, and evidence refs join",
+                "not_authority_for": "whole_system_correctness_or_maturity_score",
+            },
+        ],
+        "reader_rule": (
+            "State refs are local behavior evidence from the shared first run; "
+            "they are not source mutation, release readiness, or private-root "
+            "equivalence claims."
+        ),
+        "authority": "local_state_receipt_trail_not_private_root_equivalence",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -609,7 +657,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, reader landing packets, "
-            "behavior-proof packet, first-run ladder, evidence-count frame, evidence-class legend, doctrine-effect frame, "
+            "behavior-proof packet, first-run ladder, local state receipt trail, evidence-count frame, evidence-class legend, doctrine-effect frame, "
             "observatory landing frame, README-entry contract, omission receipt, and "
             "authority ceiling."
         ),
@@ -657,7 +705,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "first-run ladder, reader branches, reader landing packets, public scale handles, evidence-class "
+            "first-run ladder, local state receipt trail, reader branches, reader landing packets, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
         ),
@@ -674,6 +722,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "reader_landing_packets",
             "behavior_proof_packet",
             "first_run_ladder",
+            "local_state_receipt_trail",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -778,6 +827,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     scale_counts = scale_frame.get("public_scale_counts", {})
     state_write_boundary = payload.get("state_write_boundary", {})
     behavior_proof_packet = payload.get("behavior_proof_packet", {})
+    local_state_receipt_trail = payload.get("local_state_receipt_trail", {})
+    local_state_trail_rows = (
+        local_state_receipt_trail.get("trail", [])
+        if isinstance(local_state_receipt_trail, dict)
+        else []
+    )
+    local_state_trail_ids = {
+        str(row.get("surface_id"))
+        for row in local_state_trail_rows
+        if isinstance(row, dict)
+    }
     behavior_proof_fields = (
         behavior_proof_packet.get("proof_fields", [])
         if isinstance(behavior_proof_packet, dict)
@@ -931,6 +991,28 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and first_run_ladder.get("authority")
             == "copyable_run_order_not_quickstart_inventory_or_release_authority"
         ),
+        "local_state_receipt_trail": (
+            isinstance(local_state_receipt_trail, dict)
+            and local_state_receipt_trail.get("purpose")
+            == "show_what_the_first_run_writes_without_expanding_raw_state"
+            and local_state_receipt_trail.get("producer_command")
+            == shared_first_command
+            and local_state_receipt_trail.get("state_dir") == ".microcosm"
+            and local_state_trail_ids
+            == {"catalog", "routes", "work_events", "evidence_index", "graph"}
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("state_ref"), str)
+                and row["state_ref"].startswith(".microcosm/")
+                and isinstance(row.get("reader_read"), str)
+                and bool(row.get("reader_read"))
+                and isinstance(row.get("not_authority_for"), str)
+                and bool(row.get("not_authority_for"))
+                for row in local_state_trail_rows
+            )
+            and local_state_receipt_trail.get("authority")
+            == "local_state_receipt_trail_not_private_root_equivalence"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -1055,6 +1137,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "reader_landing_packets",
                     "behavior_proof_packet",
                     "first_run_ladder",
+                    "local_state_receipt_trail",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -1123,6 +1206,7 @@ def first_screen_composition_card(
         "reader_landing_packets": _reader_landing_packets(project_label),
         "behavior_proof_packet": _behavior_proof_packet(project_label),
         "first_run_ladder": _first_run_ladder(project_label),
+        "local_state_receipt_trail": _local_state_receipt_trail(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -1243,7 +1327,10 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             f"Open card: {human_first_command} | "
             f"First run: {payload['shared_first_command']}"
         ),
-        f"Check state: microcosm status --card {payload['project_label']} | Then branch below.",
+        (
+            f"Check state: microcosm status --card {payload['project_label']} | "
+            "Trail: catalog -> routes -> events -> evidence -> graph."
+        ),
         "",
         "What it is:",
         "  A local evidence router, not a maturity brochure; doctrine appears as prevented mistakes; README inventory waits.",

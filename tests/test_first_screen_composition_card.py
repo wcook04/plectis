@@ -151,6 +151,40 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert first_run_ladder["authority"] == (
         "copyable_run_order_not_quickstart_inventory_or_release_authority"
     )
+    local_state_receipt_trail = card["local_state_receipt_trail"]
+    local_state_rows = {
+        row["surface_id"]: row for row in local_state_receipt_trail["trail"]
+    }
+    assert local_state_receipt_trail["purpose"] == (
+        "show_what_the_first_run_writes_without_expanding_raw_state"
+    )
+    assert local_state_receipt_trail["producer_command"] == (
+        card["shared_first_command"]
+    )
+    assert local_state_receipt_trail["state_dir"] == ".microcosm"
+    assert list(local_state_rows) == [
+        "catalog",
+        "routes",
+        "work_events",
+        "evidence_index",
+        "graph",
+    ]
+    assert local_state_rows["catalog"]["state_ref"] == ".microcosm/catalog.json"
+    assert local_state_rows["routes"]["state_ref"] == ".microcosm/routes.json"
+    assert local_state_rows["work_events"]["state_ref"] == (
+        ".microcosm/events.jsonl"
+    )
+    assert local_state_rows["evidence_index"]["state_ref"] == (
+        ".microcosm/evidence/index.json"
+    )
+    assert local_state_rows["graph"]["state_ref"] == ".microcosm/graph.json"
+    for row in local_state_rows.values():
+        assert row["reader_read"]
+        assert row["not_authority_for"]
+    assert "not source mutation" in local_state_receipt_trail["reader_rule"]
+    assert local_state_receipt_trail["authority"] == (
+        "local_state_receipt_trail_not_private_root_equivalence"
+    )
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -277,6 +311,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "consumer_rule"
     ]
     assert "first-run ladder" in card["entry_surface_contract"]["consumer_rule"]
+    assert "local state receipt trail" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -369,6 +406,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "first_run_ladder" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "local_state_receipt_trail" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -397,6 +437,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["first_run_ladder"] is True
+    assert card["validation"]["checks"]["local_state_receipt_trail"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -471,7 +512,17 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm tour --card .",
         "microcosm status --card .",
     ]
+    assert [
+        row["state_ref"] for row in card["local_state_receipt_trail"]["trail"]
+    ] == [
+        ".microcosm/catalog.json",
+        ".microcosm/routes.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/evidence/index.json",
+        ".microcosm/graph.json",
+    ]
     assert card["validation"]["checks"]["first_run_ladder"] is True
+    assert card["validation"]["checks"]["local_state_receipt_trail"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -503,7 +554,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert text.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in text
     assert "First run: microcosm tour --card ." in text
-    assert "Check state: microcosm status --card . | Then branch below." in text
+    assert (
+        "Check state: microcosm status --card . | Trail: catalog -> routes -> "
+        "events -> evidence -> graph."
+    ) in text
     assert "A local evidence router, not a maturity brochure" in text
     assert "doctrine appears as prevented mistakes" in text
     assert "README inventory waits" in text
@@ -578,7 +632,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert text.startswith("Microcosm first screen\n")
         assert "Open card: microcosm hello ." in text
         assert "First run: microcosm tour --card ." in text
-        assert "Check state: microcosm status --card . | Then branch below." in text
+        assert (
+            "Check state: microcosm status --card . | Trail: catalog -> routes -> "
+            "events -> evidence -> graph."
+        ) in text
         assert f"Reader branch: {assertions['label']}" in text
         assert "  Question: " in text
         assert f"  First action: {assertions['first_action']}" in text
