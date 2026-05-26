@@ -15,6 +15,28 @@
     "release/dissemination/publication/recipient/hosted-public/website surfaces"
   ],
   "authority_ceiling": "command_receipt_evidence_not_runtime_product_completeness",
+  "authority_boundary_payload": {
+    "surface_role": "root_public_private_boundary_manifest_read_model",
+    "reader_action": "Use this manifest to reject overbroad source authority, release, private-data equivalence, and score/progress claims before interpreting status counts or receipts.",
+    "allowed_claims": [
+      "public runtime roots are constrained to microcosm-substrate",
+      "command receipts can evidence bounded local checks",
+      "redacted lineage and public input bundles can name source refs without exporting private bodies"
+    ],
+    "denied_authority": {
+      "complete_secret_detection_claim": false,
+      "private_data_equivalence_claim": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "score_based_progress_authority": false,
+      "whole_system_correctness_claim": false
+    },
+    "overread_guard": [
+      "Do not treat allowed_roots as proof that every file under the root is public-safe.",
+      "Do not treat a passing scan or receipt as complete secret detection.",
+      "Do not treat source refs, route counts, evidence counts, or standards counts as release readiness, maturity, or product progress."
+    ]
+  },
   "synthetic_fixture_policy": "fixture bodies are examples, bootstrap data, and negative cases; fixture-only behavior is not product-complete runtime behavior",
-  "anti_claim": "This boundary manifest does not authorize later organs, publication, hosted public surfaces, or source-body projection."
+  "anti_claim": "This boundary manifest is a read-model and receipt ceiling. It does not authorize later organs, publication, hosted public surfaces, source-body projection, complete secret detection, release readiness, private-data equivalence, source mutation, score-based progress, or whole-system correctness."
 }

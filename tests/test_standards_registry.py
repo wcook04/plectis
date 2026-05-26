@@ -140,6 +140,37 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert "body" not in _walk_keys(receipt)
 
 
+def test_authority_boundary_manifest_demotes_overread_claims() -> None:
+    manifest = json.loads(
+        (MICROCOSM_ROOT / "core/authority_boundary.json").read_text(encoding="utf-8")
+    )
+    standard = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_authority_boundary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    payload = manifest["authority_boundary_payload"]
+    denied = payload["denied_authority"]
+
+    assert payload["surface_role"] == "root_public_private_boundary_manifest_read_model"
+    assert payload["reader_action"].startswith("Use this manifest to reject overbroad")
+    assert denied["complete_secret_detection_claim"] is False
+    assert denied["private_data_equivalence_claim"] is False
+    assert denied["release_authorized"] is False
+    assert denied["source_mutation_authorized"] is False
+    assert denied["score_based_progress_authority"] is False
+    assert denied["whole_system_correctness_claim"] is False
+    assert any("passing scan or receipt" in guard for guard in payload["overread_guard"])
+    assert "complete secret detection" in manifest["anti_claim"]
+    assert "authority_boundary_payload" in standard["required_fields"]
+    assert any(
+        "authority_boundary_payload.denied_authority" in rule
+        for rule in standard["validation_rules"]
+    )
+    assert any("complete secret audit" in claim for claim in standard["anti_claims"])
+
+
 def test_standards_registry_rejects_duplicate_standard_ids(tmp_path: Path) -> None:
     public_root = _copy_public_standards_tree(tmp_path)
     registry_path = public_root / "core/standards_registry.json"
