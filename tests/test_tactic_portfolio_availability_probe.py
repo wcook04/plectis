@@ -6,8 +6,12 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import tactic_portfolio_availability_probe
 from microcosm_core.organs.tactic_portfolio_availability_probe import (
+    BUNDLE_RESULT_NAME,
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_availability_bundle,
 )
@@ -191,6 +195,52 @@ def test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape(
             "exported_tactic_portfolio_availability_bundle_validation_result.json"
         )
     ]
+
+
+def test_tactic_portfolio_availability_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    out_dir = tmp_path / "bundle-card"
+    args = [
+        "run-availability-bundle",
+        "--input",
+        str(EXPORTED_BUNDLE_INPUT),
+        "--out",
+        str(out_dir),
+    ]
+    assert main(args) == 0
+    assert not capsys.readouterr().out
+
+    def fail_rebuild(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh availability bundle receipt should be reused")
+
+    monkeypatch.setattr(
+        tactic_portfolio_availability_probe,
+        "_build_result",
+        fail_rebuild,
+    )
+    assert main([*args, "--card"]) == 0
+    card = json.loads(capsys.readouterr().out)
+    full_receipt = json.loads((out_dir / BUNDLE_RESULT_NAME).read_text())
+
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "exported_tactic_portfolio_availability_bundle"
+    assert card["cache_status"] == "fresh_exported_bundle_receipt_reused"
+    assert card["receipt_summary"]["result_receipt_name"] == BUNDLE_RESULT_NAME
+    assert card["availability_summary"]["tactic_count"] == 8
+    assert card["availability_summary"]["available_tactic_count"] == 7
+    assert card["availability_summary"]["unavailable_tactic_count"] == 1
+    assert card["source_artifact_summary"]["source_artifact_rows_exported"] is False
+    assert card["no_export_guards"]["source_artifact_imports_exported"] is False
+    assert "source_artifact_imports" not in card
+    assert "anti_claim" not in card
+    assert "secret_exclusion_scan" not in card
+    assert len(json.dumps(card, sort_keys=True)) < len(
+        json.dumps(full_receipt, sort_keys=True)
+    )
 
 
 def test_tactic_portfolio_availability_exported_source_modules_are_exact_copies() -> None:

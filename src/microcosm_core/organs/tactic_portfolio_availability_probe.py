@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,30 @@ ACCEPTANCE_RECEIPT_REL = (
     "tactic_portfolio_availability_probe_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_tactic_portfolio_availability_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "tactic_portfolio_availability_command_card_v1"
+
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "anti_claim",
+    "available_tactic_ids",
+    "error_codes",
+    "expected_negative_cases",
+    "findings",
+    "known_tactic_ids",
+    "mathlib_dependent_tactic_ids",
+    "observed_negative_cases",
+    "probe_source_digest_refs",
+    "real_substrate_refs",
+    "receipt_anchor_refs",
+    "receipt_paths",
+    "secret_exclusion_scan",
+    "source_artifact_imports",
+    "source_body_digest_refs",
+    "source_digests",
+    "source_pattern_ids",
+    "source_refs",
+    "source_target_refs",
+    "unavailable_tactic_ids",
+)
 
 SOURCE_PATTERN_IDS = ["tactic_portfolio_availability_probe"]
 SOURCE_REFS = [
@@ -220,6 +245,81 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         + _source_body_paths(input_dir)
         + _probe_source_paths(input_dir)
     )
+
+
+def _receipt_freshness_basis(
+    *,
+    command: str,
+    receipt_path: Path,
+    input_paths: list[Path],
+    input_mode: str,
+) -> dict[str, Any]:
+    dependency_mtimes: list[int] = []
+    missing_input_count = 0
+    for path in input_paths:
+        try:
+            dependency_mtimes.append(path.stat().st_mtime_ns)
+        except OSError:
+            missing_input_count += 1
+    return {
+        "schema_version": "tactic_portfolio_availability_fresh_receipt_basis_v1",
+        "cache_policy": "same_command_and_receipt_newer_than_inputs",
+        "command": command,
+        "input_mode": input_mode,
+        "tracked_input_count": len(input_paths),
+        "missing_input_count": missing_input_count,
+        "latest_input_mtime_ns": max(dependency_mtimes) if dependency_mtimes else 0,
+        "receipt_mtime_ns": (
+            receipt_path.stat().st_mtime_ns if receipt_path.is_file() else None
+        ),
+    }
+
+
+def _fresh_availability_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    receipt_path = out_dir / BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        payload = read_json_strict(receipt_path)
+    except (OSError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if (
+        payload.get("schema_version")
+        != "exported_tactic_portfolio_availability_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_tactic_portfolio_availability_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    input_paths = _input_paths(input_dir, include_negative=False)
+    basis = _receipt_freshness_basis(
+        command=command,
+        receipt_path=receipt_path,
+        input_paths=input_paths,
+        input_mode="exported_tactic_portfolio_availability_bundle",
+    )
+    receipt_mtime = basis["receipt_mtime_ns"]
+    if receipt_mtime is None or basis["missing_input_count"]:
+        return None
+    if basis["latest_input_mtime_ns"] > receipt_mtime:
+        return None
+    return {
+        **payload,
+        "cache_status": "fresh_exported_bundle_receipt_reused",
+        "freshness_basis": basis,
+    }
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -742,6 +842,150 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _list_count(value: object) -> int:
+    return len(value) if isinstance(value, list) else 0
+
+
+def _dict_value(payload: dict[str, Any], key: str) -> dict[str, Any]:
+    value = payload.get(key)
+    return value if isinstance(value, dict) else {}
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    authority = _dict_value(result, "authority_ceiling")
+    scan = _dict_value(result, "secret_exclusion_scan")
+    compile_counts = _dict_value(result, "compile_status_counts")
+    expected_cases = result.get("expected_negative_cases")
+    observed_cases = result.get("observed_negative_cases")
+    receipt_paths = result.get("receipt_paths")
+    omitted = [
+        key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+    ]
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "portfolio_id": result.get("portfolio_id"),
+        "environment_id": result.get("environment_id"),
+        "cache_status": result.get("cache_status", "fresh_run_executed"),
+        "full_output_available": True,
+        "full_output_drilldown": (
+            "rerun without --card or inspect the written receipt files"
+        ),
+        "availability_summary": {
+            "tactic_count": result.get("tactic_count", 0),
+            "available_tactic_count": _list_count(result.get("available_tactic_ids")),
+            "unavailable_tactic_count": _list_count(
+                result.get("unavailable_tactic_ids")
+            ),
+            "mathlib_dependent_tactic_count": _list_count(
+                result.get("mathlib_dependent_tactic_ids")
+            ),
+            "compile_status_counts": compile_counts,
+            "mathlib_probe_status": result.get("mathlib_probe_status"),
+            "mathlib_lake_project_import_available": result.get(
+                "mathlib_lake_project_import_available"
+            ),
+            "mathlib_absence_gate_enforced": result.get(
+                "mathlib_absence_gate_enforced"
+            ),
+            "body_material_status": result.get("body_material_status"),
+            "tactic_availability_status": result.get(
+                "tactic_availability_status"
+            ),
+        },
+        "source_artifact_summary": {
+            "source_artifact_count": result.get("source_artifact_count", 0),
+            "copied_source_artifact_count": result.get(
+                "copied_source_artifact_count", 0
+            ),
+            "source_body_artifact_count": result.get(
+                "source_body_artifact_count", 0
+            ),
+            "copied_source_body_artifact_count": result.get(
+                "copied_source_body_artifact_count", 0
+            ),
+            "probe_source_body_status": result.get("probe_source_body_status"),
+            "source_body_status": result.get("source_body_status"),
+            "source_artifact_rows_exported": False,
+            "source_digest_maps_exported": False,
+        },
+        "negative_case_coverage": {
+            "expected_negative_case_count": (
+                len(expected_cases) if isinstance(expected_cases, dict) else 0
+            ),
+            "observed_negative_case_count": (
+                len(observed_cases) if isinstance(observed_cases, dict) else 0
+            ),
+            "missing_negative_case_count": _list_count(
+                result.get("missing_negative_cases")
+            ),
+            "error_code_count": _list_count(result.get("error_codes")),
+            "finding_count": _list_count(result.get("findings")),
+        },
+        "secret_exclusion_summary": {
+            "status": scan.get("status"),
+            "blocking_hit_count": scan.get("blocking_hit_count", 0),
+            "hit_count": scan.get("hit_count", 0),
+            "scanned_path_count": scan.get("scanned_path_count", 0),
+            "hits_exported": False,
+            "scan_scope_exported": False,
+            "body_redacted": True,
+        },
+        "authority_ceiling": {
+            "status": authority.get("status"),
+            "authority_ceiling": authority.get("authority_ceiling"),
+            "availability_is_environment_scoped": authority.get(
+                "availability_is_environment_scoped"
+            ),
+            "mathlib_absence_is_probe_result": authority.get(
+                "mathlib_absence_is_probe_result"
+            ),
+            "lean_lake_execution_authorized": authority.get(
+                "lean_lake_execution_authorized"
+            ),
+            "formal_proof_authority": authority.get("formal_proof_authority"),
+            "provider_calls_authorized": authority.get(
+                "provider_calls_authorized"
+            ),
+            "benchmark_performance_authority": authority.get(
+                "benchmark_performance_authority"
+            ),
+            "release_authorized": authority.get("release_authorized"),
+        },
+        "no_export_guards": {
+            "source_refs_exported": False,
+            "source_artifact_imports_exported": False,
+            "source_digests_exported": False,
+            "findings_exported": False,
+            "secret_scan_hits_exported": False,
+            "receipt_paths_exported": False,
+            "anti_claim_exported": False,
+            "proof_bodies_exported": False,
+            "provider_payloads_exported": False,
+        },
+        "receipt_summary": {
+            "result_receipt_name": (
+                BUNDLE_RESULT_NAME
+                if result.get("input_mode")
+                == "exported_tactic_portfolio_availability_bundle"
+                else RESULT_NAME
+            ),
+            "receipt_count": _list_count(receipt_paths),
+            "full_receipts_written": bool(receipt_paths),
+            "receipt_paths_exported": False,
+        },
+        "output_economy": {
+            "output_profile": "compact_card",
+            "omitted_full_payload_keys": omitted,
+            "body_in_receipt": result.get("body_in_receipt"),
+            "body_redacted": True,
+        },
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -941,13 +1185,28 @@ def run_availability_bundle(
         "run-availability-bundle"
     ),
 ) -> dict[str, Any]:
+    input_path = Path(input_dir)
     target = Path(out_dir)
     public_root = _public_root_for_path(target)
+    cached = _fresh_availability_bundle_receipt(
+        input_path,
+        target,
+        command=command,
+    )
+    if cached is not None:
+        return cached
     result = _build_result(
-        Path(input_dir),
+        input_path,
         command=command,
         input_mode="exported_tactic_portfolio_availability_bundle",
         include_negative=False,
+    )
+    result["cache_status"] = "rebuilt"
+    result["freshness_basis"] = _receipt_freshness_basis(
+        command=command,
+        receipt_path=target / BUNDLE_RESULT_NAME,
+        input_paths=_input_paths(input_path, include_negative=False),
+        input_mode="exported_tactic_portfolio_availability_bundle",
     )
     path = target / BUNDLE_RESULT_NAME
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -969,9 +1228,11 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-availability-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
@@ -994,6 +1255,15 @@ def main(argv: list[str] | None = None) -> int:
             f"run-availability-bundle --input {args.input} --out {args.out}"
         )
         result = run_availability_bundle(args.input, args.out, command=command)
+    if args.card:
+        print(
+            json.dumps(
+                result_card(result),
+                ensure_ascii=True,
+                indent=2,
+                sort_keys=True,
+            )
+        )
     return 0 if result["status"] == PASS else 1
 
 
