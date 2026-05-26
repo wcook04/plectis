@@ -376,6 +376,18 @@ MULTI_AGENT_FANIN_SOURCE_TARGET_REF = (
     "exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/"
     "continuation_packet.py"
 )
+BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_INPUT_NAMES = (
+    "source_module_manifest.json",
+)
+BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS = (
+    "source_modules/tools/meta/bridge/bridge_resume.py",
+)
+BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF = "tools/meta/bridge/bridge_resume.py"
+BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF = (
+    "microcosm-substrate/examples/agent_route_observability_runtime/"
+    "exported_bridge_dispatch_yield_resume_bundle/source_modules/tools/meta/"
+    "bridge/bridge_resume.py"
+)
 BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS = {
     "raw_worker_transcript_body",
     "raw_bridge_transcript",
@@ -577,7 +589,20 @@ def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
-    return [input_dir / name for name in BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES]
+    return [
+        input_dir / name
+        for name in (
+            *BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES,
+            *BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_INPUT_NAMES,
+        )
+    ]
+
+
+def _bridge_dispatch_yield_resume_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_bridge_dispatch_yield_resume_bundle_paths(input_dir),
+        *(input_dir / name for name in BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS),
+    ]
 
 
 def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
@@ -754,7 +779,7 @@ def _scan_bridge_dispatch_yield_resume_inputs(
 ) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _bridge_dispatch_yield_resume_bundle_paths(input_dir),
+        _bridge_dispatch_yield_resume_scan_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1994,6 +2019,147 @@ def validate_multi_agent_fanin_source_manifest(
                     "Multi-agent fan-in copied macro source body must retain required continuation-packet anchors.",
                     subject_id=anchor,
                     subject_kind="multi_agent_fanin_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
+    }
+
+
+def validate_bridge_dispatch_yield_resume_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "BRIDGE_RESUME_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Bridge dispatch/yield/resume source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="bridge_dispatch_yield_resume_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "BRIDGE_RESUME_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Bridge dispatch/yield/resume source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="bridge_dispatch_yield_resume_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Bridge dispatch/yield/resume source manifest must name the copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_REF_MISMATCH",
+                    "Bridge dispatch/yield/resume copied source body must point back to the macro bridge-resume source file.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_manifest",
+                )
+            )
+        if row.get("target_ref") != BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_TARGET_REF_MISMATCH",
+                    "Bridge dispatch/yield/resume copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_MODULE_FILE_MISSING",
+                    "Bridge dispatch/yield/resume copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Bridge dispatch/yield/resume copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Bridge dispatch/yield/resume copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="bridge_dispatch_yield_resume_source_module",
+                )
+            )
+        target_text = source_module_path.read_text(encoding="utf-8")
+        missing_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if str(anchor) and str(anchor) not in target_text
+        ]
+        for anchor in missing_anchors:
+            findings.append(
+                _bundle_finding(
+                    "BRIDGE_RESUME_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Bridge dispatch/yield/resume copied macro source body must retain required resume-protocol anchors.",
+                    subject_id=anchor,
+                    subject_kind="bridge_dispatch_yield_resume_source_module",
                 )
             )
         observed_modules.append(
@@ -3526,11 +3692,16 @@ def _write_bridge_dispatch_yield_resume_bundle_receipt(
             "public_trigger_rows": validation_result["public_trigger_rows"],
             "public_ledger_rows": validation_result["public_ledger_rows"],
             "bridge_policy_validation": validation_result["bridge_policy_validation"],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
             "source_refs": validation_result["source_refs"],
             "target_refs": validation_result["target_refs"],
             "body_import_verification": validation_result[
                 "body_import_verification"
             ],
+            "exact_source_body_import": validation_result["exact_source_body_import"],
             "metadata_envelope_only": True,
             "live_bridge_dispatch_authorized": False,
             "host_app_auto_inject_authorized": False,
@@ -4574,6 +4745,10 @@ def run_bridge_dispatch_yield_resume_bundle(
 
     manifest = payloads["bundle_manifest"] if isinstance(payloads["bundle_manifest"], dict) else {}
     view = build_public_bridge_dispatch_yield_resume_view(payloads)
+    source_manifest_result = validate_bridge_dispatch_yield_resume_source_manifest(
+        input_path,
+        payloads["source_module_manifest"],
+    )
     leaked_keys = sorted(
         BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS & _walk_payload_keys(payloads)
     )
@@ -4587,7 +4762,11 @@ def run_bridge_dispatch_yield_resume_bundle(
         for key in leaked_keys
     ]
     all_findings = sorted(
-        [*view.get("findings", []), *extra_findings],
+        [
+            *view.get("findings", []),
+            *source_manifest_result["findings"],
+            *extra_findings,
+        ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
             str(item.get("subject_id") or ""),
@@ -4603,6 +4782,7 @@ def run_bridge_dispatch_yield_resume_bundle(
         PASS
         if scan_result["status"] == PASS
         and view.get("status") == PASS
+        and source_manifest_result["status"] == PASS
         and not all_findings
         and summary.get("resume_job_count", 0) >= 2
         and summary.get("trigger_written_count", 0) >= 2
@@ -4619,6 +4799,12 @@ def run_bridge_dispatch_yield_resume_bundle(
     )
     source_refs = _strings(manifest.get("source_refs")) or BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REFS
     target_refs = _strings(manifest.get("target_refs")) or BRIDGE_DISPATCH_YIELD_RESUME_TARGET_REFS
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digest = (
+        str(observed_source_modules[0].get("sha256") or "")
+        if observed_source_modules
+        else ""
+    )
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -4654,11 +4840,29 @@ def run_bridge_dispatch_yield_resume_bundle(
             "public_trigger_rows": view.get("public_trigger_rows", []),
             "public_ledger_rows": view.get("public_ledger_rows", []),
             "bridge_policy_validation": view.get("policy_validation", {}),
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
             "source_refs": source_refs,
             "target_refs": target_refs,
             "source_symbols": view.get("source_symbols", []),
             "target_symbols": view.get("target_symbols", []),
             "body_import_verification": view.get("body_import_verification", {}),
+            "exact_source_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_ref": BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
+                "target_ref": BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF,
+                "source_body_digest": f"sha256:{source_body_digest}"
+                if source_body_digest
+                else "",
+                "target_body_digest": f"sha256:{source_body_digest}"
+                if source_body_digest and source_manifest_result["status"] == PASS
+                else "",
+                "body_in_receipt": False,
+            },
             "public_resume_targets": view.get("resume_targets", []),
             "public_resume_jobs": view.get("resume_jobs", []),
             "controller_heartbeat_refs": view.get("controller_heartbeat_refs", []),

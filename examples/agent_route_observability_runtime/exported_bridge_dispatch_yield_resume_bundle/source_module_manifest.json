@@ -1,0 +1,37 @@
+{
+  "schema_version": "agent_route_observability_runtime_bridge_dispatch_yield_resume_source_module_manifest_v1",
+  "bundle_id": "public_bridge_dispatch_yield_resume_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "module_count": 1,
+  "body_in_receipt": false,
+  "modules": [
+    {
+      "path": "source_modules/tools/meta/bridge/bridge_resume.py",
+      "source_ref": "tools/meta/bridge/bridge_resume.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "sha256": "9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+      "line_count": 1746,
+      "byte_count": 68123,
+      "required_anchors": [
+        "class ResumeTarget",
+        "class ResumeJob",
+        "class BridgeResumeManager",
+        "def format_resume_message(",
+        "def bridge_dispatch_and_yield(",
+        "RESUME_SCHEMA_VERSION",
+        "DEFAULT_STALE_PENDING_THRESHOLD_HOURS"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material"
+  ]
+}

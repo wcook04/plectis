@@ -2,6 +2,7 @@
   "bundle_id": "public_bridge_dispatch_yield_resume_runtime_example",
   "generated_at": "2026-05-24T04:25:00+00:00",
   "macro_pattern_id": "bridge_runtime_dispatch_yield_resume",
+  "organ_id": "agent_route_observability_runtime",
   "schema_version": "public_bridge_dispatch_yield_resume_bundle_v1",
   "source_refs": [
     "tools/meta/bridge/bridge_resume.py",
@@ -13,7 +14,19 @@
   ],
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
     "microcosm-substrate/examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle",
     "microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle_validation_result.json"
+  ],
+  "required_files": [
+    "bundle_manifest.json",
+    "source_module_manifest.json",
+    "source_modules/tools/meta/bridge/bridge_resume.py",
+    "resume_targets.json",
+    "resume_jobs.json",
+    "session_activity.json",
+    "dispatch_resume_policy.json",
+    "controller_heartbeat_refs.json",
+    "expected_bridge_summary.json"
   ]
 }

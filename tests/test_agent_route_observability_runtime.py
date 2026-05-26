@@ -702,6 +702,11 @@ def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
     assert result["controller_heartbeat_ref_count"] == 2
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    assert result["copied_macro_source_count"] == 1
     assert result["bridge_policy_validation"]["forbidden_authority_rejected"] is True
     assert result["authority_ceiling"]["live_bridge_dispatch_authorized"] is False
     assert result["authority_ceiling"]["host_app_auto_inject_authorized"] is False
@@ -715,6 +720,15 @@ def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(
     )
     assert result["body_import_verification"]["target_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py"
+    )
+    assert result["exact_source_body_import"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert result["exact_source_body_import"]["source_ref"] == (
+        "tools/meta/bridge/bridge_resume.py"
+    )
+    assert result["exact_source_body_import"]["source_body_digest"] == (
+        result["exact_source_body_import"]["target_body_digest"]
     )
 
 
@@ -759,10 +773,42 @@ def test_bridge_dispatch_yield_resume_receipt_is_public_safe(tmp_path: Path) -> 
     assert payload["recipient_send_authorized"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["body_in_receipt"] is False
     assert payload["authority_ceiling"]["release_authorized"] is False
     for hit in payload["secret_exclusion_scan"]["hits"]:
         assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_bridge_dispatch_imports_exact_bridge_resume_source_body() -> None:
+    source = MICROCOSM_ROOT.parent / "tools/meta/bridge/bridge_resume.py"
+    bundle_source = (
+        BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT
+        / "source_modules/tools/meta/bridge/bridge_resume.py"
+    )
+    manifest = json.loads(
+        (
+            BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_INPUT / "source_module_manifest.json"
+        ).read_text()
+    )
+    row = manifest["modules"][0]
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
+    bundle_source_text = bundle_source.read_text(encoding="utf-8")
+
+    assert bundle_source.is_file()
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert row["source_ref"] == "tools/meta/bridge/bridge_resume.py"
+    assert row["path"] == "source_modules/tools/meta/bridge/bridge_resume.py"
+    assert row["material_class"] == "public_macro_tool_body"
+    assert row["body_in_receipt"] is False
+    assert row["sha256"] == source_digest
+    assert row["sha256"] == bundle_source_digest
+    assert "class BridgeResumeManager" in bundle_source_text
+    assert "def bridge_dispatch_and_yield(" in bundle_source_text
+    compile(bundle_source_text, str(bundle_source), "exec")
 
 
 def test_bridge_resume_imports_public_macro_body_refactor() -> None:
