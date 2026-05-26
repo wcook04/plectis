@@ -344,11 +344,20 @@ ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES = (
 )
 SESSION_ATTRIBUTION_INPUT_NAMES = (
     "bundle_manifest.json",
+    "source_module_manifest.json",
     "ats_active_sessions.json",
     "work_ledger_status.json",
     "attribution_policy.json",
     "self_identification_request.json",
     "expected_attribution_summary.json",
+)
+SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS = (
+    "source_modules/system/lib/agent_session_attribution.py",
+)
+SESSION_ATTRIBUTION_SOURCE_REF = "system/lib/agent_session_attribution.py"
+SESSION_ATTRIBUTION_TARGET_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "agent_session_attribution.py"
 )
 MULTI_AGENT_FANIN_INPUT_NAMES = (
     "bundle_manifest.json",
@@ -539,6 +548,13 @@ def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in SESSION_ATTRIBUTION_INPUT_NAMES]
 
 
+def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_session_attribution_bundle_paths(input_dir),
+        *(input_dir / name for name in SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS),
+    ]
+
+
 def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
 
@@ -700,7 +716,7 @@ def _scan_computer_use_action_trace_inputs(
 def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _session_attribution_bundle_paths(input_dir),
+        _session_attribution_scan_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -783,6 +799,14 @@ def _strings(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _source_line_count(path: Path) -> int:
+    return len(path.read_text(encoding="utf-8").splitlines())
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
@@ -1539,6 +1563,132 @@ def validate_exported_session_attribution_inputs(
         "forbidden_payload_keys": leaked_keys,
         "metadata_envelope_only": True,
         "body_in_receipt": False,
+    }
+
+
+def validate_session_attribution_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Session-attribution source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="session_attribution_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Session-attribution source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="session_attribution_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Session-attribution source manifest must name the copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != SESSION_ATTRIBUTION_SOURCE_REF:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_SOURCE_REF_MISMATCH",
+                    "Session-attribution copied source body must point back to the macro source file.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_manifest",
+                )
+            )
+        if row.get("target_ref") != SESSION_ATTRIBUTION_TARGET_REF:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_TARGET_REF_MISMATCH",
+                    "Session-attribution copied source body must name the public Microcosm target ref.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_SOURCE_MODULE_FILE_MISSING",
+                    "Session-attribution copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Session-attribution copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "SESSION_ATTRIBUTION_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Session-attribution copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="session_attribution_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
     }
 
 
@@ -3076,6 +3226,10 @@ def _write_session_attribution_bundle_receipt(
             "summary": validation_result["summary"],
             "session_rows": validation_result["session_rows"],
             "session_input_validation": validation_result["session_input_validation"],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
             "attribution_policy": validation_result["attribution_policy"],
             "expected_summary_validation": validation_result[
                 "expected_summary_validation"
@@ -3810,6 +3964,10 @@ def run_session_attribution_bundle(
         payloads["ats_active_sessions"],
         payloads["work_ledger_status"],
     )
+    source_manifest_result = validate_session_attribution_source_manifest(
+        input_path,
+        payloads["source_module_manifest"],
+    )
     policy_result = validate_exported_session_attribution_policy(
         payloads["attribution_policy"]
     )
@@ -3840,9 +3998,41 @@ def run_session_attribution_bundle(
         view=view,
         self_session=self_session,
     )
+    target_body_path = (
+        Path(__file__).resolve().parents[1]
+        / "macro_tools/agent_session_attribution.py"
+    )
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digest = (
+        str(observed_source_modules[0].get("sha256") or "")
+        if observed_source_modules
+        else ""
+    )
+    target_body_digest = _file_sha256(target_body_path) if target_body_path.is_file() else ""
+    body_import_findings: list[dict[str, Any]] = []
+    if not target_body_digest:
+        body_import_findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_TARGET_BODY_MISSING",
+                "Session-attribution target macro-tool body must exist for source-copy verification.",
+                subject_id=SESSION_ATTRIBUTION_TARGET_REF,
+                subject_kind="session_attribution_body_import",
+            )
+        )
+    elif source_body_digest != target_body_digest:
+        body_import_findings.append(
+            _bundle_finding(
+                "SESSION_ATTRIBUTION_SOURCE_TARGET_DIGEST_MISMATCH",
+                "Session-attribution copied source body must match the public Microcosm target body.",
+                subject_id=SESSION_ATTRIBUTION_TARGET_REF,
+                subject_kind="session_attribution_body_import",
+            )
+        )
     all_findings = sorted(
         [
             *input_result["findings"],
+            *source_manifest_result["findings"],
+            *body_import_findings,
             *policy_result["findings"],
             *expected_result["findings"],
         ],
@@ -3864,6 +4054,7 @@ def run_session_attribution_bundle(
         PASS
         if scan_result["status"] == PASS
         and not all_findings
+        and source_manifest_result["status"] == PASS
         and input_result["active_session_count"]
         and input_result["workledger_session_count"]
         and session_rows
@@ -3912,19 +4103,26 @@ def run_session_attribution_bundle(
             "summary": view.get("summary", {}),
             "session_rows": session_rows,
             "session_input_validation": input_result,
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
             "attribution_policy": policy_result,
             "expected_summary_validation": expected_result,
             "source_refs": source_refs,
             "target_refs": target_refs,
             "body_import_verification": {
-                "verification_status": "verified",
+                "verification_status": PASS if not body_import_findings else "blocked",
                 "verification_mode": "exact_source_digest_match",
                 "source_to_target_relation": "exact_copy",
-                "source_ref": "system/lib/agent_session_attribution.py",
-                "target_ref": (
-                    "microcosm-substrate/src/microcosm_core/macro_tools/"
-                    "agent_session_attribution.py"
-                ),
+                "source_ref": SESSION_ATTRIBUTION_SOURCE_REF,
+                "target_ref": SESSION_ATTRIBUTION_TARGET_REF,
+                "source_body_digest": f"sha256:{source_body_digest}"
+                if source_body_digest
+                else "",
+                "target_body_digest": f"sha256:{target_body_digest}"
+                if target_body_digest
+                else "",
                 "body_in_receipt": False,
             },
             "bundle_fingerprint": bundle_fingerprint,

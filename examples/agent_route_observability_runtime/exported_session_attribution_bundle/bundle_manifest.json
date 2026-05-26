@@ -10,11 +10,14 @@
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_session_attribution"
   ],
   "target_refs": [
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_session_attribution_bundle/source_modules/system/lib/agent_session_attribution.py",
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::run_session_attribution_bundle"
   ],
   "required_files": [
     "bundle_manifest.json",
+    "source_module_manifest.json",
+    "source_modules/system/lib/agent_session_attribution.py",
     "ats_active_sessions.json",
     "work_ledger_status.json",
     "attribution_policy.json",

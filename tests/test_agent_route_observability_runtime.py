@@ -455,6 +455,15 @@ def test_session_attribution_exported_bundle_validates_runtime_shape(
     assert result["attributed_session_count"] == 6
     assert result["matched_session_count"] == 2
     assert result["self_session_id"] == "019dc1ab-cdef-7000-aaaa-000000000000"
+    assert result["copied_macro_source_count"] == 1
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    body_import = result["body_import_verification"]
+    assert body_import["verification_status"] == "pass"
+    assert body_import["verification_mode"] == "exact_source_digest_match"
+    assert body_import["source_body_digest"] == body_import["target_body_digest"]
     assert result["summary"]["by_attribution_status"] == {
         "matched": 2,
         "ats_only": 1,
@@ -514,6 +523,11 @@ def test_session_attribution_exported_bundle_receipt_is_public_safe(
     assert payload["raw_transcript_body_exported"] is False
     assert payload["provider_payload_exported"] is False
     assert payload["account_session_state_exported"] is False
+    assert payload["copied_macro_source_count"] == 1
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["body_import_verification"]["source_body_digest"] == (
+        payload["body_import_verification"]["target_body_digest"]
+    )
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["authority_ceiling"]["release_authorized"] is False
     for hit in payload["private_state_scan"]["hits"]:
@@ -1344,8 +1358,13 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
 
 def test_session_attribution_imports_exact_public_macro_body() -> None:
     source = MICROCOSM_ROOT.parent / "system/lib/agent_session_attribution.py"
+    bundle_source = (
+        SESSION_ATTRIBUTION_BUNDLE_INPUT
+        / "source_modules/system/lib/agent_session_attribution.py"
+    )
     target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_session_attribution.py"
     source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
     target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
     ats = json.loads((SESSION_ATTRIBUTION_BUNDLE_INPUT / "ats_active_sessions.json").read_text())
     work_ledger = json.loads(
@@ -1358,6 +1377,8 @@ def test_session_attribution_imports_exact_public_macro_body() -> None:
     )
 
     assert target.is_file()
+    assert bundle_source.is_file()
     assert source_digest == target_digest
+    assert source_digest == bundle_source_digest
     assert view["schema_version"] == SESSION_ATTRIBUTION_SCHEMA_VERSION
     assert view["summary"]["total"] >= 5

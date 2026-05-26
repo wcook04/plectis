@@ -1,0 +1,19 @@
+{
+  "schema_version": "agent_route_observability_runtime_session_attribution_source_module_manifest_v1",
+  "bundle_id": "public_agent_session_attribution_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "module_count": 1,
+  "modules": [
+    {
+      "source_ref": "system/lib/agent_session_attribution.py",
+      "path": "source_modules/system/lib/agent_session_attribution.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_session_attribution.py",
+      "material_class": "public_macro_source_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 652,
+      "sha256": "2fae0e449a726a08c669eca90c2a1aacc821f3a3f4b50683e4c96400da67d8cf",
+      "body_in_receipt": false
+    }
+  ]
+}
