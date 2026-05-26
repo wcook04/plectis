@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -30,6 +32,24 @@ ACCEPTANCE_RECEIPT_REL = (
     "mcp_tool_authority_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_mcp_tool_authority_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "mcp_tool_authority_replay_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "findings",
+    "secret_exclusion_scan",
+    "public_agent_execution_trace",
+    "source_refs",
+    "projection_receipt_refs",
+    "target_refs",
+    "target_symbols",
+    "public_runtime_refs",
+    "tool_rows",
+    "call_rows",
+    "tool_result_rows",
+    "side_effect_rows",
+    "cold_replay_rows",
+    "authority_ceiling",
+    "anti_claim",
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -152,6 +172,83 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     if manifest.is_file():
         paths.append(manifest)
     return paths
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    for path in _input_paths(source, include_negative=include_negative):
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+    validator_schema_version = (
+        "mcp_tool_authority_replay_result_v1"
+        if include_negative
+        else "exported_mcp_tool_authority_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "mcp_tool_authority_replay_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, ValueError, TypeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -978,6 +1075,8 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -992,15 +1091,24 @@ def run_tool_authority_bundle(
         "python -m microcosm_core.organs.mcp_tool_authority_replay "
         "run-tool-authority-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_bundle_receipt(source, out)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_mcp_tool_authority_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -1012,6 +1120,57 @@ def run_tool_authority_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "tool_authority": {
+            "tool_count": result.get("tool_count"),
+            "tool_classes": result.get("tool_classes", []),
+            "call_count": result.get("call_count"),
+            "write_side_effect_count": result.get("write_side_effect_count"),
+            "approved_side_effect_count": result.get("approved_side_effect_count"),
+            "untrusted_result_count": result.get("untrusted_result_count"),
+            "output_instruction_ignored_count": result.get(
+                "output_instruction_ignored_count"
+            ),
+            "rollback_receipt_count": result.get("rollback_receipt_count"),
+            "cold_replay_pass_count": result.get("cold_replay_pass_count"),
+        },
+        "validation": {
+            "missing_negative_case_count": len(result.get("missing_negative_cases") or []),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "body_in_receipt": result.get("body_in_receipt") is True,
+        },
+        "authority_boundary": {
+            "live_mcp_account_access_authorized": False,
+            "credential_export_authorized": False,
+            "untrusted_tool_output_instruction_authorized": False,
+            "unapproved_side_effect_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mcp_tool_authority_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -1019,21 +1178,45 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-tool-authority-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        command = (
+            "python -m microcosm_core.organs.mcp_tool_authority_replay run "
+            f"--input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-tool-authority-bundle":
-        result = run_tool_authority_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.mcp_tool_authority_replay "
+            f"run-tool-authority-bundle --input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run_tool_authority_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(result["status"])
     return 0 if result["status"] == PASS else 1
 
 

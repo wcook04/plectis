@@ -8,8 +8,11 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_mcp_tool_authority_trace,
 )
+import microcosm_core.organs.mcp_tool_authority_replay as mcp_tool_authority_replay
 from microcosm_core.organs.mcp_tool_authority_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_tool_authority_bundle,
 )
@@ -159,6 +162,51 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     assert (
         result["authority_ceiling"]["live_mcp_account_access_authorized"] is False
     )
+
+
+def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay"
+    )
+    args = [
+        "run-tool-authority-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["tool_authority"]["tool_count"] == 3
+    assert first_card["tool_authority"]["call_count"] == 3
+    assert "call_rows" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "public_agent_execution_trace" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(mcp_tool_authority_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_public_agent_execution_trace_refactor_builds_mcp_tool_authority_spans() -> None:
