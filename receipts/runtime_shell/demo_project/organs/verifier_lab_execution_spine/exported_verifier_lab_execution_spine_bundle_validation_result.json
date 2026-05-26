@@ -30,6 +30,7 @@
     "source_mutation_count": 0,
     "transition_count": 6
   },
+  "body_copied_material_count": 5,
   "body_in_receipt": false,
   "bundle_id": "public_verifier_lab_execution_spine_runtime_example",
   "claim_separation": {
@@ -255,7 +256,7 @@
       }
     ]
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
   "cp2_translation_trace": [
     {
       "candidate_action_class": "premise_exact",
@@ -294,7 +295,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-26T12:09:20+00:00",
+  "created_at": "2026-05-26T23:22:12+00:00",
   "error_codes": [],
   "evolve_mutation_trace": [
     {
@@ -369,6 +370,9 @@
       "action_class",
       "candidate_kind",
       "allowed_premise_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "lean_lake_command_identity",
       "lean_return_code",
       "accepted",
@@ -406,9 +410,109 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 2,
+    "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 5,
+    "modules": [
+      {
+        "actual_sha256": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
+        "body_in_receipt": false,
+        "line_count": 1719,
+        "material_class": "public_macro_tool_body",
+        "module_id": "verifier_lab_execution_spine_source_body_import",
+        "sha256": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
+        "source_ref": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py"
+      },
+      {
+        "actual_sha256": "sha256:47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
+        "body_in_receipt": false,
+        "line_count": 148,
+        "material_class": "public_macro_tool_body",
+        "module_id": "execution_spine_packet_body_import",
+        "sha256": "sha256:47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
+        "source_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json"
+      },
+      {
+        "actual_sha256": "sha256:019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
+        "body_in_receipt": false,
+        "line_count": 6,
+        "material_class": "public_macro_tool_body",
+        "module_id": "execution_spine_lakefile_body_import",
+        "sha256": "sha256:019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
+        "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/lakefile.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/lakefile.lean"
+      },
+      {
+        "actual_sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+        "body_in_receipt": false,
+        "line_count": 1,
+        "material_class": "public_macro_proof_body",
+        "module_id": "execution_spine_root_lean_body_import",
+        "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+        "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness.lean"
+      },
+      {
+        "actual_sha256": "sha256:f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
+        "body_in_receipt": false,
+        "line_count": 33,
+        "material_class": "public_macro_proof_body",
+        "module_id": "execution_spine_basic_lean_body_import",
+        "sha256": "sha256:f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
+        "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+      }
+    ],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
+    "status": "pass"
+  },
+  "source_module_manifest_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": "bounded_public_transition_rows_only",
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": true,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "verifier_lab_execution_spine_source_body_import",
+      "execution_spine_packet_body_import",
+      "execution_spine_lakefile_body_import",
+      "execution_spine_root_lean_body_import",
+      "execution_spine_basic_lean_body_import"
+    ],
+    "body_material_status": "copied_non_secret_verifier_lab_execution_spine_runtime_source_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ and lake_project/ inside the exported execution-spine bundle for copied public runtime source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "verifier_lab_execution_spine_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,
@@ -419,7 +523,7 @@
         "lake",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -432,7 +536,7 @@
         "lean",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,

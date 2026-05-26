@@ -12,6 +12,7 @@ from microcosm_core.organs.verifier_lab_execution_spine import (
     main,
     run,
     run_execution_bundle,
+    validate_source_module_imports,
 )
 
 
@@ -107,6 +108,12 @@ def test_verifier_lab_execution_spine_bundle_is_public_structured(tmp_path: Path
     assert result["authority_counters"]["accepted_transition_count"] == 4
     assert result["authority_counters"]["cp2_downstream_effect_count"] == 1
     assert result["authority_counters"]["evolve_accepted_count"] == 1
+    assert result["source_module_imports"]["status"] == "pass"
+    assert result["source_module_imports"]["module_count"] == 5
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 5
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["body_copied_material_count"] == 5
     assert result["receipt_transparency_contract"]["receipt_body_is_public_evidence"] is True
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
@@ -148,6 +155,9 @@ def test_verifier_lab_execution_spine_bundle_card_reuses_fresh_receipt(
     assert first_card["execution_summary"]["accepted_transition_count"] == 4
     assert first_card["execution_summary"]["cp2_downstream_effect_count"] == 1
     assert first_card["execution_summary"]["evolve_accepted_count"] == 1
+    assert first_card["source_open_body_import_summary"]["status"] == "pass"
+    assert first_card["source_open_body_import_summary"]["body_material_count"] == 5
+    assert first_card["source_open_body_import_summary"]["body_text_exported"] is False
     assert first_card["negative_case_coverage"]["expected_negative_case_count"] == 0
     assert first_card["negative_case_coverage"]["missing_negative_case_count"] == 0
     assert first_card["secret_exclusion_summary"]["blocking_hit_count"] == 0
@@ -162,11 +172,14 @@ def test_verifier_lab_execution_spine_bundle_card_reuses_fresh_receipt(
     assert "receipt_paths" not in card_keys
     assert "findings" not in card_keys
     assert "anti_claim" not in card_keys
+    assert "body_material_ids" not in card_keys
+    assert "source_manifest_refs" not in card_keys
 
     full_receipt = json.loads((out / BUNDLE_RESULT_NAME).read_text(encoding="utf-8"))
     assert full_receipt["status"] == "pass"
     assert full_receipt["transition_trace"][0]["problem_id"] == "closed_nat_mod_public"
     assert "claim_separation" in full_receipt
+    assert full_receipt["source_open_body_imports"]["body_material_count"] == 5
 
     def fail_build_result(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
         raise AssertionError("fresh exported-bundle card should reuse the receipt")
@@ -180,6 +193,9 @@ def test_verifier_lab_execution_spine_bundle_card_reuses_fresh_receipt(
     assert len(second_stdout.encode("utf-8")) < 5000
     assert second_card["cache_status"] == "fresh_exported_bundle_receipt_reused"
     assert second_card["execution_summary"] == first_card["execution_summary"]
+    assert second_card["source_open_body_import_summary"] == first_card[
+        "source_open_body_import_summary"
+    ]
 
 
 def test_verifier_lab_execution_spine_receipts_are_transparent_without_bodies(
@@ -215,3 +231,36 @@ def test_verifier_lab_execution_spine_receipts_are_transparent_without_bodies(
     assert '"body":' not in text
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
+
+
+def test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor() -> None:
+    manifest_path = EXPORTED_BUNDLE / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    source_imports = validate_source_module_imports(
+        EXPORTED_BUNDLE,
+        public_root=MICROCOSM_ROOT,
+    )
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 5
+    assert source_imports["status"] == "pass"
+    assert source_imports["module_count"] == 5
+
+    module_ids = {row["module_id"] for row in source_imports["modules"]}
+    assert "verifier_lab_execution_spine_source_body_import" in module_ids
+    assert "execution_spine_basic_lean_body_import" in module_ids
+    for row in manifest["modules"]:
+        source_path = MICROCOSM_ROOT / str(row["source_ref"]).removeprefix(
+            "microcosm-substrate/"
+        )
+        target_path = MICROCOSM_ROOT / str(row["target_ref"]).removeprefix(
+            "microcosm-substrate/"
+        )
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["material_class"] in {
+            "public_macro_tool_body",
+            "public_macro_proof_body",
+        }
+        assert source_path.read_bytes() == target_path.read_bytes()

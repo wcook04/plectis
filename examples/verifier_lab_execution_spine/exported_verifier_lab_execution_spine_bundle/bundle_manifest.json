@@ -4,5 +4,50 @@
   "organ_id": "verifier_lab_execution_spine",
   "input_mode": "exported_verifier_lab_execution_spine_bundle",
   "source_fixture_ref": "fixtures/first_wave/verifier_lab_execution_spine/input",
-  "authority_ceiling": "bounded public Lean transition execution only; not proof authority beyond fixture rows"
+  "authority_ceiling": "bounded public Lean transition execution only; not proof authority beyond fixture rows",
+  "real_runtime_receipt": true,
+  "synthetic_receipt_standin_allowed": false,
+  "source_module_manifest": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_verifier_lab_execution_spine_runtime_source_bodies_with_digest_provenance",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "verifier_lab_execution_spine_source_body_import",
+      "execution_spine_packet_body_import",
+      "execution_spine_lakefile_body_import",
+      "execution_spine_root_lean_body_import",
+      "execution_spine_basic_lean_body_import"
+    ],
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json::modules",
+    "source_manifest_refs": [
+      "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": true,
+      "formal_proof_authority": "bounded_public_transition_rows_only",
+      "release_authorized": false
+    },
+    "reader_action": "Open source_module_manifest.json plus source_modules/ and lake_project/ inside the exported execution-spine bundle for copied public runtime source bodies; receipts carry refs, digests, counts, and verdicts only."
+  },
+  "included_files": [
+    "bundle_manifest.json",
+    "execution_spine_packet.json",
+    "source_module_manifest.json",
+    "lake_project/lakefile.lean",
+    "lake_project/MicrocosmProofWitness.lean",
+    "lake_project/MicrocosmProofWitness/Basic.lean",
+    "source_modules/microcosm_core/organs/verifier_lab_execution_spine.py"
+  ]
 }

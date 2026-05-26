@@ -17,6 +17,16 @@
       "path": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
+      "field": "source_open_body_imports",
+      "role": "copied_runtime_source_body_manifest"
+    },
+    {
+      "path": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
+      "field": "source_module_imports",
+      "role": "copied_execution_spine_organ_source_body"
     }
   ],
   "relationships": {
@@ -40,7 +50,11 @@
     "cp2_translation_requests",
     "evolve_mutations",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "source_refs",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_copied_material_count"
   ],
   "validation_rules": [
     "execute bounded public Lean transition candidates in a temporary workspace",
@@ -50,7 +64,9 @@
     "require downstream Lean rerun effect before CP2 success language",
     "mutate only bounded policy artifacts for Evolve candidates",
     "accept or quarantine Evolve mutations from rerun evidence and leakage regression checks",
-    "emit separated claim buckets for verifier, oracle, provider, CP2, contract rejection, residual, and Evolve outcomes"
+    "emit separated claim buckets for verifier, oracle, provider, CP2, contract rejection, residual, and Evolve outcomes",
+    "require exported runtime bundles to carry source_module_manifest.json rows for copied execution-spine Python, packet, Lake, and Lean source bodies",
+    "verify copied source module targets exist and match source_module_manifest sha256 digests before counting source_open_body_imports"
   ],
   "receipt_expectations": [
     "receipt.microcosm.verifier_lab_execution_spine",
@@ -66,7 +82,9 @@
       "bounded_evolve_policy_rerun",
       "forward_oracle_provider_visibility_rejection",
       "proof_body_exclusion",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_digest_verification",
+      "source_open_body_import_count"
     ]
   },
   "receipt_contract": {
@@ -87,7 +105,11 @@
       "real_runtime_receipt",
       "synthetic_receipt_standin_allowed",
       "public_runtime_refs",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count"
     ]
   },
   "receipt_transparency_contract": {
@@ -207,5 +229,23 @@
   "anti_claim_contract": {
     "required": true,
     "rule": "execution-spine material must state that provider, oracle, CP2, and Evolve outputs are not proof authority without independent verifier receipt"
+  },
+  "source_open_body_imports_contract": {
+    "schema_version": "verifier_lab_execution_spine_source_open_body_imports_contract_v1",
+    "required": true,
+    "minimum_body_material_count": 5,
+    "manifest_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
+    "aggregate_floor_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json::modules",
+    "allowed_material_classes": [
+      "public_macro_tool_body",
+      "public_macro_proof_body"
+    ],
+    "body_in_receipt": false,
+    "blocked_import_debt_ref": "source_module_manifest.json::blocked_import_debt",
+    "rule": "Count copied execution-spine runtime source body material only after source_module_manifest.json verifies path, relation, digest, anchors, and public-safe material class."
+  },
+  "macro_body_provenance_contract": {
+    "required": true,
+    "rule": "macro source refs stay public-root relative, copied execution-spine source bodies live in the exported bundle, and receipts expose refs, hashes, counts, and verdicts without duplicating proof/provider/oracle/stdout/stderr bodies"
   }
 }

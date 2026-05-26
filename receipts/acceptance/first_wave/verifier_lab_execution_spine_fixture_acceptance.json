@@ -33,6 +33,7 @@
     "source_mutation_count": 0,
     "transition_count": 6
   },
+  "body_copied_material_count": 0,
   "body_in_receipt": false,
   "bundle_id": null,
   "claim_separation": {
@@ -258,7 +259,7 @@
       }
     ]
   },
-  "command": "pytest",
+  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out receipts/first_wave/verifier_lab_execution_spine --acceptance-out receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
   "cp2_translation_trace": [
     {
       "candidate_action_class": "premise_exact",
@@ -297,7 +298,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-23T21:33:30+00:00",
+  "created_at": "2026-05-26T23:22:13+00:00",
   "error_codes": [
     "VERIFIER_LAB_EXECUTION_CP2_PROOF_BODY_FORBIDDEN",
     "VERIFIER_LAB_EXECUTION_EVOLVE_SCOPE_FORBIDDEN",
@@ -404,9 +405,9 @@
   "real_runtime_receipt": true,
   "receipt_id": "verifier_lab_execution_spine_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-3807/test_verifier_lab_execution_sp2/receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_result.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_board.json",
+    "receipts/first_wave/verifier_lab_execution_spine/verifier_lab_execution_spine_validation_receipt.json",
     "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json"
   ],
   "receipt_transparency_contract": {
@@ -431,6 +432,9 @@
       "action_class",
       "candidate_kind",
       "allowed_premise_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "lean_lake_command_identity",
       "lean_return_code",
       "accepted",
@@ -448,6 +452,7 @@
   "runtime_shell_projection_deferred": true,
   "schema_version": "verifier_lab_execution_spine_fixture_acceptance_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -459,9 +464,51 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 5,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 0,
+    "modules": [],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/source_module_manifest.json",
+    "status": "not_applicable"
+  },
+  "source_module_manifest_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": "bounded_public_transition_rows_only",
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": true,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "verifier_lab_execution_spine_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_applicable"
   },
   "status": "pass",
   "synthetic_receipt_standin_allowed": false,
@@ -472,7 +519,7 @@
         "lake",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -485,7 +532,7 @@
         "lean",
         "--version"
       ],
-      "cwd_name": "ai_workflow",
+      "cwd_name": "microcosm-substrate",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
