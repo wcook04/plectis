@@ -162,6 +162,23 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "public_constellation_strategy",
         "dissemination_strategy",
     ]
+    assert row["entry_depth_contract"]["human_first_screen_projection"] == (
+        "microcosm hello <project>"
+    )
+    assert row["entry_depth_contract"]["shared_behavior_proof"] == (
+        "microcosm tour --card <project>"
+    )
+    assert row["entry_depth_contract"]["json_first_screen_projection"] == (
+        "microcosm first-screen <project>"
+    )
+    assert row["entry_depth_contract"]["claim_boundary_drilldowns"] == [
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "evidence_class_counters",
+    ]
+    assert "generated public export files only after behavior proof" in (
+        row["entry_depth_contract"]["export_depth_rule"]
+    )
     assert "--entry" in row["entry_depth_contract"]["control_entry"]
     assert any(
         "microcosm_public_export_type_plane" in probe
