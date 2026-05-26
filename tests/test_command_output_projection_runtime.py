@@ -159,6 +159,9 @@ GENERATED_PROJECTION_CONTROL_MANIFEST = (
 SHARED_WORKTREE_GUARD_MANIFEST = (
     BUNDLE_INPUT / "shared_worktree_guard_source_module_manifest.json"
 )
+RAW_GIT_COMMIT_GUARD_MANIFEST = (
+    BUNDLE_INPUT / "raw_git_commit_guard_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2997,6 +3000,52 @@ def test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary(
     assert "shared_git_reset_hard" in guard_text
     assert "test_cli_session_preflight_flags_shared_worktree_git_stash" in test_text
     assert "test_shared_worktree_guard_blocks_destructive_git_in_dirty_tree" in test_text
+    assert "not authority to mutate git state" in manifest["public_runtime_policy"]
+    assert "live .git index state" in manifest["secret_exclusion_boundary"]
+
+
+def test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        RAW_GIT_COMMIT_GUARD_MANIFEST,
+        manifest_id="raw_git_commit_guard_source_modules_import",
+        module_count=5,
+    )
+
+
+def test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary() -> None:
+    runtime_hook = BUNDLE_INPUT / "source_modules/.claude/hooks/runtime_hook.py"
+    run_git = BUNDLE_INPUT / "source_modules/run_git.py"
+    guard_test = (
+        BUNDLE_INPUT / "source_modules/tools/meta/control/test_raw_git_commit_guard.py"
+    )
+    pre_commit = BUNDLE_INPUT / "source_modules/.githooks/pre-commit"
+    prepare_commit_msg = BUNDLE_INPUT / "source_modules/.githooks/prepare-commit-msg"
+    manifest = json.loads(RAW_GIT_COMMIT_GUARD_MANIFEST.read_text(encoding="utf-8"))
+
+    for source in (runtime_hook, run_git, guard_test):
+        compile(source.read_text(encoding="utf-8"), str(source), "exec")
+
+    runtime_text = runtime_hook.read_text(encoding="utf-8")
+    run_git_text = run_git.read_text(encoding="utf-8")
+    test_text = guard_test.read_text(encoding="utf-8")
+    pre_commit_text = pre_commit.read_text(encoding="utf-8")
+    prepare_text = prepare_commit_msg.read_text(encoding="utf-8")
+
+    assert 'BANNED_RAW_GIT_SUBCOMMANDS = ("add", "commit")' in runtime_text
+    assert "def _segment_has_explicit_override(" in runtime_text
+    assert "def _raw_shared_index_git_guard(" in runtime_text
+    assert "block_reason = _raw_shared_index_git_guard(payload)" in runtime_text
+    assert "def run_hook_prepare_commit_msg(" in run_git_text
+    assert "def run_hook_pre_commit(" in run_git_text
+    assert "AIW_ALLOW_RAW_GIT_COMMIT" in run_git_text
+    assert "exec ./repo-python run_git.py hook pre-commit" in pre_commit_text
+    assert "prepare-commit-msg backstop for the raw shared-index commit guard" in prepare_text
+    assert "exec ./repo-python run_git.py hook prepare-commit-msg" in prepare_text
+    assert "test_pretool_blocks_plain_git_commit_dash_m" in test_text
+    assert (
+        "test_prepare_commit_msg_refuses_no_verify_commit_without_override"
+        in test_text
+    )
     assert "not authority to mutate git state" in manifest["public_runtime_policy"]
     assert "live .git index state" in manifest["secret_exclusion_boundary"]
 

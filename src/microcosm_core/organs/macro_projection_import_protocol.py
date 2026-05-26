@@ -1951,6 +1951,53 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "raw_git_commit_guard_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The raw shared-index git commit guard lane now carries exact copied "
+            "non-secret PreToolUse parser, repo git hook dispatcher, githook "
+            "shim, and regression-test bodies inside the projection bundle. "
+            "This imports guard source body without exporting live .git index "
+            "state, dirty-worktree payload bodies, live Task Ledger or Work "
+            "Ledger mutation authority, prompt/provider/tool payload bodies, "
+            "account/session state, browser/HUD live access, recipient-send "
+            "state, release authority, publication authority, or "
+            "credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "raw_git_commit_guard_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/.claude/"
+                "hooks/runtime_hook.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/run_git.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/.githooks/"
+                "prepare-commit-msg"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/tools/meta/"
+                "control/test_raw_git_commit_guard.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "formal_math_proofline_spine_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

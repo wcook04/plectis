@@ -1,0 +1,15 @@
+#!/bin/sh
+# prepare-commit-msg backstop for the raw shared-index commit guard.
+#
+# This hook fires for every `git commit` invocation, INCLUDING `--no-verify`
+# (which suppresses pre-commit and commit-msg but not prepare-commit-msg
+# in current git). It refuses unless `AIW_ALLOW_RAW_GIT_COMMIT=1` is set,
+# routing operators toward `tools/meta/control/scoped_commit.py` and
+# `./checkpoint` (which commit via `git commit-tree` + `git update-ref`
+# and do NOT trigger this hook).
+#
+# Tracked at cap_quick_concurrent_broad_sweep_commit_absorbed_i_6cc3039a3fde.
+set -eu
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+exec ./repo-python run_git.py hook prepare-commit-msg "$@"

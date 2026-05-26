@@ -10895,6 +10895,321 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy__claude_hooks_runtime_hook_py_into_public_projection_bundle",
+        "bind_raw_git_commit_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_browser_hud_account_session_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:3c1473adb530eea3e01c7d3011297a724f0398cd41815f9c2871a2e3c1a763a7",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:3c1473adb530eea3e01c7d3011297a724f0398cd41815f9c2871a2e3c1a763a7",
+        "source_line_count": 2764,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:3c1473adb530eea3e01c7d3011297a724f0398cd41815f9c2871a2e3c1a763a7",
+        "target_line_count": 2764,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 2764,
+      "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "raw_git_runtime_hook_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": ".claude/hooks/runtime_hook.py",
+      "source_refs": [
+        ".claude/hooks/runtime_hook.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_run_git_py_into_public_projection_bundle",
+        "bind_raw_git_commit_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_browser_hud_account_session_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
+        "source_line_count": 2005,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:6b323c5abea760b652505aad46d41f4327ddc99963e440a4bf21a1b40a2b6d44",
+        "target_line_count": 2005,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 2005,
+      "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "raw_git_run_git_guard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "run_git.py",
+      "source_refs": [
+        "run_git.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy__githooks_pre_commit_into_public_projection_bundle",
+        "bind_raw_git_commit_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_browser_hud_account_session_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:8d5fab65b39911c0d205cd6f1db44fd6c892a8b64275257d4d43f24dbf8744a8",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:8d5fab65b39911c0d205cd6f1db44fd6c892a8b64275257d4d43f24dbf8744a8",
+        "source_line_count": 5,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:8d5fab65b39911c0d205cd6f1db44fd6c892a8b64275257d4d43f24dbf8744a8",
+        "target_line_count": 5,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 5,
+      "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "raw_git_pre_commit_hook_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": ".githooks/pre-commit",
+      "source_refs": [
+        ".githooks/pre-commit",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy__githooks_prepare_commit_msg_into_public_projection_bundle",
+        "bind_raw_git_commit_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_browser_hud_account_session_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:7bed5b8e465b6d8cde613b502b91f19317328ef1f9498e6c6b4224b6b21ca3f3",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:7bed5b8e465b6d8cde613b502b91f19317328ef1f9498e6c6b4224b6b21ca3f3",
+        "source_line_count": 15,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:7bed5b8e465b6d8cde613b502b91f19317328ef1f9498e6c6b4224b6b21ca3f3",
+        "target_line_count": 15,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 15,
+      "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "raw_git_prepare_commit_msg_hook_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": ".githooks/prepare-commit-msg",
+      "source_refs": [
+        ".githooks/prepare-commit-msg",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/prepare-commit-msg",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_tools_meta_control_test_raw_git_commit_guard_py_into_public_projection_bundle",
+        "bind_raw_git_commit_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_browser_hud_account_session_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:3431695cfb406f39652e774a45b9f0ca2c8490d58c668f00ad7912c752820078",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:3431695cfb406f39652e774a45b9f0ca2c8490d58c668f00ad7912c752820078",
+        "source_line_count": 562,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:3431695cfb406f39652e774a45b9f0ca2c8490d58c668f00ad7912c752820078",
+        "target_line_count": 562,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 562,
+      "claim_ceiling": "public raw shared-index git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, browser/HUD inspection, account/session access, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "raw_git_commit_guard_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/control/test_raw_git_commit_guard.py",
+      "source_refs": [
+        "tools/meta/control/test_raw_git_commit_guard.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/test_raw_git_commit_guard.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -11122,7 +11437,13 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
     "navigation_trace_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_trace.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.claude/hooks/runtime_hook.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/run_git.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/prepare-commit-msg",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/test_raw_git_commit_guard.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -11382,7 +11703,13 @@
     "system/lib/generated_state_drainer.py",
     "system/server/tests/test_generated_state_drainer.py",
     "system/server/tests/test_generated_state_drainer_cli_compact.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/generated_projection_control_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/generated_projection_control_source_module_manifest.json",
+    ".claude/hooks/runtime_hook.py",
+    "run_git.py",
+    ".githooks/pre-commit",
+    ".githooks/prepare-commit-msg",
+    "tools/meta/control/test_raw_git_commit_guard.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -11434,6 +11761,11 @@
       "action": "Import exact public-safe prompt-shelf runs-index projector, B3 packet-lint dependency, synthetic regression test source bodies, and validation-only fixture into the Microcosm projection bundle with hash, anchor, metadata-boundary, and syntax checks.",
       "step_id": "prompt_shelf_runs_index_source_modules_import",
       "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_prompt_shelf_runs_index_source_manifest_matches_exact_macro_sources"
+    },
+    {
+      "action": "Import exact public-safe raw shared-index git commit guard source bodies into the Microcosm projection bundle with hash, anchor, syntax, and secret-exclusion checks.",
+      "step_id": "raw_git_commit_guard_source_modules_import",
+      "validation_ref": "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources"
     }
   ],
   "validation_refs": [
@@ -11610,6 +11942,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }
