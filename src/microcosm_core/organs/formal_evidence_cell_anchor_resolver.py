@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,7 @@ ORGAN_ID = "formal_evidence_cell_anchor_resolver"
 FIXTURE_ID = "first_wave.formal_evidence_cell_anchor_resolver"
 VALIDATOR_ID = "validator.microcosm.organs.formal_evidence_cell_anchor_resolver"
 
+CARD_SCHEMA_VERSION = "formal_evidence_cell_anchor_resolver_command_card_v1"
 RESULT_NAME = "formal_evidence_cell_anchor_resolver_result.json"
 BOARD_NAME = "evidence_cell_anchor_board.json"
 VALIDATION_RECEIPT_NAME = "formal_evidence_cell_anchor_resolver_validation_receipt.json"
@@ -1021,6 +1023,157 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    payload = scan if isinstance(scan, dict) else {}
+    return {
+        "status": payload.get("status"),
+        "scanned_path_count": payload.get("scanned_path_count"),
+        "hit_count": payload.get("hit_count"),
+        "blocking_hit_count": payload.get("blocking_hit_count"),
+        "body_in_receipt": payload.get("body_in_receipt") is True,
+        "scan_scope_exported": False,
+        "hits_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling")
+    payload = ceiling if isinstance(ceiling, dict) else {}
+    return {
+        "authority_ceiling": payload.get("authority_ceiling"),
+        "formal_proof_authority": payload.get("formal_proof_authority") is True,
+        "theorem_correctness_authority": (
+            payload.get("theorem_correctness_authority") is True
+        ),
+        "lean_lake_execution_authorized": (
+            payload.get("lean_lake_execution_authorized") is True
+        ),
+        "proof_bodies_allowed": payload.get("proof_bodies_allowed") is True,
+        "private_source_refs_allowed": (
+            payload.get("private_source_refs_allowed") is True
+        ),
+        "human_approval_as_proof_authority": (
+            payload.get("human_approval_as_proof_authority") is True
+        ),
+        "provider_calls_authorized": (
+            payload.get("provider_calls_authorized") is True
+        ),
+        "release_authorized": payload.get("release_authorized") is True,
+    }
+
+
+def _source_summary_card(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "protocol_id": result.get("protocol_id"),
+        "evidence_anchor_status": result.get("evidence_anchor_status"),
+        "source_ref_count": len(result.get("source_refs", [])),
+        "source_digest_count": len(result.get("source_digests", {})),
+        "source_pattern_count": len(result.get("source_pattern_ids", [])),
+        "projection_receipt_ref_count": len(result.get("projection_receipt_refs", [])),
+        "public_runtime_ref_count": len(result.get("public_runtime_refs", [])),
+        "source_refs_exported": False,
+        "source_digests_exported": False,
+        "projection_receipt_refs_exported": False,
+    }
+
+
+def _source_module_summary_card(result: dict[str, Any]) -> dict[str, Any]:
+    body_imports = result.get("source_open_body_imports")
+    imports = body_imports if isinstance(body_imports, dict) else {}
+    return {
+        "source_modules_pass": result.get("source_modules_pass") is True,
+        "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+        "source_module_count": result.get("source_module_count"),
+        "verified_source_module_count": result.get("verified_source_module_count"),
+        "source_module_secret_exclusion_scan_summary": _scan_card(
+            result.get("source_module_secret_exclusion_scan")
+        ),
+        "source_open_body_imports": {
+            "status": imports.get("status"),
+            "body_material_status": imports.get("body_material_status"),
+            "body_material_count": imports.get("body_material_count"),
+            "material_classes": imports.get("material_classes", []),
+            "source_manifest_ref_count": len(imports.get("source_manifest_refs", [])),
+            "body_in_receipt": imports.get("body_in_receipt") is True,
+            "body_text_exported_in_receipts": (
+                imports.get("body_text_exported_in_receipts") is True
+            ),
+            "body_material_ids_exported": False,
+            "authority_ceiling_exported": False,
+        },
+        "source_module_rows_exported": False,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    input_mode = result.get("input_mode")
+    action = (
+        "run-anchor-bundle"
+        if input_mode == "exported_evidence_cell_anchor_bundle"
+        else "run"
+    )
+    card_id = (
+        "formal_evidence_cell_anchor_resolver_bundle_card"
+        if action == "run-anchor-bundle"
+        else "formal_evidence_cell_anchor_resolver_fixture_card"
+    )
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": (
+            "compact_card_no_source_module_rows_or_claim_resolution_tables"
+        ),
+        "full_output_available": True,
+        "full_output_drilldown": f"rerun {action} without --card",
+        "receipt_paths": result.get("receipt_paths", []),
+        "counts": {
+            "claim_count": result.get("claim_count"),
+            "resolved_cell_count": result.get("resolved_cell_count"),
+            "unresolved_cell_count": result.get("unresolved_cell_count"),
+            "evidence_cell_count": result.get("evidence_cell_count"),
+            "source_anchor_count": result.get("source_anchor_count"),
+            "machine_anchor_count": result.get("machine_anchor_count"),
+            "boundary_rule_count": result.get("boundary_rule_count"),
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(result.get("expected_negative_cases", [])),
+            "observed_case_count": len(result.get("observed_negative_cases", {})),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "source_summary": _source_summary_card(result),
+        "source_module_summary": _source_module_summary_card(result),
+        "secret_exclusion_scan_summary": _scan_card(result.get("secret_exclusion_scan")),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "no_export_guards": {
+            "proof_bodies_exported": False,
+            "private_source_refs_exported": False,
+            "provider_payloads_exported": False,
+            "source_module_bodies_exported_in_stdout": False,
+            "claim_resolution_rows_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "source_refs",
+                "source_digests",
+                "projection_receipt_refs",
+                "public_runtime_refs",
+                "source_modules",
+                "evidence_cells",
+                "claim_resolution_rows",
+                "claim_strength_levels",
+                "secret_exclusion_scan.scan_scope",
+            ],
+        },
+    }
+
+
 def _write_receipts(
     result: dict[str, Any],
     out_dir: Path,
@@ -1169,37 +1322,49 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     bundle_parser = sub.add_parser("run-anchor-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
+        card_suffix = " --card" if args.card else ""
         result = run(
             args.input,
             args.out,
             command=(
                 "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver "
-                f"run --input {args.input} --out {args.out}"
+                f"run --input {args.input} --out {args.out}{card_suffix}"
             ),
             acceptance_out=args.acceptance_out,
         )
     elif args.action == "run-anchor-bundle":
+        card_suffix = " --card" if args.card else ""
         result = run_anchor_bundle(
             args.input,
             args.out,
             command=(
                 "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver "
-                f"run-anchor-bundle --input {args.input} --out {args.out}"
+                f"run-anchor-bundle --input {args.input} --out {args.out}{card_suffix}"
             ),
         )
     else:
         return 2
-    print_json = __import__("json").dumps
-    print(print_json(result, indent=2, sort_keys=True))
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

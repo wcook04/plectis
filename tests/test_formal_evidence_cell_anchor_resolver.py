@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.formal_evidence_cell_anchor_resolver import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_anchor_bundle,
 )
@@ -183,3 +185,63 @@ def test_formal_evidence_cell_anchor_exported_bundle_validates_runtime_shape(
         for ref in result["projection_receipt_refs"]
     )
     assert result["authority_ceiling"]["theorem_correctness_authority"] is False
+
+
+def test_formal_evidence_cell_anchor_bundle_card_is_compact(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "bundle-card"
+
+    rc = main(
+        [
+            "run-anchor-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    full_receipt = out_dir / "exported_evidence_cell_anchor_bundle_validation_result.json"
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 6000
+    assert full_receipt.is_file()
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["organ_id"] == "formal_evidence_cell_anchor_resolver"
+    assert card["input_mode"] == "exported_evidence_cell_anchor_bundle"
+    assert card["bundle_id"] == "formal_evidence_cell_anchor_resolver_runtime_example"
+    assert card["counts"]["claim_count"] == 3
+    assert card["counts"]["resolved_cell_count"] == 3
+    assert card["counts"]["source_anchor_count"] == 5
+    assert card["source_summary"]["source_ref_count"] == 14
+    assert card["source_summary"]["source_refs_exported"] is False
+    assert card["source_module_summary"]["source_modules_pass"] is True
+    assert card["source_module_summary"]["source_module_count"] == 6
+    assert card["source_module_summary"]["verified_source_module_count"] == 6
+    assert card["source_module_summary"]["source_module_rows_exported"] is False
+    assert (
+        card["source_module_summary"]["source_open_body_imports"][
+            "body_material_ids_exported"
+        ]
+        is False
+    )
+    assert (
+        card["source_module_summary"][
+            "source_module_secret_exclusion_scan_summary"
+        ]["blocking_hit_count"]
+        == 0
+    )
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["scan_scope_exported"] is False
+    assert card["authority_ceiling"]["theorem_correctness_authority"] is False
+    assert card["authority_ceiling"]["formal_proof_authority"] is False
+    assert card["no_export_guards"]["proof_bodies_exported"] is False
+    assert "source_modules" not in card
+    assert "source_refs" not in card
+    assert "claim_resolution_rows" not in card
