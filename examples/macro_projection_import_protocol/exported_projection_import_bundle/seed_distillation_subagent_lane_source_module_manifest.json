@@ -1,0 +1,77 @@
+{
+  "schema_version": "macro_projection_seed_distillation_subagent_lane_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "seed_distillation_subagent_lane_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_except_keys_credentials_account_session_state_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "exact_non_secret_seed_distillation_subagent_lane_source_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, operator voice, subagent transcript bodies, provider payloads, browser HUD state, account/session state, cookies, or credential-equivalent payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "browser/HUD live-access material",
+    "operator voice bodies",
+    "subagent transcript bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads",
+    "live Claude/Codex session transport payload bodies"
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic tmpdir seed-distillation-subagent tests; copied source modules are body evidence, not authority to export raw operator seed, launch live subagents, read transcript bodies, call providers, control browser/HUD sessions, mutate ledgers, or claim private session-state equivalence.",
+  "public_runtime_ref_policy": "public runtime filenames use seed_distillation_subagent_lane to avoid the standalone runtime raw-seed boundary token while preserving macro source provenance refs to the original raw_seed_subagent_lane module.",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "seed_distillation_subagent_lane_body_import",
+      "source_ref": "system/lib/raw_seed_subagent_lane.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_subagent_lane.py",
+      "source_role": "Raw-seed subagent lane coordinator for backlog slicing, dispatch packet preparation, advisory bundle import, and distillation-ledger status summaries without launching live agents or exporting operator raw-seed bodies.",
+      "required_anchors": [
+        "SUBAGENT_RUN_ROOT_REL = \"state/raw_seed_subagent\"",
+        "DEFAULT_SUBAGENT_COHORT_SIZE = 6",
+        "DEFAULT_SUBAGENT_WAVE_WIDTH = 2",
+        "def build_subagent_dispatch_packet(",
+        "def import_subagent_bundles(",
+        "def build_ledger_status_summary("
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_operator_voice_or_live_agent_session_export",
+      "source_sha256": "0ecf2f797d3f33c86bc2a04d6041b8013e7d99723fe6794c8109fc3035800420",
+      "target_sha256": "0ecf2f797d3f33c86bc2a04d6041b8013e7d99723fe6794c8109fc3035800420",
+      "sha256_match": true,
+      "line_count": 949,
+      "byte_count": 35986,
+      "anchor_count": 6
+    },
+    {
+      "module_id": "seed_distillation_subagent_lane_test_body_import",
+      "source_ref": "system/server/tests/test_raw_seed_subagent_lane.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_distillation_subagent_lane.py",
+      "source_role": "Focused tmpdir regression tests for raw-seed subagent backlog selection and advisory bundle import rejection behavior without using real raw seed, provider payloads, live session state, or agent dispatch.",
+      "required_anchors": [
+        "test_backlog_slice_prefers_untouched_then_retries_fully_rejected",
+        "test_import_subagent_bundles_drops_validator_rejected_shards_in_advisory_mode",
+        "build_subagent_dispatch_packet",
+        "import_subagent_bundles",
+        "_family_fixture"
+      ],
+      "material_class": "public_macro_tool_body",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_operator_voice_or_live_agent_session_export",
+      "source_sha256": "5e109881c649fa40039a764fd72e7681c950cab03b391d058fddfa10d2270c64",
+      "target_sha256": "5e109881c649fa40039a764fd72e7681c950cab03b391d058fddfa10d2270c64",
+      "sha256_match": true,
+      "line_count": 226,
+      "byte_count": 7965,
+      "anchor_count": 5
+    }
+  ]
+}

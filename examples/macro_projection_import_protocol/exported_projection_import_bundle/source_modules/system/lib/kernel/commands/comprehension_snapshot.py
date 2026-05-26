@@ -1640,6 +1640,8 @@ def _hard_compact_agent_principle_lens_for_admission(
         for key in (
             "kind",
             "schema_version",
+            "artifact_role",
+            "runtime_doctrine_type",
             "authority_posture",
             "status",
             "recognized_situation",
@@ -1653,7 +1655,11 @@ def _hard_compact_agent_principle_lens_for_admission(
             "row_count": len(lens.get("rows") or []),
             "invocation": {
                 key: invocation.get(key)
-                for key in ("selected_principle_cards", "agent_operating_packet")
+                for key in (
+                    "all_agent_principles",
+                    "selected_principle_cards",
+                    "agent_operating_packet",
+                )
                 if invocation.get(key) not in (None, "", [], {})
             },
             "omission_receipt": {
@@ -1697,6 +1703,8 @@ def _hard_compact_entry_surface_diagnostics_for_admission(
                 "diagnostic_id": row.get("diagnostic_id"),
                 "severity": row.get("severity"),
                 "is_hard_gate": row.get("is_hard_gate"),
+                "governing_standard_ref": row.get("governing_standard_ref"),
+                "one_line_rule": row.get("one_line_rule"),
                 "target_surface_count": len(target_surfaces),
                 "checker_module_ref": row.get("checker_module_ref"),
                 "drilldown": (
@@ -7302,7 +7310,11 @@ def build_entry_packet(
         repo_root,
         task_text or "",
         structural_triggers=structural_entry_surface_triggers,
-        content_sync_mode="source_coupling_only",
+        content_sync_mode=(
+            "auto"
+            if _entry_admission_task_requests_full_diagnostics(task_text)
+            else "source_coupling_only"
+        ),
     )
     compliance_diagnostics = project_compliance_diagnostics(repo_root, task_text or "")
     paper_module_freshness_diagnostics = project_paper_module_freshness_diagnostics(repo_root, task_text or "")

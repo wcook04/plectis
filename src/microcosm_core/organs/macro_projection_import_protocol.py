@@ -1794,6 +1794,44 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "seed_distillation_subagent_lane_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The raw-seed subagent lane now carries the exact copied non-secret "
+            "coordinator and focused regression-test source bodies inside the "
+            "projection bundle, validated by digest/anchor checks and syntax "
+            "compilation. This imports backlog slicing, dispatch packet "
+            "preparation, advisory bundle import, and ledger status summary "
+            "source body without exporting raw-seed operator voice, subagent "
+            "transcript bodies, live agent dispatch authority, provider "
+            "payloads, account/session state, browser/HUD live access, "
+            "recipient-send state, generated state, live ledger mutation "
+            "authority, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "seed_distillation_subagent_lane_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_distillation_subagent_lane.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_seed_distillation_subagent_lane.py"
+            ),
+            "tests/test_macro_projection_import_protocol.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "artifact_projection_debt_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

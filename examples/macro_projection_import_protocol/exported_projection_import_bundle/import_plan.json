@@ -2501,6 +2501,38 @@
       ]
     },
     {
+      "authority_ceiling": "verified_public_seed_distillation_subagent_lane_source_modules_not_operator_voice_subagent_transcripts_live_agent_dispatch_provider_browser_hud_account_session_or_ledger_mutation_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "seed_distillation_subagent_lane_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "seed_distillation_subagent_lane_body_import",
+        "seed_distillation_subagent_lane_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "seed_distillation_subagent_lane",
+        "claude_subagent_delegation_shared_owner_surface"
+      ],
+      "source_refs": [
+        "system/lib/raw_seed_subagent_lane.py",
+        "system/server/tests/test_raw_seed_subagent_lane.py"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_subagent_lane.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_distillation_subagent_lane.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_subagent_lane_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
       "authority_ceiling": "verified_public_artifact_projection_debt_source_bodies_not_generated_projection_output_authority_live_ledger_mutation_provider_row_patch_promotion_provider_payload_export_or_release_authority",
       "body_copied": false,
       "body_in_receipt": false,

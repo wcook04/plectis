@@ -5352,6 +5352,8 @@ def _budget_trim(
                     "recommended_action",
                     "checker_command",
                     "source_projection",
+                    "governing_standard_ref",
+                    "governing_standard_ref_status",
                     "is_hard_gate",
                 )
                 if row.get(key) not in (None, "", [], {})
@@ -5373,6 +5375,39 @@ def _budget_trim(
                 "trimmed_for_context_pack_budget": True,
             }.items()
             if value not in (None, "", [], {})
+        }
+
+    def compact_candidate_runtime_pressure_for_context_budget(payload: Any) -> dict[str, Any]:
+        if not isinstance(payload, Mapping):
+            return {
+                "status": "omitted_for_hard_ceiling",
+                "reason": "candidate runtime pressure payload was unavailable during hard compaction",
+            }
+        return {
+            key: value
+            for key, value in {
+                "count": payload.get("count", 0),
+                "suppressed_count": payload.get("suppressed_count", 0),
+                "filter_policy": payload.get("filter_policy"),
+                "contract_ref": payload.get("contract_ref"),
+                "source_standard": payload.get("source_standard"),
+                "non_law_warning": payload.get("non_law_warning"),
+                "match_strategy": payload.get("match_strategy"),
+                "match_strategy_ref": payload.get("match_strategy_ref"),
+                "suppressed_surface_reasons": payload.get("suppressed_surface_reasons") or [],
+                "evidence_surface_reasons": payload.get("evidence_surface_reasons") or [],
+                "status": "rows_omitted_for_hard_ceiling",
+                "reason": (
+                    "routine context-pack exceeded the hard budget after row and spine compaction; "
+                    "candidate pressure rows remain behind the explicit drilldown"
+                ),
+                "drilldown": (
+                    "./repo-python kernel.py --context-pack \"<task>\" "
+                    "--context-budget 20000"
+                ),
+                "trimmed_for_context_pack_budget": True,
+            }.items()
+            if value not in (None, "", {})
         }
 
     def compact_selected_rows(max_rows: int) -> None:
@@ -6587,14 +6622,9 @@ def _budget_trim(
             "hard_ceiling_repair_status"
         ] = "hard_ceiling_nonessential_section_omission"
         if isinstance(packet.get("candidate_runtime_pressure"), Mapping):
-            packet["candidate_runtime_pressure"] = {
-                "status": "omitted_for_hard_ceiling",
-                "reason": "routine context-pack exceeded the hard budget after row and spine compaction",
-                "drilldown": (
-                    "./repo-python kernel.py --context-pack \"<task>\" "
-                    "--context-budget 20000"
-                ),
-            }
+            packet["candidate_runtime_pressure"] = compact_candidate_runtime_pressure_for_context_budget(
+                packet.get("candidate_runtime_pressure")
+            )
         if isinstance(packet.get("transaction_control_plane"), Mapping):
             packet["transaction_control_plane"] = {
                 "status": "omitted_for_hard_ceiling",
