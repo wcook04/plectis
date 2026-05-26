@@ -45,6 +45,21 @@ single shared first command, the three reader route ids, evidence-accounting
 context, a runnable-to-structural join, omission receipts, and the authority
 ceiling.
 
+## Public Card Emitter
+
+`scripts/first_screen_composition_card.py` projects this contract into a
+public-root JSON card:
+
+```bash
+python3 scripts/first_screen_composition_card.py --project-label <project>
+```
+
+The emitter is intentionally narrow. It does not import private runtime state
+or source bodies. It loads this standard, emits the one shared command and
+three branch handles, frames evidence counts as accounting, names the
+runnable-to-structural join, and carries the standard's omission receipt and
+authority ceiling.
+
 ## Authority Ceiling
 
 This module does not replace the cold-reader route map, standards-control lens,

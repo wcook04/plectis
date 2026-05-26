@@ -1,0 +1,99 @@
+from __future__ import annotations
+
+import importlib.util
+import json
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SCRIPT_PATH = MICROCOSM_ROOT / "scripts/first_screen_composition_card.py"
+
+
+def _load_module() -> Any:
+    spec = importlib.util.spec_from_file_location("first_screen_composition_card", SCRIPT_PATH)
+    assert spec is not None
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def _walk_keys(payload: Any) -> list[str]:
+    if isinstance(payload, dict):
+        keys = list(payload)
+        for value in payload.values():
+            keys.extend(_walk_keys(value))
+        return keys
+    if isinstance(payload, list):
+        keys: list[str] = []
+        for item in payload:
+            keys.extend(_walk_keys(item))
+        return keys
+    return []
+
+
+def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
+    module = _load_module()
+
+    card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label="<project>")
+    route_ids = {route["reader_route_id"] for route in card["reader_routes"]}
+
+    assert card["status"] == "pass"
+    assert card["composition_root_id"] == "first_screen_composition_root"
+    assert (
+        card["source_standard_ref"]
+        == "standards/std_microcosm_first_screen_composition_root.json"
+    )
+    assert card["shared_first_command"] == "microcosm tour --card <project>"
+    assert route_ids == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
+    assert "maturity_score" in card["evidence_count_frame"]["forbidden_reads"]
+    assert card["authority_ceiling"]["release_authority"] is False
+    assert card["authority_ceiling"]["source_mutation_authority"] is False
+    assert card["authority_ceiling"]["private_data_equivalence_authority"] is False
+    assert card["authority_ceiling"]["provider_call_authority"] is False
+    assert card["authority_ceiling"]["score_based_progress_authority"] is False
+    assert card["authority_ceiling"]["whole_system_correctness_authority"] is False
+    assert card["omission_receipt"]["drilldown"] == "paper_modules/first_screen_composition_root.md"
+    assert any(
+        drilldown.get("command") == "microcosm workingness"
+        for drilldown in card["drilldowns"]
+    )
+    assert card["validation"]["checks"]["workingness_drilldown"] is True
+    assert "body" not in _walk_keys(card)
+
+
+def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/first_screen_composition_card.py",
+            "--project-label",
+            ".",
+        ],
+        cwd=MICROCOSM_ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    result.stdout.encode("ascii")
+    card = json.loads(result.stdout)
+
+    assert card["status"] == "pass"
+    assert card["shared_first_command"] == "microcosm tour --card ."
+    assert {route["reader_route_id"] for route in card["reader_routes"]} == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert "/Users/" not in result.stdout
+    assert "src/ai_workflow" not in result.stdout
+    assert '"body":' not in result.stdout

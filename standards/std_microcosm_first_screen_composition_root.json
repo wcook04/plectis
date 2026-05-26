@@ -88,7 +88,12 @@
     "receipt.microcosm.first_screen_composition_root",
     "receipt should cite the shared first command, reader branch ids, evidence-accounting frame, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
-  "receipt_refs": [],
+  "receipt_refs": [
+    {
+      "path": "receipts/first_wave/standards_registry_validation.json",
+      "role": "standards_registry_validation_receipt"
+    }
+  ],
   "relationships": {
     "canonical_runtime_surface_ref": "src/microcosm_core/runtime_shell.py#tour_card",
     "depends_on_standards": [
@@ -129,6 +134,16 @@
       "field": "paper_modules/first_screen_composition_root.md",
       "path": "paper_modules/first_screen_composition_root.md",
       "role": "composition_contract_paper_module"
+    },
+    {
+      "field": "scripts/first_screen_composition_card.py",
+      "path": "scripts/first_screen_composition_card.py",
+      "role": "public_card_emitter"
+    },
+    {
+      "field": "tests/test_first_screen_composition_card.py",
+      "path": "tests/test_first_screen_composition_card.py",
+      "role": "card_emitter_validation"
     },
     {
       "field": "paper_modules/cold_reader_route_map.md",
@@ -176,7 +191,7 @@
     "rebuild_action": "project_then_validate_when_runtime_consumes",
     "teleology": "Let a cold reader understand the substrate before choosing a drilldown, without weakening the deeper route map, receipts, standards, or workingness surfaces."
   },
-  "status": "draft",
+  "status": "active",
   "validation_rules": [
     "require exactly one shared first command, `microcosm tour --card <project>`, before reader branching",
     "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
@@ -198,6 +213,15 @@
     "required": false,
     "validator_id": "validator.microcosm.first_screen_composition_root"
   },
-  "validator_refs": [],
+  "validator_refs": [
+    {
+      "path": "scripts/first_screen_composition_card.py",
+      "role": "emits_and_self_validates_public_composition_card"
+    },
+    {
+      "path": "tests/test_first_screen_composition_card.py",
+      "role": "pytest_card_contract"
+    }
+  ],
   "wave": "w1_first_screen_composition_root"
 }
