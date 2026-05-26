@@ -38,6 +38,9 @@ ROUTE_SELECTION_CONTROL_MANIFEST = (
 ROUTE_WORKER_PACKET_MANIFEST = (
     BUNDLE_INPUT / "route_worker_packet_source_module_manifest.json"
 )
+ROUTE_OPERATOR_COURT_MANIFEST = (
+    BUNDLE_INPUT / "route_operator_court_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -807,6 +810,55 @@ def test_route_worker_packet_sources_compile_and_preserve_provider_boundary() ->
     assert "def build_route_hints(" in hints_text
     assert "candidate_selection_only" in hints_text
     assert "def test_route_hint_passages_are_neutral(" in packet_test_text
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "not authority to execute live providers" in manifest["public_runtime_policy"]
+    assert "provider response bodies" in manifest["secret_exclusion_boundary"]
+
+
+def test_route_operator_court_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        ROUTE_OPERATOR_COURT_MANIFEST,
+        manifest_id="route_operator_court_source_modules_import",
+        module_count=3,
+    )
+
+    harness_row = next(
+        row
+        for row in manifest["modules"]
+        if row["module_id"] == "routing_pilot_harness_body_import"
+    )
+    assert "no_live_provider_call" in harness_row["source_open_payload_boundary"]
+
+
+def test_route_operator_court_sources_compile_and_preserve_provider_boundary() -> None:
+    manifest = json.loads(ROUTE_OPERATOR_COURT_MANIFEST.read_text(encoding="utf-8"))
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    court_text = (
+        BUNDLE_INPUT / "source_modules/system/lib/route_operator_court.py"
+    ).read_text(encoding="utf-8")
+    harness_text = (
+        BUNDLE_INPUT / "source_modules/tools/meta/control/routing_pilot_harness.py"
+    ).read_text(encoding="utf-8")
+    court_test_text = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_route_operator_court.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def build_operator_court_prompt(" in court_text
+    assert "def score_operator_court_output(" in court_text
+    assert "def build_prompt(" in harness_text
+    assert "def run_benchmark(" in harness_text
+    assert (
+        "def test_operator_court_does_not_include_manual_baseline_evidence("
+        in court_test_text
+    )
     assert "provider payload bodies" in manifest["receipt_body_policy"]
     assert "not authority to execute live providers" in manifest["public_runtime_policy"]
     assert "provider response bodies" in manifest["secret_exclusion_boundary"]

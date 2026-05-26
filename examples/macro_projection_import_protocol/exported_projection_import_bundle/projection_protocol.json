@@ -12126,6 +12126,210 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_route_operator_court_source_body_into_public_projection_bundle",
+        "bind_route_operator_court_adjudication_body_to_macro_projection_body_floor",
+        "preserve_no_provider_payload_live_provider_browser_hud_account_session_prompt_body_or_credential_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "account_session_state_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_provider_execution_authorized": false,
+        "live_route_graph_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "operator_thread_body_export_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_payload_export_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
+        "source_line_count": 1111,
+        "source_ref": "system/lib/route_operator_court.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
+        "target_line_count": 1111,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 1111,
+      "claim_ceiling": "public route-operator court source body import only; not live provider execution, provider payload export, route graph mutation, prompt/operator thread body export, account/session state, browser/HUD live access, credential export, recipient send, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, or hosted authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "route_operator_court_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
+        "codex/doctrine/paper_modules/route_worker_benchmark_discovery_loop.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/route_operator_court.py",
+      "source_refs": [
+        "system/lib/route_operator_court.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_route_operator_court_source_body_into_public_projection_bundle",
+        "bind_route_operator_court_adjudication_body_to_macro_projection_body_floor",
+        "preserve_no_provider_payload_live_provider_browser_hud_account_session_prompt_body_or_credential_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "account_session_state_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_provider_execution_authorized": false,
+        "live_route_graph_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "operator_thread_body_export_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_payload_export_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
+        "source_line_count": 2717,
+        "source_ref": "tools/meta/control/routing_pilot_harness.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
+        "target_line_count": 2717,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 2717,
+      "claim_ceiling": "public route-operator court source body import only; not live provider execution, provider payload export, route graph mutation, prompt/operator thread body export, account/session state, browser/HUD live access, credential export, recipient send, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, or hosted authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "routing_pilot_harness_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
+        "codex/doctrine/paper_modules/route_worker_benchmark_discovery_loop.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/control/routing_pilot_harness.py",
+      "source_refs": [
+        "tools/meta/control/routing_pilot_harness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_route_operator_court_source_body_into_public_projection_bundle",
+        "bind_route_operator_court_adjudication_body_to_macro_projection_body_floor",
+        "preserve_no_provider_payload_live_provider_browser_hud_account_session_prompt_body_or_credential_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "account_session_state_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "live_macro_source_authority": false,
+        "live_provider_execution_authorized": false,
+        "live_route_graph_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "operator_thread_body_export_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_payload_export_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
+        "source_line_count": 647,
+        "source_ref": "system/server/tests/test_route_operator_court.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
+        "target_line_count": 647,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 647,
+      "claim_ceiling": "public route-operator court source body import only; not live provider execution, provider payload export, route graph mutation, prompt/operator thread body export, account/session state, browser/HUD live access, credential export, recipient send, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, or hosted authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "route_operator_court_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
+        "codex/doctrine/paper_modules/route_worker_benchmark_discovery_loop.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_route_operator_court.py",
+      "source_refs": [
+        "system/server/tests/test_route_operator_court.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -12652,7 +12856,11 @@
     "system/lib/route_verb_correction.py",
     "system/lib/nvidia_route_hints.py",
     "system/server/tests/test_route_worker_packet.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json",
+    "system/lib/route_operator_court.py",
+    "tools/meta/control/routing_pilot_harness.py",
+    "system/server/tests/test_route_operator_court.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -12895,6 +13103,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_sources_compile_and_preserve_provider_boundary",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }
