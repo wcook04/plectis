@@ -6,6 +6,7 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.formal_math_premise_retrieval as premise_module
 from microcosm_core.organs.formal_math_premise_retrieval import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -123,6 +124,46 @@ def test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape(
     assert result["body_copied_material_count"] == 6
     assert result["premise_retrieval_board"]["formal_proof_authority"] is False
     assert result["secret_exclusion_scan"]["scanned_path_count"] == 11
+
+
+def test_formal_math_premise_retrieval_cli_card_compacts_exported_bundle(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    status = premise_module.main(
+        [
+            "run-retrieval-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(tmp_path / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval"),
+            "--card",
+        ]
+    )
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+
+    assert status == 0
+    assert len(output.encode("utf-8")) < 3600
+    assert payload["schema_version"] == "formal_math_premise_retrieval_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["card_id"] == "formal_math_premise_retrieval_bundle_card"
+    assert payload["output_profile"] == "compact_card_no_retrieval_rows"
+    assert payload["input_mode"] == "exported_premise_retrieval_bundle"
+    assert payload["receipt_paths"]
+    assert payload["secret_exclusion_scan_summary"]["scanned_path_count"] == 11
+    assert payload["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan_summary"]["body_text_exported"] is False
+    assert payload["premise_count"] == 11
+    assert payload["query_count"] == 4
+    assert payload["mean_public_retrieval_recall"] == 1.0
+    assert payload["retrieval_rows_omitted"] is True
+    assert payload["source_refs_exported"] is False
+    assert payload["proof_bodies_exported"] is False
+    assert "retrievals" not in payload
+    assert "copied_material" not in payload
+    assert "source_refs" not in payload
 
 
 def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> None:

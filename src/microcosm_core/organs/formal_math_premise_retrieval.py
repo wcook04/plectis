@@ -774,6 +774,64 @@ def _common_receipt(
     return payload
 
 
+def _result_card(result: dict[str, Any]) -> dict[str, Any]:
+    secret_scan = result.get("secret_exclusion_scan")
+    scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
+    input_mode = result.get("input_mode")
+    action = "run-retrieval-bundle" if input_mode == "exported_premise_retrieval_bundle" else "run"
+    card_id = (
+        "formal_math_premise_retrieval_bundle_card"
+        if action == "run-retrieval-bundle"
+        else "formal_math_premise_retrieval_fixture_card"
+    )
+    return {
+        "schema_version": "formal_math_premise_retrieval_card_v1",
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "command": result.get("command"),
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": "compact_card_no_retrieval_rows",
+        "full_output_available": True,
+        "full_output_command": (
+            "python -m microcosm_core.organs.formal_math_premise_retrieval "
+            f"{action} --input <input> --out <out>"
+        ),
+        "receipt_paths": result.get("receipt_paths", []),
+        "expected_negative_cases": result.get("expected_negative_cases", []),
+        "missing_negative_cases": result.get("missing_negative_cases", []),
+        "error_codes": result.get("error_codes", []),
+        "secret_exclusion_scan_summary": {
+            "status": scan_summary.get("status"),
+            "scanned_path_count": scan_summary.get("scanned_path_count"),
+            "blocking_hit_count": scan_summary.get("blocking_hit_count"),
+            "hit_count": scan_summary.get("hit_count"),
+            "body_material_status": scan_summary.get("body_material_status"),
+            "body_text_exported": False,
+        },
+        "authority_ceiling": {
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "provider_calls_authorized": False,
+            "proof_bodies_allowed": False,
+            "release_authorized": False,
+        },
+        "body_material_status": result.get("body_material_status"),
+        "copied_material_count": result.get("copied_material_count"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
+        "premise_count": result.get("premise_count"),
+        "query_count": result.get("query_count"),
+        "recipe_count": result.get("recipe_count"),
+        "strategy_case_count": result.get("strategy_case_count"),
+        "allowed_strategy_ids": result.get("allowed_strategy_ids", []),
+        "mean_public_retrieval_recall": result.get("mean_public_retrieval_recall"),
+        "retrieval_rows_omitted": True,
+        "source_refs_exported": False,
+        "proof_bodies_exported": False,
+    }
+
+
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     return [_display(path, public_root=public_root) for path in paths.values()]
 
@@ -932,12 +990,18 @@ def main(argv: list[str] | None = None) -> int:
         action_parser = subparsers.add_parser(action)
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
+        action_parser.add_argument(
+            "--card",
+            action="store_true",
+            help="Print a compact first-screen card instead of the full result payload.",
+        )
     args = parser.parse_args(argv)
     if args.action == "run":
         result = run(args.input, args.out)
     else:
         result = run_retrieval_bundle(args.input, args.out)
-    print(json.dumps(result, indent=2, sort_keys=True))
+    output = _result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
