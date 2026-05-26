@@ -21,6 +21,7 @@ from microcosm_core.schemas import read_json_strict
 ORGAN_ID = "provider_context_recipe_budget_policy"
 FIXTURE_ID = "first_wave.provider_context_recipe_budget_policy"
 VALIDATOR_ID = "validator.microcosm.organs.provider_context_recipe_budget_policy"
+CARD_SCHEMA_VERSION = "provider_context_recipe_budget_policy_command_card_v1"
 
 RESULT_NAME = "provider_context_budget_result.json"
 BOARD_NAME = "provider_context_budget_board.json"
@@ -148,6 +149,22 @@ AUTHORITY_CEILING = {
     "truth_side_material_authorized": False,
     "release_authorized": False,
 }
+
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "anti_claim",
+    "authority_ceiling.authority_ceiling",
+    "context_packets",
+    "expected_negative_cases",
+    "findings",
+    "observed_negative_cases",
+    "private_state_scan.hits",
+    "private_state_scan.scan_scope",
+    "provider_context_budget_board",
+    "receipt_paths",
+    "source_module_ids",
+    "source_module_imports",
+    "source_refs",
+)
 
 ANTI_CLAIM = (
     "Provider context recipe budgeting validates public metadata for byte "
@@ -643,6 +660,134 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
     }
 
 
+def _private_scan_card(scan: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "status": scan.get("status"),
+        "hit_count": scan.get("hit_count", 0),
+        "blocking_hit_count": scan.get("blocking_hit_count", 0),
+        "scanned_path_count": scan.get("scanned_path_count", 0),
+        "hits_exported": False,
+        "scan_scope_exported": False,
+        "body_redacted": bool(scan.get("body_redacted")),
+        "redacted_output_field_labels_omitted": bool(
+            scan.get("redacted_output_field_labels_omitted")
+        ),
+    }
+
+
+def _context_packet_card(context_packets: list[dict[str, Any]]) -> dict[str, Any]:
+    budgets = [
+        int(packet.get("byte_budget") or 0)
+        for packet in context_packets
+        if isinstance(packet.get("byte_budget"), int)
+    ]
+    included_bytes = [
+        int(packet.get("included_byte_count") or 0)
+        for packet in context_packets
+        if isinstance(packet.get("included_byte_count"), int)
+    ]
+    omitted_counts = [
+        len(packet.get("omitted_section_ids") or [])
+        for packet in context_packets
+        if isinstance(packet.get("omitted_section_ids"), list)
+    ]
+    return {
+        "context_packet_count": len(context_packets),
+        "min_budget_bytes": min(budgets) if budgets else 0,
+        "max_budget_bytes": max(budgets) if budgets else 0,
+        "max_included_byte_count": max(included_bytes) if included_bytes else 0,
+        "max_omitted_section_count": max(omitted_counts) if omitted_counts else 0,
+        "context_packets_exported": False,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    context_packets = [
+        packet
+        for packet in result.get("context_packets", [])
+        if isinstance(packet, dict)
+    ]
+    expected_negative_cases = result.get("expected_negative_cases", {})
+    observed_negative_cases = result.get("observed_negative_cases", {})
+    if not isinstance(expected_negative_cases, dict):
+        expected_negative_cases = {}
+    if not isinstance(observed_negative_cases, dict):
+        observed_negative_cases = {}
+    receipt_paths = result.get("receipt_paths", [])
+    if not isinstance(receipt_paths, list):
+        receipt_paths = []
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "card_id": "provider_context_recipe_budget_policy.command_card",
+        "output_profile": "compact_command_card",
+        "full_output_available": True,
+        "full_output_drilldown": "rerun without --card or inspect written receipts",
+        "provider_context_summary": {
+            "recipe_count": result.get("recipe_count", 0),
+            "recipe_ids": result.get("recipe_ids", []),
+            "deliverable_route_count": len(result.get("deliverable_routes", {})),
+            "source_module_import_status": result.get("source_module_import_status"),
+            "source_module_count": result.get("source_module_count", 0),
+            "source_module_ids_exported": False,
+            **_context_packet_card(context_packets),
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(expected_negative_cases),
+            "observed_case_count": len(observed_negative_cases),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+            "observed_negative_cases_exported": False,
+        },
+        "private_state_scan_summary": _private_scan_card(
+            result.get("private_state_scan", {})
+        ),
+        "authority_ceiling": {
+            "provider_calls_authorized": result["authority_ceiling"][
+                "provider_calls_authorized"
+            ],
+            "lean_lake_execution_authorized": result["authority_ceiling"][
+                "lean_lake_execution_authorized"
+            ],
+            "formal_proof_authority": result["authority_ceiling"][
+                "formal_proof_authority"
+            ],
+            "truth_side_material_authorized": result["authority_ceiling"][
+                "truth_side_material_authorized"
+            ],
+            "release_authorized": result["authority_ceiling"]["release_authorized"],
+        },
+        "receipt_summary": {
+            "receipt_count": len(receipt_paths),
+            "full_receipts_written": bool(receipt_paths),
+            "receipt_paths_exported": False,
+        },
+        "no_export_guards": {
+            "anti_claim_exported": False,
+            "context_packets_exported": False,
+            "expected_negative_cases_exported": False,
+            "findings_exported": False,
+            "observed_negative_cases_exported": False,
+            "private_scan_hits_exported": False,
+            "private_scan_scope_exported": False,
+            "provider_payloads_exported": False,
+            "proof_bodies_exported": False,
+            "receipt_paths_exported": False,
+            "section_materials_exported": False,
+            "source_module_ids_exported": False,
+            "source_module_imports_exported": False,
+            "source_refs_exported": False,
+        },
+        "output_economy": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+        },
+        "body_redacted": True,
+    }
+
+
 def _common_receipt(
     result: dict[str, Any],
     *,
@@ -903,18 +1048,39 @@ def _parser() -> argparse.ArgumentParser:
         sub = subparsers.add_parser(action)
         sub.add_argument("--input", required=True)
         sub.add_argument("--out", required=True)
+        sub.add_argument(
+            "--card",
+            action="store_true",
+            help="print a compact command card while still writing full receipts",
+        )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out)
+        result = run(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
+                f"run --input {args.input} --out {args.out}{card_suffix}"
+            ),
+        )
     elif args.action == "run-budget-bundle":
-        result = run_budget_bundle(args.input, args.out)
+        result = run_budget_bundle(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
+                f"run-budget-bundle --input {args.input} --out {args.out}{card_suffix}"
+            ),
+        )
     else:  # pragma: no cover
         raise AssertionError(args.action)
-    print(json.dumps(result, indent=2, sort_keys=True))
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

@@ -7,7 +7,11 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.provider_context_recipe_budget_policy import (
+    BUNDLE_RESULT_NAME,
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    RESULT_NAME,
+    main,
     run,
     run_budget_bundle,
 )
@@ -141,6 +145,117 @@ def test_provider_context_budget_exported_bundle_validates_runtime_shape(
             "exported_provider_context_budget_bundle_validation_result.json"
         )
     ]
+
+
+def test_provider_context_fixture_card_stdout_is_compact_and_keeps_full_receipts(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "fixtures/first_wave/provider_context_recipe_budget_policy",
+        public_root / "fixtures/first_wave/provider_context_recipe_budget_policy",
+    )
+    out_dir = public_root / "receipts/first_wave/provider_context_recipe_budget_policy"
+    rc = main(
+        [
+            "run",
+            "--input",
+            str(public_root / "fixtures/first_wave/provider_context_recipe_budget_policy/input"),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    card_keys = set(_walk_keys(card))
+    full_result = json.loads((out_dir / RESULT_NAME).read_text(encoding="utf-8"))
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 6000
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "fixture_input"
+    assert card["provider_context_summary"]["recipe_count"] == 6
+    assert card["provider_context_summary"]["context_packet_count"] == 6
+    assert card["provider_context_summary"]["context_packets_exported"] is False
+    assert card["provider_context_summary"]["source_module_count"] == 3
+    assert card["negative_case_coverage"]["expected_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["observed_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["private_state_scan_summary"]["blocking_hit_count"] == 0
+    assert card["authority_ceiling"]["provider_calls_authorized"] is False
+    assert card["receipt_summary"]["full_receipts_written"] is True
+    assert card["no_export_guards"]["receipt_paths_exported"] is False
+    assert "context_packets" not in card_keys
+    assert "source_module_imports" not in card_keys
+    assert "observed_negative_cases" not in card_keys
+    assert "receipt_paths" not in card_keys
+    assert "anti_claim" not in card_keys
+    assert "hits" not in card_keys
+    assert "scan_scope" not in card_keys
+    assert full_result["status"] == "pass"
+    assert set(full_result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+    assert full_result["context_packets"]
+
+
+def test_provider_context_bundle_card_stdout_is_compact_and_keeps_full_receipt(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/provider_context_recipe_budget_policy",
+        public_root / "examples/provider_context_recipe_budget_policy",
+    )
+    out_dir = (
+        public_root
+        / "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy"
+    )
+    rc = main(
+        [
+            "run-budget-bundle",
+            "--input",
+            str(
+                public_root
+                / "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle"
+            ),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    card_keys = set(_walk_keys(card))
+    full_receipt = json.loads((out_dir / BUNDLE_RESULT_NAME).read_text(encoding="utf-8"))
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 6000
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "exported_provider_context_budget_bundle"
+    assert card["bundle_id"] == "provider_context_budget_runtime_example"
+    assert card["negative_case_coverage"]["expected_case_count"] == 0
+    assert card["negative_case_coverage"]["observed_case_count"] == 0
+    assert card["provider_context_summary"]["source_module_import_status"] == "pass"
+    assert card["provider_context_summary"]["max_budget_bytes"] == 65536
+    assert card["receipt_summary"]["receipt_count"] == 1
+    assert card["no_export_guards"]["source_refs_exported"] is False
+    assert "context_packets" not in card_keys
+    assert "source_module_ids" not in card_keys
+    assert "source_module_imports" not in card_keys
+    assert "source_refs" not in card_keys
+    assert "receipt_paths" not in card_keys
+    assert "anti_claim" not in card_keys
+    assert full_receipt["status"] == "pass"
+    assert full_receipt["context_packets"]
 
 
 def test_provider_context_source_modules_are_exact_macro_body_imports(
