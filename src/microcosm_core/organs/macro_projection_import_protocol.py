@@ -1794,6 +1794,43 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "artifact_projection_debt_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The artifact projection debt lane now carries the exact copied "
+            "non-secret source and focused validator source bodies inside the "
+            "projection bundle, validated by digest/anchor checks and syntax "
+            "compilation. This imports the debt composer as source body without "
+            "exporting generated projection output bodies, live Task Ledger or "
+            "Work Ledger mutation authority, provider row patches, provider "
+            "payload bodies, account/session state, browser/HUD live access, "
+            "recipient-send state, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "artifact_projection_debt_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "artifact_projection_debt.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_artifact_projection_debt.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "formal_math_proofline_spine_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

@@ -147,6 +147,9 @@ BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
 SESSION_HEARTBEAT_MANIFEST = (
     BUNDLE_INPUT / "session_heartbeat_source_module_manifest.json"
 )
+ARTIFACT_PROJECTION_DEBT_MANIFEST = (
+    BUNDLE_INPUT / "artifact_projection_debt_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2816,6 +2819,39 @@ def test_session_heartbeat_sources_compile_and_preserve_live_state_boundary() ->
     assert "test_main_snapshot_prints_path_and_writes_file" in test_text
     assert "live session jsonl transcript bodies" in manifest["secret_exclusion_boundary"]
     assert "not authority to read live transport JSON" in manifest["public_runtime_policy"]
+
+
+def test_artifact_projection_debt_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        ARTIFACT_PROJECTION_DEBT_MANIFEST,
+        manifest_id="artifact_projection_debt_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract() -> None:
+    debt_source = BUNDLE_INPUT / "source_modules/system/lib/artifact_projection_debt.py"
+    test_source = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_artifact_projection_debt.py"
+    )
+    debt_text = debt_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+    manifest = json.loads(ARTIFACT_PROJECTION_DEBT_MANIFEST.read_text(encoding="utf-8"))
+
+    compile(debt_text, str(debt_source), "exec")
+    compile(test_text, str(test_source), "exec")
+
+    assert 'KIND_ID = "artifact_projection_debt"' in debt_text
+    assert "def build_artifact_projection_debt_row_jobs(" in debt_text
+    assert "def _projection_gap_rows(" in debt_text
+    assert "receipt_or_row_patch_only" in debt_text
+    assert "test_zero_row_surface_creates_artifact_projection_debt_row" in test_text
+    assert "test_artifact_projection_debt_cluster_is_microcosm_safe" in test_text
+    assert "not authority to mutate live ledgers" in manifest["public_runtime_policy"]
+    assert "generated projection output bodies treated as source authority" in manifest[
+        "secret_exclusion_boundary"
+    ]
 
 
 def test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources() -> None:

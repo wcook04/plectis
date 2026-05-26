@@ -10149,10 +10149,10 @@
       },
       "body_in_receipt": false,
       "body_line_count": 292,
+      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
-      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
       "material_id": "session_heartbeat_source_body_import",
@@ -10196,10 +10196,10 @@
       },
       "body_in_receipt": false,
       "body_line_count": 131,
+      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
-      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
       "material_id": "session_heartbeat_test_body_import",
@@ -10218,6 +10218,144 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_artifact_projection_debt_source_module_into_public_bundle",
+        "preserve_read_only_projection_debt_candidate_row_composer_shape",
+        "exclude_credentials_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_live_ledger_mutation_and_generated_projection_output_authority"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "generated_projection_output_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_bodies_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:824bc385aaa66e077e37bb1db3f13e9958d1607eedb7e57d18c28c54cbbb4ff6",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:824bc385aaa66e077e37bb1db3f13e9958d1607eedb7e57d18c28c54cbbb4ff6",
+        "source_line_count": 1108,
+        "source_ref": "system/lib/artifact_projection_debt.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:824bc385aaa66e077e37bb1db3f13e9958d1607eedb7e57d18c28c54cbbb4ff6",
+        "target_line_count": 1108,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 1108,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public artifact-projection debt source-body import only; not live generated projection output authority, live Task Ledger or Work Ledger mutation, provider row-patch promotion, account/session state, browser/HUD live access, recipient-send state, credential-equivalent material, private-root equivalence, release, publication, source mutation, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "artifact_projection_debt_body_import",
+      "provenance_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/macro_projection_import_protocol.md",
+        "codex/doctrine/paper_modules/hologram_substrate_navigation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/artifact_projection_debt.py",
+      "source_refs": [
+        "system/lib/artifact_projection_debt.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json"
+      ],
+      "source_role": "Read-only artifact-projection debt composer that turns zero-row projections, stale claims, layer sprawl, and receipt-or-row-patch-only pressure into bounded candidate rows instead of source authority.",
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_artifact_projection_debt_source_module_into_public_bundle",
+        "preserve_read_only_projection_debt_candidate_row_composer_shape",
+        "exclude_credentials_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_live_ledger_mutation_and_generated_projection_output_authority"
+      ],
+      "authority_ceiling": {
+        "browser_hud_live_access_authorized": false,
+        "credential_export_authorized": false,
+        "generated_projection_output_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_bodies_exported": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:cd4e80955045804401f863fef0498fa8e2a585e198979836c40ba5c4fee06a4a",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:cd4e80955045804401f863fef0498fa8e2a585e198979836c40ba5c4fee06a4a",
+        "source_line_count": 325,
+        "source_ref": "system/server/tests/test_artifact_projection_debt.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:cd4e80955045804401f863fef0498fa8e2a585e198979836c40ba5c4fee06a4a",
+        "target_line_count": 325,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 325,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public artifact-projection debt source-body import only; not live generated projection output authority, live Task Ledger or Work Ledger mutation, provider row-patch promotion, account/session state, browser/HUD live access, recipient-send state, credential-equivalent material, private-root equivalence, release, publication, source mutation, or whole-system correctness authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "artifact_projection_debt_test_body_import",
+      "provenance_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/macro_projection_import_protocol.md",
+        "codex/doctrine/paper_modules/hologram_substrate_navigation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_artifact_projection_debt.py",
+      "source_refs": [
+        "system/server/tests/test_artifact_projection_debt.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json"
+      ],
+      "source_role": "Focused regression tests proving projection gaps, skill-compression debt, stale active claims, cluster-first Microcosm safety, and oversized-row route debt stay visible as candidate-only debt rows.",
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
     }
   ],
@@ -10440,7 +10578,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md",
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/session_heartbeat_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/session_heartbeat.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_session_heartbeat.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_session_heartbeat.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -10690,7 +10831,9 @@
     "codex/standards/std_navigation_rosetta_grammar.json",
     "codex/doctrine/paper_modules/navigation_rosetta_math.md",
     "system/lib/session_heartbeat.py",
-    "system/server/tests/test_session_heartbeat.py"
+    "system/server/tests/test_session_heartbeat.py",
+    "system/lib/artifact_projection_debt.py",
+    "system/server/tests/test_artifact_projection_debt.py"
   ],
   "steps": [
     {
@@ -10909,6 +11052,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_context_rosetta_sources_compile_and_preserve_rosetta_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

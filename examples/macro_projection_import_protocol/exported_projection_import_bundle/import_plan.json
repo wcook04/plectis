@@ -2499,6 +2499,41 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_session_heartbeat_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": "verified_public_artifact_projection_debt_source_bodies_not_generated_projection_output_authority_live_ledger_mutation_provider_row_patch_promotion_provider_payload_export_or_release_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "artifact_projection_debt_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "artifact_projection_debt_body_import",
+        "artifact_projection_debt_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "artifact_projection_debt_cluster_surface",
+        "projection_lineage_not_authority",
+        "receipt_theater_debt_detection"
+      ],
+      "source_refs": [
+        "system/lib/artifact_projection_debt.py",
+        "system/server/tests/test_artifact_projection_debt.py"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"
