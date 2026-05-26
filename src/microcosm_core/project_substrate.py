@@ -2238,7 +2238,9 @@ def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     return row
 
 
-def _compile_source_freshness(project: Path) -> dict[str, Any]:
+def _compile_source_freshness(
+    project: Path, catalog: dict[str, Any] | None = None
+) -> dict[str, Any]:
     cache_ref = f"{STATE_DIR}/state_index.json"
     cache_path = _state_dir(project) / "state_index.json"
     cache_mtime_ns: int | None = None
@@ -2248,17 +2250,29 @@ def _compile_source_freshness(project: Path) -> dict[str, Any]:
     except FileNotFoundError:
         cache_mtime_ns = None
 
+    catalog_files = catalog.get("files") if isinstance(catalog, dict) else None
+    if isinstance(catalog_files, list):
+        source_rows = [row for row in catalog_files if isinstance(row, dict)]
+        freshness_source = "cached_catalog"
+    else:
+        source_rows = _walk_project(project)
+        freshness_source = "project_walk"
+
     tracked_source_count = 0
     stale_source_count = 0
+    missing_cached_source_count = 0
     newest_source_mtime_ns: int | None = None
-    for row in _walk_project(project):
+    parent_dirs: set[Path] = {project}
+    for row in source_rows:
         rel = str(row.get("path") or "")
         if not rel:
             continue
         source_path = project / rel
+        parent_dirs.add(source_path.parent)
         try:
             source_mtime_ns = source_path.stat().st_mtime_ns
         except FileNotFoundError:
+            missing_cached_source_count += 1
             continue
         tracked_source_count += 1
         if newest_source_mtime_ns is None or source_mtime_ns > newest_source_mtime_ns:
@@ -2266,9 +2280,26 @@ def _compile_source_freshness(project: Path) -> dict[str, Any]:
         if cache_mtime_ns is not None and source_mtime_ns > cache_mtime_ns:
             stale_source_count += 1
 
+    stale_directory_count = 0
+    newest_directory_mtime_ns: int | None = None
+    if cache_mtime_ns is not None and freshness_source == "cached_catalog":
+        for directory in parent_dirs:
+            try:
+                directory_mtime_ns = directory.stat().st_mtime_ns
+            except FileNotFoundError:
+                stale_directory_count += 1
+                continue
+            if (
+                newest_directory_mtime_ns is None
+                or directory_mtime_ns > newest_directory_mtime_ns
+            ):
+                newest_directory_mtime_ns = directory_mtime_ns
+            if directory_mtime_ns > cache_mtime_ns:
+                stale_directory_count += 1
+
     if cache_mtime_ns is None:
         status = "missing_cache_marker"
-    elif stale_source_count:
+    elif stale_source_count or missing_cached_source_count or stale_directory_count:
         status = "stale"
     else:
         status = "current"
@@ -2277,9 +2308,14 @@ def _compile_source_freshness(project: Path) -> dict[str, Any]:
         "source_status": status if status != "missing_cache_marker" else "unknown",
         "cache_ref": cache_ref,
         "cache_mtime_ns": cache_mtime_ns,
+        "freshness_source": freshness_source,
+        "catalog_file_count": len(source_rows) if freshness_source == "cached_catalog" else None,
         "tracked_source_count": tracked_source_count,
         "stale_source_count": stale_source_count,
+        "missing_cached_source_count": missing_cached_source_count,
+        "stale_directory_count": stale_directory_count,
         "newest_source_mtime_ns": newest_source_mtime_ns,
+        "newest_directory_mtime_ns": newest_directory_mtime_ns,
         "source_refs_exported": False,
     }
 
@@ -2319,7 +2355,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     missing_state_refs = [
         str(row.get("ref")) for row in state_ref_status if row.get("exists") is not True
     ]
-    cache_freshness = _compile_source_freshness(project)
+    cache_freshness = _compile_source_freshness(project, catalog)
     route_explanation_status = explanation.get("status") if route_id else "missing_route"
     state_status = (
         PASS

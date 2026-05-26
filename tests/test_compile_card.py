@@ -40,6 +40,12 @@ def _make_cached_compile_project(tmp_path: Path) -> Path:
         {
             "file_count": 4,
             "role_counts": {"package_manifest": 1, "readme": 1, "source": 1, "test": 1},
+            "files": [
+                {"path": "README.md"},
+                {"path": "pyproject.toml"},
+                {"path": "src/app/__init__.py"},
+                {"path": "tests/test_app.py"},
+            ],
         },
     )
     _write_json(
@@ -108,6 +114,7 @@ def test_cli_compile_card_reads_cached_project_state_without_rebuild(
     assert payload["cache_source_ref"] == ".microcosm/state_index.json"
     assert payload["cache_freshness"]["status"] == "current"
     assert payload["cache_freshness"]["source_status"] == "current"
+    assert payload["cache_freshness"]["freshness_source"] == "cached_catalog"
     assert payload["cache_freshness"]["tracked_source_count"] >= 4
     assert payload["cache_freshness"]["source_refs_exported"] is False
     assert payload["selected_route_id"] == "readme_onboarding_route"
@@ -153,12 +160,58 @@ def test_cli_compile_card_marks_source_changes_stale_without_rebuild(
     assert payload["cache_status"] == "stale_cached_state"
     assert payload["cache_freshness"]["status"] == "stale"
     assert payload["cache_freshness"]["source_status"] == "stale"
+    assert payload["cache_freshness"]["freshness_source"] == "cached_catalog"
     assert payload["cache_freshness"]["tracked_source_count"] >= 4
     assert payload["cache_freshness"]["stale_source_count"] >= 1
     assert payload["cache_freshness"]["source_refs_exported"] is False
     assert "source_refs" not in payload
     assert "README.md" not in output
     assert "reader_causal_chain" not in payload
+
+
+def test_compile_card_uses_cached_catalog_for_freshness_without_recrawling(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_cached_compile_project(tmp_path)
+
+    def fail_if_walked(*_args: object, **_kwargs: object) -> list[dict]:
+        raise AssertionError("compile --card freshness must use cached catalog rows")
+
+    monkeypatch.setattr(project_substrate, "_walk_project", fail_if_walked)
+
+    payload = project_substrate.compile_project_card(project)
+
+    assert payload["status"] == "pass"
+    assert payload["cache_freshness"]["freshness_source"] == "cached_catalog"
+    assert payload["cache_freshness"]["catalog_file_count"] == 4
+    assert payload["cache_freshness"]["tracked_source_count"] == 4
+
+
+def test_compile_card_marks_directory_changes_stale_without_recrawling(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_cached_compile_project(tmp_path)
+    state_index = project / ".microcosm/state_index.json"
+    new_source = project / "src/app/new_module.py"
+    new_source.write_text("NEW_VALUE = 2\n", encoding="utf-8")
+    source_mtime_ns = state_index.stat().st_mtime_ns + 1_000_000_000
+    os.utime(new_source, ns=(source_mtime_ns, source_mtime_ns))
+    os.utime(new_source.parent, ns=(source_mtime_ns, source_mtime_ns))
+
+    def fail_if_walked(*_args: object, **_kwargs: object) -> list[dict]:
+        raise AssertionError("compile --card freshness must not recrawl for new files")
+
+    monkeypatch.setattr(project_substrate, "_walk_project", fail_if_walked)
+
+    payload = project_substrate.compile_project_card(project)
+
+    assert payload["status"] == "stale_cached_state"
+    assert payload["cache_freshness"]["freshness_source"] == "cached_catalog"
+    assert payload["cache_freshness"]["tracked_source_count"] == 4
+    assert payload["cache_freshness"]["stale_directory_count"] >= 1
+    assert payload["cache_freshness"]["source_refs_exported"] is False
 
 
 def test_compile_project_batches_architecture_refresh_once(
