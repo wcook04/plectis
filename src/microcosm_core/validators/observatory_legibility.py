@@ -53,6 +53,41 @@ def validate_legibility(
     model = shell.project_observatory(project_path)
     html = shell._observatory_html(project_path)
     causal = model.get("causal_chain", {}) if isinstance(model.get("causal_chain"), dict) else {}
+    observatory_card = (
+        model.get("observatory_card", {})
+        if isinstance(model.get("observatory_card"), dict)
+        else {}
+    )
+    first_screen_composition = (
+        model.get("first_screen_composition", {})
+        if isinstance(model.get("first_screen_composition"), dict)
+        else {}
+    )
+    landing_frame = (
+        first_screen_composition.get("observatory_landing_frame", {})
+        if isinstance(first_screen_composition.get("observatory_landing_frame"), dict)
+        else {}
+    )
+    browser_landing_reuse = (
+        landing_frame.get("browser_landing_reuse", {})
+        if isinstance(landing_frame.get("browser_landing_reuse"), dict)
+        else {}
+    )
+    required_landing_handles = landing_frame.get("required_visible_handles", [])
+    if not isinstance(required_landing_handles, list):
+        required_landing_handles = []
+    required_landing_handle_set = {str(row) for row in required_landing_handles}
+    evidence_class_legend = (
+        first_screen_composition.get("evidence_class_legend", {})
+        if isinstance(first_screen_composition.get("evidence_class_legend"), dict)
+        else {}
+    )
+    evidence_classes = evidence_class_legend.get("classes", [])
+    if not isinstance(evidence_classes, list):
+        evidence_classes = []
+    observatory_reader_sequence = observatory_card.get("reader_sequence", [])
+    if not isinstance(observatory_reader_sequence, list):
+        observatory_reader_sequence = []
     runtime_bridge = model.get("runtime_bridge", {}) if isinstance(model.get("runtime_bridge"), dict) else {}
     tour = model.get("tour", {}) if isinstance(model.get("tour"), dict) else {}
     source_open_body_import_floor = (
@@ -176,6 +211,8 @@ def validate_legibility(
 
     html_assertions = {
         "root_is_not_raw_json_only": "Causal Chain" in html and "JSON Drilldowns" in html,
+        "first_screen_card_endpoint_visible": "/project/first-screen" in html,
+        "observatory_card_endpoint_visible": "/project/observatory-card" in html,
         "raw_observatory_model_not_embedded": "Raw observatory model" not in html
         and "<pre>" not in html,
         "observatory_html_under_first_screen_budget": len(html.encode("utf-8")) < 500_000,
@@ -286,6 +323,58 @@ def validate_legibility(
     }
     model_assertions = {
         "model_status_pass": model.get("status") == PASS,
+        "observatory_card_first_screen_endpoint_present": (
+            observatory_card.get("html_endpoint") == "/"
+            and observatory_card.get("first_screen_endpoint") == "/project/first-screen"
+            and any(
+                isinstance(row, dict)
+                and row.get("step_id") == "read_first_screen_composition"
+                and row.get("endpoint") == "/project/first-screen"
+                for row in observatory_reader_sequence
+            )
+        ),
+        "first_screen_composition_status_pass": (
+            first_screen_composition.get("status") == PASS
+        ),
+        "first_screen_landing_frame_targets_browser_root": (
+            landing_frame.get("role")
+            == "make_the_hello_first_screen_card_the_browser_landing_frame"
+            and landing_frame.get("human_first_command") == "microcosm hello <project>"
+            and landing_frame.get("shared_first_command")
+            == "microcosm tour --card <project>"
+            and browser_landing_reuse.get("default_endpoint") == "/"
+            and browser_landing_reuse.get("card_endpoint") == "/project/first-screen"
+            and browser_landing_reuse.get("source_projection")
+            == "microcosm_core.first_screen_composition.first_screen_text_card"
+        ),
+        "first_screen_landing_handles_present": all(
+            handle in required_landing_handle_set
+            for handle in [
+                "human_first_command",
+                "text_projection",
+                "shared_first_command",
+                "behavioral_proof_command",
+                "reader_route_ids",
+                "public_scale_counts",
+                "evidence_count_interpretation",
+                "evidence_class_legend",
+                "authority_ceiling",
+                "omission_receipt",
+            ]
+        ),
+        "first_screen_evidence_class_legend_present": {
+            row.get("evidence_class")
+            for row in evidence_classes
+            if isinstance(row, dict)
+        }
+        >= {
+            "verified_macro_body_import",
+            "external_subprocess_witness",
+            "semantic_validator",
+            "algorithmic_projection",
+            "fixture_schema_replay",
+            "fixture_echo_smoke",
+        },
         "source_open_body_import_floor_present": (
             source_open_body_import_floor.get("status") == PASS
             and source_open_body_import_floor.get("public_safe_body_material_count", 0)
@@ -780,6 +869,33 @@ def validate_legibility(
             "json_drilldowns": "JSON Drilldowns" in html,
         },
         "endpoint_summary": model.get("json_drilldowns", {}),
+        "first_screen_landing_proof": {
+            "status": first_screen_composition.get("status"),
+            "html_endpoint": observatory_card.get("html_endpoint"),
+            "first_screen_endpoint": observatory_card.get("first_screen_endpoint"),
+            "observatory_card_endpoint": observatory_card.get("endpoint"),
+            "human_first_command": first_screen_composition.get(
+                "human_first_command"
+            ),
+            "shared_first_command": first_screen_composition.get(
+                "shared_first_command"
+            ),
+            "browser_landing_reuse": browser_landing_reuse,
+            "required_visible_handles": required_landing_handles,
+            "evidence_class_ids": [
+                row.get("evidence_class")
+                for row in evidence_classes
+                if isinstance(row, dict)
+            ],
+            "reader_route_ids": [
+                row.get("reader_route_id")
+                for row in first_screen_composition.get("reader_routes", [])
+                if isinstance(first_screen_composition.get("reader_routes"), list)
+                and isinstance(row, dict)
+            ],
+            "authority_boundary": landing_frame.get("authority_boundary"),
+            "projection_rule": landing_frame.get("projection_rule"),
+        },
         "causal_chain_proof": {
             "route_id": route.get("route_id"),
             "pattern_binding_ids": [

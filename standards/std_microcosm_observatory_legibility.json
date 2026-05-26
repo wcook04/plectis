@@ -67,6 +67,7 @@
       "selected_route_id",
       "html_assertions",
       "model_assertions",
+      "first_screen_landing_proof",
       "causal_chain_proof",
       "runtime_bridge_proof",
       "authority_ceiling",
@@ -97,6 +98,7 @@
   "required_fields": [
     "schema_version",
     "status",
+    "first_screen_composition",
     "runtime_bridge",
     "causal_chain",
     "json_drilldowns",
@@ -135,6 +137,7 @@
     ],
     "failure_modes": [
       "browser entry requires private Atlas knowledge",
+      "browser root skips the first-screen card and opens as a lens inventory",
       "observatory hides spine/intake/reveal behind raw JSON",
       "observatory claims hosted-public or release readiness",
       "observatory omits projection status counts or evidence refs",
@@ -147,6 +150,9 @@
   "status": "draft",
   "validation_rules": [
     "require causal-chain HTML before raw JSON",
+    "require the browser root to declare reuse of the first-screen composition card",
+    "require /project/first-screen and /project/observatory-card to be visible browser drilldowns",
+    "require first-screen landing proof to preserve hello command, shared behavior command, reader route ids, evidence-class legend, and authority ceiling handles",
     "require spine, intake, reveal, and evidence endpoint visibility",
     "require projection status counts and zero open actionable cells when the intake protocol reports closure",
     "reject release, hosting, publication, provider, private-equivalence, and source-mutation overclaims",
@@ -155,6 +161,7 @@
   "validator_contract": {
     "minimum_checks": [
       "causal_chain_html",
+      "first_screen_landing_contract",
       "runtime_bridge_endpoint_visibility",
       "projection_status_count_visibility",
       "authority_ceiling",

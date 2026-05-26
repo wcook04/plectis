@@ -46,6 +46,8 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["status"] == "pass"
     assert receipt["blocking_codes"] == []
     assert receipt["html_assertions"]["root_is_not_raw_json_only"] is True
+    assert receipt["html_assertions"]["first_screen_card_endpoint_visible"] is True
+    assert receipt["html_assertions"]["observatory_card_endpoint_visible"] is True
     assert receipt["html_assertions"]["raw_observatory_model_not_embedded"] is True
     assert receipt["html_assertions"]["observatory_html_under_first_screen_budget"] is True
     assert receipt["html_assertions"]["causal_chain_section_present"] is True
@@ -99,6 +101,24 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["html_assertions"]["private_paths_absent"] is True
     assert receipt["model_assertions"]["runtime_bridge_warning_status_bounded"] is True
     assert receipt["model_assertions"]["authority_map_warning_status_bounded"] is True
+    assert (
+        receipt["model_assertions"][
+            "observatory_card_first_screen_endpoint_present"
+        ]
+        is True
+    )
+    assert receipt["model_assertions"]["first_screen_composition_status_pass"] is True
+    assert (
+        receipt["model_assertions"][
+            "first_screen_landing_frame_targets_browser_root"
+        ]
+        is True
+    )
+    assert receipt["model_assertions"]["first_screen_landing_handles_present"] is True
+    assert (
+        receipt["model_assertions"]["first_screen_evidence_class_legend_present"]
+        is True
+    )
     assert receipt["model_assertions"]["ten_minute_tour_status_pass"] is True
     assert receipt["model_assertions"]["source_open_body_import_floor_present"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_status_pass"] is True
@@ -328,6 +348,38 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     ]
     assert receipt["runtime_bridge_proof"]["bridge_id"] == "intake_observatory_bridge"
     assert receipt["runtime_bridge_proof"]["open_actionable_cell_count"] == 0
+    first_screen_landing = receipt["first_screen_landing_proof"]
+    assert first_screen_landing["status"] == "pass"
+    assert first_screen_landing["html_endpoint"] == "/"
+    assert first_screen_landing["first_screen_endpoint"] == "/project/first-screen"
+    assert (
+        first_screen_landing["observatory_card_endpoint"]
+        == "/project/observatory-card"
+    )
+    assert first_screen_landing["human_first_command"] == "microcosm hello <project>"
+    assert (
+        first_screen_landing["shared_first_command"]
+        == "microcosm tour --card <project>"
+    )
+    assert first_screen_landing["browser_landing_reuse"]["default_endpoint"] == "/"
+    assert (
+        first_screen_landing["browser_landing_reuse"]["source_projection"]
+        == "microcosm_core.first_screen_composition.first_screen_text_card"
+    )
+    assert set(first_screen_landing["reader_route_ids"]) == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert set(first_screen_landing["evidence_class_ids"]) >= {
+        "verified_macro_body_import",
+        "external_subprocess_witness",
+        "semantic_validator",
+        "algorithmic_projection",
+        "fixture_schema_replay",
+        "fixture_echo_smoke",
+    }
+    assert "first-screen card" in first_screen_landing["projection_rule"]
     projection_status_counts = receipt["runtime_bridge_proof"][
         "projection_status_counts"
     ]
