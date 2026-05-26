@@ -3717,6 +3717,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             favicon_status = response.status
         with urlopen(f"http://{host}:{port}/project/observatory", timeout=45) as response:
             observatory = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/observatory-card", timeout=5) as response:
+            observatory_card = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/explain/readme_onboarding_route", timeout=5) as response:
             explanation = json.loads(response.read().decode("utf-8"))
     finally:
@@ -3741,6 +3743,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Blocking surfaces" in html
     assert "Warning drilldowns" in html
     assert "Route Proof" in html
+    assert "Observatory Card" in html
+    assert "/project/observatory-card" in html
     assert "microcosm tour &lt;project&gt;::selected_route_id" in html
     assert "front_door_status" in html
     assert LOCAL_FIRST_SCREEN_ROUTE_REF in html
@@ -3935,7 +3939,30 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["observatory_payload_policy"]["embedded_lens_payloads"] == (
         "compact_first_screen_summaries"
     )
+    assert observatory["observatory_payload_policy"]["compact_card_endpoint"] == (
+        "/project/observatory-card"
+    )
     assert len(json.dumps(observatory, sort_keys=True).encode("utf-8")) < 500_000
+    assert observatory["json_drilldowns"]["observatory_card"] == (
+        "/project/observatory-card"
+    )
+    assert observatory["observatory_card"] == observatory_card
+    assert observatory_card["schema_version"] == (
+        "microcosm_project_observatory_card_v1"
+    )
+    assert observatory_card["status"] == "pass"
+    assert observatory_card["endpoint"] == "/project/observatory-card"
+    assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
+    assert observatory_card["selected_route_id"] == "readme_onboarding_route"
+    assert observatory_card["first_screen_route_proof"]["status"] == "pass"
+    assert observatory_card["causal_chain_summary"]["work_transaction"]["work_id"] == (
+        "work_0001"
+    )
+    assert observatory_card["source_open_body_import_floor"][
+        "body_text_exported_in_status"
+    ] is False
+    assert observatory_card["safe_to_show"]["provider_calls_authorized"] is False
+    assert len(json.dumps(observatory_card, sort_keys=True).encode("utf-8")) < 50_000
     assert observatory["selected_route_id"] == "readme_onboarding_route"
     route_proof = observatory["first_screen_route_proof"]
     assert route_proof["schema_version"] == (
@@ -4060,6 +4087,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert OMITTED_PAYLOAD_BODY_KEY not in observatory["python_lens"]
     assert OMITTED_PAYLOAD_BODY_KEY not in json.dumps(observatory["python_lens"], sort_keys=True)
     assert observatory["runtime_bridge"]["bridge_id"] == "intake_observatory_bridge"
+    assert observatory["runtime_bridge"]["endpoints"]["proof_lab"] == "/proof-lab"
     assert observatory["runtime_bridge"]["open_actionable_cell_count"] == 0
     projection_status_counts = observatory["runtime_bridge"]["projection_status_counts"]
     assert projection_status_counts["public_runtime_import_landed"] >= 14

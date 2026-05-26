@@ -44,8 +44,11 @@ observatory command, proof-lab command, and the authority ceiling. Use
 `selected_route_id` from `microcosm tour .` or `microcosm compile .` for
 `microcosm explain . <selected_route_id>`; `readme_onboarding_route` is present
 when the project has a README. Open
-`http://127.0.0.1:8765` to see the causal chain. The output folder is
-`.microcosm/`.
+`http://127.0.0.1:8765` to see the causal chain, then open
+`http://127.0.0.1:8765/project/observatory-card` for the compact JSON card
+that ties status, route, work, evidence, graph, proof, and safe-to-show
+boundaries together before the full `/project/observatory` model. The output
+folder is `.microcosm/`.
 
 Use `microcosm status --card <project>` after `tour` or `compile` for the
 compressed first-screen lens over local `.microcosm/` route state plus the full
@@ -53,6 +56,7 @@ runtime status. It includes the selected project route id,
 `front_door.route_selection_proof` with the `.microcosm/routes.json` source,
 route-explanation status, and observatory proof ref, `front_door.route_explanation`
 with the compact route/work/event/evidence chain,
+`front_door.observatory.compact_endpoint=/project/observatory-card`,
 `front_door.source_open_body_import_floor` with verified source-open body-import
 counts and body-text exclusion flags,
 `source_files_mutated=false`, the `microcosm workingness` counts, and a small

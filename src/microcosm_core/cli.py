@@ -315,6 +315,7 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "status": status,
         "command": command,
         "endpoint": "/project/observatory",
+        "compact_endpoint": "/project/observatory-card",
         "html_endpoint": "/",
         "status_endpoint": "/status",
         "tour_endpoint": "/tour",
@@ -326,10 +327,6 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
             "observatory_route_proof_ref"
         ),
         "status_card_ref": "microcosm status --card <project>",
-        "reader_action": (
-            "Run microcosm tour <project> and then status --card <project> "
-            "when the project route proof is not yet present."
-        ),
         "expected_model_fields": [
             "project_summary",
             "selected_route_id",
@@ -339,6 +336,7 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
             "python_lens",
             "causal_chain",
             "graph_summary",
+            "observatory_card",
             "json_drilldowns",
             "evidence_is_drilldown",
             "proof_loop_depth_lens",
@@ -357,6 +355,11 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "authority": (
             "local observatory/read-model route reference only, not hosting, "
             "release, provider, source mutation, or proof-correctness authority"
+        ),
+        "reader_action": (
+            "Open /project/observatory-card first for the compact route/work/"
+            "evidence/graph/proof/status lens, then /project/observatory for "
+            "the full read model."
         ),
     }
 

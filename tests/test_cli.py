@@ -258,6 +258,7 @@ def test_cli_status_card_can_overlay_project_route_state(
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory["endpoint"] == "/project/observatory"
+    assert observatory["compact_endpoint"] == "/project/observatory-card"
     assert observatory["route_explanation_endpoint"] == (
         "/project/explain/readme_onboarding_route"
     )
@@ -394,6 +395,9 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     )
     assert status_card["front_door"]["observatory"]["endpoint"] == (
         "/project/observatory"
+    )
+    assert status_card["front_door"]["observatory"]["compact_endpoint"] == (
+        "/project/observatory-card"
     )
     assert status_card["front_door"]["observatory"]["status"] == "pass"
     assert status_card["macro_body_import_floor"]["source_body_imports"][

@@ -868,6 +868,273 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
     }
 
 
+def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
+    project_summary = (
+        model.get("project_summary", {})
+        if isinstance(model.get("project_summary"), dict)
+        else {}
+    )
+    first_screen_route_proof = (
+        model.get("first_screen_route_proof", {})
+        if isinstance(model.get("first_screen_route_proof"), dict)
+        else {}
+    )
+    front_door_status = (
+        model.get("front_door_status", {})
+        if isinstance(model.get("front_door_status"), dict)
+        else {}
+    )
+    source_open_body_import_floor = (
+        model.get("source_open_body_import_floor", {})
+        if isinstance(model.get("source_open_body_import_floor"), dict)
+        else {}
+    )
+    python_lens = (
+        model.get("python_lens", {})
+        if isinstance(model.get("python_lens"), dict)
+        else {}
+    )
+    causal = (
+        model.get("causal_chain", {})
+        if isinstance(model.get("causal_chain"), dict)
+        else {}
+    )
+    route = causal.get("route", {}) if isinstance(causal.get("route"), dict) else {}
+    work = (
+        causal.get("work_transaction", {})
+        if isinstance(causal.get("work_transaction"), dict)
+        else {}
+    )
+    graph_summary = (
+        model.get("graph_summary", {})
+        if isinstance(model.get("graph_summary"), dict)
+        else {}
+    )
+    runtime_bridge = (
+        model.get("runtime_bridge", {})
+        if isinstance(model.get("runtime_bridge"), dict)
+        else {}
+    )
+    tour = model.get("tour", {}) if isinstance(model.get("tour"), dict) else {}
+    tour_first_screen = (
+        tour.get("first_screen", {})
+        if isinstance(tour.get("first_screen"), dict)
+        else {}
+    )
+    proof_surface = (
+        tour_first_screen.get("proof_surface", {})
+        if isinstance(tour_first_screen.get("proof_surface"), dict)
+        else {}
+    )
+    json_drilldowns = (
+        model.get("json_drilldowns", {})
+        if isinstance(model.get("json_drilldowns"), dict)
+        else {}
+    )
+    blocking_surface_ids = front_door_status.get("blocking_surface_ids", [])
+    if not isinstance(blocking_surface_ids, list):
+        blocking_surface_ids = []
+    warning_surface_ids = front_door_status.get("drilldown_warning_surface_ids", [])
+    if not isinstance(warning_surface_ids, list):
+        warning_surface_ids = []
+    events = causal.get("events", []) if isinstance(causal.get("events"), list) else []
+    evidence = (
+        causal.get("evidence", [])
+        if isinstance(causal.get("evidence"), list)
+        else []
+    )
+    status = (
+        PASS
+        if model.get("status") == PASS
+        and first_screen_route_proof.get("status") == PASS
+        and not blocking_surface_ids
+        else "blocked"
+    )
+    selected_route_id = model.get("selected_route_id")
+    if not isinstance(selected_route_id, str) or not selected_route_id:
+        selected_route_id = first_screen_route_proof.get("selected_route_id")
+    route_explanation_endpoint = (
+        first_screen_route_proof.get("route_explanation_endpoint")
+        if isinstance(first_screen_route_proof.get("route_explanation_endpoint"), str)
+        else f"/project/explain/{selected_route_id}"
+        if isinstance(selected_route_id, str) and selected_route_id
+        else "/project/explain/<selected_route_id>"
+    )
+    local_state_refs = project_summary.get("local_state_refs", [])
+    if not isinstance(local_state_refs, list):
+        local_state_refs = []
+    latest_source_refs = source_open_body_import_floor.get("latest_source_refs", [])
+    if not isinstance(latest_source_refs, list):
+        latest_source_refs = []
+    return {
+        "schema_version": "microcosm_project_observatory_card_v1",
+        "status": status,
+        "card_id": "project_observatory_first_screen_card",
+        "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "endpoint": "/project/observatory-card",
+        "html_endpoint": "/",
+        "full_observatory_endpoint": "/project/observatory",
+        "status_endpoint": "/status",
+        "tour_endpoint": "/tour",
+        "workingness_endpoint": "/workingness",
+        "proof_lab_endpoint": "/proof-lab",
+        "python_lens_endpoint": "/project/python-lens",
+        "selected_route_id": (
+            selected_route_id if isinstance(selected_route_id, str) else None
+        ),
+        "route_explanation_endpoint": route_explanation_endpoint,
+        "local_first_screen_route": (
+            model.get("local_first_screen_route")
+            if isinstance(model.get("local_first_screen_route"), dict)
+            else _local_first_screen_route_ref()
+        ),
+        "reader_sequence": [
+            {
+                "step_id": "open_browser_observatory",
+                "endpoint": "/",
+                "shows": "human-readable causal chain before raw JSON",
+            },
+            {
+                "step_id": "read_observatory_card",
+                "endpoint": "/project/observatory-card",
+                "shows": "compact route, work, evidence, graph, proof, and status lens",
+            },
+            {
+                "step_id": "drill_full_model",
+                "endpoint": "/project/observatory",
+                "shows": "full observatory model with compact embedded lens payloads",
+            },
+            {
+                "step_id": "explain_selected_route",
+                "endpoint": route_explanation_endpoint,
+                "shows": "route explanation and project-local evidence refs",
+            },
+        ],
+        "first_screen_route_proof": {
+            "status": first_screen_route_proof.get("status"),
+            "selected_route_id": first_screen_route_proof.get("selected_route_id"),
+            "route_proof_ids_match": first_screen_route_proof.get(
+                "route_proof_ids_match"
+            ),
+            "route_id_source": first_screen_route_proof.get("route_id_source"),
+            "route_explanation_endpoint": route_explanation_endpoint,
+            "blocking_surface_ids": blocking_surface_ids,
+            "warning_drilldown_surface_ids": warning_surface_ids,
+        },
+        "project_state": {
+            "project_id": project_summary.get("project_id"),
+            "state_ref": project_summary.get("state_ref"),
+            "local_state_refs": local_state_refs,
+            "graph_ref": graph_summary.get("graph_ref") or ".microcosm/graph.json",
+        },
+        "causal_chain_summary": {
+            "route": {
+                "route_id": route.get("route_id"),
+                "title": route.get("title"),
+                "authority": route.get("authority"),
+                "grounded_ref_count": len(route.get("grounded_refs", []))
+                if isinstance(route.get("grounded_refs"), list)
+                else 0,
+                "pattern_ref_count": len(route.get("pattern_refs", []))
+                if isinstance(route.get("pattern_refs"), list)
+                else 0,
+                "standard_pressure_ref_count": len(
+                    route.get("standard_pressure_refs", [])
+                )
+                if isinstance(route.get("standard_pressure_refs"), list)
+                else 0,
+            },
+            "work_transaction": {
+                "work_id": work.get("work_id"),
+                "status": work.get("status"),
+                "route_id": work.get("route_id"),
+                "source_files_mutated": work.get("source_files_mutated") is True,
+                "event_ref_count": len(work.get("event_refs", []))
+                if isinstance(work.get("event_refs"), list)
+                else 0,
+                "evidence_ref_count": len(work.get("evidence_refs", []))
+                if isinstance(work.get("evidence_refs"), list)
+                else 0,
+            },
+            "event_rows_shown": len(events),
+            "evidence_rows_shown": len(evidence),
+            "graph": {
+                "node_count": graph_summary.get("node_count"),
+                "edge_count": graph_summary.get("edge_count"),
+                "graph_ref": graph_summary.get("graph_ref"),
+            },
+        },
+        "source_open_body_import_floor": {
+            "status": source_open_body_import_floor.get("status"),
+            "public_safe_body_material_count": source_open_body_import_floor.get(
+                "public_safe_body_material_count"
+            ),
+            "verified_source_module_family_count": source_open_body_import_floor.get(
+                "verified_source_module_family_count"
+            ),
+            "latest_source_refs": latest_source_refs,
+            "body_text_exported_in_status": source_open_body_import_floor.get(
+                "body_text_exported_in_status"
+            ),
+            "body_text_exported_in_receipts": source_open_body_import_floor.get(
+                "body_text_exported_in_receipts"
+            ),
+            "authority_boundary": source_open_body_import_floor.get(
+                "authority_boundary"
+            ),
+        },
+        "proof_lab": {
+            "status": proof_surface.get("status"),
+            "command": proof_surface.get("command") or PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "endpoint": "/proof-lab",
+            "route_id": proof_surface.get("route_id"),
+            "receipt_ref": proof_surface.get("receipt_ref"),
+            "proof_correctness_claim": False,
+        },
+        "python_lens": {
+            "status": python_lens.get("status"),
+            "python_file_count": python_lens.get("python_file_count"),
+            "ready_route_count": python_lens.get("ready_route_count"),
+            "state_file_ref": python_lens.get("state_file_ref"),
+            "evidence_ref": python_lens.get("evidence_ref"),
+        },
+        "runtime_bridge": {
+            "bridge_id": runtime_bridge.get("bridge_id"),
+            "open_actionable_cell_count": runtime_bridge.get(
+                "open_actionable_cell_count"
+            ),
+            "closed_cell_count": runtime_bridge.get("closed_cell_count"),
+        },
+        "json_drilldowns": json_drilldowns,
+        "payload_policy": {
+            "summary_endpoint": "/project/observatory-card",
+            "full_model_endpoint": "/project/observatory",
+            "embedded_payloads": "counts_refs_and_safe_public_boundary_rows_only",
+            "receipt_sized_payloads": "json_drilldowns",
+        },
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "body_text_exported_in_observatory_card": False,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+            "credential_equivalent_live_access_exported": False,
+        },
+        "authority": (
+            "compact local observatory route map only, not hosting, release, "
+            "provider, source mutation, proof-correctness, or private-data "
+            "equivalence authority"
+        ),
+        "reader_action": (
+            "Use this card to orient on route/work/evidence/graph/proof/status, "
+            "then open the named drilldowns instead of treating receipts as the cockpit."
+        ),
+    }
+
+
 def _badge_list(values: list[str]) -> str:
     if not values:
         return "<span class=\"muted\">none</span>"
@@ -14658,6 +14925,7 @@ class RuntimeShell:
                 "schema_version": "microcosm_observatory_payload_policy_v1",
                 "embedded_lens_payloads": "compact_first_screen_summaries",
                 "full_payloads": "json_drilldowns",
+                "compact_card_endpoint": "/project/observatory-card",
                 "reason": (
                     "The observatory is the first-screen cockpit; receipt-sized "
                     "payloads stay behind stable drilldown endpoints."
@@ -14681,6 +14949,7 @@ class RuntimeShell:
                 keep_keys=(
                     "bridge_id",
                     "closed_cell_count",
+                    "endpoints",
                     "evidence_refs",
                     "open_actionable_cell_count",
                     "projection_status_counts",
@@ -14697,14 +14966,29 @@ class RuntimeShell:
             "corpus_lens": _compact_observatory_payload(corpus_lens),
             "trace_lens": _compact_observatory_payload(
                 trace_lens,
-                keep_keys=("negative_case_ids",),
+                keep_keys=("negative_case_ids", "trace_rows"),
             ),
-            "repair_loop_lens": _compact_observatory_payload(repair_loop_lens),
-            "evidence_cell_lens": _compact_observatory_payload(evidence_cell_lens),
+            "repair_loop_lens": _compact_observatory_payload(
+                repair_loop_lens,
+                keep_keys=("loop_stages", "negative_case_ids", "transition_rows"),
+            ),
+            "evidence_cell_lens": _compact_observatory_payload(
+                evidence_cell_lens,
+                keep_keys=("evidence_cells", "negative_case_ids"),
+            ),
             "proof_loop_depth_lens": _compact_observatory_payload(proof_loop_depth_lens),
-            "landing_replay_lens": _compact_observatory_payload(landing_replay_lens),
-            "view_quality_lens": _compact_observatory_payload(view_quality_lens),
-            "projection_safety_lens": _compact_observatory_payload(projection_safety_lens),
+            "landing_replay_lens": _compact_observatory_payload(
+                landing_replay_lens,
+                keep_keys=("lane_decision_table", "negative_case_ids"),
+            ),
+            "view_quality_lens": _compact_observatory_payload(
+                view_quality_lens,
+                keep_keys=("action_rows", "hot_action_rollup", "negative_case_ids"),
+            ),
+            "projection_safety_lens": _compact_observatory_payload(
+                projection_safety_lens,
+                keep_keys=("negative_case_ids", "projection_rows"),
+            ),
             "projection_drift_lens": _compact_observatory_payload(projection_drift_lens),
             "route_cleanup_lens": _compact_observatory_payload(
                 route_cleanup_lens,
@@ -14732,11 +15016,15 @@ class RuntimeShell:
             ),
             "hook_coverage_lens": _compact_observatory_payload(
                 hook_coverage_lens,
-                keep_keys=("missing_authority_case_ids",),
+                keep_keys=(
+                    "intervention_rows",
+                    "missing_authority_case_ids",
+                    "negative_case_ids",
+                ),
             ),
             "replay_gauntlet_lens": _compact_observatory_payload(
                 replay_gauntlet_lens,
-                keep_keys=("negative_case_ids",),
+                keep_keys=("episode_rows", "negative_case_ids"),
             ),
             "benchmark_lab_lens": _compact_observatory_payload(benchmark_lab_lens),
             "legibility_scorecard_lens": _compact_observatory_payload(
@@ -15032,6 +15320,7 @@ class RuntimeShell:
                     "intake": "/intake",
                     "reveal": "/reveal",
                     "kernel": "/kernel",
+                    "observatory_card": "/project/observatory-card",
                     "python_lens": "/project/python-lens",
                     "graph": "/project/graph",
                     "workitems": "/project/workitems",
@@ -15040,6 +15329,7 @@ class RuntimeShell:
                 },
             }
         )
+        model["observatory_card"] = _project_observatory_card(model)
         return model
 
     def _observatory_html(
@@ -15090,6 +15380,11 @@ class RuntimeShell:
         first_screen_route_proof = (
             model.get("first_screen_route_proof", {})
             if isinstance(model.get("first_screen_route_proof"), dict)
+            else {}
+        )
+        observatory_card = (
+            model.get("observatory_card", {})
+            if isinstance(model.get("observatory_card"), dict)
             else {}
         )
         source_open_body_import_floor = (
@@ -15920,6 +16215,7 @@ class RuntimeShell:
           <div class="node"><strong>Standards</strong><span>{_badge_list([str(row.get("standard_id")) for row in standard_bindings if isinstance(row, dict) and row.get("standard_id")][:4])}</span></div>
           <div class="node"><strong>Route</strong><span>{html.escape(route_id)}</span></div>
           <div class="node"><strong>Route Proof</strong><span>{html.escape(_safe_text(first_screen_route_proof.get("status")))} · <code>/project/explain/{html.escape(route_id)}</code></span></div>
+          <div class="node"><strong>Observatory Card</strong><span><code>/project/observatory-card</code> · {html.escape(_safe_text(observatory_card.get("status")))}</span></div>
           <div class="node"><strong>Work</strong><span>{html.escape(_safe_text(work.get("work_id") or "not yet created"))}</span></div>
           <div class="node"><strong>Events</strong><span>{len(events)} shown</span></div>
           <div class="node"><strong>Evidence</strong><span>{len(evidence)} refs</span></div>
@@ -15951,6 +16247,7 @@ class RuntimeShell:
           {row("Compile selected route", first_screen_route_proof.get("compile_selected_route_id"))}
           {row("Route proof ids match", first_screen_route_proof.get("route_proof_ids_match"))}
           {row("Route proof endpoint", first_screen_route_proof.get("route_explanation_endpoint"))}
+          {row("Observatory card", observatory_card.get("endpoint") or "/project/observatory-card")}
           {row("Python lens", project_python_lens.get("lens_id") or "project_python_route_lens")}
           {row("Python ready routes", project_python_lens.get("ready_route_count"))}
           {row("Authority", route.get("authority") or causal.get("authority_boundary"))}
@@ -16891,6 +17188,15 @@ class RuntimeShell:
                     )
                 elif path == "/project/evidence" and project_path is not None:
                     self._send(200, project_substrate.list_evidence(project_path))
+                elif path == "/project/observatory-card" and project_path is not None:
+                    model = cached_observatory_model()
+                    card = model.get("observatory_card")
+                    self._send(
+                        200,
+                        card
+                        if isinstance(card, dict)
+                        else _project_observatory_card(model),
+                    )
                 elif path == "/project/observatory" and project_path is not None:
                     self._send(200, cached_observatory_model())
                 elif path.startswith("/project/explain/") and project_path is not None:
