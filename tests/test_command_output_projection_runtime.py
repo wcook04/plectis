@@ -44,6 +44,9 @@ ROUTE_OPERATOR_COURT_MANIFEST = (
 ROUTE_DISCOVERY_CONFIRMATION_MANIFEST = (
     BUNDLE_INPUT / "route_discovery_confirmation_source_module_manifest.json"
 )
+PROJECTION_LOSS_AUDIT_MANIFEST = (
+    BUNDLE_INPUT / "projection_loss_audit_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -905,6 +908,45 @@ def test_route_discovery_confirmation_source_compiles_and_preserves_mutation_bou
     assert "update the canonical route graph" in manifest["public_runtime_policy"]
     assert "provider response bodies" in manifest["secret_exclusion_boundary"]
     assert "accepted-edge private state" in manifest["secret_exclusion_boundary"]
+
+
+def test_projection_loss_audit_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        PROJECTION_LOSS_AUDIT_MANIFEST,
+        manifest_id="projection_loss_audit_source_modules_import",
+        module_count=1,
+    )
+
+    audit_row = manifest["modules"][0]
+    assert "no_write_receipt_authority" in audit_row["source_open_payload_boundary"]
+
+
+def test_projection_loss_audit_source_compiles_and_preserves_read_only_boundary() -> None:
+    manifest = json.loads(PROJECTION_LOSS_AUDIT_MANIFEST.read_text(encoding="utf-8"))
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    audit_text = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/control/projection_loss_audit.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def audit_projection_loss(" in audit_text
+    assert "def _verb_recoverable_from_slim(" in audit_text
+    assert "STATE_REL" in audit_text
+    assert "projection_loss_audit_v1" in audit_text
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "not authority to write projection-loss audit receipts" in manifest[
+        "public_runtime_policy"
+    ]
+    assert "mutate route graphs" in manifest["public_runtime_policy"]
+    assert "provider response bodies" in manifest["secret_exclusion_boundary"]
+    assert "projection-loss audit output bodies" in manifest["secret_exclusion_boundary"]
 
 
 def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:
