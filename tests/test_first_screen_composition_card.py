@@ -91,6 +91,36 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "safety_evals_engineer"
     ]["success_criterion"]
     assert "provider calls" in packet_by_id["peer_developer"]["success_criterion"]
+    behavior_proof_packet = card["behavior_proof_packet"]
+    behavior_fields = {
+        row["field"]: row for row in behavior_proof_packet["proof_fields"]
+    }
+    assert behavior_proof_packet["purpose"] == (
+        "turn_shared_first_run_into_inspectable_success_conditions"
+    )
+    assert behavior_proof_packet["command"] == card["shared_first_command"]
+    assert behavior_proof_packet["writes_state"] is True
+    assert behavior_proof_packet["state_dir"] == ".microcosm"
+    assert set(behavior_fields) == {
+        "front_door_status.status",
+        "selected_route_id",
+        "state_inspection",
+        "source_files_mutated",
+    }
+    assert behavior_fields["front_door_status.status"]["success_read"] == "pass"
+    assert behavior_fields["source_files_mutated"]["success_read"] is False
+    assert "not_release_readiness" in behavior_fields[
+        "front_door_status.status"
+    ]["reader_rule"]
+    assert "not_private_root_equivalence" in behavior_fields[
+        "state_inspection"
+    ]["reader_rule"]
+    assert behavior_proof_packet["authority"] == (
+        "local_behavior_receipt_not_release_or_proof_authority"
+    )
+    assert "not a product, release, proof" in behavior_proof_packet[
+        "failure_reading"
+    ]
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -213,6 +243,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader landing packets" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "behavior-proof packet" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -299,6 +332,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader_landing_packets" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "behavior_proof_packet" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -325,6 +361,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["reader_landing_packets"] is True
+    assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -407,6 +444,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "peer_developer",
     }
     assert card["validation"]["checks"]["reader_landing_packets"] is True
+    assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
     assert '"body":' not in result.stdout
@@ -430,6 +468,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Counts are receipt-backed handles" in text
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
+    assert (
+        "Behavior proof: front_door_status=pass, selected_route_id, state refs, "
+        "source_files_mutated=false"
+    ) in text
     assert (
         "Safety/evals: Run `microcosm status --card .`. Proof: "
         "`microcosm authority` plus `microcosm workingness`"
@@ -500,6 +542,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
         assert "Evidence classes: body import, subprocess witness" in text
+        assert "Behavior proof: front_door_status=pass" in text
         assert "doctrine appears as prevented mistakes" in text
         assert "README inventory waits" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
@@ -532,6 +575,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "doctrine appears as prevented mistakes" in result.stdout
     assert "README inventory waits" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
+    assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
@@ -562,6 +606,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "doctrine appears as prevented mistakes" in result.stdout
     assert "README inventory waits" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
+    assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert "  First action: Run `microcosm status --card .`." in result.stdout
     assert (

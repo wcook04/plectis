@@ -203,6 +203,44 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
     }
 
 
+def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_behavior_proof_packet_v1",
+        "purpose": "turn_shared_first_run_into_inspectable_success_conditions",
+        "command": shared_first_command,
+        "writes_state": True,
+        "state_dir": ".microcosm",
+        "proof_fields": [
+            {
+                "field": "front_door_status.status",
+                "success_read": "pass",
+                "reader_rule": "first_screen_surfaces_pass_not_release_readiness",
+            },
+            {
+                "field": "selected_route_id",
+                "success_read": "non_empty_route_id",
+                "reader_rule": "selected_local_route_not_universal_project_truth",
+            },
+            {
+                "field": "state_inspection",
+                "success_read": "catalog_routes_work_events_evidence_refs_present",
+                "reader_rule": "inspectable_local_state_not_private_root_equivalence",
+            },
+            {
+                "field": "source_files_mutated",
+                "success_read": False,
+                "reader_rule": "project_source_remains_unchanged_by_first_run",
+            },
+        ],
+        "failure_reading": (
+            "A non-pass field names the first blocked or warning surface to inspect; "
+            "it is not a product, release, proof, or safety-evaluation verdict."
+        ),
+        "authority": "local_behavior_receipt_not_release_or_proof_authority",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -520,7 +558,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, reader landing packets, "
-            "evidence-count frame, evidence-class legend, doctrine-effect frame, "
+            "behavior-proof packet, evidence-count frame, evidence-class legend, doctrine-effect frame, "
             "observatory landing frame, README-entry contract, omission receipt, and "
             "authority ceiling."
         ),
@@ -583,6 +621,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "behavioral_proof_command",
             "reader_route_ids",
             "reader_landing_packets",
+            "behavior_proof_packet",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -686,6 +725,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     scale_frame = payload.get("scale_frame", {})
     scale_counts = scale_frame.get("public_scale_counts", {})
     state_write_boundary = payload.get("state_write_boundary", {})
+    behavior_proof_packet = payload.get("behavior_proof_packet", {})
+    behavior_proof_fields = (
+        behavior_proof_packet.get("proof_fields", [])
+        if isinstance(behavior_proof_packet, dict)
+        else []
+    )
+    behavior_proof_field_ids = {
+        str(row.get("field"))
+        for row in behavior_proof_fields
+        if isinstance(row, dict)
+    }
     observatory_landing_frame = payload.get("observatory_landing_frame", {})
     doctrine_effect_frame = payload.get("doctrine_effect_frame", {})
     readme_entry_contract = payload.get("readme_entry_contract", {})
@@ -761,6 +811,30 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 )
                 for packet in reader_packet_rows
             )
+        ),
+        "behavior_proof_packet": (
+            isinstance(behavior_proof_packet, dict)
+            and behavior_proof_packet.get("purpose")
+            == "turn_shared_first_run_into_inspectable_success_conditions"
+            and behavior_proof_packet.get("command") == shared_first_command
+            and behavior_proof_packet.get("writes_state") is True
+            and behavior_proof_packet.get("state_dir") == ".microcosm"
+            and behavior_proof_field_ids
+            == {
+                "front_door_status.status",
+                "selected_route_id",
+                "state_inspection",
+                "source_files_mutated",
+            }
+            and all(
+                isinstance(row, dict)
+                and "success_read" in row
+                and isinstance(row.get("reader_rule"), str)
+                and bool(row.get("reader_rule"))
+                for row in behavior_proof_fields
+            )
+            and behavior_proof_packet.get("authority")
+            == "local_behavior_receipt_not_release_or_proof_authority"
         ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
@@ -884,6 +958,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "behavioral_proof_command",
                     "reader_route_ids",
                     "reader_landing_packets",
+                    "behavior_proof_packet",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -950,6 +1025,7 @@ def first_screen_composition_card(
         },
         "reader_routes": _reader_routes(project_label),
         "reader_landing_packets": _reader_landing_packets(project_label),
+        "behavior_proof_packet": _behavior_proof_packet(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -1078,6 +1154,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         _scale_summary_line(payload),
         "  Counts are receipt-backed handles, not maturity, readiness, or progress scores.",
         _evidence_class_summary_line(payload),
+        "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
         *_reader_branch_lines(route_by_id, packet_by_id, reader_id),
         "",
