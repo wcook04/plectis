@@ -36,6 +36,7 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = (
     "exported_verifier_lab_execution_spine_bundle_validation_result.json"
 )
+CARD_SCHEMA_VERSION = "verifier_lab_execution_spine_command_card_v1"
 
 NEGATIVE_INPUT_NAMES = (
     "transition_leaks_candidate_body.json",
@@ -174,6 +175,22 @@ ANTI_CLAIM = (
     "as proof authority, mutate source, claim benchmark solve-rate, or authorize "
     "release."
 )
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "anti_claim",
+    "claim_separation",
+    "cp2_translation_trace",
+    "evolve_mutation_trace",
+    "findings",
+    "lake_project_build",
+    "public_runtime_refs",
+    "receipt_paths",
+    "receipt_transparency_contract",
+    "secret_exclusion_scan",
+    "source_pattern_ids",
+    "source_refs",
+    "tool_versions",
+    "transition_trace",
+)
 
 
 @dataclass(frozen=True)
@@ -241,6 +258,59 @@ def _load_json_if_exists(path: Path) -> dict[str, Any]:
         return {}
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
+
+
+def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
+    try:
+        receipt_mtime = receipt_path.stat().st_mtime_ns
+    except OSError:
+        return False
+    for path in input_paths:
+        try:
+            if path.stat().st_mtime_ns > receipt_mtime:
+                return False
+        except OSError:
+            return False
+    return True
+
+
+def _fresh_bundle_receipt(
+    *,
+    input_dir: Path,
+    result_path: Path,
+    public_root: Path,
+    command: str,
+) -> dict[str, Any] | None:
+    if not _receipt_is_current(
+        result_path,
+        _input_paths(input_dir, include_negative=False),
+    ):
+        return None
+    try:
+        payload = read_json_strict(result_path)
+    except (OSError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if (
+        payload.get("schema_version")
+        != "exported_verifier_lab_execution_spine_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_verifier_lab_execution_spine_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    receipt_paths = payload.get("receipt_paths")
+    if not isinstance(receipt_paths, list) or not receipt_paths:
+        receipt_paths = [_display(result_path, public_root=public_root)]
+    return {
+        **payload,
+        "receipt_paths": [str(path) for path in receipt_paths],
+        "cache_status": "fresh_exported_bundle_receipt_reused",
+    }
 
 
 def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -> list[str]:
@@ -917,6 +987,143 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _list_count(value: object) -> int:
+    return len(value) if isinstance(value, list) else 0
+
+
+def _dict_value(payload: dict[str, Any], key: str) -> dict[str, Any]:
+    value = payload.get(key)
+    return value if isinstance(value, dict) else {}
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    counters = _dict_value(result, "authority_counters")
+    authority = _dict_value(result, "authority_ceiling")
+    scan = _dict_value(result, "secret_exclusion_scan")
+    tool_versions = _dict_value(result, "tool_versions")
+    lake_build = _dict_value(result, "lake_project_build")
+    receipt_paths = result.get("receipt_paths")
+    expected_cases = result.get("expected_negative_cases")
+    observed_cases = result.get("observed_negative_cases")
+    omitted = [
+        key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+    ]
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "execution_spine_id": result.get("execution_spine_id"),
+        "cache_status": result.get("cache_status", "fresh_run_executed"),
+        "full_output_available": True,
+        "full_output_drilldown": (
+            "rerun without --card or inspect the written receipt files"
+        ),
+        "execution_summary": {
+            "transition_count": counters.get("transition_count", 0),
+            "accepted_transition_count": counters.get(
+                "accepted_transition_count", 0
+            ),
+            "residual_transition_count": counters.get(
+                "residual_transition_count", 0
+            ),
+            "cp2_translation_count": counters.get("cp2_translation_count", 0),
+            "cp2_downstream_effect_count": counters.get(
+                "cp2_downstream_effect_count", 0
+            ),
+            "evolve_candidate_count": counters.get("evolve_candidate_count", 0),
+            "evolve_accepted_count": counters.get("evolve_accepted_count", 0),
+            "proof_body_export_count": counters.get("proof_body_export_count", 0),
+            "provider_results_counted": counters.get(
+                "provider_results_counted", 0
+            ),
+            "oracle_forward_success_increment_count": counters.get(
+                "oracle_forward_success_increment_count", 0
+            ),
+            "source_mutation_count": counters.get("source_mutation_count", 0),
+        },
+        "runtime_summary": {
+            "lean_available": tool_versions.get("lean_available"),
+            "lake_available": tool_versions.get("lake_available"),
+            "lake_return_code": lake_build.get("return_code"),
+            "lake_timed_out": lake_build.get("timed_out"),
+            "lake_stdout_line_count": lake_build.get("stdout_line_count"),
+            "lake_stderr_line_count": lake_build.get("stderr_line_count"),
+        },
+        "negative_case_coverage": {
+            "expected_negative_case_count": _list_count(expected_cases),
+            "observed_negative_case_count": (
+                len(observed_cases) if isinstance(observed_cases, dict) else 0
+            ),
+            "missing_negative_case_count": _list_count(
+                result.get("missing_negative_cases")
+            ),
+            "error_code_count": _list_count(result.get("error_codes")),
+            "finding_count": _list_count(result.get("findings")),
+        },
+        "secret_exclusion_summary": {
+            "status": scan.get("status"),
+            "blocking_hit_count": scan.get("blocking_hit_count", 0),
+            "hit_count": scan.get("hit_count", 0),
+            "scanned_path_count": scan.get("scanned_path_count", 0),
+            "hits_exported": False,
+            "scan_scope_exported": False,
+            "body_redacted": True,
+        },
+        "authority_ceiling": {
+            "status": authority.get("status"),
+            "authority_ceiling": authority.get("authority_ceiling"),
+            "lean_lake_execution_authorized": authority.get(
+                "lean_lake_execution_authorized"
+            ),
+            "provider_calls_authorized": authority.get(
+                "provider_calls_authorized"
+            ),
+            "proof_bodies_allowed_in_receipts": authority.get(
+                "proof_bodies_allowed_in_receipts"
+            ),
+            "source_mutation_authorized": authority.get(
+                "source_mutation_authorized"
+            ),
+            "release_authorized": authority.get("release_authorized"),
+        },
+        "no_export_guards": {
+            "transition_trace_exported": False,
+            "cp2_translation_trace_exported": False,
+            "evolve_mutation_trace_exported": False,
+            "claim_separation_exported": False,
+            "findings_exported": False,
+            "secret_scan_hits_exported": False,
+            "public_runtime_refs_exported": False,
+            "receipt_paths_exported": False,
+            "anti_claim_exported": False,
+            "stdout_stderr_bodies_exported": False,
+            "proof_bodies_exported": counters.get("proof_body_export_count", 0)
+            > 0,
+            "provider_results_counted": counters.get("provider_results_counted", 0)
+            > 0,
+            "oracle_forward_success_incremented": counters.get(
+                "oracle_forward_success_increment_count", 0
+            )
+            > 0,
+            "source_mutation_counted": counters.get("source_mutation_count", 0)
+            > 0,
+        },
+        "receipt_summary": {
+            "receipt_count": _list_count(receipt_paths),
+            "full_receipts_written": bool(receipt_paths),
+            "receipt_paths_exported": False,
+        },
+        "output_economy": {
+            "output_profile": "compact_card",
+            "omitted_full_payload_keys": omitted,
+            "body_in_receipt": result.get("body_in_receipt"),
+            "body_redacted": True,
+        },
+    }
+
+
 def write_receipts(
     out_dir: str | Path,
     result: dict[str, Any],
@@ -1068,18 +1275,26 @@ def run_execution_bundle(
         "python -m microcosm_core.organs.verifier_lab_execution_spine "
         f"run-execution-bundle --input {input_dir} --out {out_dir}"
     )
-    result = _build_result(
-        input_path,
-        command=command_text,
-        input_mode="exported_verifier_lab_execution_spine_bundle",
-        include_negative=False,
-    )
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
     target.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(input_path)
     result_path = target / BUNDLE_RESULT_NAME
+    cached = _fresh_bundle_receipt(
+        input_dir=input_path,
+        result_path=result_path,
+        public_root=public_root,
+        command=command_text,
+    )
+    if cached is not None:
+        return cached
+    result = _build_result(
+        input_path,
+        command=command_text,
+        input_mode="exported_verifier_lab_execution_spine_bundle",
+        include_negative=False,
+    )
     receipt = _common_receipt(
         result,
         schema_version=(
@@ -1100,12 +1315,36 @@ def main(argv: list[str] | None = None) -> int:
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
         action_parser.add_argument("--acceptance-out")
+        action_parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}"
+            if args.acceptance_out
+            else ""
+        )
+        card_suffix = " --card" if args.card else ""
+        command = (
+            "python -m microcosm_core.organs.verifier_lab_execution_spine "
+            f"run --input {args.input} --out {args.out}"
+            f"{acceptance_suffix}{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     else:
-        result = run_execution_bundle(args.input, args.out)
-    print(json.dumps(result, indent=2, sort_keys=True))
+        card_suffix = " --card" if args.card else ""
+        command = (
+            "python -m microcosm_core.organs.verifier_lab_execution_spine "
+            f"run-execution-bundle --input {args.input} --out {args.out}"
+            f"{card_suffix}"
+        )
+        result = run_execution_bundle(args.input, args.out, command=command)
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
