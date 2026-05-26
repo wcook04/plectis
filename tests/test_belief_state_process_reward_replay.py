@@ -5,11 +5,14 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.belief_state_process_reward_replay as belief_reward_replay
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_belief_state_process_reward_trace,
 )
 from microcosm_core.organs.belief_state_process_reward_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_reward_bundle,
 )
@@ -139,6 +142,62 @@ def test_belief_state_process_reward_exported_bundle_validates_runtime_shape(
     assert result["outcome_reward_count"] == 3
     assert result["cold_replay_pass_count"] == 3
     assert result["authority_ceiling"]["hidden_reasoning_export_authorized"] is False
+
+
+def test_belief_state_process_reward_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "belief_state_process_reward_replay"
+    )
+    args = [
+        "run-reward-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["belief_reward"]["episode_count"] == 3
+    assert first_card["belief_reward"]["belief_state_count"] == 6
+    assert first_card["belief_reward"]["accepted_feedback_count"] == 6
+    assert first_card["belief_reward"]["process_reward_count"] == 6
+    assert first_card["belief_reward"]["outcome_reward_count"] == 3
+    assert first_card["belief_reward"]["cold_replay_pass_count"] == 3
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["public_trace_status"] == "pass"
+    assert first_card["validation"]["public_trace_span_count"] == 6
+    assert "episode_rows" not in _walk_keys(first_card)
+    assert "belief_state_rows" not in _walk_keys(first_card)
+    assert "feedback_rows" not in _walk_keys(first_card)
+    assert "reward_rows" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "public_agent_execution_trace" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(belief_reward_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_belief_state_process_reward_has_public_trace_projection() -> None:
