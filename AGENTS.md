@@ -38,10 +38,15 @@ imported macro body.
 
 ## Accepted Public Runtime Spine
 
-This list is the public entry claim over `core/organ_registry.json` and
-`core/organ_evidence_classes.json`: 47 accepted public runtime organ records.
-The runtime status card is the count lens for the 43 product-spine
-adapter-backed organs and 4 drilldown-only regression surfaces.
+This list is the public entry inventory over `core/organ_registry.json` and
+`core/organ_evidence_classes.json`: 47 accepted public runtime organ records
+with receipt-index status. The runtime status card is the count lens for the 43
+product-spine adapter-backed organs and 4 drilldown-only regression surfaces.
+Those counts are inventory-only route-alignment metadata:
+`accepted_current_authority`, organ counts, adapter-backed counts, and
+drilldown-only surface counts are not product progress, release readiness,
+product completeness, proof authority, private-root equivalence, or
+whole-system correctness.
 
 - `pattern_binding_contract`
 - `executable_doctrine_grammar`

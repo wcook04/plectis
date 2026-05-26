@@ -115,6 +115,11 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert receipt["entry_spine_claims"]["status"] == "pass"
     assert receipt["entry_spine_claims"]["expected_organ_count"] == 47
     assert receipt["entry_spine_claims"]["blocked_docs"] == []
+    assert receipt["entry_spine_claims"]["authority"] == (
+        "public entry spine inventory alignment only; accepted status and "
+        "counts are not progress, release, or proof authority; status card "
+        "remains the runtime count lens"
+    )
     for rel in ("README.md", "AGENTS.md"):
         doc_claim = receipt["entry_spine_claims"]["docs"][rel]
         assert doc_claim["status"] == "pass"
@@ -332,6 +337,13 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Real Substrate Posture" in agents
     assert "47 accepted public runtime organs" in text
     assert "47 accepted public runtime organ records" in agents
+    assert "public entry inventory/read-model" in text
+    assert "public entry inventory" in agents
+    assert "inventory-only route-alignment metadata" in text
+    assert "inventory-only route-alignment metadata" in agents
+    assert "not product progress, release readiness" in text
+    assert "not product progress, release readiness" in agents
+    assert "not a product progress meter" in normalized_text
     assert "bridge_phase_continuity_runtime" in text
     assert "bridge_phase_continuity_runtime" in agents
     assert "bridge-phase-continuity-runtime" in text

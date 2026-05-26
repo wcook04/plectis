@@ -143,6 +143,9 @@ REQUIRED_PHRASES_BY_DOC = {
         "not benchmark scores,",
         "not score-based progress, maturity,",
         "Internal Runtime Spine",
+        "public entry inventory/read-model",
+        "inventory-only route-alignment metadata",
+        "not product progress, release readiness",
         "formal_math_readiness_gate",
         "corpus_readiness_mathlib_absence_gate",
         "mathematical_strategy_atlas_hypothesis_scorer",
@@ -251,6 +254,9 @@ REQUIRED_PHRASES_BY_DOC = {
         "microcosm init <project>",
         "microcosm explain <project> <route_id>",
         "Accepted Public Runtime Spine",
+        "public entry inventory",
+        "inventory-only route-alignment metadata",
+        "not product progress, release readiness",
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
         "not benchmark scores,",
@@ -828,8 +834,9 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
         "docs": docs,
         "blocked_docs": blocked_docs,
         "authority": (
-            "public entry spine claim alignment only; status card remains the "
-            "runtime count lens"
+            "public entry spine inventory alignment only; accepted status and "
+            "counts are not progress, release, or proof authority; status card "
+            "remains the runtime count lens"
         ),
     }
 

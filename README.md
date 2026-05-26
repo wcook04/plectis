@@ -602,10 +602,14 @@ available for automation and deeper inspection.
 ## Internal Runtime Spine
 
 The public package now carries 47 accepted public runtime organs behind the
-local substrate loop. The first-screen status card separates the 43
+local substrate loop. Treat that as a public entry inventory/read-model over
+`core/organ_registry.json` and `core/organ_evidence_classes.json`, not a
+product progress meter. The first-screen status card separates the 43
 product-spine adapter-backed organs from 4 runnable drilldown-only regression
-surfaces; this list is the public entry claim that must stay aligned with
-`core/organ_registry.json` and `core/organ_evidence_classes.json`.
+surfaces. `accepted_current_authority`, organ counts, adapter-backed counts,
+and drilldown-only surface counts are inventory-only route-alignment metadata,
+not product progress, release readiness, product completeness, proof authority,
+private-root equivalence, or whole-system correctness.
 
 1. `pattern_binding_contract`
 2. `executable_doctrine_grammar`
