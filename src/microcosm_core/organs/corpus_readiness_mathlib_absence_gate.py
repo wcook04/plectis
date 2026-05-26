@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -28,6 +29,8 @@ ACCEPTANCE_RECEIPT_REL = (
     "corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_corpus_readiness_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_MODULE_IMPORT_STATUS = "copied_corpus_readiness_source_modules_verified"
 
 SOURCE_PATTERN_IDS = [
     "corpus_readiness_mathlib_absence_gate",
@@ -50,6 +53,11 @@ SOURCE_TARGET_REFS = [
     "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
     "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
     "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/consumer_gate_cases.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",
@@ -66,6 +74,12 @@ BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 CORPUS_READINESS_STATUS = "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
 TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
 BODY_IN_RECEIPT = False
+PUBLIC_SAFE_BODY_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body",
+}
 
 FORBIDDEN_BODY_KEYS = (
     "proof_body",
@@ -145,9 +159,67 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _read_source_module_manifest(input_dir: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {}
+    payload = read_json_strict(manifest_path)
+    return payload if isinstance(payload, dict) else {}
+
+
+def _source_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    return _rows(manifest, "modules")
+
+
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_target_path(input_dir: Path, row: dict[str, Any]) -> Path:
+    row_path = str(row.get("path") or "")
+    if row_path:
+        return input_dir / row_path
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    public_root = _public_root_for_path(input_dir)
+    return public_root / target_ref if target_ref else input_dir
+
+
+def _source_artifact_paths(input_dir: Path) -> list[Path]:
+    manifest = _read_source_module_manifest(input_dir)
+    return [
+        _source_module_target_path(input_dir, row)
+        for row in _source_module_rows(manifest)
+    ]
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
-    return [input_dir / name for name in names]
+    paths = [input_dir / name for name in names]
+    manifest_path = _source_module_manifest_path(input_dir)
+    if manifest_path.is_file():
+        paths.append(manifest_path)
+    paths.extend(_source_artifact_paths(input_dir))
+    return paths
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _normalize_sha256(value: object) -> str:
+    digest = str(value or "")
+    if digest and not digest.startswith("sha256:"):
+        return f"sha256:{digest}"
+    return digest
+
+
+def _line_count(path: Path) -> int:
+    return len(path.read_text(encoding="utf-8").splitlines())
 
 
 def _finding(
@@ -452,6 +524,153 @@ def validate_consumer_gate_cases(
     }
 
 
+def validate_source_module_imports(
+    input_dir: Path,
+    *,
+    required: bool,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest = _read_source_module_manifest(input_dir)
+    rows = _source_module_rows(manifest)
+    findings: list[dict[str, Any]] = []
+    imports: list[dict[str, Any]] = []
+    manifest_ref = _display(manifest_path, public_root=public_root)
+
+    if required and not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "CORPUS_READINESS_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported corpus readiness bundle must include a source_module_manifest.json for copied macro corpus/toolchain bodies.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest_path.is_file() and manifest.get("source_import_class") != (
+        "copied_non_secret_macro_body"
+    ):
+        findings.append(
+            _finding(
+                "CORPUS_READINESS_SOURCE_IMPORT_CLASS_UNSUPPORTED",
+                "Corpus readiness source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if required and manifest_path.is_file() and not rows:
+        findings.append(
+            _finding(
+                "CORPUS_READINESS_SOURCE_MODULE_ROWS_MISSING",
+                "Exported corpus readiness bundle must carry at least one copied source module row.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in rows:
+        module_id = str(row.get("module_id") or "source_module")
+        target = _source_module_target_path(input_dir, row)
+        expected_digest = _normalize_sha256(row.get("sha256"))
+        exists = target.is_file()
+        actual_digest = _sha256(target) if exists else None
+        material_class = str(row.get("material_class") or "")
+        source_ref = str(row.get("source_ref") or "")
+        target_ref = _display(target, public_root=public_root)
+        digest_match = actual_digest == expected_digest
+        import_row = {
+            "module_id": module_id,
+            "source_ref": source_ref,
+            "target_ref": target_ref,
+            "material_class": material_class,
+            "source_sha256": expected_digest,
+            "target_sha256": actual_digest,
+            "exists": exists,
+            "digest_match": digest_match,
+            "source_to_target_relation": str(
+                row.get("source_to_target_relation") or "exact_copy"
+            ),
+            "source_line_count": _line_count(target) if exists else None,
+            "target_line_count": _line_count(target) if exists else None,
+            "body_in_receipt": BODY_IN_RECEIPT,
+            "body_material_status": BODY_MATERIAL_STATUS,
+            "corpus_readiness_status": CORPUS_READINESS_STATUS,
+            "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
+        }
+        imports.append(import_row)
+
+        if str(row.get("source_import_class") or "") != "copied_non_secret_macro_body":
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_MODULE_IMPORT_CLASS_UNSUPPORTED",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_MODULE_CLASS_UNSUPPORTED",
+                    "Source module rows must use a public-safe macro body material class.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_in_receipt") is True:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_BODY_RECEIPT_EXPORT_FORBIDDEN",
+                    "Copied corpus/toolchain source bodies may live in the bundle source_artifacts tree, not in generated receipts.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not exists:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_MODULE_TARGET_MISSING",
+                    "Copied source module target file is missing from the exported bundle.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_match:
+            findings.append(
+                _finding(
+                    "CORPUS_READINESS_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied source module digest must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+    copied_count = sum(1 for row in imports if row["exists"] and row["digest_match"])
+    source_modules_pass = not findings
+    return {
+        "source_module_manifest_ref": manifest_ref,
+        "source_module_import_status": SOURCE_MODULE_IMPORT_STATUS,
+        "body_material_status": BODY_MATERIAL_STATUS,
+        "source_module_imports": imports,
+        "source_module_import_count": len(imports),
+        "copied_source_artifact_count": copied_count,
+        "source_modules_pass": source_modules_pass,
+        "source_refs": sorted({row["source_ref"] for row in imports if row["source_ref"]}),
+        "target_refs": [row["target_ref"] for row in imports],
+        "material_classes": sorted(
+            {row["material_class"] for row in imports if row["material_class"]}
+        ),
+        "findings": findings,
+    }
+
+
 def _build_board(
     *,
     result: dict[str, Any],
@@ -501,6 +720,12 @@ def _build_board(
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
         "source_target_refs": SOURCE_TARGET_REFS,
         "source_digests": SOURCE_DIGESTS,
+        "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+        "source_module_import_status": result.get("source_module_import_status"),
+        "source_module_import_count": result.get("source_module_import_count"),
+        "copied_source_artifact_count": result.get("copied_source_artifact_count"),
+        "source_modules_pass": result.get("source_modules_pass"),
+        "source_module_imports": result.get("source_module_imports", []),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_in_receipt": BODY_IN_RECEIPT,
@@ -535,12 +760,23 @@ def _build_result(
         absent_corpus_ids=corpus["absent_corpus_ids"],
         negative_payloads=negative_payloads,
     )
+    source_imports = validate_source_module_imports(
+        input_dir,
+        required=input_mode == "exported_corpus_readiness_bundle",
+        public_root=public_root,
+    )
     observed = _merge_observed(corpus, consumer)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(corpus, consumer)
+    findings = _merge_findings(corpus, consumer, source_imports)
     error_codes = sorted({finding["error_code"] for finding in findings})
-    status = PASS if not missing and not secret_scan["blocking_hit_count"] else "blocked"
+    status = (
+        PASS
+        if not missing
+        and not secret_scan["blocking_hit_count"]
+        and source_imports["source_modules_pass"]
+        else "blocked"
+    )
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
@@ -559,7 +795,9 @@ def _build_result(
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
-        "source_refs": sorted(set([*SOURCE_REFS, *corpus["source_refs"]])),
+        "source_refs": sorted(
+            set([*SOURCE_REFS, *corpus["source_refs"], *source_imports["source_refs"]])
+        ),
         "expected_negative_cases": sorted(expected),
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
@@ -570,6 +808,12 @@ def _build_result(
         "corpus_readiness_status": CORPUS_READINESS_STATUS,
         "toolchain_boundary_status": TOOLCHAIN_BOUNDARY_STATUS,
         "body_in_receipt": BODY_IN_RECEIPT,
+        "source_module_import_status": source_imports["source_module_import_status"],
+        "source_module_manifest_ref": source_imports["source_module_manifest_ref"],
+        "source_module_imports": source_imports["source_module_imports"],
+        "source_module_import_count": source_imports["source_module_import_count"],
+        "copied_source_artifact_count": source_imports["copied_source_artifact_count"],
+        "source_modules_pass": source_imports["source_modules_pass"],
         "real_substrate_refs": REAL_SUBSTRATE_REFS,
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
         "source_target_refs": SOURCE_TARGET_REFS,
@@ -622,6 +866,12 @@ def _common_receipt(
         "corpus_readiness_status",
         "toolchain_boundary_status",
         "body_in_receipt",
+        "source_module_import_status",
+        "source_module_manifest_ref",
+        "source_module_imports",
+        "source_module_import_count",
+        "copied_source_artifact_count",
+        "source_modules_pass",
         "real_substrate_refs",
         "receipt_anchor_refs",
         "source_target_refs",

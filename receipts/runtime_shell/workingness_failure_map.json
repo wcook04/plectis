@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 4,
+  "rows_with_source_body_imports": 5,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 38,
+  "source_open_body_material_count": 42,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 4,
-    "source_open_body_material_count": 38,
+    "rows_with_source_body_imports": 5,
+    "source_open_body_material_count": 42,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -610,7 +610,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 6,
+      "failure_mode_count": 8,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
@@ -625,11 +625,13 @@
         "translation smoke rows imply proof authority",
         "absent corpus is treated as usable",
         "receipt leaks proof/provider/private body text",
-        "documentation claims release or proof authority"
+        "documentation claims release or proof authority",
+        "source_module_manifest missing while body_material_status claims copied corpus/toolchain body",
+        "copied corpus/toolchain source artifact digest drift is ignored"
       ],
       "needs_to_work": {
-        "anti_purpose": "Turning a readiness fixture into proof authority, corpus benchmark authority, or release authority.",
-        "authority_boundary": "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority",
+        "anti_purpose": "Turning a readiness fixture, source ref, or copied body into proof authority, corpus benchmark authority, or release authority.",
+        "authority_boundary": "metadata_plus_copied_non_secret_corpus_toolchain_body_not_mathlib_proof_or_benchmark_authority",
         "authority_ceiling": {
           "benchmark_or_corpus_completeness_authority": false,
           "formal_proof_authority": false,
@@ -637,14 +639,14 @@
           "mathlib_dependent_proof_authority": false,
           "provider_authority": false,
           "release_authority": false,
-          "standard_authority": "real_corpus_readiness_and_mathlib_absence_boundary_receipt",
+          "standard_authority": "copied_non_secret_corpus_toolchain_source_module_manifest_and_boundary_receipt",
           "status": "pass"
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A provenance-bearing formal-math corpus readiness gate that makes the recorded Lean/Std and Mathlib absence boundary explicit before downstream retrieval, tactic routing, or proof-witness work.",
+        "ontology": "A provenance-bearing formal-math corpus readiness gate that carries copied non-secret PROVER smoke-run corpus/toolchain bodies and makes the recorded Lean/Std and Mathlib absence boundary explicit before downstream retrieval, tactic routing, or proof-witness work.",
         "receipt_expectation_count": 2,
-        "required_field_count": 12,
+        "required_field_count": 15,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -658,8 +660,8 @@
         },
         "standard_ref": "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json",
         "standard_status": "draft",
-        "teleology": "Let Microcosm carry the real non-secret corpus readiness and tactic-affordance boundary rows instead of replacing the macro run with synthetic environment metadata.",
-        "validation_rule_count": 7
+        "teleology": "Let Microcosm carry the real non-secret corpus readiness and tactic-affordance boundary bodies instead of replacing the macro run with synthetic environment metadata or source pointers.",
+        "validation_rule_count": 9
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -676,7 +678,40 @@
           "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+          "authority_ceiling": {
+            "benchmark_or_corpus_completeness_authority": false,
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "mathlib_availability_overclaim": false,
+            "mathlib_dependent_proof_authority": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/corpus_readiness_mathlib_absence_gate.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Run microcosm workingness and inspect corpus_readiness_mathlib_absence_gate to see which copied PROVER smoke-run corpus/toolchain artifacts back this organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
+            "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
         "verdict_source": "derived_projection_metric"
@@ -684,7 +719,40 @@
       "ordinal": 5,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+        "authority_ceiling": {
+          "benchmark_or_corpus_completeness_authority": false,
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "mathlib_availability_overclaim": false,
+          "mathlib_dependent_proof_authority": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/corpus_readiness_mathlib_absence_gate.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Run microcosm workingness and inspect corpus_readiness_mathlib_absence_gate to see which copied PROVER smoke-run corpus/toolchain artifacts back this organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
+          "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/bundle_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json",
         "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",

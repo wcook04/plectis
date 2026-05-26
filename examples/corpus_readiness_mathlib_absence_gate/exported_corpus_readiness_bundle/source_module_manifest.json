@@ -1,19 +1,23 @@
 {
-  "schema_version": "corpus_readiness_mathlib_absence_exported_bundle_manifest_v1",
-  "bundle_id": "public_corpus_readiness_mathlib_absence_runtime_example",
-  "bundle_kind": "exported_corpus_readiness_bundle",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "corpus_readiness_mathlib_absence_gate_prover_smoke_run_source_module_manifest",
   "organ_id": "corpus_readiness_mathlib_absence_gate",
-  "runtime_surfaces": [
-    "corpus_readiness",
-    "consumer_gate_cases"
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_PROVER_smoke_run_corpus_readiness_and_mathlib_absence_boundary_artifacts_copied_into_public_corpus_readiness_bundle",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private theorem proof bodies or oracle proof text"
   ],
-  "authority_ceiling": "real corpus readiness boundary not Mathlib proof or benchmark authority",
-  "body_material_status": "copied_non_secret_macro_body_with_provenance",
-  "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
-  "toolchain_boundary_status": "real_lean_4_29_1_std_mathlib_absence_probe",
-  "source_module_manifest_ref": "source_module_manifest.json",
-  "body_import_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
-  "copied_macro_body_artifacts": [
+  "source_run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
+  "source_run_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke",
+  "module_count": 4,
+  "modules": [
     {
       "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
@@ -25,7 +29,12 @@
       "line_count": 75,
       "body_in_receipt": false,
       "body_copied": true,
-      "source_to_target_relation": "exact_copy"
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
     },
     {
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -38,7 +47,12 @@
       "line_count": 128,
       "body_in_receipt": false,
       "body_copied": true,
-      "source_to_target_relation": "exact_copy"
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
     },
     {
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
@@ -51,7 +65,12 @@
       "line_count": 4,
       "body_in_receipt": false,
       "body_copied": true,
-      "source_to_target_relation": "exact_copy"
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
     },
     {
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
@@ -64,20 +83,13 @@
       "line_count": 93,
       "body_in_receipt": false,
       "body_copied": true,
-      "source_to_target_relation": "exact_copy"
+      "source_to_target_relation": "exact_copy",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
     }
   ],
-  "source_open_body_import_summary": {
-    "status": "pass",
-    "body_material_count": 4,
-    "body_material_status": "copied_non_secret_macro_corpus_readiness_body_with_provenance",
-    "source_module_manifest_ref": "source_module_manifest.json",
-    "body_text_exported_in_receipts": false,
-    "body_text_exported_in_status": false,
-    "material_classes": [
-      "public_macro_receipt_body",
-      "public_macro_tool_body"
-    ]
-  },
-  "anti_claim": "This bundle carries copied corpus readiness substrate plus exact source artifacts. It does not run Lean or Lake, call providers, expose proof bodies, claim Mathlib availability, or authorize formal proof authority."
+  "anti_claim": "This source-module manifest proves exact copied non-secret corpus-readiness and Mathlib-absence boundary artifacts; it does not export proof bodies, provider payloads, account/session state, browser/HUD live access, credentials, or release authority."
 }

@@ -6,7 +6,7 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_formal_math_corpus_readiness",
-  "authority_boundary": "real_corpus_readiness_boundary_not_mathlib_proof_or_benchmark_authority",
+  "authority_boundary": "metadata_plus_copied_non_secret_corpus_toolchain_body_not_mathlib_proof_or_benchmark_authority",
   "source_refs": [
     {
       "path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
@@ -37,6 +37,11 @@
       "path": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
+      "field": "source_module_imports",
+      "role": "copied_non_secret_macro_body_manifest"
     }
   ],
   "source_digests": {
@@ -61,6 +66,9 @@
     "source_refs",
     "source_digests",
     "body_material_status",
+    "source_module_manifest",
+    "source_module_imports",
+    "source_module_import_status",
     "corpus_readiness_status",
     "toolchain_boundary_status",
     "corpora",
@@ -77,7 +85,9 @@
     "mark absent corpora as blocked capabilities",
     "reject proof, provider, or oracle body fields",
     "reject private source refs and release/proof-authority overclaims",
-    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret corpus readiness substrate"
+    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret corpus readiness substrate",
+    "require exported bundles to carry a source_module_manifest.json with source_ref, target_ref, sha256, material_class, body_copied=true, and body_in_receipt=false for every copied macro body",
+    "fail exported bundle validation when a copied source artifact target is missing, digest drifted, uses an unsupported material class, or claims body_in_receipt=true"
   ],
   "receipt_expectations": [
     "receipt.microcosm.corpus_readiness_mathlib_absence_gate",
@@ -94,7 +104,9 @@
       "proof_body_rejection",
       "private_source_ref_rejection",
       "release_overclaim_rejection",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_validation",
+      "source_module_digest_coupling"
     ]
   },
   "receipt_contract": {
@@ -117,7 +129,11 @@
       "authority_ceiling",
       "anti_claim",
       "secret_exclusion_scan",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_ref",
+      "source_module_import_count",
+      "copied_source_artifact_count",
+      "source_modules_pass"
     ]
   },
   "public_private_boundary": {
@@ -129,6 +145,8 @@
       "public-safe real source refs and digests",
       "consumer gate metadata",
       "copied non-secret corpus readiness rows",
+      "copied non-secret corpus/toolchain source artifacts under exported bundle source_artifacts",
+      "source_module_manifest rows with exact source-to-target digest coupling",
       "fixture negative cases as regression-only leakage guards"
     ],
     "forbidden_public_inputs": [
@@ -143,7 +161,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "real_corpus_readiness_and_mathlib_absence_boundary_receipt",
+    "standard_authority": "copied_non_secret_corpus_toolchain_source_module_manifest_and_boundary_receipt",
     "lean_lake_authority": false,
     "mathlib_dependent_proof_authority": false,
     "formal_proof_authority": false,
@@ -153,9 +171,9 @@
   },
   "anti_claim": "This standard governs copied non-secret corpus/toolchain readiness substrate from the 2026-05-11 proof-state curriculum smoke run. It does not run Lean/Lake, claim Mathlib availability beyond the recorded failed probe, prove theorem correctness, benchmark formal-math corpora, expose proof bodies, call providers, or authorize release.",
   "standard_payload": {
-    "ontology": "A provenance-bearing formal-math corpus readiness gate that makes the recorded Lean/Std and Mathlib absence boundary explicit before downstream retrieval, tactic routing, or proof-witness work.",
-    "teleology": "Let Microcosm carry the real non-secret corpus readiness and tactic-affordance boundary rows instead of replacing the macro run with synthetic environment metadata.",
-    "anti_purpose": "Turning a readiness fixture into proof authority, corpus benchmark authority, or release authority.",
+    "ontology": "A provenance-bearing formal-math corpus readiness gate that carries copied non-secret PROVER smoke-run corpus/toolchain bodies and makes the recorded Lean/Std and Mathlib absence boundary explicit before downstream retrieval, tactic routing, or proof-witness work.",
+    "teleology": "Let Microcosm carry the real non-secret corpus readiness and tactic-affordance boundary bodies instead of replacing the macro run with synthetic environment metadata or source pointers.",
+    "anti_purpose": "Turning a readiness fixture, source ref, or copied body into proof authority, corpus benchmark authority, or release authority.",
     "compression_bands": [
       "corpus",
       "consumer_gate",
@@ -168,7 +186,9 @@
       "translation smoke rows imply proof authority",
       "absent corpus is treated as usable",
       "receipt leaks proof/provider/private body text",
-      "documentation claims release or proof authority"
+      "documentation claims release or proof authority",
+      "source_module_manifest missing while body_material_status claims copied corpus/toolchain body",
+      "copied corpus/toolchain source artifact digest drift is ignored"
     ],
     "rebuild_action": "draft"
   },

@@ -19,6 +19,12 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle"
 )
+SOURCE_ARTIFACT_REFS = [
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+]
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -111,9 +117,50 @@ def test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle(
     assert result["corpus_readiness_status"] == (
         "real_lean_std_corpus_readiness_and_mathlib_absence_boundary"
     )
+    assert result["source_module_import_count"] == 4
+    assert result["copied_source_artifact_count"] == 4
+    assert result["source_modules_pass"] is True
     assert result["receipt_paths"] == [
         "receipts/exported_corpus_readiness_bundle_validation_result.json"
     ]
+
+
+def test_corpus_readiness_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads(
+        (EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    rows = {row["source_ref"]: row for row in manifest["modules"]}
+    assert sorted(rows) == SOURCE_ARTIFACT_REFS
+    for source_ref in SOURCE_ARTIFACT_REFS:
+        source = MICROCOSM_ROOT.parent / source_ref
+        target = EXPORTED_BUNDLE_INPUT / rows[source_ref]["path"]
+        assert target.read_bytes() == source.read_bytes()
+        assert rows[source_ref]["body_copied"] is True
+        assert rows[source_ref]["body_in_receipt"] is False
+
+
+def test_corpus_readiness_exported_receipt_omits_source_bodies(tmp_path: Path) -> None:
+    result = run_projection_bundle(
+        EXPORTED_BUNDLE_INPUT,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+    receipt_path = tmp_path / result["receipt_paths"][0]
+    payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+
+    assert payload["source_module_import_count"] == 4
+    assert payload["copied_source_artifact_count"] == 4
+    assert payload["source_modules_pass"] is True
+    assert payload["body_in_receipt"] is False
+    assert "import Mathlib" not in receipt_path.read_text(encoding="utf-8")
+    for row in payload["source_module_imports"]:
+        assert row["exists"] is True
+        assert row["digest_match"] is True
+        assert row["body_in_receipt"] is False
+        assert row["source_ref"] in SOURCE_ARTIFACT_REFS
 
 
 def test_corpus_readiness_receipts_are_real_substrate_and_public_relative(

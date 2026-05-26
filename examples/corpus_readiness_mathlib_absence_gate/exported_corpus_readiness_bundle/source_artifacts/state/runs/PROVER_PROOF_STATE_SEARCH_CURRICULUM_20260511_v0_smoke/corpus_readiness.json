@@ -1,0 +1,75 @@
+{
+  "artifact_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+  "claim_boundary": "This run uses MiniF2F-source-backed Lean4/Std translation smoke for regression and local Lean/Std proof-state curriculum rows. Direct MiniF2F Lean4/mathlib, PutnamBench, and ProofNet performance is not claimed.",
+  "created_at": "2026-05-11T19:04:38Z",
+  "lean_cli": {
+    "lake_available": true,
+    "lake_version_stdout": "Lake version 5.0.0-src+f72c35b (Lean version 4.29.1)",
+    "lean_available": true,
+    "lean_version_stdout": "Lean (version 4.29.1, arm64-apple-darwin24.6.0, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)"
+  },
+  "mathlib_available": false,
+  "mathlib_direct_import_available": false,
+  "mathlib_lake_project_import_available": false,
+  "rows": [
+    {
+      "corpus_id": "miniF2F_lean3_annex",
+      "exists": true,
+      "has_lake_file": false,
+      "local_path": "annexes/miniF2F/repo",
+      "readiness_status": "translation_smoke_only_lean3_mathlib_source",
+      "selected_for_this_run": true
+    },
+    {
+      "corpus_id": "miniF2F_lean4_mathlib_package",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/miniF2F-lean4/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    },
+    {
+      "corpus_id": "PutnamBench_lean4",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/PutnamBench/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    },
+    {
+      "corpus_id": "ProofNet",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/ProofNet/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    },
+    {
+      "corpus_id": "LeanDojo",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/LeanDojo/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    },
+    {
+      "corpus_id": "Pantograph",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/Pantograph/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    },
+    {
+      "corpus_id": "mathlib",
+      "exists": false,
+      "has_lake_file": false,
+      "local_path": "annexes/mathlib/repo",
+      "readiness_status": "absent",
+      "selected_for_this_run": false
+    }
+  ],
+  "run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
+  "schema_version": "corpus_readiness_v0",
+  "trace_state_available": true
+}
