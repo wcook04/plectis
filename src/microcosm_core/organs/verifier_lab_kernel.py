@@ -475,6 +475,18 @@ def _iter_dependency_files(path: Path) -> list[Path]:
     )
 
 
+def _unique_dependency_paths(paths: list[Path]) -> list[Path]:
+    seen: set[Path] = set()
+    unique: list[Path] = []
+    for path in paths:
+        resolved = path.resolve(strict=False)
+        if resolved in seen or not _dependency_file(resolved):
+            continue
+        seen.add(resolved)
+        unique.append(resolved)
+    return sorted(unique)
+
+
 def _kernel_bundle_dependency_paths(input_dir: Path) -> list[Path]:
     packet_payload = read_json_strict(input_dir / PACKET_NAME)
     packet = packet_payload if isinstance(packet_payload, dict) else {}
@@ -492,15 +504,28 @@ def _kernel_bundle_dependency_paths(input_dir: Path) -> list[Path]:
         if source_path is not None:
             paths.extend(_iter_dependency_files(source_path.resolve(strict=False)))
 
-    seen: set[Path] = set()
-    unique: list[Path] = []
-    for path in paths:
-        resolved = path.resolve(strict=False)
-        if resolved in seen or not _dependency_file(resolved):
-            continue
-        seen.add(resolved)
-        unique.append(resolved)
-    return sorted(unique)
+    return _unique_dependency_paths(paths)
+
+
+def _fixture_dependency_paths(input_dir: Path) -> list[Path]:
+    payloads = _load_payloads(input_dir, include_negative=True)
+    packet_payload = payloads.get(PACKET_NAME.removesuffix(".json"))
+    packet = packet_payload if isinstance(packet_payload, dict) else {}
+    public_root = _public_root_for_path(input_dir)
+    paths: list[Path] = [
+        *_input_paths(input_dir, include_negative=True),
+        Path(__file__).resolve(strict=False),
+    ]
+    for spec in _component_specs(packet):
+        organ_id = str(spec.get("organ_id") or "")
+        input_rel = str(spec.get("input_rel") or "")
+        if input_rel:
+            paths.extend(_iter_dependency_files(public_root / input_rel))
+        source_path = COMPONENT_SOURCE_PATHS.get(organ_id)
+        if source_path is not None:
+            paths.extend(_iter_dependency_files(source_path.resolve(strict=False)))
+
+    return _unique_dependency_paths(paths)
 
 
 def _kernel_bundle_freshness_basis(
@@ -508,13 +533,14 @@ def _kernel_bundle_freshness_basis(
     command: str,
     receipt_path: Path,
     dependency_paths: list[Path],
+    input_mode: str = "exported_verifier_lab_kernel_bundle",
 ) -> dict[str, Any]:
     dependency_mtimes = [path.stat().st_mtime_ns for path in dependency_paths]
     return {
         "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
         "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
         "command": command,
-        "input_mode": "exported_verifier_lab_kernel_bundle",
+        "input_mode": input_mode,
         "tracked_dependency_count": len(dependency_paths),
         "latest_dependency_mtime_ns": max(dependency_mtimes) if dependency_mtimes else 0,
         "receipt_mtime_ns": (
@@ -551,6 +577,63 @@ def _fresh_kernel_bundle_receipt(
         command=command,
         receipt_path=receipt_path,
         dependency_paths=dependency_paths,
+    )
+    receipt_mtime = basis["receipt_mtime_ns"]
+    if receipt_mtime is None:
+        return None
+    if basis["latest_dependency_mtime_ns"] > receipt_mtime:
+        return None
+    return {
+        **payload,
+        "cache_status": "fresh_receipt_reused",
+        "freshness_basis": basis,
+    }
+
+
+def _fresh_fixture_receipts(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+    acceptance_out: Path | None,
+) -> dict[str, Any] | None:
+    result_path = out_dir / RESULT_NAME
+    board_path = out_dir / BOARD_NAME
+    validation_path = out_dir / VALIDATION_RECEIPT_NAME
+    public_root = _public_root_for_path(out_dir)
+    acceptance_path = (
+        acceptance_out
+        if acceptance_out is not None
+        else public_root / ACCEPTANCE_RECEIPT_REL
+    )
+    required_paths = [result_path, board_path, validation_path, acceptance_path]
+    if not all(path.is_file() for path in required_paths):
+        return None
+    payload = read_json_strict(result_path)
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != "verifier_lab_kernel_result_receipt_v1":
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("command") != command:
+        return None
+    if payload.get("input_mode") != "first_wave_fixture":
+        return None
+    expected_receipt_paths = [
+        _display(result_path, public_root=public_root),
+        _display(board_path, public_root=public_root),
+        _display(validation_path, public_root=public_root),
+        _display(acceptance_path, public_root=public_root),
+    ]
+    if payload.get("receipt_paths") != expected_receipt_paths:
+        return None
+    dependency_paths = _fixture_dependency_paths(input_dir)
+    basis = _kernel_bundle_freshness_basis(
+        command=command,
+        receipt_path=result_path,
+        dependency_paths=dependency_paths,
+        input_mode="first_wave_fixture",
     )
     receipt_mtime = basis["receipt_mtime_ns"]
     if receipt_mtime is None:
@@ -1624,18 +1707,35 @@ def run(
     command: str = "python -m microcosm_core.organs.verifier_lab_kernel run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    input_path = Path(input_dir)
     target = Path(out_dir)
+    acceptance_path = Path(acceptance_out) if acceptance_out is not None else None
+    cached = _fresh_fixture_receipts(
+        input_path,
+        target,
+        command=command,
+        acceptance_out=acceptance_path,
+    )
+    if cached is not None:
+        return cached
     result = _build_result(
-        Path(input_dir),
+        input_path,
         command=command,
         input_mode="first_wave_fixture",
         include_negative=True,
         out_dir=target,
     )
+    result["cache_status"] = "rebuilt"
+    result["freshness_basis"] = _kernel_bundle_freshness_basis(
+        command=command,
+        receipt_path=target / RESULT_NAME,
+        dependency_paths=_fixture_dependency_paths(input_path),
+        input_mode="first_wave_fixture",
+    )
     return _write_receipts(
         result,
         target,
-        acceptance_out=Path(acceptance_out) if acceptance_out is not None else None,
+        acceptance_out=acceptance_path,
         bundle_only=False,
     )
 

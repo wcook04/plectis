@@ -105,6 +105,42 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert "body_redacted" not in result
 
 
+def test_verifier_lab_kernel_fixture_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    out_dir = tmp_path / "receipts/first_wave/verifier_lab_kernel"
+    acceptance_out = (
+        tmp_path
+        / "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
+    )
+    result = run(
+        FIXTURE_INPUT,
+        out_dir,
+        command="pytest",
+        acceptance_out=acceptance_out,
+    )
+    assert result["status"] == "pass"
+    assert result["cache_status"] == "rebuilt"
+
+    def fail_rebuild(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh fixture receipt should be reused")
+
+    monkeypatch.setattr(verifier_lab_kernel, "_build_result", fail_rebuild)
+    cached = run(
+        FIXTURE_INPUT,
+        out_dir,
+        command="pytest",
+        acceptance_out=acceptance_out,
+    )
+
+    assert cached["status"] == "pass"
+    assert cached["cache_status"] == "fresh_receipt_reused"
+    assert cached["freshness_basis"]["input_mode"] == "first_wave_fixture"
+    assert cached["freshness_basis"]["tracked_dependency_count"] > 10
+    assert cached["receipt_paths"] == result["receipt_paths"]
+
+
 def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_without_bodies(
     tmp_path: Path,
 ) -> None:
