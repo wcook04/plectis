@@ -40,7 +40,10 @@ microcosm serve . --host 127.0.0.1 --port 8765
 The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
 the local `.microcosm/` state files, the selected project route id, the
 route/work/event/evidence chain, the status card, workingness map,
-observatory command, proof-lab command, and the authority ceiling. Use
+observatory command, proof-lab command, and the authority ceiling.
+`route_cards_by_id.status_and_workingness` is the direct first-screen status
+and workingness card; `route_cards` remains an ordered tour list for scanning.
+Use
 `selected_route_id` from `microcosm tour .` or `microcosm compile .` for
 `microcosm explain . <selected_route_id>`; `readme_onboarding_route` is present
 when the project has a README. Open

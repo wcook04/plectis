@@ -5525,6 +5525,11 @@ class RuntimeShell:
                 "status": PASS if evidence_refs else "blocked",
             },
         ]
+        route_cards_by_id = {
+            str(card.get("card_id")): card
+            for card in route_cards
+            if isinstance(card, dict) and card.get("card_id")
+        }
         payload = {
             "schema_version": "microcosm_public_ten_minute_tour_v1",
             "created_at": utc_now(),
@@ -5601,6 +5606,7 @@ class RuntimeShell:
                 "/evidence",
             ],
             "route_cards": route_cards,
+            "route_cards_by_id": route_cards_by_id,
             "surface_statuses": surface_statuses,
             "front_door_status": front_door_status,
             "source_open_body_import_floor": source_open_body_import_floor,

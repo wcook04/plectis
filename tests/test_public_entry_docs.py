@@ -686,11 +686,11 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         == "microcosm status --card <project>::macro_body_import_floor"
     )
     assert workingness["tour_route_card_ref"] == (
-        "microcosm tour <project>::status_and_workingness"
+        "microcosm tour <project>::route_cards_by_id.status_and_workingness"
     )
     assert workingness["tour_receipt_ref"] == (
         "receipts/runtime_shell/public_ten_minute_tour.json::"
-        "route_cards.status_and_workingness"
+        "route_cards_by_id.status_and_workingness"
     )
     assert (
         workingness["workingness_map_ref"]
@@ -725,11 +725,11 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         in workingness["expected_fields"]
     )
     assert (
-        "route_cards.status_and_workingness.source_open_body_import_floor"
+        "route_cards_by_id.status_and_workingness.source_open_body_import_floor"
         in workingness["expected_fields"]
     )
     assert (
-        "route_cards.status_and_workingness.source_open_body_import_floor.latest_verified_source_module_family_ids"
+        "route_cards_by_id.status_and_workingness.source_open_body_import_floor.latest_verified_source_module_family_ids"
         in workingness["expected_fields"]
     )
     assert "macro_body_import_floor.source_body_imports" in workingness["expected_fields"]

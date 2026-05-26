@@ -1951,6 +1951,11 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "evidence_drilldown",
     ]
     route_cards_by_id = {row["card_id"]: row for row in tour["route_cards"]}
+    assert tour["route_cards_by_id"] == route_cards_by_id
+    assert (
+        tour["route_cards_by_id"]["status_and_workingness"]
+        is route_cards_by_id["status_and_workingness"]
+    )
     assert route_cards_by_id["front_door_status"]["status"] == "pass"
     assert route_cards_by_id["front_door_status"]["endpoint"] == "/tour"
     assert route_cards_by_id["front_door_status"]["local_first_screen_route"][
