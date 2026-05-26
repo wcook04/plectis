@@ -329,10 +329,13 @@ REQUIRED_PHRASES_BY_DOC = {
         "Bring a folder first",
         "atlas/entry_packet.json::local_first_screen_route",
         "microcosm tour <project>",
+        "route_cards_by_id.status_and_workingness",
         "microcosm status --card <project>",
         "front_door.route_explanation",
         "microcosm workingness",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "/project/observatory-card",
         "Receipts are evidence drilldowns after the behavior route is visible",
         "evidence_class",
         "`accepted_current_authority` is not an evidence-strength claim",
@@ -470,6 +473,8 @@ def _entry_packet_route_contract(
         "/workingness",
         "/proof-lab",
         "/project/python-lens",
+        "/project/observatory-card",
+        "/project/observatory",
         "/project/explain/<selected_route_id>",
     ]
     required_drilldown_routes = [
@@ -543,6 +548,29 @@ def _entry_packet_route_contract(
         )
         if ref not in allowed_drilldowns
     ]
+    required_command_order = [
+        "microcosm tour <project>",
+        "microcosm status --card <project>",
+        "microcosm workingness",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "microcosm compile <project>",
+        "microcosm python-lens <project>",
+        "microcosm explain <project> <selected_route_id>",
+        "microcosm evidence list <project>",
+    ]
+    command_positions = {
+        command: command_path.index(command)
+        for command in required_command_order
+        if command in command_path
+    }
+    command_order_mismatch = [
+        f"{left} before {right}"
+        for left, right in zip(required_command_order, required_command_order[1:])
+        if left in command_positions
+        and right in command_positions
+        and command_positions[left] >= command_positions[right]
+    ]
     first_command = str(payload.get("first_command") or "")
     primary_command = str(route.get("primary_first_screen_command") or "")
     command_mismatch = []
@@ -576,7 +604,11 @@ def _entry_packet_route_contract(
                 "atlas/entry_packet.json::cold_clone_probe_route",
                 "atlas/entry_packet.json::status_and_workingness_route",
                 "atlas/entry_packet.json::proof_lab_route",
+                "route_cards_by_id.status_and_workingness",
+                "/project/observatory-card",
+                "before `/project/observatory`",
                 "front_door.source_open_body_import_floor",
+                "first-screen proof surfaces are visible",
                 "Receipts are evidence drilldowns after the behavior route is visible",
             ]
         )
@@ -595,6 +627,8 @@ def _entry_packet_route_contract(
         blocking_reasons.append("missing_allowed_drilldowns")
     if command_mismatch:
         blocking_reasons.append("first_command_mismatch")
+    if command_order_mismatch:
+        blocking_reasons.append("first_screen_command_order_mismatch")
     if missing_route_selection_rule:
         blocking_reasons.append("missing_route_selection_rule")
     if unsafe_flags:
@@ -612,6 +646,7 @@ def _entry_packet_route_contract(
         "missing_drilldown_routes": missing_drilldown_routes,
         "missing_allowed_drilldowns": missing_allowed_drilldowns,
         "command_mismatch": command_mismatch,
+        "command_order_mismatch": command_order_mismatch,
         "missing_route_selection_rule": missing_route_selection_rule,
         "unsafe_safe_to_show_flags": unsafe_flags,
         "cold_start_missing_phrases": cold_start_missing,

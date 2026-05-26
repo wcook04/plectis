@@ -1916,14 +1916,23 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "inspect_first_screen",
-        "compile_project",
         "inspect_status_and_workingness",
+        "run_first_screen_proof_lab",
+        "open_observatory",
+        "compile_project",
         "inspect_python_routes",
         "inspect_route_causal_chain",
-        "open_observatory",
-        "run_first_screen_proof_lab",
         "drill_receipts_only_after_behavior",
     ]
+    minimal_path_by_id = {
+        row["step_id"]: row for row in tour["first_screen"]["minimal_command_path"]
+    }
+    assert minimal_path_by_id["open_observatory"]["endpoint"] == (
+        "/project/observatory-card"
+    )
+    assert minimal_path_by_id["open_observatory"]["expanded_endpoint"] == (
+        "/project/observatory"
+    )
     assert tour["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert ".microcosm/catalog.json" in tour["first_screen"]["generated_state"]["refs"]
     assert ".microcosm/evidence/" in tour["first_screen"]["generated_state"]["refs"]

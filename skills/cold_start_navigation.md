@@ -11,24 +11,27 @@ clone probe, paper modules, or raw receipt trees.
 The compact behavioral path is:
 
 1. `microcosm tour <project>` builds `.microcosm/` and emits the first-screen
-   route card.
-2. `microcosm compile <project>` rebuilds local state when you need an explicit
-   refresh.
-3. `microcosm python-lens <project>` opens the project navigation assay.
-4. `microcosm explain <project> <selected_route_id>` opens the route/work/event
-   and evidence chain selected by `tour` or `compile`.
-5. `microcosm evidence list <project>` lists project-local evidence refs.
-6. `microcosm status --card <project>` reads the compressed status,
+   route card. Inspect `first_screen.generated_state`,
+   `route_cards_by_id.front_door_status`, and
+   `route_cards_by_id.status_and_workingness` before branching.
+2. `microcosm status --card <project>` reads the compressed status,
    `front_door.route_explanation`, `front_door.proof_lab`,
    `front_door.observatory`, and
    `front_door.source_open_body_import_floor` lenses.
-7. `microcosm workingness` opens the bounded behavior/failure map.
-8. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
+3. `microcosm workingness` opens the bounded behavior/failure map.
+4. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
-9. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
-   observatory; check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
-   `/project/python-lens`, `/project/observatory`, and
+5. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
+   observatory; check `/project/observatory-card` before the expanded
+   `/project/observatory`, then check `/`, `/status`, `/tour`, `/workingness`,
+   `/proof-lab`, `/project/python-lens`, and
    `/project/explain/<selected_route_id>`.
+6. `microcosm compile <project>` rebuilds local state when you need an explicit
+   refresh after the first-screen proof surfaces are visible.
+7. `microcosm python-lens <project>` opens the project navigation assay.
+8. `microcosm explain <project> <selected_route_id>` opens the route/work/event
+   and evidence chain selected by `tour` or `compile`.
+9. `microcosm evidence list <project>` lists project-local evidence refs.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the
 cockpit. Use the `selected_route_id` emitted by `tour` or `compile`;
@@ -61,23 +64,31 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
 3. Run `microcosm tour <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to build
    `.microcosm/` over a folder you bring and inspect the first-screen card.
-4. Run `microcosm compile <project>` or
+4. Open `atlas/entry_packet.json::status_and_workingness_route` and run
+   `microcosm status --card <project>` plus `microcosm workingness` before raw
+   receipts. This is the compressed honesty lens for
+   `route_cards_by_id.status_and_workingness`, missing standards, failure
+   modes, proof-lab route refs, observatory route refs, source-open body
+   imports, and bounded authority.
+5. Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
+   `PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out
+   /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
+   card from `atlas/entry_packet.json::proof_lab_route`.
+6. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
+   `/project/observatory-card` before `/project/observatory` when the question
+   is how the local browser/read-model ties route, work, evidence, graph,
+   status, and proof surfaces together.
+7. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
-   want an explicit `.microcosm/` rebuild after the first screen is visible.
+   want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
+   are visible.
    The tour card still covers compile state, spine, authority,
    status/workingness, prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
    cells, proof-loop depth, verifier-lab execution spine, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
    drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
    control, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal, observatory, and evidence
    drilldowns.
-   Open `atlas/entry_packet.json::status_and_workingness_route` before raw
-   receipts when the question is whether the first screen is honest about
-   missing standards, failure modes, proof-lab route refs, observatory route
-   refs, source-open body imports, and bounded authority.
-   Open `atlas/entry_packet.json::observatory_route` when the question is how
-   the local browser/read-model ties route, work, evidence, graph, status, and
-   proof surfaces together.
-5. Run `microcosm python-lens <project>` or
+8. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
    `std_python_microcosm_navigation_assay`, and

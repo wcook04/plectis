@@ -1470,20 +1470,6 @@ def _cold_reader_first_screen_card(
                 "status": compile_status,
             },
             {
-                "step_id": "compile_project",
-                "command": "microcosm compile <project>",
-                "shows": [
-                    "explicit .microcosm rebuild",
-                    "project-local catalog",
-                    "routes",
-                    "work items",
-                    "events",
-                    "evidence",
-                    "graph",
-                ],
-                "status": compile_status,
-            },
-            {
                 "step_id": "inspect_status_and_workingness",
                 "command": (
                     "microcosm status --card <project> && microcosm workingness"
@@ -1498,6 +1484,40 @@ def _cold_reader_first_screen_card(
                 "status_card_command": "microcosm status --card <project>",
                 "workingness_command": "microcosm workingness",
                 "workingness_endpoint": "/workingness",
+            },
+            {
+                "step_id": "run_first_screen_proof_lab",
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "route_ref": proof_lab.get("route_ref"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
+                "status": proof_lab.get("status"),
+            },
+            {
+                "step_id": "open_observatory",
+                "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+                "endpoint": "/project/observatory-card",
+                "expanded_endpoint": "/project/observatory",
+                "shows": [
+                    "compact route/work/evidence/graph/proof card before raw JSON",
+                    "route -> work -> event -> evidence",
+                    "authority ceiling",
+                ],
+            },
+            {
+                "step_id": "compile_project",
+                "command": "microcosm compile <project>",
+                "shows": [
+                    "explicit .microcosm rebuild after first-screen proof",
+                    "project-local catalog",
+                    "routes",
+                    "work items",
+                    "events",
+                    "evidence",
+                    "graph",
+                ],
+                "status": compile_status,
             },
             {
                 "step_id": "inspect_python_routes",
@@ -1516,25 +1536,6 @@ def _cold_reader_first_screen_card(
                     f"{project_substrate.STATE_DIR}/events.jsonl",
                     f"{project_substrate.STATE_DIR}/evidence/",
                 ],
-            },
-            {
-                "step_id": "open_observatory",
-                "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
-                "endpoint": "/",
-                "shows": [
-                    "causal chain before raw receipts",
-                    "route -> work -> event -> evidence",
-                    "authority ceiling",
-                ],
-            },
-            {
-                "step_id": "run_first_screen_proof_lab",
-                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
-                "route_ref": proof_lab.get("route_ref"),
-                "receipt_ref": proof_lab.get("receipt_ref"),
-                "route_component_count": proof_lab.get("route_component_count"),
-                "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
-                "status": proof_lab.get("status"),
             },
             {
                 "step_id": "drill_receipts_only_after_behavior",

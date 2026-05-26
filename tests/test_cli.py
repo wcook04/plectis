@@ -356,6 +356,17 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert step_ids.index("inspect_first_screen") < step_ids.index(
         "drill_receipts_only_after_behavior"
     )
+    assert step_ids.index("inspect_status_and_workingness") < step_ids.index(
+        "compile_project"
+    )
+    assert step_ids.index("run_first_screen_proof_lab") < step_ids.index(
+        "inspect_python_routes"
+    )
+    observatory_step = {
+        row["step_id"]: row for row in first_screen["minimal_command_path"]
+    }["open_observatory"]
+    assert observatory_step["endpoint"] == "/project/observatory-card"
+    assert observatory_step["expanded_endpoint"] == "/project/observatory"
 
     assert cli.main(["status", "--card", str(project)]) == 0
     status_card = json.loads(capsys.readouterr().out)
@@ -865,6 +876,15 @@ def test_cli_tour_smoke(
     assert any(
         row["step_id"] == "inspect_status_and_workingness"
         for row in payload["first_screen"]["minimal_command_path"]
+    )
+    tour_step_ids = [
+        row["step_id"] for row in payload["first_screen"]["minimal_command_path"]
+    ]
+    assert tour_step_ids.index("inspect_status_and_workingness") < tour_step_ids.index(
+        "compile_project"
+    )
+    assert tour_step_ids.index("run_first_screen_proof_lab") < tour_step_ids.index(
+        "inspect_python_routes"
     )
     assert any(
         card["card_id"] == "status_and_workingness"

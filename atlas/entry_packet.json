@@ -73,14 +73,14 @@
     "entry_role": "bring-a-folder behavioral first contact before validation-suite drilldowns",
     "command_path": [
       "microcosm tour <project>",
-      "microcosm compile <project>",
-      "microcosm python-lens <project>",
-      "microcosm explain <project> <selected_route_id>",
-      "microcosm evidence list <project>",
       "microcosm status --card <project>",
       "microcosm workingness",
       "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "microcosm serve <project> --host 127.0.0.1 --port 8765"
+      "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "microcosm compile <project>",
+      "microcosm python-lens <project>",
+      "microcosm explain <project> <selected_route_id>",
+      "microcosm evidence list <project>"
     ],
     "primary_first_screen_command": "microcosm tour <project>",
     "state_dir": ".microcosm",

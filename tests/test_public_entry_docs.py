@@ -131,6 +131,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert route_contract["missing_drilldown_routes"] == []
     assert route_contract["missing_allowed_drilldowns"] == []
     assert route_contract["command_mismatch"] == []
+    assert route_contract["command_order_mismatch"] == []
     assert route_contract["missing_route_selection_rule"] is False
     assert route_contract["unsafe_safe_to_show_flags"] == []
     assert route_contract["cold_start_missing_phrases"] == []
@@ -448,6 +449,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "formal_prover_context_strategy_gate" in cold_start
     assert "First-Screen Route Contract" in cold_start
     assert "Bring a folder first" in cold_start
+    assert "route_cards_by_id.status_and_workingness" in cold_start
     assert "microcosm evidence list <project>" in cold_start
     assert "microcosm status --card <project>" in cold_start
     assert "front_door.route_explanation" in cold_start
@@ -455,6 +457,8 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert (
         "microcosm serve <project> --host 127.0.0.1 --port 8765" in cold_start
     )
+    assert "/project/observatory-card" in cold_start
+    assert "before `/project/observatory`" in cold_start
     assert "Receipts are evidence drilldowns after the behavior route is visible" in (
         cold_start
     )
@@ -475,17 +479,38 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     no_install_block = first_run.split(
         "The same commands work without installing the console script:", 1
     )[1].split("```", 2)[1]
-    assert no_install_block.index(
+    tour_command = (
         "PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch"
-    ) < no_install_block.index(
-        "PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch"
+    )
+    status_command = (
+        "PYTHONPATH=src python3 -m microcosm_core.cli status --card "
+        "/tmp/microcosm-scratch"
+    )
+    proof_command = (
+        "PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out "
+        "/tmp/microcosm-proof-lab"
+    )
+    compile_command = (
+        "PYTHONPATH=src python3 -m microcosm_core.cli compile "
+        "/tmp/microcosm-scratch"
+    )
+    assert no_install_block.index(tour_command) < no_install_block.index(
+        status_command
+    )
+    assert no_install_block.index(proof_command) < no_install_block.index(
+        compile_command
     )
 
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
     assert cold_start.index("3. Run `microcosm tour <project>`") < cold_start.index(
-        "4. Run `microcosm compile <project>`"
+        "7. Run `microcosm compile <project>`"
+    )
+    assert cold_start.index(
+        "4. Open `atlas/entry_packet.json::status_and_workingness_route`"
+    ) < cold_start.index(
+        "7. Run `microcosm compile <project>`"
     )
     assert cold_start.index(
         "`PYTHONPATH=src python3 -m microcosm_core.cli tour <project>`"
@@ -504,10 +529,19 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert route["surface_id"] == "microcosm_local_first_screen"
     assert route["primary_first_screen_command"] == "microcosm tour <project>"
     assert route["primary_first_screen_command"] == entry_packet["first_command"]
-    assert route["command_path"][:2] == [
+    assert route["command_path"][:5] == [
         "microcosm tour <project>",
-        "microcosm compile <project>",
+        "microcosm status --card <project>",
+        "microcosm workingness",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765",
     ]
+    assert route["command_path"].index(
+        "microcosm status --card <project>"
+    ) < route["command_path"].index("microcosm compile <project>")
+    assert route["command_path"].index(
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    ) < route["command_path"].index("microcosm python-lens <project>")
     assert "microcosm python-lens <project>" in route["command_path"]
     assert (
         "microcosm explain <project> <selected_route_id>"
@@ -535,6 +569,8 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "/tour" in route["observatory_endpoints"]
     assert "/workingness" in route["observatory_endpoints"]
     assert "/proof-lab" in route["observatory_endpoints"]
+    assert "/project/observatory-card" in route["observatory_endpoints"]
+    assert "/project/observatory" in route["observatory_endpoints"]
     assert "/project/explain/<selected_route_id>" in route["observatory_endpoints"]
     assert "tour_front_door_status_route" in route["drilldown_routes"]
     assert "status_and_workingness_route" in route["drilldown_routes"]

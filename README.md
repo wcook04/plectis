@@ -19,22 +19,23 @@ entry point:
 
 ```bash
 PYTHONPATH=src python -m microcosm_core.cli tour .
-PYTHONPATH=src python -m microcosm_core.cli compile .
+PYTHONPATH=src python -m microcosm_core.cli status --card .
+PYTHONPATH=src python -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 After the console command is installed, the first-screen path is:
 
 ```bash
 microcosm tour .
+microcosm status --card .
+microcosm workingness
+microcosm proof-lab --out /tmp/microcosm-proof-lab
+microcosm serve . --host 127.0.0.1 --port 8765
 microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
 microcosm evidence list .
-microcosm status --card .
-microcosm workingness
-microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
-microcosm serve . --host 127.0.0.1 --port 8765
 ```
 
 The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
@@ -47,11 +48,10 @@ Use
 `selected_route_id` from `microcosm tour .` or `microcosm compile .` for
 `microcosm explain . <selected_route_id>`; `readme_onboarding_route` is present
 when the project has a README. Open
-`http://127.0.0.1:8765` to see the causal chain, then open
-`http://127.0.0.1:8765/project/observatory-card` for the compact JSON card
+`http://127.0.0.1:8765/project/observatory-card` first for the compact JSON card
 that ties status, route, work, evidence, graph, proof, and safe-to-show
-boundaries together before the full `/project/observatory` model. The output
-folder is `.microcosm/`.
+boundaries together, then open `http://127.0.0.1:8765` or the full
+`/project/observatory` model. The output folder is `.microcosm/`.
 
 Use `microcosm status --card <project>` after `tour` or `compile` for the
 compressed first-screen lens over local `.microcosm/` route state plus the full
@@ -233,26 +233,28 @@ printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
 printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
 
 microcosm tour /tmp/microcosm-scratch
+microcosm status --card /tmp/microcosm-scratch
+microcosm workingness
+microcosm proof-lab --out /tmp/microcosm-proof-lab
+microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch readme_onboarding_route
 microcosm evidence list /tmp/microcosm-scratch
-microcosm status --card /tmp/microcosm-scratch
-microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
-microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 ```
 
 The same commands work without installing the console script:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli status --card /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli workingness
+PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
 PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli status --card /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 The older organ-adapter demo still exists for internal evidence and regression:
