@@ -492,6 +492,8 @@ public reveal without reading the private macro root first. It does not prove
 every reader will understand the system, claim private-root equivalence,
 publish, call providers, mutate source, export benchmark scores, prove
 mathematical correctness, or authorize release.
+Its rows are checkpoint and boundary rows, not score-based progress, maturity,
+readiness, or release evidence.
 
 `microcosm workingness` is the per-organ failure envelope map. It compares
 what each organ needs to work against the evidence Microcosm currently has:

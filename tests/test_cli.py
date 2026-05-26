@@ -1466,7 +1466,9 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     assert payload["scorecard"]["checkpoint_count"] == 6
     assert payload["scorecard"]["reader_question_count"] == 5
     assert payload["scorecard"]["time_budget_minutes"] == 10
+    assert payload["scorecard"]["not_score_based_progress"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
+    assert payload["authority_ceiling"]["score_based_progress_authority"] is False
     assert payload["authority_ceiling"]["reader_success_guarantee"] is False
 
 

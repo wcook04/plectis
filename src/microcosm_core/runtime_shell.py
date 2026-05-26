@@ -12469,6 +12469,7 @@ class RuntimeShell:
             "private_data_equivalence_claim": False,
             "proof_correctness_claim": False,
             "benchmark_score_claim": False,
+            "score_based_progress_authority": False,
             "reader_success_guarantee": False,
         }
         scorecard = {
@@ -12480,6 +12481,7 @@ class RuntimeShell:
             "negative_case_count": len(negative_case_ids),
             "time_budget_minutes": sum(int(row["minute_budget"]) for row in checkpoint_rows),
             "blocking_gap_count": 0,
+            "not_score_based_progress": True,
             "release_authorized": False,
             "reader_success_guarantee": False,
         }
@@ -12507,9 +12509,10 @@ class RuntimeShell:
             "endpoint": "/legibility-scorecard",
             "legibility_scorecard_ref": _public_relative(lens_path, self.root),
             "public_claim": (
-                "Microcosm exposes a cold-reader legibility scorecard: the public reveal "
-                "must answer what it is, what to run, what evidence exists, what is not "
-                "claimed, and how to extend it inside a 10-minute local path."
+                "Microcosm exposes a cold-reader legibility checkpoint read-model: "
+                "the public reveal must answer what it is, what to run, what evidence "
+                "exists, what is not claimed, and how to extend it inside a 10-minute "
+                "local path."
             ),
             "selected_pattern_ids": selected_pattern_ids,
             "checkpoint_rows": checkpoint_rows,
@@ -12550,7 +12553,7 @@ class RuntimeShell:
                 "does not prove every reader will understand the system, authorize "
                 "release or publication, claim private-root equivalence, call providers, "
                 "mutate source, prove mathematical correctness, export benchmark scores, "
-                "or certify production readiness."
+                "create score-based progress authority, or certify production readiness."
             ),
         }
         write_json_atomic(lens_path, payload)

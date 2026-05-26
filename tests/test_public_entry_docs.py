@@ -343,6 +343,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Any `body_copied=true` claim must point at a real target file" in agents
     assert "front_door_status.blocking_surface_ids" in text
     assert "If `microcosm status --card <project>` exits non-zero" in text
+    assert "not score-based progress, maturity" in text
+    assert "not score-based progress" in agents
     assert "public-safe ten-minute path" not in normalized_text
     assert "public-safe authority ceiling" not in normalized_text
     assert "public-safe route" not in normalized_agents
@@ -930,8 +932,12 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
         "paper_module_refs",
         "atlas_option_surfaces",
     ]
-    assert standard["validation_probe"] == [
-        "PYTHONPATH=microcosm-substrate/src ./repo-pytest microcosm-substrate/tests/test_public_entry_docs.py::test_public_entry_packet_routes_doctrine_lattice -q"
-    ]
+    lattice_probe = (
+        "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
+        "microcosm-substrate/tests/test_public_entry_docs.py::"
+        "test_public_entry_packet_routes_doctrine_lattice -q"
+    )
+    assert standard["validation_probe"][0] == lattice_probe
+    assert lattice_probe in standard["validation_probe"]
     assert "candidate-axiom promotion authority" in lattice["authority"]
     assert "candidate_axiom_promotion_authority" in standard_lattice["authority_ceiling"]

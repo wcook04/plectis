@@ -116,7 +116,7 @@ PUBLIC_LENS_COMMAND_HELP = (
     ("hook-coverage", "show hook coverage and guardrail evidence"),
     ("replay-gauntlet", "run accepted replay gauntlet surface"),
     ("benchmark-lab", "show benchmark integrity replay lab"),
-    ("legibility-scorecard", "score first-screen legibility and gaps"),
+    ("legibility-scorecard", "inspect first-screen legibility and boundary gaps"),
     ("intake", "show runtime projection intake board"),
     ("reveal", "show public reveal walkthrough board"),
 )

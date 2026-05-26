@@ -488,6 +488,8 @@ adapter-backed organs and 4 drilldown-only regression surfaces.
    not prove reader understanding, claim private-root equivalence, publish,
    call providers, mutate source, export benchmark scores, prove mathematical
    correctness, or imply release authority.
+   Its rows are checkpoint and boundary rows, not score-based progress,
+   maturity, readiness, or release evidence.
    The `prediction_oracle_reconciliation` organ is the prediction-engine
    fixture lane: use `prediction-oracle-reconciliation` for synthetic CP1/CP2,
    oracle diff, and dossier-mutation checks only.

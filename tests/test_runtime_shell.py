@@ -3435,6 +3435,7 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["scorecard"]["reader_question_count"] == 5
     assert lens["scorecard"]["time_budget_minutes"] == 10
     assert lens["scorecard"]["blocking_gap_count"] == 0
+    assert lens["scorecard"]["not_score_based_progress"] is True
     assert set(lens["negative_case_ids"]) >= {
         "architecture_legible_without_running_commands_rejected",
         "receipt_forward_first_screen_rejected",
@@ -3448,6 +3449,9 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["authority_ceiling"]["reader_success_guarantee"] is False
     assert lens["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert lens["authority_ceiling"]["benchmark_score_claim"] is False
+    assert lens["authority_ceiling"]["score_based_progress_authority"] is False
+    assert "checkpoint read-model" in lens["public_claim"]
+    assert "score-based progress authority" in lens["anti_claim"]
     assert lens["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert (
