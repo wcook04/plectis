@@ -84,6 +84,7 @@ PROOF_LAB_INPUT_PLACEHOLDER = "<proof-lab-input>"
 PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 
 FIRST_SCREEN_HELP = """First-screen route:
+  microcosm hello <project>      print the cold-entry one-screen card
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen <project> preview the one-screen reader branch map
   microcosm status --card <project> read the compressed project/runtime status lens
@@ -829,6 +830,17 @@ def main(argv: list[str] | None = None) -> int:
         help="emit the compact first-screen tour lens",
     )
     tour_parser.add_argument("project", nargs="?")
+    hello_parser = subparsers.add_parser(
+        "hello",
+        help="print the cold-entry first-screen card",
+    )
+    hello_parser.add_argument(
+        "--reader",
+        choices=first_screen_composition.TEXT_READER_CHOICES,
+        default="all",
+        help="focus the terminal projection on one reader branch",
+    )
+    hello_parser.add_argument("project", nargs="?", default="<project>")
     first_screen_parser = subparsers.add_parser(
         "first-screen",
         help="preview the one-screen reader route map",
@@ -1330,6 +1342,18 @@ def main(argv: list[str] | None = None) -> int:
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args)
+    if args.command == "hello":
+        payload = first_screen_composition.first_screen_composition_card(
+            project_label=args.project
+        )
+        print(
+            first_screen_composition.first_screen_text_card(
+                payload,
+                reader_id=args.reader,
+            ),
+            end="",
+        )
+        return 0 if payload.get("status") == "pass" else 1
     if args.command == "first-screen":
         payload = first_screen_composition.first_screen_composition_card(
             project_label=args.project
