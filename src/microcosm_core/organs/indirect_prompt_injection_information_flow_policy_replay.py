@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -35,6 +37,26 @@ ACCEPTANCE_RECEIPT_REL = (
     "indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_prompt_injection_flow_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "indirect_prompt_injection_information_flow_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "findings",
+    "secret_exclusion_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "source_refs",
+    "projection_receipt_refs",
+    "target_refs",
+    "target_symbols",
+    "public_runtime_refs",
+    "omitted_secret_or_live_access_material",
+    "public_agent_execution_trace",
+    "source_rows",
+    "flow_rows",
+    "policy_verdict_rows",
+    "sanitized_output_rows",
+    "cold_replay_rows",
+    "prompt_injection_flow_board",
+)
 BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "extension_of_existing_public_refactor"
 PRODUCT_PATH_ROLE = "source_faithful_public_agent_execution_trace_refactor"
@@ -196,6 +218,116 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     if manifest.is_file():
         paths.append(manifest)
     return paths
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    return [
+        *_input_paths(source, include_negative=include_negative),
+        public_root / "core/private_state_forbidden_classes.json",
+    ]
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "indirect_prompt_injection_information_flow_policy_replay_result_v1"
+        if include_negative
+        else "exported_prompt_injection_flow_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "indirect_prompt_injection_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_prompt_injection_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_prompt_injection_flow_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("input_mode") != "exported_prompt_injection_flow_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -1178,12 +1310,15 @@ def run(
     ),
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    source = Path(input_dir)
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -1199,15 +1334,24 @@ def run_prompt_injection_bundle(
         "indirect_prompt_injection_information_flow_policy_replay "
         "run-prompt-injection-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_prompt_injection_bundle_receipt(source, out, command=command)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_prompt_injection_flow_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -1219,6 +1363,90 @@ def run_prompt_injection_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    secret_scan = result.get("secret_exclusion_scan")
+    scan = secret_scan if isinstance(secret_scan, dict) else {}
+    public_trace = result.get("public_agent_execution_trace")
+    trace = public_trace if isinstance(public_trace, dict) else {}
+    trace_summary = trace.get("summary") if isinstance(trace.get("summary"), dict) else {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "prompt_injection_flow": {
+            "source_document_count": result.get("source_document_count"),
+            "untrusted_source_count": result.get("untrusted_source_count"),
+            "trusted_source_count": result.get("trusted_source_count"),
+            "information_flow_count": result.get("information_flow_count"),
+            "privileged_flow_count": result.get("privileged_flow_count"),
+            "sanitized_flow_count": result.get("sanitized_flow_count"),
+            "policy_verdict_count": result.get("policy_verdict_count"),
+            "allow_count": result.get("allow_count"),
+            "warn_count": result.get("warn_count"),
+            "block_count": result.get("block_count"),
+            "review_count": result.get("review_count"),
+            "sanitized_output_count": result.get("sanitized_output_count"),
+            "blocked_without_external_action_count": result.get(
+                "blocked_without_external_action_count"
+            ),
+            "cold_replay_pass_count": result.get("cold_replay_pass_count"),
+        },
+        "public_trace": {
+            "status": trace.get("status"),
+            "span_count": trace.get("span_count"),
+            "trace_digest": trace_summary.get("trace_digest"),
+        },
+        "validation": {
+            "expected_negative_case_count": len(
+                result.get("expected_negative_cases") or []
+            ),
+            "missing_negative_case_count": len(
+                result.get("missing_negative_cases") or []
+            ),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+        },
+        "body_floor": {
+            "body_in_receipt": False,
+            "secret_exclusion_scan_in_card": False,
+            "source_rows_in_card": False,
+            "flow_rows_in_card": False,
+            "policy_verdict_rows_in_card": False,
+            "sanitized_output_rows_in_card": False,
+            "cold_replay_rows_in_card": False,
+            "public_trace_spans_in_card": False,
+        },
+        "authority_boundary": {
+            "real_email_or_document_account_use_authorized": False,
+            "raw_prompt_body_export_authorized": False,
+            "secret_or_credential_exfiltration_authorized": False,
+            "tool_output_instruction_authority_authorized": False,
+            "hidden_system_message_promotion_authorized": False,
+            "live_tool_call_authorized": False,
+            "provider_calls_authorized": False,
+            "benchmark_score_claim_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="indirect_prompt_injection_information_flow_policy_replay"
@@ -1228,21 +1456,52 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-prompt-injection-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}" if args.acceptance_out else ""
+        )
+        command = (
+            "python -m microcosm_core.organs."
+            "indirect_prompt_injection_information_flow_policy_replay "
+            f"run --input {args.input} --out {args.out}{acceptance_suffix}"
+            f"{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-prompt-injection-bundle":
-        result = run_prompt_injection_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs."
+            "indirect_prompt_injection_information_flow_policy_replay "
+            f"run-prompt-injection-bundle --input {args.input} --out {args.out}"
+            f"{card_suffix}"
+        )
+        result = run_prompt_injection_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(result["status"])
     return 0 if result["status"] == PASS else 1
 
 

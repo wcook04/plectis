@@ -8,8 +8,13 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_prompt_injection_trace,
 )
+from microcosm_core.organs import (
+    indirect_prompt_injection_information_flow_policy_replay,
+)
 from microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_prompt_injection_bundle,
 )
@@ -204,6 +209,67 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert {
         span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
     } == {"prompt_injection_information_flow_policy"}
+
+
+def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "indirect_prompt_injection_information_flow_policy_replay"
+    )
+    args = [
+        "run-prompt-injection-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 9
+    assert first_card["prompt_injection_flow"]["source_document_count"] == 5
+    assert first_card["prompt_injection_flow"]["information_flow_count"] == 5
+    assert first_card["prompt_injection_flow"]["block_count"] == 2
+    assert first_card["prompt_injection_flow"]["review_count"] == 1
+    assert first_card["prompt_injection_flow"]["cold_replay_pass_count"] == 5
+    assert first_card["public_trace"]["span_count"] == 5
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "source_rows" not in _walk_keys(first_card)
+    assert "flow_rows" not in _walk_keys(first_card)
+    assert "policy_verdict_rows" not in _walk_keys(first_card)
+    assert "sanitized_output_rows" not in _walk_keys(first_card)
+    assert "cold_replay_rows" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "spans" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        indirect_prompt_injection_information_flow_policy_replay,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_public_agent_execution_trace_refactor_builds_prompt_injection_spans() -> None:
