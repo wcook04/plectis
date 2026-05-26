@@ -30,6 +30,7 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_mathematical_strategy_atlas_bundle_validation_result.json"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+CARD_SCHEMA_VERSION = "mathematical_strategy_atlas_hypothesis_scorer_command_card_v1"
 BODY_MATERIAL_STATUS = (
     "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance"
 )
@@ -997,6 +998,162 @@ def run_strategy_bundle(
     return result
 
 
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    authority = result.get("authority_ceiling", {})
+    if not isinstance(authority, dict):
+        authority = {}
+    return {
+        "status": authority.get("status"),
+        "authority_ceiling": authority.get("authority_ceiling"),
+        "lean_lake_execution_authorized": authority.get(
+            "lean_lake_execution_authorized"
+        )
+        is True,
+        "formal_proof_authority": authority.get("formal_proof_authority") is True,
+        "oracle_label_visibility_authorized": authority.get(
+            "oracle_label_visibility_authorized"
+        )
+        is True,
+        "provider_calls_authorized": authority.get("provider_calls_authorized")
+        is True,
+        "release_authorized": authority.get("release_authorized") is True,
+        "provider_payload_bodies_allowed": authority.get(
+            "provider_payload_bodies_allowed"
+        )
+        is True,
+    }
+
+
+def _private_scan_card(result: dict[str, Any]) -> dict[str, Any]:
+    scan = result.get("private_state_scan", {})
+    if not isinstance(scan, dict):
+        scan = {}
+    return {
+        "status": scan.get("status"),
+        "hit_count": scan.get("hit_count"),
+        "blocking_hit_count": scan.get("blocking_hit_count"),
+        "scanned_path_count": scan.get("scanned_path_count"),
+        "body_redacted": scan.get("body_redacted") is True,
+        "redacted_output_field_labels_omitted": scan.get(
+            "redacted_output_field_labels_omitted"
+        )
+        is True,
+    }
+
+
+def _source_module_card(result: dict[str, Any]) -> dict[str, Any]:
+    imports = result.get("source_module_imports", [])
+    rows = imports if isinstance(imports, list) else []
+    digest_match_count = sum(
+        1 for row in rows if isinstance(row, dict) and row.get("digest_match") is True
+    )
+    exists_count = sum(
+        1 for row in rows if isinstance(row, dict) and row.get("exists") is True
+    )
+    source_refs = [
+        str(row.get("source_ref"))
+        for row in rows
+        if isinstance(row, dict) and row.get("source_ref")
+    ]
+    return {
+        "status": result.get("source_module_import_status"),
+        "manifest_ref": result.get("source_module_manifest_ref"),
+        "source_modules_pass": result.get("source_modules_pass") is True,
+        "source_module_import_count": result.get("source_module_import_count"),
+        "copied_source_artifact_count": result.get("copied_source_artifact_count"),
+        "exists_count": exists_count,
+        "digest_match_count": digest_match_count,
+        "material_classes": result.get("source_module_material_classes", []),
+        "source_refs": source_refs,
+        "body_material_status": result.get("body_material_status"),
+    }
+
+
+def _scored_case_card(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "case_id": row.get("case_id"),
+        "problem_id": row.get("problem_id"),
+        "selected_strategy_id": row.get("selected_strategy_id"),
+        "classifier": row.get("classifier"),
+        "feature_overlap_count": row.get("feature_overlap_count"),
+        "expectation_met": row.get("expectation_met") is True,
+        "pre_oracle": row.get("pre_oracle") is True,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    scored_cases = result.get("scored_cases", [])
+    rows = scored_cases if isinstance(scored_cases, list) else []
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "created_at": result.get("created_at"),
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": result.get("command"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "receipt_paths": result.get("receipt_paths", []),
+        "counts": {
+            "strategy_count": result.get("strategy_count"),
+            "problem_count": result.get("problem_count"),
+            "hypothesis_case_count": result.get("hypothesis_case_count"),
+            "scored_case_count": len(rows),
+            "selected_strategy_count": len(result.get("selected_strategy_ids", [])),
+            "strategy_selection_miss_count": len(
+                result.get("strategy_selection_miss_case_ids", [])
+            ),
+            "source_module_import_count": result.get("source_module_import_count"),
+            "copied_source_artifact_count": result.get("copied_source_artifact_count"),
+            "missing_negative_case_count": len(result.get("missing_negative_cases", [])),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "strategy_projection": {
+            "strategy_ids": result.get("strategy_ids", []),
+            "selected_strategy_ids": result.get("selected_strategy_ids", []),
+            "strategy_selection_miss_case_ids": result.get(
+                "strategy_selection_miss_case_ids",
+                [],
+            ),
+            "all_expectations_met": result.get("all_expectations_met") is True,
+            "scored_case_cards": [
+                _scored_case_card(row) for row in rows if isinstance(row, dict)
+            ],
+            "body_redacted": result.get("body_redacted") is True,
+        },
+        "negative_case_coverage": {
+            "expected_negative_cases": result.get("expected_negative_cases", []),
+            "observed_negative_case_count": len(
+                result.get("observed_negative_cases", {})
+            ),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_codes": result.get("error_codes", []),
+        },
+        "source_module_import": _source_module_card(result),
+        "private_state_scan": _private_scan_card(result),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "body_material_status": result.get("body_material_status"),
+        "output_economy": {
+            "full_receipt_written": bool(result.get("receipt_paths")),
+            "stdout_mode": "card",
+            "omitted_fields": [
+                "anti_claim",
+                "findings",
+                "private_state_scan.scan_scope",
+                "scored_cases.candidate_strategy_ids",
+                "scored_cases.feature_tags",
+                "scored_cases.retrieval_term_additions",
+                "source_module_imports",
+                "source_module_target_refs",
+                "source_refs",
+                "strategy_board",
+            ],
+            "full_payload_drilldown": "rerun without --card",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Validate mathematical strategy atlas hypothesis scoring"
@@ -1005,21 +1162,42 @@ def _parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     bundle_parser = subparsers.add_parser("run-strategy-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer "
+            f"run --input {args.input} --out {args.out}"
+            f"{' --card' if args.card else ''}"
+        )
+        result = run(args.input, args.out, command=command)
     elif args.action == "run-strategy-bundle":
-        result = run_strategy_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer "
+            f"run-strategy-bundle --input {args.input} --out {args.out}"
+            f"{' --card' if args.card else ''}"
+        )
+        result = run_strategy_bundle(args.input, args.out, command=command)
     else:
         return 2
-    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    output = result_card(result) if getattr(args, "card", False) else result
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

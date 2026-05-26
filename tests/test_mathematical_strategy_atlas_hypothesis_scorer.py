@@ -7,8 +7,10 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     SOURCE_PATTERN_IDS,
+    main,
     run,
     run_strategy_bundle,
 )
@@ -114,6 +116,55 @@ def test_mathematical_strategy_atlas_scorer_accepts_exported_bundle(
     assert result["receipt_paths"] == [
         "receipts/exported_mathematical_strategy_atlas_bundle_validation_result.json"
     ]
+
+
+def test_mathematical_strategy_atlas_bundle_card_is_compact(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    exit_code = main(
+        [
+            "run-strategy-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE_INPUT),
+            "--out",
+            str(tmp_path / "receipts"),
+            "--card",
+        ]
+    )
+
+    assert exit_code == 0
+    stdout = capsys.readouterr().out
+    assert len(stdout.encode("utf-8")) < 6000
+    payload = json.loads(stdout)
+    assert payload["schema_version"] == CARD_SCHEMA_VERSION
+    assert payload["status"] == "pass"
+    assert payload["organ_id"] == "mathematical_strategy_atlas_hypothesis_scorer"
+    assert payload["counts"]["strategy_count"] == 4
+    assert payload["counts"]["hypothesis_case_count"] == 3
+    assert payload["counts"]["source_module_import_count"] == len(
+        SOURCE_ARTIFACT_REFS
+    )
+    assert payload["strategy_projection"]["selected_strategy_ids"] == [
+        "iff_split",
+        "recursive_data_induction",
+        "unknown",
+    ]
+    assert payload["strategy_projection"]["strategy_selection_miss_case_ids"] == [
+        "typed_unknown_strategy_miss"
+    ]
+    assert payload["source_module_import"]["source_modules_pass"] is True
+    assert payload["source_module_import"]["digest_match_count"] == len(
+        SOURCE_ARTIFACT_REFS
+    )
+    assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["authority_ceiling"]["provider_calls_authorized"] is False
+    assert payload["output_economy"]["stdout_mode"] == "card"
+    assert payload["output_economy"]["full_receipt_written"] is True
+    assert "scored_cases" not in payload
+    assert "strategy_board" not in payload
+    assert "source_module_imports" not in payload
+    assert "scan_scope" not in payload["private_state_scan"]
 
 
 def test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies() -> None:
