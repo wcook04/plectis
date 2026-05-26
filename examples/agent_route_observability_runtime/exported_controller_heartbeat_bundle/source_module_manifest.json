@@ -1,0 +1,40 @@
+{
+  "schema_version": "agent_route_observability_runtime_controller_heartbeat_source_module_manifest_v1",
+  "bundle_id": "public_controller_heartbeat_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "module_count": 1,
+  "modules": [
+    {
+      "source_ref": "system/lib/controller_heartbeat.py",
+      "path": "source_modules/system/lib/controller_heartbeat.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_modules/system/lib/controller_heartbeat.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Controller heartbeat owner that builds bounded 5x5 continuity packets, validates heartbeat shape, wraps response schemas, and deduplicates heartbeat events without reading live private state.",
+      "required_anchors": [
+        "CONTROLLER_HEARTBEAT_SCHEMA_VERSION = \"controller_heartbeat_v1\"",
+        "def build_controller_heartbeat(",
+        "def validate_controller_heartbeat(",
+        "def controller_heartbeat_event_id(",
+        "class ControllerHeartbeatDeduper",
+        "def wrap_response_schema_with_heartbeat_ref("
+      ],
+      "line_count": 530,
+      "sha256": "28f0bd6917d028028d143a0df0a86e8aedccc35246b1ec2465b7cfaac4a5fec4",
+      "byte_count": 19834,
+      "body_in_receipt": false
+    }
+  ],
+  "omitted_material": [
+    "seed bodies",
+    "mission blackboard bodies",
+    "Work Ledger runtime bodies",
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material"
+  ]
+}

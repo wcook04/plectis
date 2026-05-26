@@ -870,6 +870,18 @@ def test_controller_heartbeat_bundle_validates_runtime_shape(tmp_path: Path) -> 
     assert result["dedupe_duplicate_count"] == 1
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["all_expected_byte_counts_matched"] is True
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    assert result["copied_macro_source_count"] == 1
+    assert result["exact_source_body_import"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert result["exact_source_body_import"]["source_body_digest"] == (
+        result["exact_source_body_import"]["target_body_digest"]
+    )
     assert result["controller_heartbeat_policy"]["forbidden_authority_rejected"] is True
     assert result["authority_ceiling"]["seed_or_blackboard_read_authorized"] is False
     assert result["authority_ceiling"]["work_ledger_runtime_read_authorized"] is False
@@ -923,6 +935,12 @@ def test_controller_heartbeat_receipt_is_public_safe(tmp_path: Path) -> None:
     assert payload["recipient_send_authorized"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["copied_macro_source_count"] == 1
+    assert payload["exact_source_body_import"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["source_body_digest"] == (
+        payload["exact_source_body_import"]["target_body_digest"]
+    )
     assert payload["authority_ceiling"]["release_authorized"] is False
     for hit in payload["secret_exclusion_scan"]["hits"]:
         assert hit["body_in_receipt"] is False
@@ -931,9 +949,19 @@ def test_controller_heartbeat_receipt_is_public_safe(tmp_path: Path) -> None:
 
 def test_controller_heartbeat_imports_public_macro_body_refactor() -> None:
     source = MICROCOSM_ROOT.parent / "system/lib/controller_heartbeat.py"
+    bundle_source = (
+        CONTROLLER_HEARTBEAT_BUNDLE_INPUT
+        / "source_modules/system/lib/controller_heartbeat.py"
+    )
     target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/controller_heartbeat.py"
+    manifest = json.loads(
+        (CONTROLLER_HEARTBEAT_BUNDLE_INPUT / "source_module_manifest.json").read_text()
+    )
+    row = manifest["modules"][0]
     source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
     target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    bundle_source_text = bundle_source.read_text(encoding="utf-8")
     view = build_public_controller_heartbeat_view(
         load_public_controller_heartbeat_bundle(CONTROLLER_HEARTBEAT_BUNDLE_INPUT)
     )
@@ -947,7 +975,20 @@ def test_controller_heartbeat_imports_public_macro_body_refactor() -> None:
     material = by_material["controller_heartbeat_body_import"]
 
     assert target.is_file()
+    assert bundle_source.is_file()
     assert source_digest != target_digest
+    assert source_digest == bundle_source_digest
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert row["source_ref"] == "system/lib/controller_heartbeat.py"
+    assert row["path"] == "source_modules/system/lib/controller_heartbeat.py"
+    assert row["material_class"] == "public_macro_tool_body"
+    assert row["body_in_receipt"] is False
+    assert row["sha256"] == source_digest
+    assert row["sha256"] == bundle_source_digest
+    assert "def build_controller_heartbeat(" in bundle_source_text
+    assert "def validate_controller_heartbeat(" in bundle_source_text
+    compile(bundle_source_text, str(bundle_source), "exec")
     assert view["status"] == "pass"
     assert view["controller_heartbeat_schema"] == CONTROLLER_HEARTBEAT_SCHEMA_VERSION
     assert view["summary"]["exact_5x5_count"] == 2

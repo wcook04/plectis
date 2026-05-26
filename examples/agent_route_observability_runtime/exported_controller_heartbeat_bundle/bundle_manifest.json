@@ -11,7 +11,9 @@
   ],
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py",
-    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle"
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_modules/system/lib/controller_heartbeat.py"
   ],
   "body_in_receipt": false,
   "metadata_envelope_only": true
