@@ -185,6 +185,51 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert local_state_receipt_trail["authority"] == (
         "local_state_receipt_trail_not_private_root_equivalence"
     )
+    overclaim_tripwire_matrix = card["overclaim_tripwire_matrix"]
+    tripwire_by_id = {
+        row["tripwire_id"]: row for row in overclaim_tripwire_matrix["rows"]
+    }
+    assert overclaim_tripwire_matrix["purpose"] == (
+        "translate_common_cold_reader_overclaims_into_valid_bounded_reads"
+    )
+    assert overclaim_tripwire_matrix["shared_first_command"] == (
+        card["shared_first_command"]
+    )
+    assert overclaim_tripwire_matrix["authority"] == (
+        "overclaim_tripwire_not_marketing_or_release_authority"
+    )
+    assert set(tripwire_by_id) == {
+        "release_ready",
+        "organ_count_whole_system",
+        "low_body_import_count_fake",
+        "local_state_private_root_equivalence",
+        "observatory_hosted_release",
+    }
+    assert "release-ready" in tripwire_by_id["release_ready"]["overclaim"]
+    assert tripwire_by_id["release_ready"]["check_surface"] == (
+        "microcosm status --card <project>"
+    )
+    assert "Forty-seven organs" in tripwire_by_id[
+        "organ_count_whole_system"
+    ]["overclaim"]
+    assert tripwire_by_id["organ_count_whole_system"]["check_surface"] == (
+        "microcosm workingness"
+    )
+    assert "low verified body-import count" in tripwire_by_id[
+        "low_body_import_count_fake"
+    ]["overclaim"]
+    assert tripwire_by_id["low_body_import_count_fake"]["check_surface"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert tripwire_by_id["local_state_private_root_equivalence"][
+        "check_surface"
+    ] == ".microcosm/"
+    assert tripwire_by_id["observatory_hosted_release"]["check_surface"] == (
+        "/project/first-screen"
+    )
+    for row in tripwire_by_id.values():
+        assert row["valid_read"]
+        assert row["reader_rule"]
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -314,6 +359,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "local state receipt trail" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "overclaim tripwire matrix" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -409,6 +457,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "local_state_receipt_trail" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "overclaim_tripwire_matrix" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -438,6 +489,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
+    assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -523,6 +575,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     ]
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
+    assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -564,6 +617,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
+    assert "tripwires translate overclaims" in text
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
@@ -643,6 +697,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert assertions["success"] in text
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
+        assert "tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
         assert "doctrine appears as prevented mistakes" in text
@@ -676,6 +731,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "First run: microcosm tour --card ." in result.stdout
     assert "doctrine appears as prevented mistakes" in result.stdout
     assert "README inventory waits" in result.stdout
+    assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
@@ -707,6 +763,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "First run: microcosm tour --card ." in result.stdout
     assert "doctrine appears as prevented mistakes" in result.stdout
     assert "README inventory waits" in result.stdout
+    assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout

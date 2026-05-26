@@ -340,6 +340,68 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
     }
 
 
+def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_overclaim_tripwire_matrix_v1",
+        "purpose": "translate_common_cold_reader_overclaims_into_valid_bounded_reads",
+        "shared_first_command": shared_first_command,
+        "rows": [
+            {
+                "tripwire_id": "release_ready",
+                "overclaim": "Microcosm is release-ready.",
+                "valid_read": (
+                    "Microcosm exposes a local first-run evidence card and "
+                    "authority ceiling."
+                ),
+                "check_surface": f"microcosm status --card {project_label}",
+                "reader_rule": "release_readiness_not_claimed",
+            },
+            {
+                "tripwire_id": "organ_count_whole_system",
+                "overclaim": "Forty-seven organs means every capability works end-to-end.",
+                "valid_read": (
+                    "Accepted public runtime organs are inventory handles with "
+                    "evidence classes and failure envelopes."
+                ),
+                "check_surface": "microcosm workingness",
+                "reader_rule": "organ_inventory_not_whole_system_correctness",
+            },
+            {
+                "tripwire_id": "low_body_import_count_fake",
+                "overclaim": "A low verified body-import count means the system is fake.",
+                "valid_read": (
+                    "Evidence-class counts are claim-boundary accounting; low "
+                    "counts narrow claims instead of being hidden."
+                ),
+                "check_surface": EVIDENCE_CLASS_REGISTRY_REF,
+                "reader_rule": "low_count_not_failure_by_itself",
+            },
+            {
+                "tripwire_id": "local_state_private_root_equivalence",
+                "overclaim": ".microcosm state proves private-root equivalence.",
+                "valid_read": (
+                    ".microcosm state proves folder-local behavior refs from the "
+                    "shared first run."
+                ),
+                "check_surface": ".microcosm/",
+                "reader_rule": "local_state_not_private_root_equivalence",
+            },
+            {
+                "tripwire_id": "observatory_hosted_release",
+                "overclaim": "The observatory is a hosted or public release surface.",
+                "valid_read": (
+                    "The observatory is a localhost read-model over the same "
+                    "first-screen card."
+                ),
+                "check_surface": OBSERVATORY_LANDING_ENDPOINTS["first_screen_card"],
+                "reader_rule": "localhost_read_model_not_hosting_authority",
+            },
+        ],
+        "authority": "overclaim_tripwire_not_marketing_or_release_authority",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -657,7 +719,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, reader landing packets, "
-            "behavior-proof packet, first-run ladder, local state receipt trail, evidence-count frame, evidence-class legend, doctrine-effect frame, "
+            "behavior-proof packet, first-run ladder, local state receipt trail, overclaim tripwire matrix, evidence-count frame, evidence-class legend, doctrine-effect frame, "
             "observatory landing frame, README-entry contract, omission receipt, and "
             "authority ceiling."
         ),
@@ -705,7 +767,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "first-run ladder, local state receipt trail, reader branches, reader landing packets, public scale handles, evidence-class "
+            "first-run ladder, local state receipt trail, overclaim tripwires, reader branches, reader landing packets, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
         ),
@@ -723,6 +785,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "behavior_proof_packet",
             "first_run_ladder",
             "local_state_receipt_trail",
+            "overclaim_tripwire_matrix",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -828,6 +891,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     state_write_boundary = payload.get("state_write_boundary", {})
     behavior_proof_packet = payload.get("behavior_proof_packet", {})
     local_state_receipt_trail = payload.get("local_state_receipt_trail", {})
+    overclaim_tripwire_matrix = payload.get("overclaim_tripwire_matrix", {})
     local_state_trail_rows = (
         local_state_receipt_trail.get("trail", [])
         if isinstance(local_state_receipt_trail, dict)
@@ -837,6 +901,14 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         str(row.get("surface_id"))
         for row in local_state_trail_rows
         if isinstance(row, dict)
+    }
+    overclaim_rows = (
+        overclaim_tripwire_matrix.get("rows", [])
+        if isinstance(overclaim_tripwire_matrix, dict)
+        else []
+    )
+    overclaim_ids = {
+        str(row.get("tripwire_id")) for row in overclaim_rows if isinstance(row, dict)
     }
     behavior_proof_fields = (
         behavior_proof_packet.get("proof_fields", [])
@@ -1013,6 +1085,37 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and local_state_receipt_trail.get("authority")
             == "local_state_receipt_trail_not_private_root_equivalence"
         ),
+        "overclaim_tripwire_matrix": (
+            isinstance(overclaim_tripwire_matrix, dict)
+            and overclaim_tripwire_matrix.get("schema_version")
+            == "microcosm_overclaim_tripwire_matrix_v1"
+            and overclaim_tripwire_matrix.get("purpose")
+            == "translate_common_cold_reader_overclaims_into_valid_bounded_reads"
+            and overclaim_tripwire_matrix.get("shared_first_command")
+            == shared_first_command
+            and overclaim_ids
+            == {
+                "release_ready",
+                "organ_count_whole_system",
+                "low_body_import_count_fake",
+                "local_state_private_root_equivalence",
+                "observatory_hosted_release",
+            }
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("overclaim"), str)
+                and bool(row.get("overclaim"))
+                and isinstance(row.get("valid_read"), str)
+                and bool(row.get("valid_read"))
+                and isinstance(row.get("check_surface"), str)
+                and bool(row.get("check_surface"))
+                and isinstance(row.get("reader_rule"), str)
+                and bool(row.get("reader_rule"))
+                for row in overclaim_rows
+            )
+            and overclaim_tripwire_matrix.get("authority")
+            == "overclaim_tripwire_not_marketing_or_release_authority"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -1138,6 +1241,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "behavior_proof_packet",
                     "first_run_ladder",
                     "local_state_receipt_trail",
+                    "overclaim_tripwire_matrix",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -1207,6 +1311,7 @@ def first_screen_composition_card(
         "behavior_proof_packet": _behavior_proof_packet(project_label),
         "first_run_ladder": _first_run_ladder(project_label),
         "local_state_receipt_trail": _local_state_receipt_trail(project_label),
+        "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -1337,7 +1442,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),
-        "  Counts are receipt-backed handles, not maturity, readiness, or progress scores.",
+        "  Counts are receipt-backed handles; tripwires translate overclaims before drilldown.",
         _evidence_class_summary_line(payload),
         "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",

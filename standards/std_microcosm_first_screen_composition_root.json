@@ -52,6 +52,7 @@
       "public-root file refs",
       "reader route ids",
       "folder-local .microcosm state refs",
+      "overclaim translation rows",
       "evidence-class counts",
       "authority ceilings",
       "receipt refs",
@@ -79,6 +80,7 @@
       "behavior_proof_packet",
       "first_run_ladder",
       "local_state_receipt_trail",
+      "overclaim_tripwire_matrix",
       "reader_focus_mode",
       "evidence_count_frame",
       "comparison_frame",
@@ -97,7 +99,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.first_screen_composition_root",
-    "receipt should cite the shared first command, reader branch ids, reader landing packets, behavior-proof packet, first-run ladder, local state receipt trail, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, README-entry contract, entry-surface contract, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+    "receipt should cite the shared first command, reader branch ids, reader landing packets, behavior-proof packet, first-run ladder, local state receipt trail, overclaim tripwire matrix, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, README-entry contract, entry-surface contract, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
   "receipt_refs": [
     {
@@ -133,6 +135,7 @@
     "behavior_proof_packet",
     "first_run_ladder",
     "local_state_receipt_trail",
+    "overclaim_tripwire_matrix",
     "evidence_count_frame",
     "comparison_frame",
     "doctrine_effect_frame",
@@ -200,6 +203,7 @@
       "behavior_proof_packet",
       "first_run_ladder",
       "local_state_receipt_trail",
+      "overclaim_tripwire_matrix",
       "evidence_accounting_context",
       "comparison_frame",
       "doctrine_effect_frame",
@@ -216,6 +220,7 @@
       "the shared behavior command is named without success fields that tell a reader what local proof to inspect",
       "the first screen names useful commands without a copyable run order from map to proof to status confirmation to reader branch",
       "the first run writes local state but the first screen does not name the generated catalog, route, event, evidence, and graph refs",
+      "the first screen leaves readers to infer which common overclaims are invalid",
       "honest evidence counts are shown without explaining that they are accounting fields rather than maturity scores",
       "breadth is listed as many topics without a composition root",
       "runnable demo is shown without naming the larger structural surface it exercises",
@@ -223,7 +228,7 @@
       "visual or observatory entry claims hosted publication or release authority",
       "card omits the drilldown path that preserves the deeper route map, receipts, standards, and workingness evidence"
     ],
-    "ontology": "A one-screen public compression contract that states what Microcosm is, the single shared first command, the copyable first-run ladder, the local state receipt trail, the behavior-proof success fields, the reader-specific first action/proof/success packet, the honest evidence-count frame, the runnable-to-structural join, and the authority ceiling.",
+    "ontology": "A one-screen public compression contract that states what Microcosm is, the single shared first command, the copyable first-run ladder, the local state receipt trail, the overclaim tripwire matrix, the behavior-proof success fields, the reader-specific first action/proof/success packet, the honest evidence-count frame, the runnable-to-structural join, and the authority ceiling.",
     "rebuild_action": "project_then_validate_when_runtime_consumes",
     "teleology": "Let a cold reader understand the substrate before choosing a drilldown, without weakening the deeper route map, receipts, standards, or workingness surfaces."
   },
@@ -233,6 +238,7 @@
     "require the shared first command to name behavior-proof fields: front_door_status.status, selected_route_id, state_inspection, and source_files_mutated",
     "require a first-run ladder that orders hello, tour --card, status --card, and reader branch without making the long quickstart inventory first contact",
     "require a local state receipt trail that names .microcosm catalog, routes, events, evidence, and graph refs without granting source, release, private-root, proof, benchmark, or maturity authority",
+    "require an overclaim tripwire matrix that translates common cold-reader overclaims into valid bounded reads before drilldown",
     "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
     "require reader landing packets to carry one first action, one proof surface, one success criterion, one next drilldown, and no reader-specific authority ceiling",
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
@@ -255,6 +261,7 @@
       "behavior_proof_packet",
       "first_run_ladder",
       "local_state_receipt_trail",
+      "overclaim_tripwire_matrix",
       "evidence_count_frame",
       "comparison_frame",
       "doctrine_effect_frame",
