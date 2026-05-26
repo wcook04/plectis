@@ -30,7 +30,24 @@ TEXT_CARD_MAX_LINES = 32
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
 ORGAN_REGISTRY_REF = "core/organ_registry.json"
 STANDARDS_REGISTRY_REF = "core/standards_registry.json"
+EVIDENCE_CLASS_REGISTRY_REF = "core/organ_evidence_classes.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
+EVIDENCE_CLASS_DISPLAY_ORDER = (
+    "verified_macro_body_import",
+    "external_subprocess_witness",
+    "semantic_validator",
+    "algorithmic_projection",
+    "fixture_schema_replay",
+    "fixture_echo_smoke",
+)
+EVIDENCE_CLASS_LABELS = {
+    "verified_macro_body_import": "macro body import",
+    "external_subprocess_witness": "subprocess witness",
+    "semantic_validator": "semantic validator",
+    "algorithmic_projection": "algorithmic projection",
+    "fixture_schema_replay": "fixture schema replay",
+    "fixture_echo_smoke": "fixture smoke",
+}
 OBSERVATORY_LANDING_ENDPOINTS = {
     "html_landing": "/",
     "first_screen_card": "/project/first-screen",
@@ -135,6 +152,7 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
+        "legend_ref": EVIDENCE_CLASS_REGISTRY_REF,
         "why_counts_are_visible": (
             "Microcosm shows evidence-class counts so the reader can see what has crossed a declared "
             "boundary, not so the reader infers readiness, completeness, or product progress."
@@ -163,6 +181,54 @@ def _evidence_count_frame() -> dict[str, Any]:
                 "role": "registry validation receipt",
             },
         ],
+    }
+
+
+def _evidence_class_legend(root: Path) -> dict[str, Any]:
+    registry = _load_public_json(root, EVIDENCE_CLASS_REGISTRY_REF)
+    class_profiles = registry.get("class_profiles", {})
+    if not isinstance(class_profiles, dict):
+        class_profiles = {}
+
+    rows: list[dict[str, Any]] = []
+    missing_profiles: list[str] = []
+    for class_id in EVIDENCE_CLASS_DISPLAY_ORDER:
+        profile = class_profiles.get(class_id)
+        if not isinstance(profile, dict):
+            missing_profiles.append(class_id)
+            continue
+        rows.append(
+            {
+                "evidence_class": class_id,
+                "label": EVIDENCE_CLASS_LABELS[class_id],
+                "claim_ceiling": profile.get("claim_ceiling"),
+                "evaluator_basis": profile.get("evaluator_basis"),
+                "negative_case_independence": profile.get(
+                    "negative_case_independence"
+                ),
+                "truth_accounting_bucket": profile.get("truth_accounting_bucket"),
+                "counts_as_real_substrate_progress": profile.get(
+                    "counts_as_real_substrate_progress"
+                )
+                is True,
+                "evidence_strength_rank": profile.get("evidence_strength_rank"),
+                "reader_rule": "declared_claim_ceiling_not_maturity_or_release_score",
+            }
+        )
+
+    return {
+        "schema_version": "microcosm_evidence_class_legend_v1",
+        "source_ref": EVIDENCE_CLASS_REGISTRY_REF,
+        "interpretation": "claim_boundary_legend_not_score",
+        "authority_boundary": registry.get("authority_boundary"),
+        "anti_claim": registry.get("anti_claim"),
+        "reader_rule": (
+            "Each evidence class names what a count can claim and what it cannot "
+            "claim. It is a public claim-boundary legend, not a benchmark, release "
+            "gate, product-completeness signal, or maturity score."
+        ),
+        "classes": rows,
+        "missing_profiles": missing_profiles,
     }
 
 
@@ -303,7 +369,8 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, evidence-count frame, "
-            "observatory landing frame, omission receipt, and authority ceiling."
+            "evidence-class legend, observatory landing frame, omission receipt, and "
+            "authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -349,8 +416,8 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "reader branches, public scale handles, and authority ceiling before the deeper "
-            "observatory lens inventory."
+            "reader branches, public scale handles, evidence-class legend, and authority "
+            "ceiling before the deeper observatory lens inventory."
         ),
         "projection_rule": (
             "The observatory landing is a projection over this first-screen card, not a "
@@ -364,6 +431,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "reader_route_ids",
             "public_scale_counts",
             "evidence_count_interpretation",
+            "evidence_class_legend",
             "authority_ceiling",
             "omission_receipt",
         ],
@@ -409,6 +477,10 @@ def _drilldowns(project_label: str) -> list[dict[str, str]]:
             "command": "microcosm workingness",
         },
         {
+            "drilldown_id": "evidence_class_registry",
+            "ref": EVIDENCE_CLASS_REGISTRY_REF,
+        },
+        {
             "drilldown_id": "cold_reader_route_map",
             "ref": "paper_modules/cold_reader_route_map.md",
         },
@@ -434,8 +506,20 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     text_projection = payload.get("text_projection", {})
     authority_ceiling = payload.get("authority_ceiling", {})
     drilldown_text = json.dumps(payload.get("drilldowns", []), sort_keys=True)
+    evidence_class_legend = payload.get("evidence_class_legend", {})
+    legend_rows = (
+        evidence_class_legend.get("classes", [])
+        if isinstance(evidence_class_legend, dict)
+        else []
+    )
+    legend_ids = {
+        str(row.get("evidence_class"))
+        for row in legend_rows
+        if isinstance(row, dict)
+    }
     scale_frame = payload.get("scale_frame", {})
     scale_counts = scale_frame.get("public_scale_counts", {})
+    state_write_boundary = payload.get("state_write_boundary", {})
     observatory_landing_frame = payload.get("observatory_landing_frame", {})
     observatory_endpoints = (
         observatory_landing_frame.get("endpoints", {})
@@ -469,6 +553,25 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
+            and payload.get("evidence_count_frame", {}).get("legend_ref")
+            == EVIDENCE_CLASS_REGISTRY_REF
+        ),
+        "evidence_class_legend": (
+            isinstance(evidence_class_legend, dict)
+            and evidence_class_legend.get("source_ref")
+            == EVIDENCE_CLASS_REGISTRY_REF
+            and evidence_class_legend.get("interpretation")
+            == "claim_boundary_legend_not_score"
+            and evidence_class_legend.get("missing_profiles") == []
+            and legend_ids == set(EVIDENCE_CLASS_DISPLAY_ORDER)
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("claim_ceiling"), str)
+                and bool(row.get("claim_ceiling"))
+                and isinstance(row.get("evaluator_basis"), str)
+                and bool(row.get("evaluator_basis"))
+                for row in legend_rows
+            )
         ),
         "comparison_frame": (
             payload.get("comparison_frame", {}).get("purpose")
@@ -495,6 +598,14 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         "runnable_structural_join": bool(
             payload.get("runnable_structural_join", {}).get("join_rule")
         ),
+        "state_write_boundary": (
+            state_write_boundary.get("this_card_writes_microcosm_state") is False
+            and state_write_boundary.get("shared_first_command_writes_state") is True
+            and state_write_boundary.get("behavioral_proof_command")
+            == payload.get("shared_first_command")
+            and state_write_boundary.get("front_door_status_ref")
+            == f"{payload.get('shared_first_command')}::front_door_status"
+        ),
         "observatory_landing_frame": (
             observatory_landing_frame.get("human_first_command")
             == payload.get("human_first_command")
@@ -518,6 +629,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "behavioral_proof_command",
                     "reader_route_ids",
                     "public_scale_counts",
+                    "evidence_class_legend",
                     "authority_ceiling",
                     "omission_receipt",
                 )
@@ -528,6 +640,30 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         ),
         "omission_receipt": bool(payload.get("omission_receipt", {}).get("drilldown")),
         "workingness_drilldown": "microcosm workingness" in drilldown_text,
+    }
+
+
+def _state_write_boundary(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_first_screen_state_write_boundary_v1",
+        "this_card_writes_microcosm_state": False,
+        "this_card_status_scope": "composition_contract_only_not_local_run_result",
+        "shared_first_command": shared_first_command,
+        "shared_first_command_writes_state": True,
+        "state_dir": ".microcosm",
+        "behavioral_proof_command": shared_first_command,
+        "front_door_status_ref": f"{shared_first_command}::front_door_status",
+        "reader_action": (
+            "Run the shared first command to write .microcosm state and read "
+            "front_door_status before treating the first screen as behavior."
+        ),
+        "safe_to_show": {
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_or_hosting_authorized": False,
+            "proof_correctness_claim": False,
+        },
     }
 
 
@@ -556,10 +692,12 @@ def first_screen_composition_card(
         },
         "reader_routes": _reader_routes(project_label),
         "evidence_count_frame": _evidence_count_frame(),
+        "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
         "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(root),
         "runnable_structural_join": _runnable_structural_join(project_label),
+        "state_write_boundary": _state_write_boundary(project_label),
         "observatory_landing_frame": _observatory_landing_frame(project_label),
         "drilldowns": _drilldowns(project_label),
         "omission_receipt": standard["omission_receipt"],
@@ -606,7 +744,7 @@ def _reader_branch_lines(
         ]
 
     route = route_by_id[reader_id]
-    focus_lines = [f"    - {focus}" for focus in route["evidence_focus"][:3]]
+    focus_lines = [f"    - {focus}" for focus in route["evidence_focus"][:2]]
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         f"  Question: {route['first_question']}",
@@ -625,6 +763,20 @@ def _scale_summary_line(payload: dict[str, Any]) -> str:
         f"  Public scale: {organs} organs, {standards} standards, "
         f"{source_open_materials} source-open materials."
     )
+
+
+def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
+    class_ids = {
+        str(row.get("evidence_class"))
+        for row in payload.get("evidence_class_legend", {}).get("classes", [])
+        if isinstance(row, dict)
+    }
+    if set(EVIDENCE_CLASS_DISPLAY_ORDER).issubset(class_ids):
+        return (
+            "  Evidence classes: body import, subprocess witness, semantic validator, "
+            "algorithmic projection, fixture smoke/schema."
+        )
+    return "  Evidence classes: see core/organ_evidence_classes.json for claim ceilings."
 
 
 def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
@@ -647,11 +799,12 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "Why the counts are honest:",
         _scale_summary_line(payload),
         "  Counts are receipt-backed handles, not maturity, readiness, or progress scores.",
+        _evidence_class_summary_line(payload),
         "",
         *_reader_branch_lines(route_by_id, reader_id),
         "",
         "Runnable-to-structural join:",
-        "  The local run is one visible exercise of the larger public substrate:",
+        "  This card is the map; the first run writes .microcosm and exercises the larger public substrate:",
         "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
         "",
         "Drilldowns:",

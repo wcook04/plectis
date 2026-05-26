@@ -66,7 +66,39 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "peer_developer",
     }
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
+    assert card["evidence_count_frame"]["legend_ref"] == (
+        "core/organ_evidence_classes.json"
+    )
     assert "maturity_score" in card["evidence_count_frame"]["forbidden_reads"]
+    evidence_class_legend = card["evidence_class_legend"]
+    legend_by_id = {
+        row["evidence_class"]: row for row in evidence_class_legend["classes"]
+    }
+    assert evidence_class_legend["source_ref"] == "core/organ_evidence_classes.json"
+    assert evidence_class_legend["interpretation"] == (
+        "claim_boundary_legend_not_score"
+    )
+    assert evidence_class_legend["missing_profiles"] == []
+    assert set(legend_by_id) == {
+        "verified_macro_body_import",
+        "external_subprocess_witness",
+        "semantic_validator",
+        "algorithmic_projection",
+        "fixture_schema_replay",
+        "fixture_echo_smoke",
+    }
+    assert "release" in evidence_class_legend["authority_boundary"]
+    assert "maturity score" in evidence_class_legend["reader_rule"]
+    assert "verified non-secret macro body import only" in legend_by_id[
+        "verified_macro_body_import"
+    ]["claim_ceiling"]
+    assert "tool witness only" in legend_by_id["external_subprocess_witness"][
+        "claim_ceiling"
+    ]
+    assert legend_by_id["semantic_validator"]["evidence_strength_rank"] == 5
+    assert legend_by_id["fixture_echo_smoke"][
+        "counts_as_real_substrate_progress"
+    ] is False
     assert card["comparison_frame"]["purpose"] == (
         "make_rigor_visible_without_claim_inflation"
     )
@@ -82,9 +114,30 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "README, CLI, and observatory consumers" in card[
         "entry_surface_contract"
     ]["consumer_rule"]
+    assert "evidence-class legend" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     assert "observatory landing frame" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    state_write_boundary = card["state_write_boundary"]
+    assert state_write_boundary["schema_version"] == (
+        "microcosm_first_screen_state_write_boundary_v1"
+    )
+    assert state_write_boundary["this_card_writes_microcosm_state"] is False
+    assert state_write_boundary["shared_first_command_writes_state"] is True
+    assert state_write_boundary["behavioral_proof_command"] == (
+        card["shared_first_command"]
+    )
+    assert state_write_boundary["front_door_status_ref"] == (
+        "microcosm tour --card <project>::front_door_status"
+    )
+    assert state_write_boundary["safe_to_show"] == {
+        "source_files_mutated": False,
+        "provider_calls_authorized": False,
+        "release_or_hosting_authorized": False,
+        "proof_correctness_claim": False,
+    }
     scale_counts = card["scale_frame"]["public_scale_counts"]
     assert card["scale_frame"]["count_interpretation"] == (
         "receipt_backed_handles_not_scores"
@@ -153,6 +206,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "evidence_class_legend" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "release, hosting, provider calls" in observatory_landing_frame[
         "authority_boundary"
     ]
@@ -172,7 +228,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert card["validation"]["checks"]["human_first_command"] is True
     assert card["validation"]["checks"]["text_projection"] is True
+    assert card["validation"]["checks"]["evidence_class_legend"] is True
     assert card["validation"]["checks"]["scale_frame"] is True
+    assert card["validation"]["checks"]["state_write_boundary"] is True
     assert card["validation"]["checks"]["observatory_landing_frame"] is True
     assert "body" not in _walk_keys(card)
     assert (
@@ -209,6 +267,23 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["entry_surface_contract"]["script_surface"] == (
         "python3 scripts/first_screen_composition_card.py --project-label ."
     )
+    assert card["evidence_class_legend"]["source_ref"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert any(
+        row["evidence_class"] == "verified_macro_body_import"
+        and "private-root equivalence" in row["claim_ceiling"]
+        for row in card["evidence_class_legend"]["classes"]
+    )
+    assert card["state_write_boundary"]["this_card_status_scope"] == (
+        "composition_contract_only_not_local_run_result"
+    )
+    assert card["state_write_boundary"]["behavioral_proof_command"] == (
+        "microcosm tour --card ."
+    )
+    assert card["state_write_boundary"]["front_door_status_ref"] == (
+        "microcosm tour --card .::front_door_status"
+    )
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -233,6 +308,8 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
+    assert "Evidence classes: body import, subprocess witness" in text
+    assert "fixture smoke/schema" in text
     assert (
         "Safety/evals: microcosm status --card . -> microcosm authority -> "
         "microcosm workingness"
@@ -243,6 +320,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "browser landing: / -> /project/first-screen -> /project/observatory-card"
         in text
     )
+    assert (
+        "This card is the map; the first run writes .microcosm and exercises "
+        "the larger public substrate:"
+    ) in text
     assert "No release, hosted publication, provider-call" in text
     assert "paper_modules/first_screen_composition_root.md" in text
     assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
@@ -285,6 +366,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "  Focus:\n" in text
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
+        assert "Evidence classes: body import, subprocess witness" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
@@ -312,6 +394,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
+    assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
@@ -339,6 +422,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
+    assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout
     assert "Reader branches:" not in result.stdout
