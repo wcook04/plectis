@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import durable_agent_work_landing_replay
 from microcosm_core.organs.durable_agent_work_landing_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_work_landing_bundle,
 )
@@ -129,3 +132,50 @@ def test_durable_agent_work_landing_exported_bundle_validates_runtime_shape(
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["authority_ceiling"]["commit_landed_claim_authorized_without_head_advance"] is False
+
+
+def test_durable_agent_work_landing_card_reuses_fresh_bundle_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "durable_agent_work_landing_replay"
+    )
+    args = [
+        "run-work-landing-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["work_landing"]["run_count"] == 3
+    assert first_card["work_landing"]["metadata_blocked_count"] == 1
+    assert first_card["validation"]["blocking_hit_count"] == 0
+    assert "work_landing_runs" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "authority_ceiling" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(durable_agent_work_landing_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
