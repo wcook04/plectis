@@ -8,8 +8,11 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_memory_conflict_trace,
 )
+import microcosm_core.organs.agent_memory_temporal_conflict_replay as agent_memory_replay
 from microcosm_core.organs.agent_memory_temporal_conflict_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_memory_bundle,
 )
@@ -220,6 +223,55 @@ def test_agent_memory_source_module_digest_mismatch_blocks_bundle(
     assert "MEMORY_CONFLICT_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
     assert result["source_open_body_imports"]["status"] == "blocked"
     assert result["body_copied_material_count"] == 5
+
+
+def test_agent_memory_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "agent_memory_temporal_conflict_replay"
+    )
+    args = [
+        "run-memory-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["memory_conflict"]["event_count"] == 5
+    assert first_card["memory_conflict"]["conflict_edge_count"] == 2
+    assert first_card["body_floor"]["body_copied_material_count"] == 5
+    assert "memory_rows" not in _walk_keys(first_card)
+    assert "replay_rows" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "public_agent_execution_trace" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(agent_memory_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_public_agent_execution_trace_refactor_builds_memory_conflict_spans() -> None:
