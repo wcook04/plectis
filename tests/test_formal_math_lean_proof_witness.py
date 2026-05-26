@@ -7,7 +7,10 @@ from typing import Any
 
 import microcosm_core.organs.formal_math_lean_proof_witness as witness_module
 from microcosm_core.organs.formal_math_lean_proof_witness import (
+    BUNDLE_RESULT_NAME,
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_witness_bundle,
 )
@@ -136,3 +139,65 @@ def test_formal_math_lean_proof_witness_bundle_reuses_fresh_receipt(
     assert second["receipt_paths"] == first["receipt_paths"]
     assert second["compiled_declaration_count"] == first["compiled_declaration_count"]
     assert second["lean_witness_board"]["lean_lake_execution_authorized"] is True
+
+
+def test_formal_math_lean_proof_witness_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    target = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness"
+    )
+    argv = [
+        "run-witness-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(target),
+        "--card",
+    ]
+
+    assert main(argv) == 0
+    first_stdout = capsys.readouterr().out
+    first_card = json.loads(first_stdout)
+    receipt_path = target / BUNDLE_RESULT_NAME
+    assert receipt_path.is_file()
+
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["cache_status"] == "fresh_run_executed"
+    assert first_card["execution_summary"]["compiled_declaration_count"] == 8
+    assert first_card["runtime_summary"]["lake_return_code"] == 0
+    assert first_card["receipt_summary"]["full_receipts_written"] is True
+    assert len(first_stdout.encode("utf-8")) < 3600
+
+    def fail_command(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh bundle card should avoid Lean command probes")
+
+    monkeypatch.setattr(witness_module, "_run_command", fail_command)
+    assert main(argv) == 0
+    second_stdout = capsys.readouterr().out
+    second_card = json.loads(second_stdout)
+
+    assert second_card["status"] == "pass"
+    assert second_card["cache_status"] == "fresh_exported_bundle_receipt_reused"
+    assert second_card["receipt_summary"]["receipt_paths_exported"] is False
+    assert len(second_stdout.encode("utf-8")) < 3600
+
+    forbidden_card_keys = {
+        "anti_claim",
+        "findings",
+        "private_state_scan",
+        "proof_body",
+        "public_replacement_refs",
+        "receipt_paths",
+        "source_files",
+        "source_refs",
+    }
+    assert forbidden_card_keys.isdisjoint(_walk_keys(second_card))
+
+    full_receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert "source_files" in full_receipt
+    assert full_receipt["command"].endswith("--card")

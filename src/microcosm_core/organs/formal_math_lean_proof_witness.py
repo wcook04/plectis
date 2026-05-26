@@ -32,6 +32,7 @@ ACCEPTANCE_RECEIPT_REL = (
     "formal_math_lean_proof_witness_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_lean_proof_witness_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "formal_math_lean_proof_witness_command_card_v1"
 
 MANIFEST_NAME = "witness_manifest.json"
 LAKE_PROJECT_DIR = "lake_project"
@@ -81,6 +82,25 @@ ANTI_CLAIM = (
     "authorize Mathlib-dependent proofs, provider calls, private proof import, "
     "benchmark performance claims, public release, theorem-program authority "
     "beyond the declared toy witnesses, or publication readiness."
+)
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "anti_claim",
+    "error_codes",
+    "expected_negative_cases",
+    "findings",
+    "forbidden_positive_imports",
+    "lake_build",
+    "lean_witness_board",
+    "missing_negative_cases",
+    "observed_negative_cases",
+    "private_state_scan",
+    "projection_receipt_refs",
+    "public_replacement_refs",
+    "receipt_paths",
+    "source_files",
+    "source_pattern_ids",
+    "source_refs",
+    "tool_versions",
 )
 
 
@@ -712,6 +732,126 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _list_count(value: object) -> int:
+    return len(value) if isinstance(value, list) else 0
+
+
+def _dict_value(payload: dict[str, Any], key: str) -> dict[str, Any]:
+    value = payload.get(key)
+    return value if isinstance(value, dict) else {}
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    authority = _dict_value(result, "authority_ceiling")
+    scan = _dict_value(result, "private_state_scan")
+    tool_versions = _dict_value(result, "tool_versions")
+    lake_build = _dict_value(result, "lake_build")
+    witness_board = _dict_value(result, "lean_witness_board")
+    receipt_paths = result.get("receipt_paths")
+    expected_cases = result.get("expected_negative_cases")
+    observed_cases = result.get("observed_negative_cases")
+    omitted = [
+        key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+    ]
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "witness_id": result.get("witness_id"),
+        "cache_status": result.get("cache_status", "fresh_run_executed"),
+        "full_output_available": True,
+        "full_output_drilldown": (
+            "rerun without --card or inspect the written receipt files"
+        ),
+        "execution_summary": {
+            "source_file_count": result.get("source_file_count", 0),
+            "compiled_declaration_count": result.get(
+                "compiled_declaration_count", 0
+            ),
+            "forbidden_positive_import_count": _list_count(
+                result.get("forbidden_positive_imports")
+            ),
+            "mathlib_authorized": witness_board.get("mathlib_authorized"),
+            "provider_calls_authorized": witness_board.get(
+                "provider_calls_authorized"
+            ),
+            "proof_body_policy": witness_board.get("proof_body_policy"),
+        },
+        "runtime_summary": {
+            "lean_available": tool_versions.get("lean_available"),
+            "lake_available": tool_versions.get("lake_available"),
+            "lake_return_code": lake_build.get("return_code"),
+            "lake_timed_out": lake_build.get("timed_out"),
+            "lake_stdout_line_count": lake_build.get("stdout_line_count"),
+            "lake_stderr_line_count": lake_build.get("stderr_line_count"),
+        },
+        "negative_case_coverage": {
+            "expected_negative_case_count": _list_count(expected_cases),
+            "observed_negative_case_count": (
+                len(observed_cases) if isinstance(observed_cases, dict) else 0
+            ),
+            "missing_negative_case_count": _list_count(
+                result.get("missing_negative_cases")
+            ),
+            "error_code_count": _list_count(result.get("error_codes")),
+            "finding_count": _list_count(result.get("findings")),
+        },
+        "private_scan_summary": {
+            "status": scan.get("status"),
+            "blocking_hit_count": scan.get("blocking_hit_count", 0),
+            "hit_count": scan.get("hit_count", 0),
+            "scanned_path_count": scan.get("scanned_path_count", 0),
+            "hits_exported": False,
+            "scan_scope_exported": False,
+            "body_redacted": True,
+        },
+        "authority_ceiling": {
+            "status": authority.get("status"),
+            "authority_ceiling": authority.get("authority_ceiling"),
+            "lean_lake_execution_authorized": authority.get(
+                "lean_lake_execution_authorized"
+            ),
+            "mathlib_presence_claim_authorized": authority.get(
+                "mathlib_presence_claim_authorized"
+            ),
+            "provider_calls_authorized": authority.get(
+                "provider_calls_authorized"
+            ),
+            "proof_bodies_allowed_in_receipts": authority.get(
+                "proof_bodies_allowed_in_receipts"
+            ),
+            "release_authorized": authority.get("release_authorized"),
+        },
+        "no_export_guards": {
+            "source_files_exported": False,
+            "source_refs_exported": False,
+            "source_pattern_ids_exported": False,
+            "projection_receipt_refs_exported": False,
+            "public_replacement_refs_exported": False,
+            "findings_exported": False,
+            "anti_claim_exported": False,
+            "private_scan_hits_exported": False,
+            "private_scan_scope_exported": False,
+            "stdout_stderr_bodies_exported": False,
+            "proof_bodies_exported": False,
+            "provider_payloads_exported": False,
+        },
+        "receipt_summary": {
+            "receipt_count": _list_count(receipt_paths),
+            "full_receipts_written": bool(receipt_paths),
+            "receipt_paths_exported": False,
+        },
+        "output_economy": {
+            "output_profile": "compact_card",
+            "omitted_full_payload_keys": omitted,
+            "body_in_receipt": False,
+            "body_redacted": True,
+        },
+    }
+
+
 def write_receipts(
     out_dir: str | Path,
     result: dict[str, Any],
@@ -876,12 +1016,37 @@ def main(argv: list[str] | None = None) -> int:
         action_parser = subparsers.add_parser(action)
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
+        action_parser.add_argument("--acceptance-out")
+        action_parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}"
+            if args.acceptance_out
+            else ""
+        )
+        card_suffix = " --card" if args.card else ""
+        command = (
+            "python -m microcosm_core.organs.formal_math_lean_proof_witness "
+            f"run --input {args.input} --out {args.out}"
+            f"{acceptance_suffix}{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     else:
-        result = run_witness_bundle(args.input, args.out)
-    print(json.dumps(result, indent=2, sort_keys=True))
+        card_suffix = " --card" if args.card else ""
+        command = (
+            "python -m microcosm_core.organs.formal_math_lean_proof_witness "
+            f"run-witness-bundle --input {args.input} --out {args.out}"
+            f"{card_suffix}"
+        )
+        result = run_witness_bundle(args.input, args.out, command=command)
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
