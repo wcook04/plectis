@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,18 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_cold_reader_route_map_bundle_validation_result.json"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+CARD_SCHEMA_VERSION = "cold_reader_route_map_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "source_module_results",
+    "secret_exclusion_scan",
+    "findings",
+    "source_module_refs",
+    "real_substrate_refs",
+    "public_runtime_refs",
+    "receipt_paths",
+    "anti_claim",
+    "authority_ceiling",
+)
 REAL_BODY_MATERIAL_STATUS = (
     "copied_non_secret_macro_cold_entry_route_substrate_with_provenance"
 )
@@ -670,6 +683,79 @@ def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[s
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
+def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    paths = _input_paths(input_dir, include_negative=include_negative)
+    bundle_manifest_path = input_dir / "bundle_manifest.json"
+    if bundle_manifest_path.is_file():
+        paths.append(bundle_manifest_path)
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if manifest_path.is_file():
+        manifest = read_json_strict(manifest_path)
+        paths.extend([manifest_path, *_source_module_paths(input_dir, manifest)])
+    forbidden_policy_path = (
+        _public_root_for_path(input_dir) / "core/private_state_forbidden_classes.json"
+    )
+    if forbidden_policy_path.is_file():
+        paths.append(forbidden_policy_path)
+    return paths
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    paths = _freshness_input_paths(input_dir, include_negative=include_negative)
+    existing = [path for path in paths if path.is_file()]
+    latest_mtime = max((path.stat().st_mtime for path in existing), default=0.0)
+    return {
+        "mode": "input_file_mtime_guard",
+        "checked_path_count": len(paths),
+        "existing_path_count": len(existing),
+        "missing_path_count": len(paths) - len(existing),
+        "latest_input_mtime": latest_mtime,
+    }
+
+
+def _fresh_exported_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    public_root = _public_root_for_path(out_dir)
+    receipt_path = out_dir / BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        receipt = read_json_strict(receipt_path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(receipt, dict):
+        return None
+    if receipt.get("schema_version") != (
+        "exported_cold_reader_route_map_bundle_validation_result_v1"
+    ):
+        return None
+    if receipt.get("organ_id") != ORGAN_ID:
+        return None
+    if receipt.get("status") != PASS:
+        return None
+    if receipt.get("input_mode") != "exported_cold_reader_route_map_bundle":
+        return None
+    if receipt.get("command") != command:
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    if basis["missing_path_count"]:
+        return None
+    if receipt_path.stat().st_mtime < basis["latest_input_mtime"]:
+        return None
+    cached = dict(receipt)
+    cached["cache_status"] = "fresh_exported_bundle_receipt_reused"
+    cached["freshness_basis"] = {
+        **basis,
+        "receipt_ref": _display(receipt_path, public_root=public_root),
+    }
+    cached["receipt_paths"] = [_display(receipt_path, public_root=public_root)]
+    return cached
+
+
 def _common_receipt(
     result: dict[str, Any],
     *,
@@ -685,6 +771,7 @@ def _common_receipt(
         "validator_id": VALIDATOR_ID,
         "command": result["command"],
         "input_mode": result["input_mode"],
+        "bundle_id": result.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
         "public_runtime_refs": result["public_runtime_refs"],
@@ -708,10 +795,13 @@ def _common_receipt(
         "first_run_sequence": result["first_run_sequence"],
         "front_door_route_ids": result["front_door_route_ids"],
         "front_door_command_count": result["front_door_command_count"],
+        "covered_route_ids": result.get("covered_route_ids", []),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "receipt_paths": receipt_paths,
+        "cache_status": result.get("cache_status", "not_applicable"),
+        "freshness_basis": result.get("freshness_basis", {}),
         "body_in_receipt": False,
         "real_runtime_receipt": result["real_runtime_receipt"],
         "synthetic_receipt_standin_allowed": False,
@@ -956,6 +1046,8 @@ def run(
         input_mode="first_wave_fixture",
         include_negative=True,
     )
+    result["cache_status"] = "not_applicable_fixture_run"
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
     return _write_receipts(
         result,
         target,
@@ -967,15 +1059,24 @@ def run_route_map_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str = "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle",
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     target = Path(out_dir)
     public_root = _public_root_for_path(target)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_exported_bundle_receipt(source, target, command=command)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_cold_reader_route_map_bundle",
         include_negative=False,
     )
+    result["cache_status"] = "rebuilt"
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
     path = target / BUNDLE_RESULT_NAME
     path.parent.mkdir(parents=True, exist_ok=True)
     receipt_path = _display(path, public_root=public_root)
@@ -989,6 +1090,73 @@ def run_route_map_bundle(
     return result
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result["status"],
+        "organ_id": ORGAN_ID,
+        "input_mode": result["input_mode"],
+        "bundle_id": result.get("bundle_id"),
+        "command": result["command"],
+        "route_map": {
+            "route_count": result["route_count"],
+            "command_count": result["command_count"],
+            "receipt_ref_count": result["receipt_ref_count"],
+            "covered_route_count": len(result.get("covered_route_ids", [])),
+            "first_run_sequence_head": result["first_run_sequence"][:3],
+            "front_door_route_ids": result["front_door_route_ids"],
+            "front_door_command_count": result["front_door_command_count"],
+        },
+        "source_import_floor": {
+            "status": result["source_module_manifest_status"],
+            "source_module_count": result["source_module_count"],
+            "copied_source_module_count": result["copied_source_module_count"],
+            "body_material_status": result["body_material_status"],
+            "verification_status": result["body_import_verification"][
+                "verification_status"
+            ],
+            "body_in_receipt": result["body_import_verification"]["body_in_receipt"],
+        },
+        "negative_case_summary": {
+            "expected_negative_case_count": len(result["expected_negative_cases"]),
+            "observed_negative_case_count": len(result["observed_negative_cases"]),
+            "missing_negative_case_count": len(result["missing_negative_cases"]),
+            "error_code_count": len(result["error_codes"]),
+        },
+        "secret_exclusion_summary": {
+            "status": result["secret_exclusion_scan"].get("status"),
+            "blocking_hit_count": result["secret_exclusion_scan"].get(
+                "blocking_hit_count"
+            ),
+            "body_in_receipt": result["secret_exclusion_scan"].get("body_in_receipt"),
+        },
+        "authority_ceiling": {
+            "route_registry_authority": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "whole_system_correctness_claim": False,
+        },
+        "runtime_receipt": {
+            "real_runtime_receipt": result["real_runtime_receipt"],
+            "synthetic_receipt_standin_allowed": result[
+                "synthetic_receipt_standin_allowed"
+            ],
+        },
+        "cache_status": result.get("cache_status", "not_applicable"),
+        "freshness_basis": result.get("freshness_basis", {}),
+        "receipt_paths": result.get("receipt_paths", []),
+        "output_economy": {
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt files",
+            "omitted_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "source_bodies_exported": False,
+            "provider_payloads_exported": False,
+            "private_state_exported": False,
+            "raw_stdout_stderr_bodies_exported": False,
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate public cold-reader route map")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -996,18 +1164,21 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-route-map-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.command == "run":
         command = (
             "python -m microcosm_core.organs.cold_reader_route_map run "
-            f"--input {args.input} --out {args.out}"
+            f"--input {args.input} --out {args.out}{card_suffix}"
         )
         result = run(
             args.input,
@@ -1018,9 +1189,16 @@ def main(argv: list[str] | None = None) -> int:
     else:
         command = (
             "python -m microcosm_core.organs.cold_reader_route_map "
-            f"run-route-map-bundle --input {args.input} --out {args.out}"
+            f"run-route-map-bundle --input {args.input} --out {args.out}{card_suffix}"
         )
-        result = run_route_map_bundle(args.input, args.out, command=command)
+        result = run_route_map_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

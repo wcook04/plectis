@@ -6,8 +6,12 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.cold_reader_route_map as cold_reader_route_map
 from microcosm_core.organs.cold_reader_route_map import (
+    BUNDLE_RESULT_NAME,
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_route_map_bundle,
 )
@@ -246,3 +250,51 @@ def test_cold_reader_exported_bundle_receipt_omits_source_bodies(tmp_path: Path)
         assert "body_redacted" not in _walk_keys(payload)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)
+
+
+def test_cold_reader_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out_dir = tmp_path / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map"
+    args = [
+        "run-route-map-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out_dir),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    receipt_path = out_dir / BUNDLE_RESULT_NAME
+    assert receipt_path.is_file()
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["cache_status"] == "rebuilt"
+    assert first_card["route_map"]["route_count"] == 10
+    assert first_card["route_map"]["first_run_sequence_head"] == [
+        "tour_project",
+        "status_card",
+        "proof_lab",
+    ]
+    assert first_card["source_import_floor"]["source_module_count"] == len(
+        COLD_READER_SOURCE_MODULE_IDS
+    )
+    assert first_card["output_economy"]["source_bodies_exported"] is False
+    assert "source_module_results" in first_card["output_economy"]["omitted_payload_keys"]
+
+    def fail_build(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the written receipt")
+
+    monkeypatch.setattr(cold_reader_route_map, "_build_result", fail_build)
+
+    assert main(args) == 0
+    cached_stdout = capsys.readouterr().out
+    cached_card = json.loads(cached_stdout)
+    assert cached_card["cache_status"] == "fresh_exported_bundle_receipt_reused"
+    assert cached_card["freshness_basis"]["missing_path_count"] == 0
+    assert cached_card["route_map"]["front_door_command_count"] == 3
+    assert len(cached_stdout.encode("utf-8")) < receipt_path.stat().st_size
