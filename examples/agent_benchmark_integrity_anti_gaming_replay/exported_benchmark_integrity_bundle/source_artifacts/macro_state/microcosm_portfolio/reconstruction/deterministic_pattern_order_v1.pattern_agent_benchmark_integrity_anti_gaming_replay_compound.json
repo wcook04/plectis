@@ -1,0 +1,40 @@
+{
+  "acceptance_condition": "Accepted synthetic agent benchmark integrity anti-gaming fixture proves locked evaluators, held-out guards, canary files, patch/file-access logs, exploit labels, trusted-reference scoring, contamination checks, dynamic seeds, integrity verdicts, and cold replay while rejecting evaluator edits, train/test leakage, output spoofing, hidden-gold access, verifier bypass, pass-k cherry-picking, and score-only promotion.",
+  "dependencies": [
+    "pattern:verifiable_reward_agent_curriculum_replay_compound",
+    "pattern:belief_state_process_reward_replay_compound",
+    "pattern:repository_issue_patch_oracle_diff_replay_compound",
+    "pattern:ml_experiment_lineage_resource_scaling_replay_compound",
+    "pattern:agent_sandbox_policy_escape_replay_compound",
+    "pattern:truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "disposition": "delayed",
+  "item_id": "pattern:agent_benchmark_integrity_anti_gaming_replay_compound",
+  "item_type": "pattern",
+  "order": 353,
+  "primary_organ_id": "external_boundary_anti_corruption_runtime",
+  "projection_mode": "synthetic_fixture_only",
+  "public_projection_posture": "synthetic_agent_benchmark_integrity_anti_gaming_replay; not_public_build_driver; no_benchmark_score_hidden_gold_or_evaluator_tampering_authority",
+  "route_class": "synthetic_only_private_organ",
+  "source_evidence": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json::organ_ir[external_boundary_anti_corruption_runtime]",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_extracted_pattern_route_readiness.json"
+  ],
+  "title": "Agent benchmark integrity anti-gaming replay compound",
+  "why_after": [
+    "Reward-hacking and contamination-resistant benchmark work makes evaluator tampering, train/test leakage, verifier bypass, and static benchmark saturation first-class agent-evaluation risks.",
+    "Existing reward, patch, ML lineage, and sandbox rows need a benchmark-integrity membrane before any agent score or demo can be trusted."
+  ],
+  "why_before": [
+    "feeds verifiable reward, repo repair, ML experiment lineage, research replication, sandbox, and public reveal fixtures with integrity labels and anti-gaming receipts",
+    "feeds proof/evidence and external boundary membranes with contamination, trusted-reference, and evaluator-locking checks before score claims are allowed"
+  ]
+}

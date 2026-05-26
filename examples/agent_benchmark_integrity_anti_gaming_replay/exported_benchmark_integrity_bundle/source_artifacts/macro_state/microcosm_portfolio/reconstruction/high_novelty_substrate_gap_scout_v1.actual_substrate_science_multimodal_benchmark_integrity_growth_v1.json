@@ -1,0 +1,121 @@
+{
+  "anti_claim": "This growth does not authorize research replication benchmark scores, live paper replication claims, autonomous scientific discovery claims, private dataset export, raw screenshot authority, live GUI/browser/mobile account automation, benchmark performance claims, hidden-gold-label access, evaluator tampering, public-root implementation, release, or publication.",
+  "assigned_lane": "public_microcosm_pattern_ledger_growth",
+  "authority_boundary": "macro-side ledger/projection refinement only; no raw private source body, live GUI account, live benchmark environment, private dataset, provider payload, raw screenshot body, or public-root implementation file was used as authority",
+  "external_attention_inputs": [
+    {
+      "signal": "Research-agent evaluation is moving toward end-to-end paper replication with hierarchical rubrics, artifact execution, and judge validation.",
+      "source": "OpenAI PaperBench",
+      "url": "https://openai.com/index/paperbench/"
+    },
+    {
+      "signal": "Scientific reproducibility benchmarks measure whether agents can rerun published studies from code/data with task levels and parallel evaluation.",
+      "source": "CORE-Bench arXiv:2409.11363",
+      "url": "https://arxiv.org/abs/2409.11363"
+    },
+    {
+      "signal": "Data-driven scientific discovery agents need individual workflow-task evaluation, executable programs, costs, and contamination mitigation before end-to-end claims.",
+      "source": "ScienceAgentBench arXiv:2410.05080",
+      "url": "https://arxiv.org/abs/2410.05080"
+    },
+    {
+      "signal": "Scientific visualization agents need multi-step analysis benchmarks with deterministic, code, rule, image, case-specific, human, and LLM evaluator agreement.",
+      "source": "SciVisAgentBench arXiv:2603.29139",
+      "url": "https://arxiv.org/abs/2603.29139"
+    },
+    {
+      "signal": "Real computer-use agents need setup, execution-based evaluation, cross-app workflows, and GUI grounding evidence across operating systems.",
+      "source": "OSWorld arXiv:2404.07972",
+      "url": "https://arxiv.org/abs/2404.07972"
+    },
+    {
+      "signal": "Mobile agents need dynamic task parameterization, initialization/success/teardown logic, and robustness to task variations.",
+      "source": "AndroidWorld arXiv:2405.14573",
+      "url": "https://arxiv.org/abs/2405.14573"
+    },
+    {
+      "signal": "Multimodal web agents need visually grounded tasks where image-text interpretation and website action traces are evaluated together.",
+      "source": "VisualWebArena arXiv:2401.13649",
+      "url": "https://arxiv.org/abs/2401.13649"
+    },
+    {
+      "signal": "Tool-using LLM agents need exploit opportunities, shortcut detection, and environmental hardening measured directly.",
+      "source": "Reward Hacking Benchmark arXiv:2605.02964",
+      "url": "https://arxiv.org/abs/2605.02964"
+    },
+    {
+      "signal": "Evaluation integrity for ML-engineering agents must measure evaluator tampering, train/test leakage, file-access logs, and trusted-reference grading.",
+      "source": "RewardHackingAgents arXiv:2603.11337",
+      "url": "https://arxiv.org/abs/2603.11337"
+    },
+    {
+      "signal": "Terminal-agent environments can be task-specifically reward-hackable, so benchmark fixtures need exploit taxonomy and monitorability receipts.",
+      "source": "Terminal Wrench arXiv:2604.17596",
+      "url": "https://arxiv.org/abs/2604.17596"
+    },
+    {
+      "signal": "Static benchmarks face saturation and contamination; dynamic/adaptive benchmark structures and uncertainty estimates are becoming more salient.",
+      "source": "Agent Island arXiv:2605.04312",
+      "url": "https://arxiv.org/abs/2605.04312"
+    }
+  ],
+  "forbidden_surfaces_mined": false,
+  "ledger_row_count_observed": 373,
+  "new_ledger_rows_added": true,
+  "new_pattern_ids": [
+    "research_replication_rubric_artifact_replay_compound",
+    "scientific_data_figure_claim_lineage_replay_compound",
+    "multimodal_gui_affordance_state_grounding_replay_compound",
+    "agent_benchmark_integrity_anti_gaming_replay_compound"
+  ],
+  "pass_id": "actual_substrate_science_multimodal_benchmark_integrity_growth_20260521a",
+  "projection_contract": "Project these only as synthetic replay receipts: research_replication_rubric_artifact_replay, scientific_data_figure_claim_lineage_replay, multimodal_gui_affordance_state_grounding_replay, and agent_benchmark_integrity_anti_gaming_replay folded under proof_diagnostic_evidence_spine, mission_transaction_work_spine, agent_route_observability_runtime, and external_boundary_anti_corruption_runtime.",
+  "public_roots_mutated": false,
+  "rows": [
+    {
+      "pattern_id": "research_replication_rubric_artifact_replay_compound",
+      "row_addition_decision": "appended",
+      "target_existing_organs": [
+        "proof_diagnostic_evidence_spine",
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ]
+    },
+    {
+      "pattern_id": "scientific_data_figure_claim_lineage_replay_compound",
+      "row_addition_decision": "appended",
+      "target_existing_organs": [
+        "proof_diagnostic_evidence_spine",
+        "agent_route_observability_runtime",
+        "mission_transaction_work_spine"
+      ]
+    },
+    {
+      "pattern_id": "multimodal_gui_affordance_state_grounding_replay_compound",
+      "row_addition_decision": "appended",
+      "target_existing_organs": [
+        "agent_route_observability_runtime",
+        "external_boundary_anti_corruption_runtime",
+        "mission_transaction_work_spine"
+      ]
+    },
+    {
+      "pattern_id": "agent_benchmark_integrity_anti_gaming_replay_compound",
+      "row_addition_decision": "appended",
+      "target_existing_organs": [
+        "external_boundary_anti_corruption_runtime",
+        "proof_diagnostic_evidence_spine",
+        "agent_route_observability_runtime"
+      ]
+    }
+  ],
+  "schema_version": "actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+  "status": "four_science_multimodal_benchmark_integrity_rows_appended",
+  "synthetic_fixture_only": true,
+  "target_existing_organs": [
+    "agent_route_observability_runtime",
+    "external_boundary_anti_corruption_runtime",
+    "mission_transaction_work_spine",
+    "proof_diagnostic_evidence_spine"
+  ]
+}

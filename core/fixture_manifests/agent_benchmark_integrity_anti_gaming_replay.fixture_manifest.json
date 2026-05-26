@@ -1,6 +1,8 @@
 {
-  "anti_claim": "This fixture validates public synthetic benchmark integrity boundaries only; it does not claim a benchmark score, expose private issue/oracle bodies, run providers, mutate live repos, or authorize release.",
-  "authority_ceiling": "synthetic benchmark-integrity replay receipts only; no private bodies, hidden gold, provider calls, benchmark scores, live repo mutation, or release",
+  "anti_claim": "This fixture validates public synthetic benchmark integrity boundaries and copied macro pattern provenance bodies only; it does not claim a benchmark score, expose private issue/oracle bodies, run providers, mutate live repos, or authorize release.",
+  "authority_ceiling": "source-open pattern provenance bodies plus synthetic benchmark-integrity replay receipts only; no private bodies, hidden gold, provider calls, benchmark scores, live repo mutation, or release",
+  "body_copied_material_count": 3,
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "expected_negative_cases": [
     "evaluator_edit_attempt",
     "final_answer_only_grading",
@@ -85,6 +87,43 @@
   ],
   "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
   "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+    "authority_ceiling": {
+      "benchmark_score_authorized": false,
+      "hidden_gold_export_authorized": false,
+      "oracle_patch_body_export_authorized": false,
+      "private_issue_body_export_authorized": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "benchmark_integrity_extracted_pattern_ledger_row_body_import",
+      "benchmark_integrity_high_novelty_growth_receipt_body_import",
+      "benchmark_integrity_deterministic_pattern_order_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "fixture_manifest_ref": "core/fixture_manifests/agent_benchmark_integrity_anti_gaming_replay.fixture_manifest.json",
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and validation status only.",
+    "schema_version": "microcosm_source_open_body_imports_v1",
+    "source_manifest_refs": [
+      "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+      "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+      "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json"
+    ],
+    "status": "pass"
+  },
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_353::agent_benchmark_integrity_anti_gaming_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound",
+    "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json"
+  ],
   "stable_error_codes": [
     "BENCHMARK_INTEGRITY_EVALUATOR_EDIT_FORBIDDEN",
     "BENCHMARK_INTEGRITY_FINAL_ANSWER_ONLY_GRADING",

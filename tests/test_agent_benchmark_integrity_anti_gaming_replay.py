@@ -64,6 +64,13 @@ def test_agent_benchmark_integrity_replay_observes_negative_cases(
     assert result["quarantine_count"] == 1
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
+    assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
+    assert result["source_modules_pass"] is True
+    assert result["source_module_import_count"] == 3
+    assert result["source_open_body_imports"]["body_material_count"] == 3
+    assert result["source_open_body_imports"]["material_classes"] == [
+        "public_macro_pattern_body"
+    ]
     assert len(result["public_regression_fixture_refs"]) >= 3
     assert "public_replacement_refs" not in result
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -76,6 +83,10 @@ def test_agent_benchmark_integrity_receipts_are_public_relative_and_body_free(
 ) -> None:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_benchmark_integrity_anti_gaming_replay",
+        public_root / "examples/agent_benchmark_integrity_anti_gaming_replay",
+    )
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay",
         public_root / "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay",
@@ -99,6 +110,36 @@ def test_agent_benchmark_integrity_receipts_are_public_relative_and_body_free(
         assert "provider_payload" not in _walk_keys(json.loads(text))
         assert "private_issue_body" not in _walk_keys(json.loads(text))
         assert "body_redacted" not in _walk_keys(json.loads(text))
+
+
+def test_agent_benchmark_integrity_source_modules_are_digest_verified(
+    tmp_path: Path,
+) -> None:
+    result = run(
+        FIXTURE_INPUT,
+        tmp_path / "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay",
+        command="pytest",
+        acceptance_out=tmp_path
+        / "receipts/acceptance/first_wave/"
+        "agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json",
+    )
+
+    assert result["status"] == "pass"
+    assert result["source_module_manifest_ref"] == (
+        "examples/agent_benchmark_integrity_anti_gaming_replay/"
+        "exported_benchmark_integrity_bundle/source_module_manifest.json"
+    )
+    assert result["source_module_import_count"] == 3
+    assert result["copied_source_artifact_count"] == 3
+    for row in result["source_module_imports"]:
+        assert row["sha256"] == row["actual_sha256"]
+        assert row["body_in_receipt"] is False
+        assert row["material_class"] == "public_macro_pattern_body"
+        assert row["source_to_target_relation"] == "source_faithful_json_slice"
+        assert row["target_ref"].startswith(
+            "examples/agent_benchmark_integrity_anti_gaming_replay/"
+            "exported_benchmark_integrity_bundle/source_artifacts/"
+        )
 
 
 def test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape(
@@ -126,3 +167,6 @@ def test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape(
     ]
     assert result["replay_count"] == 3
     assert result["authority_ceiling"]["benchmark_score_claim_authorized"] is False
+    assert result["source_modules_pass"] is True
+    assert result["source_module_import_count"] == 3
+    assert result["source_open_body_imports"]["body_material_count"] == 3

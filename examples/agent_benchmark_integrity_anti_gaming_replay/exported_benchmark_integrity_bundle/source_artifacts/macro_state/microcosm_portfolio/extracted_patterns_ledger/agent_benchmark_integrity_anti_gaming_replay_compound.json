@@ -1,0 +1,72 @@
+{
+  "axioms_principles_likely_instantiated": [
+    "benchmark_success_requires_integrity_receipts",
+    "locked_evaluator_and_trusted_reference_precede_score_claims",
+    "contamination_and_reward_hacking_are_fixture_dimensions",
+    "file_access_and_patch_logs_are_part_of_agent_evaluation",
+    "dynamic_seed_and_uncertainty_reduce_static_benchmark_theater"
+  ],
+  "candidate_fixture": "Synthetic benchmark-integrity fixture with mutable and locked evaluator variants, held-out labels, canary files, task-adjacent metadata traps, verifier-bypass affordances, patch/file-access logs, trusted-reference scorer, public/private split manifest, dynamic seed record, exploit taxonomy, and cold replay. Negative cases reject evaluator edits, train/test leakage, output spoofing, hidden-gold access, task-specific verifier bypass, contaminated public examples, pass-k cherry-picking, and success without integrity labels.",
+  "candidate_leaf_name": "agent_benchmark_integrity_anti_gaming_replay",
+  "candidate_paper_module_slug": "agent_benchmark_integrity_anti_gaming_replay",
+  "current_microcosm_status": "absent",
+  "depends_on_patterns": [
+    "verifiable_reward_agent_curriculum_replay_compound",
+    "belief_state_process_reward_replay_compound",
+    "repository_issue_patch_oracle_diff_replay_compound",
+    "ml_experiment_lineage_resource_scaling_replay_compound",
+    "agent_sandbox_policy_escape_replay_compound",
+    "truth_maintenance_typed_authority_classes"
+  ],
+  "direct_leaf_allowed": false,
+  "evidence_kind": [
+    "ledger",
+    "code",
+    "standard",
+    "test",
+    "receipt",
+    "external_research_signal"
+  ],
+  "external_attention_refs": [
+    "https://arxiv.org/abs/2605.02964",
+    "https://arxiv.org/abs/2603.11337",
+    "https://arxiv.org/abs/2604.17596",
+    "https://arxiv.org/abs/2605.04312"
+  ],
+  "extracted_at": "2026-05-21T16:18:00Z",
+  "extracted_by": "codex_gpt5_science_multimodal_integrity_growth_pass",
+  "failure_mode_prevented": "A public agent benchmark claim reports a high score while the agent modified the evaluator, leaked held-out labels, exploited task-specific verifier weaknesses, reused contaminated examples, or cherry-picked pass-k runs without integrity labels.",
+  "feeds_patterns": [
+    "verifiable_reward_agent_curriculum_replay_compound",
+    "repository_issue_patch_oracle_diff_replay_compound",
+    "ml_experiment_lineage_resource_scaling_replay_compound",
+    "research_replication_rubric_artifact_replay_compound",
+    "public_reveal_walkthrough_command_evidence_gate"
+  ],
+  "macro_subdomain": "subdomain_agent_benchmark_integrity_and_reward_hacking_evaluation",
+  "microcosm_projection_decision": "folded_compound_candidate_with_synthetic_agent_benchmark_integrity_anti_gaming_replay_fixture",
+  "notes": "Added after external attention review of 2026 reward-hacking and contamination-resistant agent benchmark work. This row generalizes the operator note that row-by-row AI-mined trust gates can become theater: the benchmark itself needs locked-evaluator, trusted-reference, contamination, file-access, and exploit-label receipts.",
+  "novelty_band": "high",
+  "one_line": "A public-safe benchmark-integrity fixture replays locked evaluators, held-out data guards, file-access logs, exploit opportunity labels, trusted-reference grading, contamination checks, and anti-gaming cold reruns.",
+  "organ_family": "test_intelligence",
+  "pattern_id": "agent_benchmark_integrity_anti_gaming_replay_compound",
+  "private_state_risk": "low",
+  "source_refs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+    "microcosm-substrate/src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
+    "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json::organ_ir[external_boundary_anti_corruption_runtime]",
+    "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_extracted_pattern_route_readiness.json"
+  ],
+  "target_existing_organs": [
+    "external_boundary_anti_corruption_runtime",
+    "proof_diagnostic_evidence_spine",
+    "agent_route_observability_runtime"
+  ],
+  "title": "Agent benchmark integrity anti-gaming replay compound",
+  "why_load_bearing": "The most impressive agent demos are increasingly benchmark-shaped, and the trust inversion is obvious: agents can game tests, tamper with evaluators, leak held-out data, or exploit task-specific verifier holes. This row makes benchmark integrity itself a first-class replay surface before any performance claim is allowed."
+}

@@ -1,16 +1,16 @@
 {
-  "anti_claim": "This standard governs body-free synthetic benchmark-integrity regression receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
+  "anti_claim": "This standard governs copied source-open macro pattern provenance bodies plus body-free synthetic benchmark-integrity regression receipts only; it does not claim a benchmark score, expose private issue or oracle patch bodies, call providers, mutate live repositories, or authorize release/publication work.",
   "anti_claim_contract": {
     "required": true,
     "rule": "benchmark integrity material must state that synthetic replay is not a benchmark score"
   },
-  "authority_boundary": "body_free_regression_benchmark_integrity_replay_not_benchmark_score_authority",
+  "authority_boundary": "source_open_pattern_provenance_body_import_plus_body_free_regression_benchmark_integrity_replay_not_benchmark_score_authority",
   "authority_ceiling": {
     "benchmark_score_authority": false,
     "live_repo_mutation_authority": false,
     "provider_authority": false,
     "release_authority": false,
-    "standard_authority": "body_free_regression_benchmark_integrity_replay_schema_only",
+    "standard_authority": "copied_non_secret_macro_pattern_provenance_body_manifest_plus_body_free_regression_benchmark_integrity_replay_schema",
     "status": "pass"
   },
   "first_wave_required": true,
@@ -67,6 +67,9 @@
       "anti_claim",
       "private_state_scan",
       "body_in_receipt",
+      "source_module_manifest_ref",
+      "source_module_import_status",
+      "source_open_body_imports",
       "negative_case_coverage"
     ],
     "receipt_id": "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
@@ -74,7 +77,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.agent_benchmark_integrity_anti_gaming_replay",
-    "receipt must cite source refs, source pattern ids, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, body_in_receipt=false, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, source module import status, source_open_body_imports, locked evaluator ids, known benchmark case ids, benchmark case count, replay count, quarantine count, negative-case coverage, private-state scan, body_in_receipt=false, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay/agent_benchmark_integrity_anti_gaming_replay_validation_receipt.json"
@@ -105,7 +108,28 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public regression fixture refs stay public-root relative"
+    "rule": "macro source refs stay public-root relative in receipts, copied pattern provenance bodies live under source_artifacts with source_module_manifest digest verification, and benchmark bodies remain omitted"
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "benchmark_integrity_deterministic_pattern_order_body_import",
+      "benchmark_integrity_extracted_pattern_ledger_row_body_import",
+      "benchmark_integrity_high_novelty_growth_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and status only.",
+    "source_manifest_refs": [
+      "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+      "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/bundle_manifest.json",
+      "fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input/projection_protocol.json"
+    ],
+    "status": "pass"
   },
   "source_refs": [
     {
@@ -117,6 +141,11 @@
       "field": "runtime_example",
       "path": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_pattern_provenance_body_manifest"
     }
   ],
   "standard_id": "std_microcosm_agent_benchmark_integrity_anti_gaming_replay",
@@ -144,7 +173,7 @@
       "private_issue_body_leakage",
       "unregistered_case_replay"
     ],
-    "ontology": "A body-free regression-negative benchmark integrity replay: locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, negative cases, fixture refs, and authority ceilings.",
+    "ontology": "A copied-source-provenance plus body-free regression-negative benchmark integrity replay: public-safe macro pattern provenance bodies, locked evaluators, case hashes, file-access refs, contamination refs, trusted-reference scoring refs, replay refs, verdicts, quarantines, negative cases, fixture refs, and authority ceilings.",
     "rebuild_action": "draft",
     "teleology": "Make Microcosm show how agent benchmark claims are gated by anti-gaming regression receipts before any public score language, without counting the fixture as product-progress substrate."
   },
@@ -152,6 +181,7 @@
   "validation_rules": [
     "require locked evaluator id and config hash before score interpretation",
     "require each replay row to bind to a case id declared in benchmark_cases.json",
+    "require source_module_manifest digest verification for copied macro pattern provenance bodies",
     "require file-access log, contamination check, trusted reference score, and output replay refs",
     "reject private issue bodies, oracle patch bodies, hidden-gold access, provider payloads, and score overclaims",
     "reject final-answer-only grading, pass-k cherry-picking, train/test leakage, and misleading-test admission",
@@ -164,6 +194,7 @@
       "locked_case_roster_binding",
       "contamination_quarantine",
       "body_leak_rejection",
+      "source_module_manifest_digest_verification",
       "score_overclaim_rejection",
       "negative_case_coverage"
     ],

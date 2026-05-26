@@ -1,0 +1,83 @@
+{
+  "anti_claim": "These copied pattern provenance bodies make the public benchmark-integrity organ accountable to real macro ledger rows and reconstruction state. They do not authorize benchmark scores, expose private issue/oracle/hidden-gold/provider bodies, run providers, mutate repositories, or authorize release.",
+  "body_in_receipt": false,
+  "body_storage_policy": "source_faithful_non_secret_macro_pattern_provenance_bodies_copied_into_public_benchmark_integrity_bundle",
+  "manifest_id": "agent_benchmark_integrity_pattern_provenance_source_module_manifest",
+  "module_count": 3,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 72,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_extracted_pattern_ledger_row_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:f23773f9bc0d6304c10ed9a5c332f077f50e8c03684db7156b48b6c00707eb43",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_353::agent_benchmark_integrity_anti_gaming_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 121,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_high_novelty_growth_receipt_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 40,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "benchmark_integrity_deterministic_pattern_order_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:178c8b1feff6a5a6301ee9d3e65942a1af5061e45bfcd6298ac7545f153fae64",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:agent_benchmark_integrity_anti_gaming_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_agent_benchmark_integrity_anti_gaming_replay_compound.json",
+      "validation_refs": [
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_source_modules_are_digest_verified",
+        "tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private issue bodies, oracle patch bodies, hidden-gold answers, or benchmark score payloads"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "source_run_id": "actual_substrate_science_multimodal_benchmark_integrity_growth_20260521a",
+  "source_run_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1"
+}
