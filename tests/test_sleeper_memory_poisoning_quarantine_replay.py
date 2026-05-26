@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import sleeper_memory_poisoning_quarantine_replay
 from microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_quarantine_bundle,
 )
@@ -141,3 +144,65 @@ def test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape(
     assert result["blocked_before_action_count"] == 1
     assert result["rerun_pass_count"] == 1
     assert result["authority_ceiling"]["live_memory_product_claim_authorized"] is False
+
+
+def test_sleeper_memory_poisoning_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "sleeper_memory_poisoning_quarantine_replay"
+    )
+    args = [
+        "run-quarantine-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 8
+    assert first_card["sleeper_memory"]["session_count"] == 4
+    assert first_card["sleeper_memory"]["proposal_count"] == 2
+    assert first_card["sleeper_memory"]["quarantined_write_count"] == 1
+    assert first_card["sleeper_memory"]["admitted_control_count"] == 1
+    assert first_card["sleeper_memory"]["retrieval_replay_count"] == 1
+    assert first_card["sleeper_memory"]["blocked_before_action_count"] == 1
+    assert first_card["sleeper_memory"]["rollback_count"] == 1
+    assert first_card["sleeper_memory"]["rerun_pass_count"] == 1
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert "session_rows" not in _walk_keys(first_card)
+    assert "write_rows" not in _walk_keys(first_card)
+    assert "retrieval_rows" not in _walk_keys(first_card)
+    assert "rollback_rows" not in _walk_keys(first_card)
+    assert "private_state_scan" not in _walk_keys(first_card)
+    assert "findings" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        sleeper_memory_poisoning_quarantine_replay,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
