@@ -26,15 +26,16 @@
       "source_role": "Coverage-first navigation context packet builder for Kind Atlas rows, contract audit rows, semantic grammar, typed context atoms, omission receipts, and evidence commands.",
       "source_sha256": "19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_context_rosetta.py",
-      "target_sha256": "19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37"
+      "target_sha256": "19ffb1278941ae546949c210561118acf459ba13d1d84e9ecfbe5734edce5f37",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 20316,
+      "byte_count": 20152,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 432,
+      "line_count": 435,
       "module_id": "kind_band_contract_audit_body_import",
       "required_anchors": [
         "def build_kind_band_contract_audit(",
@@ -47,9 +48,10 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kind_band_contract_audit.py",
       "source_role": "Kind-band navigation-contract audit surface for declared/profile/drafted/missing contracts, population mode counts, axis-split posture, and source-authority references.",
-      "source_sha256": "2943bc6ed20ec8544e54c7dbc03d5c5d5bddeb25a2e4a176de911dbe228e37f4",
+      "source_sha256": "dd291f36bfc04dc62aa02483f19fc919e379abdbb49c7f98c21b933fdf90cb29",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_band_contract_audit.py",
-      "target_sha256": "2943bc6ed20ec8544e54c7dbc03d5c5d5bddeb25a2e4a176de911dbe228e37f4"
+      "target_sha256": "dd291f36bfc04dc62aa02483f19fc919e379abdbb49c7f98c21b933fdf90cb29",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -72,7 +74,8 @@
       "source_role": "Focused macro regression tests proving Rosetta packet coverage, grammar shape, kernel command output, standard obligations, and contract-edge currentness fields.",
       "source_sha256": "5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_context_rosetta.py",
-      "target_sha256": "5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a"
+      "target_sha256": "5bbf7f61552703c9f211d863574a4fc2790979c122f619eac27c6713e319da6a",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -95,7 +98,8 @@
       "source_role": "Machine standard for context atoms, noun/verb grammar, selector policies, impact axes, evidence commands, and proof obligations for navigation packets.",
       "source_sha256": "51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_rosetta_grammar.json",
-      "target_sha256": "51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9"
+      "target_sha256": "51083ffbe00bf5ba396d778edbc4539003f58302c2dc3283cb7338744b9f0dd9",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -118,7 +122,8 @@
       "source_role": "Doctrine paper module explaining coverage-first Rosetta navigation math, relation-verb semantics, layer-depth adequacy, and code loci for the packet builder and standards.",
       "source_sha256": "8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md",
-      "target_sha256": "8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d"
+      "target_sha256": "8c2d2ee3c0c9a4c0beaecc9cdbfe0b9544e10a3cf5d108c1959befa7cb1b1a8d",
+      "material_class": "public_macro_tool_body"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation into /tmp, and import-time packet probes; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",

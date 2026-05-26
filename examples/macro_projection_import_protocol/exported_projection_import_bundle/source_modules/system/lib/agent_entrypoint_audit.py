@@ -414,7 +414,14 @@ def _extract_marked_region(content: str, begin: str, end: str) -> str | None:
 
 
 def _normalize_generated_region(text: str) -> str:
-    return "\n".join(line.rstrip() for line in str(text or "").strip().splitlines())
+    normalized = "\n".join(line.rstrip() for line in str(text or "").strip().splitlines())
+    try:
+        from tools.meta.factory.check_agent_bootstrap_projection import (
+            _normalize_volatile_markdown,
+        )
+    except Exception:
+        return normalized
+    return _normalize_volatile_markdown(normalized)
 
 
 def _expected_generated_regions(repo_root: Path) -> dict[tuple[str, str, str], str]:
@@ -429,7 +436,11 @@ def _expected_generated_regions(repo_root: Path) -> dict[tuple[str, str, str], s
         )
 
         cfg = load_agent_bootstrap_config(repo_root)
-        context = build_bootstrap_projection_context(repo_root, config=cfg)
+        context = build_bootstrap_projection_context(
+            repo_root,
+            config=cfg,
+            refresh_orchestration=False,
+        )
         markers = cfg.get("markers") if isinstance(cfg.get("markers"), Mapping) else {}
         markdown_targets = cfg.get("markdown_targets") if isinstance(cfg.get("markdown_targets"), Mapping) else {}
         adapter_markers = markers.get("adapters") if isinstance(markers.get("adapters"), Mapping) else {}

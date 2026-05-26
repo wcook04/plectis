@@ -607,6 +607,44 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor() -> None:
+    manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/macro_projection_import_protocol.fixture_manifest.json"
+        ).read_text()
+    )
+    body_imports = manifest["source_open_body_imports"]
+    source_manifest_refs = body_imports["source_manifest_refs"]
+    module_rows: list[dict[str, Any]] = []
+
+    for manifest_ref in source_manifest_refs:
+        source_manifest = json.loads((MICROCOSM_ROOT / manifest_ref).read_text())
+        module_rows.extend(source_manifest["modules"])
+
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_count"] == len(module_rows) == 168
+    assert body_imports["body_material_ids"] == [
+        row["module_id"] for row in module_rows
+    ]
+    assert body_imports["body_text_exported_in_receipts"] is False
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert body_imports["authority_ceiling"]["provider_payload_exported"] is False
+    assert body_imports["authority_ceiling"]["credential_exported"] is False
+
+    for row in module_rows:
+        source = MICROCOSM_ROOT.parent / row["source_ref"]
+        target = MICROCOSM_ROOT.parent / row["target_ref"]
+        digest = hashlib.sha256(target.read_bytes()).hexdigest()
+
+        assert source.is_file()
+        assert target.is_file()
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        assert row["sha256_match"] is True
+        assert hashlib.sha256(source.read_bytes()).hexdigest() == digest
+
+
 def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path) -> None:
     public_root = _copy_macro_projection_public_tree(tmp_path)
     result = run(

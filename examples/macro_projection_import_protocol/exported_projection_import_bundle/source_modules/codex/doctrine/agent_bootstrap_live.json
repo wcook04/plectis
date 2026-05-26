@@ -1,7 +1,7 @@
 {
   "kind": "agent_bootstrap_live",
   "schema_version": "agent_bootstrap_live_v0",
-  "generated_at": "2026-05-26T10:26:36.871628+00:00",
+  "generated_at": "2026-05-26T19:21:30.640401+00:00",
   "source_event": null,
   "live_bindings": {
     "pipeline_state_rel": null,
@@ -20,12 +20,12 @@
     "orchestration_active_driver": "no_active_runtime_phase",
     "orchestration_gate_reason": "no_active_runtime_phase",
     "orchestration_event_log_rel": "tools/meta/control/orchestration_events.jsonl",
-    "orchestration_latest_event_id": "orch_20260521T174607_222922_0000_164f9d1e01",
+    "orchestration_latest_event_id": "orch_20260526T192130_501183_0000_5e41c4cf12",
     "orchestration_current_owner": "control_room_manager",
     "orchestration_next_handoff": "human_operator",
     "active_directive_path": null,
     "active_directive_summary": null,
-    "system_view_rel": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/system_view.json",
+    "system_view_rel": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/09.54 - Phase 09.54 - Monday Dissemination Rollout Readiness, Public-Safe Proof Bundle, and Recipient Packet Execution/09.54.1 - Phase 09.54.1 - Microcosm Total Correction and Real Substrate Import/system_view.json",
     "system_view_file_count": 0,
     "documentation_route_focus_rel": "tools/meta/control/documentation_route_focus.json",
     "documentation_route_focus_active_preset": "neutral",
@@ -3325,7 +3325,7 @@
         "path": "AGENTS.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35370,
+        "bytes": 35418,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3333,7 +3333,7 @@
         "path": "CODEX.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 34691,
+        "bytes": 34660,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3341,7 +3341,7 @@
         "path": "CLAUDE.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35989,
+        "bytes": 35958,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       }

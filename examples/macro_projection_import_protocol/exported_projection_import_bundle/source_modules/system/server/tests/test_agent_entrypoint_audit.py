@@ -25,11 +25,13 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from typing import Mapping
 
 import pytest
 
 from tools.meta.factory import build_agent_entrypoint_audit as entrypoint_audit_cli
 from system.lib.agent_entrypoint_audit import (
+    _expected_generated_regions,
     build_agent_entrypoint_audit,
     select_entrypoint,
     summarize_entrypoints,
@@ -696,6 +698,53 @@ def test_generated_block_drift_uses_system_facts_projection_context(tmp_path: Pa
     audit = build_agent_entrypoint_audit(repo_root=tmp_path)["audit"]
     drift = [item for item in audit["findings"] if item["rule"] == "generated_block_drift"]
     assert drift == []
+
+
+def test_generated_block_drift_expected_regions_uses_non_refresh_projection_context(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    from system.lib import agent_bootstrap_projection as projection
+
+    seen_refresh_values: list[bool] = []
+
+    def fake_load_config(_repo_root: Path) -> dict:
+        return {
+            "markers": {
+                "begin": "<!-- BEGIN agent_bootstrap_live -->",
+                "end": "<!-- END agent_bootstrap_live -->",
+            },
+            "markdown_targets": {"agents_md": "AGENTS.md"},
+        }
+
+    def fake_context(
+        _repo_root: Path,
+        *,
+        config: Mapping[str, object],
+        refresh_orchestration: bool = True,
+    ) -> dict:
+        seen_refresh_values.append(refresh_orchestration)
+        return {
+            "bindings": {},
+            "per_agent_rows": [],
+            "system_facts_at_a_glance": {},
+            "minimum_read_sets": [],
+            "bootstrap_sequence": [],
+            "situation_routes": [],
+            "actor_context_surfaces": [],
+            "runtime_control_plane": {},
+            "compact_command_surface": {},
+            "type_a_convergence_contract": {},
+        }
+
+    monkeypatch.setattr(projection, "load_agent_bootstrap_config", fake_load_config)
+    monkeypatch.setattr(projection, "build_bootstrap_projection_context", fake_context)
+    monkeypatch.setattr(projection, "render_live_markdown", lambda *args, **kwargs: "rendered")
+
+    regions = _expected_generated_regions(tmp_path)
+
+    assert seen_refresh_values == [False]
+    assert regions[("AGENTS.md", "<!-- BEGIN agent_bootstrap_live -->", "<!-- END agent_bootstrap_live -->")] == "rendered"
 
 
 def test_pri_json_pattern_is_flagged_as_incoherent_authority(tmp_path: Path) -> None:

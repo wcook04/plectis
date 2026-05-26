@@ -27,6 +27,9 @@ ANNEX_AUTHORITY_INDEX = Path("codex/standards/annex/annex_authority_index.json")
 NAVIGATION_CONTRACT_STANDARD = Path("codex/standards/std_navigation_contract.json")
 STANDARDS_REGISTRY_STANDARD = Path("codex/standards/std_standards_registry.json")
 SYSTEM_ATLAS_STANDARD = Path("codex/standards/std_system_atlas.json")
+STANDARD_TYPE_PLANE_STANDARD = Path("codex/standards/std_standard_type_plane.json")
+CONFIG_AUTHORITY_STANDARD = Path("codex/standards/std_config_authority_registry.json")
+FRONTEND_COMPONENT_STANDARD = Path("codex/standards/std_frontend_component_index.json")
 WAVE_042_DIR = Path(
     "state/meta_missions/system_microcosm_probe/ledgers/"
     "navigation_hologram_microcosm/wave_042"
@@ -53,6 +56,18 @@ def _navigation_contract_from_json(root: Path, path: Path) -> dict[str, Any] | N
 def _navigation_contracts_from_json(root: Path, path: Path) -> dict[str, Any]:
     contracts = _load_json(root / path).get("navigation_contracts")
     return contracts if isinstance(contracts, dict) else {}
+
+
+def _navigation_contract_from_type_plane(root: Path, type_id: str) -> dict[str, Any] | None:
+    rows = _load_json(root / STANDARD_TYPE_PLANE_STANDARD).get("type_plane_rows")
+    if not isinstance(rows, list):
+        return None
+    for row in rows:
+        if not isinstance(row, dict) or row.get("type_id") != type_id:
+            continue
+        contract = row.get("navigation_contract")
+        return contract if isinstance(contract, dict) else None
+    return None
 
 
 def _python_navigation_contract(root: Path) -> dict[str, Any] | None:
@@ -211,30 +226,6 @@ def _draft_contracts() -> dict[str, dict[str, Any]]:
             "dependency_neighborhood_policy": {"mode": "registry_and_core_authority_index"},
             "validation_probe": ["std JSON parses", "companion drift audit passes or emits row jobs"],
         },
-        "frontend_views": {
-            "profile_id": "frontend_view_navigation_candidate_v0",
-            "navigable_bands": ["route_id", "purpose", "component_tree", "source_capture"],
-            "band_contracts": {"route_id": {}, "purpose": {}, "component_tree": {}, "source_capture": {}},
-            "telescope_facets": ["route", "actor", "state", "capture"],
-            "navigable_scopes": ["route", "view", "interaction_state", "source_file"],
-            "navigable_facets": ["route", "actor", "state", "capture"],
-            "population_policy": {
-                "band:route_id": {"populated_by": "compiled"},
-                "band:purpose": {"populated_by": "compiled"},
-                "band:component_tree": {"populated_by": "compiled"},
-                "band:source_capture": {"populated_by": "live_computed"},
-            },
-            "edge_compression_policy": {
-                "bidirectional_gloss_required": True,
-                "first_order_band": "component_tree",
-                "second_order_band": "route_id",
-                "beyond_second_order": "omit_with_count_reason_and_drilldown",
-            },
-            "source_authority": {"source": "frontend navigation graph plus TS/TSX source"},
-            "currentness_policy": {"mode": "navigation_graph_option_surface_adapter"},
-            "dependency_neighborhood_policy": {"mode": "route_to_component_edges"},
-            "validation_probe": ["view graph exists", "component refs resolve"],
-        },
         "frontend_components": {
             "profile_id": "frontend_component_navigation_candidate_v0",
             "navigable_bands": ["component_id", "purpose", "props_state", "source"],
@@ -296,6 +287,8 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
         ("axiom_candidates", SYSTEM_AXIOM_CANDIDATE_STANDARD),
         ("skills", SKILL_STANDARD),
         ("system_atlas", SYSTEM_ATLAS_STANDARD),
+        ("config_authorities", CONFIG_AUTHORITY_STANDARD),
+        ("frontend_components", FRONTEND_COMPONENT_STANDARD),
     ):
         contract = _navigation_contract_from_json(root, path)
         if contract:
@@ -327,6 +320,13 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
                 f"{ANNEX_AUTHORITY_INDEX}::navigation_contracts.{kind_id}",
                 contract,
             )
+    frontend_views_contract = _navigation_contract_from_type_plane(root, "frontend_views")
+    if frontend_views_contract:
+        contracts["frontend_views"] = (
+            "declared",
+            f"{STANDARD_TYPE_PLANE_STANDARD}::type_plane_rows[frontend_views].navigation_contract",
+            frontend_views_contract,
+        )
     return contracts
 
 
@@ -400,6 +400,9 @@ def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
             str(ANNEX_AUTHORITY_INDEX),
             str(STANDARDS_REGISTRY_STANDARD),
             str(SYSTEM_ATLAS_STANDARD),
+            str(STANDARD_TYPE_PLANE_STANDARD),
+            str(CONFIG_AUTHORITY_STANDARD),
+            str(FRONTEND_COMPONENT_STANDARD),
         ],
         "summary": {
             "total_kinds": len(rows),

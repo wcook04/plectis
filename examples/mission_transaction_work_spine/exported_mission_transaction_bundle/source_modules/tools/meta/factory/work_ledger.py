@@ -2813,6 +2813,17 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
             orphan_sweep_after=orphan_after,
         )
         dirty_tree_pressure["sweep_dry_run"] = bool(args.dry_run)
+    duplicate_claim_dedupe = None
+    if bool(getattr(args, "dedupe_duplicate_claims", False)):
+        duplicate_claim_dedupe = work_ledger_runtime.dedupe_duplicate_same_session_claims(
+            REPO_ROOT,
+            dry_run=bool(args.dry_run),
+        )
+    dirty_tree_pressure_alias = (
+        work_ledger_runtime.dirty_tree_pressure_alias(dirty_tree_pressure)
+        if dirty_tree_pressure is not None
+        else None
+    )
     return _print(
         {
             "schema": "work_ledger_sweep_report_v1",
@@ -2823,6 +2834,16 @@ def cmd_session_sweep(args: argparse.Namespace) -> int:
             **(
                 {"dirty_tree_bankruptcy_pressure": dirty_tree_pressure}
                 if dirty_tree_pressure is not None
+                else {}
+            ),
+            **(
+                {"dirty_tree_pressure": dirty_tree_pressure_alias}
+                if dirty_tree_pressure_alias is not None
+                else {}
+            ),
+            **(
+                {"duplicate_claim_dedupe": duplicate_claim_dedupe}
+                if duplicate_claim_dedupe is not None
                 else {}
             ),
         }
@@ -3664,6 +3685,14 @@ def build_parser() -> argparse.ArgumentParser:
             "For explicit operator dirty-tree-bankruptcy requests, allow the pressure "
             "card to route to the broad checkpoint arbiter command when no dirty path "
             "is covered by an active claim."
+        ),
+    )
+    session_sweep.add_argument(
+        "--dedupe-duplicate-claims",
+        action="store_true",
+        help=(
+            "Release older duplicate claims held by the same session and scope. "
+            "True cross-session collisions remain explicit coordination blockers."
         ),
     )
     session_sweep.set_defaults(func=cmd_session_sweep)

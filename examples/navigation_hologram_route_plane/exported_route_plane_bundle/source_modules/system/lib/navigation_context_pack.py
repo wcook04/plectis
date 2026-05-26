@@ -1162,6 +1162,7 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
         "expired_sessions_needing_finalizer": card.get("expired_sessions_needing_finalizer"),
         "expired_claims_needing_sweep": card.get("expired_claims_needing_sweep"),
         "dirty_path_class_counts": card.get("dirty_path_class_counts"),
+        "class_counts": card.get("class_counts") or card.get("dirty_path_class_counts"),
         "active_claim_session_groups": card.get("active_claim_session_groups"),
         "scoped_work_unblock": card.get("scoped_work_unblock"),
         "containment_plan": card.get("containment_plan"),
@@ -1169,6 +1170,7 @@ def _dirty_tree_bankruptcy_pressure_context(root: Path, query: str) -> dict[str,
         "rescue_refs": card.get("rescue_refs"),
         "rescue_coverage": card.get("rescue_coverage"),
         "rescue_repeat_policy": card.get("rescue_repeat_policy"),
+        "repeat_policy": card.get("repeat_policy") or card.get("rescue_repeat_policy"),
         "mainline_commit_candidates": card.get("mainline_commit_candidates"),
         "blocked_residuals": card.get("blocked_residuals"),
         "next_safe_action": card.get("next_safe_action"),
@@ -6900,6 +6902,35 @@ def build_navigation_context_pack(
         )
     if dirty_tree_bankruptcy_pressure is not None:
         packet["dirty_tree_bankruptcy_pressure"] = dirty_tree_bankruptcy_pressure
+        packet["dirty_tree_pressure"] = {
+            "schema": "dirty_tree_pressure_context_pack_alias_v0",
+            "alias_of": "dirty_tree_bankruptcy_pressure",
+            "status": dirty_tree_bankruptcy_pressure.get("status"),
+            "authority_boundary": dirty_tree_bankruptcy_pressure.get("authority_boundary"),
+            "projection_only": dirty_tree_bankruptcy_pressure.get("projection_only"),
+            "safety_authority": dirty_tree_bankruptcy_pressure.get("safety_authority"),
+            "source_view": dirty_tree_bankruptcy_pressure.get("source_view"),
+            "source_command": dirty_tree_bankruptcy_pressure.get("source_command"),
+            "bankruptcy_authorized": dirty_tree_bankruptcy_pressure.get(
+                "bankruptcy_authorized"
+            ),
+            "dirty_scan_status": dirty_tree_bankruptcy_pressure.get("dirty_scan_status"),
+            "dirty_total": dirty_tree_bankruptcy_pressure.get("dirty_total"),
+            "class_counts": dirty_tree_bankruptcy_pressure.get("class_counts")
+            or dirty_tree_bankruptcy_pressure.get("dirty_path_class_counts"),
+            "operator_authorized_mainline_checkpoint": dirty_tree_bankruptcy_pressure.get(
+                "operator_authorized_mainline_checkpoint"
+            ),
+            "active_claim_session_groups": dirty_tree_bankruptcy_pressure.get(
+                "active_claim_session_groups"
+            ),
+            "scoped_work_unblock": dirty_tree_bankruptcy_pressure.get("scoped_work_unblock"),
+            "containment_plan": dirty_tree_bankruptcy_pressure.get("containment_plan"),
+            "repeat_policy": dirty_tree_bankruptcy_pressure.get("repeat_policy")
+            or dirty_tree_bankruptcy_pressure.get("rescue_repeat_policy"),
+            "next_safe_action": dirty_tree_bankruptcy_pressure.get("next_safe_action"),
+            "commands": dirty_tree_bankruptcy_pressure.get("commands"),
+        }
         packet["source_surfaces"].extend(
             [
                 str(WORK_LEDGER_RUNTIME_STATUS_REL),

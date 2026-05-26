@@ -42,7 +42,8 @@
       "sha256_match": true,
       "line_count": 348,
       "byte_count": 17443,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "route_selection_context_pack_body_import",
@@ -60,12 +61,13 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "4fbe1c77200367c269680f895c46865d5185f74e298982cf3268e774f5866ea5",
-      "target_sha256": "4fbe1c77200367c269680f895c46865d5185f74e298982cf3268e774f5866ea5",
+      "source_sha256": "ab4a77c9cbc85b29871dc5c424fe3b54ea9758014ffec7495bdfd5161b1186e7",
+      "target_sha256": "ab4a77c9cbc85b29871dc5c424fe3b54ea9758014ffec7495bdfd5161b1186e7",
       "sha256_match": true,
-      "line_count": 6992,
-      "byte_count": 310889,
-      "anchor_count": 5
+      "line_count": 7027,
+      "byte_count": 313262,
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "route_selection_entry_packet_body_import",
@@ -88,7 +90,8 @@
       "sha256_match": true,
       "line_count": 7844,
       "byte_count": 324715,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "route_selection_option_surface_body_import",
@@ -106,12 +109,13 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "e29c1d9930e3451024cb82dd45f1d21708a46d0c378f8410a9d857c84600947c",
-      "target_sha256": "e29c1d9930e3451024cb82dd45f1d21708a46d0c378f8410a9d857c84600947c",
+      "source_sha256": "e43207b7f4dd003af47737734ca906c23b976c8bfc4b0cc247fcf7d3c9e71393",
+      "target_sha256": "e43207b7f4dd003af47737734ca906c23b976c8bfc4b0cc247fcf7d3c9e71393",
       "sha256_match": true,
-      "line_count": 16169,
-      "byte_count": 713421,
-      "anchor_count": 5
+      "line_count": 16171,
+      "byte_count": 713482,
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "route_selection_navigation_contract_standard_body_import",
@@ -129,12 +133,13 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "006b85a68b4814560858a592b10acec714b5b8e88a8062d18da5bcbfed2fc09b",
-      "target_sha256": "006b85a68b4814560858a592b10acec714b5b8e88a8062d18da5bcbfed2fc09b",
+      "source_sha256": "897263bba081b09d28682e691a1b7ad41a3e97f9e9976b0847a5983ab3a5fcfd",
+      "target_sha256": "897263bba081b09d28682e691a1b7ad41a3e97f9e9976b0847a5983ab3a5fcfd",
       "sha256_match": true,
-      "line_count": 182,
-      "byte_count": 11033,
-      "anchor_count": 5
+      "line_count": 185,
+      "byte_count": 11206,
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     }
   ],
   "validation_contract_refs": [
