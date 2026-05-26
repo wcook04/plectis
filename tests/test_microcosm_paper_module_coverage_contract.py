@@ -171,6 +171,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     product_roof = (
         REPO_ROOT / "codex/doctrine/paper_modules/microcosm_substrate.md"
     ).read_text(encoding="utf-8")
+    public_export_bridge = (
+        REPO_ROOT
+        / "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+    ).read_text(encoding="utf-8")
 
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
@@ -188,6 +192,9 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "Route public Microcosm exports" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
     assert "sidecars as source truth" in product_roof
+    assert "first-screen <project>` emits the JSON one-screen reader map" in product_roof
+    assert "entry-packet paper-module ref classification" in public_export_bridge
+    assert "primary/support module taxonomy" in public_export_bridge
 
 
 def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
