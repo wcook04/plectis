@@ -54,6 +54,12 @@ public-root JSON card:
 python3 scripts/first_screen_composition_card.py --project-label <project>
 ```
 
+It can also emit the terminal-sized first screen directly:
+
+```bash
+python3 scripts/first_screen_composition_card.py --project-label <project> --format text
+```
+
 The emitter is intentionally narrow. It does not import private runtime state
 or source bodies. It loads this standard, emits the one shared command and
 three branch handles, frames evidence counts as accounting, names the

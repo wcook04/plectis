@@ -22,6 +22,7 @@ DENIED_AUTHORITY_KEYS = (
     "score_based_progress_authority",
     "whole_system_correctness_authority",
 )
+TEXT_CARD_MAX_LINES = 32
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
@@ -256,6 +257,51 @@ def first_screen_composition_card(
     return payload
 
 
+def first_screen_text_card(payload: dict[str, Any]) -> str:
+    route_by_id = {
+        str(route.get("reader_route_id")): route
+        for route in payload.get("reader_routes", [])
+        if isinstance(route, dict)
+    }
+    safety = route_by_id["safety_evals_engineer"]
+    hiring = route_by_id["hiring_reviewer"]
+    peer = route_by_id["peer_developer"]
+    lines = [
+        "Microcosm first screen",
+        f"First run: {payload['shared_first_command']}",
+        "",
+        "What it is:",
+        "  A local evidence router for a folder: run one compact command, then choose the drilldown.",
+        "",
+        "Why the counts are honest:",
+        "  Evidence counts are accounting fields, not maturity, readiness, or progress scores.",
+        "",
+        "Reader branches:",
+        f"  Safety/evals: {' -> '.join(safety['next_commands'])}",
+        f"  Hiring: {' -> '.join(hiring['next_commands'])}",
+        f"  Peer developer: {' -> '.join(peer['next_commands'])}",
+        "",
+        "Runnable-to-structural join:",
+        "  The local run is one visible exercise of the larger public substrate:",
+        "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
+        "",
+        "Drilldowns:",
+        "  authority: microcosm authority",
+        "  workingness: microcosm workingness",
+        "  route map: paper_modules/cold_reader_route_map.md",
+        f"  composition contract: {payload['source_standard_ref']}",
+        "",
+        "Authority ceiling:",
+        "  No release, hosted publication, provider-call, source-mutation, private-equivalence,",
+        "  score-progress, or whole-system-correctness authority.",
+        "",
+        f"Omission receipt: deeper evidence remains behind {payload['omission_receipt']['drilldown']}.",
+    ]
+    if len(lines) > TEXT_CARD_MAX_LINES:
+        raise ValueError("first-screen text card exceeded its line budget")
+    return "\n".join(lines) + "\n"
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="first_screen_composition_card",
@@ -272,13 +318,22 @@ def build_parser() -> argparse.ArgumentParser:
         default="<project>",
         help="Label to place in the shared first command.",
     )
+    parser.add_argument(
+        "--format",
+        choices=("json", "text"),
+        default="json",
+        help="Output JSON contract or terminal-sized text card.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     payload = first_screen_composition_card(args.root, project_label=args.project_label)
-    print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
+    if args.format == "text":
+        print(first_screen_text_card(payload), end="")
+    else:
+        print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if payload.get("status") == "pass" else 1
 
 

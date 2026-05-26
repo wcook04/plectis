@@ -77,6 +77,7 @@
       "evidence_count_frame",
       "scale_frame",
       "runnable_structural_join",
+      "terminal_text_projection",
       "omission_receipt",
       "authority_ceiling",
       "anti_claim"
@@ -197,6 +198,7 @@
     "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
     "require a runnable-vs-structural join that names both local behavior and larger substrate scale",
+    "require terminal text projections to fit in one screen and preserve the same authority ceiling as the JSON contract",
     "require an omission receipt pointing to deeper route maps, receipts, standards, and workingness drilldowns",
     "reject release, hosting, publication, provider-call, private-equivalence, score-progress, and whole-system-correctness overclaims",
     "require public-root relative refs or explicit localhost endpoint refs"

@@ -97,3 +97,51 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
     assert '"body":' not in result.stdout
+
+
+def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
+    module = _load_module()
+    card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
+
+    text = module.first_screen_text_card(card)
+
+    text.encode("ascii")
+    assert text.startswith("Microcosm first screen\n")
+    assert "First run: microcosm tour --card ." in text
+    assert "Evidence counts are accounting fields" in text
+    assert (
+        "Safety/evals: microcosm status --card . -> microcosm authority -> "
+        "microcosm workingness"
+    ) in text
+    assert "Hiring: microcosm legibility-scorecard -> microcosm tour --card ." in text
+    assert "Peer developer: microcosm tour --card . -> microcosm observe ." in text
+    assert "No release, hosted publication, provider-call" in text
+    assert "paper_modules/first_screen_composition_root.md" in text
+    assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
+    assert "/Users/" not in text
+    assert "src/ai_workflow" not in text
+    assert '"body":' not in text
+
+
+def test_first_screen_composition_card_cli_emits_text_projection() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/first_screen_composition_card.py",
+            "--project-label",
+            ".",
+            "--format",
+            "text",
+        ],
+        cwd=MICROCOSM_ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    result.stdout.encode("ascii")
+    assert result.stdout.startswith("Microcosm first screen\n")
+    assert "First run: microcosm tour --card ." in result.stdout
+    assert "reader_routes" not in result.stdout
+    assert "/Users/" not in result.stdout
+    assert "src/ai_workflow" not in result.stdout
