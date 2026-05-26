@@ -12,64 +12,19 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "body_copied_material_count": 0,
-  "body_material_status": "",
+  "body_copied_material_count": 4,
+  "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
   "body_redacted": true,
-  "bundle_id": null,
-  "command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
+  "bundle_id": "formal_math_lean_proof_witness_runtime_example",
+  "command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run-witness-bundle --input examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle --out receipts/first_wave/formal_math_lean_proof_witness",
   "compiled_declaration_count": 8,
-  "created_at": "2026-05-26T22:38:07+00:00",
-  "error_codes": [
-    "LEAN_WITNESS_FORBIDDEN_IMPORT",
-    "LEAN_WITNESS_INVALID_PROOF_REJECTED",
-    "LEAN_WITNESS_PRIVATE_SOURCE_REF_FORBIDDEN",
-    "LEAN_WITNESS_PROOF_BODY_IN_MANIFEST_FORBIDDEN"
-  ],
-  "expected_negative_cases": [
-    "invalid_proof_rejected",
-    "mathlib_import_forbidden",
-    "private_source_ref_forbidden",
-    "proof_body_in_manifest_forbidden"
-  ],
-  "findings": [
-    {
-      "body_redacted": true,
-      "error_code": "LEAN_WITNESS_INVALID_PROOF_REJECTED",
-      "message": "Lean rejected the intentionally invalid proof witness.",
-      "negative_case_id": "invalid_proof_rejected",
-      "subject_id": "invalid_proof.lean",
-      "subject_kind": "negative_lean_file"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "LEAN_WITNESS_FORBIDDEN_IMPORT",
-      "message": "Lean witness rejected a forbidden external import before execution.",
-      "negative_case_id": "mathlib_import_forbidden",
-      "subject_id": "mathlib_import_forbidden.lean",
-      "subject_kind": "negative_lean_file"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "LEAN_WITNESS_PRIVATE_SOURCE_REF_FORBIDDEN",
-      "message": "Private source refs were rejected from the public witness manifest.",
-      "negative_case_id": "private_source_ref_forbidden",
-      "subject_id": "negative_private_source_ref",
-      "subject_kind": "negative_manifest"
-    },
-    {
-      "body_redacted": true,
-      "error_code": "LEAN_WITNESS_PROOF_BODY_IN_MANIFEST_FORBIDDEN",
-      "message": "Embedded proof bodies were rejected from the public witness manifest.",
-      "negative_case_id": "proof_body_in_manifest_forbidden",
-      "subject_id": "negative_embedded_proof_body",
-      "subject_kind": "negative_manifest"
-    }
-  ],
+  "created_at": "2026-05-26T22:38:06+00:00",
+  "error_codes": [],
+  "expected_negative_cases": [],
+  "findings": [],
   "fixture_id": "first_wave.formal_math_lean_proof_witness",
-  "forbidden_import_rejected": true,
   "forbidden_positive_imports": [],
-  "input_mode": "first_wave_fixture",
-  "invalid_proof_rejected": true,
+  "input_mode": "exported_lean_proof_witness_bundle",
   "lake_build": {
     "argv": [
       "lake",
@@ -78,11 +33,10 @@
     "body_redacted": true,
     "cwd_name": "lake_project",
     "return_code": 0,
-    "stderr_line_count": 2,
+    "stderr_line_count": 0,
     "stdout_line_count": 1,
     "timed_out": false
   },
-  "lean_build_status": "pass",
   "lean_witness_board": {
     "body_redacted": true,
     "compiled_declaration_count": 8,
@@ -96,25 +50,9 @@
     "source_file_count": 1,
     "witness_id": "formal_math_lean_proof_witness_v1"
   },
-  "manifest_proof_bodies_rejected": true,
   "missing_negative_cases": [],
-  "negative_case_coverage_status": "pass",
-  "observed_negative_cases": {
-    "invalid_proof_rejected": [
-      "LEAN_WITNESS_INVALID_PROOF_REJECTED"
-    ],
-    "mathlib_import_forbidden": [
-      "LEAN_WITNESS_FORBIDDEN_IMPORT"
-    ],
-    "private_source_ref_forbidden": [
-      "LEAN_WITNESS_PRIVATE_SOURCE_REF_FORBIDDEN"
-    ],
-    "proof_body_in_manifest_forbidden": [
-      "LEAN_WITNESS_PROOF_BODY_IN_MANIFEST_FORBIDDEN"
-    ]
-  },
+  "observed_negative_cases": {},
   "organ_id": "formal_math_lean_proof_witness",
-  "private_source_refs_rejected": true,
   "private_state_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
@@ -134,29 +72,23 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 8,
+    "scanned_path_count": 6,
     "status": "pass"
   },
   "projection_receipt_refs": [
     "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
   ],
-  "provider_calls_authorized": false,
   "public_replacement_refs": [
-    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
-    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
-    "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/lakefile.lean",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness.lean",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
-  "receipt_id": "formal_math_lean_proof_witness_validation_receipt_v1",
+  "receipt_id": "exported_lean_proof_witness_bundle_validation_result_v1",
   "receipt_paths": [
-    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_result.json",
-    "receipts/first_wave/formal_math_lean_proof_witness/lean_proof_witness_board.json",
-    "receipts/first_wave/formal_math_lean_proof_witness/formal_math_lean_proof_witness_validation_receipt.json",
-    "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
+    "receipts/first_wave/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
   ],
-  "receipts_include_proof_bodies": false,
-  "release_authorized": false,
-  "schema_version": "formal_math_lean_proof_witness_validation_receipt_v1",
+  "schema_version": "exported_lean_proof_witness_bundle_validation_result_v1",
   "source_file_count": 1,
   "source_files": [
     {
@@ -174,19 +106,64 @@
       "imports": [],
       "line_count": 42,
       "sha256": "a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean"
+      "source_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
     }
   ],
   "source_module_imports": {
     "findings": [],
-    "module_count": 0,
-    "modules": [],
+    "module_count": 4,
+    "modules": [
+      {
+        "actual_sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
+        "body_in_receipt": false,
+        "line_count": 52,
+        "material_class": "public_lean_witness_manifest_body",
+        "module_id": "formal_math_lean_witness_manifest_body_import",
+        "sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
+        "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
+        "source_to_target_relation": "public_replacement_source_body",
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/witness_manifest.json"
+      },
+      {
+        "actual_sha256": "sha256:ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73",
+        "body_in_receipt": false,
+        "line_count": 7,
+        "material_class": "public_lean_lake_project_body",
+        "module_id": "formal_math_lean_lakefile_body_import",
+        "sha256": "sha256:ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73",
+        "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/lakefile.lean"
+      },
+      {
+        "actual_sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+        "body_in_receipt": false,
+        "line_count": 1,
+        "material_class": "public_lean_source_body",
+        "module_id": "formal_math_lean_root_module_body_import",
+        "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+        "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness.lean"
+      },
+      {
+        "actual_sha256": "sha256:a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+        "body_in_receipt": false,
+        "line_count": 42,
+        "material_class": "public_lean_source_body",
+        "module_id": "formal_math_lean_basic_witness_body_import",
+        "sha256": "sha256:a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+        "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
+      }
+    ],
     "observed_negative_cases": {},
-    "source_module_manifest_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/source_module_manifest.json",
-    "status": "not_applicable"
+    "source_module_manifest_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json",
+    "status": "pass"
   },
   "source_open_body_imports": {
-    "aggregate_floor_ref": "",
+    "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "body_text_in_receipt": false,
       "formal_proof_authority": "bounded_declared_public_toy_witness_only",
@@ -197,17 +174,28 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 0,
-    "body_material_ids": [],
-    "body_material_status": "",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "formal_math_lean_witness_manifest_body_import",
+      "formal_math_lean_lakefile_body_import",
+      "formal_math_lean_root_module_body_import",
+      "formal_math_lean_basic_witness_body_import"
+    ],
+    "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
-    "material_classes": [],
-    "reader_action": "",
+    "material_classes": [
+      "public_lean_lake_project_body",
+      "public_lean_source_body",
+      "public_lean_witness_manifest_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus the exported witness manifest, lakefile, root module, and Basic.lean for copied public Lean/Lake witness bodies; receipts carry refs, digests, counts, and verdicts only.",
     "schema_version": "formal_math_lean_proof_witness_source_open_body_imports_v1",
-    "source_import_class": "",
-    "source_manifest_refs": [],
-    "status": "not_applicable"
+    "source_import_class": "copied_non_secret_formal_math_witness_body",
+    "source_manifest_refs": [
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "formal_math_lean_self_contained_proof_organ",

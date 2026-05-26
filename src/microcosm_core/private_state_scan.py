@@ -24,6 +24,7 @@ DEFAULT_SCAN_SCOPE = {
 TEXT_SUFFIXES = {
     ".json",
     ".jsonl",
+    ".lean",
     ".md",
     ".py",
     ".sh",

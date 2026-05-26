@@ -4,6 +4,40 @@
   "organ_id": "formal_math_lean_proof_witness",
   "fixture_id": "fixture::formal_math_lean_proof_witness::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
+  "body_copied_material_count": 4,
+  "source_open_body_imports": {
+    "schema_version": "formal_math_lean_proof_witness_source_open_body_imports_v1",
+    "status": "pass",
+    "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "formal_math_lean_witness_manifest_body_import",
+      "formal_math_lean_lakefile_body_import",
+      "formal_math_lean_root_module_body_import",
+      "formal_math_lean_basic_witness_body_import"
+    ],
+    "material_classes": [
+      "public_lean_lake_project_body",
+      "public_lean_source_body",
+      "public_lean_witness_manifest_body"
+    ],
+    "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
+    "source_manifest_refs": [
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Open source_module_manifest.json plus the exported witness manifest, lakefile, root module, and Basic.lean for copied public Lean/Lake witness bodies.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": true,
+      "formal_proof_authority": "bounded_declared_public_toy_witness_only",
+      "mathlib_authority": false,
+      "release_authorized": false
+    }
+  },
   "purpose": "Validate a bounded public Lean/Lake proof witness: a tiny synthetic Lake project compiles with the installed local toolchain while receipts redact proof bodies and negative cases preserve the authority ceiling.",
   "inputs": [
     "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
@@ -39,6 +73,7 @@
     "organ_id",
     "fixture_id",
     "validator_id",
+    "validator_cache_version",
     "command",
     "status",
     "expected_negative_cases",
@@ -54,6 +89,10 @@
     "source_refs",
     "projection_receipt_refs",
     "public_replacement_refs",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_material_status",
+    "body_copied_material_count",
     "tool_versions",
     "lake_build",
     "source_file_count",

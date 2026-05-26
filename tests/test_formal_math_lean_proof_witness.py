@@ -52,6 +52,8 @@ def test_formal_math_lean_proof_witness_builds_and_observes_negative_cases(
     assert result["status"] == "pass"
     assert result["lake_build"]["return_code"] == 0
     assert result["compiled_declaration_count"] == 8
+    assert result["validator_cache_version"].endswith("source_module_scan")
+    assert result["private_state_scan"]["scanned_path_count"] >= 8
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is True
@@ -113,8 +115,43 @@ def test_formal_math_lean_proof_witness_exported_bundle_validates_runtime_shape(
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
     assert result["compiled_declaration_count"] == 8
+    assert result["validator_cache_version"].endswith("source_module_scan")
+    assert result["private_state_scan"]["scanned_path_count"] >= 6
+    assert result["source_module_imports"]["status"] == "pass"
+    assert result["source_module_imports"]["module_count"] == 4
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["body_copied_material_count"] == 4
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert result["lean_witness_board"]["lean_lake_execution_authorized"] is True
     assert result["lean_witness_board"]["mathlib_authorized"] is False
+
+
+def test_formal_math_lean_proof_witness_bundle_rejects_body_digest_tamper(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = (
+        public_root
+        / "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle"
+    )
+    shutil.copytree(BUNDLE_INPUT, bundle)
+    source_file = bundle / "lake_project/MicrocosmProofWitness/Basic.lean"
+    source_file.write_text(
+        source_file.read_text(encoding="utf-8") + "\n-- tampered after manifest\n",
+        encoding="utf-8",
+    )
+
+    result = run_witness_bundle(
+        bundle,
+        tmp_path / "receipts/formal_math_lean_proof_witness",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_module_imports"]["status"] == "blocked"
+    assert "LEAN_WITNESS_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
 
 
 def test_formal_math_lean_proof_witness_bundle_reuses_fresh_receipt(
@@ -201,3 +238,6 @@ def test_formal_math_lean_proof_witness_bundle_card_reuses_fresh_receipt(
     full_receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert "source_files" in full_receipt
     assert full_receipt["command"].endswith("--card")
+    assert full_receipt["source_open_body_imports"]["status"] == "pass"
+    assert full_receipt["source_open_body_imports"]["body_material_count"] == 4
+    assert full_receipt["body_copied_material_count"] == 4

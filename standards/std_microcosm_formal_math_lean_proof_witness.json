@@ -36,6 +36,10 @@
     "source_pattern_ids",
     "projection_receipt_refs",
     "public_replacement_refs",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_material_status",
+    "body_copied_material_count",
     "positive_witnesses",
     "authority_ceiling",
     "anti_claim"
@@ -44,6 +48,8 @@
     "run lake build in a temporary copy of the public fixture project",
     "require local Lean and Lake toolchain availability receipts",
     "record source file hashes, declaration names, and line counts without embedding proof bodies in JSON receipts",
+    "require source_module_manifest.json for exported Lean witness bundles and digest-check copied public Lean/Lake bodies before counting source-open body imports",
+    "treat .lean source as text for private-state sentinel scans and invalidate cached bundle receipts when validator cache semantics change",
     "reject Mathlib, Aesop, and Batteries imports until a wider authority ceiling exists",
     "reject private source refs in witness manifests",
     "reject proof bodies embedded in JSON manifests or receipts",
@@ -65,6 +71,7 @@
       "private_source_ref_rejection",
       "manifest_proof_body_rejection",
       "invalid_proof_negative_case",
+      "source_module_manifest_digest_check",
       "negative_case_coverage"
     ]
   },
@@ -73,10 +80,15 @@
     "receipt_id": "receipt.microcosm.formal_math_lean_proof_witness",
     "must_record": [
       "witness_id",
+      "validator_cache_version",
       "source_pattern_ids",
       "source_refs",
       "projection_receipt_refs",
       "public_replacement_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_material_status",
+      "body_copied_material_count",
       "tool_versions",
       "lake_build",
       "source_file_count",
@@ -94,6 +106,7 @@
       "Lake project metadata with no external dependencies",
       "declaration names",
       "source hashes",
+      "copied public Lean/Lake body files with digest manifest",
       "toolchain command status",
       "projection receipt refs"
     ],
@@ -163,6 +176,20 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay pattern-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay pattern-level metadata, public replacements stay public-root relative, and exported Lean witness bundle bodies count only when source_module_manifest.json digest verification passes"
+  },
+  "source_open_body_imports_contract": {
+    "required": true,
+    "minimum_body_material_count": 4,
+    "source_manifest_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json",
+    "allowed_material_classes": [
+      "public_lean_witness_manifest_body",
+      "public_lean_lake_project_body",
+      "public_lean_source_body"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "blocked_import_debt_ref": "source_module_manifest.json::blocked_import_debt",
+    "rule": "Count the exported witness manifest, lakefile, root module, and Basic.lean as source-open body material only after source_module_manifest.json verifies path, relation, digest, and public-safe material class."
   }
 }

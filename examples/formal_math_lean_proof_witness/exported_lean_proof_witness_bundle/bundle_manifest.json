@@ -6,10 +6,33 @@
   "entry_file": "witness_manifest.json",
   "included_files": [
     "witness_manifest.json",
+    "source_module_manifest.json",
     "lake_project/lakefile.lean",
     "lake_project/MicrocosmProofWitness.lean",
     "lake_project/MicrocosmProofWitness/Basic.lean"
   ],
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "formal_math_lean_witness_manifest_body_import",
+      "formal_math_lean_lakefile_body_import",
+      "formal_math_lean_root_module_body_import",
+      "formal_math_lean_basic_witness_body_import"
+    ],
+    "material_classes": [
+      "public_lean_lake_project_body",
+      "public_lean_source_body",
+      "public_lean_witness_manifest_body"
+    ],
+    "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
+    "source_manifest_refs": [
+      "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false
+  },
   "authority_ceiling": "bounded_public_lean_lake_witness_only",
   "body_redacted": true
 }

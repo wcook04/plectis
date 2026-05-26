@@ -33,6 +33,22 @@ ACCEPTANCE_RECEIPT_REL = (
 )
 BUNDLE_RESULT_NAME = "exported_lean_proof_witness_bundle_validation_result.json"
 CARD_SCHEMA_VERSION = "formal_math_lean_proof_witness_command_card_v1"
+VALIDATOR_CACHE_VERSION = "formal_math_lean_proof_witness_validator_cache_v2_source_module_scan"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_formal_math_witness_body"
+SOURCE_BODY_STATUS = (
+    "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance"
+)
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_lean_witness_manifest_body",
+    "public_lean_lake_project_body",
+    "public_lean_source_body",
+}
+SOURCE_MODULE_RELATIONS = {"exact_copy", "public_replacement_source_body"}
+SOURCE_REF_PREFIXES = (
+    "fixtures/first_wave/formal_math_lean_proof_witness/input/",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/",
+)
 
 MANIFEST_NAME = "witness_manifest.json"
 LAKE_PROJECT_DIR = "lake_project"
@@ -137,6 +153,9 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         input_dir / MANIFEST_NAME,
         input_dir / LAKE_PROJECT_DIR / LAKEFILE_NAME,
     ]
+    source_module_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_module_manifest.is_file():
+        paths.append(source_module_manifest)
     project_dir = input_dir / LAKE_PROJECT_DIR
     if project_dir.is_dir():
         paths.extend(sorted(project_dir.rglob("*.lean")))
@@ -188,6 +207,14 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("command") != command:
         return None
+    if payload.get("validator_cache_version") != VALIDATOR_CACHE_VERSION:
+        return None
+    source_open_body_imports = payload.get("source_open_body_imports")
+    if (
+        not isinstance(source_open_body_imports, dict)
+        or source_open_body_imports.get("status") != PASS
+    ):
+        return None
     receipt_paths = payload.get("receipt_paths")
     if not isinstance(receipt_paths, list) or not receipt_paths:
         receipt_paths = [_display(result_path, public_root=public_root)]
@@ -204,6 +231,10 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _sha256_file(path: Path) -> str:
+    return "sha256:" + _sha256(path)
+
+
 def _source_metadata(path: Path, *, public_root: Path) -> dict[str, Any]:
     text = path.read_text(encoding="utf-8")
     return {
@@ -213,6 +244,319 @@ def _source_metadata(path: Path, *, public_root: Path) -> dict[str, Any]:
         "declarations": sorted(DECLARATION_RE.findall(text)),
         "imports": _import_names(text),
         "body_redacted": True,
+    }
+
+
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_manifest_path(input_dir: str | Path) -> Path:
+    return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        target = public_root / target_ref
+        if target.exists() or not row_path:
+            return target, target_ref
+        relocated = manifest_path.parent / row_path
+        return relocated, public_relative_path(relocated, display_root=public_root)
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, public_relative_path(target, display_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except (OSError, ValueError):
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
+
+
+def _dedupe_paths(paths: list[Path]) -> list[Path]:
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def validate_source_module_imports(
+    input_dir: str | Path,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = public_relative_path(manifest_path, display_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "LEAN_WITNESS_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported Lean proof witness bundles require source_module_manifest.json for copied public Lean/Lake bodies.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    if not isinstance(manifest, dict):
+        manifest = {}
+    module_rows = _rows(manifest, "modules")
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "LEAN_WITNESS_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_formal_math_witness_body.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "LEAN_WITNESS_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied Lean/Lake witness bodies may live in the bundle, not in receipts.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(module_rows):
+        findings.append(
+            _finding(
+                "LEAN_WITNESS_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_manifest",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in module_rows:
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        source_ref = str(row.get("source_ref") or "")
+        material_class = str(row.get("material_class") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        expected_digest = str(row.get("sha256") or "")
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_formal_math_witness_body.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Formal witness body imports may include only public witness manifests, Lake project metadata, or Lean source bodies.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy or public_replacement_source_body.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not source_ref.startswith(SOURCE_REF_PREFIXES):
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_REF_UNEXPECTED",
+                    "Source module rows must point at the public first-wave fixture or exported Lean witness bundle.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the public Lean witness bundle.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual_digest = _sha256_file(target_path)
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        target_text = target_path.read_text(encoding="utf-8")
+        missing_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if isinstance(anchor, str) and anchor not in target_text
+        ]
+        if missing_anchors:
+            findings.append(
+                _finding(
+                    "LEAN_WITNESS_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Source module target is missing one or more required anchors.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    return {
+        "status": "not_applicable",
+        "source_module_manifest_ref": public_relative_path(
+            manifest_path,
+            display_root=public_root,
+        ),
+        "module_count": 0,
+        "modules": [],
+        "findings": [],
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _rows(source_imports, "modules")
+    module_ids = [
+        str(row.get("module_id")) for row in modules if row.get("module_id")
+    ]
+    return {
+        "schema_version": "formal_math_lean_proof_witness_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {
+                str(row.get("material_class"))
+                for row in modules
+                if row.get("material_class")
+            }
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref") and modules
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref") and modules
+            else ""
+        ),
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": True,
+            "formal_proof_authority": "bounded_declared_public_toy_witness_only",
+            "mathlib_authority": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus the exported witness manifest, "
+            "lakefile, root module, and Basic.lean for copied public Lean/Lake "
+            "witness bodies; receipts carry refs, digests, counts, and verdicts only."
+        )
+        if modules
+        else "",
     }
 
 
@@ -488,9 +832,19 @@ def _build_result(
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     input_paths = _input_paths(input_dir, include_negative=include_negative)
+    source_module_imports = (
+        validate_source_module_imports(input_dir, public_root=public_root)
+        if input_mode == "exported_lean_proof_witness_bundle"
+        else _empty_source_module_imports(input_dir, public_root=public_root)
+    )
+    source_open_body_imports = _source_open_body_import_summary(
+        source_module_imports
+    )
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     private_scan = scan_paths(
-        input_paths,
+        _dedupe_paths(
+            input_paths + _source_artifact_paths(input_dir, public_root=public_root)
+        ),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -600,6 +954,7 @@ def _build_result(
 
     observed = _merge_observed(
         manifest_result,
+        source_module_imports,
         invalid_proof,
         forbidden_import_case,
         private_ref_case,
@@ -609,6 +964,7 @@ def _build_result(
     missing = sorted(case_id for case_id in expected if case_id not in observed)
     findings = _merge_findings(
         manifest_result,
+        source_module_imports,
         invalid_proof,
         forbidden_import_case,
         private_ref_case,
@@ -628,6 +984,10 @@ def _build_result(
         and tool_versions["lake_available"]
         and lake_build["return_code"] == 0
         and manifest_result["status"] == PASS
+        and (
+            input_mode != "exported_lean_proof_witness_bundle"
+            or source_module_imports["status"] == PASS
+        )
         and not forbidden_positive_imports
         and not missing
         and private_scan["blocking_hit_count"] == 0
@@ -640,6 +1000,7 @@ def _build_result(
         "organ_id": ORGAN_ID,
         "fixture_id": FIXTURE_ID,
         "validator_id": VALIDATOR_ID,
+        "validator_cache_version": VALIDATOR_CACHE_VERSION,
         "command": command,
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id")
@@ -663,6 +1024,12 @@ def _build_result(
         "source_files": source_metadata,
         "source_file_count": len(source_metadata),
         "compiled_declaration_count": declaration_count,
+        "source_module_imports": source_module_imports,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "forbidden_positive_imports": forbidden_positive_imports,
         "lean_witness_board": {
             "headline": "A tiny public Lake project compiled with local Lean.",
@@ -692,6 +1059,7 @@ def _common_receipt(
         "organ_id",
         "fixture_id",
         "validator_id",
+        "validator_cache_version",
         "command",
         "input_mode",
         "bundle_id",
@@ -708,6 +1076,10 @@ def _common_receipt(
         "source_pattern_ids",
         "projection_receipt_refs",
         "public_replacement_refs",
+        "source_module_imports",
+        "source_open_body_imports",
+        "body_material_status",
+        "body_copied_material_count",
         "tool_versions",
         "lake_build",
         "source_files",
@@ -770,6 +1142,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "compiled_declaration_count": result.get(
                 "compiled_declaration_count", 0
             ),
+            "source_open_body_import_status": _dict_value(
+                result,
+                "source_open_body_imports",
+            ).get("status"),
+            "source_open_body_material_count": _dict_value(
+                result,
+                "source_open_body_imports",
+            ).get("body_material_count", 0),
             "forbidden_positive_import_count": _list_count(
                 result.get("forbidden_positive_imports")
             ),
@@ -830,6 +1210,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "source_pattern_ids_exported": False,
             "projection_receipt_refs_exported": False,
             "public_replacement_refs_exported": False,
+            "source_module_imports_exported": False,
+            "source_open_body_refs_exported": False,
             "findings_exported": False,
             "anti_claim_exported": False,
             "private_scan_hits_exported": False,

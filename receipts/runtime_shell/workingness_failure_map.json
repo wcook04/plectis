@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 25,
+  "rows_with_source_body_imports": 26,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 317,
+  "source_open_body_material_count": 321,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 25,
-    "source_open_body_material_count": 317,
+    "rows_with_source_body_imports": 26,
+    "source_open_body_material_count": 321,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -2757,7 +2757,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe Lean witness slice: a tiny Lake project, local toolchain probe, temporary build, declaration metadata, redacted receipts, and leakage negative cases.",
         "receipt_expectation_count": 2,
-        "required_field_count": 8,
+        "required_field_count": 12,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -2772,7 +2772,7 @@
         "standard_ref": "standards/std_microcosm_formal_math_lean_proof_witness.json",
         "standard_status": "draft",
         "teleology": "Let Microcosm honestly cross from formal-math readiness into a runnable local Lean proof witness while keeping proof authority narrow and auditable.",
-        "validation_rule_count": 8
+        "validation_rule_count": 10
       },
       "observed_workingness": {
         "claim_ceiling": "tool witness only, not general proof authority",
@@ -2789,7 +2789,40 @@
           "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json"
         ],
         "negative_case_independence": "bounded_to_declared_toy_witness_scope",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": "bounded_declared_public_toy_witness_only",
+            "lean_lake_execution_authorized": true,
+            "mathlib_authority": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "formal_math_lean_witness_manifest_body_import",
+            "formal_math_lean_lakefile_body_import",
+            "formal_math_lean_root_module_body_import",
+            "formal_math_lean_basic_witness_body_import"
+          ],
+          "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/formal_math_lean_proof_witness.fixture_manifest.json",
+          "material_classes": [
+            "public_lean_lake_project_body",
+            "public_lean_source_body",
+            "public_lean_witness_manifest_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus the exported witness manifest, lakefile, root module, and Basic.lean for copied public Lean/Lake witness bodies.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
         "verdict_source": "subprocess_or_tool_witness"
@@ -2797,7 +2830,40 @@
       "ordinal": 17,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": "bounded_declared_public_toy_witness_only",
+          "lean_lake_execution_authorized": true,
+          "mathlib_authority": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "formal_math_lean_witness_manifest_body_import",
+          "formal_math_lean_lakefile_body_import",
+          "formal_math_lean_root_module_body_import",
+          "formal_math_lean_basic_witness_body_import"
+        ],
+        "body_material_status": "copied_non_secret_formal_math_lean_witness_source_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/formal_math_lean_proof_witness.fixture_manifest.json",
+        "material_classes": [
+          "public_lean_lake_project_body",
+          "public_lean_source_body",
+          "public_lean_witness_manifest_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus the exported witness manifest, lakefile, root module, and Basic.lean for copied public Lean/Lake witness bodies.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_formal_math_lean_proof_witness.json",
         "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
