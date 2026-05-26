@@ -70,6 +70,7 @@ from microcosm_core.validators import research_kernel_density
 from microcosm_core.validators import secret_exclusion_scan
 from microcosm_core.validators import standards_registry
 from microcosm_core.validators import transaction_evidence_stability
+from microcosm_core.schemas import read_json_strict
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
@@ -87,6 +88,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm intake --card         read the compact intake/projection bridge lens
   microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
+  microcosm proof-lab --card      read the cached verifier-lab receipt card
   microcosm proof-lab --out /tmp/microcosm-proof-lab
   microcosm serve <project>       open the local observatory
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
@@ -175,6 +177,47 @@ def _proof_lab_command(input_path: str, out_dir: str) -> str:
     return f"microcosm proof-lab --input {display_input} --out {out_dir}"
 
 
+def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
+    display_input = _public_ref(input_path)
+    if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
+        return f"microcosm proof-lab --card --out {out_dir}"
+    return f"microcosm proof-lab --card --input {display_input} --out {out_dir}"
+
+
+def _proof_lab_cached_result(out_dir: str) -> dict:
+    receipt_path = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return {
+            "status": "missing_cached_receipt",
+            "proof_lab_component_metrics": {},
+            "receipt_paths": [],
+            "body_in_receipt": False,
+            "authority_ceiling": {
+                "status": "missing_cached_receipt",
+                "run_required": "microcosm proof-lab --out <out>",
+            },
+            "anti_claim": (
+                "Cached proof-lab cards read public receipts only; run the "
+                "full proof-lab route when the receipt is missing or stale."
+            ),
+            "cache_status": "missing_cached_receipt",
+            "cached_receipt_ref": str(receipt_path),
+            "cached_receipt_bytes": 0,
+        }
+    payload = read_json_strict(receipt_path)
+    if not isinstance(payload, dict):
+        raise ValueError(f"Proof-lab receipt must be a JSON object: {receipt_path}")
+    receipt_paths = payload.get("receipt_paths")
+    if not isinstance(receipt_paths, list) or not receipt_paths:
+        payload = {**payload, "receipt_paths": [str(receipt_path)]}
+    return {
+        **payload,
+        "cache_status": "cached_receipt_read",
+        "cached_receipt_ref": str(receipt_path),
+        "cached_receipt_bytes": receipt_path.stat().st_size,
+    }
+
+
 def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
     refs: list[str] = []
     base = str(out_dir)
@@ -217,6 +260,9 @@ def _proof_lab_first_screen_card(
         "endpoint": "/proof-lab",
         "alias_endpoints": ["/verifier-lab-kernel"],
         "source_lens_endpoint": "/proof-loop-depth",
+        "cache_status": result.get("cache_status", "live_receipt_rebuild"),
+        "cached_receipt_ref": result.get("cached_receipt_ref"),
+        "cached_receipt_bytes": result.get("cached_receipt_bytes"),
         "input_ref": _public_ref(input_path),
         "out_ref": out_dir,
         "bundle_ref": runtime_shell.PROOF_LAB_BUNDLE_REF,
@@ -413,6 +459,11 @@ def main(argv: list[str] | None = None) -> int:
     proof_lab_parser = subparsers.add_parser(
         "proof-lab",
         help="run the first-screen verifier proof lab",
+    )
+    proof_lab_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="read the cached first-screen proof-lab receipt without rerunning",
     )
     proof_lab_parser.add_argument(
         "--input",
@@ -873,12 +924,16 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append(args.project)
         return runtime_shell.main(command_args)
     if args.command == "proof-lab":
-        command = _proof_lab_command(args.input, args.out)
-        result = verifier_lab_kernel.run_kernel_bundle(
-            args.input,
-            args.out,
-            command=command,
-        )
+        if args.card:
+            command = _proof_lab_card_command(args.input, args.out)
+            result = _proof_lab_cached_result(args.out)
+        else:
+            command = _proof_lab_command(args.input, args.out)
+            result = verifier_lab_kernel.run_kernel_bundle(
+                args.input,
+                args.out,
+                command=command,
+            )
         return _print_json(
             _proof_lab_first_screen_card(
                 result,
