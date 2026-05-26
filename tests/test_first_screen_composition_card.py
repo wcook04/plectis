@@ -70,6 +70,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "README, CLI, and observatory consumers" in card[
         "entry_surface_contract"
     ]["consumer_rule"]
+    assert "observatory landing frame" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     scale_counts = card["scale_frame"]["public_scale_counts"]
     assert card["scale_frame"]["count_interpretation"] == (
         "receipt_backed_handles_not_scores"
@@ -87,6 +90,33 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert scale_counts["source_open_materials"]["read_as"] == (
         "copy_boundary_accounting_not_maturity_score"
     )
+    observatory_landing_frame = card["observatory_landing_frame"]
+    assert observatory_landing_frame["schema_version"] == (
+        "microcosm_observatory_landing_frame_v1"
+    )
+    assert observatory_landing_frame["shared_first_command"] == (
+        card["shared_first_command"]
+    )
+    assert observatory_landing_frame["endpoints"] == {
+        "html_landing": "/",
+        "first_screen_card": "/project/first-screen",
+        "compact_observatory_card": "/project/observatory-card",
+        "full_observatory_model": "/project/observatory",
+        "project_observe": "/project/observe",
+    }
+    assert observatory_landing_frame["drilldown_order"] == [
+        "html_landing",
+        "first_screen_card",
+        "compact_observatory_card",
+        "full_observatory_model",
+        "project_observe",
+    ]
+    assert "public_scale_counts" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
+    assert "release, hosting, provider calls" in observatory_landing_frame[
+        "authority_boundary"
+    ]
     assert card["authority_ceiling"]["release_authority"] is False
     assert card["authority_ceiling"]["source_mutation_authority"] is False
     assert card["authority_ceiling"]["private_data_equivalence_authority"] is False
@@ -102,6 +132,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert card["validation"]["checks"]["scale_frame"] is True
+    assert card["validation"]["checks"]["observatory_landing_frame"] is True
     assert "body" not in _walk_keys(card)
     assert (
         module.first_screen_composition_card.__module__
@@ -160,6 +191,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     ) in text
     assert "Hiring: microcosm legibility-scorecard -> microcosm tour --card ." in text
     assert "Peer developer: microcosm tour --card . -> microcosm observe ." in text
+    assert (
+        "browser landing: / -> /project/first-screen -> /project/observatory-card"
+        in text
+    )
     assert "No release, hosted publication, provider-call" in text
     assert "paper_modules/first_screen_composition_root.md" in text
     assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES

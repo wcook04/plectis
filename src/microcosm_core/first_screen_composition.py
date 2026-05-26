@@ -31,6 +31,13 @@ TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
 ORGAN_REGISTRY_REF = "core/organ_registry.json"
 STANDARDS_REGISTRY_REF = "core/standards_registry.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
+OBSERVATORY_LANDING_ENDPOINTS = {
+    "html_landing": "/",
+    "first_screen_card": "/project/first-screen",
+    "compact_observatory_card": "/project/observatory-card",
+    "full_observatory_model": "/project/observatory",
+    "project_observe": "/project/observe",
+}
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
@@ -296,7 +303,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, evidence-count frame, "
-            "omission receipt, and authority ceiling."
+            "observatory landing frame, omission receipt, and authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -319,8 +326,53 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
     }
 
 
+def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_observatory_landing_frame_v1",
+        "role": "make_the_shared_first_screen_card_the_browser_landing_frame",
+        "shared_first_command": f"microcosm tour --card {project_label}",
+        "endpoints": dict(OBSERVATORY_LANDING_ENDPOINTS),
+        "first_viewport_rule": (
+            "The browser landing frame should show the first run, reader branches, public "
+            "scale handles, and authority ceiling before the deeper observatory lens inventory."
+        ),
+        "projection_rule": (
+            "The observatory landing is a projection over this first-screen card, not a "
+            "separate cold-entry artifact with its own claims."
+        ),
+        "required_visible_handles": [
+            "shared_first_command",
+            "reader_route_ids",
+            "public_scale_counts",
+            "evidence_count_interpretation",
+            "authority_ceiling",
+            "omission_receipt",
+        ],
+        "drilldown_order": [
+            "html_landing",
+            "first_screen_card",
+            "compact_observatory_card",
+            "full_observatory_model",
+            "project_observe",
+        ],
+        "authority_boundary": (
+            "Local browser display is a public read-model boundary. It does not authorize "
+            "release, hosting, provider calls, source mutation, private-data equivalence, "
+            "or whole-system correctness claims."
+        ),
+    }
+
+
 def _drilldowns(project_label: str) -> list[dict[str, str]]:
     return [
+        {
+            "drilldown_id": "observatory_landing",
+            "endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
+        },
+        {
+            "drilldown_id": "first_screen_endpoint",
+            "endpoint": OBSERVATORY_LANDING_ENDPOINTS["first_screen_card"],
+        },
         {
             "drilldown_id": "shared_first_card",
             "command": f"microcosm tour --card {project_label}",
@@ -362,6 +414,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     drilldown_text = json.dumps(payload.get("drilldowns", []), sort_keys=True)
     scale_frame = payload.get("scale_frame", {})
     scale_counts = scale_frame.get("public_scale_counts", {})
+    observatory_landing_frame = payload.get("observatory_landing_frame", {})
+    observatory_endpoints = (
+        observatory_landing_frame.get("endpoints", {})
+        if isinstance(observatory_landing_frame, dict)
+        else {}
+    )
+    required_visible_handles = (
+        observatory_landing_frame.get("required_visible_handles", [])
+        if isinstance(observatory_landing_frame, dict)
+        else []
+    )
     return {
         "shared_first_command": payload.get("shared_first_command", "").startswith(
             "microcosm tour --card "
@@ -396,6 +459,21 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         "runnable_structural_join": bool(
             payload.get("runnable_structural_join", {}).get("join_rule")
         ),
+        "observatory_landing_frame": (
+            observatory_landing_frame.get("shared_first_command")
+            == payload.get("shared_first_command")
+            and observatory_endpoints == OBSERVATORY_LANDING_ENDPOINTS
+            and all(
+                handle in required_visible_handles
+                for handle in (
+                    "shared_first_command",
+                    "reader_route_ids",
+                    "public_scale_counts",
+                    "authority_ceiling",
+                    "omission_receipt",
+                )
+            )
+        ),
         "authority_ceiling": all(
             authority_ceiling.get(key) is False for key in DENIED_AUTHORITY_KEYS
         ),
@@ -422,6 +500,7 @@ def first_screen_composition_card(
         "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(root),
         "runnable_structural_join": _runnable_structural_join(project_label),
+        "observatory_landing_frame": _observatory_landing_frame(project_label),
         "drilldowns": _drilldowns(project_label),
         "omission_receipt": standard["omission_receipt"],
         "authority_ceiling": standard["authority_ceiling"],
@@ -510,9 +589,9 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
         "",
         "Drilldowns:",
+        "  browser landing: / -> /project/first-screen -> /project/observatory-card",
         "  authority/workingness: microcosm authority / microcosm workingness",
-        "  route map: paper_modules/cold_reader_route_map.md",
-        f"  composition contract: {payload['source_standard_ref']}",
+        f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
         "Authority ceiling:",
         "  No release, hosted publication, provider-call, source-mutation, private-equivalence,",
