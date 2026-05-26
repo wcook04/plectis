@@ -219,6 +219,19 @@ def validate_legibility(
         and "Safety/evals:" in html
         and "Hiring:" in html
         and "Peer developer:" in html,
+        "first_screen_reader_route_cards_visible": "Reader Route Choices" in html
+        and "First action" in html
+        and "Proof surface" in html
+        and "Success criterion" in html,
+        "first_screen_reader_route_questions_visible": (
+            "Does the evidence discipline survive contact with scale?" in html
+            and "Is this real, inspectable, and built with the judgment" in html
+            and "Can I clone it, run it, and understand the first useful path" in html
+        ),
+        "first_screen_reader_exit_cards_visible": "Exit when" in html
+        and "Can name evidence-class ceilings" in html
+        and "Can distinguish runnable local behavior" in html
+        and "Can find .microcosm state refs" in html,
         "first_screen_exit_rule_visible": (
             "exit when you can choose a drilldown without the command inventory"
             in html

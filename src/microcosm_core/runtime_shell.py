@@ -16903,15 +16903,47 @@ class RuntimeShell:
             if isinstance(first_screen_card.get("comparison_frame"), dict)
             else {}
         )
-        first_screen_reader_ids = [
-            str(route.get("reader_route_id"))
+        first_screen_reader_routes = [
+            route
             for route in (
                 first_screen_card.get("reader_routes", [])
                 if isinstance(first_screen_card.get("reader_routes"), list)
                 else []
             )
-            if isinstance(route, dict) and route.get("reader_route_id")
+            if isinstance(route, dict)
         ]
+        first_screen_reader_ids = [
+            str(route.get("reader_route_id"))
+            for route in first_screen_reader_routes
+            if route.get("reader_route_id")
+        ]
+        reader_landing_packets = first_screen_card.get("reader_landing_packets", {})
+        reader_packet_rows = (
+            reader_landing_packets.get("packets", [])
+            if isinstance(reader_landing_packets, dict)
+            and isinstance(reader_landing_packets.get("packets"), list)
+            else []
+        )
+        reader_packet_by_id = {
+            str(packet.get("reader_route_id")): packet
+            for packet in reader_packet_rows
+            if isinstance(packet, dict) and packet.get("reader_route_id")
+        }
+        reader_exit_criteria = first_screen_card.get("reader_exit_criteria", {})
+        reader_exit_rows = (
+            reader_exit_criteria.get("criteria", [])
+            if isinstance(reader_exit_criteria, dict)
+            and isinstance(reader_exit_criteria.get("criteria"), list)
+            else []
+        )
+        reader_exit_by_id = {
+            str(row.get("reader_route_id")): row
+            for row in reader_exit_rows
+            if isinstance(row, dict) and row.get("reader_route_id")
+        }
+        reader_labels = getattr(first_screen_composition, "READER_LABELS", {})
+        if not isinstance(reader_labels, dict):
+            reader_labels = {}
         if first_screen_card:
             try:
                 first_screen_text_projection = (
@@ -17318,6 +17350,52 @@ class RuntimeShell:
                     "</li>"
                 )
             return f"<ul>{''.join(items)}</ul>"
+
+        def first_screen_reader_route_cards() -> str:
+            if not first_screen_reader_routes:
+                return "<p class=\"muted\">No reader routes in the first-screen card.</p>"
+            cards = []
+            for route in first_screen_reader_routes:
+                route_id = _safe_text(route.get("reader_route_id"))
+                packet = reader_packet_by_id.get(route_id, {})
+                exit_row = reader_exit_by_id.get(route_id, {})
+                label = _safe_text(
+                    reader_labels.get(route_id) or route_id.replace("_", " ").title()
+                )
+                commands = route.get("next_commands", [])
+                if not isinstance(commands, list):
+                    commands = []
+                command_html = "".join(
+                    f"<code>{html.escape(_safe_text(command))}</code>"
+                    for command in commands[:3]
+                )
+                focus = route.get("evidence_focus", [])
+                if not isinstance(focus, list):
+                    focus = []
+                focus_html = "".join(
+                    f"<li>{html.escape(_safe_text(item))}</li>" for item in focus[:3]
+                )
+                if focus_html:
+                    focus_html = f"<ul>{focus_html}</ul>"
+                cards.append(
+                    "<article class=\"reader-route-card\">"
+                    f"<h3>{html.escape(label)}</h3>"
+                    f"<p class=\"reader-question\">{html.escape(_safe_text(route.get('first_question')))}</p>"
+                    "<dl>"
+                    f"<dt>First action</dt><dd>{html.escape(_safe_text(packet.get('first_action')))}</dd>"
+                    f"<dt>Proof surface</dt><dd>{html.escape(_safe_text(packet.get('proof_surface')))}</dd>"
+                    f"<dt>Success criterion</dt><dd>{html.escape(_safe_text(packet.get('success_criterion')))}</dd>"
+                    f"<dt>Exit when</dt><dd>{html.escape(_safe_text(exit_row.get('exit_when')))}</dd>"
+                    "</dl>"
+                    f"<div class=\"command-stack\">{command_html}</div>"
+                    f"{focus_html}"
+                    "</article>"
+                )
+            return (
+                "<div class=\"reader-route-grid\" aria-label=\"Reader route choices\">"
+                f"{''.join(cards)}"
+                "</div>"
+            )
 
         def event_rows(rows: list[Any]) -> str:
             if not rows:
@@ -17748,6 +17826,14 @@ class RuntimeShell:
     summary {{ cursor: pointer; color: #45433e; font-weight: 600; }}
     pre {{ margin: 10px 0 0; padding: 12px; overflow: auto; max-height: 360px; font-size: 12px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: #f7f7f4; border: 1px solid #e4e1d8; border-radius: 5px; }}
     .terminal-card {{ margin: 0 0 12px; padding: 14px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; line-height: 1.5; color: #f6f3e8; background: #1d1d19; border: 1px solid #444136; border-radius: 6px; }}
+    .reader-route-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 10px; margin: 10px 0 14px; }}
+    .reader-route-card {{ border: 1px solid #d7d4ca; border-radius: 6px; padding: 11px; background: #fbfbf8; min-width: 0; }}
+    .reader-route-card h3 {{ margin: 0 0 6px; font-size: 13px; }}
+    .reader-question {{ margin: 0 0 8px; color: #34332f; font-weight: 600; }}
+    .reader-route-card dl {{ display: grid; gap: 4px 8px; grid-template-columns: 94px minmax(0, 1fr); margin: 0; font-size: 12px; }}
+    .reader-route-card dt {{ color: #68665f; font-weight: 600; }}
+    .reader-route-card dd {{ margin: 0; overflow-wrap: anywhere; color: #3d3b36; }}
+    .command-stack {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }}
     @media (max-width: 860px) {{ main {{ grid-template-columns: 1fr; padding: 12px; }} header {{ padding: 22px 18px 16px; }} }}
   </style>
 </head>
@@ -17761,6 +17847,8 @@ class RuntimeShell:
       <h2>One-Screen Entry</h2>
       <div class="content">
         <div class="terminal-card" aria-label="Microcosm first-screen text card">{html.escape(first_screen_text_projection)}</div>
+        <h3>Reader Route Choices</h3>
+        {first_screen_reader_route_cards()}
         <div class="chain">
           <div class="node"><strong>First Run</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>
