@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -20,6 +21,25 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle"
 )
+PROVER_SMOKE_RUN_REF = "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke"
+SOURCE_ARTIFACT_REFS = [
+    f"{PROVER_SMOKE_RUN_REF}/corpus_readiness.json",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe.json",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/mathlib_probe.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/trace_state_probe.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+    f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+    (
+        f"{PROVER_SMOKE_RUN_REF}/tactic_affordance_probe/portfolio_core_v0/"
+        "tactic_portfolio_availability.json"
+    ),
+]
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -103,9 +123,95 @@ def test_formal_math_readiness_gate_accepts_exported_bundle(tmp_path: Path) -> N
     assert result["readiness_extension_board"]["target_shape_routing_projection"][
         "blocked_route_case_count"
     ] == 0
+    assert result["body_material_status"] == (
+        "copied_non_secret_macro_readiness_probe_body_with_provenance"
+    )
+    assert (
+        result["source_module_import_status"]
+        == "copied_formal_readiness_source_modules_verified"
+    )
+    assert result["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["source_modules_pass"] is True
+    assert all(row["exists"] is True for row in result["source_module_imports"])
+    assert all(row["digest_match"] is True for row in result["source_module_imports"])
+    assert result["readiness_extension_board"]["projection_contract"][
+        "body_copied"
+    ] is True
+    assert result["readiness_extension_board"]["source_body_import_projection"][
+        "copied_source_artifact_count"
+    ] == len(SOURCE_ARTIFACT_REFS)
     assert result["receipt_paths"] == [
         "receipts/exported_formal_math_readiness_bundle_validation_result.json"
     ]
+
+
+def test_formal_math_readiness_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads(
+        (EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    modules = {row["source_ref"]: row for row in manifest["modules"]}
+    assert sorted(modules) == sorted(SOURCE_ARTIFACT_REFS)
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+
+    bundle_manifest = json.loads(
+        (EXPORTED_BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    assert bundle_manifest["source_module_manifest_ref"] == "source_module_manifest.json"
+    assert len(bundle_manifest["copied_macro_body_artifacts"]) == len(
+        SOURCE_ARTIFACT_REFS
+    )
+
+    for source_ref in SOURCE_ARTIFACT_REFS:
+        source = MICROCOSM_ROOT.parent / source_ref
+        target = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
+        assert target.is_file()
+        source_bytes = source.read_bytes()
+        target_bytes = target.read_bytes()
+        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+        assert source_bytes == target_bytes
+        assert modules[source_ref]["sha256"] == digest
+        assert modules[source_ref]["body_in_receipt"] is False
+
+
+def test_formal_math_readiness_exported_bundle_receipt_omits_source_bodies(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/formal_math_readiness_gate",
+        public_root / "examples/formal_math_readiness_gate",
+    )
+
+    result = run_readiness_bundle(
+        public_root / "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle",
+        public_root / "receipts/formal_math_readiness_gate",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    for receipt_ref in result["receipt_paths"]:
+        receipt_file = public_root / receipt_ref
+        assert receipt_file.is_file()
+        text = receipt_file.read_text(encoding="utf-8")
+        assert str(public_root) not in text
+        assert "/Users/" not in text
+        assert "src/ai_workflow" not in text
+        assert "matched_excerpt" not in text
+        assert "import Mathlib" not in text
+        assert "\n  trace_state" not in text
+        payload = json.loads(text)
+        assert payload["status"] == "pass"
+        assert payload["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
+        assert payload["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
+        assert payload["source_modules_pass"] is True
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "private_state_scan" not in _walk_keys(payload)
+        assert "body" not in _walk_keys(payload)
 
 
 def test_formal_math_readiness_receipts_use_secret_exclusion_and_public_relative(

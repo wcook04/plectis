@@ -1,20 +1,23 @@
 {
-  "schema_version": "formal_math_readiness_exported_bundle_manifest_v1",
-  "bundle_id": "public_formal_math_readiness_runtime_example",
-  "bundle_kind": "exported_formal_math_readiness_bundle",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "formal_math_readiness_gate_prover_smoke_run_source_module_manifest",
   "organ_id": "formal_math_readiness_gate",
-  "runtime_surfaces": [
-    "corpus_readiness",
-    "tactic_portfolio_availability",
-    "premise_index",
-    "target_shape_tactic_routing",
-    "provider_context_recipes"
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_PROVER_smoke_run_readiness_and_tactic_probe_artifacts_copied_into_public_formal_readiness_bundle",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private theorem proof bodies or oracle proof text"
   ],
-  "authority_ceiling": "public formal math readiness metadata only",
-  "anti_claim": "This bundle is standalone readiness metadata plus copied non-secret PROVER smoke-run readiness/probe artifacts. It does not run Lean or Lake, call providers, expose private theorem proof bodies, or authorize formal proof authority.",
-  "body_import_status": "copied_non_secret_macro_readiness_probe_body_with_provenance",
-  "source_module_manifest_ref": "source_module_manifest.json",
-  "copied_macro_body_artifacts": [
+  "source_run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
+  "source_run_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke",
+  "module_count": 13,
+  "modules": [
     {
       "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
@@ -250,16 +253,5 @@
       ]
     }
   ],
-  "source_open_body_import_summary": {
-    "status": "pass",
-    "source_run_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke",
-    "material_count": 13,
-    "source_module_manifest_ref": "source_module_manifest.json",
-    "material_classes": [
-      "public_macro_receipt_body",
-      "public_macro_tool_body"
-    ],
-    "body_in_receipt": false,
-    "source_to_target_relation": "exact_copy"
-  }
+  "anti_claim": "These copied artifacts make the readiness gate accountable to a real local PROVER smoke run. They do not authorize Lean/Lake execution, provider calls, Mathlib-dependent proofs, theorem correctness, release, or private proof-body export."
 }

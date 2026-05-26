@@ -6,7 +6,7 @@
   "status": "draft",
   "first_wave_required": true,
   "wave": "w1_formal_math_readiness",
-  "authority_boundary": "public_synthetic_formal_math_readiness_metadata_not_proof_authority",
+  "authority_boundary": "public_formal_math_readiness_metadata_plus_copied_non_secret_PROVER_probe_artifacts_not_proof_authority",
   "source_refs": [
     {
       "path": "fixtures/first_wave/formal_math_readiness_gate/input/premise_index.json",
@@ -27,11 +27,23 @@
       "path": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json#formal_math_readiness_extensions",
       "field": "projection_cells",
       "role": "macro_projection_intake_source"
+    },
+    {
+      "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json",
+      "field": "modules",
+      "role": "copied non-secret PROVER smoke-run readiness/probe source artifact manifest"
+    },
+    {
+      "path": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke",
+      "field": "copied readiness/probe artifacts",
+      "role": "exact copied macro body floor for exported formal readiness bundle"
     }
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#formal_math_readiness_gate",
-    "used_by_organs": ["formal_math_readiness_gate"],
+    "used_by_organs": [
+      "formal_math_readiness_gate"
+    ],
     "source_pattern_id_sample": [
       "lean_std_toolchain_premise_index",
       "tactic_portfolio_availability_probe",
@@ -50,7 +62,10 @@
     "provider_context_recipes",
     "readiness_extension_board",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "source_module_manifest",
+    "source_module_imports",
+    "body_material_status"
   ],
   "validation_rules": [
     "reject Mathlib availability without a passing probe",
@@ -60,7 +75,10 @@
     "reject provider recipes that exceed public byte budgets",
     "reject provider recipes that allow proof bodies or provider payload bodies",
     "emit a formal_math_readiness_extension_board with selected pattern ids, source intake ref, target refs, validation refs, premise namespace coverage, tactic availability coverage, routing admissibility, and authority ceiling",
-    "keep Lean/Lake execution unauthorized in this organ"
+    "keep Lean/Lake execution unauthorized in this organ",
+    "require exported readiness bundles to include a source_module_manifest for copied non-secret macro readiness/probe artifacts",
+    "verify copied source module targets exist and match source_module_manifest sha256 digests",
+    "keep copied source bodies in source_artifacts and out of generated receipts"
   ],
   "receipt_expectations": [
     "receipt.microcosm.formal_math_readiness_gate",
@@ -77,7 +95,8 @@
       "provider_context_budget",
       "readiness_extension_board_projection",
       "negative_case_coverage",
-      "private_state_scan"
+      "private_state_scan",
+      "source_module_digest_floor"
     ]
   },
   "receipt_contract": {
@@ -96,18 +115,25 @@
       "authority_ceiling",
       "anti_claim",
       "private_state_scan",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_ref",
+      "source_module_import_count",
+      "copied_source_artifact_count",
+      "body_material_status"
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_when_metadata_fixture_receipt_only",
+    "default_posture": "public_safe_when_metadata_plus_copied_non_secret_probe_artifacts_only",
     "allowed_public_inputs": [
       "corpus availability metadata",
       "tactic ids and probe receipt refs",
       "premise ids, namespaces, retrieval terms, and split eligibility",
       "target-shape route cases and admissible tactic ids",
       "provider context recipe ids and byte budgets",
-      "macro projection intake refs"
+      "macro projection intake refs",
+      "copied non-secret PROVER smoke-run corpus readiness receipts",
+      "copied non-secret Lean/Std tactic probe source files",
+      "copied non-secret tactic portfolio availability receipts with digest provenance"
     ],
     "forbidden_public_inputs": [
       "proof bodies",
@@ -116,30 +142,47 @@
       "private run logs",
       "credentials",
       "Mathlib availability claims without passing probe receipts",
-      "Lean/Lake execution authority"
+      "Lean/Lake execution authority",
+      "private theorem proof bodies or oracle proof text",
+      "source artifact body text inside receipts"
     ]
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "readiness_metadata_fixture_receipt_schema_only",
+    "standard_authority": "readiness_metadata_and_copied_probe_artifact_digest_schema_only",
     "formal_proof_authority": false,
     "lean_lake_authority": false,
     "mathlib_presence_authority": false,
     "provider_authority": false,
-    "release_authority": false
+    "release_authority": false,
+    "copied_public_probe_bodies_allowed": true,
+    "private_theorem_proof_bodies_allowed": false,
+    "proof_body_text_in_receipts_allowed": false
   },
-  "anti_claim": "This standard governs public synthetic formal-math readiness metadata only; it does not authorize Lean/Lake execution, Mathlib-dependent proof work, provider calls, proof bodies, theorem correctness claims, or release/publication work.",
+  "anti_claim": "This standard governs public formal-math readiness metadata plus copied non-secret PROVER smoke-run readiness/probe artifacts; it does not authorize Lean/Lake execution, Mathlib-dependent proof work, provider calls, private theorem proof bodies, theorem correctness claims, or release/publication work.",
   "standard_payload": {
-    "ontology": "A public-safe readiness gate for Lean/Std premise availability, tactic availability, target-shape routing, and context-recipe constraints.",
-    "teleology": "Turn the formal_math_readiness_extensions intake cell into a runnable boundary board future formal-math organs can inspect before proof or retrieval work.",
+    "ontology": "A public-safe readiness gate for Lean/Std premise availability, tactic availability, target-shape routing, context-recipe constraints, and copied non-secret PROVER smoke-run readiness/probe artifacts.",
+    "teleology": "Turn the formal_math_readiness_extensions intake cell into a runnable boundary board backed by exact copied readiness/probe artifacts that future formal-math organs can inspect before proof or retrieval work.",
     "anti_purpose": "Turning readiness metadata into theorem-proof authority.",
-    "compression_bands": ["corpus", "premise_index", "tactic_portfolio", "routing", "extension_board", "receipt"],
+    "compression_bands": [
+      "corpus",
+      "premise_index",
+      "tactic_portfolio",
+      "routing",
+      "extension_board",
+      "receipt",
+      "source_module_manifest",
+      "copied_probe_artifacts"
+    ],
     "failure_modes": [
       "Mathlib availability overclaim",
       "unprobed tactic admitted",
       "premise index leaks proof body",
       "route admits unavailable tactic",
-      "provider context recipe smuggles proof body"
+      "provider context recipe smuggles proof body",
+      "copied source artifact missing",
+      "copied source artifact digest mismatch",
+      "source body exported in receipt"
     ],
     "rebuild_action": "draft"
   },
@@ -162,8 +205,8 @@
       "private run logs",
       "Lean/Lake execution receipts"
     ],
-    "reason": "public readiness gate carries metadata, synthetic fixtures, and receipt evidence only",
-    "drilldown": "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
+    "reason": "public readiness gate carries metadata, copied non-secret PROVER readiness/probe artifacts, and receipt evidence only",
+    "drilldown": "examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_module_manifest.json"
   },
   "anti_claim_contract": {
     "required": true,
