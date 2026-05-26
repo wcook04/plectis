@@ -482,6 +482,8 @@ adapter-backed organs and 4 drilldown-only regression surfaces.
    must not claim SWE-bench performance, mutate live repos, call providers,
    import private issues, export private repositories, authorize broad
    checkpointing, prove production delivery rate, or imply release authority.
+   Its rows are synthetic transaction boundary rows, not benchmark scores,
+   score-based progress, maturity, readiness, or release evidence.
    The cold-reader legibility scorecard is `microcosm legibility-scorecard`;
    it should map the public reveal to five reader questions, six runnable
    checkpoints, endpoint parity, evidence refs, and negative cases. It must

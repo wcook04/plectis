@@ -280,17 +280,26 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
 ) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
     cli_path = public_root / "src/microcosm_core/cli.py"
+    original = cli_path.read_text(encoding="utf-8")
+    expected_help_block = (
+        "  microcosm status --card <project> read the compressed "
+        "project/runtime status lens\n"
+        "  microcosm workingness --card    read the compact behavior/failure "
+        "lens\n"
+        "  microcosm workingness           inspect behavior evidence "
+        "and failure gaps\n"
+    )
+    assert expected_help_block in original
+    mutated_help_block = (
+        "  microcosm workingness --card    read the compact behavior/failure "
+        "lens\n"
+        "  microcosm workingness           inspect behavior evidence "
+        "and failure gaps\n"
+        "  microcosm status --card <project> read the compressed "
+        "project/runtime status lens\n"
+    )
     cli_path.write_text(
-        cli_path.read_text(encoding="utf-8").replace(
-            "  microcosm status --card <project> read the compressed "
-            "project/runtime status lens\n"
-            "  microcosm workingness           inspect behavior evidence "
-            "and failure gaps\n",
-            "  microcosm workingness           inspect behavior evidence "
-            "and failure gaps\n"
-            "  microcosm status --card <project> read the compressed "
-            "project/runtime status lens\n",
-        ),
+        original.replace(expected_help_block, mutated_help_block),
         encoding="utf-8",
     )
 
@@ -343,6 +352,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Any `body_copied=true` claim must point at a real target file" in agents
     assert "front_door_status.blocking_surface_ids" in text
     assert "If `microcosm status --card <project>` exits non-zero" in text
+    assert "not benchmark scores" in text
+    assert "not benchmark scores" in agents
     assert "not score-based progress, maturity" in text
     assert "not score-based progress" in agents
     assert "public-safe ten-minute path" not in normalized_text

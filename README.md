@@ -484,6 +484,8 @@ receipts, workitem admission, and provider-slot cooldown metadata. It does not
 claim SWE-bench performance, mutate live repos, call providers, import private
 issues, export private repositories, authorize broad checkpointing, prove
 production delivery rate, or authorize release.
+Its rows are synthetic transaction boundary rows, not benchmark scores,
+score-based progress, maturity, readiness, or release evidence.
 
 `microcosm legibility-scorecard` is the cold-reader comprehension contract. It
 maps five questions to runnable proof commands, six checkpoints, endpoint
