@@ -42,6 +42,31 @@
       "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle",
       "field": "runtime_example",
       "role": "runtime_example_target"
+    },
+    {
+      "path": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "field": "_undeclared_library_prior_symbols",
+      "role": "macro_reducer_source_body"
+    },
+    {
+      "path": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "field": "build_reports",
+      "role": "macro_batch_report_builder_source_body"
+    },
+    {
+      "path": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+      "field": "recipes",
+      "role": "macro_recipe_policy_metrics_body"
+    },
+    {
+      "path": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+      "field": "rows",
+      "role": "macro_receipt_reduction_matrix_body"
+    },
+    {
+      "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
+      "field": "source_modules",
+      "role": "public_source_body_manifest_target"
     }
   ],
   "relationships": {
@@ -71,7 +96,12 @@
     "toolchain_boundary_status",
     "secret_exclusion_scan",
     "authority_ceiling",
-    "anti_claim"
+    "anti_claim",
+    "source_modules_pass",
+    "source_module_manifest_ref",
+    "source_module_count",
+    "verified_source_module_count",
+    "source_open_body_imports"
   ],
   "validation_rules": [
     "require real Lean/Std premise source refs, source digests, and copied target refs",
@@ -83,7 +113,10 @@
     "reject allowed-symbol false positives",
     "reject unqualified symbol overclaims",
     "reject theorem-correctness authority claims",
-    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret symbol-boundary substrate"
+    "emit secret-exclusion scans and provenance-bearing receipts over copied non-secret symbol-boundary substrate",
+    "require source_module_manifest.json with copied macro reducer, calibration, and run-body material",
+    "require source module digest, line-count, byte-count, and required-anchor validation",
+    "allow path-normalized public-safe copies only when source and target digests are both recorded"
   ],
   "receipt_expectations": [
     "receipt.microcosm.undeclared_library_prior_symbol_classifier",
@@ -129,7 +162,12 @@
       "authority_ceiling",
       "anti_claim",
       "secret_exclusion_scan",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_modules_pass",
+      "source_module_manifest_ref",
+      "source_module_count",
+      "verified_source_module_count",
+      "source_open_body_imports"
     ]
   },
   "public_private_boundary": {
@@ -168,7 +206,7 @@
   "anti_claim": "This standard governs copied non-secret Lean/Std symbol-boundary classification with Mathlib absence context; it does not prove theorem correctness, authorize Lean/Lake execution, expose proof bodies or private source refs, turn Lean/Std into a blanket allowlist, or authorize release/publication work.",
   "standard_payload": {
     "ontology": "A provenance-bearing symbol classifier: imported Lean/Std premise rows, real Ring2 problem ids and candidate digests, allowed-premise ids, cited-unallowed ids, failure classes, review outcomes, receipts, and leakage negative cases.",
-    "teleology": "Make Microcosm distinguish valuable out-of-recipe Lean/Std library priors from ordinary premise-budget violations using real symbol-boundary substrate instead of placeholder symbol observations.",
+    "teleology": "Make Microcosm distinguish valuable out-of-recipe Lean/Std library priors from ordinary premise-budget violations using real symbol-boundary substrate and copied macro reducer/run bodies instead of placeholder symbol observations.",
     "anti_purpose": "Treating Lean-accepted library citations as evaluation-contract success when the citation was not in the allowed premise set.",
     "compression_bands": [
       "protocol",
@@ -216,13 +254,51 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "real source refs and source digests stay public-root relative where applicable; copied non-secret symbol-boundary rows retain provenance, while proof/provider/private bodies and oracle IDs remain excluded"
+    "rule": "real source refs and source digests stay public-root relative where applicable; copied and path-normalized non-secret symbol-boundary bodies retain source/target digest provenance, while proof/provider/private bodies and oracle IDs remain excluded"
   },
   "source_digests": {
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
     "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
     "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json": "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
-    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb"
+    "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json": "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+    "tools/meta/factory/reduce_prover_provider_receipts.py": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6"
+  },
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+    "body_material_count": 6,
+    "body_material_ids": [
+      "provider_batch_context_calibration_report_builder_source_body_import",
+      "provider_batch_context_recipe_policy_metrics_body_import",
+      "provider_batch_receipt_reduction_matrix_body_import",
+      "provider_receipt_reducer_source_body_import",
+      "ring2_premise_index_state_body_import",
+      "ring2_premise_retrieval_run_summary_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json::source_open_body_imports",
+    "source_manifest_refs": [
+      "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro reducer, calibration, and run-body material; receipts carry digests and validation status only.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "theorem_correctness_authority": false,
+      "release_authorized": false,
+      "source_authority_above_macro_contracts": false
+    }
   }
 }

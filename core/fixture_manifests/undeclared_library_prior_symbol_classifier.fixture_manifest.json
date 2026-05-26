@@ -47,6 +47,10 @@
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/theorem_correctness_overclaim.json",
       "role": "negative case: classifier claims theorem correctness authority"
+    },
+    {
+      "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
+      "role": "source-open body manifest for copied macro reducer code, calibration builder, path-normalized Ring2 run bodies, recipe metrics, and receipt reduction matrix"
     }
   ],
   "validator": "microcosm_core.organs.undeclared_library_prior_symbol_classifier",
@@ -105,7 +109,12 @@
     "receipt_paths",
     "premise_count",
     "classification_count",
-    "symbol_classifier_board"
+    "symbol_classifier_board",
+    "source_modules_pass",
+    "source_module_manifest_ref",
+    "source_module_count",
+    "verified_source_module_count",
+    "source_open_body_imports"
   ],
   "secret_exclusion_rules": {
     "proof_bodies": "forbidden; negative fixtures may carry regression-only forbidden-key rows and generated receipts may record key names only",
@@ -113,5 +122,41 @@
     "oracle_ids": "forbidden outside proof-authority scope",
     "private_source_refs": "forbidden except public-safe macro lineage refs and digests",
     "lean_lake": "not executed by this organ; receipts carry copied run output and symbol-boundary refs only"
-  }
+  },
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+    "body_material_count": 6,
+    "body_material_ids": [
+      "provider_batch_context_calibration_report_builder_source_body_import",
+      "provider_batch_context_recipe_policy_metrics_body_import",
+      "provider_batch_receipt_reduction_matrix_body_import",
+      "provider_receipt_reducer_source_body_import",
+      "ring2_premise_index_state_body_import",
+      "ring2_premise_retrieval_run_summary_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json::source_open_body_imports",
+    "source_manifest_refs": [
+      "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro reducer, calibration, and run-body material; receipts carry digests and validation status only.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "theorem_correctness_authority": false,
+      "release_authorized": false,
+      "source_authority_above_macro_contracts": false
+    }
+  },
+  "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+  "body_copied_material_count": 6
 }

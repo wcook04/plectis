@@ -62,6 +62,8 @@ def test_undeclared_library_prior_symbol_classifier_observes_negative_cases(
     )
     assert result["toolchain_boundary_status"] == "real_lean_4_29_1_std_mathlib_absence_probe"
     assert result["body_in_receipt"] is False
+    assert result["source_modules_pass"] is True
+    assert result["source_open_body_imports"] == {}
     assert result["source_digests"][
         "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
     ] == "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
@@ -140,3 +142,30 @@ def test_symbol_classifier_exported_bundle_validates_runtime_shape(
         "real_lean_std_symbol_boundary_and_mathlib_absence_context"
     )
     assert result["authority_ceiling"]["theorem_correctness_authority"] is False
+    assert result["source_modules_pass"] is True
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 6
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 6
+    imported_ids = set(result["source_open_body_imports"]["body_material_ids"])
+    assert "provider_receipt_reducer_source_body_import" in imported_ids
+    assert "provider_batch_receipt_reduction_matrix_body_import" in imported_ids
+    assert all(row["body_in_receipt"] is False for row in result["source_modules"])
+    assert all(row["digest_matches"] is True for row in result["source_modules"])
+    assert all(row["missing_required_anchors"] == [] for row in result["source_modules"])
+    normalized_rows = [
+        row
+        for row in result["source_modules"]
+        if row["source_to_target_relation"]
+        == "source_faithful_public_safe_path_normalized_copy"
+    ]
+    assert {row["module_id"] for row in normalized_rows} == {
+        "ring2_premise_index_state_body_import",
+        "ring2_premise_retrieval_run_summary_body_import",
+    }
+    for path in BUNDLE_INPUT.rglob("*"):
+        if path.is_file() and path.suffix in {".json", ".md", ".py"}:
+            text = path.read_text(encoding="utf-8")
+            assert "/Users/willcook" not in text
+            assert "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL" not in text

@@ -22,6 +22,15 @@ copied Lean/Std premise fixture
 and the adjacent corpus-readiness / tactic-availability receipts anchor the
 Mathlib-absent toolchain boundary.
 
+The exported runtime bundle now carries a source-open body floor at
+`examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json`.
+It imports the reducer and batch-calibration builder source bodies exactly,
+plus public-safe run bodies for the Ring2 premise index, Ring2 run summary,
+recipe policy metrics, and receipt reduction matrix. The two run-state bodies
+that originally contained host-local absolute roots are path-normalized to
+`<repo-root>` and `<lean-toolchain-root>` while preserving source and target
+digests, line counts, byte counts, and required anchors.
+
 ## Public Mechanics
 
 - Qualified symbol refs are restricted to `Nat`, `List`, `Bool`, `Iff`, and

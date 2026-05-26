@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -37,6 +38,10 @@ SOURCE_REFS = [
     "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
     "microcosm-substrate/receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
     "microcosm-substrate/receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_result.json",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
 ]
 RECEIPT_ANCHOR_REFS = [
     "microcosm-substrate/receipts/first_wave/lean_std_premise_index/lean_std_premise_index_result.json",
@@ -60,11 +65,44 @@ SOURCE_DIGESTS = {
     SOURCE_REFS[2]: "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
     SOURCE_REFS[3]: "sha256:ff2a6ee61993dc2e848bec3afa692a6f21950d3c9d92d9ec11e311c0a97da9ba",
     SOURCE_REFS[4]: "sha256:2a2ea1ff7379d58673d414bc055996384b1fadd63f747aa56e1be818225b79eb",
+    SOURCE_REFS[5]: "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+    SOURCE_REFS[6]: "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+    SOURCE_REFS[7]: "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+    SOURCE_REFS[8]: "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
 }
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 SYMBOL_BOUNDARY_STATUS = "real_lean_std_symbol_boundary_and_mathlib_absence_context"
 TOOLCHAIN_BOUNDARY_STATUS = "real_lean_4_29_1_std_mathlib_absence_probe"
 BODY_IN_RECEIPT = False
+SOURCE_MODULE_MANIFEST_REF = (
+    "examples/undeclared_library_prior_symbol_classifier/"
+    "exported_symbol_classifier_bundle/source_module_manifest.json"
+)
+SOURCE_MODULE_REFS = [
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+    "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+]
+SOURCE_MODULE_IMPORT_CLASSES = {
+    "copied_non_secret_macro_body",
+    "source_faithful_public_safe_macro_body",
+}
+SOURCE_MODULE_RELATIONS = {
+    "source_faithful_public_safe_exact_copy",
+    "source_faithful_public_safe_path_normalized_copy",
+}
+SOURCE_MODULE_MATERIAL_CLASSES = {
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_pattern_body",
+}
+SOURCE_MODULE_BODY_MATERIAL_STATUS = (
+    "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_"
+    "macro_bodies_with_digest_provenance"
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -171,7 +209,42 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     bundle_manifest = input_dir / "bundle_manifest.json"
     if bundle_manifest.is_file():
         paths.append(bundle_manifest)
+    source_module_manifest = _source_module_manifest_path(input_dir)
+    if source_module_manifest.is_file():
+        paths.append(source_module_manifest)
     return paths
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / "source_module_manifest.json"
+
+
+def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
+    raw = str(row.get("path") or "")
+    candidate = Path(raw)
+    return candidate if candidate.is_absolute() else input_dir / candidate
+
+
+def _source_module_scan_paths(input_dir: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    return [
+        _target_path_from_module(input_dir, row)
+        for row in _rows(manifest, "modules")
+    ]
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    data = path.read_bytes()
+    if not data:
+        return 0
+    return data.count(b"\n") + (0 if data.endswith(b"\n") else 1)
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -414,6 +487,269 @@ def validate_classifier_policy(payload: object) -> dict[str, Any]:
     }
 
 
+def validate_source_module_manifest(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    required: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {
+            "status": "blocked" if required else "not_present",
+            "source_modules_pass": not required,
+            "source_module_manifest_ref": "",
+            "manifest_id": None,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "modules": [],
+            "findings": []
+            if not required
+            else [
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_MANIFEST_MISSING",
+                    "Exported symbol-classifier bundles must include source_module_manifest.json for copied macro bodies.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=SOURCE_MODULE_MANIFEST_REF,
+                    subject_kind="source_module_manifest",
+                )
+            ],
+            "observed_negative_cases": {},
+            "source_open_body_imports": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    modules = _rows(manifest, "modules")
+    findings: list[dict[str, Any]] = []
+    if manifest.get("source_import_class") not in SOURCE_MODULE_IMPORT_CLASSES:
+        findings.append(
+            _finding(
+                "SYMBOL_CLASSIFIER_SOURCE_MODULE_IMPORT_CLASS_INVALID",
+                "Source-module manifest must classify symbol-classifier bodies as copied or source-faithful public-safe macro bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "SYMBOL_CLASSIFIER_SOURCE_MODULE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied macro source bodies must stay in source_modules, not receipt bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    module_source_refs = {str(row.get("source_ref") or "") for row in modules}
+    missing_source_refs = sorted(set(SOURCE_MODULE_REFS) - module_source_refs)
+    unknown_source_refs = sorted(module_source_refs - set(SOURCE_MODULE_REFS))
+    if required and missing_source_refs:
+        findings.append(
+            _finding(
+                "SYMBOL_CLASSIFIER_SOURCE_MODULE_SOURCE_REF_MISSING",
+                "Source-module manifest must account for every declared symbol-classifier macro owner ref.",
+                case_id="source_module_manifest_floor",
+                subject_id=",".join(missing_source_refs),
+                subject_kind="source_module_manifest",
+            )
+        )
+    for source_ref in unknown_source_refs:
+        findings.append(
+            _finding(
+                "SYMBOL_CLASSIFIER_SOURCE_MODULE_UNKNOWN_SOURCE_REF",
+                "Source-module rows must cite one of the declared symbol-classifier macro owner refs.",
+                case_id="source_module_manifest_floor",
+                subject_id=source_ref or "source_module",
+                subject_kind="source_module",
+            )
+        )
+
+    module_results: list[dict[str, Any]] = []
+    verified_ids: list[str] = []
+    material_classes: set[str] = set()
+    for row in modules:
+        source_ref = str(row.get("source_ref") or "")
+        material_id = str(row.get("module_id") or source_ref or "source_module")
+        material_class = str(row.get("material_class") or "")
+        material_classes.add(material_class)
+        target = _target_path_from_module(input_dir, row)
+        exists = target.is_file()
+        expected_digest = str(
+            row.get("target_sha256") or row.get("sha256") or ""
+        ).removeprefix("sha256:")
+        actual_digest = _sha256_file(target) if exists else ""
+        expected_line_count = row.get("target_line_count", row.get("line_count"))
+        actual_line_count = _line_count(target) if exists else None
+        expected_byte_count = row.get("target_byte_count", row.get("byte_count"))
+        actual_byte_count = target.stat().st_size if exists else None
+        digest_matches = bool(expected_digest) and actual_digest == expected_digest
+        line_count_matches = (
+            isinstance(expected_line_count, int)
+            and actual_line_count == expected_line_count
+        )
+        byte_count_matches = (
+            isinstance(expected_byte_count, int)
+            and actual_byte_count == expected_byte_count
+        )
+        source_import_class = str(row.get("source_import_class") or "")
+        source_to_target_relation = str(row.get("source_to_target_relation") or "")
+        body_in_receipt = row.get("body_in_receipt") is True
+        required_anchors = _strings(row.get("required_anchors"))
+        target_text = target.read_text(encoding="utf-8") if exists else ""
+        missing_anchors = [
+            anchor for anchor in required_anchors if anchor not in target_text
+        ]
+
+        if source_import_class not in SOURCE_MODULE_IMPORT_CLASSES:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_ROW_IMPORT_CLASS_INVALID",
+                    "Each source-module row must use a public-safe macro body import class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if source_to_target_relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_RELATION_INVALID",
+                    "Each source-module row must declare exact-copy or path-normalized public-safe relation.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in SOURCE_MODULE_MATERIAL_CLASSES:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_MATERIAL_CLASS_INVALID",
+                    "Each source-module row must declare a public macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if body_in_receipt:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_ROW_BODY_IN_RECEIPT_FORBIDDEN",
+                    "Copied source-module bodies must not be embedded in receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not exists:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_TARGET_MISSING",
+                    "Declared symbol-classifier source module target is missing.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_matches:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied symbol-classifier source module target digest differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not line_count_matches or not byte_count_matches:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_SIZE_MISMATCH",
+                    "Copied symbol-classifier source module target line or byte count differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif missing_anchors:
+            findings.append(
+                _finding(
+                    "SYMBOL_CLASSIFIER_SOURCE_MODULE_REQUIRED_ANCHOR_MISSING",
+                    "Copied symbol-classifier source module is missing required owner anchors.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=material_id,
+                    subject_kind="source_module",
+                )
+            )
+        else:
+            verified_ids.append(material_id)
+
+        module_results.append(
+            {
+                "module_id": material_id,
+                "source_ref": source_ref,
+                "target_ref": _display(target, public_root=public_root),
+                "material_class": material_class,
+                "source_import_class": source_import_class,
+                "body_copied": exists,
+                "body_in_receipt": False,
+                "expected_digest": f"sha256:{expected_digest}" if expected_digest else "",
+                "source_digest": f"sha256:{row.get('source_sha256') or ''}"
+                if row.get("source_sha256")
+                else "",
+                "actual_digest": f"sha256:{actual_digest}" if actual_digest else "",
+                "digest_matches": digest_matches,
+                "line_count": actual_line_count,
+                "line_count_matches": line_count_matches,
+                "byte_count": actual_byte_count,
+                "byte_count_matches": byte_count_matches,
+                "required_anchor_count": len(required_anchors),
+                "missing_required_anchors": missing_anchors,
+                "source_to_target_relation": source_to_target_relation,
+            }
+        )
+
+    status = PASS if not findings and len(verified_ids) == len(SOURCE_MODULE_REFS) else "blocked"
+    source_open_body_imports = {
+        "status": status,
+        "body_material_status": SOURCE_MODULE_BODY_MATERIAL_STATUS,
+        "body_material_count": len(verified_ids),
+        "body_material_ids": sorted(verified_ids),
+        "material_classes": sorted(material_classes),
+        "aggregate_floor_ref": (
+            "examples/undeclared_library_prior_symbol_classifier/"
+            "exported_symbol_classifier_bundle/"
+            "bundle_manifest.json::source_open_body_imports"
+        ),
+        "source_manifest_refs": [SOURCE_MODULE_MANIFEST_REF],
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "theorem_correctness_authority": False,
+            "runtime_correctness_claim": False,
+            "release_authorized": False,
+        },
+    }
+    return {
+        "status": status,
+        "source_modules_pass": status == PASS,
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "manifest_id": manifest.get("manifest_id"),
+        "module_count": len(modules),
+        "verified_module_count": len(verified_ids),
+        "modules": module_results,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "source_open_body_imports": source_open_body_imports,
+    }
+
+
 def _qualified_refs(row: dict[str, Any]) -> list[str]:
     values: list[str] = []
     for key in (
@@ -651,8 +987,12 @@ def _build_result(
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    scan_targets = [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_scan_paths(input_dir),
+    ]
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        scan_targets,
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -670,11 +1010,28 @@ def _build_result(
             if name in payloads
         },
     )
+    source_modules = validate_source_module_manifest(
+        input_dir,
+        public_root=public_root,
+        required=input_mode == "exported_symbol_classifier_bundle",
+    )
 
-    observed = _merge_observed(projection, premise_index, classifier_policy, observations)
+    observed = _merge_observed(
+        projection,
+        premise_index,
+        classifier_policy,
+        observations,
+        source_modules,
+    )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, premise_index, classifier_policy, observations)
+    findings = _merge_findings(
+        projection,
+        premise_index,
+        classifier_policy,
+        observations,
+        source_modules,
+    )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -685,6 +1042,7 @@ def _build_result(
         and premise_index["status"] == PASS
         and classifier_policy["status"] == PASS
         and observations["status"] == PASS
+        and source_modules["source_modules_pass"]
         else "blocked"
     )
     return {
@@ -717,6 +1075,12 @@ def _build_result(
         "source_target_refs": projection["source_target_refs"],
         "source_digests": projection["source_digests"],
         "real_substrate_refs": projection["source_refs"],
+        "source_modules_pass": source_modules["source_modules_pass"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_count": source_modules["module_count"],
+        "verified_source_module_count": source_modules["verified_module_count"],
+        "source_modules": source_modules["modules"],
+        "source_open_body_imports": source_modules["source_open_body_imports"],
         "premise_count": premise_index["premise_count"],
         "namespace_count": premise_index["namespace_count"],
         "classification_count": observations["classification_count"],
@@ -768,6 +1132,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "receipt_anchor_refs": result["receipt_anchor_refs"],
         "source_target_refs": result["source_target_refs"],
         "source_digests": result["source_digests"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "verified_source_module_count": result["verified_source_module_count"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -834,6 +1203,12 @@ def _write_receipts(
         "receipt_anchor_refs": result["receipt_anchor_refs"],
         "source_target_refs": result["source_target_refs"],
         "source_digests": result["source_digests"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "verified_source_module_count": result["verified_source_module_count"],
+        "source_modules": result["source_modules"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -855,6 +1230,11 @@ def _write_receipts(
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "real_substrate_refs": result["real_substrate_refs"],
         "source_digests": result["source_digests"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "verified_source_module_count": result["verified_source_module_count"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,

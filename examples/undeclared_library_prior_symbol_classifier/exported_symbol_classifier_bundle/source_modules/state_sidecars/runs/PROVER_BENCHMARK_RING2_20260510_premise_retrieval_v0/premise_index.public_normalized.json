@@ -1,0 +1,220 @@
+{
+  "leakage_policy": {
+    "allowed_before_oracle": true,
+    "oracle_needed_premise_ids_visible_to_lab": false,
+    "proof_bodies_in_index": false
+  },
+  "local_or_annex_path": "<lean-toolchain-root>/src/lean",
+  "premise_count": 11,
+  "premises": [
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Nat",
+      "premise_id": "premise_nat_succ_inj",
+      "retrieval_terms": [
+        "nat",
+        "successor",
+        "succ",
+        "injective",
+        "equality"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Prelude.lean",
+      "statement_excerpt": "Nat.succ m = Nat.succ n implies m = n.",
+      "theorem_or_def_name": "Nat.succ.inj"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Nat",
+      "premise_id": "premise_nat_add_comm",
+      "retrieval_terms": [
+        "nat",
+        "addition",
+        "add",
+        "commutative",
+        "comm"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "m + n = n + m for natural numbers.",
+      "theorem_or_def_name": "Nat.add_comm"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Nat",
+      "premise_id": "premise_nat_add_assoc",
+      "retrieval_terms": [
+        "nat",
+        "addition",
+        "add",
+        "associative",
+        "assoc"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "a + b + c = a + (b + c) for natural numbers.",
+      "theorem_or_def_name": "Nat.add_assoc"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Nat",
+      "premise_id": "premise_nat_add_zero",
+      "retrieval_terms": [
+        "nat",
+        "addition",
+        "zero",
+        "recursive",
+        "induction"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
+      "statement_excerpt": "n + 0 = n for natural numbers.",
+      "theorem_or_def_name": "Nat.add_zero"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Bool",
+      "premise_id": "premise_bool_not_not",
+      "retrieval_terms": [
+        "bool",
+        "boolean",
+        "not",
+        "negation",
+        "double"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Bool.lean",
+      "statement_excerpt": "Double Boolean negation returns the original Boolean.",
+      "theorem_or_def_name": "Bool.not_not"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "Iff",
+      "premise_id": "premise_iff_intro",
+      "retrieval_terms": [
+        "iff",
+        "if and only if",
+        "implication",
+        "intro"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Prelude.lean",
+      "statement_excerpt": "Two implications assemble an iff proof.",
+      "theorem_or_def_name": "Iff.intro"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "List",
+      "premise_id": "premise_list_length_cons",
+      "retrieval_terms": [
+        "list",
+        "length",
+        "cons",
+        "head",
+        "tail"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "The length of a cons is one more than the tail length.",
+      "theorem_or_def_name": "List.length_cons"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "List",
+      "premise_id": "premise_list_length_append",
+      "retrieval_terms": [
+        "list",
+        "length",
+        "append",
+        "sum"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "The length of appended lists is the sum of their lengths.",
+      "theorem_or_def_name": "List.length_append"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "List",
+      "premise_id": "premise_list_map_map",
+      "retrieval_terms": [
+        "list",
+        "map",
+        "composition",
+        "compose",
+        "function"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Mapping twice is mapping the composed function.",
+      "theorem_or_def_name": "List.map_map"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "List",
+      "premise_id": "premise_list_mem_append",
+      "retrieval_terms": [
+        "list",
+        "membership",
+        "mem",
+        "append",
+        "or"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Membership in an appended list is membership in either side.",
+      "theorem_or_def_name": "List.mem_append"
+    },
+    {
+      "allowed_for_split": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "namespace": "List",
+      "premise_id": "premise_list_reverse_reverse",
+      "retrieval_terms": [
+        "list",
+        "reverse",
+        "involution",
+        "twice"
+      ],
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
+      "statement_excerpt": "Reversing a list twice returns the original list.",
+      "theorem_or_def_name": "List.reverse_reverse"
+    }
+  ],
+  "schema_version": "premise_index_v0",
+  "source_id": "lean_std_toolchain_premise_index_v0",
+  "source_kind": "installed_lean_toolchain_source"
+}

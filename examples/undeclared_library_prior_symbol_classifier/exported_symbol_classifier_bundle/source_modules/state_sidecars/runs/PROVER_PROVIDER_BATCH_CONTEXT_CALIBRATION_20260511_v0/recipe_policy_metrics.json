@@ -1,0 +1,71 @@
+{
+  "created_at": "2026-05-11T00:54:20Z",
+  "recipes": [
+    {
+      "avg_latency_ms": 11530.666666666666,
+      "context_kib_values": [
+        4
+      ],
+      "error_counts": {
+        "PREMISE_BUDGET_VIOLATION": 2,
+        "PROOF_SYNTHESIS_FAIL": 1
+      },
+      "lean_accepted_count": 0,
+      "premise_budget_violation_count": 2,
+      "proof_synthesis_failure_count": 1,
+      "receipt_count": 3,
+      "recipe_id": "minimal_4kb",
+      "recipe_policy_accepted_count": 0,
+      "row_patch_review_outcome_counts": {
+        "retry": 3
+      },
+      "total_bytes_out": 52,
+      "truth_side_leakage_count": 0,
+      "undeclared_library_prior_count": 0
+    },
+    {
+      "avg_latency_ms": 7313.666666666667,
+      "context_kib_values": [
+        32
+      ],
+      "error_counts": {
+        "NONE": 3
+      },
+      "lean_accepted_count": 3,
+      "premise_budget_violation_count": 0,
+      "proof_synthesis_failure_count": 0,
+      "receipt_count": 3,
+      "recipe_id": "repair_32kb",
+      "recipe_policy_accepted_count": 3,
+      "row_patch_review_outcome_counts": {
+        "accept_as_advisory_signal": 3
+      },
+      "total_bytes_out": 71,
+      "truth_side_leakage_count": 0,
+      "undeclared_library_prior_count": 0
+    },
+    {
+      "avg_latency_ms": 11154.0,
+      "context_kib_values": [
+        32
+      ],
+      "error_counts": {
+        "NONE": 3
+      },
+      "lean_accepted_count": 3,
+      "premise_budget_violation_count": 0,
+      "proof_synthesis_failure_count": 0,
+      "receipt_count": 3,
+      "recipe_id": "skill_32kb",
+      "recipe_policy_accepted_count": 3,
+      "row_patch_review_outcome_counts": {
+        "accept_as_advisory_signal": 3
+      },
+      "total_bytes_out": 71,
+      "truth_side_leakage_count": 0,
+      "undeclared_library_prior_count": 0
+    }
+  ],
+  "run_id": "PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0",
+  "schema_version": "prover_provider_recipe_policy_metrics_v0"
+}

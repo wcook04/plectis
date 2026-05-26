@@ -1,0 +1,801 @@
+{
+  "aggregate_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+  "cap_id": "cap_prover_benchmark_ring2_premise_retrieval_v0",
+  "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+  "created_at": "2026-05-10T20:46:30Z",
+  "failure_taxonomy_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+  "governance_ladder_extended": false,
+  "graph_update_candidates": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+  "graph_variant_id": "premise_retrieval_graph_v0",
+  "premise_index": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/premise_index.json",
+  "problem_results": [
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "CLEAN",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "f3398bac845da2c8049083d2e146b15de0ae3d350e2414e4693185fafc9314e7",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 2001,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 2001
+      },
+      "domain": "nat",
+      "error_class": "NONE",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "f3398bac845da2c8049083d2e146b15de0ae3d350e2414e4693185fafc9314e7",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "NONE",
+      "initial_lean_compile_status": "PASS",
+      "leakage_detected": false,
+      "lean_compile_status": "PASS",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_nat_succ_inj"
+        ],
+        "error_class": "NONE",
+        "extra_retrieved_premise_ids": [
+          "premise_nat_add_assoc",
+          "premise_nat_add_comm"
+        ],
+        "lean_compile_status": "PASS",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_nat_succ_inj"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_nat_succ_injective",
+        "retrieved_premise_ids": [
+          "premise_nat_succ_inj",
+          "premise_nat_add_assoc",
+          "premise_nat_add_comm"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_nat_succ_injective",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "train",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "CLEAN",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "b695e9e22caf6b99c4dc177d980ea1c0e693ea77c826bd25887eceb06945ac20",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1765,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1765
+      },
+      "domain": "nat",
+      "error_class": "NONE",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_comm/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "b695e9e22caf6b99c4dc177d980ea1c0e693ea77c826bd25887eceb06945ac20",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "NONE",
+      "initial_lean_compile_status": "PASS",
+      "leakage_detected": false,
+      "lean_compile_status": "PASS",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_nat_add_comm"
+        ],
+        "error_class": "NONE",
+        "extra_retrieved_premise_ids": [
+          "premise_nat_add_assoc",
+          "premise_nat_add_zero"
+        ],
+        "lean_compile_status": "PASS",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_nat_add_comm"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_nat_add_comm",
+        "retrieved_premise_ids": [
+          "premise_nat_add_comm",
+          "premise_nat_add_assoc",
+          "premise_nat_add_zero"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_nat_add_comm",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "train",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "a2c8bbe0b250ff5d90d75459c4e0bde549efddb1d6a38c06efe180284144ab07",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1615,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1615
+      },
+      "domain": "nat",
+      "error_class": "PROOF_CORE_GAP",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "a2c8bbe0b250ff5d90d75459c4e0bde549efddb1d6a38c06efe180284144ab07",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "PROOF_CORE_GAP",
+      "initial_lean_compile_status": "FAIL",
+      "leakage_detected": false,
+      "lean_compile_status": "FAIL",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_nat_add_comm"
+        ],
+        "error_class": "PROOF_CORE_GAP",
+        "extra_retrieved_premise_ids": [
+          "premise_nat_add_comm",
+          "premise_nat_add_zero"
+        ],
+        "lean_compile_status": "FAIL",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_nat_add_assoc"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_nat_add_assoc",
+        "retrieved_premise_ids": [
+          "premise_nat_add_assoc",
+          "premise_nat_add_comm",
+          "premise_nat_add_zero"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_nat_add_assoc",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "train",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "CLEAN",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "36588585d715377d2518f90d74dad4a373ee27c2b6bd2d6e672172818e1e5a84",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1600,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 1,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1600
+      },
+      "domain": "bool",
+      "error_class": "NONE",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_bool_not_not/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "36588585d715377d2518f90d74dad4a373ee27c2b6bd2d6e672172818e1e5a84",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "NONE",
+      "initial_lean_compile_status": "PASS",
+      "leakage_detected": false,
+      "lean_compile_status": "PASS",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_bool_not_not"
+        ],
+        "error_class": "NONE",
+        "extra_retrieved_premise_ids": [],
+        "lean_compile_status": "PASS",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_bool_not_not"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_bool_not_not",
+        "retrieved_premise_ids": [
+          "premise_bool_not_not"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_bool_not_not",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "train",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "a401db47e135d1cd1316d0b9cb00e3cfc4f6ad316b17c46c4ee82ce0c8dd9fe4",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 2161,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 2161
+      },
+      "domain": "list",
+      "error_class": "PROOF_CORE_GAP",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "a401db47e135d1cd1316d0b9cb00e3cfc4f6ad316b17c46c4ee82ce0c8dd9fe4",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "PROOF_CORE_GAP",
+      "initial_lean_compile_status": "FAIL",
+      "leakage_detected": false,
+      "lean_compile_status": "FAIL",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_list_map_map"
+        ],
+        "error_class": "PROOF_CORE_GAP",
+        "extra_retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_map_map"
+        ],
+        "lean_compile_status": "FAIL",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_list_reverse_reverse"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_list_reverse_reverse",
+        "retrieved_premise_ids": [
+          "premise_list_reverse_reverse",
+          "premise_list_map_map",
+          "premise_list_length_append"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_list_reverse_reverse",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "dev",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "e8ab18a66a81f2f6770246dad53f9e9fc33b4d626fe6b61eddf57b6c8392058b",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1873,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1873
+      },
+      "domain": "list",
+      "error_class": "PROOF_CORE_GAP",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "e8ab18a66a81f2f6770246dad53f9e9fc33b4d626fe6b61eddf57b6c8392058b",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "PROOF_CORE_GAP",
+      "initial_lean_compile_status": "FAIL",
+      "leakage_detected": false,
+      "lean_compile_status": "FAIL",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_list_mem_append"
+        ],
+        "error_class": "PROOF_CORE_GAP",
+        "extra_retrieved_premise_ids": [
+          "premise_list_length_cons",
+          "premise_list_mem_append"
+        ],
+        "lean_compile_status": "FAIL",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_list_length_append"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_list_length_append",
+        "retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_length_cons",
+          "premise_list_mem_append"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_list_length_append",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "dev",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "CLEAN",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "d51071fdc489496e9b073f8a5763f69df2960d342a50130cd2968f9be8b29609",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1673,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 1,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1673
+      },
+      "domain": "propositional",
+      "error_class": "NONE",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_iff_intro/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "d51071fdc489496e9b073f8a5763f69df2960d342a50130cd2968f9be8b29609",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "NONE",
+      "initial_lean_compile_status": "PASS",
+      "leakage_detected": false,
+      "lean_compile_status": "PASS",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_iff_intro"
+        ],
+        "error_class": "NONE",
+        "extra_retrieved_premise_ids": [],
+        "lean_compile_status": "PASS",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_iff_intro"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_iff_intro",
+        "retrieved_premise_ids": [
+          "premise_iff_intro"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_iff_intro",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "dev",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "5c7adfee0262a94556fcc951c6f67c88147a770aae60ee42d643ac1926cee0a0",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 1472,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 1472
+      },
+      "domain": "list",
+      "error_class": "NONE",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_mem_append/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "5c7adfee0262a94556fcc951c6f67c88147a770aae60ee42d643ac1926cee0a0",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "NONE",
+      "initial_lean_compile_status": "PASS",
+      "leakage_detected": false,
+      "lean_compile_status": "PASS",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_list_mem_append"
+        ],
+        "error_class": "NONE",
+        "extra_retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_length_cons"
+        ],
+        "lean_compile_status": "PASS",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_list_mem_append"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_list_mem_append",
+        "retrieved_premise_ids": [
+          "premise_list_mem_append",
+          "premise_list_length_append",
+          "premise_list_length_cons"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_list_mem_append",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "test",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "fcffe24a43dd61568f73072e70a68bb3aeffedcab03dd9d76cf3b60433a4d447",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 2203,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 3,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 11,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 2203
+      },
+      "domain": "list",
+      "error_class": "TACTIC_SEARCH_FAIL",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "fcffe24a43dd61568f73072e70a68bb3aeffedcab03dd9d76cf3b60433a4d447",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "TACTIC_SEARCH_FAIL",
+      "initial_lean_compile_status": "FAIL",
+      "leakage_detected": false,
+      "lean_compile_status": "FAIL",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_list_mem_append"
+        ],
+        "error_class": "TACTIC_SEARCH_FAIL",
+        "extra_retrieved_premise_ids": [
+          "premise_list_length_cons",
+          "premise_list_mem_append"
+        ],
+        "lean_compile_status": "FAIL",
+        "missing_needed_premise_ids": [],
+        "needed_premises_all_retrieved": true,
+        "oracle_needed_premise_ids": [
+          "premise_list_length_append"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 1,
+        "premise_miss_count": 0,
+        "problem_id": "ring2_list_length_append_symmetry_hit_fail",
+        "retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_length_cons",
+          "premise_list_mem_append"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "test",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    },
+    {
+      "artifact_refs": {
+        "cost_metrics": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/statement_reconciliation.json"
+      },
+      "attempt_count": 1,
+      "axiom_audit_classification": "UNAUDITABLE",
+      "candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_sha256": "afac4297f6a2053a3c9a2b464ad24946a99b47e982357bebdce7b22e1e90209c",
+      "context_recipe_id": "lean_std_premise_retrieval_v0",
+      "cost_metrics": {
+        "attempt_count": 1,
+        "context_recipe_id": "lean_std_premise_retrieval_v0",
+        "context_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "lean_compile_ms": 2567,
+        "num_repair_rounds": 0,
+        "num_retrieved_premises": 2,
+        "num_subgoals": 1,
+        "proof_check_count": 1,
+        "provider_calls": 0,
+        "retrieval_candidates_considered": 2,
+        "source_index_size": 11,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "wall_time_ms": 2567
+      },
+      "domain": "list",
+      "error_class": "PREMISE_RETRIEVAL_MISS",
+      "final_candidate_artifact_path": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/candidate.lean",
+      "final_candidate_artifact_sha256": "afac4297f6a2053a3c9a2b464ad24946a99b47e982357bebdce7b22e1e90209c",
+      "graph_variant_id": "premise_retrieval_graph_v0",
+      "initial_error_class": "PREMISE_RETRIEVAL_MISS",
+      "initial_lean_compile_status": "FAIL",
+      "leakage_detected": false,
+      "lean_compile_status": "FAIL",
+      "mode": "solved_training",
+      "premise_retrieval": {
+        "candidate_cites_only_retrieved_allowed_premises": true,
+        "candidate_premise_ids_used": [
+          "premise_list_reverse_reverse"
+        ],
+        "error_class": "PREMISE_RETRIEVAL_MISS",
+        "extra_retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_reverse_reverse"
+        ],
+        "lean_compile_status": "FAIL",
+        "missing_needed_premise_ids": [
+          "premise_list_map_map"
+        ],
+        "needed_premises_all_retrieved": false,
+        "oracle_needed_premise_ids": [
+          "premise_list_map_map"
+        ],
+        "oracle_phase": "after_lean_check",
+        "premise_hit_count": 0,
+        "premise_miss_count": 1,
+        "problem_id": "ring2_list_map_map_index_miss",
+        "retrieved_premise_ids": [
+          "premise_list_length_append",
+          "premise_list_reverse_reverse"
+        ],
+        "schema_version": "premise_retrieval_oracle_audit_v0"
+      },
+      "problem_id": "ring2_list_map_map_index_miss",
+      "repair_applied": false,
+      "repair_success": false,
+      "source": "lean_std_toolchain_premise_index_v0",
+      "split": "test",
+      "statement_reconciliation_status": "READY",
+      "strategy_oracle_audit": null
+    }
+  ],
+  "problem_set_manifest": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problem_set_manifest.json",
+  "problem_source_manifest": "<repo-root>/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problem_source_manifest.json",
+  "provider_or_nim_needed": false,
+  "run_hash": "d278253080c884f70dc6bc3261deea0ea4a7d893112933beb773e4bbc66eae17",
+  "run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0_premise_retrieval_graph_v0",
+  "schema_version": "prover_benchmark_run_v1",
+  "split_policy": "train/dev/test; no tuning on test"
+}
