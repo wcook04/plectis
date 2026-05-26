@@ -16912,6 +16912,21 @@ class RuntimeShell:
             )
             if isinstance(route, dict) and route.get("reader_route_id")
         ]
+        if first_screen_card:
+            try:
+                first_screen_text_projection = (
+                    first_screen_composition.first_screen_text_card(first_screen_card).strip()
+                )
+            except ValueError:
+                first_screen_text_projection = ""
+        else:
+            first_screen_text_projection = ""
+        if not first_screen_text_projection:
+            first_screen_text_projection = (
+                "Microcosm first screen\n"
+                "Open card: microcosm hello <project> | First run: "
+                "microcosm tour --card <project>"
+            )
         observatory_card = (
             model.get("observatory_card", {})
             if isinstance(model.get("observatory_card"), dict)
@@ -17732,6 +17747,7 @@ class RuntimeShell:
     details {{ margin-top: 12px; border-top: 1px solid #ebe9e2; padding-top: 10px; }}
     summary {{ cursor: pointer; color: #45433e; font-weight: 600; }}
     pre {{ margin: 10px 0 0; padding: 12px; overflow: auto; max-height: 360px; font-size: 12px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: #f7f7f4; border: 1px solid #e4e1d8; border-radius: 5px; }}
+    .terminal-card {{ margin: 0 0 12px; padding: 14px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12px; line-height: 1.5; color: #f6f3e8; background: #1d1d19; border: 1px solid #444136; border-radius: 6px; }}
     @media (max-width: 860px) {{ main {{ grid-template-columns: 1fr; padding: 12px; }} header {{ padding: 22px 18px 16px; }} }}
   </style>
 </head>
@@ -17744,6 +17760,7 @@ class RuntimeShell:
     <section class="wide">
       <h2>One-Screen Entry</h2>
       <div class="content">
+        <div class="terminal-card" aria-label="Microcosm first-screen text card">{html.escape(first_screen_text_projection)}</div>
         <div class="chain">
           <div class="node"><strong>First Run</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>

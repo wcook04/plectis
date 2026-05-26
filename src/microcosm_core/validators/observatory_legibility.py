@@ -213,6 +213,22 @@ def validate_legibility(
         "root_is_not_raw_json_only": "Causal Chain" in html and "JSON Drilldowns" in html,
         "first_screen_card_endpoint_visible": "/project/first-screen" in html,
         "observatory_card_endpoint_visible": "/project/observatory-card" in html,
+        "first_screen_text_card_visible": "Microcosm first screen" in html
+        and "Open card:" in html,
+        "first_screen_reader_branches_visible": "Reader branches:" in html
+        and "Safety/evals:" in html
+        and "Hiring:" in html
+        and "Peer developer:" in html,
+        "first_screen_exit_rule_visible": (
+            "exit when you can choose a drilldown without the command inventory"
+            in html
+        ),
+        "first_screen_hello_command_visible": (
+            "microcosm hello &lt;project&gt;" in html
+            or "microcosm hello <project>" in html
+        ),
+        "first_screen_authority_ceiling_visible": "No release, hosted publication"
+        in html,
         "raw_observatory_model_not_embedded": "Raw observatory model" not in html
         and "<pre>" not in html,
         "observatory_html_under_first_screen_budget": len(html.encode("utf-8")) < 500_000,

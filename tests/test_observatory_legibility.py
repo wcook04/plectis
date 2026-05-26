@@ -48,6 +48,11 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["html_assertions"]["root_is_not_raw_json_only"] is True
     assert receipt["html_assertions"]["first_screen_card_endpoint_visible"] is True
     assert receipt["html_assertions"]["observatory_card_endpoint_visible"] is True
+    assert receipt["html_assertions"]["first_screen_text_card_visible"] is True
+    assert receipt["html_assertions"]["first_screen_reader_branches_visible"] is True
+    assert receipt["html_assertions"]["first_screen_exit_rule_visible"] is True
+    assert receipt["html_assertions"]["first_screen_hello_command_visible"] is True
+    assert receipt["html_assertions"]["first_screen_authority_ceiling_visible"] is True
     assert receipt["html_assertions"]["raw_observatory_model_not_embedded"] is True
     assert receipt["html_assertions"]["observatory_html_under_first_screen_budget"] is True
     assert receipt["html_assertions"]["causal_chain_section_present"] is True
