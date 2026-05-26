@@ -722,7 +722,7 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     project_state = card["front_door"]["project_state"]
     project_body_floor = card["macro_body_import_floor"]
 
-    assert len(json.dumps(card, sort_keys=True)) < 18000
+    assert len(json.dumps(card, sort_keys=True)) < 11500
     assert project_state["schema_version"] == (
         "microcosm_project_status_overlay_summary_v1"
     )
@@ -737,6 +737,12 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
         == "front_door.route_selection_proof"
     )
     assert ".microcosm/routes.json" in project_state["existing_state_refs"]
+    assert project_state["existing_state_ref_count"] >= len(
+        project_state["existing_state_refs"]
+    )
+    assert project_state["available_project_route_id_count"] >= len(
+        project_state["available_project_route_ids"]
+    )
     assert "route_explanation" not in project_state
     assert "route_selection_proof" not in project_state
     assert card["front_door"]["route_explanation"]["status"] == "pass"

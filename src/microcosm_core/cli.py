@@ -268,33 +268,13 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
     return {
         "schema_version": "microcosm_status_card_proof_lab_ref_v1",
         "status": proof_lab.get("status"),
-        "command": proof_lab.get("command")
-        or "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "endpoint": proof_lab.get("endpoint") or "/proof-lab",
-        "alias_endpoints": proof_lab.get("alias_endpoints", []),
-        "source_lens_endpoint": proof_lab.get("source_lens_endpoint"),
         "route_id": proof_lab.get("route_id"),
-        "route_ref": proof_lab.get("route_ref"),
         "receipt_ref": proof_lab.get("receipt_ref"),
         "route_component_count": proof_lab.get("route_component_count"),
-        "lean_lake_return_code": proof_lab.get("lean_lake_return_code"),
-        "lean_compiled_declaration_count": proof_lab.get(
-            "lean_compiled_declaration_count"
-        ),
-        "safe_to_show": {
-            "route_metadata_visible": True,
-            "receipt_refs_visible": True,
-            "proof_bodies_exported": False,
-            "provider_payload_bodies_exported": False,
-            "credential_equivalent_payloads_exported": False,
-            "release_authorized": False,
-            "proof_correctness_claim": False,
-        },
-        "authority": (
-            "first-screen proof-lab route reference only, not theorem proof "
-            "authority, provider authority, release authority, or source "
-            "mutation authority"
-        ),
+        "proof_bodies_exported": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
     }
 
 
@@ -324,51 +304,17 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "command": command,
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
-        "html_endpoint": "/",
-        "status_endpoint": "/status",
-        "tour_endpoint": "/tour",
-        "workingness_endpoint": "/workingness",
-        "proof_lab_endpoint": "/proof-lab",
-        "python_lens_endpoint": "/project/python-lens",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
             "observatory_route_proof_ref"
         ),
         "status_card_ref": "microcosm status --card <project>",
-        "expected_model_fields": [
-            "project_summary",
-            "selected_route_id",
-            "first_screen_route_proof",
-            "front_door_status",
-            "source_open_body_import_floor",
-            "python_lens",
-            "causal_chain",
-            "graph_summary",
-            "observatory_card",
-            "json_drilldowns",
-            "evidence_is_drilldown",
-            "proof_loop_depth_lens",
-            "runtime_bridge",
-        ],
-        "safe_to_show": {
-            "project_local_state_refs_visible": True,
-            "route_metadata_visible": True,
-            "receipt_refs_visible": True,
-            "body_text_exported_in_observatory": False,
-            "source_files_mutated": False,
-            "provider_calls_authorized": False,
-            "release_authorized": False,
-            "proof_correctness_claim": False,
-        },
-        "authority": (
-            "local observatory/read-model route reference only, not hosting, "
-            "release, provider, source mutation, or proof-correctness authority"
-        ),
-        "reader_action": (
-            "Open /project/observatory-card first for the compact route/work/"
-            "evidence/graph/proof/status lens, then /project/observatory for "
-            "the full read model."
-        ),
+        "related_endpoint_count": 7,
+        "model_field_count": 13,
+        "source_files_mutated": False,
+        "provider_calls_authorized": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
     }
 
 

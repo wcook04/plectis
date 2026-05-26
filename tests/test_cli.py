@@ -218,6 +218,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
 
+    assert len(json.dumps(payload, sort_keys=True)) < 12000
     assert payload["card_command"] == "microcosm status --card <project>"
     assert payload["source_files_mutated"] is False
     assert payload["front_door"]["front_door_status_ref"] == (
@@ -265,23 +266,25 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert route_explanation["source_files_mutated"] is False
     assert route_explanation["event_ref_count"] >= 1
     assert route_explanation["evidence_ref_count"] >= 1
-    assert route_explanation["reader_drilldowns"] == [
-        ".microcosm/routes.json",
-        ".microcosm/work_items.json",
-        ".microcosm/events.jsonl",
-        ".microcosm/evidence/",
-    ]
+    assert route_explanation["reader_drilldown_count"] == 4
+    assert route_explanation["drilldown_ref"] == (
+        "microcosm explain <project> readme_onboarding_route"
+    )
+    assert "reader_drilldowns" not in route_explanation
     assert "readme_onboarding_route" in payload["front_door"][
         "available_project_route_ids"
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
+    assert payload["front_door"]["project_state"][
+        "available_project_route_id_count"
+    ] >= len(payload["front_door"]["project_state"]["available_project_route_ids"])
     proof_lab = payload["front_door"]["proof_lab"]
     assert proof_lab["status"] == "pass"
     assert proof_lab["endpoint"] == "/proof-lab"
     assert proof_lab["route_id"] == "formal_prover_context_strategy_gate"
     assert proof_lab["route_component_count"] == 9
-    assert proof_lab["safe_to_show"]["proof_bodies_exported"] is False
-    assert proof_lab["safe_to_show"]["proof_correctness_claim"] is False
+    assert proof_lab["proof_bodies_exported"] is False
+    assert proof_lab["proof_correctness_claim"] is False
     observatory = payload["front_door"]["observatory"]
     assert observatory["status"] == "pass"
     assert observatory["command"] == (
@@ -295,8 +298,9 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert observatory["first_screen_route_proof_ref"] == (
         "microcosm serve <project>::first_screen_route_proof"
     )
-    assert observatory["safe_to_show"]["source_files_mutated"] is False
-    assert observatory["safe_to_show"]["provider_calls_authorized"] is False
+    assert observatory["source_files_mutated"] is False
+    assert observatory["provider_calls_authorized"] is False
+    assert observatory["model_field_count"] == 13
     body_floor = payload["front_door"]["source_open_body_import_floor"]
     assert body_floor["status"] == "pass"
     assert body_floor["summary_ref"] == (
@@ -400,6 +404,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     status_card = json.loads(capsys.readouterr().out)
+    assert len(json.dumps(status_card, sort_keys=True)) < 12000
     assert status_card["status"] == "pass"
     assert status_card["front_door_status"]["blocking_surface_ids"] == []
     assert status_card["front_door_status"]["actionable_surface_ids"] == [

@@ -110,6 +110,8 @@ STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT = 2
 STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT = 2
 STATUS_CARD_LATEST_SOURCE_REF_LIMIT = 3
 STATUS_CARD_DEFECT_PREVIEW_LIMIT = 3
+STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT = 3
+STATUS_CARD_PROJECT_STATE_REF_PREVIEW_LIMIT = 4
 PROOF_LAB_BUNDLE_REF = (
     "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
@@ -2212,6 +2214,20 @@ def _as_str_list(value: Any) -> list[str]:
     return [str(item) for item in value if isinstance(item, str)]
 
 
+def _preview_with_selected(
+    values: list[str],
+    selected: str | None,
+    limit: int,
+) -> list[str]:
+    preview = values[:limit]
+    if selected and selected in values and selected not in preview:
+        if len(preview) >= limit:
+            preview[-1] = selected
+        else:
+            preview.append(selected)
+    return preview
+
+
 def _compact_project_route_explanation(
     project: Path,
     selected_route_id: str,
@@ -2222,29 +2238,8 @@ def _compact_project_route_explanation(
         "schema_version": "microcosm_project_route_explanation_status_card_v1",
         "status": "missing_route" if not selected_route_id else "missing_explanation",
         "command": command,
-        "endpoint": f"/project/explain/{route_id}",
         "route_id": selected_route_id or None,
-        "route_state_ref": (
-            f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
-            if selected_route_id
-            else None
-        ),
-        "explanation_ref": (
-            f"{project_substrate.STATE_DIR}/explanations/{selected_route_id}.json"
-            if selected_route_id
-            else None
-        ),
-        "evidence_ref": (
-            f"{project_substrate.STATE_DIR}/evidence/explain_{selected_route_id}.json"
-            if selected_route_id
-            else None
-        ),
-        "reader_action": (
-            "Run microcosm explain <project> <selected_route_id> after tour "
-            "or compile selects a route."
-            if not selected_route_id
-            else "Run the command for full route/work/event/evidence lineage."
-        ),
+        "drilldown_ref": command,
     }
     if not selected_route_id:
         return summary
@@ -2264,6 +2259,8 @@ def _compact_project_route_explanation(
     pattern_binding_ids = _as_str_list(proof.get("pattern_binding_ids"))
     standard_binding_ids = _as_str_list(proof.get("standard_binding_ids"))
     work_ids = _as_str_list(proof.get("work_ids"))
+    state_history = _as_str_list(proof.get("state_history"))
+    reader_drilldowns = _as_str_list(proof.get("reader_drilldowns"))
     event_refs = (
         proof.get("event_refs")
         if isinstance(proof.get("event_refs"), list)
@@ -2281,33 +2278,20 @@ def _compact_project_route_explanation(
     summary.update(
         {
             "status": PASS if causal_chain_status == PASS else causal_chain_status,
-            "causal_chain_status": causal_chain_status,
             "event_ref_count": proof.get("event_ref_count") or len(event_refs),
             "evidence_ref_count": proof.get("evidence_ref_count")
             or len(evidence_refs),
-            "pattern_binding_ids": pattern_binding_ids,
             "pattern_binding_count": len(pattern_binding_ids),
             "standard_binding_count": len(standard_binding_ids),
-            "standard_binding_ids_preview": standard_binding_ids[:6],
-            "work_ids": work_ids,
+            "work_id_count": len(work_ids),
             "selected_work_id": proof.get("selected_work_id"),
             "selected_work_status": proof.get("selected_work_status"),
-            "state_history": _as_str_list(proof.get("state_history")),
-            "reader_drilldowns": _as_str_list(proof.get("reader_drilldowns")),
+            "state_history_count": len(state_history),
+            "reader_drilldown_count": len(reader_drilldowns),
+            "drilldown_ref": command,
             "source_files_mutated": (
                 proof.get("source_files_mutated") is True
                 or explanation.get("source_files_mutated") is True
-            ),
-            "authority_boundary": (
-                proof.get("authority_boundary")
-                or explanation.get("authority_boundary")
-                or "project_local_projection_not_source_authority"
-            ),
-            "proof_scope": proof.get("proof_scope"),
-            "anti_claim": (
-                "This summary is route lineage for navigation. It does not "
-                "authorize release, provider calls, source mutation, or proof "
-                "correctness."
             ),
         }
     )
@@ -2385,44 +2369,14 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
         "schema_version": "microcosm_project_route_selection_proof_v1",
         "status": route_selection_proof_status,
         "selected_route_id": selected_route_id or None,
-        "selected_route_id_source": (
-            ".microcosm/routes.json via microcosm status --card <project>; "
-            "compare with microcosm tour/compile selected_route_id"
-        ),
-        "selected_route_ref": (
-            f"{project_substrate.STATE_DIR}/routes.json::{selected_route_id}"
-            if selected_route_id
-            else None
-        ),
         "route_id_available_in_state": route_id_available_in_state,
-        "available_project_route_ids": available_project_route_ids,
+        "available_project_route_id_count": len(available_project_route_ids),
         "route_explanation_status": route_explanation.get("status"),
         "route_explanation_status_required": PASS,
-        "route_explanation_command": (
-            f"microcosm explain <project> {selected_route_id}"
-            if selected_route_id
-            else "microcosm explain <project> <selected_route_id>"
-        ),
         "observatory_route_proof_ref": (
             "microcosm serve <project>::first_screen_route_proof"
         ),
-        "state_refs_checked": [
-            f"{project_substrate.STATE_DIR}/routes.json",
-            f"{project_substrate.STATE_DIR}/explanations/{selected_route_id}.json"
-            if selected_route_id
-            else f"{project_substrate.STATE_DIR}/explanations/<selected_route_id>.json",
-        ],
-        "safe_to_show": {
-            "source_files_mutated": False,
-            "provider_calls_authorized": False,
-            "credential_equivalent_live_access_exported": False,
-            "proof_correctness_claim": False,
-        },
-        "reader_action": (
-            "Use this selected_route_id for explain and observatory drilldowns."
-            if route_selection_proof_status == PASS
-            else "Run microcosm tour <project> and then status --card again."
-        ),
+        "state_refs_checked_count": 2 if selected_route_id else 1,
     }
     return {
         "schema_version": "microcosm_project_status_overlay_v1",
@@ -2482,25 +2436,27 @@ def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str
     return {
         "schema_version": "microcosm_project_status_overlay_summary_v1",
         "status": project_overlay.get("status"),
-        "project_ref": project_overlay.get("project_ref"),
-        "state_dir": project_overlay.get("state_dir"),
         "state_dir_exists": project_overlay.get("state_dir_exists"),
-        "state_ref_count": len(state_refs),
         "existing_state_ref_count": len(existing_state_refs),
-        "existing_state_refs": existing_state_refs,
+        "existing_state_refs": existing_state_refs[
+            :STATUS_CARD_PROJECT_STATE_REF_PREVIEW_LIMIT
+        ],
+        "existing_state_ref_preview_limit": STATUS_CARD_PROJECT_STATE_REF_PREVIEW_LIMIT,
         "route_count": project_overlay.get("route_count"),
-        "available_project_route_ids": available_project_route_ids,
-        "selected_route_id": project_overlay.get("selected_route_id"),
-        "selected_route_ref": project_overlay.get("selected_route_ref"),
-        "route_explanation_command": project_overlay.get(
-            "route_explanation_command"
+        "available_project_route_ids": _preview_with_selected(
+            available_project_route_ids,
+            str(project_overlay.get("selected_route_id") or "") or None,
+            STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT,
         ),
+        "available_project_route_id_count": len(available_project_route_ids),
+        "available_project_route_id_preview_limit": (
+            STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT
+        ),
+        "selected_route_id": project_overlay.get("selected_route_id"),
         "route_explanation_status": route_explanation.get("status"),
         "route_explanation_ref": "front_door.route_explanation",
         "route_selection_proof_status": route_selection_proof.get("status"),
         "route_selection_proof_ref": "front_door.route_selection_proof",
-        "source_files_mutated": project_overlay.get("source_files_mutated", False),
-        "reader_action": project_overlay.get("reader_action"),
     }
 
 
@@ -2875,11 +2831,6 @@ def _runtime_status_card(
         if isinstance(front_door.get("safe_to_show"), dict)
         else {}
     )
-    proof_safe_to_show = (
-        proof_lab.get("safe_to_show", {})
-        if isinstance(proof_lab.get("safe_to_show"), dict)
-        else {}
-    )
     route_explanation = (
         front_door.get("route_explanation", {})
         if isinstance(front_door.get("route_explanation"), dict)
@@ -3180,8 +3131,8 @@ def _runtime_status_card(
             ),
         },
         "safe_to_show": {
-            "front_door_safe_to_show": front_door_safe_to_show,
-            "proof_lab_safe_to_show": proof_safe_to_show,
+            "front_door_safe_to_show_ref": "microcosm tour <project>::safe_to_show",
+            "proof_lab_safe_to_show_ref": "microcosm proof-lab::safe_to_show",
             "receipts_are_drilldown_evidence": True,
             "credential_equivalent_live_access_excluded": True,
         },
@@ -3227,8 +3178,17 @@ def _runtime_status_card(
         card["front_door"]["state_dir_exists"] = project_overlay.get(
             "state_dir_exists"
         )
-        card["front_door"]["available_project_route_ids"] = project_overlay.get(
-            "available_project_route_ids"
+        project_route_ids = project_overlay.get("available_project_route_ids")
+        if not isinstance(project_route_ids, list):
+            project_route_ids = []
+        card["front_door"]["available_project_route_ids"] = _preview_with_selected(
+            [str(route_id) for route_id in project_route_ids],
+            str(selected_route_id or "") or None,
+            STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT,
+        )
+        card["front_door"]["available_project_route_id_count"] = len(project_route_ids)
+        card["front_door"]["available_project_route_id_preview_limit"] = (
+            STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT
         )
         if selected_route_id:
             card["front_door"]["selected_route_id"] = selected_route_id
@@ -3247,6 +3207,10 @@ def _runtime_status_card(
         card["source_files_mutated"] = project_overlay.get(
             "source_files_mutated", False
         )
+        card.pop("anti_claim", None)
+        card.pop("safe_to_show", None)
+        card["front_door"].pop("warning_rule", None)
+        card["front_door"].pop("route_selection_rule", None)
     boundary_hits = omitted_payload_schema_term_hits(card)
     boundary_hit_count = sum(boundary_hits.values())
     boundary_status = PASS if boundary_hit_count == 0 else "blocked"
