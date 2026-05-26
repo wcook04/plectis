@@ -68,6 +68,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert "body" not in _walk_keys(card)
+    assert (
+        module.first_screen_composition_card.__module__
+        == "microcosm_core.first_screen_composition"
+    )
 
 
 def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
