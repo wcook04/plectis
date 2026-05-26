@@ -125,6 +125,51 @@
     "option_surface_builder": "system/lib/standard_option_surface.py",
     "kind_band_contract_audit": "system/lib/kind_band_contract_audit.py"
   },
+  "compliance_scanner_contract": {
+    "purpose": "Represent Kind Atlas navigation-contract coverage inside the shared compliance ledger without promoting drafts or changing option-surface support.",
+    "governed_artifact_kind": "navigation_contract",
+    "audit_surface": "system/lib/kind_band_contract_audit.py",
+    "audit_command": "./repo-python kernel.py --kind-band-contract-audit",
+    "scanner": "system/lib/compliance/navigation_contract_adapter.py::scan_navigation_contract",
+    "ledger_row": "codex/hologram/compliance/ledger.json::by_standard[std_navigation_contract]",
+    "coverage_inputs": [
+      "codex/standards/std_navigation_contract.json",
+      "codex/standards/std_kind_atlas.json",
+      "codex/standards/std_paper_module.json",
+      "codex/standards/std_standards_registry.json",
+      "codex/standards/std_system_term.json",
+      "codex/standards/std_system_atlas.json",
+      "codex/standards/principles/std_raw_seed_principles.json",
+      "codex/standards/std_python.py",
+      "codex/doctrine/compression_profiles.json",
+      "system/lib/kind_band_contract_audit.py"
+    ],
+    "navigation_contract": {
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "cluster_axis": "contract_status",
+      "rule": "The audit may guide Atlas/navigation drilldowns after entry selected a navigation-contract lane; it must not become first-contact control flow or infer option-surface support from drafted contracts."
+    },
+    "finding_policy": {
+      "missing_contracts": "warning aggregate finding with kind-id preview",
+      "drafted_candidates": "warning aggregate finding until promoted into source standards or profiles",
+      "unpopulated_units": "info aggregate finding",
+      "audit_support_upgrade": "error because the audit must preserve support status"
+    },
+    "finding_count_policy": {
+      "purpose": "Keep the scanner compact while preserving Atlas/navigation prioritization signal.",
+      "aggregate_findings": true,
+      "top_failure_kinds_count_basis": "impacted_artifact_or_unit_count_from_candidate_target_payload",
+      "finding_count_basis": "aggregate_finding_rows",
+      "count_sources": {
+        "missing_required_atom": "candidate_target_payload.missing_count",
+        "draft_contract_not_promoted": "candidate_target_payload.drafted_candidate_count",
+        "unpopulated_navigation_unit": "candidate_target_payload.unpopulated_unit_count"
+      },
+      "rule": "A compact aggregate finding may represent many affected kinds; compliance cards must expose the affected count so Atlas does not under-rank the repair lane."
+    }
+  },
   "non_goals": [
     "Do not implement a generic row reader.",
     "Do not implement a production telescope command from the standard alone.",

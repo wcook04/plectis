@@ -4254,6 +4254,10 @@ def run_projection_bundle(
     public_root = _public_root_for_path(input_path)
     receipt_path = target / BUNDLE_RESULT_NAME
     result["receipt_paths"] = [_display(receipt_path, public_root=public_root)]
+    result["source_ref_digest_manifest"] = _source_ref_digest_manifest(
+        result.get("source_refs"),
+        public_root=public_root,
+    )
     write_json_atomic(receipt_path, result)
     return result
 
@@ -4312,6 +4316,52 @@ def _cached_receipt_source_mtime_refs(
     return rows
 
 
+def _source_ref_digest_manifest(
+    source_refs: object,
+    *,
+    public_root: Path,
+) -> dict[str, Any]:
+    aggregate = hashlib.sha256()
+    tracked_count = 0
+    missing_count = 0
+    seen: set[str] = set()
+    for source_ref in _strings(source_refs):
+        matched = False
+        for candidate in _source_ref_file_candidates(source_ref, public_root=public_root):
+            if not candidate.is_file():
+                continue
+            resolved = str(candidate.resolve(strict=False))
+            if resolved in seen:
+                matched = True
+                break
+            try:
+                digest = _sha256_digest(candidate)
+            except FileNotFoundError:
+                continue
+            seen.add(resolved)
+            matched = True
+            tracked_count += 1
+            aggregate.update(source_ref.encode("utf-8"))
+            aggregate.update(b"\0")
+            aggregate.update(digest.encode("ascii"))
+            aggregate.update(b"\n")
+            break
+        if not matched:
+            missing_count += 1
+
+    return {
+        "schema_version": "macro_projection_source_ref_digest_manifest_v1",
+        "status": "available" if tracked_count else "empty",
+        "tracked_source_ref_count": tracked_count,
+        "missing_source_ref_count": missing_count,
+        "aggregate_sha256": (
+            f"{BODY_DIGEST_PREFIX}{aggregate.hexdigest()}" if tracked_count else None
+        ),
+        "source_refs_exported": False,
+        "digest_rows_exported": False,
+    }
+
+
 def projection_bundle_cached_card(
     input_dir: str | Path,
     out_dir: str | Path,
@@ -4358,6 +4408,26 @@ def projection_bundle_cached_card(
     input_exists = input_path.exists()
     input_refs = _top_level_json_mtime_refs(input_path)
     source_refs = _cached_receipt_source_mtime_refs(payload, public_root=public_root)
+    receipt_source_digest = payload.get("source_ref_digest_manifest")
+    source_digest_status = "unavailable"
+    source_digest_checked = False
+    current_source_digest: dict[str, Any] | None = None
+    source_digest_stale = False
+    if isinstance(receipt_source_digest, dict) and receipt_source_digest.get(
+        "aggregate_sha256"
+    ):
+        current_source_digest = _source_ref_digest_manifest(
+            payload.get("source_refs"),
+            public_root=public_root,
+        )
+        source_digest_checked = True
+        source_digest_status = (
+            "current"
+            if current_source_digest.get("aggregate_sha256")
+            == receipt_source_digest.get("aggregate_sha256")
+            else "stale"
+        )
+        source_digest_stale = source_digest_status == "stale"
     newest_input = max((row["mtime_ns"] for row in input_refs), default=0)
     newest_source = max((row["mtime_ns"] for row in source_refs), default=0)
     stale_input_count = sum(
@@ -4365,7 +4435,7 @@ def projection_bundle_cached_card(
     )
     input_stale = not input_exists or stale_input_count > 0
     source_stale = newest_source > receipt_stat.st_mtime_ns
-    stale = input_stale or source_stale
+    stale = input_stale or source_stale or source_digest_stale
     input_status = (
         "missing_input"
         if not input_exists
@@ -4393,11 +4463,21 @@ def projection_bundle_cached_card(
             "tracked_top_level_json_count": len(input_refs),
             "stale_top_level_json_count": stale_input_count,
             "tracked_source_ref_count": len(source_refs),
+            "source_ref_digest_status": source_digest_status,
+            "source_ref_digest_checked": source_digest_checked,
+            "tracked_source_ref_digest_count": (
+                current_source_digest.get("tracked_source_ref_count")
+                if current_source_digest is not None
+                else receipt_source_digest.get("tracked_source_ref_count", 0)
+                if isinstance(receipt_source_digest, dict)
+                else 0
+            ),
             "newest_input_mtime_ns": newest_input,
             "newest_source_mtime_ns": newest_source,
             "receipt_mtime_ns": receipt_stat.st_mtime_ns,
             "input_refs_exported": False,
             "source_refs_exported": False,
+            "source_ref_digest_rows_exported": False,
         },
         "input_mode": payload.get("input_mode"),
         "projection_cell_count": payload.get("projection_cell_count"),

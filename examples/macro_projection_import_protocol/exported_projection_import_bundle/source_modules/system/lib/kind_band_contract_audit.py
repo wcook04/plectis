@@ -22,6 +22,8 @@ RAW_SEED_PRINCIPLES_STANDARD = Path("codex/standards/principles/std_raw_seed_pri
 PYTHON_STANDARD = Path("codex/standards/std_python.py")
 COMPRESSION_PROFILES = Path("codex/doctrine/compression_profiles.json")
 NAVIGATION_CONTRACT_STANDARD = Path("codex/standards/std_navigation_contract.json")
+STANDARDS_REGISTRY_STANDARD = Path("codex/standards/std_standards_registry.json")
+SYSTEM_ATLAS_STANDARD = Path("codex/standards/std_system_atlas.json")
 WAVE_042_DIR = Path(
     "state/meta_missions/system_microcosm_probe/ledgers/"
     "navigation_hologram_microcosm/wave_042"
@@ -374,8 +376,10 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
     contracts: dict[str, tuple[str, str, dict[str, Any]]] = {}
     for kind_id, path in (
         ("paper_modules", PAPER_MODULE_STANDARD),
+        ("standards", STANDARDS_REGISTRY_STANDARD),
         ("system_terms", SYSTEM_TERM_STANDARD),
         ("principles", RAW_SEED_PRINCIPLES_STANDARD),
+        ("system_atlas", SYSTEM_ATLAS_STANDARD),
     ):
         contract = _navigation_contract_from_json(root, path)
         if contract:
@@ -459,6 +463,8 @@ def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
             str(RAW_SEED_PRINCIPLES_STANDARD),
             str(PYTHON_STANDARD),
             str(COMPRESSION_PROFILES),
+            str(STANDARDS_REGISTRY_STANDARD),
+            str(SYSTEM_ATLAS_STANDARD),
         ],
         "summary": {
             "total_kinds": len(rows),

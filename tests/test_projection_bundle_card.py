@@ -12,6 +12,14 @@ from microcosm_core import cli
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
+def _source_digest_manifest(input_dir: Path, source_refs: list[str]) -> dict:
+    public_root = cli.macro_projection_import_protocol._public_root_for_path(input_dir)
+    return cli.macro_projection_import_protocol._source_ref_digest_manifest(
+        source_refs,
+        public_root=public_root,
+    )
+
+
 def test_cli_macro_projection_bundle_card_reads_cached_receipt_without_rerun(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
@@ -280,3 +288,118 @@ def test_cli_macro_projection_bundle_card_marks_source_refs_stale(
     assert payload["cache_freshness"]["tracked_source_ref_count"] == 1
     assert payload["cache_freshness"]["source_refs_exported"] is False
     assert "source_refs" not in payload
+
+
+def test_cli_macro_projection_bundle_card_checks_source_ref_digest(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    input_dir = tmp_path / "bundle"
+    input_dir.mkdir()
+    (input_dir / "projection_protocol.json").write_text("{}", encoding="utf-8")
+    live_source = tmp_path / "live_source.py"
+    live_source.write_text("unchanged source\n", encoding="utf-8")
+    source_refs = ["live_source.py"]
+    out_dir = tmp_path / "projection-import"
+    out_dir.mkdir()
+    receipt = out_dir / "exported_projection_import_bundle_validation_result.json"
+    receipt.write_text(
+        json.dumps(
+            {
+                "schema_version": "exported_projection_import_bundle_validation_result_v1",
+                "status": "pass",
+                "input_mode": "exported_projection_import_bundle",
+                "projection_cell_count": 1,
+                "source_refs": source_refs,
+                "source_ref_count": 1,
+                "source_ref_digest_manifest": _source_digest_manifest(
+                    input_dir, source_refs
+                ),
+                "body_in_receipt": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    status = cli.main(
+        [
+            "macro-projection-import-protocol",
+            "run-projection-bundle",
+            "--card",
+            "--input",
+            str(input_dir),
+            "--out",
+            str(out_dir),
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["status"] == "pass"
+    assert payload["cache_freshness"]["source_ref_digest_status"] == "current"
+    assert payload["cache_freshness"]["source_ref_digest_checked"] is True
+    assert payload["cache_freshness"]["tracked_source_ref_digest_count"] == 1
+    assert payload["cache_freshness"]["source_ref_digest_rows_exported"] is False
+    assert "source_ref_digest_manifest" not in payload
+
+
+def test_cli_macro_projection_bundle_card_marks_digest_stale_without_mtime_stale(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    input_dir = tmp_path / "bundle"
+    input_dir.mkdir()
+    (input_dir / "projection_protocol.json").write_text("{}", encoding="utf-8")
+    live_source = tmp_path / "live_source.py"
+    live_source.write_text("before\n", encoding="utf-8")
+    source_refs = ["live_source.py"]
+    out_dir = tmp_path / "projection-import"
+    out_dir.mkdir()
+    receipt = out_dir / "exported_projection_import_bundle_validation_result.json"
+    receipt.write_text(
+        json.dumps(
+            {
+                "schema_version": "exported_projection_import_bundle_validation_result_v1",
+                "status": "pass",
+                "input_mode": "exported_projection_import_bundle",
+                "projection_cell_count": 1,
+                "source_refs": source_refs,
+                "source_ref_count": 1,
+                "source_ref_digest_manifest": _source_digest_manifest(
+                    input_dir, source_refs
+                ),
+                "body_in_receipt": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+    receipt_mtime_ns = receipt.stat().st_mtime_ns
+    live_source.write_text("after\n", encoding="utf-8")
+    os.utime(live_source, ns=(receipt_mtime_ns, receipt_mtime_ns))
+
+    status = cli.main(
+        [
+            "macro-projection-import-protocol",
+            "run-projection-bundle",
+            "--card",
+            "--input",
+            str(input_dir),
+            "--out",
+            str(out_dir),
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 1
+    assert payload["status"] == "stale_cached_receipt"
+    assert payload["cache_freshness"]["input_status"] == "current"
+    assert payload["cache_freshness"]["source_ref_status"] == "current"
+    assert payload["cache_freshness"]["source_ref_digest_status"] == "stale"
+    assert payload["cache_freshness"]["source_ref_digest_checked"] is True
+    assert payload["cache_freshness"]["source_ref_digest_rows_exported"] is False
+    assert "source_refs" not in payload
+    assert "source_ref_digest_manifest" not in payload

@@ -1,7 +1,7 @@
 {
   "kind": "routing_hologram",
   "generated_from": "deterministic_projection",
-  "input_sha256": "d5e0386eb6eeb4a7547d4e37ea0097c5ba5f7dd633ef7f5a3b2dc5ec3edd7b86",
+  "input_sha256": "f4106438f3a5c6f4f3586d83417ad95036e54d6793fcb7231a1fedb56c66f3de",
   "source_paths": [
     "codex/doctrine/skills/skill_registry.json",
     "codex/standards/observe_apply/std_synth_seed.json",
@@ -251,7 +251,7 @@
     {
       "mode": "subagent_cohort",
       "worker_surface": "subagent",
-      "use_when": "the native tool-using sibling of `bridge_graph` for fan-out work. Use multiple scoped workers with explicit write boundaries, or zero-write evidence returns, and one controller-owned assimilation sink.",
+      "use_when": "the native tool-using sibling of `bridge_graph` for fan-out work. Use multiple scoped workers with explicit write boundaries, or zero-write evidence returns, one controller-owned assimilation sink, and a non-overlapping parent lane that keeps moving while workers run.",
       "persistence": "synth_seed.json:synthesis_memory + `delta_path` + `archive_root/cohort_wave_<wave_id>_bundles/` + `ledger_path`",
       "source_provenance": "wave_conductor + delegation_protocol"
     }

@@ -1958,6 +1958,328 @@ def test_standard_projection_gaps_surface_reports_missing_generated_projections(
     assert "codex/doctrine/skills/skill_registry.json" in standard_skill_map["source_authorities"]
 
 
+def test_compliance_ledger_card_exposes_standard_skill_map_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_skill",
+                        "validator": "system/lib/compliance/skill_registry_adapter.py::scan_skill_registry",
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 4,
+                        "checked_artifact_count": 4,
+                        "compliant_artifact_count": 4,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": 1.0,
+                        "top_failure_kinds": [],
+                        "findings": [],
+                        "evidence_refs": ["codex/hologram/skills/standard_skill_map.json"],
+                        "metabolism_trigger_state": "ready_compliant",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": "codex/hologram/compliance/ledger.json::by_standard[std_skill]",
+                        "standard_skill_map_status": {
+                            "builder_agrees": True,
+                            "option_surface_status": {
+                                "surface_role": "ATLAS_PROJECTION",
+                                "first_contact_allowed": False,
+                                "grouping_keys": ["pairing_status"],
+                            },
+                        },
+                        "skill_registry_status": {
+                            "skill_count": 1,
+                            "skills_with_governing_standard_ids": 1,
+                        },
+                        "navigation_role": "Validates the standards-to-skills projection.",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(tmp_path, "compliance_ledger", band="card", ids=["std_skill"])
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_skill"
+    assert row["standard_skill_map_status"]["builder_agrees"] is True
+    assert row["standard_skill_map_status"]["option_surface_status"]["surface_role"] == "ATLAS_PROJECTION"
+    assert row["standard_skill_map_status"]["option_surface_status"]["first_contact_allowed"] is False
+    assert row["standard_skill_map_status"]["option_surface_status"]["grouping_keys"] == ["pairing_status"]
+    assert row["skill_registry_status"]["skills_with_governing_standard_ids"] == 1
+    assert row["navigation_role"].startswith("Validates")
+
+
+def test_compliance_ledger_card_exposes_config_authority_registry_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_config_authority_registry",
+                        "validator": (
+                            "system/lib/compliance/config_authority_registry_adapter.py::"
+                            "scan_config_authority_registry"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 111,
+                        "checked_artifact_count": 111,
+                        "compliant_artifact_count": 111,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": 1.0,
+                        "top_failure_kinds": [],
+                        "findings": [],
+                        "evidence_refs": ["codex/derived/config_authority_registry.json"],
+                        "metabolism_trigger_state": "ready_compliant",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_config_authority_registry]"
+                        ),
+                        "config_authority_registry_status": {
+                            "registry_path": "codex/derived/config_authority_registry.json",
+                            "builder": "tools/meta/factory/build_config_authority_registry.py",
+                            "option_surface_status": {
+                                "surface_role": "ATLAS_PROJECTION",
+                                "first_contact_allowed": False,
+                                "cluster_first_for_high_cardinality": True,
+                            },
+                        },
+                        "navigation_role": "Validates the config_authorities projection.",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_config_authority_registry"],
+    )
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_config_authority_registry"
+    assert row["config_authority_registry_status"]["registry_path"] == (
+        "codex/derived/config_authority_registry.json"
+    )
+    assert row["config_authority_registry_status"]["option_surface_status"]["surface_role"] == (
+        "ATLAS_PROJECTION"
+    )
+    assert row["config_authority_registry_status"]["option_surface_status"]["first_contact_allowed"] is False
+    assert row["config_authority_registry_status"]["option_surface_status"][
+        "cluster_first_for_high_cardinality"
+    ] is True
+    assert row["navigation_role"].startswith("Validates")
+
+
+def test_compliance_ledger_card_exposes_task_ledger_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_task_ledger",
+                        "validator": (
+                            "system/lib/compliance/task_ledger_adapter.py::scan_task_ledger"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 4000,
+                        "checked_artifact_count": 4000,
+                        "compliant_artifact_count": 3999,
+                        "noncompliant_artifact_count": 1,
+                        "compliance_rate": 0.99975,
+                        "top_failure_kinds": [{"finding_kind": "stale_projection", "count": 1}],
+                        "findings": [],
+                        "evidence_refs": ["state/task_ledger/events.jsonl"],
+                        "metabolism_trigger_state": "scanner_partial",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_task_ledger]"
+                        ),
+                        "task_ledger_status": {
+                            "canonical_event_log": "state/task_ledger/events.jsonl",
+                            "authority_health": {"status": "clean"},
+                            "validation": {"error_count": 0, "warning_count": 1},
+                            "projection_check": {"ok": False, "mismatch_count": 1},
+                            "option_surface_status": {
+                                "surface_role": "ATLAS_PROJECTION",
+                                "first_contact_allowed": False,
+                                "cluster_first_for_high_cardinality": True,
+                            },
+                        },
+                        "navigation_role": "Validates the task_ledger option surface.",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_task_ledger"],
+    )
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_task_ledger"
+    assert row["task_ledger_status"]["canonical_event_log"] == (
+        "state/task_ledger/events.jsonl"
+    )
+    assert row["task_ledger_status"]["option_surface_status"]["surface_role"] == (
+        "ATLAS_PROJECTION"
+    )
+    assert row["task_ledger_status"]["option_surface_status"]["first_contact_allowed"] is False
+    assert row["task_ledger_status"]["projection_check"]["mismatch_count"] == 1
+    assert row["navigation_role"].startswith("Validates")
+
+
+def test_compliance_ledger_card_exposes_prompt_ledger_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_prompt_ledger",
+                        "validator": (
+                            "system/lib/compliance/prompt_ledger_adapter.py::scan_prompt_ledger"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 40,
+                        "checked_artifact_count": 40,
+                        "compliant_artifact_count": 40,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": 1.0,
+                        "top_failure_kinds": [],
+                        "findings": [],
+                        "evidence_refs": ["state/prompt_ledger/events.jsonl"],
+                        "metabolism_trigger_state": "ready_compliant",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_prompt_ledger]"
+                        ),
+                        "prompt_ledger_status": {
+                            "canonical_event_log": "state/prompt_ledger/events.jsonl",
+                            "validation": {"ok": True, "event_count": 36},
+                            "projection_check": {"ok": True, "mismatch_count": 0},
+                            "option_surface_status": {
+                                "surface_role": "ATLAS_PROJECTION",
+                                "first_contact_allowed": False,
+                                "authority_posture": "projection_browse_only_events_are_authority",
+                            },
+                        },
+                        "navigation_role": "Validates the prompt_ledger option surface.",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_prompt_ledger"],
+    )
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_prompt_ledger"
+    assert row["prompt_ledger_status"]["canonical_event_log"] == (
+        "state/prompt_ledger/events.jsonl"
+    )
+    assert row["prompt_ledger_status"]["option_surface_status"]["surface_role"] == (
+        "ATLAS_PROJECTION"
+    )
+    assert row["prompt_ledger_status"]["option_surface_status"]["first_contact_allowed"] is False
+    assert row["prompt_ledger_status"]["projection_check"]["mismatch_count"] == 0
+    assert row["navigation_role"].startswith("Validates")
+
+
+def test_compliance_ledger_card_exposes_navigation_contract_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_navigation_contract",
+                        "validator": (
+                            "system/lib/compliance/navigation_contract_adapter.py::"
+                            "scan_navigation_contract"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 50,
+                        "checked_artifact_count": 50,
+                        "compliant_artifact_count": 6,
+                        "noncompliant_artifact_count": 44,
+                        "compliance_rate": 0.12,
+                        "top_failure_kinds": [
+                            {"finding_kind": "missing_required_atom", "count": 1}
+                        ],
+                        "findings": [],
+                        "evidence_refs": ["system/lib/kind_band_contract_audit.py"],
+                        "metabolism_trigger_state": "scanner_partial",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_navigation_contract]"
+                        ),
+                        "navigation_contract_status": {
+                            "audit_kind": "kind_band_contract_audit",
+                            "total_kinds": 49,
+                            "declared_count": 5,
+                            "profile_declared_count": 1,
+                            "drafted_candidate_count": 7,
+                            "missing_count": 36,
+                            "option_surface_support_upgraded_by_this_audit": False,
+                        },
+                        "navigation_role": "Validates the Kind Atlas band/scope/facet contract audit.",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_navigation_contract"],
+    )
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_navigation_contract"
+    assert row["navigation_contract_status"]["audit_kind"] == "kind_band_contract_audit"
+    assert row["navigation_contract_status"]["missing_count"] == 36
+    assert (
+        row["navigation_contract_status"]["option_surface_support_upgraded_by_this_audit"]
+        is False
+    )
+    assert row["navigation_role"].startswith("Validates")
+
+
 def test_standard_skill_map_cluster_flag_groups_by_pairing_status(tmp_path: Path) -> None:
     projection = tmp_path / "codex/hologram/skills/standard_skill_map.json"
     projection.parent.mkdir(parents=True)
@@ -2934,6 +3256,39 @@ def test_microcosm_extracted_patterns_card_includes_binding_summary() -> None:
         "./repo-pytest microcosm-substrate/tests/test_voice_to_doctrine_self_improvement_loop.py -q"
     )
     assert organ_test_command in binding["command_surfaces"]
+
+
+def test_microcosm_extracted_patterns_card_includes_formal_prover_payload_policy_boundary_binding() -> None:
+    payload = build_option_surface(
+        REPO_ROOT,
+        "microcosm_extracted_patterns",
+        band="card",
+        ids=["formal_prover_payload_policy_boundary"],
+    )
+
+    row = payload["rows"][0]
+    binding = row["substrate_binding_summary"]
+    membership = row["route_readiness_membership"]
+
+    assert binding["status"] == "detailed_binding_available"
+    assert binding["missing_bindings"] == []
+    assert (
+        binding["grounding_status"]
+        == "formal_prover_provider_payload_membrane_bound_to_transform_job_receipts_reducer_policy_and_proof_authority_boundary"
+    )
+    assert "codex/standards/std_transform_job.json" in binding["standard_refs"]
+    assert (
+        "tools/meta/factory/reduce_prover_provider_receipts.py"
+        in binding["code_owner_refs"]
+    )
+    assert (
+        "./repo-python kernel.py --option-surface microcosm_extracted_patterns --band card --ids formal_prover_payload_policy_boundary"
+        in binding["command_surfaces"]
+    )
+    assert membership["status"] == "routed_to_organ_bundle"
+    assert "proof_diagnostic_evidence_spine" in membership["route_to_organ_ids"]
+    assert "proof_diagnostic_and_formal_body_rows" in membership["router_ids"]
+    assert membership["individual_row_selection"] == ["forbidden"]
 
 
 def test_microcosm_extracted_patterns_card_routes_agent_self_observability_anchor() -> None:

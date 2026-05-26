@@ -291,5 +291,32 @@
     "duplication_audit": "./repo-python kernel.py --command-output-duplication-audit",
     "kind_band_audit": "./repo-python kernel.py --kind-band-contract-audit",
     "kind_atlas_freshness": "./repo-python kernel.py --kind-atlas"
+  },
+  "compliance_scanner_contract": {
+    "governed_artifact_kind": "kernel_command_output",
+    "scanner": "system/lib/compliance/command_output_projection_adapter.py::scan_command_output_projection",
+    "source_authority": "codex/standards/std_command_output_projection.json",
+    "owner_audits": [
+      "./repo-python kernel.py --command-output-projection-audit",
+      "./repo-python kernel.py --command-output-duplication-audit",
+      "./repo-python kernel.py --kind-band-contract-audit"
+    ],
+    "atlas_navigation_use": {
+      "surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_command_output_projection",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigation_role": "Expose command-output projection envelope health, registered-command coverage, default-shape back-compat, payload-economy posture, and generic --row safety without treating the compliance ledger as command-output authority."
+    },
+    "finding_count_policy": {
+      "aggregate_findings": true,
+      "top_failure_kinds_count_basis": "impacted_command_or_sample_count_from_candidate_target_payload",
+      "weighted_payload_fields": [
+        "impacted_command_count",
+        "projected_not_smaller_count",
+        "error_count"
+      ]
+    },
+    "authority_boundary": "The scanner is a read-only wrapper over existing owner audits. It does not change command output shapes, refresh generated artifacts, or promote this candidate standard to active status."
   }
 }

@@ -32,9 +32,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 23889,
+      "byte_count": 24228,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 491,
+      "line_count": 497,
       "module_id": "kind_band_contract_audit_body_import",
       "required_anchors": [
         "def build_kind_band_contract_audit(",
@@ -47,9 +47,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
       "source_ref": "system/lib/kind_band_contract_audit.py",
       "source_role": "Kind-band navigation-contract audit surface for declared/profile/drafted/missing contracts, population mode counts, axis-split posture, and source-authority references.",
-      "source_sha256": "b0afafb17678990d631aaf11a5324f44a8954b0b02fb646b3b0f5c4fbbe08dc0",
+      "source_sha256": "bbd78a75202228b12a543e57276d29bde143663d8603e8ecf79e93779cb7feae",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_band_contract_audit.py",
-      "target_sha256": "b0afafb17678990d631aaf11a5324f44a8954b0b02fb646b3b0f5c4fbbe08dc0"
+      "target_sha256": "bbd78a75202228b12a543e57276d29bde143663d8603e8ecf79e93779cb7feae"
     },
     {
       "anchor_count": 5,
