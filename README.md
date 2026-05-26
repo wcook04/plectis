@@ -6,6 +6,36 @@ Microcosm compiles your project folder into local state: catalog, patterns,
 routes, a governed work transaction, events, evidence, and a tiny observatory.
 It does not mutate your source files or call providers.
 
+## Choose Your First Screen
+
+If you only read one screen, ask the package-backed card for the map:
+
+```bash
+microcosm first-screen <project>
+```
+
+That map is not a separate proof surface. It sends every reader through the same
+local behavior command before branching:
+
+```bash
+microcosm tour --card <project>
+```
+
+After that shared card, branch by reader instead of forcing one README to carry
+every job:
+
+| Reader | Open next | What to check |
+|---|---|---|
+| Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority && microcosm workingness` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes. |
+| Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
+| Peer developer | `microcosm tour --card <project>`, then `microcosm observe <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`. |
+
+Evidence counts are accounting, not maturity scores. Low counts are not hidden:
+they tell you exactly which claims are backed by copied source bodies, external
+subprocess receipts, algorithmic projections, metadata-only rows, or explicit
+omissions. Most projects do not publish that boundary; Microcosm puts it on the
+first screen so strong claims stay narrow.
+
 ## Try It On Your Repo
 
 From `microcosm-substrate/`, install the console command:
@@ -19,6 +49,7 @@ entry point:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.cli tour --card .
+PYTHONPATH=src python3 -m microcosm_core.cli first-screen .
 PYTHONPATH=src python3 -m microcosm_core.cli status --card .
 PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
@@ -27,6 +58,7 @@ After the console command is installed, the first-screen path is:
 
 ```bash
 microcosm tour --card .
+microcosm first-screen .
 microcosm status --card .
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -57,6 +89,8 @@ another generated route, for example `missing_tests_route` when tests are
 absent. Open
 `http://127.0.0.1:8765/project/status` for the same compact status-card lens as
 `microcosm status --card <project>`, then
+`http://127.0.0.1:8765/project/first-screen` for the same one-screen reader map
+as `microcosm first-screen <project>`, then
 `http://127.0.0.1:8765/project/observatory-card` for the compact JSON card that
 ties `state_inspection`, status, route, work, evidence, graph, proof, and
 safe-to-show boundaries together before opening `http://127.0.0.1:8765` or the full
