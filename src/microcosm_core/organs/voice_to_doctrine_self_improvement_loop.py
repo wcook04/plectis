@@ -20,6 +20,7 @@ ORGAN_ID = "voice_to_doctrine_self_improvement_loop"
 FIXTURE_ID = "first_wave.voice_to_doctrine_self_improvement_loop"
 VALIDATOR_ID = "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop"
 MODULE_PATH = "microcosm_core.organs.voice_to_doctrine_self_improvement_loop"
+CARD_SCHEMA_VERSION = "voice_to_doctrine_self_improvement_command_card_v1"
 
 RESULT_NAME = "voice_to_doctrine_self_improvement_loop_result.json"
 BOARD_NAME = "voice_to_doctrine_self_improvement_loop_board.json"
@@ -793,6 +794,149 @@ def run_voice_to_doctrine_bundle(
     return result
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    scan_row = scan if isinstance(scan, dict) else {}
+    return {
+        "status": scan_row.get("status"),
+        "blocking_hit_count": scan_row.get("blocking_hit_count"),
+        "hit_count": scan_row.get("hit_count"),
+        "scanned_path_count": scan_row.get("scanned_path_count"),
+        "body_in_receipt": scan_row.get("body_in_receipt") is True,
+        "hits_exported": False,
+        "scan_scope_exported": False,
+        "source_excerpt_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling", {})
+    if not isinstance(ceiling, dict):
+        ceiling = {}
+    return {
+        "status": ceiling.get("status"),
+        "raw_operator_voice_export_authorized": (
+            ceiling.get("raw_operator_voice_export_authorized") is True
+        ),
+        "private_thread_body_export_authorized": (
+            ceiling.get("private_thread_body_export_authorized") is True
+        ),
+        "doctrine_node_hand_edit_authorized": (
+            ceiling.get("doctrine_node_hand_edit_authorized") is True
+        ),
+        "global_doctrine_promotion_authorized": (
+            ceiling.get("global_doctrine_promotion_authorized") is True
+        ),
+        "live_task_ledger_mutation_authorized": (
+            ceiling.get("live_task_ledger_mutation_authorized") is True
+        ),
+        "provider_calls_authorized": ceiling.get("provider_calls_authorized") is True,
+        "source_mutation_authorized": (
+            ceiling.get("source_mutation_authorized") is True
+        ),
+        "release_authorized": ceiling.get("release_authorized") is True,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    input_mode = result.get("input_mode")
+    action = "run-bundle" if input_mode == "exported_voice_to_doctrine_bundle" else "run"
+    expected_cases = result.get("expected_negative_cases", {})
+    observed_cases = result.get("observed_negative_cases", {})
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": (
+            "voice_to_doctrine_exported_bundle_card"
+            if action == "run-bundle"
+            else "voice_to_doctrine_fixture_card"
+        ),
+        "output_profile": "compact_card_no_findings_tables_bodies_or_scan_scope",
+        "full_output_available": True,
+        "full_output_drilldown": f"rerun {action} without --card",
+        "receipt_summary": {
+            "receipt_count": len(result.get("receipt_paths", [])),
+            "receipt_paths_exported": False,
+            "result_receipt_name": (
+                BUNDLE_RESULT_NAME if action == "run-bundle" else RESULT_NAME
+            ),
+            "board_receipt_name": BOARD_NAME,
+            "validation_receipt_name": VALIDATION_RECEIPT_NAME,
+        },
+        "doctrine_loop_summary": {
+            "lesson_count": result.get("lesson_count"),
+            "owner_surface_count": result.get("owner_surface_count"),
+            "refined_existing_surface_count": result.get(
+                "refined_existing_surface_count"
+            ),
+            "workitem_capture_count": result.get("workitem_capture_count"),
+            "nothing_to_refine_count": result.get("nothing_to_refine_count"),
+            "already_propagated_verified_count": result.get(
+                "already_propagated_verified_count"
+            ),
+            "status_counts": result.get("status_counts", {}),
+            "source_pattern_ref_count": len(result.get("source_pattern_refs", [])),
+            "required_sequence_count": len(result.get("required_sequence", [])),
+            "body_import_verification_mode": (
+                result.get("body_import_verification", {}).get("verification_mode")
+                if isinstance(result.get("body_import_verification"), dict)
+                else None
+            ),
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(expected_cases)
+            if isinstance(expected_cases, dict)
+            else 0,
+            "observed_case_count": len(observed_cases)
+            if isinstance(observed_cases, dict)
+            else 0,
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+            "blocking_error_code_count": len(result.get("blocking_error_codes", [])),
+        },
+        "secret_exclusion_scan_summary": _scan_card(
+            result.get("secret_exclusion_scan")
+        ),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "runtime_authority": {
+            "body_in_receipt": result.get("body_in_receipt") is True,
+            "metadata_projection_not_live_learning_authority": (
+                result.get("metadata_projection_not_live_learning_authority") is True
+            ),
+        },
+        "no_export_guards": {
+            "findings_exported": False,
+            "blocking_findings_exported": False,
+            "owner_counts_exported": False,
+            "observed_negative_cases_exported": False,
+            "secret_scan_hits_exported": False,
+            "secret_scan_scope_exported": False,
+            "anti_claim_exported": False,
+            "body_import_source_refs_exported": False,
+            "private_bodies_exported": False,
+            "provider_payloads_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "findings",
+                "blocking_findings",
+                "owner_counts",
+                "observed_negative_cases",
+                "source_pattern_refs",
+                "required_sequence",
+                "body_import_verification.source_refs",
+                "secret_exclusion_scan.hits",
+                "secret_exclusion_scan.scan_scope",
+                "anti_claim",
+            ],
+        },
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command")
@@ -800,26 +944,48 @@ def main(argv: list[str] | None = None) -> int:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     bundle_parser = subparsers.add_parser("run-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipt to --out.",
+    )
     args = parser.parse_args(argv)
     if args.command == "run":
+        card_suffix = " --card" if args.card else ""
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}" if args.acceptance_out else ""
+        )
         result = run(
             args.input,
             args.out,
-            command=" ".join(["python", "-m", MODULE_PATH, "run"]),
+            command=(
+                f"python -m {MODULE_PATH} run --input {args.input} "
+                f"--out {args.out}{acceptance_suffix}{card_suffix}"
+            ),
             acceptance_out=args.acceptance_out,
         )
     elif args.command == "run-bundle":
+        card_suffix = " --card" if args.card else ""
         result = run_voice_to_doctrine_bundle(
             args.input,
             args.out,
-            command=" ".join(["python", "-m", MODULE_PATH, "run-bundle"]),
+            command=(
+                f"python -m {MODULE_PATH} run-bundle --input {args.input} "
+                f"--out {args.out}{card_suffix}"
+            ),
         )
     else:
         parser.error("expected a subcommand")
-    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    output = result_card(result) if args.card else result
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result.get("status") == PASS else 1
 
 

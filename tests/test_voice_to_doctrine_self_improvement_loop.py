@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.voice_to_doctrine_self_improvement_loop import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_voice_to_doctrine_bundle,
 )
@@ -142,3 +144,90 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
         "bind_closeout",
         "publish_reentry_condition",
     ]
+
+
+def test_voice_to_doctrine_bundle_card_prints_compact_summary(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "bundle-card"
+
+    rc = main(
+        [
+            "run-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    full_receipt = out_dir / "exported_voice_to_doctrine_bundle_validation_result.json"
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 3500
+    assert full_receipt.is_file()
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["organ_id"] == "voice_to_doctrine_self_improvement_loop"
+    assert card["input_mode"] == "exported_voice_to_doctrine_bundle"
+    assert (
+        card["bundle_id"]
+        == "voice_to_doctrine_self_improvement_loop_runtime_example"
+    )
+    assert card["doctrine_loop_summary"]["lesson_count"] == 4
+    assert card["doctrine_loop_summary"]["owner_surface_count"] == 5
+    assert card["doctrine_loop_summary"]["refined_existing_surface_count"] == 2
+    assert card["negative_case_coverage"]["expected_case_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["secret_exclusion_scan_summary"]["hits_exported"] is False
+    assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["no_export_guards"]["findings_exported"] is False
+    assert card["no_export_guards"]["observed_negative_cases_exported"] is False
+    assert card["output_economy"]["full_payload_drilldown"] == "rerun without --card"
+    assert "findings" not in card
+    assert "blocking_findings" not in card
+    assert "observed_negative_cases" not in card
+    assert "anti_claim" not in card
+
+
+def test_voice_to_doctrine_fixture_card_honors_acceptance_out(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "fixture-card"
+    acceptance_out = tmp_path / "acceptance.json"
+
+    rc = main(
+        [
+            "run",
+            "--input",
+            str(FIXTURE_INPUT),
+            "--out",
+            str(out_dir),
+            "--acceptance-out",
+            str(acceptance_out),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+
+    assert rc == 0
+    assert len(captured.encode("utf-8")) < 3500
+    assert acceptance_out.is_file()
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["input_mode"] == "first_wave_fixture"
+    assert card["negative_case_coverage"]["expected_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["observed_case_count"] == len(
+        EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["missing_negative_cases"] == []
+    assert card["no_export_guards"]["private_bodies_exported"] is False
+    assert card["no_export_guards"]["provider_payloads_exported"] is False
