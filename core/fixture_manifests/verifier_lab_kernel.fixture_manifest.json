@@ -4,6 +4,45 @@
   "organ_id": "verifier_lab_kernel",
   "fixture_id": "fixture::verifier_lab_kernel::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
+  "body_copied_material_count": 10,
+  "source_open_body_imports": {
+    "schema_version": "verifier_lab_kernel_source_open_body_imports_v1",
+    "status": "pass",
+    "body_material_status": "copied_non_secret_verifier_lab_kernel_component_source_bodies_with_digest_provenance",
+    "body_material_count": 10,
+    "body_material_ids": [
+      "verifier_lab_kernel_source_body_import",
+      "corpus_readiness_mathlib_absence_gate_source_body_import",
+      "lean_std_premise_index_source_body_import",
+      "formal_math_premise_retrieval_source_body_import",
+      "tactic_portfolio_availability_probe_source_body_import",
+      "target_shape_tactic_routing_gate_source_body_import",
+      "formal_math_verifier_trace_repair_loop_source_body_import",
+      "ring2_premise_retrieval_precision_recall_harness_source_body_import",
+      "proof_diagnostic_evidence_spine_source_body_import",
+      "formal_math_lean_proof_witness_source_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json::modules",
+    "source_manifest_refs": [
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "reader_action": "Open source_module_manifest.json plus source_modules/microcosm_core/organs/ for copied verifier-lab kernel and component source bodies.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": "component_witness_only",
+      "formal_proof_authority": false,
+      "release_authorized": false
+    }
+  },
   "purpose": "Validate the public leak-proof verifier lab kernel composition: bounded Lean/Lake witness execution, tactic portfolio and target-shape routing, verifier trace repair, provider-hypothesis quarantine, CP2 typed action candidates, bounded Evolve candidates, and negative-case leakage controls.",
   "inputs": [
     "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json",
@@ -17,6 +56,7 @@
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_result.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_board.json",
     "receipts/first_wave/verifier_lab_kernel/verifier_lab_kernel_validation_receipt.json",
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
   ],
   "command": "python -m microcosm_core.organs.verifier_lab_kernel run --input fixtures/first_wave/verifier_lab_kernel/input --out receipts/first_wave/verifier_lab_kernel",
@@ -53,6 +93,9 @@
     "claim_separation",
     "authority_counters",
     "anti_claim",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_copied_material_count",
     "secret_exclusion_scan",
     "body_in_receipt",
     "real_runtime_receipt",

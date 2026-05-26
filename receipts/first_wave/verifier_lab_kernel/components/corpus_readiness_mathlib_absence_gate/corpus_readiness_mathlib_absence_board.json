@@ -171,6 +171,7 @@
       }
     ]
   },
+  "copied_source_artifact_count": 0,
   "corpus_count": 7,
   "corpus_projection": {
     "absent_corpus_ids": [
@@ -212,7 +213,7 @@
     ]
   },
   "corpus_readiness_status": "real_lean_std_corpus_readiness_and_mathlib_absence_boundary",
-  "created_at": "2026-05-23T18:36:12+00:00",
+  "created_at": "2026-05-26T22:59:07+00:00",
   "error_codes": [
     "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
     "CORPUS_READINESS_PROOF_BODY_FORBIDDEN",
@@ -333,6 +334,7 @@
   ],
   "schema_version": "corpus_readiness_mathlib_absence_board_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "body_material_status": "secret_exclusion_scan_no_payload_body_export",
@@ -345,6 +347,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
@@ -358,6 +369,11 @@
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
   },
+  "source_module_import_count": 0,
+  "source_module_import_status": "copied_corpus_readiness_source_modules_verified",
+  "source_module_imports": [],
+  "source_module_manifest_ref": "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/source_module_manifest.json",
+  "source_modules_pass": true,
   "source_pattern_ids": [
     "corpus_readiness_mathlib_absence_gate"
   ],
@@ -372,6 +388,11 @@
     "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/consumer_gate_cases.json",
     "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
     "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/consumer_gate_cases.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_module_manifest.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_gate_result.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_board.json",
     "receipts/first_wave/corpus_readiness_mathlib_absence_gate/corpus_readiness_mathlib_absence_validation_receipt.json",

@@ -27,8 +27,10 @@
     "oracle": "diagnostic comparator only",
     "provider": "advisory hypothesis only"
   },
+  "body_copied_material_count": 0,
   "body_in_receipt": false,
   "bundle_id": null,
+  "cache_status": "rebuilt",
   "claim_separation": {
     "contract_rejected": [
       {
@@ -229,7 +231,7 @@
       "verifier_rerun_ref": "receipts/first_wave/formal_math_verifier_trace_repair_loop/cold_rerun_receipt_public_synthetic.json"
     }
   ],
-  "created_at": "2026-05-23T18:36:12+00:00",
+  "created_at": "2026-05-26T22:59:07+00:00",
   "error_codes": [
     "VERIFIER_LAB_CP2_PROOF_BODY_FORBIDDEN",
     "VERIFIER_LAB_EVOLVE_SCOPE_FORBIDDEN",
@@ -330,6 +332,15 @@
       "target_shape": "premise_exact"
     }
   ],
+  "freshness_basis": {
+    "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
+    "command": "python -m microcosm_core.organs.verifier_lab_kernel run",
+    "input_mode": "first_wave_fixture",
+    "latest_dependency_mtime_ns": 1779836176442742630,
+    "receipt_mtime_ns": 1779561372780611287,
+    "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
+    "tracked_dependency_count": 113
+  },
   "input_mode": "first_wave_fixture",
   "kernel_id": "leak_proof_verifier_lab_kernel_public_fixture_v1",
   "lean_compiled_declaration_count": 8,
@@ -444,6 +455,8 @@
       "lean_lake_command_identity",
       "lean_return_code",
       "source_hashes",
+      "source_module_imports",
+      "source_open_body_imports",
       "declaration_counts",
       "accepted_transition_count",
       "residual_transition_count",
@@ -467,6 +480,7 @@
   ],
   "schema_version": "verifier_lab_kernel_result_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -478,9 +492,51 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 6,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "findings": [],
+    "module_count": 0,
+    "modules": [],
+    "observed_negative_cases": {},
+    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
+    "status": "not_applicable"
+  },
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/verifier_lab_kernel/input/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": false,
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": "component_witness_only",
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "verifier_lab_kernel_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_applicable"
   },
   "source_pattern_ids": [
     "oracle_sidecar_forward_firewall",

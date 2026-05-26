@@ -17,6 +17,11 @@
       "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
+      "field": "source_open_body_imports",
+      "role": "copied_component_source_body_manifest"
     }
   ],
   "relationships": {
@@ -35,6 +40,9 @@
   "required_fields": [
     "kernel_id",
     "source_refs",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_copied_material_count",
     "source_pattern_ids",
     "projection_receipt_refs",
     "public_runtime_refs",
@@ -56,12 +64,14 @@
     "reject provider or NIM rows that claim proof authority",
     "reject CP2 candidates that carry proof bodies, raw tactic scripts, provider bodies, or oracle templates",
     "reject Evolve candidates outside bounded policy artifacts",
+    "require exported runtime bundles to carry source_module_manifest.json rows for copied verifier-lab kernel and component organ source bodies",
+    "verify copied source module targets exist and match source_module_manifest sha256 digests",
     "require separated claim buckets for verifier, oracle, provider, contract, retrieval, CP2, and Evolve outcomes",
     "emit secret-exclusion scan and structured public runtime receipts with proof/provider/oracle/private-source/stdout/stderr bodies outside receipt bodies"
   ],
   "receipt_expectations": [
     "receipt.microcosm.verifier_lab_kernel",
-    "receipt must cite component statuses, Lean/Lake return code, target-shape route count, verifier trace attempt count, negative-case coverage, claim separation, authority counters, receipt transparency contract, secret-exclusion scan, public runtime refs, real-runtime receipt status, and anti-claim"
+    "receipt must cite component statuses, Lean/Lake return code, target-shape route count, verifier trace attempt count, source module import status, source-open body import floor, negative-case coverage, claim separation, authority counters, receipt transparency contract, secret-exclusion scan, public runtime refs, real-runtime receipt status, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -86,6 +96,9 @@
       "source_refs",
       "projection_receipt_refs",
       "public_runtime_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "component_statuses",
       "lean_lake_return_code",
       "lean_compiled_declaration_count",
@@ -222,7 +235,7 @@
       "source mutation"
     ],
     "reason": "public runtime refs and receipts carry the verifier-lab substrate while proof, provider, oracle-answer, private-source, and stdout/stderr payload bodies stay outside receipt bodies",
-    "drilldown": "fixtures/first_wave/verifier_lab_kernel/input/verifier_lab_packet.json"
+    "drilldown": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json"
   },
   "anti_claim_contract": {
     "required": true,
@@ -230,6 +243,6 @@
   },
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public runtime refs stay public-root relative"
+    "rule": "macro source refs stay path-level metadata, public runtime refs stay public-root relative, and copied verifier-lab source body rows must bind source_ref, target_ref, sha256, body_copied=true, body_in_receipt=false, and exact_copy relation"
   }
 }

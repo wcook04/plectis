@@ -10,6 +10,7 @@ from microcosm_core.organs.verifier_lab_kernel import (
     EXPECTED_NEGATIVE_CASES,
     run,
     run_kernel_bundle,
+    validate_source_module_imports,
 )
 
 
@@ -208,6 +209,12 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["proof_lab_route_id"] == "formal_prover_context_strategy_gate"
     assert result["proof_lab_route_source_sha256"] == SUBSTRATE_BINDINGS_SHA256
     assert result["proof_lab_route_component_count"] == len(EXPECTED_COMPONENTS)
+    assert result["source_module_imports"]["status"] == "pass"
+    assert result["source_module_imports"]["module_count"] == 10
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 10
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["body_copied_material_count"] == 10
     assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
@@ -244,6 +251,32 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert cached["cache_status"] == "fresh_receipt_reused"
     assert cached["status"] == "pass"
     assert cached["receipt_paths"] == result["receipt_paths"]
+
+
+def test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor() -> None:
+    manifest_path = BUNDLE_INPUT / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    source_imports = validate_source_module_imports(
+        BUNDLE_INPUT,
+        public_root=MICROCOSM_ROOT,
+    )
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 10
+    assert source_imports["status"] == "pass"
+    assert source_imports["module_count"] == 10
+
+    module_ids = {row["module_id"] for row in source_imports["modules"]}
+    assert "verifier_lab_kernel_source_body_import" in module_ids
+    for row in manifest["modules"]:
+        source_path = MICROCOSM_ROOT / row["source_ref"]
+        target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        target_path = MICROCOSM_ROOT / target_ref
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["material_class"] == "public_macro_tool_body"
+        assert source_path.read_bytes() == target_path.read_bytes()
 
 
 def test_verifier_lab_kernel_route_slice_is_source_faithful() -> None:

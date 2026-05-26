@@ -14,6 +14,8 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": null,
+  "copied_source_artifact_count": 13,
+  "copied_source_body_artifact_count": 3,
   "input_mode": "first_wave_fixture",
   "organ_id": "tactic_portfolio_availability_probe",
   "portfolio_projection": {
@@ -44,13 +46,32 @@
       "aesop"
     ]
   },
+  "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+  "probe_source_digest_refs": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5"
+  },
   "public_contract": {
     "availability_probe_scoped_to_environment": true,
     "body_in_receipt": false,
     "body_material_status": "copied_non_secret_macro_body_with_provenance",
     "lean_lake_not_run_by_public_organ": true,
+    "lean_probe_source_bodies_copied": true,
+    "lean_probe_source_bodies_digest_verified": true,
+    "macro_run_json_bodies_copied": true,
+    "macro_run_json_bodies_digest_verified": true,
     "mathlib_absence_surfaces_as_environment_fail": true,
-    "proof_bodies_excluded": true,
+    "private_theorem_proof_bodies_excluded": true,
+    "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+    "public_lean_probe_source_bodies_allowed": true,
     "unprobed_tactics_rejected": true
   },
   "real_substrate_refs": [
@@ -71,6 +92,7 @@
   ],
   "schema_version": "tactic_portfolio_availability_board_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "body_material_status": "secret_exclusion_scan_no_payload_body_export",
@@ -83,13 +105,149 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 8,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 21,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "selected_pattern_ids": [
     "tactic_portfolio_availability_probe"
   ],
+  "source_artifact_count": 13,
+  "source_artifact_imports": [
+    {
+      "actual_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_macro_run_json_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_macro_run_json_body",
+      "sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
+    },
+    {
+      "actual_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_macro_run_json_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_macro_run_json_body",
+      "sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json"
+    },
+    {
+      "actual_sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_macro_run_json_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_macro_run_json_body",
+      "sha256": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
+    },
+    {
+      "actual_sha256": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:e7580aa35a0a746a518c9b76d20a7df29a8c9898803ffe68a8e08ec92afa9923",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean"
+    },
+    {
+      "actual_sha256": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:0385b2379d3391686132c7795e906ba4642b527328839cb8fca55210b0088668",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean"
+    },
+    {
+      "actual_sha256": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean"
+    },
+    {
+      "actual_sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean"
+    },
+    {
+      "actual_sha256": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean"
+    },
+    {
+      "actual_sha256": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean"
+    },
+    {
+      "actual_sha256": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:9ab68dcc2905806aac19e8b4e149c2641dc575947a42d45c8eb31491e6478c67",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean"
+    },
+    {
+      "actual_sha256": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:c049906a2d9e9f4583eb5a1f2cd690992650e0a125124cd7e412f5fc7316af52",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean"
+    },
+    {
+      "actual_sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/mathlib_probe.lean"
+    },
+    {
+      "actual_sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "body_copied": true,
+      "body_material_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
+      "copy_policy": "exact_public_safe_lean_probe_source",
+      "sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+      "target_ref": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/trace_state_probe.lean"
+    }
+  ],
+  "source_body_artifact_count": 3,
+  "source_body_digest_refs": {
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712"
+  },
+  "source_body_status": "copied_non_secret_macro_run_json_bodies_with_digest_verification",
   "source_digests": {
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
@@ -104,7 +262,20 @@
     "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_board.json",
     "receipts/first_wave/tactic_portfolio_availability_probe/tactic_portfolio_availability_validation_receipt.json",
     "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
-    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/mathlib_probe.lean",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean"
   ],
   "status": "pass",
   "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows"

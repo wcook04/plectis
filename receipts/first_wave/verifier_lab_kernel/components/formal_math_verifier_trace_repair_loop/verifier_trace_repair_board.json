@@ -243,6 +243,7 @@
   ],
   "schema_version": "formal_math_verifier_trace_repair_loop_board_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_material_status": "secret_exclusion_scan_no_payload_bodies",
     "forbidden_output_field_labels_omitted": true,
@@ -251,6 +252,18 @@
     "scanned_path_count": 11,
     "status": "pass"
   },
+  "source_module_manifest": {
+    "findings": [],
+    "module_count": 0,
+    "modules": [],
+    "source_module_manifest_ref": "",
+    "source_modules_pass": true,
+    "source_open_body_imports": {},
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_modules_pass": true,
+  "source_open_body_imports": {},
   "source_pattern_ids": [
     "formal_math_verifier_trace_repair_loop",
     "formal_math_premise_retrieval",
