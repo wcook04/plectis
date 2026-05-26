@@ -121,6 +121,36 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "not a product, release, proof" in behavior_proof_packet[
         "failure_reading"
     ]
+    first_run_ladder = card["first_run_ladder"]
+    ladder_steps = {row["step_id"]: row for row in first_run_ladder["steps"]}
+    assert first_run_ladder["purpose"] == (
+        "make_first_screen_run_order_copyable_without_long_quickstart"
+    )
+    assert "copyable run order" in first_run_ladder["one_screen_rule"]
+    assert list(ladder_steps) == [
+        "map",
+        "behavior_proof",
+        "status_confirmation",
+        "reader_branch",
+    ]
+    assert ladder_steps["map"]["command"] == card["human_first_command"]
+    assert ladder_steps["map"]["writes_microcosm_state"] is False
+    assert ladder_steps["map"]["authority"] == (
+        "projection_only_not_behavior_proof"
+    )
+    assert ladder_steps["behavior_proof"]["command"] == card["shared_first_command"]
+    assert ladder_steps["behavior_proof"]["writes_microcosm_state"] is True
+    assert "selected_route_id" in ladder_steps["behavior_proof"]["success_read"]
+    assert ladder_steps["status_confirmation"]["command"] == (
+        "microcosm status --card <project>"
+    )
+    assert ladder_steps["status_confirmation"]["writes_microcosm_state"] is False
+    assert ladder_steps["reader_branch"]["command"] == (
+        "choose reader route from reader_landing_packets"
+    )
+    assert first_run_ladder["authority"] == (
+        "copyable_run_order_not_quickstart_inventory_or_release_authority"
+    )
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -246,6 +276,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "behavior-proof packet" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "first-run ladder" in card["entry_surface_contract"]["consumer_rule"]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -335,6 +366,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "behavior_proof_packet" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "first_run_ladder" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -362,6 +396,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
+    assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -429,6 +464,14 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["state_write_boundary"]["front_door_status_ref"] == (
         "microcosm tour --card .::front_door_status"
     )
+    assert [
+        row["command"] for row in card["first_run_ladder"]["steps"][:3]
+    ] == [
+        "microcosm hello .",
+        "microcosm tour --card .",
+        "microcosm status --card .",
+    ]
+    assert card["validation"]["checks"]["first_run_ladder"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -460,6 +503,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert text.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in text
     assert "First run: microcosm tour --card ." in text
+    assert "Check state: microcosm status --card . | Then branch below." in text
     assert "A local evidence router, not a maturity brochure" in text
     assert "doctrine appears as prevented mistakes" in text
     assert "README inventory waits" in text
@@ -534,6 +578,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert text.startswith("Microcosm first screen\n")
         assert "Open card: microcosm hello ." in text
         assert "First run: microcosm tour --card ." in text
+        assert "Check state: microcosm status --card . | Then branch below." in text
         assert f"Reader branch: {assertions['label']}" in text
         assert "  Question: " in text
         assert f"  First action: {assertions['first_action']}" in text
