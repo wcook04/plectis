@@ -100,8 +100,9 @@ whole-system correctness.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. The compressed first-contact loop is `microcosm tour <project>`: repo -> `.microcosm`
-   plus the first-screen route card. The explicit rebuild loop is
+2. The compressed first-contact loop is `microcosm tour --card <project>`:
+   repo -> `.microcosm` plus the first-screen route card. The full drilldown
+   tour is `microcosm tour <project>`, and the explicit rebuild loop is
    `microcosm compile <project>`. The ten-minute tour should compress
    compile state, Python lens, spine, authority, workingness, prediction, market boundary, corpus, trace repair,
    repair-loop curriculum, formal evidence cells, proof-loop depth, verifier-lab

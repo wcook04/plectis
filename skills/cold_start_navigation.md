@@ -10,10 +10,10 @@ clone probe, paper modules, or raw receipt trees.
 
 The compact behavioral path is:
 
-1. `microcosm tour <project>` builds `.microcosm/` and emits the first-screen
-   route card. Inspect `first_screen.generated_state`,
-   `route_cards_by_id.front_door_status`, and
-   `route_cards_by_id.status_and_workingness` before branching.
+1. `microcosm tour --card <project>` builds `.microcosm/` and emits the
+   compact first-screen route card. Inspect `state_inspection`, `state_refs`,
+   `status_card`, `observatory`, `proof_lab`, and `macro_body_import_floor`
+   before branching.
 2. `microcosm status --card <project>` reads the compressed status,
    `front_door.route_explanation`, `front_door.proof_lab`,
    `front_door.observatory`, and
@@ -23,19 +23,28 @@ The compact behavioral path is:
    lab route.
 5. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
    observatory; check `/project/observatory-card` before the expanded
-   `/project/observatory`, then check `/`, `/status`, `/tour`, `/workingness`,
-   `/proof-lab`, `/project/python-lens`, and
+   `/project/observatory`. The compact card must carry `state_inspection`
+   over `.microcosm/` plus route/work/evidence/graph/proof/status refs before
+   you check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
+   `/project/python-lens`, and
    `/project/explain/<selected_route_id>`.
 6. `microcosm compile <project>` rebuilds local state when you need an explicit
    refresh after the first-screen proof surfaces are visible.
 7. `microcosm python-lens <project>` opens the project navigation assay.
 8. `microcosm explain <project> <selected_route_id>` opens the route/work/event
-   and evidence chain selected by `tour` or `compile`.
+   and evidence chain selected by `tour --card`, `tour`, or `compile`.
 9. `microcosm evidence list <project>` lists project-local evidence refs.
+10. `microcosm tour <project>` is the full route-card, endpoint-path, and
+   evidence-ref drilldown after the first screen is already readable.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the
-cockpit. Use the `selected_route_id` emitted by `tour` or `compile`;
-`readme_onboarding_route` exists only when the brought project has a README.
+cockpit. Use the `selected_route_id` emitted by `tour --card`, `tour`, or
+`compile`; `readme_onboarding_route` exists only when the brought project has a
+README. Do not hardcode `readme_onboarding_route` for arbitrary folders.
+Empty/non-README folders can select `missing_tests_route`, including
+`missing_tests_route` when tests are absent. The full-tour
+`route_cards_by_id.status_and_workingness` row is a drilldown for the status
+and workingness route, not the first screen.
 
 ## Proof-Lab Drilldown
 
@@ -61,9 +70,12 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    machine-readable card for the bring-a-folder path; `first_command` and
    `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
    after first-screen behavior is visible.
-3. Run `microcosm tour <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` to build
-   `.microcosm/` over a folder you bring and inspect the first-screen card.
+3. Run `microcosm tour --card <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>` to
+   build `.microcosm/` over a folder you bring and inspect the compact
+   first-screen card. Start with `state_inspection.inspect_command` and
+   `state_inspection.first_screen_refs` so the local state is visible before
+   doctrine or receipt drilldowns.
 4. Open `atlas/entry_packet.json::status_and_workingness_route` and run
    `microcosm status --card <project>` plus `microcosm workingness` before raw
    receipts. This is the compressed honesty lens for
@@ -76,18 +88,18 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    card from `atlas/entry_packet.json::proof_lab_route`.
 6. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
    `/project/observatory-card` before `/project/observatory` when the question
-   is how the local browser/read-model ties route, work, evidence, graph,
-   status, and proof surfaces together.
+   is how the local browser/read-model ties `.microcosm` state, route, work,
+   evidence, graph, status, and proof surfaces together.
 7. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
    want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
    are visible.
-   The tour card still covers compile state, spine, authority,
-   status/workingness, prediction, market boundary, corpus, trace repair, repair-loop curriculum, formal evidence
-   cells, proof-loop depth, verifier-lab execution spine, work landing replay, durable agent work landing replay, research replication replay, view quality, projection safety,
-   drift control, route cleanup, hook intervention coverage, projection import map, import-projector contract, compression-profile option surface, stripping guard, standards
-   control, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal, observatory, and evidence
-   drilldowns.
+   The tour card covers compile state, status/workingness, the macro body
+   import floor, proof-lab, observatory, route explanation, and boundary
+   pointers without exporting the full route-card map.
+   Run `microcosm tour <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` only when you
+   need the full route-card, endpoint-path, and evidence-ref drilldown.
 8. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
@@ -97,62 +109,65 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    and `route_utility_curriculum.ratchet` for changed-surface, affected-task,
    stale-task, and reentry-condition rows while preserving the source-body
    omission boundary.
-6. Run `microcosm authority` or
+
+## Authority And Evidence Drilldowns
+
+- Run `microcosm authority` or
    `PYTHONPATH=src python3 -m microcosm_core.cli authority` to inspect the
    public authority ceiling, hard boundaries, safe local-only exceptions,
    explicit organ `evidence_class` rows, and organ authority refs before
    trusting any impressive surface. `accepted_current_authority` is not an
    evidence-strength claim.
-7. Run `microcosm prediction-lens` or
+- Run `microcosm prediction-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli prediction-lens` to inspect
    the synthetic CP1/CP2, oracle-diff, and dossier-mutation reasoning surface
    with no-advice and no-live-data boundaries.
-8. Run `microcosm market-boundary` or
+- Run `microcosm market-boundary` or
    `PYTHONPATH=src python3 -m microcosm_core.cli market-boundary` to inspect
    observation/forecast separation, base-rate and scenario-tree gates,
    timestamp/freshness boundaries, and no-advice/no-live-data/no-private-
    portfolio authority before trusting market-facing prediction claims.
-9. Run `microcosm corpus-lens` or
+- Run `microcosm corpus-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens` to inspect
    Mathlib import absence, absent corpora, translation-smoke-only rows,
    blocked formal-math consumers, and the metadata-only proof/corpus authority
    ceiling.
-10. Run `microcosm trace-lens` or
+- Run `microcosm trace-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli trace-lens` to inspect
    verifier failure classes, trace grades, repair routing, negative cases,
    cold-rerun promotion gates, and the metadata-only no-proof authority
    ceiling.
-11. Run `microcosm repair-loop` or
+- Run `microcosm repair-loop` or
    `PYTHONPATH=src python3 -m microcosm_core.cli repair-loop` to inspect
    verifier repair stages, transition rows, cold-rerun curriculum promotion,
    and the metadata-only no-proof/no-provider/no-source-mutation authority
    ceiling.
-12. Run `microcosm evidence-cells` or
+- Run `microcosm evidence-cells` or
    `PYTHONPATH=src python3 -m microcosm_core.cli evidence-cells` to inspect
    public formal evidence cells, source anchors, negative cases, and the
    no-proof/no-private-ref/no-release authority ceiling before trusting
    proof-adjacent language.
-13. Run `microcosm proof-loop-depth` or
+- Run `microcosm proof-loop-depth` or
    `PYTHONPATH=src python3 -m microcosm_core.cli proof-loop-depth` to inspect
    corpus, premise-retrieval, tactic-availability, target-shape, verifier
    repair, cold-rerun, evidence-cell, and bounded execution-spine gates without
    proof bodies, oracle premise ids, provider payloads, benchmark scores,
    theorem-solution claims, or release authority.
-14. Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
+- Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
    `PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out
    /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
    card from
    `atlas/entry_packet.json::proof_lab_route`.
-15. Run `microcosm verifier-lab-execution-spine-lens` or
+- Run `microcosm verifier-lab-execution-spine-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli verifier-lab-execution-spine-lens`
    to inspect bounded Lean/Lake transition rows, CP2 downstream rerun effects,
    Evolve rerun acceptance, tool return-code evidence, and secret-exclusion
    status without treating external tool execution as general proof authority.
-15. Run `microcosm landing-replay` or
+- Run `microcosm landing-replay` or
    `PYTHONPATH=src python3 -m microcosm_core.cli landing-replay` to inspect
    scoped commit, broad checkpoint, metadata-blocked recovery, and hard-stop
    lanes before trusting a work-landing claim.
-16. Run `microcosm durable-agent-work-landing-replay
+- Run `microcosm durable-agent-work-landing-replay
    run-work-landing-bundle --input
    examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle
    --out receipts/runtime_shell/demo_project/organs/durable_agent_work_landing_replay`
@@ -161,16 +176,16 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    owned-path claims, validation refs, validation-before-commit ordering,
    HEAD-advance gates, metadata-blocked recovery, blocker capture, and Work
    Ledger finalizers before trusting landed-work language.
-16. Run `microcosm view-quality` or
+- Run `microcosm view-quality` or
    `PYTHONPATH=src python3 -m microcosm_core.cli view-quality` to inspect one
    typed next-action row per requested view, including missing and partial
    rows, without private screenshots, browser control, or complete-quality
    claims.
-17. Run `microcosm projection-safety` or
+- Run `microcosm projection-safety` or
    `PYTHONPATH=src python3 -m microcosm_core.cli projection-safety` to inspect
    omission receipts, drilldowns, source refs, and authority ceilings before
    trusting compressed public projections.
-18. Run `microcosm drift-control` or
+- Run `microcosm drift-control` or
    `PYTHONPATH=src python3 -m microcosm_core.cli drift-control` to inspect
    projection-drift rows with source signals, repair routes, validation refs,
    and no-live-repair/no-source-authority/no-doctrine-promotion ceilings before
@@ -182,36 +197,36 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay`
    and inspect the simulator-only, no-wetlab, no-robot-command,
    no-discovery authority ceiling fields.
-19. Run `microcosm route-cleanup` or
+- Run `microcosm route-cleanup` or
    `PYTHONPATH=src python3 -m microcosm_core.cli route-cleanup` to inspect
    first-contact, context-pack, generated-region, option-surface, Work Ledger,
    scoped landing, seed reentry, and public/private cleanup rows before
    trusting route hygiene claims.
-20. Run `microcosm projection-import-map` or
+- Run `microcosm projection-import-map` or
    `PYTHONPATH=src python3 -m microcosm_core.cli projection-import-map` to
    inspect which macro pattern each public runtime lens came from, what was
    copied, cleaned, omitted, validated, and authority-bounded before trusting
    the projection.
-21. Run `microcosm import-projector` or
+- Run `microcosm import-projector` or
    `PYTHONPATH=src python3 -m microcosm_core.cli import-projector` to inspect
    the candidate-selection, public-manifest, stripping/omission,
    fixture-projection, runtime-binding, and validation-closeout contract rows
    before trusting a future macro import.
-22. Run `microcosm option-surface-lens` or
+- Run `microcosm option-surface-lens` or
    `PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens` to inspect
    compression-profile option rows, sidecar/receipt refs, validation refs, and
    profile-switch denials before trusting option-surface claims.
-23. Run `microcosm stripping-guard` or
+- Run `microcosm stripping-guard` or
    `PYTHONPATH=src python3 -m microcosm_core.cli stripping-guard` to inspect
    private-body, proof-body, provider-payload, raw-private-path,
    secret-completeness, financial-advice, source-mutation, release, and
    private-equivalence denials before trusting any public projection.
-24. Run `microcosm standards-control` or
+- Run `microcosm standards-control` or
    `PYTHONPATH=src python3 -m microcosm_core.cli standards-control` to inspect
    standards registry, public standard pressure, validator receipt coverage,
    fixture manifest, acceptance command, docs, authority, and projection-safety
    controls before trusting any public standards claim.
-25. Run `microcosm hook-coverage` or
+- Run `microcosm hook-coverage` or
    `PYTHONPATH=src python3 -m microcosm_core.cli hook-coverage` to inspect
    hook-shadow, route-compliance, actor-axis, debt-retirement, and route-lease
    intervention coverage, including mapped repair classes and hook-shadow
@@ -224,13 +239,13 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    and inspect the receipt's observation, affordance, action, authority
    verdict, state-transition, recovery, cold-replay, negative-case, and
    no-live-browser/no-account/no-credential ceiling fields.
-26. Run `microcosm replay-gauntlet` or
+- Run `microcosm replay-gauntlet` or
    `PYTHONPATH=src python3 -m microcosm_core.cli replay-gauntlet` to inspect
    synthetic agent-reliability replay episodes across benchmark integrity,
    monitor falsification, sandbox escape, tool authority, prompt injection, and
    memory quarantine without live agents, live tools, real secrets, real user
    memory, benchmark-performance claims, or complete-security claims.
-27. Run `microcosm agent-monitor-redteam-falsification-replay
+- Run `microcosm agent-monitor-redteam-falsification-replay
    run-monitor-bundle --input
    examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_monitor_redteam_falsification_replay`
@@ -239,7 +254,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    inspect synthetic trajectories, monitor verdicts, adversarial probes,
    escalation refs, body-omission refs, mitigation refs, and cold replay refs
    before trusting monitor/redteam honesty claims.
-28. Run `microcosm agent-sabotage-scheming-monitor-replay
+- Run `microcosm agent-sabotage-scheming-monitor-replay
    run-sabotage-bundle --input
    examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_monitor_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_sabotage_scheming_monitor_replay`
@@ -248,7 +263,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    inspect synthetic episodes, action traces, per-step monitor scores,
    counterfactual benign replays, cold replay refs, and negative cases before
    trusting sabotage/scheming monitor claims.
-29. Run `microcosm agent-sandbox-policy-escape-replay
+- Run `microcosm agent-sandbox-policy-escape-replay
    run-sandbox-bundle --input
    examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay`
@@ -257,7 +272,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    action requests, pre-execution policy verdicts, side-effect diff receipts,
    rollback refs, cold replay receipts, and real-secret/live-network/raw-env/
    payload/benchmark denials before trusting sandbox-security claims.
-30. Run `microcosm indirect-prompt-injection-information-flow-policy-replay
+- Run `microcosm indirect-prompt-injection-information-flow-policy-replay
    run-prompt-injection-bundle --input
    examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle
    --out receipts/runtime_shell/demo_project/organs/indirect_prompt_injection_information_flow_policy_replay`
@@ -267,7 +282,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    graph rows, pre-action policy verdicts, sanitized output refs, cold replay
    receipts, and real-account/secret/raw-prompt/tool-output-as-instruction
    denials before trusting prompt-injection claims.
-31. Run `microcosm agentic-vulnerability-discovery-patch-proof-replay
+- Run `microcosm agentic-vulnerability-discovery-patch-proof-replay
    run-patch-proof-bundle --input
    examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle
    --out receipts/runtime_shell/demo_project/organs/agentic_vulnerability_discovery_patch_proof_replay`
@@ -278,7 +293,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    receipts, sandbox policy verdicts, false-positive triage, cold replay, and
    live-target/payload/credential/network/testless-patch/benchmark denials
    before trusting vulnerability-discovery claims.
-30. Run `microcosm agent-memory-temporal-conflict-replay
+- Run `microcosm agent-memory-temporal-conflict-replay
    run-memory-bundle --input
    examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay`
@@ -288,7 +303,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    stale-downgrade refs, metadata-only private refs, paired memory-on/off
    replay receipts, and active-injection/source-authority denials before
    trusting agent-memory claims.
-31. Run `microcosm sleeper-memory-poisoning-quarantine-replay
+- Run `microcosm sleeper-memory-poisoning-quarantine-replay
    run-quarantine-bundle --input
    examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle
    --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay`
@@ -298,7 +313,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    verdicts, later retrieval influence gates, rollback audit refs, cold rerun
    receipts, and private-body/live-memory/untrusted-promotion denials before
    trusting persistent-memory security claims.
-30. Run `microcosm mcp-tool-authority-replay run-tool-authority-bundle
+- Run `microcosm mcp-tool-authority-replay run-tool-authority-bundle
    --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle
    --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay`
    or the equivalent `PYTHONPATH=src python3 -m microcosm_core.cli
@@ -307,7 +322,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    untrusted-output data boundaries, cold replay receipts, and
    credential/live-account/tool-output-as-instruction denials before trusting
    tool-authority claims.
-31. Run `microcosm proof-derived-governed-mutation-authorization
+- Run `microcosm proof-derived-governed-mutation-authorization
    run-authorization-bundle --input
    examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle
    --out receipts/runtime_shell/demo_project/organs/proof_derived_governed_mutation_authorization`
@@ -316,7 +331,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    to inspect proof cells, visible policy verdicts, side-effect diffs, rollback
    receipts, cold replay, and standing-credential/policy-after-execution
    denials before trusting governed-mutation authorization claims.
-32. Run `microcosm belief-state-process-reward-replay run-reward-bundle
+- Run `microcosm belief-state-process-reward-replay run-reward-bundle
    --input
    examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle
    --out receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay`
@@ -325,14 +340,14 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    belief summaries, verifier-backed process rewards, outcome rewards, reward-
    hacking trap passes, cold replay, and hidden-reasoning/neural-judge-only/
    benchmark-claim denials before trusting process-reward claims.
-30. Run `microcosm benchmark-lab` or
+- Run `microcosm benchmark-lab` or
    `PYTHONPATH=src python3 -m microcosm_core.cli benchmark-lab` to inspect
    synthetic repository issue/patch benchmark transactions, oracle diffs,
    FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped
    diff receipts, workitem admission, and provider-slot cooldowns without
    SWE-bench score claims, live repo mutation, provider calls, private issue
    exports, production delivery claims, or release authority.
-29. Run `microcosm agent-benchmark-integrity-anti-gaming-replay
+- Run `microcosm agent-benchmark-integrity-anti-gaming-replay
    run-benchmark-integrity-bundle --input
    examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle
    --out receipts/runtime_shell/demo_project/organs/agent_benchmark_integrity_anti_gaming_replay`
@@ -343,15 +358,15 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    benchmark-case roster binding, and anti-gaming denials before trusting
    benchmark-style claims. Treat the fixture as a regression drilldown, not
    product-spine substrate or benchmark-performance evidence.
-30. Run `microcosm legibility-scorecard` or
+- Run `microcosm legibility-scorecard` or
    `PYTHONPATH=src python3 -m microcosm_core.cli legibility-scorecard` to
    inspect the cold-reader question-to-command scorecard, six comprehension
    checkpoints, endpoint parity, evidence refs, negative cases, and
    no-release/no-private-equivalence/no-reader-guarantee authority ceiling.
-31. Run `microcosm reveal` or
+- Run `microcosm reveal` or
    `PYTHONPATH=src python3 -m microcosm_core.cli reveal` for the ten-minute
    public reveal board.
-31. Run `microcosm cold-reader-route-map run-route-map-bundle --input
+- Run `microcosm cold-reader-route-map run-route-map-bundle --input
    examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out
    receipts/runtime_shell/demo_project/organs/cold_reader_route_map` when you
    want the executable first-run route map.
@@ -360,14 +375,14 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    commands only when you need evidence drilldown.
 34. Inspect `core/acceptance/first_wave_acceptance.json` for the current
    acceptance boundary.
-35. Run:
+- Run:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.validators.public_entry_docs --root . --out receipts/first_wave/public_entry_docs_validation.json
 PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_readiness_gate run --input fixtures/first_wave/formal_math_readiness_gate/input --out receipts/first_wave/formal_math_readiness_gate
 PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate
 PYTHONPATH=src python3 -m microcosm_core.cli corpus-readiness-mathlib-absence-gate run-projection-bundle --input examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle --out receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate
-PYTHONPATH=src python3 -m microcosm_core.cli tour <project>
+PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>
 PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
 PYTHONPATH=src python3 -m microcosm_core.cli trace-lens
 PYTHONPATH=src python3 -m microcosm_core.cli repair-loop

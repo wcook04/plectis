@@ -131,9 +131,9 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     route_contract = receipt["entry_packet_route_contract"]
     assert route_contract["status"] == "pass"
     assert route_contract["source_ref"] == "atlas/entry_packet.json"
-    assert route_contract["first_command"] == "microcosm tour <project>"
+    assert route_contract["first_command"] == "microcosm tour --card <project>"
     assert route_contract["primary_first_screen_command"] == (
-        "microcosm tour <project>"
+        "microcosm tour --card <project>"
     )
     assert route_contract["missing_local_first_screen_commands"] == []
     assert route_contract["missing_state_refs"] == []
@@ -143,8 +143,11 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert route_contract["command_mismatch"] == []
     assert route_contract["command_order_mismatch"] == []
     assert route_contract["missing_route_selection_rule"] is False
+    assert route_contract["route_selection_missing_phrases"] == []
+    assert route_contract["readme_route_selection_missing_phrases"] == []
     assert route_contract["unsafe_safe_to_show_flags"] == []
     assert route_contract["cold_start_missing_phrases"] == []
+    assert route_contract["cold_start_route_selection_missing_phrases"] == []
     assert route_contract["blocking_reasons"] == []
     help_contract = receipt["cli_first_screen_help_contract"]
     assert help_contract["status"] == "pass"
@@ -152,7 +155,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
         "src/microcosm_core/cli.py::FIRST_SCREEN_HELP"
     )
     assert help_contract["required_command_order"] == [
-        "microcosm tour <project>",
+        "microcosm tour --card <project>",
         "microcosm status --card <project>",
         "microcosm workingness",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -280,6 +283,104 @@ def test_public_entry_docs_block_entry_packet_route_contract_drift(
     ]["blocking_reasons"]
 
 
+def test_public_entry_docs_block_readme_route_selection_truth_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8").replace(
+            "`missing_tests_route`",
+            "`some route`",
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    route_contract = receipt["entry_packet_route_contract"]
+    assert "readme_route_selection_rule_missing" in route_contract[
+        "blocking_reasons"
+    ]
+    assert "`missing_tests_route` when tests are absent" in route_contract[
+        "readme_route_selection_missing_phrases"
+    ]
+
+
+def test_public_entry_docs_block_entry_packet_route_selection_truth_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    entry_packet_path = public_root / "atlas/entry_packet.json"
+    entry_packet = json.loads(entry_packet_path.read_text(encoding="utf-8"))
+    route = entry_packet["local_first_screen_route"]
+    route["route_selection_rule"] = route["route_selection_rule"].replace(
+        "Empty or non-README folders can select missing_tests_route, including "
+        "missing_tests_route when tests are absent.",
+        "README folders select readme_onboarding_route.",
+    )
+    entry_packet_path.write_text(
+        json.dumps(entry_packet, ensure_ascii=True, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    route_contract = receipt["entry_packet_route_contract"]
+    assert "missing_route_selection_rule" in route_contract["blocking_reasons"]
+    assert "Empty or non-README folders can select missing_tests_route" in (
+        route_contract["route_selection_missing_phrases"]
+    )
+    assert "missing_tests_route when tests are absent" in route_contract[
+        "route_selection_missing_phrases"
+    ]
+
+
+def test_public_entry_docs_block_cold_start_route_selection_truth_drift(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    cold_start = public_root / "skills/cold_start_navigation.md"
+    cold_start.write_text(
+        cold_start.read_text(encoding="utf-8").replace(
+            "`missing_tests_route`",
+            "`some route`",
+        ),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    route_contract = receipt["entry_packet_route_contract"]
+    assert "cold_start_route_selection_rule_missing" in route_contract[
+        "blocking_reasons"
+    ]
+    assert "Empty/non-README folders can select `missing_tests_route`" in (
+        route_contract["cold_start_route_selection_missing_phrases"]
+    )
+    assert "`missing_tests_route` when tests are absent" in route_contract[
+        "cold_start_route_selection_missing_phrases"
+    ]
+
+
 def test_public_entry_docs_block_cli_first_screen_help_drift(
     tmp_path: Path,
 ) -> None:
@@ -289,6 +390,9 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
     expected_help_block = (
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
+        "  microcosm spine --card          read the compact runtime spine lens\n"
+        "  microcosm authority --card      read the compact authority ceiling lens\n"
+        "  microcosm intake --card         read the compact intake/projection bridge lens\n"
         "  microcosm workingness --card    read the compact behavior/failure "
         "lens\n"
         "  microcosm workingness           inspect behavior evidence "
@@ -302,6 +406,9 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
         "and failure gaps\n"
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
+        "  microcosm spine --card          read the compact runtime spine lens\n"
+        "  microcosm authority --card      read the compact authority ceiling lens\n"
+        "  microcosm intake --card         read the compact intake/projection bridge lens\n"
     )
     cli_path.write_text(
         original.replace(expected_help_block, mutated_help_block),
@@ -475,6 +582,10 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "spatial-world-model-counterfactual-simulation-replay" in agents
     assert "spatial-simulation" in agents
     assert "cold-reader-route-map" in agents
+    assert "microcosm tour --card <project>" in agents
+    assert agents.index("microcosm tour --card <project>") < agents.index(
+        "microcosm tour <project>"
+    )
     assert "proof-derived-governed-mutation-authorization" in agents
     assert "Do not widen Lean/Lake" in agents
     assert "Do not treat prediction fixtures as trading or financial advice" in agents
@@ -547,6 +658,11 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "Receipts are evidence drilldowns after the behavior route is visible" in (
         cold_start
     )
+    assert "Do not hardcode `readme_onboarding_route` for arbitrary folders" in (
+        cold_start
+    )
+    assert "Empty/non-README folders can select `missing_tests_route`" in cold_start
+    assert "`missing_tests_route` when tests are absent" in cold_start
     assert "atlas/entry_packet.json::local_first_screen_route" in cold_start
     assert "atlas/entry_packet.json::cold_clone_probe_route" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
@@ -557,7 +673,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
-    assert entry_packet["first_command"] == "microcosm tour <project>"
+    assert entry_packet["first_command"] == "microcosm tour --card <project>"
 
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     first_run = readme.split("## First Run", 1)[1]
@@ -565,7 +681,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         "The same commands work without installing the console script:", 1
     )[1].split("```", 2)[1]
     tour_command = (
-        "PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch"
+        "PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch"
     )
     status_command = (
         "PYTHONPATH=src python3 -m microcosm_core.cli status --card "
@@ -589,7 +705,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
-    assert cold_start.index("3. Run `microcosm tour <project>`") < cold_start.index(
+    assert cold_start.index("3. Run `microcosm tour --card <project>`") < cold_start.index(
         "7. Run `microcosm compile <project>`"
     )
     assert cold_start.index(
@@ -598,7 +714,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         "7. Run `microcosm compile <project>`"
     )
     assert cold_start.index(
-        "`PYTHONPATH=src python3 -m microcosm_core.cli tour <project>`"
+        "`PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>`"
     ) < cold_start.index(
         "`PYTHONPATH=src python3 -m microcosm_core.cli compile <project>`"
     )
@@ -610,12 +726,12 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     )
 
     route = entry_packet["local_first_screen_route"]
-    assert entry_packet["first_command"] == "microcosm tour <project>"
+    assert entry_packet["first_command"] == "microcosm tour --card <project>"
     assert route["surface_id"] == "microcosm_local_first_screen"
-    assert route["primary_first_screen_command"] == "microcosm tour <project>"
+    assert route["primary_first_screen_command"] == "microcosm tour --card <project>"
     assert route["primary_first_screen_command"] == entry_packet["first_command"]
     assert route["command_path"][:5] == [
-        "microcosm tour <project>",
+        "microcosm tour --card <project>",
         "microcosm status --card <project>",
         "microcosm workingness",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -633,6 +749,7 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         in route["command_path"]
     )
     assert route["selected_route_id_source"] == (
+        "microcosm tour --card <project>::selected_route_id or "
         "microcosm tour <project>::selected_route_id or "
         "microcosm tour <project>::first_screen.selected_route_id or "
         "microcosm compile <project>::selected_route_id"

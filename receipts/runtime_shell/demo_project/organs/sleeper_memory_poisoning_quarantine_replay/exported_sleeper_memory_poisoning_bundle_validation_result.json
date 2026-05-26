@@ -13,9 +13,9 @@
     "trusted_source",
     "untrusted_context"
   ],
-  "anti_claim": "Sleeper memory poisoning quarantine replay validates a synthetic four-session memory security contract: poisoned source metadata, provenance-bound write proposal, quarantine verdict, later retrieval influence gating, rollback, cold rerun, negative cases, and receipts. It does not export private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
+  "anti_claim": "Sleeper memory poisoning quarantine replay validates a body-free public memory-security policy projection: poisoned source metadata, provenance-bound write proposal, quarantine verdict, later retrieval influence gating, rollback, cold rerun, negative cases, and receipts. It does not export private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_sleeper_memory_poisoning_quarantine_replay_receipts_only",
+    "authority_ceiling": "public_body_free_sleeper_memory_quarantine_policy_projection_only",
     "benchmark_score_claim_authorized": false,
     "live_memory_product_claim_authorized": false,
     "live_user_memory_claim_authorized": false,
@@ -28,9 +28,11 @@
     "trusted_promotion_from_untrusted_context_authorized": false
   },
   "blocked_before_action_count": 1,
-  "bundle_id": "sleeper_memory_poisoning_quarantine_replay_runtime_example",
+  "body_import_classification": "algorithmic_projection_public_memory_security_policy_refactor",
+  "body_import_status": "public_body_free_policy_refactor_landed",
+  "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-23T12:56:53+00:00",
+  "created_at": "2026-05-26T12:09:21+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -41,14 +43,25 @@
   "observed_negative_cases": {},
   "organ_id": "sleeper_memory_poisoning_quarantine_replay",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 7,
     "status": "pass"
   },
+  "product_path_role": "algorithmic_projection_public_memory_security_policy_refactor",
   "projection_receipt_refs": [
     "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
     "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json"

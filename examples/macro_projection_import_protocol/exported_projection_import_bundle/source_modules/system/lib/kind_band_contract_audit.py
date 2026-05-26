@@ -19,8 +19,11 @@ from system.lib.kind_atlas import build_kind_atlas
 PAPER_MODULE_STANDARD = Path("codex/standards/std_paper_module.json")
 SYSTEM_TERM_STANDARD = Path("codex/standards/std_system_term.json")
 RAW_SEED_PRINCIPLES_STANDARD = Path("codex/standards/principles/std_raw_seed_principles.json")
+SYSTEM_AXIOM_CANDIDATE_STANDARD = Path("codex/standards/principles/std_system_axiom_candidate.json")
+SKILL_STANDARD = Path("codex/standards/std_skill.json")
 PYTHON_STANDARD = Path("codex/standards/std_python.py")
 COMPRESSION_PROFILES = Path("codex/doctrine/compression_profiles.json")
+ANNEX_AUTHORITY_INDEX = Path("codex/standards/annex/annex_authority_index.json")
 NAVIGATION_CONTRACT_STANDARD = Path("codex/standards/std_navigation_contract.json")
 STANDARDS_REGISTRY_STANDARD = Path("codex/standards/std_standards_registry.json")
 SYSTEM_ATLAS_STANDARD = Path("codex/standards/std_system_atlas.json")
@@ -47,6 +50,11 @@ def _navigation_contract_from_json(root: Path, path: Path) -> dict[str, Any] | N
     return contract if isinstance(contract, dict) else None
 
 
+def _navigation_contracts_from_json(root: Path, path: Path) -> dict[str, Any]:
+    contracts = _load_json(root / path).get("navigation_contracts")
+    return contracts if isinstance(contracts, dict) else {}
+
+
 def _python_navigation_contract(root: Path) -> dict[str, Any] | None:
     path = root / PYTHON_STANDARD
     if not path.exists():
@@ -62,13 +70,13 @@ def _python_navigation_contract(root: Path) -> dict[str, Any] | None:
     return contract if isinstance(contract, dict) else None
 
 
-def _raw_seed_profile_contract(root: Path) -> dict[str, Any] | None:
+def _compression_profile_contract(root: Path, profile_id: str) -> dict[str, Any] | None:
     data = _load_json(root / COMPRESSION_PROFILES)
     profiles = data.get("profiles")
     if not isinstance(profiles, list):
         return None
     for profile in profiles:
-        if isinstance(profile, dict) and profile.get("profile_id") == "raw_seed_voice_context_v1":
+        if isinstance(profile, dict) and profile.get("profile_id") == profile_id:
             return profile
     return None
 
@@ -275,100 +283,6 @@ def _draft_contracts() -> dict[str, dict[str, Any]]:
             "dependency_neighborhood_policy": {"mode": "composes_with_and_related_doctrine"},
             "validation_probe": ["skill registry row resolves to file", "declared triggers are browse-safe"],
         },
-        "axiom_candidates": {
-            "profile_id": "axiom_candidate_navigation_candidate_v0",
-            "navigable_bands": ["tiny", "flag", "card", "context", "deep"],
-            "band_contracts": {"tiny": {}, "flag": {}, "card": {}, "context": {}, "deep": {}},
-            "telescope_facets": [
-                "formal_clause",
-                "dense_clause",
-                "violation_predicates",
-                "related_principles",
-                "russian_doll_exemplar_chain",
-            ],
-            "navigable_scopes": ["candidate_axiom", "violation_predicate", "related_principle", "exemplar_chain"],
-            "navigable_facets": [
-                "formal_clause",
-                "dense_clause",
-                "violation_predicates",
-                "related_principles",
-                "russian_doll_exemplar_chain",
-            ],
-            "population_policy": {
-                "band:tiny": {"populated_by": "authored"},
-                "band:flag": {"populated_by": "authored"},
-                "band:card": {"populated_by": "authored"},
-                "band:context": {"populated_by": "authored"},
-                "band:deep": {"populated_by": "authored"},
-            },
-            "edge_compression_policy": {
-                "bidirectional_gloss_required": True,
-                "first_order_band": "context",
-                "second_order_band": "flag",
-                "beyond_second_order": "omit_with_count_reason_and_drilldown",
-            },
-            "source_authority": {"source": "raw_seed/system_axiom_candidates.json"},
-            "currentness_policy": {"mode": "candidate_not_active_doctrine_with_live_principle_links"},
-            "dependency_neighborhood_policy": {"mode": "related_principles_and_governed_planes"},
-            "validation_probe": ["candidate remains not active doctrine", "evidence refs resolve"],
-        },
-        "compression_profiles": {
-            "profile_id": "compression_profile_navigation_candidate_v0",
-            "navigable_bands": ["profile_id", "bands", "band_contracts", "source_ladder"],
-            "band_contracts": {"profile_id": {}, "bands": {}, "band_contracts": {}, "source_ladder": {}},
-            "telescope_facets": ["mandatory_preserve", "allowed_loss", "forbidden_collapse", "worker_tier_policy"],
-            "navigable_scopes": ["profile", "band_contract", "source_ladder", "worker_tier_policy"],
-            "navigable_facets": ["mandatory_preserve", "allowed_loss", "forbidden_collapse", "worker_tier_policy"],
-            "population_policy": {
-                "band:profile_id": {"populated_by": "authored"},
-                "band:bands": {"populated_by": "authored"},
-                "band:band_contracts": {"populated_by": "authored"},
-                "band:source_ladder": {"populated_by": "authored"},
-            },
-            "edge_compression_policy": {
-                "bidirectional_gloss_required": True,
-                "first_order_band": "band_contracts",
-                "second_order_band": "profile_id",
-                "beyond_second_order": "omit_with_count_reason_and_drilldown",
-            },
-            "source_authority": {"source": "codex/doctrine/compression_profiles.json"},
-            "currentness_policy": {"mode": "profile_registry_parse_plus_skill_refs"},
-            "dependency_neighborhood_policy": {"mode": "creator_skill_and_navigator_skill"},
-            "validation_probe": ["profile ids unique", "band contracts match declared bands"],
-        },
-        "annex_patterns": {
-            "profile_id": "annex_pattern_navigation_candidate_v0",
-            "navigable_bands": ["flag", "card", "family", "contents", "pattern_notes", "source"],
-            "band_contracts": {
-                "flag": {},
-                "card": {},
-                "family": {},
-                "contents": {},
-                "pattern_notes": {},
-                "source": {},
-            },
-            "telescope_facets": ["provenance", "local_translation", "adoption_boundary", "source_fingerprint"],
-            "navigable_scopes": ["annex_family", "annex_note", "pattern_transfer", "source_ref"],
-            "navigable_facets": ["provenance", "local_translation", "adoption_boundary", "source_fingerprint"],
-            "population_policy": {
-                "band:flag": {"populated_by": "compiled"},
-                "band:card": {"populated_by": "compiled"},
-                "band:family": {"populated_by": "authored"},
-                "band:contents": {"populated_by": "compiled"},
-                "band:pattern_notes": {"populated_by": "authored"},
-                "band:source": {"populated_by": "live_computed"},
-            },
-            "edge_compression_policy": {
-                "bidirectional_gloss_required": True,
-                "first_order_band": "pattern_notes",
-                "second_order_band": "family",
-                "beyond_second_order": "omit_with_count_reason_and_drilldown",
-            },
-            "source_authority": {"source": "annexes/<slug>/annex_notes.json and external source refs"},
-            "currentness_policy": {"mode": "annex_notes_option_surface_adapter_plus_external_snapshot"},
-            "dependency_neighborhood_policy": {"mode": "pattern_transferred_to_local_targets"},
-            "validation_probe": ["annex notes parse", "local transfer keeps source/provenance boundary"],
-        },
     }
 
 
@@ -379,6 +293,8 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
         ("standards", STANDARDS_REGISTRY_STANDARD),
         ("system_terms", SYSTEM_TERM_STANDARD),
         ("principles", RAW_SEED_PRINCIPLES_STANDARD),
+        ("axiom_candidates", SYSTEM_AXIOM_CANDIDATE_STANDARD),
+        ("skills", SKILL_STANDARD),
         ("system_atlas", SYSTEM_ATLAS_STANDARD),
     ):
         contract = _navigation_contract_from_json(root, path)
@@ -388,13 +304,29 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
     if python_contract:
         contracts["python_files"] = ("declared", str(PYTHON_STANDARD) + "::PYTHON_STANDARD.navigation_contract", python_contract)
         contracts["python_scopes"] = ("declared", str(PYTHON_STANDARD) + "::PYTHON_STANDARD.navigation_contract", python_contract)
-    raw_seed_contract = _raw_seed_profile_contract(root)
+    raw_seed_contract = _compression_profile_contract(root, "raw_seed_voice_context_v1")
     if raw_seed_contract and raw_seed_contract.get("facet_telescope_policy"):
         contracts["raw_seed_shards"] = (
             "profile_declared",
             str(COMPRESSION_PROFILES) + "::raw_seed_voice_context_v1",
             raw_seed_contract,
         )
+    compression_profile_contract = _compression_profile_contract(root, "compression_profile_navigation_v0")
+    if compression_profile_contract:
+        contracts["compression_profiles"] = (
+            "profile_declared",
+            str(COMPRESSION_PROFILES) + "::compression_profile_navigation_v0",
+            compression_profile_contract,
+        )
+    annex_contracts = _navigation_contracts_from_json(root, ANNEX_AUTHORITY_INDEX)
+    for kind_id in ("annex_patterns", "annex_distillation_patterns"):
+        contract = annex_contracts.get(kind_id)
+        if isinstance(contract, dict):
+            contracts[kind_id] = (
+                "declared",
+                f"{ANNEX_AUTHORITY_INDEX}::navigation_contracts.{kind_id}",
+                contract,
+            )
     return contracts
 
 
@@ -461,8 +393,11 @@ def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
             str(PAPER_MODULE_STANDARD),
             str(SYSTEM_TERM_STANDARD),
             str(RAW_SEED_PRINCIPLES_STANDARD),
+            str(SYSTEM_AXIOM_CANDIDATE_STANDARD),
+            str(SKILL_STANDARD),
             str(PYTHON_STANDARD),
             str(COMPRESSION_PROFILES),
+            str(ANNEX_AUTHORITY_INDEX),
             str(STANDARDS_REGISTRY_STANDARD),
             str(SYSTEM_ATLAS_STANDARD),
         ],

@@ -12,8 +12,8 @@
   },
   "body_in_receipt": false,
   "command": "python -m microcosm_core.organs.cold_reader_route_map run --input fixtures/first_wave/cold_reader_route_map/input --out receipts/first_wave/cold_reader_route_map",
-  "command_count": 7,
-  "created_at": "2026-05-23T07:00:28+00:00",
+  "command_count": 10,
+  "created_at": "2026-05-26T10:35:39+00:00",
   "error_codes": [
     "COLD_ROUTE_AUTHORITY_OVERCLAIM",
     "COLD_ROUTE_MISSING_COMMAND_REF",
@@ -40,6 +40,9 @@
   },
   "finding_count": 7,
   "first_run_sequence": [
+    "tour_project",
+    "status_card",
+    "proof_lab",
     "compile_project",
     "inspect_route",
     "open_observatory",
@@ -49,6 +52,12 @@
     "inspect_cold_reader_route_map"
   ],
   "fixture_id": "first_wave.cold_reader_route_map",
+  "front_door_command_count": 3,
+  "front_door_route_ids": [
+    "tour_project",
+    "status_card",
+    "proof_lab"
+  ],
   "input_mode": "first_wave_fixture",
   "missing_negative_cases": [],
   "observed_negative_cases": {
@@ -83,10 +92,11 @@
     "receipts/first_wave/cold_reader_route_map/cold_reader_route_map_validation_receipt.json",
     "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
   ],
-  "receipt_ref_count": 7,
-  "route_count": 7,
+  "receipt_ref_count": 10,
+  "route_count": 10,
   "schema_version": "cold_reader_route_map_fixture_acceptance_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -98,6 +108,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

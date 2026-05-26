@@ -4,8 +4,61 @@
   "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
   "routes": [
     {
-      "route_id": "compile_project",
+      "route_id": "tour_project",
       "ordinal": 1,
+      "title": "Run the compressed first-screen tour",
+      "command": "microcosm tour <project>",
+      "docs_refs": [
+        "README.md#try-it-on-your-repo",
+        "AGENTS.md#microcosm-entry-contract"
+      ],
+      "shows": [
+        "first_screen.selected_route_id",
+        "front_door_status",
+        "route -> work -> event -> evidence",
+        ".microcosm state refs",
+        "status, observatory, and proof-lab commands"
+      ],
+      "authority_note": "local first-screen route map only; no provider calls or source mutation"
+    },
+    {
+      "route_id": "status_card",
+      "ordinal": 2,
+      "title": "Inspect the compressed status lens",
+      "command": "microcosm status --card <project>",
+      "docs_refs": [
+        "README.md#try-it-on-your-repo",
+        "paper_modules/cold_reader_route_map.md"
+      ],
+      "shows": [
+        "front_door.route_selection_proof",
+        "front_door.route_explanation",
+        "front_door.observatory",
+        "front_door.proof_lab",
+        "front_door.source_open_body_import_floor"
+      ],
+      "authority_note": "compressed status lens only; receipts and state files remain drilldown evidence"
+    },
+    {
+      "route_id": "proof_lab",
+      "ordinal": 3,
+      "title": "Run the bounded proof-lab route",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "docs_refs": [
+        "README.md#try-it-on-your-repo",
+        "README.md#first-proof-lab-route"
+      ],
+      "shows": [
+        "formal_prover_context_strategy_gate",
+        "Lean/Lake return code",
+        "route component count",
+        "safe-to-show proof payload boundary"
+      ],
+      "authority_note": "bounded public witness only; not general proof correctness authority"
+    },
+    {
+      "route_id": "compile_project",
+      "ordinal": 4,
       "title": "Compile a repo into local substrate state",
       "command": "microcosm compile <project>",
       "docs_refs": [
@@ -22,9 +75,9 @@
     },
     {
       "route_id": "inspect_route",
-      "ordinal": 2,
+      "ordinal": 5,
       "title": "Inspect one route card before opening raw JSON",
-      "command": "microcosm explain <project> readme_onboarding_route",
+      "command": "microcosm explain <project> <selected_route_id>",
       "docs_refs": [
         "README.md#route-cards",
         "paper_modules/cold_reader_route_map.md"
@@ -40,7 +93,7 @@
     },
     {
       "route_id": "open_observatory",
-      "ordinal": 3,
+      "ordinal": 6,
       "title": "Open the local observatory after route selection",
       "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
       "docs_refs": [
@@ -56,7 +109,7 @@
     },
     {
       "route_id": "inspect_public_spine",
-      "ordinal": 4,
+      "ordinal": 7,
       "title": "Inspect accepted public runtime organs",
       "command": "microcosm spine",
       "docs_refs": [
@@ -73,7 +126,7 @@
     },
     {
       "route_id": "open_import_bridge",
-      "ordinal": 5,
+      "ordinal": 8,
       "title": "Open projection intake without private macro context",
       "command": "microcosm intake",
       "docs_refs": [
@@ -89,7 +142,7 @@
     },
     {
       "route_id": "open_reveal_board",
-      "ordinal": 6,
+      "ordinal": 9,
       "title": "Open the ten-minute public reveal board",
       "command": "microcosm reveal",
       "docs_refs": [
@@ -106,7 +159,7 @@
     },
     {
       "route_id": "inspect_cold_reader_route_map",
-      "ordinal": 7,
+      "ordinal": 10,
       "title": "Validate the route map itself",
       "command": "microcosm cold-reader-route-map run-route-map-bundle",
       "docs_refs": [

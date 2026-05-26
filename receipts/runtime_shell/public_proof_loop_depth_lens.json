@@ -18,7 +18,7 @@
     "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-24T01:54:34+00:00",
+  "created_at": "2026-05-26T17:00:13+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -36,7 +36,19 @@
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
   "first_screen_proof_lab": {
+    "alias_endpoints": [
+      "/verifier-lab-kernel"
+    ],
     "anti_claim": {},
+    "anti_claims": {
+      "credential_equivalent_live_access_exported": false,
+      "proof_bodies_or_provider_payloads_exported": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_or_publication_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "authority": "first-screen proof-lab route and receipt-status card only; not proof correctness, provider execution, source mutation, release, publication, or credential-equivalent live-access authority",
     "authority_ceiling": {
       "formal_proof_authority": false,
       "proof_bodies_allowed_in_receipts": false,
@@ -47,7 +59,7 @@
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
-    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "component_metrics": {
       "corpus_count": 7,
       "lean_std_premise_count": 11,
@@ -62,6 +74,7 @@
       "target_shape_route_case_count": 5,
       "verifier_trace_attempt_count": 5
     },
+    "endpoint": "/proof-lab",
     "evidence_class": "semantic_validator",
     "lean_compiled_declaration_count": 8,
     "lean_lake_return_code": 0,
@@ -99,6 +112,7 @@
       "scanned_ref_count": null,
       "status": "pass"
     },
+    "source_lens_endpoint": "/proof-loop-depth",
     "status": "pass"
   },
   "first_screen_verifier_lab_execution_spine": {
@@ -370,9 +384,10 @@
       "recipient_send_state",
       "credential_equivalent_payloads"
     ],
-    "legacy_schema_compat_present": false,
+    "input_payload_schema_normalized": false,
     "metadata_only_standin_authorized": false,
     "non_secret_macro_substrate_expected": true,
+    "omitted_payload_schema_terms_exported": false,
     "provider_payload_bodies_exported": false,
     "public_refs_are_drilldowns_not_replacements": true,
     "recipient_send_state_exported": false,

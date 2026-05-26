@@ -28,10 +28,10 @@
     "target_symbol": "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
     "verification_mode": "extension_of_existing_public_refactor"
   },
-  "bundle_id": "agent_memory_temporal_conflict_replay_runtime_example",
+  "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-23T12:56:53+00:00",
+  "created_at": "2026-05-26T12:09:21+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
@@ -176,7 +176,7 @@
       "source_mutation_authorized": false
     },
     "body_in_receipt": false,
-    "bundle_id": "agent_memory_temporal_conflict_replay_runtime_example",
+    "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
     "input_ref": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle",
     "protocol_id": "agent_memory_temporal_conflict_public_projection_v1",
     "schema_version": "public_agent_execution_trace_refactor_v0",
@@ -231,7 +231,7 @@
         "outcome": "ADD",
         "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
         "sequence_index": 0,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_a_preference_add",
@@ -258,7 +258,7 @@
         "outcome": "ADD",
         "private_thread_ref": "thread_ref.synthetic.a.metadata_only",
         "sequence_index": 1,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_a_tool_fact_add",
@@ -285,7 +285,7 @@
         "outcome": "UPDATE",
         "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
         "sequence_index": 2,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_b_preference_scope_update",
@@ -312,7 +312,7 @@
         "outcome": "DELETE",
         "private_thread_ref": "thread_ref.synthetic.b.metadata_only",
         "sequence_index": 3,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_b_tool_fact_delete",
@@ -339,7 +339,7 @@
         "outcome": "NOOP",
         "private_thread_ref": "thread_ref.synthetic.c.metadata_only",
         "sequence_index": 4,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_authority_claim": false,
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_c_replay_noop",
@@ -365,7 +365,7 @@
         "observation_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
         "outcome": "memory_disabled",
         "sequence_index": 5,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_c_memory_disabled_replay",
         "state_transition_ref": "receipts/replay/memory_conflict/episode_c_memory_disabled.json",
@@ -393,7 +393,7 @@
         "observation_ref": "receipt.memory.answer_delta.episode_c_memory_on_off_pair",
         "outcome": "memory_enabled",
         "sequence_index": 6,
-        "session_id": "agent_memory_temporal_conflict_replay_runtime_example",
+        "session_id": "agent_memory_temporal_conflict_replay_trace_refactor",
         "source_ref": "agent_memory_temporal_conflict_replay_bundle",
         "span_id": "span:episode_c_memory_enabled_replay",
         "state_transition_ref": "receipts/replay/memory_conflict/episode_c_memory_enabled.json",
@@ -421,7 +421,7 @@
       },
       "session_count": 1,
       "total_span_count": 7,
-      "trace_digest": "sha256:8c6795e85052be1b0510da55b108c1761ed749f69fe68d8cfc465674e8fbffb7"
+      "trace_digest": "sha256:a0346b393c187d12c9989586fad00fd45f14315b94ae9dc1fb65099a29cdaa2b"
     },
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -430,9 +430,11 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
       "microcosm_core.macro_tools.agent_execution_trace::main"
     ]
@@ -478,6 +480,7 @@
   ],
   "schema_version": "exported_memory_temporal_conflict_bundle_validation_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -489,6 +492,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 5,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

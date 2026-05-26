@@ -139,9 +139,12 @@
       "codex/standards/std_standards_registry.json",
       "codex/standards/std_system_term.json",
       "codex/standards/std_system_atlas.json",
+      "codex/standards/std_skill.json",
       "codex/standards/principles/std_raw_seed_principles.json",
+      "codex/standards/principles/std_system_axiom_candidate.json",
       "codex/standards/std_python.py",
       "codex/doctrine/compression_profiles.json",
+      "codex/standards/annex/annex_authority_index.json",
       "system/lib/kind_band_contract_audit.py"
     ],
     "navigation_contract": {

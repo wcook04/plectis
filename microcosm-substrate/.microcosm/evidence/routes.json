@@ -1,0 +1,75 @@
+{
+  "created_at": "2026-05-26T14:36:41+00:00",
+  "event_id": "evt_0082",
+  "evidence_ref": ".microcosm/evidence/routes.json",
+  "evidence_replacement": {
+    "append_only_event_history_ref": ".microcosm/events.jsonl",
+    "policy": "stable_ref_latest_body",
+    "previous_sha256": "fa9cfee6afb96005b73494aeda33d114194adf311f3c078374cd24009915d2a6",
+    "replacement_recorded": true,
+    "stable_ref": ".microcosm/evidence/routes.json"
+  },
+  "pattern_summary": {
+    "missing_pattern_count": 7,
+    "passing_pattern_count": 0
+  },
+  "project_id": "microcosm-substrate",
+  "project_ref": ".",
+  "receipts_are_drilldown_evidence": true,
+  "release_authorized": false,
+  "route_count": 1,
+  "routes": [
+    {
+      "action": "plan",
+      "authority": "project_local_projection_not_source_authority",
+      "claims_source_authority": false,
+      "explain_command": "microcosm explain <project> missing_tests_route",
+      "grounded_refs": [],
+      "intent": "project lacks visible tests",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "work",
+        "event",
+        "evidence"
+      ],
+      "pattern_refs": [
+        "repo_has_tests"
+      ],
+      "pattern_resolution_ref": ".microcosm/patterns.json",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "route_definition_ref": ".microcosm/routes.json::missing_tests_route",
+      "route_id": "missing_tests_route",
+      "source_mutation_authorized": false,
+      "standard_pressure_refs": [
+        "json_contract_markdown_projection",
+        "substrate_derived_projection",
+        "projection_lineage_not_authority",
+        "reversible_work_transaction",
+        "evidence_as_black_box_recorder",
+        "assimilation_without_promotion",
+        "formal_readiness_not_proof_authority",
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_retrieval_not_proof_authority",
+        "provider_context_recipe_budget_no_provider_authority",
+        "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "tactic_portfolio_availability_probe_environment_boundary",
+        "target_shape_tactic_routing_gate_no_proof_authority",
+        "formal_lean_witness_bounded_authority",
+        "prediction_oracle_reconciliation_no_advice_authority",
+        "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "standards_meta_diagnostics_projection_only",
+        "cold_reader_route_map_projection_only",
+        "lean_std_premise_index_closed_metadata_only",
+        "formal_math_verifier_trace_repair_loop_public_pressure",
+        "formal_evidence_cell_anchor_resolver_public_pressure",
+        "undeclared_library_prior_symbol_classifier_public_pressure"
+      ],
+      "title": "Add behavior-test route"
+    }
+  ],
+  "schema_version": "microcosm_project_routes_v1",
+  "state_ref": ".microcosm",
+  "status": "pass"
+}

@@ -208,7 +208,7 @@ ANNEX_PATTERN_FLOOR_RUNTIME_FORK_SKILL = Path(
 ANNEX_PATTERN_TRANSFER_SKILL = Path(
     "codex/doctrine/skills/annex/annex_pattern_transfer.md"
 )
-ANNEX_PATTERN_PROFILE_ID = "annex_pattern_navigation_candidate_v0"
+ANNEX_PATTERN_PROFILE_ID = "annex_pattern_navigation_v0"
 ANNEX_PATTERN_NATIVE_PROFILE_BANDS = ["family", "contents", "pattern_notes", "source"]
 MICROCOSM_EXTRACTED_PATTERN_LEDGER = Path("state/microcosm_portfolio/extracted_patterns_ledger.jsonl")
 MICROCOSM_EXTRACTED_PATTERN_README = Path("state/microcosm_portfolio/extracted_patterns_ledger_README.md")

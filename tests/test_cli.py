@@ -34,6 +34,11 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     _copytree_fixture(MICROCOSM_ROOT / "atlas", public_root / "atlas")
     _copytree_fixture(MICROCOSM_ROOT / "paper_modules", public_root / "paper_modules")
     _copytree_fixture(MICROCOSM_ROOT / "skills", public_root / "skills")
+    (public_root / "src/microcosm_core").mkdir(parents=True)
+    shutil.copy2(
+        MICROCOSM_ROOT / "src/microcosm_core/cli.py",
+        public_root / "src/microcosm_core/cli.py",
+    )
     shutil.copy2(MICROCOSM_ROOT / "README.md", public_root / "README.md")
     shutil.copy2(MICROCOSM_ROOT / "AGENTS.md", public_root / "AGENTS.md")
     (public_root / "receipts/first_wave").mkdir(parents=True)
@@ -109,13 +114,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "{init,index" not in first_line
     assert "First-screen route:" in output
     assert (
-        "microcosm tour <project>        build .microcosm and inspect "
-        "route/work/event/evidence/proof refs"
+        "microcosm tour --card <project> build .microcosm and read "
+        "route/state/proof refs"
     ) in output
-    assert (
-        "microcosm tour --card <project> read the compact first-screen tour lens"
-        in output
-    )
     assert (
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
@@ -142,9 +143,6 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm compile <project>     rebuild local .microcosm state "
         "after the first-screen check"
     ) in output
-    assert output.index("microcosm tour <project>") < output.index(
-        "microcosm tour --card <project>"
-    )
     assert output.index("microcosm tour --card <project>") < output.index(
         "microcosm status --card <project>"
     )
@@ -177,6 +175,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     )
     assert output.index("microcosm compile --card <project>") < output.index(
         "microcosm compile <project>"
+    )
+    assert output.index("microcosm compile <project>") < output.index(
+        "microcosm tour <project>        inspect full route cards"
     )
     assert "no provider calls, source mutation, release," in output
     assert "Receipts are evidence drilldowns after the behavior route is visible." in output
@@ -523,6 +524,12 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     assert observatory["front_door_status"]["status"] == "pass"
     assert status_front_door_status["blocking_surface_ids"] == []
     assert observatory_card["first_screen_route_proof"]["blocking_surface_ids"] == []
+    assert observatory_card["surface_statuses"]["state_inspection"] == "pass"
+    assert observatory_card["state_inspection"]["status"] == "pass"
+    assert observatory_card["state_inspection"]["missing_first_screen_refs"] == []
+    assert ".microcosm/routes.json" in (
+        observatory_card["state_inspection"]["first_screen_refs"]
+    )
     assert status_front_door["proof_lab"]["status"] == "pass"
     assert observatory_card["proof_lab"]["status"] == "pass"
     assert status_front_door["proof_lab"]["route_id"] == (
@@ -593,7 +600,7 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert payload["status"] == "pass"
     assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
     assert payload["surface_counts"]["product_path_demoted_organ_count"] == 4
-    assert payload["first_run_path"][0]["command"] == "microcosm tour <project>"
+    assert payload["first_run_path"][0]["command"] == "microcosm tour --card <project>"
     assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert payload["first_run_path"][5]["command"] == "microcosm spine"
     assert payload["first_run_path"][6]["command"] == "microcosm authority"
@@ -950,7 +957,9 @@ def test_cli_tour_smoke(
     assert payload["first_screen"]["schema_version"] == (
         "microcosm_cold_reader_first_screen_v1"
     )
-    assert payload["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert payload["first_screen"]["primary_command"] == (
+        "microcosm tour --card <project>"
+    )
     assert payload["first_screen"]["minimal_command_path"][0]["command"] == (
         payload["first_screen"]["primary_command"]
     )
@@ -968,6 +977,7 @@ def test_cli_tour_smoke(
     assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
+    assert payload["command_path"][0] == "microcosm tour --card <project>"
     assert "microcosm status --card" in payload["command_path"]
     assert "microcosm workingness" in payload["command_path"]
     assert "/workingness" in payload["endpoint_path"]
@@ -1024,8 +1034,35 @@ def test_cli_tour_card_smoke(
     assert payload["source_command"] == "microcosm tour <project>"
     assert payload["drilldown_command"] == "microcosm tour <project>"
     assert payload["endpoint"] == "/tour"
-    assert payload["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert payload["first_screen"]["primary_command"] == (
+        "microcosm tour --card <project>"
+    )
+    assert (
+        payload["first_screen"]["minimal_steps"][0]["command"]
+        == "microcosm tour --card <project>"
+    )
     assert payload["first_screen"]["minimal_step_count"] == 8
+    assert payload["state_refs"]["route_state_ref"] == ".microcosm/routes.json"
+    assert payload["state_refs"]["work_state_ref"] == ".microcosm/work_items.json"
+    assert payload["state_refs"]["event_log_ref"] == ".microcosm/events.jsonl"
+    assert payload["state_refs"]["evidence_dir_ref"] == ".microcosm/evidence/"
+    assert payload["state_refs"]["graph_ref"] == ".microcosm/graph.json"
+    assert payload["state_inspection"]["status"] == "pass"
+    assert payload["state_inspection"]["state_dir"] == ".microcosm"
+    assert payload["state_inspection"]["state_dir_exists"] is True
+    assert payload["state_inspection"]["state_file_count"] >= 8
+    assert payload["state_inspection"]["state_ref_count"] >= 8
+    assert payload["state_inspection"]["inspect_command"] == (
+        "find <project>/.microcosm -maxdepth 2 -type f | sort"
+    )
+    assert payload["state_inspection"]["route_state_json_check_command"] == (
+        "python3 -m json.tool <project>/.microcosm/routes.json"
+    )
+    assert ".microcosm/routes.json" in payload["state_inspection"]["first_screen_refs"]
+    assert ".microcosm/graph.json" in payload["state_inspection"]["first_screen_refs"]
+    assert payload["observatory"]["compact_endpoint"] == "/project/observatory-card"
+    assert payload["observatory"]["status_card_endpoint"] == "/project/status"
+    assert payload["status_card"]["command"] == "microcosm status --card <project>"
     assert payload["surface_statuses"]["compile"] == "pass"
     assert payload["surface_statuses"]["proof_lab"] == "pass"
     assert payload["surface_statuses"]["workingness_card"] == "pass"
@@ -1035,6 +1072,9 @@ def test_cli_tour_card_smoke(
     assert payload["output_economy"]["route_cards_by_id_exported"] is False
     assert payload["output_economy"]["full_command_path_exported"] is False
     assert payload["output_economy"]["full_endpoint_path_exported"] is False
+    assert payload["output_economy"]["state_refs_exported"] is True
+    assert payload["output_economy"]["state_inspection_exported"] is True
+    assert payload["output_economy"]["observatory_refs_exported"] is True
     assert payload["output_economy"]["receipt_persisted"] is False
     assert "route_cards" not in payload
     assert "route_cards_by_id" not in payload
@@ -1062,7 +1102,7 @@ def test_cli_macro_projection_plan_smoke(capsys: pytest.CaptureFixture[str]) -> 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
     assert payload["schema_version"] == "macro_projection_import_intake_preview_v1"
-    assert payload["projection_intake_board"]["ready_cell_count"] == 31
+    assert payload["projection_intake_board"]["ready_cell_count"] == 78
     assert payload["projection_intake_board"]["blocked_cell_count"] == 0
     assert payload["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"

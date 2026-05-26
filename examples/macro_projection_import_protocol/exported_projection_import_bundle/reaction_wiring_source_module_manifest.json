@@ -1,0 +1,96 @@
+{
+  "schema_version": "macro_projection_reaction_wiring_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "reaction_wiring_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "body_storage_policy": "exact_non_secret_reaction_wiring_source_modules_copied_into_public_projection_bundle",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
+  "module_count": 3,
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and no-execute boundary checks; copied reaction wiring source is body evidence, not authority to execute live providers, fire reactions, mutate source, write runtime state or ledgers, inspect browser/HUD live access, inspect private account/session state, or send recipient material",
+  "receipt_body_policy": "receipts may cite digests, anchors, and target paths but not inline full source bodies, provider payload bodies, runtime state or ledger bodies, account/session material, browser/HUD live-access material, credentials, or recipient-send material",
+  "secret_exclusion_boundary": [
+    "api_keys",
+    "credentials",
+    "cookies",
+    "account_session_state",
+    "provider_payload_bodies",
+    "provider_response_bodies",
+    "browser_hud_live_access_material",
+    "operator_thread_bodies",
+    "runtime_reactions_state_bodies",
+    "runtime_reactions_ledger_bodies",
+    "orchestration_event_private_state",
+    "recipient_send_state",
+    "automatic_source_mutation_state",
+    "credential_equivalent_payloads"
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_reaction_wiring_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_reaction_wiring_sources_compile_and_preserve_single_flight_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_reaction_wiring_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ],
+  "modules": [
+    {
+      "module_id": "reaction_wiring_config_body_import",
+      "material_class": "public_macro_tool_body",
+      "source_ref": "reactions.yaml",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/reactions.yaml",
+      "source_role": "Declarative reaction wiring for resident route-quality follow-up, including routing_quality_audit_after_refresh single-flight configuration.",
+      "required_anchors": [
+        "reaction_id: routing_quality_audit_after_refresh",
+        "dedupe_by: signal_digest",
+        "barrier_kind: operation_completion",
+        "operation_id: semantic_route_quality_audit",
+        "enabled_by_default: true"
+      ],
+      "source_open_payload_boundary": "single_flight_dedupe_barrier_no_live_provider_dispatch_in_validation_no_runtime_state_or_ledger_bodies_no_browser_hud_or_account_session_state_no_automatic_source_mutation_authority",
+      "source_sha256": "d62c6bb1151132e41cbfac783445148b38bd0ae857d6bc2c5da80bb32fcbec61",
+      "target_sha256": "d62c6bb1151132e41cbfac783445148b38bd0ae857d6bc2c5da80bb32fcbec61",
+      "source_line_count": 649,
+      "target_line_count": 649
+    },
+    {
+      "module_id": "reaction_wiring_engine_body_import",
+      "material_class": "public_macro_tool_body",
+      "source_ref": "tools/meta/control/reactions_engine.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
+      "source_role": "Resident reaction engine that previews/fires/ticks reaction plans with signal digests, barrier suspension, and dedupe state.",
+      "required_anchors": [
+        "REACTIONS_CONFIG_REL = \"reactions.yaml\"",
+        "def load_reactions_config(",
+        "def preview_reaction(",
+        "def fire_reaction(",
+        "def tick_engine_targeted(",
+        "def build_reactions_snapshot(",
+        "def _finalize_action_state(",
+        "state[\"awaiting_barriers\"] = [barrier]",
+        "dedupe_by"
+      ],
+      "source_open_payload_boundary": "single_flight_dedupe_barrier_no_live_provider_dispatch_in_validation_no_reactions_state_or_ledger_body_export_no_browser_hud_or_account_session_state_no_automatic_source_mutation_authority",
+      "source_sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
+      "target_sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
+      "source_line_count": 2364,
+      "target_line_count": 2364
+    },
+    {
+      "module_id": "reaction_wiring_proof_cli_body_import",
+      "material_class": "public_macro_tool_body",
+      "source_ref": "tools/meta/control/reaction_proof.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reaction_proof.py",
+      "source_role": "Proof CLI wrapper for preview/fire/tick inspection of resident reactions without granting public validation authority to execute live actions.",
+      "required_anchors": [
+        "def cmd_preview(",
+        "def cmd_fire(",
+        "def cmd_tick(",
+        "reactions_engine.preview_reaction",
+        "reactions_engine.fire_reaction",
+        "reactions_engine.tick_engine_targeted"
+      ],
+      "source_open_payload_boundary": "single_flight_dedupe_barrier_no_live_provider_dispatch_in_validation_no_targeted_fire_in_public_validation_no_reactions_state_or_ledger_body_export_no_browser_hud_or_account_session_state_no_automatic_source_mutation_authority",
+      "source_sha256": "aab21a7a91a0c36ca9ba05af508ccc6aa33fdc1e59a82eb5955e7d9973ce053e",
+      "target_sha256": "aab21a7a91a0c36ca9ba05af508ccc6aa33fdc1e59a82eb5955e7d9973ce053e",
+      "source_line_count": 117,
+      "target_line_count": 117
+    }
+  ]
+}

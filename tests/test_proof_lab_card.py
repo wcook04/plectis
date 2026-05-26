@@ -10,6 +10,15 @@ from microcosm_core import cli
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+RECEIPT_NAME = "exported_verifier_lab_kernel_bundle_validation_result.json"
+
+
+def _display_out(path: Path) -> str:
+    return cli._proof_lab_output_ref(str(path))
+
+
+def _display_receipt(path: Path) -> str:
+    return f"{_display_out(path.parent)}/{path.name}"
 
 
 def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
@@ -39,6 +48,8 @@ def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
         "receipt_paths": [str(receipt)],
     }
     receipt.write_text(json.dumps(receipt_payload), encoding="utf-8")
+    display_out = _display_out(out_dir)
+    display_receipt = _display_receipt(receipt)
 
     def fail_if_rerun(*_args: object, **_kwargs: object) -> dict:
         raise AssertionError("cached proof-lab card must not rerun the verifier bundle")
@@ -52,20 +63,29 @@ def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
     assert status == 0
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
     assert payload["status"] == "pass"
-    assert payload["command"] == f"microcosm proof-lab --card --out {out_dir}"
+    assert payload["command"] == f"microcosm proof-lab --card --out {display_out}"
     assert payload["cache_status"] == "cached_receipt_read"
-    assert payload["cached_receipt_ref"] == str(receipt)
+    assert payload["cached_receipt_ref"] == display_receipt
     assert payload["cached_receipt_bytes"] == receipt.stat().st_size
     assert payload["cache_freshness"]["status"] == "current"
     assert payload["cache_freshness"]["input_status"] == "current"
     assert payload["cache_freshness"]["tracked_input_count"] == 3
     assert payload["cache_freshness"]["input_refs_exported"] is False
-    assert payload["receipt_ref"] == str(receipt)
-    assert payload["receipt_refs"] == [str(receipt)]
+    assert payload["receipt_ref"] == display_receipt
+    assert payload["receipt_refs"] == [display_receipt]
     assert payload["lean_lake_return_code"] == 0
     assert payload["component_metrics"]["corpus_count"] == 7
     assert payload["safe_to_show"]["body_in_receipt"] is False
     assert payload["safe_to_show"]["input_refs_exported"] is False
+    assert payload["safe_to_show"]["host_private_paths_exported"] is False
+    assert "first-screen proof-lab route" in payload["authority"]
+    assert payload["anti_claims"]["proof_correctness_claim"] is False
+    assert payload["anti_claims"]["provider_calls_authorized"] is False
+    assert payload["anti_claims"]["source_mutation_authorized"] is False
+    assert (
+        payload["anti_claims"]["credential_equivalent_live_access_exported"]
+        is False
+    )
     assert "input_refs" not in payload
     assert str(MICROCOSM_ROOT) not in output
 
@@ -100,6 +120,9 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
         ),
         encoding="utf-8",
     )
+    display_input = cli._proof_lab_input_ref(str(input_dir))
+    display_out = _display_out(out_dir)
+    display_receipt = _display_receipt(receipt)
     stale_mtime_ns = receipt.stat().st_mtime_ns + 1_000_000_000
     os.utime(input_file, ns=(stale_mtime_ns, stale_mtime_ns))
 
@@ -124,7 +147,7 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
     assert status == 1
     assert payload["status"] == "stale_cached_receipt"
     assert payload["command"] == (
-        f"microcosm proof-lab --card --input {input_dir} --out {out_dir}"
+        f"microcosm proof-lab --card --input {display_input} --out {display_out}"
     )
     assert payload["cache_status"] == "stale_cached_receipt"
     assert payload["cache_freshness"]["status"] == "stale"
@@ -133,6 +156,58 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
     assert payload["cache_freshness"]["stale_input_count"] == 1
     assert payload["cache_freshness"]["input_refs_exported"] is False
     assert payload["safe_to_show"]["input_refs_exported"] is False
-    assert payload["receipt_ref"] == str(receipt)
+    assert payload["safe_to_show"]["host_private_paths_exported"] is False
+    assert (
+        payload["anti_claims"]["proof_bodies_or_provider_payloads_exported"]
+        is False
+    )
+    assert payload["cached_receipt_ref"] == display_receipt
+    assert payload["receipt_ref"] == display_receipt
     assert "input_refs" not in payload
     assert str(MICROCOSM_ROOT) not in output
+
+
+def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> None:
+    private_tmp_out = "/private/tmp/microcosm-proof-lab"
+    host_private_out = "/private/var/folders/wn/example/microcosm-proof-lab"
+    host_private_input = "/private/var/folders/wn/example/verifier-bundle"
+
+    assert cli._proof_lab_output_ref(private_tmp_out) == "/tmp/microcosm-proof-lab"
+    assert cli._proof_lab_output_ref(host_private_out) == cli.PROOF_LAB_OUT_PLACEHOLDER
+    assert cli._proof_lab_input_ref(host_private_input) == cli.PROOF_LAB_INPUT_PLACEHOLDER
+
+    card = cli._proof_lab_first_screen_card(
+        {
+            "status": "pass",
+            "proof_lab_route_id": "formal_prover_context_strategy_gate",
+            "proof_lab_route_component_count": 9,
+            "receipt_paths": [
+                f"{host_private_out}/{RECEIPT_NAME}",
+            ],
+            "cached_receipt_ref": f"{host_private_out}/{RECEIPT_NAME}",
+            "body_in_receipt": False,
+        },
+        input_path=host_private_input,
+        out_dir=host_private_out,
+        command=cli._proof_lab_command(host_private_input, host_private_out),
+    )
+
+    serialized = json.dumps(card, sort_keys=True)
+    assert "/private/var/folders" not in serialized
+    assert card["command"] == (
+        "microcosm proof-lab --input <proof-lab-input> --out <proof-lab-out>"
+    )
+    assert card["expanded_command"] == (
+        "microcosm verifier-lab-kernel run-kernel-bundle "
+        "--input <proof-lab-input> --out <proof-lab-out>"
+    )
+    assert card["input_ref"] == "<proof-lab-input>"
+    assert card["out_ref"] == "<proof-lab-out>"
+    assert card["cached_receipt_ref"] == f"<proof-lab-out>/{RECEIPT_NAME}"
+    assert card["receipt_ref"] == f"<proof-lab-out>/{RECEIPT_NAME}"
+    assert card["next_commands"][2] == (
+        f"microcosm evidence inspect <proof-lab-out>/{RECEIPT_NAME}"
+    )
+    assert card["safe_to_show"]["host_private_paths_exported"] is False
+    assert card["anti_claims"]["release_or_publication_authorized"] is False
+    assert card["anti_claims"]["credential_equivalent_live_access_exported"] is False

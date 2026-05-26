@@ -228,8 +228,8 @@
       "fixture-regression-negative-cases"
     ]
   },
-  "command": "python -m microcosm_core.organs.navigation_hologram_route_plane validate-route-plane-bundle --input examples/navigation_hologram_route_plane/exported_route_plane_bundle --out receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane",
-  "created_at": "2026-05-25T16:08:35+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-26T12:09:20+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,
@@ -311,6 +311,7 @@
   "route_rows_projection_not_authority": true,
   "schema_version": "navigation_hologram_route_plane_exported_route_plane_bundle_validation_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "body_material_status": "secret_exclusion_scan_no_payload_body_export",
@@ -323,6 +324,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 14,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
@@ -356,7 +366,7 @@
       "material_class": "public_macro_tool_body",
       "missing_anchor_count": 0,
       "module_id": "navigation_route_plane_context_pack_source_body_import",
-      "observed_sha256": "f795eee3827632e5e5fec1a025e1ec81239732c763e5c45b9e0253df289aa1ba",
+      "observed_sha256": "4fbe1c77200367c269680f895c46865d5185f74e298982cf3268e774f5866ea5",
       "sha256_match": true,
       "source_ref": "system/lib/navigation_context_pack.py",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py"
@@ -368,7 +378,7 @@
       "material_class": "public_macro_tool_body",
       "missing_anchor_count": 0,
       "module_id": "navigation_route_plane_entry_packet_source_body_import",
-      "observed_sha256": "e1c5a3c54041d8408837643e0a92c4e57744ffa24f9cbc88b8e0b22bed6db7cf",
+      "observed_sha256": "6277d87d0023d99b17f638e536486a27afd1397d09ff32f8e80cf6088edb7c7b",
       "sha256_match": true,
       "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
@@ -380,7 +390,7 @@
       "material_class": "public_macro_tool_body",
       "missing_anchor_count": 0,
       "module_id": "navigation_route_plane_option_surface_source_body_import",
-      "observed_sha256": "fff2fc77206b865c7ce1e50f840b34fc36c75ba64a54d6016dc974efd7034eeb",
+      "observed_sha256": "c097db7c73602fce3c910cc0984eb6a21409fca3323c0191fba203e46fa7a8e7",
       "sha256_match": true,
       "source_ref": "system/lib/standard_option_surface.py",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"

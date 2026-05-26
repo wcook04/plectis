@@ -2720,7 +2720,15 @@ def cmd_session_release_claim(args: argparse.Namespace) -> int:
 def _dirty_paths_from_git_status(repo_root: Path) -> tuple[List[str], str]:
     try:
         completed = subprocess.run(
-            ["git", "-C", str(repo_root), "status", "--porcelain=v1", "-z"],
+            [
+                "git",
+                "-C",
+                str(repo_root),
+                "status",
+                "--porcelain=v1",
+                "-z",
+                "--untracked-files=all",
+            ],
             text=True,
             capture_output=True,
             check=False,
@@ -3646,7 +3654,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help=(
             "Repo-relative dirty path fixture for pressure classification. "
-            "Repeatable; when omitted, git status --porcelain=v1 -z is read."
+            "Repeatable; when omitted, git status --porcelain=v1 -z --untracked-files=all is read."
         ),
     )
     session_sweep.add_argument(

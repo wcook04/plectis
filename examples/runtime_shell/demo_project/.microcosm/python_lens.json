@@ -9,10 +9,9 @@
     "source_span_authority_claim": false,
     "static_analysis_authority_claim": false
   },
-  "body_redacted": true,
   "command": "microcosm python-lens <project>",
-  "created_at": "2026-05-23T21:09:33+00:00",
-  "event_id": "evt_1862",
+  "created_at": "2026-05-26T09:40:47+00:00",
+  "event_id": "evt_1880",
   "evidence_ref": ".microcosm/evidence/python_lens.json",
   "graph_context_edges": [
     {
@@ -36,7 +35,6 @@
       "assay_id": "std_python_microcosm_navigation_assay",
       "assay_ref": ".microcosm/python_lens.json::navigation_assay",
       "authority": "generated_project_local_assay_not_std_python_source_authority",
-      "body_redacted": true,
       "canonical_depth_ladder": [
         "module_docs",
         "file_card",
@@ -58,6 +56,7 @@
       "graph_edge_count": 2,
       "nothing_to_refine_count": 4,
       "parse_error_count": 0,
+      "payload_boundary_ref": "project_python_lens_read_model",
       "primary_code_cards": [
         "src/demo_project/core.py"
       ],
@@ -87,6 +86,7 @@
       "route_utility_stale_task_count": 0,
       "route_utility_task_count": 10,
       "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_span_count": 4,
       "standard_amendment_candidate_count": 0,
       "symbol_capsule_count": 2
@@ -239,27 +239,63 @@
   "path_rows": [
     {
       "absolute_import_count": 1,
-      "body_redacted": true,
       "bytes": 92,
       "catalog_role": "source",
       "has_main_guard": false,
       "parse_status": "parsed",
       "path": "src/demo_project/core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
       "python_role": "source_module",
-      "relative_import_count": 0
+      "relative_import_count": 0,
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads"
     },
     {
       "absolute_import_count": 1,
-      "body_redacted": true,
       "bytes": 135,
       "catalog_role": "test",
       "has_main_guard": false,
       "parse_status": "parsed",
       "path": "tests/test_core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
       "python_role": "test_module",
-      "relative_import_count": 0
+      "relative_import_count": 0,
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads"
     }
   ],
+  "payload_boundary": {
+    "account_session_state_exported": false,
+    "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+    "boundary_id": "project_python_lens_read_model",
+    "browser_or_hud_live_access_exported": false,
+    "command": "microcosm python-lens <project>",
+    "credential_equivalent_payloads_exported": false,
+    "excluded_public_payload_classes": [
+      "secrets",
+      "api_keys",
+      "credentials",
+      "cookies",
+      "account_session_state",
+      "provider_payload_bodies",
+      "browser_or_hud_live_access_material",
+      "recipient_send_state",
+      "credential_equivalent_payloads"
+    ],
+    "input_payload_schema_normalized": false,
+    "metadata_only_standin_authorized": false,
+    "non_secret_macro_substrate_expected": true,
+    "omitted_payload_schema_terms_exported": false,
+    "provider_payload_bodies_exported": false,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "recipient_send_state_exported": false,
+    "schema_version": "microcosm_public_payload_boundary_v1",
+    "secrets_exported": false,
+    "source_open_default": true,
+    "surface_ref": ".microcosm/python_lens.json",
+    "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
+    "unsafe_payload_bodies_in_receipt": false
+  },
   "project_id": "demo_project",
   "project_ref": ".",
   "public_claim": "Microcosm exposes Python project route readiness as path-level metadata without source bodies, provider calls, or source mutation.",
@@ -267,7 +303,6 @@
   "python_navigation_route": {
     "assay_ref": ".microcosm/python_lens.json::navigation_assay",
     "authority": "route_selector_over_project_local_read_model_not_release_or_static_analysis_authority",
-    "body_redacted": true,
     "canonical_depth_ladder": [
       "module_docs",
       "file_card",
@@ -295,6 +330,7 @@
     ],
     "endpoint": "/project/python-lens",
     "implementation_atlas_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
+    "payload_boundary_ref": "project_python_lens_read_model",
     "probe_disposition_counts": {
       "file_local_defect": 0,
       "nothing_to_refine": 4,
@@ -304,6 +340,7 @@
     "route_utility_curriculum_ref": ".microcosm/python_lens.json::route_utility_curriculum",
     "route_utility_ratchet_ref": ".microcosm/python_lens.json::route_utility_curriculum.ratchet",
     "source_bodies_exported": false,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "surface_id": "project_python_lens"
   },
   "readiness_checks": [
@@ -389,7 +426,6 @@
   "route_utility_curriculum": {
     "assay_id": "std_python_microcosm_navigation_assay",
     "authority": "route_utility_curriculum_is_public_safe_read_model_not_source_or_release_authority",
-    "body_redacted": true,
     "curriculum_id": "microcosm_python_route_utility_curriculum",
     "disposition_counts": {
       "local_projection_defect": 0,
@@ -448,11 +484,13 @@
         "task_id": "route_utility:probe_disposition_closure"
       },
       {
-        "reentry_condition": "redaction or authority-ceiling fields change",
+        "reentry_condition": "payload-boundary or authority-ceiling fields change",
         "selected_band": "file_card",
-        "task_id": "route_utility:redaction_boundary"
+        "task_id": "route_utility:payload_boundary"
       }
     ],
+    "payload_boundary_ok": true,
+    "payload_boundary_ref": "project_python_lens_read_model",
     "ratchet": {
       "affected_task_ids": [],
       "changed_surface_refs": [],
@@ -464,10 +502,10 @@
         "symbol_capsule_locator",
         "graph_context_locator",
         "probe_disposition_closure",
-        "redaction_boundary"
+        "payload_boundary"
       ],
       "last_run_result": "curriculum_current",
-      "next_reentry_condition": "rerun non-writing route utility ratchet after source, test, entry, symbol, graph, or redaction-boundary surfaces change",
+      "next_reentry_condition": "rerun non-writing route utility ratchet after source, test, entry, symbol, graph, or payload-boundary surfaces change",
       "sampled_from": [
         "README.md",
         "pyproject.toml",
@@ -480,7 +518,6 @@
       "state_file_ref": ".microcosm/python_lens.json",
       "state_freshness": "current_write"
     },
-    "redaction_boundary_ok": true,
     "reentry_condition": "rerun after entry route, Python lens, source-span, graph, symbol, or std_python policy changes",
     "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
     "route_utility_metrics": {
@@ -495,12 +532,12 @@
     },
     "schema_version": "microcosm_python_route_utility_curriculum_v1",
     "source_bodies_exported": false,
+    "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "state_written": true,
     "target_root": "demo_project",
     "task_count": 10,
     "tasks": [
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -510,6 +547,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "entry packet python_navigation_route changes",
         "route_hops": [
@@ -518,13 +556,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "file_card",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:entry_surface_to_python_assay",
         "task_intent": "Start from the public entry packet and reach the Python navigation assay route.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -534,6 +573,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "implementation atlas route changes",
         "route_hops": [
@@ -542,13 +582,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "file_card",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:implementation_atlas_drilldown",
         "task_intent": "Use the implementation atlas as the assay drilldown rather than a parallel registry.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -558,6 +599,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "pyproject metadata is added or removed",
         "route_hops": [
@@ -566,13 +608,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "file_card",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:package_metadata_file_card",
         "task_intent": "Locate package metadata through the cheapest sufficient file-card band.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -582,6 +625,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "source core path or source-span extraction changes",
         "route_hops": [
@@ -591,13 +635,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "source_span",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:source_core_source_span",
         "task_intent": "Find the primary source-core proof locator without exporting source bodies.",
         "token_or_tool_count_proxy": 3,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -607,6 +652,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "test route or test source spans change",
         "route_hops": [
@@ -616,13 +662,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "source_span",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:test_behavior_source_span",
         "task_intent": "Find the behavior-test proof locator through the test route.",
         "token_or_tool_count_proxy": 3,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "not_applicable",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -632,6 +679,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "not_applicable",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "project declares a runnable Python entrypoint",
         "route_hops": [
@@ -641,13 +689,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "source_span",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:entrypoint_source_span",
         "task_intent": "Find a runnable Python entrypoint when the project declares one.",
         "token_or_tool_count_proxy": 3,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -657,6 +706,7 @@
         "expected_start_band": "symbol_capsule",
         "expected_symbol_capsule": "src/demo_project/core.py::describe",
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "symbol extraction changes",
         "route_hops": [
@@ -665,13 +715,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "symbol_capsule",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:symbol_capsule_lookup",
         "task_intent": "Answer a symbol-level question at symbol-capsule depth before opening spans.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -681,6 +732,7 @@
         "expected_start_band": "graph_context",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "import graph extraction changes",
         "route_hops": [
@@ -689,13 +741,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "graph_context",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:graph_context_lookup",
         "task_intent": "Answer a dependency question at graph-context depth before opening spans.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -705,6 +758,7 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
         "reentry_condition": "probe disposition grammar or parse status changes",
         "route_hops": [
@@ -713,13 +767,14 @@
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "file_card",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
         "task_id": "route_utility:probe_disposition_closure",
         "task_intent": "Verify every route probe is closed into a disposition before success language.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       },
       {
-        "body_redacted": true,
         "correctness": "pass",
         "disposition": "nothing_to_refine",
         "entry_surface_ref": "atlas/entry_packet.json::python_navigation_route",
@@ -729,64 +784,81 @@
         "expected_start_band": "file_card",
         "expected_symbol_capsule": null,
         "failure_class": "none",
+        "payload_boundary_ref": "project_python_lens_read_model",
         "provenance_state": "derived_from_local_ast_and_entry_route",
-        "reentry_condition": "redaction or authority-ceiling fields change",
+        "reentry_condition": "payload-boundary or authority-ceiling fields change",
         "route_hops": [
           "python_navigation_route",
           "authority_ceiling.source_bodies_exported"
         ],
         "route_ref": ".microcosm/python_lens.json::implementation_atlas.python_navigation_assay",
         "selected_band": "file_card",
-        "task_id": "route_utility:redaction_boundary",
+        "source_bodies_exported": false,
+        "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+        "task_id": "route_utility:payload_boundary",
         "task_intent": "Verify route utility uses refs and spans without exporting source bodies.",
         "token_or_tool_count_proxy": 2,
         "worst_state": "pass"
       }
     ]
   },
+  "safe_to_show": {
+    "project_source_bodies_omitted": true,
+    "public_refs_are_drilldowns_not_replacements": true,
+    "python_lens_rows_are_public_payload_boundary_rows": true
+  },
   "schema_version": "microcosm_project_python_lens_v1",
+  "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_span_count": 4,
   "source_span_rows": [
     {
       "authority": "source_span_locator_not_source_body_or_correctness_authority",
-      "body_redacted": true,
       "depth_band": "source_span",
       "line_end": 5,
       "line_start": 1,
       "path": "src/demo_project/core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "span_id": "src/demo_project/core.py::module",
       "symbol_kind": "module",
       "symbol_name": "<module>"
     },
     {
       "authority": "source_span_locator_not_source_body_or_correctness_authority",
-      "body_redacted": true,
       "depth_band": "source_span",
       "line_end": 5,
       "line_start": 4,
       "path": "src/demo_project/core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "span_id": "src/demo_project/core.py::describe",
       "symbol_kind": "function",
       "symbol_name": "describe"
     },
     {
       "authority": "source_span_locator_not_source_body_or_correctness_authority",
-      "body_redacted": true,
       "depth_band": "source_span",
       "line_end": 5,
       "line_start": 1,
       "path": "tests/test_core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "span_id": "tests/test_core.py::module",
       "symbol_kind": "module",
       "symbol_name": "<module>"
     },
     {
       "authority": "source_span_locator_not_source_body_or_correctness_authority",
-      "body_redacted": true,
       "depth_band": "source_span",
       "line_end": 5,
       "line_start": 4,
       "path": "tests/test_core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "span_id": "tests/test_core.py::test_describe_names_compile_loop",
       "symbol_kind": "function",
       "symbol_name": "test_describe_names_compile_loop"
@@ -806,22 +878,27 @@
   "symbol_capsule_count": 2,
   "symbol_capsule_rows": [
     {
-      "body_redacted": true,
       "depth_band": "symbol_capsule",
       "path": "src/demo_project/core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_span_ref": "src/demo_project/core.py::describe",
       "symbol_id": "src/demo_project/core.py::describe",
       "symbol_kind": "function",
       "symbol_name": "describe"
     },
     {
-      "body_redacted": true,
       "depth_band": "symbol_capsule",
       "path": "tests/test_core.py",
+      "payload_boundary_ref": "project_python_lens_read_model",
+      "source_bodies_exported": false,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_span_ref": "tests/test_core.py::test_describe_names_compile_loop",
       "symbol_id": "tests/test_core.py::test_describe_names_compile_loop",
       "symbol_kind": "function",
       "symbol_name": "test_describe_names_compile_loop"
     }
-  ]
+  ],
+  "unsafe_payload_bodies_in_receipt": false
 }

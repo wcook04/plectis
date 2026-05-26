@@ -14,6 +14,7 @@
   "body_in_receipt": false,
   "command": "microcosm tour <project>",
   "command_path": [
+    "microcosm tour --card <project>",
     "microcosm tour <project>",
     "microcosm compile <project>",
     "microcosm python-lens <project>",
@@ -27,7 +28,7 @@
     "microcosm evidence-cells",
     "microcosm proof-loop-depth",
     "microcosm verifier-lab-execution-spine-lens",
-    "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "microcosm landing-replay",
     "microcosm view-quality",
     "microcosm projection-safety",
@@ -44,13 +45,16 @@
     "microcosm replay-gauntlet",
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard",
+    "microcosm status --card <project>",
+    "microcosm status --card",
+    "microcosm workingness",
     "microcosm intake",
     "microcosm reveal",
     "microcosm serve <project>",
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 17,
+    "event_count": 10,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -61,7 +65,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-25T00:50:25+00:00",
+  "created_at": "2026-05-26T17:56:50+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -73,6 +77,7 @@
     "/trace",
     "/repair-loop",
     "/evidence-cells",
+    "/proof-lab",
     "/proof-loop-depth",
     "/verifier-lab-execution-spine",
     "/verifier-lab-kernel",
@@ -92,6 +97,7 @@
     "/replay-gauntlet",
     "/benchmark-lab",
     "/legibility-scorecard",
+    "/workingness",
     "/intake",
     "/reveal",
     "/evidence"
@@ -122,6 +128,7 @@
     "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
     "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
     "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+    "receipts/runtime_shell/workingness_failure_map.json",
     "receipts/runtime_shell/public_reveal/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
     "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
@@ -140,6 +147,12 @@
       "source_mutation_authorized": false,
       "whole_system_correctness_claim": false
     },
+    "available_project_route_ids": [
+      "readme_onboarding_route",
+      "package_runtime_route",
+      "source_core_route",
+      "test_behavior_route"
+    ],
     "behavior_surfaces": {
       "event_log_ref": ".microcosm/events.jsonl",
       "evidence_dir_ref": ".microcosm/evidence/",
@@ -170,11 +183,64 @@
       "state_dir": ".microcosm"
     },
     "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
+    "local_first_screen_route": {
+      "route_id": "local_first_screen_route",
+      "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+      "surface_id": "microcosm_local_first_screen"
+    },
     "minimal_command_path": [
+      {
+        "command": "microcosm tour --card <project>",
+        "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+        "shows": [
+          "repo -> .microcosm",
+          "compact first-screen card",
+          "selected route id",
+          "state/status/proof/observatory refs",
+          "authority ceiling"
+        ],
+        "status": "pass",
+        "step_id": "inspect_first_screen"
+      },
+      {
+        "command": "microcosm status --card <project> && microcosm workingness",
+        "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+        "shows": [
+          "compressed project/runtime first-screen status",
+          "workingness failure-envelope counts",
+          "missing standards and failure-mode gaps",
+          "not a score, maturity board, release gate, or proof authority"
+        ],
+        "status_card_command": "microcosm status --card <project>",
+        "status_card_endpoint": "/project/status",
+        "step_id": "inspect_status_and_workingness",
+        "workingness_command": "microcosm workingness",
+        "workingness_endpoint": "/workingness"
+      },
+      {
+        "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "lean_lake_return_code": 0,
+        "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+        "route_component_count": 9,
+        "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+        "status": "pass",
+        "step_id": "run_first_screen_proof_lab"
+      },
+      {
+        "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "endpoint": "/project/observatory-card",
+        "expanded_endpoint": "/project/observatory",
+        "shows": [
+          "compact route/work/evidence/graph/proof card before raw JSON",
+          "route -> work -> event -> evidence",
+          "authority ceiling"
+        ],
+        "step_id": "open_observatory"
+      },
       {
         "command": "microcosm compile <project>",
         "shows": [
-          "repo -> .microcosm",
+          "explicit .microcosm rebuild after first-screen proof",
           "project-local catalog",
           "routes",
           "work items",
@@ -186,23 +252,20 @@
         "step_id": "compile_project"
       },
       {
-        "command": "microcosm tour <project>",
-        "shows": [
-          "this first-screen card",
-          "route cards",
-          "authority ceiling",
-          "proof-lab route",
-          "evidence refs as drilldowns"
-        ],
-        "step_id": "inspect_first_screen"
-      },
-      {
         "command": "microcosm python-lens <project>",
         "state_ref": ".microcosm/python_lens.json",
         "step_id": "inspect_python_routes"
       },
       {
+        "available_project_route_ids": [
+          "readme_onboarding_route",
+          "package_runtime_route",
+          "source_core_route",
+          "test_behavior_route"
+        ],
         "command": "microcosm explain <project> readme_onboarding_route",
+        "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
+        "selected_route_id": "readme_onboarding_route",
         "state_refs": [
           ".microcosm/routes.json",
           ".microcosm/work_items.json",
@@ -212,34 +275,15 @@
         "step_id": "inspect_route_causal_chain"
       },
       {
-        "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
-        "endpoint": "/",
-        "shows": [
-          "causal chain before raw receipts",
-          "route -> work -> event -> evidence",
-          "authority ceiling"
-        ],
-        "step_id": "open_observatory"
-      },
-      {
-        "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
-        "lean_lake_return_code": 0,
-        "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
-        "route_component_count": 9,
-        "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
-        "status": "pass",
-        "step_id": "run_first_screen_proof_lab"
-      },
-      {
         "command": "microcosm evidence inspect <receipt>",
-        "evidence_ref_count": 30,
+        "evidence_ref_count": 31,
         "step_id": "drill_receipts_only_after_behavior"
       }
     ],
-    "primary_command": "microcosm tour <project>",
-    "project_ref": "reader_repo",
+    "primary_command": "microcosm tour --card <project>",
+    "project_ref": "scratch",
     "proof_surface": {
-      "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "compiled_declaration_count": 8,
       "lean_lake_return_code": 0,
       "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
@@ -248,6 +292,17 @@
       "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
       "status": "pass"
     },
+    "route_explanation": {
+      "command": "microcosm explain <project> readme_onboarding_route",
+      "endpoint": "/project/explain/readme_onboarding_route",
+      "evidence_ref": ".microcosm/evidence/explain_readme_onboarding_route.json",
+      "explanation_ref": ".microcosm/explanations/readme_onboarding_route.json",
+      "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
+      "route_state_ref": ".microcosm/routes.json::readme_onboarding_route",
+      "selection_rule": "Use selected_route_id from the tour --card, tour, or compile output; readme_onboarding_route is only present when the project has a README; empty or non-README folders can select missing_tests_route, including missing_tests_route when tests are absent."
+    },
+    "route_explanation_command": "microcosm explain <project> readme_onboarding_route",
+    "route_selection_rule": "Use selected_route_id from the tour --card, tour, or compile output; readme_onboarding_route is only present when the project has a README; empty or non-README folders can select missing_tests_route, including missing_tests_route when tests are absent.",
     "safe_to_show": {
       "credential_equivalent_payloads_exported": false,
       "project_local_state_refs_visible": true,
@@ -257,10 +312,23 @@
       "source_files_mutated": false
     },
     "schema_version": "microcosm_cold_reader_first_screen_v1",
+    "selected_route_id": "readme_onboarding_route",
     "status": "pass"
   },
   "first_screen_proof_lab": {
+    "alias_endpoints": [
+      "/verifier-lab-kernel"
+    ],
     "anti_claim": {},
+    "anti_claims": {
+      "credential_equivalent_live_access_exported": false,
+      "proof_bodies_or_provider_payloads_exported": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_or_publication_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "authority": "first-screen proof-lab route and receipt-status card only; not proof correctness, provider execution, source mutation, release, publication, or credential-equivalent live-access authority",
     "authority_ceiling": {
       "formal_proof_authority": false,
       "proof_bodies_allowed_in_receipts": false,
@@ -271,7 +339,7 @@
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
-    "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
+    "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "component_metrics": {
       "corpus_count": 7,
       "lean_std_premise_count": 11,
@@ -286,6 +354,7 @@
       "target_shape_route_case_count": 5,
       "verifier_trace_attempt_count": 5
     },
+    "endpoint": "/proof-lab",
     "evidence_class": "semantic_validator",
     "lean_compiled_declaration_count": 8,
     "lean_lake_return_code": 0,
@@ -323,10 +392,110 @@
       "scanned_ref_count": null,
       "status": "pass"
     },
+    "source_lens_endpoint": "/proof-loop-depth",
     "status": "pass"
   },
-  "project_ref": "reader_repo",
-  "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: compile, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
+  "front_door_status": {
+    "authority_ceiling": {
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "blocking_surface_ids": [],
+    "drilldown_blocked_surface_ids": [],
+    "drilldown_warning_surface_ids": [
+      "authority",
+      "intake"
+    ],
+    "local_first_screen_route": {
+      "route_id": "local_first_screen_route",
+      "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+      "surface_id": "microcosm_local_first_screen"
+    },
+    "required_surface_ids": [
+      "compile",
+      "spine",
+      "prediction",
+      "market_boundary",
+      "corpus",
+      "trace",
+      "repair_loop",
+      "evidence_cells",
+      "proof_loop_depth",
+      "verifier_lab_execution_spine",
+      "proof_lab",
+      "macro_body_import_floor",
+      "landing_replay",
+      "view_quality",
+      "projection_safety",
+      "projection_drift",
+      "circuit_attribution",
+      "route_cleanup",
+      "projection_import_map",
+      "import_projector",
+      "option_surface",
+      "stripping_guard",
+      "standards_control",
+      "hook_coverage",
+      "replay_gauntlet",
+      "benchmark_lab",
+      "legibility_scorecard",
+      "workingness",
+      "reveal"
+    ],
+    "safe_to_show": {
+      "authority_warning_visible": true,
+      "blocking_surface_ids_visible": true,
+      "drilldown_warning_surface_ids_visible": true,
+      "intake_warning_visible": true,
+      "surface_status_ids_visible": true
+    },
+    "schema_version": "microcosm_tour_front_door_status_v1",
+    "status": "pass",
+    "status_scope": "required_behavioral_first_screen_surfaces",
+    "surface_statuses": {
+      "authority": "pass",
+      "benchmark_lab": "pass",
+      "circuit_attribution": "pass",
+      "compile": "pass",
+      "corpus": "pass",
+      "evidence_cells": "pass",
+      "hook_coverage": "pass",
+      "import_projector": "pass",
+      "intake": "pass",
+      "landing_replay": "pass",
+      "legibility_scorecard": "pass",
+      "macro_body_import_floor": "pass",
+      "market_boundary": "pass",
+      "option_surface": "pass",
+      "prediction": "pass",
+      "projection_drift": "pass",
+      "projection_import_map": "pass",
+      "projection_safety": "pass",
+      "proof_lab": "pass",
+      "proof_loop_depth": "pass",
+      "repair_loop": "pass",
+      "replay_gauntlet": "pass",
+      "reveal": "pass",
+      "route_cleanup": "pass",
+      "spine": "pass",
+      "standards_control": "pass",
+      "stripping_guard": "pass",
+      "trace": "pass",
+      "verifier_lab_execution_spine": "pass",
+      "view_quality": "pass",
+      "workingness": "pass"
+    },
+    "top_level_status_rule": "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_drilldowns_report_blocked"
+  },
+  "local_first_screen_route": {
+    "route_id": "local_first_screen_route",
+    "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+    "surface_id": "microcosm_local_first_screen"
+  },
+  "project_ref": "scratch",
+  "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: tour, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
     {
@@ -342,6 +511,132 @@
         ".microcosm/evidence/"
       ],
       "status": "pass"
+    },
+    {
+      "authority_ceiling": {
+        "proof_correctness_claim": false,
+        "provider_calls_authorized": false,
+        "release_authorized": false,
+        "source_mutation_authorized": false
+      },
+      "blocking_surface_ids": [],
+      "card_id": "front_door_status",
+      "command": "microcosm tour <project>",
+      "drilldown_blocked_surface_ids": [],
+      "drilldown_warning_surface_ids": [
+        "authority",
+        "intake"
+      ],
+      "endpoint": "/tour",
+      "local_first_screen_route": {
+        "route_id": "local_first_screen_route",
+        "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+        "surface_id": "microcosm_local_first_screen"
+      },
+      "minute_budget": 0.5,
+      "safe_to_show": {
+        "authority_warning_visible": true,
+        "blocking_surface_ids_visible": true,
+        "drilldown_warning_surface_ids_visible": true,
+        "intake_warning_visible": true,
+        "surface_status_ids_visible": true
+      },
+      "shows": [
+        "front_door_status.blocking_surface_ids",
+        "front_door_status.drilldown_warning_surface_ids",
+        "front_door_status.drilldown_blocked_surface_ids",
+        "release/provider/source/proof authority ceiling"
+      ],
+      "status": "pass",
+      "status_ref": "front_door_status",
+      "top_level_status_rule": "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_drilldowns_report_blocked"
+    },
+    {
+      "authority_ceiling": {
+        "proof_correctness_claim": false,
+        "provider_calls_authorized": false,
+        "release_authorized": false,
+        "source_mutation_authorized": false
+      },
+      "card_id": "status_and_workingness",
+      "command": "microcosm status --card <project> && microcosm workingness",
+      "endpoint": "/workingness",
+      "failure_envelope_status": "clear",
+      "map_generation_status": "pass",
+      "minute_budget": 0.5,
+      "project_status_card_command": "microcosm status --card <project>",
+      "shows": [
+        "compressed project/runtime status card",
+        "workingness failure-envelope summary",
+        "missing standards and failure-mode gaps before receipts",
+        "not a score, maturity board, release signal, or release gate"
+      ],
+      "source_open_body_import_floor": {
+        "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_status": false,
+        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "latest_source_refs": [
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "tools/meta/factory/reduce_prover_provider_receipts.py",
+          "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+        ],
+        "latest_verified_source_module_family_ids": [
+          "exported_mathematical_strategy_atlas_bundle",
+          "exported_tactic_portfolio_availability_bundle",
+          "exported_symbol_classifier_bundle"
+        ],
+        "public_safe_body_material_count": 302,
+        "public_safe_body_material_counts_by_class": {
+          "public_macro_pattern_body": 10,
+          "public_macro_proof_body": 1,
+          "public_macro_receipt_body": 43,
+          "public_macro_tool_body": 243,
+          "public_standard_body": 5
+        },
+        "reader_action": "Use this tour card to confirm the source-open body floor, then open the status card or full status for validators and family drilldowns.",
+        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
+        "status": "pass",
+        "summary_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+        "verified_source_module_family_count": 78
+      },
+      "status": "clear",
+      "status_card_command": "microcosm status --card",
+      "status_card_endpoint": "/project/status",
+      "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
+      "workingness_command": "microcosm workingness",
+      "workingness_endpoint": "/workingness",
+      "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
+      "workingness_summary": {
+        "accepted_status_is_not_evidence_strength": true,
+        "adapter_backed_organ_count": 43,
+        "command": "microcosm workingness",
+        "completeness_status": "complete_failure_modes",
+        "demoted_drilldown_count": 4,
+        "endpoint": "/workingness",
+        "failure_envelope_status": "clear",
+        "gap_preview": {
+          "drilldown_command": "microcosm workingness",
+          "limit": 3,
+          "reader_action": "Open microcosm workingness for the full row before treating accepted status as evidence strength.",
+          "rows": [],
+          "status": "clear"
+        },
+        "map_generation_status": "pass",
+        "mapped_organ_count": 47,
+        "missing_failure_modes_count": 0,
+        "missing_standard_count": 0,
+        "not_a_scorecard": true,
+        "reader_action": "Open microcosm workingness for per-organ failure modes, body provenance, and future targets.",
+        "rows_with_failure_modes": 47,
+        "rows_with_future_work_targets": 30,
+        "rows_with_source_body_imports": 14,
+        "schema_version": "microcosm_workingness_status_summary_v1",
+        "source_open_body_material_count": 91,
+        "status": "clear",
+        "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
+        "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json"
+      }
     },
     {
       "card_id": "runtime_spine",
@@ -401,9 +696,12 @@
       "status": "pass"
     },
     {
+      "alias_endpoints": [
+        "/verifier-lab-kernel"
+      ],
       "card_id": "verifier_lab_kernel",
-      "command": "microcosm verifier-lab-kernel run-kernel-bundle --input examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle --out /tmp/microcosm-proof-lab",
-      "endpoint": "/proof-loop-depth",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "endpoint": "/proof-lab",
       "minute_budget": 1,
       "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
       "route_component_count": 9,
@@ -415,6 +713,7 @@
         "retrieval, Ring2, target-shape, and verifier trace metrics",
         "receipt-backed authority ceiling before proof language"
       ],
+      "source_lens_endpoint": "/proof-loop-depth",
       "status": "pass"
     },
     {
@@ -461,6 +760,269 @@
       "status": "pass"
     }
   ],
+  "route_cards_by_id": {
+    "authority": {
+      "card_id": "authority",
+      "command": "microcosm authority",
+      "endpoint": "/authority",
+      "minute_budget": 1,
+      "shows": [
+        "release/provider/source ceilings",
+        "safe local exceptions",
+        "surface authority map"
+      ],
+      "status": "pass"
+    },
+    "compile": {
+      "card_id": "compile",
+      "command": "microcosm compile <project>",
+      "endpoint": null,
+      "minute_budget": 2,
+      "shows": [
+        ".microcosm/catalog.json",
+        ".microcosm/python_lens.json",
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/evidence/"
+      ],
+      "status": "pass"
+    },
+    "evidence_drilldown": {
+      "card_id": "evidence_drilldown",
+      "command": "microcosm evidence inspect <receipt>",
+      "endpoint": "/evidence",
+      "minute_budget": 1,
+      "shows": [
+        "receipt refs only after the causal path is visible",
+        "anti-claims",
+        "authority ceilings"
+      ],
+      "status": "pass"
+    },
+    "front_door_status": {
+      "authority_ceiling": {
+        "proof_correctness_claim": false,
+        "provider_calls_authorized": false,
+        "release_authorized": false,
+        "source_mutation_authorized": false
+      },
+      "blocking_surface_ids": [],
+      "card_id": "front_door_status",
+      "command": "microcosm tour <project>",
+      "drilldown_blocked_surface_ids": [],
+      "drilldown_warning_surface_ids": [
+        "authority",
+        "intake"
+      ],
+      "endpoint": "/tour",
+      "local_first_screen_route": {
+        "route_id": "local_first_screen_route",
+        "route_ref": "atlas/entry_packet.json::local_first_screen_route",
+        "surface_id": "microcosm_local_first_screen"
+      },
+      "minute_budget": 0.5,
+      "safe_to_show": {
+        "authority_warning_visible": true,
+        "blocking_surface_ids_visible": true,
+        "drilldown_warning_surface_ids_visible": true,
+        "intake_warning_visible": true,
+        "surface_status_ids_visible": true
+      },
+      "shows": [
+        "front_door_status.blocking_surface_ids",
+        "front_door_status.drilldown_warning_surface_ids",
+        "front_door_status.drilldown_blocked_surface_ids",
+        "release/provider/source/proof authority ceiling"
+      ],
+      "status": "pass",
+      "status_ref": "front_door_status",
+      "top_level_status_rule": "pass_when_required_first_screen_surfaces_pass_even_if_authority_or_intake_drilldowns_report_blocked"
+    },
+    "intake_and_reveal": {
+      "card_id": "intake_and_reveal",
+      "command": "microcosm intake && microcosm reveal",
+      "endpoint": "/intake + /reveal",
+      "minute_budget": 3,
+      "shows": [
+        "macro projection cells",
+        "public runtime refs and real-substrate receipt states",
+        "ten-minute reveal board",
+        "negative cases"
+      ],
+      "status": "pass"
+    },
+    "prediction_and_corpus": {
+      "card_id": "prediction_and_corpus",
+      "command": "microcosm prediction-lens && microcosm corpus-lens && microcosm trace-lens && microcosm repair-loop && microcosm evidence-cells && microcosm proof-loop-depth && microcosm landing-replay && microcosm view-quality && microcosm projection-safety && microcosm market-boundary && microcosm drift-control && microcosm spatial-simulation && microcosm circuit-attribution && microcosm route-cleanup && microcosm projection-import-map && microcosm import-projector && microcosm option-surface-lens && microcosm stripping-guard && microcosm standards-control && microcosm hook-coverage && microcosm replay-gauntlet && microcosm benchmark-lab && microcosm legibility-scorecard",
+      "endpoint": "/prediction + /corpus + /trace + /repair-loop + /evidence-cells + /proof-loop-depth + /landing-replay + /view-quality + /projection-safety + /market-boundary + /drift-control + /spatial-simulation + /circuit-attribution + /route-cleanup + /projection-import-map + /import-projector + /option-surface-lens + /stripping-guard + /standards-control + /hook-coverage + /replay-gauntlet + /benchmark-lab + /legibility-scorecard",
+      "minute_budget": 2,
+      "shows": [
+        "synthetic prediction mechanics",
+        "no-advice boundary",
+        "Mathlib absence",
+        "blocked formal-math consumers",
+        "verifier trace-repair gate",
+        "verifier repair loop as metadata curriculum",
+        "formal evidence-cell claim boundary",
+        "proof-loop depth map across formal-math gates",
+        "dirty-tree work landing replay",
+        "all-view quality action map",
+        "omission receipts and reversible projection boundary",
+        "public market/prediction claim boundary",
+        "projection drift controls with repair and validation refs",
+        "mechanistic interpretability circuit attribution with causal-intervention receipts",
+        "route cleanup contract rows with owner validators",
+        "public projection import map",
+        "repeatable import-projector contract",
+        "compression-profile governed option surface",
+        "public/private stripping guard",
+        "public standards-control lens",
+        "hook-shadow intervention coverage",
+        "synthetic agent reliability replay gauntlet",
+        "synthetic repository benchmark transaction lab",
+        "cold-reader public legibility scorecard"
+      ],
+      "status": "pass"
+    },
+    "runtime_spine": {
+      "card_id": "runtime_spine",
+      "command": "microcosm spine",
+      "endpoint": "/spine",
+      "minute_budget": 1,
+      "shows": [
+        "accepted runtime organs",
+        "first-run command path",
+        "evidence policy"
+      ],
+      "status": "pass"
+    },
+    "status_and_workingness": {
+      "authority_ceiling": {
+        "proof_correctness_claim": false,
+        "provider_calls_authorized": false,
+        "release_authorized": false,
+        "source_mutation_authorized": false
+      },
+      "card_id": "status_and_workingness",
+      "command": "microcosm status --card <project> && microcosm workingness",
+      "endpoint": "/workingness",
+      "failure_envelope_status": "clear",
+      "map_generation_status": "pass",
+      "minute_budget": 0.5,
+      "project_status_card_command": "microcosm status --card <project>",
+      "shows": [
+        "compressed project/runtime status card",
+        "workingness failure-envelope summary",
+        "missing standards and failure-mode gaps before receipts",
+        "not a score, maturity board, release signal, or release gate"
+      ],
+      "source_open_body_import_floor": {
+        "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_status": false,
+        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "latest_source_refs": [
+          "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+          "tools/meta/factory/reduce_prover_provider_receipts.py",
+          "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+        ],
+        "latest_verified_source_module_family_ids": [
+          "exported_mathematical_strategy_atlas_bundle",
+          "exported_tactic_portfolio_availability_bundle",
+          "exported_symbol_classifier_bundle"
+        ],
+        "public_safe_body_material_count": 302,
+        "public_safe_body_material_counts_by_class": {
+          "public_macro_pattern_body": 10,
+          "public_macro_proof_body": 1,
+          "public_macro_receipt_body": 43,
+          "public_macro_tool_body": 243,
+          "public_standard_body": 5
+        },
+        "reader_action": "Use this tour card to confirm the source-open body floor, then open the status card or full status for validators and family drilldowns.",
+        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
+        "status": "pass",
+        "summary_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+        "verified_source_module_family_count": 78
+      },
+      "status": "clear",
+      "status_card_command": "microcosm status --card",
+      "status_card_endpoint": "/project/status",
+      "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
+      "workingness_command": "microcosm workingness",
+      "workingness_endpoint": "/workingness",
+      "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
+      "workingness_summary": {
+        "accepted_status_is_not_evidence_strength": true,
+        "adapter_backed_organ_count": 43,
+        "command": "microcosm workingness",
+        "completeness_status": "complete_failure_modes",
+        "demoted_drilldown_count": 4,
+        "endpoint": "/workingness",
+        "failure_envelope_status": "clear",
+        "gap_preview": {
+          "drilldown_command": "microcosm workingness",
+          "limit": 3,
+          "reader_action": "Open microcosm workingness for the full row before treating accepted status as evidence strength.",
+          "rows": [],
+          "status": "clear"
+        },
+        "map_generation_status": "pass",
+        "mapped_organ_count": 47,
+        "missing_failure_modes_count": 0,
+        "missing_standard_count": 0,
+        "not_a_scorecard": true,
+        "reader_action": "Open microcosm workingness for per-organ failure modes, body provenance, and future targets.",
+        "rows_with_failure_modes": 47,
+        "rows_with_future_work_targets": 30,
+        "rows_with_source_body_imports": 14,
+        "schema_version": "microcosm_workingness_status_summary_v1",
+        "source_open_body_material_count": 91,
+        "status": "clear",
+        "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
+        "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json"
+      }
+    },
+    "verifier_lab_execution_spine": {
+      "accepted_transition_count": 4,
+      "card_id": "verifier_lab_execution_spine",
+      "command": "microcosm verifier-lab-execution-spine-lens",
+      "endpoint": "/verifier-lab-execution-spine",
+      "minute_budget": 1,
+      "receipt_ref": "receipts/runtime_shell/public_verifier_lab_execution_spine_lens.json",
+      "shows": [
+        "bounded Lean transition rows and return codes",
+        "CP2 downstream rerun effect count",
+        "Evolve rerun acceptance count",
+        "proof-body/provider/oracle/stdout payload exclusions"
+      ],
+      "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+      "source_receipt_ref": "receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle_validation_result.json",
+      "status": "pass",
+      "transition_count": 6
+    },
+    "verifier_lab_kernel": {
+      "alias_endpoints": [
+        "/verifier-lab-kernel"
+      ],
+      "card_id": "verifier_lab_kernel",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "endpoint": "/proof-lab",
+      "minute_budget": 1,
+      "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
+      "route_component_count": 9,
+      "route_id": "formal_prover_context_strategy_gate",
+      "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+      "shows": [
+        "route id and nine-component proof-lab composition",
+        "Lean return code and compiled declaration count",
+        "retrieval, Ring2, target-shape, and verifier trace metrics",
+        "receipt-backed authority ceiling before proof language"
+      ],
+      "source_lens_endpoint": "/proof-loop-depth",
+      "status": "pass"
+    }
+  },
   "runtime_summary": {
     "benchmark_oracle_patch_count": 2,
     "benchmark_task_count": 2,
@@ -480,9 +1042,9 @@
     "market_boundary_row_count": 8,
     "option_surface_row_count": 6,
     "option_surface_stage_count": 6,
-    "organ_count": 46,
+    "organ_count": 47,
     "prediction_mechanic_count": 5,
-    "projection_cell_count": 14,
+    "projection_cell_count": 78,
     "projection_drift_repair_route_count": 8,
     "projection_drift_row_count": 8,
     "projection_import_map_row_count": 6,
@@ -511,7 +1073,10 @@
     "verifier_lab_execution_evolve_accepted_count": 1,
     "verifier_lab_execution_transition_count": 6,
     "view_quality_action_count": 5,
-    "view_quality_hot_action_count": 4
+    "view_quality_hot_action_count": 4,
+    "workingness_mapped_organ_count": 47,
+    "workingness_missing_failure_modes_count": 0,
+    "workingness_missing_standard_count": 0
   },
   "safe_to_show": {
     "body_in_receipt": false,
@@ -522,6 +1087,7 @@
     "synthetic_receipts_are_not_product_evidence": true
   },
   "schema_version": "microcosm_public_ten_minute_tour_v1",
+  "selected_route_id": "readme_onboarding_route",
   "snapshot_policy": {
     "incidental_validator_reads_write_receipt": false,
     "lifecycle": "tracked_public_snapshot_refreshed_intentionally",
@@ -543,6 +1109,35 @@
       "compile_summary.file_count"
     ]
   },
+  "source_open_body_import_floor": {
+    "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_status": false,
+    "full_status_ref": "microcosm status::macro_body_import_floor",
+    "latest_source_refs": [
+      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py"
+    ],
+    "latest_verified_source_module_family_ids": [
+      "exported_mathematical_strategy_atlas_bundle",
+      "exported_tactic_portfolio_availability_bundle",
+      "exported_symbol_classifier_bundle"
+    ],
+    "public_safe_body_material_count": 302,
+    "public_safe_body_material_counts_by_class": {
+      "public_macro_pattern_body": 10,
+      "public_macro_proof_body": 1,
+      "public_macro_receipt_body": 43,
+      "public_macro_tool_body": 243,
+      "public_standard_body": 5
+    },
+    "reader_action": "Use this tour card to confirm the source-open body floor, then open the status card or full status for validators and family drilldowns.",
+    "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
+    "status": "pass",
+    "summary_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+    "verified_source_module_family_count": 78
+  },
   "status": "pass",
   "surface_statuses": {
     "authority": "pass",
@@ -556,6 +1151,7 @@
     "intake": "pass",
     "landing_replay": "pass",
     "legibility_scorecard": "pass",
+    "macro_body_import_floor": "pass",
     "market_boundary": "pass",
     "option_surface": "pass",
     "prediction": "pass",
@@ -573,7 +1169,8 @@
     "stripping_guard": "pass",
     "trace": "pass",
     "verifier_lab_execution_spine": "pass",
-    "view_quality": "pass"
+    "view_quality": "pass",
+    "workingness": "pass"
   },
   "time_budget_minutes": 10,
   "tour_id": "public_ten_minute_tour",

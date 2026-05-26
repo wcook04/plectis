@@ -1,6 +1,9 @@
 {
   "schema_version": "cold_reader_route_policy_v1",
   "required_route_ids": [
+    "tour_project",
+    "status_card",
+    "proof_lab",
     "compile_project",
     "inspect_route",
     "open_observatory",
@@ -10,6 +13,9 @@
     "inspect_cold_reader_route_map"
   ],
   "first_run_sequence": [
+    "tour_project",
+    "status_card",
+    "proof_lab",
     "compile_project",
     "inspect_route",
     "open_observatory",

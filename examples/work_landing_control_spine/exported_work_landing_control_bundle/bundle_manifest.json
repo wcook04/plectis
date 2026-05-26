@@ -79,8 +79,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 8757,
-      "expected_sha256": "c8d1433d2171d9ce985267c347baa78cfab3fe7812c37884f6ead65754c5d726",
+      "expected_line_count": 8758,
+      "expected_sha256": "c64ff63f41dcbd6c383f5d5453dbe7ee94544933d8f8a300eeeacb05f6136feb",
       "material_class": "public_macro_tool_body",
       "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
       "required_anchors": [

@@ -237,6 +237,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "not authorize release",
     ],
     "AGENTS.md": [
+        "microcosm tour --card <project>",
+        "microcosm tour <project>",
         "microcosm compile <project>",
         "repo -> `.microcosm`",
         "Real Substrate Posture",
@@ -340,6 +342,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "First-Screen Route Contract",
         "Bring a folder first",
         "atlas/entry_packet.json::local_first_screen_route",
+        "microcosm tour --card <project>",
         "microcosm tour <project>",
         "route_cards_by_id.status_and_workingness",
         "microcosm status --card <project>",
@@ -375,7 +378,7 @@ FORBIDDEN_PHRASES_BY_DOC = {
 }
 CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
-    "microcosm tour <project>",
+    "microcosm tour --card <project>",
     "microcosm status --card <project>",
     "microcosm workingness",
     "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -584,7 +587,7 @@ def _entry_packet_route_contract(
 ) -> dict[str, Any]:
     path = public_root / "atlas/entry_packet.json"
     required_commands = [
-        "microcosm tour <project>",
+        "microcosm tour --card <project>",
         "microcosm compile <project>",
         "microcosm python-lens <project>",
         "microcosm explain <project> <selected_route_id>",
@@ -624,6 +627,10 @@ def _entry_packet_route_contract(
     required_allowed_refs = [
         "atlas/entry_packet.json::local_first_screen_route",
         "atlas/entry_packet.json::cold_clone_probe_route",
+        "microcosm tour --card <project>::state_refs",
+        "microcosm tour --card <project>::status_card",
+        "microcosm tour --card <project>::observatory",
+        "microcosm tour --card <project>::proof_lab",
         "microcosm status --card <project>::front_door.route_explanation",
         "microcosm status --card <project>::front_door.source_open_body_import_floor",
         "microcosm status --card <project>::macro_body_import_floor",
@@ -686,7 +693,7 @@ def _entry_packet_route_contract(
         if ref not in allowed_drilldowns
     ]
     required_command_order = [
-        "microcosm tour <project>",
+        "microcosm tour --card <project>",
         "microcosm status --card <project>",
         "microcosm workingness",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -711,14 +718,39 @@ def _entry_packet_route_contract(
     first_command = str(payload.get("first_command") or "")
     primary_command = str(route.get("primary_first_screen_command") or "")
     command_mismatch = []
-    if first_command != "microcosm tour <project>":
+    if first_command != "microcosm tour --card <project>":
         command_mismatch.append("first_command")
     if primary_command != first_command:
         command_mismatch.append("primary_first_screen_command")
     route_selection_rule = str(route.get("route_selection_rule") or "")
-    missing_route_selection_rule = (
-        "readme_onboarding_route is a generated route only" not in route_selection_rule
-    )
+    route_selection_required_phrases = [
+        "selected_route_id emitted by tour --card, tour, or compile",
+        (
+            "readme_onboarding_route is a generated route only when the project "
+            "has a README"
+        ),
+        "Empty or non-README folders can select missing_tests_route",
+        "missing_tests_route when tests are absent",
+    ]
+    route_selection_missing_phrases = [
+        phrase
+        for phrase in route_selection_required_phrases
+        if phrase not in route_selection_rule
+    ]
+    missing_route_selection_rule = bool(route_selection_missing_phrases)
+    readme_text = _normalized_text(doc_text_by_rel.get("README.md", ""))
+    readme_route_selection_required_phrases = [
+        "`selected_route_id` from `microcosm tour --card .`, `microcosm tour .`, or `microcosm compile .`",
+        "do not hardcode `readme_onboarding_route` for arbitrary folders",
+        "`readme_onboarding_route` is present when the project has a README",
+        "`missing_tests_route` when tests are absent",
+        "empty/non-README folders can select `missing_tests_route`",
+    ]
+    readme_route_selection_missing_phrases = [
+        phrase
+        for phrase in readme_route_selection_required_phrases
+        if phrase not in readme_text
+    ]
     unsafe_flags = [
         key
         for key in [
@@ -751,6 +783,18 @@ def _entry_packet_route_contract(
         )
         if phrase not in cold_start_text
     ]
+    cold_start_route_selection_required_phrases = [
+        "Use the `selected_route_id` emitted by `tour --card`, `tour`, or `compile`",
+        "`readme_onboarding_route` exists only when the brought project has a README",
+        "Do not hardcode `readme_onboarding_route` for arbitrary folders",
+        "Empty/non-README folders can select `missing_tests_route`",
+        "`missing_tests_route` when tests are absent",
+    ]
+    cold_start_route_selection_missing_phrases = [
+        phrase
+        for phrase in cold_start_route_selection_required_phrases
+        if phrase not in cold_start_text
+    ]
     blocking_reasons: list[str] = []
     if missing_commands:
         blocking_reasons.append("missing_local_first_screen_commands")
@@ -768,10 +812,14 @@ def _entry_packet_route_contract(
         blocking_reasons.append("first_screen_command_order_mismatch")
     if missing_route_selection_rule:
         blocking_reasons.append("missing_route_selection_rule")
+    if readme_route_selection_missing_phrases:
+        blocking_reasons.append("readme_route_selection_rule_missing")
     if unsafe_flags:
         blocking_reasons.append("unsafe_safe_to_show_flags")
     if cold_start_missing:
         blocking_reasons.append("cold_start_route_contract_missing")
+    if cold_start_route_selection_missing_phrases:
+        blocking_reasons.append("cold_start_route_selection_rule_missing")
     return {
         "status": PASS if not blocking_reasons else "blocked",
         "source_ref": "atlas/entry_packet.json",
@@ -785,8 +833,15 @@ def _entry_packet_route_contract(
         "command_mismatch": command_mismatch,
         "command_order_mismatch": command_order_mismatch,
         "missing_route_selection_rule": missing_route_selection_rule,
+        "route_selection_missing_phrases": route_selection_missing_phrases,
+        "readme_route_selection_missing_phrases": (
+            readme_route_selection_missing_phrases
+        ),
         "unsafe_safe_to_show_flags": unsafe_flags,
         "cold_start_missing_phrases": cold_start_missing,
+        "cold_start_route_selection_missing_phrases": (
+            cold_start_route_selection_missing_phrases
+        ),
         "blocking_reasons": blocking_reasons,
         "authority": (
             "entry-packet route parity only; not source, release, provider, "

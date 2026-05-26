@@ -160,8 +160,8 @@
       "target_property_label": "adsorption_proxy"
     }
   ],
-  "command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run-lab-bundle",
-  "created_at": "2026-05-23T16:12:59+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-26T12:09:20+00:00",
   "experiments": [
     {
       "action_class": "screen_candidate",
@@ -836,6 +836,7 @@
   },
   "schema_version": "exported_materials_lab_safety_bundle_validation_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "forbidden_output_fields": [
@@ -844,6 +845,15 @@
     ],
     "hit_count": 0,
     "hits": [],
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 7,
     "status": "pass"
   },

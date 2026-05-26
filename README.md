@@ -11,22 +11,22 @@ It does not mutate your source files or call providers.
 From `microcosm-substrate/`, install the console command:
 
 ```bash
-python -m pip install -e '.[test]'
+python3 -m pip install -e '.[test]'
 ```
 
 Or run the same product CLI directly from the checkout without installing the
 entry point:
 
 ```bash
-PYTHONPATH=src python -m microcosm_core.cli tour .
-PYTHONPATH=src python -m microcosm_core.cli status --card .
-PYTHONPATH=src python -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core.cli tour --card .
+PYTHONPATH=src python3 -m microcosm_core.cli status --card .
+PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 After the console command is installed, the first-screen path is:
 
 ```bash
-microcosm tour .
+microcosm tour --card .
 microcosm status --card .
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -35,22 +35,31 @@ microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
 microcosm evidence list .
+microcosm tour .
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-The first screen is the `microcosm tour .` JSON. Its `first_screen` card names
-the local `.microcosm/` state files, the selected project route id, the
-route/work/event/evidence chain, the status card, workingness map,
-observatory command, proof-lab command, and the authority ceiling.
-`route_cards_by_id.status_and_workingness` is the direct first-screen status
-and workingness card; `route_cards` remains an ordered tour list for scanning.
+The first screen is the compact `microcosm tour --card .` JSON. It writes
+the local `.microcosm/` state, names the selected project route id, exposes
+`state_inspection` plus route/work/event/evidence/graph refs, points to the
+status card, workingness map, observatory command, proof-lab command, and
+authority ceiling, and keeps route cards plus receipt refs out of the cockpit.
+Run `microcosm tour .` only when you want the full route-card, endpoint-path,
+and evidence-ref drilldown.
+In that full packet, `route_cards_by_id.status_and_workingness` remains the
+status and workingness drilldown, not the first screen.
 Use
-`selected_route_id` from `microcosm tour .` or `microcosm compile .` for
-`microcosm explain . <selected_route_id>`; `readme_onboarding_route` is present
-when the project has a README. Open
-`http://127.0.0.1:8765/project/observatory-card` first for the compact JSON card
-that ties status, route, work, evidence, graph, proof, and safe-to-show
-boundaries together, then open `http://127.0.0.1:8765` or the full
+`selected_route_id` from `microcosm tour --card .`, `microcosm tour .`, or
+`microcosm compile .` for `microcosm explain . <selected_route_id>`; do not hardcode
+`readme_onboarding_route` for arbitrary folders. `readme_onboarding_route` is
+present when the project has a README, while a folder without a README uses
+another generated route, for example `missing_tests_route` when tests are
+absent. Open
+`http://127.0.0.1:8765/project/status` for the same compact status-card lens as
+`microcosm status --card <project>`, then
+`http://127.0.0.1:8765/project/observatory-card` for the compact JSON card that
+ties `state_inspection`, status, route, work, evidence, graph, proof, and
+safe-to-show boundaries together before opening `http://127.0.0.1:8765` or the full
 `/project/observatory` model. The output folder is `.microcosm/`.
 
 Use `microcosm status --card <project>` after `tour` or `compile` for the
@@ -67,6 +76,8 @@ counts and body-text exclusion flags, the shorter
 `gap_preview` of the first missing-standard or failure-mode rows and their
 target refs before opening the full organ-by-organ map; `microcosm status`
 remains the full JSON drilldown.
+When serving a project, `/project/status` exposes that same compact card in the
+browser while `/status` remains the full runtime status plus a project overlay.
 When a project path is supplied, the card keeps `front_door.project_state` and
 `macro_body_import_floor` to compact state/ref summaries and leaves route proof
 plus route explanation in `front_door.route_selection_proof` and
@@ -99,12 +110,22 @@ It is backed by
 `receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json`
 and route metadata at
 `examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json`.
-The command prints a compact proof-lab card and writes that receipt; the receipt
-validates route `formal_prover_context_strategy_gate` with 9 route
-components, Lean/Lake return code `0`, 8 compiled declarations, retrieval
-recall `1.0`, Ring2 precision/recall `0.36`/`0.9`, 5 target-shape cases, and 5
-verifier attempts. It does not export proof bodies, provider payloads,
-credentials, account/session state, or release authority.
+The command prints a compact proof-lab card and writes a receipt under the
+chosen `--out` directory. When local Lean/Lake are installed, it rebuilds the
+bounded public witness; when they are absent, it writes a canonical-receipt
+fallback card with `local_toolchain_status=missing_lean_lake` and
+`live_receipt_rebuild_status=skipped_toolchain_missing` instead of pretending a
+live proof rebuild occurred. The bundled canonical receipt validates route
+`formal_prover_context_strategy_gate` with 9 route components, Lean/Lake return
+code `0`, 8 compiled declarations, retrieval recall `1.0`, Ring2
+precision/recall `0.36`/`0.9`, 5 target-shape cases, and 5 verifier attempts.
+It does not export proof bodies, provider payloads, credentials,
+account/session state, or release authority.
+For first-screen hygiene, the card prints repo-relative proof refs, preserves
+portable `/tmp/...` refs, normalizes `/private/tmp/...` to `/tmp/...`, and
+uses `<proof-lab-input>` / `<proof-lab-out>` placeholders instead of leaking
+host-private temp roots. The actual receipt still lands in the local directory
+you passed to `--out`.
 
 Pattern rows become routable only through their organ and fixture overlays. The
 route-readiness command validates the exported selector bundle and writes
@@ -242,29 +263,38 @@ printf '[project]\nname = "scratch-project"\nversion = "0.1.0"\n' > /tmp/microco
 printf 'VALUE = 1\n' > /tmp/microcosm-scratch/src/app/__init__.py
 printf 'from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n' > /tmp/microcosm-scratch/tests/test_app.py
 
-microcosm tour /tmp/microcosm-scratch
+microcosm tour --card /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour-card.json
+MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["selected_route_id"])' < /tmp/microcosm-scratch-tour-card.json)
 microcosm status --card /tmp/microcosm-scratch
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
 microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
 microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
-microcosm explain /tmp/microcosm-scratch readme_onboarding_route
+microcosm explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
 microcosm evidence list /tmp/microcosm-scratch
+microcosm tour /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour.json
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
+
+This scratch project deliberately creates a README, so its selected route is
+`readme_onboarding_route`. For your own folder, use the `selected_route_id`
+emitted by `microcosm tour --card`, `microcosm tour`, or `microcosm compile`;
+empty/non-README folders can select `missing_tests_route`.
 
 The same commands work without installing the console script:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour-card.json
+MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["selected_route_id"])' < /tmp/microcosm-scratch-tour-card.json)
 PYTHONPATH=src python3 -m microcosm_core.cli status --card /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli workingness
 PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
 PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch readme_onboarding_route
+PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
 PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
 ```
 
 The older organ-adapter demo still exists for internal evidence and regression:
@@ -279,15 +309,20 @@ microcosm evidence list
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
 project loop; open receipts only when you need a drilldown.
 
-`microcosm tour <project>` is the compressed cold-reader route. It compiles
-the project, then emits one real-substrate ten-minute path through spine,
+`microcosm tour --card <project>` is the compressed cold-reader route. It
+compiles the project into `.microcosm/`, then emits a compact first-screen
+card with selected route id, route/work/event/evidence/graph refs, status,
+observatory, proof-lab, body-import, and boundary pointers. `microcosm tour
+<project>` is the full drilldown; it emits one real-substrate ten-minute path
+through spine,
 authority, prediction, corpus, trace repair, repair-loop curriculum, formal
 evidence cells, proof-loop depth, work landing replay, durable agent work
 landing replay, research replication replay, world-model projection drift control,
 view quality, projection safety, hook
 intervention coverage, projection import map, import-projector contract,
 compression-profile option surface, stripping guard, replay gauntlet, benchmark lab, legibility scorecard, intake, reveal,
-observatory, and evidence drilldowns. It writes
+observatory, and evidence drilldowns. The compact card does not persist the
+tour receipt; the full drilldown writes
 `receipts/runtime_shell/public_ten_minute_tour.json` and
 keeps release, hosting, provider calls, unsafe source mutation,
 credential-bearing exports, proof authority, and financial advice
@@ -1044,7 +1079,7 @@ PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_readiness_gate run -
 PYTHONPATH=src python3 -m microcosm_core.cli formal-math-readiness-gate plan --input fixtures/first_wave/formal_math_readiness_gate/input
 PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate
 PYTHONPATH=src python3 -m microcosm_core.cli corpus-readiness-mathlib-absence-gate run-projection-bundle --input examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle --out receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate
-PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core.cli corpus-lens
 PYTHONPATH=src python3 -m microcosm_core.cli import-projector
 PYTHONPATH=src python3 -m microcosm_core.cli option-surface-lens

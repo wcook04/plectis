@@ -52,11 +52,13 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
 ) -> None:
     out_dir = tmp_path / "proof-lab"
     receipt = out_dir / RECEIPT_NAME
+    display_out = cli._proof_lab_output_ref(str(out_dir))
+    display_receipt = f"{display_out}/{RECEIPT_NAME}"
 
     def run_fake_bundle(input_path: str, output_path: str, *, command: str) -> dict:
         assert Path(input_path).resolve(strict=False) == BUNDLE_INPUT
         assert Path(output_path) == out_dir
-        assert command == f"microcosm proof-lab --out {out_dir}"
+        assert command == f"microcosm proof-lab --out {display_out}"
         return _proof_lab_result(receipt)
 
     monkeypatch.setattr(cli.verifier_lab_kernel, "run_kernel_bundle", run_fake_bundle)
@@ -70,10 +72,10 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
     assert payload["card_id"] == "first_screen_verifier_lab_kernel"
     assert payload["status"] == "pass"
-    assert payload["command"] == f"microcosm proof-lab --out {out_dir}"
+    assert payload["command"] == f"microcosm proof-lab --out {display_out}"
     assert payload["expanded_command"] == (
         "microcosm verifier-lab-kernel run-kernel-bundle "
-        f"--input {public_input_ref} --out {out_dir}"
+        f"--input {public_input_ref} --out {display_out}"
     )
     assert payload["endpoint"] == "/proof-lab"
     assert payload["alias_endpoints"] == ["/verifier-lab-kernel"]
@@ -89,21 +91,22 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["safe_to_show"]["body_in_receipt"] is False
     assert payload["safe_to_show"]["proof_bodies_exported"] is False
     assert payload["safe_to_show"]["provider_payloads_exported"] is False
+    assert payload["safe_to_show"]["host_private_paths_exported"] is False
     assert payload["safe_to_show"]["route_metadata_visible"] is True
     assert receipt.is_file()
-    assert payload["receipt_ref"] == str(receipt)
+    assert payload["receipt_ref"] == display_receipt
     receipt_payload = json.loads(receipt.read_text(encoding="utf-8"))
     assert receipt_payload["status"] == "pass"
     assert receipt_payload["component_statuses"]["formal_math_lean_proof_witness"] == "pass"
     assert payload["canonical_receipt_ref"] == PROOF_LAB_RECEIPT_REF
-    assert payload["receipt_refs"] == [str(receipt)]
+    assert payload["receipt_refs"] == [display_receipt]
     assert "receipt only after the first-screen card is visible" in payload[
         "reader_action"
     ]
     assert payload["next_commands"] == [
         "microcosm status --card",
         "microcosm proof-loop-depth",
-        f"microcosm evidence inspect {receipt}",
+        f"microcosm evidence inspect {display_receipt}",
     ]
     assert "microcosm evidence list" not in payload["next_commands"]
     assert str(MICROCOSM_ROOT) not in output
@@ -119,11 +122,14 @@ def test_cli_proof_lab_accepts_copied_input_bundle_outside_public_root(
     shutil.copytree(BUNDLE_INPUT, input_dir)
     out_dir = tmp_path / "proof-lab"
     receipt = out_dir / RECEIPT_NAME
+    display_input = cli._proof_lab_input_ref(str(input_dir))
+    display_out = cli._proof_lab_output_ref(str(out_dir))
+    display_receipt = f"{display_out}/{RECEIPT_NAME}"
 
     def run_fake_bundle(input_path: str, output_path: str, *, command: str) -> dict:
         assert Path(input_path) == input_dir
         assert Path(output_path) == out_dir
-        assert command == f"microcosm proof-lab --input {input_dir} --out {out_dir}"
+        assert command == f"microcosm proof-lab --input {display_input} --out {display_out}"
         return _proof_lab_result(receipt)
 
     monkeypatch.setattr(cli.verifier_lab_kernel, "run_kernel_bundle", run_fake_bundle)
@@ -143,17 +149,17 @@ def test_cli_proof_lab_accepts_copied_input_bundle_outside_public_root(
     assert status == 0
     assert payload["status"] == "pass"
     assert payload["command"] == (
-        f"microcosm proof-lab --input {input_dir} --out {out_dir}"
+        f"microcosm proof-lab --input {display_input} --out {display_out}"
     )
     assert payload["expanded_command"] == (
         "microcosm verifier-lab-kernel run-kernel-bundle "
-        f"--input {input_dir} --out {out_dir}"
+        f"--input {display_input} --out {display_out}"
     )
-    assert payload["input_ref"] == str(input_dir)
+    assert payload["input_ref"] == display_input
     assert payload["route_id"] == "formal_prover_context_strategy_gate"
     assert payload["proof_lab_route_component_count"] == 9
     assert payload["lean_lake_return_code"] == 0
     assert receipt.is_file()
-    assert payload["receipt_ref"] == str(receipt)
-    assert payload["receipt_refs"] == [str(receipt)]
+    assert payload["receipt_ref"] == display_receipt
+    assert payload["receipt_refs"] == [display_receipt]
     assert str(MICROCOSM_ROOT) not in output

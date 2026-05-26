@@ -50,6 +50,9 @@ PROJECTION_LOSS_AUDIT_MANIFEST = (
 SEMANTIC_ROUTE_QUALITY_AUDIT_MANIFEST = (
     BUNDLE_INPUT / "semantic_route_quality_audit_source_module_manifest.json"
 )
+REACTION_WIRING_MANIFEST = (
+    BUNDLE_INPUT / "reaction_wiring_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -1025,6 +1028,69 @@ def test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and
     assert decision["_dry_run"] is True
     assert decision["confirm_edges"] == []
     assert decision["weak_edges"] == []
+
+
+def test_reaction_wiring_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        REACTION_WIRING_MANIFEST,
+        manifest_id="reaction_wiring_source_modules_import",
+        module_count=3,
+    )
+
+    by_id = {row["module_id"]: row for row in manifest["modules"]}
+    assert "single_flight_dedupe_barrier" in by_id[
+        "reaction_wiring_engine_body_import"
+    ]["source_open_payload_boundary"]
+    assert "no_live_provider_dispatch_in_validation" in by_id[
+        "reaction_wiring_config_body_import"
+    ]["source_open_payload_boundary"]
+    assert "no_targeted_fire_in_public_validation" in by_id[
+        "reaction_wiring_proof_cli_body_import"
+    ]["source_open_payload_boundary"]
+
+
+def test_reaction_wiring_sources_compile_and_preserve_single_flight_boundary() -> None:
+    manifest = json.loads(REACTION_WIRING_MANIFEST.read_text(encoding="utf-8"))
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        if source_path.suffix == ".py":
+            compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    source_modules_root = BUNDLE_INPUT / "source_modules"
+    config_text = (source_modules_root / "reactions.yaml").read_text(encoding="utf-8")
+    engine_text = (
+        source_modules_root / "tools/meta/control/reactions_engine.py"
+    ).read_text(encoding="utf-8")
+    proof_text = (
+        source_modules_root / "tools/meta/control/reaction_proof.py"
+    ).read_text(encoding="utf-8")
+
+    assert "reaction_id: routing_quality_audit_after_refresh" in config_text
+    assert "dedupe_by: signal_digest" in config_text
+    assert "barrier_kind: operation_completion" in config_text
+    assert "operation_id: semantic_route_quality_audit" in config_text
+    assert "enabled_by_default: true" in config_text
+    assert 'REACTIONS_CONFIG_REL = "reactions.yaml"' in engine_text
+    assert "def preview_reaction(" in engine_text
+    assert "def fire_reaction(" in engine_text
+    assert "def tick_engine_targeted(" in engine_text
+    assert "def _finalize_action_state(" in engine_text
+    assert 'state["awaiting_barriers"] = [barrier]' in engine_text
+    assert "dedupe_by" in engine_text
+    assert "def cmd_preview(" in proof_text
+    assert "def cmd_fire(" in proof_text
+    assert "def cmd_tick(" in proof_text
+    assert "tick_engine_targeted(" in proof_text
+    assert "not authority to execute live providers" in manifest[
+        "public_runtime_policy"
+    ]
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "browser/HUD live-access material" in manifest["receipt_body_policy"]
+    assert "automatic_source_mutation_state" in manifest["secret_exclusion_boundary"]
 
 
 def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:

@@ -16,7 +16,7 @@
   "real_pattern_ledger_source": {
     "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/pattern_ledger_rows.jsonl",
     "row_count": 373,
-    "sha256": "414fad0ac5f8473503a7852bf6a9a57ae5025d1084577a58e893220e3aabbbf3",
+    "sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
     "normalization": "pattern_binding_contract.real_pattern_ledger_binding_v1"
   },
   "real_pattern_substrate_bindings_source": {

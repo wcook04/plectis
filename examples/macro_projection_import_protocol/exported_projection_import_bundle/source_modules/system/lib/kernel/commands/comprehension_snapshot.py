@@ -2022,6 +2022,27 @@ def _compact_closeout_git_state_for_admission(
         if worktrees.get(key) not in (None, "", [], {})
     }
     compact["recommended_lane"] = closeout_git_state.get("recommended_lane") or {}
+    if isinstance(closeout_git_state.get("dirty_tree_coordination"), dict):
+        lane = closeout_git_state["dirty_tree_coordination"]
+        compact["dirty_tree_coordination"] = {
+            key: lane.get(key)
+            for key in (
+                "schema",
+                "status",
+                "reason",
+                "dirty_total",
+                "dirty_count_exact",
+                "dirty_preview_count",
+                "dirty_preview_truncated",
+                "untracked_scan",
+                "publication_note",
+                "next_safe_action",
+                "broad_checkpoint_guard",
+                "claim_correlation",
+                "commands",
+            )
+            if lane.get(key) not in (None, "", [], {})
+        }
     compact["drilldowns"] = closeout_git_state.get("drilldowns") or {}
     compact["trimmed_for_entry_admission"] = True
     compact["omission_receipt"] = {
@@ -2096,9 +2117,29 @@ def _hard_compact_closeout_git_state_for_admission(
             if worktrees.get(key) not in (None, "", [], {})
         },
         "recommended_lane": closeout_git_state.get("recommended_lane") or {},
+        "dirty_tree_coordination": {
+            key: closeout_git_state.get("dirty_tree_coordination", {}).get(key)
+            for key in (
+                "schema",
+                "status",
+                "reason",
+                "dirty_total",
+                "dirty_count_exact",
+                "next_safe_action",
+                "broad_checkpoint_guard",
+            )
+            if isinstance(closeout_git_state.get("dirty_tree_coordination"), dict)
+            and closeout_git_state.get("dirty_tree_coordination", {}).get(key)
+            not in (None, "", [], {})
+        },
         "drilldowns": {
             key: drilldowns.get(key)
-            for key in ("closeout_conditions", "push_audit", "mission_preflight")
+            for key in (
+                "closeout_conditions",
+                "push_audit",
+                "mission_preflight",
+                "dirty_tree_pressure",
+            )
             if drilldowns.get(key) not in (None, "", [], {})
         },
         "trimmed_for_entry_admission": True,

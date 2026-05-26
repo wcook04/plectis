@@ -7,7 +7,7 @@
   "anti_claim": "MCP tool authority replay validates a public trace-backed tool-use contract: manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback receipts, untrusted-output instruction/data separation, cold replay, negative cases, and public agent-execution trace spans. It does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
   "approved_side_effect_count": 1,
   "authority_ceiling": {
-    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_fixture",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_policy",
     "benchmark_score_claim_authorized": false,
     "credential_export_authorized": false,
     "live_mcp_account_access_authorized": false,
@@ -18,8 +18,10 @@
     "unapproved_side_effect_authorized": false,
     "untrusted_tool_output_instruction_authorized": false
   },
+  "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
+    "classification": "extension_of_existing_public_refactor",
     "source_ref": "system/lib/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "validation_refs": [
@@ -29,7 +31,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
-  "bundle_id": "mcp_tool_authority_replay_runtime_example",
+  "bundle_id": "mcp_tool_authority_public_trace_refactor",
   "call_count": 3,
   "call_rows": [
     {
@@ -125,7 +127,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-23T12:56:53+00:00",
+  "created_at": "2026-05-26T12:09:21+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -135,6 +137,7 @@
   "observed_negative_cases": {},
   "organ_id": "mcp_tool_authority_replay",
   "output_instruction_ignored_count": 1,
+  "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
   "projection_receipt_refs": [
     "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
@@ -169,7 +172,7 @@
       "source_mutation_authorized": false
     },
     "body_in_receipt": false,
-    "bundle_id": "mcp_tool_authority_replay_runtime_example",
+    "bundle_id": "mcp_tool_authority_public_trace_refactor",
     "input_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
     "protocol_id": "mcp_tool_authority_public_projection_protocol",
     "schema_version": "public_agent_execution_trace_refactor_v0",
@@ -236,7 +239,7 @@
         "result_source_capsule_ref": "source/public_docs_capsule_001",
         "rollback_receipt_ref": "none",
         "sequence_index": 0,
-        "session_id": "mcp_tool_authority_replay_runtime_example",
+        "session_id": "mcp_tool_authority_public_trace_refactor",
         "side_effect_class": "none",
         "source_ref": "mcp_tool_authority_replay_bundle",
         "span_id": "span:call_docs_lookup_001",
@@ -277,7 +280,7 @@
         "result_source_capsule_ref": "source/synthetic_ticket_capsule_001",
         "rollback_receipt_ref": "rollback/synthetic_ticket_update_001",
         "sequence_index": 1,
-        "session_id": "mcp_tool_authority_replay_runtime_example",
+        "session_id": "mcp_tool_authority_public_trace_refactor",
         "side_effect_class": "write",
         "source_ref": "mcp_tool_authority_replay_bundle",
         "span_id": "span:call_ticket_update_001",
@@ -318,7 +321,7 @@
         "result_source_capsule_ref": "source/untrusted_web_capsule_001",
         "rollback_receipt_ref": "none",
         "sequence_index": 2,
-        "session_id": "mcp_tool_authority_replay_runtime_example",
+        "session_id": "mcp_tool_authority_public_trace_refactor",
         "side_effect_class": "none",
         "source_ref": "mcp_tool_authority_replay_bundle",
         "span_id": "span:call_untrusted_web_result_001",
@@ -349,7 +352,7 @@
       },
       "session_count": 1,
       "total_span_count": 3,
-      "trace_digest": "sha256:4dfabe29c7b697b85ec8ec5dcc5fe37ea1824edfbeec62ee220880564a2a0471"
+      "trace_digest": "sha256:07a429a192ffa69808d05f5609cd55ad288756e1c155ae468a14fd69d2fa82dd"
     },
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -358,9 +361,11 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
       "microcosm_core.macro_tools.agent_execution_trace::main"
     ]
@@ -375,6 +380,7 @@
   "rollback_receipt_count": 1,
   "schema_version": "exported_mcp_tool_authority_bundle_validation_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -386,6 +392,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

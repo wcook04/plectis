@@ -76,7 +76,7 @@
       "stage_id": "validation_and_closeout"
     }
   ],
-  "created_at": "2026-05-25T00:50:25+00:00",
+  "created_at": "2026-05-26T17:57:21+00:00",
   "endpoint": "/import-projector",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
   "lens_id": "public_import_projector_contract_lens",
@@ -110,9 +110,10 @@
       "recipient_send_state",
       "credential_equivalent_payloads"
     ],
-    "legacy_schema_compat_present": false,
+    "input_payload_schema_normalized": false,
     "metadata_only_standin_authorized": false,
     "non_secret_macro_substrate_expected": true,
+    "omitted_payload_schema_terms_exported": false,
     "provider_payload_bodies_exported": false,
     "public_refs_are_drilldowns_not_replacements": true,
     "recipient_send_state_exported": false,

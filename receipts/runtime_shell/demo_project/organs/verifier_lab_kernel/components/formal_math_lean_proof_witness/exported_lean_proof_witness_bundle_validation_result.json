@@ -12,11 +12,10 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "body_redacted": true,
   "bundle_id": "formal_math_lean_proof_witness_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project :: component formal_math_lean_proof_witness",
   "compiled_declaration_count": 8,
-  "created_at": "2026-05-23T12:56:45+00:00",
+  "created_at": "2026-05-26T12:09:13+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -28,7 +27,6 @@
       "lake",
       "build"
     ],
-    "body_redacted": true,
     "cwd_name": "lake_project",
     "return_code": 0,
     "stderr_line_count": 0,
@@ -38,36 +36,35 @@
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "formal_math_lean_proof_witness",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "forbidden_output_fields": [
-      "matched_excerpt",
-      "body"
-    ],
-    "hit_count": 0,
-    "hits": [],
-    "scanned_path_count": 1,
-    "status": "pass"
-  },
   "projection_receipt_refs": [
     "receipts/first_wave/formal_math_premise_retrieval/formal_math_premise_retrieval_validation_receipt.json",
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_validation_receipt.json"
-  ],
-  "public_replacement_refs": [
-    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/lakefile.lean",
-    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness.lean",
-    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
   "receipt_id": "exported_lean_proof_witness_bundle_validation_result_v1",
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
   ],
   "schema_version": "exported_lean_proof_witness_bundle_validation_result_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "hit_count": 0,
+    "hits": [],
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 1,
+    "status": "pass"
+  },
   "source_file_count": 1,
   "source_files": [
     {
-      "body_redacted": true,
       "declarations": [
         "and_comm_public",
         "bool_and_true_public",
@@ -103,8 +100,7 @@
         "lake",
         "--version"
       ],
-      "body_redacted": true,
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -116,8 +112,7 @@
         "lean",
         "--version"
       ],
-      "body_redacted": true,
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,

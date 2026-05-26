@@ -122,6 +122,19 @@ PROOF_LAB_RECEIPT_REF = (
     "exported_verifier_lab_kernel_bundle_validation_result.json"
 )
 PROOF_LAB_FIRST_SCREEN_COMMAND = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+PROOF_LAB_FIRST_SCREEN_AUTHORITY = (
+    "first-screen proof-lab route and receipt-status card only; not proof "
+    "correctness, provider execution, source mutation, release, publication, "
+    "or credential-equivalent live-access authority"
+)
+PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
+    "proof_correctness_claim": False,
+    "provider_calls_authorized": False,
+    "source_mutation_authorized": False,
+    "release_or_publication_authorized": False,
+    "credential_equivalent_live_access_exported": False,
+    "proof_bodies_or_provider_payloads_exported": False,
+}
 VERIFIER_EXECUTION_BUNDLE_REF = (
     "examples/verifier_lab_execution_spine/"
     "exported_verifier_lab_execution_spine_bundle"
@@ -145,6 +158,12 @@ LOCAL_FIRST_SCREEN_ROUTE_REF = (
     "atlas/entry_packet.json::local_first_screen_route"
 )
 LOCAL_FIRST_SCREEN_SURFACE_ID = "microcosm_local_first_screen"
+LOCAL_FIRST_SCREEN_ROUTE_SELECTION_RULE = (
+    "Use selected_route_id from the tour --card, tour, or compile output; "
+    "readme_onboarding_route is only present when the project has a README; "
+    "empty or non-README folders can select missing_tests_route, including "
+    "missing_tests_route when tests are absent."
+)
 WORKINGNESS_MAP_REF = Path("receipts/runtime_shell/workingness_failure_map.json")
 FIRST_SCREEN_STATE_REFS = (
     "project_manifest.json",
@@ -706,6 +725,61 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     return [row for row in value if isinstance(row, dict)]
 
 
+def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
+    state_path = project_path / ref.rstrip("/")
+    return state_path.is_dir() if ref.endswith("/") else state_path.is_file()
+
+
+def _project_state_inspection_card(
+    project_path: Path,
+    *,
+    state_dir: str = project_substrate.STATE_DIR,
+    first_screen_refs: list[str] | None = None,
+    source_files_mutated: bool | None = False,
+    reader_action: str | None = None,
+) -> dict[str, Any]:
+    refs = [
+        ref
+        for ref in (first_screen_refs or [])
+        if isinstance(ref, str) and ref
+    ]
+    state_root = project_path / state_dir
+    state_file_count = (
+        sum(1 for ref in state_root.rglob("*") if ref.is_file())
+        if state_root.is_dir()
+        else 0
+    )
+    missing_refs = [
+        ref for ref in refs if not _project_state_ref_exists(project_path, ref)
+    ]
+    status = (
+        PASS
+        if state_root.is_dir() and not missing_refs
+        else "missing_state_refs"
+        if state_root.is_dir()
+        else "missing_state_dir"
+    )
+    return {
+        "status": status,
+        "state_dir": state_dir,
+        "state_dir_exists": state_root.is_dir(),
+        "state_file_count": state_file_count,
+        "state_ref_count": len(refs),
+        "inspect_command": f"find <project>/{state_dir} -maxdepth 2 -type f | sort",
+        "route_state_json_check_command": (
+            f"python3 -m json.tool <project>/{state_dir}/routes.json"
+        ),
+        "first_screen_refs": refs,
+        "missing_first_screen_refs": missing_refs,
+        "source_files_mutated": source_files_mutated is True,
+        "reader_action": reader_action
+        or (
+            "Inspect the project-local .microcosm files named here before "
+            "opening doctrine or receipt drilldowns."
+        ),
+    }
+
+
 def _compact_observatory_payload(
     payload: dict[str, Any],
     *,
@@ -839,6 +913,10 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
         "readiness_checks": python_lens.get("readiness_checks", []),
         "route_rows": python_lens.get("route_rows", []),
         "ready_route_count": python_lens.get("ready_route_count", 0),
+        "navigation_assay": python_lens.get("navigation_assay", {}),
+        "implementation_atlas": python_lens.get("implementation_atlas", {}),
+        "route_utility_curriculum": python_lens.get("route_utility_curriculum", {}),
+        "python_navigation_route": python_lens.get("python_navigation_route", {}),
         "evidence_ref": python_lens.get("evidence_ref"),
         "state_file_ref": python_lens.get("state_file_ref"),
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -866,6 +944,10 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
                 "payload_boundary",
                 "safe_to_show",
                 "route_rows",
+                "navigation_assay",
+                "implementation_atlas",
+                "route_utility_curriculum",
+                "python_navigation_route",
             ],
         },
     }
@@ -913,6 +995,14 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         if isinstance(model.get("graph_summary"), dict)
         else {}
     )
+    state_inspection = (
+        model.get("state_inspection", {})
+        if isinstance(model.get("state_inspection"), dict)
+        else {}
+    )
+    state_inspection_status = (
+        state_inspection.get("status") if state_inspection else PASS
+    )
     runtime_bridge = (
         model.get("runtime_bridge", {})
         if isinstance(model.get("runtime_bridge"), dict)
@@ -950,6 +1040,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         PASS
         if model.get("status") == PASS
         and first_screen_route_proof.get("status") == PASS
+        and state_inspection_status == PASS
         and not blocking_surface_ids
         else "blocked"
     )
@@ -969,6 +1060,29 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
     latest_source_refs = source_open_body_import_floor.get("latest_source_refs", [])
     if not isinstance(latest_source_refs, list):
         latest_source_refs = []
+    work_evidence_refs = work.get("evidence_refs", [])
+    if not isinstance(work_evidence_refs, list):
+        work_evidence_refs = []
+    route_status = (
+        PASS
+        if isinstance(selected_route_id, str)
+        and route.get("route_id") == selected_route_id
+        else "blocked"
+    )
+    work_status = (
+        PASS
+        if isinstance(work.get("work_id"), str)
+        and work.get("status") in {"closed", PASS}
+        and work.get("source_files_mutated") is not True
+        else "blocked"
+    )
+    evidence_status = PASS if evidence or work_evidence_refs else "missing"
+    graph_status = (
+        PASS
+        if isinstance(graph_summary.get("graph_ref"), str)
+        and graph_summary.get("graph_ref")
+        else "missing"
+    )
     return {
         "schema_version": "microcosm_project_observatory_card_v1",
         "status": status,
@@ -978,6 +1092,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         "html_endpoint": "/",
         "full_observatory_endpoint": "/project/observatory",
         "status_endpoint": "/status",
+        "status_card_endpoint": "/project/status",
         "tour_endpoint": "/tour",
         "workingness_endpoint": "/workingness",
         "proof_lab_endpoint": "/proof-lab",
@@ -991,6 +1106,34 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             if isinstance(model.get("local_first_screen_route"), dict)
             else _local_first_screen_route_ref()
         ),
+        "surface_statuses": {
+            "first_screen": status,
+            "route": route_status,
+            "work": work_status,
+            "evidence": evidence_status,
+            "graph": graph_status,
+            "state_inspection": state_inspection_status,
+            "proof_lab": proof_surface.get("status"),
+            "source_open_body_import_floor": source_open_body_import_floor.get(
+                "status"
+            ),
+            "observatory": status,
+        },
+        "surface_status_refs": {
+            "status": "/status",
+            "status_card": "/project/status",
+            "route": (
+                f".microcosm/routes.json::{selected_route_id}"
+                if isinstance(selected_route_id, str) and selected_route_id
+                else ".microcosm/routes.json"
+            ),
+            "work": ".microcosm/work_items.json",
+            "evidence": ".microcosm/evidence/",
+            "graph": graph_summary.get("graph_ref") or ".microcosm/graph.json",
+            "state_inspection": ".microcosm/",
+            "proof_lab": "/proof-lab",
+            "observatory": "/project/observatory",
+        },
         "reader_sequence": [
             {
                 "step_id": "open_browser_observatory",
@@ -998,9 +1141,20 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                 "shows": "human-readable causal chain before raw JSON",
             },
             {
+                "step_id": "read_project_status_card",
+                "endpoint": "/project/status",
+                "shows": "same compressed status-card lens as microcosm status --card <project>",
+            },
+            {
+                "step_id": "inspect_project_state",
+                "command": state_inspection.get("inspect_command")
+                or "find <project>/.microcosm -maxdepth 2 -type f | sort",
+                "shows": "project-local .microcosm route, work, event, evidence, graph, and lens files",
+            },
+            {
                 "step_id": "read_observatory_card",
                 "endpoint": "/project/observatory-card",
-                "shows": "compact route, work, evidence, graph, proof, and status lens",
+                "shows": "compact state, route, work, evidence, graph, proof, and status lens",
             },
             {
                 "step_id": "drill_full_model",
@@ -1029,7 +1183,10 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "state_ref": project_summary.get("state_ref"),
             "local_state_refs": local_state_refs,
             "graph_ref": graph_summary.get("graph_ref") or ".microcosm/graph.json",
+            "state_inspection_status": state_inspection_status,
+            "state_file_count": state_inspection.get("state_file_count"),
         },
+        "state_inspection": state_inspection,
         "causal_chain_summary": {
             "route": {
                 "route_id": route.get("route_id"),
@@ -1237,6 +1394,45 @@ def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     return normalized
 
 
+def _projection_intake_board_status(
+    projection_preview: dict[str, Any],
+    projection_board: dict[str, Any],
+) -> str:
+    if projection_preview.get("status") == PASS:
+        return PASS
+    if not isinstance(projection_board, dict):
+        return "blocked"
+    cells = _rows(projection_board, "projection_cells")
+    if not cells:
+        return "blocked"
+    protocol = projection_board.get("projection_status_protocol", {})
+    closed_statuses = (
+        set(protocol.get("closed_statuses", []))
+        if isinstance(protocol, dict)
+        and isinstance(protocol.get("closed_statuses"), list)
+        else set()
+    )
+    if not closed_statuses:
+        closed_statuses = {
+            "public_runtime_import_landed",
+            "runtime_bridge_landed",
+            "self_hosted_status_protocol_landed",
+        }
+    open_count = projection_board.get("open_actionable_cell_count")
+    if isinstance(open_count, int) and open_count > 0:
+        return "blocked"
+    for cell in cells:
+        projection_status = _normalize_runtime_projection_status(
+            cell.get("projection_status")
+        )
+        if (
+            cell.get("action_required") is True
+            or projection_status not in closed_statuses
+        ):
+            return "blocked"
+    return PASS
+
+
 def _normalize_runtime_boundary_label(value: Any) -> Any:
     replacements = {
         PRIVATE_STATE_SCAN_POSTURE_INPUT: "secret_exclusion_posture",
@@ -1268,6 +1464,13 @@ def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
         "created_at": payload.get("created_at"),
         "body_in_receipt": False,
         "evidence_contract": _receipt_evidence_contract(payload),
+    }
+
+
+def proof_lab_first_screen_boundary() -> dict[str, Any]:
+    return {
+        "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
+        "anti_claims": dict(PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS),
     }
 
 
@@ -1361,6 +1564,7 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
             "route_metadata_visible": True,
             "receipt_refs_visible": True,
         },
+        **proof_lab_first_screen_boundary(),
         "authority_ceiling": {
             "formal_proof_authority": authority_ceiling.get(
                 "formal_proof_authority"
@@ -1429,18 +1633,15 @@ def _cold_reader_first_screen_card(
         "local_first_screen_route": _local_first_screen_route_ref(),
         "intent": "bring_folder_run_local_path_inspect_state_then_drill_receipts",
         "project_ref": project_ref,
-        "primary_command": "microcosm tour <project>",
+        "primary_command": "microcosm tour --card <project>",
         "selected_route_id": selected_route_id or None,
         "available_project_route_ids": available_route_ids,
         "route_explanation_command": route_explanation_command,
-        "route_selection_rule": (
-            "Use selected_route_id from the tour or compile output; "
-            "readme_onboarding_route is only present when the project has a README."
-        ),
+        "route_selection_rule": LOCAL_FIRST_SCREEN_ROUTE_SELECTION_RULE,
         "route_explanation": {
             "command": route_explanation_command,
             "endpoint": f"/project/explain/{explain_route_id}",
-            "route_id_source": "microcosm tour/compile selected_route_id",
+            "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
             "route_state_ref": (
                 f"{project_substrate.STATE_DIR}/routes.json::{explain_route_id}"
             ),
@@ -1452,23 +1653,19 @@ def _cold_reader_first_screen_card(
                 f"{project_substrate.STATE_DIR}/evidence/"
                 f"explain_{explain_route_id}.json"
             ),
-            "selection_rule": (
-                "Use selected_route_id from the tour or compile output; "
-                "readme_onboarding_route is only present when the project has a README."
-            ),
+            "selection_rule": LOCAL_FIRST_SCREEN_ROUTE_SELECTION_RULE,
         },
         "minimal_command_path": [
             {
                 "step_id": "inspect_first_screen",
-                "command": "microcosm tour <project>",
+                "command": "microcosm tour --card <project>",
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "repo -> .microcosm",
-                    "this first-screen card",
-                    "route cards",
+                    "compact first-screen card",
+                    "selected route id",
+                    "state/status/proof/observatory refs",
                     "authority ceiling",
-                    "proof-lab route",
-                    "evidence refs as drilldowns",
                 ],
                 "status": compile_status,
             },
@@ -1485,6 +1682,7 @@ def _cold_reader_first_screen_card(
                     "not a score, maturity board, release gate, or proof authority",
                 ],
                 "status_card_command": "microcosm status --card <project>",
+                "status_card_endpoint": "/project/status",
                 "workingness_command": "microcosm workingness",
                 "workingness_endpoint": "/workingness",
             },
@@ -1532,7 +1730,7 @@ def _cold_reader_first_screen_card(
                 "command": route_explanation_command,
                 "selected_route_id": selected_route_id or None,
                 "available_project_route_ids": available_route_ids,
-                "route_id_source": "microcosm tour/compile selected_route_id",
+                "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
                 "state_refs": [
                     f"{project_substrate.STATE_DIR}/routes.json",
                     f"{project_substrate.STATE_DIR}/work_items.json",
@@ -2534,12 +2732,12 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
         "route_selection_proof": route_selection_proof,
         "route_selection_rule": (
             "derived from compiled .microcosm/routes.json; run microcosm "
-            "tour <project> or microcosm compile <project> first if empty"
+            "tour --card <project> or microcosm compile <project> first if empty"
         ),
         "reader_action": (
             "Use selected_route_id here for explain/observatory drilldowns."
             if selected_route_id
-            else "Run microcosm tour <project> before expecting project route fields."
+            else "Run microcosm tour --card <project> before expecting project route fields."
         ),
         "source_files_mutated": False,
     }
@@ -2800,6 +2998,12 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
         "proof_lab",
         (card.get("proof_lab") or {}).get("status")
         if isinstance(card.get("proof_lab"), dict)
+        else None,
+    )
+    add_surface(
+        "observatory",
+        (front_door.get("observatory") or {}).get("status")
+        if isinstance(front_door.get("observatory"), dict)
         else None,
     )
     add_surface(
@@ -3223,12 +3427,15 @@ def _runtime_status_card(
             ),
         },
         "safe_to_show": {
-            "front_door_safe_to_show_ref": "microcosm tour <project>::safe_to_show",
+            "front_door_safe_to_show_ref": (
+                "microcosm tour --card <project>::safe_to_show"
+            ),
             "proof_lab_safe_to_show_ref": "microcosm proof-lab::safe_to_show",
             "receipts_are_drilldown_evidence": True,
             "credential_equivalent_live_access_excluded": True,
         },
         "next_commands": [
+            "microcosm tour --card <project>",
             "microcosm tour <project>",
             "microcosm compile <project>",
             "microcosm python-lens <project>",
@@ -3304,6 +3511,60 @@ def _runtime_status_card(
         card.pop("safe_to_show", None)
         card["front_door"].pop("warning_rule", None)
         card["front_door"].pop("route_selection_rule", None)
+    proof_lab_ref = (
+        card.get("proof_lab", {})
+        if isinstance(card.get("proof_lab"), dict)
+        else {}
+    )
+    card["front_door"]["proof_lab"] = {
+        "schema_version": "microcosm_status_card_proof_lab_ref_v1",
+        "status": proof_lab_ref.get("status"),
+        "endpoint": proof_lab_ref.get("endpoint") or "/proof-lab",
+        "route_id": proof_lab_ref.get("route_id"),
+        "receipt_ref": proof_lab_ref.get("receipt_ref"),
+        "route_component_count": proof_lab_ref.get("route_component_count"),
+        "proof_bodies_exported": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
+    }
+    route_selection_proof = (
+        card["front_door"].get("route_selection_proof", {})
+        if isinstance(card["front_door"].get("route_selection_proof"), dict)
+        else {}
+    )
+    command = card["front_door"].get("observatory_command")
+    raw_selected_route_id = card["front_door"].get("selected_route_id")
+    selected_route_id = raw_selected_route_id or "<selected_route_id>"
+    route_proof_status = route_selection_proof.get("status")
+    observatory_status = (
+        PASS
+        if command and route_proof_status == PASS
+        else "actionable"
+        if command and not raw_selected_route_id
+        else "missing_route_proof"
+        if command
+        else "missing_command"
+    )
+    card["front_door"]["observatory"] = {
+        "schema_version": "microcosm_status_card_observatory_ref_v1",
+        "status": observatory_status,
+        "command": command,
+        "endpoint": "/project/observatory",
+        "compact_endpoint": "/project/observatory-card",
+        "status_card_endpoint": "/project/status",
+        "project_observe_endpoint": "/project/observe",
+        "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
+        "first_screen_route_proof_ref": route_selection_proof.get(
+            "observatory_route_proof_ref"
+        ),
+        "status_card_ref": "microcosm status --card <project>",
+        "related_endpoint_count": 9,
+        "model_field_count": 13,
+        "source_files_mutated": False,
+        "provider_calls_authorized": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
+    }
     boundary_hits = omitted_payload_schema_term_hits(card)
     boundary_hit_count = sum(boundary_hits.values())
     boundary_status = PASS if boundary_hit_count == 0 else "blocked"
@@ -4193,6 +4454,7 @@ class RuntimeShell:
                     "microcosm work run <project>",
                     "microcosm observe <project>",
                     "microcosm evidence list <project>",
+                    "microcosm tour --card <project>",
                     "microcosm tour <project>",
                     "microcosm status",
                     "microcosm status --card",
@@ -4403,6 +4665,7 @@ class RuntimeShell:
                 "run microcosm init <project>",
                 "run microcosm compile <project>",
                 "run microcosm python-lens <project>",
+                "run microcosm tour --card <project>",
                 "run microcosm tour <project>",
                 "run microcosm status --card",
                 "run microcosm explain <project> <route_id>",
@@ -4485,14 +4748,14 @@ class RuntimeShell:
             "macro_body_import_floor": body_import_floor,
             "first_run_path": [
                 {
-                    "step_id": "run_ten_minute_tour",
-                    "command": "microcosm tour <project>",
+                    "step_id": "run_compact_tour_card",
+                    "command": "microcosm tour --card <project>",
                     "shows": [
-                        "one source-open path from repo -> .microcosm",
+                        "compact source-open path from repo -> .microcosm",
                         "compile summary",
-                        "runtime surfaces and endpoints",
+                        "state/status/proof/observatory refs",
                         "authority ceilings",
-                        "evidence refs after the causal path is visible",
+                        "full tour remains an evidence drilldown",
                     ],
                 },
                 {
@@ -4521,7 +4784,9 @@ class RuntimeShell:
                 {
                     "step_id": "inspect_route",
                     "command": "microcosm explain <project> <selected_route_id>",
-                    "route_id_source": "microcosm tour/compile selected_route_id",
+                    "route_id_source": (
+                        "microcosm tour --card/tour/compile selected_route_id"
+                    ),
                     "shows": [
                         "grounded_refs",
                         "resolved pattern bindings",
@@ -5523,6 +5788,7 @@ class RuntimeShell:
             },
         }
         commands = [
+            "microcosm tour --card <project>",
             "microcosm tour <project>",
             "microcosm compile <project>",
             "microcosm python-lens <project>",
@@ -5622,7 +5888,9 @@ class RuntimeShell:
                 ),
                 "status_card_command": "microcosm status --card",
                 "project_status_card_command": "microcosm status --card <project>",
+                "status_card_endpoint": "/project/status",
                 "workingness_command": "microcosm workingness",
+                "workingness_endpoint": "/workingness",
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
                 "workingness_summary": workingness_summary,
                 "source_open_body_import_floor": source_open_body_import_floor,
@@ -6193,6 +6461,21 @@ class RuntimeShell:
             if isinstance(first_screen.get("minimal_command_path"), list)
             else []
         )
+        generated_state = (
+            first_screen.get("generated_state")
+            if isinstance(first_screen.get("generated_state"), dict)
+            else {}
+        )
+        behavior_surfaces = (
+            first_screen.get("behavior_surfaces")
+            if isinstance(first_screen.get("behavior_surfaces"), dict)
+            else {}
+        )
+        route_explanation = (
+            first_screen.get("route_explanation")
+            if isinstance(first_screen.get("route_explanation"), dict)
+            else {}
+        )
         surface_statuses = {
             "compile": compiled.get("status"),
             "first_screen": first_screen.get("status"),
@@ -6206,6 +6489,54 @@ class RuntimeShell:
             if status != PASS
         ]
         body_floor_summary = _tour_body_import_floor_summary(body_import_floor)
+        state_dir = generated_state.get("state_dir") or project_substrate.STATE_DIR
+        generated_refs = generated_state.get("refs")
+        if not isinstance(generated_refs, list):
+            generated_refs = []
+        state_refs_card = {
+            "state_dir": state_dir,
+            "refs": generated_refs,
+            "route_state_ref": behavior_surfaces.get("route_state_ref"),
+            "work_state_ref": behavior_surfaces.get("work_state_ref"),
+            "event_log_ref": behavior_surfaces.get("event_log_ref"),
+            "evidence_dir_ref": behavior_surfaces.get("evidence_dir_ref"),
+            "graph_ref": behavior_surfaces.get("graph_ref")
+            or generated_state.get("graph_ref"),
+            "python_lens_ref": generated_state.get("python_lens_ref"),
+            "source_files_mutated": generated_state.get("source_files_mutated"),
+        }
+        state_root = project_path / str(state_dir)
+        state_file_count = 0
+        if state_root.is_dir():
+            state_file_count = sum(1 for ref in state_root.rglob("*") if ref.is_file())
+        state_inspection_refs = [
+            state_refs_card.get("route_state_ref"),
+            state_refs_card.get("work_state_ref"),
+            state_refs_card.get("event_log_ref"),
+            state_refs_card.get("evidence_dir_ref"),
+            state_refs_card.get("graph_ref"),
+            state_refs_card.get("python_lens_ref"),
+        ]
+        state_inspection_refs = [
+            ref for ref in state_inspection_refs if isinstance(ref, str) and ref
+        ]
+        state_inspection = {
+            "status": PASS if state_root.is_dir() else "missing_state_dir",
+            "state_dir": state_dir,
+            "state_dir_exists": state_root.is_dir(),
+            "state_file_count": state_file_count,
+            "state_ref_count": len(generated_refs),
+            "inspect_command": f"find <project>/{state_dir} -maxdepth 2 -type f | sort",
+            "route_state_json_check_command": (
+                f"python3 -m json.tool <project>/{state_dir}/routes.json"
+            ),
+            "first_screen_refs": state_inspection_refs,
+            "source_files_mutated": generated_state.get("source_files_mutated"),
+            "reader_action": (
+                "After tour --card, inspect the project-local .microcosm files "
+                "named here before opening doctrine or receipt drilldowns."
+            ),
+        }
         return {
             "schema_version": "microcosm_tour_command_speed_card_v1",
             "status": PASS if not blocking_surface_ids else "blocked",
@@ -6248,6 +6579,21 @@ class RuntimeShell:
                 if isinstance(first_screen.get("proof_surface"), dict)
                 else None,
             },
+            "state_refs": state_refs_card,
+            "state_inspection": state_inspection,
+            "status_card": {
+                "command": "microcosm status --card <project>",
+                "endpoint": "/project/status",
+                "workingness_command": "microcosm workingness --card",
+                "workingness_endpoint": "/workingness",
+            },
+            "observatory": {
+                "command": behavior_surfaces.get("observatory_command"),
+                "status_card_endpoint": "/project/status",
+                "compact_endpoint": "/project/observatory-card",
+                "expanded_endpoint": "/project/observatory",
+                "route_explanation_endpoint": route_explanation.get("endpoint"),
+            },
             "compile_summary": {
                 "headline": compiled.get("headline"),
                 "selected_route_id": compiled.get("selected_route_id"),
@@ -6288,14 +6634,18 @@ class RuntimeShell:
                 "full_command_path_exported": False,
                 "full_endpoint_path_exported": False,
                 "evidence_refs_exported": False,
+                "state_refs_exported": True,
+                "observatory_refs_exported": True,
                 "receipt_persisted": False,
                 "project_compile_state_written": True,
                 "compact_route_for_first_screen": True,
+                "state_inspection_exported": True,
             },
             "next_commands": [
                 "microcosm status --card <project>",
                 "microcosm workingness --card",
-                "microcosm proof-lab",
+                "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+                "microcosm serve <project> --host 127.0.0.1 --port 8765",
                 "microcosm tour <project>",
             ],
             "safe_to_show": {
@@ -6311,7 +6661,8 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "reader_action": (
-                "Use this card for first-screen route selection; run "
+                "Use this card for first-screen route selection and inspect "
+                "state_inspection before doctrine or receipt drilldowns; run "
                 "microcosm tour <project> only when full route cards, endpoint "
                 "paths, and evidence refs are needed."
             ),
@@ -15196,9 +15547,13 @@ class RuntimeShell:
         payload = {
             "schema_version": "microcosm_runtime_reveal_import_bridge_v1",
             "created_at": utc_now(),
-            "status": PASS
-            if projection_preview.get("status") == PASS and reveal_result.get("status") == PASS
-            else "blocked",
+            "status": (
+                PASS
+                if _projection_intake_board_status(projection_preview, projection_board)
+                == PASS
+                and reveal_result.get("status") == PASS
+                else "blocked"
+            ),
             "bridge_id": "runtime_reveal_import_bridge",
             "public_claim": (
                 "Microcosm turns macro-pattern intake into a runnable source-open path: "
@@ -15352,7 +15707,10 @@ class RuntimeShell:
         return {
             "schema_version": "microcosm_runtime_reveal_import_bridge_card_v1",
             "created_at": utc_now(),
-            "status": PASS if projection_preview.get("status") == PASS else "blocked",
+            "status": _projection_intake_board_status(
+                projection_preview,
+                projection_board,
+            ),
             "card_id": "runtime_reveal_import_bridge",
             "bridge_id": "runtime_reveal_import_bridge",
             "command": "microcosm intake --card",
@@ -15812,6 +16170,7 @@ class RuntimeShell:
                 "causality that the JSON commands expose."
             ),
             "commands": [
+                "microcosm tour --card <project>",
                 "microcosm tour <project>",
                 "microcosm spine",
                 "microcosm authority",
@@ -16179,6 +16538,25 @@ class RuntimeShell:
             for row in event_rows
             if row.get("span") in {"project.route", "project.explain", "work.create", "work.run"}
         ][-8:]
+        local_state_refs = [
+            ".microcosm/catalog.json",
+            ".microcosm/python_lens.json",
+            ".microcosm/patterns.json",
+            ".microcosm/routes.json",
+            ".microcosm/work_items.json",
+            ".microcosm/events.jsonl",
+            ".microcosm/evidence/",
+            ".microcosm/graph.json",
+        ]
+        state_inspection = _project_state_inspection_card(
+            project_path,
+            first_screen_refs=local_state_refs,
+            source_files_mutated=False,
+            reader_action=(
+                "Inspect these project-local .microcosm files from the "
+                "observatory card before opening doctrine or receipt drilldowns."
+            ),
+        )
         model.update(
             {
                 "project_summary": {
@@ -16186,20 +16564,13 @@ class RuntimeShell:
                     "project_ref": ".",
                     "status": PASS,
                     "state_ref": project_substrate.STATE_DIR,
-                    "local_state_refs": [
-                        ".microcosm/catalog.json",
-                        ".microcosm/python_lens.json",
-                        ".microcosm/patterns.json",
-                        ".microcosm/routes.json",
-                        ".microcosm/work_items.json",
-                        ".microcosm/events.jsonl",
-                        ".microcosm/evidence/",
-                    ],
+                    "local_state_refs": local_state_refs,
                     "release_authorized": False,
                     "provider_calls_authorized": False,
                     "source_mutation_authorized": False,
                 },
                 "selected_route_id": route_id,
+                "state_inspection": state_inspection,
                 "first_screen_route_proof": {
                     "schema_version": "microcosm_observatory_first_screen_route_proof_v1",
                     "status": PASS
@@ -16207,7 +16578,7 @@ class RuntimeShell:
                     and route_proof_ids_match
                     and front_door_status.get("blocking_surface_ids") == []
                     else "blocked",
-                    "command": "microcosm tour <project>",
+                    "command": "microcosm tour --card <project>",
                     "selected_route_id": route_id or None,
                     "tour_selected_route_id": tour.get("selected_route_id"),
                     "first_screen_selected_route_id": tour_first_screen.get(
@@ -16217,6 +16588,7 @@ class RuntimeShell:
                         "selected_route_id"
                     ),
                     "route_id_source": (
+                        "microcosm tour --card <project>::selected_route_id or "
                         "microcosm tour <project>::selected_route_id or "
                         "microcosm tour <project>::first_screen.selected_route_id "
                         "or microcosm compile <project>::selected_route_id"
@@ -16385,6 +16757,8 @@ class RuntimeShell:
                     "intake": "/intake",
                     "reveal": "/reveal",
                     "kernel": "/kernel",
+                    "status_card": "/project/status",
+                    "project_observe": "/project/observe",
                     "observatory_card": "/project/observatory-card",
                     "python_lens": "/project/python-lens",
                     "graph": "/project/graph",
@@ -16450,6 +16824,13 @@ class RuntimeShell:
         observatory_card = (
             model.get("observatory_card", {})
             if isinstance(model.get("observatory_card"), dict)
+            else {}
+        )
+        state_inspection = (
+            observatory_card.get("state_inspection", {})
+            if isinstance(observatory_card.get("state_inspection"), dict)
+            else model.get("state_inspection", {})
+            if isinstance(model.get("state_inspection"), dict)
             else {}
         )
         source_open_body_import_floor = (
@@ -17281,6 +17662,7 @@ class RuntimeShell:
           <div class="node"><strong>Route</strong><span>{html.escape(route_id)}</span></div>
           <div class="node"><strong>Route Proof</strong><span>{html.escape(_safe_text(first_screen_route_proof.get("status")))} · <code>/project/explain/{html.escape(route_id)}</code></span></div>
           <div class="node"><strong>Observatory Card</strong><span><code>/project/observatory-card</code> · {html.escape(_safe_text(observatory_card.get("status")))}</span></div>
+          <div class="node"><strong>State Inspection</strong><span>{html.escape(_safe_text(state_inspection.get("status")))} · {html.escape(_safe_text(state_inspection.get("state_file_count")))} files · <code>{html.escape(_safe_text(state_inspection.get("state_dir") or project_substrate.STATE_DIR))}/</code></span></div>
           <div class="node"><strong>Work</strong><span>{html.escape(_safe_text(work.get("work_id") or "not yet created"))}</span></div>
           <div class="node"><strong>Events</strong><span>{len(events)} shown</span></div>
           <div class="node"><strong>Evidence</strong><span>{len(evidence)} refs</span></div>
@@ -17298,7 +17680,7 @@ class RuntimeShell:
           <div class="node"><strong>Drift Control</strong><span><code>/drift-control</code> · {html.escape(_safe_text(len(projection_drift_rows)))} rows</span></div>
           <div class="node"><strong>Route Cleanup</strong><span><code>/route-cleanup</code> · {html.escape(_safe_text(len(route_cleanup_rows)))} rows</span></div>
           <div class="node"><strong>Import Map</strong><span><code>/projection-import-map</code> · {html.escape(_safe_text(len(projection_import_rows)))} rows</span></div>
-          <div class="node"><strong>Source-Open Body Floor</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))} public-safe materials · <code>/status</code></span></div>
+          <div class="node"><strong>Source-Open Body Floor</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))} public-safe materials · <code>/project/status</code></span></div>
           <div class="node"><strong>Stripping Guard</strong><span><code>/stripping-guard</code> · {html.escape(_safe_text(len(stripping_guard_rows)))} guards</span></div>
           <div class="node"><strong>Standards Control</strong><span><code>/standards-control</code> · {html.escape(_safe_text(len(standards_control_rows)))} rows</span></div>
           <div class="node"><strong>Hook Coverage</strong><span><code>/hook-coverage</code> · {html.escape(_safe_text(len(hook_interventions)))} interventions</span></div>
@@ -17313,6 +17695,9 @@ class RuntimeShell:
           {row("Route proof ids match", first_screen_route_proof.get("route_proof_ids_match"))}
           {row("Route proof endpoint", first_screen_route_proof.get("route_explanation_endpoint"))}
           {row("Observatory card", observatory_card.get("endpoint") or "/project/observatory-card")}
+          {row("State inspection", state_inspection.get("status"))}
+          {row("State inspect command", state_inspection.get("inspect_command"))}
+          {row("Route state JSON check", state_inspection.get("route_state_json_check_command"))}
           {row("Python lens", project_python_lens.get("lens_id") or "project_python_route_lens")}
           {row("Python ready routes", project_python_lens.get("ready_route_count"))}
           {row("Authority", route.get("authority") or causal.get("authority_boundary"))}
@@ -17345,10 +17730,35 @@ class RuntimeShell:
     </section>
 
     <section class="wide">
+      <h2>State Inspection</h2>
+      <div class="content">
+        <div class="chain">
+          <div class="node"><strong>Command</strong><span><code>{html.escape(_safe_text(state_inspection.get("inspect_command")))}</code></span></div>
+          <div class="node"><strong>State Dir</strong><span><code>{html.escape(_safe_text(state_inspection.get("state_dir") or project_substrate.STATE_DIR))}/</code></span></div>
+          <div class="node"><strong>State Files</strong><span>{html.escape(_safe_text(state_inspection.get("state_file_count")))}</span></div>
+          <div class="node"><strong>Missing Refs</strong><span>{html.escape(list_text(state_inspection.get("missing_first_screen_refs")))}</span></div>
+        </div>
+        <table>
+          {row("Status", state_inspection.get("status"))}
+          {row("State dir", state_inspection.get("state_dir"))}
+          {row("State dir exists", state_inspection.get("state_dir_exists"))}
+          {row("State files", state_inspection.get("state_file_count"))}
+          {row("First-screen refs", list_text(state_inspection.get("first_screen_refs")))}
+          {row("Missing first-screen refs", list_text(state_inspection.get("missing_first_screen_refs")))}
+          {row("Inspect command", state_inspection.get("inspect_command"))}
+          {row("Route JSON check", state_inspection.get("route_state_json_check_command"))}
+          {row("Source files mutated", state_inspection.get("source_files_mutated"))}
+        </table>
+        <p class="ceiling">State inspection is local project state only. It shows generated `.microcosm` refs and file counts before doctrine or receipt drilldowns; it does not read private roots, call providers, mutate source, or authorize release.</p>
+      </div>
+    </section>
+
+    <section class="wide">
       <h2>Source-Open Body Import Floor</h2>
       <div class="content">
         <div class="chain">
           <div class="node"><strong>Command</strong><span><code>microcosm status --card &lt;project&gt;</code></span></div>
+          <div class="node"><strong>Endpoint</strong><span><code>/project/status</code></span></div>
           <div class="node"><strong>Public-Safe Body Materials</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("public_safe_body_material_count")))}</span></div>
           <div class="node"><strong>Verified Families</strong><span>{html.escape(_safe_text(source_open_body_import_floor.get("verified_source_module_family_count")))}</span></div>
           <div class="node"><strong>Body Text</strong><span>status={html.escape(_safe_text(source_open_body_import_floor.get("body_text_exported_in_status")))} · receipts={html.escape(_safe_text(source_open_body_import_floor.get("body_text_exported_in_receipts")))}</span></div>
@@ -18154,7 +18564,12 @@ class RuntimeShell:
                 elif path == "/":
                     self._send_html(200, cached_observatory_html())
                 elif path == "/status":
-                    self._send(200, shell.status())
+                    payload = shell.status()
+                    if project_path is not None:
+                        payload["project_front_door_status"] = (
+                            _project_status_overlay(project_path)
+                        )
+                    self._send(200, payload)
                 elif path == "/spine":
                     self._send(200, shell.spine())
                 elif path == "/spine-card":
@@ -18232,6 +18647,8 @@ class RuntimeShell:
                         },
                     )
                 elif path == "/project/status" and project_path is not None:
+                    self._send(200, shell.status_card(project_path))
+                elif path == "/project/observe" and project_path is not None:
                     self._send(200, project_substrate.observe_project(project_path))
                 elif path == "/project/architecture" and project_path is not None:
                     self._send(200, project_substrate.architecture_project(project_path))

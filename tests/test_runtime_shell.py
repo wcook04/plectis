@@ -284,7 +284,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["front_door"]["schema_version"] == (
         "microcosm_cold_reader_first_screen_v1"
     )
-    assert status["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert status["front_door"]["primary_command"] == "microcosm tour --card <project>"
     assert status["front_door"]["local_first_screen_route"] == {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
@@ -317,6 +317,21 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert status["first_screen_proof_lab"]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert status["first_screen_proof_lab"]["route_component_count"] == 9
     assert status["first_screen_proof_lab"]["lean_lake_return_code"] == 0
+    assert "first-screen proof-lab route" in status["first_screen_proof_lab"][
+        "authority"
+    ]
+    assert (
+        status["first_screen_proof_lab"]["anti_claims"][
+            "proof_correctness_claim"
+        ]
+        is False
+    )
+    assert (
+        status["first_screen_proof_lab"]["anti_claims"][
+            "provider_calls_authorized"
+        ]
+        is False
+    )
     assert (
         status["first_screen_proof_lab"]["component_metrics"][
             "retrieval_mean_public_recall"
@@ -329,6 +344,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert "microcosm route <project>" in status["runtime_surface"]["commands"]
     assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
     assert "microcosm evidence list <project>" in status["runtime_surface"]["commands"]
+    assert "microcosm tour --card <project>" in status["runtime_surface"]["commands"]
     assert "microcosm tour <project>" in status["runtime_surface"]["commands"]
     assert "microcosm status --card" in status["runtime_surface"]["commands"]
     assert "microcosm spine" in status["runtime_surface"]["commands"]
@@ -511,7 +527,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["status"] == "pass"
     assert card["card_command"] == "microcosm status --card"
     assert card["full_status_command"] == "microcosm status"
-    assert card["front_door"]["primary_command"] == "microcosm tour <project>"
+    assert card["front_door"]["primary_command"] == "microcosm tour --card <project>"
     assert card["front_door"]["local_first_screen_route"] == {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
@@ -533,7 +549,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     )
     assert front_door_status["status"] == "pass"
     assert front_door_status["blocking_surface_ids"] == []
-    assert front_door_status["actionable_surface_ids"] == []
+    assert front_door_status["actionable_surface_ids"] == ["observatory"]
     assert front_door_status["accepted_nonblocking_statuses"] == [
         "pass",
         "clear",
@@ -550,6 +566,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         front_door_status["surface_statuses"]["workingness_failure_envelope"]
         == "clear"
     )
+    assert front_door_status["surface_statuses"]["observatory"] == "actionable"
     assert front_door_status["drilldown_warning_surface_ids"] == [
         "authority",
         "intake",
@@ -779,7 +796,7 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
             "posture": "executable_research_prototype",
             "front_door": {
                 "status": "pass",
-                "primary_command": "microcosm tour <project>",
+                "primary_command": "microcosm tour --card <project>",
                 "generated_state": {"state_dir": ".microcosm"},
                 "behavior_surfaces": {
                     "route_state_ref": ".microcosm/routes.json",
@@ -787,6 +804,9 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                     "event_log_ref": ".microcosm/events.jsonl",
                     "evidence_dir_ref": ".microcosm/evidence/",
                     "graph_ref": ".microcosm/graph.json",
+                    "observatory_command": (
+                        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+                    ),
                 },
                 "authority_ceiling": {
                     "release_authorized": False,
@@ -1153,7 +1173,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             ),
             "evidence_class": "fixture_echo_smoke",
             "claim_ceiling": (
-                "smoke/projection demo only, not behavioral or safety validation"
+                "smoke/projection demo only, not behavioral validation, not safety "
+                "validation, not benchmark scores, and not product progress evidence"
             ),
         },
         {
@@ -1171,7 +1192,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             ),
             "evidence_class": "fixture_echo_smoke",
             "claim_ceiling": (
-                "smoke/projection demo only, not behavioral or safety validation"
+                "smoke/projection demo only, not behavioral validation, not safety "
+                "validation, not benchmark scores, and not product progress evidence"
             ),
         },
         {
@@ -1190,7 +1212,8 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
             ),
             "evidence_class": "fixture_echo_smoke",
             "claim_ceiling": (
-                "smoke/projection demo only, not behavioral or safety validation"
+                "smoke/projection demo only, not behavioral validation, not safety "
+                "validation, not benchmark scores, and not product progress evidence"
             ),
         }
     ]
@@ -1198,7 +1221,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert spine["evidence_policy"]["accepted_status_is_not_evidence_strength"] is True
     assert spine["evidence_policy"]["unclassified_organs_block_authority_projection"] is True
     assert [step["step_id"] for step in spine["first_run_path"]] == [
-        "run_ten_minute_tour",
+        "run_compact_tour_card",
         "compile_project",
         "inspect_python_lens",
         "inspect_route",
@@ -1246,7 +1269,7 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
         "open_reveal_board",
         "inspect_cold_reader_route_map",
     ]
-    assert spine["first_run_path"][0]["command"] == "microcosm tour <project>"
+    assert spine["first_run_path"][0]["command"] == "microcosm tour --card <project>"
     assert spine["first_run_path"][2]["command"] == "microcosm python-lens <project>"
     assert spine["first_run_path"][5]["command"] == "microcosm spine"
     assert spine["first_run_path"][6]["command"] == "microcosm authority"
@@ -1998,7 +2021,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "microcosm_cold_reader_first_screen_v1"
     )
     assert tour["first_screen"]["status"] == "pass"
-    assert tour["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert tour["first_screen"]["primary_command"] == "microcosm tour --card <project>"
     assert tour["first_screen"]["minimal_command_path"][0]["command"] == (
         tour["first_screen"]["primary_command"]
     )
@@ -2016,7 +2039,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         f"microcosm explain <project> {tour['first_screen']['selected_route_id']}"
     )
     assert tour["first_screen"]["route_explanation"]["route_id_source"] == (
-        "microcosm tour/compile selected_route_id"
+        "microcosm tour --card/tour/compile selected_route_id"
     )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "inspect_first_screen",
@@ -2259,7 +2282,28 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["source_command"] == "microcosm tour <project>"
     assert card["drilldown_command"] == "microcosm tour <project>"
     assert card["endpoint"] == "/tour"
-    assert card["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert card["first_screen"]["primary_command"] == "microcosm tour --card <project>"
+    assert card["state_refs"]["route_state_ref"] == ".microcosm/routes.json"
+    assert card["state_refs"]["work_state_ref"] == ".microcosm/work_items.json"
+    assert card["state_refs"]["event_log_ref"] == ".microcosm/events.jsonl"
+    assert card["state_refs"]["evidence_dir_ref"] == ".microcosm/evidence/"
+    assert card["state_refs"]["graph_ref"] == ".microcosm/graph.json"
+    assert card["state_inspection"]["status"] == "pass"
+    assert card["state_inspection"]["state_dir"] == ".microcosm"
+    assert card["state_inspection"]["state_dir_exists"] is True
+    assert card["state_inspection"]["state_file_count"] >= 8
+    assert card["state_inspection"]["state_ref_count"] >= 8
+    assert card["state_inspection"]["inspect_command"] == (
+        "find <project>/.microcosm -maxdepth 2 -type f | sort"
+    )
+    assert card["state_inspection"]["route_state_json_check_command"] == (
+        "python3 -m json.tool <project>/.microcosm/routes.json"
+    )
+    assert ".microcosm/routes.json" in card["state_inspection"]["first_screen_refs"]
+    assert ".microcosm/graph.json" in card["state_inspection"]["first_screen_refs"]
+    assert card["observatory"]["compact_endpoint"] == "/project/observatory-card"
+    assert card["observatory"]["status_card_endpoint"] == "/project/status"
+    assert card["status_card"]["command"] == "microcosm status --card <project>"
     assert card["first_screen"]["minimal_step_count"] == 8
     assert card["surface_statuses"]["compile"] == "pass"
     assert card["surface_statuses"]["first_screen"] == "pass"
@@ -2274,6 +2318,9 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["output_economy"]["route_cards_by_id_exported"] is False
     assert card["output_economy"]["full_command_path_exported"] is False
     assert card["output_economy"]["full_endpoint_path_exported"] is False
+    assert card["output_economy"]["state_refs_exported"] is True
+    assert card["output_economy"]["state_inspection_exported"] is True
+    assert card["output_economy"]["observatory_refs_exported"] is True
     assert card["output_economy"]["receipt_persisted"] is False
     assert "route_cards" not in card
     assert "route_cards_by_id" not in card
@@ -3863,6 +3910,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
         "exported_observability_bundle",
         "exported_assimilation_bundle",
         "exported_public_reveal_bundle",
+        "synthetic_bridge_continuity_fixture",
         "exported_projection_import_bundle",
         "exported_prediction_oracle_bundle",
                 "exported_standards_meta_diagnostics_bundle",
@@ -3941,6 +3989,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             html = response.read().decode("utf-8")
         with urlopen(f"http://{host}:{port}/status", timeout=5) as response:
             payload = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/status", timeout=5) as response:
+            project_status_card = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/observe", timeout=5) as response:
+            project_observe = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/workingness", timeout=5) as response:
             workingness = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/spine", timeout=5) as response:
@@ -4033,6 +4085,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Route Proof" in html
     assert "Observatory Card" in html
     assert "/project/observatory-card" in html
+    assert "State Inspection" in html
+    assert "find &lt;project&gt;/.microcosm -maxdepth 2 -type f | sort" in html
+    assert "python3 -m json.tool &lt;project&gt;/.microcosm/routes.json" in html
+    assert ".microcosm/routes.json" in html
+    assert "Missing first-screen refs" in html
     assert "microcosm tour &lt;project&gt;::selected_route_id" in html
     assert "front_door_status" in html
     assert LOCAL_FIRST_SCREEN_ROUTE_REF in html
@@ -4042,6 +4099,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Body text exported in status" in html
     assert "Body text exported in receipts" in html
     assert "microcosm status --card" in html
+    assert "/project/status" in html
     assert "/tour" in html
     assert "Spine / Intake / Reveal Bridge" in html
     assert "/spine" in html
@@ -4104,6 +4162,54 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert payload["status"] == "pass"
     assert payload["adapter_backed_organ_count"] == 43
     assert payload["product_path_demoted_organ_count"] == 4
+    assert (
+        payload["project_front_door_status"]["schema_version"]
+        == "microcosm_project_status_overlay_v1"
+    )
+    assert payload["project_front_door_status"]["status"] == "pass"
+    assert payload["project_front_door_status"]["state_dir_exists"] is True
+    assert (
+        payload["project_front_door_status"]["selected_route_id"]
+        == "readme_onboarding_route"
+    )
+    assert (
+        payload["project_front_door_status"]["route_selection_proof"]["status"]
+        == "pass"
+    )
+    assert (
+        payload["project_front_door_status"]["route_explanation"]["status"]
+        == "pass"
+    )
+    assert payload["project_front_door_status"]["source_files_mutated"] is False
+    assert (
+        project_status_card["schema_version"]
+        == "microcosm_runtime_status_card_v1"
+    )
+    assert project_status_card["card_command"] == "microcosm status --card <project>"
+    assert project_status_card["front_door"]["project_state_status"] == "pass"
+    assert (
+        project_status_card["front_door"]["selected_route_id"]
+        == "readme_onboarding_route"
+    )
+    assert (
+        project_status_card["front_door"]["route_selection_proof"]["status"]
+        == "pass"
+    )
+    assert (
+        project_status_card["front_door"]["route_explanation"]["status"]
+        == "pass"
+    )
+    assert project_status_card["source_files_mutated"] is False
+    assert project_status_card["front_door_status"]["status"] == "pass"
+    assert project_status_card["front_door"]["observatory"][
+        "compact_endpoint"
+    ] == "/project/observatory-card"
+    assert (
+        project_observe["schema_version"]
+        == "microcosm_project_observe_result_v1"
+    )
+    assert project_observe["status"] == "pass"
+    assert project_observe["graph_ref"] == ".microcosm/graph.json"
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
@@ -4221,6 +4327,25 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert python_lens["safe_to_show"]["python_lens_rows_are_public_payload_boundary_rows"] is True
     assert python_lens["payload_boundary_normalization"]["input_payload_schema_normalized"] is False
     assert python_lens["payload_boundary_normalization"]["omitted_payload_schema_terms_exported"] is False
+    assert "navigation_assay" in python_lens["payload_boundary_normalization"]["public_contract_fields"]
+    assert "route_utility_curriculum" in python_lens["payload_boundary_normalization"]["public_contract_fields"]
+    assert python_lens["navigation_assay"]["assay_id"] == "std_python_microcosm_navigation_assay"
+    assert python_lens["navigation_assay"]["route_utility_ratchet_ref"] == (
+        ".microcosm/python_lens.json::route_utility_curriculum.ratchet"
+    )
+    assert python_lens["implementation_atlas"]["python_navigation_assay"]["assay_id"] == (
+        "std_python_microcosm_navigation_assay"
+    )
+    assert python_lens["implementation_atlas"]["python_navigation_assay"]["source_bodies_exported"] is False
+    assert python_lens["route_utility_curriculum"]["curriculum_id"] == (
+        "microcosm_python_route_utility_curriculum"
+    )
+    assert python_lens["route_utility_curriculum"]["source_bodies_exported"] is False
+    assert python_lens["python_navigation_route"]["surface_id"] == "project_python_lens"
+    assert python_lens["python_navigation_route"]["endpoint"] == "/project/python-lens"
+    assert python_lens["python_navigation_route"]["assay_ref"] == (
+        ".microcosm/python_lens.json::navigation_assay"
+    )
     assert LEGACY_PAYLOAD_OMISSION_COMPAT_KEY not in python_lens
     assert OMITTED_PAYLOAD_BODY_KEY not in python_lens
     assert OMITTED_PAYLOAD_BODY_KEY not in json.dumps(python_lens, sort_keys=True)
@@ -4236,6 +4361,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["json_drilldowns"]["observatory_card"] == (
         "/project/observatory-card"
     )
+    assert observatory["json_drilldowns"]["status_card"] == "/project/status"
+    assert observatory["json_drilldowns"]["project_observe"] == "/project/observe"
     assert observatory["observatory_card"] == observatory_card
     assert observatory_card["schema_version"] == (
         "microcosm_project_observatory_card_v1"
@@ -4243,8 +4370,23 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory_card["status"] == "pass"
     assert observatory_card["endpoint"] == "/project/observatory-card"
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
+    assert observatory_card["status_card_endpoint"] == "/project/status"
+    assert observatory_card["surface_status_refs"]["status_card"] == (
+        "/project/status"
+    )
     assert observatory_card["selected_route_id"] == "readme_onboarding_route"
     assert observatory_card["first_screen_route_proof"]["status"] == "pass"
+    assert observatory_card["surface_statuses"]["state_inspection"] == "pass"
+    assert observatory_card["surface_status_refs"]["state_inspection"] == (
+        ".microcosm/"
+    )
+    assert observatory_card["state_inspection"]["status"] == "pass"
+    assert observatory_card["state_inspection"]["state_dir"] == ".microcosm"
+    assert observatory_card["state_inspection"]["missing_first_screen_refs"] == []
+    assert observatory_card["state_inspection"]["state_file_count"] >= 8
+    assert ".microcosm/routes.json" in (
+        observatory_card["state_inspection"]["first_screen_refs"]
+    )
     assert observatory_card["causal_chain_summary"]["work_transaction"]["work_id"] == (
         "work_0001"
     )
@@ -4265,6 +4407,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert route_proof["compile_selected_route_id"] == "readme_onboarding_route"
     assert route_proof["route_proof_ids_match"] is True
     assert route_proof["route_id_source"] == (
+        "microcosm tour --card <project>::selected_route_id or "
         "microcosm tour <project>::selected_route_id or "
         "microcosm tour <project>::first_screen.selected_route_id or "
         "microcosm compile <project>::selected_route_id"
@@ -4469,7 +4612,7 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "microcosm evidence inspect <receipt>",
     ]
     by_cell = {row["cell_id"]: row for row in intake["cell_status"]}
-    assert set(by_cell) == {
+    required_first_screen_cells = {
         "agent_execution_trace_refactor",
         "agent_observability_store_import",
         "agent_operating_packet_source_modules_import",
@@ -4490,6 +4633,8 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
         "work_ledger_control_source_modules_import",
         "command_output_projection_source_modules_import",
     }
+    assert required_first_screen_cells.issubset(by_cell)
+    assert len(by_cell) == intake["projection_cell_count"]
     assert by_cell["formal_math_readiness_extensions"]["projection_status"] == (
         "public_runtime_import_landed"
     )

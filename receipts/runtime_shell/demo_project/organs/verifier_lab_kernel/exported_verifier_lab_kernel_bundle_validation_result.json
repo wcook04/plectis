@@ -109,11 +109,26 @@
   },
   "command": "microcosm run examples/runtime_shell/demo_project",
   "component_receipt_refs": {
+    "corpus_readiness_mathlib_absence_gate": [
+      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json"
+    ],
     "formal_math_lean_proof_witness": [
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
     ],
+    "formal_math_premise_retrieval": [
+      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json"
+    ],
     "formal_math_verifier_trace_repair_loop": [
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    ],
+    "lean_std_premise_index": [
+      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
+    ],
+    "proof_diagnostic_evidence_spine": [
+      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
+    ],
+    "ring2_premise_retrieval_precision_recall_harness": [
+      "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
     ],
     "tactic_portfolio_availability_probe": [
       "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
@@ -123,8 +138,13 @@
     ]
   },
   "component_statuses": {
+    "corpus_readiness_mathlib_absence_gate": "pass",
     "formal_math_lean_proof_witness": "pass",
+    "formal_math_premise_retrieval": "pass",
     "formal_math_verifier_trace_repair_loop": "pass",
+    "lean_std_premise_index": "pass",
+    "proof_diagnostic_evidence_spine": "pass",
+    "ring2_premise_retrieval_precision_recall_harness": "pass",
     "tactic_portfolio_availability_probe": "pass",
     "target_shape_tactic_routing_gate": "pass"
   },
@@ -142,7 +162,7 @@
       "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
     }
   ],
-  "created_at": "2026-05-23T12:56:45+00:00",
+  "created_at": "2026-05-26T12:09:13+00:00",
   "error_codes": [],
   "evolve_candidates": [
     {
@@ -197,10 +217,135 @@
   ],
   "organ_id": "verifier_lab_kernel",
   "projection_receipt_refs": [
-    "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json",
     "receipts/runtime_shell/demo_project/organs/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle_validation_result.json",
-    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
+    "receipts/runtime_shell/demo_project/organs/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle_validation_result.json"
   ],
+  "proof_lab_component_metrics": {
+    "corpus_count": 7,
+    "lean_compiled_declaration_count": 8,
+    "lean_lake_return_code": 0,
+    "lean_std_premise_count": 11,
+    "mathlib_lake_project_import_available": false,
+    "proof_diagnostic_accepted_count": 1,
+    "proof_diagnostic_rejected_count": 0,
+    "retrieval_mean_public_recall": 1.0,
+    "retrieval_query_count": 4,
+    "ring2_mean_precision_at_k": 0.36,
+    "ring2_mean_recall_at_k": 0.9,
+    "ring2_problem_count": 10,
+    "tactic_probe_status": "pass",
+    "target_shape_route_case_count": 5,
+    "verifier_trace_attempt_count": 5
+  },
+  "proof_lab_route": {
+    "anti_claim_floor": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
+    "available_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "prover_premise_retrieval_term_scoring",
+      "provider_context_recipe_budget_policy",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate"
+    ],
+    "component_map": [
+      {
+        "component_organ_id": "corpus_readiness_mathlib_absence_gate",
+        "component_role": "corpus/toolchain boundary before retrieval or proof language",
+        "pattern_id": "corpus_readiness_mathlib_absence_gate"
+      },
+      {
+        "component_organ_id": "lean_std_premise_index",
+        "component_role": "closed public Lean/Std premise index",
+        "pattern_id": "lean_std_toolchain_premise_index"
+      },
+      {
+        "component_organ_id": "formal_math_premise_retrieval",
+        "component_role": "retrieval queries, context recipes, and recall floor",
+        "pattern_id": "prover_premise_retrieval_term_scoring"
+      },
+      {
+        "component_organ_id": "tactic_portfolio_availability_probe",
+        "component_role": "public tactic availability gate",
+        "pattern_id": "tactic_portfolio_availability_probe"
+      },
+      {
+        "component_organ_id": "target_shape_tactic_routing_gate",
+        "component_role": "target-shape to tactic route selection",
+        "pattern_id": "target_shape_tactic_routing_gate"
+      },
+      {
+        "component_organ_id": "ring2_premise_retrieval_precision_recall_harness",
+        "component_role": "Ring2 precision/recall and failure-mode metrics",
+        "pattern_id": "ring2_premise_retrieval_precision_recall_harness"
+      },
+      {
+        "component_organ_id": "formal_math_verifier_trace_repair_loop",
+        "component_role": "verifier trace failure class and repair curriculum",
+        "pattern_id": "lean_verifier_feedback_failure_classification"
+      },
+      {
+        "component_organ_id": "proof_diagnostic_evidence_spine",
+        "component_role": "diagnostic evidence refs and provider/body boundary",
+        "pattern_id": "formal_prover_context_strategy_gate"
+      },
+      {
+        "component_organ_id": "formal_math_lean_proof_witness",
+        "component_role": "bounded public Lean/Lake witness, not theorem authority",
+        "pattern_id": "formal_math_lean_self_contained_proof_organ"
+      }
+    ],
+    "detailed_binding_pattern_ids": [
+      "corpus_readiness_mathlib_absence_gate",
+      "lean_std_toolchain_premise_index",
+      "provider_context_recipe_budget_policy",
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "tactic_portfolio_availability_probe",
+      "target_shape_tactic_routing_gate",
+      "prover_premise_retrieval_term_scoring",
+      "ring2_premise_retrieval_precision_recall_harness",
+      "support_affordance_mathlib_declaration_match_terms"
+    ],
+    "error_codes": [],
+    "missing_component_organs": [],
+    "missing_pattern_ids": [],
+    "next_refinement_move": "Project as a combined proof-diagnostic organ, then add one validator lane that checks all gate receipts are present before any solved/unsolved metric is shown.",
+    "route_id": "formal_prover_context_strategy_gate",
+    "route_supplied": true,
+    "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+    "source_refs": [
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "codex/doctrine/paper_modules/formal_maths_direction_atlas.md",
+      "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "codex/doctrine/paper_modules/proof_bundle_surface.md",
+      "codex/doctrine/paper_modules/mathematics_mission_pipeline.md",
+      "tools/meta/factory/run_prover_graph_benchmark.py",
+      "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+      "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "tools/meta/factory/run_prover_proof_state_search_curriculum.py",
+      "tools/meta/factory/run_prover_statement_only_hammer_bandit.py",
+      "tools/meta/factory/build_formal_math_support_affordance_finder.py",
+      "tools/meta/factory/build_formal_math_statement_scope_gate.py",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
+    ],
+    "source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "status": "pass"
+  },
+  "proof_lab_route_component_count": 9,
+  "proof_lab_route_id": "formal_prover_context_strategy_gate",
+  "proof_lab_route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
   "provider_hypotheses": [
     {
       "candidate_action_classes": [
@@ -214,10 +359,18 @@
     }
   ],
   "public_runtime_refs": [
-    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
-    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
+    "examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/corpus_readiness.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+    "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/tactic_portfolio_probe.json",
     "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/target_shape_routes.json",
-    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json"
+    "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/retrieval_runs.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
+    "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
+    "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
@@ -267,6 +420,7 @@
   ],
   "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -278,18 +432,38 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 1,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 2,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_pattern_ids": [
-    "oracle_sidecar_forward_firewall",
+    "corpus_readiness_mathlib_absence_gate",
+    "lean_std_toolchain_premise_index",
+    "provider_context_recipe_budget_policy",
+    "mathematical_strategy_atlas_hypothesis_scorer",
+    "tactic_portfolio_availability_probe",
     "target_shape_tactic_routing_gate",
+    "prover_premise_retrieval_term_scoring",
+    "ring2_premise_retrieval_precision_recall_harness",
+    "support_affordance_mathlib_declaration_match_terms",
     "lean_verifier_feedback_failure_classification",
+    "formal_math_lean_self_contained_proof_organ",
+    "oracle_sidecar_forward_firewall",
     "prover_residual_diagnosis_cp1_view_v0",
     "bounded_evolve_policy_artifact_runner"
   ],
   "source_refs": [
+    "route_id:formal_prover_context_strategy_gate",
+    "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
     "pattern_id:oracle_sidecar_forward_firewall",
     "pattern_id:target_shape_tactic_routing_gate",
     "paper_module:formal_math_verifier_trace_repair_loop"

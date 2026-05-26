@@ -15,7 +15,7 @@
     "trading_authorized": false
   },
   "command": "microcosm prediction-lens",
-  "created_at": "2026-05-25T00:50:25+00:00",
+  "created_at": "2026-05-26T17:57:21+00:00",
   "endpoint": "/prediction",
   "input_refs": {
     "acceptance_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
@@ -103,9 +103,10 @@
       "recipient_send_state",
       "credential_equivalent_payloads"
     ],
-    "legacy_schema_compat_present": false,
+    "input_payload_schema_normalized": false,
     "metadata_only_standin_authorized": false,
     "non_secret_macro_substrate_expected": true,
+    "omitted_payload_schema_terms_exported": false,
     "provider_payload_bodies_exported": false,
     "public_refs_are_drilldowns_not_replacements": true,
     "recipient_send_state_exported": false,

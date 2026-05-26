@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-05-23T21:09:33+00:00",
-  "edge_count": 150,
+  "created_at": "2026-05-26T09:40:47+00:00",
+  "edge_count": 151,
   "edges": [
     {
       "from": "project",
@@ -751,10 +751,15 @@
       "from": "route:missing_tests_route",
       "relation": "instantiates",
       "to": "work:work_0001"
+    },
+    {
+      "from": "route:readme_onboarding_route",
+      "relation": "instantiates",
+      "to": "work:work_0002"
     }
   ],
   "graph_ref": ".microcosm/graph.json",
-  "node_count": 66,
+  "node_count": 67,
   "nodes": [
     {
       "kind": "primitive",
@@ -1133,6 +1138,11 @@
       "kind": "work",
       "label": "missing_tests_route",
       "node_id": "work:work_0001"
+    },
+    {
+      "kind": "work",
+      "label": "readme_onboarding_route",
+      "node_id": "work:work_0002"
     }
   ],
   "pattern_surface": {

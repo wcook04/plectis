@@ -1,7 +1,135 @@
 {
   "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
   "authority_boundary": "project_local_projection_not_source_authority",
-  "created_at": "2026-05-23T21:09:32+00:00",
+  "causal_chain_proof": {
+    "authority_boundary": "causal_chain_lineage_not_release_or_proof_correctness_authority",
+    "event_ref_count": 13,
+    "event_refs": [
+      {
+        "event_id": "evt_1860",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1861",
+        "span": "project.explain",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1865",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1870",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1871",
+        "span": "project.explain",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1876",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1877",
+        "span": "project.explain",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1878",
+        "span": "project.explain",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1883",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1885",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1886",
+        "span": "work.create",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1887",
+        "span": "work.run",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_1888",
+        "span": "project.explain",
+        "status": "pass"
+      }
+    ],
+    "evidence_ref_count": 4,
+    "evidence_refs": [
+      ".microcosm/evidence/routes.json",
+      ".microcosm/evidence/explain_readme_onboarding_route.json",
+      ".microcosm/evidence/work_create_work_0002.json",
+      ".microcosm/evidence/work_run_work_0002.json"
+    ],
+    "pattern_binding_ids": [
+      "repo_has_readme"
+    ],
+    "proof_scope": "project_local_state_lineage_not_correctness_authority",
+    "reader_drilldowns": [
+      ".microcosm/routes.json",
+      ".microcosm/work_items.json",
+      ".microcosm/events.jsonl",
+      ".microcosm/evidence/"
+    ],
+    "route_id": "readme_onboarding_route",
+    "route_ref": ".microcosm/routes.json::readme_onboarding_route",
+    "selected_work_id": "work_0002",
+    "selected_work_status": "closed",
+    "source_files_mutated": false,
+    "standard_binding_ids": [
+      "json_contract_markdown_projection",
+      "substrate_derived_projection",
+      "projection_lineage_not_authority",
+      "reversible_work_transaction",
+      "evidence_as_black_box_recorder",
+      "assimilation_without_promotion",
+      "formal_readiness_not_proof_authority",
+      "corpus_readiness_mathlib_absence_gate",
+      "formal_retrieval_not_proof_authority",
+      "provider_context_recipe_budget_no_provider_authority",
+      "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "tactic_portfolio_availability_probe_environment_boundary",
+      "target_shape_tactic_routing_gate_no_proof_authority",
+      "formal_lean_witness_bounded_authority",
+      "prediction_oracle_reconciliation_no_advice_authority",
+      "ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "standards_meta_diagnostics_projection_only",
+      "cold_reader_route_map_projection_only",
+      "lean_std_premise_index_closed_metadata_only",
+      "formal_math_verifier_trace_repair_loop_public_pressure",
+      "formal_evidence_cell_anchor_resolver_public_pressure",
+      "undeclared_library_prior_symbol_classifier_public_pressure"
+    ],
+    "state_history": [
+      "created",
+      "selected",
+      "planned",
+      "executed_simulation",
+      "closed"
+    ],
+    "status": "pass",
+    "work_ids": [
+      "work_0002"
+    ]
+  },
+  "created_at": "2026-05-26T09:40:47+00:00",
   "detected_patterns": [
     {
       "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
@@ -21,78 +149,85 @@
       "title": "README-first onboarding surface"
     }
   ],
-  "event_id": "evt_1861",
+  "event_id": "evt_1888",
   "event_refs": [
-    {
-      "event_id": "evt_1823",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1828",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1829",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1834",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1835",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1840",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1841",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1845",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1850",
-      "span": "project.route",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1851",
-      "span": "project.explain",
-      "status": "pass"
-    },
-    {
-      "event_id": "evt_1855",
-      "span": "project.route",
-      "status": "pass"
-    },
     {
       "event_id": "evt_1860",
       "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1861",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1865",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1870",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1871",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1876",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1877",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1878",
+      "span": "project.explain",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1883",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1885",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1886",
+      "span": "work.create",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1887",
+      "span": "work.run",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_1888",
+      "span": "project.explain",
       "status": "pass"
     }
   ],
   "evidence_ref": ".microcosm/evidence/explain_readme_onboarding_route.json",
   "evidence_refs": [
     ".microcosm/evidence/routes.json",
-    ".microcosm/evidence/explain_readme_onboarding_route.json"
+    ".microcosm/evidence/explain_readme_onboarding_route.json",
+    ".microcosm/evidence/work_create_work_0002.json",
+    ".microcosm/evidence/work_run_work_0002.json"
   ],
   "evidence_replacement": {
     "append_only_event_history_ref": ".microcosm/events.jsonl",
     "policy": "stable_ref_latest_body",
-    "previous_sha256": "2f57cfe9d3ebc2ad1c2198b6d527096db6801b0156d45b2191557428f31ba8d2",
+    "previous_sha256": "b6cb7c3b801728fcb0d7680576b5e4afd3bb64886023d06fe43cfd54846097b8",
     "replacement_recorded": true,
     "stable_ref": ".microcosm/evidence/explain_readme_onboarding_route.json"
   },
@@ -1304,7 +1439,207 @@
     },
     "definition_ref": ".microcosm/routes.json",
     "execution_ref": ".microcosm/work_items.json",
-    "matching_work_items": [],
+    "matching_work_items": [
+      {
+        "closed_at": "2026-05-26T09:40:47+00:00",
+        "closeout": {
+          "authority_boundary": "project_local_closeout_not_global_doctrine_promotion",
+          "event_ref": ".microcosm/events.jsonl::evt_1887",
+          "evidence_ref": ".microcosm/evidence/work_run_work_0002.json",
+          "integration_contract_met": true,
+          "next_actions": [
+            {
+              "action_id": "inspect_route_explanation",
+              "command": "microcosm explain <project> readme_onboarding_route"
+            },
+            {
+              "action_id": "inspect_event_stream",
+              "command": "microcosm observe <project>"
+            }
+          ],
+          "residuals": [],
+          "satisfaction_contract_met": true,
+          "status": "pass"
+        },
+        "created_at": "2026-05-26T09:40:47+00:00",
+        "event_refs": [
+          {
+            "event_id": "evt_1886",
+            "span": "work.create",
+            "status": "pass"
+          },
+          {
+            "event_id": "evt_1887",
+            "span": "work.run",
+            "status": "pass"
+          }
+        ],
+        "evidence_refs": [
+          ".microcosm/evidence/work_create_work_0002.json",
+          ".microcosm/evidence/work_run_work_0002.json"
+        ],
+        "grounded_refs": [
+          "README.md"
+        ],
+        "integration_contract": {
+          "authority_boundary": "local_state_integration_not_external_side_effect",
+          "contract_id": "integration:readme_onboarding_route",
+          "forbidden_side_effects": [
+            "source_file_mutation",
+            "provider_call",
+            "live_task_ledger_mutation",
+            "global_doctrine_promotion",
+            "release_or_publication"
+          ],
+          "integration_mode": "project_local_record_only",
+          "route_id": "readme_onboarding_route",
+          "standard_pressure_refs": [
+            "reversible_work_transaction",
+            "projection_lineage_not_authority",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion"
+          ],
+          "state_targets": [
+            ".microcosm/work_items.json::work_0002",
+            ".microcosm/events.jsonl",
+            ".microcosm/evidence/work_create_work_0002.json",
+            ".microcosm/evidence/work_run_work_0002.json"
+          ]
+        },
+        "residual_policy": {
+          "global_backlog_mutation_authorized": false,
+          "nothing_to_refine_floor": [
+            "stewardship_checked",
+            "next_best_lane_checked",
+            "reentry_condition"
+          ],
+          "residual_capture_mode": "local_next_actions_only"
+        },
+        "result": {
+          "definition_execution_separated": true,
+          "source_files_mutated": false,
+          "status": "pass",
+          "summary": "Simulated a governed local transaction over project catalog state.",
+          "workflow_definition_ref": ".microcosm/routes.json::readme_onboarding_route",
+          "workflow_execution_ref": ".microcosm/work_items.json::work_0002"
+        },
+        "route_id": "readme_onboarding_route",
+        "route_snapshot": {
+          "action": "inspect",
+          "authority": "project_local_projection_not_source_authority",
+          "claims_source_authority": false,
+          "explain_command": "microcosm explain <project> readme_onboarding_route",
+          "grounded_refs": [
+            "README.md"
+          ],
+          "intent": "summarize public first-run path",
+          "kernel_primitive_refs": [
+            "catalog",
+            "pattern",
+            "route",
+            "work",
+            "event",
+            "evidence"
+          ],
+          "pattern_refs": [
+            "repo_has_readme"
+          ],
+          "pattern_resolution_ref": ".microcosm/patterns.json",
+          "pattern_surface_id": "public_microcosm_pattern_surface",
+          "route_definition_ref": ".microcosm/routes.json::readme_onboarding_route",
+          "route_id": "readme_onboarding_route",
+          "source_mutation_authorized": false,
+          "standard_pressure_refs": [
+            "json_contract_markdown_projection",
+            "substrate_derived_projection",
+            "projection_lineage_not_authority",
+            "reversible_work_transaction",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion",
+            "formal_readiness_not_proof_authority",
+            "corpus_readiness_mathlib_absence_gate",
+            "formal_retrieval_not_proof_authority",
+            "provider_context_recipe_budget_no_provider_authority",
+            "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+            "tactic_portfolio_availability_probe_environment_boundary",
+            "target_shape_tactic_routing_gate_no_proof_authority",
+            "formal_lean_witness_bounded_authority",
+            "prediction_oracle_reconciliation_no_advice_authority",
+            "ring2_premise_retrieval_precision_recall_no_proof_authority",
+            "standards_meta_diagnostics_projection_only",
+            "cold_reader_route_map_projection_only",
+            "lean_std_premise_index_closed_metadata_only",
+            "formal_math_verifier_trace_repair_loop_public_pressure",
+            "formal_evidence_cell_anchor_resolver_public_pressure",
+            "undeclared_library_prior_symbol_classifier_public_pressure"
+          ],
+          "title": "Inspect README onboarding"
+        },
+        "satisfaction_contract": {
+          "authority_boundary": "project_local_contract_not_live_task_ledger_authority",
+          "contract_id": "satisfaction:readme_onboarding_route",
+          "done_when": [
+            "transaction_state == closed",
+            "closeout.satisfaction_contract_met == true",
+            "closeout.integration_contract_met == true"
+          ],
+          "must_satisfy": [
+            "route_snapshot_present",
+            "workflow_definition_ref_present",
+            "workflow_execution_ref_present",
+            "state_history_records_created_selected_planned",
+            "source_mutation_not_authorized",
+            "event_and_evidence_refs_recorded_on_run"
+          ],
+          "route_id": "readme_onboarding_route",
+          "standard_pressure_refs": [
+            "reversible_work_transaction",
+            "projection_lineage_not_authority",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion"
+          ]
+        },
+        "source_files_mutated": false,
+        "state_history": [
+          {
+            "created_at": "2026-05-26T09:40:47+00:00",
+            "note": "Work transaction record created from a route snapshot.",
+            "span": "work.create",
+            "state": "created"
+          },
+          {
+            "created_at": "2026-05-26T09:40:47+00:00",
+            "note": "Route selected for deterministic local simulation.",
+            "span": "work.create",
+            "state": "selected"
+          },
+          {
+            "created_at": "2026-05-26T09:40:47+00:00",
+            "note": "Source mutation is not authorized; run step will simulate governance only.",
+            "span": "work.create",
+            "state": "planned"
+          },
+          {
+            "created_at": "2026-05-26T09:40:47+00:00",
+            "note": "Executed deterministic project-local simulation over route snapshot.",
+            "span": "work.run",
+            "state": "executed_simulation"
+          },
+          {
+            "created_at": "2026-05-26T09:40:47+00:00",
+            "note": "Closed with generated evidence and no source mutation.",
+            "span": "work.run",
+            "state": "closed"
+          }
+        ],
+        "status": "closed",
+        "transaction_policy": "simulate_project_local_only",
+        "transaction_state": "closed",
+        "work_id": "work_0002",
+        "workflow_definition_ref": ".microcosm/routes.json::readme_onboarding_route",
+        "workflow_execution_ref": ".microcosm/work_items.json::work_0002"
+      }
+    ],
     "state_machine": [
       "created",
       "selected",

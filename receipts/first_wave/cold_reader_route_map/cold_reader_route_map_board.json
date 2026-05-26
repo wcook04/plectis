@@ -13,7 +13,7 @@
   "board_id": "cold_reader_route_map_first_run_board",
   "body_in_receipt": false,
   "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
-  "created_at": "2026-05-23T07:00:28+00:00",
+  "created_at": "2026-05-26T10:35:39+00:00",
   "finding_count": 7,
   "findings": [
     {
@@ -43,7 +43,7 @@
     {
       "body_in_receipt": false,
       "error_code": "COLD_ROUTE_SEQUENCE_GAP",
-      "message": "The first-run sequence must start from compile_project.",
+      "message": "The first-run sequence must start from tour_project.",
       "negative_case_id": "route_sequence_gap",
       "subject_id": "route_sequence_gap",
       "subject_kind": "first_run_sequence"
@@ -89,7 +89,7 @@
     "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
   ],
   "route_map": {
-    "command_count": 7,
+    "command_count": 10,
     "covered_route_ids": [
       "compile_project",
       "inspect_cold_reader_route_map",
@@ -97,9 +97,15 @@
       "inspect_route",
       "open_import_bridge",
       "open_observatory",
-      "open_reveal_board"
+      "open_reveal_board",
+      "proof_lab",
+      "status_card",
+      "tour_project"
     ],
     "first_run_sequence": [
+      "tour_project",
+      "status_card",
+      "proof_lab",
       "compile_project",
       "inspect_route",
       "open_observatory",
@@ -108,11 +114,18 @@
       "open_reveal_board",
       "inspect_cold_reader_route_map"
     ],
-    "receipt_ref_count": 7,
-    "route_count": 7
+    "front_door_command_count": 3,
+    "front_door_route_ids": [
+      "tour_project",
+      "status_card",
+      "proof_lab"
+    ],
+    "receipt_ref_count": 10,
+    "route_count": 10
   },
   "schema_version": "cold_reader_route_map_board_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -124,6 +137,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

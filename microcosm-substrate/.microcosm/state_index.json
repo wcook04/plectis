@@ -1,0 +1,146 @@
+{
+  "asset_count": 11,
+  "assets": [
+    {
+      "asset_id": "project",
+      "authority": "project_local_projection",
+      "description": "project root manifest",
+      "exists": true,
+      "ref": ".microcosm/project_manifest.json"
+    },
+    {
+      "asset_id": "architecture",
+      "authority": "project_local_projection",
+      "description": "public architecture kernel projection",
+      "exists": true,
+      "ref": ".microcosm/architecture.json",
+      "standard_pressure_contract": {
+        "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
+        "private_source_bodies_included": false,
+        "row_count": 41,
+        "source_ref": "core/public_standard_pressure.json",
+        "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+        "surface_id": "public_microcosm_standard_pressure"
+      }
+    },
+    {
+      "asset_id": "state_index",
+      "authority": "project_local_projection",
+      "description": "project-local substrate asset index",
+      "exists": true,
+      "ref": ".microcosm/state_index.json"
+    },
+    {
+      "asset_id": "graph",
+      "authority": "project_local_projection",
+      "description": "asset graph and lineage edges",
+      "exists": true,
+      "ref": ".microcosm/graph.json"
+    },
+    {
+      "asset_id": "catalog",
+      "authority": "project_local_projection",
+      "description": "file role catalog",
+      "exists": true,
+      "ref": ".microcosm/catalog.json"
+    },
+    {
+      "asset_id": "pattern",
+      "authority": "project_local_projection",
+      "description": "repo-shape pattern observations",
+      "exists": true,
+      "ref": ".microcosm/patterns.json",
+      "surface_contract": {
+        "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+        "binding_standard_refs": [
+          "standards/std_microcosm_pattern.json",
+          "standards/std_microcosm_pattern_binding_contract.json"
+        ],
+        "evidence_ref": ".microcosm/evidence/patterns.json",
+        "organ_refs": [
+          "pattern_binding_contract",
+          "pattern_assimilation_step"
+        ],
+        "private_source_bodies_included": false,
+        "projection_rule": "Catalog role observations become public pattern rows; routes carry pattern_refs that must resolve against local .microcosm/patterns.json before explanation.",
+        "state_ref": ".microcosm/patterns.json",
+        "surface_id": "public_microcosm_pattern_surface"
+      }
+    },
+    {
+      "asset_id": "route",
+      "authority": "project_local_projection",
+      "description": "route candidates",
+      "exists": true,
+      "ref": ".microcosm/routes.json"
+    },
+    {
+      "asset_id": "work",
+      "authority": "project_local_projection",
+      "description": "work transaction records",
+      "exists": true,
+      "ref": ".microcosm/work_items.json"
+    },
+    {
+      "asset_id": "event",
+      "authority": "project_local_projection",
+      "description": "runtime event stream",
+      "exists": true,
+      "ref": ".microcosm/events.jsonl"
+    },
+    {
+      "asset_id": "evidence",
+      "authority": "project_local_projection",
+      "description": "receipt drilldown directory",
+      "exists": true,
+      "item_count": 8,
+      "ref": ".microcosm/evidence"
+    },
+    {
+      "asset_id": "explanation",
+      "authority": "project_local_projection",
+      "description": "route explanation directory",
+      "exists": true,
+      "item_count": 1,
+      "ref": ".microcosm/explanations"
+    }
+  ],
+  "authority_ceiling": {
+    "project_local_projection_not_source_authority": true,
+    "release_authorized": false,
+    "source_mutation_authorized": false
+  },
+  "created_at": "2026-05-26T14:36:41+00:00",
+  "pattern_surface": {
+    "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+    "binding_standard_refs": [
+      "standards/std_microcosm_pattern.json",
+      "standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "evidence_ref": ".microcosm/evidence/patterns.json",
+    "organ_refs": [
+      "pattern_binding_contract",
+      "pattern_assimilation_step"
+    ],
+    "private_source_bodies_included": false,
+    "projection_rule": "Catalog role observations become public pattern rows; routes carry pattern_refs that must resolve against local .microcosm/patterns.json before explanation.",
+    "state_ref": ".microcosm/patterns.json",
+    "surface_id": "public_microcosm_pattern_surface"
+  },
+  "project_id": "microcosm-substrate",
+  "project_ref": ".",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "schema_version": "microcosm_project_state_index_v1",
+  "source_files_mutated": false,
+  "standard_pressure_surface": {
+    "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
+    "private_source_bodies_included": false,
+    "row_count": 41,
+    "source_ref": "core/public_standard_pressure.json",
+    "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+    "surface_id": "public_microcosm_standard_pressure"
+  },
+  "state_ref": ".microcosm",
+  "status": "pass"
+}

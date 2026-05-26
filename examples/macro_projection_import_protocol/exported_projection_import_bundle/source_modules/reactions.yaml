@@ -1,0 +1,649 @@
+kind: reactions_config
+schema_version: reactions_config_v1
+reactions:
+  - reaction_id: route_backlog_high
+    label: Populate NVIDIA raw-seed navigation when pending routing shards exceed threshold
+    source:
+      kind: raw_seed_coverage
+      family: "09"
+      substrate: raw_seed
+    predicate:
+      field: counts.pending_routing_shards
+      operator: ge
+      value: 50
+    action:
+      operation_id: nvidia_continuous_navigation_populate
+      parameters:
+        batch_id: raw_seed_route_backlog_navigation
+        source_kinds: raw_seed_shards,raw_seed_paragraphs,raw_seed_navigation
+        max_sources: 3
+        limit_per_source: 50
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: raw_seed_sync_handoff_after_sync
+    label: Enqueue Type B raw-seed candidates after a successful raw-seed sync
+    source:
+      kind: operation_event
+      operation_id: kernel_sync_raw_seed
+      family: "09"
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: raw_seed_provider_candidate_cycle
+      parameters:
+        family: "09"
+        substrate: raw_seed
+        selection_mode: fresh_first
+        providers: nvidia_nim,openrouter_api
+        limit: 8
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: raw_seed_type_b_after_auto_sync
+    label: Enqueue Type B raw-seed candidates after an automatic raw-seed sync
+    source:
+      kind: operation_event
+      operation_id: kernel_sync_raw_seed_auto
+      family: "09"
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: raw_seed_provider_candidate_cycle
+      parameters:
+        family: "09"
+        substrate: raw_seed
+        selection_mode: fresh_first
+        providers: nvidia_nim,openrouter_api
+        limit: 8
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+        - no_bridge_contract: raw-seed sync now feeds provider_transform_job candidates on NVIDIA/OpenRouter instead of ChatGPT bridge handoff.
+
+  - reaction_id: semantic_routes_after_embed_refresh
+    label: Refresh semantic routes after an embedding refresh operation succeeds
+    source:
+      kind: operation_event
+      operation_id: kernel_embed_refresh
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: semantic_route_refresh
+      parameters:
+        source: "{signal.resolved_parameters.source}"
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: semantic_routes_after_raw_seed_sync
+    label: Refresh doctrine routes after a successful raw-seed sync
+    source:
+      kind: operation_event
+      operation_id: kernel_sync_raw_seed
+      family: "09"
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: semantic_route_refresh
+      parameters:
+        source: doctrine
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: semantic_routes_after_raw_seed_apply
+    label: Refresh doctrine routes after apply-routing succeeds
+    source:
+      kind: operation_event
+      operation_id: raw_seed_apply_routing
+      family: "09"
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: semantic_route_refresh
+      parameters:
+        source: doctrine
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: semantic_routes_after_archaeology_import
+    label: Refresh archaeology routes after an archaeological shard import succeeds
+    source:
+      kind: operation_event
+      operation_id: voice_archaeology_import_shards
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: semantic_route_refresh
+      parameters:
+        source: archaeology_shards
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: rediscovery_findings_high
+    label: Refresh paper-module coverage after a high-signal rediscovery scan
+    source:
+      kind: operation_event
+      operation_id: paper_module_rediscovery_scan
+    predicate:
+      field: result_summary.trigger_ready
+      operator: eq
+      value: true
+    action:
+      operation_id: paper_module_coverage_refresh
+      parameters: {}
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: distill_backlog_high
+    label: Enqueue Type B raw-seed candidate jobs when paragraphs without atoms remain high
+    source:
+      kind: raw_seed_coverage
+      family: "09"
+      substrate: raw_seed
+    predicate:
+      field: counts.paragraphs_without_atoms
+      operator: ge
+      value: 10
+    action:
+      operation_id: raw_seed_provider_candidate_cycle
+      parameters:
+        family: "09"
+        substrate: raw_seed
+        selection_mode: fresh_first
+        providers: nvidia_nim,openrouter_api
+        limit: 8
+        # Provider candidate mode: materialize bounded transform_job packets
+        # and enqueue independent NVIDIA/OpenRouter provider lanes. No bridge
+        # dispatch and no source mutation; receipts/row_patches stay under
+        # state/compute_workers until controller review imports or rejects.
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: medium
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: subagent_packet_ready
+    label: Prepare a subagent-lane distillation packet when the backlog is deep enough to warrant parallel Sonnet workers
+    source:
+      kind: raw_seed_coverage
+      family: "09"
+      substrate: raw_seed
+    predicate:
+      field: counts.paragraphs_without_atoms
+      operator: ge
+      value: 30
+    action:
+      operation_id: raw_seed_prepare_subagent_packet
+      parameters:
+        family: "09"
+        substrate: raw_seed
+        cohort_size: 6
+        wave_width: 2
+        strategy: simple_first
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: false
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+        - disabled_by_default_reason: V1 leaves subagent-lane auto-dispatch off until Opus gold seed calibrates the validator; conductor consumes packets manually for now (see codex/doctrine/skills/raw_seed/subagent_distill_protocol.md).
+
+  - reaction_id: distill_agent_seed_backlog_high
+    label: Distill agent-seed backlog when paragraphs without atoms remain high
+    source:
+      kind: raw_seed_coverage
+      family: "09"
+      substrate: agent_seed
+    predicate:
+      field: counts.paragraphs_without_atoms
+      operator: ge
+      value: 10
+    action:
+      operation_id: raw_seed_distill_cycle
+      parameters:
+        family: "09"
+        substrate: agent_seed
+        provider: chatgpt
+        cohort_size: 20
+        wave_width: 2
+        paragraphs_per_probe: 2
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: false
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+        - disabled_by_default_reason: Agent-seed metabolism is supplementary evidence, not the primary authority lane; leave operator-voice backlog draining first by default.
+
+  - reaction_id: python_std_compliance_preview_kickoff
+    label: Kick off a preview-only std_python compliance campaign when live findings exist and no campaign is already active
+    source:
+      kind: python_std_compliance_coverage
+    predicate:
+      field: triggers.preview_kickoff_ready
+      operator: eq
+      value: true
+    action:
+      operation_id: python_std_compliance_cycle
+      parameters:
+        provider: auto
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: python_std_compliance_drain_continue
+    label: Continue draining an approved std_python compliance campaign until the approved snapshot reaches a terminal state
+    source:
+      kind: python_std_compliance_coverage
+    predicate:
+      field: triggers.drain_ready
+      operator: eq
+      value: true
+    action:
+      operation_id: python_std_compliance_cycle
+      parameters:
+        provider: auto
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: high
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: routing_quality_audit_after_refresh
+    label: Audit drifted edges via Kimi K2 after each semantic_route_refresh success
+    source:
+      kind: operation_event
+      operation_id: semantic_route_refresh
+    predicate:
+      field: returncode
+      operator: eq
+      value: 0
+    action:
+      operation_id: semantic_route_quality_audit
+      parameters:
+        sample: 8
+        model: kimi-k2-thinking
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+        - shape_note: Signal-gated by dedupe_by=signal_digest on the route_refresh event payload; if the drift snapshot has not moved (same axis_registry_hash + evidence_summary_fingerprint), this reaction is skipped silently. "Always awake, never unnecessary" (Will, 2026-04-20).
+        - model_fallback_note: kimi-k2.6 aliases to moonshotai/kimi-k2-thinking until NVIDIA NIM ships the k2.6 endpoint. See system/lib/nvidia_nim.py aliases + codex/doctrine/skills/kernel/routing_quality_improver.md §Voice anchors.
+
+  - reaction_id: semantic_routes_after_python_std_coverage
+    label: Refresh python-holographic routes when std_python compliance coverage changes
+    source:
+      kind: python_std_compliance_coverage
+    predicate:
+      field: stable_signal_digest
+      operator: nonempty
+      value: true
+    action:
+      operation_id: semantic_route_refresh
+      parameters:
+        source: python_holographic
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: hologram_stale
+    label: Rebuild stale hologram phases when build status reports stale slices
+    source:
+      kind: hologram_build_status
+    predicate:
+      field: stale_count
+      operator: gt
+      value: 0
+    action:
+      operation_id: kernel_build_stale_phases
+      parameters:
+        phase_list: "{signal.phase_list}"
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - restate:n004 journal-gated retry after durable acknowledgement
+        - restate:n005 wake barriers as explicit suspension data
+        - agent-orchestrator:n005 declarative reactions config
+
+  - reaction_id: work_ledger_stale
+    label: Refresh work-ledger projections when a Claude session touched work and ended without an append
+    source:
+      kind: work_ledger_status
+    predicate:
+      field: triggers.stale_session_ready
+      operator: eq
+      value: true
+    action:
+      operation_id: work_ledger_project
+      parameters: {}
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - graphiti
+        - claude-mem
+      notes:
+        - graphiti:n004 reversal-preserving temporal facts drive projection refresh instead of overwriting state
+        - claude-mem:n003 lifecycle hooks + runtime enforcement surface missing writes as runtime drift
+
+  - reaction_id: claude_stop_consolidation_trigger
+    label: Mark/schedule consolidation on a Claude Stop lifecycle boundary by refreshing the work-ledger projection (no doctrine mutation)
+    source:
+      kind: lifecycle_boundary
+      agent_surface: claude
+      boundary: stop
+    predicate:
+      field: stable_signal_digest
+      operator: nonempty
+      value: true
+    action:
+      operation_id: work_ledger_project
+      parameters: {}
+    gate:
+      single_flight: true
+      cooldown_minutes: 0
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - claude-mem
+        - lycheemem
+      notes:
+        - claude-mem:n003 lifecycle hooks + 0/1/2 exit-code contract — Stop is a typed lifecycle boundary, not an opaque end
+        - lycheemem:n007 host-vs-external boundary consolidation triggered by lifecycle events
+        - shape_note: First conservative consumer of session_lifecycle_boundary signals from .claude/hooks/runtime_hook.py::_emit_stop_lifecycle_signal. The Stop hook appends a session_lifecycle_boundary row to orchestration_events.jsonl with a deterministic stable_digest; this reaction surfaces that as stable_signal_digest so dedupe_by:signal_digest blocks re-fires of the same boundary. Action is intentionally a derived-projection refresh (work_ledger_project), not a doctrine apply lane — hooks are event sources, reactions are policy. Future SessionEnd / consolidation lanes can sit alongside this rule with different predicates.
+        - semantic_note: This is a deduped WAKE SIGNAL, not an event queue. The underlying loader (_load_latest_lifecycle_boundary_event) returns the LATEST matching session_lifecycle_boundary row; the engine fires the action once per unique stable_signal_digest of that latest row. Intermediate older rows with different digests are NOT iterated or consumed. Acceptable for global/idempotent actions like work_ledger_project (one wake is enough). NOT acceptable for per-session distillation or agent_seed candidate emission — those would need cursor/backlog semantics that this loader does not provide. See codex/doctrine/paper_modules/runtime_hook_ladder.md §Stop handler shipped for the full decision table.
+        - paper_module_anchor: codex/doctrine/paper_modules/runtime_hook_ladder.md §Stop handler shipped 2026-04-27
+
+  - reaction_id: provider_transform_materialize_after_catalog_signal
+    label: Draft-materialize the selected provider-model-catalog row job (operator inspection)
+    source:
+      kind: provider_model_catalog_signal
+    predicate:
+      field: row_count
+      operator: ge
+      value: 1
+    action:
+      operation_id: provider_transform_materialize
+      parameters:
+        source: provider-model-catalog
+        target_row_id: "{signal.next_target_row_id}"
+        limit: 50
+    gate:
+      single_flight: true
+      cooldown_minutes: 60
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+      notes:
+        - draft-only: this reaction never includes --write, never invokes provider_transform_job, and never calls a provider; it produces a scheduler-rejected provider_transform_job draft for operator inspection only.
+        - shape_note: source.kind=provider_model_catalog_signal is emitted by metabolism_policy.build_runtime_signal_events via system.lib.provider_metabolism_signal.derive_provider_model_catalog_signal; signal_digest changes only when the catalog row set changes, so dedupe_by:signal_digest blocks re-fires of identical catalog states.
+        - semantic_note: action.parameters.target_row_id binds {signal.next_target_row_id} from the read-only provider candidate feed, not the lexicographically-first row. This still fires at most ONE draft materialization per catalog change; it is NOT a backlog drainer. When the operator decides multi-row drainage is desired, that requires a separate cursor-aware reaction shape — DO NOT extend this rule by injecting a list-templating helper without a separate explicit operator decision.
+        - enabled_by_default_rationale: the reactions engine writes every fire to tools/meta/control/reactions_ledger.jsonl (see reactions_engine.py:_append_jsonl(reactions_ledger_path(...), row) at the launch site), so autonomous fires are agent-visible at the reactions ledger surface. The action itself is bounded (single row), reversible (draft only, no --write), non-dispatching (provider_transform_materialize never invokes a provider), and deduped on signal_digest with a 60-minute cooldown. Per local_to_general_propagation.md governing-principles "Safe automation may fire by default when bounded and agent-visible" + "Autonomy must surface through the agent entrypoint," dormant-by-default would itself be under-building.
+        - paper_module_anchor: codex/doctrine/skills/doctrine/local_to_general_propagation.md governs whether enabling this rule should produce up-propagation into a paper module.
+
+  - reaction_id: standard_skill_gap_high
+    label: Materialize a candidate-only standard_skill_pairing campaign packet when the gap of standards lacking a paired authoring skill exceeds the configured floor (Wave_004A)
+    source:
+      kind: standard_skill_gap_signal
+    predicate:
+      field: gap_high
+      operator: eq
+      value: true
+    action:
+      operation_id: standard_skill_pairing_campaign
+      parameters:
+        max_targets: 12
+    gate:
+      single_flight: true
+      cooldown_minutes: 60
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - source.kind=standard_skill_gap_signal is emitted by system.lib.compliance_reaction_signals.build_standard_skill_gap_signal; the signal carries a digest hashed over the sorted missing-standard ids so dedupe_by:signal_digest blocks re-fires while the gap composition is unchanged.
+        - action.operation_id=standard_skill_pairing_campaign is candidate-only; the campaign builder writes only state/meta_missions/standard_skill_pairing/<slug>/campaign_packet.json with promotion_state=draft and mutation_policy=candidate_packet_only. No skill authoring, no skill_registry edit, no source mutation.
+        - enabled_by_default=true_rationale - Wave_004B landed the source.kind=standard_skill_gap_signal loader in reactions_engine.py and emitted the signal in metabolism_policy.build_runtime_signal_events; the campaign builder is candidate-only, controller-gated, digest-deduped (cooldown 60min, single_flight). Per local_to_general_propagation.md governing-principle "Safe automation may fire by default when bounded and agent-visible", this reaction now fires autonomously while remaining promotion_state=draft and mutation_policy=candidate_packet_only. The reactions ledger surfaces every fire.
+        - paper_module_anchor: pri_133 governs whether the reaction is advisory-by-default or load-bearing; this row is advisory, controller-gated.
+
+  - reaction_id: compliance_coverage_low
+    label: Materialize a candidate-only compliance_autocure campaign packet when the cross-standard compliance ledger reports ready_now worklist entries or per-standard rates below the floor (Wave_004A)
+    source:
+      kind: compliance_coverage_signal
+    predicate:
+      field: coverage_low
+      operator: eq
+      value: true
+    action:
+      operation_id: compliance_autocure_campaign
+      parameters:
+        max_targets: 12
+    gate:
+      single_flight: true
+      cooldown_minutes: 60
+      dedupe_by: signal_digest
+      barrier_kind: operation_completion
+    priority: low
+    enabled_by_default: true
+    provenance:
+      annexes:
+        - restate
+        - agent-orchestrator
+      notes:
+        - source.kind=compliance_coverage_signal is emitted by system.lib.compliance_reaction_signals.build_compliance_coverage_signal; the signal carries a digest hashed over the sorted ready_now standard ids and below_floor standard ids so dedupe_by:signal_digest blocks re-fires while the coverage shape is unchanged.
+        - action.operation_id=compliance_autocure_campaign is candidate-only; the campaign builder writes only state/meta_missions/compliance_autocure/<slug>/campaign_packet.json with promotion_state=draft, mutation_policy=candidate_packet_only, forbidden_surfaces=[source_writes_without_controller_review, provider_direct_mutation]. The controller (Type A authoring agent) owns promotion; providers do not.
+        - enabled_by_default=true_rationale - Wave_004B landed the source.kind=compliance_coverage_signal loader in reactions_engine.py and emitted the signal in metabolism_policy.build_runtime_signal_events; the campaign builder is candidate-only with forbidden_surfaces=[source_writes_without_controller_review, provider_direct_mutation], digest-deduped (cooldown 60min, single_flight). Per local_to_general_propagation.md governing-principle "Safe automation may fire by default when bounded and agent-visible", this reaction now fires autonomously while remaining controller-gated for promotion.
+        - paper_module_anchor: pri_133 governs whether the reaction is advisory-by-default or load-bearing; this row is advisory, controller-gated.

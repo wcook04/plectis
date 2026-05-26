@@ -1,8 +1,8 @@
 {
   "kind": "agent_bootstrap_live",
   "schema_version": "agent_bootstrap_live_v0",
-  "generated_at": "2026-05-24T12:21:21.439097+00:00",
-  "source_event": "codex_microcosm_entry_lattice_split",
+  "generated_at": "2026-05-26T10:26:36.871628+00:00",
+  "source_event": null,
   "live_bindings": {
     "pipeline_state_rel": null,
     "pipeline_stage": null,
@@ -38,7 +38,7 @@
     "factory_last_run": "2026-03-25T02:01:06.404686+00:00",
     "factory_last_event_at": "2026-04-27T07:44:10.226050+00:00",
     "factory_stage_observed_at": "2026-03-25T02:01:06.404686+00:00",
-    "factory_state_age_days": 60,
+    "factory_state_age_days": 62,
     "factory_state_freshness": "stale_historical_snapshot",
     "factory_state_role": "historical_snapshot",
     "factory_state_live": false,
@@ -3325,7 +3325,7 @@
         "path": "AGENTS.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35272,
+        "bytes": 35370,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3333,7 +3333,7 @@
         "path": "CODEX.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 34660,
+        "bytes": 34691,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3341,7 +3341,7 @@
         "path": "CLAUDE.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35958,
+        "bytes": 35989,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       }
@@ -3426,7 +3426,7 @@
         "type_b_use": "Return WorkItem contours, ASK_TYPE_A packets, or prompt-patch contours instead of loose TODOs."
       }
     ],
-    "generated_at": "2026-05-17T12:41:58Z",
+    "generated_at": "2026-05-25T06:20:43Z",
     "generated_by": "tools/meta/factory/build_system_atlas.py",
     "kind": "system_facts_at_a_glance",
     "prompt_insert": {
@@ -3443,16 +3443,16 @@
     ],
     "summary": {
       "annex_distillation_patterns": 834,
-      "entity_count": 1453,
-      "finding_count": 44,
-      "frontend_components": 181,
-      "frontend_views": 48,
-      "paper_module_count": 208,
+      "entity_count": 1709,
+      "finding_count": 45,
+      "frontend_components": 204,
+      "frontend_views": 50,
+      "paper_module_count": 217,
       "provider_lane_count": 13,
       "source_input_count": 26,
-      "standard_count": 191,
+      "standard_count": 197,
       "task_ledger_views": 36,
-      "task_ledger_work_items": 2504
+      "task_ledger_work_items": 3910
     }
   },
   "agent_operating_packet": {

@@ -1,0 +1,1554 @@
+{
+  "anti_claim": "This explanation describes project-local public state only. It does not authorize source mutation, release, provider calls, private-data equivalence, or global doctrine promotion.",
+  "authority_boundary": "project_local_projection_not_source_authority",
+  "causal_chain_proof": {
+    "authority_boundary": "causal_chain_lineage_not_release_or_proof_correctness_authority",
+    "event_ref_count": 5,
+    "event_refs": [
+      {
+        "event_id": "evt_0006",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_0008",
+        "span": "project.route",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_0009",
+        "span": "work.create",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_0010",
+        "span": "work.run",
+        "status": "pass"
+      },
+      {
+        "event_id": "evt_0011",
+        "span": "project.explain",
+        "status": "pass"
+      }
+    ],
+    "evidence_ref_count": 4,
+    "evidence_refs": [
+      ".microcosm/evidence/routes.json",
+      ".microcosm/evidence/explain_missing_tests_route.json",
+      ".microcosm/evidence/work_create_work_0001.json",
+      ".microcosm/evidence/work_run_work_0001.json"
+    ],
+    "pattern_binding_ids": [
+      "repo_has_tests"
+    ],
+    "proof_scope": "project_local_state_lineage_not_correctness_authority",
+    "reader_drilldowns": [
+      ".microcosm/routes.json",
+      ".microcosm/work_items.json",
+      ".microcosm/events.jsonl",
+      ".microcosm/evidence/"
+    ],
+    "route_id": "missing_tests_route",
+    "route_ref": ".microcosm/routes.json::missing_tests_route",
+    "selected_work_id": "work_0001",
+    "selected_work_status": "closed",
+    "source_files_mutated": false,
+    "standard_binding_ids": [
+      "json_contract_markdown_projection",
+      "substrate_derived_projection",
+      "projection_lineage_not_authority",
+      "reversible_work_transaction",
+      "evidence_as_black_box_recorder",
+      "assimilation_without_promotion",
+      "formal_readiness_not_proof_authority",
+      "corpus_readiness_mathlib_absence_gate",
+      "formal_retrieval_not_proof_authority",
+      "provider_context_recipe_budget_no_provider_authority",
+      "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "tactic_portfolio_availability_probe_environment_boundary",
+      "target_shape_tactic_routing_gate_no_proof_authority",
+      "formal_lean_witness_bounded_authority",
+      "prediction_oracle_reconciliation_no_advice_authority",
+      "ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "standards_meta_diagnostics_projection_only",
+      "cold_reader_route_map_projection_only",
+      "lean_std_premise_index_closed_metadata_only",
+      "formal_math_verifier_trace_repair_loop_public_pressure",
+      "formal_evidence_cell_anchor_resolver_public_pressure",
+      "undeclared_library_prior_symbol_classifier_public_pressure"
+    ],
+    "state_history": [
+      "created",
+      "selected",
+      "planned",
+      "executed_simulation",
+      "closed"
+    ],
+    "status": "pass",
+    "work_ids": [
+      "work_0001"
+    ]
+  },
+  "created_at": "2026-05-26T09:34:04+00:00",
+  "detected_patterns": [
+    {
+      "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
+      "evidence_ref": ".microcosm/evidence/patterns.json",
+      "grounded_refs": [],
+      "pattern_id": "repo_has_tests",
+      "pattern_surface_id": "public_microcosm_pattern_surface",
+      "source": "project_index",
+      "standard_refs": [
+        "standards/std_microcosm_pattern.json",
+        "standards/std_microcosm_pattern_binding_contract.json"
+      ],
+      "state_ref": ".microcosm/patterns.json::repo_has_tests",
+      "status": "missing",
+      "title": "behavior tests visible"
+    }
+  ],
+  "event_id": "evt_0011",
+  "event_refs": [
+    {
+      "event_id": "evt_0006",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0008",
+      "span": "project.route",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0009",
+      "span": "work.create",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0010",
+      "span": "work.run",
+      "status": "pass"
+    },
+    {
+      "event_id": "evt_0011",
+      "span": "project.explain",
+      "status": "pass"
+    }
+  ],
+  "evidence_ref": ".microcosm/evidence/explain_missing_tests_route.json",
+  "evidence_refs": [
+    ".microcosm/evidence/routes.json",
+    ".microcosm/evidence/explain_missing_tests_route.json",
+    ".microcosm/evidence/work_create_work_0001.json",
+    ".microcosm/evidence/work_run_work_0001.json"
+  ],
+  "grounded_refs": [],
+  "kernel_primitives": [
+    "catalog",
+    "pattern",
+    "route",
+    "work",
+    "event",
+    "evidence",
+    "explanation"
+  ],
+  "macro_analogue": "navigation option surface + mission transaction + evidence membrane",
+  "next_reversible_action": {
+    "command": "microcosm work create <project> --route missing_tests_route",
+    "source_mutation": false
+  },
+  "pattern_bindings": [
+    {
+      "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
+      "evidence_ref": ".microcosm/evidence/patterns.json",
+      "pattern": {
+        "authority_boundary": "public_pattern_observation_not_doctrine_promotion",
+        "evidence_ref": ".microcosm/evidence/patterns.json",
+        "grounded_refs": [],
+        "pattern_id": "repo_has_tests",
+        "pattern_surface_id": "public_microcosm_pattern_surface",
+        "source": "project_index",
+        "standard_refs": [
+          "standards/std_microcosm_pattern.json",
+          "standards/std_microcosm_pattern_binding_contract.json"
+        ],
+        "state_ref": ".microcosm/patterns.json::repo_has_tests",
+        "status": "missing",
+        "title": "behavior tests visible"
+      },
+      "pattern_id": "repo_has_tests",
+      "resolved": true,
+      "standard_refs": [
+        "standards/std_microcosm_pattern.json",
+        "standards/std_microcosm_pattern_binding_contract.json"
+      ],
+      "state_ref": ".microcosm/patterns.json::repo_has_tests"
+    }
+  ],
+  "pattern_evidence_refs": [
+    ".microcosm/patterns.json",
+    ".microcosm/evidence/patterns.json"
+  ],
+  "pattern_refs": [
+    "repo_has_tests"
+  ],
+  "pattern_surface": {
+    "assimilation_policy_ref": "core/pattern_assimilation_policy.json",
+    "binding_standard_refs": [
+      "standards/std_microcosm_pattern.json",
+      "standards/std_microcosm_pattern_binding_contract.json"
+    ],
+    "evidence_ref": ".microcosm/evidence/patterns.json",
+    "organ_refs": [
+      "pattern_binding_contract",
+      "pattern_assimilation_step"
+    ],
+    "private_source_bodies_included": false,
+    "projection_rule": "Catalog role observations become public pattern rows; routes carry pattern_refs that must resolve against local .microcosm/patterns.json before explanation.",
+    "state_ref": ".microcosm/patterns.json",
+    "surface_id": "public_microcosm_pattern_surface"
+  },
+  "project_id": "demo_project",
+  "project_ref": ".",
+  "provider_calls_authorized": false,
+  "release_authorized": false,
+  "route_id": "missing_tests_route",
+  "schema_version": "microcosm_route_explanation_v1",
+  "source_files_mutated": false,
+  "standard_bindings": [
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "public_contract_projection_not_private_doctrine_body",
+        "claim": "Project-local JSON is the contract; markdown and browser views are projections.",
+        "kernel_primitive_refs": [
+          "project",
+          "catalog",
+          "route",
+          "work",
+          "evidence"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "architecture.write_project_architecture",
+        "source_refs": [
+          "principles:pri_001",
+          "standards/std_microcosm_standard.json"
+        ],
+        "standard_id": "json_contract_markdown_projection",
+        "title": "JSON Contract, Markdown Projection"
+      },
+      "standard_id": "json_contract_markdown_projection",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::json_contract_markdown_projection"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "local_state_projection_not_source_authority",
+        "claim": "Explanations must derive from local state files instead of hand-authored proof prose.",
+        "kernel_primitive_refs": [
+          "catalog",
+          "pattern",
+          "route",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "architecture.explain_route",
+        "source_refs": [
+          "principles:pri_121",
+          "paper_modules:system_self_comprehension_root"
+        ],
+        "standard_id": "substrate_derived_projection",
+        "title": "Substrate-Derived Projection"
+      },
+      "standard_id": "substrate_derived_projection",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::substrate_derived_projection"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "generated_projection_interface_not_owner_source",
+        "claim": "Generated route, graph, explanation, and evidence views must expose lineage and anti-claims.",
+        "kernel_primitive_refs": [
+          "route",
+          "event",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "architecture.build_graph",
+        "source_refs": [
+          "principles:pri_142",
+          "paper_modules:navigation_hologram_theory"
+        ],
+        "standard_id": "projection_lineage_not_authority",
+        "title": "Projection Lineage, Not Authority"
+      },
+      "standard_id": "projection_lineage_not_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::projection_lineage_not_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
+        "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
+        "kernel_primitive_refs": [
+          "route",
+          "work",
+          "event",
+          "evidence",
+          "assimilation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "project_substrate.create_work/run_work",
+        "source_refs": [
+          "paper_modules:operational_work_item_spine",
+          "standards/std_microcosm_work_item.json",
+          "standards/std_microcosm_mission.json"
+        ],
+        "standard_id": "reversible_work_transaction",
+        "title": "Reversible Work Transaction"
+      },
+      "standard_id": "reversible_work_transaction",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::reversible_work_transaction"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "local_observability_not_live_telemetry_authority",
+        "claim": "Events and receipts record what happened; they are drilldown evidence, not the cockpit.",
+        "kernel_primitive_refs": [
+          "event",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "project_substrate.observe_project/list_evidence",
+        "source_refs": [
+          "organs:proof_diagnostic_evidence_spine",
+          "organs:agent_route_observability_runtime",
+          "standards/std_microcosm_evidence_graph.json"
+        ],
+        "standard_id": "evidence_as_black_box_recorder",
+        "title": "Evidence As Black-Box Recorder"
+      },
+      "standard_id": "evidence_as_black_box_recorder",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::evidence_as_black_box_recorder"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "local_closeout_metadata_not_global_learning_authority",
+        "claim": "Closeout records next local actions and residuals without promoting global doctrine.",
+        "kernel_primitive_refs": [
+          "work",
+          "assimilation",
+          "evidence"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "project_substrate.run_work",
+        "source_refs": [
+          "core/pattern_assimilation_policy.json",
+          "organs:pattern_assimilation_step"
+        ],
+        "standard_id": "assimilation_without_promotion",
+        "title": "Assimilation Without Promotion"
+      },
+      "standard_id": "assimilation_without_promotion",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::assimilation_without_promotion"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "readiness_metadata_not_formal_proof_authority",
+        "claim": "Formal-math readiness surfaces may report closed premise, tactic, route, and context availability, but they must not claim theorem proof, Mathlib, provider, or Lean/Lake execution authority.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "formal_math_readiness_gate.plan_readiness_extensions",
+        "source_refs": [
+          "organs:formal_math_readiness_gate",
+          "standards/std_microcosm_formal_math_readiness_gate.json"
+        ],
+        "standard_id": "formal_readiness_not_proof_authority",
+        "title": "Formal Readiness, Not Proof Authority"
+      },
+      "standard_id": "formal_readiness_not_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_readiness_not_proof_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "corpus_environment_metadata_not_mathlib_proof_or_benchmark_authority",
+        "claim": "Corpus readiness surfaces must make Mathlib absence explicit and block dependent consumers before proof work.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "corpus_readiness_mathlib_absence_gate.run_projection_bundle",
+        "source_refs": [
+          "organs:corpus_readiness_mathlib_absence_gate",
+          "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json"
+        ],
+        "standard_id": "corpus_readiness_mathlib_absence_gate",
+        "title": "Corpus Readiness Mathlib Absence Gate"
+      },
+      "standard_id": "corpus_readiness_mathlib_absence_gate",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::corpus_readiness_mathlib_absence_gate"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "retrieval_metadata_not_formal_proof_authority",
+        "claim": "Formal-math retrieval surfaces may rank public synthetic premises, but they must not claim theorem proof or Lean/Lake authority.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "formal_math_premise_retrieval.run_retrieval_bundle",
+        "source_refs": [
+          "organs:formal_math_premise_retrieval",
+          "standards/std_microcosm_formal_math_premise_retrieval.json"
+        ],
+        "standard_id": "formal_retrieval_not_proof_authority",
+        "title": "Formal Retrieval, Not Proof Authority"
+      },
+      "standard_id": "formal_retrieval_not_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_retrieval_not_proof_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "context_budget_metadata_not_provider_or_proof_authority",
+        "claim": "Provider context recipes may budget public sections and deliverable routes, but they must not call providers, expose proof bodies, or include oracle-only truth-side material.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "provider_context_recipe_budget_policy.run_budget_bundle",
+        "source_refs": [
+          "organs:provider_context_recipe_budget_policy",
+          "standards/std_microcosm_provider_context_recipe_budget_policy.json"
+        ],
+        "standard_id": "provider_context_recipe_budget_no_provider_authority",
+        "title": "Provider Context Recipe Budget, No Provider Authority"
+      },
+      "standard_id": "provider_context_recipe_budget_no_provider_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::provider_context_recipe_budget_no_provider_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+        "claim": "Strategy selection is a pre-oracle metadata hypothesis and retrieval lens; it cannot carry proof bodies, oracle labels, provider output, test tuning, or release authority.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "mathematical_strategy_atlas_hypothesis_scorer.run_strategy_bundle",
+        "source_refs": [
+          "organs:mathematical_strategy_atlas_hypothesis_scorer",
+          "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"
+        ],
+        "standard_id": "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+        "title": "Mathematical Strategy Atlas, Pre-Oracle Hypothesis Boundary"
+      },
+      "standard_id": "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::mathematical_strategy_atlas_pre_oracle_hypothesis_boundary"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "environment_scoped_tactic_callability_metadata_not_proof_authority",
+        "claim": "Tactic availability is an environment-scoped probe artifact; Mathlib-dependent tactics cannot be marked available without a passing Mathlib import probe, and unprobed tactics cannot be consumed downstream.",
+        "kernel_primitive_refs": [
+          "standard",
+          "route",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "tactic_portfolio_availability_probe.run_availability_bundle",
+        "source_refs": [
+          "organs:tactic_portfolio_availability_probe",
+          "standards/std_microcosm_tactic_portfolio_availability_probe.json"
+        ],
+        "standard_id": "tactic_portfolio_availability_probe_environment_boundary",
+        "title": "Tactic Portfolio Availability, Environment Boundary"
+      },
+      "standard_id": "tactic_portfolio_availability_probe_environment_boundary",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::tactic_portfolio_availability_probe_environment_boundary"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
+        "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
+        "kernel_primitive_refs": [
+          "standard",
+          "route",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "target_shape_tactic_routing_gate.run_routing_bundle",
+        "source_refs": [
+          "organs:target_shape_tactic_routing_gate",
+          "standards/std_microcosm_target_shape_tactic_routing_gate.json"
+        ],
+        "standard_id": "target_shape_tactic_routing_gate_no_proof_authority",
+        "title": "Target Shape Tactic Routing, No Proof Authority"
+      },
+      "standard_id": "target_shape_tactic_routing_gate_no_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::target_shape_tactic_routing_gate_no_proof_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "bounded_public_lean_lake_witness_not_mathlib_or_release_authority",
+        "claim": "Lean/Lake may run only for the tiny public witness fixture, with redacted receipts and no Mathlib or provider authority.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "formal_math_lean_proof_witness.run_witness_bundle",
+        "source_refs": [
+          "organs:formal_math_lean_proof_witness",
+          "standards/std_microcosm_formal_math_lean_proof_witness.json"
+        ],
+        "standard_id": "formal_lean_witness_bounded_authority",
+        "title": "Formal Lean Witness, Bounded Authority"
+      },
+      "standard_id": "formal_lean_witness_bounded_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_lean_witness_bounded_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "synthetic_prediction_reconciliation_not_trading_advice_or_live_market_authority",
+        "claim": "Prediction reconciliation is synthetic fixture reasoning only; it must not imply trading, financial advice, live market data, provider authority, performance claims, publication, or release.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "prediction_oracle_reconciliation.run_prediction_bundle",
+        "source_refs": [
+          "organs:prediction_oracle_reconciliation",
+          "standards/std_microcosm_prediction_oracle_reconciliation.json"
+        ],
+        "standard_id": "prediction_oracle_reconciliation_no_advice_authority",
+        "title": "Prediction Oracle Reconciliation, No Advice Authority"
+      },
+      "standard_id": "prediction_oracle_reconciliation_no_advice_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::prediction_oracle_reconciliation_no_advice_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
+        "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "ring2_premise_retrieval_precision_recall_harness.run_precision_recall_bundle",
+        "source_refs": [
+          "organs:ring2_premise_retrieval_precision_recall_harness",
+          "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json"
+        ],
+        "standard_id": "ring2_premise_retrieval_precision_recall_no_proof_authority",
+        "title": "Ring-2 Retrieval Precision/Recall, No Proof Authority"
+      },
+      "standard_id": "ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::ring2_premise_retrieval_precision_recall_no_proof_authority"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "coverage_projection_not_registry_or_release_authority",
+        "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, secret export, trading advice, or whole-system correctness.",
+        "kernel_primitive_refs": [
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "standards_meta_diagnostics.run_diagnostics_bundle",
+        "source_refs": [
+          "organs:standards_meta_diagnostics",
+          "standards/std_microcosm_standards_meta_diagnostics.json"
+        ],
+        "standard_id": "standards_meta_diagnostics_projection_only",
+        "title": "Standards Meta Diagnostics, Projection Only"
+      },
+      "standard_id": "standards_meta_diagnostics_projection_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::standards_meta_diagnostics_projection_only"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "route_map_projection_not_registry_or_release_authority",
+        "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, secret export, trading advice, source mutation, or whole-system correctness.",
+        "kernel_primitive_refs": [
+          "route",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "cold_reader_route_map.run_route_map_bundle",
+        "source_refs": [
+          "organs:cold_reader_route_map",
+          "standards/std_microcosm_cold_reader_route_map.json"
+        ],
+        "standard_id": "cold_reader_route_map_projection_only",
+        "title": "Cold-Reader Route Map, Projection Only"
+      },
+      "standard_id": "cold_reader_route_map_projection_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::cold_reader_route_map_projection_only"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "closed_metadata_index_not_proof_or_release_authority",
+        "claim": "Lean/Std premise indexes may expose closed public metadata with Init source refs, namespace coverage, split eligibility, and retrieval terms, but must not expose Mathlib imports, proof bodies, oracle-needed ids, test split tuning, provider calls, or release authority.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "lean_std_premise_index.run_index_bundle",
+        "source_refs": [
+          "organs:lean_std_premise_index",
+          "standards/std_microcosm_lean_std_premise_index.json"
+        ],
+        "standard_id": "lean_std_premise_index_closed_metadata_only",
+        "title": "Lean/Std Premise Index, Closed Metadata Only"
+      },
+      "standard_id": "lean_std_premise_index_closed_metadata_only",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::lean_std_premise_index_closed_metadata_only"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "verifier_trace_repair_metadata_not_theorem_proof_authority",
+        "claim": "Verifier feedback may drive repair and curriculum metadata only when trace events, verifier classes, and cold rerun receipts are present.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "formal_math_verifier_trace_repair_loop.run",
+        "source_refs": [
+          "organs:formal_math_verifier_trace_repair_loop",
+          "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
+          "paper_modules/formal_math_verifier_trace_repair_loop.md"
+        ],
+        "standard_id": "formal_math_verifier_trace_repair_loop_public_pressure",
+        "title": "Verifier Trace Repair Is Not Proof Authority"
+      },
+      "standard_id": "formal_math_verifier_trace_repair_loop_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_math_verifier_trace_repair_loop_public_pressure"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "evidence_cell_anchor_metadata_not_theorem_correctness_authority",
+        "claim": "Proof-language claims must resolve to public evidence-cell metadata with source-anchor refs before they can be stated as evidence-cell-present claims.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "formal_evidence_cell_anchor_resolver.run",
+        "source_refs": [
+          "organs:formal_evidence_cell_anchor_resolver",
+          "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
+          "paper_modules/formal_evidence_cell_anchor_resolver.md"
+        ],
+        "standard_id": "formal_evidence_cell_anchor_resolver_public_pressure",
+        "title": "Evidence Cell Anchors Are Not Theorem Authority"
+      },
+      "standard_id": "formal_evidence_cell_anchor_resolver_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::formal_evidence_cell_anchor_resolver_public_pressure"
+    },
+    {
+      "authority_boundary": "public_standard_pressure_not_global_doctrine_authority",
+      "resolved": true,
+      "source_ref": "core/public_standard_pressure.json",
+      "standard": {
+        "authority_boundary": "redacted_symbol_observation_not_theorem_correctness_authority",
+        "claim": "Lean-accepted proof receipts that use a known library symbol outside the allowed premise set must be quarantined as undeclared library priors, unless an explicit cited-unallowed premise already makes it a premise-budget violation.",
+        "kernel_primitive_refs": [
+          "pattern",
+          "standard",
+          "evidence",
+          "explanation"
+        ],
+        "route_refs": [
+          "*"
+        ],
+        "runtime_hook": "undeclared_library_prior_symbol_classifier.run",
+        "source_refs": [
+          "organs:undeclared_library_prior_symbol_classifier",
+          "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
+          "paper_modules/undeclared_library_prior_classifier.md"
+        ],
+        "standard_id": "undeclared_library_prior_symbol_classifier_public_pressure",
+        "title": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets"
+      },
+      "standard_id": "undeclared_library_prior_symbol_classifier_public_pressure",
+      "state_ref": ".microcosm/architecture.json::standard_pressure_surface::undeclared_library_prior_symbol_classifier_public_pressure"
+    }
+  ],
+  "standard_pressure": [
+    {
+      "authority_boundary": "public_contract_projection_not_private_doctrine_body",
+      "claim": "Project-local JSON is the contract; markdown and browser views are projections.",
+      "kernel_primitive_refs": [
+        "project",
+        "catalog",
+        "route",
+        "work",
+        "evidence"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "architecture.write_project_architecture",
+      "source_refs": [
+        "principles:pri_001",
+        "standards/std_microcosm_standard.json"
+      ],
+      "standard_id": "json_contract_markdown_projection",
+      "title": "JSON Contract, Markdown Projection"
+    },
+    {
+      "authority_boundary": "local_state_projection_not_source_authority",
+      "claim": "Explanations must derive from local state files instead of hand-authored proof prose.",
+      "kernel_primitive_refs": [
+        "catalog",
+        "pattern",
+        "route",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "architecture.explain_route",
+      "source_refs": [
+        "principles:pri_121",
+        "paper_modules:system_self_comprehension_root"
+      ],
+      "standard_id": "substrate_derived_projection",
+      "title": "Substrate-Derived Projection"
+    },
+    {
+      "authority_boundary": "generated_projection_interface_not_owner_source",
+      "claim": "Generated route, graph, explanation, and evidence views must expose lineage and anti-claims.",
+      "kernel_primitive_refs": [
+        "route",
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "architecture.build_graph",
+      "source_refs": [
+        "principles:pri_142",
+        "paper_modules:navigation_hologram_theory"
+      ],
+      "standard_id": "projection_lineage_not_authority",
+      "title": "Projection Lineage, Not Authority"
+    },
+    {
+      "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
+      "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
+      "kernel_primitive_refs": [
+        "route",
+        "work",
+        "event",
+        "evidence",
+        "assimilation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "project_substrate.create_work/run_work",
+      "source_refs": [
+        "paper_modules:operational_work_item_spine",
+        "standards/std_microcosm_work_item.json",
+        "standards/std_microcosm_mission.json"
+      ],
+      "standard_id": "reversible_work_transaction",
+      "title": "Reversible Work Transaction"
+    },
+    {
+      "authority_boundary": "local_observability_not_live_telemetry_authority",
+      "claim": "Events and receipts record what happened; they are drilldown evidence, not the cockpit.",
+      "kernel_primitive_refs": [
+        "event",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "project_substrate.observe_project/list_evidence",
+      "source_refs": [
+        "organs:proof_diagnostic_evidence_spine",
+        "organs:agent_route_observability_runtime",
+        "standards/std_microcosm_evidence_graph.json"
+      ],
+      "standard_id": "evidence_as_black_box_recorder",
+      "title": "Evidence As Black-Box Recorder"
+    },
+    {
+      "authority_boundary": "local_closeout_metadata_not_global_learning_authority",
+      "claim": "Closeout records next local actions and residuals without promoting global doctrine.",
+      "kernel_primitive_refs": [
+        "work",
+        "assimilation",
+        "evidence"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "project_substrate.run_work",
+      "source_refs": [
+        "core/pattern_assimilation_policy.json",
+        "organs:pattern_assimilation_step"
+      ],
+      "standard_id": "assimilation_without_promotion",
+      "title": "Assimilation Without Promotion"
+    },
+    {
+      "authority_boundary": "readiness_metadata_not_formal_proof_authority",
+      "claim": "Formal-math readiness surfaces may report closed premise, tactic, route, and context availability, but they must not claim theorem proof, Mathlib, provider, or Lean/Lake execution authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_readiness_gate.plan_readiness_extensions",
+      "source_refs": [
+        "organs:formal_math_readiness_gate",
+        "standards/std_microcosm_formal_math_readiness_gate.json"
+      ],
+      "standard_id": "formal_readiness_not_proof_authority",
+      "title": "Formal Readiness, Not Proof Authority"
+    },
+    {
+      "authority_boundary": "corpus_environment_metadata_not_mathlib_proof_or_benchmark_authority",
+      "claim": "Corpus readiness surfaces must make Mathlib absence explicit and block dependent consumers before proof work.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "corpus_readiness_mathlib_absence_gate.run_projection_bundle",
+      "source_refs": [
+        "organs:corpus_readiness_mathlib_absence_gate",
+        "standards/std_microcosm_corpus_readiness_mathlib_absence_gate.json"
+      ],
+      "standard_id": "corpus_readiness_mathlib_absence_gate",
+      "title": "Corpus Readiness Mathlib Absence Gate"
+    },
+    {
+      "authority_boundary": "retrieval_metadata_not_formal_proof_authority",
+      "claim": "Formal-math retrieval surfaces may rank public synthetic premises, but they must not claim theorem proof or Lean/Lake authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_premise_retrieval.run_retrieval_bundle",
+      "source_refs": [
+        "organs:formal_math_premise_retrieval",
+        "standards/std_microcosm_formal_math_premise_retrieval.json"
+      ],
+      "standard_id": "formal_retrieval_not_proof_authority",
+      "title": "Formal Retrieval, Not Proof Authority"
+    },
+    {
+      "authority_boundary": "context_budget_metadata_not_provider_or_proof_authority",
+      "claim": "Provider context recipes may budget public sections and deliverable routes, but they must not call providers, expose proof bodies, or include oracle-only truth-side material.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "provider_context_recipe_budget_policy.run_budget_bundle",
+      "source_refs": [
+        "organs:provider_context_recipe_budget_policy",
+        "standards/std_microcosm_provider_context_recipe_budget_policy.json"
+      ],
+      "standard_id": "provider_context_recipe_budget_no_provider_authority",
+      "title": "Provider Context Recipe Budget, No Provider Authority"
+    },
+    {
+      "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+      "claim": "Strategy selection is a pre-oracle metadata hypothesis and retrieval lens; it cannot carry proof bodies, oracle labels, provider output, test tuning, or release authority.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "mathematical_strategy_atlas_hypothesis_scorer.run_strategy_bundle",
+      "source_refs": [
+        "organs:mathematical_strategy_atlas_hypothesis_scorer",
+        "standards/std_microcosm_mathematical_strategy_atlas_hypothesis_scorer.json"
+      ],
+      "standard_id": "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+      "title": "Mathematical Strategy Atlas, Pre-Oracle Hypothesis Boundary"
+    },
+    {
+      "authority_boundary": "environment_scoped_tactic_callability_metadata_not_proof_authority",
+      "claim": "Tactic availability is an environment-scoped probe artifact; Mathlib-dependent tactics cannot be marked available without a passing Mathlib import probe, and unprobed tactics cannot be consumed downstream.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "tactic_portfolio_availability_probe.run_availability_bundle",
+      "source_refs": [
+        "organs:tactic_portfolio_availability_probe",
+        "standards/std_microcosm_tactic_portfolio_availability_probe.json"
+      ],
+      "standard_id": "tactic_portfolio_availability_probe_environment_boundary",
+      "title": "Tactic Portfolio Availability, Environment Boundary"
+    },
+    {
+      "authority_boundary": "pre_execution_tactic_admissibility_metadata_not_proof_authority",
+      "claim": "Target-shape tactic routing admits or blocks public tactic candidates before execution; it must not claim Lean proof authority, provider output, post-execution routing, or release operations.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "target_shape_tactic_routing_gate.run_routing_bundle",
+      "source_refs": [
+        "organs:target_shape_tactic_routing_gate",
+        "standards/std_microcosm_target_shape_tactic_routing_gate.json"
+      ],
+      "standard_id": "target_shape_tactic_routing_gate_no_proof_authority",
+      "title": "Target Shape Tactic Routing, No Proof Authority"
+    },
+    {
+      "authority_boundary": "bounded_public_lean_lake_witness_not_mathlib_or_release_authority",
+      "claim": "Lean/Lake may run only for the tiny public witness fixture, with redacted receipts and no Mathlib or provider authority.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_lean_proof_witness.run_witness_bundle",
+      "source_refs": [
+        "organs:formal_math_lean_proof_witness",
+        "standards/std_microcosm_formal_math_lean_proof_witness.json"
+      ],
+      "standard_id": "formal_lean_witness_bounded_authority",
+      "title": "Formal Lean Witness, Bounded Authority"
+    },
+    {
+      "authority_boundary": "synthetic_prediction_reconciliation_not_trading_advice_or_live_market_authority",
+      "claim": "Prediction reconciliation is synthetic fixture reasoning only; it must not imply trading, financial advice, live market data, provider authority, performance claims, publication, or release.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "prediction_oracle_reconciliation.run_prediction_bundle",
+      "source_refs": [
+        "organs:prediction_oracle_reconciliation",
+        "standards/std_microcosm_prediction_oracle_reconciliation.json"
+      ],
+      "standard_id": "prediction_oracle_reconciliation_no_advice_authority",
+      "title": "Prediction Oracle Reconciliation, No Advice Authority"
+    },
+    {
+      "authority_boundary": "synthetic_ring2_retrieval_metrics_not_proof_or_benchmark_authority",
+      "claim": "Ring-2 precision/recall metrics explain retrieval quality for a synthetic fixture; they must not claim theorem proof, benchmark performance, provider authority, test-tuned retrieval, or release operations.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "ring2_premise_retrieval_precision_recall_harness.run_precision_recall_bundle",
+      "source_refs": [
+        "organs:ring2_premise_retrieval_precision_recall_harness",
+        "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json"
+      ],
+      "standard_id": "ring2_premise_retrieval_precision_recall_no_proof_authority",
+      "title": "Ring-2 Retrieval Precision/Recall, No Proof Authority"
+    },
+    {
+      "authority_boundary": "coverage_projection_not_registry_or_release_authority",
+      "claim": "Standards meta diagnostics may summarize organ-standard-runtime-receipt coverage, but must not become registry source authority or authorize release, provider calls, secret export, trading advice, or whole-system correctness.",
+      "kernel_primitive_refs": [
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "standards_meta_diagnostics.run_diagnostics_bundle",
+      "source_refs": [
+        "organs:standards_meta_diagnostics",
+        "standards/std_microcosm_standards_meta_diagnostics.json"
+      ],
+      "standard_id": "standards_meta_diagnostics_projection_only",
+      "title": "Standards Meta Diagnostics, Projection Only"
+    },
+    {
+      "authority_boundary": "route_map_projection_not_registry_or_release_authority",
+      "claim": "Cold-reader route maps may make the public first-run path explicit with commands, docs refs, and receipt refs, but must not become route registry authority or authorize release, provider calls, secret export, trading advice, source mutation, or whole-system correctness.",
+      "kernel_primitive_refs": [
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "cold_reader_route_map.run_route_map_bundle",
+      "source_refs": [
+        "organs:cold_reader_route_map",
+        "standards/std_microcosm_cold_reader_route_map.json"
+      ],
+      "standard_id": "cold_reader_route_map_projection_only",
+      "title": "Cold-Reader Route Map, Projection Only"
+    },
+    {
+      "authority_boundary": "closed_metadata_index_not_proof_or_release_authority",
+      "claim": "Lean/Std premise indexes may expose closed public metadata with Init source refs, namespace coverage, split eligibility, and retrieval terms, but must not expose Mathlib imports, proof bodies, oracle-needed ids, test split tuning, provider calls, or release authority.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "lean_std_premise_index.run_index_bundle",
+      "source_refs": [
+        "organs:lean_std_premise_index",
+        "standards/std_microcosm_lean_std_premise_index.json"
+      ],
+      "standard_id": "lean_std_premise_index_closed_metadata_only",
+      "title": "Lean/Std Premise Index, Closed Metadata Only"
+    },
+    {
+      "authority_boundary": "verifier_trace_repair_metadata_not_theorem_proof_authority",
+      "claim": "Verifier feedback may drive repair and curriculum metadata only when trace events, verifier classes, and cold rerun receipts are present.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_math_verifier_trace_repair_loop.run",
+      "source_refs": [
+        "organs:formal_math_verifier_trace_repair_loop",
+        "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
+        "paper_modules/formal_math_verifier_trace_repair_loop.md"
+      ],
+      "standard_id": "formal_math_verifier_trace_repair_loop_public_pressure",
+      "title": "Verifier Trace Repair Is Not Proof Authority"
+    },
+    {
+      "authority_boundary": "evidence_cell_anchor_metadata_not_theorem_correctness_authority",
+      "claim": "Proof-language claims must resolve to public evidence-cell metadata with source-anchor refs before they can be stated as evidence-cell-present claims.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "formal_evidence_cell_anchor_resolver.run",
+      "source_refs": [
+        "organs:formal_evidence_cell_anchor_resolver",
+        "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
+        "paper_modules/formal_evidence_cell_anchor_resolver.md"
+      ],
+      "standard_id": "formal_evidence_cell_anchor_resolver_public_pressure",
+      "title": "Evidence Cell Anchors Are Not Theorem Authority"
+    },
+    {
+      "authority_boundary": "redacted_symbol_observation_not_theorem_correctness_authority",
+      "claim": "Lean-accepted proof receipts that use a known library symbol outside the allowed premise set must be quarantined as undeclared library priors, unless an explicit cited-unallowed premise already makes it a premise-budget violation.",
+      "kernel_primitive_refs": [
+        "pattern",
+        "standard",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "*"
+      ],
+      "runtime_hook": "undeclared_library_prior_symbol_classifier.run",
+      "source_refs": [
+        "organs:undeclared_library_prior_symbol_classifier",
+        "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
+        "paper_modules/undeclared_library_prior_classifier.md"
+      ],
+      "standard_id": "undeclared_library_prior_symbol_classifier_public_pressure",
+      "title": "Undeclared Library Priors Are Quarantined Separately From Premise Budgets"
+    }
+  ],
+  "standard_pressure_refs": [
+    "json_contract_markdown_projection",
+    "substrate_derived_projection",
+    "projection_lineage_not_authority",
+    "reversible_work_transaction",
+    "evidence_as_black_box_recorder",
+    "assimilation_without_promotion",
+    "formal_readiness_not_proof_authority",
+    "corpus_readiness_mathlib_absence_gate",
+    "formal_retrieval_not_proof_authority",
+    "provider_context_recipe_budget_no_provider_authority",
+    "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+    "tactic_portfolio_availability_probe_environment_boundary",
+    "target_shape_tactic_routing_gate_no_proof_authority",
+    "formal_lean_witness_bounded_authority",
+    "prediction_oracle_reconciliation_no_advice_authority",
+    "ring2_premise_retrieval_precision_recall_no_proof_authority",
+    "standards_meta_diagnostics_projection_only",
+    "cold_reader_route_map_projection_only",
+    "lean_std_premise_index_closed_metadata_only",
+    "formal_math_verifier_trace_repair_loop_public_pressure",
+    "formal_evidence_cell_anchor_resolver_public_pressure",
+    "undeclared_library_prior_symbol_classifier_public_pressure"
+  ],
+  "standard_pressure_surface": {
+    "authority_posture": "source_available_standard_pressure_projection_not_doctrine_authority",
+    "private_source_bodies_included": false,
+    "row_count": 41,
+    "source_ref": "core/public_standard_pressure.json",
+    "state_ref": ".microcosm/architecture.json::standard_pressure_surface",
+    "surface_id": "public_microcosm_standard_pressure"
+  },
+  "state_ref": ".microcosm",
+  "status": "pass",
+  "title": "Add behavior-test route",
+  "why_this_route_exists": "The catalog classified project files, pattern observations mapped those roles to repo-shape signals, and the route primitive projected a reversible next action from those grounded refs.",
+  "work_transaction_shape": {
+    "contract_shape": {
+      "integration_contract": {
+        "authority_boundary": "local_state_integration_not_external_side_effect",
+        "contract_id": "integration:missing_tests_route",
+        "forbidden_side_effects": [
+          "source_file_mutation",
+          "provider_call",
+          "live_task_ledger_mutation",
+          "global_doctrine_promotion",
+          "release_or_publication"
+        ],
+        "integration_mode": "project_local_record_only",
+        "route_id": "missing_tests_route",
+        "standard_pressure_refs": [
+          "reversible_work_transaction",
+          "projection_lineage_not_authority",
+          "evidence_as_black_box_recorder",
+          "assimilation_without_promotion"
+        ],
+        "state_targets": [
+          ".microcosm/work_items.json::<work_id>",
+          ".microcosm/events.jsonl",
+          ".microcosm/evidence/work_create_<work_id>.json",
+          ".microcosm/evidence/work_run_<work_id>.json"
+        ]
+      },
+      "residual_policy": {
+        "global_backlog_mutation_authorized": false,
+        "nothing_to_refine_floor": [
+          "stewardship_checked",
+          "next_best_lane_checked",
+          "reentry_condition"
+        ],
+        "residual_capture_mode": "local_next_actions_only"
+      },
+      "satisfaction_contract": {
+        "authority_boundary": "project_local_contract_not_live_task_ledger_authority",
+        "contract_id": "satisfaction:missing_tests_route",
+        "done_when": [
+          "transaction_state == closed",
+          "closeout.satisfaction_contract_met == true",
+          "closeout.integration_contract_met == true"
+        ],
+        "must_satisfy": [
+          "route_snapshot_present",
+          "workflow_definition_ref_present",
+          "workflow_execution_ref_present",
+          "state_history_records_created_selected_planned",
+          "source_mutation_not_authorized",
+          "event_and_evidence_refs_recorded_on_run"
+        ],
+        "route_id": "missing_tests_route",
+        "standard_pressure_refs": [
+          "reversible_work_transaction",
+          "projection_lineage_not_authority",
+          "evidence_as_black_box_recorder",
+          "assimilation_without_promotion"
+        ]
+      }
+    },
+    "definition_ref": ".microcosm/routes.json",
+    "execution_ref": ".microcosm/work_items.json",
+    "matching_work_items": [
+      {
+        "closed_at": "2026-05-26T09:34:04+00:00",
+        "closeout": {
+          "authority_boundary": "project_local_closeout_not_global_doctrine_promotion",
+          "event_ref": ".microcosm/events.jsonl::evt_0010",
+          "evidence_ref": ".microcosm/evidence/work_run_work_0001.json",
+          "integration_contract_met": true,
+          "next_actions": [
+            {
+              "action_id": "inspect_route_explanation",
+              "command": "microcosm explain <project> missing_tests_route"
+            },
+            {
+              "action_id": "inspect_event_stream",
+              "command": "microcosm observe <project>"
+            }
+          ],
+          "residuals": [],
+          "satisfaction_contract_met": true,
+          "status": "pass"
+        },
+        "created_at": "2026-05-26T09:34:04+00:00",
+        "event_refs": [
+          {
+            "event_id": "evt_0009",
+            "span": "work.create",
+            "status": "pass"
+          },
+          {
+            "event_id": "evt_0010",
+            "span": "work.run",
+            "status": "pass"
+          }
+        ],
+        "evidence_refs": [
+          ".microcosm/evidence/work_create_work_0001.json",
+          ".microcosm/evidence/work_run_work_0001.json"
+        ],
+        "grounded_refs": [],
+        "integration_contract": {
+          "authority_boundary": "local_state_integration_not_external_side_effect",
+          "contract_id": "integration:missing_tests_route",
+          "forbidden_side_effects": [
+            "source_file_mutation",
+            "provider_call",
+            "live_task_ledger_mutation",
+            "global_doctrine_promotion",
+            "release_or_publication"
+          ],
+          "integration_mode": "project_local_record_only",
+          "route_id": "missing_tests_route",
+          "standard_pressure_refs": [
+            "reversible_work_transaction",
+            "projection_lineage_not_authority",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion"
+          ],
+          "state_targets": [
+            ".microcosm/work_items.json::work_0001",
+            ".microcosm/events.jsonl",
+            ".microcosm/evidence/work_create_work_0001.json",
+            ".microcosm/evidence/work_run_work_0001.json"
+          ]
+        },
+        "residual_policy": {
+          "global_backlog_mutation_authorized": false,
+          "nothing_to_refine_floor": [
+            "stewardship_checked",
+            "next_best_lane_checked",
+            "reentry_condition"
+          ],
+          "residual_capture_mode": "local_next_actions_only"
+        },
+        "result": {
+          "definition_execution_separated": true,
+          "source_files_mutated": false,
+          "status": "pass",
+          "summary": "Simulated a governed local transaction over project catalog state.",
+          "workflow_definition_ref": ".microcosm/routes.json::missing_tests_route",
+          "workflow_execution_ref": ".microcosm/work_items.json::work_0001"
+        },
+        "route_id": "missing_tests_route",
+        "route_snapshot": {
+          "action": "plan",
+          "authority": "project_local_projection_not_source_authority",
+          "claims_source_authority": false,
+          "explain_command": "microcosm explain <project> missing_tests_route",
+          "grounded_refs": [],
+          "intent": "project lacks visible tests",
+          "kernel_primitive_refs": [
+            "catalog",
+            "pattern",
+            "route",
+            "work",
+            "event",
+            "evidence"
+          ],
+          "pattern_refs": [
+            "repo_has_tests"
+          ],
+          "pattern_resolution_ref": ".microcosm/patterns.json",
+          "pattern_surface_id": "public_microcosm_pattern_surface",
+          "route_definition_ref": ".microcosm/routes.json::missing_tests_route",
+          "route_id": "missing_tests_route",
+          "source_mutation_authorized": false,
+          "standard_pressure_refs": [
+            "json_contract_markdown_projection",
+            "substrate_derived_projection",
+            "projection_lineage_not_authority",
+            "reversible_work_transaction",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion",
+            "formal_readiness_not_proof_authority",
+            "corpus_readiness_mathlib_absence_gate",
+            "formal_retrieval_not_proof_authority",
+            "provider_context_recipe_budget_no_provider_authority",
+            "mathematical_strategy_atlas_pre_oracle_hypothesis_boundary",
+            "tactic_portfolio_availability_probe_environment_boundary",
+            "target_shape_tactic_routing_gate_no_proof_authority",
+            "formal_lean_witness_bounded_authority",
+            "prediction_oracle_reconciliation_no_advice_authority",
+            "ring2_premise_retrieval_precision_recall_no_proof_authority",
+            "standards_meta_diagnostics_projection_only",
+            "cold_reader_route_map_projection_only",
+            "lean_std_premise_index_closed_metadata_only",
+            "formal_math_verifier_trace_repair_loop_public_pressure",
+            "formal_evidence_cell_anchor_resolver_public_pressure",
+            "undeclared_library_prior_symbol_classifier_public_pressure"
+          ],
+          "title": "Add behavior-test route"
+        },
+        "satisfaction_contract": {
+          "authority_boundary": "project_local_contract_not_live_task_ledger_authority",
+          "contract_id": "satisfaction:missing_tests_route",
+          "done_when": [
+            "transaction_state == closed",
+            "closeout.satisfaction_contract_met == true",
+            "closeout.integration_contract_met == true"
+          ],
+          "must_satisfy": [
+            "route_snapshot_present",
+            "workflow_definition_ref_present",
+            "workflow_execution_ref_present",
+            "state_history_records_created_selected_planned",
+            "source_mutation_not_authorized",
+            "event_and_evidence_refs_recorded_on_run"
+          ],
+          "route_id": "missing_tests_route",
+          "standard_pressure_refs": [
+            "reversible_work_transaction",
+            "projection_lineage_not_authority",
+            "evidence_as_black_box_recorder",
+            "assimilation_without_promotion"
+          ]
+        },
+        "source_files_mutated": false,
+        "state_history": [
+          {
+            "created_at": "2026-05-26T09:34:04+00:00",
+            "note": "Work transaction record created from a route snapshot.",
+            "span": "work.create",
+            "state": "created"
+          },
+          {
+            "created_at": "2026-05-26T09:34:04+00:00",
+            "note": "Route selected for deterministic local simulation.",
+            "span": "work.create",
+            "state": "selected"
+          },
+          {
+            "created_at": "2026-05-26T09:34:04+00:00",
+            "note": "Source mutation is not authorized; run step will simulate governance only.",
+            "span": "work.create",
+            "state": "planned"
+          },
+          {
+            "created_at": "2026-05-26T09:34:04+00:00",
+            "note": "Executed deterministic project-local simulation over route snapshot.",
+            "span": "work.run",
+            "state": "executed_simulation"
+          },
+          {
+            "created_at": "2026-05-26T09:34:04+00:00",
+            "note": "Closed with generated evidence and no source mutation.",
+            "span": "work.run",
+            "state": "closed"
+          }
+        ],
+        "status": "closed",
+        "transaction_policy": "simulate_project_local_only",
+        "transaction_state": "closed",
+        "work_id": "work_0001",
+        "workflow_definition_ref": ".microcosm/routes.json::missing_tests_route",
+        "workflow_execution_ref": ".microcosm/work_items.json::work_0001"
+      }
+    ],
+    "state_machine": [
+      "created",
+      "selected",
+      "planned",
+      "executed_simulation",
+      "closed"
+    ]
+  }
+}

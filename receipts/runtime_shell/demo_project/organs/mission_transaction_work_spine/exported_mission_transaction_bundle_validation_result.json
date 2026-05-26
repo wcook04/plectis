@@ -159,7 +159,7 @@
     "verification_mode": "source_faithful_public_refactor"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "b61d9a2cc0f1dc77619bffa7b00f343ad2016f471c31d11e87c954169a8533c3",
+  "bundle_fingerprint": "caaf0ff91ff168d0e10e598086021d238a2ef58de6c247c40cb8c4919ada3dc5",
   "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
   "bundle_manifest_schema_version": "mission_transaction_work_spine_exported_mission_transaction_bundle_v1",
   "cannot_fake_predicate_status": "pass",
@@ -349,7 +349,7 @@
     "status_before": "ready",
     "work_item_id": "cap_public_mission_adapter_runtime"
   },
-  "command": "python -m microcosm_core.organs.mission_transaction_work_spine validate-mission-transaction-bundle --input examples/mission_transaction_work_spine/exported_mission_transaction_bundle --out receipts/runtime_shell/demo_project/organs/mission_transaction_work_spine",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_checkpoint_source_count": 2,
   "copied_checkpoint_source_line_count": 1166,
   "copied_checkpoint_source_module_ids": [
@@ -365,14 +365,14 @@
     "task_ledger_project_tool_body_import"
   ],
   "copied_work_ledger_source_count": 4,
-  "copied_work_ledger_source_line_count": 11158,
+  "copied_work_ledger_source_line_count": 11242,
   "copied_work_ledger_source_module_ids": [
     "work_ledger_tool_body_import",
     "work_ledger_event_body_import",
     "work_ledger_runtime_body_import",
     "work_ledger_standard_body_import"
   ],
-  "created_at": "2026-05-25T16:44:37+00:00",
+  "created_at": "2026-05-26T12:09:20+00:00",
   "dependency_refs": [
     "cap_navigation_adapter_accepted"
   ],
@@ -684,6 +684,7 @@
     "status": "pass"
   },
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -695,6 +696,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 24,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
@@ -1091,12 +1101,12 @@
         "anchor_count": 6,
         "body_copied": true,
         "body_in_receipt": false,
-        "byte_count": 149874,
-        "line_count": 3737,
+        "byte_count": 150048,
+        "line_count": 3745,
         "missing_anchors": [],
         "module_id": "work_ledger_tool_body_import",
         "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
-        "sha256": "57e37dc4083296d4b847789603e1e08c0811b9731202d46e3d5c7bb14a65dd6b",
+        "sha256": "bb6efa84564c4300a1c6d5c1c5599ba0fe7f94cbcc21d0c1b17aed51d4c4f940",
         "source_ref": "tools/meta/factory/work_ledger.py",
         "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py"
       },
@@ -1117,12 +1127,12 @@
         "anchor_count": 7,
         "body_copied": true,
         "body_in_receipt": false,
-        "byte_count": 213038,
-        "line_count": 5187,
+        "byte_count": 215830,
+        "line_count": 5263,
         "missing_anchors": [],
         "module_id": "work_ledger_runtime_body_import",
         "public_runtime_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
-        "sha256": "3f7c5c813212bce45caa27dd86edde65c2964f4d2f4cff36b82cd201b1ca5799",
+        "sha256": "26a940f532c72c5f1b778ab45dccc3b96ea8663886c9037477c24a3da9815f28",
         "source_ref": "system/lib/work_ledger_runtime.py",
         "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py"
       },
@@ -1153,7 +1163,7 @@
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
       "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json"
     ],
-    "total_line_count": 11158
+    "total_line_count": 11242
   },
   "work_ledger_control_source_import_status": "public_runtime_import_landed",
   "work_ledger_source_contract": {

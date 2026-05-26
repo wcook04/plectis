@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 10,
+  "rows_with_source_body_imports": 14,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 68,
+  "source_open_body_material_count": 91,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 10,
-    "source_open_body_material_count": 68,
+    "rows_with_source_body_imports": 14,
+    "source_open_body_material_count": 91,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -1664,7 +1664,42 @@
           "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/bundle_manifest.json::source_open_body_imports",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "runtime_correctness_claim": false
+          },
+          "body_material_count": 7,
+          "body_material_ids": [
+            "ring2_trace_repair_graph_variant_comparison_body_import",
+            "ring2_trace_repair_oracle_repair_failure_taxonomy_body_import",
+            "ring2_trace_repair_oracle_repair_graph_update_candidates_body_import",
+            "ring2_trace_repair_oracle_repair_run_summary_body_import",
+            "ring2_trace_repair_premise_failure_taxonomy_body_import",
+            "ring2_trace_repair_premise_graph_update_candidates_body_import",
+            "ring2_trace_repair_premise_run_summary_body_import"
+          ],
+          "body_material_status": "source_faithful_public_safe_ring2_verifier_trace_repair_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/formal_math_verifier_trace_repair_loop.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body",
+            "public_macro_receipt_body"
+          ],
+          "reader_action": "Inspect the verifier trace repair source_module_manifest to see the seven copied Ring2 run artifacts behind this repair-loop organ.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop run --input fixtures/first_wave/formal_math_verifier_trace_repair_loop/input --out receipts/first_wave/formal_math_verifier_trace_repair_loop",
         "verdict_source": "derived_projection_metric"
@@ -1672,7 +1707,42 @@
       "ordinal": 11,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/bundle_manifest.json::source_open_body_imports",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "runtime_correctness_claim": false
+        },
+        "body_material_count": 7,
+        "body_material_ids": [
+          "ring2_trace_repair_graph_variant_comparison_body_import",
+          "ring2_trace_repair_oracle_repair_failure_taxonomy_body_import",
+          "ring2_trace_repair_oracle_repair_graph_update_candidates_body_import",
+          "ring2_trace_repair_oracle_repair_run_summary_body_import",
+          "ring2_trace_repair_premise_failure_taxonomy_body_import",
+          "ring2_trace_repair_premise_graph_update_candidates_body_import",
+          "ring2_trace_repair_premise_run_summary_body_import"
+        ],
+        "body_material_status": "source_faithful_public_safe_ring2_verifier_trace_repair_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/formal_math_verifier_trace_repair_loop.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body",
+          "public_macro_receipt_body"
+        ],
+        "reader_action": "Inspect the verifier trace repair source_module_manifest to see the seven copied Ring2 run artifacts behind this repair-loop organ.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_formal_math_verifier_trace_repair_loop.json",
         "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
@@ -1728,7 +1798,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe evidence-cell anchor resolver: paper claims, evidence cells, real Ring2 source anchors, machine-anchor classes, claim-strength boundaries, receipts, and leakage negative cases.",
         "receipt_expectation_count": 2,
-        "required_field_count": 12,
+        "required_field_count": 14,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -1743,7 +1813,7 @@
         "standard_ref": "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm demonstrate proof-evidence legibility while preserving the boundary between evidence metadata and theorem correctness.",
-        "validation_rule_count": 10
+        "validation_rule_count": 11
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -1760,7 +1830,43 @@
           "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/bundle_manifest.json::source_open_body_imports",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_authority_above_macro_contracts": false,
+            "theorem_correctness_authority": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "erdos257_formal_evidence_cells_manifest_body_import",
+            "formal_evidence_cell_registry_builder_source_body_import",
+            "formal_evidence_cell_registry_state_body_import",
+            "paper_module_formal_evidence_auditor_source_body_import",
+            "paper_module_formal_evidence_cells_test_source_body_import",
+            "std_paper_module_formal_evidence_cells_contract_body_import"
+          ],
+          "body_material_status": "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/formal_evidence_cell_anchor_resolver.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro bodies; receipts carry digests and validation status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_evidence_cell_anchor_resolver run --input fixtures/first_wave/formal_evidence_cell_anchor_resolver/input --out receipts/first_wave/formal_evidence_cell_anchor_resolver",
         "verdict_source": "derived_projection_metric"
@@ -1768,7 +1874,43 @@
       "ordinal": 12,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/bundle_manifest.json::source_open_body_imports",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_authority_above_macro_contracts": false,
+          "theorem_correctness_authority": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "erdos257_formal_evidence_cells_manifest_body_import",
+          "formal_evidence_cell_registry_builder_source_body_import",
+          "formal_evidence_cell_registry_state_body_import",
+          "paper_module_formal_evidence_auditor_source_body_import",
+          "paper_module_formal_evidence_cells_test_source_body_import",
+          "std_paper_module_formal_evidence_cells_contract_body_import"
+        ],
+        "body_material_status": "source_faithful_public_safe_formal_evidence_cell_anchor_macro_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/formal_evidence_cell_anchor_resolver.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro bodies; receipts carry digests and validation status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_formal_evidence_cell_anchor_resolver.json",
         "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
@@ -1823,7 +1965,7 @@
         "missing_requirement_ids": [],
         "ontology": "A provenance-bearing symbol classifier: imported Lean/Std premise rows, real Ring2 problem ids and candidate digests, allowed-premise ids, cited-unallowed ids, failure classes, review outcomes, receipts, and leakage negative cases.",
         "receipt_expectation_count": 2,
-        "required_field_count": 16,
+        "required_field_count": 21,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -1837,8 +1979,8 @@
         },
         "standard_ref": "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
         "standard_status": "draft",
-        "teleology": "Make Microcosm distinguish valuable out-of-recipe Lean/Std library priors from ordinary premise-budget violations using real symbol-boundary substrate instead of placeholder symbol observations.",
-        "validation_rule_count": 10
+        "teleology": "Make Microcosm distinguish valuable out-of-recipe Lean/Std library priors from ordinary premise-budget violations using real symbol-boundary substrate and copied macro reducer/run bodies instead of placeholder symbol observations.",
+        "validation_rule_count": 13
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -1855,7 +1997,42 @@
           "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json::source_open_body_imports",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_authority_above_macro_contracts": false,
+            "theorem_correctness_authority": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "provider_batch_context_calibration_report_builder_source_body_import",
+            "provider_batch_context_recipe_policy_metrics_body_import",
+            "provider_batch_receipt_reduction_matrix_body_import",
+            "provider_receipt_reducer_source_body_import",
+            "ring2_premise_index_state_body_import",
+            "ring2_premise_retrieval_run_summary_body_import"
+          ],
+          "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/undeclared_library_prior_symbol_classifier.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro reducer, calibration, and run-body material; receipts carry digests and validation status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run --input fixtures/first_wave/undeclared_library_prior_symbol_classifier/input --out receipts/first_wave/undeclared_library_prior_symbol_classifier",
         "verdict_source": "derived_projection_metric"
@@ -1863,7 +2040,42 @@
       "ordinal": 13,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json::source_open_body_imports",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_authority_above_macro_contracts": false,
+          "theorem_correctness_authority": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "provider_batch_context_calibration_report_builder_source_body_import",
+          "provider_batch_context_recipe_policy_metrics_body_import",
+          "provider_batch_receipt_reduction_matrix_body_import",
+          "provider_receipt_reducer_source_body_import",
+          "ring2_premise_index_state_body_import",
+          "ring2_premise_retrieval_run_summary_body_import"
+        ],
+        "body_material_status": "source_faithful_public_safe_undeclared_library_prior_symbol_classifier_macro_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/undeclared_library_prior_symbol_classifier.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_modules/ for copied macro reducer, calibration, and run-body material; receipts carry digests and validation status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_undeclared_library_prior_symbol_classifier.json",
         "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
@@ -1928,8 +2140,8 @@
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
         "ontology": "A public-safe Ring2 premise-retrieval precision/recall harness over copied macro run rankings, after-the-fact metric labels, and exact copied macro run source artifacts.",
-        "receipt_expectation_count": 4,
-        "required_field_count": 12,
+        "receipt_expectation_count": 5,
+        "required_field_count": 15,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -1944,7 +2156,7 @@
         "standard_ref": "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
         "standard_status": "accepted",
         "teleology": "Make the real Ring2 retrieval measurement substrate inspectable in Microcosm while keeping proof bodies, provider payloads, live access, and release authority excluded.",
-        "validation_rule_count": 7
+        "validation_rule_count": 9
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -1961,7 +2173,40 @@
           "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json::source_open_body_imports",
+          "authority_ceiling": {
+            "benchmark_performance_authority": false,
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_authority_above_macro_contracts": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "ring2_precision_recall_aggregate_report_body_import",
+            "ring2_precision_recall_run_summary_body_import",
+            "ring2_precision_recall_graph_variant_comparison_body_import",
+            "ring2_precision_recall_problem_source_manifest_body_import"
+          ],
+          "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body"
+          ],
+          "reader_action": "Open source_artifacts/ under the fixture or exported bundle to inspect copied Ring2 precision-recall macro receipts; validator receipts carry body import ids, target refs, and digest status only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+            "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness",
         "verdict_source": "derived_projection_metric"
@@ -1969,7 +2214,40 @@
       "ordinal": 14,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json::source_open_body_imports",
+        "authority_ceiling": {
+          "benchmark_performance_authority": false,
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_authority_above_macro_contracts": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "ring2_precision_recall_aggregate_report_body_import",
+          "ring2_precision_recall_run_summary_body_import",
+          "ring2_precision_recall_graph_variant_comparison_body_import",
+          "ring2_precision_recall_problem_source_manifest_body_import"
+        ],
+        "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body"
+        ],
+        "reader_action": "Open source_artifacts/ under the fixture or exported bundle to inspect copied Ring2 precision-recall macro receipts; validator receipts carry body import ids, target refs, and digest status only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+          "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_ring2_premise_retrieval_precision_recall_harness.json",
         "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",

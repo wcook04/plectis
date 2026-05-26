@@ -70,6 +70,7 @@ from microcosm_core.validators import research_kernel_density
 from microcosm_core.validators import secret_exclusion_scan
 from microcosm_core.validators import standards_registry
 from microcosm_core.validators import transaction_evidence_stability
+from microcosm_core.receipts import write_json_atomic
 from microcosm_core.schemas import read_json_strict
 
 
@@ -78,10 +79,11 @@ DEFAULT_PROOF_LAB_INPUT = (
     MICROCOSM_ROOT / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 )
 DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
+PROOF_LAB_INPUT_PLACEHOLDER = "<proof-lab-input>"
+PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 
 FIRST_SCREEN_HELP = """First-screen route:
-  microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
-  microcosm tour --card <project> read the compact first-screen tour lens
+  microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
   microcosm authority --card      read the compact authority ceiling lens
@@ -93,6 +95,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm serve <project>       open the local observatory
   microcosm compile --card <project> read cached .microcosm state without rebuilding
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
+  microcosm tour <project>        inspect full route cards, endpoint path, and evidence refs
 Boundaries: local-first only; no provider calls, source mutation, release,
 hosting, proof-correctness, or credential-equivalent live-access authority.
 Receipts are evidence drilldowns after the behavior route is visible.
@@ -170,18 +173,47 @@ def _public_ref(path_ref: str) -> str:
     return relative.as_posix()
 
 
+def _display_local_ref(path_ref: str, *, placeholder: str) -> str:
+    public_ref = _public_ref(path_ref)
+    if public_ref != path_ref:
+        return public_ref
+
+    path = Path(path_ref)
+    if not path.is_absolute():
+        return path_ref
+
+    raw_ref = path.as_posix()
+    if raw_ref == "/private/tmp":
+        return "/tmp"
+    if raw_ref.startswith("/private/tmp/"):
+        return f"/tmp/{raw_ref.removeprefix('/private/tmp/')}"
+    if raw_ref == "/tmp" or raw_ref.startswith("/tmp/"):
+        return raw_ref
+    return placeholder
+
+
+def _proof_lab_input_ref(input_path: str) -> str:
+    return _display_local_ref(input_path, placeholder=PROOF_LAB_INPUT_PLACEHOLDER)
+
+
+def _proof_lab_output_ref(out_dir: str) -> str:
+    return _display_local_ref(out_dir, placeholder=PROOF_LAB_OUT_PLACEHOLDER)
+
+
 def _proof_lab_command(input_path: str, out_dir: str) -> str:
-    display_input = _public_ref(input_path)
+    display_input = _proof_lab_input_ref(input_path)
+    display_out = _proof_lab_output_ref(out_dir)
     if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
-        return f"microcosm proof-lab --out {out_dir}"
-    return f"microcosm proof-lab --input {display_input} --out {out_dir}"
+        return f"microcosm proof-lab --out {display_out}"
+    return f"microcosm proof-lab --input {display_input} --out {display_out}"
 
 
 def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
-    display_input = _public_ref(input_path)
+    display_input = _proof_lab_input_ref(input_path)
+    display_out = _proof_lab_output_ref(out_dir)
     if display_input == _public_ref(str(DEFAULT_PROOF_LAB_INPUT)):
-        return f"microcosm proof-lab --card --out {out_dir}"
-    return f"microcosm proof-lab --card --input {display_input} --out {out_dir}"
+        return f"microcosm proof-lab --card --out {display_out}"
+    return f"microcosm proof-lab --card --input {display_input} --out {display_out}"
 
 
 def _proof_lab_input_files(input_path: str) -> list[Path]:
@@ -238,6 +270,14 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
 def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     receipt_path = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
     if not receipt_path.is_file():
+        fallback = _proof_lab_canonical_receipt_result(
+            input_path=input_path,
+            out_dir=out_dir,
+            cache_status="canonical_receipt_read",
+            live_receipt_rebuild_status="not_requested_card_mode",
+        )
+        if fallback is not None:
+            return fallback
         return {
             "status": "missing_cached_receipt",
             "proof_lab_component_metrics": {},
@@ -282,21 +322,108 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     }
 
 
+def _canonical_proof_lab_receipt_path() -> Path:
+    return MICROCOSM_ROOT / runtime_shell.PROOF_LAB_RECEIPT_REF
+
+
+def _proof_lab_canonical_receipt_result(
+    *,
+    input_path: str,
+    out_dir: str,
+    cache_status: str,
+    live_receipt_rebuild_status: str,
+    tool_versions: dict | None = None,
+) -> dict | None:
+    canonical_path = _canonical_proof_lab_receipt_path()
+    if not canonical_path.is_file():
+        return None
+    payload = read_json_strict(canonical_path)
+    if not isinstance(payload, dict):
+        raise ValueError(
+            f"Canonical proof-lab receipt must be a JSON object: {canonical_path}"
+        )
+    target = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
+    target.parent.mkdir(parents=True, exist_ok=True)
+    receipt = {
+        **payload,
+        "command": _proof_lab_command(input_path, out_dir),
+        "cache_status": cache_status,
+        "cached_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
+        "cached_receipt_bytes": canonical_path.stat().st_size,
+        "canonical_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
+        "canonical_receipt_bytes": canonical_path.stat().st_size,
+        "live_receipt_rebuild_status": live_receipt_rebuild_status,
+        "local_toolchain_status": (
+            "missing_lean_lake" if tool_versions is not None else "not_checked"
+        ),
+        "tool_versions": tool_versions,
+        "fallback_reason": (
+            "Local Lean/Lake is not available; the first-screen route uses "
+            "the bundled canonical public receipt and exposes this fallback "
+            "instead of claiming a live proof rebuild."
+            if tool_versions is not None
+            else "Cached card read the bundled canonical public receipt."
+        ),
+        "receipt_paths": [str(target)],
+    }
+    write_json_atomic(target, receipt)
+    cache_freshness = _proof_lab_cache_freshness(input_path, canonical_path)
+    return {
+        **receipt,
+        "status": (
+            receipt.get("status")
+            if cache_freshness.get("status") == "current"
+            else "stale_cached_receipt"
+        ),
+        "cache_freshness": cache_freshness,
+    }
+
+
+def _proof_lab_toolchain_ready(tool_versions: dict) -> bool:
+    return (
+        tool_versions.get("lean_available") is True
+        and tool_versions.get("lake_available") is True
+    )
+
+
+def _receipt_ref_for_out(receipt_path: object, out_dir: str) -> str | None:
+    name = Path(str(receipt_path)).name
+    if not name:
+        return None
+    base = _proof_lab_output_ref(out_dir)
+    trimmed_base = base.rstrip("/")
+    if trimmed_base:
+        return f"{trimmed_base}/{name}"
+    if base.startswith("/"):
+        return f"/{name}"
+    return name
+
+
 def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
     refs: list[str] = []
-    base = str(out_dir)
-    trimmed_base = base.rstrip("/")
     for receipt_path in result.get("receipt_paths") or []:
-        name = Path(str(receipt_path)).name
-        if not name:
-            continue
-        if trimmed_base:
-            refs.append(f"{trimmed_base}/{name}")
-        elif base.startswith("/"):
-            refs.append(f"/{name}")
-        else:
-            refs.append(name)
+        receipt_ref = _receipt_ref_for_out(receipt_path, out_dir)
+        if receipt_ref is not None:
+            refs.append(receipt_ref)
     return refs
+
+
+def _evidence_inspect_command(receipt_ref: str) -> str:
+    if "<" in receipt_ref and ">" in receipt_ref:
+        return f"microcosm evidence inspect {receipt_ref}"
+    return f"microcosm evidence inspect {shlex.quote(receipt_ref)}"
+
+
+def _cached_receipt_ref_for_card(result: dict, out_dir: str) -> object:
+    receipt_ref = result.get("cached_receipt_ref")
+    if not isinstance(receipt_ref, str) or not receipt_ref:
+        return receipt_ref
+    public_ref = _public_ref(receipt_ref)
+    if public_ref != receipt_ref:
+        return public_ref
+    if not Path(receipt_ref).is_absolute():
+        return receipt_ref
+    return _receipt_ref_for_out(receipt_ref, out_dir) or PROOF_LAB_OUT_PLACEHOLDER
 
 
 def _proof_lab_first_screen_card(
@@ -309,9 +436,11 @@ def _proof_lab_first_screen_card(
     metrics = result.get("proof_lab_component_metrics") or {}
     receipt_refs = _receipt_refs_for_out(result, out_dir)
     if receipt_refs:
-        evidence_drilldown = f"microcosm evidence inspect {shlex.quote(receipt_refs[0])}"
+        evidence_drilldown = _evidence_inspect_command(receipt_refs[0])
     else:
         evidence_drilldown = "microcosm evidence inspect <proof-lab-receipt>"
+    input_ref = _proof_lab_input_ref(input_path)
+    out_ref = _proof_lab_output_ref(out_dir)
     return {
         "schema_version": "microcosm_proof_lab_first_screen_card_v1",
         "card_id": "first_screen_verifier_lab_kernel",
@@ -319,22 +448,26 @@ def _proof_lab_first_screen_card(
         "command": command,
         "expanded_command": (
             "microcosm verifier-lab-kernel run-kernel-bundle "
-            f"--input {_public_ref(input_path)} --out {out_dir}"
+            f"--input {input_ref} --out {out_ref}"
         ),
         "endpoint": "/proof-lab",
         "alias_endpoints": ["/verifier-lab-kernel"],
         "source_lens_endpoint": "/proof-loop-depth",
         "cache_status": result.get("cache_status", "live_receipt_rebuild"),
-        "cached_receipt_ref": result.get("cached_receipt_ref"),
+        "cached_receipt_ref": _cached_receipt_ref_for_card(result, out_dir),
         "cached_receipt_bytes": result.get("cached_receipt_bytes"),
         "cache_freshness": result.get("cache_freshness"),
-        "input_ref": _public_ref(input_path),
-        "out_ref": out_dir,
+        "canonical_receipt_ref": result.get("canonical_receipt_ref")
+        or runtime_shell.PROOF_LAB_RECEIPT_REF,
+        "live_receipt_rebuild_status": result.get("live_receipt_rebuild_status"),
+        "local_toolchain_status": result.get("local_toolchain_status"),
+        "fallback_reason": result.get("fallback_reason"),
+        "input_ref": input_ref,
+        "out_ref": out_ref,
         "bundle_ref": runtime_shell.PROOF_LAB_BUNDLE_REF,
         "route_id": result.get("proof_lab_route_id"),
         "route_ref": runtime_shell.PROOF_LAB_ROUTE_REF,
         "receipt_ref": receipt_refs[0] if receipt_refs else None,
-        "canonical_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
         "receipt_refs": receipt_refs,
         "proof_lab_route_id": result.get("proof_lab_route_id"),
         "proof_lab_route_component_count": result.get(
@@ -358,8 +491,18 @@ def _proof_lab_first_screen_card(
             "provider_payloads_exported": False,
             "credential_equivalent_payloads_exported": False,
             "input_refs_exported": False,
+            "host_private_paths_exported": False,
             "route_metadata_visible": True,
             "receipt_refs_visible": True,
+        },
+        **runtime_shell.proof_lab_first_screen_boundary(),
+        "local_path_policy": {
+            "host_private_paths_exported": False,
+            "repo_paths_are_repo_relative": True,
+            "private_tmp_normalized_to_tmp": True,
+            "other_host_private_roots_use_placeholders": True,
+            "input_placeholder": PROOF_LAB_INPUT_PLACEHOLDER,
+            "out_placeholder": PROOF_LAB_OUT_PLACEHOLDER,
         },
         "authority_ceiling": result.get("authority_ceiling"),
         "anti_claim": result.get("anti_claim"),
@@ -419,12 +562,14 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "command": command,
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
+        "status_card_endpoint": "/project/status",
+        "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
             "observatory_route_proof_ref"
         ),
         "status_card_ref": "microcosm status --card <project>",
-        "related_endpoint_count": 7,
+        "related_endpoint_count": 9,
         "model_field_count": 13,
         "source_files_mutated": False,
         "provider_calls_authorized": False,
@@ -472,6 +617,123 @@ def _attach_status_card_front_door_refs(payload: dict) -> dict:
     front_door_status["status"] = (
         "pass" if not front_door_status["blocking_surface_ids"] else "blocked"
     )
+    return payload
+
+
+def _pick(source: object, keys: list[str]) -> dict:
+    if not isinstance(source, dict):
+        return {}
+    return {key: source[key] for key in keys if key in source}
+
+
+def _compact_project_status_card_for_cli(payload: dict) -> dict:
+    front_door = payload.get("front_door")
+    if not isinstance(front_door, dict):
+        return payload
+
+    front_door_status = payload.get("front_door_status")
+    if isinstance(front_door_status, dict):
+        payload["front_door_status"] = _pick(
+            front_door_status,
+            [
+                "status",
+                "surface_statuses",
+                "blocking_surface_ids",
+                "actionable_surface_ids",
+                "drilldown_warning_surface_ids",
+                "drilldown_blocked_surface_ids_ref",
+            ],
+        )
+
+    workingness = payload.get("workingness")
+    if isinstance(workingness, dict):
+        gap_preview = workingness.get("gap_preview")
+        compact_gap_preview = _pick(gap_preview, ["status", "drilldown_command"])
+        if isinstance(gap_preview, dict) and isinstance(gap_preview.get("rows"), list):
+            compact_gap_preview["row_count"] = len(gap_preview["rows"])
+        payload["workingness"] = {
+            **_pick(
+                workingness,
+                [
+                    "status",
+                    "map_generation_status",
+                    "failure_envelope_status",
+                    "command",
+                    "endpoint",
+                    "workingness_map_ref",
+                    "source_open_body_material_count",
+                    "missing_standard_count",
+                    "missing_failure_modes_count",
+                ],
+            ),
+            "gap_preview": compact_gap_preview,
+        }
+
+    macro_body_floor = payload.get("macro_body_import_floor")
+    if isinstance(macro_body_floor, dict):
+        payload["macro_body_import_floor"] = _pick(
+            macro_body_floor,
+            [
+                "schema_version",
+                "status",
+                "ref",
+                "public_safe_body_material_count",
+                "public_safe_body_material_counts_by_class",
+                "verified_source_module_family_count",
+                "body_text_exported_in_status",
+                "body_text_exported_in_receipts",
+                "project_mode_compacted",
+            ],
+        )
+
+    body_floor = front_door.get("source_open_body_import_floor")
+    if isinstance(body_floor, dict):
+        front_door["source_open_body_import_floor"] = _pick(
+            body_floor,
+            [
+                "status",
+                "summary_ref",
+                "public_safe_body_material_count",
+                "public_safe_body_material_counts_by_class",
+                "verified_source_module_family_count",
+                "latest_verified_source_module_family_ids",
+                "body_text_exported_in_status",
+                "body_text_exported_in_receipts",
+            ],
+        )
+
+    observatory = front_door.get("observatory")
+    if isinstance(observatory, dict):
+        front_door["observatory"] = _pick(
+            observatory,
+            [
+                "status",
+                "command",
+                "endpoint",
+                "compact_endpoint",
+                "route_explanation_endpoint",
+                "first_screen_route_proof_ref",
+                "model_field_count",
+                "source_files_mutated",
+                "provider_calls_authorized",
+            ],
+        )
+
+    proof_lab = front_door.get("proof_lab")
+    if isinstance(proof_lab, dict):
+        front_door["proof_lab"] = _pick(
+            proof_lab,
+            [
+                "status",
+                "endpoint",
+                "route_id",
+                "receipt_ref",
+                "route_component_count",
+                "proof_bodies_exported",
+                "proof_correctness_claim",
+            ],
+        )
+
     return payload
 
 
@@ -997,6 +1259,7 @@ def main(argv: list[str] | None = None) -> int:
             payload = shell.status_card(args.project)
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
+                payload = _compact_project_status_card_for_cli(payload)
             return _print_json(payload)
         if args.project:
             command_args.append(args.project)
@@ -1007,11 +1270,27 @@ def main(argv: list[str] | None = None) -> int:
             result = _proof_lab_cached_result(args.input, args.out)
         else:
             command = _proof_lab_command(args.input, args.out)
-            result = verifier_lab_kernel.run_kernel_bundle(
-                args.input,
-                args.out,
-                command=command,
-            )
+            tool_versions = formal_math_lean_proof_witness._tool_versions()
+            if _proof_lab_toolchain_ready(tool_versions):
+                result = verifier_lab_kernel.run_kernel_bundle(
+                    args.input,
+                    args.out,
+                    command=command,
+                )
+            else:
+                result = _proof_lab_canonical_receipt_result(
+                    input_path=args.input,
+                    out_dir=args.out,
+                    cache_status="canonical_receipt_fallback_toolchain_missing",
+                    live_receipt_rebuild_status="skipped_toolchain_missing",
+                    tool_versions=tool_versions,
+                )
+                if result is None:
+                    result = verifier_lab_kernel.run_kernel_bundle(
+                        args.input,
+                        args.out,
+                        command=command,
+                    )
         return _print_json(
             _proof_lab_first_screen_card(
                 result,

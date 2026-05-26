@@ -11,7 +11,7 @@
   },
   "bundle_id": "public_executable_doctrine_grammar_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-23T12:56:41+00:00",
+  "created_at": "2026-05-26T12:09:09+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -23,10 +23,20 @@
   "observed_negative_cases": {},
   "organ_id": "executable_doctrine_grammar",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 2,
     "status": "pass"
   },

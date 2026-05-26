@@ -140,6 +140,7 @@ KNOWN_SOURCE_INDEXES = {
 MICROCOSM_PUBLIC_FIXTURE_SOURCE_INDEX_PATTERNS = (
     "microcosm-substrate/fixtures/first_wave/*/input/premise_index.json",
     "microcosm-substrate/examples/*/exported_*/premise_index.json",
+    "microcosm-substrate/examples/*/exported_*/source_modules/*",
 )
 INDEX_MUTATING_COMMANDS = (
     ("add",),

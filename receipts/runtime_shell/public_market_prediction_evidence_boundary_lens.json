@@ -147,7 +147,7 @@
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary"
     },
     {
-      "boundary_row_id": "private_account_state_redaction_gate",
+      "boundary_row_id": "private_account_state_exclusion_gate",
       "decision_boundary": "private_position_or_account_export_is_rejected",
       "investment_recommendation_authorized": false,
       "live_market_data_authorized": false,
@@ -181,7 +181,7 @@
     "validation_ref_count": 8
   },
   "command": "microcosm market-boundary",
-  "created_at": "2026-05-25T00:50:25+00:00",
+  "created_at": "2026-05-26T17:57:21+00:00",
   "endpoint": "/market-boundary",
   "lens_id": "public_market_prediction_evidence_boundary_lens",
   "market_boundary_lens_ref": "receipts/runtime_shell/public_market_prediction_evidence_boundary_lens.json",
@@ -214,9 +214,10 @@
       "recipient_send_state",
       "credential_equivalent_payloads"
     ],
-    "legacy_schema_compat_present": false,
+    "input_payload_schema_normalized": false,
     "metadata_only_standin_authorized": false,
     "non_secret_macro_substrate_expected": true,
+    "omitted_payload_schema_terms_exported": false,
     "provider_payload_bodies_exported": false,
     "public_refs_are_drilldowns_not_replacements": true,
     "recipient_send_state_exported": false,
@@ -250,7 +251,7 @@
     "timestamped_data_freshness_gate",
     "decision_policy_not_advice_gate",
     "backtest_not_live_performance_gate",
-    "private_account_state_redaction_gate"
+    "private_account_state_exclusion_gate"
   ],
   "selected_route_id": "market_prediction_evidence_boundary",
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",

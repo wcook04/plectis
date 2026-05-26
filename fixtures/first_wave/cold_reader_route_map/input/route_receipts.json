@@ -2,6 +2,27 @@
   "schema_version": "cold_reader_route_receipts_v1",
   "route_receipts": [
     {
+      "route_id": "tour_project",
+      "receipt_refs": [
+        "receipts/runtime_shell/public_ten_minute_tour.json"
+      ],
+      "body_in_receipt": false
+    },
+    {
+      "route_id": "status_card",
+      "receipt_refs": [
+        "receipts/runtime_shell/public_ten_minute_tour.json"
+      ],
+      "body_in_receipt": false
+    },
+    {
+      "route_id": "proof_lab",
+      "receipt_refs": [
+        "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
+      ],
+      "body_in_receipt": false
+    },
+    {
       "route_id": "compile_project",
       "receipt_refs": [
         "receipts/runtime_shell/demo_project/demo_project_result.json"

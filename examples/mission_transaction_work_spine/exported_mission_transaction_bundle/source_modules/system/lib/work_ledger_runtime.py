@@ -2563,6 +2563,13 @@ def _drift_annotations(
     }
 
 
+def _rescue_coverage_drift_next_safe_action(rescue_coverage: Mapping[str, Any]) -> str | None:
+    if rescue_coverage.get("status") != "stale":
+        return None
+    action = str(rescue_coverage.get("drift_next_safe_action") or "").strip()
+    return action or None
+
+
 def _run_git_pressure_read(repo_root: Path, args: List[str]) -> subprocess.CompletedProcess[str] | None:
     try:
         return subprocess.run(
@@ -2753,6 +2760,61 @@ def _rescue_commit_matches_worktree_paths(
     return {"status": "matched", "path_count": len(paths)}
 
 
+def _path_covers_path(container: str, path: str) -> bool:
+    container_path = _normalize_dirty_path(container)
+    target_path = _normalize_dirty_path(path)
+    if not container_path or not target_path:
+        return False
+    if container_path == target_path:
+        return True
+    return target_path.startswith(f"{container_path.rstrip('/')}/")
+
+
+def _path_overlaps_pathset(path: str, pathset: set[str]) -> bool:
+    normalized = _normalize_dirty_path(path)
+    if not normalized:
+        return False
+    return any(
+        _path_covers_path(normalized, candidate)
+        or _path_covers_path(candidate, normalized)
+        for candidate in pathset
+    )
+
+
+def _pathset_delta_with_directory_coverage(
+    *,
+    current_paths: List[str],
+    rescued_paths: List[str],
+) -> Dict[str, List[str]]:
+    current_set = {_normalize_dirty_path(path) for path in current_paths if path}
+    rescued_set = {_normalize_dirty_path(path) for path in rescued_paths if path}
+    missing_from_rescue = sorted(
+        path for path in current_set if not _path_overlaps_pathset(path, rescued_set)
+    )
+    not_currently_dirty = sorted(
+        path for path in rescued_set if not _path_overlaps_pathset(path, current_set)
+    )
+    return {
+        "missing_from_rescue": missing_from_rescue,
+        "not_currently_dirty": not_currently_dirty,
+    }
+
+
+def _rescue_content_check_paths(
+    *,
+    current_paths: List[str],
+    rescued_paths: List[str],
+) -> List[str]:
+    current_set = {_normalize_dirty_path(path) for path in current_paths if path}
+    rescued_set = {_normalize_dirty_path(path) for path in rescued_paths if path}
+    covered_rescued_paths = sorted(
+        path
+        for path in rescued_set
+        if any(_path_covers_path(current_path, path) for current_path in current_set)
+    )
+    return covered_rescued_paths
+
+
 def _dirty_tree_rescue_coverage(
     repo_root: Path,
     *,
@@ -2818,8 +2880,16 @@ def _dirty_tree_rescue_coverage(
         }
 
     rescued_paths = list(manifest.get("paths") or [])
-    rescued_set = set(rescued_paths)
-    current_set = set(current_paths)
+    pathset_delta = _pathset_delta_with_directory_coverage(
+        current_paths=current_paths,
+        rescued_paths=rescued_paths,
+    )
+    missing_from_rescue = pathset_delta["missing_from_rescue"]
+    not_currently_dirty = pathset_delta["not_currently_dirty"]
+    content_check_paths = _rescue_content_check_paths(
+        current_paths=current_paths,
+        rescued_paths=rescued_paths,
+    )
     rescued_fingerprint = str(manifest.get("dirty_path_fingerprint") or "")
     coverage = {
         **base,
@@ -2837,16 +2907,17 @@ def _dirty_tree_rescue_coverage(
             "reason": "base_head_mismatch",
             **_drift_annotations([], active_claims=active_claim_rows, reason="base_head_mismatch"),
         }
-    if current_set != rescued_set:
-        moved_paths = sorted((current_set - rescued_set) or (rescued_set - current_set))
+    if missing_from_rescue or not_currently_dirty:
+        moved_paths = sorted(missing_from_rescue or not_currently_dirty)
         return {
             **coverage,
             "status": "stale",
             "reason": "dirty_pathset_mismatch",
-            "missing_from_rescue_count": len(current_set - rescued_set),
-            "not_currently_dirty_count": len(rescued_set - current_set),
-            "missing_from_rescue_sample": sorted(current_set - rescued_set)[:5],
-            "not_currently_dirty_sample": sorted(rescued_set - current_set)[:5],
+            "missing_from_rescue_count": len(missing_from_rescue),
+            "not_currently_dirty_count": len(not_currently_dirty),
+            "missing_from_rescue_sample": missing_from_rescue[:5],
+            "not_currently_dirty_sample": not_currently_dirty[:5],
+            "pathset_comparison_mode": "directory_prefix_coverage",
             **_drift_annotations(moved_paths, active_claims=active_claim_rows, reason="dirty_pathset_mismatch"),
         }
     if not latest_commit:
@@ -2855,9 +2926,11 @@ def _dirty_tree_rescue_coverage(
     content_match = _rescue_commit_matches_worktree_paths(
         repo_root,
         commit=latest_commit,
-        paths=current_paths,
+        paths=content_check_paths,
     )
     coverage["basis"] = "rescue_manifest_pathset_and_blob_hash"
+    coverage["pathset_comparison_mode"] = "directory_prefix_coverage"
+    coverage["content_check_path_count"] = len(content_check_paths)
     if content_match.get("status") == "matched":
         return {
             **coverage,
@@ -2982,6 +3055,7 @@ def build_dirty_tree_bankruptcy_pressure(
         rescue_refs=rescue_refs,
         active_claims=active_claims,
     )
+    rescue_drift_next_safe_action = _rescue_coverage_drift_next_safe_action(rescue_coverage)
     blocked_residuals: List[Dict[str, Any]] = []
     if active_claim_dirty_count:
         blocked_residuals.append(
@@ -3015,6 +3089,8 @@ def build_dirty_tree_bankruptcy_pressure(
         )
     elif mainline_checkpoint_available:
         next_safe_action = broad_checkpoint_command
+    elif rescue_drift_next_safe_action:
+        next_safe_action = rescue_drift_next_safe_action
     elif normalized_dirty_paths:
         next_safe_action = rescue_ref_command
     else:

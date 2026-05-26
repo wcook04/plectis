@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-05-26T14:36:40+00:00",
+  "detected_package_manifests": [],
+  "detected_source_roots": [],
+  "detected_test_roots": [],
+  "file_count": 0,
+  "files": [],
+  "project_id": "microcosm-substrate",
+  "project_ref": ".",
+  "receipts_are_drilldown_evidence": true,
+  "release_authorized": false,
+  "role_counts": {},
+  "roles": {},
+  "schema_version": "microcosm_project_catalog_v1",
+  "state_ref": ".microcosm",
+  "status": "pass"
+}
