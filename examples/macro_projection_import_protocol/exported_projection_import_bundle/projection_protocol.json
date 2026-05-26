@@ -10357,6 +10357,138 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_lib_navigation_trace_py_into_public_macro_projection_bundle",
+        "bind_navigation_trace_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_navigation_state_session_provider_browser_hud_ledger_mutation_or_credential_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "generated_state_output_authority": false,
+        "live_browser_hud_access_authorized": false,
+        "live_macro_source_authority": false,
+        "live_navigation_trace_log_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_export_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:1357d7f516c997499f5cedf92e6f1645ce9a56179a509c99c1c88e396d19b721",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:1357d7f516c997499f5cedf92e6f1645ce9a56179a509c99c1c88e396d19b721",
+        "source_line_count": 1913,
+        "source_ref": "system/lib/navigation_trace.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:1357d7f516c997499f5cedf92e6f1645ce9a56179a509c99c1c88e396d19b721",
+        "target_line_count": 1913,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_trace.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 1913,
+      "claim_ceiling": "public navigation-trace source-module body import only; not live navigation trace log authority, Task Ledger or Work Ledger mutation, provider calls, prompt/provider body export, browser/HUD live access, credential export, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_trace_source_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/navigation_trace.py",
+      "source_refs": [
+        "system/lib/navigation_trace.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_trace.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_server_tests_test_navigation_trace_py_into_public_macro_projection_bundle",
+        "bind_navigation_trace_source_modules_to_macro_projection_body_floor",
+        "preserve_no_live_navigation_state_session_provider_browser_hud_ledger_mutation_or_credential_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "generated_state_output_authority": false,
+        "live_browser_hud_access_authorized": false,
+        "live_macro_source_authority": false,
+        "live_navigation_trace_log_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "provider_calls_authorized": false,
+        "provider_payload_export_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:922a42d0c38249ddc5721fa20163c5a7f08410aed33a90ca7939b6285b5443b1",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:922a42d0c38249ddc5721fa20163c5a7f08410aed33a90ca7939b6285b5443b1",
+        "source_line_count": 869,
+        "source_ref": "system/server/tests/test_navigation_trace.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:922a42d0c38249ddc5721fa20163c5a7f08410aed33a90ca7939b6285b5443b1",
+        "target_line_count": 869,
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 869,
+      "claim_ceiling": "public navigation-trace source-module body import only; not live navigation trace log authority, Task Ledger or Work Ledger mutation, provider calls, prompt/provider body export, browser/HUD live access, credential export, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "navigation_trace_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_navigation_trace.py",
+      "source_refs": [
+        "system/server/tests/test_navigation_trace.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "classification": [
+        "copied_non_secret_macro_body"
+      ]
     }
   ],
   "material_classes": [
@@ -10581,7 +10713,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_session_heartbeat.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/artifact_projection_debt_source_module_manifest.json",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/artifact_projection_debt.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_artifact_projection_debt.py",
+    "navigation_trace_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_trace.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -10833,7 +10968,10 @@
     "system/lib/session_heartbeat.py",
     "system/server/tests/test_session_heartbeat.py",
     "system/lib/artifact_projection_debt.py",
-    "system/server/tests/test_artifact_projection_debt.py"
+    "system/server/tests/test_artifact_projection_debt.py",
+    "system/lib/navigation_trace.py",
+    "system/server/tests/test_navigation_trace.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/navigation_trace_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -11055,6 +11193,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_context_rosetta_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt_contract",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_artifact_projection_debt_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

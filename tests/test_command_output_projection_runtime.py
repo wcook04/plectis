@@ -150,6 +150,9 @@ SESSION_HEARTBEAT_MANIFEST = (
 ARTIFACT_PROJECTION_DEBT_MANIFEST = (
     BUNDLE_INPUT / "artifact_projection_debt_source_module_manifest.json"
 )
+NAVIGATION_TRACE_MANIFEST = (
+    BUNDLE_INPUT / "navigation_trace_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2850,6 +2853,44 @@ def test_artifact_projection_debt_sources_compile_and_carry_receipt_theater_debt
     assert "test_artifact_projection_debt_cluster_is_microcosm_safe" in test_text
     assert "not authority to mutate live ledgers" in manifest["public_runtime_policy"]
     assert "generated projection output bodies treated as source authority" in manifest[
+        "secret_exclusion_boundary"
+    ]
+
+
+def test_navigation_trace_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        NAVIGATION_TRACE_MANIFEST,
+        manifest_id="navigation_trace_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract() -> None:
+    trace_source = BUNDLE_INPUT / "source_modules/system/lib/navigation_trace.py"
+    test_source = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_navigation_trace.py"
+    )
+    trace_text = trace_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+    manifest = json.loads(NAVIGATION_TRACE_MANIFEST.read_text(encoding="utf-8"))
+
+    compile(trace_text, str(trace_source), "exec")
+    compile(test_text, str(test_source), "exec")
+
+    assert 'SCHEMA_VERSION = "navigation_trace_event_v1"' in trace_text
+    assert "def record_navigation_event(" in trace_text
+    assert "def build_replay(" in trace_text
+    assert "def record_attention_event(" in trace_text
+    assert "def test_attention_event_reduces_option_surface_lens_packet(" in test_text
+    assert "def test_task_frame_alias_resolution_is_exact_and_append_safe(" in test_text
+    assert (
+        "def test_mutation_boundary_acted_on_requires_commit_and_recorded_receipt("
+        in test_text
+    )
+    assert "not authority to read live navigation trace logs" in manifest[
+        "public_runtime_policy"
+    ]
+    assert "live navigation trace event bodies" in manifest[
         "secret_exclusion_boundary"
     ]
 

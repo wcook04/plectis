@@ -1,0 +1,83 @@
+{
+  "schema_version": "macro_projection_navigation_trace_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "navigation_trace_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_except_keys_credentials_account_session_state_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "exact_non_secret_navigation_trace_source_and_test_modules_copied_into_public_projection_bundle",
+  "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic trace-shape checks but never duplicate full source bodies, live navigation trace event bodies, provider payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic navigation-trace regression tests; copied source modules are body evidence, not authority to read live navigation trace logs, scan account/session transcripts, mutate live Work Ledger or Task Ledger state, call providers, access browser/HUD state, export prompt/provider/tool-output bodies, write generated state, or claim release authority.",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "prompt bodies",
+    "hidden reasoning",
+    "provider request payload bodies",
+    "provider response payload bodies",
+    "raw tool-result bodies",
+    "live navigation trace event bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "recipient-send state",
+    "generated state output",
+    "credential-equivalent payloads"
+  ],
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "navigation_trace_source_body_import",
+      "source_ref": "system/lib/navigation_trace.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Bounded live navigation trace recorder and attention-frame reducer for semantic kernel decisions, replay summaries, convergence/efficiency lenses, and mutation-boundary attention without exporting live session bodies.",
+      "required_anchors": [
+        "Bounded live trace for semantic kernel navigation decisions.",
+        "SCHEMA_VERSION = \"navigation_trace_event_v1\"",
+        "def record_navigation_event(",
+        "def build_replay(",
+        "def record_attention_event("
+      ],
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_navigation_state_session_payload_provider_payload_browser_hud_or_credential_equivalent_export",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_sha256": "1357d7f516c997499f5cedf92e6f1645ce9a56179a509c99c1c88e396d19b721",
+      "target_sha256": "1357d7f516c997499f5cedf92e6f1645ce9a56179a509c99c1c88e396d19b721",
+      "sha256_match": true,
+      "line_count": 1913,
+      "byte_count": 78609,
+      "anchor_count": 5
+    },
+    {
+      "module_id": "navigation_trace_test_body_import",
+      "source_ref": "system/server/tests/test_navigation_trace.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Focused regression suite for navigation trace decisions, replay salience, attention-frame binding, alias safety, mutation-boundary attention, and candidate-not-selected handles using synthetic temporary state.",
+      "required_anchors": [
+        "def test_decision_hash_is_stable_for_normalized_query_and_targets(",
+        "def test_record_event_compacts_targets_and_ignores_non_semantic_kinds(",
+        "def test_attention_event_reduces_option_surface_lens_packet(",
+        "def test_task_frame_alias_resolution_is_exact_and_append_safe(",
+        "def test_mutation_boundary_acted_on_requires_commit_and_recorded_receipt("
+      ],
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_live_navigation_state_session_payload_provider_payload_browser_hud_or_credential_equivalent_export",
+      "classification": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_sha256": "922a42d0c38249ddc5721fa20163c5a7f08410aed33a90ca7939b6285b5443b1",
+      "target_sha256": "922a42d0c38249ddc5721fa20163c5a7f08410aed33a90ca7939b6285b5443b1",
+      "sha256_match": true,
+      "line_count": 869,
+      "byte_count": 34907,
+      "anchor_count": 5
+    }
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

@@ -333,6 +333,10 @@ ARTIFACT_PROJECTION_DEBT_SOURCE_BODY_MATERIAL_IDS = [
     "artifact_projection_debt_body_import",
     "artifact_projection_debt_test_body_import",
 ]
+NAVIGATION_TRACE_SOURCE_BODY_MATERIAL_IDS = [
+    "navigation_trace_source_body_import",
+    "navigation_trace_test_body_import",
+]
 FORMAL_MATH_PROOFLINE_SPINE_SOURCE_BODY_MATERIAL_IDS = [
     "formal_math_proofline_spine_body_import",
     "formal_math_proof_repair_lane_body_import",
@@ -3723,6 +3727,24 @@ def test_artifact_projection_debt_source_modules_body_import_is_unified_under_ma
         public_root=public_root,
         material_ids=ARTIFACT_PROJECTION_DEBT_SOURCE_BODY_MATERIAL_IDS,
         cell_id="artifact_projection_debt_source_modules_import",
+    )
+
+
+def test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=NAVIGATION_TRACE_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="navigation_trace_source_modules_import",
     )
 
 
