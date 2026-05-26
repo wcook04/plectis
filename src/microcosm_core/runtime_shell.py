@@ -2958,6 +2958,12 @@ def _runtime_status_card(
             ),
             "demoted_drilldown_count": workingness.get("demoted_drilldown_count"),
             "rows_with_failure_modes": workingness.get("rows_with_failure_modes"),
+            "rows_with_source_body_imports": workingness.get(
+                "rows_with_source_body_imports"
+            ),
+            "source_open_body_material_count": workingness.get(
+                "source_open_body_material_count"
+            ),
             "rows_with_future_work_targets": workingness.get(
                 "rows_with_future_work_targets"
             ),
@@ -3216,6 +3222,12 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         "adapter_backed_organ_count": surface_counts.get("adapter_backed_organ_count"),
         "demoted_drilldown_count": surface_counts.get("demoted_drilldown_count"),
         "rows_with_failure_modes": surface_counts.get("rows_with_failure_modes"),
+        "rows_with_source_body_imports": surface_counts.get(
+            "rows_with_source_body_imports"
+        ),
+        "source_open_body_material_count": surface_counts.get(
+            "source_open_body_material_count"
+        ),
         "rows_with_future_work_targets": surface_counts.get(
             "rows_with_future_work_targets"
         ),
@@ -3227,10 +3239,54 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
         "not_a_scorecard": map_policy.get("not_a_scorecard"),
         "gap_preview": _workingness_gap_preview(workingness),
         "reader_action": (
-            "Use microcosm workingness for per-organ failure modes and future "
-            "work targets; treat missing standards or failure modes as bounded "
-            "debt, not as release blockers or progress scores."
+            "Open microcosm workingness for per-organ failure modes, body "
+            "provenance, and future targets."
         ),
+    }
+
+
+def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
+    manifest_ref = Path("core/fixture_manifests") / f"{organ_id}.fixture_manifest.json"
+    manifest = _read_json_if_exists(root / manifest_ref)
+    if not isinstance(manifest, dict) or not manifest:
+        return {}
+
+    body_imports = manifest.get("source_open_body_imports")
+    if not isinstance(body_imports, dict):
+        body_status = str(manifest.get("body_material_status") or "")
+        raw_count = manifest.get("body_copied_material_count")
+        if not body_status:
+            return {}
+        body_imports = {
+            "status": PASS,
+            "body_material_status": body_status,
+            "body_material_count": raw_count if isinstance(raw_count, int) else 0,
+        }
+
+    material_ids = _strings(body_imports.get("body_material_ids"))
+    raw_count = body_imports.get("body_material_count")
+    material_count = raw_count if isinstance(raw_count, int) else len(material_ids)
+    if material_count <= 0 and not material_ids:
+        return {}
+
+    return {
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "status": str(body_imports.get("status") or PASS),
+        "fixture_manifest_ref": manifest_ref.as_posix(),
+        "body_material_status": str(
+            body_imports.get("body_material_status")
+            or manifest.get("body_material_status")
+            or ""
+        ),
+        "body_material_count": material_count,
+        "body_material_ids": material_ids,
+        "material_classes": _strings(body_imports.get("material_classes")),
+        "aggregate_floor_ref": str(body_imports.get("aggregate_floor_ref") or ""),
+        "source_manifest_refs": _strings(body_imports.get("source_manifest_refs")),
+        "body_text_exported_in_workingness": False,
+        "body_text_exported_in_receipts": body_imports.get("body_in_receipt") is True,
+        "reader_action": str(body_imports.get("reader_action") or ""),
+        "authority_ceiling": body_imports.get("authority_ceiling", {}),
     }
 
 
@@ -3439,6 +3495,10 @@ class RuntimeShell:
                 if step
                 else "registry_only"
             )
+            source_open_body_imports = _source_open_body_imports_for_organ(
+                self.root,
+                organ_id,
+            )
             organs.append(
                 {
                     "organ_id": organ_id,
@@ -3459,6 +3519,7 @@ class RuntimeShell:
                     "input_mode": step.input_mode if step else None,
                     "example_ref": step.example_rel if step else None,
                     "fixture_runner_backed": False if step else None,
+                    "source_open_body_imports": source_open_body_imports,
                     **evidence_profile,
                 }
             )
@@ -3528,6 +3589,11 @@ class RuntimeShell:
                 row, standard_contract
             )
             future_work_targets = _future_work_targets(row, standard_contract)
+            source_open_body_imports = (
+                row.get("source_open_body_imports", {})
+                if isinstance(row.get("source_open_body_imports"), dict)
+                else {}
+            )
             rows.append(
                 {
                     "ordinal": index,
@@ -3562,7 +3628,9 @@ class RuntimeShell:
                         ),
                         "claim_ceiling": row.get("claim_ceiling"),
                         "classification_basis": row.get("classification_basis"),
+                        "source_open_body_imports": source_open_body_imports,
                     },
+                    "source_open_body_imports": source_open_body_imports,
                     "needs_to_work": {
                         **requirement_status,
                         "standard_ref": standard_contract.get("standard_ref"),
@@ -3623,6 +3691,20 @@ class RuntimeShell:
         rows_with_open_targets = sum(
             1 for row in rows if row.get("future_work_target_count", 0) > 0
         )
+        source_body_import_counts = [
+            imports.get("body_material_count", 0)
+            for row in rows
+            for imports in [
+                row.get("source_open_body_imports", {})
+                if isinstance(row.get("source_open_body_imports"), dict)
+                else {}
+            ]
+            if isinstance(imports.get("body_material_count", 0), int)
+        ]
+        rows_with_source_body_imports = sum(
+            1 for count in source_body_import_counts if count > 0
+        )
+        source_open_body_material_count = sum(source_body_import_counts)
         missing_standard_count = sum(
             1
             for row in rows
@@ -3650,6 +3732,8 @@ class RuntimeShell:
             "missing_standard_count": missing_standard_count,
             "missing_failure_modes_count": missing_failure_modes_count,
             "rows_with_future_work_targets": rows_with_open_targets,
+            "rows_with_source_body_imports": rows_with_source_body_imports,
+            "source_open_body_material_count": source_open_body_material_count,
             "adapter_backed_organ_count": sum(
                 1 for row in rows if row.get("runtime_mode") == "adapter_backed"
             ),
@@ -3711,6 +3795,12 @@ class RuntimeShell:
                 "rows_with_failure_modes": surface_counts["rows_with_failure_modes"],
                 "rows_with_future_work_targets": surface_counts[
                     "rows_with_future_work_targets"
+                ],
+                "rows_with_source_body_imports": surface_counts[
+                    "rows_with_source_body_imports"
+                ],
+                "source_open_body_material_count": surface_counts[
+                    "source_open_body_material_count"
                 ],
                 "missing_standard_count": surface_counts["missing_standard_count"],
                 "missing_failure_modes_count": surface_counts[

@@ -651,6 +651,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["mapped_organ_count"] == 47
     assert card["workingness"]["adapter_backed_organ_count"] == 43
     assert card["workingness"]["demoted_drilldown_count"] == 4
+    assert card["workingness"]["rows_with_source_body_imports"] >= 2
+    assert card["workingness"]["source_open_body_material_count"] >= 12
     assert card["workingness"]["missing_standard_count"] == 0
     assert card["workingness"]["missing_failure_modes_count"] == 0
     gap_preview = card["workingness"]["gap_preview"]
@@ -1304,6 +1306,8 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["mapped_organ_count"] == 47
     assert workingness["adapter_backed_organ_count"] == 43
     assert workingness["demoted_drilldown_count"] == 4
+    assert workingness["rows_with_source_body_imports"] >= 2
+    assert workingness["source_open_body_material_count"] >= 12
     assert workingness["missing_standard_count"] == 0
     assert workingness["missing_failure_modes_count"] == 0
     assert workingness["rows_with_failure_modes"] == 47
@@ -1319,10 +1323,28 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["surface_counts"]["missing_standard_count"] == 0
     assert workingness["surface_counts"]["missing_failure_modes_count"] == 0
     assert workingness["surface_counts"]["rows_with_failure_modes"] == 47
+    assert workingness["surface_counts"]["rows_with_source_body_imports"] >= 2
+    assert workingness["surface_counts"]["source_open_body_material_count"] >= 12
 
     rows_by_id = {
         row["thing_id"]: row for row in workingness["thing_failure_map"]
     }
+    route_body_imports = rows_by_id["agent_route_observability_runtime"][
+        "source_open_body_imports"
+    ]
+    assert route_body_imports["body_material_count"] == 7
+    assert "agent_observability_store_body_import" in route_body_imports[
+        "body_material_ids"
+    ]
+    assert route_body_imports["body_text_exported_in_workingness"] is False
+    assert route_body_imports["body_text_exported_in_receipts"] is False
+    bridge_body_imports = rows_by_id["bridge_phase_continuity_runtime"][
+        "source_open_body_imports"
+    ]
+    assert bridge_body_imports["body_material_count"] == 5
+    assert "observe_surfaces_body_import" in bridge_body_imports[
+        "body_material_ids"
+    ]
     verifier = rows_by_id["verifier_lab_kernel"]
     assert verifier["workingness_state"] == "evidence_backed_runtime_spine"
     assert verifier["needs_to_work"]["standard_ref"] == (
@@ -3667,6 +3689,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             html = response.read().decode("utf-8")
         with urlopen(f"http://{host}:{port}/status", timeout=5) as response:
             payload = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/workingness", timeout=5) as response:
+            workingness = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/spine", timeout=5) as response:
             spine = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/tour", timeout=5) as response:
@@ -4035,6 +4059,24 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory_body_floor["body_text_exported_in_status"] is False
     assert observatory_body_floor["body_text_exported_in_receipts"] is False
     assert "release" in observatory_body_floor["authority_boundary"]
+    by_id = {row["thing_id"]: row for row in workingness["thing_failure_map"]}
+    route_body_imports = by_id["agent_route_observability_runtime"][
+        "source_open_body_imports"
+    ]
+    assert route_body_imports["status"] == "pass"
+    assert route_body_imports["body_material_count"] == 7
+    assert "agent_trace_route_repair_body_import" in route_body_imports[
+        "body_material_ids"
+    ]
+    assert route_body_imports["body_text_exported_in_workingness"] is False
+    assert route_body_imports["body_text_exported_in_receipts"] is False
+    bridge_body_imports = by_id["bridge_phase_continuity_runtime"][
+        "source_open_body_imports"
+    ]
+    assert bridge_body_imports["body_material_count"] == 5
+    assert "observe_runtime_body_import" in bridge_body_imports[
+        "body_material_ids"
+    ]
     assert observatory["authority_map"]["schema_version"] == "microcosm_public_authority_map_v2"
     assert observatory["prediction_lens"]["schema_version"] == "microcosm_public_prediction_lens_v1"
     assert observatory["corpus_lens"]["schema_version"] == "microcosm_public_corpus_readiness_lens_v1"

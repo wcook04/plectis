@@ -12,6 +12,39 @@
     "paper_module_ref": "paper_modules/bridge_phase_continuity_runtime.md",
     "anti_claim": "Public admission keeps the fake-transport fixture executable; it does not promote live bridge transport, provider/UI uptime, work landing, source mutation, or release authority."
   },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "body_copied_material_count": 5,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "codex_paths_body_import",
+      "markdown_routing_body_import",
+      "observe_memory_body_import",
+      "observe_surfaces_body_import",
+      "observe_runtime_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+    "source_manifest_refs": [
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Run microcosm workingness and inspect bridge_phase_continuity_runtime to see which public observe-runtime bodies back the synthetic continuity organ.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "live_bridge_transport_authorized": false,
+      "provider_payload_exported": false,
+      "operator_hud_or_browser_state_read": false,
+      "live_phase_runtime_state_read": false,
+      "prompt_shelf_or_private_memory_body_read": false,
+      "source_mutation_authorized": false,
+      "release_authorized": false
+    }
+  },
   "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
   "source_ledger_row_count_verified": 309,
   "source_pattern_ids": [

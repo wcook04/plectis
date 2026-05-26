@@ -1,5 +1,42 @@
 {
   "anti_claim": "This fixture proves behavior-governance mechanics over synthetic traces; it does not prove live introspection accuracy, current host hook state, or private operator trace content.",
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "body_copied_material_count": 7,
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "body_material_count": 7,
+    "body_material_ids": [
+      "agent_execution_trace_body_import",
+      "agent_trace_route_repair_body_import",
+      "agent_observability_store_body_import",
+      "agent_session_attribution_body_import",
+      "continuation_packet_body_import",
+      "bridge_resume_body_import",
+      "controller_heartbeat_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::copied_material",
+    "source_manifest_refs": [
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_source_module_manifest.json",
+      "examples/macro_projection_import_protocol/exported_projection_import_bundle/bridge_runtime_continuity_source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "reader_action": "Run microcosm workingness and inspect agent_route_observability_runtime to see which public macro bodies back this route/observability organ.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "live_hook_install_authorized": false,
+      "provider_payload_exported": false,
+      "browser_hud_live_access_authorized": false,
+      "account_session_state_exported": false,
+      "credential_or_cookie_exported": false,
+      "source_mutation_authorized": false,
+      "release_authorized": false
+    }
+  },
   "command_or_transformation": {
     "entrypoint_to_implement": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
     "steps": [
