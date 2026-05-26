@@ -359,6 +359,40 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "--input examples/agent_route_observability_runtime/exported_session_attribution_bundle"
         ),
     },
+    "agent_route_session_attribution_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent-route observability session-attribution bundle now "
+            "exposes the exact non-secret attribution source body as a "
+            "verified public macro body import, without exporting live home "
+            "session logs, raw transcripts, Work Ledger mutation authority, "
+            "provider payloads, browser/HUD live access, account state, or "
+            "release authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/agent_route_observability_runtime/"
+                "exported_session_attribution_bundle/source_module_manifest.json"
+            ),
+            (
+                "examples/agent_route_observability_runtime/"
+                "exported_session_attribution_bundle/source_modules/system/lib/"
+                "agent_session_attribution.py"
+            ),
+            (
+                "tests/test_macro_projection_import_protocol.py::"
+                "test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+            ),
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime "
+            "validate-session-attribution-bundle --input "
+            "examples/agent_route_observability_runtime/"
+            "exported_session_attribution_bundle"
+        ),
+    },
     "multi_agent_fanin_replay_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",
@@ -379,6 +413,40 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         "next_runtime_surface": (
             "microcosm agent-route-observability-runtime validate-bridge-dispatch-yield-resume-bundle "
             "--input examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle"
+        ),
+    },
+    "agent_route_fanin_continuation_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The agent-route observability fan-in bundle now exposes the exact "
+            "non-secret continuation-packet source body as a verified public "
+            "macro body import, without exporting live bridge dispatch, worker "
+            "transcripts, provider payloads, browser/HUD live access, account "
+            "state, or release authority."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/agent_route_observability_runtime/"
+                "exported_multi_agent_fanin_replay_bundle/"
+                "source_module_manifest.json"
+            ),
+            (
+                "examples/agent_route_observability_runtime/"
+                "exported_multi_agent_fanin_replay_bundle/source_modules/"
+                "system/lib/continuation_packet.py"
+            ),
+            (
+                "tests/test_macro_projection_import_protocol.py::"
+                "test_agent_route_fanin_continuation_source_modules_body_import_is_unified_under_macro_projection_spine"
+            ),
+        ],
+        "next_runtime_surface": (
+            "microcosm agent-route-observability-runtime "
+            "validate-multi-agent-fanin-bundle --input "
+            "examples/agent_route_observability_runtime/"
+            "exported_multi_agent_fanin_replay_bundle"
         ),
     },
     "controller_continuity_heartbeat_import": {
@@ -706,6 +774,32 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         "landed_evidence_refs": [
             "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json",
             "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
+    "reaction_wiring_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The reaction-wiring lane now carries exact copied non-secret "
+            "reaction config, resident reaction engine, and proof CLI source "
+            "bodies inside the projection bundle. Validation uses digest/"
+            "anchor checks, syntax compilation, and no-execute boundary "
+            "checks; it does not call live provider endpoints, fire reactions, "
+            "export runtime reaction state or ledger bodies, mutate source, "
+            "or expose browser/HUD state, account/session state, credentials, "
+            "operator thread bodies, provider payloads, or recipient-send "
+            "material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/reaction_wiring_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/reactions.yaml",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reaction_proof.py",
             "tests/test_command_output_projection_runtime.py",
         ],
         "next_runtime_surface": (

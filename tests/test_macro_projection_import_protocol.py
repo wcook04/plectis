@@ -172,6 +172,11 @@ PROJECTION_LOSS_AUDIT_BODY_MATERIAL_IDS = [
 SEMANTIC_ROUTE_QUALITY_AUDIT_BODY_MATERIAL_IDS = [
     "semantic_route_quality_audit_body_import",
 ]
+REACTION_WIRING_BODY_MATERIAL_IDS = [
+    "reaction_wiring_config_body_import",
+    "reaction_wiring_engine_body_import",
+    "reaction_wiring_proof_cli_body_import",
+]
 NAVIGATION_CONTEXT_ROSETTA_BODY_MATERIAL_IDS = [
     "navigation_context_rosetta_body_import",
     "kind_band_contract_audit_body_import",
@@ -347,6 +352,12 @@ BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS = [
     "bridge_resume_test_body_import",
     "controller_heartbeat_test_body_import",
     "continuation_packet_test_body_import",
+]
+AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS = [
+    "agent_route_fanin_continuation_source_body_import",
+]
+AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS = [
+    "agent_route_session_attribution_source_body_import",
 ]
 SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS = [
     "session_heartbeat_source_body_import",
@@ -1518,13 +1529,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 75
-    assert result["projection_intake_board"]["ready_cell_count"] == 75
+    assert result["projection_cell_count"] == 78
+    assert result["projection_intake_board"]["ready_cell_count"] == 78
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 228
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 228
+    assert result["public_safe_body_material_count"] == 233
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 233
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1556,6 +1567,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *ROUTE_DISCOVERY_CONFIRMATION_BODY_MATERIAL_IDS,
         *PROJECTION_LOSS_AUDIT_BODY_MATERIAL_IDS,
         *SEMANTIC_ROUTE_QUALITY_AUDIT_BODY_MATERIAL_IDS,
+        *REACTION_WIRING_BODY_MATERIAL_IDS,
         *NAVIGATION_CONTEXT_ROSETTA_BODY_MATERIAL_IDS,
         *BOOTSTRAP_ROUTE_SURFACE_BODY_MATERIAL_IDS,
         *AGENT_OPERATING_PACKET_BODY_MATERIAL_IDS,
@@ -1593,6 +1605,8 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *PROMPT_SHELF_RUNS_INDEX_SOURCE_BODY_MATERIAL_IDS,
         *STANDARD_OPTION_SURFACE_SOURCE_BODY_MATERIAL_IDS,
         *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
+        *AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
+        *AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
         *SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS,
@@ -1612,7 +1626,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 228
+    assert result["public_safe_body_digest_count"] == 233
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1726,7 +1740,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 75
+    assert result["projection_intake_board"]["ready_cell_count"] == 78
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -1736,13 +1750,13 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 228
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 233
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
-        "public_macro_pattern_body": 3,
-        "public_macro_proof_body": 1,
-        "public_macro_receipt_body": 26,
-        "public_macro_tool_body": 198,
-    }
+            "public_macro_pattern_body": 3,
+            "public_macro_proof_body": 1,
+            "public_macro_receipt_body": 26,
+            "public_macro_tool_body": 203,
+        }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert all(
@@ -1763,7 +1777,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 228
+    assert result["public_safe_body_material_count"] == 233
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -2118,6 +2132,42 @@ def test_continuation_packet_body_import_is_unified_under_macro_projection_spine
         "public_runtime_import_landed"
     )
     assert by_cell["multi_agent_fanin_replay_import"]["action_required"] is False
+
+
+def test_agent_route_fanin_continuation_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=AGENT_ROUTE_FANIN_CONTINUATION_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="agent_route_fanin_continuation_source_modules_import",
+    )
+
+
+def test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=AGENT_ROUTE_SESSION_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="agent_route_session_attribution_source_modules_import",
+    )
 
 
 def test_bridge_resume_body_import_is_unified_under_macro_projection_spine(
@@ -2722,6 +2772,24 @@ def test_semantic_route_quality_audit_source_modules_body_import_is_unified_unde
         public_root=public_root,
         material_ids=SEMANTIC_ROUTE_QUALITY_AUDIT_BODY_MATERIAL_IDS,
         cell_id="semantic_route_quality_audit_source_modules_import",
+    )
+
+
+def test_reaction_wiring_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=REACTION_WIRING_BODY_MATERIAL_IDS,
+        cell_id="reaction_wiring_source_modules_import",
     )
 
 
