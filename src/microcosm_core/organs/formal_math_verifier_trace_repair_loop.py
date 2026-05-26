@@ -1156,15 +1156,101 @@ def run_loop_bundle(
     return payload
 
 
+def _result_card(result: dict[str, Any]) -> dict[str, Any]:
+    secret_scan = result.get("secret_exclusion_scan")
+    scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
+    source_imports = result.get("source_open_body_imports")
+    source_import_summary = source_imports if isinstance(source_imports, dict) else {}
+    input_mode = result.get("input_mode")
+    action = (
+        "run-loop-bundle"
+        if input_mode == "exported_verifier_trace_repair_bundle"
+        else "run"
+    )
+    card_id = (
+        "formal_math_verifier_trace_repair_loop_bundle_card"
+        if action == "run-loop-bundle"
+        else "formal_math_verifier_trace_repair_loop_fixture_card"
+    )
+    return {
+        "schema_version": "formal_math_verifier_trace_repair_loop_card_v1",
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "command": result.get("command"),
+        "input_mode": input_mode,
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": "compact_card_no_trace_rows_or_source_bodies",
+        "full_output_available": True,
+        "full_output_command": (
+            "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
+            f"{action} --input <input> --out <out>"
+        ),
+        "receipt_paths": result.get("receipt_paths", []),
+        "expected_negative_cases": result.get("expected_negative_cases", []),
+        "missing_negative_cases": result.get("missing_negative_cases", []),
+        "error_codes": result.get("error_codes", []),
+        "secret_exclusion_scan_summary": {
+            "status": scan_summary.get("status"),
+            "scanned_path_count": scan_summary.get("scanned_path_count"),
+            "blocking_hit_count": scan_summary.get("blocking_hit_count"),
+            "hit_count": scan_summary.get("hit_count"),
+            "body_material_status": scan_summary.get("body_material_status"),
+            "body_text_exported": False,
+        },
+        "source_open_body_imports_summary": {
+            "body_material_count": source_import_summary.get("body_material_count"),
+            "body_in_receipt": source_import_summary.get("body_in_receipt"),
+            "source_module_count": result.get("source_module_count"),
+            "source_module_manifest_status": result.get("source_module_manifest_status"),
+        },
+        "authority_ceiling": {
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "provider_calls_authorized": False,
+            "proof_bodies_allowed": False,
+            "oracle_premise_ids_allowed": False,
+            "human_approval_as_proof_authority": False,
+            "release_authorized": False,
+        },
+        "body_material_status": result.get("body_material_status"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
+        "attempt_count": result.get("attempt_count"),
+        "trace_event_count": result.get("trace_event_count"),
+        "repair_action_count": result.get("repair_action_count"),
+        "cold_rerun_promotion_count": result.get("cold_rerun_promotion_count"),
+        "failure_mode_count": result.get("failure_mode_count"),
+        "curriculum_edge_count": result.get("curriculum_edge_count"),
+        "source_ref_count": len(result.get("source_refs", [])),
+        "source_module_count": result.get("source_module_count"),
+        "source_modules_pass": result.get("source_modules_pass"),
+        "trace_rows_omitted": True,
+        "source_module_bodies_omitted": True,
+        "proof_bodies_exported": False,
+        "oracle_premise_ids_exported": False,
+        "provider_payloads_exported": False,
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="formal_math_verifier_trace_repair_loop")
     sub = parser.add_subparsers(dest="action", required=True)
     run_parser = sub.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     bundle_parser = sub.add_parser("run-loop-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     return parser
 
 
@@ -1191,7 +1277,8 @@ def main(argv: list[str] | None = None) -> int:
     else:
         return 2
     print_json = __import__("json").dumps
-    print(print_json(result, indent=2, sort_keys=True))
+    output = _result_card(result) if args.card else result
+    print(print_json(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

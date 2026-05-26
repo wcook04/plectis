@@ -8,6 +8,7 @@ from typing import Any
 
 from microcosm_core.organs.formal_math_verifier_trace_repair_loop import (
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_loop_bundle,
 )
@@ -175,6 +176,53 @@ def test_formal_math_verifier_trace_repair_exported_bundle_validates_runtime_sha
     assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert result["source_module_manifest"]["verified_module_count"] == 7
     assert result["authority_ceiling"]["formal_proof_authority"] is False
+
+
+def test_formal_math_verifier_trace_repair_cli_card_compacts_exported_bundle(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    status = main(
+        [
+            "run-loop-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(
+                tmp_path
+                / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop"
+            ),
+            "--card",
+        ]
+    )
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+
+    assert status == 0
+    assert len(output.encode("utf-8")) < 3600
+    assert payload["schema_version"] == "formal_math_verifier_trace_repair_loop_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["card_id"] == "formal_math_verifier_trace_repair_loop_bundle_card"
+    assert payload["output_profile"] == "compact_card_no_trace_rows_or_source_bodies"
+    assert payload["input_mode"] == "exported_verifier_trace_repair_bundle"
+    assert payload["receipt_paths"]
+    assert payload["secret_exclusion_scan_summary"]["scanned_path_count"] == 13
+    assert payload["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert payload["secret_exclusion_scan_summary"]["body_text_exported"] is False
+    assert payload["source_open_body_imports_summary"]["body_material_count"] == 7
+    assert payload["source_open_body_imports_summary"]["body_in_receipt"] is False
+    assert payload["attempt_count"] == 5
+    assert payload["trace_event_count"] == 15
+    assert payload["repair_action_count"] == 5
+    assert payload["cold_rerun_promotion_count"] == 3
+    assert payload["source_module_count"] == 7
+    assert payload["source_modules_pass"] is True
+    assert payload["trace_rows_omitted"] is True
+    assert payload["source_module_bodies_omitted"] is True
+    assert payload["proof_bodies_exported"] is False
+    assert "verifier_attempts" not in payload
+    assert "failure_mode_ledger" not in payload
 
 
 def test_formal_math_verifier_trace_repair_exported_source_modules_are_exact_copies() -> None:
