@@ -84,6 +84,8 @@ ROUTE_COMPLIANCE_NAME = "route_compliance_audit.json"
 HOOK_SHADOW_NAME = "hook_shadow_coverage.json"
 DEBT_RETIREMENT_NAME = "debt_retirement_receipt.json"
 ROUTE_LEASE_NAME = "route_lease_mode_control_receipt.json"
+AGENT_PRINCIPLE_LENS_NAME = "agent_principle_lens_receipt.json"
+EGRESS_MIRROR_NAME = "egress_mirror_receipt.json"
 OBSERVABILITY_BUNDLE_RESULT_NAME = "exported_observability_bundle_validation_result.json"
 COMPUTER_USE_FIXTURE_RESULT_NAME = "computer_use_action_trace_replay_result.json"
 COMPUTER_USE_BUNDLE_RESULT_NAME = (
@@ -116,6 +118,8 @@ EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
     "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
     "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json",
 ]
 EXPORTED_OBSERVABILITY_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/agent_route_observability_runtime/"
@@ -173,6 +177,7 @@ EXPECTED_NEGATIVE_CASES = {
         "KERNEL_BLOAT_BEFORE_DIRECT_ACTION"
     ],
     "route_lease_static_metadata_without_trace_feedback": ["ROUTE_LEASE_NOT_CONSUMED"],
+    "route_miss_replaced": ["ROUTE_MISS_REPLACED"],
 }
 HOOK_SHADOW_EXPECTED_NEGATIVE_CASES = {
     "hook_shadow_missing_authority": ["HOOK_SHADOW_MISSING_AUTHORITY"],
@@ -303,6 +308,9 @@ SOURCE_PATTERN_IDS = [
     "agent_route_compliance_audit",
     "agent_session_attribution",
     "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
@@ -450,6 +458,21 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
         "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
         "status": PASS,
     },
+    {
+        "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+        "source_pattern_id": "agent_principle_lens",
+        "status": PASS,
+    },
+    {
+        "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+        "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+        "status": PASS,
+    },
+    {
+        "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+        "source_pattern_id": "egress_compliance_stop_hook_mirror",
+        "status": PASS,
+    },
 ]
 
 
@@ -475,6 +498,8 @@ def _input_paths(input_dir: Path) -> list[Path]:
         input_dir / "agent_trace.jsonl",
         input_dir / "hook_shadow_cases.json",
         input_dir / "anti_pattern_debt.json",
+        input_dir / "agent_principle_lens_receipt.json",
+        input_dir / "egress_mirror_cases.json",
     ]
 
 
@@ -555,6 +580,10 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
         "trace_rows": _load_jsonl(input_dir / "agent_trace.jsonl"),
         "hook_shadow": read_json_strict(input_dir / "hook_shadow_cases.json"),
         "debt": read_json_strict(input_dir / "anti_pattern_debt.json"),
+        "agent_principle_lens": read_json_strict(
+            input_dir / "agent_principle_lens_receipt.json"
+        ),
+        "egress_mirror": read_json_strict(input_dir / "egress_mirror_cases.json"),
     }
 
 
@@ -1932,6 +1961,7 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     actor_axis_decisions: list[dict[str, Any]] = []
     actor_axis_mismatch_count = 0
     authority_rejection_count = 0
+    route_miss_replacement_count = 0
 
     for duplicate_id in duplicate_ids:
         _record(
@@ -1949,6 +1979,9 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
         event_codes: list[str] = []
         actor_axis = str(row.get("actor_axis") or "unknown")
         behavior_refs = [str(ref) for ref in row.get("behavior_change_evidence_trace_ids", [])]
+        expected_route = str(row.get("expected_route") or "")
+        observed_route = str(row.get("observed_route") or "")
+        replacement_route = str(row.get("replacement_route") or "")
 
         if row.get("requires_route_lease") and not row.get("route_lease_id"):
             event_codes.append("MISSING_ROUTE_LEASE")
@@ -1961,6 +1994,21 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 subject_id=event_id,
                 subject_kind="agent_trace_event",
             )
+
+        if expected_route and observed_route and expected_route != observed_route:
+            route_miss_replacement_count += 1
+            event_codes.append("ROUTE_MISS_REPLACED")
+            _record(
+                findings,
+                observed,
+                "ROUTE_MISS_REPLACED",
+                "Route miss must name the expected route, observed route, and public replacement route.",
+                case_id="route_miss_replaced",
+                subject_id=event_id,
+                subject_kind="agent_trace_event",
+            )
+            if not replacement_route:
+                event_codes.append("ROUTE_MISS_REPLACEMENT_MISSING")
 
         if row.get("forbidden_payload_class") == "private_transcript_payload":
             event_codes.append("TELEMETRY_PRIVATE_TRANSCRIPT_BODY")
@@ -2015,7 +2063,12 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
         route_compliance_decisions.append(
             {
                 "event_id": event_id,
+                "trace_id": event_id,
+                "actor_axis": actor_axis,
                 "route_lease_id": row.get("route_lease_id"),
+                "expected_route": expected_route or None,
+                "observed_route": observed_route or None,
+                "replacement_route": replacement_route or None,
                 "decision": "rejected" if event_codes else "accepted",
                 "error_codes": sorted(set(event_codes)),
                 "body_redacted": True,
@@ -2040,6 +2093,7 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "actor_axis_decisions": actor_axis_decisions,
         "actor_axis_mismatch_count": actor_axis_mismatch_count,
         "authority_rejection_count": authority_rejection_count,
+        "route_miss_replacement_count": route_miss_replacement_count,
         "duplicate_trace_event_ids": duplicate_ids,
     }
 
@@ -2506,6 +2560,225 @@ def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, A
     }
 
 
+def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
+    lens = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    selected_ids = _strings(lens.get("selected_ids"))
+    required_ids = _strings(lens.get("required_selected_ids"))
+    missing_required_ids = sorted(set(required_ids) - set(selected_ids))
+    compact_receipts = _rows(lens, "compact_admission_receipts")
+    compact_decisions: list[dict[str, Any]] = []
+
+    if lens.get("runtime_doctrine_type") != "agent_principle":
+        findings.append(
+            _finding(
+                "AGENT_PRINCIPLE_LENS_RUNTIME_DOCTRINE_TYPE_MISSING",
+                "Agent-principle lens receipt must preserve runtime_doctrine_type=agent_principle.",
+                case_id="agent_principle_lens_runtime_doctrine_type_missing",
+                subject_id=str(lens.get("lens_id") or "agent_principle_lens"),
+                subject_kind="agent_principle_lens",
+            )
+        )
+    if lens.get("artifact_role") != "task_conditioned_agent_principle_lens":
+        findings.append(
+            _finding(
+                "AGENT_PRINCIPLE_LENS_ARTIFACT_ROLE_MISSING",
+                "Agent-principle lens receipt must preserve its task-conditioned artifact role.",
+                case_id="agent_principle_lens_artifact_role_missing",
+                subject_id=str(lens.get("lens_id") or "agent_principle_lens"),
+                subject_kind="agent_principle_lens",
+            )
+        )
+    if missing_required_ids:
+        findings.append(
+            _finding(
+                "AGENT_PRINCIPLE_LENS_SELECTED_ID_MISSING",
+                "Agent-principle lens receipt must preserve the selected principle ids required by the route.",
+                case_id="agent_principle_lens_selected_id_missing",
+                subject_id=",".join(missing_required_ids),
+                subject_kind="agent_principle_lens",
+            )
+        )
+    for field in (
+        "principles_minted",
+        "candidate_axiom_promoted",
+        "full_principle_bodies_exported",
+    ):
+        if lens.get(field) is not False:
+            findings.append(
+                _finding(
+                    "AGENT_PRINCIPLE_LENS_AUTHORITY_OVERCLAIM",
+                    "Agent-principle lens receipt cannot mint principles, promote candidate axioms, or export full principle bodies.",
+                    case_id="agent_principle_lens_authority_overclaim",
+                    subject_id=field,
+                    subject_kind="agent_principle_lens",
+                )
+            )
+
+    required_route_fields = (
+        "all_agent_principles_route",
+        "selected_principle_cards_route",
+        "agent_operating_packet_route",
+    )
+    if _missing(lens, required_route_fields):
+        findings.append(
+            _finding(
+                "AGENT_PRINCIPLE_LENS_ROUTE_HANDLE_MISSING",
+                "Agent-principle lens receipt must preserve route handles back to principle cards and the agent operating packet.",
+                case_id="agent_principle_lens_route_handle_missing",
+                subject_id=str(lens.get("lens_id") or "agent_principle_lens"),
+                subject_kind="agent_principle_lens",
+            )
+        )
+
+    compact_required_true = (
+        "selected_ids_preserved",
+        "runtime_doctrine_type_preserved",
+        "all_agent_principles_route_preserved",
+        "selected_principle_cards_route_preserved",
+        "agent_operating_packet_route_preserved",
+    )
+    compact_required_false = (
+        "row_bodies_exported",
+        "candidate_axiom_promoted",
+        "principles_minted",
+    )
+    for row in compact_receipts:
+        surface_id = str(row.get("surface_id") or "compact_admission")
+        row_codes: list[str] = []
+        for field in compact_required_true:
+            if row.get(field) is not True:
+                row_codes.append("AGENT_PRINCIPLE_COMPACT_HANDLE_MISSING")
+        for field in compact_required_false:
+            if row.get(field) is not False:
+                row_codes.append("AGENT_PRINCIPLE_COMPACT_AUTHORITY_OVERCLAIM")
+        if row_codes:
+            findings.append(
+                _finding(
+                    sorted(set(row_codes))[0],
+                    "Compact admission must preserve route handles while excluding bodies, minted principles, and candidate-axiom promotion.",
+                    case_id="agent_principle_lens_compact_admission_invalid",
+                    subject_id=surface_id,
+                    subject_kind="agent_principle_compact_admission",
+                )
+            )
+        compact_decisions.append(
+            {
+                "surface_id": surface_id,
+                "decision": "accepted" if not row_codes else "blocked",
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if compact_receipts and not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {},
+        "agent_principle_lens_status": (
+            PASS if compact_receipts and not findings else "blocked"
+        ),
+        "lens_id": lens.get("lens_id"),
+        "selected_agent_principle_ids": selected_ids,
+        "required_selected_ids": required_ids,
+        "compact_admission_receipt_count": len(compact_receipts),
+        "compact_admission_receipts": compact_decisions,
+        "runtime_doctrine_type": lens.get("runtime_doctrine_type"),
+        "artifact_role": lens.get("artifact_role"),
+        "all_agent_principles_route": lens.get("all_agent_principles_route"),
+        "selected_principle_cards_route": lens.get("selected_principle_cards_route"),
+        "agent_operating_packet_route": lens.get("agent_operating_packet_route"),
+        "principles_minted": lens.get("principles_minted") is True,
+        "candidate_axiom_promoted": lens.get("candidate_axiom_promoted") is True,
+        "full_principle_bodies_exported": lens.get("full_principle_bodies_exported")
+        is True,
+        "anti_claim": (
+            "Agent-principle lens receipt proves only selected ids and route handles "
+            "survive compact admission; it does not mint principles, promote "
+            "candidate axioms, or export full doctrine bodies."
+        ),
+    }
+
+
+def validate_egress_mirror(payload: object) -> dict[str, Any]:
+    mirror = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    cases = _rows(mirror, "cases")
+    decisions: list[dict[str, Any]] = []
+    detector_ids: set[str] = set()
+    violation_count = 0
+    allowed_count = 0
+    required_false_fields = (
+        "private_state_read",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "body_exported",
+    )
+
+    for row in cases:
+        case_id = str(row.get("case_id") or "egress_case")
+        detector_id = str(row.get("detector_id") or "")
+        if detector_id:
+            detector_ids.add(detector_id)
+        row_codes: list[str] = []
+        if _missing(row, ("case_id", "detector_id", "expected_decision")):
+            row_codes.append("EGRESS_MIRROR_REQUIRED_FIELD_MISSING")
+        for field in required_false_fields:
+            if row.get(field) is not False:
+                row_codes.append("EGRESS_MIRROR_PRIVATE_STATE_BOUNDARY_BREACH")
+        if row.get("expected_violation") is True:
+            violation_count += 1
+            if row.get("expected_decision") != "block":
+                row_codes.append("EGRESS_MIRROR_EXPECTED_BLOCK_MISSING")
+        else:
+            allowed_count += 1
+            if row.get("expected_decision") == "block":
+                row_codes.append("EGRESS_MIRROR_FALSE_POSITIVE_BLOCK")
+        if row_codes:
+            findings.append(
+                _finding(
+                    sorted(set(row_codes))[0],
+                    "Egress mirror cases must match expected detector decisions without reading private state or exporting bodies.",
+                    case_id="egress_mirror_case_invalid",
+                    subject_id=case_id,
+                    subject_kind="egress_mirror_case",
+                )
+            )
+        decisions.append(
+            {
+                "case_id": case_id,
+                "detector_id": detector_id,
+                "decision": row.get("expected_decision"),
+                "expected_violation": row.get("expected_violation") is True,
+                "error_codes": sorted(set(row_codes)),
+                "body_redacted": True,
+            }
+        )
+
+    return {
+        "status": PASS if cases and not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {},
+        "egress_mirror_status": PASS if cases and not findings else "blocked",
+        "mirror_id": mirror.get("mirror_id"),
+        "source_ref": mirror.get("source_ref"),
+        "egress_case_count": len(cases),
+        "egress_violation_count": violation_count,
+        "egress_allowed_count": allowed_count,
+        "detector_ids": sorted(detector_ids),
+        "egress_mirror_decisions": decisions,
+        "private_state_read": False,
+        "provider_payload_read": False,
+        "browser_hud_cockpit_state_read": False,
+        "body_exported": False,
+        "anti_claim": (
+            "Egress mirror receipt validates public detector-shape fixtures only; "
+            "it does not inspect live final responses, provider payloads, private "
+            "state, browser/HUD/cockpit state, or replace human release judgment."
+        ),
+    }
+
+
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -2572,6 +2845,8 @@ def write_receipts(
         "hook_shadow": target / HOOK_SHADOW_NAME,
         "debt_retirement": target / DEBT_RETIREMENT_NAME,
         "route_lease": target / ROUTE_LEASE_NAME,
+        "agent_principle_lens": target / AGENT_PRINCIPLE_LENS_NAME,
+        "egress_mirror": target / EGRESS_MIRROR_NAME,
     }
     receipt_paths = _relative_receipt_paths(paths, receipt_root)
 
@@ -2603,11 +2878,29 @@ def write_receipts(
     )
     route_lease.update(_without_common_keys(validation_result["route_lease_mode_control"]))
 
+    agent_principle_lens = _common_receipt(
+        validation_result,
+        schema_version="agent_route_observability_runtime_agent_principle_lens_v1",
+        receipt_paths=receipt_paths,
+    )
+    agent_principle_lens.update(
+        _without_common_keys(validation_result["agent_principle_lens"])
+    )
+
+    egress_mirror = _common_receipt(
+        validation_result,
+        schema_version="agent_route_observability_runtime_egress_mirror_v1",
+        receipt_paths=receipt_paths,
+    )
+    egress_mirror.update(_without_common_keys(validation_result["egress_mirror"]))
+
     for key, payload in (
         ("route_compliance", route_compliance),
         ("hook_shadow", hook_shadow),
         ("debt_retirement", debt_retirement),
         ("route_lease", route_lease),
+        ("agent_principle_lens", agent_principle_lens),
+        ("egress_mirror", egress_mirror),
     ):
         write_json_atomic(paths[key], payload)
 
@@ -5445,7 +5738,18 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     hook_shadow = validate_hook_shadow(payloads["hook_shadow"])
     debt_retirement = validate_debt_retirement(payloads["debt"])
     route_lease = validate_route_lease_mode_control(payloads["trace_rows"])
-    observed = _merge_observed(route_compliance, hook_shadow, debt_retirement, route_lease)
+    agent_principle_lens = validate_agent_principle_lens(
+        payloads["agent_principle_lens"]
+    )
+    egress_mirror = validate_egress_mirror(payloads["egress_mirror"])
+    observed = _merge_observed(
+        route_compliance,
+        hook_shadow,
+        debt_retirement,
+        route_lease,
+        agent_principle_lens,
+        egress_mirror,
+    )
     missing_cases = sorted(set(EXPECTED_NEGATIVE_CASES) - set(observed))
     error_codes = sorted({code for codes in observed.values() for code in codes})
     findings = sorted(
@@ -5453,6 +5757,8 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             *route_compliance["findings"],
             *hook_shadow["findings"],
             *route_lease["findings"],
+            *agent_principle_lens["findings"],
+            *egress_mirror["findings"],
         ],
         key=lambda item: (
             str(item.get("negative_case_id") or ""),
@@ -5476,6 +5782,8 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
                 if not missing_cases
                 and scan_result["status"] == PASS
                 and hook_shadow["status"] == PASS
+                and agent_principle_lens["status"] == PASS
+                and egress_mirror["status"] == PASS
                 else "blocked"
             ),
             "validator_id": VALIDATOR_ID,
@@ -5491,6 +5799,8 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
             "hook_shadow_coverage": hook_shadow,
             "debt_retirement": debt_retirement,
             "route_lease_mode_control": route_lease,
+            "agent_principle_lens": agent_principle_lens,
+            "egress_mirror": egress_mirror,
             "fixture_inputs": [
                 public_relative_path(path, display_root=public_root)
                 for path in _input_paths(input_path)

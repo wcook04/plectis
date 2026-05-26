@@ -158,8 +158,10 @@ def test_agent_route_observability_runtime_observes_required_negative_cases(
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert all(not Path(path).is_absolute() for path in result["receipt_paths"])
+    assert result["route_compliance"]["trace_count"] == 10
     assert result["route_compliance"]["actor_axis_mismatch_count"] == 1
     assert result["route_compliance"]["authority_rejection_count"] == 1
+    assert result["route_compliance"]["route_miss_replacement_count"] == 1
     assert result["hook_shadow_coverage"]["hook_shadow_case_count"] == 6
     assert result["hook_shadow_coverage"]["hook_shadow_repair_class_count"] == 6
     assert result["hook_shadow_coverage"]["missing_authority_count"] == 1
@@ -171,6 +173,23 @@ def test_agent_route_observability_runtime_observes_required_negative_cases(
     assert result["route_lease_mode_control"]["kernel_bloat_before_direct_action_count"] == 1
     assert result["route_lease_mode_control"]["static_metadata_without_trace_feedback_count"] == 1
     assert result["debt_retirement"]["debt_retirement_count"] == 1
+    assert result["agent_principle_lens"]["agent_principle_lens_status"] == "pass"
+    assert result["agent_principle_lens"]["selected_agent_principle_ids"] == [
+        "pri_136",
+        "pri_142",
+        "pri_143",
+        "pri_144",
+    ]
+    assert result["agent_principle_lens"]["compact_admission_receipt_count"] == 2
+    assert result["agent_principle_lens"]["principles_minted"] is False
+    assert result["agent_principle_lens"]["candidate_axiom_promoted"] is False
+    assert result["egress_mirror"]["egress_mirror_status"] == "pass"
+    assert result["egress_mirror"]["egress_case_count"] == 6
+    assert result["egress_mirror"]["egress_violation_count"] == 3
+    assert result["egress_mirror"]["egress_allowed_count"] == 3
+    assert result["egress_mirror"]["private_state_read"] is False
+    assert result["egress_mirror"]["provider_payload_read"] is False
+    assert result["egress_mirror"]["browser_hud_cockpit_state_read"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
             assert code in result["error_codes"]

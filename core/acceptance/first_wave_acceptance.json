@@ -372,11 +372,13 @@
     {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
       "generated_receipts": [
-        "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
-        "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
-        "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
-        "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
-      ],
+      "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
+      "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
+      "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
+    ],
       "organ_id": "agent_route_observability_runtime",
       "status": "accepted_current_authority",
       "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime"

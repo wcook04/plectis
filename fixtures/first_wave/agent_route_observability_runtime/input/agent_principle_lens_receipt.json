@@ -1,0 +1,49 @@
+{
+  "schema_version": "agent_principle_lens_fixture_v1",
+  "lens_id": "fixture::agent_route_observability_runtime::agent_principle_lens_v1",
+  "artifact_role": "task_conditioned_agent_principle_lens",
+  "runtime_doctrine_type": "agent_principle",
+  "selected_ids": [
+    "pri_136",
+    "pri_142",
+    "pri_143",
+    "pri_144"
+  ],
+  "required_selected_ids": [
+    "pri_136",
+    "pri_142",
+    "pri_143",
+    "pri_144"
+  ],
+  "all_agent_principles_route": "./repo-python kernel.py --agent-principles --band card",
+  "selected_principle_cards_route": "./repo-python kernel.py --agent-operating-packet --band card",
+  "agent_operating_packet_route": "./repo-python kernel.py --agent-operating-packet --band card",
+  "principles_minted": false,
+  "candidate_axiom_promoted": false,
+  "full_principle_bodies_exported": false,
+  "compact_admission_receipts": [
+    {
+      "surface_id": "entry_hard_compact_agent_principle_lens",
+      "selected_ids_preserved": true,
+      "runtime_doctrine_type_preserved": true,
+      "all_agent_principles_route_preserved": true,
+      "selected_principle_cards_route_preserved": true,
+      "agent_operating_packet_route_preserved": true,
+      "row_bodies_exported": false,
+      "candidate_axiom_promoted": false,
+      "principles_minted": false
+    },
+    {
+      "surface_id": "context_pack_hard_compact_agent_principle_lens",
+      "selected_ids_preserved": true,
+      "runtime_doctrine_type_preserved": true,
+      "all_agent_principles_route_preserved": true,
+      "selected_principle_cards_route_preserved": true,
+      "agent_operating_packet_route_preserved": true,
+      "row_bodies_exported": false,
+      "candidate_axiom_promoted": false,
+      "principles_minted": false
+    }
+  ],
+  "anti_claim": "This fixture proves route handles and selected principle ids survive compact admission. It does not mint principles, promote candidate axioms, copy full principle bodies, or claim active law beyond the generated agent operating packet."
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "egress_mirror_fixture_v1",
+  "mirror_id": "fixture::agent_route_observability_runtime::egress_mirror_v1",
+  "source_ref": "system/lib/egress_compliance.py",
+  "cases": [
+    {
+      "case_id": "egress_permission_gate_without_blocker",
+      "detector_id": "permission_gate_without_blocker",
+      "expected_violation": true,
+      "expected_decision": "block",
+      "matched_phrase_labels": [
+        "authorization_gate"
+      ],
+      "durable_binding_present": false,
+      "fresh_authority_present": false,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    },
+    {
+      "case_id": "egress_residual_without_capture",
+      "detector_id": "residual_deliverable_without_workitem",
+      "expected_violation": true,
+      "expected_decision": "block",
+      "matched_phrase_labels": [
+        "future_work_without_capture"
+      ],
+      "durable_binding_present": false,
+      "fresh_authority_present": false,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    },
+    {
+      "case_id": "egress_capture_tripwire_without_capture",
+      "detector_id": "capture_reflex_tripwire_without_capture",
+      "expected_violation": true,
+      "expected_decision": "block",
+      "matched_phrase_labels": [
+        "worth_flagging_without_capture"
+      ],
+      "durable_binding_present": false,
+      "fresh_authority_present": false,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    },
+    {
+      "case_id": "egress_stale_dirty_with_fresh_authority",
+      "detector_id": "stale_dirty_snapshot_commit_blocker",
+      "expected_violation": false,
+      "expected_decision": "allow_with_fresh_authority",
+      "matched_phrase_labels": [
+        "fresh_status_checked"
+      ],
+      "durable_binding_present": true,
+      "fresh_authority_present": true,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    },
+    {
+      "case_id": "egress_capture_tripwire_with_task_ledger_binding",
+      "detector_id": "capture_reflex_tripwire_without_capture",
+      "expected_violation": false,
+      "expected_decision": "allow_bound_capture",
+      "matched_phrase_labels": [
+        "task_ledger_cap_id_present"
+      ],
+      "durable_binding_present": true,
+      "fresh_authority_present": true,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    },
+    {
+      "case_id": "egress_self_error_with_capture",
+      "detector_id": "self_error_without_capture",
+      "expected_violation": false,
+      "expected_decision": "allow_bound_self_error",
+      "matched_phrase_labels": [
+        "self_error_capture_present"
+      ],
+      "durable_binding_present": true,
+      "fresh_authority_present": true,
+      "private_state_read": false,
+      "provider_payload_read": false,
+      "browser_hud_cockpit_state_read": false,
+      "body_exported": false
+    }
+  ],
+  "anti_claim": "This fixture mirrors public detector decisions only. It does not read live final-response text, provider payloads, browser or HUD state, private state, or replace human release judgment."
+}

@@ -46,7 +46,9 @@
       "run hook shadow cases without reading private state",
       "retire anti-pattern debt only when observed correction evidence exists",
       "preserve advisory regression evidence after retirement",
-      "reject Type B advisory trace as mutation authority"
+      "reject Type B advisory trace as mutation authority",
+      "preserve agent-principle lens route handles through compact admission",
+      "mirror egress detector decisions without exporting final-response bodies"
     ]
   },
   "agent_trace_route_repair_contract_v1": {
@@ -194,6 +196,7 @@
         "observed_route",
         "decision",
         "replacement_route",
+        "route_miss_replacement_count",
         "validator_asserted_feeds_patterns"
       ],
       "path": "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
@@ -237,6 +240,41 @@
         "authority_ceiling"
       ],
       "path": "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+    },
+    {
+      "must_include": [
+        "agent_principle_lens_status",
+        "selected_agent_principle_ids",
+        "compact_admission_receipt_count",
+        "compact_admission_receipts",
+        "all_agent_principles_route",
+        "selected_principle_cards_route",
+        "agent_operating_packet_route",
+        "principles_minted",
+        "candidate_axiom_promoted",
+        "full_principle_bodies_exported",
+        "validator_asserted_feeds_patterns",
+        "authority_ceiling"
+      ],
+      "path": "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json"
+    },
+    {
+      "must_include": [
+        "egress_mirror_status",
+        "source_ref",
+        "egress_case_count",
+        "egress_violation_count",
+        "egress_allowed_count",
+        "detector_ids",
+        "egress_mirror_decisions",
+        "private_state_read",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "body_exported",
+        "validator_asserted_feeds_patterns",
+        "authority_ceiling"
+      ],
+      "path": "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
     }
   ],
   "implementation_notes": [
@@ -253,6 +291,8 @@
     "hook shadow coverage receipt emitted",
     "one anti-pattern debt retired with correction evidence",
     "one telemetry-only row remains evidence-only",
+    "agent-principle lens selected ids and compact-admission route handles preserved without copying principle bodies",
+    "egress mirror detector cases validated without private state, provider payload, browser/HUD/cockpit state, or body export",
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json::validator_asserted_feeds_patterns records weak_edge:565ac0d88ade with consumed evidence refs"
   ],
   "modal_contract_bindings_v1": {
@@ -313,6 +353,7 @@
       "MISSING_ROUTE_LEASE",
       "NO_BEHAVIOR_CHANGE_EVIDENCE",
       "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE",
+      "ROUTE_MISS_REPLACED",
       "ROUTE_LEASE_NOT_CONSUMED",
       "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
     ],
@@ -330,6 +371,7 @@
       "fixtures/first_wave/agent_route_observability_runtime/input/telemetry_private_transcript_body.json",
       "fixtures/first_wave/agent_route_observability_runtime/input/duplicate_trace_event_id.jsonl",
       "fixtures/first_wave/agent_route_observability_runtime/input/route_compliance_without_behavior_change.json",
+      "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl::trace_route_miss",
       "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl::kernel_bloat_before_direct_action",
       "fixtures/first_wave/agent_route_observability_runtime/input/agent_trace.jsonl::static_route_lease_metadata"
     ],
@@ -345,10 +387,11 @@
       "telemetry_private_transcript_body",
       "duplicate_trace_event_conflict",
       "route_compliance_overclaims_behavior_change",
+      "route_miss_replaced",
       "route_lease_broad_kernel_bloat_before_direct_action",
       "route_lease_static_metadata_without_trace_feedback"
     ],
-    "observed_case_count": 7,
+    "observed_case_count": 8,
     "organ_id": "agent_route_observability_runtime",
     "public_private_boundary_note": "Public fixtures may use synthetic rows, metadata-only handles, schema-only examples, and path/class refs; non-public content bodies, live operator state, private source bodies, and forbidden live evidence remain excluded.",
     "receipt_fields_proving_observed": [
@@ -370,19 +413,21 @@
     "status": "bound_to_expanded_negative_case_matrix",
     "synthetic_fixture_payload_checker_invariant": "synthetic_fixture_payload_contract_ready",
     "synthetic_fixture_payload_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::coverage_contract_v1.synthetic_fixture_payload_contract_v1",
-    "synthetic_fixture_payload_count": 7,
+    "synthetic_fixture_payload_count": 8,
     "synthetic_fixture_payload_ids": [
       "negative_fixture_payload::wrong_actor_axis_and_evidence_only_telemetry",
       "negative_fixture_payload::agent_trace_missing_route_lease",
       "negative_fixture_payload::telemetry_private_transcript_body",
       "negative_fixture_payload::duplicate_trace_event_conflict",
       "negative_fixture_payload::route_compliance_overclaims_behavior_change",
+      "negative_fixture_payload::route_miss_replaced",
       "negative_fixture_payload::route_lease_broad_kernel_bloat_before_direct_action",
       "negative_fixture_payload::route_lease_static_metadata_without_trace_feedback"
     ],
     "taxonomy_ref": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json",
     "validators_that_catch_cases": [
       "validate_agent_trace",
+      "validate_route_compliance",
       "validate_behavior_change_receipt",
       "validate_egress_membrane",
       "validate_route_lease_mode_control"
@@ -420,7 +465,14 @@
       "route_lease_mode_control_status",
       "route_lease_session_count",
       "route_lease_warning_session_count",
-      "aggregate_mode_control_counts"
+      "aggregate_mode_control_counts",
+      "route_miss_replacement_count",
+      "agent_principle_lens_status",
+      "selected_agent_principle_ids",
+      "compact_admission_receipt_count",
+      "egress_mirror_status",
+      "egress_case_count",
+      "egress_violation_count"
     ],
     "status_values": [
       "pass",
@@ -521,6 +573,8 @@
     "runtime_hook_shadow_intervention_coverage",
     "observed_anti_pattern_debt_retirement",
     "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "agent_trace_to_route_repair_observability_compound",
     "route_lease_mode_control_trace_feedback"
   ],
@@ -555,7 +609,9 @@
     "codex/standards/std_navigation_mechanism_acceptance.json",
     "system/lib/navigation_metabolism_ledger.py",
     "codex/doctrine/agent_operating_packet.json",
-    "codex/standards/std_agent_entry_surface.json"
+    "codex/standards/std_agent_entry_surface.json",
+    "system/lib/egress_compliance.py",
+    "system/server/tests/test_egress_compliance.py"
   ],
   "synthetic_input_files": [
     {
@@ -583,6 +639,24 @@
         "debt row for grep-before-entry route failure",
         "debt row for telemetry-without-behavior-change"
       ]
+    },
+    {
+      "kind": "json",
+      "path": "fixtures/first_wave/agent_route_observability_runtime/input/agent_principle_lens_receipt.json",
+      "records": [
+        "selected principle ids pri_136, pri_142, pri_143, pri_144",
+        "entry and context compact-admission receipts that preserve route handles",
+        "authority denials for principle minting, candidate axiom promotion, and full principle body export"
+      ]
+    },
+    {
+      "kind": "json",
+      "path": "fixtures/first_wave/agent_route_observability_runtime/input/egress_mirror_cases.json",
+      "records": [
+        "permission-gate, residual, and capture-tripwire violations expected to block",
+        "fresh-authority and captured cases expected to pass",
+        "private-state, provider-payload, browser/HUD/cockpit, and body-export denials"
+      ]
     }
   ],
   "validator_contract_ratchet_v1": {
@@ -591,9 +665,12 @@
       "wrong_actor_axis_and_evidence_only_telemetry must record actor_axis_mismatch_count, authority_rejection_count, ACTOR_AXIS_AUTHORITY_MISMATCH, and NO_BEHAVIOR_CHANGE_EVIDENCE",
       "debt_retirement_receipt must keep evidence_only_trace_ids separate from behavior_change_evidence_trace_ids and must not retire telemetry-only debt",
       "route_compliance_overclaims_behavior_change must fail with ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE when a pass receipt lacks behavior-change evidence",
+      "route_miss_replaced must fail with ROUTE_MISS_REPLACED when observed_route differs from expected_route and must preserve replacement_route as public metadata",
       "route_lease_broad_kernel_bloat_before_direct_action must increment kernel_bloat_before_direct_action_count and emit KERNEL_BLOAT_BEFORE_DIRECT_ACTION",
       "route_lease_static_metadata_without_trace_feedback must increment static_metadata_without_trace_feedback_count, keep lease_consumed=false, and emit ROUTE_LEASE_NOT_CONSUMED",
       "hook_shadow_cases must record mapped repair classes, expected interventions, missing-authority denials, banned-route interventions, command-displacement denials, live-state-read denials, and over-budget denials before hook-shadow coverage can pass",
+      "agent_principle_lens_receipt must preserve selected principle ids, route handles, and compact-admission receipts while denying principle minting, candidate-axiom promotion, and full principle body export",
+      "egress_mirror_receipt must validate detector-shape cases while denying private state, provider payload, browser/HUD/cockpit state, and body export",
       "exported_agent_trace_route_repair_bundle must preserve the macro route_repair_for/build_hook_shadow_coverage semantics while proving top-pattern coverage, suggested-route metadata, and secret-only exclusion",
       "exported_agent_observability_store_bundle must preserve the macro AgentTraceStore append, replay, bounded-tail, active-session, and payload-compaction semantics while proving only public metadata digests leave the boundary",
       "observed_negative_cases must include each emitted agent_route_observability_runtime negative_case_id",
@@ -629,6 +706,20 @@
       "violating_route",
       "kernel_bloat_before_direct_action_count",
       "static_metadata_without_trace_feedback_count",
+      "route_miss_replacement_count",
+      "agent_principle_lens_status",
+      "selected_agent_principle_ids",
+      "compact_admission_receipt_count",
+      "compact_admission_receipts",
+      "all_agent_principles_route",
+      "selected_principle_cards_route",
+      "agent_operating_packet_route",
+      "egress_mirror_status",
+      "egress_case_count",
+      "egress_violation_count",
+      "egress_allowed_count",
+      "detector_ids",
+      "egress_mirror_decisions",
       "validator_asserted_feeds_patterns"
     ],
     "anti_claim": "Agent observability receipt-field coverage proves only synthetic trace feedback, actor-axis rejection, behavior-change evidence gates, anti-pattern debt-retirement boundaries, negative cases, and claim ceilings. It does not inspect live operator state, browser or HUD surfaces, provider payloads, prompt bodies, live Task Ledger rows, public-root code, or certify public runtime behavior.",
@@ -646,7 +737,9 @@
       "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
       "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
       "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
-      "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+      "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
     ],
     "per_output_receipt_field_floor": {
       "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json": [
@@ -714,6 +807,7 @@
         "actor_axis_decisions",
         "actor_axis_mismatch_count",
         "authority_rejection_count",
+        "route_miss_replacement_count",
         "expected_negative_cases",
         "observed_negative_cases",
         "error_codes",
@@ -750,6 +844,63 @@
         "authority_ceiling",
         "receipt_paths",
         "validator_asserted_feeds_patterns"
+      ],
+      "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "agent_principle_lens_status",
+        "selected_agent_principle_ids",
+        "required_selected_ids",
+        "compact_admission_receipt_count",
+        "compact_admission_receipts",
+        "runtime_doctrine_type",
+        "artifact_role",
+        "all_agent_principles_route",
+        "selected_principle_cards_route",
+        "agent_operating_packet_route",
+        "principles_minted",
+        "candidate_axiom_promoted",
+        "full_principle_bodies_exported",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths",
+        "validator_asserted_feeds_patterns"
+      ],
+      "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json": [
+        "schema_version",
+        "organ_id",
+        "fixture_id",
+        "validator_id",
+        "command",
+        "status",
+        "egress_mirror_status",
+        "mirror_id",
+        "source_ref",
+        "egress_case_count",
+        "egress_violation_count",
+        "egress_allowed_count",
+        "detector_ids",
+        "egress_mirror_decisions",
+        "private_state_read",
+        "provider_payload_read",
+        "browser_hud_cockpit_state_read",
+        "body_exported",
+        "expected_negative_cases",
+        "observed_negative_cases",
+        "error_codes",
+        "anti_claim",
+        "private_state_scan",
+        "authority_ceiling",
+        "receipt_paths",
+        "validator_asserted_feeds_patterns"
       ]
     },
     "primary_command_shape": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
@@ -762,7 +913,9 @@
       "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
       "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
       "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
-      "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+      "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+      "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
     ],
     "required_error_code_source": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::error_code_validator_binding_contract_v1.binding_rows[organ_ids contains agent_route_observability_runtime]",
     "required_error_codes": [
@@ -786,6 +939,7 @@
       "telemetry_private_transcript_body",
       "duplicate_trace_event_conflict",
       "route_compliance_overclaims_behavior_change",
+      "route_miss_replaced",
       "hook_shadow_missing_authority",
       "hook_shadow_banned_route_attempt",
       "hook_shadow_command_displacement",
@@ -826,6 +980,7 @@
     "trace_good is allowed because it used entry route and allowed direct action",
     "trace_banned is not allowed as-is and must carry replacement route",
     "trace_wrong_axis cannot claim Type A mutation authority",
+    "route misses must preserve expected_route, observed_route, replacement_route, and route_miss_replacement_count in route_compliance_audit",
     "hook shadow coverage must include at least one intervention and one missing_authority finding",
     "hook shadow coverage must map every admitted row to repair_class, expected_intervention, projection_not_authority, redaction_status, and live-state denial fields",
     "anti-pattern debt can retire only when matching correction evidence exists",
@@ -835,12 +990,14 @@
     "permitted direct-action traces must consume an issued route lease before behavior-debt retirement",
     "coverage-enforcement returns are legitimate only when the trace carries mode_control_decision=legitimate_return",
     "broad kernel bloat before direct action emits KERNEL_BLOAT_BEFORE_DIRECT_ACTION",
-    "static route metadata that is not consumed by trace feedback emits ROUTE_LEASE_NOT_CONSUMED"
+    "static route metadata that is not consumed by trace feedback emits ROUTE_LEASE_NOT_CONSUMED",
+    "agent_principle_lens_receipt must prove selected principle ids and compact-admission route handles without exporting full principle bodies or promoting candidate axioms",
+    "egress_mirror_receipt must mirror final-response detector cases without reading private state, provider payloads, browser/HUD/cockpit state, or output bodies"
   ],
   "wave_status": {
     "deferred": "live host hook or operator trace import",
     "first_wave": "required_late_first_wave_after_route_and_work",
-    "second_wave": "add egress compliance and response-attention child fixtures"
+    "second_wave": "add response-attention child fixtures after egress mirror coverage remains stable"
   },
   "weak_edge_validator_assertions_v1": {
     "anti_claim": "Co-fixture presence is not enough; each promoted weak edge must be named by validator_rules and observed in validator_asserted_feeds_patterns.",
