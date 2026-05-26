@@ -41,6 +41,9 @@ ROUTE_WORKER_PACKET_MANIFEST = (
 ROUTE_OPERATOR_COURT_MANIFEST = (
     BUNDLE_INPUT / "route_operator_court_source_module_manifest.json"
 )
+ROUTE_DISCOVERY_CONFIRMATION_MANIFEST = (
+    BUNDLE_INPUT / "route_discovery_confirmation_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -862,6 +865,46 @@ def test_route_operator_court_sources_compile_and_preserve_provider_boundary() -
     assert "provider payload bodies" in manifest["receipt_body_policy"]
     assert "not authority to execute live providers" in manifest["public_runtime_policy"]
     assert "provider response bodies" in manifest["secret_exclusion_boundary"]
+
+
+def test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        ROUTE_DISCOVERY_CONFIRMATION_MANIFEST,
+        manifest_id="route_discovery_confirmation_source_modules_import",
+        module_count=1,
+    )
+
+    confirmation_row = manifest["modules"][0]
+    assert "no_accepted_edge_mutation_authority" in confirmation_row[
+        "source_open_payload_boundary"
+    ]
+
+
+def test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary() -> None:
+    manifest = json.loads(ROUTE_DISCOVERY_CONFIRMATION_MANIFEST.read_text(encoding="utf-8"))
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    confirmation_text = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/control/route_discovery_confirmation.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def confirm_proposals(" in confirmation_text
+    assert "def _support_score(" in confirmation_text
+    assert "CONFIRMATION_ROOT_REL" in confirmation_text
+    assert "accepted_appended" in confirmation_text
+    assert "route_discovery_confirmation_batch_v1" in confirmation_text
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "not authority to mutate accepted edges" in manifest["public_runtime_policy"]
+    assert "update the canonical route graph" in manifest["public_runtime_policy"]
+    assert "provider response bodies" in manifest["secret_exclusion_boundary"]
+    assert "accepted-edge private state" in manifest["secret_exclusion_boundary"]
 
 
 def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:

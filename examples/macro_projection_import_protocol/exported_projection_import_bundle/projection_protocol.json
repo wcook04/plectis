@@ -12330,6 +12330,76 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "material_id": "route_discovery_confirmation_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_ref": "tools/meta/control/route_discovery_confirmation.py",
+      "source_refs": [
+        "tools/meta/control/route_discovery_confirmation.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+      "body_digest": "sha256:40cad3e8b710b955d16e4d106435e89541ef13800c0fec13dae68a0ddfcac313",
+      "body_line_count": 290,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "tools/meta/control/route_discovery_confirmation.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+        "source_body_digest": "sha256:40cad3e8b710b955d16e4d106435e89541ef13800c0fec13dae68a0ddfcac313",
+        "target_body_digest": "sha256:40cad3e8b710b955d16e4d106435e89541ef13800c0fec13dae68a0ddfcac313",
+        "source_line_count": 290,
+        "target_line_count": 290,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_discovery_confirmation_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "claim_ceiling": "public route-discovery confirmation source body import only; not live provider execution, provider payload export, accepted-edge ledger mutation authority, canonical route graph mutation, prompt/operator thread body export, account/session state, browser/HUD live access, credential export, recipient send, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, or hosted authority",
+      "authority_ceiling": {
+        "release_authorized": false,
+        "private_data_equivalence_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false,
+        "live_route_graph_mutation_authorized": false,
+        "accepted_edge_ledger_mutation_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_provider_execution_authorized": false,
+        "provider_payload_export_authorized": false,
+        "operator_thread_body_export_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "account_session_state_authorized": false,
+        "credential_export_authorized": false,
+        "recipient_work_authorized": false,
+        "whole_system_correctness_claim": false
+      },
+      "applied_edits": [
+        "exact_copy_route_discovery_confirmation_source_body_into_public_projection_bundle",
+        "bind_route_discovery_confirmation_body_to_macro_projection_body_floor",
+        "preserve_no_provider_payload_live_provider_browser_hud_account_session_prompt_body_accepted_edge_mutation_or_credential_authority_ceiling"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json",
+        "codex/doctrine/paper_modules/route_worker_benchmark_discovery_loop.md",
+        "codex/doctrine/paper_modules/tools_meta_control_index.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_discovery_confirmation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -12860,7 +12930,9 @@
     "system/lib/route_operator_court.py",
     "tools/meta/control/routing_pilot_harness.py",
     "system/server/tests/test_route_operator_court.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
+    "tools/meta/control/route_discovery_confirmation.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -13106,6 +13178,9 @@
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_operator_court_sources_compile_and_preserve_provider_boundary",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_operator_court_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_discovery_confirmation_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

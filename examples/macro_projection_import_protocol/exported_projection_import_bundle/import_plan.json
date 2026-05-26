@@ -747,6 +747,42 @@
       ]
     },
     {
+      "cell_id": "route_discovery_confirmation_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "body_copied": false,
+      "body_in_receipt": false,
+      "authority_ceiling": "verified_public_route_discovery_confirmation_source_module_not_provider_payloads_live_provider_calls_browser_hud_account_session_operator_thread_bodies_prompt_bodies_accepted_edge_mutation_route_graph_mutation_or_release_authority",
+      "source_refs": [
+        "tools/meta/control/route_discovery_confirmation.py",
+        "system/lib/route_discovery_edc.py",
+        "tools/meta/control/routing_pilot_harness.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json"
+      ],
+      "selected_pattern_ids": [
+        "route_discovery_confirmation",
+        "route_discovery_edc_canonicalization",
+        "routing_pilot_confirmation_receipts",
+        "accepted_ledger_mutation_boundary"
+      ],
+      "public_safe_body_material_ids": [
+        "route_discovery_confirmation_body_import"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_discovery_confirmation_source_compiles_and_preserves_mutation_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_discovery_confirmation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
       "authority_ceiling": "verified_public_navigation_rosetta_bodies_not_live_macro_kernel_provider_browser_account_or_private_state_authority",
       "body_copied": false,
       "body_in_receipt": false,

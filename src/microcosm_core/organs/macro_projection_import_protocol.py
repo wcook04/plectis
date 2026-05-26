@@ -641,6 +641,29 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "route_discovery_confirmation_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The route-discovery confirmation lane now carries the exact copied "
+            "non-secret confirmation source body inside the projection bundle. "
+            "Validation uses digest/anchor checks, syntax compilation, and "
+            "read-only confirmation smoke checks; it does not call live provider "
+            "endpoints, append accepted edges, mutate route graphs, or export "
+            "provider payloads, browser/HUD state, account/session state, "
+            "cookies, credentials, prompt/operator thread bodies, accepted-edge "
+            "private state, or recipient-send material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
     "navigation_context_rosetta_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",
