@@ -5215,6 +5215,7 @@ class RuntimeShell:
             },
             "next_commands": [
                 "microcosm status --card <project>",
+                "microcosm authority --card",
                 "microcosm workingness --card",
                 "microcosm spine",
             ],
@@ -14758,6 +14759,172 @@ class RuntimeShell:
             write_json_atomic(authority_path, payload)
         return payload
 
+    def authority_card(self) -> dict[str, Any]:
+        organs = self.organs()
+        evidence_registry = _load_evidence_class_registry(self.root)
+        adapter_backed = [
+            row for row in organs if row.get("runtime_mode") == "adapter_backed"
+        ]
+        evidence_class_counts = _evidence_class_counts(adapter_backed)
+        truth_accounting = _truth_accounting(adapter_backed)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
+        product_step_count = len(_product_runtime_steps())
+        authority_path = self.runtime_receipt_dir / "public_authority_map.json"
+        prior_authority = _read_json_if_exists(authority_path)
+        prior_counts = prior_authority.get("surface_counts")
+        if not isinstance(prior_counts, dict):
+            prior_counts = {}
+        surface_authority_count = prior_counts.get("surface_authority_count")
+        if not isinstance(surface_authority_count, int):
+            surface_authority_count = 0
+        projection_cell_count = prior_counts.get("projection_cell_count")
+        if not isinstance(projection_cell_count, int):
+            projection_cell_count = 0
+        hard_boundary_count = prior_counts.get("hard_boundary_count")
+        if not isinstance(hard_boundary_count, int):
+            hard_boundary_count = 6
+        safe_local_exception_count = prior_counts.get("safe_local_exception_count")
+        if not isinstance(safe_local_exception_count, int):
+            safe_local_exception_count = 3
+        authority_ceiling = {
+            "release_authorized": False,
+            "hosted_public_authorized": False,
+            "publication_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "live_task_ledger_mutation_authorized": False,
+            "trading_or_financial_advice_authorized": False,
+            "private_data_equivalence_claim": False,
+            "whole_system_correctness_claim": False,
+            "formal_math_general_proof_authority": False,
+            "lean_lake_execution_authorized": False,
+            "live_git_mutation_authorized": False,
+            "broad_checkpoint_authorized": False,
+            "live_browser_control_authorized": False,
+            "private_screenshot_paths_exported": False,
+            "reader_success_guarantee": False,
+        }
+        organ_authority_preview = [
+            {
+                "organ_id": str(row.get("organ_id") or ""),
+                "runtime_mode": row.get("runtime_mode"),
+                "evidence_class": row.get("evidence_class"),
+                "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                "authority_ref": row.get("current_authority_receipt"),
+                "claim_ceiling": row.get("claim_ceiling"),
+            }
+            for row in adapter_backed[:8]
+        ]
+        surface_authority_preview = [
+            {
+                "surface_id": "runtime_status",
+                "command": "microcosm status",
+                "endpoint": "/status",
+            },
+            {
+                "surface_id": "public_runtime_spine",
+                "command": "microcosm spine --card",
+                "endpoint": "/spine-card",
+            },
+            {
+                "surface_id": "public_authority_map",
+                "command": "microcosm authority --card",
+                "endpoint": "/authority-card",
+            },
+            {
+                "surface_id": "public_ten_minute_tour",
+                "command": "microcosm tour --card <project>",
+                "endpoint": "/tour",
+            },
+            {
+                "surface_id": "public_verifier_lab_kernel_lens",
+                "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "endpoint": "/proof-loop-depth",
+            },
+            {
+                "surface_id": "runtime_reveal_import_bridge",
+                "command": "microcosm intake",
+                "endpoint": "/intake",
+            },
+        ]
+        status = (
+            PASS
+            if all(value is False for value in authority_ceiling.values())
+            and len(adapter_backed) == product_step_count
+            and body_import_floor.get("status") == PASS
+            else "blocked"
+        )
+        return {
+            "schema_version": "microcosm_public_authority_card_v1",
+            "card_id": "public_authority_map",
+            "status": status,
+            "public_claim": (
+                "Microcosm makes its public authority ceiling inspectable as a compact "
+                "first-screen card before the full authority map is opened."
+            ),
+            "command": "microcosm authority --card",
+            "full_command": "microcosm authority",
+            "endpoint": "/authority-card",
+            "full_endpoint": "/authority",
+            "authority_map_ref": _public_relative(authority_path, self.root),
+            "projection_not_authority": True,
+            "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+            "unsafe_payload_bodies_exported": False,
+            "surface_counts": {
+                "surface_authority_count": surface_authority_count,
+                "surface_authority_preview_count": len(surface_authority_preview),
+                "organ_authority_count": len(adapter_backed),
+                "organ_authority_preview_count": len(organ_authority_preview),
+                "organ_evidence_class_count": len(evidence_class_counts),
+                "adapter_backed_count_is_product_progress": False,
+                "real_substrate_progress_count": truth_accounting[
+                    "real_substrate_progress_count"
+                ],
+                "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+                "projection_cell_count": projection_cell_count,
+                "hard_boundary_count": hard_boundary_count,
+                "safe_local_exception_count": safe_local_exception_count,
+                "copied_non_secret_macro_body_material_count": body_import_floor.get(
+                    "copied_non_secret_macro_body_material_count"
+                ),
+                "public_safe_body_material_count": body_import_floor.get(
+                    "public_safe_body_material_count"
+                ),
+                "mixed_public_safe_macro_import_assay_status": (
+                    body_import_floor.get("mixed_public_safe_macro_import_assay") or {}
+                ).get("status"),
+            },
+            "authority_summary": {
+                "authority_ceiling_false_count": sum(
+                    1 for value in authority_ceiling.values() if value is False
+                ),
+                "release_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "proof_correctness_claim": False,
+                "trading_or_financial_advice_authorized": False,
+                "full_payload_ref": "microcosm authority",
+            },
+            "evidence_class_registry": _evidence_registry_summary(evidence_registry),
+            "evidence_class_counts": evidence_class_counts,
+            "surface_authority_preview": surface_authority_preview,
+            "organ_authority_preview": organ_authority_preview,
+            "payload_boundary": {
+                "omits_full_surface_authority": True,
+                "omits_full_organ_authority": True,
+                "omits_full_projection_cells": True,
+                "omits_full_evidence_refs": True,
+                "omits_full_command_path": True,
+                "full_payload_command": "microcosm authority",
+            },
+            "authority_ceiling": authority_ceiling,
+            "next_commands": [
+                "microcosm authority",
+                "microcosm spine --card",
+                "microcosm workingness --card",
+            ],
+        }
+
     def intake(self) -> dict[str, Any]:
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
@@ -17741,6 +17908,8 @@ class RuntimeShell:
                     self._send(200, cached_tour_payload())
                 elif path == "/authority":
                     self._send(200, shell.authority())
+                elif path == "/authority-card":
+                    self._send(200, shell.authority_card())
                 elif path == "/workingness":
                     self._send(200, shell.workingness_map())
                 elif path == "/prediction":
@@ -17906,7 +18075,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="emit the compact first-screen tour lens",
     )
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
-    subparsers.add_parser("authority")
+    authority_parser = subparsers.add_parser("authority")
+    authority_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen authority lens",
+    )
     workingness_parser = subparsers.add_parser("workingness")
     workingness_parser.add_argument(
         "--card",
@@ -17986,6 +18160,8 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(shell.tour_card(args.project))
         return _print_json(shell.tour(args.project))
     if args.command == "authority":
+        if args.card:
+            return _print_json(shell.authority_card())
         return _print_json(shell.authority())
     if args.command == "workingness":
         if args.card:

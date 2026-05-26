@@ -83,6 +83,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour --card <project> read the compact first-screen tour lens
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
+  microcosm authority --card      read the compact authority ceiling lens
   microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -441,7 +442,15 @@ def main(argv: list[str] | None = None) -> int:
         help="emit the compact first-screen tour lens",
     )
     tour_parser.add_argument("project", nargs="?")
-    subparsers.add_parser("authority", help="show authority ceilings and anti-claims")
+    authority_parser = subparsers.add_parser(
+        "authority",
+        help="show authority ceilings and anti-claims",
+    )
+    authority_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen authority lens",
+    )
     _add_public_lens_parsers(subparsers)
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
@@ -890,7 +899,10 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append(args.project)
         return runtime_shell.main(command_args)
     if args.command == "authority":
-        return runtime_shell.main(["authority"])
+        command_args = ["authority"]
+        if args.card:
+            command_args.append("--card")
+        return runtime_shell.main(command_args)
     if args.command == "workingness":
         command_args = ["workingness"]
         if args.card:

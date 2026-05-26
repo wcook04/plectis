@@ -1372,6 +1372,34 @@ def test_runtime_shell_spine_card_is_compact_first_screen_lens() -> None:
     assert "real_substrate_progress_spine" not in card
 
 
+def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+
+    card = shell.authority_card()
+
+    assert len(json.dumps(card, sort_keys=True)) < 12000
+    assert card["status"] == "pass"
+    assert card["schema_version"] == "microcosm_public_authority_card_v1"
+    assert card["command"] == "microcosm authority --card"
+    assert card["full_command"] == "microcosm authority"
+    assert card["endpoint"] == "/authority-card"
+    assert card["full_endpoint"] == "/authority"
+    assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["authority_ceiling"]["provider_calls_authorized"] is False
+    assert card["authority_ceiling"]["source_mutation_authorized"] is False
+    assert card["surface_counts"]["organ_authority_count"] == 43
+    assert card["surface_counts"]["organ_authority_preview_count"] == 8
+    assert card["surface_counts"]["surface_authority_count"] >= 40
+    assert card["payload_boundary"]["omits_full_surface_authority"] is True
+    assert card["payload_boundary"]["omits_full_organ_authority"] is True
+    assert card["payload_boundary"]["omits_full_projection_cells"] is True
+    assert "surface_authority" not in card
+    assert "organ_authority" not in card
+    assert "projection_cells" not in card
+    assert "evidence_refs" not in card
+    assert "command_path" not in card
+
+
 def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     registry_path = public_root / "core/organ_evidence_classes.json"

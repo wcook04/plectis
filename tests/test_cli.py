@@ -231,6 +231,26 @@ def test_cli_spine_card_is_compact_first_screen_lens(
     assert "first_run_path" not in payload
 
 
+def test_cli_authority_card_is_compact_first_screen_lens(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["authority", "--card"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert len(json.dumps(payload, sort_keys=True)) < 12000
+    assert payload["status"] == "pass"
+    assert payload["schema_version"] == "microcosm_public_authority_card_v1"
+    assert payload["command"] == "microcosm authority --card"
+    assert payload["full_command"] == "microcosm authority"
+    assert payload["endpoint"] == "/authority-card"
+    assert payload["surface_counts"]["organ_authority_count"] == 43
+    assert payload["surface_counts"]["surface_authority_count"] >= 40
+    assert payload["payload_boundary"]["omits_full_surface_authority"] is True
+    assert payload["payload_boundary"]["omits_full_organ_authority"] is True
+    assert "surface_authority" not in payload
+    assert "organ_authority" not in payload
+
+
 def test_cli_status_card_can_overlay_project_route_state(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
