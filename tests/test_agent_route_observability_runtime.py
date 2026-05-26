@@ -384,6 +384,19 @@ def test_route_compliance_audit_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["metadata_envelope_only"] is True
     assert result["body_in_receipt"] is False
+    assert result["copied_macro_source_count"] == 7
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["all_expected_byte_counts_matched"] is True
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    assert result["exact_source_body_import"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert result["exact_source_body_import"]["source_body_digests"] == (
+        result["exact_source_body_import"]["target_body_digests"]
+    )
+    assert result["exact_source_body_import"]["body_in_receipt"] is False
 
 
 def test_route_compliance_audit_bundle_receipt_is_public_safe(
@@ -430,6 +443,13 @@ def test_route_compliance_audit_bundle_receipt_is_public_safe(
     assert payload["release_authorized"] is False
     assert payload["private_data_equivalence_claim"] is False
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
+    assert payload["copied_macro_source_count"] == 7
+    assert payload["source_module_manifest"]["status"] == "pass"
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["source_body_digests"] == (
+        payload["exact_source_body_import"]["target_body_digests"]
+    )
     assert "matched_excerpt" not in _walk_keys(payload)
     assert "body" not in _walk_keys(payload)
     for hit in payload["private_state_scan"]["hits"]:

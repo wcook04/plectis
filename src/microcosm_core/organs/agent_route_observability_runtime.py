@@ -338,10 +338,85 @@ COMPUTER_USE_INPUT_NAMES = (
 )
 ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES = (
     "bundle_manifest.json",
+    "source_module_manifest.json",
     "route_events.json",
     "expected_route_compliance_summary.json",
     "route_compliance_policy.json",
 )
+ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS = (
+    "source_modules/codex/doctrine/process/trace_rules.json",
+    "source_modules/codex/standards/std_agent_execution_trace.json",
+    "source_modules/system/lib/agent_execution_trace.py",
+    "source_modules/system/lib/navigation_coverage_matrix.py",
+    "source_modules/tools/meta/factory/build_agent_execution_trace.py",
+    "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+    "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+)
+ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS = {
+    "source_modules/codex/doctrine/process/trace_rules.json": {
+        "source_ref": "codex/doctrine/process/trace_rules.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/codex/doctrine/"
+            "process/trace_rules.json"
+        ),
+        "material_class": "public_macro_pattern_body",
+    },
+    "source_modules/codex/standards/std_agent_execution_trace.json": {
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/codex/standards/"
+            "std_agent_execution_trace.json"
+        ),
+        "material_class": "public_standard_body",
+    },
+    "source_modules/system/lib/agent_execution_trace.py": {
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/system/lib/"
+            "agent_execution_trace.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/system/lib/navigation_coverage_matrix.py": {
+        "source_ref": "system/lib/navigation_coverage_matrix.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/system/lib/"
+            "navigation_coverage_matrix.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/tools/meta/factory/build_agent_execution_trace.py": {
+        "source_ref": "tools/meta/factory/build_agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/tools/meta/"
+            "factory/build_agent_execution_trace.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py": {
+        "source_ref": "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/tools/meta/"
+            "factory/build_extracted_pattern_substrate_bindings.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json": {
+        "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_route_compliance_audit_bundle/source_modules/state/"
+            "microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+        ),
+        "material_class": "public_macro_pattern_body",
+    },
+}
 SESSION_ATTRIBUTION_INPUT_NAMES = (
     "bundle_manifest.json",
     "source_module_manifest.json",
@@ -614,6 +689,13 @@ def _route_compliance_audit_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES]
 
 
+def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_route_compliance_audit_bundle_paths(input_dir),
+        *(input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS),
+    ]
+
+
 def _computer_use_action_trace_paths(
     input_dir: Path,
     *,
@@ -835,7 +917,7 @@ def _scan_route_compliance_audit_inputs(
 ) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _route_compliance_audit_bundle_paths(input_dir),
+        _route_compliance_audit_scan_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2423,6 +2505,216 @@ def validate_controller_heartbeat_source_manifest(
                 "path": expected_path,
                 "source_ref": row.get("source_ref"),
                 "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "byte_count": observed_byte_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "all_expected_byte_counts_matched": byte_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
+    }
+
+
+def validate_route_compliance_audit_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+    byte_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_AUDIT_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Route compliance audit source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="route_compliance_audit_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_AUDIT_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Route compliance audit source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="route_compliance_audit_source_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(modules):
+        findings.append(
+            _bundle_finding(
+                "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_COUNT_MISMATCH",
+                "Route compliance audit source manifest module_count must equal the listed copied modules.",
+                subject_id="module_count",
+                subject_kind="route_compliance_audit_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        spec = ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS[expected_path]
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Route compliance audit source manifest must name each copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != spec["source_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_REF_MISMATCH",
+                    "Route compliance audit copied source body must point back to the macro source file.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        if row.get("target_ref") != spec["target_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_TARGET_REF_MISMATCH",
+                    "Route compliance audit copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        if row.get("material_class") != spec["material_class"]:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_MATERIAL_CLASS_MISMATCH",
+                    "Route compliance audit copied source body must preserve its expected public material class.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        if row.get("source_import_class") != "copied_non_secret_macro_body":
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_ROW_SOURCE_IMPORT_CLASS_MISMATCH",
+                    "Route compliance audit source rows must classify copied source modules as non-secret macro bodies.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_ROW_BODY_RECEIPT_OVERCLAIM",
+                    "Route compliance audit source rows must keep copied source bodies out of runtime receipts.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_FILE_MISSING",
+                    "Route compliance audit copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        observed_byte_count = len(source_module_path.read_bytes())
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        expected_byte_count = row.get("byte_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        byte_count_matches = observed_byte_count == expected_byte_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Route compliance audit copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Route compliance audit copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        if byte_count_matches:
+            byte_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                    "Route compliance audit copied macro source body byte count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        target_text = source_module_path.read_text(encoding="utf-8")
+        required_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if str(anchor)
+        ]
+        if not required_anchors:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_ANCHORS_MISSING",
+                    "Route compliance audit copied source manifest rows must name required retained anchors.",
+                    subject_id=expected_path,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        missing_anchors = [
+            anchor
+            for anchor in required_anchors
+            if anchor not in target_text
+        ]
+        for anchor in missing_anchors:
+            findings.append(
+                _bundle_finding(
+                    "ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Route compliance audit copied macro source body must retain required route-compliance anchors.",
+                    subject_id=anchor,
+                    subject_kind="route_compliance_audit_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "material_class": row.get("material_class"),
                 "sha256": observed_digest,
                 "line_count": observed_line_count,
                 "byte_count": observed_byte_count,
@@ -4111,6 +4403,10 @@ def _write_route_compliance_audit_bundle_receipt(
             "expected_summary_validation": validation_result[
                 "expected_summary_validation"
             ],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
             "route_compliance_policy": validation_result[
                 "route_compliance_policy"
             ],
@@ -4119,6 +4415,7 @@ def _write_route_compliance_audit_bundle_receipt(
             "body_import_verification": validation_result[
                 "body_import_verification"
             ],
+            "exact_source_body_import": validation_result["exact_source_body_import"],
             "metadata_envelope_only": True,
             "body_in_receipt": False,
             "live_process_audit_authority": False,
@@ -4768,12 +5065,17 @@ def run_route_compliance_audit_bundle(
         payloads["expected_route_compliance_summary"],
         route_result,
     )
+    source_manifest_result = validate_route_compliance_audit_source_manifest(
+        input_path,
+        payloads["source_module_manifest"],
+    )
     policy_result = validate_route_compliance_audit_policy(
         payloads["route_compliance_policy"]
     )
     structural_findings = sorted(
         [
             *expected_result["findings"],
+            *source_manifest_result["findings"],
             *policy_result["findings"],
         ],
         key=lambda item: (
@@ -4806,6 +5108,7 @@ def run_route_compliance_audit_bundle(
         and route_rows
         and not missing_cases
         and expected_result["status"] == PASS
+        and source_manifest_result["status"] == PASS
         and policy_result["status"] == PASS
         else "blocked"
     )
@@ -4833,6 +5136,22 @@ def run_route_compliance_audit_bundle(
         if isinstance(manifest.get("body_import_verification"), dict)
         else {}
     )
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digests = [
+        f"sha256:{row['sha256']}"
+        for row in observed_source_modules
+        if row.get("sha256")
+    ]
+    source_module_refs = [
+        str(row.get("source_ref"))
+        for row in observed_source_modules
+        if row.get("source_ref")
+    ]
+    target_module_refs = [
+        str(row.get("target_ref"))
+        for row in observed_source_modules
+        if row.get("target_ref")
+    ]
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -4895,16 +5214,32 @@ def run_route_compliance_audit_bundle(
             ],
             "duplicate_trace_event_ids": route_result["duplicate_trace_event_ids"],
             "expected_summary_validation": expected_result,
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
             "route_compliance_policy": policy_result,
             "source_refs": source_refs,
             "target_refs": target_refs,
             "body_import_verification": body_import_verification,
+            "exact_source_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_refs": source_module_refs,
+                "target_refs": target_module_refs,
+                "source_body_digests": source_body_digests,
+                "target_body_digests": source_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
+                "body_in_receipt": False,
+            },
             "metadata_envelope_only": True,
             "body_in_receipt": False,
             "bundle_fingerprint": bundle_fingerprint,
             "public_replacement_refs": [
                 public_relative_path(path, display_root=public_root)
-                for path in _route_compliance_audit_bundle_paths(input_path)
+                for path in _route_compliance_audit_scan_paths(input_path)
             ],
             "receipt_paths": [EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH],
         }

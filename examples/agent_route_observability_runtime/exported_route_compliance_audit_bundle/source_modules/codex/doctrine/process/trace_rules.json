@@ -1,0 +1,156 @@
+{
+  "kind": "agent_execution_trace_rules",
+  "schema_version": "agent_execution_trace_rules_v1",
+  "standard": "codex/standards/std_agent_execution_trace.json",
+  "purpose": "Authored rules for the agent-execution-trace pipeline. Defines what counts as slow, what counts as a stall, what counts as an anti-pattern, and what the intended navigation ladder looks like. Hand-edited; versioned; the generated ledger and audit are computed against these rules.",
+  "navigation_reference_sequence": [
+    {"rung": 1, "kernel_flag": "--info", "label": "Orient"},
+    {"rung": 2, "kernel_flag": "--preflight", "label": "Freshness and guardrail preflight"},
+    {"rung": 3, "kernel_flag": "--pulse", "label": "Live state"},
+    {"rung": 4, "kernel_flag": "--paper-module", "label": "Subsystem ontology"},
+    {"rung": 5, "kernel_flag": "--navigate", "label": "Semantic rank"},
+    {"rung": 6, "kernel_flag": "--docs-route", "label": "Situation route"},
+    {"rung": 7, "kernel_flag": "--shards", "label": "Raw-seed voice"},
+    {"rung": 8, "kernel_flag": "--locate", "label": "Python symbol lookup"},
+    {"rung": 8, "kernel_flag": "--compile", "label": "High-fidelity file card"},
+    {"rung": 8, "kernel_flag": "--lens", "label": "Boundary/group browse"}
+  ],
+  "kernel_flag_aliases_included_in_ladder": [
+    "--facts",
+    "--fact-audit",
+    "--agent-entrypoints",
+    "--agent-entrypoint-audit",
+    "--paper-module-coverage",
+    "--paper-module-facts",
+    "--raw-seed-projection-theme",
+    "--raw-seed-projection-coverage",
+    "--raw-seed-projection-gap-audit",
+    "--frontier",
+    "--working-set",
+    "--system-map",
+    "--phase",
+    "--orient-task",
+    "--skill-find",
+    "--annex-inspiration",
+    "--semantic-search"
+  ],
+  "slow_action_thresholds_ms": {
+    "kernel_command": 15000,
+    "test_or_build_command": 120000,
+    "repo_tool_command": 30000,
+    "bash_grep": 10000,
+    "bash_find": 20000,
+    "bash_cat": 5000,
+    "bash_other": 20000,
+    "read_file": 5000,
+    "edit_file": 5000,
+    "write_file": 5000,
+    "grep_tool": 10000,
+    "glob_tool": 10000,
+    "task_tool": 120000,
+    "webfetch": 20000,
+    "notebook_edit": 5000,
+    "mcp_tool": 30000,
+    "apply_patch": 10000,
+    "exec_command": 30000,
+    "exec_session_io": 30000,
+    "default": 20000
+  },
+  "very_slow_multiplier": 3.0,
+  "stall_inactivity_threshold_ms": 90000,
+  "loop_window_ms": 120000,
+  "loop_threshold_count": 3,
+  "read_bomb_line_threshold": 1500,
+  "cold_boot_probe_span_count": 3,
+  "deep_without_ladder_span_threshold": 25,
+  "route_compliance_floor_warning": 0.5,
+  "bottleneck_top_n": 10,
+  "pattern_top_n": 10,
+  "anti_pattern_severities": {
+    "anti_pattern_grep_before_kernel": "warning",
+    "anti_pattern_read_bomb": "warning",
+    "anti_pattern_loop_detected": "warning",
+    "anti_pattern_stall_detected": "warning",
+    "anti_pattern_cold_boot_missing_info": "warning",
+    "anti_pattern_paper_module_skip": "warning",
+    "anti_pattern_deep_without_ladder": "warning"
+  },
+  "positive_pattern_severities": {
+    "positive_kernel_ladder_climb": "info"
+  },
+  "ingest": {
+    "default_session_lookback_count": 20,
+    "hard_session_cap": 200,
+    "per_session_span_cap": 2000,
+    "bounded_content_chars": 120
+  },
+  "observability_boundary": {
+    "parsed_record_types_claude": ["assistant", "user"],
+    "parsed_block_types_claude": ["tool_use", "tool_result"],
+    "parsed_record_types_codex": ["response_item", "session_meta"],
+    "parsed_payload_types_codex": ["function_call", "function_call_output"],
+    "ignored_block_types": ["text", "thinking", "image"],
+    "truncate_command_at_chars": 2048,
+    "truncate_error_message_at_chars": 512
+  },
+  "task_intent_ontology": {
+    "status": "ontology_seed_not_yet_consumed_by_builder",
+    "purpose": "Classify explicit task-intent metadata so execution traces can be evaluated as the path taken for the asked task, not only as generic route-compliance evidence.",
+    "binding_sources": [
+      "work_item",
+      "type_b_handoff",
+      "prompt_trace_ref",
+      "source_refs",
+      "operator_label",
+      "task_ledger_cap",
+      "agent_seed_packet"
+    ],
+    "privacy_rule": "Bind only from explicit metadata surfaces. Do not parse prompt bodies, assistant prose, message text, tool-result bodies, or thinking blocks to infer the task.",
+    "task_classes": {
+      "maintenance": {
+        "expected_markers": ["orientation", "targeted_discovery", "bounded_mutation", "regression_check", "status_binding"],
+        "risk_signal": "Broad rewrites, new surfaces, or no validation for a bounded upkeep request."
+      },
+      "discovery": {
+        "expected_markers": ["orientation", "source_survey", "evidence_packet", "no_unrequested_mutation"],
+        "risk_signal": "Mutation or commitment before the evidence surface is stable."
+      },
+      "exploration": {
+        "expected_markers": ["orientation", "wide_but_bounded_search", "hypothesis_notes", "handoff_or_cap"],
+        "risk_signal": "Premature implementation or unbounded repo scanning with no typed packet."
+      },
+      "code_improvement": {
+        "expected_markers": ["orientation", "current_behavior_read", "surgical_mutation", "focused_tests", "diff_review"],
+        "risk_signal": "Cosmetic churn, unrelated refactors, or no before/after behavior check."
+      },
+      "code_writing": {
+        "expected_markers": ["orientation", "local_contract_read", "implementation", "tests_or_smoke", "status_binding"],
+        "risk_signal": "Edits without reading local contracts, or implementation without validation."
+      },
+      "architecture": {
+        "expected_markers": ["orientation", "owner_surface_read", "edge_mapping", "doctrine_or_standard_binding", "projection_refresh"],
+        "risk_signal": "Architecture prose that never binds to owner files, routes, or generated surfaces."
+      },
+      "unification": {
+        "expected_markers": ["orientation", "duplicate_surface_inventory", "canonical_owner_choice", "edge_rewire", "deprecation_or_alias_binding"],
+        "risk_signal": "Adds another parallel surface instead of selecting and wiring the canonical one."
+      },
+      "integration": {
+        "expected_markers": ["orientation", "producer_consumer_contract_read", "bridge_mutation", "end_to_end_probe", "receipt"],
+        "risk_signal": "One side changed without proving the other side consumes it."
+      },
+      "pruning": {
+        "expected_markers": ["orientation", "authority_check", "usage_probe", "removal_or_deprecation", "drift_check"],
+        "risk_signal": "Deletion before proving no active owner or route still depends on the surface."
+      },
+      "frontend_build": {
+        "expected_markers": ["orientation", "api_or_data_contract_read", "component_or_route_read", "ui_mutation", "browser_or_screenshot_check"],
+        "risk_signal": "UI implementation that never inspects data/API endpoints or never renders the result."
+      },
+      "diagnostic_repair": {
+        "expected_markers": ["orientation", "reproduction", "root_cause_localization", "repair", "post_repair_probe", "cap_or_doctrine_propagation"],
+        "risk_signal": "Diagnostic classification that never reaches an owner surface or status-consuming artifact."
+      }
+    }
+  }
+}

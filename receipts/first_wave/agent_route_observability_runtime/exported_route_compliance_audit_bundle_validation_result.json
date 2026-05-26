@@ -48,13 +48,14 @@
   "authority_rejection_count": 1,
   "body_import_verification": {
     "body_in_receipt": false,
+    "copied_source_module_count": 7,
     "private_body_exported": false,
     "source_body_refactor": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
-    "source_ref": "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py::validate_route_compliance",
-    "source_to_target_relation": "public_synthetic_fixture_over_live_decision_logic",
+    "source_ref": "source_module_manifest.json",
+    "source_to_target_relation": "copied_non_secret_macro_body_plus_public_synthetic_fixture_over_live_decision_logic",
     "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle",
-    "verification_mode": "source_faithful_public_refactor",
-    "verification_status": "verified"
+    "verification_mode": "exact_source_module_manifest_digest_check",
+    "verification_status": "pass"
   },
   "body_in_receipt": false,
   "browser_hud_cockpit_state_exported": false,
@@ -62,7 +63,8 @@
   "bundle_id": "public_route_compliance_audit_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
-  "created_at": "2026-05-25T20:37:55+00:00",
+  "copied_macro_source_count": 7,
+  "created_at": "2026-05-26T12:32:50+00:00",
   "duplicate_trace_event_ids": [],
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
@@ -70,6 +72,48 @@
     "NO_BEHAVIOR_CHANGE_EVIDENCE",
     "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
   ],
+  "exact_source_body_import": {
+    "body_in_receipt": false,
+    "source_body_digests": [
+      "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "sha256:b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1"
+    ],
+    "source_refs": [
+      "codex/doctrine/process/trace_rules.json",
+      "codex/standards/std_agent_execution_trace.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "system/lib/agent_execution_trace.py",
+      "system/lib/navigation_coverage_matrix.py",
+      "tools/meta/factory/build_agent_execution_trace.py",
+      "tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
+    ],
+    "source_to_target_relation": "exact_copy",
+    "target_body_digests": [
+      "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+      "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "sha256:b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1"
+    ],
+    "target_refs": [
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
+    ],
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "pass"
+  },
   "expected_negative_cases": {
     "agent_trace_missing_route_lease": [
       "MISSING_ROUTE_LEASE"
@@ -175,12 +219,22 @@
   "organ_id": "agent_route_observability_runtime",
   "private_data_equivalence_claim": false,
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 4,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 12,
     "status": "pass"
   },
   "provider_payload_exported": false,
@@ -193,20 +247,31 @@
   "release_authorized": false,
   "route_compliance_decisions": [
     {
+      "actor_axis": "type_a_substrate",
       "body_redacted": true,
       "decision": "accepted",
       "error_codes": [],
       "event_id": "trace_route_compliance_accepts_seed3_doctrine_lane",
-      "route_lease_id": "lease_seed3_doctrine_routing"
+      "expected_route": null,
+      "observed_route": null,
+      "replacement_route": null,
+      "route_lease_id": "lease_seed3_doctrine_routing",
+      "trace_id": "trace_route_compliance_accepts_seed3_doctrine_lane"
     },
     {
+      "actor_axis": "type_a_substrate",
       "body_redacted": true,
       "decision": "accepted",
       "error_codes": [],
       "event_id": "trace_route_compliance_accepts_bound_receipt",
-      "route_lease_id": "lease_route_observability_receipt"
+      "expected_route": null,
+      "observed_route": null,
+      "replacement_route": null,
+      "route_lease_id": "lease_route_observability_receipt",
+      "trace_id": "trace_route_compliance_accepts_bound_receipt"
     },
     {
+      "actor_axis": "type_b_advisory",
       "body_redacted": true,
       "decision": "rejected",
       "error_codes": [
@@ -214,25 +279,39 @@
         "NO_BEHAVIOR_CHANGE_EVIDENCE"
       ],
       "event_id": "trace_route_compliance_rejects_type_b_mutation_claim",
-      "route_lease_id": "lease_operator_bridge_advisory_route"
+      "expected_route": null,
+      "observed_route": null,
+      "replacement_route": null,
+      "route_lease_id": "lease_operator_bridge_advisory_route",
+      "trace_id": "trace_route_compliance_rejects_type_b_mutation_claim"
     },
     {
+      "actor_axis": "type_a_substrate",
       "body_redacted": true,
       "decision": "rejected",
       "error_codes": [
         "MISSING_ROUTE_LEASE"
       ],
       "event_id": "trace_route_compliance_rejects_missing_route_lease",
-      "route_lease_id": null
+      "expected_route": null,
+      "observed_route": null,
+      "replacement_route": null,
+      "route_lease_id": null,
+      "trace_id": "trace_route_compliance_rejects_missing_route_lease"
     },
     {
+      "actor_axis": "type_a_substrate",
       "body_redacted": true,
       "decision": "rejected",
       "error_codes": [
         "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
       ],
       "event_id": "trace_route_compliance_rejects_behavior_overclaim",
-      "route_lease_id": "lease_behavior_claim_without_trace_route"
+      "expected_route": null,
+      "observed_route": null,
+      "replacement_route": null,
+      "route_lease_id": "lease_behavior_claim_without_trace_route",
+      "trace_id": "trace_route_compliance_rejects_behavior_overclaim"
     }
   ],
   "route_compliance_policy": {
@@ -252,12 +331,99 @@
     "status": "pass"
   },
   "schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_validation_v1",
+  "source_module_manifest": {
+    "all_expected_byte_counts_matched": true,
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "body_in_receipt": false,
+    "copied_macro_source_count": 7,
+    "findings": [],
+    "module_count": 7,
+    "observed_modules": [
+      {
+        "body_in_receipt": false,
+        "byte_count": 7252,
+        "line_count": 156,
+        "material_class": "public_macro_pattern_body",
+        "path": "source_modules/codex/doctrine/process/trace_rules.json",
+        "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+        "source_ref": "codex/doctrine/process/trace_rules.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 45577,
+        "line_count": 623,
+        "material_class": "public_standard_body",
+        "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+        "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 633964,
+        "line_count": 9560,
+        "material_class": "public_macro_pattern_body",
+        "path": "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+        "sha256": "d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+        "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 224689,
+        "line_count": 5158,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/agent_execution_trace.py",
+        "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 52459,
+        "line_count": 1220,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/navigation_coverage_matrix.py",
+        "sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+        "source_ref": "system/lib/navigation_coverage_matrix.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 5814,
+        "line_count": 170,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/factory/build_agent_execution_trace.py",
+        "sha256": "46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+        "source_ref": "tools/meta/factory/build_agent_execution_trace.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 123095,
+        "line_count": 2601,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+        "sha256": "b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1",
+        "source_ref": "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
+      }
+    ],
+    "required_module_count": 7,
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
   "source_mutation_authorized": false,
   "source_pattern_ids": [
     "agent_route_observability_runtime",
     "agent_route_compliance_audit",
     "agent_session_attribution",
     "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
@@ -294,6 +460,21 @@
     {
       "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
       "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+      "source_pattern_id": "agent_principle_lens",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+      "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+      "source_pattern_id": "egress_compliance_stop_hook_mirror",
       "status": "pass"
     }
   ],

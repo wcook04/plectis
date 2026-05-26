@@ -1,0 +1,157 @@
+{
+  "schema_version": "agent_route_observability_runtime_route_compliance_audit_source_module_manifest_v1",
+  "bundle_id": "public_route_compliance_audit_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "module_count": 7,
+  "modules": [
+    {
+      "module_id": "trace_rules_source_body_import",
+      "source_ref": "codex/doctrine/process/trace_rules.json",
+      "path": "source_modules/codex/doctrine/process/trace_rules.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Trace-route rules that define the public navigation reference sequence, route-compliance floor warning, anti-pattern classes, and metadata-only privacy rule consumed by agent execution trace checks.",
+      "required_anchors": [
+        "\"navigation_reference_sequence\"",
+        "\"route_compliance_floor_warning\"",
+        "\"anti_pattern_grep_before_kernel\"",
+        "\"privacy_rule\""
+      ],
+      "line_count": 156,
+      "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "byte_count": 7252,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_standard_body_import",
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "material_class": "public_standard_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Agent execution trace standard that defines the strict privacy boundary, trace ontology, route-reference sequence contract, and generated artifact types used by route-compliance accounting.",
+      "required_anchors": [
+        "\"schema_version\"",
+        "\"strict_boundary\"",
+        "\"trace_ontology_contract\"",
+        "\"navigation_reference_sequence_contract\"",
+        "\"types\""
+      ],
+      "line_count": 623,
+      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "byte_count": 45577,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_source_body_import",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Agent execution trace owner that computes route-compliance decisions, anti-pattern detection, privacy-boundary receipts, and public trace ledgers without exporting provider payload bodies or hidden reasoning.",
+      "required_anchors": [
+        "LEDGER_SCHEMA_VERSION = \"agent_execution_trace_ledger_v1\"",
+        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
+        "class Span",
+        "def _compute_route_compliance(",
+        "def _detect_anti_patterns(",
+        "def build_agent_execution_trace("
+      ],
+      "line_count": 5158,
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "byte_count": 224689,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "navigation_coverage_matrix_source_body_import",
+      "source_ref": "system/lib/navigation_coverage_matrix.py",
+      "path": "source_modules/system/lib/navigation_coverage_matrix.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Navigation coverage matrix owner that turns route availability, runtime hook coverage, and coverage-first navigation enforcement into measurable public rows.",
+      "required_anchors": [
+        "DEFAULT_QUERY = \"coverage-first navigation enforcement\"",
+        "def build_coverage_enforcement_matrix(",
+        "\"coverage_before_invocation\"",
+        "\"coverage_surface_resolution_sources\"",
+        "\"system/lib/navigation_coverage_matrix.py\""
+      ],
+      "line_count": 1220,
+      "sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "byte_count": 52459,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_builder_source_body_import",
+      "source_ref": "tools/meta/factory/build_agent_execution_trace.py",
+      "path": "source_modules/tools/meta/factory/build_agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Factory entrypoint that delegates to the macro agent execution trace builder and writes generated trace ledgers under the route-compliance privacy boundary.",
+      "required_anchors": [
+        "from system.lib.agent_execution_trace import",
+        "def main(",
+        "build_agent_execution_trace(",
+        "write_agent_execution_trace("
+      ],
+      "line_count": 170,
+      "sha256": "46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "byte_count": 5814,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "extracted_pattern_substrate_bindings_builder_source_body_import",
+      "source_ref": "tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+      "path": "source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Factory entrypoint that validates extracted pattern substrate bindings and keeps pattern-to-source provenance machine-checkable for Microcosm body imports.",
+      "required_anchors": [
+        "BINDINGS_REL = \"state/microcosm_portfolio/extracted_pattern_substrate_bindings.json\"",
+        "GOVERNING_STANDARD_REL = \"codex/standards/std_extracted_pattern_substrate_bindings.json\"",
+        "EXPECTED_BINDING_SCHEMA = \"extracted_pattern_substrate_bindings_v1\"",
+        "def build_extracted_pattern_substrate_validation_report(",
+        "def main("
+      ],
+      "line_count": 2601,
+      "sha256": "b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1",
+      "byte_count": 123095,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "route_compliance_pattern_binding_source_body_import",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "path": "source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Generated pattern-binding sidecar row set that binds agent_route_compliance_audit to its source functions, standards, validators, tests, and Microcosm bundle refs.",
+      "required_anchors": [
+        "\"pattern_id\": \"agent_route_compliance_audit\"",
+        "\"source_function_anchors\"",
+        "\"system/lib/agent_execution_trace.py::_compute_route_compliance\"",
+        "\"microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/bundle_manifest.json\""
+      ],
+      "line_count": 9560,
+      "sha256": "d98c7d190fd9b3940f4e279b95a052cca67b410267f3925e16babb8b900519ff",
+      "byte_count": 633964,
+      "body_in_receipt": false
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material",
+    "raw private transcript bodies",
+    "live process-audit bodies"
+  ]
+}
