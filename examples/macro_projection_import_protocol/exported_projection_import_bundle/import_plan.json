@@ -2612,6 +2612,42 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": "verified_public_shared_worktree_git_guard_source_bodies_not_live_git_private_index_dirty_worktree_payload_work_ledger_task_ledger_provider_credential_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "shared_worktree_guard_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "shared_worktree_guard_body_import",
+        "shared_worktree_guard_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "shared_dirty_worktree_git_guard",
+        "scoped_commit_safety_boundary",
+        "work_ledger_session_preflight_git_risk"
+      ],
+      "source_refs": [
+        "system/lib/shared_worktree_guard.py",
+        "system/server/tests/test_work_ledger_core.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/shared_worktree_guard.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"

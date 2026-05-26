@@ -156,6 +156,9 @@ NAVIGATION_TRACE_MANIFEST = (
 GENERATED_PROJECTION_CONTROL_MANIFEST = (
     BUNDLE_INPUT / "generated_projection_control_source_module_manifest.json"
 )
+SHARED_WORKTREE_GUARD_MANIFEST = (
+    BUNDLE_INPUT / "shared_worktree_guard_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2955,6 +2958,47 @@ def test_generated_projection_control_sources_compile_and_preserve_generated_sta
     assert "generated projection output bodies" in manifest[
         "secret_exclusion_boundary"
     ]
+
+
+def test_shared_worktree_guard_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        SHARED_WORKTREE_GUARD_MANIFEST,
+        manifest_id="shared_worktree_guard_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary() -> None:
+    guard_source = BUNDLE_INPUT / "source_modules/system/lib/shared_worktree_guard.py"
+    guard_test = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_work_ledger_core.py"
+    )
+    manifest = json.loads(SHARED_WORKTREE_GUARD_MANIFEST.read_text(encoding="utf-8"))
+
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "py_compile",
+            str(guard_source),
+            str(guard_test),
+        ],
+        check=True,
+    )
+
+    guard_text = guard_source.read_text(encoding="utf-8")
+    test_text = guard_test.read_text(encoding="utf-8")
+
+    assert 'SCHEMA = "shared_worktree_git_guard_v1"' in guard_text
+    assert "def classify_git_argv(" in guard_text
+    assert "def detect_git_risks_in_text(" in guard_text
+    assert "def assess_git_argv(" in guard_text
+    assert "shared_git_stash" in guard_text
+    assert "shared_git_reset_hard" in guard_text
+    assert "test_cli_session_preflight_flags_shared_worktree_git_stash" in test_text
+    assert "test_shared_worktree_guard_blocks_destructive_git_in_dirty_tree" in test_text
+    assert "not authority to mutate git state" in manifest["public_runtime_policy"]
+    assert "live .git index state" in manifest["secret_exclusion_boundary"]
 
 
 def test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources() -> None:

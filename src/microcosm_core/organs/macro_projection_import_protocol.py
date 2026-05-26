@@ -1912,6 +1912,45 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "shared_worktree_guard_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The shared-worktree git guard lane now carries exact copied "
+            "non-secret guard and regression-test bodies inside the projection "
+            "bundle, validated by digest/anchor checks and syntax compilation. "
+            "This imports dirty-worktree git risk classification and preflight "
+            "coverage as source body without exporting live .git index state, "
+            "dirty-worktree payload bodies, live Task Ledger or Work Ledger "
+            "mutation authority, prompt/provider/tool payload bodies, account/"
+            "session state, browser/HUD live access, recipient-send state, "
+            "release authority, publication authority, or credential-equivalent "
+            "material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "shared_worktree_guard_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "shared_worktree_guard.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_work_ledger_core.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py"
+        ),
+    },
     "formal_math_proofline_spine_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

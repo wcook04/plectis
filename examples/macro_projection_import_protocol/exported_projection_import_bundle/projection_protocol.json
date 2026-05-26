@@ -10769,6 +10769,132 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_lib_shared_worktree_guard_py_into_public_projection_bundle",
+        "bind_shared_worktree_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab",
+        "source_line_count": 343,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:7b4e1ef0b9a1824ad01df15eb40077537d4f2a024e9c8ca38f7ea486ee2371ab",
+        "target_line_count": 343,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 343,
+      "claim_ceiling": "public shared-worktree git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "shared_worktree_guard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/shared_worktree_guard.py",
+      "source_refs": [
+        "system/lib/shared_worktree_guard.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/shared_worktree_guard.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_system_server_tests_test_work_ledger_core_py_into_public_projection_bundle",
+        "bind_shared_worktree_guard_source_module_to_macro_projection_body_floor",
+        "preserve_no_live_git_private_index_dirty_worktree_payload_ledger_provider_credential_release_publication_or_send_authority_ceiling"
+      ],
+      "authority_ceiling": {
+        "credential_export_authorized": false,
+        "dirty_worktree_payload_export_authorized": false,
+        "live_git_mutation_authorized": false,
+        "live_macro_source_authority": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "private_data_equivalence_claim": false,
+        "private_index_commit_execution_authorized": false,
+        "provider_calls_authorized": false,
+        "publication_authorized": false,
+        "recipient_work_authorized": false,
+        "release_authorized": false,
+        "shared_index_mutation_authorized": false,
+        "source_authority_above_macro_contracts": false,
+        "whole_system_correctness_claim": false
+      },
+      "body_copied": true,
+      "body_digest": "sha256:ec098e74fd7eecefcc3c32be1faaf3d456f27efe07f488e17a37fb9b89fa99f7",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:ec098e74fd7eecefcc3c32be1faaf3d456f27efe07f488e17a37fb9b89fa99f7",
+        "source_line_count": 4271,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:ec098e74fd7eecefcc3c32be1faaf3d456f27efe07f488e17a37fb9b89fa99f7",
+        "target_line_count": 4271,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 4271,
+      "claim_ceiling": "public shared-worktree git guard source-module body import only; not live Git mutation, private-index commit execution, dirty-worktree payload export, live Work Ledger or Task Ledger mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
+      "classification": "copied_non_secret_macro_body",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "shared_worktree_guard_test_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_work_ledger_core.py",
+      "source_refs": [
+        "system/server/tests/test_work_ledger_core.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/shared_worktree_guard_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_work_ledger_core.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_shared_worktree_guard_sources_compile_and_preserve_shared_git_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_shared_worktree_guard_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
