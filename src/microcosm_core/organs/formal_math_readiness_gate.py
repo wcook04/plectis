@@ -32,6 +32,7 @@ BUNDLE_RESULT_NAME = "exported_formal_math_readiness_bundle_validation_result.js
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_readiness_probe_body_with_provenance"
 SOURCE_MODULE_IMPORT_STATUS = "copied_formal_readiness_source_modules_verified"
+CARD_SCHEMA_VERSION = "formal_math_readiness_gate_command_card_v1"
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_tool_body",
@@ -1205,6 +1206,148 @@ def run_readiness_bundle(
     return result
 
 
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    authority = result.get("authority_ceiling", {})
+    if not isinstance(authority, dict):
+        authority = {}
+    return {
+        "status": authority.get("status"),
+        "authority_ceiling": authority.get("authority_ceiling"),
+        "lean_lake_execution_authorized": authority.get(
+            "lean_lake_execution_authorized"
+        )
+        is True,
+        "mathlib_presence_claim_authorized": authority.get(
+            "mathlib_presence_claim_authorized"
+        )
+        is True,
+        "formal_proof_authority": authority.get("formal_proof_authority") is True,
+        "provider_calls_authorized": authority.get("provider_calls_authorized")
+        is True,
+        "proof_bodies_allowed": authority.get("proof_bodies_allowed") is True,
+    }
+
+
+def _secret_scan_card(result: dict[str, Any]) -> dict[str, Any]:
+    scan = result.get("secret_exclusion_scan", {})
+    if not isinstance(scan, dict):
+        scan = {}
+    return {
+        "status": scan.get("status"),
+        "hit_count": scan.get("hit_count"),
+        "blocking_hit_count": scan.get("blocking_hit_count"),
+        "scanned_path_count": scan.get("scanned_path_count"),
+        "body_in_receipt": scan.get("body_in_receipt") is True,
+        "real_substrate_default": scan.get("real_substrate_default") is True,
+        "omitted_output_fields": scan.get("omitted_output_fields", []),
+    }
+
+
+def _source_module_card(result: dict[str, Any]) -> dict[str, Any]:
+    imports = result.get("source_module_imports", [])
+    import_rows = imports if isinstance(imports, list) else []
+    digest_match_count = sum(
+        1
+        for row in import_rows
+        if isinstance(row, dict) and row.get("digest_match") is True
+    )
+    material_classes = sorted(
+        {
+            str(row.get("material_class"))
+            for row in import_rows
+            if isinstance(row, dict) and row.get("material_class")
+        }
+    )
+    return {
+        "status": result.get("source_module_import_status"),
+        "manifest_ref": result.get("source_module_manifest_ref"),
+        "source_modules_pass": result.get("source_modules_pass") is True,
+        "source_module_import_count": result.get("source_module_import_count"),
+        "copied_source_artifact_count": result.get("copied_source_artifact_count"),
+        "digest_match_count": digest_match_count,
+        "material_classes": material_classes,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    readiness_board = result.get("readiness_board", {})
+    if not isinstance(readiness_board, dict):
+        readiness_board = {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "created_at": result.get("created_at"),
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "fixture_id": FIXTURE_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": result.get("command"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "receipt_paths": result.get("receipt_paths", []),
+        "counts": {
+            "premise_count": result.get("premise_count"),
+            "route_case_count": result.get("route_case_count"),
+            "recipe_count": result.get("recipe_count"),
+            "available_tactic_count": len(result.get("available_tactic_ids", [])),
+            "unavailable_tactic_count": len(result.get("unavailable_tactic_ids", [])),
+            "blocked_capability_count": len(result.get("blocked_capabilities", [])),
+            "expected_negative_case_count": len(
+                result.get("expected_negative_cases", [])
+            ),
+            "observed_negative_case_count": len(
+                result.get("observed_negative_cases", {})
+            ),
+            "missing_negative_case_count": len(result.get("missing_negative_cases", [])),
+        },
+        "readiness_gate": {
+            "projection_cell_id": result.get("projection_cell_id"),
+            "readiness_extension_status": result.get("readiness_extension_status"),
+            "selected_pattern_ids": result.get("selected_pattern_ids", []),
+            "blocked_capabilities": result.get("blocked_capabilities", []),
+            "available_tactic_ids": result.get("available_tactic_ids", []),
+            "unavailable_tactic_ids": result.get("unavailable_tactic_ids", []),
+            "mathlib_available": readiness_board.get("mathlib_available") is True,
+            "lean_lake_execution_authorized": readiness_board.get(
+                "lean_lake_execution_authorized"
+            )
+            is True,
+            "formal_proof_authority": readiness_board.get("formal_proof_authority")
+            is True,
+            "provider_calls_authorized": readiness_board.get(
+                "provider_calls_authorized"
+            )
+            is True,
+        },
+        "negative_case_coverage": {
+            "expected_negative_cases": result.get("expected_negative_cases", []),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_codes": result.get("error_codes", []),
+        },
+        "source_module_import": _source_module_card(result),
+        "secret_exclusion_scan": _secret_scan_card(result),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "body_material_status": result.get("body_material_status"),
+        "body_in_receipt": result.get("body_in_receipt") is True,
+        "output_economy": {
+            "full_receipt_written": bool(result.get("receipt_paths")),
+            "stdout_mode": "card",
+            "omitted_fields": [
+                "anti_claim",
+                "corpus_readiness",
+                "findings",
+                "readiness_board",
+                "readiness_extension_board",
+                "secret_exclusion_scan.scan_scope",
+                "source_module_imports",
+                "source_refs",
+                "target_refs",
+                "target_shape_routing_projection.routes",
+            ],
+            "full_payload_drilldown": "rerun without --card",
+        },
+    }
+
+
 def plan_readiness_extensions(
     input_dir: str | Path,
     command: str | None = None,
@@ -1249,9 +1392,11 @@ def _parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = subparsers.add_parser("run-readiness-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     plan_parser = subparsers.add_parser("plan")
     plan_parser.add_argument("--input", required=True)
     return parser
@@ -1260,14 +1405,25 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.formal_math_readiness_gate "
+            f"run --input {args.input} --out {args.out}"
+            f"{' --card' if args.card else ''}"
+        )
+        result = run(args.input, args.out, command=command)
     elif args.action == "run-readiness-bundle":
-        result = run_readiness_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.formal_math_readiness_gate "
+            f"run-readiness-bundle --input {args.input} --out {args.out}"
+            f"{' --card' if args.card else ''}"
+        )
+        result = run_readiness_bundle(args.input, args.out, command=command)
     elif args.action == "plan":
         result = plan_readiness_extensions(args.input)
     else:
         return 2
-    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    payload = result_card(result) if getattr(args, "card", False) else result
+    print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

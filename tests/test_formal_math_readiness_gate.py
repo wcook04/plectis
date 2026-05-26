@@ -7,8 +7,10 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.formal_math_readiness_gate import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     SELECTED_PATTERN_IDS,
+    main,
     plan_readiness_extensions,
     run,
     run_readiness_bundle,
@@ -144,6 +146,47 @@ def test_formal_math_readiness_gate_accepts_exported_bundle(tmp_path: Path) -> N
     assert result["receipt_paths"] == [
         "receipts/exported_formal_math_readiness_bundle_validation_result.json"
     ]
+
+
+def test_formal_math_readiness_exported_bundle_card_bounds_stdout(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    exit_code = main(
+        [
+            "run-readiness-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE_INPUT),
+            "--out",
+            str(tmp_path / "receipts"),
+            "--card",
+        ]
+    )
+    stdout = capsys.readouterr().out
+    card = json.loads(stdout)
+
+    assert exit_code == 0
+    assert len(stdout.encode("utf-8")) < 6000
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "exported_formal_math_readiness_bundle"
+    assert card["counts"]["premise_count"] == 11
+    assert card["counts"]["route_case_count"] == 4
+    assert card["source_module_import"]["source_modules_pass"] is True
+    assert card["source_module_import"]["source_module_import_count"] == len(
+        SOURCE_ARTIFACT_REFS
+    )
+    assert card["source_module_import"]["digest_match_count"] == len(
+        SOURCE_ARTIFACT_REFS
+    )
+    assert card["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert card["authority_ceiling"]["lean_lake_execution_authorized"] is False
+    assert card["body_in_receipt"] is False
+    assert "readiness_board" not in card
+    assert "readiness_extension_board" not in card
+    assert "source_module_imports" not in card
+    receipt = tmp_path / card["receipt_paths"][0]
+    assert receipt.is_file()
 
 
 def test_formal_math_readiness_exported_source_modules_are_exact_copies() -> None:
