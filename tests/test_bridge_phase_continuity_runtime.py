@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from microcosm_core import cli
 from microcosm_core.organs import bridge_phase_continuity_runtime as bridge_runtime
@@ -192,3 +193,70 @@ def test_bridge_phase_continuity_cli_route_runs(tmp_path: Path) -> None:
     assert (out_dir / "resource_pressure.json").is_file()
     assert (out_dir / "resume_receipt.json").is_file()
     assert (out_dir / "closeout_transition.json").is_file()
+
+
+def test_bridge_phase_continuity_card_stdout_is_compact_and_keeps_full_receipts(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    out_dir = tmp_path / "card_receipts"
+
+    exit_code = bridge_runtime.main(
+        [
+            "run",
+            "--input",
+            FIXTURE_INPUT.as_posix(),
+            "--out",
+            out_dir.as_posix(),
+            "--card",
+        ]
+    )
+
+    captured = capsys.readouterr().out
+    card = json.loads(captured)
+    full_receipt = _load_json(out_dir / "closeout_transition.json")
+
+    assert exit_code == 0
+    assert len(captured.encode("utf-8")) < 6000
+    assert card["schema_version"] == bridge_runtime.CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["organ_id"] == bridge_runtime.ORGAN_ID
+    assert card["fixture_id"] == bridge_runtime.FIXTURE_ID
+    assert card["receipt_summary"]["written_receipt_count"] == 5
+    assert card["receipt_summary"]["receipt_count"] == len(bridge_runtime.EXPECTED_RECEIPT_PATHS)
+    assert card["receipt_summary"]["receipt_paths_exported"] is False
+    assert card["bridge_continuity_summary"]["heartbeat_fresh_count"] == 2
+    assert card["bridge_continuity_summary"]["heartbeat_stale_count"] == 1
+    assert card["bridge_continuity_summary"]["resource_pressure_blocked"] is True
+    assert card["bridge_continuity_summary"]["resource_dispatch_allowed"] is False
+    assert card["bridge_continuity_summary"]["worker_skip_deduped_no_closeout"] is True
+    assert card["fake_transport_summary"]["input_file_count"] == 6
+    assert card["fake_transport_summary"]["manifest_input_refs_exported"] is False
+    assert card["negative_case_coverage"]["expected_case_count"] == len(
+        bridge_runtime.EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["observed_case_count"] == len(
+        bridge_runtime.EXPECTED_NEGATIVE_CASES
+    )
+    assert card["negative_case_coverage"]["missing_negative_cases"] == []
+    assert card["private_state_scan_summary"]["blocking_hit_count"] == 0
+    assert card["private_state_scan_summary"]["hits_exported"] is False
+    assert card["authority_ceiling"]["live_bridge_transport_authorized"] is False
+    assert card["no_export_guards"]["source_module_digest_results_exported"] is False
+
+    card_keys = set(_walk_keys(card))
+    assert "findings" not in card_keys
+    assert "observed_negative_cases" not in card_keys
+    assert "source_pattern_ids" not in card_keys
+    assert "source_module_digest_results" not in card_keys
+    assert "synthetic_input_refs" not in card_keys
+    assert "receipt_paths" not in card_keys
+    assert "receipt_path_map" not in card_keys
+    assert "anti_claim" not in card_keys
+    assert "hits" not in card_keys
+    assert "scan_scope" not in card_keys
+
+    assert full_receipt["status"] == "pass"
+    assert full_receipt["receipt_paths"] == bridge_runtime.EXPECTED_RECEIPT_PATHS
+    assert len(full_receipt["source_module_digest_results"]) == 5
+    assert full_receipt["command"].endswith("--card")

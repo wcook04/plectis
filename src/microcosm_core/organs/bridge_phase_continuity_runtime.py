@@ -20,6 +20,7 @@ ORGAN_ID = "bridge_phase_continuity_runtime"
 FIXTURE_ID = "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1"
 VALIDATOR_ID = "validator.microcosm.organs.bridge_phase_continuity_runtime"
 CHECKER_ID = "checker.microcosm.organs.bridge_phase_continuity_runtime.synthetic_fixture_acceptance"
+CARD_SCHEMA_VERSION = "bridge_phase_continuity_runtime_command_card_v1"
 
 INPUT_NAME = "observe_apply_session_fixture.json"
 DETACHED_JOB_NAME = "detached_job.json"
@@ -927,6 +928,186 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     return result
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    if not isinstance(scan, dict):
+        return {
+            "status": "unknown",
+            "blocking_hit_count": 0,
+            "hit_count": 0,
+            "scanned_path_count": 0,
+            "hits_exported": False,
+            "scan_scope_exported": False,
+        }
+    return {
+        "status": scan.get("status"),
+        "blocking_hit_count": scan.get("blocking_hit_count", 0),
+        "hit_count": scan.get("hit_count", 0),
+        "scanned_path_count": scan.get("scanned_path_count", 0),
+        "body_redacted": scan.get("body_redacted") is True,
+        "forbidden_output_fields_omitted": scan.get("forbidden_output_fields_omitted")
+        is True,
+        "hits_exported": False,
+        "scan_scope_exported": False,
+    }
+
+
+def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
+    ceiling = result.get("authority_ceiling", {})
+    if not isinstance(ceiling, dict):
+        ceiling = {}
+    return {
+        "status": ceiling.get("status"),
+        "acceptance_scope": ceiling.get("acceptance_scope"),
+        "live_bridge_transport_authorized": ceiling.get("live_bridge_transport_authorized")
+        is True,
+        "provider_payload_read": ceiling.get("provider_payload_read") is True,
+        "operator_hud_or_browser_state_read": ceiling.get(
+            "operator_hud_or_browser_state_read"
+        )
+        is True,
+        "live_phase_runtime_state_read": ceiling.get("live_phase_runtime_state_read")
+        is True,
+        "prompt_shelf_or_private_memory_body_read": ceiling.get(
+            "prompt_shelf_or_private_memory_body_read"
+        )
+        is True,
+        "public_write_authorized": ceiling.get("public_write_authorized") is True,
+        "work_landing_claim_authorized": ceiling.get("work_landing_claim_authorized")
+        is True,
+        "release_authorized": ceiling.get("release_authorized") is True,
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    receipt_paths = result.get("receipt_paths", [])
+    if not isinstance(receipt_paths, list):
+        receipt_paths = []
+    observed_negative_cases = result.get("observed_negative_cases", {})
+    if not isinstance(observed_negative_cases, dict):
+        observed_negative_cases = {}
+    fake_transport = result.get("fake_transport_fixture_summary", {})
+    if not isinstance(fake_transport, dict):
+        fake_transport = {}
+    continuation = result.get("continuation_packet_status", {})
+    if not isinstance(continuation, dict):
+        continuation = {}
+    heartbeat = result.get("heartbeat_status", {})
+    if not isinstance(heartbeat, dict):
+        heartbeat = {}
+    pressure = result.get("resource_pressure_decision", {})
+    if not isinstance(pressure, dict):
+        pressure = {}
+    resume = result.get("resume_once_status", {})
+    if not isinstance(resume, dict):
+        resume = {}
+    duplicate = result.get("duplicate_resume_rejection", {})
+    if not isinstance(duplicate, dict):
+        duplicate = {}
+    worker_skip = result.get("worker_skip_receipt_status", {})
+    if not isinstance(worker_skip, dict):
+        worker_skip = {}
+
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "fixture_id": result.get("fixture_id"),
+        "checker_id": CHECKER_ID,
+        "validator_id": VALIDATOR_ID,
+        "card_id": "bridge_phase_continuity_runtime_fixture_card",
+        "output_profile": "compact_card_no_transport_rows_or_receipt_lists",
+        "full_output_available": True,
+        "full_output_drilldown": "rerun run without --card",
+        "receipt_summary": {
+            "written_receipt_count": result.get("written_receipt_count"),
+            "receipt_count": len(receipt_paths),
+            "receipt_role": result.get("receipt_role"),
+            "receipt_paths_exported": False,
+            "receipt_path_map_exported": False,
+        },
+        "bridge_continuity_summary": {
+            "observed_fixture_id": result.get("observed_fixture_id"),
+            "observed_pattern_id": result.get("observed_pattern_id"),
+            "transition_status": result.get("transition_status"),
+            "continuation_status": continuation.get("status"),
+            "continue_mode": continuation.get("continue_mode"),
+            "packet_status": continuation.get("packet_status"),
+            "heartbeat_fresh_count": heartbeat.get("fresh_count"),
+            "heartbeat_stale_count": heartbeat.get("stale_count"),
+            "heartbeat_not_resume_authority": heartbeat.get(
+                "heartbeat_not_resume_authority"
+            )
+            is True,
+            "resource_pressure_blocked": pressure.get("blocked_decision_recorded")
+            is True,
+            "resource_dispatch_allowed": pressure.get("dispatch_allowed") is True,
+            "duplicate_resume_authorized": duplicate.get("duplicate_resume_authorized")
+            is True,
+            "resume_authority": resume.get("resume_authority"),
+            "worker_skip_deduped_no_closeout": worker_skip.get("deduped_noop_receipt")
+            is True,
+        },
+        "fake_transport_summary": {
+            "status": fake_transport.get("status"),
+            "input_file_count": fake_transport.get("input_file_count"),
+            "detached_job_count": fake_transport.get("detached_job_count"),
+            "continuation_packet_count": fake_transport.get("continuation_packet_count"),
+            "heartbeat_row_count": fake_transport.get("heartbeat_row_count"),
+            "resource_pressure_row_count": fake_transport.get(
+                "resource_pressure_row_count"
+            ),
+            "worker_skip_receipt_count": fake_transport.get(
+                "worker_skip_receipt_count"
+            ),
+            "missing_packet_rejected": fake_transport.get("missing_packet_rejected")
+            is True,
+            "duplicate_resume_rejected": fake_transport.get("duplicate_resume_rejected")
+            is True,
+            "resource_pressure_blocked": fake_transport.get("resource_pressure_blocked")
+            is True,
+            "error_code_count": len(fake_transport.get("error_codes", [])),
+            "manifest_input_refs_exported": False,
+            "findings_exported": False,
+        },
+        "negative_case_coverage": {
+            "expected_case_count": len(result.get("expected_negative_cases", [])),
+            "observed_case_count": len(observed_negative_cases),
+            "missing_negative_cases": result.get("missing_negative_cases", []),
+            "error_code_count": len(result.get("error_codes", [])),
+        },
+        "private_state_scan_summary": _scan_card(result.get("private_state_scan")),
+        "authority_ceiling": _authority_ceiling_card(result),
+        "no_export_guards": {
+            "findings_exported": False,
+            "observed_negative_cases_exported": False,
+            "source_pattern_ids_exported": False,
+            "source_module_digest_results_exported": False,
+            "synthetic_input_refs_exported": False,
+            "receipt_paths_exported": False,
+            "receipt_path_map_exported": False,
+            "anti_claim_exported": False,
+            "private_state_scan_hits_exported": False,
+            "private_state_scan_scope_exported": False,
+        },
+        "output_economy": {
+            "stdout_mode": "card",
+            "full_payload_drilldown": "rerun without --card",
+            "omitted_full_payload_keys": [
+                "findings",
+                "observed_negative_cases",
+                "source_pattern_ids",
+                "source_module_digest_results",
+                "synthetic_input_refs",
+                "receipt_paths",
+                "receipt_path_map",
+                "anti_claim",
+                "private_state_scan.hits",
+                "private_state_scan.scan_scope",
+            ],
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Run synthetic bridge continuity acceptance over observe/apply fixtures."
@@ -935,6 +1116,11 @@ def _parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact command card; write the full receipts to --out.",
+    )
     return parser
 
 
@@ -942,12 +1128,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
     if args.action == "run":
+        card_suffix = " --card" if args.card else ""
         command = (
             f"python -m microcosm_core.organs.bridge_phase_continuity_runtime "
-            f"run --input {args.input} --out {args.out}"
+            f"run --input {args.input} --out {args.out}{card_suffix}"
         )
         result = run(args.input, args.out, command=command)
-        print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+        output = result_card(result) if args.card else result
+        print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
         return 0 if result["status"] == PASS else 1
     parser.error(f"unknown action: {args.action}")
     return 2
