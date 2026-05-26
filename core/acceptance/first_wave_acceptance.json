@@ -382,6 +382,20 @@
       "validator_command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime"
     },
     {
+      "current_authority_receipt": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+      "generated_receipts": [
+        "receipts/second_wave/bridge_phase_continuity_runtime/continuation_packet.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/heartbeat.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/resource_pressure.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/resume_receipt.json",
+        "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json"
+      ],
+      "organ_id": "bridge_phase_continuity_runtime",
+      "runner": "microcosm_core.organs.bridge_phase_continuity_runtime",
+      "status": "accepted_current_authority",
+      "validator_command": "python -m microcosm_core.organs.bridge_phase_continuity_runtime run --input fixtures/second_wave/bridge_phase_continuity_runtime/input --out receipts/second_wave/bridge_phase_continuity_runtime"
+    },
+    {
       "current_authority_receipt": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
       "generated_receipts": [
         "receipts/first_wave/pattern_assimilation_acceptance.json",

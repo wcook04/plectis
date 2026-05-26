@@ -80,6 +80,7 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
         "spatial_world_model_counterfactual_simulation_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
         "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
         "pattern_assimilation_step",
         "public_reveal_walkthrough",
         "macro_projection_import_protocol",
@@ -106,15 +107,15 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     assert coverage["status"] == "pass"
     assert coverage["defect_count"] == 0
     assert coverage["coverage_counts"] == {
-        "accepted_organ_count": 46,
-        "runtime_step_count": 46,
-        "acceptance_plan_organ_count": 46,
-        "evidence_class_row_count": 46,
-        "public_authority_expected_organ_count": 42,
+        "accepted_organ_count": 47,
+        "runtime_step_count": 47,
+        "acceptance_plan_organ_count": 47,
+        "evidence_class_row_count": 47,
+        "public_authority_expected_organ_count": 43,
         "demoted_drilldown_organ_count": 4,
-        "organ_authority_row_count": 42,
+        "organ_authority_row_count": 43,
         "surface_authority_row_count": 45,
-        "fixture_check_count": 46,
+        "fixture_check_count": 47,
     }
     convergence = coverage["organ_lifecycle_convergence"]
     assert convergence["schema_version"] == "organ_lifecycle_convergence_v1"

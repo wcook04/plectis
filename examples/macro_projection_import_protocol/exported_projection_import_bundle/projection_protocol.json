@@ -10125,6 +10125,100 @@
         "microcosm-substrate/tests/test_proof_diagnostic_evidence_spine.py::test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_proof_diagnostic_runtime_artifact_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_session_heartbeat_source_module_into_public_bundle",
+        "preserve_read_only_session_heartbeat_snapshot_shape",
+        "exclude_live_transport_json_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:cc77dbe393baea06e9896319584dd9953814b15ecd9c515dc1deca8a6149f1e6",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary"
+        ],
+        "source_body_digest": "sha256:cc77dbe393baea06e9896319584dd9953814b15ecd9c515dc1deca8a6149f1e6",
+        "source_line_count": 292,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:cc77dbe393baea06e9896319584dd9953814b15ecd9c515dc1deca8a6149f1e6",
+        "target_line_count": 292,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 292,
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "session_heartbeat_source_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/session_heartbeat.py",
+      "source_refs": [
+        "system/lib/session_heartbeat.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/session_heartbeat_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/session_heartbeat.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_session_heartbeat_source_module_into_public_bundle",
+        "exact_copy_synthetic_session_heartbeat_regression_test_into_public_bundle",
+        "exclude_live_transport_json_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:c37fe37c14d2655099915716a7550a4085960d9ce57f3df852613c74262240a2",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary"
+        ],
+        "source_body_digest": "sha256:c37fe37c14d2655099915716a7550a4085960d9ce57f3df852613c74262240a2",
+        "source_line_count": 131,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:c37fe37c14d2655099915716a7550a4085960d9ce57f3df852613c74262240a2",
+        "target_line_count": 131,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 131,
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "claim_ceiling": "public session-heartbeat source body import only; not live transport payload export, transcript body export, account/session-state authority, browser/HUD live access, provider execution, ledger mutation, or release authority",
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "session_heartbeat_test_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/bridge_runtime.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_session_heartbeat.py",
+      "source_refs": [
+        "system/server/tests/test_session_heartbeat.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/session_heartbeat_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_session_heartbeat.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_session_heartbeat_sources_compile_and_preserve_live_state_boundary"
+      ]
     }
   ],
   "material_classes": [
@@ -10343,7 +10437,10 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kind_band_contract_audit.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_context_rosetta.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/standards/std_navigation_rosetta_grammar.json",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/paper_modules/navigation_rosetta_math.md",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/session_heartbeat_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/session_heartbeat.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_session_heartbeat.py"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -10591,7 +10688,9 @@
     "system/lib/kind_band_contract_audit.py",
     "system/server/tests/test_navigation_context_rosetta.py",
     "codex/standards/std_navigation_rosetta_grammar.json",
-    "codex/doctrine/paper_modules/navigation_rosetta_math.md"
+    "codex/doctrine/paper_modules/navigation_rosetta_math.md",
+    "system/lib/session_heartbeat.py",
+    "system/server/tests/test_session_heartbeat.py"
   ],
   "steps": [
     {

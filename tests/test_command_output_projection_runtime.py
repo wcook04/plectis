@@ -144,6 +144,9 @@ STANDARD_OPTION_SURFACE_MANIFEST = (
 BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
     BUNDLE_INPUT / "bridge_runtime_continuity_source_module_manifest.json"
 )
+SESSION_HEARTBEAT_MANIFEST = (
+    BUNDLE_INPUT / "session_heartbeat_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2782,6 +2785,37 @@ def test_bridge_runtime_continuity_sources_compile_and_preserve_dispatch_yield_r
         "test_build_continuation_packet_for_pipeline_signal_includes_family_continuity"
         in continuation_test_text
     )
+
+
+def test_session_heartbeat_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        SESSION_HEARTBEAT_MANIFEST,
+        manifest_id="session_heartbeat_source_modules_import",
+        module_count=2,
+    )
+
+
+def test_session_heartbeat_sources_compile_and_preserve_live_state_boundary() -> None:
+    heartbeat_source = BUNDLE_INPUT / "source_modules/system/lib/session_heartbeat.py"
+    test_source = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_session_heartbeat.py"
+    )
+    heartbeat_text = heartbeat_source.read_text(encoding="utf-8")
+    test_text = test_source.read_text(encoding="utf-8")
+    manifest = json.loads(SESSION_HEARTBEAT_MANIFEST.read_text(encoding="utf-8"))
+
+    compile(heartbeat_text, str(heartbeat_source), "exec")
+    compile(test_text, str(test_source), "exec")
+
+    assert '"schema_version": "session_heartbeat_v1"' in heartbeat_text
+    assert "def snapshot(repo_root: Path) -> dict[str, Any]:" in heartbeat_text
+    assert "def write_snapshot(" in heartbeat_text
+    assert "tools/meta/bridge/claude_session_transport.json" in heartbeat_text
+    assert "tools/meta/bridge/codex_session_transport.json" in heartbeat_text
+    assert "test_snapshot_handles_missing_files_without_raising" in test_text
+    assert "test_main_snapshot_prints_path_and_writes_file" in test_text
+    assert "live session jsonl transcript bodies" in manifest["secret_exclusion_boundary"]
+    assert "not authority to read live transport JSON" in manifest["public_runtime_policy"]
 
 
 def test_formal_math_proofline_spine_source_manifest_matches_exact_macro_sources() -> None:
