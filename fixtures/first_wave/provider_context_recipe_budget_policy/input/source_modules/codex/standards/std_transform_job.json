@@ -1,0 +1,188 @@
+{
+  "kind": "standard",
+  "schema_version": "std_transform_job_v1",
+  "id": "std_transform_job",
+  "slug": "transform-job-row-patch-provider-receipt",
+  "title": "Transform Job, Row Patch, And Provider Receipt",
+  "status": "active",
+  "scope": "repository-wide",
+  "purpose": "Contract for low-authority provider work: a controller-owned transform_job consumes projection packets, a provider returns structured candidate JSON, the harness persists a provider_receipt, and any proposed row change remains a draft row_patch until controller promotion.",
+  "authority_surfaces": {
+    "compute_policy": "codex/standards/std_compute_provider.json",
+    "type_a_seat_control": "codex/standards/std_type_a_seat_control.json",
+    "type_a_global_policy": "system/lib/type_a_global_policy.py",
+    "runtime_harness": "system/lib/type_a_worker_harness.py",
+    "cli": "tools/meta/control/type_a_worker_harness.py",
+    "state_root": "state/compute_workers/"
+  },
+  "storage_contract": {
+    "transform_job": "state/compute_workers/transform_jobs/<yyyy-mm>/<tj_id>.json",
+    "row_patch": "state/compute_workers/row_patches/<yyyy-mm>/<rp_id>.json",
+    "provider_receipt": "state/compute_workers/receipts/<yyyy-mm>/<rc_id>.json",
+    "cache": "state/compute_workers/cache/<cache_key>.json",
+    "run_fingerprint": "state/compute_workers/run_fingerprints/<fingerprint>.json",
+    "rule": "Provider workers write only compute-worker state artifacts. They do not edit source, standards, doctrine, or generated projections directly."
+  },
+  "transform_job": {
+    "required_fields": [
+      "id",
+      "schema_version",
+      "task_class",
+      "target_row_id",
+      "target_facet",
+      "target_band",
+      "source_fingerprints",
+      "input_packet",
+      "output_schema",
+      "local_evidence_override_policy",
+      "authority_ceiling",
+      "forbidden_surfaces",
+      "provider_selection_policy",
+      "provider_budget",
+      "cache_key",
+      "validation_command",
+      "promotion_target",
+      "created_at",
+      "created_by"
+    ],
+    "authority_ceiling": [
+      "provider_endpoint",
+      "bounded_worker"
+    ],
+    "rule": "A transform_job must materialize projection inputs inside input_packet. It may point to source fingerprints for audit, but the provider prompt should not require raw repo reads. Every transform_job carries local_evidence_override_policy: source memos, continuation notes, dispatch contours, and source packets are proposed contours; local system evidence in the packet and governing artifacts wins when they conflict."
+  },
+  "row_patch": {
+    "required_fields": [
+      "receipt_id",
+      "target_row_id",
+      "target_facet",
+      "target_band",
+      "proposed_value",
+      "evidence_refs",
+      "omissions",
+      "confidence",
+      "worker_dissent_or_uncertainty",
+      "validation_status",
+      "promotion_state"
+    ],
+    "promotion_states": [
+      "draft",
+      "reviewed",
+      "promoted",
+      "rejected"
+    ],
+    "rule": "A row_patch is candidate substrate. Promotion requires deterministic validation and controller review.",
+    "navigation_cluster_contract": {
+      "purpose": "Keep row_patches browseable without expanding every draft patch body into first-contact context.",
+      "cluster_band": "cluster_flag",
+      "grouping_key": "target_facet",
+      "why_stable": "target_facet is a required row_patch field and names the destination facet being proposed for controller review.",
+      "cluster_row_may_include": [
+        "target_facet",
+        "count",
+        "promotion_counts",
+        "validation_counts",
+        "target_row_prefix_counts",
+        "top_ids",
+        "flag/card drilldown commands"
+      ],
+      "cluster_row_must_omit": [
+        "proposed_value bodies",
+        "full evidence_refs",
+        "worker_dissent_or_uncertainty bodies",
+        "row-level patches outside top_ids"
+      ],
+      "full_source_route": "./repo-python kernel.py --option-surface row_patches --band card --ids <patch_id>",
+      "authority_boundary": "cluster_flag is a contents page over durable row_patch state; state/compute_workers/row_patches remains source projection and controller promotion remains separate."
+    }
+  },
+  "provider_receipt": {
+    "required_fields": [
+      "receipt_id",
+      "transform_job_id",
+      "provider_id",
+      "model_id",
+      "task_class",
+      "prompt_hash",
+      "input_packet_digest",
+      "local_evidence_override_policy_id",
+      "source_fingerprints",
+      "neighbor_context_hash",
+      "output_digest",
+      "usage",
+      "cost",
+      "latency_ms",
+      "http_status",
+      "status",
+      "validation_result",
+      "promotion_state",
+      "created_at",
+      "persisted_at"
+    ],
+    "statuses": [
+      "ok",
+      "cache_hit",
+      "empty_response",
+      "schema_fail",
+      "429",
+      "5xx",
+      "timeout",
+      "worker_error",
+      "policy_reject",
+      "blocked_duplicate"
+    ],
+    "rule": "Every attempted provider transform writes a receipt, including rejected, cached, duplicate-blocked, and schema-failed runs.",
+    "navigation_cluster_contract": {
+      "purpose": "Keep provider receipts browseable without expanding every receipt, provider metadata body, source fingerprint list, or validation result into first-contact context.",
+      "cluster_band": "cluster_flag",
+      "grouping_key": "task_class",
+      "why_stable": "task_class is a required provider_receipt field and names the transform family being attempted.",
+      "cluster_row_may_include": [
+        "task_class",
+        "count",
+        "status_counts",
+        "provider_counts",
+        "promotion_counts",
+        "validation_counts",
+        "top_ids",
+        "flag/card drilldown commands"
+      ],
+      "cluster_row_must_omit": [
+        "provider_metadata bodies",
+        "source_fingerprints",
+        "full validation_result bodies",
+        "row-level receipts outside top_ids"
+      ],
+      "full_source_route": "./repo-python kernel.py --option-surface transform_job_receipts --band card --ids <receipt_id>",
+      "authority_boundary": "cluster_flag is a contents page over durable provider receipt state; state/compute_workers/receipts remains source projection and controller promotion remains separate."
+    }
+  },
+  "budget_contract": {
+    "default": {
+      "free_only": true,
+      "allow_paid": false,
+      "max_usd": 0.0,
+      "max_retries": 0
+    },
+    "openrouter_rule": "Automatic OpenRouter transform jobs remain free-only unless a specific job carries an explicit operator-approved paid budget.",
+    "retry_rule": "The harness records failed run fingerprints and blocks uncontrolled duplicate reruns unless force is explicit."
+  },
+  "annex_patterns": [
+    {
+      "annex_slug": "free-claude-code",
+      "pattern": "shared OpenAI-compatible provider adapter plus proactive/reactive rate-limit envelope"
+    },
+    {
+      "annex_slug": "tradingagents",
+      "pattern": "single provider factory and normalized content contract across OpenAI-compatible providers"
+    },
+    {
+      "annex_slug": "hermes-agent",
+      "pattern": "atomic writes, wake gates, and local receipts around scheduled low-cost work"
+    },
+    {
+      "annex_slug": "browser-harness",
+      "pattern": "thin mutable harness with one primitive layer rather than a second framework"
+    }
+  ]
+}

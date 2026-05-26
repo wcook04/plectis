@@ -1,9 +1,9 @@
 {
-  "body_storage_policy": "exact_non_secret_provider_context_macro_source_modules_copied_into_public_provider_context_bundle",
+  "body_storage_policy": "exact_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_copied_into_public_provider_context_bundle",
   "bundle_id": "provider_context_budget_runtime_example",
-  "classification": "copied_non_secret_macro_body",
+  "classification": "copied_non_secret_macro_body_and_standard_body",
   "manifest_id": "provider_context_recipe_budget_policy_source_modules_import",
-  "module_count": 2,
+  "module_count": 3,
   "modules": [
     {
       "anchor_count": 6,
@@ -52,6 +52,30 @@
       "source_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
       "target_ref": "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
       "target_sha256": "5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6"
+    },
+    {
+      "anchor_count": 6,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 7345,
+      "classification": "copied_non_secret_macro_standard_body",
+      "line_count": 188,
+      "module_id": "provider_context_transform_job_standard_body_import",
+      "required_anchors": [
+        "\"schema_version\": \"std_transform_job_v1\"",
+        "provider_receipt",
+        "row_patch",
+        "provider_selection_policy",
+        "local_evidence_override_policy",
+        "authority_ceiling"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_provider_payload_export",
+      "source_ref": "codex/standards/std_transform_job.json",
+      "source_role": "Macro std_transform_job standard body that defines the provider-context transform-job ABI: projection input packets, provider receipts, row patches, authority ceilings, and local-evidence override policy.",
+      "source_sha256": "c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf",
+      "target_ref": "source_modules/codex/standards/std_transform_job.json",
+      "target_sha256": "c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf"
     }
   ],
   "organ_id": "provider_context_recipe_budget_policy",
@@ -72,6 +96,7 @@
   "source_open_payload_boundary": "open_source_provider_context_policy_code_without_keys_credentials_provider_payload_bodies_or_live_access_state",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_fixture_manifest_counts_source_open_body_floor"
   ]
 }

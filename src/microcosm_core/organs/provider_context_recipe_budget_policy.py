@@ -33,12 +33,25 @@ BUNDLE_RESULT_NAME = "exported_provider_context_budget_bundle_validation_result.
 
 SOURCE_PATTERN_IDS = ["provider_context_recipe_budget_policy"]
 SOURCE_REFS = [
+    "codex/standards/std_transform_job.json",
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
 ]
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 
 EXPECTED_SOURCE_MODULES = {
+    "provider_context_transform_job_standard_body_import": {
+        "source_ref": "codex/standards/std_transform_job.json",
+        "target_ref": "source_modules/codex/standards/std_transform_job.json",
+        "required_anchors": [
+            '"schema_version": "std_transform_job_v1"',
+            "provider_receipt",
+            "row_patch",
+            "provider_selection_policy",
+            "local_evidence_override_policy",
+            "authority_ceiling",
+        ],
+    },
     "provider_context_graph_benchmark_body_import": {
         "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
         "target_ref": "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",

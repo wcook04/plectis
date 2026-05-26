@@ -1,28 +1,70 @@
 {
-  "schema_version": "microcosm_fixture_manifest_v1",
-  "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
-  "organ_id": "provider_context_recipe_budget_policy",
-  "purpose": "Validate copied non-secret provider context source modules and public recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
-  "inputs": [
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json", "role": "synthetic public provider context recipe budget table"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json", "role": "synthetic redacted context section metadata"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json", "role": "exact copied macro source module manifest with source-to-target hashes and required anchors"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py", "role": "exact copied non-secret macro provider-context recipe compiler source body"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py", "role": "exact copied non-secret macro formal ladder provider-context consumer source body"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json", "role": "negative case: recipe exceeds bounded byte contract"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/truth_side_section.json", "role": "negative case: truth-side or oracle-only section selected"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/proof_body_leakage.json", "role": "negative case: proof body or oracle body field leakage"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_call_authorized.json", "role": "negative case: public fixture authorizes provider call"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/deliverable_type_route_mismatch.json", "role": "negative case: recipe emits wrong deliverable type for route"},
-    {"path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/omitted_sections_suppressed.json", "role": "negative case: over-budget omitted-section manifest suppressed"}
-  ],
-  "validator": "microcosm_core.organs.provider_context_recipe_budget_policy",
-  "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+  "anti_claim": "Provider context recipe budget fixtures validate copied source-module hashes plus context-shape metadata only; they do not call providers, prove goals, run Lean/Lake, expose proof or oracle bodies, authorize release, or claim private macro equivalence.",
+  "authority_ceiling": {
+    "formal_proof_authority": false,
+    "lean_lake_execution_authorized": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "truth_side_material_authorized": false
+  },
+  "body_copied_material_count": 3,
+  "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
   "expected_receipts": [
     "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
     "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
     "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_validation_receipt.json",
     "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json"
+  ],
+  "fixture_id": "fixture::provider_context_recipe_budget_policy::first_wave_contract_v1",
+  "inputs": [
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_context_recipes.json",
+      "role": "synthetic public provider context recipe budget table"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/section_materials.json",
+      "role": "synthetic redacted context section metadata"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+      "role": "exact copied macro source module manifest with source-to-target hashes and required anchors"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "role": "exact copied non-secret macro provider-context recipe compiler source body"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+      "role": "exact copied non-secret macro formal ladder provider-context consumer source body"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_transform_job.json",
+      "role": "exact copied non-secret macro std_transform_job standard body consumed by the provider-context transform-job compiler"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json",
+      "role": "negative case: recipe exceeds bounded byte contract"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/truth_side_section.json",
+      "role": "negative case: truth-side or oracle-only section selected"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/proof_body_leakage.json",
+      "role": "negative case: proof body or oracle body field leakage"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/provider_call_authorized.json",
+      "role": "negative case: public fixture authorizes provider call"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/deliverable_type_route_mismatch.json",
+      "role": "negative case: recipe emits wrong deliverable type for route"
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/omitted_sections_suppressed.json",
+      "role": "negative case: over-budget omitted-section manifest suppressed"
+    }
   ],
   "negative_case_ids": [
     "budget_overflow_recipe",
@@ -32,12 +74,42 @@
     "deliverable_type_route_mismatch",
     "omitted_sections_suppressed"
   ],
-  "authority_ceiling": {
-    "provider_calls_authorized": false,
-    "lean_lake_execution_authorized": false,
-    "formal_proof_authority": false,
-    "truth_side_material_authorized": false,
-    "release_authorized": false
+  "organ_id": "provider_context_recipe_budget_policy",
+  "purpose": "Validate copied non-secret provider context source modules and public recipe budgets without calling providers, exposing proof bodies, or smuggling truth-side oracle material.",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "formal_proof_authority": false,
+      "lean_lake_execution_authorized": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "runtime_correctness_claim": false,
+      "truth_side_material_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "provider_context_formal_ladder_eval_body_import",
+      "provider_context_graph_benchmark_body_import",
+      "provider_context_transform_job_standard_body_import"
+    ],
+    "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Validate with provider_context_recipe_budget_policy, then run microcosm workingness to count these imports in the source-open body floor.",
+    "source_manifest_refs": [
+      "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_module_manifest.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
-  "anti_claim": "Provider context recipe budget fixtures validate copied source-module hashes plus context-shape metadata only; they do not call providers, prove goals, run Lean/Lake, expose proof or oracle bodies, authorize release, or claim private macro equivalence."
+  "validator": "microcosm_core.organs.provider_context_recipe_budget_policy",
+  "validator_command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy"
 }

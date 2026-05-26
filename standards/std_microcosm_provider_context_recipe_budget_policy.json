@@ -15,6 +15,7 @@
     ]
   },
   "source_refs": [
+    "codex/standards/std_transform_job.json",
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
   ],
@@ -43,7 +44,9 @@
     "source_module_manifest.modules[].target_ref",
     "source_module_manifest.modules[].source_sha256",
     "source_module_manifest.modules[].target_sha256",
-    "source_module_manifest.modules[].required_anchors"
+    "source_module_manifest.modules[].required_anchors",
+    "source_open_body_imports.body_material_count",
+    "source_open_body_imports.body_material_ids"
   ],
   "validation_rules": [
     "Every recipe budget must match the public recipe table ceiling.",
@@ -53,18 +56,24 @@
     "Every recipe deliverable type must match its reducer route contract.",
     "The provider-context source module manifest must carry exact copied macro source bodies for the recipe compiler and formal ladder evaluator.",
     "Copied source module digests must match source-to-target and retain required provider-context anchors.",
-    "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected."
+    "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected.",
+    "The exact std_transform_job standard body must be copied into Microcosm beside the provider-context compiler modules, because the compiler emits that ABI.",
+    "The fixture manifest source_open_body_imports count must include both copied macro tool bodies and the copied transform-job standard body."
   ],
   "receipt_expectations": [
     "result receipt with recipe projections and omitted-section metadata",
     "source module import receipt fields with paths, digests, anchor results, and no copied source body text",
     "board receipt with public contract and authority ceiling",
     "validation receipt with negative-case coverage",
-    "fixture acceptance receipt"
+    "fixture acceptance receipt",
+    "fixture manifest source-open body-floor receipt with copied macro tool bodies plus copied std_transform_job standard body counted without source text in receipts"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.provider_context_recipe_budget_policy",
-    "actions": ["run", "run-budget-bundle"],
+    "actions": [
+      "run",
+      "run-budget-bundle"
+    ],
     "negative_case_count": 6
   },
   "receipt_contract": {
@@ -79,7 +88,8 @@
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "oracle_labels_included": false,
-    "fixture_kind": "copied_non_secret_macro_source_plus_synthetic_public_regression_metadata"
+    "fixture_kind": "copied_non_secret_macro_source_plus_synthetic_public_regression_metadata",
+    "public_macro_standard_bodies_included": true
   },
   "authority_ceiling": {
     "provider_calls_authorized": false,
@@ -98,7 +108,9 @@
     "provider call authority is smuggled into a public recipe or source-module receipt",
     "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
     "recipe deliverable type drifts from the reducer route contract",
-    "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+    "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence",
+    "std_transform_job body remains only a source_ref while provider-context compiler modules compile that ABI",
+    "source_open_body_imports omits the copied transform-job standard body from body-floor counts"
   ],
   "standard_payload": {
     "ontology": "A public-safe provider-context recipe budget organ over copied macro source modules plus redacted public recipe metadata.",
@@ -122,11 +134,13 @@
       "recipe deliverable type drifts from the reducer route contract",
       "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
     ],
-    "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then refresh macro projection import accounting and workingness"
+    "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then run microcosm workingness to verify source-open body material count increases"
   },
   "source_digests": {
     "tools/meta/factory/run_prover_graph_benchmark.py": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py": "sha256:5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6"
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py": "sha256:5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
+    "codex/standards/std_transform_job.json": "sha256:c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf"
   },
-  "body_material_status": "copied_non_secret_macro_body_with_provenance"
+  "body_material_status": "copied_non_secret_macro_tool_and_standard_bodies_with_provenance",
+  "body_material_count": 3
 }

@@ -8,13 +8,14 @@
     "section_materials.json",
     "source_module_manifest.json",
     "source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-    "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+    "source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+    "source_modules/codex/standards/std_transform_job.json"
   ],
   "authority_ceiling": {
     "provider_calls_authorized": false,
     "formal_proof_authority": false,
     "release_authorized": false
   },
-  "body_storage_policy": "exact_non_secret_provider_context_macro_source_modules_copied_into_public_provider_context_bundle",
+  "body_storage_policy": "exact_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_copied_into_public_provider_context_bundle",
   "body_in_receipt": false
 }
