@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -68,6 +69,10 @@ SOURCE_REFS = [
     ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF,
     GRAPH_VARIANT_COMPARISON_REF,
 ]
+SOURCE_MODULE_MANIFEST_REF = (
+    "examples/formal_math_verifier_trace_repair_loop/"
+    "exported_verifier_trace_repair_bundle/source_module_manifest.json"
+)
 SOURCE_DIGESTS = {
     PREMISE_RUN_SUMMARY_REF: (
         "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008"
@@ -91,7 +96,39 @@ SOURCE_DIGESTS = {
         "sha256:8bab9c7a0a2a62f2178a550ab2fadf06887ff03cc9bf83f057688597b9e0556f"
     ),
 }
+SOURCE_MODULE_MATERIAL_IDS = {
+    PREMISE_RUN_SUMMARY_REF: "ring2_trace_repair_premise_run_summary_body_import",
+    PREMISE_FAILURE_TAXONOMY_REF: (
+        "ring2_trace_repair_premise_failure_taxonomy_body_import"
+    ),
+    PREMISE_GRAPH_UPDATE_CANDIDATES_REF: (
+        "ring2_trace_repair_premise_graph_update_candidates_body_import"
+    ),
+    ORACLE_REPAIR_RUN_SUMMARY_REF: (
+        "ring2_trace_repair_oracle_repair_run_summary_body_import"
+    ),
+    ORACLE_REPAIR_FAILURE_TAXONOMY_REF: (
+        "ring2_trace_repair_oracle_repair_failure_taxonomy_body_import"
+    ),
+    ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF: (
+        "ring2_trace_repair_oracle_repair_graph_update_candidates_body_import"
+    ),
+    GRAPH_VARIANT_COMPARISON_REF: (
+        "ring2_trace_repair_graph_variant_comparison_body_import"
+    ),
+}
+SOURCE_MODULE_MATERIAL_CLASSES = {
+    PREMISE_GRAPH_UPDATE_CANDIDATES_REF: "public_macro_pattern_body",
+    ORACLE_REPAIR_GRAPH_UPDATE_CANDIDATES_REF: "public_macro_pattern_body",
+}
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
+SOURCE_MODULE_BODY_MATERIAL_STATUS = (
+    "source_faithful_public_safe_ring2_verifier_trace_repair_bodies_with_digest_provenance"
+)
+SOURCE_MODULE_IMPORT_CLASSES = {
+    "copied_non_secret_macro_body",
+    "source_faithful_public_safe_macro_body",
+}
 BODY_MATERIAL_CONTRACT = {
     "body_material_status": BODY_MATERIAL_STATUS,
     "macro_run_id": RUN_ID,
@@ -196,12 +233,58 @@ def _strings(value: object) -> list[str]:
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    with path.open("r", encoding="utf-8") as handle:
+        return sum(1 for _ in handle)
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / "source_module_manifest.json"
+
+
+def _source_module_path(input_dir: Path, source_ref: str) -> Path:
+    source_path = Path(source_ref)
+    try:
+        relative_source = source_path.relative_to("state/runs")
+    except ValueError:
+        relative_source = source_path
+    return input_dir / "source_modules/ring2_runs" / relative_source
+
+
+def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
+    row_path = str(row.get("path") or "")
+    if row_path:
+        return input_dir / row_path
+    source_ref = str(row.get("source_ref") or "")
+    return _source_module_path(input_dir, source_ref)
+
+
+def _source_module_scan_paths(input_dir: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = read_json_strict(manifest_path)
+    paths = [manifest_path]
+    for row in _rows(manifest, "modules"):
+        paths.append(_target_path_from_module(input_dir, row))
+    return paths
+
+
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
     bundle_manifest = input_dir / "bundle_manifest.json"
     if bundle_manifest.is_file():
         paths.append(bundle_manifest)
+    paths.extend(_source_module_scan_paths(input_dir))
     return paths
 
 
@@ -363,6 +446,205 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "omitted_material_count": len(omitted),
         "findings": findings,
         "observed_negative_cases": {},
+    }
+
+
+def validate_source_module_manifest(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    required: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return {
+            "status": "blocked" if required else "not_present",
+            "source_modules_pass": not required,
+            "source_module_manifest_ref": "",
+            "module_count": 0,
+            "verified_module_count": 0,
+            "modules": [],
+            "findings": []
+            if not required
+            else [
+                _finding(
+                    "VERIFIER_TRACE_SOURCE_MODULE_MANIFEST_MISSING",
+                    "Exported verifier trace repair bundles must include a source_module_manifest.json for copied macro bodies.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=SOURCE_MODULE_MANIFEST_REF,
+                    subject_kind="source_module_manifest",
+                )
+            ],
+            "source_open_body_imports": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    modules = _rows(manifest, "modules")
+    findings: list[dict[str, Any]] = []
+    if manifest.get("source_import_class") not in SOURCE_MODULE_IMPORT_CLASSES:
+        findings.append(
+            _finding(
+                "VERIFIER_TRACE_SOURCE_MODULE_IMPORT_CLASS_INVALID",
+                "Source-module manifest must classify verifier trace repair bodies as copied or source-faithful public-safe macro bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "VERIFIER_TRACE_SOURCE_MODULE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied macro body source modules must stay in source_modules, not receipt bodies.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+    if required and len(modules) != len(SOURCE_REFS):
+        findings.append(
+            _finding(
+                "VERIFIER_TRACE_SOURCE_MODULE_COUNT_MISMATCH",
+                "Verifier trace repair source-module manifest must account for every declared Ring2 source ref.",
+                case_id="source_module_manifest_floor",
+                subject_id=str(manifest.get("manifest_id") or SOURCE_MODULE_MANIFEST_REF),
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    module_results: list[dict[str, Any]] = []
+    verified_ids: list[str] = []
+    material_classes: set[str] = set()
+    for row in modules:
+        source_ref = str(row.get("source_ref") or "")
+        target = _target_path_from_module(input_dir, row)
+        exists = target.is_file()
+        expected_digest = str(
+            row.get("target_sha256") or row.get("sha256") or ""
+        ).removeprefix("sha256:")
+        actual_digest = _sha256_file(target) if exists else ""
+        expected_line_count = row.get("target_line_count", row.get("line_count"))
+        actual_line_count = _line_count(target) if exists else None
+        expected_byte_count = row.get("target_byte_count", row.get("byte_count"))
+        actual_byte_count = target.stat().st_size if exists else None
+        digest_matches = bool(expected_digest) and actual_digest == expected_digest
+        line_count_matches = (
+            isinstance(expected_line_count, int)
+            and actual_line_count == expected_line_count
+        )
+        byte_count_matches = (
+            isinstance(expected_byte_count, int)
+            and actual_byte_count == expected_byte_count
+        )
+        material_id = str(
+            row.get("module_id") or SOURCE_MODULE_MATERIAL_IDS.get(source_ref) or ""
+        )
+        material_class = str(
+            row.get("material_class")
+            or SOURCE_MODULE_MATERIAL_CLASSES.get(source_ref)
+            or "public_macro_receipt_body"
+        )
+        material_classes.add(material_class)
+
+        if source_ref not in SOURCE_REFS:
+            findings.append(
+                _finding(
+                    "VERIFIER_TRACE_SOURCE_MODULE_UNKNOWN_SOURCE_REF",
+                    "Source-module rows must cite one of the declared Ring2 verifier trace repair source refs.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref or material_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not exists:
+            findings.append(
+                _finding(
+                    "VERIFIER_TRACE_SOURCE_MODULE_TARGET_MISSING",
+                    "Declared verifier trace repair source module target is missing.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref or material_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_matches:
+            findings.append(
+                _finding(
+                    "VERIFIER_TRACE_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied verifier trace repair source module digest differs from the macro source digest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref,
+                    subject_kind="source_module",
+                )
+            )
+        elif not line_count_matches or not byte_count_matches:
+            findings.append(
+                _finding(
+                    "VERIFIER_TRACE_SOURCE_MODULE_SIZE_MISMATCH",
+                    "Copied verifier trace repair source module line or byte count differs from the manifest.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=source_ref,
+                    subject_kind="source_module",
+                )
+            )
+        else:
+            verified_ids.append(material_id)
+
+        module_results.append(
+            {
+                "module_id": material_id,
+                "source_ref": source_ref,
+                "target_ref": _display(target, public_root=public_root),
+                "material_class": material_class,
+                "body_copied": exists,
+                "body_in_receipt": False,
+                "expected_digest": f"sha256:{expected_digest}" if expected_digest else "",
+                "source_digest": str(row.get("source_sha256") or ""),
+                "actual_digest": f"sha256:{actual_digest}" if actual_digest else "",
+                "digest_matches": digest_matches,
+                "source_to_target_relation": str(
+                    row.get("source_to_target_relation") or ""
+                ),
+                "line_count": actual_line_count,
+                "line_count_matches": line_count_matches,
+                "byte_count": actual_byte_count,
+                "byte_count_matches": byte_count_matches,
+            }
+        )
+
+    status = PASS if not findings and len(verified_ids) == len(SOURCE_REFS) else "blocked"
+    source_open_body_imports = {
+        "status": status,
+        "body_material_status": SOURCE_MODULE_BODY_MATERIAL_STATUS,
+        "body_material_count": len(verified_ids),
+        "body_material_ids": sorted(verified_ids),
+        "material_classes": sorted(material_classes),
+        "aggregate_floor_ref": (
+            "examples/formal_math_verifier_trace_repair_loop/"
+            "exported_verifier_trace_repair_bundle/bundle_manifest.json::source_open_body_imports"
+        ),
+        "source_manifest_refs": [SOURCE_MODULE_MANIFEST_REF],
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "runtime_correctness_claim": False,
+            "release_authorized": False,
+        },
+    }
+    return {
+        "status": status,
+        "source_modules_pass": status == PASS,
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "manifest_id": manifest.get("manifest_id"),
+        "module_count": len(modules),
+        "verified_module_count": len(verified_ids),
+        "modules": module_results,
+        "findings": findings,
+        "source_open_body_imports": source_open_body_imports,
     }
 
 
@@ -598,10 +880,16 @@ def _build_result(
     )
     secret_scan.pop("forbidden_output_fields", None)
     secret_scan.pop("body_redacted", None)
+    secret_scan.pop("scan_scope", None)
     secret_scan["forbidden_output_field_labels_omitted"] = True
     secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_bodies"
 
     projection = validate_projection_protocol(payloads["projection_protocol"])
+    source_modules = validate_source_module_manifest(
+        input_dir,
+        public_root=public_root,
+        required=input_mode == "exported_verifier_trace_repair_bundle",
+    )
     attempts = validate_verifier_attempts(
         payloads["verifier_attempts"],
         {
@@ -616,7 +904,7 @@ def _build_result(
     observed = _merge_observed(projection, attempts, curriculum, promotion)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, attempts, curriculum, promotion)
+    findings = _merge_findings(projection, source_modules, attempts, curriculum, promotion)
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -624,6 +912,7 @@ def _build_result(
         if not missing
         and secret_scan["blocking_hit_count"] == 0
         and projection["status"] == PASS
+        and source_modules["source_modules_pass"]
         and attempts["status"] == PASS
         and curriculum["status"] == PASS
         and promotion["status"] == PASS
@@ -660,6 +949,12 @@ def _build_result(
         "target_refs": projection["target_refs"],
         "copied_material": projection["copied_material"],
         "body_copied_material_count": projection["body_copied_material_count"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_manifest": source_modules,
+        "source_modules_pass": source_modules["source_modules_pass"],
+        "source_module_count": source_modules["module_count"],
+        "source_open_body_imports": source_modules["source_open_body_imports"],
         "attempt_count": attempts["attempt_count"],
         "trace_event_count": attempts["trace_event_count"],
         "repair_action_count": attempts["repair_action_count"],
@@ -691,6 +986,9 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "body_material_contract": result["body_material_contract"],
         "copied_material": result["copied_material"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "source_module_manifest": result["source_module_manifest"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "mechanics": [
             {
                 "mechanic_id": "verifier_feedback_trace",
@@ -767,6 +1065,9 @@ def _write_receipts(
         "source_refs": result["source_refs"],
         "source_digests": result["source_digests"],
         "target_refs": result["target_refs"],
+        "source_module_manifest": result["source_module_manifest"],
+        "source_modules_pass": result["source_modules_pass"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "negative_case_coverage": {
             "expected": result["expected_negative_cases"],
             "observed": result["observed_negative_cases"],
@@ -794,6 +1095,8 @@ def _write_receipts(
         "body_material_status": result["body_material_status"],
         "body_copied_material_count": result["body_copied_material_count"],
         "source_refs": result["source_refs"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],

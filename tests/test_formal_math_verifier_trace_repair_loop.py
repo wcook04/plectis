@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -36,6 +37,14 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
     tmp_path: Path,
 ) -> None:
@@ -65,6 +74,8 @@ def test_formal_math_verifier_trace_repair_loop_observes_negative_cases(
         == "copied_non_secret_macro_body_with_provenance"
     )
     assert result["body_copied_material_count"] == 3
+    assert result["source_modules_pass"] is True
+    assert result["source_module_count"] == 0
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
@@ -158,4 +169,39 @@ def test_formal_math_verifier_trace_repair_exported_bundle_validates_runtime_sha
         == "copied_non_secret_macro_body_with_provenance"
     )
     assert result["body_copied_material_count"] == 3
+    assert result["source_modules_pass"] is True
+    assert result["source_module_count"] == 7
+    assert result["source_open_body_imports"]["body_material_count"] == 7
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["source_module_manifest"]["verified_module_count"] == 7
     assert result["authority_ceiling"]["formal_proof_authority"] is False
+
+
+def test_formal_math_verifier_trace_repair_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["source_import_class"] == "source_faithful_public_safe_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 7
+    assert len(manifest["modules"]) == 7
+
+    repo_root = MICROCOSM_ROOT.parent
+    for module in manifest["modules"]:
+        source = repo_root / module["source_ref"]
+        target = repo_root / module["target_ref"]
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == module["source_sha256"].removeprefix("sha256:")
+        assert _sha256(target) == module["target_sha256"].removeprefix("sha256:")
+        assert _sha256(target) == module["sha256"]
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False
+        assert (
+            module["source_to_target_relation"]
+            == "source_faithful_public_safe_normalized_copy"
+        )
+        text = target.read_text(encoding="utf-8")
+        assert "/Users/" not in text
+        assert "oracle_needed_premise_ids" not in text
+        assert "proof_body" not in text
+        assert "provider_payload_body" not in text

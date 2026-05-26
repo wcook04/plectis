@@ -43,8 +43,48 @@
     "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/projection_protocol.json",
     "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/verifier_attempts.json",
     "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/repair_curriculum.json",
-    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json"
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/promotion_policy.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_module_manifest.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+    "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json"
   ],
+  "source_module_manifest_ref": "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "source_faithful_public_safe_ring2_verifier_trace_repair_bodies_with_digest_provenance",
+    "body_material_count": 7,
+    "body_material_ids": [
+      "ring2_trace_repair_graph_variant_comparison_body_import",
+      "ring2_trace_repair_oracle_repair_failure_taxonomy_body_import",
+      "ring2_trace_repair_oracle_repair_graph_update_candidates_body_import",
+      "ring2_trace_repair_oracle_repair_run_summary_body_import",
+      "ring2_trace_repair_premise_failure_taxonomy_body_import",
+      "ring2_trace_repair_premise_graph_update_candidates_body_import",
+      "ring2_trace_repair_premise_run_summary_body_import"
+    ],
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_receipt_body"
+    ],
+    "source_manifest_refs": [
+      "examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "runtime_correctness_claim": false,
+      "release_authorized": false
+    }
+  },
   "copied_material": [
     {
       "material_id": "ring2_premise_retrieval_failure_trace_rows",

@@ -1,0 +1,19 @@
+{
+  "failure_taxonomy": {
+    "DECOMPOSITION_BAD": 0,
+    "ENVIRONMENT_FAIL": 0,
+    "FORMALIZATION_MISMATCH": 0,
+    "LIBRARY_GAP": 0,
+    "NONE": 10,
+    "ORACLE_TIMEOUT": 0,
+    "PREMISE_RETRIEVAL_MISS": 0,
+    "PROOF_CORE_GAP": 0,
+    "PROOF_SYNTHESIS_FAIL": 0,
+    "REGISTRY_STATUS_MISMATCH": 0,
+    "SOLUTION_LEAKAGE": 0,
+    "STRATEGY_SELECTION_MISS": 0,
+    "TACTIC_SEARCH_FAIL": 0
+  },
+  "representative_failures": [],
+  "schema_version": "prover_benchmark_failure_taxonomy_report_v0"
+}

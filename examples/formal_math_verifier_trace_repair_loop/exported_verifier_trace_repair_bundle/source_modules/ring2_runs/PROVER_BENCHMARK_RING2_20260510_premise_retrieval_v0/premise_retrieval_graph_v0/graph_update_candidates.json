@@ -1,0 +1,61 @@
+{
+  "candidates": [
+    {
+      "applies_to_splits": [
+        "train",
+        "dev"
+      ],
+      "candidate_id": "oracle_repair_graph_v0",
+      "proposal": "Add one repair pass that reads Lean stderr plus ideal-proof skeleton only after the first oracle check.",
+      "source_problem_ids": [
+        "ring2_nat_add_assoc",
+        "ring2_list_reverse_reverse",
+        "ring2_list_length_append"
+      ],
+      "test_split_rule": "Evaluate only after selection; do not tune on held-out test failures.",
+      "trigger": "PROOF_CORE_GAP observed in baseline_graph_v0"
+    },
+    {
+      "applies_to_splits": [
+        "train",
+        "dev"
+      ],
+      "candidate_id": "retrieval_query_recipe_update",
+      "proposal": "Expand or retune the allowed premise index/query recipe before adding broader proof-search machinery.",
+      "source_problem_ids": [
+        "ring2_list_map_map_index_miss"
+      ],
+      "test_split_rule": "Report held-out retrieval misses without tuning on the specific test proof body.",
+      "trigger": "PREMISE_RETRIEVAL_MISS observed before the oracle revealed the needed premise."
+    },
+    {
+      "applies_to_splits": [
+        "train",
+        "dev",
+        "test"
+      ],
+      "candidate_id": "mathlib_ring1_problem_set_v0",
+      "proposal": "Promote the next benchmark slice to Ring 1 with a local Lake/mathlib fixture or recovered UlamAI regression item.",
+      "source_problem_ids": [
+        "ring2_nat_succ_injective",
+        "ring2_nat_add_comm",
+        "ring2_nat_add_assoc",
+        "ring2_bool_not_not",
+        "ring2_list_reverse_reverse",
+        "ring2_list_length_append",
+        "ring2_iff_intro",
+        "ring2_list_mem_append",
+        "ring2_list_length_append_symmetry_hit_fail",
+        "ring2_list_map_map_index_miss"
+      ],
+      "test_split_rule": "Use source/family splits and keep proof bodies withheld from Prover-Lab.",
+      "trigger": "Lean-core environment is stable across at least five specimens."
+    }
+  ],
+  "non_goals": [
+    "no provider/NIM routing from this v0 run",
+    "no authority/receipt/grant ladder extension",
+    "no open-problem success claim"
+  ],
+  "schema_version": "prover_graph_update_candidates_v0"
+}

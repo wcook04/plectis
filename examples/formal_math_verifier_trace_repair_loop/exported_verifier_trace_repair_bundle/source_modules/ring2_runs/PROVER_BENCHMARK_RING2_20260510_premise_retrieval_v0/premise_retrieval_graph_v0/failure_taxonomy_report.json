@@ -1,0 +1,45 @@
+{
+  "failure_taxonomy": {
+    "DECOMPOSITION_BAD": 0,
+    "ENVIRONMENT_FAIL": 0,
+    "FORMALIZATION_MISMATCH": 0,
+    "LIBRARY_GAP": 0,
+    "NONE": 5,
+    "ORACLE_TIMEOUT": 0,
+    "PREMISE_RETRIEVAL_MISS": 1,
+    "PROOF_CORE_GAP": 3,
+    "PROOF_SYNTHESIS_FAIL": 0,
+    "REGISTRY_STATUS_MISMATCH": 0,
+    "SOLUTION_LEAKAGE": 0,
+    "STRATEGY_SELECTION_MISS": 0,
+    "TACTIC_SEARCH_FAIL": 1
+  },
+  "representative_failures": [
+    {
+      "artifact_ref": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
+      "error_class": "PROOF_CORE_GAP",
+      "problem_id": "ring2_nat_add_assoc"
+    },
+    {
+      "artifact_ref": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/proof_attempt_critique.json",
+      "error_class": "PROOF_CORE_GAP",
+      "problem_id": "ring2_list_reverse_reverse"
+    },
+    {
+      "artifact_ref": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/proof_attempt_critique.json",
+      "error_class": "PROOF_CORE_GAP",
+      "problem_id": "ring2_list_length_append"
+    },
+    {
+      "artifact_ref": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/proof_attempt_critique.json",
+      "error_class": "TACTIC_SEARCH_FAIL",
+      "problem_id": "ring2_list_length_append_symmetry_hit_fail"
+    },
+    {
+      "artifact_ref": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
+      "error_class": "PREMISE_RETRIEVAL_MISS",
+      "problem_id": "ring2_list_map_map_index_miss"
+    }
+  ],
+  "schema_version": "prover_benchmark_failure_taxonomy_report_v0"
+}
