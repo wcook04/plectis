@@ -31,6 +31,7 @@ def test_workingness_card_omits_full_failure_map(workingness_card_module) -> Non
     assert card["schema_version"] == "microcosm_workingness_command_speed_card_v1"
     assert card["status"] == "pass"
     assert card["card_status"] == "clear"
+    assert card["command"] == "microcosm workingness --card"
     assert card["source_command"] == "microcosm workingness"
     assert card["drilldown_command"] == "microcosm workingness"
     assert card["surface_counts"]["mapped_organ_count"] == 47
@@ -53,5 +54,6 @@ def test_workingness_card_cli_outputs_compact_json(
     assert status == 0
     assert payload["schema_version"] == "microcosm_workingness_command_speed_card_v1"
     assert payload["status"] == "pass"
+    assert payload["command"] == "microcosm workingness --card"
     assert payload["output_economy"]["compact_route_for_first_screen"] is True
     assert payload["output_economy"]["receipt_persisted"] is False

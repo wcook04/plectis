@@ -81,6 +81,7 @@ DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
   microcosm status --card <project> read the compressed project/runtime status lens
+  microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --out /tmp/microcosm-proof-lab
   microcosm serve <project>       open the local observatory
@@ -140,7 +141,13 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 
 def _add_public_lens_parsers(subparsers) -> None:
     for command, help_text in PUBLIC_LENS_COMMAND_HELP:
-        subparsers.add_parser(command, help=help_text)
+        parser = subparsers.add_parser(command, help=help_text)
+        if command == "workingness":
+            parser.add_argument(
+                "--card",
+                action="store_true",
+                help="emit the compact first-screen workingness lens",
+            )
 
 
 def _print_json(payload: dict) -> int:
@@ -919,7 +926,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "authority":
         return runtime_shell.main(["authority"])
     if args.command == "workingness":
-        return runtime_shell.main(["workingness"])
+        command_args = ["workingness"]
+        if args.card:
+            command_args.append("--card")
+        return runtime_shell.main(command_args)
     if args.command == "prediction-lens":
         return runtime_shell.main(["prediction-lens"])
     if args.command == "market-boundary":

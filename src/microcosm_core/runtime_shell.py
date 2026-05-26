@@ -3435,6 +3435,78 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+WORKINGNESS_CARD_SURFACE_COUNT_KEYS = (
+    "mapped_organ_count",
+    "adapter_backed_organ_count",
+    "demoted_drilldown_count",
+    "rows_with_failure_modes",
+    "rows_with_future_work_targets",
+    "rows_with_source_body_imports",
+    "source_open_body_material_count",
+    "missing_standard_count",
+    "missing_failure_modes_count",
+)
+
+
+def _workingness_command_speed_card(
+    workingness: dict[str, Any],
+) -> dict[str, Any]:
+    summary = _workingness_status_summary(workingness)
+    authority_ceiling = (
+        workingness.get("authority_ceiling", {})
+        if isinstance(workingness.get("authority_ceiling"), dict)
+        else {}
+    )
+    surface_counts = {
+        key: summary.get(key)
+        for key in WORKINGNESS_CARD_SURFACE_COUNT_KEYS
+        if key in summary
+    }
+    return {
+        "schema_version": "microcosm_workingness_command_speed_card_v1",
+        "status": summary.get("map_generation_status"),
+        "card_status": summary.get("failure_envelope_status"),
+        "command": "microcosm workingness --card",
+        "source_command": summary.get("command"),
+        "drilldown_command": "microcosm workingness",
+        "endpoint": summary.get("endpoint"),
+        "workingness_map_ref": summary.get("workingness_map_ref"),
+        "completeness_status": summary.get("completeness_status"),
+        "top_level_status_rule": (
+            "status describes map generation; card_status describes bounded "
+            "failure-envelope debt"
+        ),
+        "surface_counts": surface_counts,
+        "gap_preview": summary.get("gap_preview"),
+        "output_economy": {
+            "default_full_command_preserved": True,
+            "thing_failure_map_exported": False,
+            "known_failure_mode_rows_exported": False,
+            "receipt_persisted": False,
+            "compact_route_for_first_screen": True,
+        },
+        "map_policy": {
+            "not_a_scorecard": summary.get("not_a_scorecard"),
+            "accepted_status_is_not_evidence_strength": summary.get(
+                "accepted_status_is_not_evidence_strength"
+            ),
+        },
+        "authority_ceiling": {
+            "release_authorized": authority_ceiling.get("release_authorized"),
+            "score_based_progress_authority": authority_ceiling.get(
+                "score_based_progress_authority"
+            ),
+            "whole_system_correctness_claim": authority_ceiling.get(
+                "whole_system_correctness_claim"
+            ),
+        },
+        "reader_action": (
+            "Use this compact card for first-screen command selection; run "
+            "microcosm workingness only when per-organ failure rows are needed."
+        ),
+    }
+
+
 def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
     manifest_ref = Path("core/fixture_manifests") / f"{organ_id}.fixture_manifest.json"
     manifest = _read_json_if_exists(root / manifest_ref)
@@ -4011,6 +4083,11 @@ class RuntimeShell:
         if persist_receipt:
             write_json_atomic(self.root / WORKINGNESS_MAP_REF, payload)
         return payload
+
+    def workingness_card(self) -> dict[str, Any]:
+        return _workingness_command_speed_card(
+            self.workingness_map(persist_receipt=False)
+        )
 
     def status(self) -> dict[str, Any]:
         organs = self.organs()
@@ -17579,7 +17656,12 @@ def build_parser() -> argparse.ArgumentParser:
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     subparsers.add_parser("authority")
-    subparsers.add_parser("workingness")
+    workingness_parser = subparsers.add_parser("workingness")
+    workingness_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen workingness lens",
+    )
     subparsers.add_parser("prediction-lens")
     subparsers.add_parser("market-boundary")
     subparsers.add_parser("corpus-lens")
@@ -17651,6 +17733,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "authority":
         return _print_json(shell.authority())
     if args.command == "workingness":
+        if args.card:
+            return _print_json(shell.workingness_card())
         return _print_json(shell.workingness_map(persist_receipt=True))
     if args.command == "prediction-lens":
         return _print_json(shell.prediction_lens())

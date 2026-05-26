@@ -111,6 +111,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
+    assert (
+        "microcosm workingness --card    read the compact behavior/failure lens"
+        in output
+    )
     assert "microcosm workingness           inspect behavior evidence and failure gaps" in output
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
     assert "microcosm serve <project>       open the local observatory" in output
@@ -122,7 +126,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm status --card <project>"
     )
     assert output.index("microcosm status --card <project>") < output.index(
-        "microcosm workingness"
+        "microcosm workingness --card"
+    )
+    assert output.index("microcosm workingness --card") < output.index(
+        "microcosm workingness           inspect behavior evidence and failure gaps"
     )
     assert output.index("microcosm workingness") < output.index(
         "microcosm proof-lab --out /tmp/microcosm-proof-lab"
@@ -897,6 +904,44 @@ def test_cli_workingness_smoke(
         "workingness_state"
     ] == "demoted_regression_drilldown"
     assert (public_root / payload["workingness_map_ref"]).is_file()
+
+
+def test_cli_workingness_card_smoke(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_workingness_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
+    status = cli.main(["workingness", "--card"])
+
+    payload = json.loads(capsys.readouterr().out)
+    encoded = json.dumps(payload, sort_keys=True)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_workingness_command_speed_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["card_status"] == "clear"
+    assert payload["command"] == "microcosm workingness --card"
+    assert payload["source_command"] == "microcosm workingness"
+    assert payload["drilldown_command"] == "microcosm workingness"
+    assert payload["endpoint"] == "/workingness"
+    assert payload["completeness_status"] == "complete_failure_modes"
+    assert payload["surface_counts"]["mapped_organ_count"] == 47
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
+    assert payload["surface_counts"]["demoted_drilldown_count"] == 4
+    assert payload["surface_counts"]["rows_with_failure_modes"] == 47
+    assert payload["surface_counts"]["missing_standard_count"] == 0
+    assert payload["surface_counts"]["missing_failure_modes_count"] == 0
+    assert payload["output_economy"]["thing_failure_map_exported"] is False
+    assert payload["output_economy"]["known_failure_mode_rows_exported"] is False
+    assert payload["output_economy"]["receipt_persisted"] is False
+    assert "thing_failure_map" not in payload
+    assert "known_failure_modes" not in encoded
+    assert len(encoded) < 8000
+    assert not (
+        public_root / "receipts/runtime_shell/workingness_failure_map.json"
+    ).exists()
 
 
 def test_cli_tour_smoke(

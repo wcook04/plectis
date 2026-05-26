@@ -1496,6 +1496,31 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+
+    card = shell.workingness_card()
+
+    encoded = json.dumps(card, sort_keys=True)
+    assert card["schema_version"] == "microcosm_workingness_command_speed_card_v1"
+    assert card["status"] == "pass"
+    assert card["card_status"] == "clear"
+    assert card["command"] == "microcosm workingness --card"
+    assert card["source_command"] == "microcosm workingness"
+    assert card["drilldown_command"] == "microcosm workingness"
+    assert card["endpoint"] == "/workingness"
+    assert card["surface_counts"]["mapped_organ_count"] == 47
+    assert card["surface_counts"]["rows_with_failure_modes"] == 47
+    assert card["surface_counts"]["missing_standard_count"] == 0
+    assert card["surface_counts"]["missing_failure_modes_count"] == 0
+    assert card["output_economy"]["thing_failure_map_exported"] is False
+    assert card["output_economy"]["known_failure_mode_rows_exported"] is False
+    assert card["output_economy"]["receipt_persisted"] is False
+    assert "thing_failure_map" not in card
+    assert "known_failure_modes" not in encoded
+    assert len(encoded) < 8000
+
+
 def test_runtime_shell_authority_map_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)
