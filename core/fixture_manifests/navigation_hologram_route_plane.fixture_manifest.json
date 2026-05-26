@@ -4,6 +4,46 @@
   "organ_id": "navigation_hologram_route_plane",
   "fixture_id": "fixture::navigation_hologram_route_plane::first_wave_contract_v1",
   "status": "public_slice_contract_bound",
+  "body_copied_material_count": 5,
+  "body_material_status": "copied_non_secret_macro_route_substrate_with_provenance",
+  "source_open_body_imports": {
+    "schema_version": "microcosm_source_open_body_imports_v1",
+    "status": "pass",
+    "body_material_status": "exact_copied_non_secret_macro_route_control_source_modules_with_provenance",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "navigation_route_plane_intervention_source_body_import",
+      "navigation_route_plane_context_pack_source_body_import",
+      "navigation_route_plane_entry_packet_source_body_import",
+      "navigation_route_plane_option_surface_source_body_import",
+      "navigation_route_plane_navigation_contract_source_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "aggregate_floor_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json::modules",
+    "source_manifest_refs": [
+      "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "reader_action": "Validate the navigation_hologram_route_plane exported bundle and source-module manifest, then run microcosm workingness to count these route-control bodies in the source-open body floor.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "live_macro_kernel_execution_authorized": false,
+      "source_mutation_authorized": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "browser_hud_live_access_authorized": false,
+      "account_session_state_exported": false,
+      "credential_exported": false,
+      "recipient_work_authorized": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    }
+  },
   "expected_negative_cases": [
     "stale_source_and_banned_first_contact",
     "route_packet_missing_omission_receipt",

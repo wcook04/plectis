@@ -359,6 +359,30 @@ def test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sou
             assert anchor in target_text
 
 
+def test_navigation_hologram_route_plane_fixture_manifest_counts_source_open_body_floor() -> None:
+    fixture_manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/navigation_hologram_route_plane.fixture_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    source_manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    body_imports = fixture_manifest["source_open_body_imports"]
+
+    assert fixture_manifest["body_copied_material_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert body_imports["body_in_receipt"] is False
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert body_imports["aggregate_floor_ref"] == (
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle/"
+        "source_module_manifest.json::modules"
+    )
+    assert body_imports["body_material_ids"] == [
+        module["module_id"] for module in source_manifest["modules"]
+    ] == ROUTE_PLANE_SOURCE_MODULE_IDS
+
+
 def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
     tmp_path: Path,
 ) -> None:

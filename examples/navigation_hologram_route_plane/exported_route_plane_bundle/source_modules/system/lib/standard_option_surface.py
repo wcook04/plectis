@@ -239,7 +239,7 @@ PYTHON_SCOPE_INDEX = Path("codex/standards/std_python_scope_index.json")
 FRONTEND_COMPONENT_INDEX = Path("state/frontend_navigation/component_index.json")
 FRONTEND_COMPONENT_STANDARD = Path("codex/standards/std_frontend_component_index.json")
 FRONTEND_COMPONENT_EXTRACTOR = Path("tools/meta/observability/frontend_component_index.py")
-FRONTEND_COMPONENT_PROFILE_ID = "frontend_component_navigation_candidate_v0"
+FRONTEND_COMPONENT_PROFILE_ID = "frontend_component_navigation_v0"
 FRONTEND_COMPONENT_NATIVE_PROFILE_BANDS = ["component_id", "purpose", "props_state", "source"]
 FRONTEND_COMPONENT_NATIVE_PROFILE_FACETS = ["props", "state", "children", "view_ownership"]
 FRONTEND_COMPONENT_PRIMARY_CONFIDENCE = {"high", "medium"}
@@ -5123,8 +5123,10 @@ def _navigation_contract_summary(data: dict[str, Any]) -> dict[str, Any] | None:
         "navigable_bands": [str(item) for item in bands],
         "telescope_facets": [
             str(item.get("facet") or item.get("id") or item)
+            if isinstance(item, Mapping)
+            else str(item)
             for item in facets[:10]
-            if isinstance(item, (dict, str))
+            if isinstance(item, (Mapping, str))
         ],
         "source_authority": contract.get("source_authority"),
         "currentness_policy": contract.get("currentness_policy"),
