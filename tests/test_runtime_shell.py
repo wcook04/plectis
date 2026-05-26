@@ -553,6 +553,17 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     )
     assert body_floor_front_door["verified_source_module_family_count"] >= 20
     assert body_floor_front_door["latest_source_refs"]
+    latest_family_ids = body_floor_front_door[
+        "latest_verified_source_module_family_ids"
+    ]
+    expected_latest_family_ids = [
+        family["family_id"]
+        for family in card["macro_body_import_floor"]["source_body_imports"][
+            "latest_verified_source_module_families"
+        ]
+    ]
+    assert latest_family_ids == expected_latest_family_ids
+    assert latest_family_ids
     assert body_floor_front_door["body_text_exported_in_status"] is False
     assert body_floor_front_door["body_text_exported_in_receipts"] is False
     assert "release" in body_floor_front_door["authority_boundary"]

@@ -278,6 +278,11 @@ def test_cli_status_card_can_overlay_project_route_state(
         ]
     )
     assert body_floor["verified_source_module_family_count"] >= 20
+    assert body_floor["latest_verified_source_module_family_ids"]
+    assert all(
+        isinstance(family_id, str)
+        for family_id in body_floor["latest_verified_source_module_family_ids"]
+    )
     assert body_floor["body_text_exported_in_status"] is False
     assert body_floor["body_text_exported_in_receipts"] is False
 

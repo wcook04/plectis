@@ -2566,6 +2566,18 @@ def _runtime_status_card(
                     if isinstance(source_body_imports, dict)
                     else []
                 ),
+                "latest_verified_source_module_family_ids": (
+                    [
+                        family.get("family_id")
+                        for family in source_body_imports.get(
+                            "latest_verified_source_module_families", []
+                        )
+                        if isinstance(family, dict)
+                        and isinstance(family.get("family_id"), str)
+                    ]
+                    if isinstance(source_body_imports, dict)
+                    else []
+                ),
                 "body_text_exported_in_status": (
                     source_body_imports.get("body_text_exported_in_status")
                     if isinstance(source_body_imports, dict)
