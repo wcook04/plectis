@@ -10,6 +10,16 @@ def _readme_text() -> str:
     return (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
 
 
+def _cold_start_text() -> str:
+    return (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
+        encoding="utf-8"
+    )
+
+
+def _agents_text() -> str:
+    return (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+
 def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     section = _readme_text().split("## Choose Your First Screen", 1)[1].split(
         "## Try It On Your Repo",
@@ -71,4 +81,28 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     assert "http://127.0.0.1:8765/project/first-screen" in browser_path
     assert browser_path.index("/project/first-screen") < browser_path.index(
         "/project/observatory-card"
+    )
+
+
+def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> None:
+    cold_start = _cold_start_text()
+    agents = _agents_text()
+
+    assert "microcosm hello <project>" in cold_start
+    assert "It does not build\n`.microcosm/`" in cold_start
+    assert cold_start.index("microcosm hello <project>") < cold_start.index(
+        "1. `microcosm tour --card <project>`"
+    )
+    assert "The compact behavioral path is:" in cold_start
+
+    assert (
+        "The human first-screen text projection is `microcosm hello <project>`"
+        in agents
+    )
+    assert "The shared\n   state-writing behavior proof is" in agents
+    assert agents.index("microcosm hello <project>") < agents.index(
+        "microcosm tour --card <project>"
+    )
+    assert agents.index("microcosm tour --card <project>") < agents.index(
+        "microcosm tour <project>"
     )

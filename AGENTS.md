@@ -100,7 +100,10 @@ whole-system correctness.
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
    need the shortest validation route.
-2. The compressed first-contact loop is `microcosm tour --card <project>`:
+2. The human first-screen text projection is `microcosm hello <project>`.
+   It opens the cold-entry card without writing `.microcosm/`, mutating source
+   files, calling providers, or proving local behavior. The shared
+   state-writing behavior proof is `microcosm tour --card <project>`:
    repo -> `.microcosm` plus the first-screen route card. The full drilldown
    tour is `microcosm tour <project>`, and the explicit rebuild loop is
    `microcosm compile <project>`. The ten-minute tour should compress

@@ -8,6 +8,16 @@ Bring a folder first. The authoritative route card is
 `atlas/entry_packet.json::local_first_screen_route`; use it before the cold
 clone probe, paper modules, or raw receipt trees.
 
+The human first screen is:
+
+```bash
+microcosm hello <project>
+```
+
+`hello` prints the first-screen card as terminal text. It does not build
+`.microcosm/`, mutate source files, call providers, or prove local behavior.
+Use it to choose the right reader branch, then run the shared behavior proof.
+
 The compact behavioral path is:
 
 1. `microcosm tour --card <project>` builds `.microcosm/` and emits the
