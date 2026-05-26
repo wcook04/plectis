@@ -5,11 +5,85 @@
   "input_mode": "exported_premise_retrieval_bundle",
   "description": "Public runtime example for Lean/Std premise retrieval term scoring, context budgets, and strategy gating without proof bodies or Lean/Lake execution.",
   "files": [
+    "source_module_manifest.json",
     "projection_protocol.json",
     "premise_index.json",
     "retrieval_queries.json",
     "context_recipes.json",
-    "strategy_cases.json"
+    "strategy_cases.json",
+    "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
+  ],
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "source_module_manifest_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+  "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "copied_macro_body_artifacts": [
+    {
+      "module_id": "premise_retrieval_aggregate_report_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "material_class": "public_macro_receipt_body",
+      "sha256": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy"
+    },
+    {
+      "module_id": "premise_retrieval_cost_metrics_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "material_class": "public_macro_receipt_body",
+      "sha256": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy"
+    },
+    {
+      "module_id": "premise_retrieval_graph_update_candidates_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "material_class": "public_macro_pattern_body",
+      "sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy"
+    },
+    {
+      "module_id": "premise_retrieval_graph_variant_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "material_class": "public_macro_pattern_body",
+      "sha256": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy"
+    }
+  ],
+  "source_faithful_macro_body_artifacts": [
+    {
+      "module_id": "lean_std_toolchain_premise_index_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/premise_index.json",
+      "material_class": "public_macro_proof_body",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_sha256": "sha256:0809954d0a380d6ed01f141c57eb60fc8e8db911445c831f419d890ddb293ffe",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "source_faithful_normalized_copy"
+    },
+    {
+      "module_id": "formal_math_public_retrieval_query_slice_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+      "material_class": "public_macro_pattern_body",
+      "source_sha256": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b",
+      "target_sha256": "sha256:97cef47e278cb1839b7d6a74f490440b71bd7d09c247aef7475a63a8a04fd27e",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "source_faithful_public_query_slice"
+    }
   ],
   "authority_ceiling": {
     "lean_lake_execution_authorized": false,

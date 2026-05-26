@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -53,7 +54,7 @@ def test_formal_math_premise_retrieval_observes_negative_cases(
     assert result["recipe_count"] == 3
     assert result["strategy_case_count"] == 4
     assert result["mean_public_retrieval_recall"] == 1.0
-    assert result["body_copied_material_count"] == 1
+    assert result["body_copied_material_count"] == 6
     assert result["authority_ceiling"]["lean_lake_execution_authorized"] is False
     assert result["authority_ceiling"]["proof_bodies_allowed"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
@@ -119,8 +120,9 @@ def test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape(
     assert result["premise_count"] == 11
     assert result["query_count"] == 4
     assert result["mean_public_retrieval_recall"] == 1.0
-    assert result["body_copied_material_count"] == 1
+    assert result["body_copied_material_count"] == 6
     assert result["premise_retrieval_board"]["formal_proof_authority"] is False
+    assert result["secret_exclusion_scan"]["scanned_path_count"] == 11
 
 
 def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> None:
@@ -152,3 +154,101 @@ def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> Non
     assert copied["classification"] == "copied_non_secret_macro_body_with_provenance"
     assert copied["body_copied"] is True
     assert copied["source_sha256"] == premise_index["source_sha256"]
+
+
+def test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor() -> None:
+    premise_source_path = (
+        MICROCOSM_ROOT.parent
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    )
+    problem_source_path = (
+        MICROCOSM_ROOT.parent
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
+    )
+    source_module_manifest = json.loads(
+        (BUNDLE_INPUT / "source_module_manifest.json").read_text()
+    )
+    bundle_manifest = json.loads((BUNDLE_INPUT / "bundle_manifest.json").read_text())
+    fixture_manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json"
+        ).read_text()
+    )
+    premise_source = json.loads(premise_source_path.read_text())
+    problem_source = json.loads(problem_source_path.read_text())
+    public_premise_index = json.loads((BUNDLE_INPUT / "premise_index.json").read_text())
+    public_queries = json.loads((BUNDLE_INPUT / "retrieval_queries.json").read_text())
+
+    exact_modules = {row["module_id"]: row for row in source_module_manifest["modules"]}
+    faithful_modules = {
+        row["module_id"]: row for row in source_module_manifest["source_faithful_modules"]
+    }
+    body_floor = fixture_manifest["source_open_body_imports"]
+    bundle_exact_artifacts = {
+        row["module_id"]: row for row in bundle_manifest["copied_macro_body_artifacts"]
+    }
+
+    assert source_module_manifest["module_count"] == 4
+    assert set(exact_modules) == {
+        "premise_retrieval_aggregate_report_body_import",
+        "premise_retrieval_cost_metrics_body_import",
+        "premise_retrieval_graph_update_candidates_body_import",
+        "premise_retrieval_graph_variant_body_import",
+    }
+    assert set(faithful_modules) == {
+        "lean_std_toolchain_premise_index_body_import",
+        "formal_math_public_retrieval_query_slice_body_import",
+    }
+    assert body_floor["body_material_count"] == 6
+    assert body_floor["body_material_ids"] == [
+        *exact_modules.keys(),
+        *faithful_modules.keys(),
+    ]
+
+    for module_id, module in exact_modules.items():
+        copied_path = BUNDLE_INPUT / module["path"]
+        assert copied_path.is_file()
+        assert module["sha256"] == sha256(copied_path.read_bytes()).hexdigest()
+        assert bundle_exact_artifacts[module_id]["sha256"] == f"sha256:{module['sha256']}"
+        copied_text = copied_path.read_text(encoding="utf-8")
+        assert "/Users/" not in copied_text
+        assert '"provider_calls": 0' in copied_text or module_id.endswith(
+            ("graph_update_candidates_body_import", "graph_variant_body_import")
+        )
+
+    premise_module = faithful_modules["lean_std_toolchain_premise_index_body_import"]
+    query_module = faithful_modules["formal_math_public_retrieval_query_slice_body_import"]
+    assert premise_module["source_sha256"] == (
+        "sha256:" + sha256(premise_source_path.read_bytes()).hexdigest()
+    )
+    assert premise_module["target_sha256"] == (
+        "sha256:" + sha256((BUNDLE_INPUT / "premise_index.json").read_bytes()).hexdigest()
+    )
+    assert query_module["source_sha256"] == (
+        "sha256:" + sha256(problem_source_path.read_bytes()).hexdigest()
+    )
+    assert query_module["target_sha256"] == (
+        "sha256:" + sha256((BUNDLE_INPUT / "retrieval_queries.json").read_bytes()).hexdigest()
+    )
+
+    for source_row, public_row in zip(premise_source["premises"], public_premise_index["premises"]):
+        assert public_row["premise_id"] == source_row["premise_id"]
+        assert public_row["theorem_or_def_name"] == source_row["theorem_or_def_name"]
+        assert public_row["namespace"] == source_row["namespace"]
+        assert public_row["retrieval_terms"] == source_row["retrieval_terms"]
+        assert public_row["allowed_for_split"] == source_row["allowed_for_split"]
+        assert public_row["statement_excerpt"] == source_row["statement_excerpt"]
+        assert public_row["source_ref"].startswith("lean-toolchain://")
+        assert public_row["body_copied"] is True
+        assert "proof_body" not in public_row
+        assert "oracle_needed_premise_ids" not in public_row
+
+    source_problems = {row["problem_id"]: row for row in problem_source["problems"]}
+    for query in public_queries["queries"]:
+        source_problem = source_problems[query["source_problem_id"]]
+        assert query["split"] == source_problem["split"]
+        assert set(source_problem["retrieval_query_terms"]).issubset(query["query_terms"])
+        assert source_problem["theorem_name"].removeprefix("ring2_") in query["query_id"]
+        assert "oracle_needed_premise_ids" not in query
+        assert "proof_body" not in query

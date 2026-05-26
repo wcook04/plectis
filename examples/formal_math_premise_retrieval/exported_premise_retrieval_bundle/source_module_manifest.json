@@ -1,0 +1,143 @@
+{
+  "schema_version": "formal_math_premise_retrieval_source_module_manifest_v1",
+  "bundle_id": "formal_math_premise_retrieval_runtime_example",
+  "organ_id": "formal_math_premise_retrieval",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "source_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "body_storage_policy": "exact public-safe macro graph receipts are copied under source_modules; normalized premise/query bodies stay in fixture and bundle inputs with digest provenance",
+  "source_open_payload_boundary": "source-open everything except keys, credentials, account/session state, cookies, provider payload bodies, browser/HUD live-access, recipient-send state, credential-equivalent material, proof bodies, oracle-needed premise ids, and host-local absolute paths",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no proof bodies",
+    "no oracle-needed premise ids",
+    "no host-local absolute source paths in public normalized copies"
+  ],
+  "module_count": 4,
+  "modules": [
+    {
+      "module_id": "premise_retrieval_aggregate_report_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "path": "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "material_class": "public_macro_receipt_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Public aggregate metrics for the Ring2 premise-retrieval graph: split/source counts, pass/fail totals, premise precision/recall, leakage count, and provider-call zeroing without proof bodies.",
+      "line_count": 122,
+      "sha256": "624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "byte_count": 3275,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "premise_retrieval_cost_metrics_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "path": "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "material_class": "public_macro_receipt_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Public per-problem and total runtime/cost metrics for the Ring2 premise-retrieval graph, including provider_calls=0 and retrieval candidate counts.",
+      "line_count": 203,
+      "sha256": "37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+      "byte_count": 5895,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "premise_retrieval_graph_update_candidates_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "path": "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Public graph-update candidates emitted by the macro premise-retrieval graph, including split-safe update rules and non-goal boundaries.",
+      "line_count": 61,
+      "sha256": "6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "byte_count": 2210,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "premise_retrieval_graph_variant_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "path": "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "target_ref": "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Public graph topology and retrieval settings for the macro Ring2 premise-retrieval variant without provider routing or Mathlib authority.",
+      "line_count": 28,
+      "sha256": "1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+      "byte_count": 908,
+      "body_in_receipt": false
+    }
+  ],
+  "source_faithful_modules": [
+    {
+      "module_id": "lean_std_toolchain_premise_index_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "target_refs": [
+        "microcosm-substrate/fixtures/first_wave/formal_math_premise_retrieval/input/premise_index.json",
+        "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/premise_index.json"
+      ],
+      "material_class": "public_macro_proof_body",
+      "source_import_class": "source_faithful_public_safe_macro_body",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_sha256": "sha256:0809954d0a380d6ed01f141c57eb60fc8e8db911445c831f419d890ddb293ffe",
+      "source_line_count": 220,
+      "target_line_count": 239,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "source_faithful_normalized_copy",
+      "normalization": [
+        "host-local Lean toolchain paths normalized to lean-toolchain:// public refs",
+        "schema upgraded from premise_index_v0 to lean_std_toolchain_premise_index_v0_public_import",
+        "premise rows annotated with body_copied",
+        "proof bodies, oracle-needed premise ids, provider payload bodies, private run logs, and host-local absolute paths omitted"
+      ],
+      "validation_refs": [
+        "tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_imports_real_macro_premise_index",
+        "tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor"
+      ]
+    },
+    {
+      "module_id": "formal_math_public_retrieval_query_slice_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+      "target_refs": [
+        "microcosm-substrate/fixtures/first_wave/formal_math_premise_retrieval/input/retrieval_queries.json",
+        "microcosm-substrate/examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json"
+      ],
+      "material_class": "public_macro_pattern_body",
+      "source_import_class": "source_faithful_public_safe_macro_body",
+      "source_sha256": "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b",
+      "target_sha256": "sha256:97cef47e278cb1839b7d6a74f490440b71bd7d09c247aef7475a63a8a04fd27e",
+      "source_line_count": 537,
+      "target_line_count": 72,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "source_faithful_public_query_slice",
+      "normalization": [
+        "source_problem_id retained for each public query",
+        "source split preserved from macro problem_source_manifest",
+        "retrieval_query_terms preserved as public query terms with strategy-safe public terms allowed",
+        "proof bodies, oracle-needed premise ids, provider payload bodies, private run logs, and host-local absolute paths omitted"
+      ],
+      "validation_refs": [
+        "tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_source_open_manifest_counts_body_floor",
+        "tests/test_formal_math_premise_retrieval.py::test_formal_math_premise_retrieval_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "proof bodies",
+    "oracle-needed premise ids",
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material",
+    "host-local absolute paths"
+  ]
+}

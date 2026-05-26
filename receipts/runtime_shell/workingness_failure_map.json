@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 9,
+  "rows_with_source_body_imports": 10,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 62,
+  "source_open_body_material_count": 68,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 9,
-    "source_open_body_material_count": 62,
+    "rows_with_source_body_imports": 10,
+    "source_open_body_material_count": 68,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -1495,7 +1495,44 @@
           "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "host_local_absolute_paths_exported": false,
+            "lean_lake_execution_authorized": false,
+            "mathlib_authority": false,
+            "proof_body_or_oracle_proof_text_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "premise_retrieval_aggregate_report_body_import",
+            "premise_retrieval_cost_metrics_body_import",
+            "premise_retrieval_graph_update_candidates_body_import",
+            "premise_retrieval_graph_variant_body_import",
+            "lean_std_toolchain_premise_index_body_import",
+            "formal_math_public_retrieval_query_slice_body_import"
+          ],
+          "body_material_status": "copied_and_source_faithful_public_safe_formal_math_premise_retrieval_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_pattern_body",
+            "public_macro_proof_body"
+          ],
+          "reader_action": "Run microcosm workingness, status, and the formal_math_premise_retrieval exported-bundle validator to inspect the imported Ring2 premise-retrieval macro bodies without proof/oracle/provider payload bodies.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+            "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/bundle_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.formal_math_premise_retrieval run --input fixtures/first_wave/formal_math_premise_retrieval/input --out receipts/first_wave/formal_math_premise_retrieval",
         "verdict_source": "derived_projection_metric"
@@ -1503,7 +1540,44 @@
       "ordinal": 10,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "host_local_absolute_paths_exported": false,
+          "lean_lake_execution_authorized": false,
+          "mathlib_authority": false,
+          "proof_body_or_oracle_proof_text_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "premise_retrieval_aggregate_report_body_import",
+          "premise_retrieval_cost_metrics_body_import",
+          "premise_retrieval_graph_update_candidates_body_import",
+          "premise_retrieval_graph_variant_body_import",
+          "lean_std_toolchain_premise_index_body_import",
+          "formal_math_public_retrieval_query_slice_body_import"
+        ],
+        "body_material_status": "copied_and_source_faithful_public_safe_formal_math_premise_retrieval_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/formal_math_premise_retrieval.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_pattern_body",
+          "public_macro_proof_body"
+        ],
+        "reader_action": "Run microcosm workingness, status, and the formal_math_premise_retrieval exported-bundle validator to inspect the imported Ring2 premise-retrieval macro bodies without proof/oracle/provider payload bodies.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+          "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/bundle_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_formal_math_premise_retrieval.json",
         "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",

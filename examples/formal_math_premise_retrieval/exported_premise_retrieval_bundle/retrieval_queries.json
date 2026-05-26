@@ -5,6 +5,7 @@
   "queries": [
     {
       "query_id": "q_ring2_nat_add_comm",
+      "source_problem_id": "ring2_nat_add_comm",
       "split": "train",
       "query_terms": [
         "nat",
@@ -21,6 +22,7 @@
     },
     {
       "query_id": "q_ring2_list_length_append",
+      "source_problem_id": "ring2_list_length_append",
       "split": "dev",
       "query_terms": [
         "list",
@@ -36,7 +38,8 @@
     },
     {
       "query_id": "q_ring2_bool_not_not",
-      "split": "test",
+      "source_problem_id": "ring2_bool_not_not",
+      "split": "train",
       "query_terms": [
         "bool",
         "double",
@@ -51,7 +54,8 @@
     },
     {
       "query_id": "q_ring2_iff_intro",
-      "split": "test",
+      "source_problem_id": "ring2_iff_intro",
+      "split": "dev",
       "query_terms": [
         "iff",
         "implication",

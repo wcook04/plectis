@@ -37,6 +37,10 @@ INPUT_NAMES = (
     "context_recipes.json",
     "strategy_cases.json",
 )
+OPTIONAL_BUNDLE_SCAN_NAMES = (
+    "bundle_manifest.json",
+    "source_module_manifest.json",
+)
 NEGATIVE_INPUT_NAMES = (
     "premise_index_with_proof_body.json",
     "query_with_oracle_ids.json",
@@ -112,6 +116,18 @@ def _display(path: Path, *, public_root: Path) -> str:
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
+
+
+def _scan_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    paths = _input_paths(input_dir, include_negative=include_negative)
+    for name in OPTIONAL_BUNDLE_SCAN_NAMES:
+        path = input_dir / name
+        if path.is_file():
+            paths.append(path)
+    source_modules = input_dir / "source_modules"
+    if source_modules.is_dir():
+        paths.extend(sorted(path for path in source_modules.rglob("*") if path.is_file()))
+    return paths
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -606,7 +622,7 @@ def _build_result(
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = _secret_exclusion_scan(
         scan_paths(
-            _input_paths(input_dir, include_negative=include_negative),
+            _scan_input_paths(input_dir, include_negative=include_negative),
             forbidden_classes=policy,
             display_root=public_root,
         )
