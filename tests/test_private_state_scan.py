@@ -25,6 +25,9 @@ def test_scanner_blocks_synthetic_forbidden_token_without_excerpt(tmp_path: Path
     result = scan_paths([fixture], forbidden_classes=policy)
 
     assert result["status"] == BLOCKED_PRIVATE
+    assert result["scan_scope"]["not_a_complete_secret_scan"] is True
+    assert result["scan_scope"]["body_text_exported_in_findings"] is False
+    assert "complete secret scan" in result["anti_claim"]
     assert result["hits"][0]["term_id"] == "raw_seed_body_sentinel"
     assert "matched_excerpt" not in result["hits"][0]
     assert result["hits"][0]["body_redacted"] is True
@@ -62,6 +65,7 @@ def test_expected_negative_fixture_does_not_block_root_scan() -> None:
     )
 
     assert result["status"] == PASS
+    assert result["scan_scope"]["does_not_certify_absence_of_secrets"] is True
     assert result["hits"][0]["expected_negative_case"] is True
 
 
@@ -121,6 +125,8 @@ def test_public_safe_macro_import_allows_verified_tool_and_proof_bodies() -> Non
 
     assert tool["status"] == PASS
     assert tool["route"] == "verified_light_edit"
+    assert tool["scan_scope"]["not_a_complete_secret_scan"] is True
+    assert "complete secret scan" in tool["anti_claim"]
     assert proof["status"] == PASS
     assert proof["route"] == "verified_light_edit"
 

@@ -146,6 +146,12 @@ Any `body_copied=true` claim must name the source file, target file, and
 validator or receipt that proves the import. A source ref, digest, label,
 synthetic receipt, or replacement pointer is not an imported body.
 
+The private-state scanner is a bounded import membrane, not a whole-repo
+secret-audit certificate. Its policy detects declared synthetic regression
+sentinels and classifies explicit macro-import rows; a passing scan does not
+certify that no private material exists, and scanner findings never expose
+matched body text.
+
 ## Before / After
 
 Before:

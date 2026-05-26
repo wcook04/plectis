@@ -1,6 +1,15 @@
 {
   "schema_version": "secret_exclusion_classes_v1",
   "authority_boundary": "scanner_policy_for_verified_macro_substrate_import",
+  "scan_scope": {
+    "scope_id": "synthetic_sentinel_and_declared_import_policy",
+    "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+    "not_a_complete_secret_scan": true,
+    "does_not_read_binary_or_live_account_state": true,
+    "does_not_certify_absence_of_secrets": true,
+    "does_not_authorize_source_mutation": true,
+    "body_text_exported_in_findings": false
+  },
   "public_safe_macro_import": {
     "policy_id": "verified_macro_import_classification_v1",
     "source_context": "verified_macro_import",
@@ -100,5 +109,5 @@
       ]
     }
   ],
-  "anti_claim": "Scanner terms are regression sentinels for tests; they are not real credential or account-bound material."
+  "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists."
 }

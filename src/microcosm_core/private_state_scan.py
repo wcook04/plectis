@@ -11,6 +11,15 @@ PASS = "pass"
 BLOCKED_PRIVATE = "blocked_private_state"
 BLOCKED_PUBLIC_WRITE = "blocked_public_write_attempt"
 BLOCKED_CASE_REVIEW = "blocked_case_review_required"
+DEFAULT_SCAN_SCOPE = {
+    "scope_id": "synthetic_sentinel_policy_default",
+    "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows.",
+    "not_a_complete_secret_scan": True,
+    "does_not_read_binary_or_live_account_state": True,
+    "does_not_certify_absence_of_secrets": True,
+    "does_not_authorize_source_mutation": True,
+    "body_text_exported_in_findings": False,
+}
 
 TEXT_SUFFIXES = {
     ".json",
@@ -126,6 +135,22 @@ def _terms(forbidden_classes: dict[str, Any]) -> list[dict[str, str]]:
 def _import_policy(forbidden_classes: dict[str, Any]) -> dict[str, Any]:
     policy = forbidden_classes.get("public_safe_macro_import", {})
     return policy if isinstance(policy, dict) else {}
+
+
+def _scan_scope(forbidden_classes: dict[str, Any]) -> dict[str, Any]:
+    scope = forbidden_classes.get("scan_scope")
+    if not isinstance(scope, dict):
+        return dict(DEFAULT_SCAN_SCOPE)
+    merged = dict(DEFAULT_SCAN_SCOPE)
+    merged.update(scope)
+    return merged
+
+
+def _anti_claim(forbidden_classes: dict[str, Any]) -> str:
+    return str(
+        forbidden_classes.get("anti_claim")
+        or "Scanner output is bounded sentinel/import-policy evidence, not complete secret-audit authority."
+    )
 
 
 def _string_list(value: object) -> list[str]:
@@ -265,6 +290,8 @@ def classify_public_safe_macro_import(
         "flow_allowed": status == PASS,
         "findings": findings,
         "body_redacted": True,
+        "scan_scope": _scan_scope(forbidden_classes),
+        "anti_claim": _anti_claim(forbidden_classes),
     }
 
 
@@ -345,10 +372,14 @@ def scan_text(
         "hits": hits,
         "forbidden_output_fields": ["matched_excerpt", "body"],
         "body_redacted": True,
+        "scan_scope": _scan_scope(forbidden_classes),
+        "anti_claim": _anti_claim(forbidden_classes),
     }
 
 
-def _merge_scan_results(results: list[dict[str, Any]]) -> dict[str, Any]:
+def _merge_scan_results(
+    results: list[dict[str, Any]], forbidden_classes: dict[str, Any]
+) -> dict[str, Any]:
     hits: list[dict[str, Any]] = []
     for result in results:
         hits.extend(result.get("hits", []))
@@ -366,6 +397,8 @@ def _merge_scan_results(results: list[dict[str, Any]]) -> dict[str, Any]:
         "blocking_hit_count": len(blocking_hits),
         "forbidden_output_fields": ["matched_excerpt", "body"],
         "body_redacted": True,
+        "scan_scope": _scan_scope(forbidden_classes),
+        "anti_claim": _anti_claim(forbidden_classes),
     }
 
 
@@ -392,7 +425,7 @@ def scan_paths(
                 source_context=source_context,
             )
         )
-    merged = _merge_scan_results(results)
+    merged = _merge_scan_results(results, forbidden_classes)
     merged["scanned_path_count"] = scanned
     return merged
 
