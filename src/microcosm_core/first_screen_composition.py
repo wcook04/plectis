@@ -327,21 +327,40 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
 
 
 def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
+    human_first_command = f"microcosm hello {project_label}"
+    shared_first_command = f"microcosm tour --card {project_label}"
     return {
         "schema_version": "microcosm_observatory_landing_frame_v1",
-        "role": "make_the_shared_first_screen_card_the_browser_landing_frame",
-        "shared_first_command": f"microcosm tour --card {project_label}",
+        "role": "make_the_hello_first_screen_card_the_browser_landing_frame",
+        "human_first_command": human_first_command,
+        "text_projection_command": human_first_command,
+        "shared_first_command": shared_first_command,
+        "behavioral_proof_command": shared_first_command,
         "endpoints": dict(OBSERVATORY_LANDING_ENDPOINTS),
+        "browser_landing_reuse": {
+            "source_projection": (
+                "microcosm_core.first_screen_composition.first_screen_text_card"
+            ),
+            "default_endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
+            "card_endpoint": OBSERVATORY_LANDING_ENDPOINTS["first_screen_card"],
+            "authority": (
+                "browser_projection_over_same_card_not_json_first_lens_inventory"
+            ),
+        },
         "first_viewport_rule": (
-            "The browser landing frame should show the first run, reader branches, public "
-            "scale handles, and authority ceiling before the deeper observatory lens inventory."
+            "The browser landing frame should show the hello card command, behavior proof, "
+            "reader branches, public scale handles, and authority ceiling before the deeper "
+            "observatory lens inventory."
         ),
         "projection_rule": (
             "The observatory landing is a projection over this first-screen card, not a "
             "separate cold-entry artifact with its own claims."
         ),
         "required_visible_handles": [
+            "human_first_command",
+            "text_projection",
             "shared_first_command",
+            "behavioral_proof_command",
             "reader_route_ids",
             "public_scale_counts",
             "evidence_count_interpretation",
@@ -477,13 +496,26 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             payload.get("runnable_structural_join", {}).get("join_rule")
         ),
         "observatory_landing_frame": (
-            observatory_landing_frame.get("shared_first_command")
+            observatory_landing_frame.get("human_first_command")
+            == payload.get("human_first_command")
+            and observatory_landing_frame.get("text_projection_command")
+            == payload.get("human_first_command")
+            and observatory_landing_frame.get("shared_first_command")
+            == payload.get("shared_first_command")
+            and observatory_landing_frame.get("behavioral_proof_command")
             == payload.get("shared_first_command")
             and observatory_endpoints == OBSERVATORY_LANDING_ENDPOINTS
+            and observatory_landing_frame.get("browser_landing_reuse", {}).get(
+                "authority"
+            )
+            == "browser_projection_over_same_card_not_json_first_lens_inventory"
             and all(
                 handle in required_visible_handles
                 for handle in (
+                    "human_first_command",
+                    "text_projection",
                     "shared_first_command",
+                    "behavioral_proof_command",
                     "reader_route_ids",
                     "public_scale_counts",
                     "authority_ceiling",

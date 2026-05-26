@@ -106,9 +106,29 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert observatory_landing_frame["schema_version"] == (
         "microcosm_observatory_landing_frame_v1"
     )
+    assert observatory_landing_frame["role"] == (
+        "make_the_hello_first_screen_card_the_browser_landing_frame"
+    )
+    assert observatory_landing_frame["human_first_command"] == (
+        card["human_first_command"]
+    )
+    assert observatory_landing_frame["text_projection_command"] == (
+        card["human_first_command"]
+    )
     assert observatory_landing_frame["shared_first_command"] == (
         card["shared_first_command"]
     )
+    assert observatory_landing_frame["behavioral_proof_command"] == (
+        card["shared_first_command"]
+    )
+    assert observatory_landing_frame["browser_landing_reuse"] == {
+        "source_projection": (
+            "microcosm_core.first_screen_composition.first_screen_text_card"
+        ),
+        "default_endpoint": "/",
+        "card_endpoint": "/project/first-screen",
+        "authority": "browser_projection_over_same_card_not_json_first_lens_inventory",
+    }
     assert observatory_landing_frame["endpoints"] == {
         "html_landing": "/",
         "first_screen_card": "/project/first-screen",
@@ -122,6 +142,13 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "compact_observatory_card",
         "full_observatory_model",
         "project_observe",
+    ]
+    assert "human_first_command" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
+    assert "text_projection" in observatory_landing_frame["required_visible_handles"]
+    assert "behavioral_proof_command" in observatory_landing_frame[
+        "required_visible_handles"
     ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
