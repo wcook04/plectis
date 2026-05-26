@@ -341,6 +341,8 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "raw operator voice, slurs or abusive wording" in normalized_agents
     assert "Any `body_copied=true` claim must name the source file" in text
     assert "Any `body_copied=true` claim must point at a real target file" in agents
+    assert "front_door_status.blocking_surface_ids" in text
+    assert "If `microcosm status --card <project>` exits non-zero" in text
     assert "public-safe ten-minute path" not in normalized_text
     assert "public-safe authority ceiling" not in normalized_text
     assert "public-safe route" not in normalized_agents

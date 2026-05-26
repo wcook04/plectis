@@ -139,6 +139,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "Evidence receipts are the black-box recorder",
         "`accepted_current_authority` is not an evidence-strength claim",
         "evidence_class",
+        "front_door_status.blocking_surface_ids",
         "Internal Runtime Spine",
         "formal_math_readiness_gate",
         "corpus_readiness_mathlib_absence_gate",

@@ -80,6 +80,10 @@ means the required first-screen path is green.
 surfaces remain visible bounded warnings to inspect; if one is non-pass, it is
 reported under `drilldown_blocked_surface_ids`, not hidden as release
 authority.
+If `microcosm status --card <project>` exits non-zero, keep the JSON output as
+the evidence packet. The field `front_door_status.blocking_surface_ids` names
+the blocking first-screen surfaces; inspect those exact surfaces, and do not
+treat warning drilldowns as source, release, provider, or proof authority.
 
 Use `microcosm authority` before trusting any organ label. It shows each
 organ's explicit `evidence_class`, and `accepted_current_authority` is not an
