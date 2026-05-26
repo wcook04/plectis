@@ -80,6 +80,7 @@ DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
+  microcosm tour --card <project> read the compact first-screen tour lens
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
@@ -478,6 +479,11 @@ def main(argv: list[str] | None = None) -> int:
     tour_parser = subparsers.add_parser(
         "tour",
         help="run the compressed cold-reader route",
+    )
+    tour_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen tour lens",
     )
     tour_parser.add_argument("project", nargs="?")
     subparsers.add_parser("authority", help="show authority ceilings and anti-claims")
@@ -920,6 +926,8 @@ def main(argv: list[str] | None = None) -> int:
         return runtime_shell.main(["spine"])
     if args.command == "tour":
         command_args = ["tour"]
+        if args.card:
+            command_args.append("--card")
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args)

@@ -5960,6 +5960,159 @@ class RuntimeShell:
             write_json_atomic(tour_path, payload)
         return payload
 
+    def tour_card(
+        self,
+        project: str | Path | None = DEFAULT_PROJECT_REL,
+    ) -> dict[str, Any]:
+        raw_project = project if project is not None else DEFAULT_PROJECT_REL
+        project_path = Path(raw_project).expanduser()
+        if not project_path.is_absolute():
+            project_path = self.root / project_path
+        project_path = project_path.resolve(strict=False)
+
+        compiled = project_substrate.compile_project(project_path)
+        project_ref = _public_relative(project_path, self.root)
+        if project_ref.startswith("/") or project_ref.startswith(".."):
+            project_ref = project_path.name
+
+        proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
+        workingness = self.workingness_card()
+        first_screen = _cold_reader_first_screen_card(
+            project_ref=project_ref,
+            compiled=compiled,
+            proof_lab=proof_lab,
+            evidence_refs=[],
+        )
+        minimal_path = (
+            first_screen.get("minimal_command_path", [])
+            if isinstance(first_screen.get("minimal_command_path"), list)
+            else []
+        )
+        surface_statuses = {
+            "compile": compiled.get("status"),
+            "first_screen": first_screen.get("status"),
+            "proof_lab": proof_lab.get("status"),
+            "macro_body_import_floor": body_import_floor.get("status"),
+            "workingness_card": workingness.get("status"),
+        }
+        blocking_surface_ids = [
+            surface_id
+            for surface_id, status in surface_statuses.items()
+            if status != PASS
+        ]
+        body_floor_summary = _tour_body_import_floor_summary(body_import_floor)
+        return {
+            "schema_version": "microcosm_tour_command_speed_card_v1",
+            "status": PASS if not blocking_surface_ids else "blocked",
+            "card_status": "clear" if not blocking_surface_ids else "blocked",
+            "command": "microcosm tour --card <project>",
+            "source_command": "microcosm tour <project>",
+            "drilldown_command": "microcosm tour <project>",
+            "endpoint": "/tour",
+            "project_ref": project_ref,
+            "selected_route_id": first_screen.get("selected_route_id")
+            or compiled.get("selected_route_id"),
+            "surface_statuses": surface_statuses,
+            "blocking_surface_ids": blocking_surface_ids,
+            "first_screen": {
+                "status": first_screen.get("status"),
+                "primary_command": first_screen.get("primary_command"),
+                "selected_route_id": first_screen.get("selected_route_id"),
+                "minimal_step_count": len(minimal_path),
+                "minimal_steps": [
+                    {
+                        "step_id": row.get("step_id"),
+                        "command": row.get("command"),
+                    }
+                    for row in minimal_path
+                    if isinstance(row, dict)
+                ],
+                "route_explanation_command": (
+                    first_screen.get("route_explanation") or {}
+                ).get("command")
+                if isinstance(first_screen.get("route_explanation"), dict)
+                else None,
+                "observatory_command": (
+                    first_screen.get("behavior_surfaces") or {}
+                ).get("observatory_command")
+                if isinstance(first_screen.get("behavior_surfaces"), dict)
+                else None,
+                "proof_route_id": (first_screen.get("proof_surface") or {}).get(
+                    "route_id"
+                )
+                if isinstance(first_screen.get("proof_surface"), dict)
+                else None,
+            },
+            "compile_summary": {
+                "headline": compiled.get("headline"),
+                "selected_route_id": compiled.get("selected_route_id"),
+                "route_count": compiled.get("route_count"),
+                "file_count": compiled.get("file_count"),
+                "state_ref": project_substrate.STATE_DIR,
+            },
+            "workingness": {
+                "status": workingness.get("status"),
+                "card_status": workingness.get("card_status"),
+                "command": workingness.get("command"),
+                "surface_counts": workingness.get("surface_counts"),
+            },
+            "macro_body_import_floor": {
+                "status": body_floor_summary.get("status"),
+                "public_safe_body_material_count": body_floor_summary.get(
+                    "public_safe_body_material_count"
+                ),
+                "latest_verified_source_module_family_ids": body_floor_summary.get(
+                    "latest_verified_source_module_family_ids"
+                ),
+                "body_text_exported_in_status": body_floor_summary.get(
+                    "body_text_exported_in_status"
+                ),
+                "body_text_exported_in_receipts": body_floor_summary.get(
+                    "body_text_exported_in_receipts"
+                ),
+            },
+            "proof_lab": {
+                "status": proof_lab.get("status"),
+                "route_id": proof_lab.get("route_id"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+            },
+            "output_economy": {
+                "full_route_cards_exported": False,
+                "route_cards_by_id_exported": False,
+                "full_command_path_exported": False,
+                "full_endpoint_path_exported": False,
+                "evidence_refs_exported": False,
+                "receipt_persisted": False,
+                "project_compile_state_written": True,
+                "compact_route_for_first_screen": True,
+            },
+            "next_commands": [
+                "microcosm status --card <project>",
+                "microcosm workingness --card",
+                "microcosm proof-lab",
+                "microcosm tour <project>",
+            ],
+            "safe_to_show": {
+                "receipt_refs_only_until_drilldown": True,
+                "secret_or_account_bound_material_excluded": True,
+                "full_receipt_body_omitted": True,
+            },
+            "authority_ceiling": {
+                "release_authorized": False,
+                "hosted_public_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "whole_system_correctness_claim": False,
+            },
+            "reader_action": (
+                "Use this card for first-screen route selection; run "
+                "microcosm tour <project> only when full route cards, endpoint "
+                "paths, and evidence refs are needed."
+            ),
+        }
+
     def trace_lens(self) -> dict[str, Any]:
         readiness_ref = (
             "receipts/first_wave/formal_math_readiness_gate/"
@@ -17654,6 +17807,11 @@ def build_parser() -> argparse.ArgumentParser:
     status_parser.add_argument("project", nargs="?")
     subparsers.add_parser("spine")
     tour_parser = subparsers.add_parser("tour")
+    tour_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen tour lens",
+    )
     tour_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     subparsers.add_parser("authority")
     workingness_parser = subparsers.add_parser("workingness")
@@ -17729,6 +17887,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "spine":
         return _print_json(shell.spine())
     if args.command == "tour":
+        if args.card:
+            return _print_json(shell.tour_card(args.project))
         return _print_json(shell.tour(args.project))
     if args.command == "authority":
         return _print_json(shell.authority())

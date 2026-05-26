@@ -2166,6 +2166,48 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+
+    card = shell.tour_card("examples/runtime_shell/demo_project")
+
+    encoded = json.dumps(card, sort_keys=True)
+    assert card["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert card["status"] == "pass"
+    assert card["card_status"] == "clear"
+    assert card["command"] == "microcosm tour --card <project>"
+    assert card["source_command"] == "microcosm tour <project>"
+    assert card["drilldown_command"] == "microcosm tour <project>"
+    assert card["endpoint"] == "/tour"
+    assert card["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert card["first_screen"]["minimal_step_count"] == 8
+    assert card["surface_statuses"]["compile"] == "pass"
+    assert card["surface_statuses"]["first_screen"] == "pass"
+    assert card["surface_statuses"]["proof_lab"] == "pass"
+    assert card["surface_statuses"]["macro_body_import_floor"] == "pass"
+    assert card["surface_statuses"]["workingness_card"] == "pass"
+    assert card["blocking_surface_ids"] == []
+    assert card["workingness"]["command"] == "microcosm workingness --card"
+    assert card["macro_body_import_floor"]["status"] == "pass"
+    assert card["proof_lab"]["route_component_count"] == 9
+    assert card["output_economy"]["full_route_cards_exported"] is False
+    assert card["output_economy"]["route_cards_by_id_exported"] is False
+    assert card["output_economy"]["full_command_path_exported"] is False
+    assert card["output_economy"]["full_endpoint_path_exported"] is False
+    assert card["output_economy"]["receipt_persisted"] is False
+    assert "route_cards" not in card
+    assert "route_cards_by_id" not in card
+    assert "endpoint_path" not in card
+    assert "command_path" not in card
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+    assert len(encoded) < 10000
+    assert not (
+        public_root / "receipts/runtime_shell/public_ten_minute_tour.json"
+    ).exists()
+
+
 def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     tmp_path: Path,
 ) -> None:

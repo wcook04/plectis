@@ -108,6 +108,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "route/work/event/evidence/proof refs"
     ) in output
     assert (
+        "microcosm tour --card <project> read the compact first-screen tour lens"
+        in output
+    )
+    assert (
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
@@ -123,6 +127,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "after the first-screen check"
     ) in output
     assert output.index("microcosm tour <project>") < output.index(
+        "microcosm tour --card <project>"
+    )
+    assert output.index("microcosm tour --card <project>") < output.index(
         "microcosm status --card <project>"
     )
     assert output.index("microcosm status --card <project>") < output.index(
@@ -1021,6 +1028,48 @@ def test_cli_tour_smoke(
     )
     assert (public_root / payload["tour_ref"]).is_file()
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
+
+
+def test_cli_tour_card_smoke(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
+
+    status = cli.main(["tour", "--card"])
+
+    payload = json.loads(capsys.readouterr().out)
+    encoded = json.dumps(payload, sort_keys=True)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["card_status"] == "clear"
+    assert payload["command"] == "microcosm tour --card <project>"
+    assert payload["source_command"] == "microcosm tour <project>"
+    assert payload["drilldown_command"] == "microcosm tour <project>"
+    assert payload["endpoint"] == "/tour"
+    assert payload["first_screen"]["primary_command"] == "microcosm tour <project>"
+    assert payload["first_screen"]["minimal_step_count"] == 8
+    assert payload["surface_statuses"]["compile"] == "pass"
+    assert payload["surface_statuses"]["proof_lab"] == "pass"
+    assert payload["surface_statuses"]["workingness_card"] == "pass"
+    assert payload["blocking_surface_ids"] == []
+    assert payload["workingness"]["command"] == "microcosm workingness --card"
+    assert payload["output_economy"]["full_route_cards_exported"] is False
+    assert payload["output_economy"]["route_cards_by_id_exported"] is False
+    assert payload["output_economy"]["full_command_path_exported"] is False
+    assert payload["output_economy"]["full_endpoint_path_exported"] is False
+    assert payload["output_economy"]["receipt_persisted"] is False
+    assert "route_cards" not in payload
+    assert "route_cards_by_id" not in payload
+    assert "endpoint_path" not in payload
+    assert "command_path" not in payload
+    assert len(encoded) < 10000
+    assert not (
+        public_root / "receipts/runtime_shell/public_ten_minute_tour.json"
+    ).exists()
 
 
 def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
