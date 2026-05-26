@@ -70,6 +70,23 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "README, CLI, and observatory consumers" in card[
         "entry_surface_contract"
     ]["consumer_rule"]
+    scale_counts = card["scale_frame"]["public_scale_counts"]
+    assert card["scale_frame"]["count_interpretation"] == (
+        "receipt_backed_handles_not_scores"
+    )
+    assert scale_counts["implemented_organs"]["source_ref"] == "core/organ_registry.json"
+    assert scale_counts["implemented_organs"]["count"] > 0
+    assert scale_counts["public_standards"]["source_ref"] == (
+        "core/standards_registry.json"
+    )
+    assert scale_counts["public_standards"]["count"] > 0
+    assert scale_counts["source_open_materials"]["source_ref"] == (
+        "receipts/runtime_shell/workingness_failure_map.json"
+    )
+    assert scale_counts["source_open_materials"]["count"] > 0
+    assert scale_counts["source_open_materials"]["read_as"] == (
+        "copy_boundary_accounting_not_maturity_score"
+    )
     assert card["authority_ceiling"]["release_authority"] is False
     assert card["authority_ceiling"]["source_mutation_authority"] is False
     assert card["authority_ceiling"]["private_data_equivalence_authority"] is False
@@ -84,6 +101,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
+    assert card["validation"]["checks"]["scale_frame"] is True
     assert "body" not in _walk_keys(card)
     assert (
         module.first_screen_composition_card.__module__
@@ -133,7 +151,9 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert text.startswith("Microcosm first screen\n")
     assert "First run: microcosm tour --card ." in text
     assert "A local evidence router, not a maturity brochure" in text
-    assert "Evidence counts are accounting fields" in text
+    assert "Public scale:" in text
+    assert "source-open materials" in text
+    assert "Counts are receipt-backed handles" in text
     assert (
         "Safety/evals: microcosm status --card . -> microcosm authority -> "
         "microcosm workingness"
@@ -180,7 +200,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert f"  Next: {assertions['next']}" in text
         assert "  Focus:\n" in text
         assert "Authority ceiling:" in text
-        assert "Evidence counts are accounting fields" in text
+        assert "Counts are receipt-backed handles" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text

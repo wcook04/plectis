@@ -28,10 +28,53 @@ DENIED_AUTHORITY_KEYS = (
 )
 TEXT_CARD_MAX_LINES = 32
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
+ORGAN_REGISTRY_REF = "core/organ_registry.json"
+STANDARDS_REGISTRY_REF = "core/standards_registry.json"
+WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
     return json.loads((root / STANDARD_REF).read_text(encoding="utf-8"))
+
+
+def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
+    try:
+        payload = json.loads((root / ref).read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    return payload
+
+
+def _collection_count(value: Any) -> int | None:
+    if isinstance(value, (dict, list, tuple)):
+        return len(value)
+    return None
+
+
+def _non_negative_int(value: Any) -> int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int) and value >= 0:
+        return value
+    return None
+
+
+def _first_count(*candidates: int | None) -> int | None:
+    for candidate in candidates:
+        if candidate is not None:
+            return candidate
+    return None
+
+
+def _positive_count(row: Any) -> bool:
+    return (
+        isinstance(row, dict)
+        and isinstance(row.get("count"), int)
+        and not isinstance(row.get("count"), bool)
+        and row["count"] > 0
+    )
 
 
 def _reader_routes(project_label: str) -> list[dict[str, Any]]:
@@ -116,20 +159,89 @@ def _evidence_count_frame() -> dict[str, Any]:
     }
 
 
-def _scale_frame() -> dict[str, Any]:
+def _scale_frame(root: Path) -> dict[str, Any]:
+    organ_registry = _load_public_json(root, ORGAN_REGISTRY_REF)
+    standards_registry = _load_public_json(root, STANDARDS_REGISTRY_REF)
+    workingness_map = _load_public_json(root, WORKINGNESS_MAP_REF)
+    implemented_organ_count = _first_count(
+        _collection_count(organ_registry.get("implemented_organs")),
+        _non_negative_int(workingness_map.get("mapped_organ_count")),
+    )
+    standard_count = _first_count(
+        _non_negative_int(standards_registry.get("standard_count")),
+        _collection_count(standards_registry.get("standards")),
+    )
+    source_open_material_count = _non_negative_int(
+        workingness_map.get("source_open_body_material_count")
+    )
     return {
         "composition_root": (
             "The shared first command is the landing surface; standards, receipts, organs, and "
             "observatory views are drilldowns."
         ),
+        "count_interpretation": "receipt_backed_handles_not_scores",
+        "public_scale_counts": {
+            "implemented_organs": {
+                "count": implemented_organ_count,
+                "source_ref": ORGAN_REGISTRY_REF,
+                "read_as": "accepted_public_inventory_not_release_readiness",
+            },
+            "public_standards": {
+                "count": standard_count,
+                "source_ref": STANDARDS_REGISTRY_REF,
+                "read_as": "standard_inventory_not_completeness_score",
+            },
+            "first_wave_required_standards": {
+                "count": _non_negative_int(
+                    standards_registry.get("first_wave_required_standard_count")
+                ),
+                "source_ref": STANDARDS_REGISTRY_REF,
+                "read_as": "registry_scope_field_not_product_progress",
+            },
+            "mapped_organs": {
+                "count": _non_negative_int(workingness_map.get("mapped_organ_count")),
+                "source_ref": WORKINGNESS_MAP_REF,
+                "read_as": "workingness_map_coverage_not_whole_system_correctness",
+            },
+            "adapter_backed_organs": {
+                "count": _non_negative_int(
+                    workingness_map.get("adapter_backed_organ_count")
+                ),
+                "source_ref": WORKINGNESS_MAP_REF,
+                "read_as": "adapter_presence_not_completeness_or_release_signal",
+            },
+            "source_open_materials": {
+                "count": source_open_material_count,
+                "source_field": "source_open_body_material_count",
+                "source_ref": WORKINGNESS_MAP_REF,
+                "read_as": "copy_boundary_accounting_not_maturity_score",
+            },
+            "rows_with_source_imports": {
+                "count": _non_negative_int(
+                    workingness_map.get("rows_with_source_body_imports")
+                ),
+                "source_field": "rows_with_source_body_imports",
+                "source_ref": WORKINGNESS_MAP_REF,
+                "read_as": "receipt_trace_count_not_claim_strength",
+            },
+        },
+        "count_reader_rule": (
+            "Treat each number as a pointer into a public owner receipt. A low or high count "
+            "does not by itself claim maturity, readiness, completeness, or correctness."
+        ),
         "scale_handles": [
             {
                 "handle": "standards registry",
-                "ref": "core/standards_registry.json",
+                "ref": STANDARDS_REGISTRY_REF,
+            },
+            {
+                "handle": "organ registry",
+                "ref": ORGAN_REGISTRY_REF,
             },
             {
                 "handle": "workingness map",
                 "command": "microcosm workingness",
+                "ref": WORKINGNESS_MAP_REF,
             },
             {
                 "handle": "authority boundary",
@@ -248,6 +360,8 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     }
     authority_ceiling = payload.get("authority_ceiling", {})
     drilldown_text = json.dumps(payload.get("drilldowns", []), sort_keys=True)
+    scale_frame = payload.get("scale_frame", {})
+    scale_counts = scale_frame.get("public_scale_counts", {})
     return {
         "shared_first_command": payload.get("shared_first_command", "").startswith(
             "microcosm tour --card "
@@ -265,7 +379,20 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             payload.get("entry_surface_contract", {}).get("shared_behavior_surface")
             == payload.get("shared_first_command")
         ),
-        "scale_frame": bool(payload.get("scale_frame", {}).get("scale_handles")),
+        "scale_frame": (
+            bool(scale_frame.get("scale_handles"))
+            and scale_frame.get("count_interpretation")
+            == "receipt_backed_handles_not_scores"
+            and all(
+                _positive_count(scale_counts.get(required_count))
+                for required_count in (
+                    "implemented_organs",
+                    "public_standards",
+                    "mapped_organs",
+                    "source_open_materials",
+                )
+            )
+        ),
         "runnable_structural_join": bool(
             payload.get("runnable_structural_join", {}).get("join_rule")
         ),
@@ -293,7 +420,7 @@ def first_screen_composition_card(
         "evidence_count_frame": _evidence_count_frame(),
         "comparison_frame": _comparison_frame(),
         "entry_surface_contract": _entry_surface_contract(project_label),
-        "scale_frame": _scale_frame(),
+        "scale_frame": _scale_frame(root),
         "runnable_structural_join": _runnable_structural_join(project_label),
         "drilldowns": _drilldowns(project_label),
         "omission_receipt": standard["omission_receipt"],
@@ -350,6 +477,17 @@ def _reader_branch_lines(
     ]
 
 
+def _scale_summary_line(payload: dict[str, Any]) -> str:
+    counts = payload["scale_frame"]["public_scale_counts"]
+    organs = counts["implemented_organs"]["count"]
+    standards = counts["public_standards"]["count"]
+    source_open_materials = counts["source_open_materials"]["count"]
+    return (
+        f"  Public scale: {organs} organs, {standards} standards, "
+        f"{source_open_materials} source-open materials."
+    )
+
+
 def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
@@ -362,7 +500,8 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  A local evidence router, not a maturity brochure: one command, then a drilldown.",
         "",
         "Why the counts are honest:",
-        "  Evidence counts are accounting fields, not maturity, readiness, or progress scores.",
+        _scale_summary_line(payload),
+        "  Counts are receipt-backed handles, not maturity, readiness, or progress scores.",
         "",
         *_reader_branch_lines(route_by_id, reader_id),
         "",
@@ -371,8 +510,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
         "",
         "Drilldowns:",
-        "  authority: microcosm authority",
-        "  workingness: microcosm workingness",
+        "  authority/workingness: microcosm authority / microcosm workingness",
         "  route map: paper_modules/cold_reader_route_map.md",
         f"  composition contract: {payload['source_standard_ref']}",
         "",
