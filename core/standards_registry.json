@@ -13,10 +13,10 @@
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },
-  "first_wave_required_standard_count": 80,
+  "first_wave_required_standard_count": 81,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 92,
+  "standard_count": 93,
   "standards": [
     {
       "first_wave_required": true,
@@ -168,6 +168,22 @@
       ],
       "validator_id": null,
       "wave": "w1_evidence_and_formal_witness"
+    },
+    {
+      "first_wave_required": true,
+      "kind_id": "first_screen_composition_root",
+      "kind_name": "First-screen composition root",
+      "path": "standards/std_microcosm_first_screen_composition_root.json",
+      "receipt_id": null,
+      "standard_id": "std_microcosm_first_screen_composition_root",
+      "status": "draft",
+      "used_by_organs": [
+        "cold_reader_route_map",
+        "public_reveal_walkthrough",
+        "runtime_shell"
+      ],
+      "validator_id": null,
+      "wave": "w1_first_screen_composition_root"
     },
     {
       "first_wave_required": true,

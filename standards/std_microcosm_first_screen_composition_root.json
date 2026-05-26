@@ -1,0 +1,203 @@
+{
+  "anti_claim": "The first-screen composition root is a public compression contract only. It does not authorize release, hosted publication, provider calls, source mutation, private-data equivalence, score-based progress, or whole-system correctness.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Every first-screen composition surface must state that it routes attention and evidence order; it is not product maturity, release, or proof authority."
+  },
+  "anti_claims": [
+    "A one-screen card is not a replacement for the full route map, receipts, standards, or workingness drilldowns.",
+    "Evidence counts on the card are accounting fields, not maturity scores.",
+    "Reader branches select what to inspect next; they do not create different authority ceilings for different audiences."
+  ],
+  "authority_boundary": "public_first_screen_composition_contract_not_runtime_or_release_authority",
+  "authority_ceiling": {
+    "count_authority": "evidence_accounting_only_not_maturity_score",
+    "front_door_runtime_authority": false,
+    "private_data_equivalence_authority": false,
+    "provider_call_authority": false,
+    "reader_success_authority": false,
+    "release_authority": false,
+    "score_based_progress_authority": false,
+    "source_mutation_authority": false,
+    "standard_authority": "composition_schema_and_validator_expectation_only",
+    "status": "pass",
+    "whole_system_correctness_authority": false
+  },
+  "first_wave_required": true,
+  "kind_id": "first_screen_composition_root",
+  "kind_name": "First-screen composition root",
+  "omission_receipt": {
+    "drilldown": "paper_modules/first_screen_composition_root.md",
+    "omitted": [
+      "full route-card bodies",
+      "private macro source bodies",
+      "provider payload bodies",
+      "raw seed bodies",
+      "operator thread content",
+      "release or recipient material"
+    ],
+    "reason": "The first screen carries a bounded claim frame, reader branch handles, command refs, evidence-count context, omission handles, and authority ceilings."
+  },
+  "omission_receipt_contract": {
+    "required": true,
+    "rule": "Composition roots must name what deeper drilldowns preserve instead of copying those bodies into the card."
+  },
+  "paper_module_contract": {
+    "module_slug": "first_screen_composition_root",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "public command names",
+      "public-root file refs",
+      "reader route ids",
+      "evidence-class counts",
+      "authority ceilings",
+      "receipt refs",
+      "omission receipts",
+      "localhost endpoint refs"
+    ],
+    "default_posture": "public_safe_when_command_evidence_and_authority_ceiling_backed",
+    "forbidden_public_inputs": [
+      "live_raw_seed",
+      "prompt_shelf_bodies",
+      "provider_payload_bodies",
+      "operator_thread_content",
+      "recipient_or_publication_surfaces",
+      "private_data_equivalence_claims",
+      "secrets",
+      "credential_equivalent_live_access"
+    ]
+  },
+  "receipt_contract": {
+    "must_record": [
+      "composition_root_id",
+      "shared_first_command",
+      "reader_route_ids",
+      "evidence_count_frame",
+      "scale_frame",
+      "runnable_structural_join",
+      "omission_receipt",
+      "authority_ceiling",
+      "anti_claim"
+    ],
+    "receipt_id": "receipt.microcosm.first_screen_composition_root",
+    "required": false
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.first_screen_composition_root",
+    "receipt should cite the shared first command, reader branch ids, evidence-accounting frame, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+  ],
+  "receipt_refs": [],
+  "relationships": {
+    "canonical_runtime_surface_ref": "src/microcosm_core/runtime_shell.py#tour_card",
+    "depends_on_standards": [
+      "std_microcosm_cold_reader_route_map",
+      "std_microcosm_public_reveal_walkthrough",
+      "std_microcosm_observatory_legibility",
+      "std_microcosm_authority_boundary"
+    ],
+    "source_pattern_id_sample": [
+      "profile_governed_compression",
+      "cold_reader_route_map",
+      "authority_boundary_anti_claim",
+      "workingness_record"
+    ],
+    "used_by_organs": [
+      "cold_reader_route_map",
+      "public_reveal_walkthrough",
+      "runtime_shell"
+    ]
+  },
+  "required_fields": [
+    "composition_root_id",
+    "shared_first_command",
+    "reader_routes",
+    "evidence_count_frame",
+    "scale_frame",
+    "runnable_structural_join",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "Composition roots must cite public-root docs, standards, commands, and receipt refs only; dynamic counts must be dated or projected from owner receipts."
+  },
+  "source_refs": [
+    {
+      "field": "paper_modules/first_screen_composition_root.md",
+      "path": "paper_modules/first_screen_composition_root.md",
+      "role": "composition_contract_paper_module"
+    },
+    {
+      "field": "paper_modules/cold_reader_route_map.md",
+      "path": "paper_modules/cold_reader_route_map.md",
+      "role": "reader_route_source"
+    },
+    {
+      "field": "paper_modules/public_reveal_walkthrough.md",
+      "path": "paper_modules/public_reveal_walkthrough.md",
+      "role": "public_reveal_source"
+    },
+    {
+      "field": "standards/std_microcosm_cold_reader_route_map.json",
+      "path": "standards/std_microcosm_cold_reader_route_map.json",
+      "role": "route_map_standard"
+    },
+    {
+      "field": "standards/std_microcosm_observatory_legibility.json",
+      "path": "standards/std_microcosm_observatory_legibility.json",
+      "role": "observatory_standard"
+    }
+  ],
+  "standard_id": "std_microcosm_first_screen_composition_root",
+  "standard_payload": {
+    "anti_purpose": "A marketing hero, command list, or raw JSON dump that makes the reader infer what Microcosm is before seeing the evidence hierarchy.",
+    "compression_bands": [
+      "one_screen_card",
+      "reader_branch_handles",
+      "evidence_accounting_context",
+      "runnable_structural_join",
+      "omission_receipt",
+      "authority_ceiling"
+    ],
+    "failure_modes": [
+      "first screen starts with a long command inventory instead of one shared behavior command",
+      "reader routes diverge before the shared local behavior card",
+      "honest evidence counts are shown without explaining that they are accounting fields rather than maturity scores",
+      "breadth is listed as many topics without a composition root",
+      "runnable demo is shown without naming the larger structural surface it exercises",
+      "doctrine constraints are shown without the failure modes they prevent",
+      "visual or observatory entry claims hosted publication or release authority",
+      "card omits the drilldown path that preserves the deeper route map, receipts, standards, and workingness evidence"
+    ],
+    "ontology": "A one-screen public compression contract that states what Microcosm is, the single shared first command, the reader-specific next branch, the honest evidence-count frame, the runnable-to-structural join, and the authority ceiling.",
+    "rebuild_action": "project_then_validate_when_runtime_consumes",
+    "teleology": "Let a cold reader understand the substrate before choosing a drilldown, without weakening the deeper route map, receipts, standards, or workingness surfaces."
+  },
+  "status": "draft",
+  "validation_rules": [
+    "require exactly one shared first command, `microcosm tour --card <project>`, before reader branching",
+    "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
+    "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
+    "require a runnable-vs-structural join that names both local behavior and larger substrate scale",
+    "require an omission receipt pointing to deeper route maps, receipts, standards, and workingness drilldowns",
+    "reject release, hosting, publication, provider-call, private-equivalence, score-progress, and whole-system-correctness overclaims",
+    "require public-root relative refs or explicit localhost endpoint refs"
+  ],
+  "validator_contract": {
+    "minimum_checks": [
+      "shared_first_command",
+      "reader_route_ids",
+      "evidence_count_frame",
+      "runnable_structural_join",
+      "authority_ceiling",
+      "omission_receipt"
+    ],
+    "required": false,
+    "validator_id": "validator.microcosm.first_screen_composition_root"
+  },
+  "validator_refs": [],
+  "wave": "w1_first_screen_composition_root"
+}

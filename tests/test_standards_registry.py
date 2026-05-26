@@ -104,6 +104,7 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert "std_microcosm_tactic_portfolio_availability_probe" in receipt["checked_standard_ids"]
     assert "std_microcosm_standards_meta_diagnostics" in receipt["checked_standard_ids"]
     assert "std_microcosm_cold_reader_route_map" in receipt["checked_standard_ids"]
+    assert "std_microcosm_first_screen_composition_root" in receipt["checked_standard_ids"]
     assert "std_microcosm_provider_context_recipe_budget_policy" in receipt["checked_standard_ids"]
     assert "std_microcosm_observatory_legibility" in receipt["checked_standard_ids"]
     assert receipt["duplicate_standard_ids"] == []
@@ -169,6 +170,39 @@ def test_authority_boundary_manifest_demotes_overread_claims() -> None:
         for rule in standard["validation_rules"]
     )
     assert any("complete secret audit" in claim for claim in standard["anti_claims"])
+
+
+def test_first_screen_composition_root_demotes_evidence_counts_to_accounting() -> None:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/standards_registry.json").read_text(encoding="utf-8")
+    )
+    standard = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "standards/std_microcosm_first_screen_composition_root.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    rows = {
+        str(row.get("standard_id")): row
+        for row in registry.get("standards", [])
+        if isinstance(row, dict)
+    }
+    row = rows["std_microcosm_first_screen_composition_root"]
+
+    assert row["kind_id"] == "first_screen_composition_root"
+    assert row["path"] == "standards/std_microcosm_first_screen_composition_root.json"
+    assert "cold_reader_route_map" in row["used_by_organs"]
+    assert "public_reveal_walkthrough" in row["used_by_organs"]
+    assert standard["authority_ceiling"]["count_authority"] == (
+        "evidence_accounting_only_not_maturity_score"
+    )
+    assert standard["authority_ceiling"]["score_based_progress_authority"] is False
+    assert standard["authority_ceiling"]["release_authority"] is False
+    assert standard["authority_ceiling"]["reader_success_authority"] is False
+    assert "microcosm tour --card <project>" in standard["validation_rules"][0]
+    assert any("accounting" in claim for claim in standard["anti_claims"])
+    assert "first_screen_composition_root" in standard["paper_module_contract"]["module_slug"]
 
 
 def test_standards_registry_rejects_duplicate_standard_ids(tmp_path: Path) -> None:

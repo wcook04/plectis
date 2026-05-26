@@ -28,6 +28,7 @@
       "spatial_world_model_counterfactual_simulation_replay",
       "mechanistic_interpretability_circuit_attribution_replay",
       "agent_route_observability_runtime",
+      "bridge_phase_continuity_runtime",
       "pattern_assimilation_step",
       "public_reveal_walkthrough",
       "macro_projection_import_protocol",
@@ -55,19 +56,24 @@
     "status": "pass",
     "unexpected_accepted_organs": []
   },
-  "anti_claim": "Standards-registry validation proves only source-available standard file shape and first-wave acceptance-plan consistency; it does not authorize Lean/Lake beyond the bounded public witness fixture, trading or financial advice, release, hosted deployment, publication, recipient work, credentialed provider calls, or secret export.",
+  "anti_claim": "Standards-registry validation proves only source-available standard file shape and first-wave acceptance-plan consistency. Standard counts and first-wave-required rows are inventory fields only, not completeness, readiness, maturity, or score-based progress; it does not authorize Lean/Lake beyond the bounded public witness fixture, trading or financial advice, release, hosted deployment, publication, recipient work, credentialed provider calls, or secret export.",
   "authority_ceiling": {
+    "count_authority": "inventory_only_not_completeness_readiness_maturity_or_product_progress",
+    "first_wave_required_count_is_product_progress": false,
     "lean_lake_authorized": "bounded_public_witness_only",
     "private_data_equivalence_authorized": false,
     "registry_authority": "public_standards_index_and_acceptance_plan_only",
     "release_authorized": false,
+    "score_based_progress_authority": false,
     "source_authority_above_macro_contracts": false,
+    "standard_count_is_completeness_or_readiness": false,
     "status": "pass",
     "trading_or_financial_advice_authorized": false
   },
-  "checked_standard_count": 91,
+  "checked_standard_count": 93,
   "checked_standard_ids": [
     "std_microcosm_agent_trace",
+    "std_microcosm_agent_route_observability_runtime",
     "std_microcosm_anti_claim",
     "std_microcosm_anti_principle",
     "std_microcosm_atlas_route",
@@ -76,6 +82,7 @@
     "std_microcosm_cap",
     "std_microcosm_claim",
     "std_microcosm_cold_clone_probe",
+    "std_microcosm_first_screen_composition_root",
     "std_microcosm_compression_band",
     "std_microcosm_concept",
     "std_microcosm_continuation_packet",
@@ -170,9 +177,10 @@
     "core/standards_registry.json",
     "core/acceptance/first_wave_acceptance.json"
   ],
-  "registry_declared_standard_count": 91,
+  "registry_declared_standard_count": 93,
   "schema_version": "standards_registry_validation_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -184,11 +192,20 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 93,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 95,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "standard_count": 91,
+  "standard_count": 93,
   "status": "pass",
   "validator_id": "validator.microcosm.validators.standards_registry"
 }
