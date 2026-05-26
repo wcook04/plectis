@@ -153,6 +153,9 @@ ARTIFACT_PROJECTION_DEBT_MANIFEST = (
 NAVIGATION_TRACE_MANIFEST = (
     BUNDLE_INPUT / "navigation_trace_source_module_manifest.json"
 )
+GENERATED_PROJECTION_CONTROL_MANIFEST = (
+    BUNDLE_INPUT / "generated_projection_control_source_module_manifest.json"
+)
 FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
     BUNDLE_INPUT / "formal_math_proofline_spine_source_module_manifest.json"
 )
@@ -2891,6 +2894,65 @@ def test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract()
         "public_runtime_policy"
     ]
     assert "live navigation trace event bodies" in manifest[
+        "secret_exclusion_boundary"
+    ]
+
+
+def test_generated_projection_control_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        GENERATED_PROJECTION_CONTROL_MANIFEST,
+        manifest_id="generated_projection_control_source_modules_import",
+        module_count=4,
+    )
+
+
+def test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary() -> None:
+    registry_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/generated_projection_registry.py"
+    )
+    drainer_source = (
+        BUNDLE_INPUT / "source_modules/system/lib/generated_state_drainer.py"
+    )
+    drainer_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/test_generated_state_drainer.py"
+    )
+    cli_compact_test = (
+        BUNDLE_INPUT
+        / "source_modules/system/server/tests/"
+        "test_generated_state_drainer_cli_compact.py"
+    )
+    manifest = json.loads(
+        GENERATED_PROJECTION_CONTROL_MANIFEST.read_text(encoding="utf-8")
+    )
+
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "py_compile",
+            str(registry_source),
+            str(drainer_source),
+            str(drainer_test),
+            str(cli_compact_test),
+        ],
+        check=True,
+    )
+
+    registry_text = registry_source.read_text(encoding="utf-8")
+    drainer_text = drainer_source.read_text(encoding="utf-8")
+    cli_text = cli_compact_test.read_text(encoding="utf-8")
+
+    assert "manual_edit_boundary" in registry_text
+    assert "def projection_registry_payload()" in registry_text
+    assert "generated_projection_registry.get_projection_owner" in drainer_text
+    assert "def build_generated_projection_settlement_plan(" in drainer_text
+    assert "generated_state_drainer_status_compact_v0" in cli_text
+    assert "dirty_generated_paths_omission_receipt" in cli_text
+    assert "not authority to mutate generated state" in manifest[
+        "public_runtime_policy"
+    ]
+    assert "generated projection output bodies" in manifest[
         "secret_exclusion_boundary"
     ]
 

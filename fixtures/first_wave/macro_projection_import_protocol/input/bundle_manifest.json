@@ -34,7 +34,8 @@
     "bridge_runtime_continuity_source_module_manifest.json",
     "formal_math_proofline_spine_source_module_manifest.json",
     "standard_option_surface_source_module_manifest.json",
-    "navigation_trace_source_module_manifest.json"
+    "navigation_trace_source_module_manifest.json",
+    "generated_projection_control_source_module_manifest.json"
   ],
   "authority_ceiling": {
     "release_authorized": false,

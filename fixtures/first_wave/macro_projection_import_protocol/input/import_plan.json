@@ -2385,6 +2385,48 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_trace_sources_compile_and_preserve_trace_boundary_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_trace_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "authority_ceiling": "verified_public_generated_projection_control_source_modules_not_generated_projection_output_authority_live_ledger_mutation_provider_payload_export_browser_hud_account_session_or_release_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "generated_projection_control_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "generated_projection_registry_body_import",
+        "generated_state_drainer_body_import",
+        "generated_state_drainer_test_body_import",
+        "generated_state_drainer_cli_compact_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "generated_projection_registry",
+        "generated_state_drainer",
+        "owner_directed_projection_settlement"
+      ],
+      "source_refs": [
+        "system/lib/generated_projection_registry.py",
+        "system/lib/generated_state_drainer.py",
+        "system/server/tests/test_generated_state_drainer.py",
+        "system/server/tests/test_generated_state_drainer_cli_compact.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/generated_projection_control_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_projection_registry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_state_drainer.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_generated_state_drainer_cli_compact.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/generated_projection_control_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "schema_version": "macro_projection_import_plan_fixture_v1"
