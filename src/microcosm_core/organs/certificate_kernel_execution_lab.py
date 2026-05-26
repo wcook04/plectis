@@ -41,6 +41,7 @@ ACCEPTANCE_RECEIPT_REL = (
 BUNDLE_RESULT_NAME = (
     "exported_certificate_kernel_execution_lab_bundle_validation_result.json"
 )
+CARD_SCHEMA_VERSION = "certificate_kernel_execution_lab_command_card_v1"
 
 NEGATIVE_INPUT_NAMES = (
     "transition_provider_oracle_visible.json",
@@ -269,6 +270,201 @@ def _load_json_if_exists(path: Path) -> dict[str, Any]:
         return {}
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
+
+
+def _output_dir(path: str | Path) -> Path:
+    target = Path(path)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    return target
+
+
+def _safe_ref(path: Path, *, public_root: Path, fallback: str) -> str:
+    resolved_root = public_root.resolve(strict=False)
+    resolved_path = path.resolve(strict=False)
+    if _path_is_relative_to(resolved_path, resolved_root):
+        return _display(resolved_path, public_root=resolved_root)
+    return fallback
+
+
+def _receipt_freshness(
+    input_dir: Path,
+    receipt_path: Path,
+    *,
+    include_negative: bool,
+) -> dict[str, Any]:
+    input_paths = [
+        path
+        for path in _input_paths(input_dir, include_negative=include_negative)
+        if path.is_file()
+    ]
+    receipt_exists = receipt_path.is_file()
+    input_mtime = max((path.stat().st_mtime for path in input_paths), default=None)
+    receipt_mtime = receipt_path.stat().st_mtime if receipt_exists else None
+    if not receipt_exists:
+        status = "missing"
+    elif (
+        input_mtime is not None
+        and receipt_mtime is not None
+        and input_mtime > receipt_mtime
+    ):
+        status = "stale"
+    else:
+        status = "current"
+    return {
+        "status": status,
+        "receipt_exists": receipt_exists,
+        "tracked_input_count": len(input_paths),
+        "receipt_mtime": receipt_mtime,
+        "newest_input_mtime": input_mtime,
+    }
+
+
+def _certificate_kernel_execution_card(
+    payload: dict[str, Any],
+    *,
+    action: str,
+    input_dir: str | Path,
+    out_dir: str | Path,
+    receipt_name: str,
+    cached_receipt_used: bool,
+    freshness: dict[str, Any],
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    public_root = _public_root_for_path(input_path)
+    receipt_path = _output_dir(out_dir) / receipt_name
+    counters = payload.get("authority_counters", {})
+    if not isinstance(counters, dict):
+        counters = {}
+    secret_scan = payload.get("secret_exclusion_scan", {})
+    if not isinstance(secret_scan, dict):
+        secret_scan = {}
+    tool_versions = payload.get("tool_versions", {})
+    if not isinstance(tool_versions, dict):
+        tool_versions = {}
+    lake_build = payload.get("lake_project_build", {})
+    if not isinstance(lake_build, dict):
+        lake_build = {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "card_id": "certificate_kernel_execution_lab_command_card",
+        "status": payload.get("status", "blocked"),
+        "organ_id": ORGAN_ID,
+        "command": (
+            "python -m microcosm_core.organs.certificate_kernel_execution_lab "
+            f"{action} --card --input <certificate-kernel-input> "
+            "--out <certificate-kernel-out>"
+        ),
+        "drilldown_command": (
+            "python -m microcosm_core.organs.certificate_kernel_execution_lab "
+            f"{action} --input <certificate-kernel-input> "
+            "--out <certificate-kernel-out>"
+        ),
+        "input_mode": payload.get("input_mode"),
+        "bundle_id": payload.get("bundle_id"),
+        "certificate_lab_id": payload.get("certificate_lab_id"),
+        "certificate_manifest_id": payload.get("certificate_manifest_id"),
+        "cached_receipt_used": cached_receipt_used,
+        "cache_status": "current" if cached_receipt_used else "refreshed",
+        "cache_freshness": freshness,
+        "receipt_ref": _safe_ref(
+            receipt_path,
+            public_root=public_root,
+            fallback=f"<certificate-kernel-out>/{receipt_name}",
+        ),
+        "authority_counters": {
+            "transition_count": counters.get("transition_count", 0),
+            "accepted_transition_count": counters.get("accepted_transition_count", 0),
+            "residual_transition_count": counters.get("residual_transition_count", 0),
+            "cp2_downstream_effect_count": counters.get("cp2_downstream_effect_count", 0),
+            "evolve_accepted_count": counters.get("evolve_accepted_count", 0),
+            "analyzed_declaration_count": counters.get("analyzed_declaration_count", 0),
+            "oracle_forward_success_increment_count": counters.get(
+                "oracle_forward_success_increment_count", 0
+            ),
+            "provider_results_counted": counters.get("provider_results_counted", 0),
+            "proof_body_export_count": counters.get("proof_body_export_count", 0),
+            "source_mutation_count": counters.get("source_mutation_count", 0),
+            "macro_private_body_import_count": counters.get(
+                "macro_private_body_import_count", 0
+            ),
+        },
+        "runtime_summary": {
+            "lean_available": tool_versions.get("lean_available"),
+            "lake_available": tool_versions.get("lake_available"),
+            "lake_return_code": lake_build.get("return_code"),
+            "secret_scan_status": secret_scan.get("status"),
+            "secret_scan_blocking_hit_count": secret_scan.get("blocking_hit_count"),
+            "body_in_receipt": payload.get("body_in_receipt", False),
+            "real_runtime_receipt": payload.get("real_runtime_receipt", False),
+        },
+        "authority_ceiling": payload.get("authority_ceiling", AUTHORITY_CEILING),
+        "anti_claim": payload.get("anti_claim", ANTI_CLAIM),
+        "output_economy": {
+            "full_transition_trace_exported": False,
+            "claim_separation_rows_exported": False,
+            "lake_build_stdout_exported": False,
+            "lean_file_declaration_rows_exported": False,
+            "provider_oracle_payloads_exported": False,
+            "proof_bodies_exported": False,
+            "source_mutations_exported": False,
+            "full_payload_drilldown": "rerun without --card",
+        },
+    }
+
+
+def certificate_kernel_execution_card(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    *,
+    action: str,
+    include_negative: bool,
+    receipt_name: str,
+    acceptance_out: str | Path | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    receipt_path = _output_dir(out_dir) / receipt_name
+    freshness = _receipt_freshness(
+        input_path,
+        receipt_path,
+        include_negative=include_negative,
+    )
+    if freshness["status"] == "current":
+        payload = _load_json_if_exists(receipt_path)
+        return _certificate_kernel_execution_card(
+            payload,
+            action=action,
+            input_dir=input_dir,
+            out_dir=out_dir,
+            receipt_name=receipt_name,
+            cached_receipt_used=True,
+            freshness=freshness,
+        )
+    command = (
+        "python -m microcosm_core.organs.certificate_kernel_execution_lab "
+        f"{action} --card --input {input_dir} --out {out_dir}"
+    )
+    if action == "run":
+        payload = run(
+            input_dir,
+            out_dir,
+            command=command,
+            acceptance_out=acceptance_out,
+        )
+    else:
+        payload = run_certificate_bundle(input_dir, out_dir, command=command)
+    refreshed = dict(freshness)
+    refreshed["status_before_refresh"] = freshness["status"]
+    refreshed["status"] = "current"
+    return _certificate_kernel_execution_card(
+        payload,
+        action=action,
+        input_dir=input_dir,
+        out_dir=out_dir,
+        receipt_name=receipt_name,
+        cached_receipt_used=False,
+        freshness=refreshed,
+    )
 
 
 def _sha256(path: Path) -> str:
@@ -1535,15 +1731,39 @@ def main(argv: list[str] | None = None) -> int:
         action_parser.add_argument("--input", required=True)
         action_parser.add_argument("--out", required=True)
         action_parser.add_argument("--acceptance-out")
+        action_parser.add_argument(
+            "--card",
+            action="store_true",
+            help="Emit a compact command-speed card; reuse a current receipt when present.",
+        )
     readout_parser = subparsers.add_parser("readout")
     readout_parser.add_argument("--public-root", default="microcosm-substrate")
     readout_parser.add_argument("--receipt-dir")
     readout_parser.add_argument("--out")
     args = parser.parse_args(argv)
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        if args.card:
+            result = certificate_kernel_execution_card(
+                args.input,
+                args.out,
+                action="run",
+                include_negative=True,
+                receipt_name=RESULT_NAME,
+                acceptance_out=args.acceptance_out,
+            )
+        else:
+            result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     elif args.action == "run-certificate-bundle":
-        result = run_certificate_bundle(args.input, args.out)
+        if args.card:
+            result = certificate_kernel_execution_card(
+                args.input,
+                args.out,
+                action="run-certificate-bundle",
+                include_negative=False,
+                receipt_name=BUNDLE_RESULT_NAME,
+            )
+        else:
+            result = run_certificate_bundle(args.input, args.out)
     else:
         result = build_public_readout(
             args.public_root,

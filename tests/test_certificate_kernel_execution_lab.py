@@ -4,7 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.certificate_kernel_execution_lab as certificate_lab
 from microcosm_core.organs.certificate_kernel_execution_lab import (
+    BUNDLE_RESULT_NAME,
     EXPECTED_NEGATIVE_CASES,
     build_public_readout,
     run,
@@ -135,6 +137,98 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
         )
         for ref in result["public_runtime_refs"]
     )
+
+
+def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+    capsys: Any,
+) -> None:
+    out_dir = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/certificate_kernel_execution_lab"
+    )
+    out_dir.mkdir(parents=True)
+    receipt_path = out_dir / BUNDLE_RESULT_NAME
+    receipt_path.write_text(
+        json.dumps(
+            {
+                "schema_version": (
+                    "exported_certificate_kernel_execution_lab_bundle_validation_result_v1"
+                ),
+                "status": "pass",
+                "organ_id": "certificate_kernel_execution_lab",
+                "command": "pytest",
+                "input_mode": "exported_certificate_kernel_execution_lab_bundle",
+                "bundle_id": "public_certificate_kernel_execution_lab_runtime_example",
+                "certificate_lab_id": "public_certificate_kernel_execution_lab",
+                "certificate_manifest_id": "public_certificate_kernel_manifest",
+                "authority_counters": {
+                    "transition_count": 10,
+                    "accepted_transition_count": 7,
+                    "residual_transition_count": 3,
+                    "cp2_downstream_effect_count": 2,
+                    "evolve_accepted_count": 2,
+                    "analyzed_declaration_count": 23,
+                    "oracle_forward_success_increment_count": 0,
+                    "provider_results_counted": 0,
+                    "proof_body_export_count": 0,
+                    "source_mutation_count": 0,
+                    "macro_private_body_import_count": 0,
+                },
+                "secret_exclusion_scan": {
+                    "status": "pass",
+                    "blocking_hit_count": 0,
+                    "body_in_receipt": False,
+                },
+                "tool_versions": {"lean_available": True, "lake_available": True},
+                "lake_project_build": {"return_code": 0},
+                "authority_ceiling": {"formal_prover_execution_authorized": False},
+                "anti_claim": "receipt-only cached card",
+                "body_in_receipt": False,
+                "real_runtime_receipt": True,
+                "synthetic_receipt_standin_allowed": False,
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_build_result(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("cached certificate-kernel card must not rerun validation")
+
+    monkeypatch.setattr(certificate_lab, "_build_result", fail_build_result)
+
+    status = certificate_lab.main(
+        [
+            "run-certificate-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE),
+            "--out",
+            str(out_dir),
+            "--card",
+        ]
+    )
+
+    assert status == 0
+    payload = json.loads(capsys.readouterr().out)
+    encoded = json.dumps(payload, sort_keys=True)
+    assert payload["schema_version"] == "certificate_kernel_execution_lab_command_card_v1"
+    assert payload["cached_receipt_used"] is True
+    assert payload["cache_status"] == "current"
+    assert payload["cache_freshness"]["tracked_input_count"] >= 3
+    assert payload["authority_counters"]["accepted_transition_count"] == 7
+    assert payload["runtime_summary"]["lake_return_code"] == 0
+    assert payload["output_economy"]["full_transition_trace_exported"] is False
+    assert payload["output_economy"]["claim_separation_rows_exported"] is False
+    assert len(encoded.encode("utf-8")) < 3600
+    assert "transition_trace" not in payload
+    assert "claim_separation" not in payload
+    assert "proof_body" not in _walk_keys(payload)
+    assert "provider_text" not in _walk_keys(payload)
+    assert str(tmp_path) not in encoded
+    assert "/Users/" not in encoded
 
 
 def test_certificate_kernel_execution_lab_receipts_are_transparent_without_bodies(
