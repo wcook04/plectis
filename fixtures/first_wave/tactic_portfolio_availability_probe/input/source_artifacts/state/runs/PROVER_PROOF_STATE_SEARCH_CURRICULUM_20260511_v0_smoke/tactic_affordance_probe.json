@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-05-11T19:04:36Z",
+  "lake_available": true,
+  "lake_version_exit_code": 0,
+  "lake_version_stderr": "",
+  "lake_version_stdout": "Lake version 5.0.0-src+f72c35b (Lean version 4.29.1)",
+  "lean_available": true,
+  "lean_version_exit_code": 0,
+  "lean_version_stderr": "",
+  "lean_version_stdout": "Lean (version 4.29.1, arm64-apple-darwin24.6.0, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+  "mathlib": {
+    "available": false,
+    "direct_mathlib_lane_available": false,
+    "duration_ms": 2163,
+    "error_class": "ENVIRONMENT_FAIL",
+    "lake_project_mathlib_lane_available": false,
+    "lean_status": "FAIL",
+    "mathlib_available": false,
+    "probe_path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+    "stderr_excerpt": "",
+    "stdout_excerpt": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean:1:0: error: unknown module prefix 'Mathlib'\n\nNo directory 'Mathlib' or file 'Mathlib.olean' in the search path entries:\n/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/lib/lean\n"
+  },
+  "mathlib_lake_project": null,
+  "portfolio_core_v0": {
+    "available_tactic_ids": [
+      "rfl",
+      "decide",
+      "native_decide",
+      "omega",
+      "simp",
+      "simp_all",
+      "grind"
+    ],
+    "imports": [
+      "Std"
+    ],
+    "portfolio_id": "portfolio_core_v0",
+    "rows": [
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 8852,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "rfl"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 1971,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "decide"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 1994,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "native_decide"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 2567,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "omega"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 2081,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "simp"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 3685,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "simp_all"
+      },
+      {
+        "available": false,
+        "compile_status": "FAIL",
+        "duration_ms": 5968,
+        "error_class": "TACTIC_SEARCH_FAIL",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "aesop"
+      },
+      {
+        "available": true,
+        "compile_status": "PASS",
+        "duration_ms": 3797,
+        "error_class": "NONE",
+        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+        "stderr_excerpt": "",
+        "tactic_id": "grind"
+      }
+    ],
+    "schema_version": "tactic_portfolio_availability_v0",
+    "unavailable_tactic_ids": [
+      "aesop"
+    ]
+  },
+  "run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
+  "schema_version": "tactic_affordance_probe_v0",
+  "trace_state": {
+    "available": true,
+    "duration_ms": 3430,
+    "error_class": "NONE",
+    "lean_status": "PASS",
+    "probe_path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
+    "stderr_excerpt": "",
+    "stdout_excerpt": "p q : Prop\nhp : p\n\u22a2 q \u2192 p \u2227 q\n/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean:3:0: warning: declaration uses `sorry`\n"
+  }
+}

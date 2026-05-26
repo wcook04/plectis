@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -20,6 +21,10 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle"
 )
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -73,9 +78,17 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     assert result["probe_source_body_status"] == (
         "copied_non_secret_lean_probe_source_bodies_with_digest_verification"
     )
-    assert result["source_artifact_count"] == 10
-    assert result["copied_source_artifact_count"] == 10
+    assert result["source_artifact_count"] == 13
+    assert result["copied_source_artifact_count"] == 13
+    assert result["source_body_artifact_count"] == 3
+    assert result["copied_source_body_artifact_count"] == 3
     assert all(row["body_copied"] for row in result["source_artifact_imports"])
+    assert any(
+        row["source_ref"]
+        == "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
+        and row["body_copied"]
+        for row in result["source_artifact_imports"]
+    )
     assert result["probe_source_digest_refs"][
         "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean"
     ] == "sha256:2d2b1800deb875c660693bd87af0715752316132da8a747c13487577feddc696"
@@ -124,8 +137,10 @@ def test_tactic_portfolio_availability_receipts_are_public_relative_and_real_sub
         assert payload["body_material_status"] == (
             "copied_non_secret_macro_body_with_provenance"
         )
-        assert payload["source_artifact_count"] == 10
-        assert payload["copied_source_artifact_count"] == 10
+        assert payload["source_artifact_count"] == 13
+        assert payload["copied_source_artifact_count"] == 13
+        assert payload["source_body_artifact_count"] == 3
+        assert payload["copied_source_body_artifact_count"] == 3
         assert all(row["body_copied"] for row in payload["source_artifact_imports"])
         assert payload["body_in_receipt"] is False
         assert "private_state_scan" not in payload
@@ -163,8 +178,10 @@ def test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape(
     assert result["tactic_availability_status"] == (
         "real_lean_std_tactic_affordance_probe_rows"
     )
-    assert result["source_artifact_count"] == 10
-    assert result["copied_source_artifact_count"] == 10
+    assert result["source_artifact_count"] == 13
+    assert result["copied_source_artifact_count"] == 13
+    assert result["source_body_artifact_count"] == 3
+    assert result["copied_source_body_artifact_count"] == 3
     assert all(row["body_copied"] for row in result["source_artifact_imports"])
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["receipt_paths"] == [
@@ -174,3 +191,23 @@ def test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape(
             "exported_tactic_portfolio_availability_bundle_validation_result.json"
         )
     ]
+
+
+def test_tactic_portfolio_availability_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads((EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 13
+    assert len(manifest["modules"]) == 13
+
+    repo_root = MICROCOSM_ROOT.parent
+    for module in manifest["modules"]:
+        source = repo_root / module["source_ref"]
+        target = repo_root / module["target_ref"]
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == module["sha256"]
+        assert _sha256(target) == module["sha256"]
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False

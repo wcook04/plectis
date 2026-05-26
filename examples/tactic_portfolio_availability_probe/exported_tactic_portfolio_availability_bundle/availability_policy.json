@@ -1,18 +1,34 @@
 {
   "schema_version": "tactic_portfolio_availability_policy_v1",
   "policy_id": "public_tactic_portfolio_availability_policy",
-  "required_row_fields": ["tactic_id", "compile_status", "environment", "requires_mathlib"],
-  "pass_statuses": ["compile_pass", "available", "pass"],
-  "fail_statuses": ["environment_fail", "compile_fail", "unavailable"],
+  "required_row_fields": [
+    "tactic_id",
+    "compile_status",
+    "environment",
+    "requires_mathlib"
+  ],
+  "pass_statuses": [
+    "compile_pass",
+    "available",
+    "pass"
+  ],
+  "fail_statuses": [
+    "environment_fail",
+    "compile_fail",
+    "unavailable"
+  ],
   "mathlib_dependent_tactics_require_passing_mathlib_probe": true,
   "private_theorem_proof_bodies_allowed": false,
   "public_lean_probe_source_bodies_allowed": true,
-  "source_artifact_count_required": 10,
+  "source_artifact_count_required": 13,
   "source_artifact_digest_verification_required": true,
   "provider_payloads_allowed": false,
   "release_authorized": false,
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
-  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows"
+  "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
+  "source_module_manifest_required": true,
+  "macro_run_json_source_bodies_allowed": true,
+  "source_body_status": "copied_non_secret_macro_run_json_bodies_with_digest_verification"
 }

@@ -1,0 +1,93 @@
+{
+  "available_tactic_ids": [
+    "rfl",
+    "decide",
+    "native_decide",
+    "omega",
+    "simp",
+    "simp_all",
+    "grind"
+  ],
+  "imports": [
+    "Std"
+  ],
+  "portfolio_id": "portfolio_core_v0",
+  "rows": [
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 8852,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "rfl"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 1971,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "decide"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 1994,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "native_decide"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 2567,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "omega"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 2081,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "simp"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 3685,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "simp_all"
+    },
+    {
+      "available": false,
+      "compile_status": "FAIL",
+      "duration_ms": 5968,
+      "error_class": "TACTIC_SEARCH_FAIL",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "aesop"
+    },
+    {
+      "available": true,
+      "compile_status": "PASS",
+      "duration_ms": 3797,
+      "error_class": "NONE",
+      "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+      "stderr_excerpt": "",
+      "tactic_id": "grind"
+    }
+  ],
+  "schema_version": "tactic_portfolio_availability_v0",
+  "unavailable_tactic_ids": [
+    "aesop"
+  ]
+}

@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 6,
+  "rows_with_source_body_imports": 7,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 44,
+  "source_open_body_material_count": 57,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 6,
-    "source_open_body_material_count": 44,
+    "rows_with_source_body_imports": 7,
+    "source_open_body_material_count": 57,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -929,7 +929,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 8,
+      "failure_mode_count": 11,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
@@ -946,7 +946,10 @@
         "consumer references a tactic absent from the declared portfolio",
         "private theorem proof body or provider payload appears in public output",
         "availability row upgraded into theorem proof or benchmark authority",
-        "release or provider-call authority implied by an environment-scoped probe"
+        "release or provider-call authority implied by an environment-scoped probe",
+        "copied tactic-affordance macro JSON run body missing from public bundle",
+        "copied tactic-affordance macro JSON run body digest differs from macro source",
+        "source module manifest omits a copied tactic-affordance body import"
       ],
       "needs_to_work": {
         "anti_purpose": "Treating availability rows, copied tactic probes, or Mathlib absence as theorem proof authority, benchmark performance, or release authority.",
@@ -978,7 +981,7 @@
         "standard_ref": "standards/std_microcosm_tactic_portfolio_availability_probe.json",
         "standard_status": "accepted_public_runtime_standard",
         "teleology": "Let a cold reader inspect the actual public-safe Lean source that produced the tactic availability rows before relying on the normalized portfolio projection.",
-        "validation_rule_count": 5
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -995,7 +998,49 @@
           "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+          "authority_ceiling": {
+            "benchmark_performance_authority": false,
+            "body_text_in_receipt": false,
+            "formal_proof_authority": false,
+            "lean_lake_execution_authorized": false,
+            "private_theorem_proof_body_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 13,
+          "body_material_ids": [
+            "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
+            "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+            "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import"
+          ],
+          "body_material_status": "copied_non_secret_PROVER_smoke_run_tactic_affordance_probe_bodies_with_digest_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/tactic_portfolio_availability_probe.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Run microcosm workingness and the tactic_portfolio_availability_probe exported-bundle validator to inspect the copied PROVER smoke-run tactic affordance body floor.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json",
+            "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.tactic_portfolio_availability_probe run --input fixtures/first_wave/tactic_portfolio_availability_probe/input --out receipts/first_wave/tactic_portfolio_availability_probe",
         "verdict_source": "derived_projection_metric"
@@ -1003,7 +1048,49 @@
       "ordinal": 7,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+        "authority_ceiling": {
+          "benchmark_performance_authority": false,
+          "body_text_in_receipt": false,
+          "formal_proof_authority": false,
+          "lean_lake_execution_authorized": false,
+          "private_theorem_proof_body_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 13,
+        "body_material_ids": [
+          "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
+          "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_all_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+          "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import"
+        ],
+        "body_material_status": "copied_non_secret_PROVER_smoke_run_tactic_affordance_probe_bodies_with_digest_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/tactic_portfolio_availability_probe.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Run microcosm workingness and the tactic_portfolio_availability_probe exported-bundle validator to inspect the copied PROVER smoke-run tactic affordance body floor.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_module_manifest.json",
+          "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/bundle_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_tactic_portfolio_availability_probe.json",
         "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
