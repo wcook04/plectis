@@ -12470,6 +12470,77 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_projection_loss_audit_source_compiles_and_preserves_read_only_boundary",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_projection_loss_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "material_id": "semantic_route_quality_audit_body_import",
+      "material_class": "public_macro_tool_body",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "credential_exposure_risk": "low",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_ref": "tools/meta/control/semantic_route_quality_audit.py",
+      "source_refs": [
+        "tools/meta/control/semantic_route_quality_audit.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+      "body_digest": "sha256:e6f5d99a9855fa8e6b6b5a224cb718e84cb984d1075df747d206d911c0a15e2d",
+      "body_line_count": 517,
+      "body_import_verification": {
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified",
+        "source_to_target_relation": "exact_copy",
+        "source_ref": "tools/meta/control/semantic_route_quality_audit.py",
+        "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+        "source_body_digest": "sha256:e6f5d99a9855fa8e6b6b5a224cb718e84cb984d1075df747d206d911c0a15e2d",
+        "target_body_digest": "sha256:e6f5d99a9855fa8e6b6b5a224cb718e84cb984d1075df747d206d911c0a15e2d",
+        "source_line_count": 517,
+        "target_line_count": 517,
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and_route_mutation_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_route_quality_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ]
+      },
+      "claim_ceiling": "public semantic-route-quality audit source body import only; not live provider execution, provider payload export, route graph direct mutation, route evidence append outside governed macro runtime, prompt/operator thread body export, account/session state, browser/HUD live access, credential export, recipient send, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, or hosted authority",
+      "authority_ceiling": {
+        "release_authorized": false,
+        "private_data_equivalence_claim": false,
+        "source_authority_above_macro_contracts": false,
+        "live_macro_source_authority": false,
+        "live_route_graph_mutation_authorized": false,
+        "route_evidence_append_authorized": false,
+        "live_task_ledger_mutation_authorized": false,
+        "live_work_ledger_mutation_authorized": false,
+        "live_provider_execution_authorized": false,
+        "provider_payload_export_authorized": false,
+        "operator_thread_body_export_authorized": false,
+        "browser_hud_live_access_authorized": false,
+        "account_session_state_authorized": false,
+        "credential_export_authorized": false,
+        "recipient_work_authorized": false,
+        "whole_system_correctness_claim": false
+      },
+      "applied_edits": [
+        "exact_copy_semantic_route_quality_audit_source_body_into_public_projection_bundle",
+        "bind_semantic_route_quality_audit_body_to_macro_projection_body_floor",
+        "preserve_no_provider_payload_live_provider_browser_hud_account_session_prompt_body_route_graph_direct_mutation_route_evidence_append_or_credential_authority_ceiling"
+      ],
+      "provenance_refs": [
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json",
+        "codex/doctrine/paper_modules/semantic_routing_plane.md",
+        "codex/doctrine/paper_modules/route_worker_benchmark_discovery_loop.md",
+        "codex/doctrine/paper_modules/tools_meta_control_index.md",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and_route_mutation_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_route_quality_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [

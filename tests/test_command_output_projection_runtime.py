@@ -47,6 +47,9 @@ ROUTE_DISCOVERY_CONFIRMATION_MANIFEST = (
 PROJECTION_LOSS_AUDIT_MANIFEST = (
     BUNDLE_INPUT / "projection_loss_audit_source_module_manifest.json"
 )
+SEMANTIC_ROUTE_QUALITY_AUDIT_MANIFEST = (
+    BUNDLE_INPUT / "semantic_route_quality_audit_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -947,6 +950,81 @@ def test_projection_loss_audit_source_compiles_and_preserves_read_only_boundary(
     assert "mutate route graphs" in manifest["public_runtime_policy"]
     assert "provider response bodies" in manifest["secret_exclusion_boundary"]
     assert "projection-loss audit output bodies" in manifest["secret_exclusion_boundary"]
+
+
+def test_semantic_route_quality_audit_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        SEMANTIC_ROUTE_QUALITY_AUDIT_MANIFEST,
+        manifest_id="semantic_route_quality_audit_source_modules_import",
+        module_count=1,
+    )
+
+    audit_row = manifest["modules"][0]
+    assert "no_live_provider_call_in_validation" in audit_row[
+        "source_open_payload_boundary"
+    ]
+    assert "no_route_graph_direct_write_authority" in audit_row[
+        "source_open_payload_boundary"
+    ]
+
+
+def test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and_route_mutation_boundary(
+    monkeypatch,
+) -> None:
+    manifest = json.loads(
+        SEMANTIC_ROUTE_QUALITY_AUDIT_MANIFEST.read_text(encoding="utf-8")
+    )
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    audit_path = (
+        BUNDLE_INPUT
+        / "source_modules/tools/meta/control/semantic_route_quality_audit.py"
+    )
+    audit_text = audit_path.read_text(encoding="utf-8")
+
+    assert "def run_audit(" in audit_text
+    assert "def audit_node_with_k2(" in audit_text
+    assert "def persist_evidence(" in audit_text
+    assert "nvidia_nim.chat_completion(" in audit_text
+    assert "semantic_routing.confirm_route(" in audit_text
+    assert "if dry_run:" in audit_text
+    assert "route_graph.json" in audit_text
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "not authority to call live providers" in manifest["public_runtime_policy"]
+    assert "mutate route graphs directly" in manifest["public_runtime_policy"]
+    assert "provider response bodies" in manifest["secret_exclusion_boundary"]
+    assert "route-quality audit output bodies" in manifest["secret_exclusion_boundary"]
+
+    source_modules = BUNDLE_INPUT / "source_modules"
+    monkeypatch.syspath_prepend(str(source_modules))
+    spec = importlib.util.spec_from_file_location(
+        "microcosm_semantic_route_quality_audit",
+        audit_path,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    def forbidden_provider_call(*args: object, **kwargs: object) -> str:
+        raise AssertionError("dry-run must not call NVIDIA NIM")
+
+    monkeypatch.setattr(module.nvidia_nim, "chat_completion", forbidden_provider_call)
+    decision = module.audit_node_with_k2(
+        {"candidate_neighbors": []},
+        model=module.DEFAULT_MODEL,
+        max_tokens=1,
+        dry_run=True,
+    )
+    assert decision["_dry_run"] is True
+    assert decision["confirm_edges"] == []
+    assert decision["weak_edges"] == []
 
 
 def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:

@@ -688,6 +688,30 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "semantic_route_quality_audit_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The semantic route-quality audit lane now carries the exact copied "
+            "non-secret drift-snapshot audit source body inside the projection "
+            "bundle. Validation uses digest/anchor checks, syntax compilation, "
+            "and dry-run provider gating checks; it does not call live provider "
+            "endpoints, export provider payloads, mutate route graphs directly, "
+            "append route evidence outside governed runtime, or expose browser/"
+            "HUD state, account/session state, cookies, credentials, prompt/"
+            "operator thread bodies, route-quality audit output bodies, or "
+            "recipient-send material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
     "navigation_context_rosetta_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

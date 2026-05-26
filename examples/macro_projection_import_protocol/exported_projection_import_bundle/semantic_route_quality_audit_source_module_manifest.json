@@ -1,0 +1,64 @@
+{
+  "schema_version": "macro_projection_semantic_route_quality_audit_source_module_manifest_v1",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "manifest_id": "semantic_route_quality_audit_source_modules_import",
+  "classification": "copied_non_secret_macro_body",
+  "body_storage_policy": "exact_non_secret_semantic_route_quality_audit_source_module_copied_into_public_projection_bundle",
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "semantic_route_quality_audit_body_import",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_ref": "tools/meta/control/semantic_route_quality_audit.py",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+      "source_role": "Audits semantic-routing drift snapshots with a bounded K2/NVIDIA NIM sample, parses strict JSON judgments, and emits confirmation/rejected evidence rows through semantic_routing.confirm_route while never editing route_graph.json directly.",
+      "source_sha256": "e6f5d99a9855fa8e6b6b5a224cb718e84cb984d1075df747d206d911c0a15e2d",
+      "target_sha256": "e6f5d99a9855fa8e6b6b5a224cb718e84cb984d1075df747d206d911c0a15e2d",
+      "sha256_match": true,
+      "line_count": 517,
+      "byte_count": 21013,
+      "required_anchors": [
+        "DEFAULT_MODEL = nvidia_nim.DEFAULT_ROUTING_AUDIT_MODEL",
+        "AUDIT_REPORT_DIR = REPO_ROOT / \"state\" / \"semantic_routing\" / \"route_quality_audit\"",
+        "def build_audit_prompt(",
+        "def audit_node_with_k2(",
+        "def persist_evidence(",
+        "semantic_routing.confirm_route(",
+        "def run_audit(",
+        "\"schema_version\": \"semantic_route_quality_audit_v1\"",
+        "parser.add_argument(\"--dry-run\""
+      ],
+      "anchor_count": 9,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_route_graph_export_no_live_provider_call_in_validation_no_provider_payload_bodies_no_route_graph_direct_write_authority_no_account_or_session_state"
+    }
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and dry-run smoke checks; copied semantic-route-quality-audit source is body evidence, not authority to call live providers, export provider prompt or response payload bodies, mutate route graphs directly, append route evidence outside governed macro runtime, inspect browser/HUD live access, inspect private account/session state, or send recipient material",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, provider payload bodies, provider response bodies, operator prompt bodies, browser/HUD live-access material, account/session state, cookies, credentials, route-quality audit output bodies, route evidence ledger private state, recipient-send state, or credential-equivalent payloads",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "provider response bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "routing-audit prompt bodies",
+    "NVIDIA NIM account state",
+    "route-quality audit output bodies",
+    "route evidence ledger private state",
+    "route graph mutation state",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and_route_mutation_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_semantic_route_quality_audit_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

@@ -18,6 +18,7 @@
     "route_operator_court_source_module_manifest.json",
     "route_discovery_confirmation_source_module_manifest.json",
     "projection_loss_audit_source_module_manifest.json",
+    "semantic_route_quality_audit_source_module_manifest.json",
     "navigation_context_rosetta_source_module_manifest.json",
     "bootstrap_route_surface_source_module_manifest.json",
     "agent_operating_packet_source_module_manifest.json",
