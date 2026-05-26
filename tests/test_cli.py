@@ -115,6 +115,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
+    assert "microcosm spine --card          read the compact runtime spine lens" in output
     assert (
         "microcosm workingness --card    read the compact behavior/failure lens"
         in output
@@ -133,6 +134,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm status --card <project>"
     )
     assert output.index("microcosm status --card <project>") < output.index(
+        "microcosm spine --card"
+    )
+    assert output.index("microcosm spine --card") < output.index(
         "microcosm workingness --card"
     )
     assert output.index("microcosm workingness --card") < output.index(
@@ -206,6 +210,25 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_spine_card_is_compact_first_screen_lens(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["spine", "--card"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert len(json.dumps(payload, sort_keys=True)) < 10000
+    assert payload["status"] == "pass"
+    assert payload["schema_version"] == "microcosm_public_runtime_spine_card_v1"
+    assert payload["command"] == "microcosm spine --card"
+    assert payload["full_command"] == "microcosm spine"
+    assert payload["endpoint"] == "/spine-card"
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
+    assert payload["runtime_spine_summary"]["accepted_organ_count"] == 43
+    assert payload["payload_boundary"]["omits_full_accepted_runtime_spine"] is True
+    assert "accepted_runtime_spine" not in payload
+    assert "first_run_path" not in payload
 
 
 def test_cli_status_card_can_overlay_project_route_state(

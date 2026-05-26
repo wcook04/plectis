@@ -82,6 +82,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour <project>        build .microcosm and inspect route/work/event/evidence/proof refs
   microcosm tour --card <project> read the compact first-screen tour lens
   microcosm status --card <project> read the compressed project/runtime status lens
+  microcosm spine --card          read the compact runtime spine lens
   microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -143,11 +144,11 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 def _add_public_lens_parsers(subparsers) -> None:
     for command, help_text in PUBLIC_LENS_COMMAND_HELP:
         parser = subparsers.add_parser(command, help=help_text)
-        if command == "workingness":
+        if command in {"spine", "workingness"}:
             parser.add_argument(
                 "--card",
                 action="store_true",
-                help="emit the compact first-screen workingness lens",
+                help=f"emit the compact first-screen {command} lens",
             )
 
 
@@ -421,7 +422,15 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_PROOF_LAB_OUT,
         help="directory for proof-lab receipts",
     )
-    subparsers.add_parser("spine", help="show accepted public runtime spine")
+    spine_parser = subparsers.add_parser(
+        "spine",
+        help="show accepted public runtime spine",
+    )
+    spine_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen runtime spine lens",
+    )
     tour_parser = subparsers.add_parser(
         "tour",
         help="run the compressed cold-reader route",
@@ -869,7 +878,10 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
     if args.command == "spine":
-        return runtime_shell.main(["spine"])
+        command_args = ["spine"]
+        if args.card:
+            command_args.append("--card")
+        return runtime_shell.main(command_args)
     if args.command == "tour":
         command_args = ["tour"]
         if args.card:

@@ -5074,6 +5074,152 @@ class RuntimeShell:
             ),
         }
 
+    def spine_card(self) -> dict[str, Any]:
+        organs = self.organs()
+        evidence_registry = _load_evidence_class_registry(self.root)
+        adapter_backed = [
+            row for row in organs if row.get("runtime_mode") == "adapter_backed"
+        ]
+        truth_accounting = _truth_accounting(adapter_backed)
+        product_step_count = len(_product_runtime_steps())
+        demoted_drilldowns = [
+            row for row in organs if row.get("runtime_mode") == "drilldown_only"
+        ]
+        evidence_class_counts = _evidence_class_counts(adapter_backed)
+        proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
+        status = (
+            PASS
+            if len(adapter_backed) == product_step_count
+            and body_import_floor["status"] == PASS
+            else "blocked"
+        )
+        accepted_preview = [
+            {
+                "organ_id": str(row.get("organ_id") or ""),
+                "status": row.get("status"),
+                "evidence_class": row.get("evidence_class"),
+                "truth_accounting_bucket": row.get("truth_accounting_bucket"),
+                "claim_ceiling": row.get("claim_ceiling"),
+            }
+            for row in adapter_backed[:8]
+        ]
+        return {
+            "schema_version": "microcosm_public_runtime_spine_card_v1",
+            "card_id": "public_runtime_spine",
+            "status": status,
+            "command": "microcosm spine --card",
+            "full_command": "microcosm spine",
+            "endpoint": "/spine-card",
+            "full_endpoint": "/spine",
+            "posture": "executable_research_prototype",
+            "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
+            "surface_counts": {
+                "organ_count": len(organs),
+                "adapter_backed_organ_count": len(adapter_backed),
+                "adapter_backed_count_is_product_progress": False,
+                "product_step_count": product_step_count,
+                "real_substrate_progress_count": truth_accounting[
+                    "real_substrate_progress_count"
+                ],
+                "non_progress_organ_count": truth_accounting[
+                    "non_progress_organ_count"
+                ],
+                "real_runtime_receipt_count": truth_accounting[
+                    "real_runtime_receipt_count"
+                ],
+                "copied_non_secret_macro_body_material_count": body_import_floor[
+                    "copied_non_secret_macro_body_material_count"
+                ],
+                "public_safe_body_material_count": body_import_floor[
+                    "public_safe_body_material_count"
+                ],
+                "mixed_public_safe_macro_import_assay_status": body_import_floor[
+                    "mixed_public_safe_macro_import_assay"
+                ]["status"],
+                "source_faithful_refactor_count": truth_accounting[
+                    "source_faithful_refactor_count"
+                ],
+                "real_import_validation_count": truth_accounting[
+                    "real_import_validation_count"
+                ],
+                "regression_negative_fixture_count": truth_accounting[
+                    "regression_negative_fixture_count"
+                ],
+                "blocked_import_debt_count": truth_accounting[
+                    "blocked_import_debt_count"
+                ],
+                "secret_exclusion_count": truth_accounting["secret_exclusion_count"],
+                "legacy_adapter_or_synthetic_placeholder_count": truth_accounting[
+                    "legacy_adapter_or_synthetic_placeholder_count"
+                ],
+                "delete_or_demote_candidate_count": truth_accounting[
+                    "delete_or_demote_candidate_count"
+                ],
+                "product_path_demoted_organ_count": len(demoted_drilldowns),
+                "evidence_class_count": len(evidence_class_counts),
+            },
+            "evidence_class_registry": _evidence_registry_summary(evidence_registry),
+            "evidence_class_counts": evidence_class_counts,
+            "proof_lab": {
+                "status": proof_lab.get("status"),
+                "command": proof_lab.get("command"),
+                "endpoint": proof_lab.get("endpoint"),
+                "route_id": proof_lab.get("route_id"),
+                "receipt_ref": proof_lab.get("receipt_ref"),
+                "route_component_count": proof_lab.get("route_component_count"),
+                "proof_correctness_claim": False,
+            },
+            "macro_body_import_floor": {
+                "status": body_import_floor.get("status"),
+                "copied_non_secret_macro_body_material_count": body_import_floor.get(
+                    "copied_non_secret_macro_body_material_count"
+                ),
+                "public_safe_body_material_count": body_import_floor.get(
+                    "public_safe_body_material_count"
+                ),
+                "mixed_public_safe_macro_import_assay_status": (
+                    body_import_floor.get("mixed_public_safe_macro_import_assay") or {}
+                ).get("status"),
+                "body_text_exported": False,
+            },
+            "runtime_spine_summary": {
+                "accepted_organ_count": len(adapter_backed),
+                "accepted_preview_count": len(accepted_preview),
+                "accepted_preview": accepted_preview,
+                "full_payload_ref": "microcosm spine::accepted_runtime_spine",
+                "demoted_drilldown_surface_count": len(demoted_drilldowns),
+            },
+            "first_run_path_preview": [
+                "microcosm tour --card <project>",
+                "microcosm status --card <project>",
+                "microcosm compile <project>",
+                "microcosm explain <project> <selected_route_id>",
+                "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+                "microcosm spine",
+            ],
+            "payload_boundary": {
+                "omits_full_accepted_runtime_spine": True,
+                "omits_full_first_run_path": True,
+                "omits_full_macro_body_import_assay": True,
+                "full_payload_command": "microcosm spine",
+            },
+            "authority_ceiling": {
+                "release_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "live_task_ledger_mutation_authorized": False,
+                "trading_or_financial_advice_authorized": False,
+                "private_data_equivalence_claim": False,
+                "whole_system_correctness_claim": False,
+            },
+            "next_commands": [
+                "microcosm status --card <project>",
+                "microcosm workingness --card",
+                "microcosm spine",
+            ],
+        }
+
     def tour(
         self,
         project: str | Path | None = DEFAULT_PROJECT_REL,
@@ -17589,6 +17735,8 @@ class RuntimeShell:
                     self._send(200, shell.status())
                 elif path == "/spine":
                     self._send(200, shell.spine())
+                elif path == "/spine-card":
+                    self._send(200, shell.spine_card())
                 elif path == "/tour":
                     self._send(200, cached_tour_payload())
                 elif path == "/authority":
@@ -17745,7 +17893,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="emit the compact first-screen status lens",
     )
     status_parser.add_argument("project", nargs="?")
-    subparsers.add_parser("spine")
+    spine_parser = subparsers.add_parser("spine")
+    spine_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen runtime spine lens",
+    )
     tour_parser = subparsers.add_parser("tour")
     tour_parser.add_argument(
         "--card",
@@ -17825,6 +17978,8 @@ def main(argv: list[str] | None = None) -> int:
             )
         return _print_json(payload)
     if args.command == "spine":
+        if args.card:
+            return _print_json(shell.spine_card())
         return _print_json(shell.spine())
     if args.command == "tour":
         if args.card:

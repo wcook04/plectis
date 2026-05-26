@@ -1339,6 +1339,39 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_spine_card_is_compact_first_screen_lens() -> None:
+    shell = RuntimeShell(MICROCOSM_ROOT)
+
+    card = shell.spine_card()
+
+    assert len(json.dumps(card, sort_keys=True)) < 10000
+    assert card["status"] == "pass"
+    assert card["schema_version"] == "microcosm_public_runtime_spine_card_v1"
+    assert card["command"] == "microcosm spine --card"
+    assert card["full_command"] == "microcosm spine"
+    assert card["endpoint"] == "/spine-card"
+    assert card["full_endpoint"] == "/spine"
+    assert (
+        card["cold_reader_goal"]
+        == "legible_under_10_minutes_without_private_macro_context"
+    )
+    assert card["surface_counts"]["adapter_backed_organ_count"] == 43
+    assert card["surface_counts"]["real_substrate_progress_count"] == 43
+    assert card["surface_counts"]["non_progress_organ_count"] == 0
+    assert card["surface_counts"]["product_path_demoted_organ_count"] == 4
+    assert card["surface_counts"]["public_safe_body_material_count"] >= 37
+    assert card["surface_counts"][
+        "mixed_public_safe_macro_import_assay_status"
+    ] == "pass"
+    assert card["runtime_spine_summary"]["accepted_organ_count"] == 43
+    assert card["runtime_spine_summary"]["accepted_preview_count"] == 8
+    assert card["payload_boundary"]["omits_full_accepted_runtime_spine"] is True
+    assert card["payload_boundary"]["omits_full_first_run_path"] is True
+    assert "accepted_runtime_spine" not in card
+    assert "first_run_path" not in card
+    assert "real_substrate_progress_spine" not in card
+
+
 def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     registry_path = public_root / "core/organ_evidence_classes.json"
