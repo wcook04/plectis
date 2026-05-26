@@ -63,6 +63,13 @@ EXPECTED_NEGATIVE_CASES = {
     "private_source_leakage": ["COLD_ROUTE_PRIVATE_SOURCE_FORBIDDEN"],
 }
 
+FRONT_DOOR_ROUTE_COMMANDS = {
+    "tour_project": "microcosm tour <project>",
+    "status_card": "microcosm status --card <project>",
+    "proof_lab": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+}
+FRONT_DOOR_ROUTE_IDS = tuple(FRONT_DOOR_ROUTE_COMMANDS)
+
 FORBIDDEN_PRIVATE_KEYS = (
     "private_source_body",
     "raw_seed_body",
@@ -271,6 +278,28 @@ def _positive_findings(
         for route_id in policy.get("first_run_sequence", [])
         if isinstance(route_id, str)
     ]
+    if sequence[: len(FRONT_DOOR_ROUTE_IDS)] != list(FRONT_DOOR_ROUTE_IDS):
+        _record(
+            findings,
+            observed,
+            "COLD_ROUTE_SEQUENCE_GAP",
+            "The first-run route sequence must start with tour, status card, and proof lab.",
+            case_id="positive_route_map",
+            subject_id="first_run_sequence",
+            subject_kind="sequence",
+        )
+    for route_id, expected_command in FRONT_DOOR_ROUTE_COMMANDS.items():
+        row = route_by_id.get(route_id)
+        if row is not None and row.get("command") != expected_command:
+            _record(
+                findings,
+                observed,
+                "COLD_ROUTE_FRONT_DOOR_COMMAND_DRIFT",
+                "Front-door route commands must match the live first-screen command path.",
+                case_id="positive_route_map",
+                subject_id=route_id,
+                subject_kind="command",
+            )
     ordinals = {
         route_id: route_by_id.get(route_id, {}).get("ordinal")
         for route_id in sequence
@@ -321,15 +350,15 @@ def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
                     case_id=case_id,
                     subject_id=subject_id,
                     subject_kind="receipt_refs",
-                )
+            )
             if case_id == "route_sequence_gap":
                 sequence = row.get("first_run_sequence", [])
-                if isinstance(sequence, list) and "compile_project" not in sequence:
+                if isinstance(sequence, list) and sequence[:1] != ["tour_project"]:
                     _record(
                         findings,
                         observed,
                         "COLD_ROUTE_SEQUENCE_GAP",
-                        "The first-run sequence must start from compile_project.",
+                        "The first-run sequence must start from tour_project.",
                         case_id=case_id,
                         subject_id=subject_id,
                         subject_kind="first_run_sequence",
@@ -406,6 +435,8 @@ def _common_receipt(
         "command_count": result["command_count"],
         "receipt_ref_count": result["receipt_ref_count"],
         "first_run_sequence": result["first_run_sequence"],
+        "front_door_route_ids": result["front_door_route_ids"],
+        "front_door_command_count": result["front_door_command_count"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -433,6 +464,8 @@ def _build_board(
             "receipt_ref_count": result["receipt_ref_count"],
             "first_run_sequence": result["first_run_sequence"],
             "covered_route_ids": result["covered_route_ids"],
+            "front_door_route_ids": result["front_door_route_ids"],
+            "front_door_command_count": result["front_door_command_count"],
         },
         "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
         "public_runtime_refs": result["public_runtime_refs"],
@@ -464,6 +497,7 @@ def _build_result(
         route_policy = {}
     route_rows = _route_rows(route_map)
     receipt_rows = _receipt_rows(route_receipts)
+    route_by_id = {_route_id(row): row for row in route_rows if _route_id(row)}
     positive_findings = _positive_findings(
         route_rows=route_rows,
         receipt_rows=receipt_rows,
@@ -496,6 +530,11 @@ def _build_result(
         if isinstance(route_id, str)
     ]
     covered_route_ids = sorted(_route_id(row) for row in route_rows if _route_id(row))
+    front_door_command_count = sum(
+        1
+        for route_id, expected_command in FRONT_DOOR_ROUTE_COMMANDS.items()
+        if route_by_id.get(route_id, {}).get("command") == expected_command
+    )
     status = (
         PASS
         if not positive_findings
@@ -528,6 +567,8 @@ def _build_result(
         "command_count": sum(1 for row in route_rows if row.get("command")),
         "receipt_ref_count": receipt_ref_count,
         "first_run_sequence": first_run_sequence,
+        "front_door_route_ids": list(FRONT_DOOR_ROUTE_IDS),
+        "front_door_command_count": front_door_command_count,
         "covered_route_ids": covered_route_ids,
         "body_in_receipt": False,
         "real_runtime_receipt": status == PASS,

@@ -48,10 +48,20 @@ def test_cold_reader_route_map_observes_negative_cases(tmp_path: Path) -> None:
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["route_count"] == 7
-    assert result["command_count"] == 7
-    assert result["receipt_ref_count"] >= 7
-    assert result["first_run_sequence"][0] == "compile_project"
+    assert result["route_count"] == 10
+    assert result["command_count"] == 10
+    assert result["receipt_ref_count"] >= 10
+    assert result["first_run_sequence"][:3] == [
+        "tour_project",
+        "status_card",
+        "proof_lab",
+    ]
+    assert result["front_door_route_ids"] == [
+        "tour_project",
+        "status_card",
+        "proof_lab",
+    ]
+    assert result["front_door_command_count"] == 3
     assert result["authority_ceiling"]["route_registry_authority"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
@@ -79,7 +89,16 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
         "open_import_bridge",
         "open_observatory",
         "open_reveal_board",
+        "proof_lab",
+        "status_card",
+        "tour_project",
     ]
+    assert result["first_run_sequence"][:3] == [
+        "tour_project",
+        "status_card",
+        "proof_lab",
+    ]
+    assert result["front_door_command_count"] == 3
     assert "microcosm-substrate/src/microcosm_core/runtime_shell.py" in result["source_refs"]
     assert "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle" in result[
         "public_runtime_refs"
