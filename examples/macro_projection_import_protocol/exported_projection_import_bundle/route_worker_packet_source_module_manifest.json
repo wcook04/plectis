@@ -1,0 +1,193 @@
+{
+  "body_storage_policy": "exact_non_secret_route_worker_packet_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "route_worker_packet_source_modules_import",
+  "module_count": 7,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 12071,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 354,
+      "module_id": "route_worker_node_card_builder_body_import",
+      "required_anchors": [
+        "def stable_node_id(",
+        "def build_node_cards(",
+        "def authority_plane(",
+        "python_symbols_and_imports",
+        "evidence_snippets"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/route_node_card_builder.py",
+      "source_role": "Builds compact route-node cards from file bodies, including authority plane, JSON keys, symbols/imports, top terms, verb cues, and evidence snippets.",
+      "source_sha256": "3f2f15e2fca909cd33227f80d93ce6853a2a4067124ebba7a290c8a66f6f97c1",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_node_card_builder.py",
+      "target_sha256": "3f2f15e2fca909cd33227f80d93ce6853a2a4067124ebba7a290c8a66f6f97c1"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 10527,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 244,
+      "module_id": "route_worker_candidate_builder_body_import",
+      "required_anchors": [
+        "def build_candidate_pairs(",
+        "def relation_card(",
+        "deterministic_score",
+        "possible_verbs_from_signals",
+        "negative_warnings"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/route_candidate_builder.py",
+      "source_role": "Builds deterministic directed route-candidate relation cards from node cards using import, schema, evidence, and lexical signals without deciding final route truth.",
+      "source_sha256": "e356a61313de519cec5db5f9e5bf809925e3c4180aa1d90cbe02f58a8e1892a5",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_candidate_builder.py",
+      "target_sha256": "e356a61313de519cec5db5f9e5bf809925e3c4180aa1d90cbe02f58a8e1892a5"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5942,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 169,
+      "module_id": "route_worker_graph_ranker_body_import",
+      "required_anchors": [
+        "def build_route_candidate_graph(",
+        "def personalized_pagerank(",
+        "def build_graph_candidate_ranks(",
+        "accepted_edges_path",
+        "ranked_by_source"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/route_graph_candidate_ranker.py",
+      "source_role": "Ranks candidate route pairs with a local graph and accepted-edge context using personalized PageRank for inspection order.",
+      "source_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_graph_candidate_ranker.py",
+      "target_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 6348,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 148,
+      "module_id": "route_worker_discovery_edc_body_import",
+      "required_anchors": [
+        "VERB_INFLECTION_ALIASES",
+        "def canonicalize_verb(",
+        "def canonicalize_discovery_edge(",
+        "schema_pattern_cluster",
+        "mapped_to_existing_verb"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/route_discovery_edc.py",
+      "source_role": "Canonicalizes discovered route edges against allowed Rosetta verbs, inflection aliases, and schema pattern clusters.",
+      "source_sha256": "999a234a99b963da9864d2547d54b50ff7f0cf5b42753099c986d0bab2727d1c",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_discovery_edc.py",
+      "target_sha256": "999a234a99b963da9864d2547d54b50ff7f0cf5b42753099c986d0bab2727d1c"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 1223,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 33,
+      "module_id": "route_worker_verb_correction_body_import",
+      "required_anchors": [
+        "def extract_verb_correction_pairs(",
+        "prior connector_verb",
+        "connector_verb",
+        "baseline_edges",
+        "route_universe"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/route_verb_correction.py",
+      "source_role": "Extracts directed route pairs whose candidate connector verb needs correction while preserving prior-verb boundary for downstream review.",
+      "source_sha256": "1b5b919d96d61fa67b041d76b5aea1464b48c3b2a5a4a2852f4b37345b3dd021",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_verb_correction.py",
+      "target_sha256": "1b5b919d96d61fa67b041d76b5aea1464b48c3b2a5a4a2852f4b37345b3dd021"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 7471,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 198,
+      "module_id": "route_worker_nvidia_hints_body_import",
+      "required_anchors": [
+        "def route_pair_query(",
+        "def embedding_pair_hints(",
+        "def rerank_pair_hints(",
+        "candidate_selection_only",
+        "provider"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_provider_export_no_live_provider_call",
+      "source_ref": "system/lib/nvidia_route_hints.py",
+      "source_role": "Builds optional NVIDIA retrieval-hint queries/passages for route candidate selection only; copied for source-open body inspection, not live provider execution.",
+      "source_sha256": "6642c5533d199b7781425184dd2242ff3734eb7429f153ab8e9498db460270ee",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_route_hints.py",
+      "target_sha256": "6642c5533d199b7781425184dd2242ff3734eb7429f153ab8e9498db460270ee"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 11035,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 256,
+      "module_id": "route_worker_packet_test_body_import",
+      "required_anchors": [
+        "def test_node_cards_extract_symbols_imports_and_json_keys(",
+        "def test_candidate_pairs_surface_import_signal_and_allowlisted_verbs(",
+        "def test_graph_candidate_ranker_uses_accepted_edges(",
+        "def test_verb_correction_prompt_has_no_prior_verb_and_includes_planes(",
+        "def test_route_hint_passages_are_neutral("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/server/tests/test_route_worker_packet.py",
+      "source_role": "Focused regression body for route-worker packet node cards, deterministic pairs, graph ranking, verb correction, EDC canonicalization, and neutral retrieval hint passages.",
+      "source_sha256": "6d6e792432694e9618b70366e43bfba5936753b1ddaa2ea6c832564f7fa0275c",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_worker_packet.py",
+      "target_sha256": "6d6e792432694e9618b70366e43bfba5936753b1ddaa2ea6c832564f7fa0275c"
+    }
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation into pytest temp state, and neutral passage assertions; copied source modules are body evidence, not authority to execute live providers, mutate route graphs, export prompt/operator/provider bodies, or inspect private state",
+  "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies, prompt/operator thread bodies, provider payload bodies, browser/HUD live-access material, account/session state, cookies, credentials, or route-worker live provider responses",
+  "schema_version": "macro_projection_route_worker_packet_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "api keys",
+    "credentials",
+    "cookies",
+    "account/session state",
+    "provider payload bodies",
+    "provider response bodies",
+    "browser/HUD live-access material",
+    "operator thread bodies",
+    "route-worker prompt bodies",
+    "recipient-send state",
+    "private account control",
+    "credential-equivalent payloads"
+  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_and_live_access",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_sources_compile_and_preserve_provider_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
+  ]
+}

@@ -35,6 +35,9 @@ TRACE_CAPSULE_MANIFEST = BUNDLE_INPUT / "trace_capsule_source_module_manifest.js
 ROUTE_SELECTION_CONTROL_MANIFEST = (
     BUNDLE_INPUT / "route_selection_control_source_module_manifest.json"
 )
+ROUTE_WORKER_PACKET_MANIFEST = (
+    BUNDLE_INPUT / "route_worker_packet_source_module_manifest.json"
+)
 NAVIGATION_CONTEXT_ROSETTA_MANIFEST = (
     BUNDLE_INPUT / "navigation_context_rosetta_source_module_manifest.json"
 )
@@ -767,6 +770,46 @@ def test_navigation_clusterability_source_manifest_matches_exact_macro_sources()
         manifest_id="navigation_clusterability_source_modules_import",
         module_count=2,
     )
+
+
+def test_route_worker_packet_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = _assert_source_manifest_matches_exact_macro_sources(
+        ROUTE_WORKER_PACKET_MANIFEST,
+        manifest_id="route_worker_packet_source_modules_import",
+        module_count=7,
+    )
+
+    nvidia_hint_row = next(
+        row
+        for row in manifest["modules"]
+        if row["module_id"] == "route_worker_nvidia_hints_body_import"
+    )
+    assert "no_live_provider_call" in nvidia_hint_row["source_open_payload_boundary"]
+
+
+def test_route_worker_packet_sources_compile_and_preserve_provider_boundary() -> None:
+    manifest = json.loads(ROUTE_WORKER_PACKET_MANIFEST.read_text(encoding="utf-8"))
+    source_paths = [
+        MICROCOSM_ROOT / str(row["target_ref"]).removeprefix("microcosm-substrate/")
+        for row in manifest["modules"]
+    ]
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    hints_text = (
+        BUNDLE_INPUT / "source_modules/system/lib/nvidia_route_hints.py"
+    ).read_text(encoding="utf-8")
+    packet_test_text = (
+        BUNDLE_INPUT / "source_modules/system/server/tests/test_route_worker_packet.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def build_route_hints(" in hints_text
+    assert "candidate_selection_only" in hints_text
+    assert "def test_route_hint_passages_are_neutral(" in packet_test_text
+    assert "provider payload bodies" in manifest["receipt_body_policy"]
+    assert "not authority to execute live providers" in manifest["public_runtime_policy"]
+    assert "provider response bodies" in manifest["secret_exclusion_boundary"]
 
 
 def test_executable_grammar_metabolism_source_manifest_matches_exact_macro_sources() -> None:

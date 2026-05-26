@@ -590,6 +590,32 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
         ),
     },
+    "route_worker_packet_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The route-worker packet lane now carries exact copied non-secret "
+            "node-card, candidate-pair, graph-ranker, EDC canonicalization, "
+            "verb-correction, retrieval-hint, and regression-test bodies "
+            "inside the projection bundle. Validation uses digest/anchor "
+            "checks, syntax compilation, and neutral passage assertions only; "
+            "it does not call live provider endpoints or export provider "
+            "payloads, browser/HUD state, account/session state, cookies, "
+            "credentials, prompt/operator thread bodies, or recipient-send "
+            "material."
+        ),
+        "landed_evidence_refs": [
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_node_card_builder.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_candidate_builder.py",
+            "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_worker_packet.py",
+            "tests/test_command_output_projection_runtime.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py"
+        ),
+    },
     "navigation_context_rosetta_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",

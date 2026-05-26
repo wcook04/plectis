@@ -657,6 +657,57 @@
       ]
     },
     {
+      "authority_ceiling": "verified_public_route_worker_packet_source_modules_not_provider_payloads_live_provider_calls_browser_hud_account_session_operator_thread_bodies_prompt_bodies_route_graph_mutation_or_release_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "route_worker_packet_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_source_manifest_matches_exact_macro_sources microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_sources_compile_and_preserve_provider_boundary",
+      "public_safe_body_material_ids": [
+        "route_worker_node_card_builder_body_import",
+        "route_worker_candidate_builder_body_import",
+        "route_worker_graph_ranker_body_import",
+        "route_worker_discovery_edc_body_import",
+        "route_worker_verb_correction_body_import",
+        "route_worker_nvidia_hints_body_import",
+        "route_worker_packet_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "route_worker_packet_candidate_selection",
+        "navigation_rosetta_relation_card_builder",
+        "route_discovery_edc_canonicalization"
+      ],
+      "source_refs": [
+        "system/lib/route_node_card_builder.py",
+        "system/lib/route_candidate_builder.py",
+        "system/lib/route_graph_candidate_ranker.py",
+        "system/lib/route_discovery_edc.py",
+        "system/lib/route_verb_correction.py",
+        "system/lib/nvidia_route_hints.py",
+        "system/server/tests/test_route_worker_packet.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_node_card_builder.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_candidate_builder.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_graph_candidate_ranker.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_discovery_edc.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_verb_correction.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_route_hints.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_worker_packet.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_worker_packet_sources_compile_and_preserve_provider_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_route_worker_packet_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
       "authority_ceiling": "verified_public_navigation_rosetta_bodies_not_live_macro_kernel_provider_browser_account_or_private_state_authority",
       "body_copied": false,
       "body_in_receipt": false,

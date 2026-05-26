@@ -14,6 +14,7 @@
     "command_output_source_module_manifest.json",
     "command_output_projection_runtime_contract.json",
     "route_selection_control_source_module_manifest.json",
+    "route_worker_packet_source_module_manifest.json",
     "navigation_context_rosetta_source_module_manifest.json",
     "bootstrap_route_surface_source_module_manifest.json",
     "agent_operating_packet_source_module_manifest.json",
