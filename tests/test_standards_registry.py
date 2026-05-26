@@ -111,6 +111,22 @@ def test_standards_registry_validation_passes_with_secret_exclusion(tmp_path: Pa
     assert receipt["missing_required_fields_by_standard"] == {}
     assert receipt["acceptance_status"]["lean_lake_authorized"] == "bounded_public_witness_only"
     assert receipt["acceptance_status"]["release_authorized"] is False
+    assert (
+        registry["authority_ceiling"]["count_authority"]
+        == "inventory_only_not_completeness_readiness_maturity_or_product_progress"
+    )
+    assert registry["authority_ceiling"]["standard_count_is_completeness_or_readiness"] is False
+    assert registry["authority_ceiling"]["first_wave_required_count_is_product_progress"] is False
+    assert registry["authority_ceiling"]["score_based_progress_authority"] is False
+    assert "Standard counts and first-wave-required rows are inventory fields only" in registry["anti_claim"]
+    assert (
+        receipt["authority_ceiling"]["count_authority"]
+        == "inventory_only_not_completeness_readiness_maturity_or_product_progress"
+    )
+    assert receipt["authority_ceiling"]["standard_count_is_completeness_or_readiness"] is False
+    assert receipt["authority_ceiling"]["first_wave_required_count_is_product_progress"] is False
+    assert receipt["authority_ceiling"]["score_based_progress_authority"] is False
+    assert "not completeness, readiness, maturity, or score-based progress" in receipt["anti_claim"]
     assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert receipt["secret_exclusion_scan"]["body_in_receipt"] is False
     assert "private_state_scan" not in receipt

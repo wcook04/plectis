@@ -1,11 +1,15 @@
 {
-  "anti_claim": "This registry validates public standard file presence and schema shape. It authorizes only bounded public Lean/Lake witness receipts, synthetic prediction reconciliation receipts, and evidence-cell metadata receipts; it does not authorize trading, financial advice, release, publication, provider calls, secret export, evidence-cell metadata as theorem correctness, or whole-system correctness or standards-registry source authority.",
+  "anti_claim": "This registry validates public standard file presence and schema shape. It authorizes only bounded public Lean/Lake witness receipts, synthetic prediction reconciliation receipts, and evidence-cell metadata receipts. Standard counts and first-wave-required rows are inventory fields only; they are not completeness, readiness, maturity, score-based progress, release, publication, provider, secret-export, theorem-correctness, whole-system-correctness, or standards-registry source authority.",
   "authority_ceiling": {
+    "count_authority": "inventory_only_not_completeness_readiness_maturity_or_product_progress",
     "lean_lake_authority": "bounded_public_witness_only",
     "private_data_equivalence_authority": false,
     "registry_authority": "public_standard_index_only",
     "release_authority": false,
+    "first_wave_required_count_is_product_progress": false,
+    "score_based_progress_authority": false,
     "source_body_authority": false,
+    "standard_count_is_completeness_or_readiness": false,
     "status": "pass",
     "trading_or_financial_advice_authority": false
   },

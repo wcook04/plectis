@@ -64,6 +64,7 @@ ACCEPTED_PUBLIC_ORGANS = [
     "materials_chemistry_closed_loop_lab_safety_replay",
     "mechanistic_interpretability_circuit_attribution_replay",
     "agent_route_observability_runtime",
+    "bridge_phase_continuity_runtime",
     "pattern_assimilation_step",
     "public_reveal_walkthrough",
     "macro_projection_import_protocol",
@@ -245,15 +246,23 @@ def validate_standards_registry(
         "authority_ceiling": {
             "status": PASS,
             "registry_authority": "public_standards_index_and_acceptance_plan_only",
+            "count_authority": (
+                "inventory_only_not_completeness_readiness_maturity_or_product_progress"
+            ),
             "source_authority_above_macro_contracts": False,
             "lean_lake_authorized": "bounded_public_witness_only",
+            "standard_count_is_completeness_or_readiness": False,
+            "first_wave_required_count_is_product_progress": False,
+            "score_based_progress_authority": False,
             "trading_or_financial_advice_authorized": False,
             "release_authorized": False,
             "private_data_equivalence_authorized": False,
         },
         "anti_claim": (
             "Standards-registry validation proves only source-available standard file "
-            "shape and first-wave acceptance-plan consistency; it does not "
+            "shape and first-wave acceptance-plan consistency. Standard counts "
+            "and first-wave-required rows are inventory fields only, not "
+            "completeness, readiness, maturity, or score-based progress; it does not "
             "authorize Lean/Lake beyond the bounded public witness fixture, "
             "trading or financial advice, "
             "release, hosted deployment, publication, recipient work, "
