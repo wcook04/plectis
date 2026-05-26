@@ -1066,13 +1066,35 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         },
         "source_open_body_import_floor": {
             "status": source_open_body_import_floor.get("status"),
+            "summary_ref": source_open_body_import_floor.get("summary_ref"),
+            "full_status_ref": source_open_body_import_floor.get(
+                "full_status_ref"
+            ),
+            "source_ref": source_open_body_import_floor.get("source_ref"),
             "public_safe_body_material_count": source_open_body_import_floor.get(
                 "public_safe_body_material_count"
+            ),
+            "public_safe_body_material_counts_by_class": (
+                source_open_body_import_floor.get(
+                    "public_safe_body_material_counts_by_class", {}
+                )
             ),
             "verified_source_module_family_count": source_open_body_import_floor.get(
                 "verified_source_module_family_count"
             ),
             "latest_source_refs": latest_source_refs,
+            "latest_verified_source_module_family_ids": (
+                source_open_body_import_floor.get(
+                    "latest_verified_source_module_family_ids", []
+                )
+                if isinstance(
+                    source_open_body_import_floor.get(
+                        "latest_verified_source_module_family_ids"
+                    ),
+                    list,
+                )
+                else []
+            ),
             "body_text_exported_in_status": source_open_body_import_floor.get(
                 "body_text_exported_in_status"
             ),
@@ -1082,6 +1104,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "authority_boundary": source_open_body_import_floor.get(
                 "authority_boundary"
             ),
+            "reader_action": source_open_body_import_floor.get("reader_action"),
         },
         "proof_lab": {
             "status": proof_surface.get("status"),
@@ -2525,6 +2548,63 @@ def _compact_project_card_body_import_floor(
             }
         )
     return compact
+
+
+def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any]:
+    source_body_imports = (
+        body_floor.get("source_body_import_lens", {})
+        if isinstance(body_floor.get("source_body_import_lens"), dict)
+        else {}
+    )
+    latest_families = (
+        source_body_imports.get("latest_verified_source_module_families", [])
+        if isinstance(
+            source_body_imports.get("latest_verified_source_module_families"),
+            list,
+        )
+        else []
+    )
+    latest_family_ids = [
+        family.get("family_id")
+        for family in latest_families[-STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT:]
+        if isinstance(family, dict) and isinstance(family.get("family_id"), str)
+    ]
+    latest_source_refs = (
+        source_body_imports.get("latest_source_refs", [])
+        if isinstance(source_body_imports.get("latest_source_refs"), list)
+        else []
+    )
+    return {
+        "status": body_floor.get("status"),
+        "summary_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "source_ref": body_floor.get("source_ref"),
+        "public_safe_body_material_count": body_floor.get(
+            "public_safe_body_material_count"
+        ),
+        "public_safe_body_material_counts_by_class": body_floor.get(
+            "public_safe_body_material_counts_by_class", {}
+        ),
+        "verified_source_module_family_count": source_body_imports.get(
+            "verified_source_module_family_count"
+        ),
+        "latest_source_refs": latest_source_refs[-STATUS_CARD_LATEST_SOURCE_REF_LIMIT:],
+        "latest_verified_source_module_family_ids": latest_family_ids,
+        "body_text_exported_in_status": source_body_imports.get(
+            "body_text_exported_in_status"
+        ),
+        "body_text_exported_in_receipts": source_body_imports.get(
+            "body_text_exported_in_receipts"
+        ),
+        "authority_boundary": (
+            "verified_non_secret_body_floor_not_release_provider_source_mutation_"
+            "or_private_equivalence_authority"
+        ),
+        "reader_action": (
+            "Use this tour card to confirm the source-open body floor, then "
+            "open the status card or full status for validators and family drilldowns."
+        ),
+    }
 
 
 def _status_card_surface_is_nonblocking(status: Any) -> bool:
@@ -4991,6 +5071,10 @@ class RuntimeShell:
         compiled = project_substrate.compile_project(project_path)
         spine = self.spine()
         authority = self.authority(persist_receipts=persist_receipt)
+        body_import_floor = _macro_projection_body_import_floor(self.root)
+        source_open_body_import_floor = _tour_body_import_floor_summary(
+            body_import_floor
+        )
         prediction = self.prediction_lens()
         market_boundary = self.market_boundary()
         corpus = self.corpus_lens()
@@ -5092,6 +5176,7 @@ class RuntimeShell:
             "proof_loop_depth": proof_loop_depth.get("status"),
             "verifier_lab_execution_spine": execution_spine.get("status"),
             "proof_lab": proof_lab.get("status"),
+            "macro_body_import_floor": body_import_floor.get("status"),
             "landing_replay": landing_replay.get("status"),
             "view_quality": view_quality.get("status"),
             "projection_safety": projection_safety.get("status"),
@@ -5133,6 +5218,7 @@ class RuntimeShell:
             "status_scope": "required_behavioral_first_screen_surfaces",
             "local_first_screen_route": _local_first_screen_route_ref(),
             "required_surface_ids": front_door_required_surface_ids,
+            "surface_statuses": surface_statuses,
             "blocking_surface_ids": blocking_surface_ids,
             "drilldown_warning_surface_ids": drilldown_warning_surface_ids,
             "drilldown_blocked_surface_ids": drilldown_blocked_surface_ids,
@@ -5257,6 +5343,7 @@ class RuntimeShell:
                 "workingness_command": "microcosm workingness",
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
                 "workingness_summary": workingness_summary,
+                "source_open_body_import_floor": source_open_body_import_floor,
                 "authority_ceiling": {
                     "release_authorized": False,
                     "provider_calls_authorized": False,
@@ -5516,6 +5603,7 @@ class RuntimeShell:
             "route_cards": route_cards,
             "surface_statuses": surface_statuses,
             "front_door_status": front_door_status,
+            "source_open_body_import_floor": source_open_body_import_floor,
             "local_first_screen_route": _local_first_screen_route_ref(),
             "compile_summary": {
                 "headline": compiled.get("headline"),
@@ -16523,6 +16611,7 @@ class RuntimeShell:
           {row("Summary ref", source_open_body_import_floor.get("summary_ref"))}
           {row("Full status ref", source_open_body_import_floor.get("full_status_ref"))}
           {row("Counts by class", dict_text(source_open_body_import_floor.get("public_safe_body_material_counts_by_class")))}
+          {row("Latest verified families", list_text(source_open_body_import_floor.get("latest_verified_source_module_family_ids")))}
           {row("Latest source refs", list_text(source_open_body_import_floor.get("latest_source_refs")))}
           {row("Body text exported in status", source_open_body_import_floor.get("body_text_exported_in_status"))}
           {row("Body text exported in receipts", source_open_body_import_floor.get("body_text_exported_in_receipts"))}

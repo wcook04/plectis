@@ -709,11 +709,27 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         in workingness["expected_fields"]
     )
     assert (
+        "front_door.source_open_body_import_floor.public_safe_body_material_counts_by_class"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.source_open_body_import_floor.latest_verified_source_module_family_ids"
+        in workingness["expected_fields"]
+    )
+    assert (
         "front_door.source_open_body_import_floor.body_text_exported_in_status"
         in workingness["expected_fields"]
     )
     assert (
         "front_door.source_open_body_import_floor.body_text_exported_in_receipts"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "route_cards.status_and_workingness.source_open_body_import_floor"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "route_cards.status_and_workingness.source_open_body_import_floor.latest_verified_source_module_family_ids"
         in workingness["expected_fields"]
     )
     assert "macro_body_import_floor.source_body_imports" in workingness["expected_fields"]

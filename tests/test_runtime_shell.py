@@ -1964,6 +1964,10 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert route_cards_by_id["front_door_status"]["authority_ceiling"][
         "provider_calls_authorized"
     ] is False
+    assert (
+        tour["front_door_status"]["surface_statuses"]["macro_body_import_floor"]
+        == "pass"
+    )
     assert route_cards_by_id["status_and_workingness"]["status"] == "clear"
     assert (
         route_cards_by_id["status_and_workingness"]["map_generation_status"]
@@ -2000,6 +2004,25 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ]
         == "clear"
     )
+    body_floor_route_card = route_cards_by_id["status_and_workingness"][
+        "source_open_body_import_floor"
+    ]
+    assert body_floor_route_card["status"] == "pass"
+    assert (
+        body_floor_route_card["public_safe_body_material_count"]
+        == tour["source_open_body_import_floor"][
+            "public_safe_body_material_count"
+        ]
+    )
+    assert (
+        body_floor_route_card["public_safe_body_material_counts_by_class"]
+        == tour["source_open_body_import_floor"][
+            "public_safe_body_material_counts_by_class"
+        ]
+    )
+    assert body_floor_route_card["latest_verified_source_module_family_ids"]
+    assert body_floor_route_card["body_text_exported_in_status"] is False
+    assert body_floor_route_card["body_text_exported_in_receipts"] is False
     tour_gap_preview = route_cards_by_id["status_and_workingness"][
         "workingness_summary"
     ]["gap_preview"]
@@ -4123,10 +4146,23 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         == status_body_floor["public_safe_body_material_counts_by_class"]
     )
     assert observatory_body_floor["verified_source_module_family_count"] >= 20
+    assert (
+        observatory_body_floor["latest_verified_source_module_family_ids"]
+        == status_body_floor["latest_verified_source_module_family_ids"]
+    )
     assert observatory_body_floor["latest_source_refs"]
     assert observatory_body_floor["body_text_exported_in_status"] is False
     assert observatory_body_floor["body_text_exported_in_receipts"] is False
     assert "release" in observatory_body_floor["authority_boundary"]
+    assert observatory_card["source_open_body_import_floor"][
+        "latest_verified_source_module_family_ids"
+    ]
+    assert (
+        observatory_card["source_open_body_import_floor"][
+            "public_safe_body_material_counts_by_class"
+        ]
+        == status_body_floor["public_safe_body_material_counts_by_class"]
+    )
     by_id = {row["thing_id"]: row for row in workingness["thing_failure_map"]}
     route_body_imports = by_id["agent_route_observability_runtime"][
         "source_open_body_imports"
