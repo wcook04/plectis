@@ -406,8 +406,6 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     status = cli.main(
         [
             "proof-lab",
-            "--input",
-            str(MICROCOSM_ROOT / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"),
             "--out",
             str(out_dir),
         ]
@@ -443,6 +441,12 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["safe_to_show"]["route_metadata_visible"] is True
     assert receipt.is_file()
     assert payload["receipt_ref"] == str(receipt)
+    receipt_payload = json.loads(receipt.read_text(encoding="utf-8"))
+    assert receipt_payload["status"] == "pass"
+    assert (
+        receipt_payload["component_statuses"]["formal_math_lean_proof_witness"]
+        == "pass"
+    )
     assert payload["canonical_receipt_ref"] == PROOF_LAB_RECEIPT_REF
     assert payload["receipt_refs"] == [str(receipt)]
     assert "receipt only after the first-screen card is visible" in payload[
