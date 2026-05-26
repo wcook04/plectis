@@ -118,6 +118,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "route/state/proof refs"
     ) in output
     assert (
+        "microcosm first-screen <project> preview the one-screen reader branch map"
+        in output
+    )
+    assert (
         "microcosm status --card <project> read the compressed "
         "project/runtime status lens"
     ) in output
@@ -144,6 +148,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "after the first-screen check"
     ) in output
     assert output.index("microcosm tour --card <project>") < output.index(
+        "microcosm first-screen <project>"
+    )
+    assert output.index("microcosm first-screen <project>") < output.index(
         "microcosm status --card <project>"
     )
     assert output.index("microcosm status --card <project>") < output.index(
@@ -189,6 +196,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "proof-lab",
         "spine",
         "tour",
+        "first-screen",
         "authority",
         "serve",
         "evidence",
@@ -238,6 +246,51 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_first_screen_text_projection_is_package_backed(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(
+        ["first-screen", "--format", "text", "--reader", "peer_developer", "."]
+    )
+
+    text = capsys.readouterr().out
+    assert status == 0
+    assert text.startswith("Microcosm first screen\n")
+    assert "First run: microcosm tour --card ." in text
+    assert "A local evidence router, not a maturity brochure" in text
+    assert "Reader branch: Peer developer" in text
+    assert "  Next: microcosm tour --card . -> microcosm observe ." in text
+    assert "Authority ceiling:" in text
+    assert "reader_routes" not in text
+    assert "/Users/" not in text
+    assert "src/ai_workflow" not in text
+
+
+def test_cli_first_screen_json_projection_preserves_shared_first_command(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    status = cli.main(["first-screen", "--format", "json", "."])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["shared_first_command"] == "microcosm tour --card ."
+    assert (
+        payload["entry_surface_contract"]["shared_behavior_surface"]
+        == payload["shared_first_command"]
+    )
+    assert (
+        payload["comparison_frame"]["purpose"]
+        == "make_rigor_visible_without_claim_inflation"
+    )
+    assert {route["reader_route_id"] for route in payload["reader_routes"]} == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
 
 
 def test_cli_status_card_can_overlay_project_route_state(

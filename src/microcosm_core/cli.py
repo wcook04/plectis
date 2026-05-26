@@ -5,6 +5,7 @@ import json
 import shlex
 from pathlib import Path
 
+from microcosm_core import first_screen_composition
 from microcosm_core import project_substrate
 from microcosm_core import runtime_shell
 from microcosm_core.macro_tools import finance_eval_spine
@@ -84,6 +85,7 @@ PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
+  microcosm first-screen <project> preview the one-screen reader branch map
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
   microcosm authority --card      read the compact authority ceiling lens
@@ -827,6 +829,23 @@ def main(argv: list[str] | None = None) -> int:
         help="emit the compact first-screen tour lens",
     )
     tour_parser.add_argument("project", nargs="?")
+    first_screen_parser = subparsers.add_parser(
+        "first-screen",
+        help="preview the one-screen reader route map",
+    )
+    first_screen_parser.add_argument(
+        "--format",
+        choices=("json", "text"),
+        default="text",
+        help="emit the machine card or terminal projection",
+    )
+    first_screen_parser.add_argument(
+        "--reader",
+        choices=first_screen_composition.TEXT_READER_CHOICES,
+        default="all",
+        help="focus the terminal projection on one reader branch",
+    )
+    first_screen_parser.add_argument("project", nargs="?", default="<project>")
     authority_parser = subparsers.add_parser(
         "authority",
         help="show authority ceilings and anti-claims",
@@ -1311,6 +1330,20 @@ def main(argv: list[str] | None = None) -> int:
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args)
+    if args.command == "first-screen":
+        payload = first_screen_composition.first_screen_composition_card(
+            project_label=args.project
+        )
+        if args.format == "text":
+            print(
+                first_screen_composition.first_screen_text_card(
+                    payload,
+                    reader_id=args.reader,
+                ),
+                end="",
+            )
+            return 0 if payload.get("status") == "pass" else 1
+        return _print_json(payload)
     if args.command == "authority":
         command_args = ["authority"]
         if args.card:
