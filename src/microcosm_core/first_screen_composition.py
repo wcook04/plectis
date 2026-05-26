@@ -354,6 +354,59 @@ def _comparison_frame() -> dict[str, Any]:
     }
 
 
+def _doctrine_effect_frame() -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_doctrine_effect_frame_v1",
+        "purpose": "show_doctrine_as_mistake_prevention_not_ceremony",
+        "reader_rule": (
+            "Read each doctrine handle by the failure it blocks and the first-screen "
+            "surface where that protection is visible."
+        ),
+        "effect_rows": [
+            {
+                "doctrine_handle": "CONSTITUTION",
+                "prevents": "shipping a capability story without a claim boundary",
+                "visible_effect": (
+                    "authority_ceiling and anti_claim appear before proof, release, "
+                    "or hosted-publication claims"
+                ),
+                "first_screen_surface": "authority_ceiling",
+            },
+            {
+                "doctrine_handle": "AXIOMS",
+                "prevents": "treating counts or projections as source authority",
+                "visible_effect": (
+                    "evidence counts are accounting fields, not readiness, maturity, "
+                    "or progress scores"
+                ),
+                "first_screen_surface": "evidence_count_frame",
+            },
+            {
+                "doctrine_handle": "PRINCIPLES",
+                "prevents": "hiding a broad substrate behind a vague pitch",
+                "visible_effect": (
+                    "one shared first command lands before reader-specific drilldowns"
+                ),
+                "first_screen_surface": "reader_routes",
+            },
+            {
+                "doctrine_handle": "ANTI_PRINCIPLES",
+                "prevents": (
+                    "turning a local demo into release, provider-call, private-data, "
+                    "or benchmark authority"
+                ),
+                "visible_effect": (
+                    "omission receipt and public/private boundary name what is not "
+                    "shown or authorized"
+                ),
+                "first_screen_surface": "omission_receipt",
+            },
+        ],
+        "forbidden_read": "governance_prose_as_credential",
+        "authority": "first_screen_interpretation_frame_not_doctrine_source",
+    }
+
+
 def _entry_surface_contract(project_label: str) -> dict[str, Any]:
     return {
         "shared_behavior_surface": f"microcosm tour --card {project_label}",
@@ -369,8 +422,8 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, evidence-count frame, "
-            "evidence-class legend, observatory landing frame, omission receipt, and "
-            "authority ceiling."
+            "evidence-class legend, doctrine-effect frame, observatory landing frame, "
+            "omission receipt, and authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -416,8 +469,8 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "reader branches, public scale handles, evidence-class legend, and authority "
-            "ceiling before the deeper observatory lens inventory."
+            "reader branches, public scale handles, evidence-class legend, doctrine-effect "
+            "frame, and authority ceiling before the deeper observatory lens inventory."
         ),
         "projection_rule": (
             "The observatory landing is a projection over this first-screen card, not a "
@@ -432,6 +485,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
+            "doctrine_effect_frame",
             "authority_ceiling",
             "omission_receipt",
         ],
@@ -521,6 +575,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     scale_counts = scale_frame.get("public_scale_counts", {})
     state_write_boundary = payload.get("state_write_boundary", {})
     observatory_landing_frame = payload.get("observatory_landing_frame", {})
+    doctrine_effect_frame = payload.get("doctrine_effect_frame", {})
+    doctrine_effect_rows = (
+        doctrine_effect_frame.get("effect_rows", [])
+        if isinstance(doctrine_effect_frame, dict)
+        else []
+    )
+    doctrine_handles = {
+        str(row.get("doctrine_handle"))
+        for row in doctrine_effect_rows
+        if isinstance(row, dict)
+    }
     observatory_endpoints = (
         observatory_landing_frame.get("endpoints", {})
         if isinstance(observatory_landing_frame, dict)
@@ -577,6 +642,23 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             payload.get("comparison_frame", {}).get("purpose")
             == "make_rigor_visible_without_claim_inflation"
         ),
+        "doctrine_effect_frame": (
+            isinstance(doctrine_effect_frame, dict)
+            and doctrine_effect_frame.get("purpose")
+            == "show_doctrine_as_mistake_prevention_not_ceremony"
+            and doctrine_handles
+            == {"CONSTITUTION", "AXIOMS", "PRINCIPLES", "ANTI_PRINCIPLES"}
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("prevents"), str)
+                and bool(row.get("prevents"))
+                and isinstance(row.get("visible_effect"), str)
+                and bool(row.get("visible_effect"))
+                and isinstance(row.get("first_screen_surface"), str)
+                and bool(row.get("first_screen_surface"))
+                for row in doctrine_effect_rows
+            )
+        ),
         "entry_surface_contract": (
             payload.get("entry_surface_contract", {}).get("shared_behavior_surface")
             == payload.get("shared_first_command")
@@ -630,6 +712,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "reader_route_ids",
                     "public_scale_counts",
                     "evidence_class_legend",
+                    "doctrine_effect_frame",
                     "authority_ceiling",
                     "omission_receipt",
                 )
@@ -694,6 +777,7 @@ def first_screen_composition_card(
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
+        "doctrine_effect_frame": _doctrine_effect_frame(),
         "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(root),
         "runnable_structural_join": _runnable_structural_join(project_label),
@@ -794,7 +878,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         "",
         "What it is:",
-        "  A local evidence router, not a maturity brochure: one command, then a drilldown.",
+        "  A local evidence router, not a maturity brochure; doctrine appears as prevented mistakes.",
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),

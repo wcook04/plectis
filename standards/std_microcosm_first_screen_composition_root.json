@@ -77,6 +77,7 @@
       "reader_focus_mode",
       "evidence_count_frame",
       "comparison_frame",
+      "doctrine_effect_frame",
       "entry_surface_contract",
       "scale_frame",
       "runnable_structural_join",
@@ -90,7 +91,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.first_screen_composition_root",
-    "receipt should cite the shared first command, reader branch ids, reader focus mode, evidence-accounting frame, comparison frame, entry-surface contract, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+    "receipt should cite the shared first command, reader branch ids, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, entry-surface contract, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
   "receipt_refs": [
     {
@@ -124,6 +125,7 @@
     "reader_routes",
     "evidence_count_frame",
     "comparison_frame",
+    "doctrine_effect_frame",
     "entry_surface_contract",
     "scale_frame",
     "runnable_structural_join",
@@ -185,6 +187,7 @@
       "reader_branch_handles",
       "evidence_accounting_context",
       "comparison_frame",
+      "doctrine_effect_frame",
       "entry_surface_contract",
       "runnable_structural_join",
       "omission_receipt",
@@ -210,6 +213,7 @@
     "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
     "require a comparison frame that names common first-entry failure modes and the Microcosm discipline that prevents them",
+    "require a doctrine-effect frame that presents doctrine handles as prevented mistakes with visible first-screen effects",
     "require an entry-surface contract that lets CLI, README, and observatory consumers reuse the package-backed card without changing its authority ceiling",
     "require a runnable-vs-structural join that names both local behavior and larger substrate scale",
     "require terminal text projections to fit in one screen and preserve the same authority ceiling as the JSON contract",
@@ -224,6 +228,7 @@
       "reader_route_ids",
       "evidence_count_frame",
       "comparison_frame",
+      "doctrine_effect_frame",
       "entry_surface_contract",
       "runnable_structural_join",
       "authority_ceiling",

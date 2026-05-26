@@ -105,6 +105,34 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "one shared local behavior command before reader branching" in card[
         "comparison_frame"
     ]["microcosm_entry_discipline"]
+    doctrine_effect_frame = card["doctrine_effect_frame"]
+    doctrine_rows = doctrine_effect_frame["effect_rows"]
+    doctrine_by_handle = {row["doctrine_handle"]: row for row in doctrine_rows}
+    assert doctrine_effect_frame["purpose"] == (
+        "show_doctrine_as_mistake_prevention_not_ceremony"
+    )
+    assert doctrine_effect_frame["authority"] == (
+        "first_screen_interpretation_frame_not_doctrine_source"
+    )
+    assert set(doctrine_by_handle) == {
+        "CONSTITUTION",
+        "AXIOMS",
+        "PRINCIPLES",
+        "ANTI_PRINCIPLES",
+    }
+    for row in doctrine_rows:
+        assert row["prevents"]
+        assert row["visible_effect"]
+        assert row["first_screen_surface"]
+    assert doctrine_by_handle["CONSTITUTION"]["first_screen_surface"] == (
+        "authority_ceiling"
+    )
+    assert doctrine_by_handle["AXIOMS"]["first_screen_surface"] == (
+        "evidence_count_frame"
+    )
+    assert "local demo into release" in doctrine_by_handle["ANTI_PRINCIPLES"][
+        "prevents"
+    ]
     assert card["entry_surface_contract"]["shared_behavior_surface"] == (
         card["shared_first_command"]
     )
@@ -115,6 +143,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "entry_surface_contract"
     ]["consumer_rule"]
     assert "evidence-class legend" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
+    assert "doctrine-effect frame" in card["entry_surface_contract"][
         "consumer_rule"
     ]
     assert "observatory landing frame" in card["entry_surface_contract"][
@@ -209,6 +240,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "evidence_class_legend" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "doctrine_effect_frame" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "release, hosting, provider calls" in observatory_landing_frame[
         "authority_boundary"
     ]
@@ -225,6 +259,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
+    assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert card["validation"]["checks"]["human_first_command"] is True
     assert card["validation"]["checks"]["text_projection"] is True
@@ -267,6 +302,9 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["entry_surface_contract"]["script_surface"] == (
         "python3 scripts/first_screen_composition_card.py --project-label ."
     )
+    assert card["doctrine_effect_frame"]["purpose"] == (
+        "show_doctrine_as_mistake_prevention_not_ceremony"
+    )
     assert card["evidence_class_legend"]["source_ref"] == (
         "core/organ_evidence_classes.json"
     )
@@ -305,6 +343,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Open card: microcosm hello ." in text
     assert "First run: microcosm tour --card ." in text
     assert "A local evidence router, not a maturity brochure" in text
+    assert "doctrine appears as prevented mistakes" in text
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
@@ -367,6 +406,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
         assert "Evidence classes: body import, subprocess witness" in text
+        assert "doctrine appears as prevented mistakes" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
@@ -394,6 +434,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
+    assert "doctrine appears as prevented mistakes" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
@@ -422,6 +463,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
+    assert "doctrine appears as prevented mistakes" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout
