@@ -1,31 +1,23 @@
 {
-  "schema_version": "target_shape_tactic_routing_bundle_manifest_v1",
-  "bundle_id": "target_shape_tactic_routing_runtime_example",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "target_shape_tactic_routing_macro_source_module_manifest",
   "organ_id": "target_shape_tactic_routing_gate",
-  "input_mode": "exported_target_shape_tactic_routing_bundle",
-  "body_material_status": "real_ring2_target_shape_routing_refs",
-  "routing_evidence_status": "real_ring2_problem_domain_failure_class_route_refs",
-  "source_refs": [
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_RING2_target_shape_route_run_bodies_copied_into_public_target_shape_bundle",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private theorem proof bodies or oracle proof text"
   ],
-  "source_artifact_status": "copied_ring2_target_shape_routing_source_bodies",
-  "source_artifact_count": 4,
-  "source_artifact_digest_verification_required": true,
-  "files": [
-    "tactic_portfolio_availability.json",
-    "target_shape_routes.json",
-    "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-    "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-    "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-    "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
-    "source_module_manifest.json"
-  ],
-  "authority_ceiling": "target_shape_ring2_route_refs_not_proof_authority",
-  "release_authorized": false,
-  "copied_macro_body_artifacts": [
+  "source_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "module_count": 4,
+  "modules": [
     {
       "module_id": "ring2_target_shape_premise_retrieval_run_summary_body_import",
       "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
@@ -102,49 +94,5 @@
         "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_exact_copies"
       ]
     }
-  ],
-  "source_module_manifest_ref": "source_module_manifest.json",
-  "source_open_body_imports": {
-    "status": "pass",
-    "body_material_status": "exact_copied_public_safe_ring2_target_shape_routing_bodies_with_digest_provenance",
-    "body_material_count": 4,
-    "body_material_ids": [
-      "ring2_target_shape_premise_retrieval_run_summary_body_import",
-      "ring2_target_shape_premise_retrieval_failure_taxonomy_body_import",
-      "ring2_target_shape_premise_retrieval_graph_update_candidates_body_import",
-      "ring2_target_shape_oracle_repair_run_summary_body_import"
-    ],
-    "material_classes": [
-      "public_macro_receipt_body"
-    ],
-    "aggregate_floor_ref": "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json::copied_macro_body_artifacts",
-    "source_manifest_refs": [
-      "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_module_manifest.json",
-      "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/bundle_manifest.json"
-    ],
-    "source_refs": [
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
-    ],
-    "target_refs": [
-      "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-      "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
-    ],
-    "body_in_receipt": false,
-    "body_text_exported_in_receipts": false,
-    "reader_action": "Run microcosm workingness and the target_shape_tactic_routing_gate exported-bundle validator to inspect the copied Ring2 target-shape routing body floor.",
-    "authority_ceiling": {
-      "body_text_in_receipt": false,
-      "proof_body_or_oracle_proof_text_exported": false,
-      "provider_payload_exported": false,
-      "lean_lake_execution_authorized": false,
-      "formal_proof_authority": false,
-      "runtime_correctness_claim": false,
-      "release_authorized": false
-    }
-  }
+  ]
 }

@@ -68,11 +68,15 @@
     "board receipt with public contract and routing projection",
     "validation receipt with negative-case coverage",
     "fixture acceptance receipt",
-    "source artifact import rows with copied-body and digest-match status"
+    "source artifact import rows with copied-body and digest-match status",
+    "source_module_manifest.json with copied Ring2 source-body rows, source refs, target refs, sha256, line_count, material_class, and body_in_receipt=false"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.target_shape_tactic_routing_gate",
-    "actions": ["run", "run-routing-bundle"],
+    "actions": [
+      "run",
+      "run-routing-bundle"
+    ],
     "negative_case_count": 5
   },
   "receipt_contract": {
@@ -85,7 +89,9 @@
       "source_artifact_count",
       "copied_source_artifact_count",
       "source_artifacts_pass",
-      "source_artifact_imports"
+      "source_artifact_imports",
+      "source_module_manifest_ref",
+      "source_open_body_imports"
     ]
   },
   "public_private_boundary": {
@@ -94,7 +100,8 @@
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "oracle_labels_included": false,
-    "fixture_kind": "real_ring2_problem_domain_failure_class_route_refs_with_copied_source_bodies"
+    "fixture_kind": "real_ring2_problem_domain_failure_class_route_refs_with_copied_source_bodies",
+    "source_module_manifest_included": true
   },
   "authority_ceiling": {
     "lean_lake_execution_authorized": false,
@@ -109,7 +116,8 @@
     "compression_bands": [
       "source_artifacts are copied body evidence and must be digest-checked",
       "route cases are public projections over the copied Ring2 source bodies",
-      "receipts may name source artifacts and digests but must not echo proof/provider/private bodies"
+      "receipts may name source artifacts and digests but must not echo proof/provider/private bodies",
+      "source_module_manifest and source_open_body_imports make copied target-shape Ring2 bodies countable by status and workingness without exporting body text in receipts"
     ],
     "failure_modes": [
       "copied Ring2 target-shape source artifact is missing from the public fixture or bundle",

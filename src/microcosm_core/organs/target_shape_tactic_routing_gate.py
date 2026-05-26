@@ -55,6 +55,16 @@ SOURCE_DIGESTS = {
     REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
     REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
+SOURCE_MODULE_MANIFEST_REF = (
+    "examples/target_shape_tactic_routing_gate/"
+    "exported_target_shape_tactic_routing_bundle/source_module_manifest.json"
+)
+SOURCE_MATERIAL_IDS = {
+    REAL_SUBSTRATE_REFS[0]: "ring2_target_shape_premise_retrieval_run_summary_body_import",
+    REAL_SUBSTRATE_REFS[1]: "ring2_target_shape_premise_retrieval_failure_taxonomy_body_import",
+    REAL_SUBSTRATE_REFS[2]: "ring2_target_shape_premise_retrieval_graph_update_candidates_body_import",
+    REAL_SUBSTRATE_REFS[3]: "ring2_target_shape_oracle_repair_run_summary_body_import",
+}
 BODY_MATERIAL_STATUS = "real_ring2_target_shape_routing_refs"
 SOURCE_ARTIFACT_STATUS = "copied_ring2_target_shape_routing_source_bodies"
 ROUTING_EVIDENCE_STATUS = "real_ring2_problem_domain_failure_class_route_refs"
@@ -211,6 +221,50 @@ def _source_artifact_findings(
                 )
             )
     return findings
+
+
+def _source_open_body_import_summary(
+    source_artifact_imports: list[dict[str, Any]],
+    *,
+    bundle_manifest: dict[str, Any],
+) -> dict[str, Any]:
+    manifest_summary = bundle_manifest.get("source_open_body_imports")
+    if isinstance(manifest_summary, dict) and manifest_summary:
+        return manifest_summary
+    return {
+        "status": PASS,
+        "body_material_status": (
+            "exact_copied_public_safe_ring2_target_shape_routing_bodies_with_digest_provenance"
+        ),
+        "body_material_count": sum(
+            1
+            for row in source_artifact_imports
+            if row["body_copied"] and row["digest_matches"]
+        ),
+        "body_material_ids": [
+            SOURCE_MATERIAL_IDS[row["source_ref"]]
+            for row in source_artifact_imports
+            if row["body_copied"] and row["digest_matches"]
+        ],
+        "material_classes": ["public_macro_receipt_body"],
+        "aggregate_floor_ref": (
+            "examples/target_shape_tactic_routing_gate/"
+            "exported_target_shape_tactic_routing_bundle/"
+            "bundle_manifest.json::copied_macro_body_artifacts"
+        ),
+        "source_manifest_refs": [SOURCE_MODULE_MANIFEST_REF],
+        "body_in_receipt": BODY_IN_RECEIPT,
+        "body_text_exported_in_receipts": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "runtime_correctness_claim": False,
+            "release_authorized": False,
+        },
+    }
 
 
 def _strings(value: Any) -> list[str]:
@@ -620,6 +674,8 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         "copied_source_artifact_count": result["copied_source_artifact_count"],
         "source_artifacts_pass": result["source_artifacts_pass"],
         "source_artifact_imports": result["source_artifact_imports"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
         "real_substrate_refs": REAL_SUBSTRATE_REFS,
         "receipt_anchor_refs": RECEIPT_ANCHOR_REFS,
@@ -658,6 +714,8 @@ def _common_receipt(
         "copied_source_artifact_count",
         "source_artifacts_pass",
         "source_artifact_imports",
+        "source_module_manifest_ref",
+        "source_open_body_imports",
         "routing_evidence_status",
         "body_in_receipt",
         "real_substrate_refs",
@@ -760,6 +818,16 @@ def _build_result(
     )
     if not isinstance(bundle_manifest, dict):
         bundle_manifest = {}
+    source_module_manifest_path = input_dir / "source_module_manifest.json"
+    source_module_manifest_ref = (
+        _display(source_module_manifest_path, public_root=public_root)
+        if source_module_manifest_path.is_file()
+        else SOURCE_MODULE_MANIFEST_REF
+    )
+    source_open_body_imports = _source_open_body_import_summary(
+        source_artifact_imports,
+        bundle_manifest=bundle_manifest,
+    )
     result = {
         "schema_version": "target_shape_tactic_routing_gate_result_v1",
         "created_at": utc_now(),
@@ -784,6 +852,8 @@ def _build_result(
         "source_artifact_count": len(source_artifact_imports),
         "copied_source_artifact_count": copied_source_artifact_count,
         "source_artifacts_pass": source_artifacts_pass,
+        "source_module_manifest_ref": source_module_manifest_ref,
+        "source_open_body_imports": source_open_body_imports,
         "routing_evidence_status": ROUTING_EVIDENCE_STATUS,
         "body_in_receipt": BODY_IN_RECEIPT,
         "real_substrate_refs": REAL_SUBSTRATE_REFS,

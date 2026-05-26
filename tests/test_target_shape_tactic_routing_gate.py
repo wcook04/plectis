@@ -1,5 +1,4 @@
-from __future__ import annotations
-
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -21,6 +20,10 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle"
 )
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -69,6 +72,8 @@ def test_target_shape_tactic_routing_gate_observes_negative_cases(
     assert result["source_artifact_count"] == 4
     assert result["copied_source_artifact_count"] == 4
     assert result["source_artifacts_pass"] is True
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert all(row["body_copied"] for row in result["source_artifact_imports"])
     assert all(row["digest_matches"] for row in result["source_artifact_imports"])
     assert result["source_artifact_imports"][0]["expected_digest"].startswith(
@@ -111,6 +116,9 @@ def test_target_shape_tactic_routing_gate_accepts_exported_bundle(
     assert result["source_artifact_count"] == 4
     assert result["copied_source_artifact_count"] == 4
     assert result["source_artifacts_pass"] is True
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert (
         result["routing_evidence_status"]
         == "real_ring2_problem_domain_failure_class_route_refs"
@@ -118,6 +126,26 @@ def test_target_shape_tactic_routing_gate_accepts_exported_bundle(
     assert result["receipt_paths"] == [
         "receipts/exported_target_shape_tactic_routing_bundle_validation_result.json"
     ]
+
+
+def test_target_shape_tactic_routing_exported_source_modules_are_exact_copies() -> None:
+    manifest = json.loads((EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 4
+    assert len(manifest["modules"]) == 4
+
+    repo_root = MICROCOSM_ROOT.parent
+    for module in manifest["modules"]:
+        source = repo_root / module["source_ref"]
+        target = repo_root / module["target_ref"]
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == module["sha256"]
+        assert _sha256(target) == module["sha256"]
+        assert module["body_copied"] is True
+        assert module["body_in_receipt"] is False
 
 
 def test_target_shape_tactic_routing_receipts_use_real_substrate_contract(
@@ -156,6 +184,8 @@ def test_target_shape_tactic_routing_receipts_use_real_substrate_contract(
         assert payload["source_artifact_count"] == 4
         assert payload["copied_source_artifact_count"] == 4
         assert payload["source_artifacts_pass"] is True
+        assert payload["source_open_body_imports"]["body_material_count"] == 4
+        assert payload["source_open_body_imports"]["body_in_receipt"] is False
         assert (
             payload["routing_evidence_status"]
             == "real_ring2_problem_domain_failure_class_route_refs"
