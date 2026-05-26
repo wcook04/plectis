@@ -31,6 +31,20 @@ ACCEPTANCE_RECEIPT_REL = (
     "agent_benchmark_integrity_anti_gaming_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_benchmark_integrity_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "agent_benchmark_integrity_anti_gaming_replay_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "findings",
+    "private_state_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "source_module_imports",
+    "source_open_body_imports",
+    "source_refs",
+    "projection_receipt_refs",
+    "public_regression_fixture_refs",
+    "benchmark_cases",
+    "replay_rows",
+)
 SOURCE_MODULE_MANIFEST_REF = (
     "examples/agent_benchmark_integrity_anti_gaming_replay/"
     "exported_benchmark_integrity_bundle/source_module_manifest.json"
@@ -197,6 +211,105 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
         if target_path.is_file():
             paths.append(target_path)
     return paths
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    return [
+        *_input_paths(source, include_negative=include_negative),
+        *_source_artifact_paths(source, public_root=public_root),
+    ]
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "agent_benchmark_integrity_anti_gaming_replay_result_v1"
+        if include_negative
+        else "exported_benchmark_integrity_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": (
+            "agent_benchmark_integrity_anti_gaming_replay_freshness_basis_v1"
+        ),
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, ValueError, TypeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_benchmark_integrity_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_benchmark_integrity_bundle":
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def validate_source_module_imports(
@@ -1055,6 +1168,8 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -1069,15 +1184,24 @@ def run_benchmark_integrity_bundle(
         "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay "
         "run-benchmark-integrity-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    source = Path(input_dir)
+    if reuse_fresh_receipt:
+        cached = _fresh_bundle_receipt(source, out)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_benchmark_integrity_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -1089,6 +1213,78 @@ def run_benchmark_integrity_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    private_scan = result.get("private_state_scan")
+    scan = private_scan if isinstance(private_scan, dict) else {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "benchmark_integrity": {
+            "benchmark_case_count": result.get("benchmark_case_count"),
+            "held_out_guard_count": result.get("held_out_guard_count"),
+            "known_benchmark_case_count": len(
+                result.get("known_benchmark_case_ids") or []
+            ),
+            "replay_count": result.get("replay_count"),
+            "integrity_pass_count": result.get("integrity_pass_count"),
+            "quarantine_count": result.get("quarantine_count"),
+            "source_module_import_status": result.get(
+                "source_module_import_status"
+            ),
+            "source_module_import_count": result.get("source_module_import_count"),
+            "copied_source_artifact_count": result.get(
+                "copied_source_artifact_count"
+            ),
+            "body_material_status": result.get("body_material_status"),
+            "source_modules_pass": result.get("source_modules_pass") is True,
+        },
+        "validation": {
+            "expected_negative_case_count": len(
+                result.get("expected_negative_cases") or []
+            ),
+            "missing_negative_case_count": len(
+                result.get("missing_negative_cases") or []
+            ),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "private_state_blocking_hit_count": scan.get("blocking_hit_count"),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+        },
+        "body_floor": {
+            "body_in_receipt": False,
+            "private_state_scan_in_card": False,
+            "source_module_imports_in_card": False,
+            "source_open_body_imports_in_card": False,
+        },
+        "authority_boundary": {
+            "benchmark_score_claim_authorized": False,
+            "swe_bench_performance_claim_authorized": False,
+            "hidden_gold_access_authorized": False,
+            "oracle_patch_body_export_authorized": False,
+            "private_issue_body_export_authorized": False,
+            "provider_calls_authorized": False,
+            "live_repo_mutation_authorized": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agent_benchmark_integrity_anti_gaming_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -1096,21 +1292,52 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-benchmark-integrity-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}" if args.acceptance_out else ""
+        )
+        command = (
+            "python -m microcosm_core.organs."
+            "agent_benchmark_integrity_anti_gaming_replay "
+            f"run --input {args.input} --out {args.out}{acceptance_suffix}"
+            f"{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-benchmark-integrity-bundle":
-        result = run_benchmark_integrity_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs."
+            "agent_benchmark_integrity_anti_gaming_replay "
+            f"run-benchmark-integrity-bundle --input {args.input} --out {args.out}"
+            f"{card_suffix}"
+        )
+        result = run_benchmark_integrity_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(result["status"])
     return 0 if result["status"] == PASS else 1
 
 

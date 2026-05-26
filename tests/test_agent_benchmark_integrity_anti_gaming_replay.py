@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay as benchmark_replay
 from microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_benchmark_integrity_bundle,
 )
@@ -170,3 +173,60 @@ def test_agent_benchmark_integrity_exported_bundle_validates_runtime_shape(
     assert result["source_modules_pass"] is True
     assert result["source_module_import_count"] == 3
     assert result["source_open_body_imports"]["body_material_count"] == 3
+
+
+def test_agent_benchmark_integrity_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "agent_benchmark_integrity_anti_gaming_replay"
+    )
+    args = [
+        "run-benchmark-integrity-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 9
+    assert first_card["benchmark_integrity"]["benchmark_case_count"] == 3
+    assert first_card["benchmark_integrity"]["known_benchmark_case_count"] == 3
+    assert first_card["benchmark_integrity"]["replay_count"] == 3
+    assert first_card["benchmark_integrity"]["integrity_pass_count"] == 2
+    assert first_card["benchmark_integrity"]["quarantine_count"] == 1
+    assert first_card["benchmark_integrity"]["source_module_import_count"] == 3
+    assert first_card["benchmark_integrity"]["copied_source_artifact_count"] == 3
+    assert first_card["benchmark_integrity"]["source_modules_pass"] is True
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert "benchmark_cases" not in _walk_keys(first_card)
+    assert "replay_rows" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
+    assert "private_state_scan" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(benchmark_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
