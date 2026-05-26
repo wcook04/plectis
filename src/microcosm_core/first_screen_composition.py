@@ -410,6 +410,9 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         for route in payload.get("reader_routes", [])
         if isinstance(route, dict)
     }
+    human_first_command = payload.get("human_first_command", "")
+    shared_first_command = payload.get("shared_first_command", "")
+    text_projection = payload.get("text_projection", {})
     authority_ceiling = payload.get("authority_ceiling", {})
     drilldown_text = json.dumps(payload.get("drilldowns", []), sort_keys=True)
     scale_frame = payload.get("scale_frame", {})
@@ -428,6 +431,20 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     return {
         "shared_first_command": payload.get("shared_first_command", "").startswith(
             "microcosm tour --card "
+        ),
+        "human_first_command": (
+            isinstance(human_first_command, str)
+            and human_first_command.startswith("microcosm hello ")
+            and human_first_command != shared_first_command
+        ),
+        "text_projection": (
+            isinstance(text_projection, dict)
+            and text_projection.get("command") == human_first_command
+            and text_projection.get("writes_microcosm_state") is False
+            and text_projection.get("behavioral_proof_command")
+            == shared_first_command
+            and text_projection.get("authority")
+            == "terminal_text_projection_only_not_behavior_proof"
         ),
         "reader_route_ids": route_ids == REQUIRED_ROUTE_IDS,
         "evidence_count_frame": (
@@ -493,7 +510,18 @@ def first_screen_composition_card(
         "schema_version": "microcosm_first_screen_composition_card_v1",
         "composition_root_id": standard["kind_id"],
         "source_standard_ref": str(STANDARD_REF),
+        "human_first_command": f"microcosm hello {project_label}",
         "shared_first_command": f"microcosm tour --card {project_label}",
+        "text_projection": {
+            "command": f"microcosm hello {project_label}",
+            "writes_microcosm_state": False,
+            "behavioral_proof_command": f"microcosm tour --card {project_label}",
+            "authority": "terminal_text_projection_only_not_behavior_proof",
+            "reader_rule": (
+                "Use this command to view the first-screen card; run the "
+                "behavior proof command to write .microcosm state."
+            ),
+        },
         "reader_routes": _reader_routes(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "comparison_frame": _comparison_frame(),
@@ -571,9 +599,15 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
     route_by_id = _reader_route_map(payload)
+    human_first_command = payload.get(
+        "human_first_command", "microcosm hello <project>"
+    )
     lines = [
         "Microcosm first screen",
-        f"First run: {payload['shared_first_command']}",
+        (
+            f"Open card: {human_first_command} | "
+            f"First run: {payload['shared_first_command']}"
+        ),
         "",
         "What it is:",
         "  A local evidence router, not a maturity brochure: one command, then a drilldown.",

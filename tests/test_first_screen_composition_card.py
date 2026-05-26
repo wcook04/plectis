@@ -47,7 +47,19 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["source_standard_ref"]
         == "standards/std_microcosm_first_screen_composition_root.json"
     )
+    assert card["human_first_command"] == "microcosm hello <project>"
     assert card["shared_first_command"] == "microcosm tour --card <project>"
+    text_projection = card["text_projection"]
+    assert text_projection == {
+        "command": card["human_first_command"],
+        "writes_microcosm_state": False,
+        "behavioral_proof_command": card["shared_first_command"],
+        "authority": "terminal_text_projection_only_not_behavior_proof",
+        "reader_rule": (
+            "Use this command to view the first-screen card; run the "
+            "behavior proof command to write .microcosm state."
+        ),
+    }
     assert route_ids == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -131,6 +143,8 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
+    assert card["validation"]["checks"]["human_first_command"] is True
+    assert card["validation"]["checks"]["text_projection"] is True
     assert card["validation"]["checks"]["scale_frame"] is True
     assert card["validation"]["checks"]["observatory_landing_frame"] is True
     assert "body" not in _walk_keys(card)
@@ -158,7 +172,13 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     card = json.loads(result.stdout)
 
     assert card["status"] == "pass"
+    assert card["human_first_command"] == "microcosm hello ."
     assert card["shared_first_command"] == "microcosm tour --card ."
+    assert card["text_projection"]["command"] == "microcosm hello ."
+    assert card["text_projection"]["behavioral_proof_command"] == (
+        "microcosm tour --card ."
+    )
+    assert card["text_projection"]["writes_microcosm_state"] is False
     assert card["entry_surface_contract"]["script_surface"] == (
         "python3 scripts/first_screen_composition_card.py --project-label ."
     )
@@ -180,6 +200,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
 
     text.encode("ascii")
     assert text.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in text
     assert "First run: microcosm tour --card ." in text
     assert "A local evidence router, not a maturity brochure" in text
     assert "Public scale:" in text
@@ -229,6 +250,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
 
         text.encode("ascii")
         assert text.startswith("Microcosm first screen\n")
+        assert "Open card: microcosm hello ." in text
         assert "First run: microcosm tour --card ." in text
         assert f"Reader branch: {assertions['label']}" in text
         assert "  Question: " in text
@@ -261,6 +283,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
 
     result.stdout.encode("ascii")
     assert result.stdout.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
@@ -287,6 +310,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
 
     result.stdout.encode("ascii")
     assert result.stdout.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout

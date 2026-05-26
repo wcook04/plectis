@@ -14,6 +14,7 @@ def test_cli_hello_prints_shared_first_screen_card(
 
     output.encode("ascii")
     assert output.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in output
     assert "First run: microcosm tour --card ." in output
     assert (
         "browser landing: / -> /project/first-screen -> /project/observatory-card"
