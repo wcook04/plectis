@@ -59,5 +59,30 @@
     "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
   ],
   "authority_ceiling": "cold_reader_route_map_projection_only_not_route_authority",
-  "anti_claim": "This fixture validates public cold-reader route projection only; it does not become route registry authority, expose private sources, or authorize release."
+  "anti_claim": "This fixture validates public cold-reader route projection only; it does not become route registry authority, expose private sources, or authorize release.",
+  "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
+  "body_copied_material_count": 5,
+  "source_open_body_imports": {
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
+    "body_material_count": 5,
+    "body_material_ids": [
+      "agent_instruction_router_body_import",
+      "agent_entry_reference_body_import",
+      "kernel_bootstrap_skill_body_import",
+      "kernel_navigation_seed_skill_body_import",
+      "kernel_entry_packet_command_body_import"
+    ],
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "authority_ceiling": "copied bodies are public cold-entry/navigation substrate, not route-registry authority or release authority"
+  }
 }

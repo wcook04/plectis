@@ -1,0 +1,148 @@
+{
+  "schema_version": "cold_reader_route_map_source_module_manifest_v1",
+  "bundle_id": "public_cold_reader_route_map_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_material_status": "copied_non_secret_macro_cold_entry_route_substrate_with_provenance",
+  "body_in_receipt": false,
+  "module_count": 5,
+  "modules": [
+    {
+      "module_id": "agent_instruction_router_body_import",
+      "source_ref": "docs/agent_instruction_router.md",
+      "path": "source_modules/docs/agent_instruction_router.md",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Docs-first agent instruction router mapping recurring task shapes to governing markdown, kernel routes, Work Ledger coordination, and Microcosm public-body import entrypoints.",
+      "required_anchors": [
+        "# Agent instruction router (docs-first, skill-shaped)",
+        "python3 kernel.py --docs-route <query-or-path>",
+        "Many Type A / Codex / Claude autonomous seeds are running in one phase",
+        "Fix Microcosm by cutting misleading prep/scoring layers or importing real macro substrate into a runnable public-root surface"
+      ],
+      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_instruction_router.md",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 124,
+      "sha256": "10b7354b7d09aaf8db5381124532173ba8f95f2fdfb44deb44e11098bd1446dc",
+      "byte_count": 35556,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+      ]
+    },
+    {
+      "module_id": "agent_entry_reference_body_import",
+      "source_ref": "docs/agent_entry_reference.md",
+      "path": "source_modules/docs/agent_entry_reference.md",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Shared agent-entry reference preserving the cold-entry contract, kernel-first navigation, environment wrapper rule, and scoped commit discipline.",
+      "required_anchors": [
+        "# AGENTS.md \u2014 ai_workflow",
+        "Cold-entry contract:",
+        "Use `./repo-python` + `./repo-pytest` from repo root",
+        "scoped_commit.py full-paths"
+      ],
+      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_entry_reference.md",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 494,
+      "sha256": "e7b41fa2b3dad66662f4265c4ed43e76da1cf0b0143ecead6ca1b82a7c2aaaca",
+      "byte_count": 63373,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+      ]
+    },
+    {
+      "module_id": "kernel_bootstrap_skill_body_import",
+      "source_ref": "codex/doctrine/skills/kernel/bootstrap.md",
+      "path": "source_modules/codex/doctrine/skills/kernel/bootstrap.md",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Kernel bootstrap skill body defining the live-state handshake, task-entry control packet, coverage-first navigation, and command sequence that cold agents must run before substantive work.",
+      "required_anchors": [
+        "Run the live-state bootstrap handshake before substantive unknown work",
+        "./repo-python kernel.py --info",
+        "./repo-python kernel.py --preflight",
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000"
+      ],
+      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/bootstrap.md",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 163,
+      "sha256": "408673df7c7fe006499afa5098c669e6b69c2b4578dc41f675909b134802ecc1",
+      "byte_count": 14535,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+      ]
+    },
+    {
+      "module_id": "kernel_navigation_seed_skill_body_import",
+      "source_ref": "codex/doctrine/skills/kernel/navigation_seed.md",
+      "path": "source_modules/codex/doctrine/skills/kernel/navigation_seed.md",
+      "material_class": "public_macro_pattern_body",
+      "source_role": "Navigation-seed skill body carrying the cold-boot ladder, coverage-before-invocation rule, context-pack boundary, navigation-metabolism repair route, and propagation reflex.",
+      "required_anchors": [
+        "summary: \"Coverage-first cold navigation",
+        "Coverage before invocation.",
+        "Allowed first-contact control surfaces are `--entry \"<task>\"`",
+        "Rung 3b python3 kernel.py --context-pack \"<task>\""
+      ],
+      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/codex/doctrine/skills/kernel/navigation_seed.md",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 257,
+      "sha256": "1c18d87f6ba2b5765e0172e036f2557ca164c3863bd3b22555023bac2654a43b",
+      "byte_count": 32669,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+      ]
+    },
+    {
+      "module_id": "kernel_entry_packet_command_body_import",
+      "source_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
+      "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "material_class": "public_macro_tool_body",
+      "source_role": "Kernel entry-packet command implementation defining structural lane triggers, route leases, recognized-situation selection, and build_entry_packet wiring consumed by cold-reader navigation.",
+      "required_anchors": [
+        "ENTRY_SURFACE_STRUCTURAL_LANE_TRIGGERS",
+        "def _entry_route_lease(",
+        "\"schema_version\": \"route_lease_v0\"",
+        "def build_entry_packet(",
+        "recognized_situation"
+      ],
+      "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
+      "source_import_class": "copied_non_secret_macro_body",
+      "line_count": 7844,
+      "sha256": "6277d87d0023d99b17f638e536486a27afd1397d09ff32f8e80cf6088edb7c7b",
+      "byte_count": 324715,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
+        "python -m microcosm_core.organs.cold_reader_route_map run-route-map-bundle"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "keys",
+    "credentials",
+    "account/session state",
+    "cookies",
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "recipient-send state",
+    "credential-equivalent material",
+    "raw private transcript bodies",
+    "live process-audit payload bodies"
+  ]
+}

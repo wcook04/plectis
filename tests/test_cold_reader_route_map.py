@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -13,11 +14,20 @@ from microcosm_core.organs.cold_reader_route_map import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MACRO_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/cold_reader_route_map/input"
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
 )
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+COLD_READER_SOURCE_MODULE_IDS = {
+    "agent_instruction_router_body_import",
+    "agent_entry_reference_body_import",
+    "kernel_bootstrap_skill_body_import",
+    "kernel_navigation_seed_skill_body_import",
+    "kernel_entry_packet_command_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -103,10 +113,68 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
     assert "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle" in result[
         "public_runtime_refs"
     ]
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert result["copied_source_module_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert set(row["module_id"] for row in result["source_module_results"]) == (
+        COLD_READER_SOURCE_MODULE_IDS
+    )
+    assert all(row["digest_match"] for row in result["source_module_results"])
+    assert all(row["anchor_status"] == "pass" for row in result["source_module_results"])
+    assert "docs/agent_instruction_router.md" in result["real_substrate_refs"]
+    assert (
+        "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/"
+        "source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
+    ) in result["real_substrate_refs"]
+    assert result["body_import_verification"]["verification_status"] == "pass"
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
+
+
+def test_cold_reader_source_manifest_matches_exact_macro_sources() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert set(row["module_id"] for row in manifest["modules"]) == (
+        COLD_READER_SOURCE_MODULE_IDS
+    )
+    for row in manifest["modules"]:
+        source = MACRO_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / Path(row["target_ref"]).relative_to(
+            "microcosm-substrate"
+        )
+        assert source.is_file(), row["source_ref"]
+        assert target.is_file(), row["target_ref"]
+        assert source.read_bytes() == target.read_bytes()
+        digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["sha256"] == digest
+        assert row["source_to_target_relation"] == "exact_copy"
+        assert row["body_in_receipt"] is False
+        for anchor in row["required_anchors"]:
+            assert anchor in target.read_text(encoding="utf-8")
+
+
+def test_cold_reader_fixture_manifest_counts_source_open_body_floor() -> None:
+    manifest = json.loads(
+        (MICROCOSM_ROOT / "core/fixture_manifests/cold_reader_route_map.fixture_manifest.json")
+        .read_text(encoding="utf-8")
+    )
+
+    source_imports = manifest["source_open_body_imports"]
+    assert manifest["body_copied_material_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert source_imports["status"] == "pass"
+    assert source_imports["source_import_class"] == "copied_non_secret_macro_body"
+    assert source_imports["body_material_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+    assert set(source_imports["body_material_ids"]) == COLD_READER_SOURCE_MODULE_IDS
+    assert source_imports["body_in_receipt"] is False
+    assert (
+        source_imports["aggregate_floor_ref"]
+        == "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_module_manifest.json::modules"
+    )
 
 
 def test_cold_reader_receipts_are_public_relative_with_secret_exclusion(tmp_path: Path) -> None:
@@ -143,6 +211,38 @@ def test_cold_reader_receipts_are_public_relative_with_secret_exclusion(tmp_path
         assert payload["real_runtime_receipt"] is True
         assert payload["synthetic_receipt_standin_allowed"] is False
         assert "private_state_scan" not in payload
+        assert "body_redacted" not in _walk_keys(payload)
+        assert "matched_excerpt" not in _walk_keys(payload)
+        assert "body" not in _walk_keys(payload)
+
+
+def test_cold_reader_exported_bundle_receipt_omits_source_bodies(tmp_path: Path) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        BUNDLE_INPUT,
+        public_root / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+    )
+    result = run_route_map_bundle(
+        public_root / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle",
+        public_root / "receipts/runtime_shell/demo_project/organs/cold_reader_route_map",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    for receipt_ref in result["receipt_paths"]:
+        receipt_file = public_root / receipt_ref
+        text = receipt_file.read_text(encoding="utf-8")
+        assert str(public_root) not in text
+        assert "/Users/" not in text
+        assert "src/ai_workflow" not in text
+        assert "matched_excerpt" not in text
+        assert '"body":' not in text
+        payload = json.loads(text)
+        assert payload["source_module_manifest_status"] == "pass"
+        assert payload["source_module_count"] == len(COLD_READER_SOURCE_MODULE_IDS)
+        assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
+        assert payload["body_import_verification"]["body_in_receipt"] is False
         assert "body_redacted" not in _walk_keys(payload)
         assert "matched_excerpt" not in _walk_keys(payload)
         assert "body" not in _walk_keys(payload)

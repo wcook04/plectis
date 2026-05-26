@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,17 @@ ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_cold_reader_route_map_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+REAL_BODY_MATERIAL_STATUS = (
+    "copied_non_secret_macro_cold_entry_route_substrate_with_provenance"
+)
+PUBLIC_SAFE_BODY_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+    "public_macro_proof_body",
+    "public_standard_body",
+}
 
 SOURCE_PATTERN_IDS = [
     "navigation_hologram_unified_route_plane",
@@ -134,6 +146,46 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    text = path.read_text(encoding="utf-8")
+    return text.count("\n") + (0 if text.endswith("\n") else 1)
+
+
+def _source_module_target_path(
+    input_dir: Path,
+    row: dict[str, Any],
+    *,
+    public_root: Path,
+) -> Path:
+    row_path = str(row.get("path") or "")
+    if row_path and not Path(row_path).is_absolute() and ".." not in Path(row_path).parts:
+        return input_dir / row_path
+    target_ref = str(row.get("target_ref") or "")
+    if target_ref.startswith("microcosm-substrate/"):
+        target_ref = target_ref.removeprefix("microcosm-substrate/")
+    if target_ref and not Path(target_ref).is_absolute() and ".." not in Path(target_ref).parts:
+        return public_root / target_ref
+    return input_dir / "__invalid_source_module_target__"
+
+
+def _source_module_paths(input_dir: Path, manifest_payload: object | None = None) -> list[Path]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else None
+    if manifest is None and manifest_path.is_file():
+        manifest = read_json_strict(manifest_path)
+    if not isinstance(manifest, dict):
+        return []
+    public_root = _public_root_for_path(input_dir)
+    return [
+        _source_module_target_path(input_dir, row, public_root=public_root)
+        for row in _rows(manifest, "modules")
+    ]
 
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
@@ -393,10 +445,220 @@ def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _scan_inputs(input_dir: Path, *, include_negative: bool, public_root: Path) -> dict[str, Any]:
+def _source_module_import_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    required: bool,
+) -> dict[str, Any]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest = read_json_strict(manifest_path) if manifest_path.is_file() else {}
+    rows = _rows(manifest, "modules")
+    findings: list[dict[str, Any]] = []
+    imports: list[dict[str, Any]] = []
+
+    if required and not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "COLD_ROUTE_SOURCE_MODULE_MANIFEST_MISSING",
+                "Exported cold-reader route-map bundle must include copied source module provenance.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest_path.is_file() and manifest.get("source_import_class") != (
+        "copied_non_secret_macro_body"
+    ):
+        findings.append(
+            _finding(
+                "COLD_ROUTE_SOURCE_MODULE_IMPORT_CLASS_UNSUPPORTED",
+                "Cold-reader source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest_path.is_file() and manifest.get("body_in_receipt") is True:
+        findings.append(
+            _finding(
+                "COLD_ROUTE_SOURCE_BODY_RECEIPT_EXPORT_FORBIDDEN",
+                "Copied source bodies must live in the bundle source_modules tree, not in receipts.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if required and manifest_path.is_file() and not rows:
+        findings.append(
+            _finding(
+                "COLD_ROUTE_SOURCE_MODULE_ROWS_MISSING",
+                "Exported cold-reader route-map bundle must carry copied source module rows.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    expected_count = manifest.get("module_count")
+    if manifest_path.is_file() and expected_count != len(rows):
+        findings.append(
+            _finding(
+                "COLD_ROUTE_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_floor",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in rows:
+        module_id = str(row.get("module_id") or "source_module")
+        target = _source_module_target_path(input_dir, row, public_root=public_root)
+        target_exists = target.is_file()
+        expected_digest = str(row.get("sha256") or "")
+        actual_digest = _sha256(target) if target_exists else None
+        material_class = str(row.get("material_class") or "")
+        source_ref = str(row.get("source_ref") or "")
+        required_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if isinstance(anchor, str) and anchor
+        ]
+        text = target.read_text(encoding="utf-8") if target_exists else ""
+        missing_anchors = [
+            anchor for anchor in required_anchors if anchor not in text
+        ]
+        digest_match = target_exists and actual_digest == expected_digest
+        anchor_status = PASS if not missing_anchors else "blocked"
+        row_body_in_receipt = row.get("body_in_receipt") is True
+        import_row = {
+            "module_id": module_id,
+            "source_ref": source_ref,
+            "target_ref": _display(target, public_root=public_root),
+            "material_class": material_class,
+            "source_sha256": expected_digest,
+            "target_sha256": actual_digest,
+            "exists": target_exists,
+            "digest_match": digest_match,
+            "anchor_status": anchor_status,
+            "missing_anchor_count": len(missing_anchors),
+            "source_to_target_relation": str(
+                row.get("source_to_target_relation") or "exact_copy"
+            ),
+            "source_line_count": row.get("line_count"),
+            "target_line_count": _line_count(target) if target_exists else None,
+            "body_in_receipt": False,
+            "body_material_status": REAL_BODY_MATERIAL_STATUS,
+        }
+        imports.append(import_row)
+
+        if str(row.get("source_import_class") or "") != "copied_non_secret_macro_body":
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_IMPORT_CLASS_UNSUPPORTED",
+                    "Copied source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_CLASS_UNSUPPORTED",
+                    "Copied source module rows must use a public-safe macro body class.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if row_body_in_receipt:
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_BODY_RECEIPT_EXPORT_FORBIDDEN",
+                    "Copied source module bodies may be bundled as files, not emitted in receipts.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if import_row["source_to_target_relation"] != "exact_copy":
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_RELATION_UNSUPPORTED",
+                    "Cold-reader body-floor imports must currently be exact copied source bodies.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not target_exists:
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_TARGET_MISSING",
+                    "Copied source module target file is missing from the exported bundle.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        elif not digest_match:
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Copied source module digest must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if missing_anchors:
+            findings.append(
+                _finding(
+                    "COLD_ROUTE_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Copied source module must preserve every required provenance anchor.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+
+    status = PASS if not findings else "blocked"
+    if not required and not manifest_path.is_file():
+        status = "not_required"
+    copied_count = sum(
+        1
+        for row in imports
+        if row["exists"] and row["digest_match"] and row["anchor_status"] == PASS
+    )
+    return {
+        "status": status,
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "body_material_status": REAL_BODY_MATERIAL_STATUS
+        if imports
+        else "no_source_module_import_required",
+        "source_module_results": imports,
+        "source_module_count": len(imports),
+        "copied_source_module_count": copied_count,
+        "source_module_refs": [row["target_ref"] for row in imports],
+        "source_refs": sorted({row["source_ref"] for row in imports if row["source_ref"]}),
+        "material_classes": sorted(
+            {row["material_class"] for row in imports if row["material_class"]}
+        ),
+        "findings": findings,
+    }
+
+
+def _scan_inputs(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    public_root: Path,
+    extra_paths: list[Path] | None = None,
+) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        [*_input_paths(input_dir, include_negative=include_negative), *(extra_paths or [])],
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -426,6 +688,15 @@ def _common_receipt(
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
         "public_runtime_refs": result["public_runtime_refs"],
+        "real_substrate_refs": result["real_substrate_refs"],
+        "body_material_status": result["body_material_status"],
+        "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "copied_source_module_count": result["copied_source_module_count"],
+        "source_module_refs": result["source_module_refs"],
+        "source_module_results": result["source_module_results"],
         "error_codes": result["error_codes"],
         "expected_negative_cases": result["expected_negative_cases"],
         "observed_negative_cases": result["observed_negative_cases"],
@@ -469,6 +740,12 @@ def _build_board(
         },
         "cold_reader_goal": "legible_under_10_minutes_without_private_macro_context",
         "public_runtime_refs": result["public_runtime_refs"],
+        "real_substrate_refs": result["real_substrate_refs"],
+        "body_material_status": result["body_material_status"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_module_count": result["source_module_count"],
+        "copied_source_module_count": result["copied_source_module_count"],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": secret_scan,
@@ -489,7 +766,22 @@ def _build_result(
 ) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
-    secret_scan = _scan_inputs(input_dir, include_negative=include_negative, public_root=public_root)
+    source_manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    source_manifest_payload = (
+        read_json_strict(source_manifest_path) if source_manifest_path.is_file() else {}
+    )
+    source_module_extra_paths = []
+    if source_manifest_path.is_file():
+        source_module_extra_paths = [
+            source_manifest_path,
+            *_source_module_paths(input_dir, source_manifest_payload),
+        ]
+    secret_scan = _scan_inputs(
+        input_dir,
+        include_negative=include_negative,
+        public_root=public_root,
+        extra_paths=source_module_extra_paths,
+    )
     route_map = payloads.get("route_map", {})
     route_receipts = payloads.get("route_receipts", {})
     route_policy = payloads.get("route_policy", {})
@@ -510,8 +802,6 @@ def _build_result(
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     observed = negative["observed_negative_cases"]
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*positive_findings, *negative["findings"]]
-    error_codes = sorted({finding["error_code"] for finding in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()
@@ -519,6 +809,13 @@ def _build_result(
     )
     if not isinstance(bundle_manifest, dict):
         bundle_manifest = {}
+    source_modules = _source_module_import_result(
+        input_dir,
+        public_root=public_root,
+        required=input_mode == "exported_cold_reader_route_map_bundle",
+    )
+    findings = [*positive_findings, *negative["findings"], *source_modules["findings"]]
+    error_codes = sorted({finding["error_code"] for finding in findings})
     receipt_ref_count = sum(
         len(row.get("receipt_refs", []))
         for row in receipt_rows
@@ -535,13 +832,20 @@ def _build_result(
         for route_id, expected_command in FRONT_DOOR_ROUTE_COMMANDS.items()
         if route_by_id.get(route_id, {}).get("command") == expected_command
     )
+    source_modules_pass = source_modules["status"] in (PASS, "not_required")
     status = (
         PASS
         if not positive_findings
         and not missing
         and not secret_scan["blocking_hit_count"]
+        and source_modules_pass
         else "blocked"
     )
+    real_substrate_refs = [
+        *PUBLIC_RUNTIME_REFS,
+        *source_modules["source_refs"],
+        *source_modules["source_module_refs"],
+    ]
     return {
         "schema_version": "cold_reader_route_map_result_v1",
         "created_at": utc_now(),
@@ -555,6 +859,23 @@ def _build_result(
         "source_pattern_ids": SOURCE_PATTERN_IDS,
         "source_refs": SOURCE_REFS,
         "public_runtime_refs": PUBLIC_RUNTIME_REFS,
+        "real_substrate_refs": real_substrate_refs,
+        "body_material_status": source_modules["body_material_status"],
+        "body_import_verification": {
+            "verification_status": PASS if source_modules_pass else "blocked",
+            "verification_mode": "exact_source_digest_match_plus_required_anchor_check",
+            "source_module_manifest_ref": source_modules[
+                "source_module_manifest_ref"
+            ],
+            "source_to_target_relation": "exact_copy",
+            "body_in_receipt": False,
+        },
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_count": source_modules["source_module_count"],
+        "copied_source_module_count": source_modules["copied_source_module_count"],
+        "source_module_refs": source_modules["source_module_refs"],
+        "source_module_results": source_modules["source_module_results"],
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
