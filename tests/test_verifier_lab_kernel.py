@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import verifier_lab_kernel
 from microcosm_core.organs.verifier_lab_kernel import (
     EXPECTED_NEGATIVE_CASES,
     run,
@@ -155,6 +156,7 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
 
 def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     tmp_path: Path,
+    monkeypatch,
 ) -> None:
     result = run_kernel_bundle(
         BUNDLE_INPUT,
@@ -190,6 +192,22 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
+    assert result["cache_status"] == "rebuilt"
+    assert result["freshness_basis"]["tracked_dependency_count"] > 10
+
+    def fail_rebuild(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh exported verifier-lab receipt should be reused")
+
+    monkeypatch.setattr(verifier_lab_kernel, "_build_result", fail_rebuild)
+    cached = run_kernel_bundle(
+        BUNDLE_INPUT,
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel",
+        command="pytest",
+    )
+    assert cached["cache_status"] == "fresh_receipt_reused"
+    assert cached["status"] == "pass"
+    assert cached["receipt_paths"] == result["receipt_paths"]
 
 
 def test_verifier_lab_kernel_route_slice_is_source_faithful() -> None:

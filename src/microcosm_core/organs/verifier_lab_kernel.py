@@ -314,6 +314,39 @@ COMPONENT_RUNNERS: dict[str, dict[str, Runner]] = {
     },
 }
 
+def _module_source_path(module: Any) -> Path | None:
+    source_ref = getattr(module, "__file__", None)
+    return Path(source_ref) if source_ref else None
+
+
+COMPONENT_SOURCE_PATHS: dict[str, Path | None] = {
+    "corpus_readiness_mathlib_absence_gate": _module_source_path(
+        corpus_readiness_mathlib_absence_gate
+    ),
+    "lean_std_premise_index": _module_source_path(lean_std_premise_index),
+    "formal_math_premise_retrieval": _module_source_path(
+        formal_math_premise_retrieval
+    ),
+    "tactic_portfolio_availability_probe": _module_source_path(
+        tactic_portfolio_availability_probe
+    ),
+    "target_shape_tactic_routing_gate": _module_source_path(
+        target_shape_tactic_routing_gate
+    ),
+    "formal_math_verifier_trace_repair_loop": _module_source_path(
+        formal_math_verifier_trace_repair_loop
+    ),
+    "ring2_premise_retrieval_precision_recall_harness": _module_source_path(
+        ring2_premise_retrieval_precision_recall_harness
+    ),
+    "proof_diagnostic_evidence_spine": _module_source_path(
+        proof_diagnostic_evidence_spine
+    ),
+    "formal_math_lean_proof_witness": _module_source_path(
+        formal_math_lean_proof_witness
+    ),
+}
+
 
 DEFAULT_COMPONENT_INPUTS = [
     {
@@ -419,6 +452,115 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
+    }
+
+
+def _dependency_file(path: Path) -> bool:
+    if not path.is_file():
+        return False
+    if path.suffix == ".pyc" or "__pycache__" in path.parts:
+        return False
+    return True
+
+
+def _iter_dependency_files(path: Path) -> list[Path]:
+    if _dependency_file(path):
+        return [path]
+    if not path.is_dir():
+        return []
+    return sorted(
+        file
+        for file in path.rglob("*")
+        if _dependency_file(file)
+    )
+
+
+def _kernel_bundle_dependency_paths(input_dir: Path) -> list[Path]:
+    packet_payload = read_json_strict(input_dir / PACKET_NAME)
+    packet = packet_payload if isinstance(packet_payload, dict) else {}
+    public_root = _public_root_for_path(input_dir)
+    paths: list[Path] = [
+        *_input_paths(input_dir, include_negative=False),
+        Path(__file__).resolve(strict=False),
+    ]
+    for spec in _component_specs(packet):
+        organ_id = str(spec.get("organ_id") or "")
+        input_rel = str(spec.get("input_rel") or "")
+        if input_rel:
+            paths.extend(_iter_dependency_files(public_root / input_rel))
+        source_path = COMPONENT_SOURCE_PATHS.get(organ_id)
+        if source_path is not None:
+            paths.extend(_iter_dependency_files(source_path.resolve(strict=False)))
+
+    seen: set[Path] = set()
+    unique: list[Path] = []
+    for path in paths:
+        resolved = path.resolve(strict=False)
+        if resolved in seen or not _dependency_file(resolved):
+            continue
+        seen.add(resolved)
+        unique.append(resolved)
+    return sorted(unique)
+
+
+def _kernel_bundle_freshness_basis(
+    *,
+    command: str,
+    receipt_path: Path,
+    dependency_paths: list[Path],
+) -> dict[str, Any]:
+    dependency_mtimes = [path.stat().st_mtime_ns for path in dependency_paths]
+    return {
+        "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
+        "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
+        "command": command,
+        "input_mode": "exported_verifier_lab_kernel_bundle",
+        "tracked_dependency_count": len(dependency_paths),
+        "latest_dependency_mtime_ns": max(dependency_mtimes) if dependency_mtimes else 0,
+        "receipt_mtime_ns": (
+            receipt_path.stat().st_mtime_ns if receipt_path.is_file() else None
+        ),
+    }
+
+
+def _fresh_kernel_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    receipt_path = out_dir / BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    payload = read_json_strict(receipt_path)
+    if not isinstance(payload, dict):
+        return None
+    if (
+        payload.get("schema_version")
+        != "exported_verifier_lab_kernel_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("command") != command:
+        return None
+    if payload.get("input_mode") != "exported_verifier_lab_kernel_bundle":
+        return None
+    dependency_paths = _kernel_bundle_dependency_paths(input_dir)
+    basis = _kernel_bundle_freshness_basis(
+        command=command,
+        receipt_path=receipt_path,
+        dependency_paths=dependency_paths,
+    )
+    receipt_mtime = basis["receipt_mtime_ns"]
+    if receipt_mtime is None:
+        return None
+    if basis["latest_dependency_mtime_ns"] > receipt_mtime:
+        return None
+    return {
+        **payload,
+        "cache_status": "fresh_receipt_reused",
+        "freshness_basis": basis,
     }
 
 
@@ -1503,13 +1645,23 @@ def run_kernel_bundle(
     out_dir: str | Path,
     command: str = "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle",
 ) -> dict[str, Any]:
+    input_path = Path(input_dir)
     target = Path(out_dir)
+    cached = _fresh_kernel_bundle_receipt(input_path, target, command=command)
+    if cached is not None:
+        return cached
     result = _build_result(
-        Path(input_dir),
+        input_path,
         command=command,
         input_mode="exported_verifier_lab_kernel_bundle",
         include_negative=False,
         out_dir=target,
+    )
+    result["cache_status"] = "rebuilt"
+    result["freshness_basis"] = _kernel_bundle_freshness_basis(
+        command=command,
+        receipt_path=target / BUNDLE_RESULT_NAME,
+        dependency_paths=_kernel_bundle_dependency_paths(input_path),
     )
     return _write_receipts(result, target, acceptance_out=None, bundle_only=True)
 
