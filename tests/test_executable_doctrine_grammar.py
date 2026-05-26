@@ -92,11 +92,26 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert result["grammar_case_count"] == 6
     assert result["source_capsule_count"] == 10
     assert result["provider_replay_bridge_case_count"] == 4
+    assert result["body_copied_material_count"] == 3
     assert result["private_state_scan"]["status"] == "pass"
     assert result["private_state_scan"]["body_redacted"] is True
     assert result["receipt_paths"] == [
         "receipts/exported_executable_grammar_metabolism_bundle_validation_result.json"
     ]
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 3
+    assert source_imports["body_in_receipt"] is False
+    assert set(source_imports["body_material_ids"]) == {
+        "executable_grammar_metabolism_readme_body_import",
+        "executable_grammar_metabolism_board_body_import",
+        "executable_grammar_metabolism_receipt_body_import",
+    }
+    source_modules = result["source_module_imports"]
+    assert source_modules["status"] == "pass"
+    assert source_modules["module_count"] == 3
+    assert all(module["body_in_receipt"] is False for module in source_modules["modules"])
+    assert all(module["sha256"] == module["actual_sha256"] for module in source_modules["modules"])
 
     receipt = json.loads(
         (
@@ -105,6 +120,11 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
         ).read_text(encoding="utf-8")
     )
     assert receipt["body_text_in_receipt"] is False
+    assert receipt["source_open_body_imports"]["body_material_count"] == 3
+    assert receipt["body_copied_material_count"] == 3
+    assert receipt["source_module_imports"]["source_module_manifest_ref"].endswith(
+        "source_module_manifest.json"
+    )
     assert receipt["source_root"] == (
         "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism"
     )
@@ -117,6 +137,32 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert "matched_excerpt" not in text
     assert "private standards engine" in text
     assert "/Users/" not in text
+
+
+def test_executable_doctrine_grammar_source_module_digest_tamper_blocks_bundle(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle_dir = (
+        public_root
+        / "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle"
+    )
+    shutil.copytree(METABOLISM_BUNDLE_INPUT, bundle_dir)
+    source_body = bundle_dir / "grammar_board.json"
+    source_body.write_text(source_body.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+
+    result = validate_executable_grammar_metabolism_bundle(
+        bundle_dir,
+        tmp_path / "receipts",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["source_open_body_imports"]["status"] == "blocked"
+    assert result["body_copied_material_count"] == 3
+    assert "EXECUTABLE_GRAMMAR_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["body_text_in_receipt"] is False
 
 
 def test_executable_doctrine_grammar_receipts_are_public_relative_and_redacted(

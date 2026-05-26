@@ -9,6 +9,15 @@
     "grammar_board.json",
     "receipt.json"
   ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_module_manifest": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
+    "body_material_count": 3,
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_in_receipt": false,
+    "authority": "digest_verified_public_macro_body_floor"
+  },
   "authority_ceiling": "public macro specimen validation only",
   "body_storage_policy": "exact non-secret macro specimen bodies are copied into Microcosm examples and source_modules; receipt bodies carry paths, hashes, counts, and verdicts only",
   "source_open_payload_boundary": "open source except keys, credentials, cookies, account/session state, provider payload bodies, browser/HUD live access, recipient-send state, and credential-equivalent material",

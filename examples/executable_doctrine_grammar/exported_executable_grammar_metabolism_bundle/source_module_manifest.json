@@ -1,0 +1,83 @@
+{
+  "schema_version": "executable_doctrine_grammar_source_module_manifest_v1",
+  "manifest_id": "executable_grammar_metabolism_body_imports",
+  "bundle_id": "public_executable_grammar_metabolism_macro_specimen",
+  "source_import_class": "copied_non_secret_macro_body",
+  "classification": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
+  "body_storage_policy": "exact non-secret macro specimen bodies are copied into this public bundle as README.md, grammar_board.json, and receipt.json",
+  "receipt_body_policy": "receipts may report paths, hashes, counts, and verdicts but must not duplicate full source bodies",
+  "body_in_receipt": false,
+  "module_count": 3,
+  "modules": [
+    {
+      "module_id": "executable_grammar_metabolism_readme_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/README.md",
+      "path": "README.md",
+      "source_role": "Public executable-grammar metabolism entry card, boundaries, commands, and leaf route refs",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
+      "line_count": 60,
+      "byte_count": 3181,
+      "required_anchors": [
+        "Executable Grammar Metabolism",
+        "private standards engine",
+        "source_capsule_provenance",
+        "Leaf Entry Card"
+      ]
+    },
+    {
+      "module_id": "executable_grammar_metabolism_board_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/grammar_board.json",
+      "path": "grammar_board.json",
+      "source_role": "Public executable-grammar metabolism board with grammar rules, cases, source capsules, provider replay bridge, and claim boundaries",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
+      "line_count": 2468,
+      "byte_count": 121246,
+      "required_anchors": [
+        "\"schema_version\": \"executable_grammar_metabolism_specimen_v0\"",
+        "\"grammar_rules\"",
+        "\"provider_replay_bridge\"",
+        "\"source_capsule_provenance\"",
+        "\"public_safety_boundary\""
+      ]
+    },
+    {
+      "module_id": "executable_grammar_metabolism_receipt_body_import",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/receipt.json",
+      "path": "receipt.json",
+      "source_role": "Public executable-grammar metabolism receipt with omissions, evidence refs, source capsule counts, and fixture-valid claim tier",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:3911a9e2489f2bfa713423b0a2893c67546fd3bc55bb293388719e97dd6b4408",
+      "line_count": 77,
+      "byte_count": 3046,
+      "required_anchors": [
+        "\"schema_version\": \"receipt_v0\"",
+        "\"owner\": \"idea_microcosm.executable_grammar_specimen\"",
+        "\"evidence_refs\"",
+        "\"omissions\"",
+        "\"source_capsule_count\""
+      ]
+    }
+  ],
+  "validation_contract_ref": "standards/std_microcosm_executable_doctrine_grammar.json"
+}

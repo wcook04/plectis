@@ -2,9 +2,41 @@
   "schema_version": "executable_doctrine_grammar_fixture_manifest_v1",
   "organ_id": "executable_doctrine_grammar",
   "fixture_id": "first_wave.executable_doctrine_grammar",
-  "status": "public_synthetic_fixture_manifest",
+  "status": "public_synthetic_fixture_plus_imported_macro_specimen_manifest",
+  "body_copied_material_count": 3,
+  "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
   "authority_ceiling": "fixture_manifest_only_not_macro_doctrine_authority",
-  "anti_claim": "This fixture manifest covers only public synthetic grammar fixtures and does not certify macro doctrine completeness or later public organs.",
+  "anti_claim": "This fixture manifest covers public synthetic grammar fixtures plus an exact copied public executable-grammar macro specimen. It does not certify macro doctrine completeness, private standards-engine export, provider payload export, or later public organs.",
+  "source_open_body_imports": {
+    "schema_version": "executable_doctrine_grammar_source_open_body_imports_v1",
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+    "body_material_count": 3,
+    "body_material_ids": [
+      "executable_grammar_metabolism_readme_body_import",
+      "executable_grammar_metabolism_board_body_import",
+      "executable_grammar_metabolism_receipt_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "authority_ceiling": {
+      "private_data_equivalence_authorized": false,
+      "private_standards_engine_exported": false,
+      "provider_calls_authorized": false,
+      "public_leaf_authority_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only."
+  },
   "inputs": [
     {
       "path": "fixtures/first_wave/executable_doctrine_grammar/input/standards_registry.json",
@@ -20,6 +52,28 @@
       "path": "fixtures/first_wave/executable_doctrine_grammar/input/paper_modules/broken_module.md",
       "kind": "expected_negative_toy_paper_module",
       "body_policy": "public_safe_synthetic_only"
+    }
+  ],
+  "imported_body_inputs": [
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
+      "kind": "source_module_manifest",
+      "body_policy": "manifest_only_paths_hashes_counts_no_body_text"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/README.md",
+      "kind": "copied_public_macro_tool_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/grammar_board.json",
+      "kind": "copied_public_macro_tool_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/receipt.json",
+      "kind": "copied_public_macro_receipt_body",
+      "body_policy": "copied_non_secret_macro_body"
     }
   ],
   "expected_negative_cases": [

@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 24,
+  "rows_with_source_body_imports": 25,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 314,
+  "source_open_body_material_count": 317,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 24,
-    "source_open_body_material_count": 314,
+    "rows_with_source_body_imports": 25,
+    "source_open_body_material_count": 317,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -249,7 +249,7 @@
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
         "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar specimen bodies.",
-        "receipt_expectation_count": 5,
+        "receipt_expectation_count": 6,
         "required_field_count": 8,
         "required_substrate": {
           "claim_ceiling_declared": true,
@@ -265,7 +265,7 @@
         "standard_ref": "standards/std_microcosm_executable_doctrine_grammar.json",
         "standard_status": "draft",
         "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority.",
-        "validation_rule_count": 7
+        "validation_rule_count": 8
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -282,7 +282,37 @@
           "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "private_data_equivalence_authorized": false,
+            "private_standards_engine_exported": false,
+            "provider_calls_authorized": false,
+            "public_leaf_authority_authorized": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 3,
+          "body_material_ids": [
+            "executable_grammar_metabolism_readme_body_import",
+            "executable_grammar_metabolism_board_body_import",
+            "executable_grammar_metabolism_receipt_body_import"
+          ],
+          "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.executable_doctrine_grammar validate --input fixtures/first_wave/executable_doctrine_grammar/input --out receipts/first_wave/executable_doctrine_grammar",
         "verdict_source": "validator_computation"
@@ -290,7 +320,37 @@
       "ordinal": 2,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "private_data_equivalence_authorized": false,
+          "private_standards_engine_exported": false,
+          "provider_calls_authorized": false,
+          "public_leaf_authority_authorized": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 3,
+        "body_material_ids": [
+          "executable_grammar_metabolism_readme_body_import",
+          "executable_grammar_metabolism_board_body_import",
+          "executable_grammar_metabolism_receipt_body_import"
+        ],
+        "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_executable_doctrine_grammar.json",
         "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",

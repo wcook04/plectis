@@ -26,6 +26,14 @@ PAPER_REPORT_NAME = "paper_module_validation_report.json"
 ACCEPTANCE_RECEIPT_REL = "receipts/acceptance/first_wave/executable_doctrine_grammar_fixture_acceptance.json"
 STANDARDS_BUNDLE_RESULT_NAME = "exported_standards_bundle_validation_result.json"
 METABOLISM_BUNDLE_RESULT_NAME = "exported_executable_grammar_metabolism_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = "copied_non_secret_executable_grammar_macro_body_with_provenance"
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_tool_body",
+    "public_macro_receipt_body",
+}
+SOURCE_MODULE_RELATIONS = {"exact_copy"}
 
 GRAMMAR_AUTHORITY_CEILING = {
     "status": PASS,
@@ -97,6 +105,15 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
+
+
+def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    rows = payload.get(key, [])
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict)]
 
 
 def _sha256_file(path: Path) -> str:
@@ -777,10 +794,264 @@ def validate_standards_bundle(
     return result
 
 
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_manifest_path(input_dir: str | Path) -> Path:
+    return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        target = public_root / target_ref
+        if target.exists() or not row_path:
+            return target, target_ref
+        relocated = manifest_path.parent / row_path
+        return relocated, public_relative_path(relocated, display_root=public_root)
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, public_relative_path(target, display_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return paths
+    for row in _json_rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
+
+
+def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = public_relative_path(manifest_path, display_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "EXECUTABLE_GRAMMAR_SOURCE_MODULE_MANIFEST_MISSING",
+                "Executable-grammar metabolism bundle requires source_module_manifest.json for copied macro specimen bodies.",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = read_json_strict(manifest_path)
+    module_rows = _json_rows(manifest, "modules")
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "EXECUTABLE_GRAMMAR_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "EXECUTABLE_GRAMMAR_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied executable-grammar macro bodies may live in the bundle, not in receipts.",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(module_rows):
+        findings.append(
+            _finding(
+                "EXECUTABLE_GRAMMAR_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    for row in module_rows:
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        material_class = str(row.get("material_class") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        expected_digest = str(row.get("sha256") or "")
+        source_ref = str(row.get("source_ref") or "")
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Executable-grammar body imports may include only public macro tool or receipt bodies.",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy.",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not source_ref.startswith("self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/"):
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_REF_UNEXPECTED",
+                    "Source module rows must point at the executable_grammar_metabolism macro specimen.",
+                    subject_id=module_id or target_ref or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the public metabolism bundle.",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual_digest = _sha256_file(target_path)
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "EXECUTABLE_GRAMMAR_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    subject_id=target_ref or module_id or "source_module",
+                    subject_kind="source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _json_rows(source_imports, "modules")
+    module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
+    return {
+        "schema_version": "executable_doctrine_grammar_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {str(row.get("material_class")) for row in modules if row.get("material_class")}
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref")
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref")
+            else ""
+        ),
+        "body_in_receipt": False,
+        "authority_ceiling": {
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+            "public_leaf_authority_authorized": False,
+            "private_data_equivalence_authorized": False,
+            "private_standards_engine_exported": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus README.md, grammar_board.json, and "
+            "receipt.json for copied executable-grammar macro bodies; receipts carry "
+            "refs, digests, counts, and verdicts only."
+        )
+        if modules
+        else "",
+    }
+
+
 def _scan_metabolism_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    paths: list[Path] = [input_dir / filename for filename in METABOLISM_REQUIRED_FILES]
+    paths.extend(_source_artifact_paths(input_dir, public_root=public_root))
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
     return scan_paths(
-        [input_dir / filename for filename in METABOLISM_REQUIRED_FILES],
+        deduped,
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -875,6 +1146,10 @@ def _write_metabolism_bundle_receipt(
             "artifact_digests": validation_result["artifact_digests"],
             "source_root": validation_result["source_root"],
             "source_refs": validation_result["source_refs"],
+            "source_module_imports": validation_result["source_module_imports"],
+            "source_open_body_imports": validation_result["source_open_body_imports"],
+            "body_material_status": validation_result["body_material_status"],
+            "body_copied_material_count": validation_result["body_copied_material_count"],
             "grammar_rule_count": validation_result["grammar_rule_count"],
             "grammar_case_count": validation_result["grammar_case_count"],
             "source_capsule_count": validation_result["source_capsule_count"],
@@ -913,15 +1188,20 @@ def validate_executable_grammar_metabolism_bundle(
         raise ValueError(f"{receipt_path}: receipt must be a JSON object")
     readme_text = readme_path.read_text(encoding="utf-8")
 
+    source_imports = validate_source_module_imports(input_path, public_root=public_root)
     scan_result = _receipt_safe_scan_result(
         _scan_metabolism_bundle_inputs(input_path, public_root)
     )
-    findings = _metabolism_bundle_findings(
-        manifest=manifest,
-        board=board,
-        receipt=receipt,
-        readme_text=readme_text,
-    )
+    findings = [
+        *_metabolism_bundle_findings(
+            manifest=manifest,
+            board=board,
+            receipt=receipt,
+            readme_text=readme_text,
+        ),
+        *source_imports["findings"],
+    ]
+    source_open_body_imports = _source_open_body_import_summary(source_imports)
     source_capsules = board.get("source_capsule_provenance")
     source_capsule_count = len(source_capsules) if isinstance(source_capsules, dict) else 0
     artifact_paths = [readme_path, board_path, receipt_path]
@@ -936,7 +1216,13 @@ def validate_executable_grammar_metabolism_bundle(
     )
     result.update(
         {
-            "status": PASS if not findings and scan_result["status"] == PASS else "blocked",
+            "status": (
+                PASS
+                if not findings
+                and scan_result["status"] == PASS
+                and source_imports["status"] == PASS
+                else "blocked"
+            ),
             "input_mode": "exported_executable_grammar_metabolism_bundle",
             "bundle_id": str(manifest.get("bundle_id") or ""),
             "anti_claim": (
@@ -965,6 +1251,16 @@ def validate_executable_grammar_metabolism_bundle(
                 public_relative_path(path, display_root=public_root): _sha256_file(path)
                 for path in artifact_paths
             },
+            "source_module_imports": {
+                "status": source_imports["status"],
+                "source_module_manifest_ref": source_imports["source_module_manifest_ref"],
+                "module_count": source_imports["module_count"],
+                "modules": source_imports["modules"],
+                "findings": source_imports["findings"],
+            },
+            "source_open_body_imports": source_open_body_imports,
+            "body_material_status": source_open_body_imports["body_material_status"],
+            "body_copied_material_count": source_open_body_imports["body_material_count"],
             "source_root": str(manifest.get("source_root") or ""),
             "source_refs": [
                 "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",

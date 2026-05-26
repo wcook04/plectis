@@ -41,6 +41,7 @@
       "exported_standards_bundle_validation_result.json",
       "exported_executable_grammar_metabolism_bundle_validation_result.json"
     ],
+    "source_open_body_imports_required": true,
     "public_relative_refs_required": true
   },
   "receipt_expectations": [
@@ -48,6 +49,7 @@
     "report expected negative-case coverage",
     "report paper-module grammar findings",
     "report imported executable-grammar metabolism source refs, artifact refs, and digests without duplicating body text",
+    "report source_module_imports and source_open_body_imports for copied executable-grammar macro specimen bodies",
     "include authority ceiling, anti-claim, and secret-exclusion status"
   ],
   "relationships": {
@@ -97,6 +99,10 @@
     {
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/executable_grammar_metabolism_source_module_manifest.json",
       "role": "source_to_target_digest_manifest"
+    },
+    {
+      "path": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
+      "role": "organ_local_source_module_manifest"
     }
   ],
   "standard_id": "std_microcosm_executable_doctrine_grammar",
@@ -122,6 +128,7 @@
     "reject grammar or paper-module fixtures that claim doctrine completeness",
     "reject copied macro doctrine or provider payload bodies in public fixtures",
     "require imported executable-grammar metabolism specimens to pass exact digest and source-ref checks",
+    "require imported executable-grammar metabolism specimens to expose source_open_body_imports body-floor accounting from source_module_manifest.json",
     "require receipts to omit body text and expose only refs, hashes, counts, authority ceilings, and verdicts"
   ],
   "validator_contract": {
@@ -130,6 +137,8 @@
       "paper_module_shape",
       "negative_cases",
       "source_digest_match",
+      "source_module_manifest",
+      "source_open_body_imports",
       "secret_exclusion"
     ],
     "required": true,
