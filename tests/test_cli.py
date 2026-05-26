@@ -218,7 +218,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
 
-    assert len(json.dumps(payload, sort_keys=True)) < 12000
+    assert len(json.dumps(payload, sort_keys=True)) < 11000
     assert payload["card_command"] == "microcosm status --card <project>"
     assert payload["source_files_mutated"] is False
     assert payload["front_door"]["front_door_status_ref"] == (
@@ -233,6 +233,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
     assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
     assert front_door_status["surface_statuses"]["observatory"] == "pass"
+    assert "required_surface_ids" not in front_door_status
     assert (
         front_door_status["surface_statuses"]["workingness_failure_envelope"]
         == "clear"
@@ -404,7 +405,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     status_card = json.loads(capsys.readouterr().out)
-    assert len(json.dumps(status_card, sort_keys=True)) < 12000
+    assert len(json.dumps(status_card, sort_keys=True)) < 11000
     assert status_card["status"] == "pass"
     assert status_card["front_door_status"]["blocking_surface_ids"] == []
     assert status_card["front_door_status"]["actionable_surface_ids"] == [

@@ -2735,19 +2735,11 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": "microcosm_status_card_front_door_status_v1",
         "status": PASS if not blocking_surface_ids else "blocked",
-        "status_scope": "status_card_first_screen_surfaces",
-        "local_first_screen_route": (
-            front_door.get("local_first_screen_route")
-            if isinstance(front_door.get("local_first_screen_route"), dict)
-            else _local_first_screen_route_ref()
-        ),
-        "required_surface_ids": list(surfaces),
         "surface_statuses": surfaces,
         "blocking_surface_ids": blocking_surface_ids,
         "blocking_surface_details": blocking_surface_details,
         "accepted_nonblocking_statuses": [PASS, "clear", "actionable"],
         "actionable_surface_ids": actionable_surface_ids,
-        "actionable_surface_rule": "visible_debt_not_route_blocker",
         "drilldown_warning_surface_ids": ["authority", "intake"],
         "drilldown_blocked_surface_ids_status": (
             "not_evaluated_in_status_card"
@@ -2756,7 +2748,6 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
             "microcosm tour <project>::front_door_status."
             "drilldown_blocked_surface_ids"
         ),
-        "full_tour_status_ref": "microcosm tour <project>::front_door_status",
         "top_level_status_rule": (
             "pass_when_required_surfaces_are_nonblocking; tour reports "
             "authority/intake warning blockers"
@@ -2769,16 +2760,6 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
             "drilldown_blocked_surface_ids_visible_by_ref": True,
             "source_files_mutated_visible": True,
         },
-        "authority_ceiling": {
-            "release_authorized": False,
-            "provider_calls_authorized": False,
-            "source_mutation_authorized": False,
-            "proof_correctness_claim": False,
-        },
-        "reader_action": (
-            "Use blocking_surface_ids here; run tour for exact "
-            "authority/intake warning blockers."
-        ),
     }
 
 
@@ -2915,11 +2896,6 @@ def _runtime_status_card(
                 "microcosm tour <project>::front_door_status"
             ),
             "tour_warning_drilldowns": ["authority", "intake"],
-            "warning_rule": (
-                "warning drilldowns remain visible for inspection; they do "
-                "not become first-screen blockers unless listed in "
-                "front_door_status.blocking_surface_ids"
-            ),
             "state_dir": generated_state.get("state_dir"),
             "route_state_ref": behavior_surfaces.get("route_state_ref"),
             "selected_route_id": front_door.get("selected_route_id"),

@@ -476,7 +476,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     card = shell.status_card()
 
     assert card == status["status_card"]
-    assert len(json.dumps(card, sort_keys=True)) < 12000
+    assert len(json.dumps(card, sort_keys=True)) < 11000
     assert card["schema_version"] == "microcosm_runtime_status_card_v1"
     assert card["status"] == "pass"
     assert card["card_command"] == "microcosm status --card"
@@ -509,6 +509,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         "clear",
         "actionable",
     ]
+    assert "local_first_screen_route" not in front_door_status
+    assert "required_surface_ids" not in front_door_status
     assert front_door_status["surface_statuses"]["runtime_status"] == "pass"
     assert (
         front_door_status["surface_statuses"]["macro_body_import_floor"]
@@ -722,7 +724,7 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     project_state = card["front_door"]["project_state"]
     project_body_floor = card["macro_body_import_floor"]
 
-    assert len(json.dumps(card, sort_keys=True)) < 11500
+    assert len(json.dumps(card, sort_keys=True)) < 11000
     assert project_state["schema_version"] == (
         "microcosm_project_status_overlay_summary_v1"
     )
