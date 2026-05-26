@@ -3991,6 +3991,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             payload = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/status", timeout=5) as response:
             project_status_card = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/first-screen", timeout=5) as response:
+            first_screen = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/observe", timeout=5) as response:
             project_observe = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/workingness", timeout=5) as response:
@@ -4067,6 +4069,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         server.server_close()
 
     assert "Microcosm Observatory" in html
+    assert "One-Screen Entry" in html
+    assert "/project/first-screen" in html
     assert "Causal Chain" in html
     assert "readme_onboarding_route" in html
     assert "repo_has_readme" in html
@@ -4098,6 +4102,20 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "source_open_body_import_floor" in html
     assert "Body text exported in status" in html
     assert "Body text exported in receipts" in html
+    assert first_screen["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert first_screen["status"] == "pass"
+    assert first_screen["shared_first_command"] == "microcosm tour --card <project>"
+    assert first_screen["entry_surface_contract"]["shared_behavior_surface"] == (
+        first_screen["shared_first_command"]
+    )
+    assert first_screen["evidence_count_frame"]["interpretation"] == (
+        "accounting_not_maturity_score"
+    )
+    assert {route["reader_route_id"] for route in first_screen["reader_routes"]} == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
     assert "microcosm status --card" in html
     assert "/project/status" in html
     assert "/tour" in html
@@ -4361,8 +4379,10 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["json_drilldowns"]["observatory_card"] == (
         "/project/observatory-card"
     )
+    assert observatory["json_drilldowns"]["first_screen"] == "/project/first-screen"
     assert observatory["json_drilldowns"]["status_card"] == "/project/status"
     assert observatory["json_drilldowns"]["project_observe"] == "/project/observe"
+    assert observatory["first_screen_composition"] == first_screen
     assert observatory["observatory_card"] == observatory_card
     assert observatory_card["schema_version"] == (
         "microcosm_project_observatory_card_v1"
@@ -4370,7 +4390,20 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory_card["status"] == "pass"
     assert observatory_card["endpoint"] == "/project/observatory-card"
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
+    assert observatory_card["first_screen_endpoint"] == "/project/first-screen"
     assert observatory_card["status_card_endpoint"] == "/project/status"
+    assert observatory_card["surface_statuses"]["first_screen_composition"] == "pass"
+    assert observatory_card["surface_status_refs"]["first_screen_composition"] == (
+        "/project/first-screen"
+    )
+    assert observatory_card["first_screen_composition"]["reader_route_ids"] == [
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    ]
+    assert observatory_card["first_screen_composition"]["shared_first_command"] == (
+        "microcosm tour --card <project>"
+    )
     assert observatory_card["surface_status_refs"]["status_card"] == (
         "/project/status"
     )

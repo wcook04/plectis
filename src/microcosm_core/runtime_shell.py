@@ -11,6 +11,7 @@ from typing import Any, Callable
 from urllib.parse import unquote, urlparse
 
 from microcosm_core import architecture_kernel
+from microcosm_core import first_screen_composition
 from microcosm_core import project_substrate
 from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
 from microcosm_core.organs import agent_memory_temporal_conflict_replay
@@ -1024,6 +1025,21 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         if isinstance(model.get("json_drilldowns"), dict)
         else {}
     )
+    first_screen_composition_card = (
+        model.get("first_screen_composition", {})
+        if isinstance(model.get("first_screen_composition"), dict)
+        else {}
+    )
+    first_screen_composition_status = (
+        first_screen_composition_card.get("status")
+        if first_screen_composition_card
+        else PASS
+    )
+    first_screen_reader_routes = (
+        first_screen_composition_card.get("reader_routes", [])
+        if isinstance(first_screen_composition_card.get("reader_routes"), list)
+        else []
+    )
     blocking_surface_ids = front_door_status.get("blocking_surface_ids", [])
     if not isinstance(blocking_surface_ids, list):
         blocking_surface_ids = []
@@ -1040,6 +1056,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         PASS
         if model.get("status") == PASS
         and first_screen_route_proof.get("status") == PASS
+        and first_screen_composition_status == PASS
         and state_inspection_status == PASS
         and not blocking_surface_ids
         else "blocked"
@@ -1091,6 +1108,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         "endpoint": "/project/observatory-card",
         "html_endpoint": "/",
         "full_observatory_endpoint": "/project/observatory",
+        "first_screen_endpoint": "/project/first-screen",
         "status_endpoint": "/status",
         "status_card_endpoint": "/project/status",
         "tour_endpoint": "/tour",
@@ -1108,6 +1126,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         ),
         "surface_statuses": {
             "first_screen": status,
+            "first_screen_composition": first_screen_composition_status,
             "route": route_status,
             "work": work_status,
             "evidence": evidence_status,
@@ -1121,6 +1140,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         },
         "surface_status_refs": {
             "status": "/status",
+            "first_screen_composition": "/project/first-screen",
             "status_card": "/project/status",
             "route": (
                 f".microcosm/routes.json::{selected_route_id}"
@@ -1139,6 +1159,11 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                 "step_id": "open_browser_observatory",
                 "endpoint": "/",
                 "shows": "human-readable causal chain before raw JSON",
+            },
+            {
+                "step_id": "read_first_screen_composition",
+                "endpoint": "/project/first-screen",
+                "shows": "one-screen reader branch map backed by the shared package card",
             },
             {
                 "step_id": "read_project_status_card",
@@ -1177,6 +1202,42 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "route_explanation_endpoint": route_explanation_endpoint,
             "blocking_surface_ids": blocking_surface_ids,
             "warning_drilldown_surface_ids": warning_surface_ids,
+        },
+        "first_screen_composition": {
+            "status": first_screen_composition_status,
+            "endpoint": "/project/first-screen",
+            "schema_version": first_screen_composition_card.get("schema_version"),
+            "shared_first_command": first_screen_composition_card.get(
+                "shared_first_command"
+            ),
+            "reader_route_ids": [
+                route.get("reader_route_id")
+                for route in first_screen_reader_routes
+                if isinstance(route, dict) and route.get("reader_route_id")
+            ],
+            "evidence_count_interpretation": (
+                first_screen_composition_card.get("evidence_count_frame", {}).get(
+                    "interpretation"
+                )
+                if isinstance(
+                    first_screen_composition_card.get("evidence_count_frame"), dict
+                )
+                else None
+            ),
+            "comparison_frame_purpose": (
+                first_screen_composition_card.get("comparison_frame", {}).get(
+                    "purpose"
+                )
+                if isinstance(first_screen_composition_card.get("comparison_frame"), dict)
+                else None
+            ),
+            "authority_ceiling_status": (
+                first_screen_composition_card.get("authority_ceiling", {}).get(
+                    "status"
+                )
+                if isinstance(first_screen_composition_card.get("authority_ceiling"), dict)
+                else None
+            ),
         },
         "project_state": {
             "project_id": project_summary.get("project_id"),
@@ -16557,6 +16618,10 @@ class RuntimeShell:
                 "observatory card before opening doctrine or receipt drilldowns."
             ),
         )
+        first_screen_card = first_screen_composition.first_screen_composition_card(
+            self.root,
+            project_label="<project>",
+        )
         model.update(
             {
                 "project_summary": {
@@ -16570,6 +16635,7 @@ class RuntimeShell:
                     "source_mutation_authorized": False,
                 },
                 "selected_route_id": route_id,
+                "first_screen_composition": first_screen_card,
                 "state_inspection": state_inspection,
                 "first_screen_route_proof": {
                     "schema_version": "microcosm_observatory_first_screen_route_proof_v1",
@@ -16757,6 +16823,7 @@ class RuntimeShell:
                     "intake": "/intake",
                     "reveal": "/reveal",
                     "kernel": "/kernel",
+                    "first_screen": "/project/first-screen",
                     "status_card": "/project/status",
                     "project_observe": "/project/observe",
                     "observatory_card": "/project/observatory-card",
@@ -16821,6 +16888,30 @@ class RuntimeShell:
             if isinstance(model.get("first_screen_route_proof"), dict)
             else {}
         )
+        first_screen_card = (
+            model.get("first_screen_composition", {})
+            if isinstance(model.get("first_screen_composition"), dict)
+            else {}
+        )
+        first_screen_evidence_frame = (
+            first_screen_card.get("evidence_count_frame", {})
+            if isinstance(first_screen_card.get("evidence_count_frame"), dict)
+            else {}
+        )
+        first_screen_comparison_frame = (
+            first_screen_card.get("comparison_frame", {})
+            if isinstance(first_screen_card.get("comparison_frame"), dict)
+            else {}
+        )
+        first_screen_reader_ids = [
+            str(route.get("reader_route_id"))
+            for route in (
+                first_screen_card.get("reader_routes", [])
+                if isinstance(first_screen_card.get("reader_routes"), list)
+                else []
+            )
+            if isinstance(route, dict) and route.get("reader_route_id")
+        ]
         observatory_card = (
             model.get("observatory_card", {})
             if isinstance(model.get("observatory_card"), dict)
@@ -17650,6 +17741,29 @@ class RuntimeShell:
     <p>{html.escape(project_title)} is shown as an executable research prototype: local state, resolved pattern bindings, standard pressure, route, work transaction, events, and evidence drilldowns. Release remains unauthorized.</p>
   </header>
   <main>
+    <section class="wide">
+      <h2>One-Screen Entry</h2>
+      <div class="content">
+        <div class="chain">
+          <div class="node"><strong>First Run</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
+          <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>
+          <div class="node"><strong>Reader Routes</strong><span>{_badge_list(first_screen_reader_ids)}</span></div>
+          <div class="node"><strong>Evidence Counts</strong><span>{html.escape(_safe_text(first_screen_evidence_frame.get("interpretation") or "accounting_not_maturity_score"))}</span></div>
+        </div>
+        <table>
+          {row("Status", first_screen_card.get("status"))}
+          {row("Schema", first_screen_card.get("schema_version"))}
+          {row("Shared behavior surface", first_screen_card.get("shared_first_command"))}
+          {row("Reader routes", ", ".join(first_screen_reader_ids))}
+          {row("Counts mean", first_screen_evidence_frame.get("interpretation"))}
+          {row("Comparison frame", first_screen_comparison_frame.get("purpose"))}
+          {row("Composition contract", first_screen_card.get("source_standard_ref"))}
+          {row("JSON endpoint", "/project/first-screen")}
+        </table>
+        <p class="ceiling">This browser first screen uses the same package-backed composition card as the CLI. Evidence counts are accounting fields, not maturity or readiness scores; reader branches choose drilldowns but do not raise authority.</p>
+      </div>
+    </section>
+
     <section class="wide">
       <h2>Causal Chain</h2>
       <div class="content">
@@ -18648,6 +18762,17 @@ class RuntimeShell:
                     )
                 elif path == "/project/status" and project_path is not None:
                     self._send(200, shell.status_card(project_path))
+                elif path == "/project/first-screen" and project_path is not None:
+                    card = cached_observatory_model().get("first_screen_composition")
+                    self._send(
+                        200,
+                        card
+                        if isinstance(card, dict)
+                        else first_screen_composition.first_screen_composition_card(
+                            shell.root,
+                            project_label="<project>",
+                        ),
+                    )
                 elif path == "/project/observe" and project_path is not None:
                     self._send(200, project_substrate.observe_project(project_path))
                 elif path == "/project/architecture" and project_path is not None:
