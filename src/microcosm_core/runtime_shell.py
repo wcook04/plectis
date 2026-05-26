@@ -2952,55 +2952,49 @@ def _runtime_status_card(
         if isinstance(body_floor.get("source_body_import_lens"), dict)
         else {}
     )
+    latest_source_refs: list[str] = []
+    latest_verified_source_module_family_ids: list[str] = []
     if source_body_imports:
-        compact_families = []
+        latest_source_refs = [
+            ref
+            for ref in source_body_imports.get("latest_source_refs", [])
+            if isinstance(ref, str)
+        ][-STATUS_CARD_LATEST_SOURCE_REF_LIMIT:]
         for family in source_body_imports.get(
             "latest_verified_source_module_families", []
         )[-STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT:]:
             if not isinstance(family, dict):
                 continue
-            compact_families.append(
-                {
-                    "family_id": family.get("family_id"),
-                    "status": family.get("status"),
-                    "module_count": family.get("module_count"),
-                    "source_refs": [
-                        ref
-                        for ref in family.get("source_refs", [])
-                        if isinstance(ref, str)
-                    ][:STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT],
-                    "material_ids": [
-                        material_id
-                        for material_id in family.get("material_ids", [])
-                        if isinstance(material_id, str)
-                    ][:STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT],
-                }
-            )
+            family_id = family.get("family_id")
+            if isinstance(family_id, str):
+                latest_verified_source_module_family_ids.append(family_id)
         source_body_imports = {
-            key: value
-            for key, value in source_body_imports.items()
-            if key not in {"reader_use", "verified_source_module_families"}
+            "status": source_body_imports.get("status"),
+            "source_open_body_policy": source_body_imports.get(
+                "source_open_body_policy"
+            ),
+            "body_text_exported_in_status": source_body_imports.get(
+                "body_text_exported_in_status"
+            ),
+            "body_text_exported_in_receipts": source_body_imports.get(
+                "body_text_exported_in_receipts"
+            ),
+            "verified_source_module_family_count": source_body_imports.get(
+                "verified_source_module_family_count"
+            ),
+            "latest_verified_source_module_family_ids": (
+                latest_verified_source_module_family_ids
+            ),
+            "latest_family_preview_limit": STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT,
+            "latest_source_ref_count": len(latest_source_refs),
+            "latest_source_refs_ref": (
+                "front_door.source_open_body_import_floor.latest_source_refs"
+            ),
+            "full_family_list_ref": (
+                "microcosm status::macro_body_import_floor."
+                "source_body_import_lens.verified_source_module_families"
+            ),
         }
-        source_body_imports["full_family_list_ref"] = (
-            "microcosm status::macro_body_import_floor."
-            "source_body_import_lens.verified_source_module_families"
-        )
-        source_body_imports["latest_family_preview_limit"] = (
-            STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT
-        )
-        source_body_imports["family_source_ref_preview_limit"] = (
-            STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT
-        )
-        source_body_imports["family_material_id_preview_limit"] = (
-            STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT
-        )
-        if isinstance(source_body_imports.get("latest_source_refs"), list):
-            source_body_imports["latest_source_refs"] = source_body_imports[
-                "latest_source_refs"
-            ][-STATUS_CARD_LATEST_SOURCE_REF_LIMIT:]
-        source_body_imports[
-            "latest_verified_source_module_families"
-        ] = compact_families
     body_floor_defect_preview = _compact_body_import_defects(body_floor)
     card = {
         "schema_version": "microcosm_runtime_status_card_v1",
@@ -3056,22 +3050,9 @@ def _runtime_status_card(
                     if isinstance(source_body_imports, dict)
                     else None
                 ),
-                "latest_source_refs": (
-                    source_body_imports.get("latest_source_refs", [])
-                    if isinstance(source_body_imports, dict)
-                    else []
-                ),
+                "latest_source_refs": latest_source_refs,
                 "latest_verified_source_module_family_ids": (
-                    [
-                        family.get("family_id")
-                        for family in source_body_imports.get(
-                            "latest_verified_source_module_families", []
-                        )
-                        if isinstance(family, dict)
-                        and isinstance(family.get("family_id"), str)
-                    ]
-                    if isinstance(source_body_imports, dict)
-                    else []
+                    latest_verified_source_module_family_ids
                 ),
                 "body_text_exported_in_status": (
                     source_body_imports.get("body_text_exported_in_status")
@@ -3162,11 +3143,16 @@ def _runtime_status_card(
                 else None
             ),
             "route_readiness": body_floor.get("route_readiness", {}),
-            "validation_commands": [
-                hook.get("command")
-                for hook in body_floor.get("validation_hooks", [])
-                if isinstance(hook, dict) and hook.get("command")
-            ],
+            "validation_command_count": len(
+                [
+                    hook
+                    for hook in body_floor.get("validation_hooks", [])
+                    if isinstance(hook, dict) and hook.get("command")
+                ]
+            ),
+            "validation_commands_ref": (
+                "microcosm status::macro_body_import_floor.validation_hooks"
+            ),
             "public_safe_body_material_counts_by_class": body_floor.get(
                 "public_safe_body_material_counts_by_class", {}
             ),
@@ -3313,6 +3299,7 @@ def _runtime_status_card(
         card["source_files_mutated"] = project_overlay.get(
             "source_files_mutated", False
         )
+        card.pop("next_commands", None)
         card.pop("anti_claim", None)
         card.pop("safe_to_show", None)
         card["front_door"].pop("warning_rule", None)

@@ -599,12 +599,9 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     latest_family_ids = body_floor_front_door[
         "latest_verified_source_module_family_ids"
     ]
-    expected_latest_family_ids = [
-        family["family_id"]
-        for family in card["macro_body_import_floor"]["source_body_imports"][
-            "latest_verified_source_module_families"
-        ]
-    ]
+    expected_latest_family_ids = card["macro_body_import_floor"][
+        "source_body_imports"
+    ]["latest_verified_source_module_family_ids"]
     assert latest_family_ids == expected_latest_family_ids
     assert latest_family_ids
     assert body_floor_front_door["body_text_exported_in_status"] is False
@@ -646,40 +643,23 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         "route_card_id": "route_card_root_binding_and_grammar",
         "selection_posture": "root_substrate",
     }
-    assert card["macro_body_import_floor"]["validation_commands"] == [
-        (
-            "microcosm macro-projection-import-protocol run --input "
-            f"{MACRO_PROJECTION_FIXTURE_INPUT_REF.as_posix()} --out "
-            "receipts/first_wave/macro_projection_import_protocol"
-        ),
-        (
-            "microcosm macro-projection-import-protocol run-projection-bundle "
-            f"--input {MACRO_PROJECTION_IMPORT_PLAN_REF.parent.as_posix()} "
-            f"--out {MACRO_PROJECTION_RUNTIME_RECEIPT_REF.as_posix()}"
-        ),
-        (
-            "./repo-python tools/meta/factory/"
-            "build_extracted_pattern_substrate_bindings.py --check --json"
-        ),
-    ]
+    assert card["macro_body_import_floor"]["validation_command_count"] == 3
+    assert card["macro_body_import_floor"]["validation_commands_ref"] == (
+        "microcosm status::macro_body_import_floor.validation_hooks"
+    )
     source_body_card = card["macro_body_import_floor"]["source_body_imports"]
     assert source_body_card["status"] == "pass"
     assert source_body_card["body_text_exported_in_status"] is False
     assert source_body_card["body_text_exported_in_receipts"] is False
     assert source_body_card["verified_source_module_family_count"] >= 20
     assert source_body_card["latest_family_preview_limit"] == 3
-    assert source_body_card["family_source_ref_preview_limit"] == 2
-    assert source_body_card["family_material_id_preview_limit"] == 2
-    latest_families = source_body_card["latest_verified_source_module_families"]
-    assert 1 <= len(latest_families) <= 3
-    for family in latest_families:
-        assert "validation_refs" not in family
-        assert family["family_id"]
-        assert family["module_count"] >= 1
-        assert family["source_refs"]
-        assert len(family["source_refs"]) <= 2
-        assert family["material_ids"]
-        assert len(family["material_ids"]) <= 2
+    latest_family_ids = source_body_card["latest_verified_source_module_family_ids"]
+    assert 1 <= len(latest_family_ids) <= 3
+    assert latest_family_ids == body_floor_front_door[
+        "latest_verified_source_module_family_ids"
+    ]
+    assert "latest_verified_source_module_families" not in source_body_card
+    assert "validation_refs" not in json.dumps(source_body_card, sort_keys=True)
     assert card["workingness"]["status"] == "clear"
     assert card["workingness"]["map_generation_status"] == "pass"
     assert card["workingness"]["failure_envelope_status"] == "clear"
