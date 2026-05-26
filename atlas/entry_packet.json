@@ -208,12 +208,24 @@
     "status_ref": "microcosm tour <project>::front_door_status",
     "receipt_ref": "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
     "entry_role": "cold-reader status rule that separates required first-screen blockers from authority/intake warning drilldowns",
-    "top_level_status_rule": "tour passes only when front_door_status.blocking_surface_ids is empty; authority and intake may still appear in drilldown_blocked_surface_ids as warning drilldowns",
+    "top_level_status_rule": "tour passes only when front_door_status.status equals pass and front_door_status.blocking_surface_ids is empty; authority and intake may still appear in drilldown_blocked_surface_ids as warning drilldowns",
+    "expected_fields": [
+      "status",
+      "status_scope",
+      "local_first_screen_route",
+      "required_surface_ids",
+      "blocking_surface_ids",
+      "drilldown_warning_surface_ids",
+      "drilldown_blocked_surface_ids",
+      "top_level_status_rule",
+      "safe_to_show",
+      "authority_ceiling"
+    ],
     "warning_drilldown_surface_ids": [
       "authority",
       "intake"
     ],
-    "reader_action": "If blocking_surface_ids is empty, continue the first-screen path and inspect authority/intake as bounded warnings; if blocking_surface_ids is non-empty, repair the named required surface before claiming the cold path is green.",
+    "reader_action": "If status is pass and blocking_surface_ids is empty, continue the first-screen path and inspect authority/intake as bounded warnings; if status is blocked or blocking_surface_ids is non-empty, repair the named required surface before claiming the cold path is green.",
     "safe_to_show": {
       "status_model_visible": true,
       "surface_status_ids_visible": true,

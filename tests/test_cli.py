@@ -345,6 +345,7 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert first_screen["safe_to_show"]["project_local_state_refs_visible"] is True
     assert first_screen["safe_to_show"]["credential_equivalent_payloads_exported"] is False
     assert first_screen["safe_to_show"]["receipt_refs_visible_after_behavior"] is True
+    assert front_door_status["status"] == "pass"
     assert front_door_status["blocking_surface_ids"] == []
     assert front_door_status["drilldown_warning_surface_ids"] == [
         "authority",
@@ -400,9 +401,19 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "/project/observatory-card"
     )
     assert status_card["front_door"]["observatory"]["status"] == "pass"
-    assert status_card["macro_body_import_floor"]["source_body_imports"][
-        "verified_source_module_family_count"
-    ] >= 39
+    assert status_card["macro_body_import_floor"]["schema_version"] == (
+        "microcosm_project_status_body_import_floor_ref_v1"
+    )
+    assert status_card["macro_body_import_floor"]["project_mode_compacted"] is True
+    assert status_card["macro_body_import_floor"]["ref"] == (
+        "front_door.source_open_body_import_floor"
+    )
+    assert (
+        status_card["macro_body_import_floor"]["verified_source_module_family_count"]
+        == status_card["front_door"]["source_open_body_imports"][
+            "verified_source_module_family_count"
+        ]
+    )
     assert status_card["payload_boundary_audit"]["status"] == "pass"
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
 

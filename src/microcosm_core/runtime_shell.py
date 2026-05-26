@@ -5129,6 +5129,7 @@ class RuntimeShell:
         ]
         front_door_status = {
             "schema_version": "microcosm_tour_front_door_status_v1",
+            "status": PASS if not blocking_surface_ids else "blocked",
             "status_scope": "required_behavioral_first_screen_surfaces",
             "local_first_screen_route": _local_first_screen_route_ref(),
             "required_surface_ids": front_door_required_surface_ids,
@@ -5219,7 +5220,7 @@ class RuntimeShell:
                     "front_door_status.drilldown_blocked_surface_ids",
                     "release/provider/source/proof authority ceiling",
                 ],
-                "status": PASS if not blocking_surface_ids else "blocked",
+                "status": front_door_status["status"],
                 "status_ref": "front_door_status",
                 "top_level_status_rule": front_door_status["top_level_status_rule"],
                 "blocking_surface_ids": blocking_surface_ids,
@@ -16549,6 +16550,7 @@ class RuntimeShell:
           {row("Route id source", first_screen_route_proof.get("route_id_source"))}
           {row("Local first-screen route", local_first_screen_route.get("route_ref"))}
           {row("Tour ref", tour.get("tour_ref"))}
+          {row("Front-door status", front_door_status.get("status"))}
           {row("Front-door gate", front_door_status.get("top_level_status_rule"))}
           {row("Blocking surfaces", list_text(front_door_status.get("blocking_surface_ids")))}
           {row("Warning drilldowns", list_text(front_door_status.get("drilldown_warning_surface_ids")))}

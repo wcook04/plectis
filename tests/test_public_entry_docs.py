@@ -657,6 +657,7 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert front_door["warning_drilldown_surface_ids"] == ["authority", "intake"]
     assert front_door["safe_to_show"]["release_authorized"] is False
     assert front_door["safe_to_show"]["source_mutation_authorized"] is False
+    assert "status" in front_door["expected_fields"]
     assert "blocking_surface_ids" in front_door["top_level_status_rule"]
 
     workingness = entry_packet["status_and_workingness_route"]

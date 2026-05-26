@@ -1794,6 +1794,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert tour["front_door_status"]["status_scope"] == (
         "required_behavioral_first_screen_surfaces"
     )
+    assert tour["front_door_status"]["status"] == "pass"
     assert tour["local_first_screen_route"] == {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
         "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
@@ -3904,6 +3905,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Agent Reliability Replay Gauntlet" in html
     assert "Repository Benchmark Transaction Lab" in html
     assert "Cold Reader Legibility Scorecard" in html
+    assert "Front-door status" in html
     assert "self_hosted_status_protocol_landed" in html
     assert "Open actionable cells" in html
     assert "JSON Drilldowns" in html
@@ -3918,6 +3920,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
     assert tour["status"] == "pass"
+    assert tour["front_door_status"]["status"] == "pass"
     assert tour["front_door_status"]["blocking_surface_ids"] == []
     assert tour["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",
@@ -4097,6 +4100,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )
     assert tour == observatory["tour"]
+    assert observatory["front_door_status"]["status"] == "pass"
     assert observatory["front_door_status"]["blocking_surface_ids"] == []
     assert observatory["front_door_status"]["drilldown_warning_surface_ids"] == [
         "authority",

@@ -71,8 +71,9 @@ plus route explanation in `front_door.route_selection_proof` and
 drilldown.
 
 Read `front_door_status` before treating the tour's `status` as a blanket
-health claim. `blocking_surface_ids=[]` means the required first-screen path is
-green. `drilldown_warning_surface_ids=["authority","intake"]` means those
+health claim. `front_door_status.status=pass` with `blocking_surface_ids=[]`
+means the required first-screen path is green.
+`drilldown_warning_surface_ids=["authority","intake"]` means those
 surfaces remain visible bounded warnings to inspect; if one is non-pass, it is
 reported under `drilldown_blocked_surface_ids`, not hidden as release
 authority.
