@@ -335,13 +335,16 @@ def _project_catalog_payload(project: Path) -> dict[str, Any]:
     }
 
 
-def index_project(project_path: str | Path) -> dict[str, Any]:
+def index_project(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     if not (_state_dir(project) / "project_manifest.json").is_file():
         init_project(project)
     catalog = _project_catalog_payload(project)
     write_json_atomic(_state_dir(project) / "catalog.json", catalog)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.index",
@@ -370,7 +373,9 @@ def catalog_project(project_path: str | Path) -> dict[str, Any]:
     return {**catalog, "schema_version": "microcosm_project_catalog_view_v1", "status": PASS}
 
 
-def discover_patterns(project_path: str | Path) -> dict[str, Any]:
+def discover_patterns(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
@@ -416,7 +421,8 @@ def discover_patterns(project_path: str | Path) -> dict[str, Any]:
         "missing_pattern_count": sum(1 for row in candidates if row["status"] != PASS),
     }
     write_json_atomic(_state_dir(project) / "patterns.json", payload)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.patterns",
@@ -430,10 +436,12 @@ def discover_patterns(project_path: str | Path) -> dict[str, Any]:
     return payload
 
 
-def propose_routes(project_path: str | Path) -> dict[str, Any]:
+def propose_routes(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project)
-    patterns = discover_patterns(project)
+    patterns = discover_patterns(project, refresh_architecture=False)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
     pattern_surface = architecture_kernel.pattern_surface_contract()
 
@@ -497,7 +505,8 @@ def propose_routes(project_path: str | Path) -> dict[str, Any]:
         },
     }
     write_json_atomic(_state_dir(project) / "routes.json", payload)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.route",
@@ -1231,7 +1240,12 @@ def _python_route_utility_curriculum(
     }
 
 
-def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[str, Any]:
+def python_lens(
+    project_path: str | Path,
+    *,
+    write_state: bool = True,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
     """Project Python route/readiness signals without exposing source bodies."""
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project) if write_state else _project_catalog_payload(project)
@@ -1587,7 +1601,8 @@ def python_lens(project_path: str | Path, *, write_state: bool = True) -> dict[s
         return payload
 
     write_json_atomic(_state_dir(project) / PYTHON_LENS_STATE, payload)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "project.python_lens",
@@ -1622,9 +1637,14 @@ def _write_work_items(project: Path, rows: list[dict[str, Any]]) -> None:
     write_json_atomic(_state_dir(project) / "work_items.json", payload)
 
 
-def create_work(project_path: str | Path, route_id: str | None = None) -> dict[str, Any]:
+def create_work(
+    project_path: str | Path,
+    route_id: str | None = None,
+    *,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
-    route_payload = propose_routes(project)
+    route_payload = propose_routes(project, refresh_architecture=False)
     routes = route_payload.get("routes", [])
     route_rows = [row for row in routes if isinstance(row, dict)]
     if route_id:
@@ -1681,7 +1701,8 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
     }
     rows.append(row)
     _write_work_items(project, rows)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "work.create",
@@ -1721,11 +1742,16 @@ def create_work(project_path: str | Path, route_id: str | None = None) -> dict[s
     }
 
 
-def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, Any]:
+def run_work(
+    project_path: str | Path,
+    work_id: str | None = None,
+    *,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     rows = _load_work_items(project)
     if not rows:
-        created = create_work(project)
+        created = create_work(project, refresh_architecture=False)
         rows = _load_work_items(project)
         work_id = str(created.get("work_id") or "")
     selected = next((row for row in rows if row.get("work_id") == work_id), None) if work_id else None
@@ -1816,7 +1842,8 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
         "authority_boundary": "project_local_closeout_not_global_doctrine_promotion",
     }
     _write_work_items(project, rows)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     event = _event(
         project,
         "work.run",
@@ -1863,7 +1890,12 @@ def run_work(project_path: str | Path, work_id: str | None = None) -> dict[str, 
     }
 
 
-def _run_work_for_route(project: Path, route_id: str) -> dict[str, Any]:
+def _run_work_for_route(
+    project: Path,
+    route_id: str,
+    *,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
     rows = _load_work_items(project)
     matching_rows = [
         row for row in rows if str(row.get("route_id") or "") == route_id
@@ -1873,13 +1905,13 @@ def _run_work_for_route(project: Path, route_id: str) -> dict[str, Any]:
         matching_rows[-1] if matching_rows else None,
     )
     if selected is None:
-        created = create_work(project, route_id)
+        created = create_work(project, route_id, refresh_architecture=False)
         if created.get("status") == "blocked":
             return created
         work_id = str(created.get("work_id") or "")
     else:
         work_id = str(selected.get("work_id") or "")
-    return run_work(project, work_id)
+    return run_work(project, work_id, refresh_architecture=refresh_architecture)
 
 
 def _work_row_for_chain(
@@ -2067,9 +2099,12 @@ def _reader_causal_chain_card(
     }
 
 
-def observe_project(project_path: str | Path) -> dict[str, Any]:
+def observe_project(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
     spans: dict[str, int] = {}
     for row in events:
@@ -2091,12 +2126,20 @@ def architecture_project(project_path: str | Path) -> dict[str, Any]:
     return architecture_kernel.write_project_architecture(project_path)
 
 
-def state_graph(project_path: str | Path) -> dict[str, Any]:
-    architecture_kernel.write_project_architecture(project_path)
+def state_graph(
+    project_path: str | Path, *, refresh_architecture: bool = True
+) -> dict[str, Any]:
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project_path)
     return architecture_kernel.build_graph(project_path)
 
 
-def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
+def explain_route(
+    project_path: str | Path,
+    route_id: str,
+    *,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     if not (_state_dir(project) / "routes.json").is_file():
         propose_routes(project)
@@ -2149,7 +2192,8 @@ def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
     evidence_ref = _write_evidence(project, f"explain_{route_id}", explanation)
     explanation["evidence_ref"] = evidence_ref
     write_json_atomic(_state_dir(project) / "explanations" / f"{route_id}.json", explanation)
-    architecture_kernel.write_project_architecture(project)
+    if refresh_architecture:
+        architecture_kernel.write_project_architecture(project)
     return explanation
 
 
@@ -2388,12 +2432,11 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
     project = Path(project_path).expanduser().resolve(strict=False)
     if not (_state_dir(project) / "project_manifest.json").is_file():
         init_project(project)
-    index_result = index_project(project)
+    index_result = index_project(project, refresh_architecture=False)
     catalog = catalog_project(project)
-    python_projection = python_lens(project)
-    architecture = architecture_project(project)
-    patterns = discover_patterns(project)
-    routes = propose_routes(project)
+    python_projection = python_lens(project, refresh_architecture=False)
+    routes = propose_routes(project, refresh_architecture=False)
+    patterns = _read_project_json(project, "patterns.json")
     route_rows = [
         row for row in routes.get("routes", []) if isinstance(row, dict)
     ]
@@ -2403,12 +2446,17 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
     )
     route_id = str(selected_route.get("route_id") or "")
     work_result = (
-        _run_work_for_route(project, route_id) if route_id else run_work(project)
+        _run_work_for_route(project, route_id, refresh_architecture=False)
+        if route_id
+        else run_work(project, refresh_architecture=False)
     )
-    explanation = explain_route(project, route_id) if route_id else {}
-    observed = observe_project(project)
-    graph = state_graph(project)
+    explanation = (
+        explain_route(project, route_id, refresh_architecture=False) if route_id else {}
+    )
+    observed = observe_project(project, refresh_architecture=False)
     evidence = list_evidence(project)
+    architecture = architecture_kernel.write_project_architecture(project)
+    graph = _read_project_json(project, "graph.json")
     work_id = work_result.get("work_id")
     reader_causal_chain = _reader_causal_chain_card(
         project,

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import cli
+from microcosm_core import project_substrate
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -158,3 +159,29 @@ def test_cli_compile_card_marks_source_changes_stale_without_rebuild(
     assert "source_refs" not in payload
     assert "README.md" not in output
     assert "reader_causal_chain" not in payload
+
+
+def test_compile_project_batches_architecture_refresh_once(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_cached_compile_project(tmp_path)
+    original_refresh = project_substrate.architecture_kernel.write_project_architecture
+    refresh_calls: list[Path] = []
+
+    def counted_refresh(project_path: str | Path) -> dict:
+        refresh_calls.append(Path(project_path))
+        return original_refresh(project_path)
+
+    monkeypatch.setattr(
+        project_substrate.architecture_kernel,
+        "write_project_architecture",
+        counted_refresh,
+    )
+
+    payload = project_substrate.compile_project(project)
+
+    assert payload["status"] == "pass"
+    assert len(refresh_calls) == 1
+    assert payload["graph_summary"]["node_count"] >= 1
+    assert (project / ".microcosm/state_index.json").is_file()
