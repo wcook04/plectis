@@ -1,7 +1,29 @@
 {
-  "anti_claim": "Organ registry rows are public runtime authority metadata only; they do not authorize release, provider calls, trading or financial advice, secret export, or proof authority.",
+  "anti_claim": "Organ registry rows are public runtime authority metadata and receipt inventory only; accepted_current_authority status, organ counts, adapter-backed counts, and generated receipt counts do not create score-based progress, release, product completeness, private-root equivalence, source mutation, proof correctness, whole-system correctness, provider-call, secret-export, or trading/financial-advice authority.",
   "authority_boundary": "public_target_registry_generated_from_current_authority_receipts_not_source_authority_above_macro_contracts",
   "authority_ceiling": {
+    "registry_authority": "public_runtime_target_inventory_and_receipt_index_only",
+    "reader_action": "Use implemented_organs to find current public runtime targets, runner commands, and receipt refs; do not treat accepted_current_authority, organ counts, adapter-backed counts, or generated receipt counts as product progress, release readiness, proof correctness, private-root equivalence, or whole-system authority.",
+    "denied_authority": {
+      "accepted_current_authority_is_product_progress": false,
+      "adapter_backed_count_is_product_completeness": false,
+      "complete_secret_detection_claim": false,
+      "generated_receipt_count_is_proof": false,
+      "organ_count_is_release_readiness": false,
+      "private_data_equivalence_claim": false,
+      "product_completeness_claim": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "score_based_progress_authority": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "overread_guard": [
+      "accepted_current_authority names current public receipts only; it is not product progress, release readiness, proof correctness, or source authority above macro contracts",
+      "organ counts and adapter-backed counts are inventory fields, not maturity, completeness, benchmark, or launch gates",
+      "generated_receipt_count points to public-relative receipt files only; it is not proof authority, private-root equivalence, or complete secret detection"
+    ],
     "registry_can_claim": [
       "which public target organs have current-authority acceptance receipts",
       "which commands regenerate their public receipts",
@@ -13,6 +35,9 @@
       "hosted deployment",
       "live_market_prediction_authority",
       "macro source authority above current reconstruction receipts",
+      "private_root_equivalence",
+      "product completeness",
+      "score_based_progress_authority",
       "secret export",
       "publication operations",
       "recipient readiness",
