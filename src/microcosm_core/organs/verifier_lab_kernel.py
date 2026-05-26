@@ -37,6 +37,8 @@ ACCEPTANCE_RECEIPT_REL = (
     "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_verifier_lab_kernel_bundle_validation_result.json"
+PUBLIC_ROOT_POLICY_REL = Path("core/private_state_forbidden_classes.json")
+MODULE_PUBLIC_ROOT = Path(__file__).resolve().parents[3]
 
 NEGATIVE_INPUT_NAMES = (
     "forward_problem_leaks_candidate_body.json",
@@ -362,13 +364,27 @@ DEFAULT_COMPONENT_INPUTS = [
 ]
 
 
+def _is_public_root(candidate: Path) -> bool:
+    return (candidate / PUBLIC_ROOT_POLICY_REL).is_file()
+
+
 def _public_root_for_path(path: str | Path) -> Path:
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
-    for candidate in (start, *start.parents):
-        if candidate.name == "microcosm-substrate":
+    candidates = [
+        start,
+        *start.parents,
+        Path.cwd().resolve(strict=False),
+        MODULE_PUBLIC_ROOT,
+    ]
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if _is_public_root(candidate):
             return candidate
-    return Path.cwd().resolve(strict=False)
+    return MODULE_PUBLIC_ROOT
 
 
 def _display(path: Path, *, public_root: Path) -> str:

@@ -757,6 +757,49 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert "/private/tmp" not in output
 
 
+def test_cli_proof_lab_accepts_copied_input_bundle_outside_public_root(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    input_dir = tmp_path / "copied-verifier-bundle"
+    shutil.copytree(
+        MICROCOSM_ROOT
+        / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+        input_dir,
+    )
+    out_dir = tmp_path / "proof-lab"
+    status = cli.main(
+        [
+            "proof-lab",
+            "--input",
+            str(input_dir),
+            "--out",
+            str(out_dir),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+    receipt = out_dir / "exported_verifier_lab_kernel_bundle_validation_result.json"
+    assert status == 0
+    assert payload["status"] == "pass"
+    assert payload["command"] == (
+        f"microcosm proof-lab --input {input_dir} --out {out_dir}"
+    )
+    assert payload["expanded_command"] == (
+        "microcosm verifier-lab-kernel run-kernel-bundle "
+        f"--input {input_dir} --out {out_dir}"
+    )
+    assert payload["input_ref"] == str(input_dir)
+    assert payload["route_id"] == "formal_prover_context_strategy_gate"
+    assert payload["proof_lab_route_component_count"] == 9
+    assert payload["lean_lake_return_code"] == 0
+    assert receipt.is_file()
+    assert payload["receipt_ref"] == str(receipt)
+    assert payload["receipt_refs"] == [str(receipt)]
+    assert str(MICROCOSM_ROOT) not in output
+
+
 def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],
