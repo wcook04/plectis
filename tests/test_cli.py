@@ -130,6 +130,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in output
     assert "microcosm serve <project>       open the local observatory" in output
     assert (
+        "microcosm compile --card <project> read cached .microcosm state "
+        "without rebuilding"
+    ) in output
+    assert (
         "microcosm compile <project>     rebuild local .microcosm state "
         "after the first-screen check"
     ) in output
@@ -164,6 +168,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm proof-lab --out /tmp/microcosm-proof-lab"
     ) < output.index("microcosm serve <project>")
     assert output.index("microcosm serve <project>") < output.index(
+        "microcosm compile --card <project>"
+    )
+    assert output.index("microcosm compile --card <project>") < output.index(
         "microcosm compile <project>"
     )
     assert "no provider calls, source mutation, release," in output
@@ -403,6 +410,47 @@ def test_cli_status_card_can_overlay_project_route_state(
     )
     assert body_floor["body_text_exported_in_status"] is False
     assert body_floor["body_text_exported_in_receipts"] is False
+
+
+def test_cli_compile_card_reads_cached_project_state_without_rebuild(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    project_substrate.compile_project(project)
+
+    def fail_if_rebuilt(*_args: object, **_kwargs: object) -> dict:
+        raise AssertionError("compile --card must not rebuild project state")
+
+    monkeypatch.setattr(cli.project_substrate, "compile_project", fail_if_rebuilt)
+
+    status = cli.main(["compile", "--card", str(project)])
+
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+    assert status == 0
+    assert len(json.dumps(payload, sort_keys=True)) < 8000
+    assert payload["schema_version"] == "microcosm_project_compile_cached_card_v1"
+    assert payload["status"] == "pass"
+    assert payload["card_id"] == "compile_cached_state"
+    assert payload["command"] == "microcosm compile --card <project>"
+    assert payload["full_command"] == "microcosm compile <project>"
+    assert payload["cache_status"] == "cached_state_read"
+    assert payload["cache_source_ref"] == ".microcosm/state_index.json"
+    assert payload["selected_route_id"] == "readme_onboarding_route"
+    assert payload["route_explanation_status"] == "pass"
+    assert payload["state_ref_status_summary"]["missing_state_ref_count"] == 0
+    assert payload["file_count"] >= 4
+    assert payload["route_count"] >= 1
+    assert payload["work_item_count"] >= 1
+    assert payload["event_count"] >= 1
+    assert payload["evidence_count"] >= 1
+    assert payload["graph_summary"]["node_count"] >= 1
+    assert payload["source_files_mutated"] is False
+    assert payload["safe_to_show"]["source_files_mutated"] is False
+    assert payload["safe_to_show"]["provider_calls_authorized"] is False
+    assert "reader_causal_chain" not in payload
 
 
 def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(

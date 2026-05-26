@@ -53,6 +53,20 @@ README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
 PYTHON_LENS_STATE = "python_lens.json"
+COMPILE_STATE_REFS = (
+    f"{STATE_DIR}/project_manifest.json",
+    f"{STATE_DIR}/architecture.json",
+    f"{STATE_DIR}/state_index.json",
+    f"{STATE_DIR}/catalog.json",
+    f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+    f"{STATE_DIR}/patterns.json",
+    f"{STATE_DIR}/routes.json",
+    f"{STATE_DIR}/work_items.json",
+    f"{STATE_DIR}/{EVENT_STREAM}",
+    f"{STATE_DIR}/evidence/",
+    f"{STATE_DIR}/graph.json",
+    f"{STATE_DIR}/explanations/",
+)
 PROJECT_PYTHON_LENS_BOUNDARY_ID = "project_python_lens_read_model"
 STD_PYTHON_NAVIGATION_LADDER = [
     "module_docs",
@@ -2165,6 +2179,155 @@ def list_evidence(project_path: str | Path) -> dict[str, Any]:
     }
 
 
+def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
+    rel = ref.removeprefix(f"{STATE_DIR}/").rstrip("/")
+    path = _state_dir(project) / rel
+    row: dict[str, Any] = {
+        "ref": ref,
+        "exists": path.exists(),
+        "kind": "directory" if ref.endswith("/") or path.is_dir() else "file",
+    }
+    if path.is_file():
+        row["bytes"] = path.stat().st_size
+    elif path.is_dir():
+        row["json_count"] = len(list(path.glob("*.json")))
+    return row
+
+
+def _selected_route_from_rows(route_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    return next(
+        (row for row in route_rows if row.get("route_id") == "readme_onboarding_route"),
+        route_rows[0] if route_rows else {},
+    )
+
+
+def compile_project_card(project_path: str | Path) -> dict[str, Any]:
+    """Read cached compile state without rebuilding project-local substrate."""
+    project = Path(project_path).expanduser().resolve(strict=False)
+    catalog = _read_project_json(project, "catalog.json")
+    python_projection = _read_project_json(project, PYTHON_LENS_STATE)
+    routes = _read_project_json(project, "routes.json")
+    graph = _read_project_json(project, "graph.json")
+    state_index = _read_project_json(project, "state_index.json")
+    route_rows = [
+        row for row in routes.get("routes", []) if isinstance(row, dict)
+    ]
+    selected_route = _selected_route_from_rows(route_rows)
+    route_id = str(selected_route.get("route_id") or "")
+    explanation = (
+        _read_project_json(project, f"explanations/{route_id}.json")
+        if route_id
+        else {}
+    )
+    work_rows = _load_work_items(project)
+    selected_work = next(
+        (row for row in work_rows if row.get("route_id") == route_id),
+        work_rows[0] if work_rows else {},
+    )
+    events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
+    state_ref_status = [_state_ref_status(project, ref) for ref in COMPILE_STATE_REFS]
+    missing_state_refs = [
+        str(row.get("ref")) for row in state_ref_status if row.get("exists") is not True
+    ]
+    route_explanation_status = explanation.get("status") if route_id else "missing_route"
+    status = (
+        PASS
+        if _state_dir(project).is_dir()
+        and not missing_state_refs
+        and bool(state_index)
+        and bool(route_id)
+        and route_explanation_status == PASS
+        else "missing_cached_compile_state"
+    )
+    cache_status = (
+        "cached_state_read" if status == PASS else "missing_cached_state"
+    )
+    last_event = events[-1] if events else {}
+    return {
+        **_base_payload("microcosm_project_compile_cached_card_v1", project),
+        "status": status,
+        "card_id": "compile_cached_state",
+        "command": "microcosm compile --card <project>",
+        "full_command": "microcosm compile <project>",
+        "cache_status": cache_status,
+        "cache_source_ref": f"{STATE_DIR}/state_index.json",
+        "project_ref": ".",
+        "state_ref": STATE_DIR,
+        "state_ref_status_summary": {
+            "checked_state_ref_count": len(state_ref_status),
+            "missing_state_ref_count": len(missing_state_refs),
+            "missing_state_refs": missing_state_refs,
+        },
+        "state_ref_status": state_ref_status,
+        "file_count": catalog.get("file_count", 0),
+        "role_counts": catalog.get("role_counts", {}),
+        "python_lens_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "python_file_count": python_projection.get("python_file_count", 0),
+        "python_ready_route_count": python_projection.get("ready_route_count", 0),
+        "route_count": routes.get("route_count", len(route_rows)),
+        "selected_route_id": route_id or None,
+        "route_ids": [str(row.get("route_id")) for row in route_rows if row.get("route_id")],
+        "route_explanation_status": route_explanation_status,
+        "route_explanation_ref": (
+            f"{STATE_DIR}/explanations/{route_id}.json" if route_id else None
+        ),
+        "selected_work_id": selected_work.get("work_id") if selected_work else None,
+        "selected_work_status": selected_work.get("status") if selected_work else None,
+        "work_item_count": len(work_rows),
+        "event_count": len(events),
+        "last_event": {
+            "event_id": last_event.get("event_id"),
+            "span": last_event.get("span"),
+            "status": last_event.get("status"),
+        }
+        if last_event
+        else None,
+        "evidence_count": len(list(_evidence_dir(project).glob("*.json")))
+        if _evidence_dir(project).is_dir()
+        else 0,
+        "graph_summary": {
+            "node_count": graph.get("node_count", 0),
+            "edge_count": graph.get("edge_count", 0),
+            "graph_ref": f"{STATE_DIR}/graph.json",
+        },
+        "reader_action": (
+            "Use this cached card for repeat compile-state inspection; run "
+            "`microcosm compile <project>` when cache_status is missing_cached_state "
+            "or when source files changed."
+        ),
+        "next_commands": [
+            "microcosm status --card <project>",
+            (
+                f"microcosm explain <project> {route_id}"
+                if route_id
+                else "microcosm explain <project> <selected_route_id>"
+            ),
+            "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        ],
+        "source_files_mutated": False,
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "authority_ceiling": {
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "source_files_mutated": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "anti_claim": (
+            "The compile cached card is a read-only state lens. It does not "
+            "rebuild, certify freshness, mutate source files, call providers, "
+            "authorize release, or claim project correctness."
+        ),
+    }
+
+
 def compile_project(project_path: str | Path) -> dict[str, Any]:
     """Run the safe public substrate loop over a user-owned project."""
     project = Path(project_path).expanduser().resolve(strict=False)
@@ -2201,17 +2364,6 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         graph=graph,
         evidence=evidence,
     )
-    state_files = [
-        f"{STATE_DIR}/catalog.json",
-        f"{STATE_DIR}/{PYTHON_LENS_STATE}",
-        f"{STATE_DIR}/patterns.json",
-        f"{STATE_DIR}/routes.json",
-        f"{STATE_DIR}/work_items.json",
-        f"{STATE_DIR}/{EVENT_STREAM}",
-        f"{STATE_DIR}/evidence/",
-        f"{STATE_DIR}/graph.json",
-        f"{STATE_DIR}/explanations/",
-    ]
     return {
         **_base_payload("microcosm_project_compile_result_v1", project),
         "headline": "repo -> .microcosm",
@@ -2228,7 +2380,7 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         ],
         "project_ref": ".",
         "state_ref": STATE_DIR,
-        "state_files": state_files,
+        "state_files": list(COMPILE_STATE_REFS),
         "file_count": index_result.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
         "python_lens_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
@@ -2372,6 +2524,11 @@ def build_parser() -> argparse.ArgumentParser:
     route_parser = subparsers.add_parser("route")
     route_parser.add_argument("project")
     compile_parser = subparsers.add_parser("compile")
+    compile_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="read cached compile state without rebuilding .microcosm",
+    )
     compile_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
@@ -2416,6 +2573,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "route":
         return _print_json(propose_routes(args.project))
     if args.command == "compile":
+        if args.card:
+            return _print_json(compile_project_card(args.project))
         return _print_json(compile_project(args.project))
     if args.command == "graph":
         return _print_json(state_graph(args.project))

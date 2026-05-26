@@ -91,6 +91,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm proof-lab --card      read the cached verifier-lab receipt card
   microcosm proof-lab --out /tmp/microcosm-proof-lab
   microcosm serve <project>       open the local observatory
+  microcosm compile --card <project> read cached .microcosm state without rebuilding
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
 
 Boundaries: local-first only; no provider calls, source mutation, release,
@@ -431,6 +432,11 @@ def main(argv: list[str] | None = None) -> int:
     compile_parser = subparsers.add_parser(
         "compile",
         help="build local .microcosm project state",
+    )
+    compile_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="read cached .microcosm compile state without rebuilding",
     )
     compile_parser.add_argument("project")
     python_lens_parser = subparsers.add_parser(
@@ -905,6 +911,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "architecture":
         return project_substrate.main(["architecture", args.project])
     if args.command == "compile":
+        if args.card:
+            return _print_json(project_substrate.compile_project_card(args.project))
         return project_substrate.main(["compile", args.project])
     if args.command == "python-lens":
         return project_substrate.main(["python-lens", args.project])
