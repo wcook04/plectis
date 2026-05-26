@@ -112,6 +112,20 @@ AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME = (
 ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME = (
     "exported_route_compliance_audit_bundle_validation_result.json"
 )
+OBSERVABILITY_CARD_SCHEMA_VERSION = (
+    "agent_route_observability_runtime_observability_bundle_card_v1"
+)
+OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS = [
+    "findings",
+    "private_state_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "source_refs",
+    "target_refs",
+    "body_import_verification",
+    "exact_source_body_import",
+    "public_replacement_refs",
+]
 
 EXPECTED_RECEIPT_PATHS = [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
@@ -769,6 +783,24 @@ def _is_relative_to(path: Path, root: Path) -> bool:
     return True
 
 
+def _display_path(path: Path, *, public_root: Path) -> str:
+    return public_relative_path(path, display_root=public_root)
+
+
+def _sha256_ref(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+
+
+def _local_display_ref(path_ref: object) -> object:
+    if not isinstance(path_ref, str):
+        return path_ref
+    if path_ref == "/private/tmp":
+        return "/tmp"
+    if path_ref.startswith("/private/tmp/"):
+        return f"/tmp/{path_ref.removeprefix('/private/tmp/')}"
+    return path_ref
+
+
 def _input_paths(input_dir: Path) -> list[Path]:
     return [
         input_dir / "agent_trace.jsonl",
@@ -800,6 +832,118 @@ def _observability_bundle_scan_paths(input_dir: Path) -> list[Path]:
         *_observability_bundle_paths(input_dir),
         *(input_dir / name for name in OBSERVABILITY_SOURCE_MODULE_PATHS),
     ]
+
+
+def _observability_freshness_input_paths(input_dir: Path) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    paths = [*_observability_bundle_scan_paths(input_dir)]
+    forbidden_policy_path = public_root / "core/private_state_forbidden_classes.json"
+    if forbidden_policy_path.is_file():
+        paths.append(forbidden_policy_path)
+    return paths
+
+
+def _observability_freshness_basis(input_dir: str | Path) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _observability_freshness_input_paths(source):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display_path(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256_ref(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "agent_route_observability_runtime_exported_observability_bundle_"
+        "validation_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": OBSERVABILITY_CARD_SCHEMA_VERSION,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": (
+            "agent_route_observability_runtime_observability_bundle_"
+            "freshness_basis_v1"
+        ),
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": OBSERVABILITY_CARD_SCHEMA_VERSION,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_observability_bundle_receipt(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    path = target / OBSERVABILITY_BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "agent_route_observability_runtime_exported_observability_bundle_"
+        "validation_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("input_mode") != "exported_observability_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    basis = _observability_freshness_basis(source)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    cached = dict(payload)
+    cached["freshness_basis"] = basis
+    cached["receipt_reused"] = True
+    return cached
 
 
 def _route_compliance_audit_bundle_paths(input_dir: Path) -> list[Path]:
@@ -4673,6 +4817,8 @@ def _write_observability_bundle_receipt(
                 "bundle_manifest_schema_version"
             ],
             "bundle_fingerprint": validation_result["bundle_fingerprint"],
+            "freshness_basis": validation_result["freshness_basis"],
+            "receipt_reused": validation_result.get("receipt_reused") is True,
             "route_event_ids": validation_result["route_event_ids"],
             "route_event_count": validation_result["route_event_count"],
             "route_compliance_decisions": validation_result["route_compliance_decisions"],
@@ -5252,10 +5398,20 @@ def run_observability_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str | None = None,
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
+    if reuse_fresh_receipt and command is not None:
+        cached = _fresh_observability_bundle_receipt(
+            input_path,
+            out_dir,
+            command=command,
+        )
+        if cached is not None:
+            return cached
     public_root = _public_root_for_path(input_path)
     payloads = _load_observability_bundle(input_path)
     scan_result = _scan_bundle_inputs(input_path, public_root)
@@ -5438,6 +5594,8 @@ def run_observability_bundle(
             "body_in_receipt": False,
             "metadata_projection_not_live_telemetry_authority": True,
             "bundle_fingerprint": bundle_fingerprint,
+            "freshness_basis": _observability_freshness_basis(input_path),
+            "receipt_reused": False,
             "public_replacement_refs": [
                 public_relative_path(path, display_root=public_root)
                 for path in _observability_bundle_scan_paths(input_path)
@@ -8177,15 +8335,105 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
     return result
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_payload = result.get("freshness_basis")
+    freshness = freshness_payload if isinstance(freshness_payload, dict) else {}
+    hook_payload = result.get("hook_shadow_coverage")
+    hook = hook_payload if isinstance(hook_payload, dict) else {}
+    actor_axis_payload = result.get("actor_axis_checks")
+    actor_axis = actor_axis_payload if isinstance(actor_axis_payload, dict) else {}
+    debt_payload = result.get("debt_retirement")
+    debt = debt_payload if isinstance(debt_payload, dict) else {}
+    process_payload = result.get("process_audit_rows")
+    process = process_payload if isinstance(process_payload, dict) else {}
+    policy_payload = result.get("observability_policy")
+    policy = policy_payload if isinstance(policy_payload, dict) else {}
+    source_manifest_payload = result.get("source_module_manifest")
+    source_manifest = (
+        source_manifest_payload if isinstance(source_manifest_payload, dict) else {}
+    )
+    authority_payload = result.get("authority_ceiling")
+    authority = authority_payload if isinstance(authority_payload, dict) else {}
+    error_codes = result.get("error_codes")
+    findings = result.get("findings")
+    missing_negative_cases = result.get("missing_negative_cases")
+    receipt_paths = [
+        _local_display_ref(path_ref) for path_ref in result.get("receipt_paths", [])
+    ]
+    return {
+        "schema_version": OBSERVABILITY_CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "observability": {
+            "route_event_count": result.get("route_event_count"),
+            "agent_path_observation_count": result.get(
+                "agent_path_observation_count"
+            ),
+            "session_diagnostic_count": result.get("session_diagnostic_count"),
+            "hook_shadow_case_count": hook.get("hook_shadow_case_count"),
+            "hook_shadow_repair_class_count": hook.get(
+                "hook_shadow_repair_class_count"
+            ),
+            "actor_axis_check_count": actor_axis.get("actor_axis_check_count"),
+            "debt_retirement_count": debt.get("debt_retirement_count"),
+            "process_audit_row_count": process.get("process_audit_row_count"),
+            "copied_macro_source_count": result.get("copied_macro_source_count"),
+            "source_module_manifest_status": source_manifest.get("status"),
+            "observability_policy_status": policy.get("status"),
+        },
+        "validation": {
+            "finding_count": len(findings) if isinstance(findings, list) else None,
+            "error_code_count": len(error_codes) if isinstance(error_codes, list) else None,
+            "missing_negative_case_count": (
+                len(missing_negative_cases)
+                if isinstance(missing_negative_cases, (list, dict))
+                else None
+            ),
+        },
+        "authority_boundary": {
+            "metadata_projection_not_live_telemetry_authority": result.get(
+                "metadata_projection_not_live_telemetry_authority"
+            )
+            is True,
+            "live_operator_state_read": authority.get("live_operator_state_read"),
+            "provider_payload_read": authority.get("provider_payload_read"),
+            "browser_hud_cockpit_state_read": authority.get(
+                "browser_hud_cockpit_state_read"
+            ),
+            "release_authorized": authority.get("release_authorized"),
+            "body_in_receipt": result.get("body_in_receipt"),
+        },
+        "body_floor": {
+            f"{key}_exported": False
+            for key in OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS
+        },
+        "receipt_paths": receipt_paths,
+        "omission_receipt": {
+            "omitted_full_payload_keys": OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS,
+            "full_receipt_paths": receipt_paths,
+        },
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="action")
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = subparsers.add_parser("validate-observability-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     route_compliance_parser = subparsers.add_parser(
         "validate-route-compliance-bundle"
     )
@@ -8214,17 +8462,24 @@ def main(argv: list[str] | None = None) -> int:
     agent_store_parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
     if args.action == "run":
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.agent_route_observability_runtime "
-            f"run --input {args.input} --out {args.out}"
+            f"run --input {args.input} --out {args.out}{card_suffix}"
         )
         result = run(args.input, args.out, command=command)
     elif args.action == "validate-observability-bundle":
+        card_suffix = " --card" if args.card else ""
         command = (
             "python -m microcosm_core.organs.agent_route_observability_runtime "
-            f"validate-observability-bundle --input {args.input} --out {args.out}"
+            f"validate-observability-bundle --input {args.input} --out {args.out}{card_suffix}"
         )
-        result = run_observability_bundle(args.input, args.out, command=command)
+        result = run_observability_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     elif args.action == "validate-route-compliance-bundle":
         command = (
             "python -m microcosm_core.organs.agent_route_observability_runtime "
@@ -8292,6 +8547,8 @@ def main(argv: list[str] | None = None) -> int:
             "validate-agent-trace-route-repair-bundle, or "
             "validate-agent-observability-store-bundle"
         )
+    if getattr(args, "card", False):
+        print(json.dumps(result_card(result), ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

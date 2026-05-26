@@ -41,6 +41,7 @@ from microcosm_core.macro_tools.controller_heartbeat import (
     count_sentences,
     load_public_controller_heartbeat_bundle,
 )
+from microcosm_core.organs import agent_route_observability_runtime
 from microcosm_core.organs.agent_route_observability_runtime import (
     COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
     EXPORTED_COMPUTER_USE_ACTION_TRACE_BUNDLE_RECEIPT_PATH,
@@ -54,6 +55,9 @@ from microcosm_core.organs.agent_route_observability_runtime import (
     EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    OBSERVABILITY_CARD_SCHEMA_VERSION,
+    main,
+    result_card,
     run,
     run_bridge_dispatch_yield_resume_bundle,
     run_computer_use_action_trace_bundle,
@@ -314,6 +318,70 @@ def test_agent_route_observability_exported_bundle_validates_runtime_shape(
         "lease_public_observability_runtime",
     ]
     assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+
+
+def test_agent_route_observability_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    out = tmp_path / "receipts/first_wave/agent_route_observability_runtime"
+    command = (
+        "python -m microcosm_core.organs.agent_route_observability_runtime "
+        f"validate-observability-bundle --input {OBS_BUNDLE_INPUT} --out {out} --card"
+    )
+
+    first = run_observability_bundle(
+        OBS_BUNDLE_INPUT,
+        out,
+        command=command,
+        reuse_fresh_receipt=True,
+    )
+    first_card = result_card(first)
+
+    assert first["status"] == "pass"
+    assert first["receipt_reused"] is False
+    assert first_card["schema_version"] == OBSERVABILITY_CARD_SCHEMA_VERSION
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_input_count"] == 18
+    assert first_card["observability"]["route_event_count"] == 2
+    assert first_card["observability"]["agent_path_observation_count"] == 2
+    assert first_card["observability"]["session_diagnostic_count"] == 1
+    assert first_card["observability"]["copied_macro_source_count"] == 7
+    assert first_card["validation"]["finding_count"] == 0
+    assert all(value is False for value in first_card["body_floor"].values())
+    assert "findings" not in first_card
+    assert "private_state_scan" not in first_card
+    assert "source_refs" not in first_card
+
+    def fail_load_bundle(*_args, **_kwargs):
+        raise AssertionError("fresh --card bundle path should reuse the receipt")
+
+    monkeypatch.setattr(
+        agent_route_observability_runtime,
+        "_load_observability_bundle",
+        fail_load_bundle,
+    )
+
+    assert (
+        main(
+            [
+                "validate-observability-bundle",
+                "--input",
+                str(OBS_BUNDLE_INPUT),
+                "--out",
+                str(out),
+                "--card",
+            ]
+        )
+        == 0
+    )
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
