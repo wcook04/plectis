@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.agent_sabotage_scheming_monitor_replay as sabotage_replay
 from microcosm_core.organs.agent_sabotage_scheming_monitor_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_sabotage_bundle,
 )
@@ -124,3 +127,53 @@ def test_agent_sabotage_scheming_monitor_exported_bundle_validates_runtime_shape
     assert result["counterfactual_replay_count"] == 3
     assert result["cold_replay_pass_count"] == 3
     assert result["authority_ceiling"]["live_sabotage_authorized"] is False
+
+
+def test_agent_sabotage_scheming_monitor_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "agent_sabotage_scheming_monitor_replay"
+    )
+    args = [
+        "run-sabotage-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["sabotage_monitor"]["episode_count"] == 3
+    assert first_card["sabotage_monitor"]["action_trace_count"] == 6
+    assert first_card["sabotage_monitor"]["monitor_score_count"] == 6
+    assert first_card["sabotage_monitor"]["cold_replay_pass_count"] == 3
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert "task_episodes" not in _walk_keys(first_card)
+    assert "action_trace_rows" not in _walk_keys(first_card)
+    assert "monitor_score_rows" not in _walk_keys(first_card)
+    assert "private_state_scan" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(sabotage_replay, "_build_result", fail_if_rebuilt)
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
