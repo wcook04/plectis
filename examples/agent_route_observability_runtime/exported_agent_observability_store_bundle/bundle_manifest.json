@@ -12,7 +12,12 @@
   "target_refs": [
     "src/microcosm_core/macro_tools/agent_observability_store.py",
     "src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+  ],
+  "source_import_class": "copied_non_secret_macro_body_plus_public_light_refactor",
+  "source_modules": [
+    "source_modules/system/lib/agent_observability.py"
   ],
   "source_symbols": [
     "system/lib/agent_observability.py::AgentEvent",

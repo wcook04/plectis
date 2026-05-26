@@ -1,0 +1,362 @@
+{
+  "accepted_event_count": 6,
+  "account_session_state_exported": false,
+  "active_session_count": 3,
+  "agent_observability_store_schema": "public_agent_observability_store_v1",
+  "anti_claim": "Agent observability store replay validates public event metadata, bounded payload compaction, source/canonical counters, active-session summaries, telemetry queue behavior, and safe route-decision digests. It does not read live home session logs, transcript bodies, provider payloads, hidden reasoning, browser/HUD state, account/session state, credentials, cookies, recipient-send material, or launch resident samplers.",
+  "authority_ceiling": {
+    "account_session_state_exported": false,
+    "authority_ceiling": "public_agent_observability_store_metadata_not_live_session_authority",
+    "browser_hud_cockpit_state_exported": false,
+    "credential_or_cookie_exported": false,
+    "hidden_reasoning_exported": false,
+    "live_home_session_logs_read": false,
+    "live_process_probe_authorized": false,
+    "live_transcript_tail_authorized": false,
+    "operator_bridge_poll_authorized": false,
+    "private_data_equivalence_claim": false,
+    "provider_payload_read": false,
+    "raw_transcript_body_exported": false,
+    "recipient_send_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_import_verification": {
+    "body_in_receipt": false,
+    "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py::AUTHORITY_CEILING",
+    "runtime_consumed_by": [
+      "microcosm agent-route-observability-runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
+      "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape"
+    ],
+    "source_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+    "source_ref": "system/lib/agent_observability.py",
+    "source_symbol_refs": [
+      "system/lib/agent_observability.py::AgentEvent",
+      "system/lib/agent_observability.py::AgentTraceStore",
+      "system/lib/agent_observability.py::AgentObservabilitySampler",
+      "system/lib/agent_observability.py::_compact_event_if_oversized",
+      "system/lib/agent_observability.py::ingest_recent_codex_rollouts",
+      "system/lib/agent_observability.py::ingest_recent_claude_transcripts"
+    ],
+    "source_to_target_relation": "source_faithful_public_light_edit",
+    "target_body_digest": "sha256:b8e4818e762cf6aed2485d171e51a8fa9c601c389f7b116e40f2b2783acb6312",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py",
+    "target_symbol_refs": [
+      "microcosm_core.macro_tools.agent_observability_store::AgentEvent",
+      "microcosm_core.macro_tools.agent_observability_store::AgentTraceStore",
+      "microcosm_core.macro_tools.agent_observability_store::PublicAgentObservabilitySampler",
+      "microcosm_core.macro_tools.agent_observability_store::build_public_agent_observability_store_view",
+      "microcosm_core.macro_tools.agent_observability_store::load_public_agent_observability_store_bundle"
+    ],
+    "verification_mode": "verified_light_edit_recipe",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "browser_hud_cockpit_state_exported": false,
+  "bundle_fingerprint": "79bd28c7aed524cfaa1a7395f54ba6a49b4ca88c882a0e3a31731f383de3806e",
+  "bundle_id": "public_agent_observability_store_runtime_example",
+  "bundle_manifest_schema_version": "public_agent_observability_store_bundle_manifest_v1",
+  "canonical_type_count": 6,
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-agent-observability-store-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "copied_macro_source_count": 1,
+  "created_at": "2026-05-26T11:42:16+00:00",
+  "credential_or_cookie_exported": false,
+  "error_codes": [],
+  "event_decisions": [
+    {
+      "body_in_receipt": false,
+      "canonical_type": "route.decision",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_route_decision_entry",
+      "seq": 1,
+      "session_id": "wave122-agent-observability"
+    },
+    {
+      "body_in_receipt": false,
+      "canonical_type": "tool.proposed",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_tool_proposed_context_pack",
+      "seq": 2,
+      "session_id": "wave122-agent-observability"
+    },
+    {
+      "body_in_receipt": false,
+      "canonical_type": "tool.completed",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_tool_completed_source_read",
+      "seq": 3,
+      "session_id": "wave122-agent-observability"
+    },
+    {
+      "body_in_receipt": false,
+      "canonical_type": "plan.observed",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_plan_public_boundary",
+      "seq": 4,
+      "session_id": "wave122-agent-observability"
+    },
+    {
+      "body_in_receipt": false,
+      "canonical_type": "runtime.heartbeat",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_backend_heartbeat",
+      "seq": 5,
+      "session_id": "agent_observability"
+    },
+    {
+      "body_in_receipt": false,
+      "canonical_type": "stream.gap",
+      "decision": "accepted",
+      "error_codes": [],
+      "event_id": "paos_operator_bridge_gap",
+      "seq": 6,
+      "session_id": "operator_bridge_public_projection"
+    }
+  ],
+  "exact_source_body_import": {
+    "body_in_receipt": false,
+    "source_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+    "source_ref": "system/lib/agent_observability.py",
+    "source_to_target_relation": "exact_copy",
+    "target_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+    "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+    "verification_mode": "exact_source_digest_match",
+    "verification_status": "pass"
+  },
+  "expected_negative_cases": {},
+  "expected_summary_validation": {
+    "actual_summary": {
+      "active_session_count": 3,
+      "activity_event_count": 3,
+      "body_in_receipt": false,
+      "canonical_counts": {
+        "plan.observed": 1,
+        "route.decision": 1,
+        "runtime.heartbeat": 1,
+        "stream.gap": 1,
+        "tool.completed": 1,
+        "tool.proposed": 1
+      },
+      "canonical_type_count": 6,
+      "dropped_count": 0,
+      "event_count": 6,
+      "gap_count": 1,
+      "history_size": 6,
+      "metadata_digest_count": 6,
+      "redacted_payload_count": 3,
+      "route_decision_event_count": 3,
+      "source_counts": {
+        "backend": 1,
+        "codex_app": 4,
+        "operator_bridge": 1
+      },
+      "source_runtime_count": 3,
+      "tool_event_count": 2
+    },
+    "body_in_receipt": false,
+    "expected_summary": {
+      "active_session_count": 3,
+      "body_in_receipt": false,
+      "event_count": 6,
+      "metadata_digest_count": 6,
+      "redacted_payload_count": 3,
+      "route_decision_event_count": 3,
+      "schema_version": "public_agent_observability_store_expected_summary_v1",
+      "source_runtime_count": 3,
+      "tool_event_count": 2
+    },
+    "findings": [],
+    "mismatches": [],
+    "status": "pass"
+  },
+  "findings": [],
+  "fixture_id": "first_wave.agent_route_observability_runtime",
+  "fixture_regression_required_elsewhere": false,
+  "hidden_reasoning_exported": false,
+  "input_mode": "exported_agent_observability_store_bundle",
+  "live_home_session_logs_read": false,
+  "live_process_probe_authorized": false,
+  "live_transcript_tail_authorized": false,
+  "metadata_digest_count": 6,
+  "metadata_envelope_only": true,
+  "missing_negative_cases": [],
+  "observability_policy": {
+    "body_in_receipt": false,
+    "findings": [],
+    "forbidden_authority_rejected": true,
+    "metadata_envelope_only": true,
+    "policy_id": "public_agent_observability_store_metadata_boundary",
+    "status": "pass"
+  },
+  "observed_negative_cases": {},
+  "operator_bridge_poll_authorized": false,
+  "organ_id": "agent_route_observability_runtime",
+  "provider_payload_exported": false,
+  "public_event_count": 6,
+  "raw_transcript_body_exported": false,
+  "receipt_id": "agent_route_observability_runtime_exported_agent_observability_store_bundle_validation_v1",
+  "receipt_paths": [
+    "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+  ],
+  "recipient_send_authorized": false,
+  "redacted_payload_count": 3,
+  "route_decision_event_count": 3,
+  "schema_version": "agent_route_observability_runtime_exported_agent_observability_store_bundle_validation_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body",
+      "raw_transcript_body",
+      "provider_payload",
+      "hidden_reasoning",
+      "browser_hud_state",
+      "account_session_state",
+      "credential_value",
+      "cookie",
+      "recipient_send_payload",
+      "live_session_state"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_provider_payload_hidden_reasoning_transcript_body_live_session_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 6,
+    "status": "pass"
+  },
+  "source_module_manifest": {
+    "all_expected_byte_counts_matched": true,
+    "all_expected_digests_matched": true,
+    "all_expected_line_counts_matched": true,
+    "body_in_receipt": false,
+    "copied_macro_source_count": 1,
+    "findings": [],
+    "module_count": 1,
+    "observed_modules": [
+      {
+        "body_in_receipt": false,
+        "byte_count": 70065,
+        "line_count": 1699,
+        "path": "source_modules/system/lib/agent_observability.py",
+        "sha256": "e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+        "source_ref": "system/lib/agent_observability.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py"
+      }
+    ],
+    "required_module_count": 1,
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
+  "source_pattern_ids": [
+    "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
+    "route_lease_mode_control",
+    "actor_axis_authority_boundary",
+    "anti_pattern_debt_retirement",
+    "trace_feedback_behavior_change_gate",
+    "runtime_hook_shadow_intervention_coverage"
+  ],
+  "source_refs": [
+    "system/lib/agent_observability.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/doctrine/paper_modules/agent_observability.md",
+    "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
+  ],
+  "source_runtime_count": 3,
+  "status": "pass",
+  "store_summary": {
+    "active_session_count": 3,
+    "activity_event_count": 3,
+    "body_in_receipt": false,
+    "canonical_counts": {
+      "plan.observed": 1,
+      "route.decision": 1,
+      "runtime.heartbeat": 1,
+      "stream.gap": 1,
+      "tool.completed": 1,
+      "tool.proposed": 1
+    },
+    "canonical_type_count": 6,
+    "dropped_count": 0,
+    "event_count": 6,
+    "gap_count": 1,
+    "history_size": 6,
+    "metadata_digest_count": 6,
+    "redacted_payload_count": 3,
+    "route_decision_event_count": 3,
+    "source_counts": {
+      "backend": 1,
+      "codex_app": 4,
+      "operator_bridge": 1
+    },
+    "source_runtime_count": 3,
+    "tool_event_count": 2
+  },
+  "target_refs": [
+    "src/microcosm_core/macro_tools/agent_observability_store.py",
+    "src/microcosm_core/organs/agent_route_observability_runtime.py",
+    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+    "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
+  ],
+  "tool_event_count": 2,
+  "validator_asserted_feeds_patterns": [
+    {
+      "assertion_id": "route_lease_feedback_requires_consumed_trace",
+      "source_pattern_id": "route_lease_mode_control",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "actor_axis_mismatch_rejects_mutation_authority",
+      "source_pattern_id": "actor_axis_authority_boundary",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "debt_retirement_requires_behavior_change_evidence",
+      "source_pattern_id": "anti_pattern_debt_retirement",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
+      "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+      "source_pattern_id": "agent_principle_lens",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+      "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+      "source_pattern_id": "egress_compliance_stop_hook_mirror",
+      "status": "pass"
+    }
+  ],
+  "validator_id": "validator.microcosm.organs.agent_route_observability_runtime"
+}
