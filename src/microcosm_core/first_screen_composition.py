@@ -147,6 +147,52 @@ def _scale_frame() -> dict[str, Any]:
     }
 
 
+def _comparison_frame() -> dict[str, Any]:
+    return {
+        "purpose": "make_rigor_visible_without_claim_inflation",
+        "common_entry_failure_modes": [
+            "a long command inventory before the reader sees the first useful behavior",
+            "honest evidence counts shown without explaining what they do and do not mean",
+            "reader-specific pitches before every reader has seen the same local evidence surface",
+            "discipline hidden as implementation detail instead of presented as an inspectable boundary",
+        ],
+        "microcosm_entry_discipline": [
+            "one shared local behavior command before reader branching",
+            "evidence counts framed as accounting, not readiness or progress scoring",
+            "authority ceilings and anti-claims visible before proof, release, or hosted claims",
+            "drilldown refs preserve depth instead of copying full bodies into the first screen",
+        ],
+        "reader_effect": (
+            "The card shows what Microcosm refuses to overclaim, then lets each reader choose "
+            "the drilldown that matches their job."
+        ),
+    }
+
+
+def _entry_surface_contract(project_label: str) -> dict[str, Any]:
+    return {
+        "shared_behavior_surface": f"microcosm tour --card {project_label}",
+        "package_surface": (
+            "microcosm_core.first_screen_composition.first_screen_composition_card"
+        ),
+        "text_projection_surface": (
+            "microcosm_core.first_screen_composition.first_screen_text_card"
+        ),
+        "script_surface": (
+            f"python3 scripts/first_screen_composition_card.py --project-label {project_label}"
+        ),
+        "consumer_rule": (
+            "README, CLI, and observatory consumers should reuse this package contract and "
+            "preserve the shared first command, reader route ids, evidence-count frame, "
+            "omission receipt, and authority ceiling."
+        ),
+        "format_contract": {
+            "json": "machine-readable public card",
+            "text": "terminal-sized projection over the same authority ceiling",
+        },
+    }
+
+
 def _runnable_structural_join(project_label: str) -> dict[str, Any]:
     return {
         "local_behavior": (
@@ -211,6 +257,14 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
         ),
+        "comparison_frame": (
+            payload.get("comparison_frame", {}).get("purpose")
+            == "make_rigor_visible_without_claim_inflation"
+        ),
+        "entry_surface_contract": (
+            payload.get("entry_surface_contract", {}).get("shared_behavior_surface")
+            == payload.get("shared_first_command")
+        ),
         "scale_frame": bool(payload.get("scale_frame", {}).get("scale_handles")),
         "runnable_structural_join": bool(
             payload.get("runnable_structural_join", {}).get("join_rule")
@@ -237,6 +291,8 @@ def first_screen_composition_card(
         "shared_first_command": f"microcosm tour --card {project_label}",
         "reader_routes": _reader_routes(project_label),
         "evidence_count_frame": _evidence_count_frame(),
+        "comparison_frame": _comparison_frame(),
+        "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(),
         "runnable_structural_join": _runnable_structural_join(project_label),
         "drilldowns": _drilldowns(project_label),
@@ -303,7 +359,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         f"First run: {payload['shared_first_command']}",
         "",
         "What it is:",
-        "  A local evidence router for a folder: run one compact command, then choose the drilldown.",
+        "  A local evidence router, not a maturity brochure: one command, then a drilldown.",
         "",
         "Why the counts are honest:",
         "  Evidence counts are accounting fields, not maturity, readiness, or progress scores.",

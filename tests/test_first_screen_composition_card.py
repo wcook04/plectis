@@ -55,6 +55,21 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     }
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert "maturity_score" in card["evidence_count_frame"]["forbidden_reads"]
+    assert card["comparison_frame"]["purpose"] == (
+        "make_rigor_visible_without_claim_inflation"
+    )
+    assert "one shared local behavior command before reader branching" in card[
+        "comparison_frame"
+    ]["microcosm_entry_discipline"]
+    assert card["entry_surface_contract"]["shared_behavior_surface"] == (
+        card["shared_first_command"]
+    )
+    assert card["entry_surface_contract"]["package_surface"] == (
+        "microcosm_core.first_screen_composition.first_screen_composition_card"
+    )
+    assert "README, CLI, and observatory consumers" in card[
+        "entry_surface_contract"
+    ]["consumer_rule"]
     assert card["authority_ceiling"]["release_authority"] is False
     assert card["authority_ceiling"]["source_mutation_authority"] is False
     assert card["authority_ceiling"]["private_data_equivalence_authority"] is False
@@ -67,6 +82,8 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         for drilldown in card["drilldowns"]
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
+    assert card["validation"]["checks"]["comparison_frame"] is True
+    assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert "body" not in _walk_keys(card)
     assert (
         module.first_screen_composition_card.__module__
@@ -93,6 +110,9 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
 
     assert card["status"] == "pass"
     assert card["shared_first_command"] == "microcosm tour --card ."
+    assert card["entry_surface_contract"]["script_surface"] == (
+        "python3 scripts/first_screen_composition_card.py --project-label ."
+    )
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -112,6 +132,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     text.encode("ascii")
     assert text.startswith("Microcosm first screen\n")
     assert "First run: microcosm tour --card ." in text
+    assert "A local evidence router, not a maturity brochure" in text
     assert "Evidence counts are accounting fields" in text
     assert (
         "Safety/evals: microcosm status --card . -> microcosm authority -> "
