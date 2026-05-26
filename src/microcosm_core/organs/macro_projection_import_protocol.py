@@ -31,6 +31,8 @@ ACCEPTANCE_RECEIPT_REL = (
     "macro_projection_import_protocol_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_projection_import_bundle_validation_result.json"
+PUBLIC_ROOT_POLICY_REL = Path("core/private_state_forbidden_classes.json")
+MODULE_PUBLIC_ROOT = Path(__file__).resolve().parents[3]
 DEPENDENCY_PREFLIGHT_RECEIPT_REL = Path("receipts/preflight/dependency_preflight.json")
 ORGAN_REGISTRY_REL = Path("core/organ_registry.json")
 ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS = (
@@ -2400,13 +2402,27 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
 }
 
 
+def _is_public_root(candidate: Path) -> bool:
+    return (candidate / PUBLIC_ROOT_POLICY_REL).is_file()
+
+
 def _public_root_for_path(path: str | Path) -> Path:
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
-    for candidate in (start, *start.parents):
-        if candidate.name == "microcosm-substrate":
+    candidates = [
+        start,
+        *start.parents,
+        Path.cwd().resolve(strict=False),
+        MODULE_PUBLIC_ROOT,
+    ]
+    seen: set[Path] = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        if _is_public_root(candidate):
             return candidate
-    return Path.cwd().resolve(strict=False)
+    return MODULE_PUBLIC_ROOT
 
 
 def _display(path: Path, *, public_root: Path) -> str:
@@ -4339,13 +4355,22 @@ def projection_bundle_cached_card(
     payload = read_json_strict(receipt_path)
     if not isinstance(payload, dict):
         raise ValueError(f"Projection bundle receipt must be a JSON object: {receipt_path}")
+    input_exists = input_path.exists()
     input_refs = _top_level_json_mtime_refs(input_path)
     source_refs = _cached_receipt_source_mtime_refs(payload, public_root=public_root)
     newest_input = max((row["mtime_ns"] for row in input_refs), default=0)
     newest_source = max((row["mtime_ns"] for row in source_refs), default=0)
-    input_stale = newest_input > receipt_stat.st_mtime_ns
+    stale_input_count = sum(
+        1 for row in input_refs if row["mtime_ns"] > receipt_stat.st_mtime_ns
+    )
+    input_stale = not input_exists or stale_input_count > 0
     source_stale = newest_source > receipt_stat.st_mtime_ns
     stale = input_stale or source_stale
+    input_status = (
+        "missing_input"
+        if not input_exists
+        else "stale" if stale_input_count else "current"
+    )
     status = "stale_cached_receipt" if stale else payload.get("status")
     return {
         "schema_version": "macro_projection_bundle_cached_card_v1",
@@ -4363,13 +4388,16 @@ def projection_bundle_cached_card(
         "cached_receipt_bytes": receipt_stat.st_size,
         "cache_freshness": {
             "status": "stale" if stale else "current",
-            "input_status": "stale" if input_stale else "current",
+            "input_status": input_status,
             "source_ref_status": "stale" if source_stale else "current",
             "tracked_top_level_json_count": len(input_refs),
+            "stale_top_level_json_count": stale_input_count,
             "tracked_source_ref_count": len(source_refs),
             "newest_input_mtime_ns": newest_input,
             "newest_source_mtime_ns": newest_source,
             "receipt_mtime_ns": receipt_stat.st_mtime_ns,
+            "input_refs_exported": False,
+            "source_refs_exported": False,
         },
         "input_mode": payload.get("input_mode"),
         "projection_cell_count": payload.get("projection_cell_count"),
@@ -4397,6 +4425,8 @@ def projection_bundle_cached_card(
             "release_authorized": False,
             "private_data_equivalence_claim": False,
             "receipt_metadata_visible": True,
+            "input_refs_exported": False,
+            "source_refs_exported": False,
         },
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
