@@ -2,9 +2,58 @@
   "schema_version": "entry_packet_v1",
   "surface_role": "source_open_public_entry",
   "first_command": "microcosm tour --card <project>",
+  "reader_first_screen_routes": {
+    "schema_version": "microcosm_reader_first_screen_routes_v1",
+    "route_ref": "atlas/entry_packet.json::reader_first_screen_routes",
+    "purpose": "Choose the reader-specific second screen after the shared local behavior card has made .microcosm state visible.",
+    "shared_prerequisite_command": "microcosm tour --card <project>",
+    "routes": [
+      {
+        "reader_id": "safety_evals_engineer",
+        "reader_question": "Does the evidence discipline survive scale and boundary pressure?",
+        "first_screen_command": "microcosm status --card <project>",
+        "next_command": "microcosm authority && microcosm workingness",
+        "evidence_focus": [
+          "front_door.source_open_body_import_floor",
+          "explicit evidence_class rows",
+          "authority ceilings and anti-claims",
+          "failure-mode and missing-standard gaps"
+        ],
+        "anti_misread": "Treat body-import counts as honesty accounting, not a maturity score or release claim."
+      },
+      {
+        "reader_id": "hiring_reviewer",
+        "reader_question": "Is this real, and is the builder worth interviewing?",
+        "first_screen_command": "microcosm legibility-scorecard",
+        "next_command": "microcosm tour --card <project>",
+        "evidence_focus": [
+          "question-to-command scorecard",
+          "10-minute checkpoint path",
+          "endpoint parity",
+          "reader-success guarantee rejected"
+        ],
+        "anti_misread": "Do not infer production readiness, hosted launch, or benchmark performance from legibility."
+      },
+      {
+        "reader_id": "peer_developer",
+        "reader_question": "Can I clone this and inspect useful local state within an hour?",
+        "first_screen_command": "microcosm tour --card <project>",
+        "next_command": "microcosm observe <project>",
+        "evidence_focus": [
+          ".microcosm state refs",
+          "selected_route_id",
+          "route/work/event/evidence graph chain",
+          "source_files_mutated=false"
+        ],
+        "anti_misread": "Do not start from raw receipt trees or the full organ inventory when the local route card is enough."
+      }
+    ],
+    "authority": "reader routing only; not release, provider, proof-correctness, production, hiring, or safety-evaluation authority"
+  },
   "cold_clone_validation_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
   "allowed_drilldowns": [
     "atlas/entry_packet.json::local_first_screen_route",
+    "atlas/entry_packet.json::reader_first_screen_routes",
     "atlas/entry_packet.json::cold_clone_probe_route",
     "atlas/entry_packet.json::observatory_route",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
@@ -19,6 +68,8 @@
     "microcosm tour <project>",
     "microcosm compile <project>",
     "microcosm evidence list <project>",
+    "microcosm observe <project>",
+    "microcosm observe <project>::causal_chain",
     "microcosm serve <project> --host 127.0.0.1 --port 8765",
     "microcosm serve <project>::first_screen_route_proof",
     "/",
@@ -52,9 +103,15 @@
     "microcosm verifier-lab-execution-spine-lens",
     "microcosm tour <project>::front_door_status",
     "receipts/runtime_shell/public_ten_minute_tour.json::front_door_status",
+    "atlas/entry_packet.json::status_before_tour_recovery_route",
     "microcosm status --card",
     "microcosm status --card <project>",
+    "microcosm legibility-scorecard",
+    "microcosm authority",
     "microcosm status --card <project>::front_door",
+    "microcosm status --card <project>::front_door.project_state.recovery",
+    "microcosm status --card <project>::front_door.project_recovery",
+    "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
     "microcosm status --card <project>::front_door.route_explanation",
     "microcosm status --card <project>::front_door.proof_lab",
     "microcosm status --card <project>::front_door.observatory",
@@ -85,12 +142,19 @@
       "microcosm status --card <project>",
       "microcosm workingness",
       "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "microcosm observe <project>",
       "microcosm serve <project> --host 127.0.0.1 --port 8765",
       "microcosm compile <project>",
       "microcosm python-lens <project>",
       "microcosm explain <project> <selected_route_id>",
       "microcosm evidence list <project>",
       "microcosm tour <project>"
+    ],
+    "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
+    "reader_route_ids": [
+      "safety_evals_engineer",
+      "hiring_reviewer",
+      "peer_developer"
     ],
     "primary_first_screen_command": "microcosm tour --card <project>",
     "state_dir": ".microcosm",
@@ -125,6 +189,7 @@
     ],
     "drilldown_routes": [
       "tour_front_door_status_route",
+      "status_before_tour_recovery_route",
       "status_and_workingness_route",
       "python_navigation_route",
       "route_explanation_chain_route",
@@ -174,6 +239,8 @@
   },
   "route_explanation_chain_route": {
     "surface_id": "project_route_explanation_causal_chain",
+    "compact_observe_command": "microcosm observe <project>",
+    "compact_observe_endpoint": "/project/observe",
     "command": "microcosm explain <project> <selected_route_id>",
     "endpoint": "/project/explain/<route_id>",
     "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
@@ -185,7 +252,7 @@
     "event_stream_ref": ".microcosm/events.jsonl",
     "standard_pressure_ref": ".microcosm/architecture.json::standard_pressure_surface",
     "pattern_state_ref": ".microcosm/patterns.json",
-    "entry_role": "first-screen causal-chain proof for how a selected route binds catalog evidence, pattern rows, standard pressure, work transaction state, events, and evidence refs",
+    "entry_role": "first-screen causal-chain proof for how a selected route binds catalog evidence, pattern rows, standard pressure, work transaction state, events, and evidence refs; use microcosm observe <project> for the compact route/work/event/evidence/graph lens before the expanded explain drilldown",
     "expected_fields": [
       "grounded_refs",
       "pattern_bindings",
@@ -255,6 +322,31 @@
     },
     "authority": "tour status routing only, not source authority, release authority, provider authority, proof authority, or permission to hide blocked drilldowns"
   },
+  "status_before_tour_recovery_route": {
+    "surface_id": "microcosm_status_before_tour_recovery",
+    "command": "microcosm status --card <project>",
+    "entry_role": "honest blocked-status lens when a cold reader asks for status before .microcosm state exists; it must expose the missing state and the recovery command instead of hiding the blocker",
+    "status_ref": "microcosm status --card <project>::front_door_status",
+    "project_state_ref": "microcosm status --card <project>::front_door.project_state",
+    "recovery_ref": "microcosm status --card <project>::front_door.project_state.recovery",
+    "blocking_detail_ref": "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
+    "expected_blocked_state": {
+      "status": "blocked",
+      "project_state_status": "missing_state",
+      "primary_recovery_command": "microcosm tour --card <project>",
+      "status_after_recovery_command": "microcosm status --card <project>",
+      "alternate_recovery_command": "microcosm compile <project>"
+    },
+    "safe_to_show": {
+      "blocked_state_visible": true,
+      "recovery_command_visible": true,
+      "source_files_mutated": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "proof_correctness_claim": false
+    },
+    "authority": "recovery route only, not a waiver for missing project state, release authority, provider authority, source mutation authority, production authority, or proof-correctness authority"
+  },
   "status_and_workingness_route": {
     "surface_id": "microcosm_status_and_workingness",
     "command": "microcosm status --card <project> && microcosm workingness",
@@ -283,6 +375,7 @@
       "front_door.observatory",
       "front_door.observatory.endpoint",
       "front_door.observatory.compact_endpoint",
+      "front_door.observatory.project_observe_command",
       "front_door.observatory.first_screen_route_proof_ref",
       "front_door.source_open_body_import_floor",
       "front_door.source_open_body_import_floor.public_safe_body_material_count",
@@ -479,7 +572,7 @@
       "codex/standards/std_microcosm.json",
       "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
     ],
-    "selection_rule": "Use local_first_screen_route when the reader asks what to run first with a brought folder; use proof_lab_route when the reader asks what proof-lab behavior is runnable; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use observatory_route when the reader asks how the local browser/read-model ties status, route, work, evidence, graph, and proof surfaces together; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route when the reader asks why a selected route exists or how route, work, events, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
+    "selection_rule": "Use local_first_screen_route when the reader asks what to run first with a brought folder; use proof_lab_route when the reader asks what proof-lab behavior is runnable; use status_and_workingness_route when the reader asks whether the first screen is honest about gaps; use observatory_route when the reader asks how the local browser/read-model ties status, route, work, evidence, graph, and proof surfaces together; use python_navigation_route when the reader asks how a brought project becomes .microcosm state; use route_explanation_chain_route or microcosm observe <project> when the reader asks why a selected route exists or how route, work, events, graph, and evidence connect; use standards and paper modules as drilldowns after the behavior is visible."
   },
   "doctrine_lattice_route": {
     "surface_id": "microcosm_doctrine_lattice",
@@ -534,11 +627,12 @@
       "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
       "codex/doctrine/paper_modules/prime_directives.md",
       "codex/doctrine/paper_modules/local_to_general_propagation.md",
-      "codex/doctrine/paper_modules/navigation_hologram_theory.md",
-      "codex/doctrine/paper_modules/public_constellation_strategy.md",
-      "codex/doctrine/paper_modules/dissemination_strategy.md",
-      "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
-    ],
+    "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+    "codex/doctrine/paper_modules/public_constellation_strategy.md",
+    "codex/doctrine/paper_modules/dissemination_strategy.md",
+    "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+    "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+  ],
     "atlas_option_surfaces": [
       {
         "kind": "standards",
@@ -561,7 +655,7 @@
         "command": "./repo-python kernel.py --option-surface axiom_candidates --band flag"
       }
     ],
-    "selection_rule": "Start from proof_lab_route for visible behavior; use observatory_route to inspect the local read-model over status, route, work, evidence, graph, and proof surfaces; use route_explanation_chain_route before asking readers to infer the causal chain from receipts; use pattern_route_readiness_route before treating imported pattern rows as selectable; then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns. Do not treat candidate axioms as active law.",
+    "selection_rule": "Start from proof_lab_route for visible behavior; use observatory_route to inspect the local read-model over status, route, work, evidence, graph, and proof surfaces; use microcosm observe <project> and route_explanation_chain_route before asking readers to infer the causal chain from receipts; use pattern_route_readiness_route before treating imported pattern rows as selectable; then use this lattice route to choose explicit principle, candidate-axiom, concept, mechanism, standard, paper-module, and Atlas drilldowns. Do not treat candidate axioms as active law.",
     "authority": "navigation lattice only, not source authority, release authority, proof authority, doctrine-promotion authority, or candidate-axiom promotion authority"
   },
   "banned_routes": [

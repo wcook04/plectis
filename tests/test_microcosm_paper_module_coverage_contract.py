@@ -16,6 +16,14 @@ def _std_microcosm() -> dict:
     )
 
 
+def _std_standard_type_plane() -> dict:
+    return json.loads(
+        (REPO_ROOT / "codex/standards/std_standard_type_plane.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+
 def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     standard = _std_microcosm()
     contract = standard["paper_module_coverage_contract"]
@@ -23,6 +31,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert contract["primary_modules"] == [
         "codex/doctrine/paper_modules/microcosm_substrate.md",
         "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md",
         "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
         "codex/doctrine/paper_modules/public_constellation_strategy.md",
@@ -51,9 +60,32 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "behavior_first_screen_visible",
         "microcosm_substrate_product_roof",
         "microcosm_entry_lattice_route_depth",
+        "microcosm_public_export_type_plane_bridge",
         "paper_module_coverage_metabolism_corpus_health",
         "selected_module_card_then_source_evidence",
     ]
+    assert contract["standard_type_plane_bridge"] == {
+        "type_plane_row": (
+            "codex/standards/std_standard_type_plane.json::"
+            "type_plane_rows.public_microcosm_exports"
+        ),
+        "paper_module": (
+            "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+        ),
+        "entry_route": (
+            './repo-python kernel.py --entry "public Microcosm export '
+            'dissemination boundary" --context-budget 12000'
+        ),
+        "atlas_drilldowns": [
+            "paper_modules:microcosm_public_export_type_plane",
+            "standards:std_microcosm",
+            "standards:std_standard_type_plane",
+        ],
+        "authority_ceiling": (
+            "type_plane_navigation_bridge_only_not_release_source_truth_provider_"
+            "proof_or_candidate_axiom_authority"
+        ),
+    }
     assert contract["authority_ceiling"] == (
         "coverage_navigation_only_not_public_release_source_truth_proof_or_"
         "candidate_axiom_authority"
@@ -77,6 +109,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
+        "standard_type_plane_bridge",
         "authority_ceiling",
     ]
 
@@ -91,6 +124,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
 
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
+        "microcosm_public_export_type_plane",
         "paper_module_coverage_metabolism",
         "generated sidecars",
         "all authored modules up to date",
@@ -99,5 +133,37 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         assert required in entry_lattice
 
     assert "Verify paper-module coverage/depth" in entry_lattice
+    assert "Route public Microcosm exports" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
     assert "sidecars as source truth" in product_roof
+
+
+def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
+    standard = _std_microcosm()
+    bridge = standard["paper_module_coverage_contract"]["standard_type_plane_bridge"]
+    type_plane = _std_standard_type_plane()
+    row = next(
+        row
+        for row in type_plane["type_plane_rows"]
+        if row["type_id"] == "public_microcosm_exports"
+    )
+
+    assert bridge["paper_module"] in row["governing_standard_refs"]
+    assert bridge["paper_module"] in row["projection_refs"]
+    assert row["entry_depth_contract"]["standard_bridge"] == (
+        "codex/standards/std_microcosm.json::"
+        "paper_module_coverage_contract.standard_type_plane_bridge"
+    )
+    assert row["entry_depth_contract"]["paper_module_depth_order"] == [
+        "microcosm_substrate",
+        "microcosm_entry_lattice",
+        "microcosm_public_export_type_plane",
+        "paper_module_coverage_metabolism",
+        "public_constellation_strategy",
+        "dissemination_strategy",
+    ]
+    assert "--entry" in row["entry_depth_contract"]["control_entry"]
+    assert any(
+        "microcosm_public_export_type_plane" in probe
+        for probe in row["validation_probe"]
+    )
