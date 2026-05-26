@@ -123,6 +123,46 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert '"body":' not in text
 
 
+def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
+    module = _load_module()
+    card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
+    expected = {
+        "safety_evals_engineer": {
+            "label": "Safety/evals",
+            "next": "microcosm status --card . -> microcosm authority -> microcosm workingness",
+            "absent": ["Reader branch: Hiring", "Reader branch: Peer developer"],
+        },
+        "hiring_reviewer": {
+            "label": "Hiring",
+            "next": "microcosm legibility-scorecard -> microcosm tour --card .",
+            "absent": ["Reader branch: Safety/evals", "Reader branch: Peer developer"],
+        },
+        "peer_developer": {
+            "label": "Peer developer",
+            "next": "microcosm tour --card . -> microcosm observe .",
+            "absent": ["Reader branch: Safety/evals", "Reader branch: Hiring"],
+        },
+    }
+
+    for reader_id, assertions in expected.items():
+        text = module.first_screen_text_card(card, reader_id=reader_id)
+
+        text.encode("ascii")
+        assert text.startswith("Microcosm first screen\n")
+        assert "First run: microcosm tour --card ." in text
+        assert f"Reader branch: {assertions['label']}" in text
+        assert "  Question: " in text
+        assert f"  Next: {assertions['next']}" in text
+        assert "  Focus:\n" in text
+        assert "Authority ceiling:" in text
+        assert "Evidence counts are accounting fields" in text
+        assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
+        assert "/Users/" not in text
+        assert "src/ai_workflow" not in text
+        for absent in assertions["absent"]:
+            assert absent not in text
+
+
 def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     result = subprocess.run(
         [
@@ -142,6 +182,36 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     result.stdout.encode("ascii")
     assert result.stdout.startswith("Microcosm first screen\n")
     assert "First run: microcosm tour --card ." in result.stdout
+    assert "reader_routes" not in result.stdout
+    assert "/Users/" not in result.stdout
+    assert "src/ai_workflow" not in result.stdout
+
+
+def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/first_screen_composition_card.py",
+            "--project-label",
+            ".",
+            "--format",
+            "text",
+            "--reader",
+            "safety_evals_engineer",
+        ],
+        cwd=MICROCOSM_ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    result.stdout.encode("ascii")
+    assert result.stdout.startswith("Microcosm first screen\n")
+    assert "First run: microcosm tour --card ." in result.stdout
+    assert "Reader branch: Safety/evals" in result.stdout
+    assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout
+    assert "Reader branches:" not in result.stdout
+    assert "Reader branch: Hiring" not in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout

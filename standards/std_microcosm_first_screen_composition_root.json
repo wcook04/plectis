@@ -74,6 +74,7 @@
       "composition_root_id",
       "shared_first_command",
       "reader_route_ids",
+      "reader_focus_mode",
       "evidence_count_frame",
       "scale_frame",
       "runnable_structural_join",
@@ -87,7 +88,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.first_screen_composition_root",
-    "receipt should cite the shared first command, reader branch ids, evidence-accounting frame, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+    "receipt should cite the shared first command, reader branch ids, reader focus mode, evidence-accounting frame, runnable-vs-structural join, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
   "receipt_refs": [
     {
@@ -199,6 +200,7 @@
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
     "require a runnable-vs-structural join that names both local behavior and larger substrate scale",
     "require terminal text projections to fit in one screen and preserve the same authority ceiling as the JSON contract",
+    "require focused reader text projections to preserve the shared first command, evidence-count frame, omission receipt, and authority ceiling",
     "require an omission receipt pointing to deeper route maps, receipts, standards, and workingness drilldowns",
     "reject release, hosting, publication, provider-call, private-equivalence, score-progress, and whole-system-correctness overclaims",
     "require public-root relative refs or explicit localhost endpoint refs"

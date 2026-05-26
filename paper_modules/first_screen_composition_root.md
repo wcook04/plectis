@@ -60,6 +60,18 @@ It can also emit the terminal-sized first screen directly:
 python3 scripts/first_screen_composition_card.py --project-label <project> --format text
 ```
 
+The text projection can focus one reader branch while preserving the same
+shared first command, evidence-count frame, omission receipt, and authority
+ceiling:
+
+```bash
+python3 scripts/first_screen_composition_card.py --project-label <project> --format text --reader safety_evals_engineer
+```
+
+`--reader all` remains the default. Focused reader projections are presentation
+routes only: they reduce the first-screen branch set, but they do not create a
+different claim frame or audience-specific authority.
+
 The emitter is intentionally narrow. It does not import private runtime state
 or source bodies. It loads this standard, emits the one shared command and
 three branch handles, frames evidence counts as accounting, names the

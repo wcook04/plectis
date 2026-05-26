@@ -9,10 +9,16 @@ from typing import Any
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 STANDARD_REF = Path("standards/std_microcosm_first_screen_composition_root.json")
-REQUIRED_ROUTE_IDS = {
+READER_ROUTE_IDS = (
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
+)
+REQUIRED_ROUTE_IDS = set(READER_ROUTE_IDS)
+READER_LABELS = {
+    "safety_evals_engineer": "Safety/evals",
+    "hiring_reviewer": "Hiring",
+    "peer_developer": "Peer developer",
 }
 DENIED_AUTHORITY_KEYS = (
     "release_authority",
@@ -23,6 +29,7 @@ DENIED_AUTHORITY_KEYS = (
     "whole_system_correctness_authority",
 )
 TEXT_CARD_MAX_LINES = 32
+TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
@@ -257,15 +264,42 @@ def first_screen_composition_card(
     return payload
 
 
-def first_screen_text_card(payload: dict[str, Any]) -> str:
-    route_by_id = {
+def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
         str(route.get("reader_route_id")): route
         for route in payload.get("reader_routes", [])
         if isinstance(route, dict)
     }
-    safety = route_by_id["safety_evals_engineer"]
-    hiring = route_by_id["hiring_reviewer"]
-    peer = route_by_id["peer_developer"]
+
+
+def _reader_branch_lines(
+    route_by_id: dict[str, dict[str, Any]],
+    reader_id: str,
+) -> list[str]:
+    if reader_id == "all":
+        return [
+            "Reader branches:",
+            *[
+                f"  {READER_LABELS[route_id]}: {' -> '.join(route_by_id[route_id]['next_commands'])}"
+                for route_id in READER_ROUTE_IDS
+            ],
+        ]
+
+    route = route_by_id[reader_id]
+    focus_lines = [f"    - {focus}" for focus in route["evidence_focus"][:3]]
+    return [
+        f"Reader branch: {READER_LABELS[reader_id]}",
+        f"  Question: {route['first_question']}",
+        f"  Next: {' -> '.join(route['next_commands'])}",
+        "  Focus:",
+        *focus_lines,
+    ]
+
+
+def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
+    if reader_id not in TEXT_READER_CHOICES:
+        raise ValueError(f"unknown first-screen reader route: {reader_id}")
+    route_by_id = _reader_route_map(payload)
     lines = [
         "Microcosm first screen",
         f"First run: {payload['shared_first_command']}",
@@ -276,10 +310,7 @@ def first_screen_text_card(payload: dict[str, Any]) -> str:
         "Why the counts are honest:",
         "  Evidence counts are accounting fields, not maturity, readiness, or progress scores.",
         "",
-        "Reader branches:",
-        f"  Safety/evals: {' -> '.join(safety['next_commands'])}",
-        f"  Hiring: {' -> '.join(hiring['next_commands'])}",
-        f"  Peer developer: {' -> '.join(peer['next_commands'])}",
+        *_reader_branch_lines(route_by_id, reader_id),
         "",
         "Runnable-to-structural join:",
         "  The local run is one visible exercise of the larger public substrate:",
@@ -324,6 +355,12 @@ def build_parser() -> argparse.ArgumentParser:
         default="json",
         help="Output JSON contract or terminal-sized text card.",
     )
+    parser.add_argument(
+        "--reader",
+        choices=TEXT_READER_CHOICES,
+        default="all",
+        help="Reader branch to focus when emitting the terminal text card.",
+    )
     return parser
 
 
@@ -331,7 +368,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     payload = first_screen_composition_card(args.root, project_label=args.project_label)
     if args.format == "text":
-        print(first_screen_text_card(payload), end="")
+        print(first_screen_text_card(payload, reader_id=args.reader), end="")
     else:
         print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if payload.get("status") == "pass" else 1
