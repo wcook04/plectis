@@ -1595,6 +1595,15 @@ def test_computer_use_action_trace_exported_bundle_validates_runtime_shape(
     assert result["body_import_verification"]["verification_mode"] == (
         "source_faithful_public_refactor"
     )
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["body_in_receipt"] is False
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["source_module_manifest"]["all_expected_byte_counts_matched"] is True
+    assert result["copied_macro_source_count"] == 2
+    assert result["exact_source_body_import"]["verification_status"] == "pass"
+    assert result["exact_source_body_import"]["source_to_target_relation"] == "exact_copy"
+    assert result["exact_source_body_import"]["body_in_receipt"] is False
 
 
 def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor() -> None:
@@ -1638,6 +1647,32 @@ def test_computer_use_action_trace_imports_public_agent_execution_trace_refactor
         span["source_ref"] == "computer_use_action_trace_bundle"
         for span in trace["spans"]
     )
+    source = MICROCOSM_ROOT.parent / "system/lib/agent_execution_trace.py"
+    bundle_source = (
+        COMPUTER_USE_BUNDLE_INPUT / "source_modules/system/lib/agent_execution_trace.py"
+    )
+    standard = MICROCOSM_ROOT.parent / "codex/standards/std_agent_execution_trace.json"
+    bundle_standard = (
+        COMPUTER_USE_BUNDLE_INPUT
+        / "source_modules/codex/standards/std_agent_execution_trace.json"
+    )
+    assert hashlib.sha256(source.read_bytes()).hexdigest() == hashlib.sha256(
+        bundle_source.read_bytes()
+    ).hexdigest()
+    assert hashlib.sha256(standard.read_bytes()).hexdigest() == hashlib.sha256(
+        bundle_standard.read_bytes()
+    ).hexdigest()
+    manifest = json.loads(
+        (COMPUTER_USE_BUNDLE_INPUT / "source_module_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert {row["path"] for row in manifest["modules"]} == {
+        "source_modules/codex/standards/std_agent_execution_trace.json",
+        "source_modules/system/lib/agent_execution_trace.py",
+    }
 
 
 def test_session_attribution_imports_exact_public_macro_body() -> None:

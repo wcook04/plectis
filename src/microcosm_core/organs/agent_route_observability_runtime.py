@@ -413,6 +413,38 @@ COMPUTER_USE_INPUT_NAMES = (
     "recovery_receipts.json",
     "cold_replay.json",
 )
+COMPUTER_USE_SOURCE_MODULE_INPUT_NAMES = (
+    "source_module_manifest.json",
+)
+COMPUTER_USE_SOURCE_MODULE_PATHS = (
+    "source_modules/codex/standards/std_agent_execution_trace.json",
+    "source_modules/system/lib/agent_execution_trace.py",
+)
+COMPUTER_USE_REFACTOR_SOURCE_REF = "system/lib/agent_execution_trace.py"
+COMPUTER_USE_REFACTOR_TARGET_REF = (
+    "microcosm-substrate/src/microcosm_core/macro_tools/"
+    "agent_execution_trace.py"
+)
+COMPUTER_USE_SOURCE_MODULE_SPECS = {
+    "source_modules/codex/standards/std_agent_execution_trace.json": {
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_computer_use_action_trace_bundle/source_modules/codex/"
+            "standards/std_agent_execution_trace.json"
+        ),
+        "material_class": "public_standard_body",
+    },
+    "source_modules/system/lib/agent_execution_trace.py": {
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_computer_use_action_trace_bundle/source_modules/system/lib/"
+            "agent_execution_trace.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+}
 ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES = (
     "bundle_manifest.json",
     "source_module_manifest.json",
@@ -788,10 +820,30 @@ def _computer_use_action_trace_paths(
 ) -> list[Path]:
     names = (
         "bundle_manifest.json",
+        *COMPUTER_USE_SOURCE_MODULE_INPUT_NAMES,
         *COMPUTER_USE_INPUT_NAMES,
         *(COMPUTER_USE_NEGATIVE_INPUT_NAMES if include_negative else ()),
     )
     return [input_dir / name for name in names if (input_dir / name).is_file()]
+
+
+def _computer_use_action_trace_scan_paths(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+) -> list[Path]:
+    source_module_paths = [
+        input_dir / name
+        for name in COMPUTER_USE_SOURCE_MODULE_PATHS
+        if (input_dir / name).is_file()
+    ]
+    return [
+        *_computer_use_action_trace_paths(
+            input_dir,
+            include_negative=include_negative,
+        ),
+        *source_module_paths,
+    ]
 
 
 def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
@@ -1016,7 +1068,10 @@ def _scan_computer_use_action_trace_inputs(
 ) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _computer_use_action_trace_paths(input_dir, include_negative=include_negative),
+        _computer_use_action_trace_scan_paths(
+            input_dir,
+            include_negative=include_negative,
+        ),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -6803,6 +6858,236 @@ def run_agent_observability_store_bundle(
     return result
 
 
+def validate_computer_use_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(COMPUTER_USE_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+    byte_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Computer-use source manifest must classify copied modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Computer-use source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(modules):
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_SOURCE_MODULE_COUNT_MISMATCH",
+                "Computer-use source manifest module_count must equal the listed copied modules.",
+                subject_id="module_count",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+    if manifest.get("refactor_source_ref") != COMPUTER_USE_REFACTOR_SOURCE_REF:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_REFACTOR_SOURCE_REF_MISMATCH",
+                "Computer-use source manifest must name the macro execution-trace source ref.",
+                subject_id="refactor_source_ref",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+    if manifest.get("refactor_target_ref") != COMPUTER_USE_REFACTOR_TARGET_REF:
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_REFACTOR_TARGET_REF_MISMATCH",
+                "Computer-use source manifest must name the public Microcosm refactor target.",
+                subject_id="refactor_target_ref",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+    if manifest.get("refactor_verification_mode") != "source_faithful_public_refactor":
+        findings.append(
+            _bundle_finding(
+                "COMPUTER_USE_REFACTOR_VERIFICATION_MODE_MISMATCH",
+                "Computer-use source manifest must bind exact copied source bodies to the public source-faithful refactor.",
+                subject_id="refactor_verification_mode",
+                subject_kind="computer_use_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        spec = COMPUTER_USE_SOURCE_MODULE_SPECS[expected_path]
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Computer-use source manifest must name each copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != spec["source_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_REF_MISMATCH",
+                    "Computer-use copied source body must point back to the macro source file.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+        if row.get("target_ref") != spec["target_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_TARGET_REF_MISMATCH",
+                    "Computer-use copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+        if row.get("material_class") != spec["material_class"]:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_MATERIAL_CLASS_MISMATCH",
+                    "Computer-use copied source body must preserve its expected public material class.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+        if row.get("source_import_class") != "copied_non_secret_macro_body":
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_ROW_SOURCE_IMPORT_CLASS_MISMATCH",
+                    "Computer-use source rows must classify copied modules as non-secret macro bodies.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_ROW_BODY_RECEIPT_OVERCLAIM",
+                    "Computer-use source rows must keep copied source bodies out of runtime receipts.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_FILE_MISSING",
+                    "Computer-use copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        observed_byte_count = len(source_module_path.read_bytes())
+        if observed_digest == str(row.get("sha256") or ""):
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Computer-use copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_module",
+                )
+            )
+        if observed_line_count == row.get("line_count"):
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Computer-use copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_module",
+                )
+            )
+        if observed_byte_count == row.get("byte_count"):
+            byte_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                    "Computer-use copied macro source body byte count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_module",
+                )
+            )
+        target_text = source_module_path.read_text(encoding="utf-8")
+        required_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if str(anchor)
+        ]
+        if not required_anchors:
+            findings.append(
+                _bundle_finding(
+                    "COMPUTER_USE_SOURCE_MODULE_ANCHORS_MISSING",
+                    "Computer-use copied source manifest rows must name required retained anchors.",
+                    subject_id=expected_path,
+                    subject_kind="computer_use_source_module",
+                )
+            )
+        for anchor in required_anchors:
+            if anchor not in target_text:
+                findings.append(
+                    _bundle_finding(
+                        "COMPUTER_USE_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Computer-use copied macro source body must retain required execution-trace anchors.",
+                        subject_id=anchor,
+                        subject_kind="computer_use_source_module",
+                    )
+                )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "material_class": row.get("material_class"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "byte_count": observed_byte_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "refactor_source_ref": manifest.get("refactor_source_ref"),
+        "refactor_target_ref": manifest.get("refactor_target_ref"),
+        "refactor_verification_mode": manifest.get("refactor_verification_mode"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "all_expected_byte_counts_matched": byte_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
+    }
+
+
 def _computer_use_action_ids(rows: list[dict[str, Any]]) -> set[str]:
     return {str(row.get("action_id")) for row in rows if row.get("action_id")}
 
@@ -7556,6 +7841,20 @@ def run_computer_use_action_trace_bundle(
         input_path,
         include_negative=include_negative,
     )
+    source_manifest_result = (
+        validate_computer_use_source_manifest(
+            input_path,
+            read_json_strict(input_path / "source_module_manifest.json"),
+        )
+        if not include_negative
+        else {
+            "status": PASS,
+            "findings": [],
+            "copied_macro_source_count": 0,
+            "observed_modules": [],
+            "body_in_receipt": False,
+        }
+    )
     scan_result = _scan_computer_use_action_trace_inputs(
         input_path,
         public_root,
@@ -7628,6 +7927,7 @@ def run_computer_use_action_trace_bundle(
             *recoveries["findings"],
             *cold_replay["findings"],
             *public_trace["audit"]["findings"],
+            *source_manifest_result["findings"],
     ]
     all_findings = sorted(
         [
@@ -7647,6 +7947,7 @@ def run_computer_use_action_trace_bundle(
         if not positive_findings
         and not missing_negative_cases
         and scan_result["status"] == PASS
+        and source_manifest_result["status"] == PASS
         else "blocked"
     )
     bundle_fingerprint = _stable_hash(
@@ -7662,6 +7963,7 @@ def run_computer_use_action_trace_bundle(
                 "state_transition_receipts",
                 "recovery_receipts",
                 "cold_replay",
+                "source_module_manifest",
             )
         }
     )
@@ -7678,6 +7980,22 @@ def run_computer_use_action_trace_bundle(
     public_receipt_path = public_relative_path(receipt_path, display_root=public_root)
     manifest = payloads.get("bundle_manifest")
     manifest = manifest if isinstance(manifest, dict) else {}
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digests = [
+        f"sha256:{row['sha256']}"
+        for row in observed_source_modules
+        if row.get("sha256")
+    ]
+    source_module_refs = [
+        str(row.get("source_ref"))
+        for row in observed_source_modules
+        if row.get("source_ref")
+    ]
+    target_module_refs = [
+        str(row.get("target_ref"))
+        for row in observed_source_modules
+        if row.get("target_ref")
+    ]
     payload = {
         "schema_version": (
             "computer_use_action_trace_replay_result_v1"
@@ -7706,6 +8024,22 @@ def run_computer_use_action_trace_bundle(
         "source_refs": projection["source_refs"],
         "target_refs": projection["target_refs"],
         "body_import_verification": projection["body_import_verification"],
+        "source_module_manifest": source_manifest_result,
+        "copied_macro_source_count": source_manifest_result[
+            "copied_macro_source_count"
+        ],
+        "exact_source_body_import": {
+            "verification_status": source_manifest_result["status"],
+            "verification_mode": "exact_source_digest_match",
+            "source_to_target_relation": "exact_copy",
+            "source_refs": source_module_refs,
+            "target_refs": target_module_refs,
+            "source_body_digests": source_body_digests,
+            "target_body_digests": source_body_digests
+            if source_manifest_result["status"] == PASS
+            else [],
+            "body_in_receipt": False,
+        },
         "projection_receipt_refs": projection["projection_receipt_refs"],
         "public_runtime_refs": [
             public_relative_path(path, display_root=public_root)

@@ -2,5 +2,7 @@
   "authority_ceiling": "public_agent_execution_trace_refactor_over_synthetic_computer_use_fixture",
   "bundle_id": "public_computer_use_action_trace_replay_runtime_example",
   "contains_negative_cases": false,
-  "schema_version": "computer_use_action_trace_bundle_manifest_v1"
+  "schema_version": "computer_use_action_trace_bundle_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body_plus_source_faithful_public_refactor",
+  "source_module_manifest": "source_module_manifest.json"
 }

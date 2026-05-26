@@ -1,0 +1,45 @@
+{
+  "body_in_receipt": false,
+  "module_count": 2,
+  "refactor_source_ref": "system/lib/agent_execution_trace.py",
+  "refactor_target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+  "refactor_verification_mode": "source_faithful_public_refactor",
+  "schema_version": "computer_use_action_trace_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_policy": "source_open_except_secret_credential_provider_account_session_browser_hud_live_access_recipient_send_and_credential_equivalent_material",
+  "modules": [
+    {
+      "body_in_receipt": false,
+      "byte_count": 45577,
+      "line_count": 623,
+      "material_class": "public_standard_body",
+      "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+      "required_anchors": [
+        "\"std_agent_execution_trace\"",
+        "\"strict_boundary\"",
+        "\"Span\""
+      ],
+      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 224689,
+      "line_count": 5158,
+      "material_class": "public_macro_tool_body",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "required_anchors": [
+        "[STRICT BOUNDARY]",
+        "build_agent_execution_trace",
+        "write_agent_execution_trace",
+        "TRACE_OUTPUT_PRIVACY_BOUNDARY"
+      ],
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py"
+    }
+  ]
+}
