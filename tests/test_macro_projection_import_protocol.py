@@ -333,6 +333,15 @@ SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS = [
     "seed_distillation_subagent_lane_body_import",
     "seed_distillation_subagent_lane_test_body_import",
 ]
+SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS = [
+    "seed_atomization_body_import",
+    "seed_distillation_body_import",
+    "seed_registry_body_import",
+    "seed_distillation_validator_body_import",
+    "seed_paragraph_ledger_body_import",
+    "seed_attempt_recovery_body_import",
+    "seed_attempt_recovery_test_body_import",
+]
 ARTIFACT_PROJECTION_DEBT_SOURCE_BODY_MATERIAL_IDS = [
     "artifact_projection_debt_body_import",
     "artifact_projection_debt_test_body_import",
@@ -1486,13 +1495,13 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["projection_cell_count"] == 69
-    assert result["projection_intake_board"]["ready_cell_count"] == 69
+    assert result["projection_cell_count"] == 70
+    assert result["projection_intake_board"]["ready_cell_count"] == 70
     assert result["projection_intake_board"]["open_actionable_cell_count"] == 0
     assert result["projection_board"]["release_authorized"] is False
     assert result["projection_board"]["private_data_equivalence_claim"] is False
-    assert result["public_safe_body_material_count"] == 208
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 208
+    assert result["public_safe_body_material_count"] == 215
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 215
     assert result["runtime_severance_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert result["runtime_severance_board"]["macro_runtime_dependency_count"] == 0
@@ -1558,6 +1567,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *BRIDGE_RUNTIME_CONTINUITY_SOURCE_BODY_MATERIAL_IDS,
         *SESSION_HEARTBEAT_SOURCE_BODY_MATERIAL_IDS,
         *SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS,
+        *SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS,
         *ARTIFACT_PROJECTION_DEBT_SOURCE_BODY_MATERIAL_IDS,
         *NAVIGATION_TRACE_SOURCE_BODY_MATERIAL_IDS,
         *GENERATED_PROJECTION_CONTROL_SOURCE_BODY_MATERIAL_IDS,
@@ -1574,7 +1584,7 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
         *EXECUTABLE_GRAMMAR_METABOLISM_BODY_MATERIAL_IDS,
     }
     assert result["public_safe_body_target_status"] == "pass"
-    assert result["public_safe_body_digest_count"] == 208
+    assert result["public_safe_body_digest_count"] == 215
 
 
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
@@ -1688,7 +1698,7 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert result["status"] == "pass"
     assert result["schema_version"] == "macro_projection_import_intake_preview_v1"
     assert result["input_mode"] == "exported_projection_import_bundle"
-    assert result["projection_intake_board"]["ready_cell_count"] == 69
+    assert result["projection_intake_board"]["ready_cell_count"] == 70
     assert result["projection_intake_board"]["blocked_cell_count"] == 0
     assert result["projection_intake_board"]["projection_status_counts"][
         "self_hosted_status_protocol_landed"
@@ -1698,12 +1708,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "pattern_metadata" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_tool_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
-    assert result["projection_intake_board"]["public_safe_body_import_count"] == 208
+    assert result["projection_intake_board"]["public_safe_body_import_count"] == 215
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
         "public_macro_pattern_body": 3,
         "public_macro_proof_body": 1,
         "public_macro_receipt_body": 26,
-        "public_macro_tool_body": 178,
+        "public_macro_tool_body": 185,
     }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
@@ -1725,7 +1735,7 @@ def test_public_safe_macro_proof_body_is_importable_with_verification(
     )
 
     assert result["status"] == "pass"
-    assert result["public_safe_body_material_count"] == 208
+    assert result["public_safe_body_material_count"] == 215
     assert result["public_safe_body_import_status"] == "pass"
     assert "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT" not in result["error_codes"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -3782,6 +3792,24 @@ def test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_u
         public_root=public_root,
         material_ids=SEED_DISTILLATION_SUBAGENT_LANE_SOURCE_BODY_MATERIAL_IDS,
         cell_id="seed_distillation_subagent_lane_source_modules_import",
+    )
+
+
+def test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    _assert_exact_source_module_body_import(
+        result=result,
+        public_root=public_root,
+        material_ids=SEED_DISTILLATION_DEPENDENCY_SOURCE_BODY_MATERIAL_IDS,
+        cell_id="seed_distillation_dependency_source_modules_import",
     )
 
 

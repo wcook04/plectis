@@ -43,6 +43,7 @@
     "bridge_runtime_continuity_source_module_manifest.json",
     "session_heartbeat_source_module_manifest.json",
     "seed_distillation_subagent_lane_source_module_manifest.json",
+    "seed_distillation_dependency_source_module_manifest.json",
     "formal_math_proofline_spine_source_module_manifest.json",
     "standard_option_surface_source_module_manifest.json",
     "artifact_projection_debt_source_module_manifest.json",

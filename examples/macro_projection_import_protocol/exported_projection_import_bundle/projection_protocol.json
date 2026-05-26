@@ -11300,6 +11300,356 @@
       "validation_refs": [
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
       ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_atomization_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:2999ee071463a3fd04d5b34ff08767fe7694d179250723504fb83c2575ed1de0",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:2999ee071463a3fd04d5b34ff08767fe7694d179250723504fb83c2575ed1de0",
+        "source_line_count": 5069,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:2999ee071463a3fd04d5b34ff08767fe7694d179250723504fb83c2575ed1de0",
+        "target_line_count": 5069,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 5069,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_atomization_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_atomization.py",
+      "source_refs": [
+        "system/lib/raw_seed_atomization.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_atomization.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_distillation_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:150cfee1d19126f98ace2fcaf16d79bb671babba4cab7f0bf8419ce2eb1b9ade",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:150cfee1d19126f98ace2fcaf16d79bb671babba4cab7f0bf8419ce2eb1b9ade",
+        "source_line_count": 4641,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:150cfee1d19126f98ace2fcaf16d79bb671babba4cab7f0bf8419ce2eb1b9ade",
+        "target_line_count": 4641,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 4641,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_distillation_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_distillation.py",
+      "source_refs": [
+        "system/lib/raw_seed_distillation.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_registry_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:a2dab2ab6ebc3d46b87509983fc6488003d43e2847293cfdbb0cf4c9b3e5a156",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:a2dab2ab6ebc3d46b87509983fc6488003d43e2847293cfdbb0cf4c9b3e5a156",
+        "source_line_count": 4571,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:a2dab2ab6ebc3d46b87509983fc6488003d43e2847293cfdbb0cf4c9b3e5a156",
+        "target_line_count": 4571,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 4571,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_registry_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_registry.py",
+      "source_refs": [
+        "system/lib/raw_seed_registry.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_registry.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_distillation_validator_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:a8690ba843fb75c5e413216d11b6339667c828dcd1fa44d5b6cfe23133a9f369",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:a8690ba843fb75c5e413216d11b6339667c828dcd1fa44d5b6cfe23133a9f369",
+        "source_line_count": 477,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:a8690ba843fb75c5e413216d11b6339667c828dcd1fa44d5b6cfe23133a9f369",
+        "target_line_count": 477,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 477,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_distillation_validator_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_distillation_validator.py",
+      "source_refs": [
+        "system/lib/raw_seed_distillation_validator.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_validator.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_paragraph_ledger_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:91defcf532089148ce68e3704c2fd7d411be3223b080b821875c716f26a845b2",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:91defcf532089148ce68e3704c2fd7d411be3223b080b821875c716f26a845b2",
+        "source_line_count": 848,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:91defcf532089148ce68e3704c2fd7d411be3223b080b821875c716f26a845b2",
+        "target_line_count": 848,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 848,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_paragraph_ledger_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_paragraph_ledger.py",
+      "source_refs": [
+        "system/lib/raw_seed_paragraph_ledger.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_paragraph_ledger.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_seed_attempt_recovery_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:9dca74b11ec0e5efa6621f8ef6152ec3419632585149d1939141e5cf5ca54b5e",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:9dca74b11ec0e5efa6621f8ef6152ec3419632585149d1939141e5cf5ca54b5e",
+        "source_line_count": 537,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:9dca74b11ec0e5efa6621f8ef6152ec3419632585149d1939141e5cf5ca54b5e",
+        "target_line_count": 537,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 537,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_attempt_recovery_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/lib/raw_seed_attempt_recovery.py",
+      "source_refs": [
+        "system/lib/raw_seed_attempt_recovery.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_attempt_recovery.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
+      "applied_edits": [
+        "exact_copy_non_secret_test_seed_attempt_recovery_source_body_into_public_bundle",
+        "rename_public_runtime_refs_away_from_raw_seed_boundary_token",
+        "exclude_raw_seed_operator_voice_subagent_transcript_provider_browser_hud_account_session_and_credential_equivalent_payload_bodies"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:e3e1419ea0960ff2ccbda56427b9648182c8c1c1dff21343809fdee96c1e9598",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+          "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:e3e1419ea0960ff2ccbda56427b9648182c8c1c1dff21343809fdee96c1e9598",
+        "source_line_count": 638,
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:e3e1419ea0960ff2ccbda56427b9648182c8c1c1dff21343809fdee96c1e9598",
+        "target_line_count": 638,
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_line_count": 638,
+      "claim_ceiling": "public seed-distillation dependency source body import only; not raw operator seed export, operator voice export, subagent transcript export, live agent dispatch, provider execution, account/session-state authority, browser/HUD live access, ledger mutation authority, or release authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "seed_attempt_recovery_test_body_import",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json#direct_import_with_verification",
+        "codex/doctrine/paper_modules/raw_seed_metabolism.md",
+        "codex/doctrine/paper_modules/claude_subagent_delegation.md",
+        "codex/doctrine/skills/doctrine/raw_seed_distillation.md"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "system/server/tests/test_raw_seed_attempt_recovery.py",
+      "source_refs": [
+        "system/server/tests/test_raw_seed_attempt_recovery.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
     }
   ],
   "material_classes": [
@@ -11533,7 +11883,15 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/pre-commit",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/.githooks/prepare-commit-msg",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/test_raw_git_commit_guard.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_atomization.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_registry.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_validator.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_paragraph_ledger.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_attempt_recovery.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -11802,7 +12160,15 @@
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
     "system/lib/raw_seed_subagent_lane.py",
     "system/server/tests/test_raw_seed_subagent_lane.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_subagent_lane_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_subagent_lane_source_module_manifest.json",
+    "system/lib/raw_seed_atomization.py",
+    "system/lib/raw_seed_distillation.py",
+    "system/lib/raw_seed_registry.py",
+    "system/lib/raw_seed_distillation_validator.py",
+    "system/lib/raw_seed_paragraph_ledger.py",
+    "system/lib/raw_seed_attempt_recovery.py",
+    "system/server/tests/test_raw_seed_attempt_recovery.py",
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
   ],
   "steps": [
     {
@@ -12039,6 +12405,9 @@
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_raw_git_commit_guard_sources_compile_and_preserve_guard_boundary",
     "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_raw_git_commit_guard_source_modules_body_import_is_unified_under_macro_projection_spine",
-    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine"
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_subagent_lane_source_modules_body_import_is_unified_under_macro_projection_spine",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+    "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+    "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
   ]
 }

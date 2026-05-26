@@ -147,6 +147,9 @@ BRIDGE_RUNTIME_CONTINUITY_MANIFEST = (
 SESSION_HEARTBEAT_MANIFEST = (
     BUNDLE_INPUT / "session_heartbeat_source_module_manifest.json"
 )
+SEED_DISTILLATION_DEPENDENCY_MANIFEST = (
+    BUNDLE_INPUT / "seed_distillation_dependency_source_module_manifest.json"
+)
 ARTIFACT_PROJECTION_DEBT_MANIFEST = (
     BUNDLE_INPUT / "artifact_projection_debt_source_module_manifest.json"
 )
@@ -2831,6 +2834,64 @@ def test_session_heartbeat_sources_compile_and_preserve_live_state_boundary() ->
     assert "test_main_snapshot_prints_path_and_writes_file" in test_text
     assert "live session jsonl transcript bodies" in manifest["secret_exclusion_boundary"]
     assert "not authority to read live transport JSON" in manifest["public_runtime_policy"]
+
+
+def test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources() -> None:
+    _assert_source_manifest_matches_exact_macro_sources(
+        SEED_DISTILLATION_DEPENDENCY_MANIFEST,
+        manifest_id="seed_distillation_dependency_source_modules_import",
+        module_count=7,
+    )
+
+
+def test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary() -> None:
+    source_paths = [
+        BUNDLE_INPUT / "source_modules/system/lib/seed_atomization.py",
+        BUNDLE_INPUT / "source_modules/system/lib/seed_distillation.py",
+        BUNDLE_INPUT / "source_modules/system/lib/seed_registry.py",
+        BUNDLE_INPUT / "source_modules/system/lib/seed_distillation_validator.py",
+        BUNDLE_INPUT / "source_modules/system/lib/seed_paragraph_ledger.py",
+        BUNDLE_INPUT / "source_modules/system/lib/seed_attempt_recovery.py",
+        (
+            BUNDLE_INPUT
+            / "source_modules/system/server/tests/test_seed_attempt_recovery.py"
+        ),
+    ]
+    manifest = json.loads(
+        SEED_DISTILLATION_DEPENDENCY_MANIFEST.read_text(encoding="utf-8")
+    )
+
+    for source_path in source_paths:
+        compile(source_path.read_text(encoding="utf-8"), str(source_path), "exec")
+
+    atomization_text = source_paths[0].read_text(encoding="utf-8")
+    distillation_text = source_paths[1].read_text(encoding="utf-8")
+    registry_text = source_paths[2].read_text(encoding="utf-8")
+    validator_text = source_paths[3].read_text(encoding="utf-8")
+    ledger_text = source_paths[4].read_text(encoding="utf-8")
+    recovery_text = source_paths[5].read_text(encoding="utf-8")
+    test_text = source_paths[6].read_text(encoding="utf-8")
+
+    assert 'ATOMIZATION_SOURCE = "raw_seed_atomization_local_v1"' in atomization_text
+    assert "def ingest_family_raw_seed_distillations(" in atomization_text
+    assert (
+        'DISTILLATION_SUBAGENT_SOURCE = "raw_seed_distillation_subagent_sonnet_v1"'
+        in distillation_text
+    )
+    assert "def import_distilled_shards(" in distillation_text
+    assert 'RAW_SEED_SCHEMA_VERSION = "raw_seed_v1"' in registry_text
+    assert "SUBSTRATE_PROFILES" in registry_text
+    assert "def validate_distillation_bundle(" in validator_text
+    assert "ARCHITECTURE_LEAK_PATTERN" in validator_text
+    assert 'LEDGER_SCHEMA = "raw_seed_paragraph_ledger_v1"' in ledger_text
+    assert "def next_claim_epoch_for_paragraph(" in ledger_text
+    assert 'RECOVERY_REPORT_SCHEMA = "raw_seed_attempt_recovery_v1"' in recovery_text
+    assert "def log_late_import_rejection(" in recovery_text
+    assert "test_late_import_rejected_on_packet_digest_mismatch" in test_text
+    assert "operator raw-seed voice bodies" in manifest["secret_exclusion_boundary"]
+    assert "not authority to export raw operator seed" in manifest[
+        "public_runtime_policy"
+    ]
 
 
 def test_artifact_projection_debt_source_manifest_matches_exact_macro_sources() -> None:

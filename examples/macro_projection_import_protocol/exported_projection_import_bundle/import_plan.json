@@ -2533,6 +2533,58 @@
       ]
     },
     {
+      "authority_ceiling": "verified_public_seed_distillation_dependency_source_bodies_not_raw_operator_voice_subagent_transcripts_live_agent_dispatch_provider_credential_browser_hud_account_session_ledger_mutation_release_publication_or_send_authority",
+      "body_copied": false,
+      "body_in_receipt": false,
+      "cell_id": "seed_distillation_dependency_source_modules_import",
+      "classification": [
+        "copied_non_secret_macro_body",
+        "source_faithful_refactor",
+        "real_runtime_receipt"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "public_safe_body_material_ids": [
+        "seed_atomization_body_import",
+        "seed_distillation_body_import",
+        "seed_registry_body_import",
+        "seed_distillation_validator_body_import",
+        "seed_paragraph_ledger_body_import",
+        "seed_attempt_recovery_body_import",
+        "seed_attempt_recovery_test_body_import"
+      ],
+      "selected_pattern_ids": [
+        "raw_seed_registry_projection",
+        "raw_seed_atomization_metabolism",
+        "seed_distillation_attempt_recovery",
+        "seed_distillation_validator_boundary"
+      ],
+      "source_refs": [
+        "system/lib/raw_seed_atomization.py",
+        "system/lib/raw_seed_distillation.py",
+        "system/lib/raw_seed_registry.py",
+        "system/lib/raw_seed_distillation_validator.py",
+        "system/lib/raw_seed_paragraph_ledger.py",
+        "system/lib/raw_seed_attempt_recovery.py",
+        "system/server/tests/test_raw_seed_attempt_recovery.py",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_atomization.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_registry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_validator.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_paragraph_ledger.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_attempt_recovery.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_source_manifest_matches_exact_macro_sources",
+        "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ]
+    },
+    {
       "authority_ceiling": "verified_public_artifact_projection_debt_source_bodies_not_generated_projection_output_authority_live_ledger_mutation_provider_row_patch_promotion_provider_payload_export_or_release_authority",
       "body_copied": false,
       "body_in_receipt": false,

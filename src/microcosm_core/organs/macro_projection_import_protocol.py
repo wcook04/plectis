@@ -1832,6 +1832,75 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
             "pytest microcosm-substrate/tests/test_macro_projection_import_protocol.py"
         ),
     },
+    "seed_distillation_dependency_source_modules_import": {
+        "projection_status": "public_runtime_import_landed",
+        "cell_state": "consumed_verified_import",
+        "action_required": False,
+        "status_reason": (
+            "The seed-distillation dependency closure now carries exact copied "
+            "non-secret atomization, bridge distillation, registry, validator, "
+            "paragraph-ledger, attempt-recovery, and focused recovery-test "
+            "source bodies inside the projection bundle, validated by digest, "
+            "anchor checks, syntax compilation, and the macro projection spine. "
+            "This imports the lane support body needed to understand dispatch "
+            "preparation, shard import, paragraph lifecycle state, stale-attempt "
+            "fencing, and recovery semantics without exporting raw operator "
+            "seed bodies, subagent transcript bodies, provider payloads, account "
+            "or session state, browser/HUD live access, recipient-send state, "
+            "ledger mutation authority, or credential-equivalent material."
+        ),
+        "landed_evidence_refs": [
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "seed_distillation_dependency_source_module_manifest.json"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_atomization.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_distillation.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_registry.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_distillation_validator.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_paragraph_ledger.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/lib/"
+                "seed_attempt_recovery.py"
+            ),
+            (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/source_modules/system/"
+                "server/tests/test_seed_attempt_recovery.py"
+            ),
+            "tests/test_command_output_projection_runtime.py",
+            "tests/test_macro_projection_import_protocol.py",
+        ],
+        "next_runtime_surface": (
+            "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::"
+            "test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary "
+            "microcosm-substrate/tests/test_macro_projection_import_protocol.py::"
+            "test_seed_distillation_dependency_source_modules_body_import_is_unified_under_"
+            "macro_projection_spine"
+        ),
+    },
     "artifact_projection_debt_source_modules_import": {
         "projection_status": "public_runtime_import_landed",
         "cell_state": "consumed_verified_import",
