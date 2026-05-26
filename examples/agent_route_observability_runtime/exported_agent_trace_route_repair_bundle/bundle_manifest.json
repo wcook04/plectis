@@ -21,5 +21,30 @@
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py"
   ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_modules": [
+    {
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "path": "source_modules/system/lib/navigation_route_intervention.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/navigation_route_intervention.py",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_in_receipt": false
+    },
+    {
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_in_receipt": false
+    },
+    {
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_in_receipt": false
+    }
+  ],
   "claim_boundary": "public_metadata_envelope_trace_to_route_repair_replay_not_live_hook_authority"
 }

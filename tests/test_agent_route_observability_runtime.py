@@ -1038,6 +1038,28 @@ def test_agent_trace_route_repair_bundle_validates_runtime_shape(tmp_path: Path)
     assert result["body_import_verification"]["verification_mode"] == (
         "verified_light_edit_recipe"
     )
+    source_manifest = result["source_module_manifest"]
+    exact_import = result["exact_source_body_import"]
+    assert source_manifest["status"] == "pass"
+    assert source_manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert source_manifest["body_in_receipt"] is False
+    assert source_manifest["module_count"] == 3
+    assert source_manifest["required_module_count"] == 3
+    assert source_manifest["copied_macro_source_count"] == 3
+    assert source_manifest["all_expected_digests_matched"] is True
+    assert source_manifest["all_expected_line_counts_matched"] is True
+    assert source_manifest["all_expected_byte_counts_matched"] is True
+    assert result["copied_macro_source_count"] == 3
+    assert exact_import["verification_status"] == "pass"
+    assert exact_import["verification_mode"] == "exact_source_digest_match"
+    assert exact_import["source_to_target_relation"] == "exact_copy"
+    assert exact_import["body_in_receipt"] is False
+    assert exact_import["source_body_digests"] == exact_import["target_body_digests"]
+    assert len(exact_import["source_body_digests"]) == 3
+    assert all(
+        str(digest).startswith("sha256:")
+        for digest in exact_import["source_body_digests"]
+    )
     assert {
         row["anti_pattern_id"] for row in result["route_repair_rows"]
     } == {
@@ -1097,6 +1119,16 @@ def test_agent_trace_route_repair_receipt_is_public_safe(tmp_path: Path) -> None
     assert payload["input_mode"] == "exported_agent_trace_route_repair_bundle"
     assert payload["metadata_envelope_only"] is True
     assert payload["body_in_receipt"] is False
+    assert payload["source_module_manifest"]["status"] == "pass"
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["copied_macro_source_count"] == 3
+    assert payload["exact_source_body_import"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert payload["exact_source_body_import"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["source_body_digests"] == (
+        payload["exact_source_body_import"]["target_body_digests"]
+    )
     assert payload["live_hook_install_authorized"] is False
     assert payload["live_route_repair_authorized"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -1112,6 +1144,23 @@ def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
     target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_trace_route_repair.py"
     source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
     target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+    source_manifest = json.loads(
+        (
+            AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT / "source_module_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    source_modules = {
+        "source_modules/system/lib/navigation_route_intervention.py": (
+            MICROCOSM_ROOT.parent / "system/lib/navigation_route_intervention.py"
+        ),
+        "source_modules/system/lib/agent_execution_trace.py": (
+            MICROCOSM_ROOT.parent / "system/lib/agent_execution_trace.py"
+        ),
+        "source_modules/codex/standards/std_agent_execution_trace.json": (
+            MICROCOSM_ROOT.parent / "codex/standards/std_agent_execution_trace.json"
+        ),
+    }
+    rows_by_path = {row["path"]: row for row in source_manifest["modules"]}
     view = build_public_agent_trace_route_repair_view(
         load_public_agent_trace_route_repair_bundle(AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT)
     )
@@ -1127,6 +1176,28 @@ def test_agent_trace_route_repair_imports_public_macro_body_refactor() -> None:
 
     assert target.is_file()
     assert source_digest != target_digest
+    assert source_manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert source_manifest["body_in_receipt"] is False
+    assert source_manifest["module_count"] == len(source_modules)
+    for bundle_path, macro_source in source_modules.items():
+        bundle_source = AGENT_TRACE_ROUTE_REPAIR_BUNDLE_INPUT / bundle_path
+        row = rows_by_path[bundle_path]
+        bundle_text = bundle_source.read_text(encoding="utf-8")
+        bundle_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
+        assert bundle_source.is_file()
+        assert bundle_digest == hashlib.sha256(macro_source.read_bytes()).hexdigest()
+        assert bundle_digest == row["sha256"]
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_in_receipt"] is False
+        assert row["line_count"] == len(bundle_text.splitlines())
+        assert row["byte_count"] == len(bundle_source.read_bytes())
+        assert row["target_ref"].endswith(bundle_path)
+        for anchor in row["required_anchors"]:
+            assert anchor in bundle_text
+        if bundle_path.endswith(".py"):
+            compile(bundle_text, str(bundle_source), "exec")
+        else:
+            json.loads(bundle_text)
     assert view["status"] == "pass"
     assert view["schema_version"] == AGENT_TRACE_ROUTE_REPAIR_SCHEMA_VERSION
     assert view["route_repair_summary"]["suggested_route_count"] == 4

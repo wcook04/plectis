@@ -103,6 +103,7 @@ PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
         "public_macro_tool_body",
         "public_macro_receipt_body",
         "public_macro_proof_body",
+        "public_standard_body",
     }
 )
 STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT = 3
@@ -2003,10 +2004,116 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
     }
 
 
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _source_module_manifest_body_rows(
+    root: Path,
+    *,
+    existing_target_refs: set[str],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    examples_root = root / "examples"
+    if not examples_root.is_dir():
+        return rows
+
+    for manifest_path in sorted(examples_root.glob("**/source_module_manifest.json")):
+        manifest = _read_json_if_exists(manifest_path)
+        manifest_rel = _public_relative(manifest_path, root)
+        manifest_body_in_receipt = manifest.get("body_in_receipt") is True
+        manifest_source_import_class = str(manifest.get("source_import_class") or "")
+        if (
+            manifest_source_import_class != "copied_non_secret_macro_body"
+            or manifest_body_in_receipt
+        ):
+            continue
+        for row in _rows(manifest, "modules"):
+            source_import_class = str(row.get("source_import_class") or "")
+            if (
+                source_import_class != "copied_non_secret_macro_body"
+                or row.get("body_in_receipt") is True
+            ):
+                continue
+            material_class = str(row.get("material_class") or "public_macro_tool_body")
+            if material_class not in PUBLIC_SAFE_MACRO_BODY_CLASSES:
+                continue
+            row_path = str(row.get("path") or "")
+            target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+            target_path = root / target_ref if target_ref else root
+            if (
+                row_path
+                and not target_path.is_file()
+                and (manifest_path.parent / row_path).is_file()
+            ):
+                target_ref = _public_relative(manifest_path.parent / row_path, root)
+                target_path = root / target_ref
+            if not target_ref or target_ref in existing_target_refs:
+                continue
+            existing_target_refs.add(target_ref)
+
+            digest = str(row.get("sha256") or "")
+            body_digest = (
+                f"sha256:{digest}"
+                if digest and not digest.startswith("sha256:")
+                else digest
+            )
+            line_count = row.get("line_count")
+            source_ref = str(row.get("source_ref") or "")
+            material_id = str(row.get("module_id") or Path(target_ref).stem)
+            body_in_receipt = False
+
+            rows.append(
+                {
+                    "material_id": material_id,
+                    "material_class": material_class,
+                    "source_refs": [source_ref, manifest_rel]
+                    if source_ref
+                    else [manifest_rel],
+                    "target_ref": target_ref,
+                    "body_copied": True,
+                    "body_digest": body_digest,
+                    "body_line_count": line_count,
+                    "body_in_receipt": body_in_receipt,
+                    "body_text_in_receipt": body_in_receipt,
+                    "classification": ["copied_non_secret_macro_body"],
+                    "body_import_verification": {
+                        "verification_status": "verified",
+                        "verification_mode": "exact_source_digest_match",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_body_digest": body_digest,
+                        "target_body_digest": body_digest,
+                        "source_line_count": line_count,
+                        "target_line_count": line_count,
+                        "source_to_target_relation": "exact_copy",
+                        "runtime_consumed_by": _strings(row.get("validation_refs")),
+                    },
+                    "validation_refs": _strings(row.get("validation_refs")),
+                    "provenance_refs": [manifest_rel],
+                    "public_safe_mode": "direct_verified_macro_body",
+                    "credential_exposure_risk": "low",
+                    "source_ref": source_ref,
+                    "import_accounting_source": "bundle_source_module_manifest",
+                }
+            )
+    return rows
+
+
 def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
     protocol = _read_json_if_exists(protocol_path)
     rows = _rows(protocol, "copied_material")
+    existing_target_refs = {
+        _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+        for row in rows
+        if row.get("target_ref")
+    }
+    rows = [
+        *rows,
+        *_source_module_manifest_body_rows(root, existing_target_refs=existing_target_refs),
+    ]
     body_rows = [
         row
         for row in rows
@@ -2077,6 +2184,10 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
                 and expected_digest == actual_digest
                 and target_digest == actual_digest,
                 "body_text_in_receipt": row.get("body_in_receipt") is True,
+                "import_accounting_source": row.get(
+                    "import_accounting_source",
+                    "projection_protocol",
+                ),
                 "status": status,
             }
         )
@@ -2092,6 +2203,22 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         if row["status"] == PASS and row["material_class"] == "public_macro_proof_body"
     ]
     material_count = sum(class_counts.values())
+    direct_manifest_material_count = sum(
+        1
+        for row in imports
+        if row["status"] == PASS
+        and row.get("import_accounting_source") == "bundle_source_module_manifest"
+    )
+    direct_manifest_refs = sorted(
+        {
+            source_ref
+            for row in imports
+            if row["status"] == PASS
+            and row.get("import_accounting_source") == "bundle_source_module_manifest"
+            for source_ref in row["source_refs"]
+            if Path(source_ref).name == "source_module_manifest.json"
+        }
+    )
     mixed_assay_status = PASS if tool_ids and proof_ids and not defects else "blocked"
     status = PASS if material_count and mixed_assay_status == PASS else "blocked"
     owner_refs = {
@@ -2165,6 +2292,9 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         "public_safe_body_material_count": material_count,
         "public_safe_body_material_counts_by_class": dict(sorted(class_counts.items())),
         "source_body_import_lens": _macro_body_source_import_lens(imports),
+        "direct_source_module_manifest_material_count": direct_manifest_material_count,
+        "direct_source_module_manifest_count": len(direct_manifest_refs),
+        "direct_source_module_manifest_refs": direct_manifest_refs,
         "non_lean_tool_body_material_count": len(tool_ids),
         "proof_body_material_count": len(proof_ids),
         "mixed_public_safe_macro_import_assay": {

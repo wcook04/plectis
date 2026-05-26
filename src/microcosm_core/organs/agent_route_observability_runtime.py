@@ -400,6 +400,43 @@ CONTROLLER_HEARTBEAT_SOURCE_TARGET_REF = (
     "exported_controller_heartbeat_bundle/source_modules/system/lib/"
     "controller_heartbeat.py"
 )
+AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_INPUT_NAMES = (
+    "source_module_manifest.json",
+)
+AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS = (
+    "source_modules/system/lib/navigation_route_intervention.py",
+    "source_modules/system/lib/agent_execution_trace.py",
+    "source_modules/codex/standards/std_agent_execution_trace.json",
+)
+AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_SPECS = {
+    "source_modules/system/lib/navigation_route_intervention.py": {
+        "source_ref": "system/lib/navigation_route_intervention.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_agent_trace_route_repair_bundle/source_modules/system/lib/"
+            "navigation_route_intervention.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/system/lib/agent_execution_trace.py": {
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_agent_trace_route_repair_bundle/source_modules/system/lib/"
+            "agent_execution_trace.py"
+        ),
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/codex/standards/std_agent_execution_trace.json": {
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "target_ref": (
+            "microcosm-substrate/examples/agent_route_observability_runtime/"
+            "exported_agent_trace_route_repair_bundle/source_modules/codex/"
+            "standards/std_agent_execution_trace.json"
+        ),
+        "material_class": "public_standard_body",
+    },
+}
 AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_INPUT_NAMES = (
     "source_module_manifest.json",
 )
@@ -647,7 +684,20 @@ def _controller_heartbeat_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
-    return [input_dir / name for name in AGENT_TRACE_ROUTE_REPAIR_INPUT_NAMES]
+    return [
+        input_dir / name
+        for name in (
+            *AGENT_TRACE_ROUTE_REPAIR_INPUT_NAMES,
+            *AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_INPUT_NAMES,
+        )
+    ]
+
+
+def _agent_trace_route_repair_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_agent_trace_route_repair_bundle_paths(input_dir),
+        *(input_dir / name for name in AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS),
+    ]
 
 
 def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
@@ -853,7 +903,7 @@ def _scan_agent_trace_route_repair_inputs(
 ) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _agent_trace_route_repair_bundle_paths(input_dir),
+        _agent_trace_route_repair_scan_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -2373,6 +2423,216 @@ def validate_controller_heartbeat_source_manifest(
                 "path": expected_path,
                 "source_ref": row.get("source_ref"),
                 "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "byte_count": observed_byte_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "all_expected_byte_counts_matched": byte_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
+    }
+
+
+def validate_agent_trace_route_repair_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+    byte_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_ROUTE_REPAIR_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Agent trace route-repair source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="agent_trace_route_repair_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_ROUTE_REPAIR_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Agent trace route-repair source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="agent_trace_route_repair_source_manifest",
+            )
+        )
+    if manifest.get("module_count") != len(modules):
+        findings.append(
+            _bundle_finding(
+                "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_COUNT_MISMATCH",
+                "Agent trace route-repair source manifest module_count must equal the listed copied modules.",
+                subject_id="module_count",
+                subject_kind="agent_trace_route_repair_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        spec = AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_SPECS[expected_path]
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Agent trace route-repair source manifest must name each copied macro source module.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != spec["source_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_REF_MISMATCH",
+                    "Agent trace route-repair copied source body must point back to the macro source file.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+        if row.get("target_ref") != spec["target_ref"]:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_TARGET_REF_MISMATCH",
+                    "Agent trace route-repair copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+        if row.get("material_class") != spec["material_class"]:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_MATERIAL_CLASS_MISMATCH",
+                    "Agent trace route-repair copied source body must preserve its expected public material class.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+        if row.get("source_import_class") != "copied_non_secret_macro_body":
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_ROW_SOURCE_IMPORT_CLASS_MISMATCH",
+                    "Agent trace route-repair source rows must classify copied source modules as non-secret macro bodies.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+        if row.get("body_in_receipt") is not False:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_ROW_BODY_RECEIPT_OVERCLAIM",
+                    "Agent trace route-repair source rows must keep copied source bodies out of runtime receipts.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_FILE_MISSING",
+                    "Agent trace route-repair copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        observed_byte_count = len(source_module_path.read_bytes())
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        expected_byte_count = row.get("byte_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        byte_count_matches = observed_byte_count == expected_byte_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Agent trace route-repair copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Agent trace route-repair copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+        if byte_count_matches:
+            byte_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                    "Agent trace route-repair copied macro source body byte count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+        target_text = source_module_path.read_text(encoding="utf-8")
+        required_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if str(anchor)
+        ]
+        if not required_anchors:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_ANCHORS_MISSING",
+                    "Agent trace route-repair copied source manifest rows must name required retained anchors.",
+                    subject_id=expected_path,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+        missing_anchors = [
+            anchor
+            for anchor in required_anchors
+            if anchor not in target_text
+        ]
+        for anchor in missing_anchors:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Agent trace route-repair copied macro source body must retain required route-repair anchors.",
+                    subject_id=anchor,
+                    subject_kind="agent_trace_route_repair_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "material_class": row.get("material_class"),
                 "sha256": observed_digest,
                 "line_count": observed_line_count,
                 "byte_count": observed_byte_count,
@@ -4230,6 +4490,11 @@ def _write_agent_trace_route_repair_bundle_receipt(
             "body_import_verification": validation_result[
                 "body_import_verification"
             ],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
+            "exact_source_body_import": validation_result["exact_source_body_import"],
             "metadata_envelope_only": True,
             "body_in_receipt": False,
             "live_hook_install_authorized": False,
@@ -5471,6 +5736,11 @@ def run_agent_trace_route_repair_bundle(
         input_path = Path.cwd() / input_path
     public_root = _public_root_for_path(input_path)
     payloads = load_public_agent_trace_route_repair_bundle(input_path)
+    source_manifest_payload = read_json_strict(input_path / "source_module_manifest.json")
+    source_manifest_result = validate_agent_trace_route_repair_source_manifest(
+        input_path,
+        source_manifest_payload,
+    )
     scan_result = _scan_agent_trace_route_repair_inputs(input_path, public_root)
     secret_scan = dict(scan_result)
     secret_scan.pop("forbidden_output_fields", None)
@@ -5519,7 +5789,11 @@ def run_agent_trace_route_repair_bundle(
         for key in leaked_keys
     ]
     all_findings = sorted(
-        [*view.get("findings", []), *extra_findings],
+        [
+            *view.get("findings", []),
+            *source_manifest_result["findings"],
+            *extra_findings,
+        ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
             str(item.get("subject_id") or ""),
@@ -5535,6 +5809,7 @@ def run_agent_trace_route_repair_bundle(
         PASS
         if scan_result["status"] == PASS
         and view.get("status") == PASS
+        and source_manifest_result["status"] == PASS
         and not all_findings
         and summary.get("top_pattern_count", 0) >= 4
         and summary.get("covered_top_pattern_count") == summary.get("top_pattern_count")
@@ -5551,6 +5826,22 @@ def run_agent_trace_route_repair_bundle(
     )
     source_refs = _strings(manifest.get("source_refs")) or AGENT_TRACE_ROUTE_REPAIR_SOURCE_REFS
     target_refs = _strings(manifest.get("target_refs")) or AGENT_TRACE_ROUTE_REPAIR_TARGET_REFS
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digests = [
+        f"sha256:{row['sha256']}"
+        for row in observed_source_modules
+        if row.get("sha256")
+    ]
+    source_module_refs = [
+        str(row.get("source_ref"))
+        for row in observed_source_modules
+        if row.get("source_ref")
+    ]
+    target_module_refs = [
+        str(row.get("target_ref"))
+        for row in observed_source_modules
+        if row.get("target_ref")
+    ]
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -5588,6 +5879,22 @@ def run_agent_trace_route_repair_bundle(
             "source_symbols": view.get("source_symbols", []),
             "target_symbols": view.get("target_symbols", []),
             "body_import_verification": view.get("body_import_verification", {}),
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
+            "exact_source_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_refs": source_module_refs,
+                "target_refs": target_module_refs,
+                "source_body_digests": source_body_digests,
+                "target_body_digests": source_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
+                "body_in_receipt": False,
+            },
             "public_trace_ref_count": view.get("public_trace_ref_count", 0),
             "forbidden_payload_keys": sorted(
                 set(leaked_keys) | set(view.get("forbidden_payload_keys", []))

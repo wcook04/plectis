@@ -1,0 +1,80 @@
+{
+  "schema_version": "agent_route_observability_runtime_agent_trace_route_repair_source_module_manifest_v1",
+  "bundle_id": "public_agent_trace_route_repair_runtime_example",
+  "source_import_class": "copied_non_secret_macro_body",
+  "body_in_receipt": false,
+  "module_count": 3,
+  "modules": [
+    {
+      "module_id": "route_repair_suggestion_source_body_import",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "path": "source_modules/system/lib/navigation_route_intervention.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/navigation_route_intervention.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Route-repair suggestion owner that maps navigation anti-patterns to kernel routes, hook-shadow coverage, and public suggestion messages without exporting private transcripts or live hook state.",
+      "required_anchors": [
+        "class RouteRepairSuggestion",
+        "ROUTE_REPAIR_SUGGESTIONS",
+        "def route_repair_for(",
+        "def build_hook_shadow_coverage(",
+        "def suggestion_message("
+      ],
+      "line_count": 348,
+      "sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "byte_count": 17443,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_source_body_import",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "path": "source_modules/system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Agent execution trace owner that builds public trace ledgers, route references, privacy-boundary receipts, and trace-derived route repair inputs while excluding provider payload bodies and hidden reasoning.",
+      "required_anchors": [
+        "LEDGER_SCHEMA_VERSION = \"agent_execution_trace_ledger_v1\"",
+        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
+        "class Span",
+        "def load_trace_rules(",
+        "def build_agent_execution_trace(",
+        "def write_agent_execution_trace("
+      ],
+      "line_count": 5158,
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "byte_count": 224689,
+      "body_in_receipt": false
+    },
+    {
+      "module_id": "agent_execution_trace_standard_body_import",
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "path": "source_modules/codex/standards/std_agent_execution_trace.json",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "material_class": "public_standard_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Agent execution trace standard that defines the public trace ontology, strict privacy boundary, navigation-reference sequence contract, and generated artifact types used by the route-repair replay.",
+      "required_anchors": [
+        "\"schema_version\"",
+        "\"strict_boundary\"",
+        "\"trace_ontology_contract\"",
+        "\"navigation_reference_sequence_contract\"",
+        "\"types\""
+      ],
+      "line_count": 623,
+      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "byte_count": 45577,
+      "body_in_receipt": false
+    }
+  ],
+  "omitted_material": [
+    "provider payload bodies",
+    "browser/HUD live-access",
+    "account/session state",
+    "cookies",
+    "recipient-send state",
+    "credential-equivalent material",
+    "raw private transcript bodies",
+    "live hook state"
+  ]
+}

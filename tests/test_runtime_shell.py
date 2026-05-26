@@ -211,6 +211,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert body_counts["public_macro_proof_body"] >= 1
     assert body_counts["public_macro_receipt_body"] >= 3
     assert body_counts["public_macro_tool_body"] >= 45
+    assert body_counts["public_standard_body"] >= 1
+    assert (
+        status["macro_body_import_floor"]["direct_source_module_manifest_material_count"]
+        >= 3
+    )
+    assert (
+        "examples/agent_route_observability_runtime/"
+        "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
+        in status["macro_body_import_floor"]["direct_source_module_manifest_refs"]
+    )
     source_body_lens = status["macro_body_import_floor"]["source_body_import_lens"]
     assert source_body_lens["status"] == "pass"
     assert source_body_lens["body_text_exported_in_status"] is False
@@ -245,6 +255,26 @@ def test_runtime_shell_status_is_product_centered() -> None:
                 "test_observe_runtime_source_modules_body_import_is_unified_under_macro_projection_spine"
             ),
         ],
+        "body_text_in_receipt": False,
+        "verification_mode": "exact_source_digest_match",
+    }
+    assert source_families["exported_agent_trace_route_repair_bundle"] == {
+        "family_id": "exported_agent_trace_route_repair_bundle",
+        "status": "pass",
+        "manifest_ref": (
+            "examples/agent_route_observability_runtime/"
+            "exported_agent_trace_route_repair_bundle/source_module_manifest.json"
+        ),
+        "module_count": 2,
+        "source_refs": [
+            "system/lib/navigation_route_intervention.py",
+            "system/lib/agent_execution_trace.py",
+        ],
+        "material_ids": [
+            "route_repair_suggestion_source_body_import",
+            "agent_execution_trace_source_body_import",
+        ],
+        "validation_refs": [],
         "body_text_in_receipt": False,
         "verification_mode": "exact_source_digest_match",
     }
