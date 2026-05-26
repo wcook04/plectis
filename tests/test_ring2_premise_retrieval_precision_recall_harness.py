@@ -34,6 +34,12 @@ SOURCE_ARTIFACT_REFS = [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
 ]
+SOURCE_BODY_MATERIAL_IDS = {
+    "ring2_precision_recall_aggregate_report_body_import",
+    "ring2_precision_recall_run_summary_body_import",
+    "ring2_precision_recall_graph_variant_comparison_body_import",
+    "ring2_precision_recall_problem_source_manifest_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -74,6 +80,14 @@ def test_ring2_precision_recall_observes_required_negative_cases(
     assert result["source_artifact_count"] == 4
     assert result["copied_source_artifact_count"] == 4
     assert result["source_artifacts_pass"] is True
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert (
+        set(result["source_open_body_imports"]["body_material_ids"])
+        == SOURCE_BODY_MATERIAL_IDS
+    )
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert result["mean_precision_at_k"] == 0.36
     assert result["mean_recall_at_k"] == 0.9
     assert result["metric_aggregation"]["total_hit_count"] == 9
@@ -145,6 +159,8 @@ def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
         assert payload["body_copied_material_count"] == 1
         assert payload["copied_source_artifact_count"] == 4
         assert payload["source_artifacts_pass"] is True
+        assert payload["source_open_body_imports"]["body_material_count"] == 4
+        assert payload["source_open_body_imports"]["body_in_receipt"] is False
         assert "secret_exclusion_scan" in payload
         assert "private_state_scan" not in payload
         assert "body_redacted" not in payload
@@ -187,6 +203,9 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
     assert result["source_artifact_count"] == 4
     assert result["copied_source_artifact_count"] == 4
     assert result["source_artifacts_pass"] is True
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert result["mean_precision_at_k"] == 0.36
     assert result["mean_recall_at_k"] == 0.9
     assert result["failure_mode_counts"] == {

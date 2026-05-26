@@ -1,7 +1,7 @@
 # Ring-2 Premise Precision Recall
 
 `ring2_premise_retrieval_precision_recall_harness` is the public Microcosm
-organ for evaluating synthetic Ring-2 premise retrieval rankings against
+organ for evaluating copied Ring-2 premise retrieval rankings against
 after-the-fact labels.
 
 The organ computes precision and recall per problem, then classifies the result
@@ -23,6 +23,15 @@ not allowed to flow into provider context recipes.
 PYTHONPATH=src python3 -m microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness run --input fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input --out receipts/first_wave/ring2_premise_retrieval_precision_recall_harness
 PYTHONPATH=src python3 -m microcosm_core.cli ring2-premise-retrieval-precision-recall-harness run-precision-recall-bundle --input examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle --out receipts/runtime_shell/demo_project/organs/ring2_premise_retrieval_precision_recall_harness
 ```
+
+## Body-Floor Import
+
+The fixture and exported bundle both carry exact copied source artifacts under
+`source_artifacts/` for the Ring2 aggregate report, graph-variant run summary,
+graph comparison, and problem-source manifest. The validator treats those four
+digest-matched files as `source_open_body_imports` with
+`body_in_receipt=false`: workingness can count the real macro receipt bodies,
+while receipts expose only import ids, target refs, and digest status.
 
 ## Negative Cases
 

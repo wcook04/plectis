@@ -45,7 +45,10 @@
     "problem_labels.problems[].needed_premise_ids",
     "retrieval_rankings.rankings[].retrieved_premise_ids",
     "retrieval_rankings.rankings[].proof_outcome",
-    "evaluation_policy.adversarial_decoy_case_id"
+    "evaluation_policy.adversarial_decoy_case_id",
+    "source_open_body_imports.body_material_count",
+    "source_open_body_imports.body_material_ids[]",
+    "source_open_body_imports.body_in_receipt"
   ],
   "validation_rules": [
     "Precision and recall must be computed from copied non-secret macro run rankings and after-the-fact metric labels, not stand-in product evidence.",
@@ -54,13 +57,16 @@
     "The fixture must include an adversarial decoy/miss case.",
     "Failure attribution must distinguish retrieval_hit, retrieval_miss, and proof_failure_despite_hit; partial_retrieval_miss remains allowed when observed.",
     "Proof bodies, provider bodies, private source bodies, and oracle-needed ids inside rankings are forbidden.",
-    "Metrics cannot claim proof, benchmark, provider, release, publication, or recipient-work authority."
+    "Metrics cannot claim proof, benchmark, provider, release, publication, or recipient-work authority.",
+    "The source_open_body_imports summary must count the four exact copied macro source artifacts as source-open body material only when their target digests match the source digests.",
+    "Validator receipts may include source-open body import ids, target refs, and digest status, but not copied source body text."
   ],
   "receipt_expectations": [
     "result receipt with precision/recall metrics, copied-material provenance, source artifact imports, secret_exclusion_scan, and failure attribution",
     "board receipt with public contract, copied-material status, source artifact status, and authority ceiling",
     "validation receipt with negative-case coverage",
-    "fixture acceptance receipt"
+    "fixture acceptance receipt",
+    "receipt summaries expose source_open_body_imports with body material ids, body count, digest-backed target refs, and body_in_receipt=false"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness",
@@ -81,7 +87,8 @@
     "proof_bodies_included": false,
     "provider_payloads_included": false,
     "labels_allowed_in_provider_context": false,
-    "fixture_kind": "copied_non_secret_macro_run_metric_rows"
+    "fixture_kind": "copied_non_secret_macro_run_metric_rows",
+    "body_text_exported_in_receipts": false
   },
   "authority_ceiling": {
     "labels_allowed_in_provider_context": false,
@@ -112,7 +119,8 @@
       "fixture",
       "metric",
       "negative_case",
-      "receipt"
+      "receipt",
+      "body_floor_import"
     ],
     "failure_modes": [
       "source artifact named only as a source_ref while no copied target file exists under Microcosm",
@@ -134,5 +142,25 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
-  "macro_run_variant_id": "premise_retrieval_graph_v0"
+  "macro_run_variant_id": "premise_retrieval_graph_v0",
+  "source_open_body_imports_contract": {
+    "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "ring2_precision_recall_aggregate_report_body_import",
+      "ring2_precision_recall_run_summary_body_import",
+      "ring2_precision_recall_graph_variant_comparison_body_import",
+      "ring2_precision_recall_problem_source_manifest_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body"
+    ],
+    "aggregate_floor_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json::source_open_body_imports",
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "source_manifest_refs": [
+      "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json"
+    ]
+  }
 }

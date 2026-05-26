@@ -68,8 +68,26 @@ SOURCE_DIGESTS = {
         "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
     ),
 }
+SOURCE_MATERIAL_IDS = {
+    AGGREGATE_REPORT_SOURCE_REF: "ring2_precision_recall_aggregate_report_body_import",
+    RUN_SUMMARY_SOURCE_REF: "ring2_precision_recall_run_summary_body_import",
+    GRAPH_COMPARISON_SOURCE_REF: (
+        "ring2_precision_recall_graph_variant_comparison_body_import"
+    ),
+    PROBLEM_SOURCE_MANIFEST_REF: (
+        "ring2_precision_recall_problem_source_manifest_body_import"
+    ),
+}
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 SOURCE_ARTIFACT_STATUS = "copied_ring2_source_artifacts_verified"
+SOURCE_OPEN_BODY_MATERIAL_STATUS = (
+    "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance"
+)
+SOURCE_OPEN_BODY_AGGREGATE_REF = (
+    "examples/ring2_premise_retrieval_precision_recall_harness/"
+    "exported_ring2_precision_recall_bundle/"
+    "bundle_manifest.json::source_open_body_imports"
+)
 BODY_MATERIAL_CONTRACT = {
     "body_material_status": BODY_MATERIAL_STATUS,
     "macro_run_id": RUN_ID,
@@ -503,6 +521,53 @@ def _validate_source_artifacts(input_dir: Path, *, public_root: Path) -> dict[st
     }
 
 
+def _source_open_body_import_summary(
+    source_artifact_imports: list[dict[str, Any]],
+) -> dict[str, Any]:
+    verified_rows = [
+        row for row in source_artifact_imports if row["exists"] and row["digest_match"]
+    ]
+    verified_ids = [SOURCE_MATERIAL_IDS[row["source_ref"]] for row in verified_rows]
+    status = PASS if len(verified_ids) == len(SOURCE_REFS) else "blocked"
+    return {
+        "status": status,
+        "body_material_status": SOURCE_OPEN_BODY_MATERIAL_STATUS,
+        "body_material_count": len(verified_ids),
+        "body_material_ids": verified_ids,
+        "material_classes": ["public_macro_receipt_body"],
+        "aggregate_floor_ref": SOURCE_OPEN_BODY_AGGREGATE_REF,
+        "source_manifest_refs": [
+            (
+                "core/fixture_manifests/"
+                "ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json"
+            ),
+            (
+                "examples/ring2_premise_retrieval_precision_recall_harness/"
+                "exported_ring2_precision_recall_bundle/bundle_manifest.json"
+            ),
+        ],
+        "source_refs": [row["source_ref"] for row in verified_rows],
+        "target_refs": [row["target_ref"] for row in verified_rows],
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "reader_action": (
+            "Open source_artifacts/ under the fixture or exported bundle to inspect "
+            "copied Ring2 precision-recall macro receipts; validator receipts carry "
+            "body import ids, target refs, and digest status only."
+        ),
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "proof_body_or_oracle_proof_text_exported": False,
+            "provider_payload_exported": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "benchmark_performance_authority": False,
+            "release_authorized": False,
+            "source_authority_above_macro_contracts": False,
+        },
+    }
+
+
 def _evaluate(
     *,
     labels_payload: object,
@@ -661,6 +726,7 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "proof_bodies_forbidden": True,
             "copied_material_provenance_required": True,
             "copied_source_artifact_digest_match_required": True,
+            "source_open_body_imports_required": True,
             "body_material_status": BODY_MATERIAL_STATUS,
             "source_artifact_status": SOURCE_ARTIFACT_STATUS,
         },
@@ -670,6 +736,7 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
         "source_artifact_imports": result["source_artifact_imports"],
         "copied_source_artifact_count": result["copied_source_artifact_count"],
         "source_artifacts_pass": result["source_artifacts_pass"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "metrics": {
             "problem_count": result["problem_count"],
             "mean_precision_at_k": result["mean_precision_at_k"],
@@ -715,6 +782,7 @@ def _common_receipt(
         "source_artifact_count",
         "copied_source_artifact_count",
         "source_artifacts_pass",
+        "source_open_body_imports",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",
@@ -785,6 +853,9 @@ def _build_result(
     )
     run_material = _validate_run_material(payloads)
     source_artifacts = _validate_source_artifacts(input_dir, public_root=public_root)
+    source_open_body_imports = _source_open_body_import_summary(
+        source_artifacts["source_artifact_imports"]
+    )
     negative = (
         _negative_findings(payloads)
         if include_negative
@@ -844,6 +915,7 @@ def _build_result(
             "copied_source_artifact_count"
         ],
         "source_artifacts_pass": source_artifacts["source_artifacts_pass"],
+        "source_open_body_imports": source_open_body_imports,
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,

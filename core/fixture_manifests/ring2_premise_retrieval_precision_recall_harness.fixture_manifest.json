@@ -96,5 +96,53 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "macro_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
-  "macro_run_variant_id": "premise_retrieval_graph_v0"
+  "macro_run_variant_id": "premise_retrieval_graph_v0",
+  "source_open_body_imports": {
+    "status": "pass",
+    "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "ring2_precision_recall_aggregate_report_body_import",
+      "ring2_precision_recall_run_summary_body_import",
+      "ring2_precision_recall_graph_variant_comparison_body_import",
+      "ring2_precision_recall_problem_source_manifest_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body"
+    ],
+    "aggregate_floor_ref": "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json::source_open_body_imports",
+    "source_manifest_refs": [
+      "core/fixture_manifests/ring2_premise_retrieval_precision_recall_harness.fixture_manifest.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/bundle_manifest.json"
+    ],
+    "source_refs": [
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
+    ],
+    "target_refs": [
+      "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "fixtures/first_wave/ring2_premise_retrieval_precision_recall_harness/input/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
+      "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json"
+    ],
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "reader_action": "Open source_artifacts/ under the fixture or exported bundle to inspect copied Ring2 precision-recall macro receipts; validator receipts carry body import ids, target refs, and digest status only.",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "benchmark_performance_authority": false,
+      "release_authorized": false,
+      "source_authority_above_macro_contracts": false
+    }
+  }
 }
