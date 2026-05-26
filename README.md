@@ -64,6 +64,11 @@ counts and body-text exclusion flags, the shorter
 `gap_preview` of the first missing-standard or failure-mode rows and their
 target refs before opening the full organ-by-organ map; `microcosm status`
 remains the full JSON drilldown.
+When a project path is supplied, the card keeps `front_door.project_state` and
+`macro_body_import_floor` to compact state/ref summaries and leaves route proof
+plus route explanation in `front_door.route_selection_proof` and
+`front_door.route_explanation`; run `microcosm status` for the full body-floor
+drilldown.
 
 Read `front_door_status` before treating the tour's `status` as a blanket
 health claim. `blocking_surface_ids=[]` means the required first-screen path is

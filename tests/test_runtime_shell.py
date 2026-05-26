@@ -701,6 +701,59 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert runtime_card == card
 
 
+def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "scratch-project"
+    (project / "src/app").mkdir(parents=True)
+    (project / "tests").mkdir()
+    (project / "README.md").write_text(
+        "# Scratch Project\n\nCold status-card project overlay fixture.\n",
+        encoding="utf-8",
+    )
+    (project / "src/app/__init__.py").write_text("VALUE = 1\n", encoding="utf-8")
+    (project / "tests/test_app.py").write_text(
+        "from app import VALUE\n\n\ndef test_value():\n    assert VALUE == 1\n",
+        encoding="utf-8",
+    )
+
+    project_substrate.compile_project(project)
+    card = RuntimeShell(MICROCOSM_ROOT).status_card(project)
+    project_state = card["front_door"]["project_state"]
+    project_body_floor = card["macro_body_import_floor"]
+
+    assert len(json.dumps(card, sort_keys=True)) < 18000
+    assert project_state["schema_version"] == (
+        "microcosm_project_status_overlay_summary_v1"
+    )
+    assert project_state["status"] == "pass"
+    assert project_state["state_dir_exists"] is True
+    assert project_state["selected_route_id"] == "readme_onboarding_route"
+    assert project_state["route_explanation_status"] == "pass"
+    assert project_state["route_selection_proof_status"] == "pass"
+    assert project_state["route_explanation_ref"] == "front_door.route_explanation"
+    assert (
+        project_state["route_selection_proof_ref"]
+        == "front_door.route_selection_proof"
+    )
+    assert ".microcosm/routes.json" in project_state["existing_state_refs"]
+    assert "route_explanation" not in project_state
+    assert "route_selection_proof" not in project_state
+    assert card["front_door"]["route_explanation"]["status"] == "pass"
+    assert card["front_door"]["route_selection_proof"]["status"] == "pass"
+    assert project_body_floor["schema_version"] == (
+        "microcosm_project_status_body_import_floor_ref_v1"
+    )
+    assert project_body_floor["project_mode_compacted"] is True
+    assert project_body_floor["ref"] == "front_door.source_open_body_import_floor"
+    assert (
+        project_body_floor["verified_source_module_family_count"]
+        == card["front_door"]["source_open_body_imports"][
+            "verified_source_module_family_count"
+        ]
+    )
+
+
 def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
     card = runtime_shell._runtime_status_card(
         {

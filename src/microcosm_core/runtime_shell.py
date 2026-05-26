@@ -2437,6 +2437,96 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
     }
 
 
+def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str, Any]:
+    route_explanation = project_overlay.get("route_explanation", {})
+    if not isinstance(route_explanation, dict):
+        route_explanation = {}
+    route_selection_proof = project_overlay.get("route_selection_proof", {})
+    if not isinstance(route_selection_proof, dict):
+        route_selection_proof = {}
+    state_refs = project_overlay.get("state_refs", [])
+    if not isinstance(state_refs, list):
+        state_refs = []
+    existing_state_refs = project_overlay.get("existing_state_refs", [])
+    if not isinstance(existing_state_refs, list):
+        existing_state_refs = []
+    available_project_route_ids = project_overlay.get(
+        "available_project_route_ids", []
+    )
+    if not isinstance(available_project_route_ids, list):
+        available_project_route_ids = []
+    return {
+        "schema_version": "microcosm_project_status_overlay_summary_v1",
+        "status": project_overlay.get("status"),
+        "project_ref": project_overlay.get("project_ref"),
+        "state_dir": project_overlay.get("state_dir"),
+        "state_dir_exists": project_overlay.get("state_dir_exists"),
+        "state_ref_count": len(state_refs),
+        "existing_state_ref_count": len(existing_state_refs),
+        "existing_state_refs": existing_state_refs,
+        "route_count": project_overlay.get("route_count"),
+        "available_project_route_ids": available_project_route_ids,
+        "selected_route_id": project_overlay.get("selected_route_id"),
+        "selected_route_ref": project_overlay.get("selected_route_ref"),
+        "route_explanation_command": project_overlay.get(
+            "route_explanation_command"
+        ),
+        "route_explanation_status": route_explanation.get("status"),
+        "route_explanation_ref": "front_door.route_explanation",
+        "route_selection_proof_status": route_selection_proof.get("status"),
+        "route_selection_proof_ref": "front_door.route_selection_proof",
+        "source_files_mutated": project_overlay.get("source_files_mutated", False),
+        "reader_action": project_overlay.get("reader_action"),
+    }
+
+
+def _compact_project_card_body_import_floor(
+    body_floor: dict[str, Any],
+    source_body_imports: dict[str, Any],
+    body_floor_defect_preview: list[dict[str, Any]],
+) -> dict[str, Any]:
+    compact = {
+        "schema_version": "microcosm_project_status_body_import_floor_ref_v1",
+        "status": body_floor.get("status"),
+        "ref": "front_door.source_open_body_import_floor",
+        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "source_ref": body_floor.get("source_ref"),
+        "public_safe_body_material_count": body_floor.get(
+            "public_safe_body_material_count"
+        ),
+        "public_safe_body_material_counts_by_class": body_floor.get(
+            "public_safe_body_material_counts_by_class", {}
+        ),
+        "verified_source_module_family_count": source_body_imports.get(
+            "verified_source_module_family_count"
+        ),
+        "body_text_exported_in_status": source_body_imports.get(
+            "body_text_exported_in_status"
+        ),
+        "body_text_exported_in_receipts": source_body_imports.get(
+            "body_text_exported_in_receipts"
+        ),
+        "project_mode_compacted": True,
+        "reader_action": (
+            "Use front_door.source_open_body_import_floor for first-screen "
+            "counts; open microcosm status for validators, source-body family "
+            "drilldowns, and full defects."
+        ),
+    }
+    if body_floor.get("defect_count") or body_floor_defect_preview:
+        compact.update(
+            {
+                "defect_count": body_floor.get("defect_count"),
+                "defect_preview": body_floor_defect_preview,
+                "defect_preview_limit": STATUS_CARD_DEFECT_PREVIEW_LIMIT,
+                "full_defects_ref": (
+                    "microcosm status::macro_body_import_floor.defects"
+                ),
+            }
+        )
+    return compact
+
+
 def _status_card_surface_is_nonblocking(status: Any) -> bool:
     return status in {PASS, "clear", "actionable"}
 
@@ -2856,14 +2946,12 @@ def _runtime_status_card(
                     else None
                 ),
                 "authority_boundary": (
-                    "verified_non_secret_macro_body_floor_not_release_"
-                    "provider_source_mutation_or_private_equivalence_authority"
+                    "verified_non_secret_body_floor_not_release_provider_"
+                    "source_mutation_or_private_equivalence_authority"
                 ),
                 "reader_action": (
-                    "Use this compact floor to see real source-open body "
-                    "imports and any blocking defect preview before opening "
-                    "receipts; open macro_body_import_floor for validators, "
-                    "full defects, and family drilldowns."
+                    "Scan body-import counts here; open macro_body_import_floor "
+                    "for validators, defects, and family drilldowns."
                 ),
             },
             "source_open_body_imports": {
@@ -3045,7 +3133,14 @@ def _runtime_status_card(
         project_overlay = _project_status_overlay(project_path)
         selected_route_id = project_overlay.get("selected_route_id")
         card["card_command"] = "microcosm status --card <project>"
-        card["front_door"]["project_state"] = project_overlay
+        card["front_door"]["project_state"] = _compact_project_status_overlay(
+            project_overlay
+        )
+        card["macro_body_import_floor"] = _compact_project_card_body_import_floor(
+            body_floor,
+            source_body_imports if isinstance(source_body_imports, dict) else {},
+            body_floor_defect_preview,
+        )
         card["front_door"]["project_ref"] = project_overlay.get("project_ref")
         card["front_door"]["project_state_status"] = project_overlay.get("status")
         card["front_door"]["state_dir_exists"] = project_overlay.get(
