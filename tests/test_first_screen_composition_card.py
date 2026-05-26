@@ -133,6 +133,36 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "local demo into release" in doctrine_by_handle["ANTI_PRINCIPLES"][
         "prevents"
     ]
+    readme_entry_contract = card["readme_entry_contract"]
+    readme_order = readme_entry_contract["required_markdown_order"]
+    readme_order_pairs = {
+        (row.get("surface") or row.get("command"), row["must_precede"])
+        for row in readme_order
+    }
+    assert readme_entry_contract["purpose"] == (
+        "make_package_backed_first_screen_card_the_readme_entry_surface"
+    )
+    assert readme_entry_contract["inventory_policy"] == (
+        "quickstart_command_inventory_is_a_drilldown_after_the_first_screen_card"
+    )
+    assert readme_entry_contract["authority"] == (
+        "documentation_order_contract_not_runtime_proof"
+    )
+    assert (
+        "README.md::Choose Your First Screen",
+        "README.md::Try It On Your Repo",
+    ) in readme_order_pairs
+    assert (
+        card["human_first_command"],
+        card["shared_first_command"],
+    ) in readme_order_pairs
+    assert (
+        card["shared_first_command"],
+        "microcosm first-screen <project>",
+    ) in readme_order_pairs
+    assert ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
+    for row in readme_order:
+        assert row["reason"]
     assert card["entry_surface_contract"]["shared_behavior_surface"] == (
         card["shared_first_command"]
     )
@@ -149,6 +179,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "consumer_rule"
     ]
     assert "observatory landing frame" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
+    assert "README-entry contract" in card["entry_surface_contract"][
         "consumer_rule"
     ]
     state_write_boundary = card["state_write_boundary"]
@@ -260,6 +293,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
+    assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
     assert card["validation"]["checks"]["human_first_command"] is True
     assert card["validation"]["checks"]["text_projection"] is True
@@ -305,6 +339,9 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["doctrine_effect_frame"]["purpose"] == (
         "show_doctrine_as_mistake_prevention_not_ceremony"
     )
+    assert card["readme_entry_contract"]["inventory_policy"] == (
+        "quickstart_command_inventory_is_a_drilldown_after_the_first_screen_card"
+    )
     assert card["evidence_class_legend"]["source_ref"] == (
         "core/organ_evidence_classes.json"
     )
@@ -344,6 +381,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "First run: microcosm tour --card ." in text
     assert "A local evidence router, not a maturity brochure" in text
     assert "doctrine appears as prevented mistakes" in text
+    assert "README inventory waits" in text
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
@@ -407,6 +445,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Counts are receipt-backed handles" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "doctrine appears as prevented mistakes" in text
+        assert "README inventory waits" in text
         assert len(text.splitlines()) <= module.TEXT_CARD_MAX_LINES
         assert "/Users/" not in text
         assert "src/ai_workflow" not in text
@@ -435,6 +474,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
     assert "doctrine appears as prevented mistakes" in result.stdout
+    assert "README inventory waits" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
@@ -464,6 +504,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "Open card: microcosm hello ." in result.stdout
     assert "First run: microcosm tour --card ." in result.stdout
     assert "doctrine appears as prevented mistakes" in result.stdout
+    assert "README inventory waits" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout

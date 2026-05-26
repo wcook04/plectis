@@ -407,6 +407,50 @@ def _doctrine_effect_frame() -> dict[str, Any]:
     }
 
 
+def _readme_entry_contract(project_label: str) -> dict[str, Any]:
+    human_first_command = f"microcosm hello {project_label}"
+    shared_first_command = f"microcosm tour --card {project_label}"
+    first_screen_json_command = f"microcosm first-screen {project_label}"
+    return {
+        "schema_version": "microcosm_readme_entry_contract_v1",
+        "purpose": "make_package_backed_first_screen_card_the_readme_entry_surface",
+        "inventory_policy": (
+            "quickstart_command_inventory_is_a_drilldown_after_the_first_screen_card"
+        ),
+        "required_markdown_order": [
+            {
+                "surface": "README.md::Choose Your First Screen",
+                "must_precede": "README.md::Try It On Your Repo",
+                "reason": (
+                    "Cold readers should see the composition root before install, "
+                    "direct-run, and full command inventories."
+                ),
+            },
+            {
+                "command": human_first_command,
+                "must_precede": shared_first_command,
+                "reason": "Text projection opens the card before the state-writing behavior proof.",
+            },
+            {
+                "command": shared_first_command,
+                "must_precede": first_screen_json_command,
+                "reason": "Local behavior proof precedes the machine-readable reader map.",
+            },
+            {
+                "surface": "reader_routes",
+                "must_precede": "quickstart_command_inventory",
+                "reason": "Reader branching happens before the long command list.",
+            },
+        ],
+        "consumer_rule": (
+            "README and docs consumers must show the package-backed hello/tour card "
+            "before any exhaustive quickstart inventory, while preserving full "
+            "drilldowns after the first screen."
+        ),
+        "authority": "documentation_order_contract_not_runtime_proof",
+    }
+
+
 def _entry_surface_contract(project_label: str) -> dict[str, Any]:
     return {
         "shared_behavior_surface": f"microcosm tour --card {project_label}",
@@ -423,7 +467,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, evidence-count frame, "
             "evidence-class legend, doctrine-effect frame, observatory landing frame, "
-            "omission receipt, and authority ceiling."
+            "README-entry contract, omission receipt, and authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -576,6 +620,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     state_write_boundary = payload.get("state_write_boundary", {})
     observatory_landing_frame = payload.get("observatory_landing_frame", {})
     doctrine_effect_frame = payload.get("doctrine_effect_frame", {})
+    readme_entry_contract = payload.get("readme_entry_contract", {})
     doctrine_effect_rows = (
         doctrine_effect_frame.get("effect_rows", [])
         if isinstance(doctrine_effect_frame, dict)
@@ -596,6 +641,16 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         if isinstance(observatory_landing_frame, dict)
         else []
     )
+    readme_order_rows = (
+        readme_entry_contract.get("required_markdown_order", [])
+        if isinstance(readme_entry_contract, dict)
+        else []
+    )
+    readme_order_pairs = {
+        (str(row.get("surface") or row.get("command")), str(row.get("must_precede")))
+        for row in readme_order_rows
+        if isinstance(row, dict)
+    }
     return {
         "shared_first_command": payload.get("shared_first_command", "").startswith(
             "microcosm tour --card "
@@ -657,6 +712,32 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 and isinstance(row.get("first_screen_surface"), str)
                 and bool(row.get("first_screen_surface"))
                 for row in doctrine_effect_rows
+            )
+        ),
+        "readme_entry_contract": (
+            isinstance(readme_entry_contract, dict)
+            and readme_entry_contract.get("purpose")
+            == "make_package_backed_first_screen_card_the_readme_entry_surface"
+            and readme_entry_contract.get("inventory_policy")
+            == "quickstart_command_inventory_is_a_drilldown_after_the_first_screen_card"
+            and readme_entry_contract.get("authority")
+            == "documentation_order_contract_not_runtime_proof"
+            and (
+                "README.md::Choose Your First Screen",
+                "README.md::Try It On Your Repo",
+            )
+            in readme_order_pairs
+            and (human_first_command, shared_first_command) in readme_order_pairs
+            and (
+                shared_first_command,
+                f"microcosm first-screen {payload.get('project_label', '<project>')}",
+            )
+            in readme_order_pairs
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("reason"), str)
+                and bool(row.get("reason"))
+                for row in readme_order_rows
             )
         ),
         "entry_surface_contract": (
@@ -759,6 +840,7 @@ def first_screen_composition_card(
     standard = _load_standard(root)
     payload: dict[str, Any] = {
         "schema_version": "microcosm_first_screen_composition_card_v1",
+        "project_label": project_label,
         "composition_root_id": standard["kind_id"],
         "source_standard_ref": str(STANDARD_REF),
         "human_first_command": f"microcosm hello {project_label}",
@@ -778,6 +860,7 @@ def first_screen_composition_card(
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
         "doctrine_effect_frame": _doctrine_effect_frame(),
+        "readme_entry_contract": _readme_entry_contract(project_label),
         "entry_surface_contract": _entry_surface_contract(project_label),
         "scale_frame": _scale_frame(root),
         "runnable_structural_join": _runnable_structural_join(project_label),
@@ -878,7 +961,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         "",
         "What it is:",
-        "  A local evidence router, not a maturity brochure; doctrine appears as prevented mistakes.",
+        "  A local evidence router, not a maturity brochure; doctrine appears as prevented mistakes; README inventory waits.",
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),
