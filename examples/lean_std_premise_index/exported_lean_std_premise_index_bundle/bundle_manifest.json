@@ -7,6 +7,20 @@
   "receipt_ref": "receipts/runtime_shell/demo_project/organs/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json",
   "authority_ceiling": "copied_non_secret_lean_std_descriptor_index_only",
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
+  "source_module_manifest_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
   "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
-  "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1"
+  "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+  "copied_macro_body_artifacts": [
+    {
+      "module_id": "lean_std_toolchain_premise_index_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "target_ref": "microcosm-substrate/examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+      "material_class": "public_lean_std_premise_descriptor_index",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_sha256": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "source_faithful_normalized_copy"
+    }
+  ]
 }

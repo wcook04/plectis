@@ -17,6 +17,11 @@
       "path": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
+      "field": "source_open_body_imports",
+      "role": "source_open_body_floor"
     }
   ],
   "relationships": {
@@ -94,6 +99,27 @@
       "secret_exclusion_scan",
       "negative_case_coverage"
     ]
+  },
+  "source_open_body_floor": {
+    "status": "pass",
+    "body_material_status": "source_faithful_public_safe_lean_std_premise_index_body_with_digest_provenance",
+    "body_material_count": 1,
+    "body_material_ids": [
+      "lean_std_toolchain_premise_index_body_import"
+    ],
+    "source_manifest_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
+    "aggregate_floor_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/bundle_manifest.json::copied_macro_body_artifacts",
+    "source_to_target_relation": "source_faithful_normalized_copy",
+    "body_text_exported_in_receipts": false,
+    "authority_ceiling": {
+      "proof_body_or_oracle_proof_text_exported": false,
+      "provider_payload_exported": false,
+      "host_local_absolute_paths_exported": false,
+      "lean_lake_execution_authorized": false,
+      "formal_proof_authority": false,
+      "mathlib_authority": false,
+      "release_authority": false
+    }
   },
   "public_private_boundary": {
     "default_posture": "public_safe_when_copied_macro_fixture_receipt",

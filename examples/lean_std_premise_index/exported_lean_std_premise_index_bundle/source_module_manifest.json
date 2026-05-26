@@ -1,0 +1,53 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "lean_std_premise_index_macro_source_module_manifest",
+  "organ_id": "lean_std_premise_index",
+  "source_import_class": "source_faithful_public_safe_macro_body",
+  "body_in_receipt": false,
+  "body_storage_policy": "non_secret_Lean_Std_premise_descriptor_index_copied_as_public_normalized_body_in_fixture_and_bundle",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no proof bodies",
+    "no oracle-needed premise ids",
+    "no host-local absolute source paths in public copy"
+  ],
+  "source_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "module_count": 1,
+  "modules": [
+    {
+      "module_id": "lean_std_toolchain_premise_index_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "target_refs": [
+        "microcosm-substrate/fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
+        "microcosm-substrate/examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json"
+      ],
+      "source_import_class": "source_faithful_public_safe_macro_body",
+      "material_class": "public_lean_std_premise_descriptor_index",
+      "source_sha256": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+      "target_sha256": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869",
+      "source_line_count": 220,
+      "target_line_count": 280,
+      "body_in_receipt": false,
+      "body_copied": true,
+      "source_to_target_relation": "source_faithful_normalized_copy",
+      "normalization": [
+        "schema upgraded from premise_index_v0 to lean_std_premise_index_v2",
+        "host-local Lean toolchain paths normalized to lean-toolchain:// public refs",
+        "descriptor rows annotated with body_copied and body_material_status",
+        "declaration_name mirrored from theorem_or_def_name for public descriptor stability",
+        "proof bodies, oracle-needed premise ids, provider payload bodies, and private run logs omitted"
+      ],
+      "validation_refs": [
+        "tests/test_lean_std_premise_index.py::test_lean_std_premise_index_imports_real_macro_premise_index",
+        "tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    }
+  ]
+}

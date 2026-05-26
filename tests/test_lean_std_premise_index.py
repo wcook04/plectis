@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -82,6 +83,57 @@ def test_lean_std_premise_index_imports_real_macro_premise_index(tmp_path: Path)
     assert copied["source_ref"] == premise_index["source_ref"]
     assert copied["source_sha256"] == premise_index["source_sha256"]
     assert "fixtures/first_wave/lean_std_premise_index/input/premise_index.json" in copied["target_refs"]
+
+
+def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None:
+    source_path = (
+        MICROCOSM_ROOT.parent
+        / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json"
+    )
+    public_fixture_path = FIXTURE_INPUT / "premise_index.json"
+    public_bundle_path = EXPORTED_BUNDLE / "premise_index.json"
+    source_manifest = json.loads((EXPORTED_BUNDLE / "source_module_manifest.json").read_text())
+    fixture_manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/lean_std_premise_index.fixture_manifest.json"
+        ).read_text()
+    )
+    bundle_manifest = json.loads((EXPORTED_BUNDLE / "bundle_manifest.json").read_text())
+
+    module = source_manifest["modules"][0]
+    body_floor = fixture_manifest["source_open_body_imports"]
+    copied_artifact = bundle_manifest["copied_macro_body_artifacts"][0]
+    source = json.loads(source_path.read_text())
+    public_fixture = json.loads(public_fixture_path.read_text())
+    public_bundle = json.loads(public_bundle_path.read_text())
+
+    assert source_manifest["module_count"] == 1
+    assert module["module_id"] == "lean_std_toolchain_premise_index_body_import"
+    assert module["source_to_target_relation"] == "source_faithful_normalized_copy"
+    assert module["source_sha256"] == "sha256:" + sha256(source_path.read_bytes()).hexdigest()
+    assert module["target_sha256"] == "sha256:" + sha256(public_bundle_path.read_bytes()).hexdigest()
+    assert public_fixture == public_bundle
+    assert copied_artifact["module_id"] == module["module_id"]
+    assert body_floor["body_material_ids"] == [module["module_id"]]
+    assert body_floor["body_material_count"] == 1
+    assert body_floor["body_in_receipt"] is False
+    assert body_floor["authority_ceiling"]["proof_body_or_oracle_proof_text_exported"] is False
+
+    source_rows = source["premises"]
+    public_rows = public_bundle["premises"]
+    assert len(public_rows) == len(source_rows) == 11
+    for source_row, public_row in zip(source_rows, public_rows):
+        assert public_row["premise_id"] == source_row["premise_id"]
+        assert public_row["theorem_or_def_name"] == source_row["theorem_or_def_name"]
+        assert public_row["namespace"] == source_row["namespace"]
+        assert public_row["retrieval_terms"] == source_row["retrieval_terms"]
+        assert public_row["allowed_for_split"] == source_row["allowed_for_split"]
+        assert public_row["statement_excerpt"] == source_row["statement_excerpt"]
+        assert public_row["source_ref"].startswith("lean-toolchain://")
+        assert public_row["body_copied"] is True
+        assert "proof_body" not in public_row
+        assert "oracle_needed_premise_ids" not in public_row
 
 
 def test_lean_std_premise_index_bundle_validates_runtime_shape(
