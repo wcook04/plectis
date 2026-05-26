@@ -361,10 +361,20 @@ SESSION_ATTRIBUTION_TARGET_REF = (
 )
 MULTI_AGENT_FANIN_INPUT_NAMES = (
     "bundle_manifest.json",
+    "source_module_manifest.json",
     "continuation_contexts.json",
     "worker_traces.json",
     "fanin_policy.json",
     "expected_fanin_summary.json",
+)
+MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS = (
+    "source_modules/system/lib/continuation_packet.py",
+)
+MULTI_AGENT_FANIN_SOURCE_REF = "system/lib/continuation_packet.py"
+MULTI_AGENT_FANIN_SOURCE_TARGET_REF = (
+    "microcosm-substrate/examples/agent_route_observability_runtime/"
+    "exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/"
+    "continuation_packet.py"
 )
 BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS = {
     "raw_worker_transcript_body",
@@ -559,6 +569,13 @@ def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
 
 
+def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
+    return [
+        *_multi_agent_fanin_bundle_paths(input_dir),
+        *(input_dir / name for name in MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS),
+    ]
+
+
 def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
     return [input_dir / name for name in BRIDGE_DISPATCH_YIELD_RESUME_INPUT_NAMES]
 
@@ -725,7 +742,7 @@ def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict
 def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
-        _multi_agent_fanin_bundle_paths(input_dir),
+        _multi_agent_fanin_scan_paths(input_dir),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1860,6 +1877,147 @@ def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any
         "shared_subagent_governance_source_refs": governance_source_refs,
         "metadata_envelope_only": True,
         "body_in_receipt": False,
+    }
+
+
+def validate_multi_agent_fanin_source_manifest(
+    input_dir: Path,
+    manifest_payload: object,
+) -> dict[str, Any]:
+    findings: list[dict[str, Any]] = []
+    manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
+    modules = _rows(manifest, "modules")
+    by_path = {str(row.get("path") or ""): row for row in modules}
+    expected_paths = set(MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS)
+    observed_modules: list[dict[str, Any]] = []
+    digest_match_count = 0
+    line_count_match_count = 0
+
+    if manifest.get("source_import_class") != "copied_non_secret_macro_body":
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Multi-agent fan-in source manifest must classify copied source modules as non-secret macro bodies.",
+                subject_id="source_import_class",
+                subject_kind="multi_agent_fanin_source_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "MULTI_AGENT_FANIN_SOURCE_BODY_RECEIPT_OVERCLAIM",
+                "Multi-agent fan-in source manifest must keep copied source bodies out of runtime receipts.",
+                subject_id="body_in_receipt",
+                subject_kind="multi_agent_fanin_source_manifest",
+            )
+        )
+
+    for expected_path in sorted(expected_paths):
+        row = by_path.get(expected_path)
+        if not row:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_MODULE_MISSING_FROM_MANIFEST",
+                    "Multi-agent fan-in source manifest must name the copied continuation-packet macro source body.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_manifest",
+                )
+            )
+            continue
+        if row.get("source_ref") != MULTI_AGENT_FANIN_SOURCE_REF:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_REF_MISMATCH",
+                    "Multi-agent fan-in copied source body must point back to the macro continuation-packet source file.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_manifest",
+                )
+            )
+        if row.get("target_ref") != MULTI_AGENT_FANIN_SOURCE_TARGET_REF:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_TARGET_REF_MISMATCH",
+                    "Multi-agent fan-in copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_manifest",
+                )
+            )
+        source_module_path = input_dir / expected_path
+        if not source_module_path.is_file():
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_MODULE_FILE_MISSING",
+                    "Multi-agent fan-in copied macro source body is absent from the public bundle.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_module",
+                )
+            )
+            continue
+        observed_digest = _file_sha256(source_module_path)
+        observed_line_count = _source_line_count(source_module_path)
+        expected_digest = str(row.get("sha256") or "")
+        expected_line_count = row.get("line_count")
+        digest_matches = observed_digest == expected_digest
+        line_count_matches = observed_line_count == expected_line_count
+        if digest_matches:
+            digest_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Multi-agent fan-in copied macro source body digest must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_module",
+                )
+            )
+        if line_count_matches:
+            line_count_match_count += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Multi-agent fan-in copied macro source body line count must match the source manifest.",
+                    subject_id=expected_path,
+                    subject_kind="multi_agent_fanin_source_module",
+                )
+            )
+        target_text = source_module_path.read_text(encoding="utf-8")
+        missing_anchors = [
+            str(anchor)
+            for anchor in row.get("required_anchors", [])
+            if str(anchor) and str(anchor) not in target_text
+        ]
+        for anchor in missing_anchors:
+            findings.append(
+                _bundle_finding(
+                    "MULTI_AGENT_FANIN_SOURCE_MODULE_ANCHOR_MISSING",
+                    "Multi-agent fan-in copied macro source body must retain required continuation-packet anchors.",
+                    subject_id=anchor,
+                    subject_kind="multi_agent_fanin_source_module",
+                )
+            )
+        observed_modules.append(
+            {
+                "path": expected_path,
+                "source_ref": row.get("source_ref"),
+                "target_ref": row.get("target_ref"),
+                "sha256": observed_digest,
+                "line_count": observed_line_count,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_import_class": manifest.get("source_import_class"),
+        "body_in_receipt": manifest.get("body_in_receipt") is True,
+        "module_count": len(modules),
+        "required_module_count": len(expected_paths),
+        "copied_macro_source_count": len(observed_modules),
+        "all_expected_digests_matched": digest_match_count == len(expected_paths),
+        "all_expected_line_counts_matched": line_count_match_count == len(expected_paths),
+        "observed_modules": observed_modules,
     }
 
 
@@ -3295,6 +3453,10 @@ def _write_multi_agent_fanin_bundle_receipt(
             ],
             "worker_trace_decisions": validation_result["worker_trace_decisions"],
             "fanin_input_validation": validation_result["fanin_input_validation"],
+            "source_module_manifest": validation_result["source_module_manifest"],
+            "copied_macro_source_count": validation_result[
+                "copied_macro_source_count"
+            ],
             "fanin_policy": validation_result["fanin_policy"],
             "expected_summary_validation": validation_result[
                 "expected_summary_validation"
@@ -3304,6 +3466,7 @@ def _write_multi_agent_fanin_bundle_receipt(
             "body_import_verification": validation_result[
                 "body_import_verification"
             ],
+            "exact_source_body_import": validation_result["exact_source_body_import"],
             "metadata_envelope_only": True,
             "raw_worker_transcript_exported": False,
             "provider_payload_exported": False,
@@ -4181,6 +4344,10 @@ def run_multi_agent_fanin_bundle(
         continuation_payload,
         worker_payload,
     )
+    source_manifest_result = validate_multi_agent_fanin_source_manifest(
+        input_path,
+        payloads["source_module_manifest"],
+    )
     policy_result = validate_exported_multi_agent_fanin_policy(payloads["fanin_policy"])
 
     packets: list[dict[str, Any]] = []
@@ -4217,6 +4384,7 @@ def run_multi_agent_fanin_bundle(
     all_findings = sorted(
         [
             *input_result["findings"],
+            *source_manifest_result["findings"],
             *policy_result["findings"],
             *packet_findings,
             *expected_result["findings"],
@@ -4267,6 +4435,7 @@ def run_multi_agent_fanin_bundle(
         PASS
         if scan_result["status"] == PASS
         and not all_findings
+        and source_manifest_result["status"] == PASS
         and len(packets) >= 2
         and len(workers) >= 2
         and fanin_join_count >= 1
@@ -4289,6 +4458,12 @@ def run_multi_agent_fanin_bundle(
     )
     source_refs = _strings(manifest.get("source_refs")) or CONTINUATION_PACKET_SOURCE_REFS
     target_refs = _strings(manifest.get("target_refs")) or CONTINUATION_PACKET_TARGET_REFS
+    observed_source_modules = _rows(source_manifest_result, "observed_modules")
+    source_body_digest = (
+        str(observed_source_modules[0].get("sha256") or "")
+        if observed_source_modules
+        else ""
+    )
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -4316,6 +4491,10 @@ def run_multi_agent_fanin_bundle(
             "continuation_packet_fingerprints": continuation_fingerprints,
             "worker_trace_decisions": worker_trace_decisions,
             "fanin_input_validation": input_result,
+            "source_module_manifest": source_manifest_result,
+            "copied_macro_source_count": source_manifest_result[
+                "copied_macro_source_count"
+            ],
             "fanin_policy": policy_result,
             "expected_summary_validation": expected_result,
             "source_refs": source_refs,
@@ -4329,6 +4508,20 @@ def run_multi_agent_fanin_bundle(
                     "microcosm-substrate/src/microcosm_core/macro_tools/"
                     "continuation_packet.py"
                 ),
+                "body_in_receipt": False,
+            },
+            "exact_source_body_import": {
+                "verification_status": source_manifest_result["status"],
+                "verification_mode": "exact_source_digest_match",
+                "source_to_target_relation": "exact_copy",
+                "source_ref": MULTI_AGENT_FANIN_SOURCE_REF,
+                "target_ref": MULTI_AGENT_FANIN_SOURCE_TARGET_REF,
+                "source_body_digest": f"sha256:{source_body_digest}"
+                if source_body_digest
+                else "",
+                "target_body_digest": f"sha256:{source_body_digest}"
+                if source_body_digest and source_manifest_result["status"] == PASS
+                else "",
                 "body_in_receipt": False,
             },
             "public_continuation_packets": packets,

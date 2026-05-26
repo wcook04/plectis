@@ -558,6 +558,10 @@ def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["recipient_send_authorized"] is False
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert result["source_module_manifest"]["status"] == "pass"
+    assert result["source_module_manifest"]["all_expected_digests_matched"] is True
+    assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
+    assert result["copied_macro_source_count"] == 1
     assert result["fanin_input_validation"]["metadata_envelope_only"] is True
     assert result["fanin_input_validation"]["worker_boundary_count"] == 2
     assert (
@@ -586,6 +590,15 @@ def test_multi_agent_fanin_replay_bundle_validates_runtime_shape(
     )
     assert result["body_import_verification"]["target_ref"] == (
         "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py"
+    )
+    assert result["exact_source_body_import"]["verification_mode"] == (
+        "exact_source_digest_match"
+    )
+    assert result["exact_source_body_import"]["source_ref"] == (
+        "system/lib/continuation_packet.py"
+    )
+    assert result["exact_source_body_import"]["source_body_digest"] == (
+        result["exact_source_body_import"]["target_body_digest"]
     )
     assert all(
         row["decision"] == "accepted" for row in result["worker_trace_decisions"]
@@ -630,10 +643,40 @@ def test_multi_agent_fanin_replay_receipt_is_public_safe(tmp_path: Path) -> None
     assert payload["account_session_state_exported"] is False
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
+    assert payload["source_module_manifest"]["body_in_receipt"] is False
+    assert payload["exact_source_body_import"]["body_in_receipt"] is False
     assert payload["authority_ceiling"]["release_authorized"] is False
     for hit in payload["secret_exclusion_scan"]["hits"]:
         assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_multi_agent_fanin_imports_exact_continuation_packet_source_body() -> None:
+    source = MICROCOSM_ROOT.parent / "system/lib/continuation_packet.py"
+    bundle_source = (
+        MULTI_AGENT_FANIN_BUNDLE_INPUT
+        / "source_modules/system/lib/continuation_packet.py"
+    )
+    manifest = json.loads(
+        (MULTI_AGENT_FANIN_BUNDLE_INPUT / "source_module_manifest.json").read_text()
+    )
+    row = manifest["modules"][0]
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
+    bundle_source_text = bundle_source.read_text(encoding="utf-8")
+
+    assert bundle_source.is_file()
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert row["source_ref"] == "system/lib/continuation_packet.py"
+    assert row["path"] == "source_modules/system/lib/continuation_packet.py"
+    assert row["material_class"] == "public_macro_tool_body"
+    assert row["body_in_receipt"] is False
+    assert row["sha256"] == source_digest
+    assert row["sha256"] == bundle_source_digest
+    assert "def build_continuation_packet(" in bundle_source_text
+    assert "def write_continuation_packet(" in bundle_source_text
+    compile(bundle_source_text, str(bundle_source), "exec")
 
 
 def test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape(

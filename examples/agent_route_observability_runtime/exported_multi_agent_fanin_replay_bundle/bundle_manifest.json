@@ -20,7 +20,17 @@
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py",
     "microcosm-substrate/src/microcosm_core/organs/agent_route_observability_runtime.py",
-    "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle"
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+    "microcosm-substrate/examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/continuation_packet.py"
+  ],
+  "required_files": [
+    "bundle_manifest.json",
+    "source_module_manifest.json",
+    "source_modules/system/lib/continuation_packet.py",
+    "continuation_contexts.json",
+    "worker_traces.json",
+    "fanin_policy.json",
+    "expected_fanin_summary.json"
   ],
   "body_import_status": "source_faithful_public_refactor_landed",
   "body_import_verification": {
