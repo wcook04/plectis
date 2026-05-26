@@ -50,6 +50,28 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/local_to_general_propagation.md",
         "codex/doctrine/paper_modules/navigation_hologram_theory.md",
     ]
+    assert contract["module_depth_roles"] == {
+        "product_roof": "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "entry_lattice": "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "public_export_bridge": (
+            "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+        ),
+        "coverage_metabolism": (
+            "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
+        ),
+        "laboratory_boundary": (
+            "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+        ),
+        "public_boundary_context": [
+            "codex/doctrine/paper_modules/public_constellation_strategy.md",
+            "codex/doctrine/paper_modules/dissemination_strategy.md",
+        ],
+        "route_governance_support": [
+            "codex/doctrine/paper_modules/prime_directives.md",
+            "codex/doctrine/paper_modules/local_to_general_propagation.md",
+            "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+        ],
+    }
     assert contract["required_projection_surfaces"] == [
         "codex/doctrine/paper_modules/_index.json",
         "codex/doctrine/paper_modules/_validation_report.json",
@@ -108,6 +130,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "Every doctrine_lattice_route.paper_module_refs entry must be "
             "classified by primary_modules or supporting_lattice_modules."
         ),
+        "role_coverage_rule": (
+            "Every primary_modules and supporting_lattice_modules entry must be "
+            "represented in module_depth_roles, so Atlas card readers see why "
+            "each paper edge exists."
+        ),
         "supporting_module_role": (
             "route_governance_and_propagation_context_not_microcosm_product_roof"
         ),
@@ -136,6 +163,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert rule["fields"] == [
         "primary_modules",
         "supporting_lattice_modules",
+        "module_depth_roles",
         "required_projection_surfaces",
         "atlas_option_surfaces",
         "healthy_state_receipt",
@@ -164,6 +192,41 @@ def test_microcosm_paper_module_coverage_classifies_entry_packet_refs() -> None:
     }
 
 
+def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
+    contract = _std_microcosm()["paper_module_coverage_contract"]
+    roles = contract["module_depth_roles"]
+    role_paths: set[str] = set()
+
+    for value in roles.values():
+        if isinstance(value, list):
+            role_paths.update(value)
+        else:
+            role_paths.add(value)
+
+    classified = set(contract["primary_modules"]) | set(
+        contract["supporting_lattice_modules"]
+    )
+    assert classified == role_paths
+    assert roles["product_roof"] == (
+        "codex/doctrine/paper_modules/microcosm_substrate.md"
+    )
+    assert roles["entry_lattice"] == (
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
+    )
+    assert roles["public_export_bridge"] == (
+        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+    )
+    assert roles["coverage_metabolism"] == (
+        "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
+    )
+    assert roles["laboratory_boundary"] == (
+        "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
+    )
+    assert roles["route_governance_support"] == contract[
+        "supporting_lattice_modules"
+    ]
+
+
 def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() -> None:
     entry_lattice = (
         REPO_ROOT / "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
@@ -182,6 +245,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "paper_module_coverage_metabolism",
         "generated sidecars",
         "supporting route-lattice modules",
+        "module_depth_roles",
         "entry-packet parity rule",
         "all authored modules up to date",
         "refresh/split/first-author/deprecate queues at zero",
@@ -191,10 +255,12 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "Verify paper-module coverage/depth" in entry_lattice
     assert "Route public Microcosm exports" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
+    assert "paper_module_coverage_contract.module_depth_roles" in product_roof
     assert "sidecars as source truth" in product_roof
     assert "first-screen <project>` emits the JSON one-screen reader map" in product_roof
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
+    assert "module depth roles" in public_export_bridge
 
 
 def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
@@ -218,6 +284,20 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "microcosm_entry_lattice",
         "microcosm_public_export_type_plane",
         "paper_module_coverage_metabolism",
+        "public_constellation_strategy",
+        "dissemination_strategy",
+    ]
+    assert row["entry_depth_contract"]["coverage_role_contract"] == (
+        "codex/standards/std_microcosm.json::"
+        "paper_module_coverage_contract.module_depth_roles"
+    )
+    assert row["entry_depth_contract"]["supporting_lattice_depth"] == [
+        "prime_directives",
+        "local_to_general_propagation",
+        "navigation_hologram_theory",
+    ]
+    assert row["entry_depth_contract"]["context_boundary_depth"] == [
+        "idea_microcosm_metabolism",
         "public_constellation_strategy",
         "dissemination_strategy",
     ]
