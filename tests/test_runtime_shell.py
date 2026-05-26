@@ -4570,6 +4570,62 @@ def test_runtime_shell_intake_projects_reveal_import_bridge(tmp_path: Path) -> N
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_intake_card_compacts_reveal_import_bridge(tmp_path: Path) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+
+    card = shell.intake_card()
+
+    assert card["status"] == "pass"
+    assert card["schema_version"] == "microcosm_runtime_reveal_import_bridge_card_v1"
+    assert card["card_id"] == "runtime_reveal_import_bridge"
+    assert card["command"] == "microcosm intake --card"
+    assert card["full_command"] == "microcosm intake"
+    assert card["endpoint"] == "/intake-card"
+    assert card["surface_counts"]["projection_cell_count"] >= 15
+    assert card["surface_counts"]["open_actionable_cell_count"] == 0
+    assert 1 <= len(card["cell_status_preview"]) <= 8
+    assert (
+        card["surface_counts"]["cell_status_preview_count"]
+        == len(card["cell_status_preview"])
+    )
+    assert card["cell_status_preview"][0]["cell_id"] == "runtime_reveal_import_bridge"
+    assert card["payload_boundary"]["omits_full_cell_status"] is True
+    assert card["payload_boundary"]["omits_full_first_run_bridge"] is True
+    assert card["payload_boundary"]["omits_full_runtime_bridge_evidence_refs"] is True
+    assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["authority_ceiling"]["provider_calls_authorized"] is False
+    assert card["body_in_receipt"] is False
+    assert "cell_status" not in card
+    assert "first_run_bridge" not in card
+    assert "runtime_bridge_evidence_refs" not in card
+    encoded = json.dumps(card, sort_keys=True)
+    assert len(encoded) < 14000
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_serves_intake_card_endpoint(tmp_path: Path) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+    server = shell.serve("127.0.0.1", 0)
+    host, port = server.server_address
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        with urlopen(f"http://{host}:{port}/intake-card", timeout=5) as response:
+            card = json.loads(response.read().decode("utf-8"))
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+        server.server_close()
+
+    assert card["status"] == "pass"
+    assert card["schema_version"] == "microcosm_runtime_reveal_import_bridge_card_v1"
+    assert card["endpoint"] == "/intake-card"
+    assert card["payload_boundary"]["omits_full_cell_status"] is True
+
+
 def test_runtime_shell_observatory_intake_bridge_uses_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)

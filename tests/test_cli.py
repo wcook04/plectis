@@ -116,6 +116,11 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "project/runtime status lens"
     ) in output
     assert "microcosm spine --card          read the compact runtime spine lens" in output
+    assert "microcosm authority --card      read the compact authority ceiling lens" in output
+    assert (
+        "microcosm intake --card         read the compact intake/projection bridge lens"
+        in output
+    )
     assert (
         "microcosm workingness --card    read the compact behavior/failure lens"
         in output
@@ -137,6 +142,12 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm spine --card"
     )
     assert output.index("microcosm spine --card") < output.index(
+        "microcosm authority --card"
+    )
+    assert output.index("microcosm authority --card") < output.index(
+        "microcosm intake --card"
+    )
+    assert output.index("microcosm intake --card") < output.index(
         "microcosm workingness --card"
     )
     assert output.index("microcosm workingness --card") < output.index(
@@ -249,6 +260,30 @@ def test_cli_authority_card_is_compact_first_screen_lens(
     assert payload["payload_boundary"]["omits_full_organ_authority"] is True
     assert "surface_authority" not in payload
     assert "organ_authority" not in payload
+
+
+def test_cli_intake_card_is_compact_first_screen_lens(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["intake", "--card"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert len(json.dumps(payload, sort_keys=True)) < 14000
+    assert payload["status"] == "pass"
+    assert payload["schema_version"] == "microcosm_runtime_reveal_import_bridge_card_v1"
+    assert payload["command"] == "microcosm intake --card"
+    assert payload["full_command"] == "microcosm intake"
+    assert payload["endpoint"] == "/intake-card"
+    assert payload["full_endpoint"] == "/intake"
+    assert payload["surface_counts"]["projection_cell_count"] >= 15
+    assert payload["surface_counts"]["open_actionable_cell_count"] == 0
+    assert 1 <= payload["surface_counts"]["cell_status_preview_count"] <= 8
+    assert payload["payload_boundary"]["omits_full_cell_status"] is True
+    assert payload["payload_boundary"]["omits_full_projection_cells"] is True
+    assert payload["payload_boundary"]["omits_full_runtime_bridge_evidence_refs"] is True
+    assert "cell_status" not in payload
+    assert "first_run_bridge" not in payload
+    assert "runtime_bridge_evidence_refs" not in payload
 
 
 def test_cli_status_card_can_overlay_project_route_state(

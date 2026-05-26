@@ -15171,6 +15171,144 @@ class RuntimeShell:
         write_json_atomic(out_dir / "runtime_reveal_import_bridge.json", payload)
         return payload
 
+    def intake_card(self) -> dict[str, Any]:
+        projection_input = (
+            self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+        )
+        projection_preview = macro_projection_import_protocol.preview_import_plan(
+            projection_input,
+            "microcosm intake --card",
+        )
+        projection_board = projection_preview.get("projection_intake_board", {})
+        if not isinstance(projection_board, dict):
+            projection_board = {}
+        cells = _rows(projection_board, "projection_cells")
+        cells_by_id = {str(row.get("cell_id") or ""): row for row in cells}
+        priority_cell_ids = [
+            "runtime_reveal_import_bridge",
+            "projection_protocol_self_host",
+            "formal_math_readiness_extensions",
+        ]
+        preview_cells = [
+            cells_by_id[cell_id]
+            for cell_id in priority_cell_ids
+            if cell_id in cells_by_id
+        ]
+        previewed_ids = {str(row.get("cell_id") or "") for row in preview_cells}
+        for cell in cells:
+            cell_id = str(cell.get("cell_id") or "")
+            if not cell_id or cell_id in previewed_ids:
+                continue
+            preview_cells.append(cell)
+            previewed_ids.add(cell_id)
+            if len(preview_cells) >= 8:
+                break
+
+        def _cell_preview(cell: dict[str, Any]) -> dict[str, Any]:
+            projection_status = _normalize_runtime_projection_status(
+                cell.get("projection_status")
+            )
+            return {
+                "cell_id": str(cell.get("cell_id") or ""),
+                "intake_ready": cell.get("ready_to_project") is True,
+                "projection_status": projection_status,
+                "cell_state": cell.get("cell_state"),
+                "action_required": cell.get("action_required") is True,
+                "next_runtime_surface": cell.get("next_runtime_surface"),
+                "runtime_bridge_status": projection_status,
+                "body_in_receipt": False,
+            }
+
+        open_actionable_cell_ids = [
+            str(cell.get("cell_id") or "")
+            for cell in cells
+            if cell.get("action_required") is True and cell.get("cell_id")
+        ]
+        projection_status_counts = _normalize_projection_status_counts(
+            projection_board.get("projection_status_counts", {})
+        )
+        bridge_receipt_ref = "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json"
+        reveal_receipt_ref = (
+            "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/"
+            "public_reveal_walkthrough_result.json"
+        )
+        return {
+            "schema_version": "microcosm_runtime_reveal_import_bridge_card_v1",
+            "created_at": utc_now(),
+            "status": PASS if projection_preview.get("status") == PASS else "blocked",
+            "card_id": "runtime_reveal_import_bridge",
+            "bridge_id": "runtime_reveal_import_bridge",
+            "command": "microcosm intake --card",
+            "full_command": "microcosm intake",
+            "endpoint": "/intake-card",
+            "full_endpoint": "/intake",
+            "cold_reader_goal": "under_10_minutes_with_import_context_visible",
+            "public_claim": (
+                "Compact intake shows the macro projection bridge status without "
+                "printing the full projection cell table or reveal payload."
+            ),
+            "projection_intake_ref": (
+                "receipts/first_wave/macro_projection_import_protocol/"
+                "projection_import_intake_board.json"
+            ),
+            "projection_plan_command": (
+                "microcosm macro-projection-import-protocol plan --input "
+                "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+            ),
+            "reveal_command": "microcosm reveal",
+            "spine_command": "microcosm spine --card",
+            "surface_counts": {
+                "projection_cell_count": len(cells),
+                "ready_cell_count": projection_board.get("ready_cell_count"),
+                "landed_cell_count": projection_board.get("landed_cell_count"),
+                "consumed_cell_count": projection_board.get("consumed_cell_count"),
+                "open_actionable_cell_count": projection_board.get(
+                    "open_actionable_cell_count"
+                ),
+                "projection_status_kind_count": len(projection_status_counts),
+                "cell_status_preview_count": len(preview_cells),
+            },
+            "projection_status_protocol": projection_board.get(
+                "projection_status_protocol"
+            ),
+            "projection_status_counts": projection_status_counts,
+            "cell_status_preview": [_cell_preview(cell) for cell in preview_cells],
+            "open_actionable_cell_ids_preview": open_actionable_cell_ids[:8],
+            "runtime_bridge_evidence_refs_preview": [
+                bridge_receipt_ref,
+                reveal_receipt_ref,
+                "receipts/first_wave/macro_projection_import_protocol/"
+                "projection_import_intake_board.json",
+            ],
+            "payload_boundary": {
+                "omits_full_cell_status": True,
+                "omits_full_projection_cells": True,
+                "omits_full_first_run_bridge": True,
+                "omits_full_runtime_bridge_evidence_refs": True,
+                "omits_reveal_result_payload": True,
+                "full_payload_command": "microcosm intake",
+            },
+            "authority_ceiling": {
+                "release_authorized": False,
+                "hosted_public_authorized": False,
+                "publication_authorized": False,
+                "recipient_work_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "credential_or_account_bound_bodies_exported": False,
+                "private_data_equivalence_claim": False,
+                "lean_lake_execution_authorized": False,
+                "trading_or_financial_advice_authorized": False,
+                "whole_system_correctness_claim": False,
+            },
+            "body_in_receipt": False,
+            "next_commands": [
+                "microcosm intake",
+                "microcosm reveal",
+                "microcosm evidence inspect <receipt>",
+            ],
+        }
+
     def inspect_route(self, route_id: str) -> dict[str, Any]:
         for route in self.routes():
             if route["route_id"] == route_id or route.get("row_id") == route_id:
@@ -17964,6 +18102,8 @@ class RuntimeShell:
                     self._send(200, shell.legibility_scorecard())
                 elif path == "/intake":
                     self._send(200, shell.intake())
+                elif path == "/intake-card":
+                    self._send(200, shell.intake_card())
                 elif path == "/reveal":
                     self._send(200, shell.reveal())
                 elif path == "/kernel":
@@ -18111,7 +18251,12 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("replay-gauntlet")
     subparsers.add_parser("benchmark-lab")
     subparsers.add_parser("legibility-scorecard")
-    subparsers.add_parser("intake")
+    intake_parser = subparsers.add_parser("intake")
+    intake_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact first-screen intake lens",
+    )
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     subparsers.add_parser("reveal")
@@ -18216,6 +18361,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "legibility-scorecard":
         return _print_json(shell.legibility_scorecard())
     if args.command == "intake":
+        if args.card:
+            return _print_json(shell.intake_card())
         return _print_json(shell.intake())
     if args.command == "run":
         return _print_json(shell.run_demo(args.project))

@@ -84,6 +84,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
   microcosm authority --card      read the compact authority ceiling lens
+  microcosm intake --card         read the compact intake/projection bridge lens
   microcosm workingness --card    read the compact behavior/failure lens
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --out /tmp/microcosm-proof-lab
@@ -145,7 +146,7 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 def _add_public_lens_parsers(subparsers) -> None:
     for command, help_text in PUBLIC_LENS_COMMAND_HELP:
         parser = subparsers.add_parser(command, help=help_text)
-        if command in {"spine", "workingness"}:
+        if command in {"spine", "workingness", "intake"}:
             parser.add_argument(
                 "--card",
                 action="store_true",
@@ -957,7 +958,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "legibility-scorecard":
         return runtime_shell.main(["legibility-scorecard"])
     if args.command == "intake":
-        return runtime_shell.main(["intake"])
+        command_args = ["intake"]
+        if args.card:
+            command_args.append("--card")
+        return runtime_shell.main(command_args)
     if args.command == "reveal":
         return runtime_shell.main(["reveal"])
     if args.command == "run":
