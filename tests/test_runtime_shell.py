@@ -1301,6 +1301,18 @@ def test_runtime_shell_workingness_map_tracks_failure_modes_without_scoring() ->
     assert workingness["map_policy"]["not_a_scorecard"] is True
     assert workingness["map_policy"]["failure_modes_come_from_owning_standards"] is True
     assert workingness["authority_ceiling"]["score_based_progress_authority"] is False
+    assert workingness["mapped_organ_count"] == 47
+    assert workingness["adapter_backed_organ_count"] == 43
+    assert workingness["demoted_drilldown_count"] == 4
+    assert workingness["missing_standard_count"] == 0
+    assert workingness["missing_failure_modes_count"] == 0
+    assert workingness["rows_with_failure_modes"] == 47
+    assert workingness["rows_with_future_work_targets"] == 30
+    assert workingness["accepted_status_is_not_evidence_strength"] is True
+    assert workingness["not_a_scorecard"] is True
+    assert workingness["gap_preview"]["status"] == "clear"
+    assert workingness["gap_preview"]["drilldown_command"] == "microcosm workingness"
+    assert "top-level counts" in workingness["reader_action"]
     assert workingness["surface_counts"]["mapped_organ_count"] == 47
     assert workingness["surface_counts"]["adapter_backed_organ_count"] == 43
     assert workingness["surface_counts"]["demoted_drilldown_count"] == 4

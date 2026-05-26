@@ -780,7 +780,20 @@ def test_cli_workingness_smoke(
     assert payload["command"] == "microcosm workingness"
     assert payload["endpoint"] == "/workingness"
     assert payload["completeness_status"] == "complete_failure_modes"
-    assert payload["surface_counts"]["mapped_organ_count"] == 46
+    assert payload["map_generation_status"] == "pass"
+    assert payload["failure_envelope_status"] == "clear"
+    assert payload["mapped_organ_count"] == 47
+    assert payload["adapter_backed_organ_count"] == 43
+    assert payload["demoted_drilldown_count"] == 4
+    assert payload["missing_standard_count"] == 0
+    assert payload["missing_failure_modes_count"] == 0
+    assert payload["rows_with_failure_modes"] == 47
+    assert payload["accepted_status_is_not_evidence_strength"] is True
+    assert payload["not_a_scorecard"] is True
+    assert payload["gap_preview"]["status"] == "clear"
+    assert payload["surface_counts"]["mapped_organ_count"] == 47
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
+    assert payload["surface_counts"]["demoted_drilldown_count"] == 4
     assert payload["surface_counts"]["missing_failure_modes_count"] == 0
     rows_by_id = {row["thing_id"]: row for row in payload["thing_failure_map"]}
     assert rows_by_id["verifier_lab_kernel"]["workingness_state"] == (

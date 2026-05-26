@@ -3635,6 +3635,28 @@ class RuntimeShell:
             if "known_failure_modes_present"
             in row["needs_to_work"]["missing_requirement_ids"]
         )
+        map_policy = {
+            "not_a_scorecard": True,
+            "accepted_status_is_not_evidence_strength": True,
+            "evidence_class_is_claim_ceiling": True,
+            "future_work_targets_are_concrete_substrate_targets": True,
+            "failure_modes_come_from_owning_standards": True,
+            "demoted_drilldowns_remain_visible_without_counting_as_product_path": True,
+        }
+        surface_counts = {
+            "thing_count": mapped_count,
+            "mapped_organ_count": mapped_count,
+            "rows_with_failure_modes": rows_with_failure_modes,
+            "missing_standard_count": missing_standard_count,
+            "missing_failure_modes_count": missing_failure_modes_count,
+            "rows_with_future_work_targets": rows_with_open_targets,
+            "adapter_backed_organ_count": sum(
+                1 for row in rows if row.get("runtime_mode") == "adapter_backed"
+            ),
+            "demoted_drilldown_count": sum(
+                1 for row in rows if row.get("runtime_mode") == "drilldown_only"
+            ),
+        }
         payload = {
             "schema_version": "microcosm_workingness_failure_map_v1",
             "status": PASS if mapped_count == len(organs) else "blocked",
@@ -3648,28 +3670,8 @@ class RuntimeShell:
             "projection_not_authority": True,
             "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
             "unsafe_payload_bodies_exported": False,
-            "map_policy": {
-                "not_a_scorecard": True,
-                "accepted_status_is_not_evidence_strength": True,
-                "evidence_class_is_claim_ceiling": True,
-                "future_work_targets_are_concrete_substrate_targets": True,
-                "failure_modes_come_from_owning_standards": True,
-                "demoted_drilldowns_remain_visible_without_counting_as_product_path": True,
-            },
-            "surface_counts": {
-                "thing_count": mapped_count,
-                "mapped_organ_count": mapped_count,
-                "rows_with_failure_modes": rows_with_failure_modes,
-                "missing_standard_count": missing_standard_count,
-                "missing_failure_modes_count": missing_failure_modes_count,
-                "rows_with_future_work_targets": rows_with_open_targets,
-                "adapter_backed_organ_count": sum(
-                    1 for row in rows if row.get("runtime_mode") == "adapter_backed"
-                ),
-                "demoted_drilldown_count": sum(
-                    1 for row in rows if row.get("runtime_mode") == "drilldown_only"
-                ),
-            },
+            "map_policy": map_policy,
+            "surface_counts": surface_counts,
             "thing_failure_map": rows,
             "authority_ceiling": {
                 "release_authorized": False,
@@ -3698,6 +3700,33 @@ class RuntimeShell:
         payload["top_level_status_rule"] = (
             "status describes map generation; failure_envelope_status describes "
             "bounded missing-standard or missing-failure-mode debt"
+        )
+        payload.update(
+            {
+                "mapped_organ_count": surface_counts["mapped_organ_count"],
+                "adapter_backed_organ_count": surface_counts[
+                    "adapter_backed_organ_count"
+                ],
+                "demoted_drilldown_count": surface_counts["demoted_drilldown_count"],
+                "rows_with_failure_modes": surface_counts["rows_with_failure_modes"],
+                "rows_with_future_work_targets": surface_counts[
+                    "rows_with_future_work_targets"
+                ],
+                "missing_standard_count": surface_counts["missing_standard_count"],
+                "missing_failure_modes_count": surface_counts[
+                    "missing_failure_modes_count"
+                ],
+                "accepted_status_is_not_evidence_strength": map_policy[
+                    "accepted_status_is_not_evidence_strength"
+                ],
+                "not_a_scorecard": map_policy["not_a_scorecard"],
+                "gap_preview": _workingness_gap_preview(payload),
+                "reader_action": (
+                    "Use the top-level counts for a first-screen gap lens, then "
+                    "open thing_failure_map for per-organ failure modes and "
+                    "future work targets."
+                ),
+            }
         )
         if persist_receipt:
             write_json_atomic(self.root / WORKINGNESS_MAP_REF, payload)

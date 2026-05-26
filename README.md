@@ -481,8 +481,11 @@ mathematical correctness, or authorize release.
 what each organ needs to work against the evidence Microcosm currently has:
 owning standard, typed failure modes, validator command, authority receipt,
 generated receipts, evidence class, claim ceiling, and public/private
-boundary. It emits concrete future-work targets without becoming a maturity
-board, activation label, release signal, or score-based progress surface.
+boundary. Its top-level count lens repeats the mapped-organ, adapter-backed,
+demoted-drilldown, missing-standard, missing-failure-mode, and gap-preview
+fields before the full per-organ rows. It emits concrete future-work targets
+without becoming a maturity board, activation label, release signal, or
+score-based progress surface.
 
 `microcosm prediction-lens` is the public read-model for the
 `prediction_oracle_reconciliation` organ. It shows synthetic target-universe
