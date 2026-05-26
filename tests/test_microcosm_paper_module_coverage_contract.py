@@ -24,6 +24,14 @@ def _std_standard_type_plane() -> dict:
     )
 
 
+def _entry_packet() -> dict:
+    return json.loads(
+        (REPO_ROOT / "microcosm-substrate/atlas/entry_packet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+
 def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     standard = _std_microcosm()
     contract = standard["paper_module_coverage_contract"]
@@ -36,6 +44,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
         "codex/doctrine/paper_modules/public_constellation_strategy.md",
         "codex/doctrine/paper_modules/dissemination_strategy.md",
+    ]
+    assert contract["supporting_lattice_modules"] == [
+        "codex/doctrine/paper_modules/prime_directives.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
     ]
     assert contract["required_projection_surfaces"] == [
         "codex/doctrine/paper_modules/_index.json",
@@ -86,6 +99,23 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "proof_or_candidate_axiom_authority"
         ),
     }
+    assert contract["entry_packet_parity"] == {
+        "source_ref": (
+            "microcosm-substrate/atlas/entry_packet.json::"
+            "doctrine_lattice_route.paper_module_refs"
+        ),
+        "coverage_rule": (
+            "Every doctrine_lattice_route.paper_module_refs entry must be "
+            "classified by primary_modules or supporting_lattice_modules."
+        ),
+        "supporting_module_role": (
+            "route_governance_and_propagation_context_not_microcosm_product_roof"
+        ),
+        "authority_ceiling": (
+            "entry_packet_parity_only_not_product_primary_module_release_"
+            "source_truth_proof_or_candidate_axiom_authority"
+        ),
+    }
     assert contract["authority_ceiling"] == (
         "coverage_navigation_only_not_public_release_source_truth_proof_or_"
         "candidate_axiom_authority"
@@ -105,13 +135,33 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     )
     assert rule["fields"] == [
         "primary_modules",
+        "supporting_lattice_modules",
         "required_projection_surfaces",
         "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
         "standard_type_plane_bridge",
+        "entry_packet_parity",
         "authority_ceiling",
     ]
+
+
+def test_microcosm_paper_module_coverage_classifies_entry_packet_refs() -> None:
+    contract = _std_microcosm()["paper_module_coverage_contract"]
+    entry_packet_refs = _entry_packet()["doctrine_lattice_route"]["paper_module_refs"]
+
+    classified_refs = (
+        contract["primary_modules"] + contract["supporting_lattice_modules"]
+    )
+    assert set(entry_packet_refs).issubset(set(classified_refs))
+    assert "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md" in set(
+        classified_refs
+    )
+    assert set(contract["supporting_lattice_modules"]) == {
+        "codex/doctrine/paper_modules/prime_directives.md",
+        "codex/doctrine/paper_modules/local_to_general_propagation.md",
+        "codex/doctrine/paper_modules/navigation_hologram_theory.md",
+    }
 
 
 def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() -> None:
@@ -127,6 +177,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "microcosm_public_export_type_plane",
         "paper_module_coverage_metabolism",
         "generated sidecars",
+        "supporting route-lattice modules",
+        "entry-packet parity rule",
         "all authored modules up to date",
         "refresh/split/first-author/deprecate queues at zero",
     ]:
