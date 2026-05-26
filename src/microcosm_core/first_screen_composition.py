@@ -149,6 +149,60 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
     ]
 
 
+def _reader_landing_packets(project_label: str) -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_reader_landing_packets_v1",
+        "purpose": "turn_reader_routes_into_first_action_proof_success_packets",
+        "shared_authority_rule": (
+            "Reader packets choose inspection order only; every reader inherits the "
+            "same authority ceiling, anti-claim, and omission receipt."
+        ),
+        "one_screen_rule": (
+            "Each packet carries one first action, one proof surface, one success "
+            "criterion, and one next drilldown."
+        ),
+        "packets": [
+            {
+                "reader_route_id": "safety_evals_engineer",
+                "first_action": f"Run `microcosm status --card {project_label}`.",
+                "proof_surface": (
+                    "`microcosm authority` plus `microcosm workingness`"
+                ),
+                "success_criterion": (
+                    "Can cite the evidence-class ceilings and the body-copy validator "
+                    "boundary without inferring maturity or release readiness."
+                ),
+                "next_drilldown": EVIDENCE_CLASS_REGISTRY_REF,
+                "authority": "inspection_order_only_not_safety_approval",
+            },
+            {
+                "reader_route_id": "hiring_reviewer",
+                "first_action": (
+                    f"Run `microcosm hello {project_label}` before the longer tour."
+                ),
+                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "success_criterion": (
+                    "Can distinguish runnable local behavior from the claims this "
+                    "public card explicitly refuses to make."
+                ),
+                "next_drilldown": "microcosm legibility-scorecard",
+                "authority": "inspection_order_only_not_candidate_assessment",
+            },
+            {
+                "reader_route_id": "peer_developer",
+                "first_action": f"Run `microcosm tour --card {project_label}`.",
+                "proof_surface": f"`microcosm observe {project_label}`",
+                "success_criterion": (
+                    "Can inspect folder-local .microcosm state and follow the "
+                    "route/work/event/evidence chain without provider calls."
+                ),
+                "next_drilldown": "paper_modules/cold_reader_route_map.md",
+                "authority": "inspection_order_only_not_integration_guarantee",
+            },
+        ],
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -465,9 +519,10 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         ),
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
-            "preserve the shared first command, reader route ids, evidence-count frame, "
-            "evidence-class legend, doctrine-effect frame, observatory landing frame, "
-            "README-entry contract, omission receipt, and authority ceiling."
+            "preserve the shared first command, reader route ids, reader landing packets, "
+            "evidence-count frame, evidence-class legend, doctrine-effect frame, "
+            "observatory landing frame, README-entry contract, omission receipt, and "
+            "authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -513,8 +568,9 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "reader branches, public scale handles, evidence-class legend, doctrine-effect "
-            "frame, and authority ceiling before the deeper observatory lens inventory."
+            "reader branches, reader landing packets, public scale handles, evidence-class "
+            "legend, doctrine-effect frame, and authority ceiling before the deeper "
+            "observatory lens inventory."
         ),
         "projection_rule": (
             "The observatory landing is a projection over this first-screen card, not a "
@@ -526,6 +582,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "shared_first_command",
             "behavioral_proof_command",
             "reader_route_ids",
+            "reader_landing_packets",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -599,6 +656,17 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         for route in payload.get("reader_routes", [])
         if isinstance(route, dict)
     }
+    reader_landing_packets = payload.get("reader_landing_packets", {})
+    reader_packet_rows = (
+        reader_landing_packets.get("packets", [])
+        if isinstance(reader_landing_packets, dict)
+        else []
+    )
+    reader_packet_ids = {
+        str(packet.get("reader_route_id"))
+        for packet in reader_packet_rows
+        if isinstance(packet, dict)
+    }
     human_first_command = payload.get("human_first_command", "")
     shared_first_command = payload.get("shared_first_command", "")
     text_projection = payload.get("text_projection", {})
@@ -670,6 +738,30 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             == "terminal_text_projection_only_not_behavior_proof"
         ),
         "reader_route_ids": route_ids == REQUIRED_ROUTE_IDS,
+        "reader_landing_packets": (
+            isinstance(reader_landing_packets, dict)
+            and reader_landing_packets.get("purpose")
+            == "turn_reader_routes_into_first_action_proof_success_packets"
+            and reader_landing_packets.get("shared_authority_rule", "").endswith(
+                "same authority ceiling, anti-claim, and omission receipt."
+            )
+            and reader_packet_ids == REQUIRED_ROUTE_IDS
+            and all(
+                isinstance(packet, dict)
+                and isinstance(packet.get("first_action"), str)
+                and bool(packet.get("first_action"))
+                and isinstance(packet.get("proof_surface"), str)
+                and bool(packet.get("proof_surface"))
+                and isinstance(packet.get("success_criterion"), str)
+                and bool(packet.get("success_criterion"))
+                and isinstance(packet.get("next_drilldown"), str)
+                and bool(packet.get("next_drilldown"))
+                and str(packet.get("authority", "")).startswith(
+                    "inspection_order_only_not_"
+                )
+                for packet in reader_packet_rows
+            )
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -791,6 +883,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "shared_first_command",
                     "behavioral_proof_command",
                     "reader_route_ids",
+                    "reader_landing_packets",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -856,6 +949,7 @@ def first_screen_composition_card(
             ),
         },
         "reader_routes": _reader_routes(project_label),
+        "reader_landing_packets": _reader_landing_packets(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -897,27 +991,43 @@ def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
 
 
+def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    landing_packets = payload.get("reader_landing_packets", {})
+    if not isinstance(landing_packets, dict):
+        return {}
+    return {
+        str(packet.get("reader_route_id")): packet
+        for packet in landing_packets.get("packets", [])
+        if isinstance(packet, dict)
+    }
+
+
 def _reader_branch_lines(
     route_by_id: dict[str, dict[str, Any]],
+    packet_by_id: dict[str, dict[str, Any]],
     reader_id: str,
 ) -> list[str]:
     if reader_id == "all":
         return [
             "Reader branches:",
             *[
-                f"  {READER_LABELS[route_id]}: {' -> '.join(route_by_id[route_id]['next_commands'])}"
+                (
+                    f"  {READER_LABELS[route_id]}: "
+                    f"{packet_by_id[route_id]['first_action']} Proof: "
+                    f"{packet_by_id[route_id]['proof_surface']}"
+                )
                 for route_id in READER_ROUTE_IDS
             ],
         ]
 
     route = route_by_id[reader_id]
-    focus_lines = [f"    - {focus}" for focus in route["evidence_focus"][:2]]
+    packet = packet_by_id[reader_id]
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
         f"  Question: {route['first_question']}",
-        f"  Next: {' -> '.join(route['next_commands'])}",
-        "  Focus:",
-        *focus_lines,
+        f"  First action: {packet['first_action']}",
+        f"  Proof: {packet['proof_surface']}",
+        f"  Success: {packet['success_criterion']}",
     ]
 
 
@@ -950,6 +1060,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
     route_by_id = _reader_route_map(payload)
+    packet_by_id = _reader_packet_map(payload)
     human_first_command = payload.get(
         "human_first_command", "microcosm hello <project>"
     )
@@ -968,7 +1079,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  Counts are receipt-backed handles, not maturity, readiness, or progress scores.",
         _evidence_class_summary_line(payload),
         "",
-        *_reader_branch_lines(route_by_id, reader_id),
+        *_reader_branch_lines(route_by_id, packet_by_id, reader_id),
         "",
         "Runnable-to-structural join:",
         "  This card is the map; the first run writes .microcosm and exercises the larger public substrate:",

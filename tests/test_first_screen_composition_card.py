@@ -65,6 +65,32 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "hiring_reviewer",
         "peer_developer",
     }
+    reader_landing_packets = card["reader_landing_packets"]
+    packet_by_id = {
+        packet["reader_route_id"]: packet
+        for packet in reader_landing_packets["packets"]
+    }
+    assert reader_landing_packets["purpose"] == (
+        "turn_reader_routes_into_first_action_proof_success_packets"
+    )
+    assert "same authority ceiling" in reader_landing_packets[
+        "shared_authority_rule"
+    ]
+    assert "one first action" in reader_landing_packets["one_screen_rule"]
+    assert set(packet_by_id) == route_ids
+    for packet in packet_by_id.values():
+        assert packet["first_action"]
+        assert packet["proof_surface"]
+        assert packet["success_criterion"]
+        assert packet["next_drilldown"]
+        assert packet["authority"].startswith("inspection_order_only_not_")
+    assert packet_by_id["safety_evals_engineer"]["next_drilldown"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert "maturity or release readiness" in packet_by_id[
+        "safety_evals_engineer"
+    ]["success_criterion"]
+    assert "provider calls" in packet_by_id["peer_developer"]["success_criterion"]
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -184,6 +210,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "README-entry contract" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "reader landing packets" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -267,6 +296,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "behavioral_proof_command" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "reader_landing_packets" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -292,6 +324,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
+    assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -364,6 +397,16 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "hiring_reviewer",
         "peer_developer",
     }
+    packet_ids = {
+        packet["reader_route_id"]
+        for packet in card["reader_landing_packets"]["packets"]
+    }
+    assert packet_ids == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
     assert '"body":' not in result.stdout
@@ -388,11 +431,17 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
-        "Safety/evals: microcosm status --card . -> microcosm authority -> "
-        "microcosm workingness"
+        "Safety/evals: Run `microcosm status --card .`. Proof: "
+        "`microcosm authority` plus `microcosm workingness`"
     ) in text
-    assert "Hiring: microcosm legibility-scorecard -> microcosm tour --card ." in text
-    assert "Peer developer: microcosm tour --card . -> microcosm observe ." in text
+    assert (
+        "Hiring: Run `microcosm hello .` before the longer tour. "
+        "Proof: `microcosm tour --card .`"
+    ) in text
+    assert (
+        "Peer developer: Run `microcosm tour --card .`. "
+        "Proof: `microcosm observe .`"
+    ) in text
     assert (
         "browser landing: / -> /project/first-screen -> /project/observatory-card"
         in text
@@ -415,17 +464,23 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
     expected = {
         "safety_evals_engineer": {
             "label": "Safety/evals",
-            "next": "microcosm status --card . -> microcosm authority -> microcosm workingness",
+            "first_action": "Run `microcosm status --card .`.",
+            "proof": "`microcosm authority` plus `microcosm workingness`",
+            "success": "maturity or release readiness",
             "absent": ["Reader branch: Hiring", "Reader branch: Peer developer"],
         },
         "hiring_reviewer": {
             "label": "Hiring",
-            "next": "microcosm legibility-scorecard -> microcosm tour --card .",
+            "first_action": "Run `microcosm hello .` before the longer tour.",
+            "proof": "`microcosm tour --card .`",
+            "success": "public card explicitly refuses to make",
             "absent": ["Reader branch: Safety/evals", "Reader branch: Peer developer"],
         },
         "peer_developer": {
             "label": "Peer developer",
-            "next": "microcosm tour --card . -> microcosm observe .",
+            "first_action": "Run `microcosm tour --card .`.",
+            "proof": "`microcosm observe .`",
+            "success": "without provider calls",
             "absent": ["Reader branch: Safety/evals", "Reader branch: Hiring"],
         },
     }
@@ -439,8 +494,9 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "First run: microcosm tour --card ." in text
         assert f"Reader branch: {assertions['label']}" in text
         assert "  Question: " in text
-        assert f"  Next: {assertions['next']}" in text
-        assert "  Focus:\n" in text
+        assert f"  First action: {assertions['first_action']}" in text
+        assert f"  Proof: {assertions['proof']}" in text
+        assert assertions["success"] in text
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
         assert "Evidence classes: body import, subprocess witness" in text
@@ -507,7 +563,12 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "README inventory waits" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
-    assert "  Next: microcosm status --card . -> microcosm authority -> microcosm workingness" in result.stdout
+    assert "  First action: Run `microcosm status --card .`." in result.stdout
+    assert (
+        "  Proof: `microcosm authority` plus `microcosm workingness`"
+        in result.stdout
+    )
+    assert "maturity or release readiness" in result.stdout
     assert "Reader branches:" not in result.stdout
     assert "Reader branch: Hiring" not in result.stdout
     assert "reader_routes" not in result.stdout
