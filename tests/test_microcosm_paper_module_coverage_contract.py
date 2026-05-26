@@ -121,6 +121,35 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "proof_or_candidate_axiom_authority"
         ),
     }
+    assert contract["entry_intent_opening"] == {
+        "intent_id": "microcosm_paper_module_depth",
+        "owner": "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
+        "purpose": (
+            "Task-conditioned entry/context packets for Microcosm paper-module, "
+            "Atlas, coverage, and depth prompts must open Microcosm paper-module "
+            "and type-plane handles before generic cognitive-operator or broad "
+            "Atlas surfaces."
+        ),
+        "first_opening_kind": "paper_modules",
+        "selected_opening_kind_order": [
+            "paper_modules",
+            "navigation_type_plane",
+            "standards",
+            "microcosm_extracted_patterns",
+            "system_microcosm",
+        ],
+        "required_prompt_shapes": [
+            "microcosm paper module",
+            "paper module coverage",
+            "paper module depth",
+            "microcosm atlas entry",
+            "public microcosm exports",
+        ],
+        "authority_ceiling": (
+            "entry_intent_drilldown_selection_only_not_control_entry_release_"
+            "source_truth_proof_or_candidate_axiom_authority"
+        ),
+    }
     assert contract["entry_packet_parity"] == {
         "source_ref": (
             "microcosm-substrate/atlas/entry_packet.json::"
@@ -169,6 +198,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "healthy_state_receipt",
         "depth_order",
         "standard_type_plane_bridge",
+        "entry_intent_opening",
         "entry_packet_parity",
         "authority_ceiling",
     ]
@@ -238,6 +268,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         REPO_ROOT
         / "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
     ).read_text(encoding="utf-8")
+    coverage_metabolism = (
+        REPO_ROOT
+        / "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
+    ).read_text(encoding="utf-8")
 
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
@@ -246,6 +280,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "generated sidecars",
         "supporting route-lattice modules",
         "module_depth_roles",
+        "microcosm_paper_module_depth",
+        "navigation_type_plane",
         "entry-packet parity rule",
         "all authored modules up to date",
         "refresh/split/first-author/deprecate queues at zero",
@@ -261,6 +297,9 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
+    assert "microcosm_paper_module_depth" in coverage_metabolism
+    assert "navigation_type_plane" in coverage_metabolism
+    assert "cognitive_operators" in coverage_metabolism
 
 
 def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
