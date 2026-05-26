@@ -6,8 +6,10 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.corpus_readiness_mathlib_absence_gate import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     SOURCE_PATTERN_IDS,
+    main,
     run,
     run_projection_bundle,
 )
@@ -123,6 +125,40 @@ def test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle(
     assert result["receipt_paths"] == [
         "receipts/exported_corpus_readiness_bundle_validation_result.json"
     ]
+
+
+def test_corpus_readiness_exported_bundle_card_bounds_stdout(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    exit_code = main(
+        [
+            "run-projection-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE_INPUT),
+            "--out",
+            str(tmp_path / "receipts"),
+            "--card",
+        ]
+    )
+    stdout = capsys.readouterr().out
+    card = json.loads(stdout)
+
+    assert exit_code == 0
+    assert len(stdout.encode("utf-8")) < 6000
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["input_mode"] == "exported_corpus_readiness_bundle"
+    assert card["counts"]["corpus_count"] == 7
+    assert card["counts"]["consumer_case_count"] == 4
+    assert card["source_module_import"]["source_modules_pass"] is True
+    assert card["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert card["authority_ceiling"]["lean_lake_execution_authorized"] is False
+    assert card["body_in_receipt"] is False
+    assert "readiness_board" not in card
+    assert "source_module_imports" not in card
+    receipt = tmp_path / card["receipt_paths"][0]
+    assert receipt.is_file()
 
 
 def test_corpus_readiness_exported_source_modules_are_exact_copies() -> None:
