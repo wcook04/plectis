@@ -6,8 +6,14 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import (
+    mechanistic_interpretability_circuit_attribution_replay as circuit_attribution,
+)
 from microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
+    result_card,
     run,
     run_attribution_bundle,
 )
@@ -173,6 +179,69 @@ def test_mechanistic_interpretability_exported_bundle_validates_runtime_shape(
     )
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
+
+
+def test_mechanistic_interpretability_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "mechanistic_interpretability_circuit_attribution_replay"
+    )
+    command = (
+        "python -m microcosm_core.organs."
+        "mechanistic_interpretability_circuit_attribution_replay "
+        f"run-attribution-bundle --input {BUNDLE_INPUT} --out {out} --card"
+    )
+
+    first = run_attribution_bundle(
+        BUNDLE_INPUT,
+        out,
+        command=command,
+        reuse_fresh_receipt=True,
+    )
+    first_card = result_card(first)
+
+    assert first["status"] == "pass"
+    assert first["receipt_reused"] is False
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_input_count"] == 9
+    assert first_card["circuit_attribution"]["feature_count"] == 6
+    assert first_card["circuit_attribution"]["replay_count"] == 6
+    assert first_card["circuit_attribution"]["source_module_count"] == 2
+    assert first_card["body_floor"]["features_in_card"] is False
+    assert first_card["body_floor"]["attribution_replays_in_card"] is False
+    assert "features" not in first_card
+    assert "attribution_replays" not in first_card
+
+    def fail_build_result(*_args, **_kwargs):
+        raise AssertionError("fresh --card bundle path should reuse the receipt")
+
+    monkeypatch.setattr(circuit_attribution, "_build_result", fail_build_result)
+
+    assert (
+        main(
+            [
+                "run-attribution-bundle",
+                "--input",
+                str(BUNDLE_INPUT),
+                "--out",
+                str(out),
+                "--card",
+            ]
+        )
+        == 0
+    )
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports(
