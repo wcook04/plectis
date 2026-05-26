@@ -1,5 +1,28 @@
 {
-  "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, secret export, or source mutation.",
+  "anti_claim": "Evidence-class rows and truth-accounting buckets are read-model classification metadata only; they do not create score-based progress, maturity, readiness, release, source-mutation, proof-correctness, whole-system correctness, provider-call, private-equivalence, secret-export, or product-completeness authority.",
+  "authority_boundary": "Curated public evidence-strength registry consumed by the Microcosm runtime authority and spine projections. It classifies what each organ proves; it does not authorize release, provider calls, secret export, source mutation, score-based progress, maturity, readiness, proof correctness, private-data equivalence, product completeness, or whole-system correctness.",
+  "authority_ceiling": {
+    "classification_authority": "evidence_strength_and_truth_accounting_read_model_only",
+    "reader_action": "Use class_profiles and organ_evidence_classes to understand bounded evidence strength and truth-accounting buckets; do not treat counts, ranks, accepted status, or class names as score, maturity, readiness, release, product-completeness, private-equivalence, or whole-system authority.",
+    "denied_authority": {
+      "accepted_status_is_product_progress": false,
+      "class_rank_is_score": false,
+      "complete_secret_detection_claim": false,
+      "private_data_equivalence_claim": false,
+      "product_completeness_claim": false,
+      "proof_correctness_claim": false,
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "score_based_progress_authority": false,
+      "source_mutation_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "overread_guard": [
+      "counts_as_real_substrate_progress separates evidence buckets inside this public prototype; it is not a product-progress score",
+      "evidence_strength_rank is an ordinal disclosure aid, not a benchmark, maturity level, or release gate",
+      "accepted_current_authority names current public receipts only; it is not source authority above macro contracts"
+    ]
+  },
   "class_profiles": {
     "algorithmic_projection": {
       "claim_ceiling": "projection mechanics only, not domain correctness",

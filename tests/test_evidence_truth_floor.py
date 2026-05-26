@@ -140,7 +140,30 @@ def test_fixture_echo_profile_denies_score_and_progress_authority() -> None:
         )
     )
     profile = registry["class_profiles"]["fixture_echo_smoke"]
+    ceiling = registry["authority_ceiling"]
+    denied = ceiling["denied_authority"]
 
+    assert registry["anti_claim"].startswith(
+        "Evidence-class rows and truth-accounting buckets are read-model"
+    )
+    assert ceiling["classification_authority"] == (
+        "evidence_strength_and_truth_accounting_read_model_only"
+    )
+    assert denied["accepted_status_is_product_progress"] is False
+    assert denied["class_rank_is_score"] is False
+    assert denied["complete_secret_detection_claim"] is False
+    assert denied["private_data_equivalence_claim"] is False
+    assert denied["product_completeness_claim"] is False
+    assert denied["proof_correctness_claim"] is False
+    assert denied["provider_calls_authorized"] is False
+    assert denied["release_authorized"] is False
+    assert denied["score_based_progress_authority"] is False
+    assert denied["source_mutation_authorized"] is False
+    assert denied["whole_system_correctness_claim"] is False
+    assert any(
+        "not a product-progress score" in guard for guard in ceiling["overread_guard"]
+    )
+    assert any("not a benchmark" in guard for guard in ceiling["overread_guard"])
     assert profile["counts_as_real_substrate_progress"] is False
     assert profile["truth_accounting_bucket"] == "regression_negative_fixture"
     assert "not behavioral validation" in profile["claim_ceiling"]
