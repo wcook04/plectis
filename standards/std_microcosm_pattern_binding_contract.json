@@ -8,11 +8,11 @@
     "This public standard does not inline secret/provider/operator bodies or prove public runtime completeness.",
     "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
   ],
-  "authority_boundary": "public_runtime_source_ref_schema_standard_with_secret_exclusion_not_source_body_authority",
+  "authority_boundary": "public_runtime_source_ref_schema_standard_with_digest_verified_source_open_body_floor_and_secret_exclusion",
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
-    "source_body_authority": false,
+    "source_body_authority": "only_when_digest_verified_by_source_module_manifest_and_validator",
     "standard_authority": "schema_contract_and_validator_expectation_only",
     "status": "pass"
   },
@@ -150,6 +150,11 @@
       "role": "copied_non_secret_macro_overlay_bodies"
     },
     {
+      "field": "source_module_manifest",
+      "path": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json",
+      "role": "digest_verified_copied_non_secret_macro_body_floor"
+    },
+    {
       "role": "id_refs_only_no_source_bodies",
       "source_pattern_id_count": 48,
       "source_pattern_id_sample": [
@@ -177,6 +182,33 @@
     }
   ],
   "standard_id": "std_microcosm_pattern_binding_contract",
+  "source_open_body_imports_contract": {
+    "aggregate_floor_ref": "examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "pattern_binding_macro_pattern_ledger_body_import",
+      "pattern_binding_route_readiness_validator_tool_body_import",
+      "pattern_binding_route_readiness_standard_body_import",
+      "pattern_binding_public_first_slice_execution_receipt_body_import",
+      "pattern_binding_macro_standard_manifest_row_body_import"
+    ],
+    "body_material_status": "copied_non_secret_pattern_binding_macro_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "minimum_body_material_count": 5,
+    "required": true,
+    "schema_version": "pattern_binding_source_open_body_imports_contract_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "standard_payload": {
     "anti_purpose": "A loose rationale field or private source dump.",
     "compression_bands": [],
@@ -199,6 +231,9 @@
     "reject authority upgrades not backed by receipt_refs",
     "require public_private_boundary and secret_exclusion_scan before public projection",
     "reject route-readiness selector drift, unknown pattern refs, missing fixture contracts, dependency cycles, hard no-standalone selectable rows, and missing companion overlays"
+    ,
+    "require source_module_manifest.json digest verification before counting copied macro bodies as source_open_body_imports",
+    "count copied body material from source_open_body_imports rather than source refs, accepted row count, or route-readiness metadata alone"
   ],
   "validator_contract": {
     "minimum_checks": [

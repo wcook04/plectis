@@ -77,5 +77,63 @@
   "authority_ceiling": "regression_harness_plus_public_runtime_ref_contract",
   "real_runtime_receipt_required": true,
   "synthetic_receipt_standin_allowed": false,
+  "body_import_status": "real_macro_body_floor_landed",
+  "body_material_status": "copied_non_secret_pattern_binding_macro_body_with_provenance",
+  "body_copied_material_count": 5,
+  "body_in_receipt": false,
+  "body_import_verification": {
+    "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl plus route-readiness validator, route-readiness standard, public first-slice execution receipt, and standards-manifest pattern-binding row",
+    "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json",
+    "validation_refs": [
+      "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+      "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+    ],
+    "verification_mode": "digest_verified_copied_non_secret_macro_body",
+    "verification_status": "verified_by_pattern_binding_contract_validator"
+  },
+  "omitted_secret_or_live_access_material": [
+    "account/session/cookie material",
+    "browser/HUD live-access state",
+    "credential-equivalent material",
+    "operator thread bodies",
+    "private data equivalence",
+    "provider payload bodies",
+    "raw operator voice",
+    "recipient-send state",
+    "standalone public leaf authority for mined pattern rows"
+  ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "private_data_equivalence_authorized": false,
+      "provider_calls_authorized": false,
+      "public_leaf_authority_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 5,
+    "body_material_ids": [
+      "pattern_binding_macro_pattern_ledger_body_import",
+      "pattern_binding_route_readiness_validator_tool_body_import",
+      "pattern_binding_route_readiness_standard_body_import",
+      "pattern_binding_public_first_slice_execution_receipt_body_import",
+      "pattern_binding_macro_standard_manifest_row_body_import"
+    ],
+    "body_material_status": "copied_non_secret_pattern_binding_macro_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied pattern-binding macro bodies; receipts carry refs, digests, and status only.",
+    "schema_version": "pattern_binding_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "anti_claim": "A fixture manifest may carry regression harness controls and negative cases, but product evidence must come from public runtime refs, command-owned receipts, or explicit blocked-import debt."
 }

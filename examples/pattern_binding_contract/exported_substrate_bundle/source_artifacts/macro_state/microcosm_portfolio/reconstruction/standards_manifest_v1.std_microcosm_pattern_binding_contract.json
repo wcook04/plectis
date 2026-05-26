@@ -1,0 +1,223 @@
+{
+  "schema_version": "pattern_binding_contract_standard_manifest_slice_v1",
+  "source_ref": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json::standards[standard_id=std_microcosm_pattern_binding_contract]",
+  "relation": "source_faithful_json_slice",
+  "standard": {
+    "standard_id": "std_microcosm_pattern_binding_contract",
+    "kind_id": "pattern_binding_contract",
+    "kind_name": "Pattern binding contract",
+    "status": "draft",
+    "wave": "w1_core_contract_and_grammar",
+    "rebuild_action": "draft",
+    "ontology": "The row-to-source-to-organ contract that makes a pattern portable and auditable.",
+    "teleology": "Prevent pattern rows from becoming ungrounded ideas.",
+    "anti_purpose": "A loose rationale field or private source dump.",
+    "required_fields": [
+      "id",
+      "kind",
+      "schema_version",
+      "authority_boundary",
+      "source_refs",
+      "status",
+      "created_at",
+      "relationships",
+      "validator_refs",
+      "receipt_refs",
+      "omission_receipt",
+      "anti_claims",
+      "pattern_binding_contract_payload"
+    ],
+    "validation_rules": [
+      "validate required fields and enum values against this standard",
+      "reject missing source_refs unless the fixture declares synthetic origin",
+      "reject authority upgrades not backed by receipt_refs",
+      "require public_private_boundary before public projection"
+    ],
+    "receipt_expectations": [
+      "receipt.microcosm.pattern_binding_contract",
+      "receipt must cite validator_id, input fixture ids, output artifact refs, omissions, and anti_claim ids"
+    ],
+    "compression_bands": [],
+    "relationships": {
+      "used_by_organs": [
+        "executable_doctrine_grammar",
+        "pattern_binding_contract"
+      ],
+      "source_pattern_ids": [
+        "authority_chain_handle_resolver",
+        "branch_coverage_grade_ceiling",
+        "builder_factory_source_coupled_projection_lane",
+        "cognitive_operator_registry",
+        "cogop_operator_accretion_governor",
+        "config_authority_registry",
+        "constitution_workspace_seed",
+        "cp_artifact_schema_validation_result",
+        "distillation_bundle_validator_advisory_strict_modes",
+        "doctrine_reference_point_of_use_capsule_resolver",
+        "executable_grammar_metabolism",
+        "hidden_substrate_integration_manifest",
+        "launchable_operation_contract",
+        "mechanism_facet_manifest",
+        "negative_space_anti_profile_failure_mirror",
+        "node_reasoning_node_tool",
+        "operator_hud_action_receipt_proof_metadata_lane",
+        "operator_thread_continuation_type_b_handoff_shuttle",
+        "paper_module_authoring_runtime_self_describing",
+        "paper_module_convergent_pressure_metabolism",
+        "patcher_typed_repair",
+        "pattern_deliverables_registry",
+        "population_lane_generic",
+        "principle_scope_axiom_candidate_lattice",
+        "proof_handle_weakest_gate_resolver",
+        "raw_seed_source_index_packet_scope_membrane",
+        "recipient_packet_closed_loop_proof_branch_compiler",
+        "reconciliation_typed_drift_repair",
+        "rename_migration_receipt_atomic",
+        "root_handle_binding_protocol",
+        "self_comprehensibility_facet_registry",
+        "source_capsule_provenance",
+        "source_shuttle_bounded_carryforward",
+        "specimen_suite_branch_graph",
+        "standard_type_plane_single_drop_artifact_contract",
+        "standards_registry_executable_grammar_index",
+        "std_microcosm_meta_standard",
+        "std_paper_module_v8_self_governing",
+        "std_skill_typed_skills",
+        "std_skill_types_versioned_skills",
+        "strict_json_artifact",
+        "surface_authority_collision_detection",
+        "system_lib_pipeline_stages",
+        "teleology_node_substrate",
+        "test_as_machine_checkable_substrate_contract",
+        "test_mark_tier_routing_slow_control_plane",
+        "transform_job_provenance",
+        "voice_archaeology_coverage_aware_third_substrate"
+      ],
+      "axiom_principle_concept_mechanism_edges_required": true,
+      "validator_id": "validator.microcosm.pattern_binding_contract",
+      "receipt_id": "receipt.microcosm.pattern_binding_contract",
+      "canonical_organ_model_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json"
+    },
+    "failure_modes": [
+      "untyped artifact admitted into rebuilt substrate",
+      "current public microcosm surface treated as sufficient without coverage check",
+      "private source material exposed instead of synthetic/schema-only fixture",
+      "projection claims source authority without coupling receipt"
+    ],
+    "public_private_boundary": {
+      "default_posture": "public_safe_when_synthetic_or_source_capsuled",
+      "forbidden_public_inputs": [
+        "live_raw_seed",
+        "prompt_shelf_bodies",
+        "provider_payload_bodies",
+        "operator_thread_content",
+        "live_task_ledger_rows",
+        "market_or_prediction_private_material"
+      ],
+      "allowed_public_inputs": [
+        "synthetic_fixtures",
+        "schema_only_rows",
+        "redacted_source_capsules",
+        "public_safe_macro_code_when_refactored"
+      ]
+    },
+    "validator_contract": {
+      "validator_id": "validator.microcosm.pattern_binding_contract",
+      "required": true,
+      "minimum_checks": [
+        "schema",
+        "source_boundary",
+        "receipt_presence",
+        "negative_case_when_fixture_backed"
+      ]
+    },
+    "receipt_contract": {
+      "receipt_id": "receipt.microcosm.pattern_binding_contract",
+      "required": true,
+      "must_record": [
+        "command_or_validator",
+        "result",
+        "evidence_refs",
+        "omissions",
+        "authority_ceiling"
+      ]
+    },
+    "paper_module_contract": {
+      "required": true,
+      "module_slug": "pattern_binding_contract_standard"
+    },
+    "source_coupling_contract": {
+      "required": true,
+      "rule": "if generated or projected, record source input digest and stale-source behavior"
+    },
+    "omission_receipt_contract": {
+      "required": false,
+      "rule": "compressed views must list omitted bodies and drilldown refs"
+    },
+    "anti_claim_contract": {
+      "required": false,
+      "rule": "fixture-backed proof must state what it does not prove"
+    },
+    "source_pattern_ids": [
+      "authority_chain_handle_resolver",
+      "branch_coverage_grade_ceiling",
+      "builder_factory_source_coupled_projection_lane",
+      "cognitive_operator_registry",
+      "cogop_operator_accretion_governor",
+      "config_authority_registry",
+      "constitution_workspace_seed",
+      "cp_artifact_schema_validation_result",
+      "distillation_bundle_validator_advisory_strict_modes",
+      "doctrine_reference_point_of_use_capsule_resolver",
+      "executable_grammar_metabolism",
+      "hidden_substrate_integration_manifest",
+      "launchable_operation_contract",
+      "mechanism_facet_manifest",
+      "negative_space_anti_profile_failure_mirror",
+      "node_reasoning_node_tool",
+      "operator_hud_action_receipt_proof_metadata_lane",
+      "operator_thread_continuation_type_b_handoff_shuttle",
+      "paper_module_authoring_runtime_self_describing",
+      "paper_module_convergent_pressure_metabolism",
+      "patcher_typed_repair",
+      "pattern_deliverables_registry",
+      "population_lane_generic",
+      "principle_scope_axiom_candidate_lattice",
+      "proof_handle_weakest_gate_resolver",
+      "raw_seed_source_index_packet_scope_membrane",
+      "recipient_packet_closed_loop_proof_branch_compiler",
+      "reconciliation_typed_drift_repair",
+      "rename_migration_receipt_atomic",
+      "root_handle_binding_protocol",
+      "self_comprehensibility_facet_registry",
+      "source_capsule_provenance",
+      "source_shuttle_bounded_carryforward",
+      "specimen_suite_branch_graph",
+      "standard_type_plane_single_drop_artifact_contract",
+      "standards_registry_executable_grammar_index",
+      "std_microcosm_meta_standard",
+      "std_paper_module_v8_self_governing",
+      "std_skill_typed_skills",
+      "std_skill_types_versioned_skills",
+      "strict_json_artifact",
+      "surface_authority_collision_detection",
+      "system_lib_pipeline_stages",
+      "teleology_node_substrate",
+      "test_as_machine_checkable_substrate_contract",
+      "test_mark_tier_routing_slow_control_plane",
+      "transform_job_provenance",
+      "voice_archaeology_coverage_aware_third_substrate"
+    ],
+    "used_by_organs": [
+      "executable_doctrine_grammar",
+      "pattern_binding_contract"
+    ],
+    "existing_macro_standard_refs": [
+      "codex/standards/std_pattern_deliverables.json",
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "codex/standards/std_hidden_substrate_integration_manifest.json"
+    ],
+    "existing_current_microcosm_standard_refs": [],
+    "first_wave_required": true
+  }
+}

@@ -21,6 +21,9 @@ OMISSION_NAME = "omission_receipt.json"
 REFERENCE_NAME = "reference_capsule_resolver_receipt.json"
 AUTHORITY_CHAIN_NAME = "authority_chain_handle_resolver_receipt.json"
 SUBSTRATE_BUNDLE_RESULT_NAME = "exported_substrate_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = "copied_non_secret_pattern_binding_macro_body_with_provenance"
 RUNTIME_METADATA_ONLY_ANTI_CLAIM_REF = "anti_claim.pattern_binding.runtime_metadata_only"
 REAL_PATTERN_LEDGER_ANTI_CLAIM_REF = "anti_claim.pattern_binding.real_pattern_ledger_source_faithful"
 REAL_PATTERN_LEDGER_GOVERNING_STANDARD = "std_microcosm_pattern_binding_contract"
@@ -28,6 +31,16 @@ REAL_PATTERN_LEDGER_SOURCE_KEY = "real_pattern_ledger_source"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY = "real_pattern_substrate_bindings_source"
 REAL_PATTERN_ROUTE_READINESS_BUNDLE_KEY = "real_pattern_route_readiness_bundle"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA = "extracted_pattern_substrate_bindings_v1"
+PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_pattern_body",
+    "public_macro_receipt_body",
+    "public_macro_standard_body",
+    "public_macro_tool_body",
+}
+SOURCE_MODULE_RELATIONS = {
+    "exact_copy",
+    "source_faithful_json_slice",
+}
 
 EXPECTED_NEGATIVE_CASES = {
     "missing_binding_contract_fields": [
@@ -193,6 +206,248 @@ def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
             raise ValueError(f"{path.as_posix()}:{line_number} is not a JSON object")
         rows.append(row)
     return rows
+
+
+def _strip_microcosm_prefix(ref: str) -> str:
+    prefix = "microcosm-substrate/"
+    return ref[len(prefix) :] if ref.startswith(prefix) else ref
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + _file_sha256(path)
+
+
+def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    rows = payload.get(key, [])
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def _source_module_manifest_path(input_dir: str | Path) -> Path:
+    return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
+    row_path = str(row.get("path") or "")
+    if target_ref:
+        target = public_root / target_ref
+        if target.exists() or not row_path:
+            return target, target_ref
+        relocated = manifest_path.parent / row_path
+        return relocated, public_relative_path(relocated, display_root=public_root)
+    if row_path:
+        target = manifest_path.parent / row_path
+        return target, public_relative_path(target, display_root=public_root)
+    return public_root, ""
+
+
+def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    paths = [manifest_path]
+    for row in _json_rows(manifest, "modules"):
+        target_path, _target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        if target_path.is_file():
+            paths.append(target_path)
+    return paths
+
+
+def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = public_relative_path(manifest_path, display_root=public_root)
+    findings: list[dict[str, Any]] = []
+    modules: list[dict[str, Any]] = []
+    if not manifest_path.is_file():
+        findings.append(
+            _finding(
+                "PATTERN_BINDING_SOURCE_MODULE_MANIFEST_MISSING",
+                "Pattern-binding exported bundle requires source_module_manifest.json for copied macro source bodies.",
+                case_id="source_module_manifest_floor",
+                pattern_id=manifest_ref,
+            )
+        )
+        return {
+            "status": "blocked",
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "modules": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+        }
+
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    module_rows = _json_rows(manifest, "modules")
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _finding(
+                "PATTERN_BINDING_SOURCE_IMPORT_CLASS_MISMATCH",
+                "Source module manifest must declare copied_non_secret_macro_body.",
+                case_id="source_module_manifest_floor",
+                pattern_id=manifest_ref,
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _finding(
+                "PATTERN_BINDING_SOURCE_BODY_IN_RECEIPT_FORBIDDEN",
+                "Copied pattern-binding macro bodies may live in source_artifacts, not in receipts.",
+                case_id="source_module_manifest_floor",
+                pattern_id=manifest_ref,
+            )
+        )
+    if manifest.get("module_count") != len(module_rows):
+        findings.append(
+            _finding(
+                "PATTERN_BINDING_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal its module rows.",
+                case_id="source_module_manifest_floor",
+                pattern_id=manifest_ref,
+            )
+        )
+
+    for row in module_rows:
+        module_id = str(row.get("module_id") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        material_class = str(row.get("material_class") or "")
+        relation = str(row.get("source_to_target_relation") or "")
+        expected_digest = str(row.get("sha256") or "")
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source module rows must declare copied_non_secret_macro_body.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=module_id or target_ref or "source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_MODULE_CLASSES:
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_CLASS_FORBIDDEN",
+                    "Pattern-binding body imports may include only public macro pattern, receipt, standard, and tool bodies.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=module_id or target_ref or "source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_BODY_BOUNDARY_INVALID",
+                    "Source module rows must set body_copied=true and body_in_receipt=false.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=module_id or target_ref or "source_module",
+                )
+            )
+        if relation not in SOURCE_MODULE_RELATIONS:
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_RELATION_UNVERIFIED",
+                    "Source module rows must state exact_copy or source_faithful_json_slice.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=module_id or target_ref or "source_module",
+                )
+            )
+        if not target_path.is_file():
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=target_ref or module_id or "source_module",
+                )
+            )
+            continue
+        actual_digest = _sha256(target_path)
+        if expected_digest != actual_digest:
+            findings.append(
+                _finding(
+                    "PATTERN_BINDING_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target digest must match source_module_manifest.json.",
+                    case_id="source_module_manifest_floor",
+                    pattern_id=target_ref or module_id or "source_module",
+                )
+            )
+        modules.append(
+            {
+                "module_id": module_id,
+                "source_ref": str(row.get("source_ref") or ""),
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": expected_digest,
+                "actual_sha256": actual_digest,
+                "line_count": row.get("line_count"),
+                "source_to_target_relation": relation,
+                "body_in_receipt": False,
+            }
+        )
+
+    return {
+        "status": PASS if not findings and modules else "blocked",
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "modules": modules,
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
+def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
+    modules = _json_rows(source_imports, "modules")
+    module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
+    return {
+        "schema_version": "pattern_binding_source_open_body_imports_v1",
+        "status": source_imports.get("status"),
+        "source_import_class": SOURCE_IMPORT_CLASS if modules else "",
+        "body_material_status": SOURCE_BODY_STATUS if modules else "",
+        "body_material_count": len(modules),
+        "body_material_ids": module_ids,
+        "material_classes": sorted(
+            {str(row.get("material_class")) for row in modules if row.get("material_class")}
+        ),
+        "source_manifest_refs": [
+            source_imports["source_module_manifest_ref"]
+        ]
+        if source_imports.get("source_module_manifest_ref")
+        else [],
+        "aggregate_floor_ref": (
+            f"{source_imports['source_module_manifest_ref']}::modules"
+            if source_imports.get("source_module_manifest_ref")
+            else ""
+        ),
+        "body_in_receipt": False,
+        "authority_ceiling": {
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "release_authorized": False,
+            "public_leaf_authority_authorized": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json and source_artifacts/ for copied "
+            "pattern-binding macro bodies; receipts carry refs, digests, and status only."
+        )
+        if modules
+        else "",
+    }
 
 
 def _real_pattern_ledger_projection(
@@ -1050,6 +1305,8 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
 def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     bundle = load_pattern_binding_substrate_bundle(input_dir)
     manifest = bundle["bundle_manifest"]
+    public_root = _public_root_for_bundle(input_dir)
+    source_imports = validate_source_module_imports(input_dir, public_root=public_root)
     real_ledger_projection = _real_pattern_ledger_projection(input_dir, manifest)
     uses_real_ledger = real_ledger_projection is not None and real_ledger_projection["status"] == PASS
     ledger_pattern_ids = (
@@ -1089,6 +1346,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         input_paths.append(real_ledger_projection["path"])
     if substrate_binding_projection is not None and substrate_binding_projection["path"].is_file():
         input_paths.append(substrate_binding_projection["path"])
+    input_paths.extend(_source_artifact_paths(input_dir, public_root=public_root))
     forbidden_terms = bundle["forbidden_terms"]
     scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
     binding_result = validate_pattern_bindings(patterns, source_capsules, scan_result)
@@ -1100,6 +1358,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     all_findings: list[dict[str, Any]] = []
     for result in (binding_result, capsule_result, reference_result, authority_result):
         all_findings.extend(result.get("findings", []))
+    all_findings.extend(source_imports["findings"])
     if real_ledger_projection is not None:
         all_findings.extend(real_ledger_projection["findings"])
     if substrate_binding_projection is not None:
@@ -1131,11 +1390,13 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         and not all_findings
         and not route_readiness_error_rules
         and accepted_rows
+        and source_imports["status"] == PASS
         and (route_readiness_projection is None or uses_route_readiness)
         else "blocked"
     )
     source_capsule_receipt = _source_capsule_receipt(accepted_rows, source_capsules)
     truth_accounting = _substrate_bundle_truth_accounting(manifest, accepted_rows)
+    source_open_body_imports = _source_open_body_import_summary(source_imports)
     legacy_runtime_metadata_only_count = sum(
         1
         for row in bundle["patterns"]
@@ -1163,6 +1424,16 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "body_in_receipt": False,
             "real_runtime_receipt": status == PASS,
             "synthetic_receipt_standin_allowed": False,
+            "source_module_imports": {
+                "status": source_imports["status"],
+                "source_module_manifest_ref": source_imports["source_module_manifest_ref"],
+                "module_count": source_imports["module_count"],
+                "modules": source_imports["modules"],
+                "findings": source_imports["findings"],
+            },
+            "source_open_body_imports": source_open_body_imports,
+            "body_material_status": source_open_body_imports["body_material_status"],
+            "body_copied_material_count": source_open_body_imports["body_material_count"],
             "accepted_count_is_product_progress": truth_accounting["accepted_count_is_product_progress"],
             "counts_as_real_substrate_progress": truth_accounting["counts_as_real_substrate_progress"],
             "substrate_import_status": truth_accounting["substrate_import_status"],

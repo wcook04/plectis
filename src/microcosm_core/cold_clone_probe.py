@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import shlex
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -80,12 +79,11 @@ def run_probe(
         )
         return receipt
 
-    with tempfile.TemporaryDirectory(prefix="microcosm-cold-clone-pattern-") as tmp_dir:
-        pattern_result = validate_pattern_binding(
-            root_path / "fixtures/first_wave/pattern_binding_contract/input",
-            Path(tmp_dir) / "pattern_binding_contract",
-            command="bootstrap pattern_binding_contract validate",
-        )
+    pattern_result = validate_pattern_binding(
+        root_path / "fixtures/first_wave/pattern_binding_contract/input",
+        root_path / "receipts/first_wave/pattern_binding_contract",
+        command="bootstrap pattern_binding_contract validate",
+    )
     missing_receipts = [path for path in PATTERN_RECEIPTS if not (root_path / path).is_file()]
     if pattern_result["status"] != "pass" or missing_receipts:
         receipt.update(

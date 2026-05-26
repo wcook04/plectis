@@ -1,0 +1,137 @@
+{
+  "anti_claim": "These copied pattern-binding macro bodies make the public organ accountable to real macro pattern, validator, standard, and receipt substrate. They do not authorize provider calls, source mutation, release, public leaf authority for mined rows, private-data equivalence, or body export in receipts.",
+  "body_in_receipt": false,
+  "body_storage_policy": "source_faithful_non_secret_pattern_binding_macro_bodies_copied_into_public_bundle_source_artifacts",
+  "manifest_id": "pattern_binding_contract_macro_body_source_module_manifest",
+  "module_count": 5,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 373,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "pattern_binding_macro_pattern_ledger_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "validation_refs": [
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 1180,
+      "material_class": "public_macro_tool_body",
+      "module_id": "pattern_binding_route_readiness_validator_tool_body_import",
+      "path": "source_artifacts/macro_tool/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_tool/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "validation_refs": [
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 127,
+      "material_class": "public_macro_standard_body",
+      "module_id": "pattern_binding_route_readiness_standard_body_import",
+      "path": "source_artifacts/macro_standard/codex/standards/std_extracted_pattern_route_readiness.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "codex/standards/std_extracted_pattern_route_readiness.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_standard/codex/standards/std_extracted_pattern_route_readiness.json",
+      "validation_refs": [
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 114,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "pattern_binding_public_first_slice_execution_receipt_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "public_safe_mode": "direct_verified_macro_body",
+      "sha256": "sha256:c2049547de548eb415a15bc4577f1d1c585432102a2d73454aa0de6539f20cc0",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "validation_refs": [
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "credential_exposure_risk": "low",
+      "line_count": 223,
+      "material_class": "public_macro_standard_body",
+      "module_id": "pattern_binding_macro_standard_manifest_row_body_import",
+      "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/standards_manifest_v1.std_microcosm_pattern_binding_contract.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "sha256": "sha256:726031e65435f8928a18f8ab3841ed85914d2d91cb24b51d3f89da525b6ce3b2",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
+      "source_ref": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json::standards[standard_id=std_microcosm_pattern_binding_contract]",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/standards_manifest_v1.std_microcosm_pattern_binding_contract.json",
+      "validation_refs": [
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
+        "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
+      ]
+    }
+  ],
+  "omitted_material": [
+    {
+      "reason": "The full standards_manifest_v1.json is large and contains many unrelated standard rows; importing the bounded pattern-binding row preserves this organ's macro standard body without converting unrelated standards into this organ's authority floor.",
+      "replacement_criteria": "If the full standards manifest becomes a Microcosm-wide organ, import it under a shared standards-control body floor with per-row secret-exclusion accounting.",
+      "source_ref": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json"
+    },
+    {
+      "reason": "Active Seed3 ownership currently covers generated substrate-binding sidecars; this pass uses the already exported substrate bundle plus unclaimed macro sources rather than copying active dirty sidecar authority.",
+      "replacement_criteria": "After Seed3 lands or releases its claims, copy the settled extracted_pattern_substrate_bindings source sidecar through this same digest-verified manifest pattern if it remains a body-floor gap.",
+      "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+    }
+  ],
+  "organ_id": "pattern_binding_contract",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": [
+    "no keys or credentials",
+    "no account/session/cookie material",
+    "no provider payload bodies",
+    "no browser/HUD live-access state",
+    "no recipient-send state",
+    "no private thread bodies",
+    "no raw operator voice",
+    "no public leaf authority for mined pattern rows"
+  ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_private_thread_bodies_raw_operator_voice_and_credential_equivalent_material",
+  "source_run_id": "pattern_binding_contract_macro_body_floor_import_20260526_seed1",
+  "source_run_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::pattern_binding_contract_source_body_floor"
+}

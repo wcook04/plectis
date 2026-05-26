@@ -163,6 +163,29 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["paper_modules"] >= 1
     assert result["real_pattern_substrate_bindings_source"]["binding_category_counts"]["tests_validators_proofs"] >= 1
     assert result["real_pattern_route_readiness_consumed"] is True
+    assert result["body_copied_material_count"] == 5
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 5
+    assert source_imports["body_in_receipt"] is False
+    assert set(source_imports["body_material_ids"]) == {
+        "pattern_binding_macro_pattern_ledger_body_import",
+        "pattern_binding_route_readiness_validator_tool_body_import",
+        "pattern_binding_route_readiness_standard_body_import",
+        "pattern_binding_public_first_slice_execution_receipt_body_import",
+        "pattern_binding_macro_standard_manifest_row_body_import",
+    }
+    assert source_imports["material_classes"] == [
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
+    ]
+    source_modules = result["source_module_imports"]
+    assert source_modules["status"] == "pass"
+    assert source_modules["module_count"] == 5
+    assert all(module["body_in_receipt"] is False for module in source_modules["modules"])
+    assert all(module["sha256"] == module["actual_sha256"] for module in source_modules["modules"])
     assert result["route_readiness_error_rules"] == []
     route_readiness = result["real_pattern_route_readiness_source"]
     assert route_readiness["status"] == "pass"
@@ -202,11 +225,31 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert receipt["real_pattern_substrate_bindings_source"]["sha256"] == bindings_sha256
     assert receipt["real_pattern_route_readiness_consumed"] is True
     assert receipt["real_pattern_route_readiness_source"]["route_readiness_summary"]["ledger_pattern_count"] == 373
+    assert receipt["source_open_body_imports"]["body_material_count"] == 5
+    assert receipt["body_copied_material_count"] == 5
     assert all(path.startswith("receipts/") for path in receipt["receipt_paths"])
     assert "matched_excerpt" not in json.dumps(receipt, sort_keys=True)
     assert "body" not in _walk_keys(receipt)
     assert "private_state_scan" not in receipt
     assert "body_redacted" not in receipt
+
+
+def test_pattern_binding_source_module_digest_tamper_blocks_bundle(tmp_path: Path) -> None:
+    bundle_dir = tmp_path / "exported_substrate_bundle"
+    shutil.copytree(PATTERN_EXPORTED_BUNDLE_INPUT, bundle_dir)
+    source_body = (
+        bundle_dir
+        / "source_artifacts/macro_state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json"
+    )
+    source_body.write_text(source_body.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+
+    result = validate_substrate_bundle(bundle_dir, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert result["source_open_body_imports"]["status"] == "blocked"
+    assert result["body_copied_material_count"] == 5
+    assert "PATTERN_BINDING_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
+    assert result["body_in_receipt"] is False
 
 
 def test_route_readiness_bundle_validator_rejects_row_level_leaf_authority(tmp_path: Path) -> None:
