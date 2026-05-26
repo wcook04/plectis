@@ -131,3 +131,21 @@ def test_current_registry_no_longer_flags_landed_truth_floor_rows() -> None:
     assert "agent_sandbox_policy_escape_replay" not in candidate_ids
     assert receipt["candidate_count"] == 0
     assert receipt["inspected_fixture_echo_row_count"] == 3
+
+
+def test_fixture_echo_profile_denies_score_and_progress_authority() -> None:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_evidence_classes.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    profile = registry["class_profiles"]["fixture_echo_smoke"]
+
+    assert profile["counts_as_real_substrate_progress"] is False
+    assert profile["truth_accounting_bucket"] == "regression_negative_fixture"
+    assert "not behavioral validation" in profile["claim_ceiling"]
+    assert "not benchmark scores" in profile["claim_ceiling"]
+    assert "product progress evidence" in profile["claim_ceiling"]
+    assert "fixture-supplied score-like fields" in profile["evaluator_basis"]
+    assert "not benchmark scores" in profile["evaluator_basis"]
+    assert "product progress evidence" in profile["evaluator_basis"]

@@ -29,9 +29,9 @@
       "verdict_source": "verified_public_body_import_contract"
     },
     "fixture_echo_smoke": {
-      "claim_ceiling": "smoke/projection demo only, not behavioral or safety validation",
+      "claim_ceiling": "smoke/projection demo only, not behavioral validation, not safety validation, not benchmark scores, and not product progress evidence",
       "counts_as_real_substrate_progress": false,
-      "evaluator_basis": "fixture_supplied_scores_verdicts_or_safety_flags_checked_for_shape",
+      "evaluator_basis": "fixture_supplied_verdicts_or_safety_flags_checked_for_shape; fixture-supplied score-like fields are not benchmark scores or product progress evidence",
       "evidence_strength_rank": 1,
       "negative_case_independence": "fixture_self_declaration_or_static_flag_only",
       "truth_accounting_bucket": "regression_negative_fixture",
