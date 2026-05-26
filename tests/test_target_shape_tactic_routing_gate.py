@@ -5,8 +5,10 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.target_shape_tactic_routing_gate import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     SOURCE_PATTERN_IDS,
+    main,
     run,
     run_routing_bundle,
 )
@@ -126,6 +128,45 @@ def test_target_shape_tactic_routing_gate_accepts_exported_bundle(
     assert result["receipt_paths"] == [
         "receipts/exported_target_shape_tactic_routing_bundle_validation_result.json"
     ]
+
+
+def test_target_shape_tactic_routing_bundle_card_is_compact(
+    tmp_path: Path,
+    capsys: Any,
+) -> None:
+    exit_code = main(
+        [
+            "run-routing-bundle",
+            "--input",
+            str(EXPORTED_BUNDLE_INPUT),
+            "--out",
+            str(tmp_path / "receipts"),
+            "--card",
+        ]
+    )
+    stdout = capsys.readouterr().out
+    card = json.loads(stdout)
+
+    assert exit_code == 0
+    assert len(stdout.encode("utf-8")) < 6000
+    assert card["schema_version"] == CARD_SCHEMA_VERSION
+    assert card["status"] == "pass"
+    assert card["card_id"] == "target_shape_tactic_routing_bundle_card"
+    assert card["route_case_count"] == 5
+    assert card["selected_tactic_ids"] == ["decide", "omega", "rfl", "simp_all"]
+    assert len(card["shape_decision_summary"]) == 5
+    assert card["source_artifact_summary"]["copied_source_artifact_count"] == 4
+    assert card["source_open_body_imports_summary"]["body_in_receipt"] is False
+    assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
+    assert card["authority_ceiling"]["lean_lake_execution_authorized"] is False
+    assert card["output_economy"]["full_routing_board_omitted"] is True
+    assert "routing_board" not in card
+    assert "scored_route_cases" not in card
+    assert (
+        tmp_path
+        / "receipts"
+        / "exported_target_shape_tactic_routing_bundle_validation_result.json"
+    ).is_file()
 
 
 def test_target_shape_tactic_routing_exported_source_modules_are_exact_copies() -> None:

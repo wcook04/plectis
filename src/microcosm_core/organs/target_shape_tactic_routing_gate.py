@@ -29,6 +29,7 @@ ACCEPTANCE_RECEIPT_REL = (
     "target_shape_tactic_routing_gate_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_target_shape_tactic_routing_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "target_shape_tactic_routing_gate_command_card_v1"
 
 SOURCE_PATTERN_IDS = ["target_shape_tactic_routing_gate"]
 SOURCE_REFS = [
@@ -742,6 +743,125 @@ def _common_receipt(
     return payload
 
 
+def _shape_decision_card(row: dict[str, Any]) -> dict[str, Any]:
+    decisions = row.get("decisions", [])
+    if not isinstance(decisions, list):
+        decisions = []
+    rejected = sorted(
+        str(decision.get("tactic_id") or "")
+        for decision in decisions
+        if isinstance(decision, dict) and decision.get("decision") == "reject"
+    )
+    return {
+        "route_case_id": row.get("route_case_id"),
+        "target_shape": row.get("target_shape"),
+        "domain": row.get("domain"),
+        "selected_tactic_id": row.get("selected_tactic_id"),
+        "expected_tactic_id": row.get("expected_tactic_id"),
+        "expectation_met": row.get("expectation_met"),
+        "pre_execution": row.get("pre_execution"),
+        "allowed_tactic_ids": row.get("allowed_tactic_ids", []),
+        "candidate_tactic_count": len(row.get("candidate_tactic_ids", [])),
+        "rejected_tactic_ids": rejected,
+        "integrity_codes": row.get("integrity_codes", []),
+    }
+
+
+def _result_card(result: dict[str, Any]) -> dict[str, Any]:
+    secret_scan = result.get("secret_exclusion_scan")
+    scan_summary = secret_scan if isinstance(secret_scan, dict) else {}
+    source_open = result.get("source_open_body_imports")
+    source_open_summary = source_open if isinstance(source_open, dict) else {}
+    action = (
+        "run-routing-bundle"
+        if result.get("input_mode") == "exported_target_shape_tactic_routing_bundle"
+        else "run"
+    )
+    card_id = (
+        "target_shape_tactic_routing_bundle_card"
+        if action == "run-routing-bundle"
+        else "target_shape_tactic_routing_fixture_card"
+    )
+    scored_cases = result.get("scored_route_cases", [])
+    if not isinstance(scored_cases, list):
+        scored_cases = []
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "command": result.get("command"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "card_id": card_id,
+        "output_profile": "compact_card_no_full_routing_board_or_route_rows",
+        "full_output_available": True,
+        "full_output_command": (
+            "python -m microcosm_core.organs.target_shape_tactic_routing_gate "
+            f"{action} --input <input> --out <out>"
+        ),
+        "receipt_paths": result.get("receipt_paths", []),
+        "expected_negative_cases": result.get("expected_negative_cases", []),
+        "missing_negative_cases": result.get("missing_negative_cases", []),
+        "error_codes": result.get("error_codes", []),
+        "routing_evidence_status": result.get("routing_evidence_status"),
+        "body_material_status": result.get("body_material_status"),
+        "body_in_receipt": result.get("body_in_receipt"),
+        "route_case_count": result.get("route_case_count"),
+        "target_shape_count": len(result.get("target_shapes", [])),
+        "selected_tactic_ids": result.get("selected_tactic_ids", []),
+        "tactic_portfolio": {
+            "tactic_count": result.get("tactic_count"),
+            "known_tactic_ids": result.get("known_tactic_ids", []),
+            "available_tactic_ids": result.get("available_tactic_ids", []),
+            "unavailable_tactic_ids": result.get("unavailable_tactic_ids", []),
+        },
+        "shape_decision_summary": [
+            _shape_decision_card(row)
+            for row in scored_cases
+            if isinstance(row, dict)
+        ],
+        "source_artifact_summary": {
+            "status": result.get("source_artifact_status"),
+            "source_artifact_count": result.get("source_artifact_count"),
+            "copied_source_artifact_count": result.get("copied_source_artifact_count"),
+            "source_artifacts_pass": result.get("source_artifacts_pass"),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "real_substrate_ref_count": len(result.get("real_substrate_refs", [])),
+            "receipt_anchor_ref_count": len(result.get("receipt_anchor_refs", [])),
+            "digest_ref_count": len(result.get("source_digests", {})),
+        },
+        "source_open_body_imports_summary": {
+            "status": source_open_summary.get("status"),
+            "body_material_count": source_open_summary.get("body_material_count"),
+            "body_in_receipt": source_open_summary.get("body_in_receipt"),
+            "body_text_exported_in_receipts": source_open_summary.get(
+                "body_text_exported_in_receipts"
+            ),
+            "body_material_status": source_open_summary.get("body_material_status"),
+        },
+        "secret_exclusion_scan_summary": {
+            "status": scan_summary.get("status"),
+            "scanned_path_count": scan_summary.get("scanned_path_count"),
+            "hit_count": scan_summary.get("hit_count"),
+            "blocking_hit_count": scan_summary.get("blocking_hit_count"),
+            "body_in_receipt": scan_summary.get("body_in_receipt"),
+            "body_material_status": scan_summary.get("body_material_status"),
+        },
+        "authority_ceiling": result.get("authority_ceiling"),
+        "all_expectations_met": result.get("all_expectations_met"),
+        "anti_claim_summary": (
+            "pre_execution_shape_route_check_not_lean_lake_proof_or_release_authority"
+        ),
+        "output_economy": {
+            "full_routing_board_omitted": True,
+            "full_scored_route_cases_omitted": True,
+            "source_artifact_import_rows_omitted": True,
+            "secret_scan_hits_omitted": True,
+            "full_payload_drilldown": "rerun without --card",
+        },
+    }
+
+
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     return [_display(path, public_root=public_root) for path in paths.values()]
 
@@ -1047,21 +1167,46 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     bundle_parser = subparsers.add_parser("run-routing-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="Print a compact first-screen card instead of the full result payload.",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if getattr(args, "card", False) else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        command = (
+            "python -m microcosm_core.organs.target_shape_tactic_routing_gate run "
+            f"--input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-routing-bundle":
-        result = run_routing_bundle(args.input, args.out)
+        command = (
+            "python -m microcosm_core.organs.target_shape_tactic_routing_gate "
+            f"run-routing-bundle --input {args.input} --out {args.out}{card_suffix}"
+        )
+        result = run_routing_bundle(args.input, args.out, command=command)
     else:
         return 2
-    print(json.dumps(result, ensure_ascii=True, indent=2, sort_keys=True))
+    output = _result_card(result) if getattr(args, "card", False) else result
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
