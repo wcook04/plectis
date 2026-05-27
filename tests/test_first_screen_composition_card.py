@@ -35,6 +35,51 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _fixture_manifest_source_open_counts() -> tuple[int, int]:
+    registry = json.loads((MICROCOSM_ROOT / "core/organ_registry.json").read_text())
+    rows = registry.get("implemented_organs", [])
+    assert isinstance(rows, list)
+
+    material_count = 0
+    rows_with_imports = 0
+    for row in rows:
+        assert isinstance(row, dict)
+        organ_id = row["organ_id"]
+        manifest_path = (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests"
+            / f"{organ_id}.fixture_manifest.json"
+        )
+        if not manifest_path.is_file():
+            continue
+        manifest = json.loads(manifest_path.read_text())
+        body_imports = manifest.get("source_open_body_imports")
+        if isinstance(body_imports, dict):
+            raw_count = body_imports.get("body_material_count")
+            material_ids = body_imports.get("body_material_ids")
+            organ_count = (
+                raw_count
+                if isinstance(raw_count, int) and not isinstance(raw_count, bool)
+                else len(material_ids)
+                if isinstance(material_ids, list)
+                else 0
+            )
+        else:
+            body_status = manifest.get("body_material_status")
+            raw_count = manifest.get("body_copied_material_count")
+            organ_count = (
+                raw_count
+                if body_status
+                and isinstance(raw_count, int)
+                and not isinstance(raw_count, bool)
+                else 0
+            )
+        if organ_count > 0:
+            material_count += organ_count
+            rows_with_imports += 1
+    return material_count, rows_with_imports
+
+
 def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     module = _load_module()
 
@@ -184,6 +229,68 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "not source mutation" in local_state_receipt_trail["reader_rule"]
     assert local_state_receipt_trail["authority"] == (
         "local_state_receipt_trail_not_private_root_equivalence"
+    )
+    first_contact_surface_refs = card["first_contact_surface_refs"]
+    first_contact_surfaces = first_contact_surface_refs["surfaces"]
+    assert first_contact_surface_refs["schema_version"] == (
+        "microcosm_first_contact_surface_refs_v1"
+    )
+    assert first_contact_surface_refs["producer_command"] == (
+        card["shared_first_command"]
+    )
+    assert first_contact_surface_refs["required_surface_ids"] == [
+        "route",
+        "work",
+        "events",
+        "evidence",
+        "graph",
+        "observatory",
+        "proof_lab",
+        "status",
+    ]
+    assert set(first_contact_surfaces) == set(
+        first_contact_surface_refs["required_surface_ids"]
+    )
+    assert first_contact_surfaces["route"]["state_ref"] == ".microcosm/routes.json"
+    assert first_contact_surfaces["work"]["state_ref"] == (
+        ".microcosm/work_items.json"
+    )
+    assert first_contact_surfaces["events"]["state_ref"] == (
+        ".microcosm/events.jsonl"
+    )
+    assert first_contact_surfaces["evidence"]["state_ref"] == ".microcosm/evidence/"
+    assert first_contact_surfaces["evidence"]["body_text_exported"] is False
+    assert first_contact_surfaces["graph"]["state_ref"] == ".microcosm/graph.json"
+    assert first_contact_surfaces["observatory"]["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
+    assert first_contact_surfaces["observatory"]["bounded_validation_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert first_contact_surfaces["observatory"]["compact_endpoint"] == (
+        "/project/observatory-card"
+    )
+    assert first_contact_surfaces["proof_lab"]["command"] == (
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    )
+    assert first_contact_surfaces["proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
+    assert first_contact_surfaces["status"]["body_import_floor_ref"] == (
+        "microcosm status --card <project>::front_door.source_open_body_import_floor"
+    )
+    assert first_contact_surface_refs["safe_to_show"] == {
+        "project_local_state_refs_visible": True,
+        "receipt_refs_visible": True,
+        "body_text_exported": False,
+        "source_files_mutated": False,
+        "provider_calls_authorized": False,
+        "release_authorized": False,
+        "proof_correctness_claim": False,
+    }
+    assert first_contact_surface_refs["authority"] == (
+        "first_contact_surface_map_only_not_source_release_provider_"
+        "mutation_or_proof_authority"
     )
     overclaim_tripwire_matrix = card["overclaim_tripwire_matrix"]
     tripwire_by_id = {
@@ -426,13 +533,21 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "core/standards_registry.json"
     )
     assert scale_counts["public_standards"]["count"] > 0
+    expected_materials, expected_rows = _fixture_manifest_source_open_counts()
     assert scale_counts["source_open_materials"]["source_ref"] == (
+        "core/fixture_manifests/*.fixture_manifest.json"
+    )
+    assert scale_counts["source_open_materials"]["fallback_ref"] == (
         "receipts/runtime_shell/workingness_failure_map.json"
     )
-    assert scale_counts["source_open_materials"]["count"] > 0
+    assert scale_counts["source_open_materials"]["count"] == expected_materials
     assert scale_counts["source_open_materials"]["read_as"] == (
         "copy_boundary_accounting_not_maturity_score"
     )
+    assert scale_counts["rows_with_source_imports"]["source_ref"] == (
+        "core/fixture_manifests/*.fixture_manifest.json"
+    )
+    assert scale_counts["rows_with_source_imports"]["count"] == expected_rows
     observatory_landing_frame = card["observatory_landing_frame"]
     assert observatory_landing_frame["schema_version"] == (
         "microcosm_observatory_landing_frame_v1"
@@ -452,9 +567,21 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert observatory_landing_frame["behavioral_proof_command"] == (
         card["shared_first_command"]
     )
+    assert observatory_landing_frame["serve_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
+    assert observatory_landing_frame["bounded_validation_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert observatory_landing_frame["bounded_validation_request_count"] == 6
+    assert "route smokes" in observatory_landing_frame["bounded_validation_rule"]
     assert observatory_landing_frame["browser_landing_reuse"] == {
         "source_projection": (
             "microcosm_core.first_screen_composition.first_screen_text_card"
+        ),
+        "serve_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "bounded_validation_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
         ),
         "default_endpoint": "/",
         "card_endpoint": "/project/first-screen",
@@ -481,6 +608,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "behavioral_proof_command" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "serve_command" in observatory_landing_frame["required_visible_handles"]
+    assert "bounded_validation_command" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "reader_landing_packets" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -491,6 +622,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "required_visible_handles"
     ]
     assert "local_state_receipt_trail" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
+    assert "first_contact_surface_refs" in observatory_landing_frame[
         "required_visible_handles"
     ]
     assert "overclaim_tripwire_matrix" in observatory_landing_frame[
@@ -519,6 +653,18 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["authority_ceiling"]["whole_system_correctness_authority"] is False
     assert card["omission_receipt"]["drilldown"] == "paper_modules/first_screen_composition_root.md"
     assert any(
+        drilldown.get("command")
+        == "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        and drilldown.get("endpoint") == "/"
+        for drilldown in card["drilldowns"]
+    )
+    assert any(
+        drilldown.get("command")
+        == "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        and drilldown.get("endpoint") == "/"
+        for drilldown in card["drilldowns"]
+    )
+    assert any(
         drilldown.get("command") == "microcosm workingness"
         for drilldown in card["drilldowns"]
     )
@@ -528,6 +674,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
+    assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
@@ -613,8 +760,15 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         ".microcosm/evidence/index.json",
         ".microcosm/graph.json",
     ]
+    assert card["first_contact_surface_refs"]["surfaces"]["observatory"][
+        "bounded_validation_command"
+    ] == "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+    assert card["first_contact_surface_refs"]["surfaces"]["proof_lab"]["route_id"] == (
+        "formal_prover_context_strategy_gate"
+    )
     assert card["validation"]["checks"]["first_run_ladder"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
+    assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
@@ -679,9 +833,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "Proof: `microcosm observe .`"
     ) in text
     assert (
-        "browser landing: / -> /project/first-screen -> /project/observatory-card"
+        "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
         in text
     )
+    assert "-> /project/first-screen -> /project/observatory-card" in text
     assert (
         "This card is the map; the first run writes .microcosm and exercises "
         "the larger public substrate:"

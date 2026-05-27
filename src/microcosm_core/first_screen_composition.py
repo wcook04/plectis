@@ -32,6 +32,7 @@ ORGAN_REGISTRY_REF = "core/organ_registry.json"
 STANDARDS_REGISTRY_REF = "core/standards_registry.json"
 EVIDENCE_CLASS_REGISTRY_REF = "core/organ_evidence_classes.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
+FIXTURE_MANIFESTS_REF = "core/fixture_manifests"
 EVIDENCE_CLASS_DISPLAY_ORDER = (
     "verified_macro_body_import",
     "external_subprocess_witness",
@@ -55,6 +56,14 @@ OBSERVATORY_LANDING_ENDPOINTS = {
     "full_observatory_model": "/project/observatory",
     "project_observe": "/project/observe",
 }
+
+
+def _observatory_serve_command(project_label: str) -> str:
+    return f"microcosm serve {project_label} --host 127.0.0.1 --port 8765"
+
+
+def _bounded_observatory_serve_command(project_label: str) -> str:
+    return f"{_observatory_serve_command(project_label)} --max-requests 6"
 
 
 def _load_standard(root: Path) -> dict[str, Any]:
@@ -90,6 +99,12 @@ def _first_count(*candidates: int | None) -> int | None:
         if candidate is not None:
             return candidate
     return None
+
+
+def _strings(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _positive_count(row: Any) -> bool:
@@ -340,6 +355,110 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
     }
 
 
+def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    status_card_command = f"microcosm status --card {project_label}"
+    observe_command = f"microcosm observe {project_label}"
+    proof_lab_command = "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    return {
+        "schema_version": "microcosm_first_contact_surface_refs_v1",
+        "purpose": (
+            "compress_route_work_event_evidence_graph_observatory_and_proof_"
+            "handles_for_cold_readers"
+        ),
+        "producer_command": shared_first_command,
+        "reader_rule": (
+            "Use these refs as the first-screen behavior map after the shared "
+            "run; open full receipts only after the compact route/work/evidence "
+            "graph and observatory/proof handles are visible."
+        ),
+        "required_surface_ids": [
+            "route",
+            "work",
+            "events",
+            "evidence",
+            "graph",
+            "observatory",
+            "proof_lab",
+            "status",
+        ],
+        "surfaces": {
+            "route": {
+                "command": shared_first_command,
+                "state_ref": ".microcosm/routes.json",
+                "selected_route_ref": ".microcosm/routes.json::<selected_route_id>",
+                "status_ref": "front_door_status.surface_statuses.state_inspection",
+            },
+            "work": {
+                "command": observe_command,
+                "state_ref": ".microcosm/work_items.json",
+                "selected_work_ref": ".microcosm/work_items.json::<selected_work_id>",
+                "event_ref": ".microcosm/events.jsonl",
+            },
+            "events": {
+                "command": observe_command,
+                "state_ref": ".microcosm/events.jsonl",
+                "status_ref": "microcosm observe <project>::spans",
+            },
+            "evidence": {
+                "command": observe_command,
+                "state_ref": ".microcosm/evidence/",
+                "index_ref": ".microcosm/evidence/index.json",
+                "body_text_exported": False,
+            },
+            "graph": {
+                "command": observe_command,
+                "state_ref": ".microcosm/graph.json",
+                "status_ref": "microcosm observe <project>::causal_chain.graph",
+            },
+            "observatory": {
+                "command": _observatory_serve_command(project_label),
+                "bounded_validation_command": _bounded_observatory_serve_command(
+                    project_label
+                ),
+                "bounded_validation_request_count": 6,
+                "compact_endpoint": OBSERVATORY_LANDING_ENDPOINTS[
+                    "compact_observatory_card"
+                ],
+                "expanded_endpoint": OBSERVATORY_LANDING_ENDPOINTS[
+                    "full_observatory_model"
+                ],
+            },
+            "proof_lab": {
+                "command": proof_lab_command,
+                "endpoint": "/proof-lab",
+                "route_id": "formal_prover_context_strategy_gate",
+                "receipt_ref": (
+                    "receipts/first_wave/verifier_lab_kernel/"
+                    "exported_verifier_lab_kernel_bundle_validation_result.json"
+                ),
+            },
+            "status": {
+                "command": status_card_command,
+                "endpoint": "/project/status",
+                "body_import_floor_ref": (
+                    "microcosm status --card <project>::front_door."
+                    "source_open_body_import_floor"
+                ),
+                "workingness_command": "microcosm workingness",
+            },
+        },
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "receipt_refs_visible": True,
+            "body_text_exported": False,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "authority": (
+            "first_contact_surface_map_only_not_source_release_provider_"
+            "mutation_or_proof_authority"
+        ),
+    }
+
+
 def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
@@ -464,6 +583,13 @@ def _evidence_count_frame() -> dict[str, Any]:
         ],
         "authoritative_count_sources": [
             {
+                "surface": f"{FIXTURE_MANIFESTS_REF}/*.fixture_manifest.json",
+                "role": (
+                    "implemented-organ source-open material count input before "
+                    "stale workingness receipt fallback"
+                ),
+            },
+            {
                 "surface": "microcosm workingness",
                 "role": "runtime evidence summary",
             },
@@ -476,6 +602,66 @@ def _evidence_count_frame() -> dict[str, Any]:
                 "role": "registry validation receipt",
             },
         ],
+    }
+
+
+def _implemented_organ_ids(organ_registry: dict[str, Any]) -> list[str]:
+    rows = organ_registry.get("implemented_organs")
+    if not isinstance(rows, list):
+        return []
+    return [
+        str(row.get("organ_id"))
+        for row in rows
+        if isinstance(row, dict) and isinstance(row.get("organ_id"), str)
+    ]
+
+
+def _source_open_body_import_count_from_fixture_manifests(
+    root: Path,
+    organ_ids: list[str],
+) -> dict[str, Any]:
+    material_count = 0
+    rows_with_imports = 0
+    manifest_count = 0
+
+    for organ_id in organ_ids:
+        manifest_ref = Path(FIXTURE_MANIFESTS_REF) / f"{organ_id}.fixture_manifest.json"
+        manifest = _load_public_json(root, manifest_ref.as_posix())
+        if not manifest:
+            continue
+        manifest_count += 1
+        body_imports = manifest.get("source_open_body_imports")
+        if isinstance(body_imports, dict):
+            material_ids = _strings(body_imports.get("body_material_ids"))
+            raw_count = body_imports.get("body_material_count")
+            organ_material_count = (
+                raw_count
+                if isinstance(raw_count, int) and not isinstance(raw_count, bool)
+                else len(material_ids)
+            )
+        else:
+            body_status = str(manifest.get("body_material_status") or "")
+            raw_count = manifest.get("body_copied_material_count")
+            if not body_status:
+                continue
+            organ_material_count = (
+                raw_count
+                if isinstance(raw_count, int) and not isinstance(raw_count, bool)
+                else 0
+            )
+
+        if organ_material_count <= 0:
+            continue
+        rows_with_imports += 1
+        material_count += organ_material_count
+
+    return {
+        "material_count": material_count if manifest_count else None,
+        "rows_with_imports": rows_with_imports if manifest_count else None,
+        "manifest_count": manifest_count,
+        "source_ref": f"{FIXTURE_MANIFESTS_REF}/*.fixture_manifest.json",
+        "source_field": "source_open_body_imports.body_material_count",
+        "fallback_ref": WORKINGNESS_MAP_REF,
     }
 
 
@@ -531,6 +717,11 @@ def _scale_frame(root: Path) -> dict[str, Any]:
     organ_registry = _load_public_json(root, ORGAN_REGISTRY_REF)
     standards_registry = _load_public_json(root, STANDARDS_REGISTRY_REF)
     workingness_map = _load_public_json(root, WORKINGNESS_MAP_REF)
+    implemented_organ_ids = _implemented_organ_ids(organ_registry)
+    fixture_body_counts = _source_open_body_import_count_from_fixture_manifests(
+        root,
+        implemented_organ_ids,
+    )
     implemented_organ_count = _first_count(
         _collection_count(organ_registry.get("implemented_organs")),
         _non_negative_int(workingness_map.get("mapped_organ_count")),
@@ -541,6 +732,12 @@ def _scale_frame(root: Path) -> dict[str, Any]:
     )
     source_open_material_count = _non_negative_int(
         workingness_map.get("source_open_body_material_count")
+    )
+    fixture_source_open_material_count = _non_negative_int(
+        fixture_body_counts.get("material_count")
+    )
+    fixture_rows_with_source_imports = _non_negative_int(
+        fixture_body_counts.get("rows_with_imports")
     )
     return {
         "composition_root": (
@@ -579,17 +776,27 @@ def _scale_frame(root: Path) -> dict[str, Any]:
                 "read_as": "adapter_presence_not_completeness_or_release_signal",
             },
             "source_open_materials": {
-                "count": source_open_material_count,
-                "source_field": "source_open_body_material_count",
-                "source_ref": WORKINGNESS_MAP_REF,
+                "count": _first_count(
+                    fixture_source_open_material_count,
+                    source_open_material_count,
+                ),
+                "source_field": fixture_body_counts["source_field"],
+                "source_ref": fixture_body_counts["source_ref"],
+                "fallback_ref": fixture_body_counts["fallback_ref"],
+                "workingness_source_field": "source_open_body_material_count",
                 "read_as": "copy_boundary_accounting_not_maturity_score",
             },
             "rows_with_source_imports": {
-                "count": _non_negative_int(
-                    workingness_map.get("rows_with_source_body_imports")
+                "count": _first_count(
+                    fixture_rows_with_source_imports,
+                    _non_negative_int(
+                        workingness_map.get("rows_with_source_body_imports")
+                    ),
                 ),
-                "source_field": "rows_with_source_body_imports",
-                "source_ref": WORKINGNESS_MAP_REF,
+                "source_field": "source_open_body_imports.body_material_count",
+                "source_ref": fixture_body_counts["source_ref"],
+                "fallback_ref": WORKINGNESS_MAP_REF,
+                "workingness_source_field": "rows_with_source_body_imports",
                 "read_as": "receipt_trace_count_not_claim_strength",
             },
         },
@@ -791,6 +998,8 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
 def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
+    serve_command = _observatory_serve_command(project_label)
+    bounded_serve_command = _bounded_observatory_serve_command(project_label)
     return {
         "schema_version": "microcosm_observatory_landing_frame_v1",
         "role": "make_the_hello_first_screen_card_the_browser_landing_frame",
@@ -798,11 +1007,20 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         "text_projection_command": human_first_command,
         "shared_first_command": shared_first_command,
         "behavioral_proof_command": shared_first_command,
+        "serve_command": serve_command,
+        "bounded_validation_command": bounded_serve_command,
+        "bounded_validation_request_count": 6,
+        "bounded_validation_rule": (
+            "Use bounded_validation_command for first-screen route smokes; use "
+            "serve_command for an interactive browser session."
+        ),
         "endpoints": dict(OBSERVATORY_LANDING_ENDPOINTS),
         "browser_landing_reuse": {
             "source_projection": (
                 "microcosm_core.first_screen_composition.first_screen_text_card"
             ),
+            "serve_command": serve_command,
+            "bounded_validation_command": bounded_serve_command,
             "default_endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
             "card_endpoint": OBSERVATORY_LANDING_ENDPOINTS["first_screen_card"],
             "authority": (
@@ -811,7 +1029,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "first-run ladder, local state receipt trail, overclaim tripwires, "
+            "first-run ladder, local state receipt trail, first-contact surface refs, overclaim tripwires, "
             "reader branches, reader landing packets, reader exit criteria, public "
             "scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
@@ -826,11 +1044,14 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "text_projection",
             "shared_first_command",
             "behavioral_proof_command",
+            "serve_command",
+            "bounded_validation_command",
             "reader_route_ids",
             "reader_landing_packets",
             "behavior_proof_packet",
             "first_run_ladder",
             "local_state_receipt_trail",
+            "first_contact_surface_refs",
             "overclaim_tripwire_matrix",
             "reader_exit_criteria",
             "public_scale_counts",
@@ -857,6 +1078,16 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
 
 def _drilldowns(project_label: str) -> list[dict[str, str]]:
     return [
+        {
+            "drilldown_id": "observatory_server",
+            "command": _observatory_serve_command(project_label),
+            "endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
+        },
+        {
+            "drilldown_id": "bounded_observatory_validation",
+            "command": _bounded_observatory_serve_command(project_label),
+            "endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
+        },
         {
             "drilldown_id": "observatory_landing",
             "endpoint": OBSERVATORY_LANDING_ENDPOINTS["html_landing"],
@@ -938,7 +1169,18 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     state_write_boundary = payload.get("state_write_boundary", {})
     behavior_proof_packet = payload.get("behavior_proof_packet", {})
     local_state_receipt_trail = payload.get("local_state_receipt_trail", {})
+    first_contact_surface_refs = payload.get("first_contact_surface_refs", {})
     overclaim_tripwire_matrix = payload.get("overclaim_tripwire_matrix", {})
+    first_contact_surfaces = (
+        first_contact_surface_refs.get("surfaces", {})
+        if isinstance(first_contact_surface_refs, dict)
+        else {}
+    )
+    first_contact_surface_ids = (
+        set(first_contact_surfaces)
+        if isinstance(first_contact_surfaces, dict)
+        else set()
+    )
     local_state_trail_rows = (
         local_state_receipt_trail.get("trail", [])
         if isinstance(local_state_receipt_trail, dict)
@@ -1143,6 +1385,84 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and local_state_receipt_trail.get("authority")
             == "local_state_receipt_trail_not_private_root_equivalence"
         ),
+        "first_contact_surface_refs": (
+            isinstance(first_contact_surface_refs, dict)
+            and first_contact_surface_refs.get("schema_version")
+            == "microcosm_first_contact_surface_refs_v1"
+            and first_contact_surface_refs.get("producer_command")
+            == shared_first_command
+            and set(first_contact_surface_refs.get("required_surface_ids", []))
+            == {
+                "route",
+                "work",
+                "events",
+                "evidence",
+                "graph",
+                "observatory",
+                "proof_lab",
+                "status",
+            }
+            and first_contact_surface_ids
+            == {
+                "route",
+                "work",
+                "events",
+                "evidence",
+                "graph",
+                "observatory",
+                "proof_lab",
+                "status",
+            }
+            and first_contact_surfaces.get("route", {}).get("state_ref")
+            == ".microcosm/routes.json"
+            and first_contact_surfaces.get("work", {}).get("state_ref")
+            == ".microcosm/work_items.json"
+            and first_contact_surfaces.get("events", {}).get("state_ref")
+            == ".microcosm/events.jsonl"
+            and first_contact_surfaces.get("evidence", {}).get("state_ref")
+            == ".microcosm/evidence/"
+            and first_contact_surfaces.get("graph", {}).get("state_ref")
+            == ".microcosm/graph.json"
+            and first_contact_surfaces.get("observatory", {}).get("command")
+            == _observatory_serve_command(str(payload.get("project_label")))
+            and first_contact_surfaces.get("observatory", {}).get(
+                "bounded_validation_command"
+            )
+            == _bounded_observatory_serve_command(str(payload.get("project_label")))
+            and first_contact_surfaces.get("observatory", {}).get(
+                "compact_endpoint"
+            )
+            == OBSERVATORY_LANDING_ENDPOINTS["compact_observatory_card"]
+            and first_contact_surfaces.get("proof_lab", {}).get("command")
+            == "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+            and first_contact_surfaces.get("status", {}).get("command")
+            == f"microcosm status --card {payload.get('project_label', '<project>')}"
+            and first_contact_surface_refs.get("safe_to_show", {}).get(
+                "body_text_exported"
+            )
+            is False
+            and first_contact_surface_refs.get("safe_to_show", {}).get(
+                "source_files_mutated"
+            )
+            is False
+            and first_contact_surface_refs.get("safe_to_show", {}).get(
+                "provider_calls_authorized"
+            )
+            is False
+            and first_contact_surface_refs.get("safe_to_show", {}).get(
+                "release_authorized"
+            )
+            is False
+            and first_contact_surface_refs.get("safe_to_show", {}).get(
+                "proof_correctness_claim"
+            )
+            is False
+            and first_contact_surface_refs.get("authority")
+            == (
+                "first_contact_surface_map_only_not_source_release_provider_"
+                "mutation_or_proof_authority"
+            )
+        ),
         "overclaim_tripwire_matrix": (
             isinstance(overclaim_tripwire_matrix, dict)
             and overclaim_tripwire_matrix.get("schema_version")
@@ -1307,6 +1627,19 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             == payload.get("shared_first_command")
             and observatory_landing_frame.get("behavioral_proof_command")
             == payload.get("shared_first_command")
+            and observatory_landing_frame.get("serve_command")
+            == _observatory_serve_command(str(payload.get("project_label")))
+            and observatory_landing_frame.get("bounded_validation_command")
+            == _bounded_observatory_serve_command(str(payload.get("project_label")))
+            and observatory_landing_frame.get("bounded_validation_request_count") == 6
+            and observatory_landing_frame.get("browser_landing_reuse", {}).get(
+                "serve_command"
+            )
+            == _observatory_serve_command(str(payload.get("project_label")))
+            and observatory_landing_frame.get("browser_landing_reuse", {}).get(
+                "bounded_validation_command"
+            )
+            == _bounded_observatory_serve_command(str(payload.get("project_label")))
             and observatory_endpoints == OBSERVATORY_LANDING_ENDPOINTS
             and observatory_landing_frame.get("browser_landing_reuse", {}).get(
                 "authority"
@@ -1319,11 +1652,14 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "text_projection",
                     "shared_first_command",
                     "behavioral_proof_command",
+                    "serve_command",
+                    "bounded_validation_command",
                     "reader_route_ids",
                     "reader_landing_packets",
                     "behavior_proof_packet",
                     "first_run_ladder",
                     "local_state_receipt_trail",
+                    "first_contact_surface_refs",
                     "overclaim_tripwire_matrix",
                     "reader_exit_criteria",
                     "public_scale_counts",
@@ -1395,6 +1731,7 @@ def first_screen_composition_card(
         "behavior_proof_packet": _behavior_proof_packet(project_label),
         "first_run_ladder": _first_run_ladder(project_label),
         "local_state_receipt_trail": _local_state_receipt_trail(project_label),
+        "first_contact_surface_refs": _first_contact_surface_refs(project_label),
         "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),
         "reader_exit_criteria": _reader_exit_criteria(project_label),
         "evidence_count_frame": _evidence_count_frame(),
@@ -1538,7 +1875,11 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
         "",
         "Drilldowns:",
-        "  browser landing: / -> /project/first-screen -> /project/observatory-card",
+        (
+            "  observatory: "
+            f"{_bounded_observatory_serve_command(str(payload['project_label']))} "
+            "-> /project/first-screen -> /project/observatory-card"
+        ),
         "  authority/workingness: microcosm authority / microcosm workingness",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
