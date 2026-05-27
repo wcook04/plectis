@@ -276,18 +276,20 @@
     ],
     "population_loop": {
       "composition_root": "atlas/entry_packet.json::concept_mechanism_entry_route",
-      "reader_rule": "Use the first-screen doctrine frame only as the door; choose one specimen, inspect its concept/mechanism binding, run or cite its validator, then refine the owning standard, pressure row, fixture, or WorkItem residual.",
+      "reader_rule": "Use the first-screen doctrine frame only as the door; choose one specimen, inspect its concept/mechanism binding, run or cite its validator, then refine the owning standard, pressure row, fixture, or WorkItem residual and record an activation receipt.",
       "sequence": [
         "read microcosm first-screen <project>::doctrine_effect_frame",
         "open standards/std_microcosm_concept.json and standards/std_microcosm_mechanism.json",
         "choose one population_specimens row",
         "run the specimen validation command or inspect the named receipt",
+        "write an activation_receipts row that binds pressure -> specimen -> concept role -> mechanism role -> residual disposition",
         "refine the owner surface or capture a residual when the specimen cannot carry the pressure"
       ],
       "pressure_refs": [
         "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
         "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
-        "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop"
+        "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop",
+        "core/public_standard_pressure.json::concept_mechanism_requires_activation_receipt_loop"
       ],
       "build_new_threshold": "do not create a parallel concept index unless no existing standard, pressure row, atlas route, diagnostic bundle, fixture manifest, or WorkItem lane can carry the specimen without distortion"
     },
@@ -453,11 +455,57 @@
         ]
       }
     ],
+    "activation_receipts": [
+      {
+        "receipt_id": "concept_index_frontend_view_compiler_projection_guard_2026_05_27",
+        "pressure_id": "cap_quick_concept_index_frontend_view_compiler_sub_d34cd121c080",
+        "pressure_label": "Concept index frontend view-compiler substrate residual",
+        "classification": "projection_consumer_guard_not_parallel_concept_index",
+        "selected_specimen_id": "voice_to_doctrine_self_improvement_loop_bundle",
+        "source_ref": "state/task_ledger::cap_quick_concept_index_frontend_view_compiler_sub_d34cd121c080",
+        "concept_binding": {
+          "concept_role": "frontend view contract as a typed semantic commitment, not an independent concept inventory",
+          "mechanism_pair_ref": "concept_index_frontend_view_compiler_projection_guard_2026_05_27.mechanism_binding",
+          "relationship_shape": "WorkItem pressure -> specimen-backed population route -> projection consumer contract",
+          "payload_shape_ref": "Task Ledger WorkItem statement plus concept_mechanism_entry_route.population_specimens",
+          "anti_glossary_rule": "the frontend concept-index pressure must resolve to a projection contract over specimen bindings, not glossary browsing or a standalone term list"
+        },
+        "mechanism_binding": {
+          "mechanism_role": "validator gate that requires any frontend compiler to consume population_specimens and preserve validator, receipt, omission, and anti-claim fields",
+          "concept_pair_ref": "concept_index_frontend_view_compiler_projection_guard_2026_05_27.concept_binding",
+          "transformation_shape": "population_specimens -> projection/view compiler contract -> receipt-preserving frontend or renderer surface",
+          "state_or_proof_effect": "activation validator blocks pressure receipts that lack selected specimen, residual disposition, reentry condition, validator refs, anti-claims, or authority boundary",
+          "anti_feature_prose_rule": "the mechanism is a proof-preserving projection gate, not feature prose, a frontend feature description, or a future UI promise"
+        },
+        "residual_disposition": "redirected_to_projection_consumer",
+        "reentry_condition": "resume this residual only as a frontend projection/compiler that consumes atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens and preserves concept_binding, mechanism_binding, validator_refs, receipt_refs, omission_receipt, anti_claims, and authority_boundary fields",
+        "validator_refs": [
+          "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+          "tests/test_concept_mechanism_population.py::test_concept_mechanism_population_validator_accepts_live_route",
+          "tests/test_concept_mechanism_population.py::test_concept_mechanism_population_validator_rejects_parallel_index_receipt"
+        ],
+        "receipt_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts[receipt_id=concept_index_frontend_view_compiler_projection_guard_2026_05_27]",
+        "authority_boundary": "activation_receipt_not_parallel_concept_index_task_ledger_state_authority_frontend_registry_or_release_authority",
+        "omission_receipt": {
+          "omitted": [
+            "full Task Ledger event chain",
+            "private operator monologue",
+            "frontend compiler implementation until a compiler consumes the specimen route"
+          ],
+          "drilldown": "Task Ledger card cap_quick_concept_index_frontend_view_compiler_sub_d34cd121c080"
+        },
+        "anti_claims": [
+          "This receipt redirects the residual; it does not implement a frontend concept index.",
+          "This receipt does not authorize an independent concept inventory, release readiness, provider calls, or private-data equivalence."
+        ]
+      }
+    ],
     "validation_commands": [
       "microcosm first-screen --full <project>",
       "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
       "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
-      "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine"
+      "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
+      "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population"
     ],
     "authority": "entry_and_validation_route_only_not_macro_doctrine_source_or_release_authority"
   },

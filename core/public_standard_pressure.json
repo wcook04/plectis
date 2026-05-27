@@ -136,6 +136,31 @@
       "title": "Concept/Mechanism Requires Population Specimen Loop"
     },
     {
+      "authority_boundary": "activation_receipt_not_parallel_concept_index_or_task_ledger_authority",
+      "claim": "Real concept/mechanism pressure must produce an activation receipt that names the selected specimen, concept binding, mechanism binding, residual disposition, reentry condition, validator refs, omission receipt, and anti-claims.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "assimilation",
+        "work"
+      ],
+      "route_refs": [
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+        "python -m microcosm_core.validators.concept_mechanism_population"
+      ],
+      "runtime_hook": "concept_mechanism_population.validator.activation_receipts",
+      "source_refs": [
+        "standards/std_microcosm_concept.json::activation_receipt_contract",
+        "standards/std_microcosm_mechanism.json::activation_receipt_contract",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+        "src/microcosm_core/validators/concept_mechanism_population.py"
+      ],
+      "standard_id": "concept_mechanism_requires_activation_receipt_loop",
+      "title": "Concept/Mechanism Requires Activation Receipt Loop"
+    },
+    {
       "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
       "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
       "kernel_primitive_refs": [

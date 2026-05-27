@@ -46,6 +46,26 @@
     ],
     "reader_rule": "A populated concept row must point to at least one runnable or inspectable specimen that shows why the vocabulary boundary matters; glossary-only prose is insufficient."
   },
+  "activation_receipt_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "pressure_activation_receipt_not_concept_index_or_task_ledger_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    "required_for_pressure_activation": true,
+    "row_must_bind": [
+      "pressure_id",
+      "selected_specimen_id",
+      "concept_role",
+      "mechanism_pair_ref",
+      "residual_disposition",
+      "reentry_condition",
+      "source_ref",
+      "validator_refs",
+      "omission_receipt",
+      "anti_claims",
+      "authority_boundary"
+    ],
+    "reader_rule": "A real pressure activation must record which specimen carried the pressure and what concept boundary changed; a frontend or projection surface may consume this route but must not become a parallel concept index."
+  },
   "first_wave_required": true,
   "kind_id": "concept",
   "kind_name": "Concept",
@@ -140,6 +160,7 @@
     "relationships",
     "entry_surface_contract",
     "population_specimen_contract",
+    "activation_receipt_contract",
     "validator_refs",
     "receipt_refs",
     "omission_receipt",
@@ -168,6 +189,10 @@
     {
       "path": "atlas/entry_packet.json",
       "role": "concept_mechanism_population_specimen_route"
+    },
+    {
+      "path": "src/microcosm_core/validators/concept_mechanism_population.py",
+      "role": "activation_receipt_validator"
     },
     {
       "role": "id_refs_only_no_source_bodies",
@@ -218,6 +243,7 @@
     "reject authority upgrades not backed by receipt_refs",
     "require entry_surface_contract so concept rows are discoverable from AGENTS.md and the first-screen doctrine_effect_frame",
     "require population_specimen_contract so concept rows route from entry to at least one specimen-backed validation loop",
+    "require activation_receipt_contract so real population pressure records a selected specimen, residual disposition, and reentry condition instead of spawning a parallel concept index",
     "require public_private_boundary before public projection"
   ],
   "validator_contract": {

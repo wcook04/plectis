@@ -241,8 +241,12 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
     )
     assert "entry_surface_contract" in concept["required_fields"]
     assert "population_specimen_contract" in concept["required_fields"]
+    assert "activation_receipt_contract" in concept["required_fields"]
     assert concept["population_specimen_contract"]["loop_ref"] == (
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+    )
+    assert concept["activation_receipt_contract"]["loop_ref"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts"
     )
     assert concept["population_specimen_contract"]["minimum_specimen_count"] <= len(
         population_specimens
@@ -271,8 +275,12 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
     )
     assert "entry_surface_contract" in mechanism["required_fields"]
     assert "population_specimen_contract" in mechanism["required_fields"]
+    assert "activation_receipt_contract" in mechanism["required_fields"]
     assert mechanism["population_specimen_contract"]["loop_ref"] == (
         "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+    )
+    assert mechanism["activation_receipt_contract"]["loop_ref"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts"
     )
     assert mechanism["population_specimen_contract"][
         "minimum_specimen_count"
@@ -302,6 +310,13 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
             "route_refs"
         ]
     )
+    assert "concept_mechanism_requires_activation_receipt_loop" in pressure_by_id
+    assert (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts"
+        in pressure_by_id["concept_mechanism_requires_activation_receipt_loop"][
+            "route_refs"
+        ]
+    )
 
 
 def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None:
@@ -310,6 +325,7 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     )
     route = entry_packet["concept_mechanism_entry_route"]
     specimens = route["population_specimens"]
+    activation_receipts = route["activation_receipts"]
     specimen_by_id = {row["specimen_id"]: row for row in specimens}
 
     assert set(specimen_by_id) >= {
@@ -321,8 +337,15 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     assert route["population_loop"]["build_new_threshold"].startswith(
         "do not create a parallel concept index"
     )
+    assert route["population_loop"]["pressure_refs"][-1] == (
+        "core/public_standard_pressure.json::concept_mechanism_requires_activation_receipt_loop"
+    )
     assert any(
         command.startswith("microcosm first-screen --full")
+        for command in route["validation_commands"]
+    )
+    assert any(
+        "microcosm_core.validators.concept_mechanism_population" in command
         for command in route["validation_commands"]
     )
 
@@ -362,6 +385,24 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
         for ref in specimen_by_id[
             "voice_to_doctrine_self_improvement_loop_bundle"
         ]["validator_refs"]
+    )
+
+    activation_by_id = {row["receipt_id"]: row for row in activation_receipts}
+    activation = activation_by_id[
+        "concept_index_frontend_view_compiler_projection_guard_2026_05_27"
+    ]
+    assert activation["pressure_id"] == (
+        "cap_quick_concept_index_frontend_view_compiler_sub_d34cd121c080"
+    )
+    assert activation["selected_specimen_id"] == "voice_to_doctrine_self_improvement_loop_bundle"
+    assert activation["residual_disposition"] == "redirected_to_projection_consumer"
+    assert "parallel concept index" in activation["authority_boundary"].replace("_", " ")
+    assert "population_specimens" in activation["reentry_condition"]
+    assert activation["concept_binding"]["mechanism_pair_ref"] == (
+        "concept_index_frontend_view_compiler_projection_guard_2026_05_27.mechanism_binding"
+    )
+    assert activation["mechanism_binding"]["concept_pair_ref"] == (
+        "concept_index_frontend_view_compiler_projection_guard_2026_05_27.concept_binding"
     )
 
 
