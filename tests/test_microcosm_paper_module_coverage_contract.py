@@ -152,6 +152,75 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "all_corpus_compression_navigation_only_not_source_truth_release_"
         "permission_proof_correctness_or_candidate_axiom_authority"
     )
+    cluster_digest = contract["cluster_digest_contract"]
+    assert "typed digest fields" in cluster_digest["purpose"]
+    assert "cluster_flag" in cluster_digest["cluster_surface_rule"]
+    assert cluster_digest["required_packet_fields"] == [
+        "summary.row_count",
+        "summary.total_available",
+        "summary.cluster_currentness.index_freshness",
+        "summary.cluster_currentness.index_generated_at",
+        "summary.cluster_semantics",
+        "summary.cluster_authority_distribution.authored_primary",
+        "summary.cluster_authority_distribution.suggested_primary",
+        "summary.cluster_authority_distribution.hierarchy_fallback",
+        "summary.cluster_authority_distribution.heuristic_fallback",
+        "summary.cluster_authority_distribution.unclassified",
+        "summary.cluster_authority_distribution.authored_share",
+        "summary.cluster_authority_distribution.suggested_share",
+        "summary.cluster_authority_distribution.fallback_share",
+        "summary.cluster_authority_distribution.chip",
+        "summary.cluster_authority_distribution.next_population_route",
+        "cluster_omission_receipt.omitted",
+        "cluster_omission_receipt.reason",
+        "cluster_omission_receipt.authority_collapse_rule",
+        "cluster_omission_receipt.drilldown",
+    ]
+    assert cluster_digest["required_cluster_row_fields"] == [
+        "rows[].cluster_id",
+        "rows[].cluster_source_axis",
+        "rows[].count",
+        "rows[].top_ids",
+        "rows[].route_metadata.authored_primary_count",
+        "rows[].route_metadata.suggested_primary_count",
+        "rows[].route_metadata.hierarchy_fallback_count",
+        "rows[].route_metadata.heuristic_fallback_count",
+        "rows[].route_metadata.unclassified_count",
+        "rows[].authority_distribution.authored_primary",
+        "rows[].authority_distribution.suggested_primary",
+        "rows[].authority_distribution.hierarchy_fallback",
+        "rows[].authority_distribution.heuristic_fallback",
+        "rows[].authority_distribution.unclassified",
+        "rows[].authority_distribution.authored_share",
+        "rows[].authority_distribution.suggested_share",
+        "rows[].authority_distribution.chip",
+        "rows[].governing_counts.distinct_principles",
+        "rows[].governing_counts.distinct_concepts",
+        "rows[].top_governing_refs.principles",
+        "rows[].top_governing_refs.concepts",
+        "rows[].claim",
+        "rows[].drilldown_command",
+        "rows[].omission_policy",
+    ]
+    assert [
+        locus["source_ref"] for locus in cluster_digest["owner_loci"]
+    ] == [
+        "system/lib/standard_option_surface.py::_paper_module_cluster_key",
+        "system/lib/standard_option_surface.py::_paper_module_cluster_rows",
+        "system/lib/standard_option_surface.py::_paper_module_cluster_authority_summary",
+        "system/lib/standard_option_surface.py::build_option_surface",
+        (
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py::"
+            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+        ),
+    ]
+    assert "authored primary_subdomain" in cluster_digest["typed_grouping_policy"]
+    assert "card/evidence rungs" in cluster_digest["drilldown_rule"]
+    assert cluster_digest["authority_ceiling"] == (
+        "cluster_digest_navigation_only_not_module_authority_source_truth_"
+        "release_permission_proof_correctness_or_candidate_axiom_authority"
+    )
     budget_honesty = contract["context_pack_budget_honesty_contract"]
     assert "over-budget routine packet is repair evidence" in budget_honesty[
         "purpose"
@@ -535,13 +604,14 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert rule["fields"] == [
         "primary_modules",
         "supporting_lattice_modules",
-            "module_depth_roles",
-            "required_projection_surfaces",
-            "all_corpus_compression_dispatch",
-            "context_pack_budget_honesty_contract",
-            "source_loci_depth_contract",
-            "atlas_source_coupling_closeout_contract",
-            "atlas_option_surfaces",
+        "module_depth_roles",
+        "required_projection_surfaces",
+        "all_corpus_compression_dispatch",
+        "cluster_digest_contract",
+        "context_pack_budget_honesty_contract",
+        "source_loci_depth_contract",
+        "atlas_source_coupling_closeout_contract",
+        "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
         "standard_type_plane_bridge",
@@ -651,6 +721,17 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "all paper modules in compressed form",
         "paper_module_coverage_contract.all_corpus_compression_dispatch",
         "all_corpus_compression_dispatch",
+        "paper_module_coverage_contract.cluster_digest_contract",
+        "cluster_digest_contract",
+        "summary.cluster_currentness",
+        "summary.cluster_semantics",
+        "summary.cluster_authority_distribution",
+        "cluster_omission_receipt",
+        "rows[].cluster_id",
+        "rows[].cluster_source_axis",
+        "rows[].top_ids",
+        "rows[].governing_counts",
+        "rows[].drilldown_command",
         './repo-python kernel.py --entry "<task>" --context-budget 12000',
         'AIW_CONTEXT_PACK_DISABLE_SEMANTIC=1 ./repo-python kernel.py --context-pack "<task>" --context-budget 12000',
         "--option-surface paper_modules --band cluster_flag",
@@ -667,6 +748,9 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "navigation_index_spine.entry_intent_openings.task_conditioned.reentry_receipt.status",
         "all-row `flag` is compatibility",
         "system/lib/standard_option_surface.py::_paper_module_cluster_rows",
+        "system/lib/standard_option_surface.py::_paper_module_cluster_key",
+        "system/lib/standard_option_surface.py::_paper_module_cluster_authority_summary",
+        "system/lib/standard_option_surface.py::build_option_surface",
         "system/lib/standard_option_surface.py::_paper_module_compression_packet",
         "system/lib/standard_option_surface.py::_paper_module_compression_passport",
         "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS",
@@ -804,6 +888,25 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
     assert "All-Corpus Compression Dispatch" in coverage_metabolism
+    assert "Typed Cluster Digest Contract" in coverage_metabolism
+    assert "std_microcosm.json::paper_module_coverage_contract.cluster_digest_contract" in coverage_metabolism
+    assert "summary.cluster_currentness" in coverage_metabolism
+    assert "summary.cluster_semantics" in coverage_metabolism
+    assert "summary.cluster_authority_distribution" in coverage_metabolism
+    assert "cluster_omission_receipt" in coverage_metabolism
+    assert "rows[].cluster_id" in coverage_metabolism
+    assert "rows[].cluster_source_axis" in coverage_metabolism
+    assert "rows[].top_ids" in coverage_metabolism
+    assert "rows[].governing_counts" in coverage_metabolism
+    assert "rows[].drilldown_command" in coverage_metabolism
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_key"
+        in coverage_metabolism
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_authority_summary"
+        in coverage_metabolism
+    )
     assert "all-row `flag` remains a compatibility redirect" in coverage_metabolism
     assert "context_pack_budget_honesty_contract" in coverage_metabolism
     assert "budget.contract_status" in coverage_metabolism
@@ -870,6 +973,23 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     )
     assert "std_microcosm.json::paper_module_coverage_contract.source_loci_depth_contract" in coverage_metabolism
     assert "System Atlas Source-Coupling Closeout" in entry_projection_integrity
+    assert "Typed Cluster Digest Contract" in entry_projection_integrity
+    assert "std_microcosm.json::paper_module_coverage_contract.cluster_digest_contract" in entry_projection_integrity
+    assert "summary.cluster_currentness.index_freshness" in entry_projection_integrity
+    assert "summary.cluster_authority_distribution" in entry_projection_integrity
+    assert "cluster_omission_receipt" in entry_projection_integrity
+    assert "rows[].cluster_id" in entry_projection_integrity
+    assert "rows[].cluster_source_axis" in entry_projection_integrity
+    assert "rows[].top_ids" in entry_projection_integrity
+    assert "rows[].drilldown_command" in entry_projection_integrity
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_key"
+        in entry_projection_integrity
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_authority_summary"
+        in entry_projection_integrity
+    )
     assert "tools/meta/factory/build_system_atlas.py::main" in entry_projection_integrity
     assert "system/lib/navigation_index_spine.py::_system_atlas_source_coupling" in entry_projection_integrity
     assert "system/lib/kind_atlas.py::_system_atlas_currentness" in entry_projection_integrity
