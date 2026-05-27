@@ -1,0 +1,1249 @@
+{
+  "authority_posture": "public_safe_synthetic_failure_replay_fixture_not_private_lab_or_benchmark_authority",
+  "candidate_id": "lab_evolve_failure_replay_graph_microcosm",
+  "cases": [
+    {
+      "baseline_trace": [
+        {
+          "node_id": "native_input",
+          "output_ref": "case.sum_small_list:native_input",
+          "status": "pass"
+        },
+        {
+          "node_id": "normalize_to_operation_ir",
+          "output": {
+            "ir_id": "operation_ir",
+            "operands": [
+              1,
+              2,
+              3
+            ],
+            "operation": "sum"
+          },
+          "status": "pass"
+        },
+        {
+          "node_id": "solve_operation",
+          "output": 3,
+          "status": "produced_output_pending_evaluator",
+          "variant_id": "solver_count_items_v1"
+        },
+        {
+          "expected_answer": 6,
+          "node_id": "evaluate_answer",
+          "observed_answer": 3,
+          "status": "fail"
+        }
+      ],
+      "baseline_variant_id": "solver_count_items_v1",
+      "case_id": "case.sum_small_list",
+      "expected_answer": 6,
+      "failure_origin_node": "solve_operation",
+      "failure_signature": "valid_operation_ir_answer_mismatch",
+      "native_input": "Find the total of the numbers 1, 2, and 3.",
+      "restart_point": "operation_ir",
+      "teaching": {
+        "evidence_refs": [
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "case.sum_small_list:baseline_trace",
+          "case.sum_small_list:variants_tried"
+        ],
+        "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+        "local_rule": "When the operation IR is valid and only the answer fails, mutate the solver node and keep the normalized IR fixed.",
+        "teaching_id": "teaching.sum_small_list.solver_variant_after_valid_ir"
+      },
+      "variants_tried": [
+        {
+          "evaluator_ref": "evaluate_answer",
+          "mutated_node_id": "normalize_to_operation_ir",
+          "observed_answer": 3,
+          "restart_point": "operation_ir",
+          "status": "fail",
+          "variant_id": "normalizer_restart_noise_v1"
+        },
+        {
+          "evaluator_ref": "evaluate_answer",
+          "mutated_node_id": "solve_operation",
+          "observed_answer": 6,
+          "restart_point": "operation_ir",
+          "status": "pass",
+          "variant_id": "solver_sum_v2"
+        }
+      ],
+      "winner_variant": "solver_sum_v2"
+    },
+    {
+      "baseline_trace": [
+        {
+          "node_id": "native_input",
+          "output_ref": "case.sum_two_item_list:native_input",
+          "status": "pass"
+        },
+        {
+          "node_id": "normalize_to_operation_ir",
+          "output": {
+            "ir_id": "operation_ir",
+            "operands": [
+              4,
+              5
+            ],
+            "operation": "sum"
+          },
+          "status": "pass"
+        },
+        {
+          "node_id": "solve_operation",
+          "output": 2,
+          "status": "produced_output_pending_evaluator",
+          "variant_id": "solver_count_items_v1"
+        },
+        {
+          "expected_answer": 9,
+          "node_id": "evaluate_answer",
+          "observed_answer": 2,
+          "status": "fail"
+        }
+      ],
+      "baseline_variant_id": "solver_count_items_v1",
+      "case_id": "case.sum_two_item_list",
+      "expected_answer": 9,
+      "failure_origin_node": "solve_operation",
+      "failure_signature": "valid_operation_ir_answer_mismatch",
+      "native_input": "Find the total of the numbers 4 and 5.",
+      "restart_point": "operation_ir",
+      "teaching": {
+        "evidence_refs": [
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "case.sum_two_item_list:baseline_trace",
+          "case.sum_two_item_list:variants_tried"
+        ],
+        "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+        "local_rule": "When the operation IR is valid and only the answer fails, mutate the solver node and keep the normalized IR fixed.",
+        "teaching_id": "teaching.sum_two_item_list.solver_variant_after_valid_ir"
+      },
+      "variants_tried": [
+        {
+          "evaluator_ref": "evaluate_answer",
+          "mutated_node_id": "normalize_to_operation_ir",
+          "observed_answer": 2,
+          "restart_point": "operation_ir",
+          "status": "fail",
+          "variant_id": "normalizer_restart_noise_v1"
+        },
+        {
+          "evaluator_ref": "evaluate_answer",
+          "mutated_node_id": "solve_operation",
+          "observed_answer": 9,
+          "restart_point": "operation_ir",
+          "status": "pass",
+          "variant_id": "solver_sum_v2"
+        }
+      ],
+      "winner_variant": "solver_sum_v2"
+    }
+  ],
+  "claim_boundary": "Fixture-level proof of restartable failure localization and teaching capture; not a formal-proof benchmark win, hosted result, novelty proof, or private-root equivalence claim.",
+  "evolution_cycle": [
+    {
+      "artifact": "public-safe synthetic arithmetic prompt",
+      "node_ref": "native_input",
+      "step": "observe"
+    },
+    {
+      "artifact": "operation_ir",
+      "node_ref": "normalize_to_operation_ir",
+      "step": "project"
+    },
+    {
+      "artifact": "baseline answer mismatch from solver_count_items_v1",
+      "node_ref": "solve_operation",
+      "step": "fail"
+    },
+    {
+      "artifact": "first bad node is solve_operation because operation_ir passed validation",
+      "node_ref": "classify_failure",
+      "step": "localize"
+    },
+    {
+      "artifact": "operation_ir",
+      "node_ref": "choose_restart_point",
+      "step": "restart"
+    },
+    {
+      "artifact": "solver_sum_v2 passes evaluator",
+      "node_ref": "replay_variants",
+      "step": "replay"
+    },
+    {
+      "artifact": "local teaching plus candidate global rule when the pattern repeats",
+      "node_ref": "record_teaching",
+      "step": "teach"
+    }
+  ],
+  "executable_grammar_replay_bridge": {
+    "authority": {
+      "authority_class": "grammar_evaluator_and_receipt_gate_only",
+      "benchmark_win_claim_count": 0,
+      "evaluator_authority_count": 5,
+      "fail_closed_gates": [
+        "missing executable grammar board",
+        "grammar board status not ok",
+        "bridge case missing repair route",
+        "bridge case missing teaching rule"
+      ],
+      "forbidden_promotions": [
+        "grammar projection self-validates",
+        "failed grammar case can be hidden from replay",
+        "local replay bridge grants publication permission"
+      ],
+      "private_root_equivalence_claim_count": 0,
+      "public_claims_blocked": [
+        "executable grammar fixture proves public release readiness",
+        "grammar repair route authorizes publication",
+        "source clip hash proves private-root equivalence"
+      ],
+      "public_release_claim_count": 0,
+      "publication_claim_count": 0,
+      "self_attestation_authority_count": 0
+    },
+    "bridge_cases": [
+      {
+        "anti_claims": [
+          "grammar projection is not its own validator",
+          "failed grammar case is not publication permission",
+          "repair route is not public release approval",
+          "source clip hash is not private-root equivalence"
+        ],
+        "bridge_case_id": "grammar_replay_bridge.case.missing_improvement_delta",
+        "evaluator_result": {
+          "authority": "grammar_evaluator_only",
+          "provider_or_artifact_self_status_used_as_authority": false,
+          "status": "block"
+        },
+        "evidence_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.missing_improvement_delta]",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge"
+        ],
+        "failure_class": "required_improvement_delta",
+        "next_case": "rerun_executable_grammar_after_repair_contract",
+        "repair_route": {
+          "action_type": "route_field_repairs",
+          "authority_rule": "grammar_evaluator_result_drives_worker_action",
+          "route_id": "repair_route.grammar_replay_bridge.case.missing_improvement_delta",
+          "target_fields": [
+            "improvement_delta"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_ref": "worker_action.case.missing_improvement_delta.route_repairs"
+        },
+        "replay_seed": {
+          "rerun_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+          "restart_point": "candidate.improvement_delta",
+          "rule_ids": [
+            "required_improvement_delta"
+          ],
+          "source_clip_hash": "ce19eea7b556c53d481851d0d952a66060b3cce9df16dbe5ef668188b465f88a"
+        },
+        "restart_point": "candidate.improvement_delta",
+        "semantic_carryforward": {
+          "evaluator_authority": "grammar_evaluator_only",
+          "failure_class": "required_improvement_delta",
+          "projection_not_authority": true,
+          "repair_route": "worker_action.case.missing_improvement_delta.route_repairs",
+          "restart_point": "candidate.improvement_delta",
+          "rule_ids": [
+            "required_improvement_delta"
+          ]
+        },
+        "source_case_id": "case.missing_improvement_delta",
+        "source_case_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.missing_improvement_delta]",
+        "source_clip": {
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "missing required field"
+              },
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "improvement_delta",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "required_improvement_delta"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "missing required field"
+                }
+              },
+              {
+                "field": "improvement_delta",
+                "repair_contract": "Write a concrete improvement_delta before any card or demo can reuse the row.",
+                "rule_id": "required_improvement_delta",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "improvement_delta",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "mutation": {
+            "field": "improvement_delta",
+            "value_summary": "blank improvement_delta"
+          },
+          "source_case_id": "case.missing_improvement_delta",
+          "worker_action": {
+            "action_id": "worker_action.case.missing_improvement_delta.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.missing_improvement_delta:repair:required_improvement_delta",
+              "case.missing_improvement_delta:repair:required_improvement_delta"
+            ],
+            "target_fields": [
+              "improvement_delta"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_clip_hash": "ce19eea7b556c53d481851d0d952a66060b3cce9df16dbe5ef668188b465f88a",
+        "source_clip_hash_algorithm": "sha256",
+        "teaching_rule": "When executable grammar blocks a row, preserve the failed source clip, restart from the owning field or status lane, apply the repair contract, and rerun the grammar evaluator before any projection or publication path can reuse it."
+      },
+      {
+        "anti_claims": [
+          "grammar projection is not its own validator",
+          "failed grammar case is not publication permission",
+          "repair route is not public release approval",
+          "source clip hash is not private-root equivalence"
+        ],
+        "bridge_case_id": "grammar_replay_bridge.case.empty_source_refs",
+        "evaluator_result": {
+          "authority": "grammar_evaluator_only",
+          "provider_or_artifact_self_status_used_as_authority": false,
+          "status": "block"
+        },
+        "evidence_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.empty_source_refs]",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge"
+        ],
+        "failure_class": "source_refs_required",
+        "next_case": "rerun_executable_grammar_after_repair_contract",
+        "repair_route": {
+          "action_type": "route_field_repairs",
+          "authority_rule": "grammar_evaluator_result_drives_worker_action",
+          "route_id": "repair_route.grammar_replay_bridge.case.empty_source_refs",
+          "target_fields": [
+            "source_refs"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_ref": "worker_action.case.empty_source_refs.route_repairs"
+        },
+        "replay_seed": {
+          "rerun_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+          "restart_point": "candidate.source_refs",
+          "rule_ids": [
+            "source_refs_required"
+          ],
+          "source_clip_hash": "47cf25228a3c664e13bc1df648356695e8f9a6af54cfce1582b53591e2711e90"
+        },
+        "restart_point": "candidate.source_refs",
+        "semantic_carryforward": {
+          "evaluator_authority": "grammar_evaluator_only",
+          "failure_class": "source_refs_required",
+          "projection_not_authority": true,
+          "repair_route": "worker_action.case.empty_source_refs.route_repairs",
+          "restart_point": "candidate.source_refs",
+          "rule_ids": [
+            "source_refs_required"
+          ]
+        },
+        "source_case_id": "case.empty_source_refs",
+        "source_case_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.empty_source_refs]",
+        "source_clip": {
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "source_refs",
+                "reason": "must not be empty"
+              }
+            ],
+            "observed_rule_ids": [
+              "source_refs_required"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "source_refs",
+                "repair_contract": "Add public-safe source, standard, fixture, or receipt refs before ranking the row.",
+                "rule_id": "source_refs_required",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "source_refs",
+                  "reason": "must not be empty"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "mutation": {
+            "field": "source_refs",
+            "value_summary": "source_refs removed"
+          },
+          "source_case_id": "case.empty_source_refs",
+          "worker_action": {
+            "action_id": "worker_action.case.empty_source_refs.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.empty_source_refs:repair:source_refs_required"
+            ],
+            "target_fields": [
+              "source_refs"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_clip_hash": "47cf25228a3c664e13bc1df648356695e8f9a6af54cfce1582b53591e2711e90",
+        "source_clip_hash_algorithm": "sha256",
+        "teaching_rule": "When executable grammar blocks a row, preserve the failed source clip, restart from the owning field or status lane, apply the repair contract, and rerun the grammar evaluator before any projection or publication path can reuse it."
+      },
+      {
+        "anti_claims": [
+          "grammar projection is not its own validator",
+          "failed grammar case is not publication permission",
+          "repair route is not public release approval",
+          "source clip hash is not private-root equivalence"
+        ],
+        "bridge_case_id": "grammar_replay_bridge.case.unknown_projection_strategy",
+        "evaluator_result": {
+          "authority": "grammar_evaluator_only",
+          "provider_or_artifact_self_status_used_as_authority": false,
+          "status": "block"
+        },
+        "evidence_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.unknown_projection_strategy]",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge"
+        ],
+        "failure_class": "allowed_projection_strategy",
+        "next_case": "rerun_executable_grammar_after_repair_contract",
+        "repair_route": {
+          "action_type": "route_field_repairs",
+          "authority_rule": "grammar_evaluator_result_drives_worker_action",
+          "route_id": "repair_route.grammar_replay_bridge.case.unknown_projection_strategy",
+          "target_fields": [
+            "projection_strategy"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_ref": "worker_action.case.unknown_projection_strategy.route_repairs"
+        },
+        "replay_seed": {
+          "rerun_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+          "restart_point": "candidate.projection_strategy",
+          "rule_ids": [
+            "allowed_projection_strategy"
+          ],
+          "source_clip_hash": "69c57d1f8f0e0d2b2ec26575fa742d05b4f864c5661f619a877eb18b5e13232c"
+        },
+        "restart_point": "candidate.projection_strategy",
+        "semantic_carryforward": {
+          "evaluator_authority": "grammar_evaluator_only",
+          "failure_class": "allowed_projection_strategy",
+          "projection_not_authority": true,
+          "repair_route": "worker_action.case.unknown_projection_strategy.route_repairs",
+          "restart_point": "candidate.projection_strategy",
+          "rule_ids": [
+            "allowed_projection_strategy"
+          ]
+        },
+        "source_case_id": "case.unknown_projection_strategy",
+        "source_case_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.unknown_projection_strategy]",
+        "source_clip": {
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "projection_strategy",
+                "reason": "unknown projection strategy"
+              }
+            ],
+            "observed_rule_ids": [
+              "allowed_projection_strategy"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "projection_strategy",
+                "repair_contract": "Choose one allowed projection mode and keep copy-then-sanitize out of the primitive.",
+                "rule_id": "allowed_projection_strategy",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "projection_strategy",
+                  "reason": "unknown projection strategy"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "mutation": {
+            "field": "projection_strategy",
+            "value_summary": "invalid copy-then-sanitize projection"
+          },
+          "source_case_id": "case.unknown_projection_strategy",
+          "worker_action": {
+            "action_id": "worker_action.case.unknown_projection_strategy.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.unknown_projection_strategy:repair:allowed_projection_strategy"
+            ],
+            "target_fields": [
+              "projection_strategy"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_clip_hash": "69c57d1f8f0e0d2b2ec26575fa742d05b4f864c5661f619a877eb18b5e13232c",
+        "source_clip_hash_algorithm": "sha256",
+        "teaching_rule": "When executable grammar blocks a row, preserve the failed source clip, restart from the owning field or status lane, apply the repair contract, and rerun the grammar evaluator before any projection or publication path can reuse it."
+      },
+      {
+        "anti_claims": [
+          "grammar projection is not its own validator",
+          "failed grammar case is not publication permission",
+          "repair route is not public release approval",
+          "source clip hash is not private-root equivalence"
+        ],
+        "bridge_case_id": "grammar_replay_bridge.case.vague_praise_instead_of_mechanism",
+        "evaluator_result": {
+          "authority": "grammar_evaluator_only",
+          "provider_or_artifact_self_status_used_as_authority": false,
+          "status": "block"
+        },
+        "evidence_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.vague_praise_instead_of_mechanism]",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge"
+        ],
+        "failure_class": "anti_vague_praise",
+        "next_case": "rerun_executable_grammar_after_repair_contract",
+        "repair_route": {
+          "action_type": "route_field_repairs",
+          "authority_rule": "grammar_evaluator_result_drives_worker_action",
+          "route_id": "repair_route.grammar_replay_bridge.case.vague_praise_instead_of_mechanism",
+          "target_fields": [
+            "mechanism_text"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_ref": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs"
+        },
+        "replay_seed": {
+          "rerun_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+          "restart_point": "candidate.mechanism_text",
+          "rule_ids": [
+            "anti_vague_praise"
+          ],
+          "source_clip_hash": "663ce3570d2e2f53d6c6fff0648d2b56b8c7c7d6356cd65effd00bb8a4ef5643"
+        },
+        "restart_point": "candidate.mechanism_text",
+        "semantic_carryforward": {
+          "evaluator_authority": "grammar_evaluator_only",
+          "failure_class": "anti_vague_praise",
+          "projection_not_authority": true,
+          "repair_route": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+          "restart_point": "candidate.mechanism_text",
+          "rule_ids": [
+            "anti_vague_praise"
+          ]
+        },
+        "source_case_id": "case.vague_praise_instead_of_mechanism",
+        "source_case_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.vague_praise_instead_of_mechanism]",
+        "source_clip": {
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "phrase": "cool idea",
+                "reason": "candidate uses vague praise instead of mechanism"
+              }
+            ],
+            "observed_rule_ids": [
+              "anti_vague_praise"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "mechanism_text",
+                "repair_contract": "Replace praise with the mechanism, the proof surface, and the next executable action.",
+                "rule_id": "anti_vague_praise",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "phrase": "cool idea",
+                  "reason": "candidate uses vague praise instead of mechanism"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "vague praise replaces executable repair"
+          },
+          "source_case_id": "case.vague_praise_instead_of_mechanism",
+          "worker_action": {
+            "action_id": "worker_action.case.vague_praise_instead_of_mechanism.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.vague_praise_instead_of_mechanism:repair:anti_vague_praise"
+            ],
+            "target_fields": [
+              "mechanism_text"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_clip_hash": "663ce3570d2e2f53d6c6fff0648d2b56b8c7c7d6356cd65effd00bb8a4ef5643",
+        "source_clip_hash_algorithm": "sha256",
+        "teaching_rule": "When executable grammar blocks a row, preserve the failed source clip, restart from the owning field or status lane, apply the repair contract, and rerun the grammar evaluator before any projection or publication path can reuse it."
+      },
+      {
+        "anti_claims": [
+          "grammar projection is not its own validator",
+          "failed grammar case is not publication permission",
+          "repair route is not public release approval",
+          "source clip hash is not private-root equivalence"
+        ],
+        "bridge_case_id": "grammar_replay_bridge.case.publish_before_gates",
+        "evaluator_result": {
+          "authority": "grammar_evaluator_only",
+          "provider_or_artifact_self_status_used_as_authority": false,
+          "status": "block"
+        },
+        "evidence_refs": [
+          "microcosms/executable_grammar_metabolism/grammar_board.json",
+          "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.publish_before_gates]",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge"
+        ],
+        "failure_class": "no_publication_before_gates",
+        "next_case": "rerun_executable_grammar_after_repair_contract",
+        "repair_route": {
+          "action_type": "route_field_repairs",
+          "authority_rule": "grammar_evaluator_result_drives_worker_action",
+          "route_id": "repair_route.grammar_replay_bridge.case.publish_before_gates",
+          "target_fields": [
+            "next_action"
+          ],
+          "transaction_status": "repair_routed_fail_closed",
+          "worker_action_ref": "worker_action.case.publish_before_gates.route_repairs"
+        },
+        "replay_seed": {
+          "rerun_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-executable-grammar-metabolism-specimen --root . --write-receipt",
+          "restart_point": "candidate.next_action",
+          "rule_ids": [
+            "no_publication_before_gates"
+          ],
+          "source_clip_hash": "db6f455571a715867a8b33774b6db85b3a15cf3e16095d453525e701e6ee9229"
+        },
+        "restart_point": "candidate.next_action",
+        "semantic_carryforward": {
+          "evaluator_authority": "grammar_evaluator_only",
+          "failure_class": "no_publication_before_gates",
+          "projection_not_authority": true,
+          "repair_route": "worker_action.case.publish_before_gates.route_repairs",
+          "restart_point": "candidate.next_action",
+          "rule_ids": [
+            "no_publication_before_gates"
+          ]
+        },
+        "source_case_id": "case.publish_before_gates",
+        "source_case_ref": "microcosms/executable_grammar_metabolism/grammar_board.json:cases[case.publish_before_gates]",
+        "source_clip": {
+          "evaluation": {
+            "grammar_failures": [
+              {
+                "candidate_id": "executable_grammar_metabolism_microcosm",
+                "field": "next_action",
+                "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                "rule_id": "no_publication_before_gates"
+              }
+            ],
+            "observed_rule_ids": [
+              "no_publication_before_gates"
+            ],
+            "provider_or_artifact_self_status_used_as_authority": false,
+            "repair_rows": [
+              {
+                "field": "next_action",
+                "repair_contract": "Route to a fail-closed gate or probe refresh instead of a public claim.",
+                "rule_id": "no_publication_before_gates",
+                "source_failure": {
+                  "candidate_id": "executable_grammar_metabolism_microcosm",
+                  "field": "next_action",
+                  "reason": "publication instruction appears before disclosure, license, citation, and probe gates",
+                  "rule_id": "no_publication_before_gates"
+                }
+              }
+            ],
+            "status": "block",
+            "status_authority": "grammar_evaluator_only"
+          },
+          "mutation": {
+            "field": "next_action",
+            "value_summary": "publication instruction before gates"
+          },
+          "source_case_id": "case.publish_before_gates",
+          "worker_action": {
+            "action_id": "worker_action.case.publish_before_gates.route_repairs",
+            "action_type": "route_field_repairs",
+            "authority_rule": "grammar_evaluator_result_drives_worker_action",
+            "input_status": "block",
+            "publication_permission_granted": false,
+            "required_refs": [
+              "microcosms/executable_grammar_metabolism/grammar_board.json",
+              "case.publish_before_gates:repair:no_publication_before_gates"
+            ],
+            "target_fields": [
+              "next_action"
+            ],
+            "transaction_effect": "blocked_candidate_receives_repair_contract_no_publication_side_effect",
+            "transaction_status": "repair_routed_fail_closed"
+          }
+        },
+        "source_clip_hash": "db6f455571a715867a8b33774b6db85b3a15cf3e16095d453525e701e6ee9229",
+        "source_clip_hash_algorithm": "sha256",
+        "teaching_rule": "When executable grammar blocks a row, preserve the failed source clip, restart from the owning field or status lane, apply the repair contract, and rerun the grammar evaluator before any projection or publication path can reuse it."
+      }
+    ],
+    "cross_links": {
+      "next_refinement": "Carry grammar replay bridge rows into demo pattern routes without making the demo storyboard an authority surface.",
+      "pattern_transfer_ref": "microcosms/demo_receipt_storyboard/storyboard.json::pattern.executable_grammar_to_runtime_board",
+      "portfolio_ref": "state/release_candidate_portfolio.json::microcosm_route_to_command_index.route.executable_grammar_to_failure_teaching",
+      "receipt_ref": "microcosms/lab_evolve_failure_replay/receipt.json",
+      "related_microcosms": [
+        "executable_grammar_metabolism_microcosm",
+        "provider_harness_evaluator_authority_split_microcosm",
+        "verisoftbench_diagnostic_specimen_microcosm"
+      ]
+    },
+    "failures": [],
+    "generated_at": "2026-05-13T03:45:00Z",
+    "generated_by": {
+      "projection_not_authority": true,
+      "source_refs": [
+        "microcosms/executable_grammar_metabolism/grammar_board.json",
+        "microcosms/executable_grammar_metabolism/receipt.json",
+        "src/idea_microcosm/executable_grammar_specimen.py",
+        "src/idea_microcosm/lab_evolve_failure_replay_specimen.py"
+      ]
+    },
+    "kind": "executable_grammar_failure_replay_bridge",
+    "pattern_ref": "pattern.executable_grammar_failure_to_teaching",
+    "route": {
+      "cold_agent_instruction": "Open the bridge cases, recompute the source_clip_hash for one grammar failure, then verify its repair_route points back to the grammar worker action.",
+      "expected_output": "microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "first_command": "PYTHONPATH=src python3 -m idea_microcosm.cli build-lab-evolve-failure-replay-specimen --root . --write-receipt",
+      "first_evidence": "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge",
+      "next_artifact": "microcosms/executable_grammar_metabolism/grammar_board.json",
+      "next_microcosm": "executable_grammar_metabolism_microcosm"
+    },
+    "rule_ref": "rule.executable_grammar_failure_replay",
+    "schema_version": "executable_grammar_failure_replay_bridge_v0",
+    "selected_native_pattern": "executable grammar failure becomes replayable teaching",
+    "source_owner": "idea_microcosm.executable_grammar_specimen",
+    "source_refs": [
+      "microcosms/executable_grammar_metabolism/grammar_board.json",
+      "microcosms/executable_grammar_metabolism/receipt.json",
+      "src/idea_microcosm/executable_grammar_specimen.py",
+      "src/idea_microcosm/lab_evolve_failure_replay_specimen.py"
+    ],
+    "status": "ok",
+    "summary": {
+      "benchmark_win_claim_count": 0,
+      "blocked_claim_count": 20,
+      "case_count": 5,
+      "evaluator_authority_count": 5,
+      "private_root_equivalence_claim_count": 0,
+      "public_release_claim_count": 0,
+      "publication_claim_count": 0,
+      "repair_route_count": 5,
+      "self_attestation_authority_count": 0,
+      "semantic_carryforward_count": 5,
+      "source_capsule_count": 5,
+      "teaching_rule_count": 5
+    }
+  },
+  "failures": [],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "global_pattern_candidates": [
+    {
+      "case_count": 2,
+      "pattern_id": "pattern.valid_ir_solver_variant_mismatch",
+      "rule_ref": "rule.valid_ir_solver_variant_mismatch",
+      "status": "global_graph_design_pressure",
+      "teaching_refs": [
+        "teaching.sum_small_list.solver_variant_after_valid_ir",
+        "teaching.sum_two_item_list.solver_variant_after_valid_ir"
+      ]
+    }
+  ],
+  "global_teaching_ledger": {
+    "candidate_global_rule_count": 1,
+    "global_rule_candidates": [
+      {
+        "action_order": [
+          "reuse_passing_operation_ir",
+          "mutate_solver_variant",
+          "rerun_evaluator",
+          "record_teaching",
+          "promote_candidate_rule_after_repeated_fixture_evidence"
+        ],
+        "anti_claims": [
+          "candidate rule is private Lab/Evolve authority",
+          "candidate rule is benchmark performance evidence",
+          "candidate rule grants public release permission"
+        ],
+        "evidence_refs": [
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "microcosms/lab_evolve_failure_replay/replay_graph.json:global_teaching_ledger.local_teachings",
+          "case.sum_small_list:teaching",
+          "case.sum_two_item_list:teaching"
+        ],
+        "failure_origin_nodes": [
+          "solve_operation"
+        ],
+        "failure_signatures": [
+          "valid_operation_ir_answer_mismatch"
+        ],
+        "observed_case_count": 2,
+        "pattern_id": "pattern.valid_ir_solver_variant_mismatch",
+        "promotion_threshold": 2,
+        "rule": "If a validated operation IR repeatedly produces evaluator answer mismatches, freeze upstream normalization, mutate the solver node first, rerun the evaluator, and only escalate upstream after solver variants fail.",
+        "rule_id": "rule.valid_ir_solver_variant_mismatch",
+        "safe_restart_points": [
+          "operation_ir"
+        ],
+        "status": "candidate_global_rule_local_fixture_only",
+        "winning_variants": [
+          "solver_sum_v2"
+        ]
+      }
+    ],
+    "kind": "lab_evolve_teaching_ledger",
+    "local_teachings": [
+      {
+        "case_id": "case.sum_small_list",
+        "evidence_refs": [
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "case.sum_small_list:baseline_trace",
+          "case.sum_small_list:variants_tried"
+        ],
+        "failure_origin_node": "solve_operation",
+        "failure_signature": "valid_operation_ir_answer_mismatch",
+        "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+        "restart_point": "operation_ir",
+        "teaching_id": "teaching.sum_small_list.solver_variant_after_valid_ir",
+        "winner_variant": "solver_sum_v2"
+      },
+      {
+        "case_id": "case.sum_two_item_list",
+        "evidence_refs": [
+          "microcosms/lab_evolve_failure_replay/replay_graph.json",
+          "case.sum_two_item_list:baseline_trace",
+          "case.sum_two_item_list:variants_tried"
+        ],
+        "failure_origin_node": "solve_operation",
+        "failure_signature": "valid_operation_ir_answer_mismatch",
+        "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+        "restart_point": "operation_ir",
+        "teaching_id": "teaching.sum_two_item_list.solver_variant_after_valid_ir",
+        "winner_variant": "solver_sum_v2"
+      }
+    ],
+    "schema_version": "lab_evolve_teaching_ledger_v0"
+  },
+  "graph": {
+    "edges": [
+      {
+        "from": "native_input",
+        "to": "normalize_to_operation_ir"
+      },
+      {
+        "from": "normalize_to_operation_ir",
+        "to": "solve_operation"
+      },
+      {
+        "from": "solve_operation",
+        "to": "evaluate_answer"
+      },
+      {
+        "from": "evaluate_answer",
+        "to": "classify_failure"
+      },
+      {
+        "from": "classify_failure",
+        "to": "choose_restart_point"
+      },
+      {
+        "from": "choose_restart_point",
+        "to": "replay_variants"
+      },
+      {
+        "from": "replay_variants",
+        "to": "record_teaching"
+      }
+    ],
+    "nodes": [
+      {
+        "contract": "Accept a public-safe synthetic task in native prose.",
+        "node_id": "native_input",
+        "node_type": "source",
+        "restartable": false
+      },
+      {
+        "contract": "Extract operation intent and operands into a small JSON IR.",
+        "node_id": "normalize_to_operation_ir",
+        "node_type": "transform",
+        "restartable": false
+      },
+      {
+        "contract": "Produce an answer from the operation IR.",
+        "node_id": "solve_operation",
+        "node_type": "reason",
+        "restartable": true
+      },
+      {
+        "contract": "Compare the answer with the fixture expectation.",
+        "node_id": "evaluate_answer",
+        "node_type": "evaluator",
+        "restartable": false
+      },
+      {
+        "contract": "Localize the first bad node without blaming the whole graph.",
+        "node_id": "classify_failure",
+        "node_type": "failure_classifier",
+        "restartable": false
+      },
+      {
+        "contract": "Restart from the nearest safe point instead of replaying the full graph.",
+        "node_id": "choose_restart_point",
+        "node_type": "restart",
+        "restartable": false
+      },
+      {
+        "contract": "Try bounded public-safe variants from the restart point.",
+        "node_id": "replay_variants",
+        "node_type": "replay",
+        "restartable": false
+      },
+      {
+        "contract": "Convert the local repair into a reusable graph-design teaching.",
+        "node_id": "record_teaching",
+        "node_type": "teaching",
+        "restartable": false
+      }
+    ],
+    "restart_policy": "Restart from the nearest artifact whose producing node passed validation; do not mutate upstream nodes without evidence."
+  },
+  "improvement_delta": "The release specimen makes failure localization, restart-point choice, replay variants, winner selection, and teaching capture visible in one deterministic fixture.",
+  "kind": "lab_evolve_failure_replay_graph_specimen",
+  "public_safety_boundary": "Synthetic public-safe arithmetic fixtures only; no private Lab/Evolve engine, provider output, benchmark trace, private root path, or hidden corpus is included.",
+  "publication_boundary": "No website card or public release may outrun registry records, receipt refs, fail-closed publication gate, and fresh clean-run or clone probes.",
+  "schema_version": "lab_evolve_failure_replay_graph_specimen_v0",
+  "source_capsule_provenance": {
+    "anti_claims": [
+      "local source capsules only",
+      "not private system provenance",
+      "not benchmark proof",
+      "not public release approval"
+    ],
+    "capsule_count": 2,
+    "carryforward_contract": {
+      "required_fields": [
+        "case_id",
+        "failure_signature",
+        "first_bad_node",
+        "restart_point",
+        "winning_variant",
+        "teaching_ref"
+      ],
+      "rule": "Every reusable teaching must carry its replay source clip, deterministic hash, restart point, replay result, and anti-claim boundary."
+    },
+    "hash_algorithm": "sha256",
+    "kind": "source_capsule_provenance",
+    "schema_version": "source_capsule_provenance_v0",
+    "source_capsules": [
+      {
+        "anti_claims": [
+          "source capsule is not private Lab/Evolve trace authority",
+          "source capsule is not benchmark evidence",
+          "source capsule is not public release approval"
+        ],
+        "authority_boundary": "A capsule hash proves deterministic fixture carryforward only; it is not private lab authority, benchmark proof, or publication permission.",
+        "capsule_id": "source_capsule.case.sum_small_list",
+        "clip_hash": "ba8aa6f55b7814655f13a08c98db5faec500e723ba99a0092977ab4b9311a3dd",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only the public-safe fixture clip required to replay the teaching; no private Lab/Evolve trace, provider transcript, benchmark row, or hidden corpus is included.",
+        "replay_variant_refs": [
+          "normalizer_restart_noise_v1",
+          "solver_sum_v2"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Preserve the validated source clip, restart point, replay evidence, and teaching ref together; do not promote a teaching when its source clip or hash is missing.",
+          "case_id": "case.sum_small_list",
+          "failure_signature": "valid_operation_ir_answer_mismatch",
+          "first_bad_node": "solve_operation",
+          "restart_point": "operation_ir",
+          "teaching_ref": "teaching.sum_small_list.solver_variant_after_valid_ir",
+          "winning_variant": "solver_sum_v2"
+        },
+        "source_class": "public_safe_synthetic_fixture_case",
+        "source_clip": {
+          "baseline_trace": [
+            {
+              "node_id": "native_input",
+              "output_ref": "case.sum_small_list:native_input",
+              "status": "pass"
+            },
+            {
+              "node_id": "normalize_to_operation_ir",
+              "output": {
+                "ir_id": "operation_ir",
+                "operands": [
+                  1,
+                  2,
+                  3
+                ],
+                "operation": "sum"
+              },
+              "status": "pass"
+            },
+            {
+              "node_id": "solve_operation",
+              "output": 3,
+              "status": "produced_output_pending_evaluator",
+              "variant_id": "solver_count_items_v1"
+            },
+            {
+              "expected_answer": 6,
+              "node_id": "evaluate_answer",
+              "observed_answer": 3,
+              "status": "fail"
+            }
+          ],
+          "baseline_variant_id": "solver_count_items_v1",
+          "case_id": "case.sum_small_list",
+          "expected_answer": 6,
+          "failure_origin_node": "solve_operation",
+          "failure_signature": "valid_operation_ir_answer_mismatch",
+          "native_input": "Find the total of the numbers 1, 2, and 3.",
+          "restart_point": "operation_ir",
+          "teaching": {
+            "evidence_refs": [
+              "microcosms/lab_evolve_failure_replay/replay_graph.json",
+              "case.sum_small_list:baseline_trace",
+              "case.sum_small_list:variants_tried"
+            ],
+            "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+            "local_rule": "When the operation IR is valid and only the answer fails, mutate the solver node and keep the normalized IR fixed.",
+            "teaching_id": "teaching.sum_small_list.solver_variant_after_valid_ir"
+          },
+          "variants_tried": [
+            {
+              "evaluator_ref": "evaluate_answer",
+              "mutated_node_id": "normalize_to_operation_ir",
+              "observed_answer": 3,
+              "restart_point": "operation_ir",
+              "status": "fail",
+              "variant_id": "normalizer_restart_noise_v1"
+            },
+            {
+              "evaluator_ref": "evaluate_answer",
+              "mutated_node_id": "solve_operation",
+              "observed_answer": 6,
+              "restart_point": "operation_ir",
+              "status": "pass",
+              "variant_id": "solver_sum_v2"
+            }
+          ],
+          "winner_variant": "solver_sum_v2"
+        },
+        "source_ref": "microcosms/lab_evolve_failure_replay/replay_graph.json:cases.case.sum_small_list",
+        "status": "ok"
+      },
+      {
+        "anti_claims": [
+          "source capsule is not private Lab/Evolve trace authority",
+          "source capsule is not benchmark evidence",
+          "source capsule is not public release approval"
+        ],
+        "authority_boundary": "A capsule hash proves deterministic fixture carryforward only; it is not private lab authority, benchmark proof, or publication permission.",
+        "capsule_id": "source_capsule.case.sum_two_item_list",
+        "clip_hash": "6c687f6c6a411e589292c14746a822e50c67ad0c88a7f6019c274b172f46ca5a",
+        "clip_hash_algorithm": "sha256",
+        "omission_boundary": "Capsule contains only the public-safe fixture clip required to replay the teaching; no private Lab/Evolve trace, provider transcript, benchmark row, or hidden corpus is included.",
+        "replay_variant_refs": [
+          "normalizer_restart_noise_v1",
+          "solver_sum_v2"
+        ],
+        "semantic_carryforward": {
+          "carryforward_rule": "Preserve the validated source clip, restart point, replay evidence, and teaching ref together; do not promote a teaching when its source clip or hash is missing.",
+          "case_id": "case.sum_two_item_list",
+          "failure_signature": "valid_operation_ir_answer_mismatch",
+          "first_bad_node": "solve_operation",
+          "restart_point": "operation_ir",
+          "teaching_ref": "teaching.sum_two_item_list.solver_variant_after_valid_ir",
+          "winning_variant": "solver_sum_v2"
+        },
+        "source_class": "public_safe_synthetic_fixture_case",
+        "source_clip": {
+          "baseline_trace": [
+            {
+              "node_id": "native_input",
+              "output_ref": "case.sum_two_item_list:native_input",
+              "status": "pass"
+            },
+            {
+              "node_id": "normalize_to_operation_ir",
+              "output": {
+                "ir_id": "operation_ir",
+                "operands": [
+                  4,
+                  5
+                ],
+                "operation": "sum"
+              },
+              "status": "pass"
+            },
+            {
+              "node_id": "solve_operation",
+              "output": 2,
+              "status": "produced_output_pending_evaluator",
+              "variant_id": "solver_count_items_v1"
+            },
+            {
+              "expected_answer": 9,
+              "node_id": "evaluate_answer",
+              "observed_answer": 2,
+              "status": "fail"
+            }
+          ],
+          "baseline_variant_id": "solver_count_items_v1",
+          "case_id": "case.sum_two_item_list",
+          "expected_answer": 9,
+          "failure_origin_node": "solve_operation",
+          "failure_signature": "valid_operation_ir_answer_mismatch",
+          "native_input": "Find the total of the numbers 4 and 5.",
+          "restart_point": "operation_ir",
+          "teaching": {
+            "evidence_refs": [
+              "microcosms/lab_evolve_failure_replay/replay_graph.json",
+              "case.sum_two_item_list:baseline_trace",
+              "case.sum_two_item_list:variants_tried"
+            ],
+            "global_pattern_candidate_ref": "pattern.valid_ir_solver_variant_mismatch",
+            "local_rule": "When the operation IR is valid and only the answer fails, mutate the solver node and keep the normalized IR fixed.",
+            "teaching_id": "teaching.sum_two_item_list.solver_variant_after_valid_ir"
+          },
+          "variants_tried": [
+            {
+              "evaluator_ref": "evaluate_answer",
+              "mutated_node_id": "normalize_to_operation_ir",
+              "observed_answer": 2,
+              "restart_point": "operation_ir",
+              "status": "fail",
+              "variant_id": "normalizer_restart_noise_v1"
+            },
+            {
+              "evaluator_ref": "evaluate_answer",
+              "mutated_node_id": "solve_operation",
+              "observed_answer": 9,
+              "restart_point": "operation_ir",
+              "status": "pass",
+              "variant_id": "solver_sum_v2"
+            }
+          ],
+          "winner_variant": "solver_sum_v2"
+        },
+        "source_ref": "microcosms/lab_evolve_failure_replay/replay_graph.json:cases.case.sum_two_item_list",
+        "status": "ok"
+      }
+    ],
+    "status": "ok",
+    "summary": {
+      "capsule_count": 2,
+      "hashed_source_clip_count": 2,
+      "public_safe_source_count": 2,
+      "semantic_carryforward_count": 2
+    }
+  },
+  "source_refs": [
+    "registry/release_candidates.json",
+    "microcosms/lab_evolve_failure_replay/README.md",
+    "src/idea_microcosm/lab_evolve_failure_replay_specimen.py"
+  ],
+  "status": "ok",
+  "summary": {
+    "baseline_failure_count": 2,
+    "benchmark_win_claim_count": 0,
+    "candidate_global_rule_count": 1,
+    "case_count": 2,
+    "executable_grammar_replay_bridge_blocked_claim_count": 20,
+    "executable_grammar_replay_bridge_case_count": 5,
+    "executable_grammar_replay_bridge_evaluator_authority_count": 5,
+    "executable_grammar_replay_bridge_repair_route_count": 5,
+    "executable_grammar_replay_bridge_self_attestation_authority_count": 0,
+    "executable_grammar_replay_bridge_semantic_carryforward_count": 5,
+    "executable_grammar_replay_bridge_source_capsule_count": 5,
+    "executable_grammar_replay_bridge_teaching_rule_count": 5,
+    "global_pattern_candidate_count": 1,
+    "private_root_equivalence_claim_count": 0,
+    "public_release_claim_count": 0,
+    "publication_claim_count": 0,
+    "replay_success_count": 2,
+    "semantic_carryforward_count": 2,
+    "source_capsule_count": 2,
+    "teaching_count": 2
+  }
+}

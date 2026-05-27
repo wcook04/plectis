@@ -10,7 +10,20 @@
     "candidate_materials.json",
     "experiment_dag.json",
     "simulator_assays.json",
-    "active_learning_decisions.json"
+    "active_learning_decisions.json",
+    "source_module_manifest.json",
+    "source_modules/ai_workflow/self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+    "source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+    "source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+    "source_modules/ai_workflow/codex/standards/std_laboratory.json"
   ],
+  "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 4,
+    "body_material_status": "copied_non_secret_materials_lab_macro_body_landed",
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
   "authority_ceiling": "source-faithful public Lab/Evolve replay metadata; no wetlab protocol, hazardous synthesis, reagent quantity, credential, robot-command, discovery, benchmark, or release authority"
 }

@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 37,
+  "rows_with_source_body_imports": 43,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 373,
+  "source_open_body_material_count": 407,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 37,
-    "source_open_body_material_count": 373,
+    "rows_with_source_body_imports": 43,
+    "source_open_body_material_count": 407,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -6820,7 +6820,44 @@
           "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "benchmark_score_claim_authorized": false,
+            "irreversible_mutation_authorized": false,
+            "live_cloud_account_authorized": false,
+            "proof_body_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false,
+            "standing_credentials_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "proof_governed_mutation_extracted_patterns_ledger_body_import",
+            "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+            "mission_transaction_preflight_control_body_import",
+            "scoped_commit_private_index_control_body_import",
+            "work_ledger_claim_runtime_body_import",
+            "work_landing_reconcile_control_body_import"
+          ],
+          "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_ledger_body",
+            "public_macro_pattern_body",
+            "public_macro_receipt_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported governed-mutation authorization bundle for copied macro pattern, receipt, Work Ledger, scoped-commit, mission-transaction, and work-landing control bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization",
         "verdict_source": "validator_computation"
@@ -6828,7 +6865,44 @@
       "ordinal": 40,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "benchmark_score_claim_authorized": false,
+          "irreversible_mutation_authorized": false,
+          "live_cloud_account_authorized": false,
+          "proof_body_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false,
+          "standing_credentials_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "proof_governed_mutation_extracted_patterns_ledger_body_import",
+          "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+          "mission_transaction_preflight_control_body_import",
+          "scoped_commit_private_index_control_body_import",
+          "work_ledger_claim_runtime_body_import",
+          "work_landing_reconcile_control_body_import"
+        ],
+        "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/proof_derived_governed_mutation_authorization.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_ledger_body",
+          "public_macro_pattern_body",
+          "public_macro_receipt_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported governed-mutation authorization bundle for copied macro pattern, receipt, Work Ledger, scoped-commit, mission-transaction, and work-landing control bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
         "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
@@ -6886,7 +6960,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe belief-state process reward replay: synthetic episodes, observation digests, typed belief summaries, verifier feedback, dense process rewards, outcome rewards, trajectory groups, cold replay, and falsification fixtures.",
         "receipt_expectation_count": 2,
-        "required_field_count": 14,
+        "required_field_count": 16,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -6901,7 +6975,7 @@
         "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how process-reward claims are admitted only when belief summaries, objective feedback, reward events, negative cases, and authority ceilings align.",
-        "validation_rule_count": 5
+        "validation_rule_count": 6
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -6918,7 +6992,46 @@
           "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "benchmark_score_claim_authorized": false,
+            "benchmark_submission_payload_exported": false,
+            "hidden_reasoning_exported": false,
+            "live_training_payload_exported": false,
+            "private_memory_body_exported": false,
+            "provider_calls_authorized": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "belief_reward_extracted_patterns_ledger_body_import",
+            "belief_reward_high_novelty_growth_receipt_body_import",
+            "belief_reward_canonical_organ_model_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import",
+            "extracted_pattern_route_readiness_tool_body_import"
+          ],
+          "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/belief_state_process_reward_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported belief-state process reward bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay",
         "verdict_source": "derived_projection_metric"
@@ -6926,7 +7039,46 @@
       "ordinal": 41,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "benchmark_score_claim_authorized": false,
+          "benchmark_submission_payload_exported": false,
+          "hidden_reasoning_exported": false,
+          "live_training_payload_exported": false,
+          "private_memory_body_exported": false,
+          "provider_calls_authorized": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "belief_reward_extracted_patterns_ledger_body_import",
+          "belief_reward_high_novelty_growth_receipt_body_import",
+          "belief_reward_canonical_organ_model_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import",
+          "extracted_pattern_route_readiness_tool_body_import"
+        ],
+        "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/belief_state_process_reward_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported belief-state process reward bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_belief_state_process_reward_replay.json",
         "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
@@ -6985,7 +7137,7 @@
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A public-safe sandbox policy-escape replay: source-faithful public agent-execution trace spans over action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, and authority ceilings.",
+        "ontology": "A public-safe sandbox policy-escape replay: source-faithful public agent-execution trace spans over action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, authority ceilings, and exact copied non-secret macro source modules for the local body floor.",
         "receipt_expectation_count": 2,
         "required_field_count": 9,
         "required_substrate": {
@@ -7002,7 +7154,7 @@
         "standard_ref": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how agent sandbox/security claims are admitted only when containment policy, diffs, rollback, negative cases, receipts, and ceilings align.",
-        "validation_rule_count": 6
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -7019,7 +7171,48 @@
           "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "account_session_exported": false,
+            "browser_hud_live_access_exported": false,
+            "credential_payload_exported": false,
+            "executable_escape_payload_exported": false,
+            "live_network_payload_exported": false,
+            "provider_calls_authorized": false,
+            "provider_payload_exported": false,
+            "raw_environment_payload_exported": false,
+            "release_authorized": false,
+            "security_benchmark_claim_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "sandbox_policy_extracted_patterns_ledger_body_import",
+            "sandbox_policy_high_novelty_growth_receipt_body_import",
+            "sandbox_policy_canonical_organ_model_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import",
+            "extracted_pattern_route_readiness_tool_body_import"
+          ],
+          "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out receipts/first_wave/agent_sandbox_policy_escape_replay --acceptance-out receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
@@ -7027,7 +7220,48 @@
       "ordinal": 42,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "account_session_exported": false,
+          "browser_hud_live_access_exported": false,
+          "credential_payload_exported": false,
+          "executable_escape_payload_exported": false,
+          "live_network_payload_exported": false,
+          "provider_calls_authorized": false,
+          "provider_payload_exported": false,
+          "raw_environment_payload_exported": false,
+          "release_authorized": false,
+          "security_benchmark_claim_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "sandbox_policy_extracted_patterns_ledger_body_import",
+          "sandbox_policy_high_novelty_growth_receipt_body_import",
+          "sandbox_policy_canonical_organ_model_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import",
+          "extracted_pattern_route_readiness_tool_body_import"
+        ],
+        "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
         "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
@@ -7103,7 +7337,7 @@
         "standard_ref": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how prompt-injection robustness-adjacent claims are admitted only when source trust, taint, policy, sanitization, negative cases, receipts, ceilings, and public trace spans align.",
-        "validation_rule_count": 7
+        "validation_rule_count": 9
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -7120,7 +7354,45 @@
           "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "account_session_exported": false,
+            "browser_hud_live_access_exported": false,
+            "credential_payload_exported": false,
+            "general_robustness_claim_authorized": false,
+            "live_tool_access_exported": false,
+            "provider_calls_authorized": false,
+            "provider_payload_exported": false,
+            "raw_prompt_body_exported": false,
+            "real_account_material_exported": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "prompt_injection_extracted_patterns_ledger_body_import",
+            "prompt_injection_high_novelty_growth_receipt_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import"
+          ],
+          "body_material_status": "copied_non_secret_prompt_injection_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported prompt-injection information-flow bundle for copied macro pattern, reconstruction, trace-standard, and trace runtime bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
@@ -7128,7 +7400,45 @@
       "ordinal": 43,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "account_session_exported": false,
+          "browser_hud_live_access_exported": false,
+          "credential_payload_exported": false,
+          "general_robustness_claim_authorized": false,
+          "live_tool_access_exported": false,
+          "provider_calls_authorized": false,
+          "provider_payload_exported": false,
+          "raw_prompt_body_exported": false,
+          "real_account_material_exported": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "prompt_injection_extracted_patterns_ledger_body_import",
+          "prompt_injection_high_novelty_growth_receipt_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import"
+        ],
+        "body_material_status": "copied_non_secret_prompt_injection_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported prompt-injection information-flow bundle for copied macro pattern, reconstruction, trace-standard, and trace runtime bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
         "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
@@ -7204,7 +7514,7 @@
         "standard_ref": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how vulnerability-discovery-adjacent claims are admitted only when evidence, patches, tests, sandbox policy, negative cases, receipts, and ceilings align.",
-        "validation_rule_count": 7
+        "validation_rule_count": 11
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -7221,7 +7531,38 @@
           "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {},
+          "body_material_count": 8,
+          "body_material_ids": [
+            "agentic_vulnerability_extracted_patterns_ledger_body_import",
+            "agentic_vulnerability_high_novelty_growth_receipt_body_import",
+            "agentic_vulnerability_organ_projection_ir_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import",
+            "extracted_pattern_route_readiness_standard_body_import",
+            "mission_transaction_preflight_wrapper_body_import",
+            "mission_transaction_landing_preflight_runtime_body_import"
+          ],
+          "body_material_status": "copied_non_secret_agentic_vulnerability_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay run --input fixtures/first_wave/agentic_vulnerability_discovery_patch_proof_replay/input --out receipts/first_wave/agentic_vulnerability_discovery_patch_proof_replay --acceptance-out receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
@@ -7229,7 +7570,38 @@
       "ordinal": 44,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {},
+        "body_material_count": 8,
+        "body_material_ids": [
+          "agentic_vulnerability_extracted_patterns_ledger_body_import",
+          "agentic_vulnerability_high_novelty_growth_receipt_body_import",
+          "agentic_vulnerability_organ_projection_ir_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import",
+          "extracted_pattern_route_readiness_standard_body_import",
+          "mission_transaction_preflight_wrapper_body_import",
+          "mission_transaction_landing_preflight_runtime_body_import"
+        ],
+        "body_material_status": "copied_non_secret_agentic_vulnerability_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/agentic_vulnerability_discovery_patch_proof_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/agentic_vulnerability_discovery_patch_proof_replay/exported_patch_proof_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
         "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
@@ -7294,7 +7666,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe materials chemistry lab-safety replay organ that carries body-free candidate-material metadata, safety-screen refs, simulator-only assay rows, active-learning decision refs, negative-case denials, source-faithful replay receipts, and authority ceilings without wetlab, robot, credential, provider, private notebook, live assay, discovery, benchmark, or release authority.",
         "receipt_expectation_count": 2,
-        "required_field_count": 14,
+        "required_field_count": 16,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -7309,7 +7681,7 @@
         "standard_ref": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
         "standard_status": "draft",
         "teleology": "Let a cold reader run and inspect a closed-loop materials-lab safety replay as real local Microcosm substrate while seeing exactly where simulator metadata ends and wetlab, discovery, robot, provider, correctness, and release authority do not begin.",
-        "validation_rule_count": 4
+        "validation_rule_count": 5
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -7326,7 +7698,41 @@
           "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "hazardous_synthesis_authorized": false,
+            "live_lab_credentials_authorized": false,
+            "provider_calls_authorized": false,
+            "reagent_amounts_authorized": false,
+            "release_authorized": false,
+            "robot_command_authorized": false,
+            "wetlab_protocol_authorized": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "materials_lab_evolve_failure_replay_specimen_body_import",
+            "materials_lab_evolve_replay_graph_body_import",
+            "materials_lab_evolve_receipt_body_import",
+            "laboratory_standard_body_import"
+          ],
+          "body_material_status": "copied_non_secret_materials_lab_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_receipt_body",
+            "public_macro_tool_body",
+            "public_standard_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported materials lab-safety bundle for exact copied Lab/Evolve replay specimen, replay graph, replay receipt, and laboratory standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay --acceptance-out receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
         "verdict_source": "derived_projection_metric"
@@ -7334,7 +7740,41 @@
       "ordinal": 45,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "hazardous_synthesis_authorized": false,
+          "live_lab_credentials_authorized": false,
+          "provider_calls_authorized": false,
+          "reagent_amounts_authorized": false,
+          "release_authorized": false,
+          "robot_command_authorized": false,
+          "wetlab_protocol_authorized": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "materials_lab_evolve_failure_replay_specimen_body_import",
+          "materials_lab_evolve_replay_graph_body_import",
+          "materials_lab_evolve_receipt_body_import",
+          "laboratory_standard_body_import"
+        ],
+        "body_material_status": "copied_non_secret_materials_lab_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_receipt_body",
+          "public_macro_tool_body",
+          "public_standard_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported materials lab-safety bundle for exact copied Lab/Evolve replay specimen, replay graph, replay receipt, and laboratory standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
         "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",

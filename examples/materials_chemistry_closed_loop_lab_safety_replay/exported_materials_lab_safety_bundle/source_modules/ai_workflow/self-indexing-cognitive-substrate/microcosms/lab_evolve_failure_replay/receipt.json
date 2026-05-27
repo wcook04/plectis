@@ -1,0 +1,49 @@
+{
+  "claim_ref": "candidate.lab_evolve_failure_replay_graph_microcosm",
+  "claim_tier": "fixture_validated",
+  "command": "python -m idea_microcosm.cli build-lab-evolve-failure-replay-specimen --root . --write-receipt",
+  "evidence_refs": [
+    "microcosms/lab_evolve_failure_replay/replay_graph.json",
+    "microcosms/lab_evolve_failure_replay/replay_graph.json:global_teaching_ledger",
+    "microcosms/lab_evolve_failure_replay/replay_graph.json:source_capsule_provenance",
+    "microcosms/lab_evolve_failure_replay/replay_graph.json:executable_grammar_replay_bridge",
+    "microcosms/executable_grammar_metabolism/grammar_board.json",
+    "microcosms/executable_grammar_metabolism/receipt.json",
+    "microcosms/lab_evolve_failure_replay/README.md",
+    "registry/release_candidates.json",
+    "src/idea_microcosm/lab_evolve_failure_replay_specimen.py"
+  ],
+  "generated_at": "2026-05-13T03:45:00Z",
+  "id": "receipt.lab_evolve_failure_replay_graph",
+  "kind": "receipt",
+  "omissions": [
+    "This receipt validates a synthetic public-safe replay fixture only; it does not expose private Lab/Evolve internals, provider traces, Lean artifacts, or benchmark data.",
+    "Imaginations and private-system doctrine may inspire the graph shape, but this receipt only proves the included deterministic fixture."
+  ],
+  "owner": "idea_microcosm.lab_evolve_failure_replay_specimen",
+  "result": "ok",
+  "schema_version": "receipt_v0",
+  "status": "ok",
+  "summary": {
+    "baseline_failure_count": 2,
+    "benchmark_win_claim_count": 0,
+    "candidate_global_rule_count": 1,
+    "case_count": 2,
+    "executable_grammar_replay_bridge_blocked_claim_count": 20,
+    "executable_grammar_replay_bridge_case_count": 5,
+    "executable_grammar_replay_bridge_evaluator_authority_count": 5,
+    "executable_grammar_replay_bridge_repair_route_count": 5,
+    "executable_grammar_replay_bridge_self_attestation_authority_count": 0,
+    "executable_grammar_replay_bridge_semantic_carryforward_count": 5,
+    "executable_grammar_replay_bridge_source_capsule_count": 5,
+    "executable_grammar_replay_bridge_teaching_rule_count": 5,
+    "global_pattern_candidate_count": 1,
+    "private_root_equivalence_claim_count": 0,
+    "public_release_claim_count": 0,
+    "publication_claim_count": 0,
+    "replay_success_count": 2,
+    "semantic_carryforward_count": 2,
+    "source_capsule_count": 2,
+    "teaching_count": 2
+  }
+}

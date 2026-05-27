@@ -61,6 +61,8 @@
       "secret_exclusion_scan",
       "body_import_status",
       "body_import_verification",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
       "authority_ceiling",
       "anti_claim"
     ],
@@ -86,6 +88,8 @@
   "required_fields": [
     "selected_route_id",
     "selected_pattern_ids",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
     "candidate_materials",
     "experiments",
     "simulator_assays",
@@ -110,6 +114,11 @@
       "field": "source_faithful_public_replay_refactor",
       "path": "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
       "role": "public_macro_refactor_source"
+    },
+    {
+      "field": "source_open_body_imports",
+      "path": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
     },
     {
       "field": "runtime_bundle",
@@ -148,7 +157,8 @@
     "require every experiment row to cite a candidate material, safety screen, simulator assay, result table, failure taxonomy, budget, and cold replay ref",
     "require every simulator assay and active-learning decision to bind candidate and experiment refs",
     "reject wetlab protocol export, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot command execution, private lab notebooks, live assay data, discovery claims, benchmark score overclaims, and release authority",
-    "require simulator-only authority and body-free public fixture rows"
+    "require simulator-only authority and body-free public fixture rows",
+    "require exported runtime bundles to hash-check copied non-secret macro bodies under source_modules while keeping receipt/card payloads body-free"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay run --input fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input --out receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay",

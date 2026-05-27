@@ -1,0 +1,80 @@
+{
+  "kind": "standard",
+  "schema_version": "std_laboratory_v0",
+  "id": "std_laboratory",
+  "title": "Laboratory Definition Standard",
+  "purpose": "Single machine-readable authority for the old microcosm-as-experiment lane after the 2026-05-21 naming split. A laboratory is a controlled, fixture-backed experiment substrate that tests candidate grammar, packets, routes, receipts, validators, product mechanics, or public-safe projections before any result is promoted into live substrate.",
+  "definition": {
+    "register": "controlled experiment substrate with fixtures, evaluators, receipts, and explicit promotion/deletion/deferral disposition",
+    "truth_posture": "evidence_not_authority",
+    "answers_question": "Does this candidate shape work when enacted against representative fixtures and checked by a receipt-bearing evaluator?",
+    "is_not": [
+      "Microcosm product primitive — the public-safe `repo -> .microcosm` substrate is governed by std_microcosm.json and microcosm_substrate.md",
+      "fixture — a laboratory uses fixtures but is not itself test data",
+      "paper_module — paper modules describe current substrate; laboratories test candidate future substrate",
+      "live private repo — laboratory output never bypasses the owning apply/review lane",
+      "public release gate — laboratory evidence may feed a public candidate, but release authority stays external",
+      "ad hoc prototype — laboratory waves carry a plan, receipt, and disposition"
+    ]
+  },
+  "core_vocabulary": {
+    "laboratory": "controlled, fixture-backed experiment substrate for testing candidate system or product grammar before promotion",
+    "laboratory_probe_plan": "per-wave packet naming mode, theory_ref, packet_ref, fixture_slice, candidate_question, example_case, counterexample_case, thresholds, assimilation_rule, and next_wave_selector",
+    "laboratory_probe_receipt": "per-wave receipt carrying pass/partial_pass/fail/not_run evidence, opened/skipped rows, wrong_open_count, missing_field_count, authority_preserved_rows, lost_authority_cases, side findings, and assimilation decision",
+    "laboratory_learning_ledger": "per-wave learning surface preserving anchors, packet seam tested, receipt id, observed gap, and next-wave selector",
+    "assimilation_lift": "controller-owned promotion from a passing laboratory result into the owning doctrine, standard, skill, paper module, code, or public Microcosm lane"
+  },
+  "governance": {
+    "authority": "registered_v0_via_core_group_authority_index",
+    "writer": "agent or human proposal; field-set additions or enum changes after v0 require v1 review",
+    "validator_status": "no_dedicated_validator_yet",
+    "compatibility_handles": [
+      "codex/doctrine/skills/doctrine/system_microcosm_probe.md",
+      "codex/doctrine/skills/doctrine/microcosm_autonomous_seed_plan.md",
+      "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
+      "legacy receipt fields named microcosm_probe_*"
+    ],
+    "current_owner_surfaces": [
+      "codex/doctrine/concepts/con_041_laboratory_as_controlled_experiment_substrate.json",
+      "codex/standards/std_laboratory.json",
+      "codex/doctrine/system_vocabulary/term_registry.json::laboratory",
+      "codex/doctrine/skills/doctrine/system_microcosm_probe.md",
+      "codex/doctrine/skills/doctrine/microcosm_autonomous_seed_plan.md"
+    ]
+  },
+  "scope": {
+    "applies_to": [
+      "theory-first self-hosted probes",
+      "disposable repo probes",
+      "bridge-assisted source-hidden action-selection probes",
+      "laboratory probe receipts and learning ledgers",
+      "legacy system_microcosm_probe and microcosm_autonomous_seed_plan compatibility surfaces"
+    ],
+    "does_not_apply_to": [
+      "microcosm-substrate/ as the current public product primitive",
+      "docs/dissemination public-launch or recipient-send authority",
+      "self-indexing-cognitive-substrate release-root historical framing except where an owner route selects it as archaeology",
+      "raw fixture data without a governed experiment plan and receipt"
+    ]
+  },
+  "hard_invariants": {
+    "evidence_not_authority": "Laboratory output is evidence, never authority; promotion is a separate lift through the target kind's existing owner lane.",
+    "microcosm_name_reserved": "Bare Microcosm names the current public-safe product/substrate compression, not the old experiment lane.",
+    "receipt_required": "A substantive laboratory wave closes with pass, partial_pass, fail, not_run with blocker, deletion, deferral, or promotion-candidate evidence.",
+    "source_hidden_before_promotion": "A candidate grammar should pass source-hidden example and counterexample checks before promotion.",
+    "public_claims_external": "Laboratory proof cannot authorize public release, hosted claims, source-available language, or private-root equivalence."
+  },
+  "relation_to_neighbors": {
+    "microcosm": "Microcosm is the public-safe product/substrate compression of the macro system, currently centered on microcosm-substrate/ and `repo -> .microcosm`. Laboratory is the private/control experiment lane that may improve Microcosm but does not define it.",
+    "imagination": "An imagination renders a counterfactual affordance scene; a laboratory tests an enacted candidate against fixtures.",
+    "paper_module": "A paper module describes a current subsystem; a laboratory tests whether a candidate future subsystem shape should be promoted.",
+    "fixture": "A fixture is test data; a laboratory is the governed experiment using fixtures.",
+    "public_constellation_strategy": "Public gates can consume laboratory evidence but remain separate release/disclosure authorities."
+  },
+  "migration_note": {
+    "date": "2026-05-21",
+    "from": "microcosm-as-laboratory / system_microcosm_probe terminology",
+    "to": "laboratory for controlled experiment substrate; Microcosm for public product/substrate primitive",
+    "compatibility_policy": "Keep legacy ids temporarily where renaming would break generated routes or mission templates; visible prose and vocabulary should prefer Laboratory."
+  }
+}

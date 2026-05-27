@@ -1,6 +1,24 @@
 {
   "anti_claim": "This fixture validates body-free simulator-only materials chemistry lab-safety rows by feeding them through a source-faithful public Lab/Evolve failure-replay graph; it does not export wetlab protocols, hazardous synthesis steps, reagent quantities, controlled or bioactive targets, live lab credentials, robot commands, private lab notebooks, live assay data, discovery claims, benchmark scores, or release authority.",
   "authority_ceiling": "source-faithful public Lab/Evolve replay metadata; no wetlab, hazardous synthesis, reagent amount, credential, robot, notebook, live assay, discovery, benchmark, or release authority",
+  "body_copied_material_count": 4,
+  "body_import_status": "source_faithful_refactor_landed",
+  "body_import_verification": {
+    "body_import_classification": "source_faithful_refactor",
+    "body_in_receipt": false,
+    "classification": "source_faithful_refactor",
+    "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+    "source_open_body_import_count": 4,
+    "status": "pass",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/lab_evolve_replay.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py"
+    ],
+    "verification_mode": "source_faithful_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_materials_lab_macro_body_landed",
   "expected_negative_cases": [
     "wetlab_protocol_steps",
     "hazardous_synthesis_steps",
@@ -78,6 +96,58 @@
   ],
   "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
   "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 1,
+      "public_standard_body": 1
+    },
+    "body_material_count": 4,
+    "body_material_ids": [
+      "materials_lab_evolve_failure_replay_specimen_body_import",
+      "materials_lab_evolve_replay_graph_body_import",
+      "materials_lab_evolve_receipt_body_import",
+      "laboratory_standard_body_import"
+    ],
+    "body_material_status": "copied_non_secret_materials_lab_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "authority_ceiling": {
+      "hazardous_synthesis_authorized": false,
+      "live_lab_credentials_authorized": false,
+      "provider_calls_authorized": false,
+      "reagent_amounts_authorized": false,
+      "release_authorized": false,
+      "robot_command_authorized": false,
+      "wetlab_protocol_authorized": false
+    },
+    "blocked_source_refs": [
+      {
+        "blocker_id": "lab_oracle_evolve_pipeline_raw_operator_anchor_boundary",
+        "replacement_criteria": "Import a source-faithful public paper-module extract only after raw operator voice anchors are removed or replaced by governed public-safe doctrine prose.",
+        "source_ref": "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+        "status": "blocked_by_raw_operator_voice_boundary"
+      }
+    ],
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body",
+      "public_standard_body"
+    ],
+    "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported materials lab-safety bundle for exact copied Lab/Evolve replay specimen, replay graph, replay receipt, and laboratory standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "status": "pass"
+  },
   "stable_error_codes": [
     "MATERIALS_WETLAB_PROTOCOL_FORBIDDEN",
     "MATERIALS_HAZARDOUS_SYNTHESIS_FORBIDDEN",
@@ -102,11 +172,12 @@
         "negative_case_summary",
         "authority_ceiling",
         "public_lab_evolve_replay",
-        "secret_exclusion_scan",
-        "body_import_status",
-        "body_import_verification",
-        "anti_claim"
-      ],
+          "secret_exclusion_scan",
+          "body_import_status",
+          "body_import_verification",
+          "source_open_body_imports",
+          "anti_claim"
+        ],
       "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json": [
         "status",
         "organ_id",
@@ -119,6 +190,7 @@
         "secret_exclusion_scan",
         "body_import_status",
         "body_import_verification",
+        "source_open_body_imports",
         "authority_ceiling",
         "anti_claim"
       ]

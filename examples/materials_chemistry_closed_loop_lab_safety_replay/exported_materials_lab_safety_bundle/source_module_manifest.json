@@ -1,0 +1,175 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_macro_body_copies_live_under_source_modules_ai_workflow",
+  "bundle_id": "materials_chemistry_closed_loop_lab_safety_replay_runtime_example",
+  "classification": "copied_non_secret_macro_body_imports",
+  "manifest_id": "materials_chemistry_closed_loop_lab_safety_replay_source_modules",
+  "module_count": 4,
+  "modules": [
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 42291,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 904,
+      "material_class": "public_macro_tool_body",
+      "module_id": "materials_lab_evolve_failure_replay_specimen_body_import",
+      "path": "source_modules/ai_workflow/self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "required_anchors": [
+        "choose_restart_point",
+        "restart_point",
+        "source_capsule_provenance",
+        "receipt_written"
+      ],
+      "sha256": "sha256:d615e3cc9491a58d4f094148378d5a155056e527afb57a0b6d2f823eb7143179",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_raw_operator_voice_provider_payloads_or_credential_equivalent_material",
+      "source_ref": "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "source_role": "Macro Lab/Evolve failure-replay specimen body that provides deterministic replay graph construction, failure classification, restart-point selection, source-capsule hashing, and public-safe receipt boundaries.",
+      "source_sha256": "sha256:d615e3cc9491a58d4f094148378d5a155056e527afb57a0b6d2f823eb7143179",
+      "target_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
+      "target_sha256": "sha256:d615e3cc9491a58d4f094148378d5a155056e527afb57a0b6d2f823eb7143179",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_chemistry_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 53999,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1249,
+      "material_class": "public_macro_control_plane_body",
+      "module_id": "materials_lab_evolve_replay_graph_body_import",
+      "path": "source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "required_anchors": [
+        "\"candidate_id\": \"lab_evolve_failure_replay_graph_microcosm\"",
+        "\"claim_boundary\"",
+        "\"source_capsule_provenance\"",
+        "\"global_teaching_ledger\""
+      ],
+      "sha256": "sha256:cedbcfcccd7bca3afb8b98745558d6fc1328c893c4d96a39a9f5e19c8edab7df",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_raw_operator_voice_provider_payloads_or_credential_equivalent_material",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "source_role": "Macro replay graph body binding failure-localization nodes, restart points, source capsules, global teachings, and the public claim boundary consumed by the materials replay.",
+      "source_sha256": "sha256:cedbcfcccd7bca3afb8b98745558d6fc1328c893c4d96a39a9f5e19c8edab7df",
+      "target_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
+      "target_sha256": "sha256:cedbcfcccd7bca3afb8b98745558d6fc1328c893c4d96a39a9f5e19c8edab7df",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_chemistry_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 2403,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 49,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "materials_lab_evolve_receipt_body_import",
+      "path": "source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "required_anchors": [
+        "\"claim_ref\": \"candidate.lab_evolve_failure_replay_graph_microcosm\"",
+        "\"receipt.lab_evolve_failure_replay_graph\"",
+        "source_capsule_provenance",
+        "\"src/idea_microcosm/lab_evolve_failure_replay_specimen.py\""
+      ],
+      "sha256": "sha256:3eada5145a7b91d08b566bbb5f76f2ffab27eaf41ae680e9a987228252b699b5",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_raw_operator_voice_provider_payloads_or_credential_equivalent_material",
+      "source_ref": "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "source_role": "Macro deterministic replay receipt body that proves the source graph, source-capsule provenance, and public-safe fixture boundary were generated by the Lab/Evolve replay specimen.",
+      "source_sha256": "sha256:3eada5145a7b91d08b566bbb5f76f2ffab27eaf41ae680e9a987228252b699b5",
+      "target_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
+      "target_sha256": "sha256:3eada5145a7b91d08b566bbb5f76f2ffab27eaf41ae680e9a987228252b699b5",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_chemistry_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 6130,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 80,
+      "material_class": "public_standard_body",
+      "module_id": "laboratory_standard_body_import",
+      "path": "source_modules/ai_workflow/codex/standards/std_laboratory.json",
+      "required_anchors": [
+        "\"id\": \"std_laboratory\"",
+        "\"laboratory\"",
+        "\"laboratory_probe_receipt\"",
+        "\"receipt_required\""
+      ],
+      "sha256": "sha256:f51a81b1004b6fd8b58b69b720c8670d4aced7f2605437494d26a3897582557d",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_raw_operator_voice_provider_payloads_or_credential_equivalent_material",
+      "source_ref": "codex/standards/std_laboratory.json",
+      "source_role": "Macro laboratory standard body defining controlled experiment substrate, probe receipts, learning ledgers, and promotion gates used by the replay.",
+      "source_sha256": "sha256:f51a81b1004b6fd8b58b69b720c8670d4aced7f2605437494d26a3897582557d",
+      "target_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/codex/standards/std_laboratory.json",
+      "target_sha256": "sha256:f51a81b1004b6fd8b58b69b720c8670d4aced7f2605437494d26a3897582557d",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_chemistry_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "omitted_material": [
+    "keys_credentials_account_session_state_cookies",
+    "provider_payload_bodies",
+    "browser_hud_live_access",
+    "recipient_send_state",
+    "credential_equivalent_material",
+    "raw_operator_voice"
+  ],
+  "blocked_source_refs": [
+    {
+      "blocker_id": "lab_oracle_evolve_pipeline_raw_operator_anchor_boundary",
+      "replacement_criteria": "Import a source-faithful public paper-module extract only after raw operator voice anchors are removed or replaced by governed public-safe doctrine prose, with hashes and tests proving no keys, credentials, account/session state, provider payload bodies, browser/HUD live access, recipient-send state, credential-equivalent material, or raw operator voice entered Microcosm receipts.",
+      "source_ref": "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+      "status": "blocked_by_raw_operator_voice_boundary"
+    }
+  ],
+  "public_runtime_policy": {
+    "hazardous_synthesis_authorized": false,
+    "live_lab_credentials_authorized": false,
+    "provider_calls_authorized": false,
+    "reagent_amounts_authorized": false,
+    "release_authorized": false,
+    "robot_command_authorized": false,
+    "wetlab_protocol_authorized": false
+  },
+  "receipt_body_policy": "receipts_carry_refs_hashes_counts_and_verdicts_not_body_text",
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "secret_exclusion_boundary": {
+    "browser_hud_live_access": "excluded",
+    "credential_equivalent_material": "excluded",
+    "keys_credentials_account_session_state_cookies": "excluded",
+    "provider_payload_bodies": "excluded",
+    "raw_operator_voice": "excluded",
+    "recipient_send_state": "excluded"
+  },
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_raw_operator_voice_provider_payloads_or_credential_equivalent_material",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_source_modules_are_exact_macro_body_imports",
+    "microcosm-substrate/tests/test_materials_chemistry_closed_loop_lab_safety_replay.py::test_materials_chemistry_exported_bundle_validates_runtime_shape"
+  ]
+}

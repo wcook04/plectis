@@ -21,7 +21,7 @@
     "status": "pass",
     "wetlab_protocol_authorized": false
   },
-  "board_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
+  "board_ref": "microcosm-substrate/receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_board.json",
   "body_import_classification": "source_faithful_refactor",
   "body_import_status": "source_faithful_refactor_landed",
   "body_import_verification": {
@@ -33,6 +33,8 @@
     "replay_case_count": 4,
     "replay_graph_status": "pass",
     "source_capsule_count": 12,
+    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/source_module_manifest.json",
+    "source_open_body_import_count": 0,
     "source_refs": [
       "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
       "self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
@@ -57,7 +59,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-23T16:12:55+00:00",
+  "created_at": "2026-05-27T04:36:34+00:00",
   "fixture_id": "first_wave.materials_chemistry_closed_loop_lab_safety_replay",
   "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
   "public_lab_evolve_replay_summary": {
@@ -75,9 +77,10 @@
     "wetlab_protocol_export_count": 0
   },
   "release_authorized": false,
-  "result_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
+  "result_ref": "microcosm-substrate/receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_result.json",
   "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "forbidden_output_fields": [
@@ -86,10 +89,49 @@
     ],
     "hit_count": 0,
     "hits": [],
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 14,
     "status": "pass"
   },
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "hazardous_synthesis_authorized": false,
+      "live_lab_credentials_authorized": false,
+      "provider_calls_authorized": false,
+      "reagent_amounts_authorized": false,
+      "release_authorized": false,
+      "robot_command_authorized": false,
+      "wetlab_protocol_authorized": false
+    },
+    "blocked_source_refs": [],
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "omitted_material": [],
+    "reader_action": "",
+    "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "status": "pass",
-  "validation_ref": "receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
+  "validation_ref": "microcosm-substrate/receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json",
   "validator_id": "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay"
 }

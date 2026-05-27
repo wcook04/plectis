@@ -44,6 +44,19 @@ Negative cases reject wetlab protocol export, hazardous synthesis steps,
 reagent quantities, controlled or bioactive targets, live lab credentials, robot
 command execution, private lab notebook export, and discovery claims.
 
+## Source-Open Body Floor
+
+The runtime bundle now carries exact copied non-secret macro bodies under
+`examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow`.
+The source module manifest hash-checks the Lab/Evolve replay specimen, replay
+graph, replay receipt, and laboratory standard, while receipts and cards expose
+only refs, digests, counts, and verdicts.
+
+`codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md` remains blocked as
+an exact body import because it includes raw operator-anchor language. A future
+import needs a source-faithful public extract that removes raw operator voice
+before the body can enter Microcosm.
+
 ## Authority Ceiling
 
 This organ is source-faithful public replay metadata and simulator-only. It does
@@ -55,6 +68,11 @@ calls, publication, hosting, or release authority.
 ## Evidence
 
 - `src/microcosm_core/macro_tools/lab_evolve_replay.py`
+- `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json`
+- `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py`
+- `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json`
+- `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json`
+- `examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/codex/standards/std_laboratory.json`
 - `standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json`
 - `core/fixture_manifests/materials_chemistry_closed_loop_lab_safety_replay.fixture_manifest.json`
 - `receipts/first_wave/materials_chemistry_closed_loop_lab_safety_replay/materials_chemistry_closed_loop_lab_safety_replay_validation_receipt.json`

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -16,6 +17,7 @@ from microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay imp
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/materials_chemistry_closed_loop_lab_safety_replay/input"
@@ -25,6 +27,11 @@ BUNDLE_INPUT = (
     / "examples/materials_chemistry_closed_loop_lab_safety_replay/"
     "exported_materials_lab_safety_bundle"
 )
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -146,6 +153,12 @@ def test_materials_chemistry_exported_bundle_validates_runtime_shape(
     assert result["public_lab_evolve_replay"]["summary"]["boundary_case_count"] == 0
     assert result["body_import_status"] == "source_faithful_refactor_landed"
     assert result["body_import_verification"]["body_in_receipt"] is False
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_imports"]["verified_module_count"] == 4
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["body_copied_material_count"] == 4
+    assert result["body_import_verification"]["source_open_body_import_count"] == 4
     assert result["negative_case_summary"]["expected_negative_case_count"] == 0
     assert result["negative_case_summary"]["expected_missing"] == {}
     assert result["finding_count"] == 0
@@ -153,6 +166,50 @@ def test_materials_chemistry_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["robot_command_authorized"] is False
     assert result["authority_ceiling"]["discovery_claim_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+
+
+def test_materials_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 4
+
+    modules = manifest["modules"]
+    assert [row["module_id"] for row in modules] == [
+        "materials_lab_evolve_failure_replay_specimen_body_import",
+        "materials_lab_evolve_replay_graph_body_import",
+        "materials_lab_evolve_receipt_body_import",
+        "laboratory_standard_body_import",
+    ]
+
+    for row in modules:
+        source = SOURCE_ROOT / row["source_ref"]
+        target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+        if not target.is_file():
+            target = BUNDLE_INPUT / row["path"]
+
+        assert source.is_file()
+        assert target.is_file()
+        assert target.read_bytes() == source.read_bytes()
+        digest = _sha256(target)
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        assert row["sha256_match"] is True
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text
+
+    blocked_refs = {
+        row["source_ref"]: row for row in manifest["blocked_source_refs"]
+    }
+    blocked = blocked_refs["codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md"]
+    assert blocked["status"] == "blocked_by_raw_operator_voice_boundary"
+    assert "raw operator voice" in blocked["replacement_criteria"]
 
 
 def test_materials_chemistry_bundle_card_reuses_fresh_receipt(
@@ -180,7 +237,7 @@ def test_materials_chemistry_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 10
+    assert first_card["command_speed"]["freshness_input_count"] == 15
     assert first_card["materials_lab_safety"]["candidate_material_count"] == 4
     assert first_card["materials_lab_safety"]["experiment_count"] == 4
     assert first_card["materials_lab_safety"]["simulator_assay_count"] == 4
@@ -188,6 +245,10 @@ def test_materials_chemistry_bundle_card_reuses_fresh_receipt(
     assert first_card["materials_lab_safety"]["robot_command_count"] == 0
     assert first_card["public_lab_evolve_replay"]["replay_case_count"] == 4
     assert first_card["public_lab_evolve_replay"]["boundary_case_count"] == 0
+    assert first_card["body_floor"]["source_module_manifest_status"] == "pass"
+    assert first_card["body_floor"]["source_open_body_import_status"] == "pass"
+    assert first_card["body_floor"]["source_open_body_import_count"] == 4
+    assert first_card["body_floor"]["body_copied_material_count"] == 4
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
     assert "candidate_materials" not in _walk_keys(first_card)
@@ -195,6 +256,8 @@ def test_materials_chemistry_bundle_card_reuses_fresh_receipt(
     assert "simulator_assays" not in _walk_keys(first_card)
     assert "active_learning_decisions" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
     assert "authority_ceiling" not in _walk_keys(first_card)
     assert "anti_claim" not in _walk_keys(first_card)
     assert "wetlab_step_body" not in _walk_keys(first_card)

@@ -56,12 +56,31 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "authority_ceiling",
     "anti_claim",
     "body_import_verification",
+    "source_module_imports",
+    "source_open_body_imports",
     "safe_to_show",
     "materials_lab_safety_board",
 )
 BODY_IMPORT_STATUS = "source_faithful_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "source_faithful_refactor"
 PRODUCT_PATH_ROLE = "runtime_spine_product_substrate"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_materials_lab_macro_body_landed"
+SOURCE_OPEN_BODY_SCHEMA = (
+    "materials_chemistry_closed_loop_lab_safety_replay_"
+    "source_open_body_imports_v1"
+)
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_control_plane_body",
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
+        "public_standard_body",
+    }
+)
 
 INPUT_NAMES = (
     "lab_safety_protocol.json",
@@ -255,11 +274,57 @@ def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
-        *_input_paths(source, include_negative=include_negative),
+        *_scan_paths_for_input(source, include_negative=include_negative),
         *_code_freshness_paths(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
@@ -446,6 +511,272 @@ def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
     if "body_in_receipt" not in public_scan:
         public_scan["body_in_receipt"] = False if legacy_body_free is True else None
     return public_scan
+
+
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported materials lab bundle must include copied non-secret macro source modules.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "blocked_source_refs": [],
+            "omitted_material": [],
+            "findings": findings,
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+    blocked_source_refs = (
+        manifest.get("blocked_source_refs", []) if isinstance(manifest, dict) else []
+    )
+    omitted_material = _strings(
+        manifest.get("omitted_material") if isinstance(manifest, dict) else []
+    )
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "MATERIALS_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify copied material as non-secret macro body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while receipts remain body-free.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "MATERIALS_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor
+            for anchor in _strings(row.get("required_anchors"))
+            if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "MATERIALS_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared materials Lab/Evolve macro anchors.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "source_refs": source_refs,
+        "blocked_source_refs": blocked_source_refs
+        if isinstance(blocked_source_refs, list)
+        else [],
+        "omitted_material": omitted_material,
+        "findings": findings,
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "blocked_source_refs": source_module_result.get("blocked_source_refs", []),
+        "omitted_material": source_module_result.get("omitted_material", []),
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "wetlab_protocol_authorized": False,
+            "hazardous_synthesis_authorized": False,
+            "reagent_amounts_authorized": False,
+            "live_lab_credentials_authorized": False,
+            "robot_command_authorized": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported materials lab-safety bundle for copied Lab/Evolve replay "
+            "specimen, replay graph, replay receipt, and laboratory standard "
+            "bodies; receipts carry refs, hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
 
 
 def _candidate_findings(
@@ -1069,9 +1400,15 @@ def _build_result(
         and all(row.get("live_robot_command_emitted") is False for row in decisions)
         and all(row.get("discovery_claim") is False for row in decisions)
     )
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_materials_lab_safety_bundle",
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
     scan = _secret_exclusion_scan(
         scan_paths(
-            _input_paths(input_dir, include_negative=include_negative),
+            _scan_paths_for_input(input_dir, include_negative=include_negative),
             forbidden_classes=load_forbidden_classes(
                 public_root / "core/private_state_forbidden_classes.json"
             ),
@@ -1087,6 +1424,10 @@ def _build_result(
         if policy_passed
         and scan.get("status") == PASS
         and public_lab_evolve_replay.get("status") == PASS
+        and (
+            input_mode != "exported_materials_lab_safety_bundle"
+            or source_modules["status"] == PASS
+        )
         else "blocked"
     )
     summary = {
@@ -1163,6 +1504,10 @@ def _build_result(
         "replay_case_count": public_lab_evolve_replay["summary"]["replay_case_count"],
         "boundary_case_count": public_lab_evolve_replay["summary"]["boundary_case_count"],
         "source_capsule_count": public_lab_evolve_replay["summary"]["source_capsule_count"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_open_body_import_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "body_in_receipt": False,
     }
     return {
@@ -1195,9 +1540,18 @@ def _build_result(
                 if case_id in expected_cases
             },
         },
-        "finding_count": len(positive_findings),
+        "finding_count": len(positive_findings) + len(source_modules["findings"]),
         "positive_findings": positive_findings,
         "negative_case_findings": negative_findings,
+        "source_module_findings": source_modules["findings"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_imports": source_modules,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "body_import_status": BODY_IMPORT_STATUS,
@@ -1253,6 +1607,9 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "body_import_classification": result["body_import_classification"],
         "product_path_role": result["product_path_role"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "public_lab_evolve_replay": result["public_lab_evolve_replay"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1304,6 +1661,9 @@ def _write_receipts(
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
@@ -1336,6 +1696,9 @@ def _write_receipts(
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "authority_ceiling": AUTHORITY_CEILING,
@@ -1420,6 +1783,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     negative_summary = negatives if isinstance(negatives, dict) else {}
     scan = result.get("secret_exclusion_scan")
     secret_scan = scan if isinstance(scan, dict) else {}
+    source_body = result.get("source_open_body_imports")
+    source_body_imports = source_body if isinstance(source_body, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -1470,11 +1835,23 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         },
         "body_floor": {
             "body_in_receipt": False,
+            "body_material_status": result.get("body_material_status"),
+            "body_copied_material_count": result.get("body_copied_material_count"),
+            "source_module_manifest_status": result.get(
+                "source_module_manifest_status"
+            ),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "source_open_body_import_status": source_body_imports.get("status"),
+            "source_open_body_import_count": source_body_imports.get(
+                "body_material_count"
+            ),
             "public_lab_evolve_replay_rows_in_card": False,
             "secret_exclusion_scan_in_card": False,
             "authority_ceiling_in_card": False,
             "anti_claim_in_card": False,
             "body_import_verification_in_card": False,
+            "source_module_imports_in_card": False,
+            "source_open_body_imports_in_card": False,
             "materials_rows_in_card": False,
         },
         "authority_boundary": {
