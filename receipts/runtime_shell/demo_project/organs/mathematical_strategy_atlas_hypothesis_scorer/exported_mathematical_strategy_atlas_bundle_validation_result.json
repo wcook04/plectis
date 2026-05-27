@@ -19,7 +19,7 @@
   "bundle_id": "mathematical_strategy_atlas_runtime_example",
   "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run-strategy-bundle --input microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/mathematical_strategy_atlas_hypothesis_scorer --card",
   "copied_source_artifact_count": 8,
-  "created_at": "2026-05-27T13:34:54+00:00",
+  "created_at": "2026-05-27T13:46:05+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],

@@ -22,7 +22,7 @@
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out microcosm-substrate/receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer --card",
   "copied_source_artifact_count": 8,
-  "created_at": "2026-05-27T13:34:54+00:00",
+  "created_at": "2026-05-27T13:46:05+00:00",
   "error_codes": [
     "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
     "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
