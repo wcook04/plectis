@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import undeclared_library_prior_symbol_classifier
 from microcosm_core.organs.undeclared_library_prior_symbol_classifier import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_symbol_bundle,
 )
@@ -169,3 +172,67 @@ def test_symbol_classifier_exported_bundle_validates_runtime_shape(
             text = path.read_text(encoding="utf-8")
             assert "/Users/willcook" not in text
             assert "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL" not in text
+
+
+def test_symbol_classifier_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "undeclared_library_prior_symbol_classifier"
+    )
+    args = [
+        "run-symbol-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 13
+    assert first_card["symbol_classifier"]["classification_count"] == 3
+    assert first_card["symbol_classifier"]["premise_count"] == 11
+    assert first_card["symbol_classifier"]["undeclared_library_prior_count"] == 1
+    assert first_card["symbol_classifier"]["premise_budget_precedence_count"] == 1
+    assert first_card["symbol_classifier"]["source_module_count"] == 6
+    assert first_card["symbol_classifier"]["verified_source_module_count"] == 6
+    assert first_card["source_body_floor"]["status"] == "pass"
+    assert first_card["source_body_floor"]["body_material_count"] == 6
+    assert first_card["source_body_floor"]["body_material_id_count"] == 6
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "source_modules" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
+    assert "body_material_ids" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "source_digests" not in _walk_keys(first_card)
+    assert "proof_body" not in _walk_keys(first_card)
+    assert "private_source_ref" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        undeclared_library_prior_symbol_classifier,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
