@@ -138,6 +138,43 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "microcosm_extracted_patterns",
             "system_microcosm",
         ],
+        "handoff_sequence_depth_order": [
+            {
+                "step_id": "open_microcosm_depth_module_cards",
+                "command": (
+                    "./repo-python kernel.py --option-surface paper_modules "
+                    "--band card --ids microcosm_entry_lattice,"
+                    "paper_module_coverage_metabolism,"
+                    "microcosm_public_export_type_plane,microcosm_substrate"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "combined_microcosm_module_cards",
+            },
+            {
+                "step_id": "open_microcosm_standard_contract",
+                "command": (
+                    "./repo-python kernel.py --option-surface standards "
+                    "--band card --ids std_microcosm"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "standard_contract_card",
+            },
+            {
+                "step_id": "open_public_microcosm_export_type_plane",
+                "command": (
+                    "./repo-python kernel.py --option-surface navigation_type_plane "
+                    "--band card --ids public_microcosm_exports"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "public_export_type_plane_card",
+            },
+            {
+                "step_id": "verify_microcosm_paper_module_coverage",
+                "command": "./repo-python kernel.py --paper-module-coverage",
+                "surface_role": "DRILLDOWN",
+                "role": "coverage_health_receipt",
+            },
+        ],
         "context_pack_selected_row_order": [
             {
                 "kind_id": "paper_modules",
@@ -345,6 +382,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "generated sidecars",
         "supporting route-lattice modules",
         "module_depth_roles",
+        "handoff sequence",
         "context-pack selected row order",
         "context-pack next command order",
         "microcosm_paper_module_depth",
