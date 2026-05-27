@@ -71,6 +71,22 @@ failure-mode boundaries; a hiring reviewer should ask whether the counters are
 traceable rather than inflated; a peer developer should ask which command lets
 them reproduce the local evidence trail.
 
+## Discipline Comparison Frame
+
+The first screen must show rigor by naming the collapse it prevents. A compact
+card is allowed to be small only because it keeps these separations visible:
+
+| Common collapse | First-screen separation | Reader-visible test |
+|---|---|---|
+| A status badge says "works". | Local behavior proof stays separate from release, proof, and correctness claims. | The card names `microcosm tour --card <project>` plus the authority ceiling. |
+| Evidence totals look like progress. | Evidence classes stay attached to anti-claims and receipt refs. | A reader can move from count to class to proof surface without inferring maturity. |
+| Governance reads like ceremony. | Each constraint is phrased as the mistake it blocks. | The card says what would be overclaimed if the constraint were absent. |
+| Breadth looks diffuse. | The local run is framed as one exercised organ inside the accepted runtime spine. | The structural join points to spine, workingness, standards, receipts, and observatory drilldowns. |
+
+This comparison frame is not marketing copy. It is the rule that keeps the
+first screen from sounding impressive while hiding the authority boundary that
+made the compression possible.
+
 ## Reader Branches
 
 The shared first command comes before branching. Reader branches select the
@@ -106,7 +122,8 @@ The standard is intentionally a composition contract, not a runtime authority.
 When a runtime card consumes it, validation should check that the card has a
 single terminal selector, one shared behavior proof, the three reader route
 ids, the reader-selection card ref, evidence-accounting context, a
-runnable-to-structural join, omission receipts, and the authority ceiling.
+runnable-to-structural join, discipline comparison frame, omission receipts,
+and the authority ceiling.
 
 ## Public Card Emitter
 

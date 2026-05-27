@@ -68,6 +68,26 @@ or when the route map assumes the reader already understands evidence classes.
 The first screen should compress; the route map should sequence; the reveal
 should demonstrate the path against public receipts.
 
+## Comparison-Backed Route Rows
+
+Each route row should make the unusual discipline visible by naming the normal
+failure mode it is avoiding. The route map is not just a command list; it is a
+sequence of claim-boundary checks:
+
+| Route row field | Failure avoided | Required reader cue |
+|---|---|---|
+| `command_ref` | Prose-only claims about what runs. | Show the exact local command before the claim it supports. |
+| `receipt_ref` | Trusting generated summaries as source authority. | Point to the receipt or validator that bounds the row. |
+| `evidence_class` | Treating all evidence as equal proof. | Label body import, subprocess witness, projection, validator, or fixture evidence. |
+| `anti_claim` | Letting a successful demo imply release, production, provider, or proof authority. | State the forbidden read beside the positive claim. |
+| `failure_mode_ref` | Governance looking like abstract ceremony. | Name the concrete overclaim or missing-standard case this row catches. |
+
+Rows that omit the comparison cue are still technically navigable, but they
+make the rigor invisible to a cold reader. The validator should prefer a
+shorter row with command, receipt, class, anti-claim, and failure mode over a
+longer row that lists more organs without explaining what each boundary
+prevents.
+
 `readme_onboarding_route` is the selected route only for projects with a README;
 folders without one still get a route/work/event/evidence path through the
 selected route emitted by `tour` and `compile`.

@@ -71,6 +71,23 @@ turning the reveal into a marketing hero. Motion, screenshots, and observatory
 views are allowed presentation layers only when the same evidence legend,
 anti-claim, and receipt refs remain on the first view.
 
+## Discipline In The Reveal
+
+The reveal should make discipline legible as prevented failure, not as a wall
+of policy labels. Before showing totals or motion, the board should pair each
+impressive-looking artifact with the boundary that keeps it honest:
+
+| Reveal artifact | Boundary shown beside it | What the boundary prevents |
+|---|---|---|
+| Local `.microcosm/` state | `source_files_mutated=false` plus route/work/event/evidence refs. | Reading a local demo as source mutation, hosted release, or provider execution. |
+| Body-import counts | `verified_macro_body_import` rows with validator or receipt refs. | Reading copied public material as private-root equivalence. |
+| Projection counts | Source-coupling and generated-row anti-claims. | Reading generated cards as source authority or domain proof. |
+| Observatory views | Compact endpoint first, full model as drilldown. | Letting browser motion replace command, receipt, and evidence-class checks. |
+| Doctrine constraints | Failure mode or anti-claim beside the constraint. | Reading governance as ceremony rather than as a specific overclaim guard. |
+
+If the reveal cannot show those boundaries on the first view, it should defer
+the visual flourish and keep the compact receipt-backed route visible instead.
+
 The validated claim is narrow:
 
 > Microcosm turns a repo into a local operating substrate: patterns, routes,
