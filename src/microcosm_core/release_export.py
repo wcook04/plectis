@@ -23,6 +23,7 @@ PROJECTION_FRESHNESS_RECEIPT_REF = (
     "receipts/first_wave/macro_projection_import_protocol/"
     "exported_projection_import_bundle_validation_result.json"
 )
+RELEASE_AUTHORIZATION_GATE_ID = "explicit_release_authorization_gate"
 DEFAULT_INCLUDE_REFS = (
     ".gitignore",
     "AGENTS.md",
@@ -96,6 +97,46 @@ STRONG_SECRET_PATTERNS = (
 )
 HOST_TEMP_ROOT_NEEDLE = "/private/" + "var/folders/"
 HOST_TEMP_SYNTHETIC_EXAMPLE_NEEDLE = HOST_TEMP_ROOT_NEEDLE + "wn/example/"
+EXTERNAL_WARNING_CLASSIFICATION_ROWS = (
+    {
+        "warning_id": "historical_evidence_durability_backlog",
+        "classification": "release_candidate_disclosed",
+        "release_blocking": False,
+        "release_authorization_blocking": False,
+        "public_artifact_claim_impact": [],
+        "reason": (
+            "Historical evidence durability backlog is outside the generated "
+            "public artifact claims for inventory, exclusion, runnable smoke, "
+            "projection freshness, install mode, and authority."
+        ),
+    },
+    {
+        "warning_id": "cap_cartography.json",
+        "classification": "macro_governance_backlog_nonblocking",
+        "release_blocking": False,
+        "release_authorization_blocking": False,
+        "public_artifact_claim_impact": [],
+        "reason": (
+            "Task Ledger cartography view drift is a macro-governance projection "
+            "backlog; it does not alter this export's included files, excluded "
+            "private state, smoke result, projection freshness, install mode, "
+            "or authority ceiling."
+        ),
+    },
+    {
+        "warning_id": "cap_census.json",
+        "classification": "macro_governance_backlog_nonblocking",
+        "release_blocking": False,
+        "release_authorization_blocking": False,
+        "public_artifact_claim_impact": [],
+        "reason": (
+            "Task Ledger census view drift is a macro-governance projection "
+            "backlog; it does not alter this export's included files, excluded "
+            "private state, smoke result, projection freshness, install mode, "
+            "or authority ceiling."
+        ),
+    },
+)
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -507,6 +548,220 @@ def _redact_local(text: str, *, target: Path, source_root: Path) -> str:
     return redacted
 
 
+def _git_output(root: Path, args: list[str]) -> str | None:
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(root), *args],
+            text=True,
+            capture_output=True,
+            timeout=10,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if completed.returncode != 0:
+        return None
+    return completed.stdout.strip()
+
+
+def _source_identity(root: Path) -> dict[str, Any]:
+    head = _git_output(root, ["rev-parse", "HEAD"])
+    git_root_text = _git_output(root, ["rev-parse", "--show-toplevel"])
+    if not head or not git_root_text:
+        return {
+            "status": "unavailable",
+            "source_root_ref": ARTIFACT_DIR_NAME,
+            "source_tree_state_kind": "not_git_or_git_unavailable",
+            "git_head": None,
+            "dirty_source_path_count": None,
+            "dirty_source_path_sample": [],
+            "dirty_source_path_overflow_count": 0,
+            "body_in_receipt": False,
+        }
+
+    git_root = Path(git_root_text)
+    try:
+        source_root_ref = root.relative_to(git_root).as_posix()
+    except ValueError:
+        source_root_ref = ARTIFACT_DIR_NAME
+    status_text = _git_output(root, ["status", "--short", "--", str(root)])
+    dirty_paths: list[str] = []
+    if status_text:
+        for line in status_text.splitlines():
+            if len(line) > 3 and line[2] == " ":
+                path_text = line[3:]
+            elif len(line) > 2 and line[1] == " ":
+                path_text = line[2:]
+            else:
+                path_text = line
+            dirty_paths.append(path_text.strip())
+    dirty_paths = sorted(path for path in dirty_paths if path)
+    return {
+        "status": "available",
+        "source_root_ref": source_root_ref,
+        "source_tree_state_kind": (
+            "git_head_clean" if not dirty_paths else "git_head_with_worktree_delta"
+        ),
+        "git_head": head,
+        "dirty_source_path_count": len(dirty_paths),
+        "dirty_source_path_sample": dirty_paths[:20],
+        "dirty_source_path_overflow_count": max(0, len(dirty_paths) - 20),
+        "body_in_receipt": False,
+    }
+
+
+def _release_candidate_warning_rows(
+    source_identity: dict[str, Any],
+) -> list[dict[str, Any]]:
+    rows = [dict(row) for row in EXTERNAL_WARNING_CLASSIFICATION_ROWS]
+    dirty_count = source_identity.get("dirty_source_path_count")
+    if isinstance(dirty_count, int) and dirty_count > 0:
+        rows.append(
+            {
+                "warning_id": "source_tree_dirty_at_export",
+                "classification": "release_authority_gate_input",
+                "release_blocking": False,
+                "release_authorization_blocking": True,
+                "public_artifact_claim_impact": ["source_material_identity"],
+                "dirty_source_path_count": dirty_count,
+                "reason": (
+                    "The artifact is hash-bound, but the source root has "
+                    "uncommitted material. Promotion must either consume a clean "
+                    "source-root candidate or explicitly authorize the dirty "
+                    "material fingerprint."
+                ),
+            }
+        )
+    return rows
+
+
+def _release_authorization_gate(
+    *,
+    release_authorization_blocking_warning_count: int,
+) -> dict[str, Any]:
+    return {
+        "gate_id": RELEASE_AUTHORIZATION_GATE_ID,
+        "invoked": False,
+        "release_authorized_after_gate": False,
+        "promotion_action": "record_explicit_release_authorization_receipt",
+        "requires": [
+            "operator_invokes_release_authorization_gate",
+            "candidate_head_artifact_hash_and_receipt_identity_match",
+            "release_blocking_warning_count_is_zero",
+            "inventory_exclusion_runnable_projection_and_install_mode_statuses_pass",
+            "release_authority_state_is_promoted_by_gate_receipt_not_by_export_validation",
+        ],
+        "additional_gate_input_count": release_authorization_blocking_warning_count,
+        "additional_gate_inputs": [
+            "clean_source_root_or_explicit_dirty_material_authorization"
+        ]
+        if release_authorization_blocking_warning_count
+        else [],
+    }
+
+
+def _release_candidate_packet(
+    *,
+    source_root: Path,
+    command: str,
+    artifact: dict[str, Any],
+    exclusion_receipt: dict[str, Any],
+    authority_receipt: dict[str, Any],
+    runnable_receipt: dict[str, Any],
+    projection_freshness_receipt: dict[str, Any],
+    blocking_codes: list[str],
+) -> dict[str, Any]:
+    source = _source_identity(source_root)
+    warning_rows = _release_candidate_warning_rows(source)
+    release_blocking_warning_count = sum(
+        1 for row in warning_rows if row.get("release_blocking") is True
+    )
+    release_authorization_blocking_warning_count = sum(
+        1
+        for row in warning_rows
+        if row.get("release_authorization_blocking") is True
+    )
+    validation_status = (
+        "blocked"
+        if blocking_codes or release_blocking_warning_count
+        else "pass_with_external_warnings"
+        if warning_rows
+        else "pass"
+    )
+    candidate_state = (
+        "not_candidate_blocked"
+        if validation_status == "blocked"
+        else "validated_release_candidate_pending_explicit_authorization"
+    )
+    promotion_gate = _release_authorization_gate(
+        release_authorization_blocking_warning_count=(
+            release_authorization_blocking_warning_count
+        )
+    )
+    return {
+        "schema_version": "microcosm_release_candidate_packet_v1",
+        "status": validation_status,
+        "candidate_state": candidate_state,
+        "candidate_identity": {
+            "source": source,
+            "artifact": {
+                "artifact_dir": artifact.get("artifact_dir"),
+                "mode": artifact.get("mode"),
+                "artifact_payload_hash_sha256": artifact.get(
+                    "artifact_payload_hash_sha256"
+                ),
+                "file_count": artifact.get("file_count"),
+                "payload_bytes": artifact.get("payload_bytes"),
+            },
+            "release_receipt_ref": RELEASE_RECEIPT_REF,
+            "export_command": command,
+        },
+        "validation_summary": {
+            "export_status": "pass" if not blocking_codes else "blocked",
+            "blocking_codes": list(blocking_codes),
+            "exclusion_status": exclusion_receipt.get("status"),
+            "private_path_hit_count": len(
+                exclusion_receipt.get("private_path_hits") or []
+            ),
+            "runnable_smoke_status": runnable_receipt.get("status"),
+            "projection_freshness_status": projection_freshness_receipt.get("status"),
+            "projection_freshness_receipt_ref": projection_freshness_receipt.get(
+                "receipt_ref"
+            ),
+            "install_mode": authority_receipt.get("supported_public_mode"),
+            "wheel_install_supported": authority_receipt.get("wheel_install_supported"),
+        },
+        "authority_state": {
+            "release_authorized": authority_receipt.get("release_authorized"),
+            "publish_authorized": authority_receipt.get("publish_authorized"),
+            "hosted_launch_authorized": authority_receipt.get(
+                "hosted_launch_authorized"
+            ),
+            "release_authorization_gate": promotion_gate,
+        },
+        "external_warning_classification": {
+            "release_blocking_rule": (
+                "A warning blocks release only if it changes public artifact "
+                "claims for included or excluded files, private-state absence, "
+                "runnable first-screen behavior, projection freshness, "
+                "source/material digest correspondence, install-mode support, "
+                "authority ceiling, or cold-reader documentation."
+            ),
+            "warning_count": len(warning_rows),
+            "release_blocking_warning_count": release_blocking_warning_count,
+            "release_authorization_blocking_warning_count": (
+                release_authorization_blocking_warning_count
+            ),
+            "warnings": warning_rows,
+        },
+        "anti_claim": (
+            "This packet describes a validated release candidate boundary. "
+            "It does not authorize publication; only the explicit release "
+            "authorization gate can do that."
+        ),
+    }
+
+
 def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) -> dict[str, Any]:
     commands = [
         ("hello", ["hello", "<smoke-project>"]),
@@ -705,6 +960,16 @@ def build_release_export(
         ),
         "receipt_paths": [RELEASE_RECEIPT_REF],
     }
+    receipt["release_candidate_packet"] = _release_candidate_packet(
+        source_root=source_root,
+        command=command,
+        artifact=receipt["artifact"],
+        exclusion_receipt=receipt["exclusion_receipt"],
+        authority_receipt=receipt["authority_receipt"],
+        runnable_receipt=receipt["runnable_receipt"],
+        projection_freshness_receipt=receipt["projection_freshness_receipt"],
+        blocking_codes=blocking_codes,
+    )
     write_json_atomic(target / RELEASE_RECEIPT_REF, receipt)
     return receipt
 

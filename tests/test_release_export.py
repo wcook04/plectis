@@ -125,6 +125,48 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["artifact"]["file_count"] > 0
     assert receipt["authority_receipt"]["release_authorized"] is False
     assert receipt["authority_receipt"]["wheel_install_supported"] is False
+    candidate = receipt["release_candidate_packet"]
+    assert candidate["status"] == "pass_with_external_warnings"
+    assert (
+        candidate["candidate_state"]
+        == "validated_release_candidate_pending_explicit_authorization"
+    )
+    assert candidate["candidate_identity"]["artifact"] == {
+        "artifact_dir": release_export.ARTIFACT_DIR_NAME,
+        "mode": "generated_standalone_folder",
+        "artifact_payload_hash_sha256": receipt["artifact"][
+            "artifact_payload_hash_sha256"
+        ],
+        "file_count": receipt["artifact"]["file_count"],
+        "payload_bytes": receipt["artifact"]["payload_bytes"],
+    }
+    assert candidate["validation_summary"]["exclusion_status"] == "pass"
+    assert candidate["validation_summary"]["runnable_smoke_status"] == "pass"
+    assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
+    assert candidate["validation_summary"]["wheel_install_supported"] is False
+    assert candidate["authority_state"]["release_authorized"] is False
+    assert (
+        candidate["authority_state"]["release_authorization_gate"]["gate_id"]
+        == release_export.RELEASE_AUTHORIZATION_GATE_ID
+    )
+    assert (
+        candidate["authority_state"]["release_authorization_gate"]["invoked"]
+        is False
+    )
+    warning_rows = candidate["external_warning_classification"]["warnings"]
+    warning_ids = {row["warning_id"] for row in warning_rows}
+    assert {
+        "historical_evidence_durability_backlog",
+        "cap_cartography.json",
+        "cap_census.json",
+    }.issubset(warning_ids)
+    assert (
+        candidate["external_warning_classification"][
+            "release_blocking_warning_count"
+        ]
+        == 0
+    )
+    assert all(row["release_blocking"] is False for row in warning_rows)
     assert receipt["runnable_receipt"]["status"] == "pass"
     assert receipt["runnable_receipt"]["source_tree_cwd_used"] is False
     assert receipt["runnable_receipt"]["source_tree_pythonpath_used"] is False
@@ -181,6 +223,11 @@ def test_release_export_blocks_strong_secret_patterns_without_body_in_receipt(
 
     serialized = json.dumps(receipt, sort_keys=True)
     assert receipt["status"] == "blocked"
+    assert receipt["release_candidate_packet"]["status"] == "blocked"
+    assert (
+        receipt["release_candidate_packet"]["candidate_state"]
+        == "not_candidate_blocked"
+    )
     assert "RELEASE_EXPORT_STRONG_SECRET_PATTERN" in receipt["blocking_codes"]
     assert receipt["exclusion_receipt"]["strong_secret_hits"] == [
         {
