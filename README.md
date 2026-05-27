@@ -50,6 +50,26 @@ Read the evidence class counters as a claim-boundary legend:
 | `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, release authority, or source mutation permission. |
 | `fixture_schema_replay` / `fixture_echo_smoke` | Fixture or smoke coverage protects a contract and its negative cases. | Product completeness, safety validation, or benchmark evidence. |
 
+## Demo To Scale Bridge
+
+The browser first screen has a `Demo To Scale` bridge so the local run and the
+structural evidence do not live in separate places.
+
+1. `microcosm tour --card <project>` proves the local behavior: it writes
+   `.microcosm/` state, selects a route, and exposes compact route/work/event/
+   evidence refs without mutating source or calling providers.
+2. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the same
+   first-screen card plus four bridge cards: `Local demo`, `Structural scale`,
+   `Evidence floor`, and `Authority boundary`.
+3. `/project/observatory-card` is the JSON card for that bridge;
+   `/project/status` is the compact body-import and authority lens; the full
+   `/project/observatory` model stays a drilldown.
+
+If the first run only shows `.microcosm/`, you have not seen the scale claim
+yet. If the status card only shows body-import counts, you have not seen the
+local proof yet. The bridge is the join: runnable local behavior, structural
+breadth, honest evidence accounting, and authority limits on one first screen.
+
 ## Try It On Your Repo
 
 From `microcosm-substrate/`, install the console command:
