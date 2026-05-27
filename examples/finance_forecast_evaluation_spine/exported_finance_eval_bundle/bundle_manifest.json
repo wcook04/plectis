@@ -26,7 +26,7 @@
     "diagnostic_or_routing_refactor",
     "secret_exclusion"
   ],
-  "description": "Copied non-secret macro tools/finance evaluator bodies plus the generated finance_eval operating picture, imported for source-open Microcosm validation.",
+  "description": "Copied non-secret macro tools/finance evaluator bodies plus the generated finance_eval operating picture and finance research assurance surface, imported for source-open Microcosm validation.",
   "expected_macro_receipt_count": 1,
   "expected_source_module_count": 9,
   "files": [
@@ -122,10 +122,19 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 61,
+      "line_count": 176,
+      "material_class": "public_microcosm_assurance_surface",
+      "path": "finance_research_assurance_surface.json",
+      "sha256": "a6ac635833903807fbfee8ed80dec1d8bfe12a287e535d0d59191413693f33f5",
+      "source_import_class": "source_faithful_refactor",
+      "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json"
+    },
+    {
+      "body_in_receipt": false,
+      "line_count": 247,
       "material_class": "public_microcosm_runtime_contract",
       "path": "finance_eval_runtime_contract.json",
-      "sha256": "0f2449b7fc577646af87e126a9b5464c76f5c3c6b3503bb32ad515f111a22d0c",
+      "sha256": "107ac972b6c4ae3a118dd4d11e4f8a67ef3636e5656a2c0e78ec80eb6b3473a8",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
     },
@@ -151,6 +160,7 @@
     "source_modules/tools/finance/compare_variants.py",
     "source_modules/tools/finance/build_eval_operating_picture.py",
     "finance_eval_operating_picture.json",
+    "finance_research_assurance_surface.json",
     "finance_eval_runtime_contract.json",
     "source_module_manifest.json"
   ],

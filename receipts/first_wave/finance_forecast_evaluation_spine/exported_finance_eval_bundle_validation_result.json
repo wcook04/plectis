@@ -99,16 +99,224 @@
   },
   "copied_macro_source_count": 9,
   "counts_as_real_substrate_progress": true,
-  "created_at": "2026-05-24T00:50:32+00:00",
+  "created_at": "2026-05-27T17:25:30+00:00",
   "error_codes": [],
+  "finance_research_assurance": {
+    "authority_overclaim_count": 0,
+    "body_in_receipt": false,
+    "demo_counts": {
+      "evidence_construction_path_count": 1,
+      "evolve_decision_count": 1,
+      "feed_freshness_state_count": 2,
+      "multiple_comparison_guard_count": 1,
+      "no_advice_boundary_receipt_count": 1,
+      "oracle_reconciliation_count": 1,
+      "pairwise_comparison_count": 1,
+      "scoring_rule_count": 1,
+      "target_universe_count": 1
+    },
+    "evolve_auto_apply_allowed": false,
+    "evolve_review_gated": true,
+    "feed_freshness_state": "stale_green_feed",
+    "latest_green_run_id": "RUN_2026-05-13_01-33-40_bfa67a",
+    "public_safe_non_empty_fixture": true,
+    "scheduled_shell_count": 4,
+    "schema_version": "finance_research_assurance_surface_v0",
+    "statistical_discipline_sequence": [
+      "proper_scoring_rules",
+      "pairwise_equal_loss",
+      "multiple_comparison_guard",
+      "review_gated_evolve_implication"
+    ],
+    "surface_id": "finance_research_assurance_spine_public_demo"
+  },
   "finding_count": 0,
   "findings": [],
   "input_mode": "exported_finance_eval_bundle",
   "material_class_counts": {
     "public_macro_receipt_body": 1,
     "public_macro_tool_body": 9,
+    "public_microcosm_assurance_surface": 1,
     "public_microcosm_bundle_manifest": 1,
     "public_microcosm_runtime_contract": 1
+  },
+  "module_coverage_summary": {
+    "body_in_receipt": false,
+    "classification_counts": {
+      "core_public_safe_evidence_body": 10,
+      "operational_feed_runtime_dependency": 2,
+      "operational_only": 1,
+      "public_safe_statistical_discipline": 6
+    },
+    "covered_source_ref_count": 19,
+    "deferred_public_safe_core_count": 1,
+    "deferred_public_safe_statistical_count": 6,
+    "imported_public_body_count": 9,
+    "operational_only_count": 1,
+    "operational_receipt_only_count": 2,
+    "rows": [
+      {
+        "authority_classification": "operational_only",
+        "body_in_receipt": false,
+        "coverage_status": "operational_only",
+        "decision": "do_not_import_body",
+        "public_safe": true,
+        "source_ref": "tools/finance/__init__.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/admit_forecasts.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/bootstrap_reference.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_core",
+        "decision": "defer_body_import_until_evidence_fixture_is_non_empty",
+        "public_safe": true,
+        "source_ref": "tools/finance/build_effective_evidence.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/build_eval_operating_picture.py"
+      },
+      {
+        "authority_classification": "operational_feed_runtime_dependency",
+        "body_in_receipt": false,
+        "coverage_status": "operational_receipt_only",
+        "decision": "represent_by_receipt_until_provider_free_fixture",
+        "public_safe": true,
+        "source_ref": "tools/finance/build_price_history.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/calibrate_forecast_probabilities.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/compare_variants.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/eval_replay.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/event_keys.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/family_loss_matrix.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/historical_replay.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/loss_differentials.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/model_selection.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/model_selection_stats.py"
+      },
+      {
+        "authority_classification": "operational_feed_runtime_dependency",
+        "body_in_receipt": false,
+        "coverage_status": "operational_receipt_only",
+        "decision": "represent_by_freshness_receipts_not_body_import",
+        "public_safe": true,
+        "source_ref": "tools/finance/refresh_feeds.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/resolve_forecasts.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "body_in_receipt": false,
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "public_safe": true,
+        "source_ref": "tools/finance/spa_statistics.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "body_in_receipt": false,
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "public_safe": true,
+        "source_ref": "tools/finance/variant_registry.py"
+      }
+    ],
+    "silent_omission_count": 0,
+    "status_counts": {
+      "deferred_public_safe_core": 1,
+      "deferred_public_safe_statistical": 6,
+      "imported_public_body": 9,
+      "operational_only": 1,
+      "operational_receipt_only": 2
+    },
+    "total_macro_finance_module_count": 19
   },
   "operating_picture_gate_summary": {
     "body_in_receipt": false,
@@ -162,6 +370,7 @@
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_operating_picture.json",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
   ],
@@ -172,6 +381,7 @@
   ],
   "schema_version": "microcosm_finance_eval_bundle_validation_report_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -183,7 +393,16 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
-    "scanned_path_count": 12,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 13,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -192,7 +411,7 @@
     "all_expected_digests_matched": true,
     "all_expected_line_counts_matched": true,
     "body_in_receipt": false,
-    "declared_file_count": 12,
+    "declared_file_count": 13,
     "inputs": [
       {
         "body_in_receipt": false,
@@ -347,15 +566,30 @@
       {
         "body_in_receipt": false,
         "digest_status": "match",
+        "display_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
+        "exists": true,
+        "expected_line_count": 176,
+        "expected_sha256": "a6ac635833903807fbfee8ed80dec1d8bfe12a287e535d0d59191413693f33f5",
+        "line_count": 176,
+        "line_count_status": "match",
+        "material_class": "public_microcosm_assurance_surface",
+        "path": "finance_research_assurance_surface.json",
+        "sha256": "a6ac635833903807fbfee8ed80dec1d8bfe12a287e535d0d59191413693f33f5",
+        "source_import_class": "source_faithful_refactor",
+        "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json"
+      },
+      {
+        "body_in_receipt": false,
+        "digest_status": "match",
         "display_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
         "exists": true,
-        "expected_line_count": 61,
-        "expected_sha256": "0f2449b7fc577646af87e126a9b5464c76f5c3c6b3503bb32ad515f111a22d0c",
-        "line_count": 61,
+        "expected_line_count": 247,
+        "expected_sha256": "107ac972b6c4ae3a118dd4d11e4f8a67ef3636e5656a2c0e78ec80eb6b3473a8",
+        "line_count": 247,
         "line_count_status": "match",
         "material_class": "public_microcosm_runtime_contract",
         "path": "finance_eval_runtime_contract.json",
-        "sha256": "0f2449b7fc577646af87e126a9b5464c76f5c3c6b3503bb32ad515f111a22d0c",
+        "sha256": "107ac972b6c4ae3a118dd4d11e4f8a67ef3636e5656a2c0e78ec80eb6b3473a8",
         "source_import_class": "source_faithful_refactor",
         "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
       },
@@ -375,7 +609,7 @@
         "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
       }
     ],
-    "required_input_count": 12
+    "required_input_count": 13
   },
   "source_module_refs": [
     "source_modules/tools/finance/event_keys.py",

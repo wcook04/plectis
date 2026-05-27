@@ -56,6 +56,27 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert result["source_manifest"]["all_expected_line_counts_matched"] is True
     assert result["anchor_summary"]["missing_anchor_count"] == 0
     assert result["contract_summary"]["authority_overclaim_count"] == 0
+    assert result["module_coverage_summary"]["total_macro_finance_module_count"] == 19
+    assert result["module_coverage_summary"]["covered_source_ref_count"] == 19
+    assert result["module_coverage_summary"]["imported_public_body_count"] == len(
+        REQUIRED_MODULES
+    )
+    assert result["module_coverage_summary"]["deferred_public_safe_core_count"] == 1
+    assert result["module_coverage_summary"]["deferred_public_safe_statistical_count"] == 6
+    assert result["module_coverage_summary"]["operational_receipt_only_count"] == 2
+    assert result["module_coverage_summary"]["operational_only_count"] == 1
+    assert result["module_coverage_summary"]["silent_omission_count"] == 0
+    assert result["finance_research_assurance"]["public_safe_non_empty_fixture"] is True
+    assert result["finance_research_assurance"]["feed_freshness_state"] == "stale_green_feed"
+    assert result["finance_research_assurance"]["scheduled_shell_count"] == 4
+    assert result["finance_research_assurance"]["statistical_discipline_sequence"] == [
+        "proper_scoring_rules",
+        "pairwise_equal_loss",
+        "multiple_comparison_guard",
+        "review_gated_evolve_implication",
+    ]
+    assert result["finance_research_assurance"]["evolve_review_gated"] is True
+    assert result["finance_research_assurance"]["evolve_auto_apply_allowed"] is False
     assert result["operating_picture_gate_summary"]["comparison_key_authority"] == (
         "tools/finance/event_keys.py"
     )
@@ -67,7 +88,7 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert result["authority_ceiling"]["optimizer_mutation_authorized"] is False
     assert result["authority_ceiling"]["calculator_weight_mutation_authorized"] is False
     assert result["error_codes"] == []
-    assert len(result["public_runtime_refs"]) == len(REQUIRED_MODULES) + 3
+    assert len(result["public_runtime_refs"]) == len(REQUIRED_MODULES) + 4
 
     receipt = json.loads((out_dir / BUNDLE_RESULT_NAME).read_text(encoding="utf-8"))
     assert receipt["status"] == "pass"
@@ -85,7 +106,10 @@ def test_finance_eval_spine_rejects_finance_authority_overclaim(tmp_path: Path) 
     contract_path = bundle / "finance_eval_runtime_contract.json"
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     contract["authority_ceiling"]["financial_advice_authorized"] = True
-    contract_path.write_text(json.dumps(contract, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    contract_path.write_text(
+        json.dumps(contract, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
     result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
 
@@ -93,6 +117,43 @@ def test_finance_eval_spine_rejects_finance_authority_overclaim(tmp_path: Path) 
     assert "AUTHORITY_CEILING_OVERCLAIM" in result["error_codes"]
     assert result["authority_ceiling"]["financial_advice_authorized"] is True
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
+
+
+def test_finance_eval_spine_rejects_silent_module_coverage_gap(tmp_path: Path) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    contract_path = bundle / "finance_eval_runtime_contract.json"
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    contract["finance_research_assurance"]["module_coverage"] = [
+        row
+        for row in contract["finance_research_assurance"]["module_coverage"]
+        if row["source_ref"] != "tools/finance/build_effective_evidence.py"
+    ]
+    contract_path.write_text(json.dumps(contract, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "MODULE_COVERAGE_GAP" in result["error_codes"]
+    assert result["module_coverage_summary"]["silent_omission_count"] == 1
+
+
+def test_finance_eval_spine_rejects_empty_assurance_demo(tmp_path: Path) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    assurance_path = bundle / "finance_research_assurance_surface.json"
+    assurance = json.loads(assurance_path.read_text(encoding="utf-8"))
+    assurance["demonstration_run"]["public_safe_non_empty_fixture"] = False
+    assurance["demonstration_run"]["counts"]["pairwise_comparison_count"] = 0
+    assurance_path.write_text(
+        json.dumps(assurance, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "ASSURANCE_DEMO_EMPTY_OR_INCOMPLETE" in result["error_codes"]
 
 
 def test_cli_finance_eval_spine_smoke(

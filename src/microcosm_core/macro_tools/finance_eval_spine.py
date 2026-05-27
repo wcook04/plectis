@@ -23,6 +23,8 @@ MANIFEST_NAME = "bundle_manifest.json"
 SOURCE_MANIFEST_NAME = "source_module_manifest.json"
 CONTRACT_NAME = "finance_eval_runtime_contract.json"
 OPERATING_PICTURE_NAME = "finance_eval_operating_picture.json"
+ASSURANCE_SURFACE_NAME = "finance_research_assurance_surface.json"
+ASSURANCE_SURFACE_SCHEMA = "finance_research_assurance_surface_v0"
 SOURCE_MODULE_ROOT = Path("source_modules/tools/finance")
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_OPEN_BODY_POLICY = "source_bodies_copied_into_bundle_not_receipt"
@@ -37,9 +39,56 @@ REQUIRED_MODULES = (
     "compare_variants.py",
     "build_eval_operating_picture.py",
 )
+TOOLS_FINANCE_MODULES = (
+    "__init__.py",
+    "admit_forecasts.py",
+    "bootstrap_reference.py",
+    "build_effective_evidence.py",
+    "build_eval_operating_picture.py",
+    "build_price_history.py",
+    "calibrate_forecast_probabilities.py",
+    "compare_variants.py",
+    "eval_replay.py",
+    "event_keys.py",
+    "family_loss_matrix.py",
+    "historical_replay.py",
+    "loss_differentials.py",
+    "model_selection.py",
+    "model_selection_stats.py",
+    "refresh_feeds.py",
+    "resolve_forecasts.py",
+    "spa_statistics.py",
+    "variant_registry.py",
+)
+ALLOWED_COVERAGE_STATUSES = {
+    "imported_public_body",
+    "deferred_public_safe_core",
+    "deferred_public_safe_statistical",
+    "operational_receipt_only",
+    "operational_only",
+}
+ALLOWED_AUTHORITY_CLASSIFICATIONS = {
+    "core_public_safe_evidence_body",
+    "public_safe_statistical_discipline",
+    "operational_feed_runtime_dependency",
+    "operational_only",
+}
+FEED_FRESHNESS_STATUSES = {
+    "fresh_green_feed",
+    "stale_green_feed",
+    "scheduled_shell",
+    "blocked_missing_artifact",
+}
+STATISTICAL_DISCIPLINE_SEQUENCE = (
+    "proper_scoring_rules",
+    "pairwise_equal_loss",
+    "multiple_comparison_guard",
+    "review_gated_evolve_implication",
+)
 REQUIRED_INPUTS = (
     *(SOURCE_MODULE_ROOT / name for name in REQUIRED_MODULES),
     Path(OPERATING_PICTURE_NAME),
+    Path(ASSURANCE_SURFACE_NAME),
     Path(CONTRACT_NAME),
     Path(SOURCE_MANIFEST_NAME),
 )
@@ -53,6 +102,7 @@ REQUIRED_CLASSIFICATIONS = {
 ALLOWED_MATERIAL_CLASSES = {
     "public_macro_tool_body",
     "public_macro_receipt_body",
+    "public_microcosm_assurance_surface",
     "public_microcosm_runtime_contract",
     "public_microcosm_bundle_manifest",
 }
@@ -548,6 +598,264 @@ def _validate_contract(contract: Mapping[str, Any], findings: list[dict[str, Any
     }
 
 
+def _validate_module_coverage(
+    contract: Mapping[str, Any],
+    assurance_surface: Mapping[str, Any],
+    findings: list[dict[str, Any]],
+) -> dict[str, Any]:
+    assurance_contract = _as_dict(contract.get("finance_research_assurance"))
+    rows = [
+        row
+        for row in _as_list(assurance_contract.get("module_coverage"))
+        if isinstance(row, Mapping)
+    ]
+    expected_refs = {f"tools/finance/{name}" for name in TOOLS_FINANCE_MODULES}
+    required_import_refs = {f"tools/finance/{name}" for name in REQUIRED_MODULES}
+    observed_refs = {str(row.get("source_ref") or "") for row in rows}
+    missing_refs = sorted(expected_refs - observed_refs)
+    unexpected_refs = sorted(ref for ref in observed_refs - expected_refs if ref)
+    if missing_refs:
+        findings.append(
+            _finding(
+                "MODULE_COVERAGE_GAP",
+                "Finance assurance module coverage contract must classify every tools/finance module.",
+                source=f"{CONTRACT_NAME}::finance_research_assurance.module_coverage",
+                expected=sorted(expected_refs),
+                observed=sorted(observed_refs),
+            )
+        )
+    if unexpected_refs:
+        findings.append(
+            _finding(
+                "MODULE_COVERAGE_UNKNOWN_SOURCE",
+                "Finance assurance module coverage contract contains a source outside tools/finance inventory.",
+                source=f"{CONTRACT_NAME}::finance_research_assurance.module_coverage",
+                expected=sorted(expected_refs),
+                observed=unexpected_refs,
+            )
+        )
+    imported_refs: set[str] = set()
+    status_counts: Counter[str] = Counter()
+    classification_counts: Counter[str] = Counter()
+    rows_out: list[dict[str, Any]] = []
+    for row in rows:
+        source_ref = str(row.get("source_ref") or "")
+        status = str(row.get("coverage_status") or "")
+        classification = str(row.get("authority_classification") or "")
+        decision = str(row.get("decision") or "")
+        public_safe = row.get("public_safe")
+        status_counts[status] += 1
+        classification_counts[classification] += 1
+        if status not in ALLOWED_COVERAGE_STATUSES:
+            findings.append(
+                _finding(
+                    "MODULE_COVERAGE_STATUS_UNKNOWN",
+                    "Finance assurance module coverage status must use the public status vocabulary.",
+                    source=f"{CONTRACT_NAME}::{source_ref}",
+                    expected=sorted(ALLOWED_COVERAGE_STATUSES),
+                    observed=status,
+                )
+            )
+        if classification not in ALLOWED_AUTHORITY_CLASSIFICATIONS:
+            findings.append(
+                _finding(
+                    "MODULE_COVERAGE_CLASSIFICATION_UNKNOWN",
+                    "Finance assurance module authority classification must use the public classification vocabulary.",
+                    source=f"{CONTRACT_NAME}::{source_ref}",
+                    expected=sorted(ALLOWED_AUTHORITY_CLASSIFICATIONS),
+                    observed=classification,
+                )
+            )
+        if not decision or decision in {"unknown", "pending"}:
+            findings.append(
+                _finding(
+                    "MODULE_COVERAGE_DECISION_MISSING",
+                    "Finance assurance module coverage rows must carry an explicit import/defer decision.",
+                    source=f"{CONTRACT_NAME}::{source_ref}",
+                    observed=decision,
+                )
+            )
+        if public_safe is not True and status != "operational_only":
+            findings.append(
+                _finding(
+                    "MODULE_COVERAGE_PUBLIC_SAFE_NOT_TRUE",
+                    "Finance assurance module rows that affect the public spine must be explicitly public-safe.",
+                    source=f"{CONTRACT_NAME}::{source_ref}",
+                    expected=True,
+                    observed=public_safe,
+                )
+            )
+        if status == "imported_public_body":
+            imported_refs.add(source_ref)
+        rows_out.append(
+            {
+                "source_ref": source_ref,
+                "coverage_status": status,
+                "authority_classification": classification,
+                "decision": decision,
+                "public_safe": public_safe,
+                "body_in_receipt": False,
+            }
+        )
+    if imported_refs != required_import_refs:
+        findings.append(
+            _finding(
+                "IMPORTED_MODULE_SET_MISMATCH",
+                "Rows marked imported_public_body must match the copied evaluator source body set.",
+                source=f"{CONTRACT_NAME}::finance_research_assurance.module_coverage",
+                expected=sorted(required_import_refs),
+                observed=sorted(imported_refs),
+            )
+        )
+    surface_coverage = _as_dict(assurance_surface.get("module_coverage"))
+    if surface_coverage.get("silent_omission_count") not in {0, None}:
+        findings.append(
+            _finding(
+                "ASSURANCE_SURFACE_SILENT_OMISSIONS",
+                "Finance assurance surface must not hide omitted macro finance modules.",
+                source=f"{ASSURANCE_SURFACE_NAME}::module_coverage.silent_omission_count",
+                expected=0,
+                observed=surface_coverage.get("silent_omission_count"),
+            )
+        )
+    total_count = len(expected_refs)
+    silent_omission_count = len(missing_refs)
+    return {
+        "total_macro_finance_module_count": total_count,
+        "covered_source_ref_count": len(observed_refs & expected_refs),
+        "imported_public_body_count": status_counts.get("imported_public_body", 0),
+        "deferred_public_safe_core_count": status_counts.get("deferred_public_safe_core", 0),
+        "deferred_public_safe_statistical_count": status_counts.get(
+            "deferred_public_safe_statistical", 0
+        ),
+        "operational_receipt_only_count": status_counts.get("operational_receipt_only", 0),
+        "operational_only_count": status_counts.get("operational_only", 0),
+        "silent_omission_count": silent_omission_count,
+        "status_counts": dict(sorted(status_counts.items())),
+        "classification_counts": dict(sorted(classification_counts.items())),
+        "rows": rows_out,
+        "body_in_receipt": False,
+    }
+
+
+def _validate_assurance_surface(
+    assurance_surface: Mapping[str, Any],
+    findings: list[dict[str, Any]],
+) -> dict[str, Any]:
+    if assurance_surface.get("schema_version") != ASSURANCE_SURFACE_SCHEMA:
+        findings.append(
+            _finding(
+                "UNEXPECTED_ASSURANCE_SURFACE_SCHEMA",
+                "Finance assurance surface must use the assurance surface schema.",
+                source=ASSURANCE_SURFACE_NAME,
+                expected=ASSURANCE_SURFACE_SCHEMA,
+                observed=assurance_surface.get("schema_version"),
+            )
+        )
+    demo = _as_dict(assurance_surface.get("demonstration_run"))
+    required_demo_counts = {
+        "target_universe_count",
+        "feed_freshness_state_count",
+        "evidence_construction_path_count",
+        "scoring_rule_count",
+        "pairwise_comparison_count",
+        "multiple_comparison_guard_count",
+        "oracle_reconciliation_count",
+        "evolve_decision_count",
+        "no_advice_boundary_receipt_count",
+    }
+    demo_counts = _as_dict(demo.get("counts"))
+    missing_non_empty = [
+        key for key in sorted(required_demo_counts) if not demo_counts.get(key)
+    ]
+    if demo.get("public_safe_non_empty_fixture") is not True or missing_non_empty:
+        findings.append(
+            _finding(
+                "ASSURANCE_DEMO_EMPTY_OR_INCOMPLETE",
+                "Finance assurance surface must carry a non-empty public-safe demonstration run.",
+                source=f"{ASSURANCE_SURFACE_NAME}::demonstration_run",
+                expected=sorted(required_demo_counts),
+                observed={"missing_or_zero": missing_non_empty},
+            )
+        )
+    feed = _as_dict(assurance_surface.get("feed_freshness"))
+    feed_state = feed.get("current_state")
+    if feed_state not in FEED_FRESHNESS_STATUSES:
+        findings.append(
+            _finding(
+                "FEED_FRESHNESS_STATE_UNKNOWN",
+                "Finance assurance feed freshness state must use the public freshness vocabulary.",
+                source=f"{ASSURANCE_SURFACE_NAME}::feed_freshness.current_state",
+                expected=sorted(FEED_FRESHNESS_STATUSES),
+                observed=feed_state,
+            )
+        )
+    if feed_state == "stale_green_feed":
+        latest_green = _as_dict(feed.get("latest_green_run"))
+        if not latest_green.get("run_id") or not latest_green.get("staleness_days"):
+            findings.append(
+                _finding(
+                    "STALE_GREEN_FEED_UNDATED",
+                    "Stale green feed state must preserve the dated latest green run.",
+                    source=f"{ASSURANCE_SURFACE_NAME}::feed_freshness.latest_green_run",
+                    observed=latest_green,
+                )
+            )
+    stats = _as_dict(assurance_surface.get("statistical_discipline"))
+    sequence = tuple(_strings(stats.get("sequence")))
+    if sequence != STATISTICAL_DISCIPLINE_SEQUENCE:
+        findings.append(
+            _finding(
+                "STATISTICAL_DISCIPLINE_SEQUENCE_MISMATCH",
+                "Finance assurance surface must order forecast evaluation from scoring to pairwise comparison to multiple-comparison guard to review-gated learning.",
+                source=f"{ASSURANCE_SURFACE_NAME}::statistical_discipline.sequence",
+                expected=list(STATISTICAL_DISCIPLINE_SEQUENCE),
+                observed=list(sequence),
+            )
+        )
+    evolve = _as_dict(_as_dict(assurance_surface.get("oracle_evolve")).get("evolve_decision"))
+    if evolve.get("review_gated") is not True or evolve.get("auto_apply_allowed") is not False:
+        findings.append(
+            _finding(
+                "EVOLVE_REVIEW_GATE_MISMATCH",
+                "Finance assurance surface must keep Evolve review-gated and block auto-apply.",
+                source=f"{ASSURANCE_SURFACE_NAME}::oracle_evolve.evolve_decision",
+                expected={"review_gated": True, "auto_apply_allowed": False},
+                observed=evolve,
+            )
+        )
+    authority = _as_dict(assurance_surface.get("authority_boundary"))
+    overclaims = {
+        key: authority.get(key)
+        for key in FALSE_AUTHORITY_FLAGS
+        if authority.get(key) is not False
+    }
+    for key, value in overclaims.items():
+        findings.append(
+            _finding(
+                "ASSURANCE_AUTHORITY_OVERCLAIM",
+                "Finance assurance authority flag must be false.",
+                source=f"{ASSURANCE_SURFACE_NAME}::authority_boundary.{key}",
+                expected=False,
+                observed=value,
+            )
+        )
+    return {
+        "schema_version": assurance_surface.get("schema_version"),
+        "surface_id": assurance_surface.get("surface_id"),
+        "public_safe_non_empty_fixture": demo.get("public_safe_non_empty_fixture"),
+        "demo_counts": dict(demo_counts),
+        "feed_freshness_state": feed_state,
+        "latest_green_run_id": _get_path(feed, ("latest_green_run", "run_id")),
+        "scheduled_shell_count": len(_as_list(feed.get("scheduled_shells"))),
+        "statistical_discipline_sequence": list(sequence),
+        "evolve_review_gated": evolve.get("review_gated"),
+        "evolve_auto_apply_allowed": evolve.get("auto_apply_allowed"),
+        "authority_overclaim_count": len(overclaims),
+        "body_in_receipt": False,
+    }
+
+
 def _validate_operating_picture(
     operating_picture: Mapping[str, Any],
     findings: list[dict[str, Any]],
@@ -660,12 +968,21 @@ def validate_finance_eval_bundle(
         findings,
         label="finance eval operating picture",
     )
+    assurance_surface = _load_json_input(
+        input_path / ASSURANCE_SURFACE_NAME,
+        findings,
+        label="finance research assurance surface",
+    )
 
     source_inventory = _source_manifest(input_path, manifest, public_root=public_root)
     _validate_manifest(manifest, source_manifest_payload, findings)
     _validate_digests(source_inventory, findings)
     anchor_summary = _validate_source_anchors(input_path, findings)
     contract_summary = _validate_contract(contract, findings)
+    module_coverage_summary = _validate_module_coverage(
+        contract, assurance_surface, findings
+    )
+    assurance_surface_summary = _validate_assurance_surface(assurance_surface, findings)
     operating_gate_summary = _validate_operating_picture(operating_picture, findings)
     secret_scan = _scan_required_inputs(input_path, public_root=public_root, findings=findings)
 
@@ -708,6 +1025,8 @@ def validate_finance_eval_bundle(
         "source_manifest": source_inventory,
         "anchor_summary": anchor_summary,
         "contract_summary": contract_summary,
+        "module_coverage_summary": module_coverage_summary,
+        "finance_research_assurance": assurance_surface_summary,
         "operating_picture_gate_summary": operating_gate_summary,
         "authority_ceiling": _as_dict(contract.get("authority_ceiling")),
         "secret_exclusion_scan": secret_scan,
@@ -751,5 +1070,6 @@ __all__ = [
     "REQUIRED_MODULES",
     "SOURCE_IMPORT_CLASS",
     "SOURCE_OPEN_BODY_POLICY",
+    "TOOLS_FINANCE_MODULES",
     "validate_finance_eval_bundle",
 ]

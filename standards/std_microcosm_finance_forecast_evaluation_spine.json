@@ -1,7 +1,8 @@
 {
   "anti_claims": [
     "The finance forecast evaluation spine is an evaluator and replay import, not trading, financial, or investment advice.",
-    "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release."
+    "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release.",
+    "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist."
   ],
   "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
   "authority_ceiling": {
@@ -24,6 +25,7 @@
   "governed_artifacts": [
     "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle",
     "microcosm-substrate/src/microcosm_core/macro_tools/finance_eval_spine.py",
+    "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
     "microcosm-substrate/receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json"
   ],
   "kind_id": "finance_forecast_evaluation_spine",
@@ -36,6 +38,7 @@
     "allowed_public_inputs": [
       "copied_non_secret_tools_finance_python_modules",
       "finance_eval_operating_picture_without_account_or_provider_payload_state",
+      "finance_research_assurance_surface_with_module_coverage_and_public_safe_demo",
       "bundle_manifest_digests",
       "secret_exclusion_scan_summary",
       "no_advice_no_mutation_authority_ceiling"
@@ -60,6 +63,8 @@
       "operating_picture_gate_summary",
       "authority_ceiling",
       "secret_exclusion_scan",
+      "module_coverage_summary",
+      "finance_research_assurance",
       "body_in_receipt",
       "synthetic_receipt_standin_allowed",
       "anti_claim"
@@ -68,6 +73,23 @@
     "required": true
   },
   "schema_version": "public_microcosm_standard_v1",
+  "finance_research_assurance_contract": {
+    "module_coverage_policy": "Every macro tools/finance Python module must be classified as imported_public_body, deferred_public_safe_core, deferred_public_safe_statistical, operational_receipt_only, or operational_only.",
+    "non_empty_demo_required": true,
+    "statistical_sequence": [
+      "proper_scoring_rules",
+      "pairwise_equal_loss",
+      "multiple_comparison_guard",
+      "review_gated_evolve_implication"
+    ],
+    "feed_freshness_vocabulary": [
+      "fresh_green_feed",
+      "stale_green_feed",
+      "scheduled_shell",
+      "blocked_missing_artifact"
+    ],
+    "evolve_auto_apply_allowed": false
+  },
   "source_refs": [
     {
       "path": "tools/finance/event_keys.py",
@@ -76,6 +98,14 @@
     {
       "path": "tools/finance/admit_forecasts.py",
       "role": "cp1_finance_claim_admission"
+    },
+    {
+      "path": "tools/finance/bootstrap_reference.py",
+      "role": "deferred_public_safe_statistical_reference_suite"
+    },
+    {
+      "path": "tools/finance/build_effective_evidence.py",
+      "role": "deferred_public_safe_effective_evidence_construction"
     },
     {
       "path": "tools/finance/resolve_forecasts.py",
@@ -90,6 +120,10 @@
       "role": "historical_replay_shadow_gate"
     },
     {
+      "path": "tools/finance/build_price_history.py",
+      "role": "operational_receipt_only_price_history_provider_touching_dependency"
+    },
+    {
       "path": "tools/finance/calibrate_forecast_probabilities.py",
       "role": "shadow_only_probability_calibration"
     },
@@ -102,12 +136,40 @@
       "role": "paired_variant_comparison_gate"
     },
     {
+      "path": "tools/finance/family_loss_matrix.py",
+      "role": "deferred_public_safe_family_loss_matrix"
+    },
+    {
+      "path": "tools/finance/loss_differentials.py",
+      "role": "deferred_public_safe_pairwise_equal_loss_kernel"
+    },
+    {
+      "path": "tools/finance/model_selection.py",
+      "role": "deferred_public_safe_model_selection_receipt"
+    },
+    {
+      "path": "tools/finance/model_selection_stats.py",
+      "role": "deferred_public_safe_bootstrap_reality_check_and_mcs"
+    },
+    {
+      "path": "tools/finance/refresh_feeds.py",
+      "role": "operational_receipt_only_feed_freshness_dependency"
+    },
+    {
+      "path": "tools/finance/spa_statistics.py",
+      "role": "deferred_public_safe_spa_statistic_kernel"
+    },
+    {
       "path": "tools/finance/build_eval_operating_picture.py",
       "role": "finance_eval_operating_picture_builder"
     },
     {
       "path": "state/finance_eval/views/finance_eval_operating_picture.json",
       "role": "real_generated_macro_receipt"
+    },
+    {
+      "path": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json",
+      "role": "public_safe_non_empty_finance_research_assurance_surface"
     }
   ],
   "standard_id": "std_microcosm_finance_forecast_evaluation_spine",

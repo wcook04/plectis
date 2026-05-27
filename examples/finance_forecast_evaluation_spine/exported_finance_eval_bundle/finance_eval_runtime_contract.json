@@ -26,6 +26,192 @@
     "diagnostic_or_routing_refactor",
     "secret_exclusion"
   ],
+  "finance_research_assurance": {
+    "contract_id": "finance_research_assurance_spine_v0",
+    "coverage_policy": "no_silent_omissions",
+    "coverage_summary": {
+      "deferred_public_safe_core_count": 1,
+      "deferred_public_safe_statistical_count": 6,
+      "imported_public_body_count": 9,
+      "operational_only_count": 1,
+      "operational_receipt_only_count": 2,
+      "total_macro_finance_module_count": 19
+    },
+    "module_coverage": [
+      {
+        "authority_classification": "operational_only",
+        "coverage_status": "operational_only",
+        "decision": "do_not_import_body",
+        "line_count": 1,
+        "public_safe": true,
+        "reason": "Package marker only; no product intelligence surface.",
+        "source_ref": "tools/finance/__init__.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 471,
+        "public_safe": true,
+        "reason": "CP1 finance claim admission is part of the current evaluator spine.",
+        "source_ref": "tools/finance/admit_forecasts.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 388,
+        "public_safe": true,
+        "reason": "Synthetic bootstrap reference suite is public-safe and should enter with SPA/MCS/statistical tests.",
+        "source_ref": "tools/finance/bootstrap_reference.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "deferred_public_safe_core",
+        "decision": "defer_body_import_until_evidence_fixture_is_non_empty",
+        "line_count": 1320,
+        "public_safe": true,
+        "reason": "Effective evidence is the main missing intelligence layer: common support, event-window independence, evidence deficits, and mutation-denial receipts.",
+        "source_ref": "tools/finance/build_effective_evidence.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 589,
+        "public_safe": true,
+        "reason": "Operating-picture builder is the current public receipt bridge.",
+        "source_ref": "tools/finance/build_eval_operating_picture.py"
+      },
+      {
+        "authority_classification": "operational_feed_runtime_dependency",
+        "coverage_status": "operational_receipt_only",
+        "decision": "represent_by_receipt_until_provider_free_fixture",
+        "line_count": 476,
+        "public_safe": true,
+        "reason": "Price-history builder can call yfinance; public Microcosm should carry receipts and fixtures before copying provider-touching behavior.",
+        "source_ref": "tools/finance/build_price_history.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 340,
+        "public_safe": true,
+        "reason": "Shadow probability calibration is already in the evaluator spine and denies live probability mutation.",
+        "source_ref": "tools/finance/calibrate_forecast_probabilities.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 567,
+        "public_safe": true,
+        "reason": "Paired variant comparison gate is part of current evaluator spine.",
+        "source_ref": "tools/finance/compare_variants.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 1351,
+        "public_safe": true,
+        "reason": "CP1-admitted scoring and no-optimizer replay are current public body floor.",
+        "source_ref": "tools/finance/eval_replay.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 164,
+        "public_safe": true,
+        "reason": "Comparison event key authority is foundational to disciplined forecast comparison.",
+        "source_ref": "tools/finance/event_keys.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 258,
+        "public_safe": true,
+        "reason": "Family-level loss matrix prevents cherry-picking but belongs with the full statistical comparison body floor.",
+        "source_ref": "tools/finance/family_loss_matrix.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 699,
+        "public_safe": true,
+        "reason": "Leakage-aware historical replay is current public body floor.",
+        "source_ref": "tools/finance/historical_replay.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 472,
+        "public_safe": true,
+        "reason": "Loss differentials are the shared pairwise equal-loss kernel and should enter with statistical tests.",
+        "source_ref": "tools/finance/loss_differentials.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 637,
+        "public_safe": true,
+        "reason": "Model selection is evidence-only and mutation-denying, but should enter with family loss and SPA/MCS receipts.",
+        "source_ref": "tools/finance/model_selection.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 677,
+        "public_safe": true,
+        "reason": "Stationary-bootstrap, reality-check, and model-confidence-set helpers should enter as statistical discipline rather than product claims.",
+        "source_ref": "tools/finance/model_selection_stats.py"
+      },
+      {
+        "authority_classification": "operational_feed_runtime_dependency",
+        "coverage_status": "operational_receipt_only",
+        "decision": "represent_by_freshness_receipts_not_body_import",
+        "line_count": 417,
+        "public_safe": true,
+        "reason": "Feed refresh touches the local server/runtime; Microcosm should expose freshness truth and receipts, not provider/runtime authority.",
+        "source_ref": "tools/finance/refresh_feeds.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 779,
+        "public_safe": true,
+        "reason": "CP2 truth resolution over local price history is current public body floor.",
+        "source_ref": "tools/finance/resolve_forecasts.py"
+      },
+      {
+        "authority_classification": "public_safe_statistical_discipline",
+        "coverage_status": "deferred_public_safe_statistical",
+        "decision": "defer_body_import_until_statistical_assurance_bundle",
+        "line_count": 390,
+        "public_safe": true,
+        "reason": "Hansen-SPA-style statistic kernel is public-safe but should enter only as evidence discipline, not model-performance theater.",
+        "source_ref": "tools/finance/spa_statistics.py"
+      },
+      {
+        "authority_classification": "core_public_safe_evidence_body",
+        "coverage_status": "imported_public_body",
+        "decision": "copied_into_public_body_floor",
+        "line_count": 170,
+        "public_safe": true,
+        "reason": "Variant identity registry is current public body floor and denies mutation by itself.",
+        "source_ref": "tools/finance/variant_registry.py"
+      }
+    ],
+    "surface_ref": "finance_research_assurance_surface.json"
+  },
   "contract_id": "finance_forecast_evaluation_spine",
   "macro_receipt_source_ref": "state/finance_eval/views/finance_eval_operating_picture.json",
   "public_runtime_refs": [

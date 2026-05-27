@@ -1,0 +1,176 @@
+{
+  "authority_boundary": {
+    "calculator_weight_mutation_authorized": false,
+    "financial_advice_authorized": false,
+    "forecast_performance_claim": false,
+    "hosted_public_authorized": false,
+    "investment_recommendation_authorized": false,
+    "live_market_data_authorized": false,
+    "optimizer_mutation_authorized": false,
+    "performance_guarantee_claim": false,
+    "portfolio_action_authorized": false,
+    "private_account_state_exported": false,
+    "private_portfolio_exported": false,
+    "provider_calls_authorized": false,
+    "provider_payload_exported": false,
+    "publication_authorized": false,
+    "release_authorized": false,
+    "trading_advice_authorized": false
+  },
+  "composition_root": {
+    "macro_backbone": "codex/doctrine/paper_modules/lab_oracle_evolve_pipeline.md",
+    "microcosm_spine": "microcosm-substrate/paper_modules/finance_forecast_evaluation_spine.md",
+    "standard": "microcosm-substrate/standards/std_microcosm_finance_forecast_evaluation_spine.json",
+    "surface_role": "public_safe_finance_research_assurance_spine"
+  },
+  "demonstration_run": {
+    "counts": {
+      "evidence_construction_path_count": 1,
+      "evolve_decision_count": 1,
+      "feed_freshness_state_count": 2,
+      "multiple_comparison_guard_count": 1,
+      "no_advice_boundary_receipt_count": 1,
+      "oracle_reconciliation_count": 1,
+      "pairwise_comparison_count": 1,
+      "scoring_rule_count": 1,
+      "target_universe_count": 1
+    },
+    "production_claim": false,
+    "public_safe_non_empty_fixture": true,
+    "run_id": "public_finance_assurance_demo_20260527",
+    "summary": "Non-empty public demonstration of the product spine: dated feed truth, evidence maturity, forecast scoring, pairwise comparison, multiple-comparison guard, oracle reconciliation, review-gated evolve, and no-advice boundary."
+  },
+  "evidence_construction": {
+    "authority": "tools/finance/build_effective_evidence.py",
+    "fixture_status": "represented_until_source_body_import",
+    "path_id": "effective_evidence_common_support_event_window_v0",
+    "proof_points": [
+      "common_support_required",
+      "event_window_independence_checked",
+      "data_quality_deficit_is_not_model_failure",
+      "optimizer_permission_false",
+      "calculator_mutation_permission_false"
+    ]
+  },
+  "feed_freshness": {
+    "current_state": "stale_green_feed",
+    "latest_green_run": {
+      "artifact": "state/runs/RUN_2026-05-13_01-33-40_bfa67a/artifacts/feed_readiness_summary.json",
+      "generated_at": "2026-05-13T00:34:27+00:00",
+      "ready": true,
+      "run_id": "RUN_2026-05-13_01-33-40_bfa67a",
+      "status_counts": {
+        "success": 7
+      },
+      "staleness_days": 14
+    },
+    "scheduled_shells": [
+      {
+        "artifact_count": 0,
+        "run_dir": "state/runs/FEEDS_20260527_open",
+        "state": "scheduled_shell"
+      },
+      {
+        "artifact_count": 0,
+        "run_dir": "state/runs/FEEDS_20260527_hour_10_30",
+        "state": "scheduled_shell"
+      },
+      {
+        "artifact_count": 0,
+        "run_dir": "state/runs/FEEDS_20260527_hour_11_30",
+        "state": "scheduled_shell"
+      },
+      {
+        "artifact_count": 0,
+        "run_dir": "state/runs/FEEDS_20260527_hour_12_30",
+        "state": "scheduled_shell"
+      }
+    ],
+    "status_vocabulary": [
+      "fresh_green_feed",
+      "stale_green_feed",
+      "scheduled_shell",
+      "blocked_missing_artifact"
+    ],
+    "truth_statement": "A stale green feed is historical proof, not current live-feed capability."
+  },
+  "module_coverage": {
+    "coverage_policy": "no_silent_omissions",
+    "deferred_modules_require_contract": true,
+    "imported_public_body_count": 9,
+    "macro_finance_module_count": 19,
+    "operational_receipt_only_count": 2,
+    "silent_omission_count": 0,
+    "status_vocabulary": [
+      "imported_public_body",
+      "deferred_public_safe_core",
+      "deferred_public_safe_statistical",
+      "operational_receipt_only",
+      "operational_only"
+    ]
+  },
+  "oracle_evolve": {
+    "cp1_forward_only": true,
+    "evolve_decision": {
+      "auto_apply_allowed": false,
+      "decision": "hold_for_review",
+      "reason": "Public demo can propose learning only after feed health and oracle quartet receipts are complete; financial evidence never auto-applies mutation.",
+      "review_gated": true
+    },
+    "oracle_reconciliation": {
+      "artifact": "prediction_reconciliation",
+      "feed_health_first": true,
+      "missing_truth_is_data_gap_not_forecast_failure": true
+    }
+  },
+  "schema_version": "finance_research_assurance_surface_v0",
+  "statistical_discipline": {
+    "multiple_comparison_guard": {
+      "authority": [
+        "tools/finance/family_loss_matrix.py",
+        "tools/finance/model_selection.py",
+        "tools/finance/model_selection_stats.py",
+        "tools/finance/spa_statistics.py",
+        "tools/finance/bootstrap_reference.py"
+      ],
+      "interpretation": "Many-model comparison requires family-level loss matrices, bootstrap discipline, and SPA/MCS-style guards before any evolve implication."
+    },
+    "pairwise_equal_loss": {
+      "authority": "tools/finance/loss_differentials.py",
+      "interpretation": "Pairwise comparison asks whether observed forecast-loss differences are meaningful on matched events."
+    },
+    "proper_scoring_rules": {
+      "authority": "tools/finance/eval_replay.py",
+      "interpretation": "Probabilistic forecast evidence starts with honest scoring against realized outcomes, not model charisma."
+    },
+    "sequence": [
+      "proper_scoring_rules",
+      "pairwise_equal_loss",
+      "multiple_comparison_guard",
+      "review_gated_evolve_implication"
+    ]
+  },
+  "surface_id": "finance_research_assurance_spine_public_demo",
+  "target_universe": {
+    "private_account_state": false,
+    "target_count": 3,
+    "target_types": [
+      "equity_forecast_evaluation_claim",
+      "macro_release_context",
+      "calculator_candidate_card"
+    ],
+    "universe_id": "public_fixture_us_large_cap_macro_cross_asset"
+  },
+  "ui_receipts": {
+    "finance_data_view_quality": "not_yet_in_census",
+    "lab_oracle_evolve_view": "papered_existing_pair_lens",
+    "market_intelligence_view_quality": "partial_unmeasured",
+    "required_markers": [
+      "feed_freshness_state",
+      "evidence_maturity",
+      "statistical_comparison_status",
+      "evolve_permission_state",
+      "no_advice_mode"
+    ]
+  }
+}
