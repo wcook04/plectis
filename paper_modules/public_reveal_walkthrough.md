@@ -54,6 +54,23 @@ The first reveal task is to show how a reader can move from number to receipt
 to source boundary without crossing into private bodies, provider payloads,
 account/session state, or release claims.
 
+## Reveal First View
+
+The reveal board should open with the same compression grammar as the
+first-screen card, then widen only after the reader has a route to inspect:
+
+1. Restate the bounded claim frame.
+2. Show the command that produced the local state.
+3. Show one route explanation with receipt refs.
+4. Show the evidence-count legend beside the receipt refs.
+5. Show the authority ceiling before any totals, drilldowns, or observatory
+   links.
+
+This gives video-first or browser-first readers a visible artifact without
+turning the reveal into a marketing hero. Motion, screenshots, and observatory
+views are allowed presentation layers only when the same evidence legend,
+anti-claim, and receipt refs remain on the first view.
+
 The validated claim is narrow:
 
 > Microcosm turns a repo into a local operating substrate: patterns, routes,

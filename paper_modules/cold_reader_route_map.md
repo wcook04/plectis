@@ -51,6 +51,23 @@ authority ceiling, then deeper route. Reader-specific branches may hide other
 branches, but they may not hide the accounting frame that prevents "1 verified
 import" from being read as either failure or marketing.
 
+## One-Screen Handoff Contract
+
+The route map consumes the first-screen card as the handoff, not as another
+route row. A cold reader should see this sequence:
+
+1. First-screen card: claim frame, `microcosm hello <project>`, shared proof,
+   evidence legend, structural join, reader rail, and exit rule.
+2. Route map: the accepted command order, with receipt refs and authority
+   ceilings attached to each command.
+3. Reader branch: one audience-specific first action, one proof surface, one
+   success criterion, and one next drilldown.
+
+The handoff fails when the first screen turns into a complete route inventory,
+or when the route map assumes the reader already understands evidence classes.
+The first screen should compress; the route map should sequence; the reveal
+should demonstrate the path against public receipts.
+
 `readme_onboarding_route` is the selected route only for projects with a README;
 folders without one still get a route/work/event/evidence path through the
 selected route emitted by `tour` and `compile`.

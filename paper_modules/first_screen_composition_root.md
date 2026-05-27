@@ -27,6 +27,27 @@ The composition root says what has to fit on one screen:
    calls, source mutation, private-data equivalence, score-based progress, and
    whole-system correctness.
 
+## Concrete One-Screen Artifact
+
+The artifact is a terminal-sized card, not a second README. It should fit the
+following order without requiring a reader to scroll through the full command
+inventory:
+
+| Slot | What appears | Why it is first-screen material |
+|---|---|---|
+| Claim frame | Microcosm turns a folder into local routes, work, events, evidence, and explanations. | Names the composition root without claiming release, hosted product status, or whole-system correctness. |
+| First action | `microcosm hello <project>` | Gives every reader the same first command before audience branching. |
+| Shared proof | `microcosm tour --card <project>` | Shows one local behavior proof that can be repeated from a clone. |
+| Evidence legend | Count, evidence class, proof surface, and anti-claim. | Prevents honest counters from becoming maturity scores. |
+| Structural join | "This run exercises one public organ inside a larger source-open substrate." | Connects the local command to standards, receipts, body imports, and observatory routes. |
+| Reader rail | Safety/evals, hiring, and peer developer branch handles. | Lets each reader choose a next drilldown without changing authority. |
+| Exit rule | Stop when first action, shared proof, evidence legend, and one branch next-step are understood. | Keeps the card from expanding into the long-form route map. |
+
+Any first-screen renderer may change wording, but not the order of those slots.
+If a field needs more space than one screen, the renderer must replace the body
+with a receipt, paper-module, standard, or observatory handle rather than
+expanding the card.
+
 ## Evidence Accounting Frame
 
 The first screen must explain honest counters before a reader sees them as
