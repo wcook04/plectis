@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -9,6 +10,7 @@ from microcosm_core.organs import sleeper_memory_poisoning_quarantine_replay
 from microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    SOURCE_MODULE_IMPORT_STATUS,
     main,
     run,
     run_quarantine_bundle,
@@ -131,11 +133,15 @@ def test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape(
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_sleeper_memory_poisoning_bundle"
     assert result["bundle_id"] == "sleeper_memory_poisoning_quarantine_policy_refactor"
-    assert result["body_import_status"] == "public_body_free_policy_refactor_landed"
+    assert result["body_import_status"] == SOURCE_MODULE_IMPORT_STATUS
     assert (
         result["product_path_role"]
-        == "algorithmic_projection_public_memory_security_policy_refactor"
+        == "copied_non_secret_macro_body_plus_public_memory_security_policy_refactor"
     )
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 6
+    assert result["body_copied_material_count"] == 6
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
@@ -144,6 +150,42 @@ def test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape(
     assert result["blocked_before_action_count"] == 1
     assert result["rerun_pass_count"] == 1
     assert result["authority_ceiling"]["live_memory_product_claim_authorized"] is False
+
+
+def test_sleeper_memory_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 6
+
+    imported_ids: set[str] = set()
+    for row in manifest["modules"]:
+        imported_ids.add(row["module_id"])
+        source = MICROCOSM_ROOT.parent / row["source_ref"]
+        target = BUNDLE_INPUT / row["path"]
+        assert source.is_file(), row["source_ref"]
+        assert target.is_file(), row["path"]
+        assert target.read_bytes() == source.read_bytes()
+        digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+
+    assert imported_ids == {
+        "sleeper_memory_high_novelty_growth_receipt_body_import",
+        "claude_memory_plane_contract_body_import",
+        "memory_injection_tiers_body_import",
+        "operator_thread_memory_test_body_import",
+        "agent_execution_trace_runtime_body_import",
+        "agent_execution_trace_standard_body_import",
+    }
 
 
 def test_sleeper_memory_poisoning_bundle_card_reuses_fresh_receipt(
@@ -171,7 +213,7 @@ def test_sleeper_memory_poisoning_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 8
+    assert first_card["command_speed"]["freshness_input_count"] == 15
     assert first_card["sleeper_memory"]["session_count"] == 4
     assert first_card["sleeper_memory"]["proposal_count"] == 2
     assert first_card["sleeper_memory"]["quarantined_write_count"] == 1
@@ -182,10 +224,15 @@ def test_sleeper_memory_poisoning_bundle_card_reuses_fresh_receipt(
     assert first_card["sleeper_memory"]["rerun_pass_count"] == 1
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert first_card["source_body_floor"]["body_material_count"] == 6
+    assert first_card["source_body_floor"]["body_material_status"] == (
+        SOURCE_MODULE_IMPORT_STATUS
+    )
     assert "session_rows" not in _walk_keys(first_card)
     assert "write_rows" not in _walk_keys(first_card)
     assert "retrieval_rows" not in _walk_keys(first_card)
     assert "rollback_rows" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
     assert "private_state_scan" not in _walk_keys(first_card)
     assert "findings" not in _walk_keys(first_card)
 

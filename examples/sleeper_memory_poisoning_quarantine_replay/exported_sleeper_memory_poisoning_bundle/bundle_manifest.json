@@ -1,11 +1,12 @@
 {
   "body_redacted": true,
-  "body_redacted_reason": "private memory bodies, raw transcripts, live user-memory values, and hidden trigger text are excluded; policy rows and derived verdict logic are public",
+  "body_redacted_reason": "private memory bodies, raw transcripts, live user-memory values, hidden trigger text, provider payloads, and credential-equivalent material are excluded; copied macro memory-plane source bodies live under source_modules/ and receipts carry refs, hashes, counts, and verdicts only",
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
-  "description": "Public body-free memory-security policy refactor for sleeper-memory poisoning: validates provenance-bound write proposals, quarantine verdicts, retrieval influence gates, rollback audit refs, cold rerun receipts, and negative cases without exporting private memory bodies.",
+  "description": "Public memory-security policy refactor for sleeper-memory poisoning with copied non-secret macro memory-plane bodies: validates provenance-bound write proposals, quarantine verdicts, retrieval influence gates, rollback audit refs, cold rerun receipts, source module digests, and negative cases without exporting private memory bodies.",
   "expected_negative_cases": [],
   "input_mode": "exported_sleeper_memory_poisoning_bundle",
   "organ_id": "sleeper_memory_poisoning_quarantine_replay",
-  "product_path_role": "algorithmic_projection_public_memory_security_policy_refactor",
+  "product_path_role": "copied_non_secret_macro_body_plus_public_memory_security_policy_refactor",
+  "source_module_manifest_ref": "source_module_manifest.json",
   "schema_version": "sleeper_memory_poisoning_runtime_bundle_manifest_v1"
 }

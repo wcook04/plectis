@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 35,
+  "rows_with_source_body_imports": 36,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 361,
+  "source_open_body_material_count": 367,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 35,
-    "source_open_body_material_count": 361,
+    "rows_with_source_body_imports": 36,
+    "source_open_body_material_count": 367,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -6481,7 +6481,7 @@
         "standard_ref": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how persistent-memory poisoning claims are admitted only when provenance, quarantine, retrieval influence gating, rollback, negative cases, and authority ceilings align.",
-        "validation_rule_count": 7
+        "validation_rule_count": 9
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -6498,7 +6498,43 @@
           "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "benchmark_score_claim_authorized": false,
+            "credential_or_account_bound_payload_exported": false,
+            "live_memory_product_claim_authorized": false,
+            "private_memory_body_export_authorized": false,
+            "provider_payload_exported": false,
+            "raw_transcript_export_authorized": false,
+            "release_authorized": false
+          },
+          "body_material_count": 6,
+          "body_material_ids": [
+            "sleeper_memory_high_novelty_growth_receipt_body_import",
+            "claude_memory_plane_contract_body_import",
+            "memory_injection_tiers_body_import",
+            "operator_thread_memory_test_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import"
+          ],
+          "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/sleeper_memory_poisoning_quarantine_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body",
+            "public_macro_proof_body",
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sleeper memory bundle for copied macro memory-plane doctrine, trace, standard, and reconstruction bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run --input fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input --out receipts/first_wave/sleeper_memory_poisoning_quarantine_replay",
         "verdict_source": "derived_projection_metric"
@@ -6506,7 +6542,43 @@
       "ordinal": 38,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "benchmark_score_claim_authorized": false,
+          "credential_or_account_bound_payload_exported": false,
+          "live_memory_product_claim_authorized": false,
+          "private_memory_body_export_authorized": false,
+          "provider_payload_exported": false,
+          "raw_transcript_export_authorized": false,
+          "release_authorized": false
+        },
+        "body_material_count": 6,
+        "body_material_ids": [
+          "sleeper_memory_high_novelty_growth_receipt_body_import",
+          "claude_memory_plane_contract_body_import",
+          "memory_injection_tiers_body_import",
+          "operator_thread_memory_test_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import"
+        ],
+        "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/sleeper_memory_poisoning_quarantine_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body",
+          "public_macro_proof_body",
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sleeper memory bundle for copied macro memory-plane doctrine, trace, standard, and reconstruction bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
         "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",

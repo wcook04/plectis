@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This fixture validates public synthetic sleeper-memory poisoning quarantine boundaries only; it does not claim live memory product quality, expose private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
+  "anti_claim": "This fixture validates public synthetic sleeper-memory poisoning quarantine boundaries and copied non-secret macro memory-plane body imports only; it does not claim live memory product quality, expose private memory bodies or raw transcripts, import live user memory, promote untrusted context to trusted memory, call providers, mutate source, claim benchmark security, or authorize release.",
   "anti_claim_contract": {
     "required": true,
     "rule": "sleeper-memory material must state that synthetic replay is not live memory security or product authority"
@@ -75,7 +75,12 @@
       "private_state_scan",
       "authority_ceiling",
       "anti_claim",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_status",
+      "source_open_body_imports",
+      "body_copied_material_count",
+      "body_in_receipt",
+      "body_text_in_receipt"
     ],
     "receipt_id": "receipt.microcosm.sleeper_memory_poisoning_quarantine_replay",
     "required": true
@@ -116,6 +121,21 @@
     "required": true,
     "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
   },
+  "source_module_contract": {
+    "body_in_receipt": false,
+    "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+    "body_text_in_receipt": false,
+    "manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+    "minimum_body_material_count": 6,
+    "public_safe_material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "required_for_exported_runtime_bundle": true,
+    "source_import_class": "copied_non_secret_macro_body"
+  },
   "source_refs": [
     {
       "field": "projection_protocol",
@@ -126,6 +146,16 @@
       "field": "runtime_example",
       "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+      "role": "source_open_body_import_manifest"
+    },
+    {
+      "field": "source_modules",
+      "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/",
+      "role": "copied_non_secret_macro_memory_plane_body_floor"
     }
   ],
   "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
@@ -162,7 +192,9 @@
     "require later retrieval of quarantined memory to be blocked before action",
     "require rollback audit and cold rerun with poisoned memory absent",
     "reject private memory body export, live user memory claims, raw transcript export, provenance-less writes, untrusted trusted-promotion, deletion without audit, final-answer-only grading, and unmetered poison influence",
-    "emit redacted receipts and private-state scan"
+    "emit redacted receipts and private-state scan",
+    "require exported runtime bundle source_module_manifest.json for copied non-secret macro memory-plane bodies",
+    "verify source module target digests, public-safe material classes, required anchors, and body-free receipt boundaries"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -173,7 +205,9 @@
       "quarantine_verdict_floor",
       "retrieval_action_gate",
       "rollback_cold_rerun_absence",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_digest_verification",
+      "source_open_body_import_floor"
     ],
     "required": true,
     "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay"

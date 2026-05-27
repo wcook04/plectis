@@ -28,15 +28,107 @@
     "trusted_promotion_from_untrusted_context_authorized": false
   },
   "blocked_before_action_count": 1,
-  "body_import_classification": "algorithmic_projection_public_memory_security_policy_refactor",
-  "body_import_status": "public_body_free_policy_refactor_landed",
+  "body_copied_material_count": 6,
+  "body_import_classification": "copied_non_secret_public_memory_plane_macro_body_import",
+  "body_import_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+  "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+  "body_text_exported_in_receipts": false,
+  "body_text_in_receipt": false,
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "command": "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay",
+  "created_at": "2026-05-27T02:09:29+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.sleeper_memory_poisoning_quarantine_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:9ab42ac42c57a7066b137be6199b67568b6f4b12a661309beec2d44301e8f77b",
+    "card_schema_version": "sleeper_memory_poisoning_quarantine_command_card_v1",
+    "include_negative": false,
+    "input_count": 15,
+    "inputs": [
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/projection_protocol.json",
+        "sha256": "sha256:9770e7c2ac0c159f3d675634a3afd7dbee8d5672db51e69c939897684f6aec06",
+        "size_bytes": 2213
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/memory_policy.json",
+        "sha256": "sha256:4376655945f119a50da63b5fc7bb730f4c3ddc0877194a3775db5228875d7bd7",
+        "size_bytes": 1130
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/session_chain.json",
+        "sha256": "sha256:7b4aa9279a773ca92c67695d1c9a3a101ebda8901a9d282a72fc2f23b82c00d4",
+        "size_bytes": 1297
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/quarantine_events.json",
+        "sha256": "sha256:da49f83265ac1bb21be19df0565b126cff9229f0f97b72644b644c83aa638931",
+        "size_bytes": 1692
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/retrieval_replays.json",
+        "sha256": "sha256:c5bc73d3e6bea60ea1c21a817b2213c4660d90a6748f996a1fed5df5c89ea55c",
+        "size_bytes": 857
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/rollback_rerun.json",
+        "sha256": "sha256:b3ba5825743e8b831b0e193ea7e14faa0d5cca46b72aed6588ffac2ad678499e",
+        "size_bytes": 618
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/bundle_manifest.json",
+        "sha256": "sha256:c9a7e9f20656f364a8ed4ab1c174cf1a037a36cec0c3581a19c42ce29aa333ba",
+        "size_bytes": 1152
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+        "sha256": "sha256:b60c11157fb10e12cbb4ba52a69e9019cc5ac65a736ba44708c7a80b55534c7d",
+        "size_bytes": 14440
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "size_bytes": 295524
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/claude_memory_plane_contract.md",
+        "sha256": "sha256:fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
+        "size_bytes": 12690
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/memory_injection_tiers.md",
+        "sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+        "size_bytes": 14191
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
+        "sha256": "sha256:35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
+        "size_bytes": 37989
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "size_bytes": 224689
+      },
+      {
+        "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "size_bytes": 47570
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "sleeper_memory_poisoning_quarantine_freshness_basis_v1",
+    "validator_schema_version": "exported_sleeper_memory_poisoning_bundle_validation_result_v1"
+  },
   "input_mode": "exported_sleeper_memory_poisoning_bundle",
   "memory_policy_id": "sleeper_memory_poisoning_quarantine_policy_v1",
   "missing_negative_cases": [],
@@ -58,10 +150,10 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 7,
+    "scanned_path_count": 14,
     "status": "pass"
   },
-  "product_path_role": "algorithmic_projection_public_memory_security_policy_refactor",
+  "product_path_role": "copied_non_secret_macro_body_plus_public_memory_security_policy_refactor",
   "projection_receipt_refs": [
     "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/sleeper_memory_poisoning_quarantine_replay_validation_receipt.json",
     "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json"
@@ -78,6 +170,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "rerun_pass_count": 1,
   "retrieval_replay_count": 1,
   "retrieval_rows": [
@@ -157,6 +250,92 @@
       "session_role": "rollback_and_cold_rerun"
     }
   ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_pattern_body": 3,
+      "public_macro_proof_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 6,
+    "module_ids": [
+      "sleeper_memory_high_novelty_growth_receipt_body_import",
+      "claude_memory_plane_contract_body_import",
+      "memory_injection_tiers_body_import",
+      "operator_thread_memory_test_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import"
+    ],
+    "observed_negative_cases": {},
+    "source_module_import_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+    "source_module_manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+    "source_refs": [
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/claude_memory_plane_contract.md",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/memory_injection_tiers.md",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
+    ],
+    "status": "pass",
+    "verified_module_count": 6
+  },
+  "source_module_manifest_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_memory_product_claim_authorized": false,
+      "private_memory_body_export_authorized": false,
+      "provider_payload_exported": false,
+      "raw_transcript_export_authorized": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_pattern_body": 3,
+      "public_macro_proof_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "sleeper_memory_high_novelty_growth_receipt_body_import",
+      "claude_memory_plane_contract_body_import",
+      "memory_injection_tiers_body_import",
+      "operator_thread_memory_test_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import"
+    ],
+    "body_material_status": "copied_non_secret_sleeper_memory_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sleeper memory bundle for copied macro memory-plane doctrine, trace, standard, and reconstruction bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "sleeper_memory_poisoning_quarantine_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "sleeper_memory_poisoning_quarantine_replay_compound",
     "agent_reliability_replay_gauntlet",
