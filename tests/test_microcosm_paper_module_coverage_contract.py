@@ -620,6 +620,30 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "microcosm_runtime_organ_atlas" in coverage_metabolism
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
+    assert "All-Corpus Compression Dispatch" in coverage_metabolism
+    assert "all-row `flag` remains a compatibility redirect" in coverage_metabolism
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_rows"
+        in coverage_metabolism
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_compression_packet"
+        in coverage_metabolism
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_compression_passport"
+        in coverage_metabolism
+    )
+    assert "Dirty Generated-Sidecar Boundary" in coverage_metabolism
+    assert (
+        "`README.md`, `_index.json`, `_validation_report.json`, "
+        "`_route_coverage.json`, and `_doctrine_to_paper_modules.json`"
+        in coverage_metabolism
+    )
+    assert (
+        "the correct closeout is not to commit generated sidecars"
+        in coverage_metabolism
+    )
     assert "Source-Loci Coverage Contract" in coverage_metabolism
     assert "Atlas Source-Coupling Closeout" in coverage_metabolism
     assert "std_microcosm.json::paper_module_coverage_contract.atlas_source_coupling_closeout_contract" in coverage_metabolism
