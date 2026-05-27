@@ -133,8 +133,7 @@ OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
     f"--max-requests {OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT}"
 )
 OBSERVATORY_BOUNDED_VALIDATION_RULE = (
-    "Use bounded_validation_command for first-screen route smokes; use command "
-    "for an interactive browser session."
+    "Use bounded_validation_command for route smokes; use command for interactive sessions."
 )
 PROOF_LAB_FIRST_SCREEN_AUTHORITY = (
     "first-screen proof-lab route and receipt-status card only; not proof "
@@ -3124,7 +3123,6 @@ def _compact_project_state_write_proof(
         "state_dir": state_write_proof.get("state_dir"),
         "state_dir_exists": state_write_proof.get("state_dir_exists"),
         "state_file_count": state_write_proof.get("state_file_count"),
-        "required_state_refs": state_write_proof.get("required_state_refs", []),
         "missing_state_refs": state_write_proof.get("missing_state_refs", []),
         "state_write_result_ref": state_write_proof.get("state_write_result_ref"),
         "state_write_status_ref": state_write_proof.get("state_write_status_ref"),
@@ -3589,6 +3587,18 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
                 }
             )
         elif surface_id == "state_write_proof":
+            project_state = (
+                front_door.get("project_state", {})
+                if isinstance(front_door.get("project_state"), dict)
+                else {}
+            )
+            recovery = project_state.get("recovery")
+            if not isinstance(recovery, dict):
+                recovery = (
+                    front_door.get("project_recovery", {})
+                    if isinstance(front_door.get("project_recovery"), dict)
+                    else {}
+                )
             detail.update(
                 {
                     "state_dir_exists": state_write_proof.get("state_dir_exists"),
@@ -3603,6 +3613,16 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
                         "state_write_status_ref"
                     ),
                     "project_state_ref": state_write_proof.get("project_state_ref"),
+                    "primary_recovery_command": recovery.get("primary_command"),
+                    "status_after_recovery_command": recovery.get(
+                        "status_after_recovery_command"
+                    ),
+                    "recovery_ref": (
+                        "front_door.project_state.recovery"
+                        if recovery
+                        else None
+                    ),
+                    "recovery": recovery,
                     "observe_ref": state_write_proof.get("observe_ref"),
                     "reader_action": state_write_proof.get(
                         "reader_action",
@@ -3739,21 +3759,13 @@ def _runtime_status_card(
                 latest_verified_source_module_family_ids
             ),
             "latest_family_preview_limit": STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT,
-            "latest_source_ref_count": len(latest_source_refs),
-            "latest_source_refs_ref": (
-                "front_door.source_open_body_import_floor.latest_source_refs"
-            ),
-            "full_family_list_ref": (
-                "microcosm status::macro_body_import_floor."
-                "source_body_import_lens.verified_source_module_families"
-            ),
         }
     body_floor_defect_preview = _compact_body_import_defects(body_floor)
     card = {
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
         "posture": status.get("posture"),
-        "scope": "compressed_first_screen_lens_over_full_microcosm_status",
+        "scope": "compact_first_screen_status_lens",
         "card_command": "microcosm status --card",
         "full_status_command": "microcosm status",
         "source_files_mutated": (
@@ -3822,8 +3834,7 @@ def _runtime_status_card(
                     "source_mutation_or_private_equivalence_authority"
                 ),
                 "reader_action": (
-                    "Scan body-import counts here; open macro_body_import_floor "
-                    "for validators, defects, and family drilldowns."
+                    "Scan counts here; open macro_body_import_floor for validators."
                 ),
             },
             "source_open_body_imports": {
@@ -4003,9 +4014,8 @@ def _runtime_status_card(
             "microcosm status",
         ],
         "anti_claim": (
-            "This card is a compressed read model over runtime status. It does "
-            "not authorize release, hosting, provider execution, source "
-            "mutation, proof correctness, or credential-equivalent live access."
+            "Compressed status only: no release, hosting, provider, source "
+            "mutation, proof-correctness, or live-access authority."
         ),
     }
     if body_floor.get("defect_count") or body_floor_defect_preview:

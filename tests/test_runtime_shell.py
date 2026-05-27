@@ -823,6 +823,56 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     )
 
 
+def test_runtime_shell_project_status_card_before_tour_recovery_is_unambiguous(
+    tmp_path: Path,
+) -> None:
+    project = tmp_path / "scratch-project"
+    project.mkdir()
+    (project / "README.md").write_text(
+        "# Scratch Project\n\nCold status-before-tour fixture.\n",
+        encoding="utf-8",
+    )
+
+    card = RuntimeShell(MICROCOSM_ROOT).status_card(project)
+    front_door_status = card["front_door_status"]
+    details = front_door_status["blocking_surface_details"]
+
+    assert card["status"] == "blocked"
+    assert card["source_files_mutated"] is False
+    assert front_door_status["blocking_surface_ids"] == [
+        "project_state",
+        "state_write_proof",
+    ]
+    assert card["front_door"]["project_state_status"] == "missing_state"
+    assert card["next_commands"] == [
+        "microcosm tour --card <project>",
+        "microcosm status --card <project>",
+        "microcosm compile <project>",
+    ]
+
+    project_detail = details["project_state"]
+    state_write_detail = details["state_write_proof"]
+    assert project_detail["primary_recovery_command"] == (
+        "microcosm tour --card <project>"
+    )
+    assert state_write_detail["primary_recovery_command"] == (
+        "microcosm tour --card <project>"
+    )
+    assert state_write_detail["status_after_recovery_command"] == (
+        "microcosm status --card <project>"
+    )
+    assert state_write_detail["recovery_ref"] == "front_door.project_state.recovery"
+    assert state_write_detail["recovery"] == project_detail["recovery"]
+    assert state_write_detail["missing_state_refs"] == [
+        ".microcosm/routes.json",
+        ".microcosm/work_items.json",
+        ".microcosm/events.jsonl",
+        ".microcosm/evidence/",
+        ".microcosm/graph.json",
+        ".microcosm/state_index.json",
+    ]
+
+
 def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
     card = runtime_shell._runtime_status_card(
         {
