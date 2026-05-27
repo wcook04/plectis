@@ -145,6 +145,11 @@ ANTI_CLAIM = (
 )
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
 BODY_DIGEST_PREFIX = "sha256:"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = SOURCE_MODULE_IMPORT_STATUS
+SOURCE_OPEN_BODY_SCHEMA = (
+    "spatial_world_model_counterfactual_simulation_replay_source_open_body_imports_v1"
+)
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -247,18 +252,23 @@ def _source_module_manifest_result(
             "verified_module_count": 0,
             "module_ids": [],
             "public_safe_body_material_ids": [],
+            "material_classes": [],
             "body_text_in_receipt": False,
+            "body_in_receipt": False,
             "findings": [],
         }
 
     findings: list[dict[str, Any]] = []
     module_results: list[dict[str, Any]] = []
+    material_classes: set[str] = set()
     for row in _rows(manifest_payload, "modules"):
         module_id = str(row.get("module_id") or "source_module")
         source_ref = str(row.get("source_ref") or "")
         target_ref = str(row.get("target_ref") or "")
         target = _target_path_for_ref(target_ref, public_root=public_root)
         row_findings: list[str] = []
+        if row.get("material_class"):
+            material_classes.add(str(row["material_class"]))
 
         if row.get("classification") != "copied_non_secret_macro_body":
             row_findings.append("classification_must_be_copied_non_secret_macro_body")
@@ -333,9 +343,55 @@ def _source_module_manifest_result(
         "verified_module_count": sum(1 for row in module_results if row["status"] == PASS),
         "module_ids": [row["module_id"] for row in module_results],
         "public_safe_body_material_ids": [row["module_id"] for row in module_results],
+        "material_classes": sorted(material_classes),
         "modules": module_results,
         "body_text_in_receipt": False,
+        "body_in_receipt": False,
         "findings": findings,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_summary: dict[str, Any],
+    *,
+    manifest_ref: str,
+) -> dict[str, Any]:
+    material_ids = _strings(source_module_summary.get("public_safe_body_material_ids"))
+    material_classes = _strings(source_module_summary.get("material_classes"))
+    imported = source_module_summary.get("status") == PASS and bool(material_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_summary.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_BODY_STATUS if imported else "",
+        "body_material_count": len(material_ids) if imported else 0,
+        "body_material_ids": material_ids if imported else [],
+        "material_classes": material_classes if imported else [],
+        "source_manifest_refs": [manifest_ref] if imported and manifest_ref else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "private_video_exported": False,
+            "raw_sensor_data_exported": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_payload_exported": False,
+            "live_robot_operation_authorized": False,
+            "live_av_operation_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported spatial world-model simulation bundle for copied macro "
+            "Station geometry source bodies; receipts carry refs, digests, "
+            "counts, and verdicts only."
+        )
+        if imported
+        else "",
     }
 
 
@@ -564,6 +620,15 @@ def _build_result(
         payloads.get("source_module_manifest"),
         public_root=public_root,
     )
+    manifest_ref = (
+        _display(input_dir / SOURCE_MODULE_MANIFEST_NAME, public_root=public_root)
+        if (input_dir / SOURCE_MODULE_MANIFEST_NAME).is_file()
+        else ""
+    )
+    source_open_body_imports = _source_open_body_import_summary(
+        source_module_summary,
+        manifest_ref=manifest_ref,
+    )
     observed_negative_codes: dict[str, set[str]] = defaultdict(set)
     positive_findings: list[dict[str, Any]] = []
 
@@ -734,6 +799,11 @@ def _build_result(
         "negative_case_findings": negative_findings,
         "source_module_import_status": source_module_summary["body_import_status"],
         "source_module_summary": source_module_summary,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -788,6 +858,8 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "source_module_count": (result.get("source_module_summary") or {}).get(
             "module_count", 0
         ),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
     }
 
 
@@ -832,6 +904,8 @@ def _write_receipts(
         "source_module_count": (result.get("source_module_summary") or {}).get(
             "module_count", 0
         ),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,
@@ -867,6 +941,8 @@ def _write_receipts(
             command="microcosm spatial-world-model-counterfactual-simulation-replay run",
             surface_ref=receipt_paths[0],
         ),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
     }
     write_json_atomic(acceptance_path, acceptance)
     return {**result, "spatial_simulation_board": board, "receipt_paths": receipt_paths}

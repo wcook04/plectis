@@ -19,7 +19,8 @@
     "trained_simulator_claim_authorized": false
   },
   "board_ref": "receipts/first_wave/spatial_world_model_counterfactual_simulation_replay/spatial_world_model_counterfactual_simulation_replay_board.json",
-  "created_at": "2026-05-25T17:42:59+00:00",
+  "body_copied_material_count": 0,
+  "created_at": "2026-05-27T00:13:03+00:00",
   "expected_negative_case_count": 8,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "observed_negative_case_count": 8,
@@ -35,6 +36,31 @@
   "schema_version": "spatial_world_model_counterfactual_simulation_replay_validation_receipt_v1",
   "source_module_count": 0,
   "source_module_import_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "private_video_exported": false,
+      "provider_payload_exported": false,
+      "raw_sensor_data_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "spatial_world_model_counterfactual_simulation_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "status": "pass",
   "validator_id": "validator.microcosm.organs.spatial_world_model_counterfactual_simulation_replay"
 }

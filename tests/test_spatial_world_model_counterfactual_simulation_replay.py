@@ -19,6 +19,11 @@ FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input"
 )
+FIXTURE_MANIFEST = (
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/"
+    "spatial_world_model_counterfactual_simulation_replay.fixture_manifest.json"
+)
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/spatial_world_model_counterfactual_simulation_replay/"
@@ -171,6 +176,39 @@ def test_spatial_world_model_counterfactual_exported_bundle_validates_runtime_sh
     assert result["source_module_summary"]["public_safe_body_material_ids"] == (
         SPATIAL_SOURCE_BODY_MATERIAL_IDS
     )
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert (
+        result["source_open_body_imports"]["source_import_class"]
+        == "copied_non_secret_macro_body"
+    )
+    assert result["source_open_body_imports"]["body_material_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        result["source_open_body_imports"]["body_material_ids"]
+        == SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert result["source_open_body_imports"]["material_classes"] == [
+        "public_macro_tool_body"
+    ]
+    assert result["source_open_body_imports"]["source_manifest_refs"] == [
+        "examples/spatial_world_model_counterfactual_simulation_replay/"
+        "exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
+    ]
+    assert result["source_open_body_imports"]["aggregate_floor_ref"].endswith(
+        "source_module_manifest.json::modules"
+    )
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_workingness"]
+        is False
+    )
+    assert result["body_copied_material_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
     assert (
         result["payload_boundary"]["boundary_id"]
         == "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
@@ -209,3 +247,24 @@ def test_spatial_world_model_counterfactual_source_modules_are_exact_station_geo
         assert row["body_in_receipt"] is False
         assert row["target_body_digest"] == _sha256_ref(target)
         assert _sha256_ref(source) == _sha256_ref(target)
+
+
+def test_spatial_world_model_counterfactual_fixture_manifest_exports_body_floor_summary(
+) -> None:
+    manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
+    body_imports = manifest["source_open_body_imports"]
+
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert body_imports["body_material_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert body_imports["body_material_ids"] == SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    assert body_imports["material_classes"] == ["public_macro_tool_body"]
+    assert body_imports["body_text_exported_in_receipts"] is False
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert manifest["body_copied_material_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )

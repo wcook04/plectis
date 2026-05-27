@@ -108,7 +108,9 @@
       "authority_ceiling",
       "anti_claim",
       "source_module_import_status",
-      "source_module_summary"
+      "source_module_summary",
+      "source_open_body_imports",
+      "body_copied_material_count"
     ],
     "receipt_id": "receipt.microcosm.spatial_world_model_counterfactual_simulation_replay",
     "required": true
@@ -144,6 +146,8 @@
     "limitation_labels",
     "payload_boundary_ref",
     "source_open_body_policy",
+    "source_open_body_imports",
+    "body_copied_material_count",
     "unsafe_payload_bodies_exported",
     "authority_ceiling",
     "anti_claim"

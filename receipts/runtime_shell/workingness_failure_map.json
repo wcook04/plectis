@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 30,
+  "rows_with_source_body_imports": 31,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 346,
+  "source_open_body_material_count": 349,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 30,
-    "source_open_body_material_count": 346,
+    "rows_with_source_body_imports": 31,
+    "source_open_body_material_count": 349,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -4079,7 +4079,7 @@
         "missing_requirement_ids": [],
         "ontology": "A source-open spatial world-model replay validator that checks scene states, action traces, predicted states, transition diffs, oracle checks, limitation labels, public payload boundaries, and exact copied Station geometry guardrail source modules without becoming simulator or live-operation authority.",
         "receipt_expectation_count": 2,
-        "required_field_count": 18,
+        "required_field_count": 20,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -4111,7 +4111,38 @@
           "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "credential_or_account_bound_payload_exported": false,
+            "live_av_operation_authorized": false,
+            "live_robot_operation_authorized": false,
+            "private_video_exported": false,
+            "provider_payload_exported": false,
+            "raw_sensor_data_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 3,
+          "body_material_ids": [
+            "station_geometry_checker_source_body_import",
+            "station_geometry_checker_test_body_import",
+            "station_geometry_build_wiring_source_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/spatial_world_model_counterfactual_simulation_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported spatial world-model simulation bundle for copied macro Station geometry source bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run --input fixtures/first_wave/spatial_world_model_counterfactual_simulation_replay/input --out receipts/first_wave/spatial_world_model_counterfactual_simulation_replay",
         "verdict_source": "validator_computation"
@@ -4119,7 +4150,38 @@
       "ordinal": 25,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "credential_or_account_bound_payload_exported": false,
+          "live_av_operation_authorized": false,
+          "live_robot_operation_authorized": false,
+          "private_video_exported": false,
+          "provider_payload_exported": false,
+          "raw_sensor_data_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 3,
+        "body_material_ids": [
+          "station_geometry_checker_source_body_import",
+          "station_geometry_checker_test_body_import",
+          "station_geometry_build_wiring_source_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/spatial_world_model_counterfactual_simulation_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported spatial world-model simulation bundle for copied macro Station geometry source bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_spatial_world_model_counterfactual_simulation_replay.json",
         "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",

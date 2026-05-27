@@ -26,5 +26,39 @@
     "scene_states.json",
     "simulation_protocol.json"
   ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_av_operation_authorized": false,
+      "live_robot_operation_authorized": false,
+      "private_video_exported": false,
+      "provider_payload_exported": false,
+      "raw_sensor_data_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "station_geometry_checker_source_body_import",
+      "station_geometry_checker_test_body_import",
+      "station_geometry_build_wiring_source_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ for copied macro Station geometry source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "spatial_world_model_counterfactual_simulation_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "body_copied_material_count": 3,
   "schema_version": "exported_spatial_world_model_simulation_bundle_manifest_v1"
 }
