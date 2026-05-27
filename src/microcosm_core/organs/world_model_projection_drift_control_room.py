@@ -103,7 +103,12 @@ ANTI_CLAIM = (
     "export provider payloads, claim source authority, or authorize release."
 )
 BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
+SOURCE_BODY_STATUS = SOURCE_MODULE_IMPORT_STATUS
+SOURCE_OPEN_BODY_SCHEMA = (
+    "world_model_projection_drift_control_room_source_open_body_imports_v1"
+)
 SOURCE_REFS = [
     "microcosm-substrate/receipts/runtime_shell/public_projection_drift_control_lens.json",
     "microcosm-substrate/receipts/runtime_shell/public_projection_safety_audit_lens.json",
@@ -212,6 +217,7 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
             "source_module_manifest_ref": None,
             "module_count": 0,
             "module_ids": [],
+            "material_classes": [],
             "body_in_receipt": False,
             "findings": [],
         }
@@ -219,10 +225,13 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
     manifest = read_json_strict(manifest_path)
     findings: list[dict[str, Any]] = []
     module_ids: list[str] = []
+    material_classes: set[str] = set()
     verified_count = 0
     for row in _rows(manifest, "modules"):
         module_id = str(row.get("module_id") or "source_module")
         module_ids.append(module_id)
+        if row.get("material_class"):
+            material_classes.add(str(row["material_class"]))
         target_ref = str(row.get("target_ref") or "")
         target = _source_module_target_path(
             target_ref,
@@ -293,8 +302,52 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
         "module_count": len(module_ids),
         "verified_module_count": verified_count,
         "module_ids": module_ids,
+        "material_classes": sorted(material_classes),
         "body_in_receipt": False,
         "findings": findings,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    material_classes = _strings(source_module_result.get("material_classes"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_BODY_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": material_classes if imported else [],
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_payload_exported": False,
+            "live_git_mutation_authorized": False,
+            "broad_checkpoint_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported projection drift control bundle for copied macro "
+            "world-model and view-quality source bodies; receipts carry refs, "
+            "digests, counts, and verdicts only."
+        )
+        if imported
+        else "",
     }
 
 
@@ -491,7 +544,11 @@ def _build_result(
     projection_protocol = payloads.get("projection_protocol", {})
     drift_policy = payloads.get("drift_policy", {})
     drift_rows = _rows(payloads.get("drift_rows", {}), "drift_rows")
-    source_module_result = _source_module_manifest_result(input_dir, public_root=public_root)
+    source_module_result = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_module_result)
     observed_negative_codes: dict[str, set[str]] = defaultdict(set)
     positive_findings: list[dict[str, Any]] = []
 
@@ -640,6 +697,11 @@ def _build_result(
             "source_module_manifest_ref"
         ],
         "source_module_summary": source_module_result,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "source_refs": SOURCE_REFS,
         "target_refs": TARGET_REFS,
         "drift_summary": {
@@ -711,6 +773,8 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result.get("source_module_import_status"),
         "source_module_summary": result.get("source_module_summary"),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
     }
@@ -755,6 +819,8 @@ def _write_receipts(
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result.get("source_module_import_status"),
         "source_module_summary": result.get("source_module_summary"),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -784,6 +850,8 @@ def _write_receipts(
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result.get("source_module_import_status"),
         "source_module_summary": result.get("source_module_summary"),
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count"),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],

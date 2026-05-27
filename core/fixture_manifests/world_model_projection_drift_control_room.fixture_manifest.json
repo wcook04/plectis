@@ -77,6 +77,40 @@
     "receipts/first_wave/world_model_projection_drift_control_room/world_model_projection_drift_control_room_validation_receipt.json",
     "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
   ],
+  "source_open_body_imports": {
+    "schema_version": "world_model_projection_drift_control_room_source_open_body_imports_v1",
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "world_model_drift_aggregate_source_body_import",
+      "world_model_drift_endpoint_source_body_import",
+      "view_quality_action_map_source_body_import",
+      "view_quality_action_map_test_body_import"
+    ],
+    "material_classes": [
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "provider_payload_exported": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_git_mutation_authorized": false,
+      "broad_checkpoint_authorized": false,
+      "release_authorized": false
+    },
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported projection drift control bundle for copied macro world-model and view-quality source bodies; receipts carry refs, digests, counts, and verdicts only."
+  },
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "body_copied_material_count": 4,
   "authority_ceiling": "public projection drift control runtime receipt only; no source authority, live repair, doctrine promotion, private runtime export, provider payload export, or release",
   "anti_claim": "This fixture validates public body-free world-model projection drift runtime receipts; it does not inspect private runtime bodies, repair live routes, mutate source, promote doctrine, export provider payloads, or authorize release.",
   "validator_contract_ratchet_v1": {
@@ -95,6 +129,8 @@
         "secret_exclusion_scan",
         "body_import_status",
         "body_import_verification",
+        "source_open_body_imports",
+        "body_copied_material_count",
         "target_refs",
         "body_in_receipt",
         "anti_claim"
@@ -111,6 +147,8 @@
         "body_import_verification",
         "target_refs",
         "secret_exclusion_scan",
+        "source_open_body_imports",
+        "body_copied_material_count",
         "body_in_receipt",
         "anti_claim"
       ]

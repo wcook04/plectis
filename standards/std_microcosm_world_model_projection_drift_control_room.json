@@ -45,17 +45,22 @@
     "target_ref",
     "body_import_status",
     "body_import_verification",
+    "source_module_import_status",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
+    "body_copied_material_count",
     "authority_ceiling",
     "anti_claim"
   ],
   "validation_rules": [
     "require every drift row to cite source signal, source ref, repair route, validation ref, and public runtime target ref",
     "reject source authority claims, live repair authority, source mutation, automatic doctrine promotion, private runtime data export, provider payload export, and release authority",
-    "require public runtime receipt authority, body-free public fixture rows, body-import verification, and secret-exclusion scan"
+    "require public runtime receipt authority, body-free public fixture rows, body-import verification, and secret-exclusion scan",
+    "require exported source-module bodies to be represented by source_open_body_imports with body_material_count, body_material_ids, material_classes, source_manifest_refs, aggregate_floor_ref, and body-text exclusion flags"
   ],
   "receipt_expectations": [
     "receipt.microcosm.world_model_projection_drift_control_room",
-    "receipt must cite row counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, target refs, authority ceiling, and anti-claim"
+    "receipt must cite row counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, source-open body import summary, target refs, authority ceiling, and anti-claim"
   ],
   "validator_contract": {
     "validator_id": "validator.microcosm.organs.world_model_projection_drift_control_room",
@@ -82,6 +87,10 @@
       "secret_exclusion_scan",
       "body_import_status",
       "body_import_verification",
+      "source_module_import_status",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "target_refs",
       "authority_ceiling",
       "anti_claim"

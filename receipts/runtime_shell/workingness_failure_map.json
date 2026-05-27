@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 29,
+  "rows_with_source_body_imports": 30,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 342,
+  "source_open_body_material_count": 346,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 29,
-    "source_open_body_material_count": 342,
+    "rows_with_source_body_imports": 30,
+    "source_open_body_material_count": 346,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -3928,7 +3928,7 @@
         "missing_requirement_ids": [],
         "ontology": null,
         "receipt_expectation_count": 2,
-        "required_field_count": 12,
+        "required_field_count": 16,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -3943,7 +3943,7 @@
         "standard_ref": "standards/std_microcosm_world_model_projection_drift_control_room.json",
         "standard_status": "draft",
         "teleology": null,
-        "validation_rule_count": 3
+        "validation_rule_count": 4
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -3960,7 +3960,37 @@
           "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "broad_checkpoint_authorized": false,
+            "credential_or_account_bound_payload_exported": false,
+            "live_git_mutation_authorized": false,
+            "provider_payload_exported": false,
+            "release_authorized": false
+          },
+          "body_material_count": 4,
+          "body_material_ids": [
+            "world_model_drift_aggregate_source_body_import",
+            "world_model_drift_endpoint_source_body_import",
+            "view_quality_action_map_source_body_import",
+            "view_quality_action_map_test_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/world_model_projection_drift_control_room.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported projection drift control bundle for copied macro world-model and view-quality source bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run --input fixtures/first_wave/world_model_projection_drift_control_room/input --out receipts/first_wave/world_model_projection_drift_control_room",
         "verdict_source": "validator_computation"
@@ -3968,7 +3998,37 @@
       "ordinal": 24,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "broad_checkpoint_authorized": false,
+          "credential_or_account_bound_payload_exported": false,
+          "live_git_mutation_authorized": false,
+          "provider_payload_exported": false,
+          "release_authorized": false
+        },
+        "body_material_count": 4,
+        "body_material_ids": [
+          "world_model_drift_aggregate_source_body_import",
+          "world_model_drift_endpoint_source_body_import",
+          "view_quality_action_map_source_body_import",
+          "view_quality_action_map_test_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/world_model_projection_drift_control_room.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported projection drift control bundle for copied macro world-model and view-quality source bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_world_model_projection_drift_control_room.json",
         "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",

@@ -19,6 +19,10 @@ FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/world_model_projection_drift_control_room/input"
 )
+FIXTURE_MANIFEST = (
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/world_model_projection_drift_control_room.fixture_manifest.json"
+)
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/world_model_projection_drift_control_room/"
@@ -165,6 +169,29 @@ def test_world_model_projection_drift_source_modules_are_exact_macro_body_import
     assert result["source_module_summary"]["verified_module_count"] == len(
         SOURCE_MODULE_IDS
     )
+    assert result["source_module_summary"]["material_classes"] == [
+        "public_macro_tool_body"
+    ]
+    source_open = result["source_open_body_imports"]
+    assert source_open["status"] == "pass"
+    assert source_open["source_import_class"] == "copied_non_secret_macro_body"
+    assert (
+        source_open["body_material_status"]
+        == "copied_non_secret_macro_body_landed"
+    )
+    assert source_open["body_material_count"] == len(SOURCE_MODULE_IDS)
+    assert source_open["body_material_ids"] == SOURCE_MODULE_IDS
+    assert source_open["material_classes"] == ["public_macro_tool_body"]
+    assert source_open["source_manifest_refs"] == [
+        "examples/world_model_projection_drift_control_room/"
+        "exported_projection_drift_control_bundle/source_module_manifest.json"
+    ]
+    assert source_open["aggregate_floor_ref"].endswith(
+        "source_module_manifest.json::modules"
+    )
+    assert source_open["body_text_exported_in_receipts"] is False
+    assert source_open["body_text_exported_in_workingness"] is False
+    assert result["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
     assert result["source_module_summary"]["body_in_receipt"] is False
 
 
@@ -194,5 +221,33 @@ def test_world_model_projection_drift_exported_bundle_validates_runtime_shape(
         "copied_non_secret_macro_body_landed"
     )
     assert result["source_module_summary"]["module_count"] == len(SOURCE_MODULE_IDS)
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        SOURCE_MODULE_IDS
+    )
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
+    )
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_workingness"]
+        is False
+    )
+    assert result["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
+
+
+def test_world_model_projection_drift_fixture_manifest_exports_body_floor_summary(
+) -> None:
+    manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
+    body_imports = manifest["source_open_body_imports"]
+
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert body_imports["body_material_count"] == len(SOURCE_MODULE_IDS)
+    assert body_imports["body_material_ids"] == SOURCE_MODULE_IDS
+    assert body_imports["material_classes"] == ["public_macro_tool_body"]
+    assert body_imports["body_text_exported_in_receipts"] is False
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert manifest["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
