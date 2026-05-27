@@ -4902,19 +4902,19 @@
         "preserve_navigation_clusterability_sources_without_claiming_live_macro_kernel_execution_or_private_route_state_in_microcosm"
       ],
       "body_copied": true,
-      "body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
+      "body_digest": "sha256:02a34f8dc2bd51df349638e23ca6a7102a8c50e858705cdd2ef31e4f7c8ba1a1",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
-        "source_line_count": 409,
+        "source_body_digest": "sha256:02a34f8dc2bd51df349638e23ca6a7102a8c50e858705cdd2ef31e4f7c8ba1a1",
+        "source_line_count": 410,
         "source_ref": "system/lib/navigation_clusterability.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
-        "target_line_count": 409,
+        "target_body_digest": "sha256:02a34f8dc2bd51df349638e23ca6a7102a8c50e858705cdd2ef31e4f7c8ba1a1",
+        "target_line_count": 410,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_clusterability.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
@@ -4942,7 +4942,7 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_clusterability_sources_compile_and_carry_clusterability_contract",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_navigation_clusterability_source_modules_body_import_is_unified_under_macro_projection_spine"
       ],
-      "body_line_count": 409
+      "body_line_count": 410
     },
     {
       "applied_edits": [
@@ -8153,18 +8153,18 @@
         "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
       ],
       "body_copied": true,
-      "body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
+      "body_digest": "sha256:683a7ad40074127bf84b95a327596cdc9e93a28e0cac7159b459274851bbef84",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
-        "source_line_count": 20489,
+        "source_body_digest": "sha256:683a7ad40074127bf84b95a327596cdc9e93a28e0cac7159b459274851bbef84",
+        "source_line_count": 20496,
         "source_ref": "system/lib/kernel/commands/navigate.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
-        "target_line_count": 20489,
+        "target_body_digest": "sha256:683a7ad40074127bf84b95a327596cdc9e93a28e0cac7159b459274851bbef84",
+        "target_line_count": 20496,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
@@ -8194,7 +8194,7 @@
         "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
       ],
-      "body_line_count": 20489
+      "body_line_count": 20496
     },
     {
       "applied_edits": [
