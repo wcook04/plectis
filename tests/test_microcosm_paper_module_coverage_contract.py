@@ -87,6 +87,71 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/_route_coverage.json",
         "codex/doctrine/paper_modules/README.md",
     ]
+    all_corpus_dispatch = contract["all_corpus_compression_dispatch"]
+    assert "all paper modules in compressed form" in all_corpus_dispatch["purpose"]
+    assert "cluster_flag" in all_corpus_dispatch["entry_rule"]
+    assert all_corpus_dispatch["canonical_sequence"] == [
+        './repo-python kernel.py --entry "<task>" --context-budget 12000',
+        (
+            "AIW_CONTEXT_PACK_DISABLE_SEMANTIC=1 ./repo-python kernel.py "
+            '--context-pack "<task>" --context-budget 12000'
+        ),
+        "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+        (
+            "./repo-python kernel.py --option-surface paper_modules "
+            "--band card --ids microcosm_entry_lattice,"
+            "paper_module_coverage_metabolism,"
+            "paper_module_entry_projection_integrity,"
+            "microcosm_public_export_type_plane,"
+            "microcosm_runtime_organ_atlas,microcosm_substrate"
+        ),
+        (
+            "./repo-python kernel.py --option-surface standards "
+            "--band card --ids std_microcosm"
+        ),
+        (
+            "./repo-python kernel.py --option-surface navigation_type_plane "
+            "--band card --ids public_microcosm_exports"
+        ),
+        "./repo-python kernel.py --paper-module-coverage",
+    ]
+    assert [
+        locus["source_ref"] for locus in all_corpus_dispatch["compression_owner_loci"]
+    ] == [
+        "system/lib/standard_option_surface.py::_paper_module_cluster_rows",
+        "system/lib/standard_option_surface.py::_paper_module_compression_packet",
+        "system/lib/standard_option_surface.py::_paper_module_compression_passport",
+        (
+            "system/lib/navigation_context_pack.py::"
+            "MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        ),
+        "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
+        (
+            "system/lib/navigation_coverage_matrix.py::"
+            "build_coverage_enforcement_matrix"
+        ),
+    ]
+    assert all_corpus_dispatch["selected_depth_slice"] == [
+        "microcosm_entry_lattice",
+        "std_microcosm",
+        "paper_module_coverage_metabolism",
+        "paper_module_entry_projection_integrity",
+        "microcosm_public_export_type_plane",
+        "microcosm_runtime_organ_atlas",
+        "public_microcosm_exports",
+        "microcosm_substrate",
+    ]
+    assert "All-row flag remains a compatibility redirect" in all_corpus_dispatch[
+        "compatibility_boundary"
+    ]
+    assert (
+        "do not commit generated paper-module sidecars or System Atlas outputs"
+        in all_corpus_dispatch["generated_sidecar_closeout_rule"]
+    )
+    assert all_corpus_dispatch["authority_ceiling"] == (
+        "all_corpus_compression_navigation_only_not_source_truth_release_"
+        "permission_proof_correctness_or_candidate_axiom_authority"
+    )
     source_loci = contract["source_loci_depth_contract"]
     assert source_loci["coverage_claim_rule"] == (
         "100% paper-module coverage means every authored module is routed, "
@@ -416,6 +481,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "supporting_lattice_modules",
         "module_depth_roles",
         "required_projection_surfaces",
+        "all_corpus_compression_dispatch",
         "source_loci_depth_contract",
         "atlas_source_coupling_closeout_contract",
         "atlas_option_surfaces",
