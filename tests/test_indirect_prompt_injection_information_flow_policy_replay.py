@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -21,6 +22,7 @@ from microcosm_core.organs.indirect_prompt_injection_information_flow_policy_rep
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/"
@@ -31,6 +33,7 @@ BUNDLE_INPUT = (
     / "examples/indirect_prompt_injection_information_flow_policy_replay/"
     "exported_prompt_injection_flow_bundle"
 )
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
 FIXTURE_MANIFESTS = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/"
@@ -39,6 +42,10 @@ FIXTURE_MANIFESTS = (
     / "core/fixture_manifests/"
     "indirect_prompt_injection_information_flow_policy_replay.fixture_manifest.json",
 )
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -198,6 +205,21 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
         == "extension_of_existing_public_refactor"
     )
     assert result["body_in_receipt"] is False
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["body_material_status"] == (
+        "copied_non_secret_prompt_injection_macro_body_landed"
+    )
+    assert result["body_copied_material_count"] == 4
+    assert result["source_module_imports"]["verified_module_count"] == 4
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 4
+    assert result["source_open_body_imports"]["body_in_receipt"] is False
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_receipts"]
+        is False
+    )
+    assert len(result["source_open_body_import_refs"]) == 4
     assert (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
         in result["target_refs"]
@@ -209,6 +231,30 @@ def test_indirect_prompt_injection_exported_bundle_validates_runtime_shape(
     assert {
         span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
     } == {"prompt_injection_information_flow_policy"}
+
+
+def test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 4
+    for row in manifest["modules"]:
+        source = SOURCE_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
+            "microcosm-substrate/"
+        )
+
+        assert source.is_file()
+        assert target.is_file()
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert _sha256(source) == _sha256(target) == row["sha256"]
+        text = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
@@ -236,7 +282,7 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 9
+    assert first_card["command_speed"]["freshness_input_count"] == 15
     assert first_card["prompt_injection_flow"]["source_document_count"] == 5
     assert first_card["prompt_injection_flow"]["information_flow_count"] == 5
     assert first_card["prompt_injection_flow"]["block_count"] == 2
@@ -245,6 +291,12 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert first_card["public_trace"]["span_count"] == 5
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert first_card["validation"]["source_module_manifest_status"] == "pass"
+    assert first_card["body_floor"]["body_material_status"] == (
+        "copied_non_secret_prompt_injection_macro_body_landed"
+    )
+    assert first_card["body_floor"]["body_copied_material_count"] == 4
+    assert first_card["body_floor"]["source_open_body_import_status"] == "pass"
     assert "source_rows" not in _walk_keys(first_card)
     assert "flow_rows" not in _walk_keys(first_card)
     assert "policy_verdict_rows" not in _walk_keys(first_card)
@@ -252,6 +304,8 @@ def test_indirect_prompt_injection_bundle_card_reuses_fresh_receipt(
     assert "cold_replay_rows" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "spans" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
 
     def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
         raise AssertionError("fresh card path should reuse the existing receipt")
@@ -316,7 +370,13 @@ def test_indirect_prompt_injection_fixture_manifests_bind_public_trace_refactor(
         )
         assert manifest["body_in_receipt"] is False
         assert manifest["body_import_verification"] == {
+            "body_import_classification": "extension_of_existing_public_refactor",
             "source_ref": "system/lib/agent_execution_trace.py",
+            "source_module_manifest_ref": (
+                "examples/indirect_prompt_injection_information_flow_policy_replay/"
+                "exported_prompt_injection_flow_bundle/source_module_manifest.json"
+            ),
+            "source_open_body_import_count": 4,
             "target_ref": (
                 "microcosm-substrate/src/microcosm_core/macro_tools/"
                 "agent_execution_trace.py"
@@ -330,6 +390,16 @@ def test_indirect_prompt_injection_fixture_manifests_bind_public_trace_refactor(
             "verification_mode": "extension_of_existing_public_refactor",
             "verification_status": "verified",
         }
+        assert manifest["source_module_manifest_ref"].endswith(
+            "source_module_manifest.json"
+        )
+        assert manifest["body_material_status"] == (
+            "copied_non_secret_prompt_injection_macro_body_landed"
+        )
+        assert manifest["body_copied_material_count"] == 4
+        assert manifest["source_open_body_imports"]["status"] == "pass"
+        assert manifest["source_open_body_imports"]["body_material_count"] == 4
+        assert manifest["source_open_body_imports"]["body_in_receipt"] is False
         assert (
             "microcosm_core.macro_tools.agent_execution_trace::"
             "build_public_prompt_injection_trace"

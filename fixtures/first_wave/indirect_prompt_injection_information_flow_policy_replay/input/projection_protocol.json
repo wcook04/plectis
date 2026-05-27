@@ -5,6 +5,8 @@
     "body_import_classification": "extension_of_existing_public_refactor",
     "body_in_receipt": false,
     "classification": "extension_of_existing_public_refactor",
+    "source_module_manifest_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
+    "source_open_body_import_count": 4,
     "source_ref": "system/lib/agent_execution_trace.py",
     "status": "pass",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
@@ -38,6 +40,13 @@
   "public_runtime_refs": [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
     "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay::run_prompt_injection_bundle"
+  ],
+  "source_module_manifest_ref": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
+  "source_open_body_import_refs": [
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
   ],
   "source_pattern_ids": [
     "indirect_prompt_injection_information_flow_policy_replay_compound"

@@ -44,6 +44,22 @@ refs. That builder is a Microcosm refactor of the macro
 show sequence, authority, audit, coverage, and digest mechanics without copying
 real accounts, prompt bodies, provider payloads, or live tool material.
 
+## Source-Open Body Floor
+
+The exported bundle now carries exact copied non-secret macro bodies under
+`source_modules/ai_workflow/`, governed by
+`source_module_manifest.json`. The imported bodies are:
+
+- `state/microcosm_portfolio/extracted_patterns_ledger.jsonl`
+- `state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json`
+- `system/lib/agent_execution_trace.py`
+- `codex/standards/std_agent_execution_trace.json`
+
+The manifest records source refs, target refs, hashes, material classes, and
+required anchors. Receipts and cards expose refs, counts, and validation status
+only; they do not embed ledger, reconstruction, prompt, account, credential,
+browser/HUD, provider payload, or live-access bodies.
+
 ## Negative Cases
 
 The validator rejects real account material, secret or trusted-context

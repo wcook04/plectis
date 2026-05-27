@@ -24,6 +24,7 @@
   },
   "block_count": 2,
   "blocked_without_external_action_count": 2,
+  "body_copied_material_count": 0,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
@@ -63,6 +64,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "",
   "bundle_id": null,
   "cold_replay_count": 5,
   "cold_replay_pass_count": 5,
@@ -123,8 +125,8 @@
       "verdict_reproduced": true
     }
   ],
-  "command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run",
-  "created_at": "2026-05-23T15:33:42+00:00",
+  "command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input microcosm-substrate/fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out microcosm-substrate/receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out microcosm-substrate/receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+  "created_at": "2026-05-27T03:55:44+00:00",
   "error_codes": [
     "PROMPT_INJECTION_CREDENTIAL_EXFILTRATION_FORBIDDEN",
     "PROMPT_INJECTION_FINAL_ANSWER_ONLY_SUCCESS",
@@ -296,6 +298,103 @@
       "to_sink_id": "sink_answer_quote"
     }
   ],
+  "freshness_basis": {
+    "basis_digest": "sha256:a85b0bb6356bb39b565515a4f3d6e7159045d7a7f3d31fe4c62c3e70445797da",
+    "card_schema_version": "indirect_prompt_injection_information_flow_command_card_v1",
+    "include_negative": true,
+    "input_count": 17,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/projection_protocol.json",
+        "sha256": "sha256:69ddb3507ed4ba48b6df94bed6e6ab348fe428508d9e83948d7142833615ddf4",
+        "size_bytes": 4529
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/injection_policy.json",
+        "sha256": "sha256:b5ebeabeec9115eb98c1c237f5e43d980a7c564fb910df8db8a36aef6ce57202",
+        "size_bytes": 1429
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_documents.json",
+        "sha256": "sha256:595aa9773e89f3f2ea2cfe14a51835653c020233cf884e2a3195619c8d724ad0",
+        "size_bytes": 2580
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/information_flow_graph.json",
+        "sha256": "sha256:d0f61073ecde159b505acdb337ffc0cd9805bc2aa698a0879cbc563ca3703837",
+        "size_bytes": 2773
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/policy_verdicts.json",
+        "sha256": "sha256:e713038dbe2cf1af96a0869a2a3464d7a0dd8989ef6fb69ef9ec360104f61dd9",
+        "size_bytes": 2086
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/sanitized_outputs.json",
+        "sha256": "sha256:74f3035c5a567cf48fb21ab7b8618a307ec66755529a8c2465470d2e6d253b9e",
+        "size_bytes": 2178
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/cold_replay.json",
+        "sha256": "sha256:da6f2f7c30af7622d7d0d687376223c633082ea7c35e6e849927e7f17490f5ec",
+        "size_bytes": 3002
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/real_account_material.json",
+        "sha256": "sha256:ca53f17810d2a0241813d304e40cf7890631e354f78c2767b3cdf6cd46c3f4f5",
+        "size_bytes": 108
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/secret_exfiltration.json",
+        "sha256": "sha256:0d73a30264534a31a054646512f5d322a1afa0eca918a69bcf29cfbe0cd093f2",
+        "size_bytes": 111
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/raw_prompt_body_export.json",
+        "sha256": "sha256:aa5824b59c5c9fb029da442e91350701f0f16ed700dc4deef9dfa3efbcd97496",
+        "size_bytes": 103
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/tool_output_as_instruction.json",
+        "sha256": "sha256:7e48a725e4e4b63815cbd96c64b4279848025386d44838db9d11381e23ce1bdd",
+        "size_bytes": 117
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/hidden_system_message_promotion.json",
+        "sha256": "sha256:26dce0df589be28a4e1935eb1b5fd8268f70c497ed2b8997354c7594cf993b53",
+        "size_bytes": 118
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/credential_exfiltration.json",
+        "sha256": "sha256:749b533c801bd137021aba765f64800f5233b067bc9e4d2d104c0c86faffc210",
+        "size_bytes": 113
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/final_answer_only_success.json",
+        "sha256": "sha256:8ff0c5cec882bc291af46c5a392b7013fc54b60c69c44f912d864ae69e794a48",
+        "size_bytes": 117
+      },
+      {
+        "path": "fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/untrusted_to_privileged_sink.json",
+        "sha256": "sha256:441258ad04bcea2bf2f1ce2a7c55327ae7cd0dc89c742d6d76a3b4ae95a07297",
+        "size_bytes": 121
+      },
+      {
+        "path": "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
+        "sha256": "sha256:09dca7c1fe0bf203158b7ec5fff4eaa58bdf173bf3a5c442a06d05cddc19c809",
+        "size_bytes": 75729
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "indirect_prompt_injection_freshness_basis_v1",
+    "validator_schema_version": "indirect_prompt_injection_information_flow_policy_replay_result_v1"
+  },
   "information_flow_count": 5,
   "injection_policy_id": "synthetic_indirect_prompt_injection_flow_policy_v1",
   "input_mode": "fixture",
@@ -680,11 +779,12 @@
     "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay::run_prompt_injection_bundle"
   ],
   "receipt_paths": [
-    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
-    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
-    "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
   ],
+  "receipt_reused": false,
   "review_count": 1,
   "sanitized_flow_count": 3,
   "sanitized_output_count": 5,
@@ -747,6 +847,7 @@
   ],
   "schema_version": "indirect_prompt_injection_information_flow_policy_replay_result_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -758,11 +859,72 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_document_count": 5,
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "findings": [],
+    "material_classes": [],
+    "module_count": 0,
+    "module_ids": [],
+    "observed_negative_cases": {},
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_module_manifest.json",
+    "source_refs": [],
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_import_refs": [
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json"
+  ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "general_robustness_claim_authorized": false,
+      "live_tool_access_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_prompt_body_exported": false,
+      "real_account_material_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "indirect_prompt_injection_information_flow_policy_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "source_pattern_ids": [
     "indirect_prompt_injection_information_flow_policy_replay_compound"
   ],

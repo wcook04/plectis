@@ -48,7 +48,8 @@
       "policy rule refs",
       "sanitized answer refs",
       "counterfactual safe path refs",
-      "negative case ids"
+      "negative case ids",
+      "digest-verified non-secret macro source module bodies under source_modules"
     ],
     "default_posture": "public_safe_when_body_free_prompt_injection_trace_refs_only",
     "forbidden_public_inputs": [
@@ -75,14 +76,18 @@
       "body_import_verification",
       "authority_ceiling",
       "anti_claim",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
+      "body_material_status",
+      "body_copied_material_count"
     ],
     "receipt_id": "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
     "required": true
   },
   "receipt_expectations": [
     "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
-    "receipt must cite source refs, target refs, source/flow/verdict/output/replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
+    "receipt must cite source refs, target refs, source/flow/verdict/output/replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, source-module manifest ref, body-open import count, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay/indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
@@ -110,7 +115,7 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public trace target refs stay public-root relative"
+    "rule": "macro source refs stay path-level metadata, exact non-secret macro bodies may enter only under source_modules with digest-verified source_module_manifest.json, and public trace target refs stay public-root relative"
   },
   "source_refs": [
     {
@@ -127,6 +132,16 @@
       "field": "macro_trace_refactor",
       "path": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
       "role": "macro_substrate_public_refactor_target"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
+      "role": "digest_verified_exact_non_secret_macro_body_manifest"
+    },
+    {
+      "field": "source_modules",
+      "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow",
+      "role": "copied_non_secret_macro_body_floor"
     }
   ],
   "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
@@ -163,7 +178,9 @@
     "require sanitized outputs to disclose no trusted context and obey no untrusted instruction",
     "require public agent-execution trace spans with source, verdict, output, and cold-replay coverage",
     "reject real accounts, secret exfiltration, raw prompt body export, tool-output instruction authority, hidden-system-message promotion, credential exfiltration, final-answer-only success, and ungated untrusted privileged sinks",
-    "emit body-free public trace receipts and secret-exclusion scan"
+    "emit body-free public trace receipts and secret-exclusion scan",
+    "require source_module_manifest.json to digest-verify copied non-secret macro pattern, reconstruction, trace runtime, and trace standard bodies before body-floor count moves",
+    "keep source module body text out of receipts, cards, and workingness output while exposing refs, hashes, material classes, and counts"
   ],
   "validator_contract": {
     "minimum_checks": [

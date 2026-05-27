@@ -56,10 +56,30 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "sanitized_output_rows",
     "cold_replay_rows",
     "prompt_injection_flow_board",
+    "source_module_imports",
+    "source_open_body_imports",
 )
 BODY_IMPORT_STATUS = "extension_of_existing_public_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "extension_of_existing_public_refactor"
 PRODUCT_PATH_ROLE = "source_faithful_public_agent_execution_trace_refactor"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = (
+    "copied_non_secret_prompt_injection_macro_body_landed"
+)
+SOURCE_OPEN_BODY_SCHEMA = (
+    "indirect_prompt_injection_information_flow_policy_replay_"
+    "source_open_body_imports_v1"
+)
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_control_plane_body",
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
+    }
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -224,11 +244,58 @@ def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
-        *_input_paths(source, include_negative=include_negative),
+        *_scan_paths_for_input(source, include_negative=include_negative),
+        Path(__file__).resolve(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
 
@@ -401,6 +468,264 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported prompt-injection bundle must include a source module manifest for copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "PROMPT_INJECTION_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify copied material as non-secret macro body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while keeping receipt fields body-free.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "PROMPT_INJECTION_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor
+            for anchor in _strings(row.get("required_anchors"))
+            if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "PROMPT_INJECTION_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared prompt-injection macro anchors.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "source_refs": source_refs,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "credential_payload_exported": False,
+            "account_session_exported": False,
+            "browser_hud_live_access_exported": False,
+            "provider_payload_exported": False,
+            "raw_prompt_body_exported": False,
+            "real_account_material_exported": False,
+            "live_tool_access_exported": False,
+            "general_robustness_claim_authorized": False,
+            "source_mutation_authorized": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported prompt-injection information-flow bundle for copied macro "
+            "pattern, reconstruction, trace-standard, and trace runtime bodies; "
+            "receipts carry refs, hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
+
+
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
     return [field for field in required if row.get(field) in (None, "", [])]
 
@@ -422,6 +747,9 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     target_symbols = _strings(protocol.get("target_symbols"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
     omitted = _strings(protocol.get("omitted_secret_or_live_access_material"))
+    source_open_body_import_refs = _strings(
+        protocol.get("source_open_body_import_refs")
+    )
     body_import = protocol.get("body_import_verification", {})
     if not isinstance(body_import, dict):
         body_import = {}
@@ -436,6 +764,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         or "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
         not in target_refs
         or len(public_runtime_refs) < 1
+        or len(source_open_body_import_refs) < 4
         or len(omitted) < 6
         or not any(ref.endswith("build_public_prompt_injection_trace") for ref in target_symbols)
         or protocol.get("body_import_status") != BODY_IMPORT_STATUS
@@ -480,6 +809,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "target_refs": target_refs,
         "target_symbols": target_symbols,
         "public_runtime_refs": public_runtime_refs,
+        "source_open_body_import_refs": source_open_body_import_refs,
         "body_import_status": protocol.get("body_import_status"),
         "body_import_verification": body_import if isinstance(body_import, dict) else {},
         "omitted_secret_or_live_access_material": omitted,
@@ -973,7 +1303,7 @@ def _build_result(
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1007,6 +1337,12 @@ def _build_result(
         if name in payloads
     }
     negatives = validate_negative_cases(negative_payloads)
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_prompt_injection_flow_bundle",
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
     observed = _merge_observed(
         projection,
         injection_policy,
@@ -1016,6 +1352,7 @@ def _build_result(
         outputs,
         cold_replay,
         negatives,
+        source_modules,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1028,6 +1365,7 @@ def _build_result(
         outputs,
         cold_replay,
         negatives,
+        source_modules,
     )
     positive_statuses = (
         projection["status"],
@@ -1046,6 +1384,10 @@ def _build_result(
         if not missing
         and secret_scan["blocking_hit_count"] == 0
         and all(value == PASS for value in positive_statuses)
+        and (
+            input_mode != "exported_prompt_injection_flow_bundle"
+            or source_modules["status"] == PASS
+        )
         else "blocked"
     )
     body_import_verification = {
@@ -1112,6 +1454,15 @@ def _build_result(
         "target_refs": projection["target_refs"],
         "target_symbols": projection["target_symbols"],
         "public_runtime_refs": projection["public_runtime_refs"],
+        "source_open_body_import_refs": projection["source_open_body_import_refs"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_imports": source_modules,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "omitted_secret_or_live_access_material": projection[
             "omitted_secret_or_live_access_material"
         ],
@@ -1199,6 +1550,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "body_import_classification": result["body_import_classification"],
         "product_path_role": result["product_path_role"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -1262,6 +1617,10 @@ def _write_receipts(
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -1284,6 +1643,10 @@ def _write_receipts(
         "body_import_status": result["body_import_status"],
         "body_import_classification": result["body_import_classification"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -1371,6 +1734,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     public_trace = result.get("public_agent_execution_trace")
     trace = public_trace if isinstance(public_trace, dict) else {}
     trace_summary = trace.get("summary") if isinstance(trace.get("summary"), dict) else {}
+    source_body_floor = result.get("source_open_body_imports")
+    source_body_floor = source_body_floor if isinstance(source_body_floor, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -1416,9 +1781,17 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "error_code_count": len(result.get("error_codes") or []),
             "finding_count": len(result.get("findings") or []),
             "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+            "source_module_manifest_status": result.get(
+                "source_module_manifest_status"
+            ),
         },
         "body_floor": {
             "body_in_receipt": False,
+            "body_material_status": source_body_floor.get("body_material_status"),
+            "body_copied_material_count": source_body_floor.get(
+                "body_material_count"
+            ),
+            "source_open_body_import_status": source_body_floor.get("status"),
             "secret_exclusion_scan_in_card": False,
             "source_rows_in_card": False,
             "flow_rows_in_card": False,
@@ -1426,6 +1799,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "sanitized_output_rows_in_card": False,
             "cold_replay_rows_in_card": False,
             "public_trace_spans_in_card": False,
+            "source_module_bodies_in_card": False,
         },
         "authority_boundary": {
             "real_email_or_document_account_use_authorized": False,
