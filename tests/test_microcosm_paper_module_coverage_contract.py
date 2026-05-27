@@ -459,6 +459,13 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "microcosm workingness --card",
         "evidence_class_counters",
     ]
+    assert row["compression_passport"]["safe_drilldown"] == (
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card "
+        "--ids public_microcosm_exports"
+    )
+    assert "microcosm paper module depth" in row["compression_passport"][
+        "cluster_keys"
+    ]
     assert "generated public export files only after behavior proof" in (
         row["entry_depth_contract"]["export_depth_rule"]
     )
