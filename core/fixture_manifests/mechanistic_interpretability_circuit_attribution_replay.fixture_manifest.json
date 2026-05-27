@@ -1,6 +1,7 @@
 {
   "anti_claim": "This fixture validates public body-free circuit-attribution runtime receipts; it does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, benchmark scores, or release authority.",
   "authority_ceiling": "public circuit-attribution runtime receipt only; no private weights, raw activations, proprietary prompts, hidden reasoning, provider payload, private internals, benchmark, product-transparency, publication, or release authority",
+  "body_copied_material_count": 10,
   "expected_negative_cases": [
     "private_model_weights_export",
     "raw_activation_dump",
@@ -18,41 +19,6 @@
     "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json"
   ],
-  "source_open_body_imports": {
-    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
-    "status": "pass",
-    "source_import_class": "copied_non_secret_macro_body",
-    "body_material_status": "copied_non_secret_macro_body_landed",
-    "body_material_count": 2,
-    "body_material_ids": [
-      "oracle_attribution_legacy_node_body_import",
-      "oracle_attribution_substrate_node_body_import"
-    ],
-    "material_classes": [
-      "public_macro_pattern_body"
-    ],
-    "source_manifest_refs": [
-      "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
-    ],
-    "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
-    "body_in_receipt": false,
-    "body_text_exported_in_receipts": false,
-    "body_text_exported_in_workingness": false,
-    "authority_ceiling": {
-      "body_text_in_receipt": false,
-      "private_model_weights_exported": false,
-      "raw_activation_dump_exported": false,
-      "proprietary_prompt_body_exported": false,
-      "hidden_chain_of_thought_exported": false,
-      "provider_payload_exported": false,
-      "credential_or_account_bound_payload_exported": false,
-      "live_model_access_authorized": false,
-      "benchmark_score_claim_authorized": false,
-      "release_authorized": false
-    },
-    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only."
-  },
-  "body_copied_material_count": 2,
   "inputs": [
     {
       "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_protocol.json",
@@ -105,6 +71,50 @@
   ],
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "hidden_chain_of_thought_exported": false,
+      "live_model_access_authorized": false,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_body_exported": false,
+      "provider_payload_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 10,
+    "body_material_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import",
+      "pattern_ledger_mechanistic_replay_contract_body_import",
+      "high_novelty_interpretability_growth_receipt_body_import",
+      "organ_projection_ir_external_boundary_body_import",
+      "projection_readiness_checker_control_plane_body_import",
+      "mission_transaction_preflight_tool_body_import",
+      "agent_execution_trace_tool_body_import",
+      "std_agent_execution_trace_standard_body_import",
+      "std_extracted_pattern_route_readiness_standard_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle, pattern-ledger, projection-IR, projection-checker, mission-transaction, trace, and standards bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "stable_error_codes": [
     "INTERPRETABILITY_PRIVATE_WEIGHTS_FORBIDDEN",
     "INTERPRETABILITY_RAW_ACTIVATION_DUMP_FORBIDDEN",
@@ -129,15 +139,15 @@
         "negative_case_summary",
         "authority_ceiling",
         "secret_exclusion_scan",
-                "body_import_status",
-                "body_import_verification",
-                "source_module_import_status",
-                "source_module_manifest_ref",
-                "source_open_body_imports",
-                "body_copied_material_count",
-                "target_refs",
-                "body_in_receipt",
-                "anti_claim"
+        "body_import_status",
+        "body_import_verification",
+        "source_module_import_status",
+        "source_module_manifest_ref",
+        "source_open_body_imports",
+        "body_copied_material_count",
+        "target_refs",
+        "body_in_receipt",
+        "anti_claim"
       ],
       "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json": [
         "status",
@@ -147,15 +157,15 @@
         "expected_negative_case_count",
         "observed_negative_case_count",
         "authority_ceiling",
-                "body_import_status",
-                "body_import_verification",
-                "source_module_import_status",
-                "source_module_manifest_ref",
-                "source_open_body_imports",
-                "body_copied_material_count",
-                "target_refs",
-                "secret_exclusion_scan",
-                "body_in_receipt",
+        "body_import_status",
+        "body_import_verification",
+        "source_module_import_status",
+        "source_module_manifest_ref",
+        "source_open_body_imports",
+        "body_copied_material_count",
+        "target_refs",
+        "secret_exclusion_scan",
+        "body_in_receipt",
         "anti_claim"
       ]
     },

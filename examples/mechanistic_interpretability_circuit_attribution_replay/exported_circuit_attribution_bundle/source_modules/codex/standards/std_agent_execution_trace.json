@@ -1,0 +1,664 @@
+{
+  "kind": "standard",
+  "schema_version": "std_agent_execution_trace_v2",
+  "id": "std_agent_execution_trace",
+  "title": "Agent Execution Trace Standard",
+  "purpose": "Treat agent work as an auditable process. Project the observable external action trace of each Claude / Codex session into a span-and-trace substrate: timings, sequences, bottlenecks, anti-pattern detections, observed-vs-intended navigation-route compliance, and task-relative path fitness when explicit task-intent metadata exists. This is the observability pipeline for agent work itself — financial accounting for the AI session, not a harness, and explicitly NOT hidden chain-of-thought.",
+  "governance": {
+    "authority": "codex/standards/standards_registry.json -> core group",
+    "writer": "agents may extend trace_rules.json; span ingest is builder-owned",
+    "builder": "tools/meta/factory/build_agent_execution_trace.py",
+    "runtime": "system/lib/agent_execution_trace.py",
+    "source_of_truth": {
+      "observable_action_substrate": [
+        "~/.claude/projects/-Users-willcook-Desktop-ai-workflow/*.jsonl",
+        "~/.codex/sessions/<YYYY>/<MM>/<DD>/rollout-*.jsonl"
+      ],
+      "authored_rules": "codex/doctrine/process/trace_rules.json",
+      "sibling_histogram_view": "tools/meta/agent_telemetry/extract.py (volume / counts) — this standard is the orthogonal time/sequence view, not a replacement"
+    },
+    "drift_sensitivity": "high"
+  },
+  "compliance_scanner_contract": {
+    "governed_artifact_kind": "agent_execution_trace",
+    "scanner": "system/lib/compliance/agent_execution_trace_adapter.py::scan_agent_execution_trace",
+    "builder": "tools/meta/factory/build_agent_execution_trace.py",
+    "runtime": "system/lib/agent_execution_trace.py",
+    "ledger_row": "codex/hologram/compliance/ledger.json::by_standard[std_agent_execution_trace]",
+    "coverage_inputs": [
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/doctrine/process/trace_rules.json",
+      "system/lib/agent_execution_trace.py",
+      "tools/meta/factory/build_agent_execution_trace.py",
+      "codex/hologram/process/ledger.json",
+      "codex/hologram/process/audit.json",
+      "codex/hologram/process/navigation_cache.json",
+      "codex/hologram/process/patterns.json",
+      "codex/hologram/process/summary.json"
+    ],
+    "validation_probe": "./repo-python tools/meta/factory/build_agent_execution_trace.py --check --limit 5 --summary",
+    "finding_policy": {
+      "privacy_boundary_violation": "error",
+      "missing_required_field": "error",
+      "missing_required_atom": "error",
+      "schema_violation": "error",
+      "generated_projection_error": "error",
+      "generated_projection_warning": "warning"
+    },
+    "navigation_contract": {
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "cluster_axis": "generated_artifact_status",
+      "default_band": "card",
+      "supported_drilldowns": [
+        "process-summary",
+        "process-audit",
+        "process-patterns",
+        "process-trace"
+      ],
+      "authority_boundary": "Scanner validates standard-owned rules and generated projection shapes only. Live transcript parsing stays behind the trace builder and process routes.",
+      "privacy_boundary": "Never parse prompt bodies, operator chat bodies, assistant prose bodies, raw tool output bodies, or hidden reasoning inside the compliance scanner."
+    }
+  },
+  "strict_boundary": {
+    "parses": [
+      "observable records: timestamp, type, uuid, parentUuid",
+      "tool_use / tool_result blocks on Claude (matched by tool_use_id)",
+      "function_call / function_call_output records on Codex (matched by call_id)",
+      "Bash command strings (observable command substrate)",
+      "Read / Edit / Write / Grep / Glob inputs (observable target paths)",
+      "is_error flags on results (observable outcome)",
+      "tool-result / function-output byte and line counts, plus stdout/stderr byte counts when the provider exposes them as separate fields",
+      "retry / throttle / wait markers embedded in result content"
+    ],
+    "never_parses": [
+      "message.content[].text prose as raw body, task-intent source, or reasoning reconstruction; bounded status-update classification may emit hashes/rule ids only",
+      "message.content[].thinking blocks (model-internal reasoning)",
+      "tool_result / function_call_output content bodies beyond truncation markers, error flags, and privacy-safe byte/line counts",
+      "prompt bodies",
+      "operator chat content"
+    ],
+    "rationale": "The observability budget is externalized process only. Raw prose and reasoning are explicitly out of scope — this keeps the substrate a ledger of actions, not a capture of the agent's mind. A status-update classifier may detect bounded repair episode families from assistant-visible updates only when it emits counts, rule ids, timestamps, and text hashes without bodies. Task-intent binding is permitted only from explicit metadata surfaces such as WorkItems, Type B handoff packets, prompt_trace refs, source_refs, operator-provided task labels, or Task Ledger caps; never by mining prompt bodies, assistant prose bodies, or hidden reasoning."
+  },
+  "trace_ontology_contract": {
+    "concept_ref": "codex/doctrine/concepts/con_040_agent_trace_as_source_bound_interaction_record.json",
+    "paper_module_ref": "codex/doctrine/paper_modules/agent_trace_ontology.md",
+    "definition": "An agent trace is a source-bound interaction record that preserves observable evidence, authority boundaries, extraction lineage, projection lineage, live/current status, omissions, and receipt-bearing transformations across Type A substrate agents and operator-mediated Type B cognition.",
+    "authority_posture": {
+      "trace_is_not_generic_transcript": true,
+      "projection_not_authority": true,
+      "source_bound_required": true,
+      "hidden_reasoning_excluded": true,
+      "prompt_body_mining_excluded": true,
+      "operator_chat_mining_excluded": true
+    },
+    "source_authority_ladder": [
+      {
+        "authority_class": "live_source",
+        "examples": [
+          "active AgentTraceStore event stream",
+          "active Codex rollout JSONL being tailed",
+          "active Claude transcript JSONL being tailed",
+          "current system-bar clip or trace capture with timestamp and source hash"
+        ],
+        "contract": "May support current-state claims only when the packet carries source ref, freshness/currentness posture, and read boundary."
+      },
+      {
+        "authority_class": "source_artifact",
+        "examples": [
+          "rollout JSONL path",
+          "AgentEvent seq window",
+          "prompt_trace_id",
+          "source_text_hash",
+          "clip id",
+          "WorkItem id",
+          "Task Ledger CAP id",
+          "commit or receipt id"
+        ],
+        "contract": "Durable identity candidate. Use for trace joins and re-openable evidence."
+      },
+      {
+        "authority_class": "generated_projection",
+        "examples": [
+          "codex/hologram/process/*.json",
+          "state/agent_telemetry/process/<ts>/*.jsonl",
+          "mission_index.json",
+          "frontend trace view model",
+          "trace capsule text"
+        ],
+        "contract": "A bounded view over source artifacts. It must carry source refs, generated_at/freshness metadata when available, and omission posture."
+      },
+      {
+        "authority_class": "viewport_alias",
+        "examples": [
+          "browser tab number",
+          "browser title",
+          "system-bar label",
+          "visible DOM observation",
+          "operator shorthand"
+        ],
+        "contract": "Useful for navigation, not durable identity. Promote only when bound to provider/session/source/work/receipt ids."
+      },
+      {
+        "authority_class": "advisory_reasoning_packet",
+        "examples": [
+          "ChatGPT Web response",
+          "Type B bridge response",
+          "cleaned restatement",
+          "voice-note clarity transform"
+        ],
+        "contract": "Can guide Type A action but cannot prove private substrate state until Type A verifies against live/source artifacts."
+      }
+    ],
+    "trace_kinds": {
+      "type_a_trace": {
+        "definition": "Trace from a substrate-native actor with live repo/tool affordances.",
+        "examples": [
+          "Codex rollout",
+          "Claude Code transcript",
+          "Core Code-style tool session",
+          "AgentEvent stream",
+          "process-trace span tape"
+        ],
+        "authority_boundary": "May support substrate claims when source-backed and within the observable-action boundary."
+      },
+      "type_b_trace": {
+        "definition": "Operator-mediated web/bridge reasoning trace produced from injected context plus prompt and response.",
+        "examples": [
+          "ChatGPT Web prompt plus trace capsule",
+          "prompt-shelf run",
+          "operator HUD copy response",
+          "clarity-transformed voice note"
+        ],
+        "authority_boundary": "Advisory until Type A verifies. It must not claim direct access to private files, command results, or generated state unless those were included as source artifacts."
+      }
+    },
+    "raw_current_active_trace": {
+      "definition": "The newest source-backed trace slice for the active interaction.",
+      "required_fields_or_equivalents": [
+        "source_ref",
+        "source_authority_class",
+        "source_observed_at_or_generated_at",
+        "currentness_basis",
+        "live_source_status",
+        "extraction_boundary",
+        "projection_boundary"
+      ],
+      "invalid_claims": [
+        "latest visible browser tab implies current trace",
+        "copied transcript implies complete trace",
+        "frontend-rendered text implies source authority",
+        "tab ordinal implies durable session id"
+      ]
+    },
+    "live_source": {
+      "definition": "A trace source that is still being appended, tailed, polled, sampled, or explicitly captured by the operator with freshness evidence.",
+      "state_values": [
+        "live",
+        "recent_snapshot",
+        "stale_snapshot",
+        "archive",
+        "unknown"
+      ],
+      "refresh_contract": "A live-source claim must be recomputed or rechecked before it is reused as current state in a later task."
+    },
+    "trace_extraction": {
+      "definition": "The bounded act of selecting source facts into typed rows, spans, capsules, packets, or view-model primitives.",
+      "must_label": [
+        "source facts",
+        "inferred narrative",
+        "omitted raw bodies",
+        "privacy boundary",
+        "lossy compression",
+        "receipts or hashes"
+      ],
+      "must_not_extract": [
+        "hidden reasoning",
+        "prompt bodies unless explicitly allowed by a private source-bound packet",
+        "operator chat content as inferred task intent",
+        "DOM text as private-source truth"
+      ]
+    },
+    "trace_projection": {
+      "definition": "A bounded view emitted for human operator use, Type B context packets, APIs, frontend lenses, or cold-agent navigation.",
+      "examples": [
+        "agent_trace_capsule_text_v3",
+        "cli_prompt_trace_v0 json",
+        "process trace tape",
+        "mission-index row",
+        "AgentTraceViewModel",
+        "AgentLiveInstrumentViewModel"
+      ],
+      "required_posture": "Projection, not authority. Preserve source refs and omissions."
+    },
+    "system_bar_interaction": {
+      "surface": "AIW System Bar",
+      "controls": [
+        "Latest Clip",
+        "Agent Trace",
+        "Prompts"
+      ],
+      "contract": "System-bar copy/capture actions create operator-facing trace packets and prompt packets. They do not automatically ingest into the canonical event store unless a typed ingest path explicitly consumes them."
+    },
+    "frontend_api_projection": {
+      "api_routes": [
+        "/api/agent-observability/status",
+        "/api/agent-observability/events",
+        "/api/agent-observability/mission-status",
+        "/api/agent-trace/mission-index",
+        "/api/agent-trace/session-projection",
+        "/ws/agent-observability"
+      ],
+      "consumer_contract": "Frontend trace consumers should render backend-owned primitives and carry trust/status/receipt fields through the view model. They must not create authority by parsing prose summaries."
+    },
+    "tab_session_naming": {
+      "tab_number_role": "volatile_viewport_alias",
+      "durable_identity_candidates": [
+        "provider_thread_id",
+        "provider_session_id",
+        "prompt_run_id",
+        "source_text_hash",
+        "clip_id",
+        "artifact_id",
+        "WorkItem id",
+        "Task Ledger CAP id",
+        "commit id",
+        "receipt id"
+      ],
+      "contract": "Tab numbers can make active browser state navigable, but they must not be used as durable trace identity without a bound source artifact."
+    },
+    "type_a_type_b_flow": [
+      "raw operator cognition, raw trace, screenshot, or active clip",
+      "clarity transform or trace capsule extraction",
+      "Type B reasoning packet with prompt, context, omissions, and source refs",
+      "Type B advisory response",
+      "Type A execution packet with substrate-open targets and assumptions to falsify",
+      "Type A live substrate action, validation, and receipts",
+      "durable binding to WorkItem, CAP, paper module, standard, API/frontend contract, or generated projection"
+    ]
+  },
+  "authority_split": {
+    "authored_truth": {
+      "surfaces": [
+        "codex/doctrine/process/trace_rules.json"
+      ],
+      "role": "Navigation reference sequence, slow-action thresholds, stall windows, loop windows, route-compliance weights, anti-pattern rules. Hand-edited; versioned; independent of the generated ledger."
+    },
+    "generated_truth": {
+      "surfaces": [
+        "codex/hologram/process/ledger.json",
+        "codex/hologram/process/audit.json",
+        "codex/hologram/process/navigation_cache.json",
+        "codex/hologram/process/patterns.json",
+        "codex/hologram/process/summary.json"
+      ],
+      "role": "Per-session trace digest, aggregated bottleneck + anti-pattern audit, searchable session navigation cache, recurring process patterns, and compact summary."
+    },
+    "observed_behavior": {
+      "surfaces": [
+        "state/agent_telemetry/process/<timestamp>/sessions.jsonl",
+        "state/agent_telemetry/process/<timestamp>/spans.jsonl"
+      ],
+      "role": "Bulk per-session span records (gitignored). The hologram files project this substrate into bounded navigable surfaces; the raw spans stay on disk for deeper analysis."
+    }
+  },
+  "types": {
+    "IntentTaskBinding": {
+      "required_fields": ["binding_id", "source_kind", "task_class", "task_label"],
+      "optional_fields": ["work_item_id", "type_b_handoff_id", "prompt_trace_id", "source_refs", "requested_outcome", "confidence", "notes"],
+      "role": "A privacy-bound join between a session trace and the task the agent was asked to execute. It classifies the task without parsing prompt bodies, so the trace can be evaluated as the path taken for that task rather than as generic navigation behavior.",
+      "allowed_source_kinds": [
+        "work_item",
+        "type_b_handoff",
+        "prompt_trace_ref",
+        "operator_label",
+        "task_ledger_cap",
+        "agent_seed_packet"
+      ]
+    },
+    "Span": {
+      "required_fields": ["span_id", "agent", "session_id", "action_kind", "start_ts", "end_ts", "duration_ms", "outcome"],
+      "optional_fields": ["parent_span_id", "turn_index", "sequence_index", "command", "normalized_command", "target_paths", "tool_name", "kernel_flags", "shape_tags", "is_grep_shape", "is_kernel_shape", "is_read_shape", "retry_count", "error_message_truncated", "output_byte_count", "output_line_count", "stdout_byte_count", "stderr_byte_count", "edit_summary", "output_preview"],
+      "role": "One observable action performed by the agent: a tool call, a bash command, or a file-edit operation. Duration comes from the paired tool_result / function_call_output timestamp.",
+      "action_kinds": [
+        "kernel_command",
+        "test_or_build_command",
+        "repo_tool_command",
+        "bash_grep",
+        "bash_find",
+        "bash_cat",
+        "bash_other",
+        "read_file",
+        "edit_file",
+        "write_file",
+        "grep_tool",
+        "glob_tool",
+        "task_tool",
+        "webfetch",
+        "notebook_edit",
+        "mcp_tool",
+        "unknown_tool",
+        "apply_patch",
+        "exec_command",
+        "exec_session_io"
+      ]
+    },
+    "TraceTapeLevels": {
+      "required_fields": ["schema_version", "boundary", "selected_level", "available_levels", "levels"],
+      "level_ids": ["outline", "tape", "tape+diff", "audit", "raw"],
+      "role": "Chronological observed-action tape for one session. Default browsing renders from spans only: actual tool calls, commands, reads, edits, validations, commits, bounded outputs, and bounded +/- edit previews.",
+      "level_contracts": {
+        "outline": "Final state, edits, validations, and commit summary only. No per-command output.",
+        "tape": "Default route: every observed command/read/edit in sequence with one bounded output line.",
+        "tape+diff": "Tape plus bounded +/- edit hunks.",
+        "audit": "Adds row ids, span ids, tags, targets, and sidecar pointers behind audit-json.",
+        "raw": "Full span sidecar for provider/full replay behind raw-json."
+      },
+      "privacy_boundary": "The default tape excludes packet wrappers, discovered commands inside files, source_claimed/not_detected examples, path indexes, proof indexes, full raw stdout/stderr/tool-result bodies, prompt bodies, assistant prose, and hidden reasoning."
+    },
+    "Turn": {
+      "required_fields": ["turn_index", "session_id", "start_ts", "end_ts", "duration_ms", "span_count"],
+      "optional_fields": ["first_span_action_kind", "kernel_flag_uses", "grep_shape_count", "read_shape_count", "total_target_paths"],
+      "role": "One agent turn: from the prompt that opened it through the final assistant response. Aggregated from spans."
+    },
+    "SessionTrace": {
+      "required_fields": ["session_id", "agent", "started_at", "ended_at", "duration_ms", "span_count", "turn_count", "action_kind_counts", "action_kind_durations_ms"],
+      "optional_fields": ["kernel_flag_counts", "command_pattern_counts", "target_path_hot_list", "route_compliance", "intent_task_binding", "task_path_fitness", "findings", "bottleneck_preview", "summary_thought_trace", "model_counts", "git_branch", "total_output_bytes"],
+      "role": "Per-session trace digest. One row in the generated ledger per session."
+    },
+    "SummaryThoughtTrace": {
+      "required_fields": ["schema_version", "boundary", "counters", "route_trace", "command_trace", "focus_trace", "candidate_signals"],
+      "role": "Safe summary-thought projection over observable actions only. It packages commands run, touched paths, route ladder position, anti-patterns, and slow-span signals so future agents can recover the useful session observations without capturing hidden chain-of-thought, assistant prose, prompts, or operator chat.",
+      "boundary": "Derived only from SessionTrace fields already produced from tool/action metadata: top_normalized_commands, target_path_hot_list, route_compliance, anti_patterns, bottleneck_preview, kernel_flag_counts, and action_kind_counts."
+    },
+    "RouteCompliance": {
+      "required_fields": ["score", "first_kernel_span_index", "first_grep_span_index", "ladder_position"],
+      "optional_fields": ["deviation_count", "ladder_rungs_hit", "ladder_rungs_order", "intended_sequence", "violations"],
+      "role": "Score of observed vs intended navigation route. 1.0 = first kernel flag preceded any grep / raw Read / Glob. 0.0 = no kernel flag ever; grep-dominant session. Mid-range = partial compliance."
+    },
+    "RouteLeaseModeControl": {
+      "required_fields": ["schema_version", "status", "signal_counts", "signals"],
+      "optional_fields": ["lease_span_id", "lease_sequence_index", "direct_action_after_lease", "first_direct_action_span_id", "warning_count", "route_reason_standard_ref"],
+      "role": "Observable route-lease reducer for the period after `--entry` issues a route_lease_v0 handoff. It distinguishes legitimate bounded returns to kernel from repeated broad routing before any direct data-plane action.",
+      "governing_concept_refs": [
+        {
+          "concept_id": "con_038",
+          "role": "primary",
+          "gloss": "Route-lease mode control applies Routing As Semantic Relation Graph to process traces: a post-entry kernel call is valid only when it resolves to a typed authority, diagnostic, context, freshness, exact-refresh, or runtime-state plane."
+        }
+      ],
+      "kernel_route_reason_by_flag": {
+        "--agent-operating-packet": "bounded_context",
+        "--command-profile": "diagnostic",
+        "--context-pack": "bounded_context",
+        "--coverage-enforcement-matrix": "diagnostic",
+        "--docs-route": "authority",
+        "--entry": "route",
+        "--facts": "authority",
+        "--kind-atlas": "authority",
+        "--navigation-metabolism": "diagnostic",
+        "--option-surface": "authority",
+        "--paper-module": "authority",
+        "--phase": "runtime_state",
+        "--preflight": "runtime_state",
+        "--process-audit": "diagnostic",
+        "--process-bottlenecks": "diagnostic",
+        "--process-patterns": "diagnostic",
+        "--pulse": "runtime_state",
+        "--raw-seed-browse": "authority",
+        "--raw-seed-ideas": "authority",
+        "--raw-seed-navigation": "authority",
+        "--raw-seed-query": "authority",
+        "--route-refresh": "exact_refresh",
+        "--session-diagnostics": "diagnostic",
+        "--shards": "authority",
+        "--stale": "freshness"
+      },
+      "kernel_route_reason_policy": "Runtime process-audit classifiers must read `kernel_route_reason_by_flag` as the standard-backed semantic edge map for kernel flags. Code may keep a conservative fallback for broken standards, but the standard owns the route-plane vocabulary so new route returns do not depend on private runtime lore.",
+      "duplicate_route_witness_policy": "A broad kernel route can be legitimate on first use and still become duplicate route churn when repeated unchanged after the same entry lease. The `broad_route_repeated_without_new_authority_question` signal must attach to the second or later repeat witness, not to the first legitimate occurrence, and should include `first_span_id`, `first_sequence_index`, and `repeated_count` so the trace explains which route was valid and where duplication began.",
+      "legitimate_return_reason_map": {
+        "--context-pack": "bounded_context",
+        "--navigation-metabolism": "diagnostic",
+        "--coverage-enforcement-matrix": "diagnostic",
+        "--process-audit": "diagnostic",
+        "--raw-seed-browse": "authority",
+        "--raw-seed-ideas": "authority",
+        "--raw-seed-navigation": "authority",
+        "--raw-seed-query": "authority",
+        "--session-diagnostics": "diagnostic",
+        "--shards": "authority",
+        "--option-surface": "authority",
+        "--docs-route": "authority",
+        "--phase": "runtime_state",
+        "--preflight": "runtime_state",
+        "--pulse": "runtime_state"
+      },
+      "coverage_matrix_policy": "`--coverage-enforcement-matrix` is a read-only navigation-enforcement diagnostic composer selected by entry/navigation-metabolism. A single call after an entry lease is a legitimate diagnostic return, not `second_kernel_call_before_direct_action`.",
+      "session_diagnostics_policy": "`--session-diagnostics` is a process-observability diagnostic route. When invoked after an entry lease to inspect recent agent behavior, it is a legitimate diagnostic return, not a second-route warning.",
+      "raw_seed_authority_policy": "Read-only raw-seed browse routes such as `--raw-seed-ideas`, `--raw-seed-query`, `--raw-seed-navigation`, `--raw-seed-browse`, and `--shards` resolve operator-voice/source-shard evidence. When selected by entry or an adapter as the next substrate contact, they are authority-plane returns rather than broad rerouting."
+    },
+    "BottleneckReport": {
+      "required_fields": ["action_kind", "count", "p50_ms", "p95_ms", "max_ms"],
+      "optional_fields": ["longest_spans", "slowest_commands", "example_spans", "command_shape_tags", "repair_hints", "total_output_bytes", "max_output_bytes", "p95_output_bytes", "notes"],
+      "repair_hint_optional_fields": ["hint_id", "reason", "preferred_next", "owner_surface", "replacement_commands", "privacy_boundary"],
+      "role": "Per-action-kind timing and output-pressure rollup across the trace window. Identifies which action shapes dominate latency and output/context payload size and, when available, carries compact command-shape tags plus repair hints so agents can reduce the concrete slow or noisy shape before opening full traces. Repair hints should name a concrete owner surface and replacement command when a slow shape has a reusable route, while preserving the no-raw-output privacy boundary."
+    },
+    "ContextYieldAttribution": {
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "rows", "privacy_boundary"],
+      "row_required_fields": ["motif", "active_bytes", "span_count", "session_count", "owner_surface", "existing_route", "candidate_patch", "safety_gate", "disconfirming_check", "governance_status_counts", "owner_coverage", "recency_boundary", "decision", "steering", "next_wave_score", "omission_receipt"],
+      "governance_status_counts": {
+        "ungoverned": "No typed owner route is recorded for the example class.",
+        "governed_route_available_but_not_used": "A typed owner route exists, but trace examples still emitted broad or high-cost raw bodies before using it.",
+        "accepted_required_context": "The example is already scoped, low-cost, or directly required for the next semantic action.",
+        "false_positive": "The example matches a motif tag but carries negligible active-context cost or no raw body.",
+        "stale_pre_repair": "The example predates a configured repair boundary and should not drive a new patch.",
+        "needs_owner_patch": "The existing route or projection is insufficient and requires a bounded owner patch."
+      },
+      "owner_coverage_required_fields": ["existing_route", "route_available", "route_used", "route_used_count", "route_not_used_count", "route_gap"],
+      "recency_boundary_required_fields": ["post_repair_only", "oldest_example_at", "newest_example_at", "stale_pre_repair_count", "repair_epoch_status"],
+      "decision_required_fields": ["patch_owner_surface", "no_source_exception", "why_this_is_next", "rank_basis"],
+      "steering_required_fields": ["point_of_use_surface", "replacement_route", "applies_to_status", "applies_to_count", "does_not_apply_to", "accepted_case_guard", "post_repair_check", "command_shape_clusters"],
+      "command_shape_clusters_required_fields": ["status", "tag_counts", "action_kind_counts", "targeting"],
+      "motif_kinds": {
+        "metadata_cargo": "Handle/identity metadata carries prompt or packet cargo, usually visible through Work Ledger or transaction overlap surfaces.",
+        "raw_global_diff": "Raw global diff enters active context before path/risk/owner selection.",
+        "entry_over_admission": "First-contact entry packet admits non-decisive payload before the agent has selected a legal action.",
+        "diagnostic_packet_over_budget": "Diagnostic packets emit more evidence than the current decision needs.",
+        "context_pack_selected_rows": "Context-pack selected rows carry too much adjacent evidence for the immediate task.",
+        "tool_result_carryover": "Re-callable task/tool-result files remain active after their useful facts have been processed.",
+        "raw_body_before_selection": "Broad search, find, git shell chains, or unstructured body reads happen before a typed owner route selects a target.",
+        "retrieval_over_recall": "Full document/file reads exceed immediate use and should start from card/section/owner routes.",
+        "diff_file_overlap": "A session carries both diff hunks and full file reads for the same path."
+      },
+      "role": "Trace-derived context-economy packet that ranks context-yield leaks by active bytes, motif class, owner surface, recovery route, safety gate, and disconfirming check. It uses observable metadata, paths, command tags, and byte counts only; raw command output bodies and prompt bodies stay omitted behind process-trace/session drilldowns."
+    },
+    "TraceFrictionBoardRow": {
+      "required_fields": ["row_id", "symptom_family", "mode", "evidence_refs", "recurrence", "impact", "candidate_owner", "candidate_mutation", "disconfirming_check", "next_command", "receipt_needed"],
+      "optional_fields": ["runtime_focus", "runtime_scoped_commands", "episode_family", "command_efficiency_action"],
+      "symptom_families": {
+        "context_pressure": "Compactions, repeated file reads, or high context churn indicate missing summary-first or owner-card affordances.",
+        "ladder_skip": "Agents reach for raw shell discovery before typed navigation or owner routes.",
+        "route_discoverability": "Observed trace vocabulary is ahead of docs-route or command-card affordances.",
+        "rediscovery_hotspot": "Multiple sessions rediscover the same source path instead of a compact owner surface.",
+        "recovery_friction": "Interruptions or repeated tool-error signatures indicate missing guard, hint, or owner-command repair.",
+        "experience_friction": "Agent-visible repair episodes such as claim contention, payload rejection, metadata settlement detours, compaction recovery, closeout ambiguity, or command-contract mismatch indicate an owner surface should absorb the lesson.",
+        "cap_pressure": "Trace-related CAP/WorkItem rows already exist and should be shaped, linked, retired, or blocked before creating parallel backlog.",
+        "live_stall": "Live or recent process rows show action-kind latency or throughput pressure.",
+        "handoff_loss": "Work Ledger claim or orphan pressure makes trace-to-owner handoff ambiguous.",
+        "evidence_gap": "A live/current trace claim lacks fresh read-model or projection authority."
+      },
+      "mode_values": ["live", "finished", "both"],
+      "candidate_mutation_values": ["wording_patch", "evaluator_guard", "diagnostic_fixture", "owner_surface_patch", "candidate_WorkItem"],
+      "role": "Compact, privacy-bounded selector row that turns trace/span evidence into a governed owner-action candidate rather than a forensic transcript. When command-efficiency pressure is present, row.command_efficiency_action points to the typed route substitution that future autonomous-seed passes should try before repeating the old command pattern."
+    },
+    "CommandEfficiencyActionPacket": {
+      "required_fields": ["schema_version", "status", "purpose", "source_board_schema", "row_count", "top_inefficiency_classes", "replacement_routes", "seed_rewrite_clauses", "rows", "before_after_replay", "proof_commands", "privacy_boundary"],
+      "schema_version": "command_efficiency_action_packet_v0",
+      "row_required_fields": ["action_id", "source_row_id", "rank", "inefficiency_class", "symptom_family", "old_command_pattern", "replacement_route", "replacement_action", "expected_proof", "seed_rewrite_clause", "validation_preservation", "owner_surface", "candidate_mutation", "receipt_needed", "evidence"],
+      "inefficiency_classes": {
+        "duplicate_bootstrap_preflight_churn": "Repeated bootstrap, preflight, or wake-orientation commands that should collapse into a reusable generated packet once freshness is known.",
+        "context_pack_reread_pressure": "Repeated context-pack, diagnostic, file-reread, or raw trace/body opens that should start from summary-first diagnostics, runtime-scoped lens, or owner card.",
+        "shell_search_before_typed_route": "Shell search or grep-style discovery before docs-route, navigation-metabolism, option-surface, or another typed owner route.",
+        "stale_claim_preflight_friction": "Work Ledger, Task Ledger, claim, CAP, or handoff friction repeated before the compact status/projection route is used.",
+        "task_tool_wait_saturation": "Slow task/tool or process spans that should route through process-summary/process-bottlenecks before serial probing.",
+        "generated_projection_rebuild_churn": "Stale/missing generated read models causing exploratory reruns instead of owner-projection refresh.",
+        "validation_overbreadth": "Repeated error/interruption or validation pressure that should isolate the owner command before broad suites or forensic reads."
+      },
+      "before_after_replay_required_fields": ["schema_version", "status", "comparison_basis", "table_columns", "rows"],
+      "before_after_replay_columns": ["trace/session id", "top inefficiency class", "old command pattern", "replacement route/action", "command-count delta if replayed", "validation status preserved", "seed or prompt-shelf clause updated", "commit hash"],
+      "role": "Backplane packet, not a dashboard widget. It binds Trace Friction Board symptoms to concrete old command patterns, substrate-native replacement routes, expected proof, validation preservation, and seed-rewrite clauses so the next Type A pass can change routing rather than merely observe latency."
+    },
+    "TraceObservatoryProjection": {
+      "required_fields": ["kind", "schema_version", "generated_at", "source_windows", "board", "top_symptom_families", "cap_refs", "owner_candidates", "command_efficiency_actions", "compactness_metrics", "trace_board_quality_gate", "drilldown_commands", "privacy_omission_receipts", "validation_receipts"],
+      "schema_version": "trace_observatory_projection_v0",
+      "board_schema_version": "trace_friction_board_v0",
+      "source_windows": ["finished session diagnostics", "live process summary", "process bottlenecks", "Task Ledger CAP views", "Work Ledger active claims"],
+      "privacy_contract": "Projection carries counts, ids, paths, owner surfaces, and receipt commands only. Raw provider traces, prompt bodies, operator text, tool stdout/stderr bodies, and hidden reasoning remain behind owner drilldowns.",
+      "promotion_rule": "Treat as an owner-surface continuation under agent_session_diagnostics until recurrence is verified across at least two independent trace surfaces; only then promote to a wider HUD/control primitive.",
+      "role": "Generated Trace Friction Board projection that aggregates trace_improvement_surface, live process authority, CAP refs, Work Ledger claim context, command-efficiency action packets, compactness metrics, and evaluator receipts."
+    },
+    "TraceBoardQualityGate": {
+      "required_fields": ["schema_version", "status", "checks", "thresholds", "findings", "retirement_delta"],
+      "schema_version": "trace_board_quality_gate_v0",
+      "checks": ["top_row_actionable", "row_specificity", "privacy_safe", "freshness_authority", "row_limit", "compactness", "cap_routing", "retirement_tracking"],
+      "status_values": ["pass", "warn", "fail"],
+      "role": "Evaluator guard embedded in trace_observatory_projection_v0. It verifies that emitted rows are actionable, specific, privacy-bounded, within the row cap, below the compactness threshold when possible, stale-live safe, free of ambiguous bare process-summary latest commands, CAP-routed, and comparable for symptom retirement."
+    },
+    "PatternFinding": {
+      "required_fields": ["pattern_id", "rule", "severity", "instances"],
+      "optional_fields": ["session_id_hits", "representative_example", "recommended_fix"],
+      "role": "A recurring process pattern detected across sessions: anti-pattern (grep_before_kernel, read_bomb, loop_detected, stall_detected) or positive pattern (paper_module_first, kernel_ladder_climb).",
+      "pattern_kinds": {
+        "anti_pattern_grep_before_kernel": "Grep or bash-grep invoked before the session's first kernel-flag use.",
+        "anti_pattern_read_bomb": "Read of a large file (> N lines) without a prior --compile on the same path.",
+        "anti_pattern_loop_detected": "The same command+target invoked >= N times within a sliding window.",
+        "anti_pattern_stall_detected": "No tool span for > N seconds while the session is still open.",
+        "anti_pattern_cold_boot_missing_info": "First K spans of a session never hit --info / --preflight / --pulse.",
+        "anti_pattern_paper_module_skip": "Subsystem-shaped session (broad Read / Grep) with zero --paper-module invocations.",
+        "anti_pattern_deep_without_ladder": "Session span count > N with zero kernel flag usage.",
+        "positive_kernel_ladder_climb": "Session starts with --info / --preflight / --pulse / --paper-module before any grep."
+      }
+    },
+    "AuditFinding": {
+      "required_fields": ["severity", "rule", "message"],
+      "optional_fields": ["session_id", "pattern_id", "action_kind", "span_id", "repair_kind", "repair_surface"],
+      "role": "Builder-visible warning / error emitted by the trace audit. Mirrors the std_agent_entrypoint_audit pattern so repair accounting is consistent across the hologram family."
+    },
+    "TraceAuditRecord": {
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "sessions", "bottlenecks", "patterns", "findings"],
+      "role": "Generated audit artifact consumed by kernel routes, CI checks, and the drift aggregator."
+    }
+  },
+  "finding_rules": {
+    "slow_action_shape": "Warning. An action_kind's p95 exceeds the authored slow_action_thresholds_ms; repeated invocations are a latency sink.",
+    "anti_pattern_detected": "Warning or error depending on pattern severity in trace_rules. Named anti-pattern shape fired on one or more sessions.",
+    "route_non_compliance": "Warning. Session's route_compliance.score below the authored floor; the agent grep'd / raw-Read before reaching the kernel ladder.",
+    "task_path_mismatch": "Warning. A session with an explicit IntentTaskBinding shows a path-marker profile that is misfit for its task_class, such as code-writing work with no edit/validation spans, discovery work that jumps straight to mutation, or frontend-build work that never inspects API/runtime boundaries before UI edits.",
+    "stall_detected": "Warning. Gap between consecutive spans exceeded stall_inactivity_threshold_ms.",
+    "unknown_action_kind": "Warning. Parser emitted a span with an unmapped action_kind — rule set is out of date.",
+    "missing_rules": "Error. trace_rules.json is missing required fields (navigation_reference_sequence, slow_action_thresholds_ms, stall_inactivity_threshold_ms).",
+    "session_parse_error": "Warning. One session JSONL file could not be parsed cleanly; ledger row is flagged and skipped."
+  },
+  "output_contract": {
+    "ledger.json": {
+      "kind": "agent_execution_trace_ledger",
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "sessions"],
+      "notes": "Bounded per-session digest list. Each row is SessionTrace-shaped and includes summary_thought_trace when trace extraction succeeds. Sorted by ended_at desc."
+    },
+    "audit.json": {
+      "kind": "agent_execution_trace_audit",
+      "required_fields": ["kind", "schema_version", "generated_at", "summary", "findings", "bottlenecks", "patterns"],
+      "notes": "Findings, bottleneck percentiles, pattern detections, and context-yield attribution across the trace window."
+    },
+    "navigation_cache.json": {
+      "kind": "agent_execution_trace_navigation_cache",
+      "required_fields": ["kind", "schema_version", "generated_at", "rows"],
+      "notes": "Searchable session rows with tokenized search_text for quick kernel-route lookup."
+    },
+    "patterns.json": {
+      "kind": "agent_execution_trace_patterns",
+      "required_fields": ["kind", "schema_version", "generated_at", "patterns"],
+      "notes": "Expanded pattern findings with per-session hit lists, for optimization work."
+    },
+    "summary.json": {
+      "kind": "agent_execution_trace_summary",
+      "required_fields": ["kind", "schema_version", "generated_at", "summary"],
+      "notes": "Compact counts + top-N bottlenecks + top-N output producers + top-N patterns + context-yield attribution for operator / CI consumption."
+    },
+    "state/session_diagnostics/trace_observatory_projection.json": {
+      "kind": "trace_observatory_projection",
+      "required_fields": ["kind", "schema_version", "generated_at", "source_windows", "board", "compactness_metrics", "trace_board_quality_gate", "privacy_omission_receipts", "validation_receipts"],
+      "notes": "Generated Trace Friction Board projection over finished session diagnostics, live process state, Task Ledger CAP refs, and Work Ledger claim context. Built through `./repo-python kernel.py --trace-friction-board --write-trace-observatory-projection`."
+    }
+  },
+  "kernel_routes": {
+    "--process-trace": "Open one session's trace as a low-scaffold chronological tape by default. Accepts 'latest' / 'claude:latest' / 'codex:latest' / a session_id.",
+    "--process-trace-level": "With --process-trace, select outline|tape|tape+diff|audit|raw. Default tape prints observed actions only.",
+    "--process-trace-format": "With --process-trace, select tape|audit-json|raw-json. Tape is the browsing default; audit-json/raw-json expose sidecars.",
+    "--process-trace-max-chars": "With --process-trace-format tape, cap rendered trace characters for context economy; default cap is 10000 chars.",
+    "--process-summary": "Emit the compact selected-session summary, including summary_thought_trace, before drilling into verbose process payloads.",
+    "--process-audit": "Emit the full trace audit record (findings + bottlenecks + patterns + context-yield attribution). Accepts --after <ISO> and --limit <N> as a bounded observation-window selector for post-repair recurrence checks; the selector narrows session discovery and does not change trace rules.",
+    "--process-bottlenecks": "Emit the top-N slowest action shapes, top output-byte producers, longest individual spans, and context-yield attribution. Accepts the same --after <ISO> and --limit <N> observation-window selector as --process-audit.",
+    "--process-patterns": "Emit the recurring pattern findings (anti-patterns + positive patterns) with per-session hit lists. Accepts the same --after <ISO> and --limit <N> observation-window selector as --process-audit.",
+    "--process-compare": "Side-by-side Claude-vs-Codex process divergence: ladder climb rates, grep shares, slow-action profiles.",
+    "--trace-friction-board": "Emit the generated trace_observatory_projection_v0 / trace_friction_board_v0 selector over finished diagnostics, live process status, CAP refs, and Work Ledger claim context.",
+    "--coverage-enforcement-matrix": "Emit the read-only navigation-enforcement matrix over Kind Atlas coverage, route lifecycle, hook shadow coverage, and process-audit pressure. When selected by entry or navigation metabolism, route-lease mode control treats this as a legitimate diagnostic return.",
+    "exit_codes": "Commands return 0 on success. The builder CLI exits non-zero if --check is set and error findings exceed the configured floor."
+  },
+  "coexistence_with_existing_surfaces": {
+    "agent_telemetry_extract": "Does not replace. extract.py emits volume histograms (counts). This standard emits the orthogonal time/sequence view (durations + ordered spans). Both consume the same JSONL substrate; the trace builder may reuse extract.py's bash-command classifier.",
+    "coverage_py": "Does not replace. coverage.py scores routing doctrine against histograms. This standard scores the actual *temporal* route of a session against the authored navigation reference sequence.",
+    "operational_record_miner": "Orthogonal. The miner clusters rediscovery / planning / dispatch shapes across sessions and promotes them into doctrine lanes. The trace pipeline projects the per-session time view; the miner can consume it as a new cluster shape.",
+    "host_surface_probe": "Orthogonal. The probe reads SQLite + host state (threads, IDE locks). The trace pipeline reads the per-session JSONL rollouts (action sequences).",
+    "fact_hologram": "Analogous. Same authoring posture — authored rules vs generated ledger + audit, with a dedicated standard binding them.",
+    "agent_entrypoint_audit": "Paired. The trace pipeline's presence is itself an adapter comprehension obligation (new axis: agent_execution_trace_visibility).",
+    "task_ledger": "Complementary. Task Ledger caps and WorkItems can provide explicit task labels or handoff ids for IntentTaskBinding; the trace pipeline must not infer the task by reading prompt bodies."
+  },
+  "navigation_reference_sequence_contract": {
+    "description": "The authored intended navigation ladder a cold agent should climb before grep. Trace runtime computes route_compliance by comparing the observed span order against this reference.",
+    "authored_at": "codex/doctrine/process/trace_rules.json::navigation_reference_sequence",
+    "ladder_rungs_required": [
+      "kernel.py --info",
+      "kernel.py --preflight",
+      "kernel.py --pulse",
+      "kernel.py --paper-module",
+      "kernel.py --navigate",
+      "kernel.py --docs-route",
+      "kernel.py --shards",
+      "kernel.py --locate",
+      "kernel.py --compile",
+      "kernel.py --lens"
+    ],
+    "compliance_scoring": {
+      "score_1_0": "First kernel-shape span precedes any grep / raw Read / Glob span.",
+      "score_0_5_to_0_9": "Kernel span eventually appears but after one or more grep/raw-Read spans; partial climb.",
+      "score_0_0_to_0_5": "Grep-dominant session with rare or late kernel use.",
+      "score_0_0": "Zero kernel-shape spans in the entire session."
+    }
+  },
+  "intent_task_binding_contract": {
+    "principle": "The path trodden is task-relative. A trace is not only evidence that an agent used the kernel ladder; it is evidence of whether the discovered/read/edited/validated path matched the kind of task it was asked to perform.",
+    "privacy_boundary": "Join traces to tasks through explicit metadata only: WorkItems, Type B handoff packets, prompt_trace refs, source_refs, operator task labels, agent seed packets, or Task Ledger caps. Do not parse prompt bodies, assistant prose, message text, or thinking.",
+    "task_classes": [
+      "maintenance",
+      "discovery",
+      "exploration",
+      "code_improvement",
+      "code_writing",
+      "architecture",
+      "unification",
+      "integration",
+      "pruning",
+      "frontend_build",
+      "diagnostic_repair"
+    ],
+    "path_marker_groups": {
+      "orientation": ["kernel_command", "docs_route", "context_pack", "paper_module"],
+      "discovery": ["read_file", "bash_grep", "grep_tool", "glob_tool", "target_path_hot_list"],
+      "mutation": ["edit_file", "write_file", "apply_patch"],
+      "validation": ["exec_command", "test_command", "build_command", "browser_or_ui_probe"],
+      "closure": ["task_ledger_cap", "commit_or_status_binding", "route_refresh", "projection_check"]
+    },
+    "builder_status": "ontology_seed_not_yet_consumed_by_builder"
+  }
+}

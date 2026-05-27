@@ -2,11 +2,12 @@
 
 `mechanistic_interpretability_circuit_attribution_replay` is the public
 mechanistic-interpretability organ. It turns the macro circuit-attribution
-pattern into a runnable Microcosm surface: six body-free public runtime receipt
-rows, toy prompt refs, sparse feature ids, machine-readable graph nodes and
-edges, replacement-model approximation scores, causal inhibition and injection
-deltas, sufficiency labels, faithfulness limits, contradiction cases, target
-refs, and cold replay refs.
+pattern into a runnable Microcosm surface: six public runtime receipt rows plus
+ten copied source-open macro bodies covering Oracle attribution maps, the macro
+pattern ledger, high-novelty scout record, organ projection IR, projection
+readiness checker, mission transaction preflight, execution trace library, and
+trace/readiness standards. Runtime receipts carry refs, digests, counts, and
+verdicts rather than body text.
 
 ## Public Claim
 
@@ -17,6 +18,12 @@ proprietary prompts, or reveal hidden chain-of-thought. Each replay row binds
 feature ids to graph edges, target refs, secret-exclusion evidence, and causal
 intervention receipts before interpretability language is treated as public
 evidence.
+
+The source-open body floor lives in
+`examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json`
+and `source_modules/`. The fixture mirror under
+`fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json`
+keeps the same bodies available for cold replay.
 
 ## Runtime Command
 
@@ -46,9 +53,10 @@ release authority.
 
 ## Authority Ceiling
 
-This organ is body-free runtime-receipt evidence. It does not export private
-weights, raw activation tensors or dumps, proprietary prompts, hidden
-chain-of-thought, provider payloads, private model internals,
+This organ is public runtime-receipt evidence backed by copied non-secret macro
+source bodies. Runtime receipts remain body-text-free. The source modules do not
+export private weights, raw activation tensors or dumps, proprietary prompts,
+hidden chain-of-thought, provider payloads, private model internals,
 model-transparency product authority, benchmark scores, provider calls,
 publication, hosting, or release authority.
 
@@ -56,5 +64,7 @@ publication, hosting, or release authority.
 
 - `standards/std_microcosm_mechanistic_interpretability_circuit_attribution_replay.json`
 - `core/fixture_manifests/mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json`
+- `examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json`
+- `examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_modules/`
 - `receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json`
 - `receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json`

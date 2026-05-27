@@ -147,13 +147,15 @@ AUTHORITY_CEILING = {
 
 ANTI_CLAIM = (
     "Mechanistic interpretability circuit-attribution replay validates public "
-    "body-free runtime receipt rows: toy prompt refs, sparse feature ids, "
+    "runtime receipt rows plus copied public-safe macro source bodies: toy prompt refs, sparse feature ids, "
     "machine-readable graph edges, replacement-model approximation scores, "
     "causal inhibition and injection deltas, sufficiency and faithfulness "
-    "limits, contradiction cases, target refs, and cold replay refs. It does "
-    "not export private model weights, raw activation dumps, proprietary prompt "
-    "bodies, hidden chain-of-thought, provider payloads, private model internals, "
-    "benchmark scores, or release authority."
+    "limits, contradiction cases, target refs, cold replay refs, Oracle attribution "
+    "nodes, pattern-ledger rows, projection IR, readiness checker code, mission "
+    "transaction code, trace code, and standards bodies. Receipts carry refs, "
+    "digests, counts, and verdicts only; they do not export private model weights, "
+    "raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, "
+    "provider payloads, private model internals, benchmark scores, or release authority."
 )
 BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
@@ -165,6 +167,7 @@ SOURCE_OPEN_BODY_SCHEMA = (
 )
 SOURCE_MODULE_MATERIAL_CLASSES = {
     "public_macro_pattern_body",
+    "public_macro_proof_body",
     "public_macro_tool_body",
 }
 SOURCE_REFS = [
@@ -172,6 +175,14 @@ SOURCE_REFS = [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
     "codex/nodes/oracle/oracle_attribution_map.json",
     "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+    "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+    "tools/meta/control/mission_transaction_preflight.py",
+    "system/lib/agent_execution_trace.py",
+    "codex/standards/std_agent_execution_trace.json",
+    "codex/standards/std_extracted_pattern_route_readiness.json",
 ]
 TARGET_REFS = [
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
@@ -182,7 +193,7 @@ TARGET_REFS = [
 VALIDATION_REFS = [
     "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
     "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
-    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports",
+    "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_macro_source_modules_are_exact_imports",
 ]
 BODY_IMPORT_VERIFICATION = {
     "status": PASS,
@@ -547,9 +558,9 @@ def _source_open_body_import_summary(
         },
         "reader_action": (
             "Open source_module_manifest.json plus source_modules/ inside the "
-            "exported circuit attribution bundle for copied Oracle "
-            "attribution-map source bodies; receipts carry refs, digests, "
-            "counts, and verdicts only."
+            "exported circuit attribution bundle for copied Oracle, pattern-ledger, "
+            "projection, mission-transaction, trace, and standards bodies; receipts "
+            "carry refs, digests, counts, and verdicts only."
         )
         if imported
         else "",

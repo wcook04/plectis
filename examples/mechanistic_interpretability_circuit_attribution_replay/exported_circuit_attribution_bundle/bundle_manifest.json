@@ -1,4 +1,5 @@
 {
+  "body_copied_material_count": 10,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -9,17 +10,27 @@
       "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
       "codex/nodes/oracle/oracle_attribution_map.json",
-      "codex/substrate/nodes/oracle/oracle_attribution_map.json"
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+      "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_extracted_pattern_route_readiness.json"
     ],
     "status": "pass",
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
       "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
-      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
     ],
     "validation_refs": [
       "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
-      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs"
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_macro_source_modules_are_exact_imports"
     ]
   },
   "body_in_receipt": false,
@@ -36,43 +47,52 @@
   "schema_version": "mechanistic_interpretability_bundle_manifest_v1",
   "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
   "source_module_import_status": "copied_non_secret_macro_body_landed",
-    "source_module_manifest_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
-    "source_open_body_imports": {
-        "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
-        "authority_ceiling": {
-            "benchmark_score_claim_authorized": false,
-            "body_text_in_receipt": false,
-            "credential_or_account_bound_payload_exported": false,
-            "hidden_chain_of_thought_exported": false,
-            "live_model_access_authorized": false,
-            "private_model_weights_exported": false,
-            "proprietary_prompt_body_exported": false,
-            "provider_payload_exported": false,
-            "raw_activation_dump_exported": false,
-            "release_authorized": false
-        },
-        "body_in_receipt": false,
-        "body_material_count": 2,
-        "body_material_ids": [
-            "oracle_attribution_legacy_node_body_import",
-            "oracle_attribution_substrate_node_body_import"
-        ],
-        "body_material_status": "copied_non_secret_macro_body_landed",
-        "body_text_exported_in_receipts": false,
-        "body_text_exported_in_workingness": false,
-        "material_classes": [
-            "public_macro_pattern_body"
-        ],
-        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
-        "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
-        "source_import_class": "copied_non_secret_macro_body",
-        "source_manifest_refs": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
-        ],
-        "status": "pass"
+  "source_module_manifest_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "hidden_chain_of_thought_exported": false,
+      "live_model_access_authorized": false,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_body_exported": false,
+      "provider_payload_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false
     },
-    "body_copied_material_count": 2,
-    "target_refs": [
+    "body_in_receipt": false,
+    "body_material_count": 10,
+    "body_material_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import",
+      "pattern_ledger_mechanistic_replay_contract_body_import",
+      "high_novelty_interpretability_growth_receipt_body_import",
+      "organ_projection_ir_external_boundary_body_import",
+      "projection_readiness_checker_control_plane_body_import",
+      "mission_transaction_preflight_tool_body_import",
+      "agent_execution_trace_tool_body_import",
+      "std_agent_execution_trace_standard_body_import",
+      "std_extracted_pattern_route_readiness_standard_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle, pattern-ledger, projection-IR, projection-checker, mission-transaction, trace, and standards bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
+  "target_refs": [
     "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
     "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
     "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",

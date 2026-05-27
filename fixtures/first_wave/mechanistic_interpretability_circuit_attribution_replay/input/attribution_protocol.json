@@ -13,17 +13,29 @@
     "secret_exclusion_policy": "exclude only credential/account/session/provider/live-access material, private model weights, raw activations, proprietary prompt bodies, and hidden chain-of-thought bodies",
     "source_refs": [
       "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
-      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound"
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
+      "codex/nodes/oracle/oracle_attribution_map.json",
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+      "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_extracted_pattern_route_readiness.json"
     ],
     "status": "pass",
     "target_refs": [
       "microcosm-substrate/src/microcosm_core/organs/mechanistic_interpretability_circuit_attribution_replay.py",
       "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
-      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json"
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/attribution_replays.json",
+      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
     ],
     "validation_refs": [
       "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
-      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs"
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_macro_source_modules_are_exact_imports"
     ]
   },
   "body_in_receipt": false,

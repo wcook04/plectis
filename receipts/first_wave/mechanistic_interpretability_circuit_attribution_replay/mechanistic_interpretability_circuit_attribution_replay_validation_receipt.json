@@ -1,5 +1,5 @@
 {
-  "anti_claim": "Mechanistic interpretability circuit-attribution replay validates public body-free runtime receipt rows: toy prompt refs, sparse feature ids, machine-readable graph edges, replacement-model approximation scores, causal inhibition and injection deltas, sufficiency and faithfulness limits, contradiction cases, target refs, and cold replay refs. It does not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, private model internals, benchmark scores, or release authority.",
+  "anti_claim": "Mechanistic interpretability circuit-attribution replay validates public runtime receipt rows plus copied public-safe macro source bodies: toy prompt refs, sparse feature ids, machine-readable graph edges, replacement-model approximation scores, causal inhibition and injection deltas, sufficiency and faithfulness limits, contradiction cases, target refs, cold replay refs, Oracle attribution nodes, pattern-ledger rows, projection IR, readiness checker code, mission transaction code, trace code, and standards bodies. Receipts carry refs, digests, counts, and verdicts only; they do not export private model weights, raw activation dumps, proprietary prompt bodies, hidden chain-of-thought, provider payloads, private model internals, benchmark scores, or release authority.",
   "authority_ceiling": {
     "authority_ceiling": "public_circuit_attribution_runtime_receipt_only",
     "benchmark_score_claim_authorized": false,
@@ -17,8 +17,8 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "board_ref": "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
-  "body_copied_material_count": 2,
+  "board_ref": "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+  "body_copied_material_count": 10,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -29,7 +29,15 @@
       "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::mechanistic_interpretability_circuit_attribution_replay_compound",
       "codex/nodes/oracle/oracle_attribution_map.json",
-      "codex/substrate/nodes/oracle/oracle_attribution_map.json"
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+      "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_extracted_pattern_route_readiness.json"
     ],
     "status": "pass",
     "target_refs": [
@@ -41,23 +49,23 @@
     "validation_refs": [
       "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_exported_bundle_validates_runtime_shape",
       "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_circuit_attribution_receipts_consume_public_runtime_refs",
-      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_oracle_attribution_source_modules_are_exact_imports"
+      "microcosm-substrate/tests/test_mechanistic_interpretability_circuit_attribution_replay.py::test_mechanistic_interpretability_macro_source_modules_are_exact_imports"
     ]
   },
   "body_in_receipt": false,
-  "created_at": "2026-05-27T00:35:20+00:00",
+  "created_at": "2026-05-27T06:22:00+00:00",
   "expected_negative_case_count": 8,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "observed_negative_case_count": 8,
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "receipt_paths": [
-    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
-    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
-    "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json"
+    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_validation_receipt.json"
   ],
   "release_authorized": false,
   "replay_count": 6,
-  "result_ref": "receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
+  "result_ref": "microcosm-substrate/receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay/mechanistic_interpretability_circuit_attribution_replay_result.json",
   "schema_version": "mechanistic_interpretability_circuit_attribution_replay_validation_receipt_v1",
   "secret_exclusion_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
@@ -81,26 +89,36 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 16,
+    "scanned_path_count": 24,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "source_module_import_status": "copied_non_secret_macro_body_landed",
-  "source_module_manifest_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
   "source_module_summary": {
     "body_import_status": "copied_non_secret_macro_body_landed",
     "body_in_receipt": false,
     "body_text_in_receipt": false,
     "bundle_id": "first_wave_mechanistic_interpretability_fixture",
     "findings": [],
-    "manifest_id": "mechanistic_interpretability_fixture_oracle_attribution_source_modules_import",
+    "manifest_id": "mechanistic_interpretability_fixture_macro_source_modules_import",
     "material_classes": [
-      "public_macro_pattern_body"
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_tool_body"
     ],
-    "module_count": 2,
+    "module_count": 10,
     "module_ids": [
       "oracle_attribution_legacy_node_body_import",
-      "oracle_attribution_substrate_node_body_import"
+      "oracle_attribution_substrate_node_body_import",
+      "pattern_ledger_mechanistic_replay_contract_body_import",
+      "high_novelty_interpretability_growth_receipt_body_import",
+      "organ_projection_ir_external_boundary_body_import",
+      "projection_readiness_checker_control_plane_body_import",
+      "mission_transaction_preflight_tool_body_import",
+      "agent_execution_trace_tool_body_import",
+      "std_agent_execution_trace_standard_body_import",
+      "std_extracted_pattern_route_readiness_standard_body_import"
     ],
     "modules": [
       {
@@ -146,17 +164,201 @@
         "target_body_digest": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
         "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
         "target_sha256": "fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 373,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "pattern_ledger_mechanistic_replay_contract_body_import",
+        "required_anchors": [
+          "mechanistic_interpretability_circuit_attribution_replay_compound",
+          "candidate_fixture",
+          "mechanism_claim_requires_intervention_receipt",
+          "private model weights",
+          "source_refs"
+        ],
+        "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "source_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "status": "pass",
+        "target_body_digest": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/macro_state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "target_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 4825,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "high_novelty_interpretability_growth_receipt_body_import",
+        "required_anchors": [
+          "actual_substrate_interpretability_eval_memory_spatial_growth_v1",
+          "mechanistic_interpretability_circuit_attribution_replay_compound",
+          "projection_contract",
+          "external_attention_inputs",
+          "public_roots_mutated"
+        ],
+        "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "source_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "status": "pass",
+        "target_body_digest": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "target_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 8156,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "organ_projection_ir_external_boundary_body_import",
+        "required_anchors": [
+          "proof_diagnostic_evidence_spine",
+          "agent_route_observability_runtime",
+          "external_boundary_anti_corruption_runtime",
+          "fixture_validator_contracts",
+          "entrypoint_to_implement"
+        ],
+        "source_ref": "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+        "source_sha256": "4c5bc058d4b00fb1100463487c0ad75588dc13bdc4056d0abed14f39899cff21",
+        "status": "pass",
+        "target_body_digest": "sha256:4c5bc058d4b00fb1100463487c0ad75588dc13bdc4056d0abed14f39899cff21",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/macro_state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+        "target_sha256": "4c5bc058d4b00fb1100463487c0ad75588dc13bdc4056d0abed14f39899cff21"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 20924,
+        "material_class": "public_macro_tool_body",
+        "module_id": "projection_readiness_checker_control_plane_body_import",
+        "required_anchors": [
+          "interpretability_eval_memory_spatial_growth",
+          "mechanistic_interpretability_circuit_attribution_replay_compound",
+          "private model weights",
+          "public_roots_mutated",
+          "forbidden_surfaces_mined"
+        ],
+        "source_ref": "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+        "source_sha256": "6bad000f0ae0a0ccbe73f37706a76681e66e111d45cb41b2f95ded709c96d764",
+        "status": "pass",
+        "target_body_digest": "sha256:6bad000f0ae0a0ccbe73f37706a76681e66e111d45cb41b2f95ded709c96d764",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/macro_state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+        "target_sha256": "6bad000f0ae0a0ccbe73f37706a76681e66e111d45cb41b2f95ded709c96d764"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 500,
+        "material_class": "public_macro_tool_body",
+        "module_id": "mission_transaction_preflight_tool_body_import",
+        "required_anchors": [
+          "build_mission_transaction_landing_preflight",
+          "compact_mission_transaction_landing_preflight",
+          "def build_parser",
+          "def main",
+          "landing_decision"
+        ],
+        "source_ref": "tools/meta/control/mission_transaction_preflight.py",
+        "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "status": "pass",
+        "target_body_digest": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/tools/meta/control/mission_transaction_preflight.py",
+        "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 5158,
+        "material_class": "public_macro_tool_body",
+        "module_id": "agent_execution_trace_tool_body_import",
+        "required_anchors": [
+          "build_agent_execution_trace",
+          "write_agent_execution_trace",
+          "agent_execution_trace_ledger_v1",
+          "summary_thought_trace",
+          "privacy_boundary"
+        ],
+        "source_ref": "system/lib/agent_execution_trace.py",
+        "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "status": "pass",
+        "target_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/system/lib/agent_execution_trace.py",
+        "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 664,
+        "material_class": "public_macro_proof_body",
+        "module_id": "std_agent_execution_trace_standard_body_import",
+        "required_anchors": [
+          "std_agent_execution_trace",
+          "agent_execution_trace",
+          "NOT hidden chain-of-thought",
+          "trace_ontology_contract",
+          "privacy_boundary"
+        ],
+        "source_ref": "codex/standards/std_agent_execution_trace.json",
+        "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "status": "pass",
+        "target_body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/standards/std_agent_execution_trace.json",
+        "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053"
+      },
+      {
+        "anchor_count": 5,
+        "body_copied": true,
+        "body_in_receipt": false,
+        "classification": "copied_non_secret_macro_body",
+        "line_count": 127,
+        "material_class": "public_macro_proof_body",
+        "module_id": "std_extracted_pattern_route_readiness_standard_body_import",
+        "required_anchors": [
+          "extracted_pattern_route_readiness",
+          "route_readiness_contract",
+          "check_extracted_pattern_route_readiness.py",
+          "route_readiness_audit",
+          "owner_validator"
+        ],
+        "source_ref": "codex/standards/std_extracted_pattern_route_readiness.json",
+        "source_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+        "status": "pass",
+        "target_body_digest": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+        "target_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/standards/std_extracted_pattern_route_readiness.json",
+        "target_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4"
       }
     ],
     "public_safe_body_material_ids": [
       "oracle_attribution_legacy_node_body_import",
-      "oracle_attribution_substrate_node_body_import"
+      "oracle_attribution_substrate_node_body_import",
+      "pattern_ledger_mechanistic_replay_contract_body_import",
+      "high_novelty_interpretability_growth_receipt_body_import",
+      "organ_projection_ir_external_boundary_body_import",
+      "projection_readiness_checker_control_plane_body_import",
+      "mission_transaction_preflight_tool_body_import",
+      "agent_execution_trace_tool_body_import",
+      "std_agent_execution_trace_standard_body_import",
+      "std_extracted_pattern_route_readiness_standard_body_import"
     ],
     "status": "pass",
-    "verified_module_count": 2
+    "verified_module_count": 10
   },
   "source_open_body_imports": {
-    "aggregate_floor_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::modules",
     "authority_ceiling": {
       "benchmark_score_claim_authorized": false,
       "body_text_in_receipt": false,
@@ -170,22 +372,32 @@
       "release_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 2,
+    "body_material_count": 10,
     "body_material_ids": [
       "oracle_attribution_legacy_node_body_import",
-      "oracle_attribution_substrate_node_body_import"
+      "oracle_attribution_substrate_node_body_import",
+      "pattern_ledger_mechanistic_replay_contract_body_import",
+      "high_novelty_interpretability_growth_receipt_body_import",
+      "organ_projection_ir_external_boundary_body_import",
+      "projection_readiness_checker_control_plane_body_import",
+      "mission_transaction_preflight_tool_body_import",
+      "agent_execution_trace_tool_body_import",
+      "std_agent_execution_trace_standard_body_import",
+      "std_extracted_pattern_route_readiness_standard_body_import"
     ],
     "body_material_status": "copied_non_secret_macro_body_landed",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
     "material_classes": [
-      "public_macro_pattern_body"
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_tool_body"
     ],
-    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle, pattern-ledger, projection, mission-transaction, trace, and standards bodies; receipts carry refs, digests, counts, and verdicts only.",
     "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
+      "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
     ],
     "status": "pass"
   },

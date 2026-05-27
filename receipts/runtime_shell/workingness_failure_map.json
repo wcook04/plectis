@@ -44,7 +44,7 @@
   "rows_with_future_work_targets": 30,
   "rows_with_source_body_imports": 45,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 429,
+  "source_open_body_material_count": 437,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -56,7 +56,7 @@
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
     "rows_with_source_body_imports": 45,
-    "source_open_body_material_count": 429,
+    "source_open_body_material_count": 437,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -4295,19 +4295,29 @@
             "raw_activation_dump_exported": false,
             "release_authorized": false
           },
-          "body_material_count": 2,
+          "body_material_count": 10,
           "body_material_ids": [
             "oracle_attribution_legacy_node_body_import",
-            "oracle_attribution_substrate_node_body_import"
+            "oracle_attribution_substrate_node_body_import",
+            "pattern_ledger_mechanistic_replay_contract_body_import",
+            "high_novelty_interpretability_growth_receipt_body_import",
+            "organ_projection_ir_external_boundary_body_import",
+            "projection_readiness_checker_control_plane_body_import",
+            "mission_transaction_preflight_tool_body_import",
+            "agent_execution_trace_tool_body_import",
+            "std_agent_execution_trace_standard_body_import",
+            "std_extracted_pattern_route_readiness_standard_body_import"
           ],
           "body_material_status": "copied_non_secret_macro_body_landed",
           "body_text_exported_in_receipts": false,
           "body_text_exported_in_workingness": false,
           "fixture_manifest_ref": "core/fixture_manifests/mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json",
           "material_classes": [
-            "public_macro_pattern_body"
+            "public_macro_pattern_body",
+            "public_macro_proof_body",
+            "public_macro_tool_body"
           ],
-          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle, pattern-ledger, projection-IR, projection-checker, mission-transaction, trace, and standards bodies; receipts carry refs, digests, counts, and verdicts only.",
           "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
           "source_manifest_refs": [
             "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
@@ -4335,19 +4345,29 @@
           "raw_activation_dump_exported": false,
           "release_authorized": false
         },
-        "body_material_count": 2,
+        "body_material_count": 10,
         "body_material_ids": [
           "oracle_attribution_legacy_node_body_import",
-          "oracle_attribution_substrate_node_body_import"
+          "oracle_attribution_substrate_node_body_import",
+          "pattern_ledger_mechanistic_replay_contract_body_import",
+          "high_novelty_interpretability_growth_receipt_body_import",
+          "organ_projection_ir_external_boundary_body_import",
+          "projection_readiness_checker_control_plane_body_import",
+          "mission_transaction_preflight_tool_body_import",
+          "agent_execution_trace_tool_body_import",
+          "std_agent_execution_trace_standard_body_import",
+          "std_extracted_pattern_route_readiness_standard_body_import"
         ],
         "body_material_status": "copied_non_secret_macro_body_landed",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_workingness": false,
         "fixture_manifest_ref": "core/fixture_manifests/mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json",
         "material_classes": [
-          "public_macro_pattern_body"
+          "public_macro_pattern_body",
+          "public_macro_proof_body",
+          "public_macro_tool_body"
         ],
-        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle, pattern-ledger, projection-IR, projection-checker, mission-transaction, trace, and standards bodies; receipts carry refs, digests, counts, and verdicts only.",
         "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
         "source_manifest_refs": [
           "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"

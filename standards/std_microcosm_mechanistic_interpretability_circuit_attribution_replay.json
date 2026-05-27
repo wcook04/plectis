@@ -52,23 +52,23 @@
       "selected_pattern_ids",
       "attribution_summary",
       "negative_case_summary",
-            "secret_exclusion_scan",
-            "body_import_status",
-            "body_import_verification",
-            "source_module_import_status",
-            "source_module_manifest_ref",
-            "source_open_body_imports",
-            "body_copied_material_count",
-            "target_refs",
-            "authority_ceiling",
-            "anti_claim"
-        ],
+      "secret_exclusion_scan",
+      "body_import_status",
+      "body_import_verification",
+      "source_module_import_status",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
+      "body_copied_material_count",
+      "target_refs",
+      "authority_ceiling",
+      "anti_claim"
+    ],
     "receipt_id": "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
     "required": true
   },
   "receipt_expectations": [
     "receipt.microcosm.mechanistic_interpretability_circuit_attribution_replay",
-        "receipt must cite feature counts, replay counts, attribution-edge counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, source module import status, source-open body import counts, target refs, authority ceiling, and anti-claim"
+    "receipt must cite feature counts, replay counts, attribution-edge counts, selected pattern ids, negative-case coverage, secret-exclusion scan, body-import verification, source module import status, source-open body import counts, target refs, authority ceiling, and anti-claim"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#mechanistic_interpretability_circuit_attribution_replay",
@@ -103,15 +103,38 @@
     "authority_ceiling",
     "anti_claim",
     "target_ref",
-        "body_in_receipt",
-        "body_import_status",
-        "body_import_verification",
-        "source_module_import_status",
-        "source_module_manifest_ref",
-        "source_open_body_imports",
-        "body_copied_material_count"
+    "body_in_receipt",
+    "body_import_status",
+    "body_import_verification",
+    "source_module_import_status",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
+    "body_copied_material_count"
   ],
   "schema_version": "public_microcosm_standard_v1",
+  "source_open_body_import_floor": {
+    "accepted_material_classes": [
+      "public_macro_pattern_body",
+      "public_macro_proof_body",
+      "public_macro_tool_body"
+    ],
+    "body_text_in_receipt": false,
+    "macro_body_refs": [
+      "codex/nodes/oracle/oracle_attribution_map.json",
+      "codex/substrate/nodes/oracle/oracle_attribution_map.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+      "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py",
+      "tools/meta/control/mission_transaction_preflight.py",
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/standards/std_extracted_pattern_route_readiness.json"
+    ],
+    "required_body_material_count": 10,
+    "source_manifest_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+    "status": "pass"
+  },
   "source_refs": [
     {
       "field": "attribution_protocol",
@@ -129,6 +152,7 @@
       "role": "source_pattern_projection_ref"
     }
   ],
+  "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
   "standard_payload": {
     "anti_purpose": "A pretty circuit graph, feature-name story, or provider transcript that claims model transparency without copied public-safe attribution machinery, causal intervention receipts, failure limits, and secret exclusion.",
     "failure_modes": [
@@ -137,18 +161,17 @@
       "screenshot-only attribution graph accepted without machine-readable nodes and edges",
       "feature labels asserted without catalog ids, visualization summary refs, or validation anchors",
       "transparency or faithfulness claim made without causal intervention receipts and sufficiency limits",
-            "synthetic attribution fixture counted as macro body instead of being wrapped by exact copied source modules, source-open body import accounting, or named blocked-import debt",
+      "synthetic attribution fixture counted as macro body instead of being wrapped by exact copied source modules, source-open body import accounting, or named blocked-import debt",
       "Oracle attribution-map prompt body or runtime receipt treated as live provider execution, benchmark result, or product transparency authority"
     ],
     "ontology": "A public-safe circuit-attribution replay organ that combines body-free replay rows with exact copied non-secret attribution-map source nodes, explicit causal-intervention refs, and failure-mode boundaries before any interpretability claim is allowed.",
     "teleology": "Make interpretability evidence falsifiable and source-open without leaking private model internals, provider payloads, prompt bodies, hidden reasoning, or benchmark/product authority."
   },
-  "standard_id": "std_microcosm_mechanistic_interpretability_circuit_attribution_replay",
   "status": "draft",
   "validation_rules": [
     "require every replay row to cite toy prompt refs, sparse feature ids, machine-readable graph nodes and edges, replacement-model approximation scores, feature visualization summary refs, causal inhibition and injection deltas, sufficiency labels, faithfulness limits, contradiction cases, cold replay refs, and public runtime target refs",
     "reject private model weights, raw activation dumps, proprietary prompts, hidden chain-of-thought, screenshot-only graphs, unverifiable feature names, transparency claims without causal intervention receipts, faithfulness claims without limits, benchmark claims, and release authority",
-        "require public runtime receipt authority, body-free public fixture rows, body-import verification, source-open body import accounting for copied Oracle attribution-map source bodies, and secret-exclusion scan"
+    "require public runtime receipt authority, body-free public fixture rows, body-import verification, source-open body import accounting for copied Oracle attribution-map, pattern-ledger, projection, mission-transaction, trace, and standards source bodies, and secret-exclusion scan"
   ],
   "validator_contract": {
     "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay",
