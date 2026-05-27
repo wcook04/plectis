@@ -7,9 +7,14 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_simulation_bundle,
+)
+from microcosm_core.organs import (
+    spatial_world_model_counterfactual_simulation_replay,
 )
 from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
 
@@ -268,3 +273,61 @@ def test_spatial_world_model_counterfactual_fixture_manifest_exports_body_floor_
     assert manifest["body_copied_material_count"] == len(
         SPATIAL_SOURCE_BODY_MATERIAL_IDS
     )
+
+
+def test_spatial_world_model_simulation_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys,
+    monkeypatch,
+) -> None:
+    out_dir = tmp_path / "spatial-card"
+    argv = [
+        "run-simulation-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out_dir),
+        "--card",
+    ]
+
+    assert main(argv) == 0
+    first_card = json.loads(capsys.readouterr().out)
+
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_checked_path_count"] == 11
+    assert first_card["simulation"]["replay_count"] == 6
+    assert first_card["source_modules"]["module_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert first_card["source_modules"]["body_material_count"] == len(
+        SPATIAL_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        first_card["source_modules"]["body_text_exported_in_receipts"] is False
+    )
+    assert first_card["validation"]["finding_count"] == 0
+    assert first_card["validation"]["secret_exclusion_hit_count"] == 0
+    assert "counterfactual_replays" not in first_card
+    assert "scene_states" not in first_card
+
+    def fail_if_uncached(*args: object, **kwargs: object) -> dict[str, object]:
+        raise AssertionError("fresh card path should reuse the receipt")
+
+    monkeypatch.setattr(
+        spatial_world_model_counterfactual_simulation_replay,
+        "_build_result",
+        fail_if_uncached,
+    )
+
+    assert main(argv) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+
+    assert cached_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]

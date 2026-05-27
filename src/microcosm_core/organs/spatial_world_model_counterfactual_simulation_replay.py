@@ -38,6 +38,19 @@ ACCEPTANCE_RECEIPT_REL = (
     "spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_spatial_world_model_simulation_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "spatial_world_model_simulation_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "scene_states",
+    "counterfactual_replays",
+    "positive_findings",
+    "negative_case_findings",
+    "source_module_summary",
+    "source_open_body_imports",
+    "authority_ceiling",
+    "anti_claim",
+    "secret_exclusion_scan",
+    "spatial_simulation_board",
+)
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 PAYLOAD_BOUNDARY_ID = (
     "spatial_world_model_counterfactual_simulation_replay_payload_boundary"
@@ -222,6 +235,13 @@ def _sha256_ref(path: Path) -> str:
     return f"{BODY_DIGEST_PREFIX}{_sha256_hex(path)}"
 
 
+def _json_digest(payload: object) -> str:
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+
+
 def _line_count(path: Path) -> int:
     return len(path.read_text(encoding="utf-8").splitlines())
 
@@ -237,6 +257,98 @@ def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list
             if target.is_file():
                 paths.append(target)
     return paths
+
+
+def _freshness_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    paths = _input_paths(input_dir, include_negative=False)
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest_payload: object = {}
+    if manifest_path.is_file():
+        manifest_payload = read_json_strict(manifest_path)
+    paths.extend(_source_module_paths(manifest_payload, public_root=public_root))
+    paths.extend(
+        [
+            Path(__file__),
+            public_root / "core/private_state_forbidden_classes.json",
+        ]
+    )
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key not in seen:
+            seen.add(key)
+            unique.append(path)
+    return unique
+
+
+def _freshness_basis(
+    input_dir: Path,
+    *,
+    command: str,
+    input_mode: str,
+) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
+    input_paths = _freshness_paths(input_dir, public_root=public_root)
+    path_rows = []
+    missing_paths = []
+    for path in input_paths:
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            path_rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256_ref(path),
+                    "bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing_paths.append(display)
+    basis = {
+        "schema_version": "spatial_world_model_simulation_freshness_basis_v1",
+        "organ_id": ORGAN_ID,
+        "input_mode": input_mode,
+        "command": command,
+        "input_ref": _display(input_dir, public_root=public_root),
+        "input_count": len(path_rows),
+        "missing_input_count": len(missing_paths),
+        "missing_paths": missing_paths,
+        "inputs": path_rows,
+    }
+    return {**basis, "digest": _json_digest(basis)}
+
+
+def _fresh_spatial_simulation_bundle_receipt(
+    receipt_path: Path,
+    freshness_basis: dict[str, Any],
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    if freshness_basis.get("missing_input_count"):
+        return None
+    if not receipt_path.is_file():
+        return None
+    try:
+        receipt = read_json_strict(receipt_path)
+    except Exception:
+        return None
+    if not isinstance(receipt, dict):
+        return None
+    if (
+        receipt.get("schema_version")
+        != "exported_spatial_world_model_simulation_bundle_validation_result_v1"
+        or receipt.get("organ_id") != ORGAN_ID
+        or receipt.get("input_mode")
+        != "exported_spatial_world_model_simulation_bundle"
+        or receipt.get("command") != command
+    ):
+        return None
+    receipt_basis = receipt.get("freshness_basis")
+    if not isinstance(receipt_basis, dict):
+        return None
+    if receipt_basis.get("digest") != freshness_basis.get("digest"):
+        return None
+    return {**receipt, "receipt_reused": True, "freshness_basis": freshness_basis}
 
 
 def _source_module_manifest_result(
@@ -964,6 +1076,12 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(
+        Path(input_dir),
+        command=command,
+        input_mode="fixture",
+    )
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -978,16 +1096,32 @@ def run_simulation_bundle(
         "python -m microcosm_core.organs."
         "spatial_world_model_counterfactual_simulation_replay run-simulation-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    source_input = Path(input_dir)
+    freshness_basis = _freshness_basis(
+        source_input,
+        command=command,
+        input_mode="exported_spatial_world_model_simulation_bundle",
+    )
+    bundle_path = out / BUNDLE_RESULT_NAME
+    if reuse_fresh_receipt:
+        cached = _fresh_spatial_simulation_bundle_receipt(
+            bundle_path,
+            freshness_basis,
+            command=command,
+        )
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source_input,
         command=command,
         input_mode="exported_spatial_world_model_simulation_bundle",
         include_negative=False,
     )
-    bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
         **result,
@@ -995,10 +1129,113 @@ def run_simulation_bundle(
             "exported_spatial_world_model_simulation_bundle_"
             "validation_result_v1"
         ),
+        "freshness_basis": freshness_basis,
+        "receipt_reused": False,
         "receipt_paths": [_display(bundle_path, public_root=public_root)],
     }
     write_json_atomic(bundle_path, payload)
     return payload
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    summary = result.get("simulation_summary") or {}
+    negatives = result.get("negative_case_summary") or {}
+    source_summary = result.get("source_module_summary") or {}
+    source_open_body = result.get("source_open_body_imports") or {}
+    secret_scan = result.get("secret_exclusion_scan") or {}
+    freshness = result.get("freshness_basis") or {}
+    omitted = [
+        key
+        for key in CARD_OMITTED_FULL_PAYLOAD_KEYS
+        if key in result and result.get(key) not in (None, {}, [])
+    ]
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": ORGAN_ID,
+        "input_mode": result.get("input_mode"),
+        "command": result.get("command"),
+        "command_speed": {
+            "compact_card": True,
+            "receipt_reused": bool(result.get("receipt_reused")),
+            "freshness_digest": freshness.get("digest"),
+            "freshness_checked_path_count": freshness.get("input_count", 0),
+            "freshness_missing_path_count": freshness.get("missing_input_count", 0),
+            "full_receipt_stdout_omitted": True,
+            "rerun_without_card_for_status_only": True,
+        },
+        "simulation": {
+            "scene_state_count": summary.get("scene_state_count", 0),
+            "replay_count": summary.get("replay_count", 0),
+            "transition_diff_count": summary.get("transition_diff_count", 0),
+            "oracle_state_check_count": summary.get("oracle_state_check_count", 0),
+            "sensor_packet_ref_count": summary.get("sensor_packet_ref_count", 0),
+            "rare_event_coverage_count": summary.get("rare_event_coverage_count", 0),
+            "fidelity_limit_count": summary.get("fidelity_limit_count", 0),
+        },
+        "source_modules": {
+            "source_module_import_status": result.get("source_module_import_status"),
+            "module_count": source_summary.get("module_count", 0),
+            "verified_module_count": source_summary.get("verified_module_count", 0),
+            "body_material_count": source_open_body.get("body_material_count", 0),
+            "body_material_status": source_open_body.get(
+                "body_material_status", ""
+            ),
+            "body_in_receipt": bool(source_open_body.get("body_in_receipt")),
+            "body_text_exported_in_receipts": bool(
+                source_open_body.get("body_text_exported_in_receipts")
+            ),
+            "body_text_exported_in_workingness": bool(
+                source_open_body.get("body_text_exported_in_workingness")
+            ),
+        },
+        "negative_case_coverage": {
+            "expected_negative_case_count": negatives.get(
+                "expected_negative_case_count", 0
+            ),
+            "observed_negative_case_count": negatives.get(
+                "observed_negative_case_count", 0
+            ),
+            "expected_missing_count": len(negatives.get("expected_missing") or {}),
+        },
+        "validation": {
+            "finding_count": result.get("finding_count", 0),
+            "secret_exclusion_status": secret_scan.get("status"),
+            "secret_exclusion_hit_count": len(secret_scan.get("findings") or []),
+            "unsafe_payload_bodies_in_receipt": bool(
+                result.get("unsafe_payload_bodies_in_receipt")
+            ),
+            "release_authorized": bool(result.get("release_authorized")),
+        },
+        "body_floor": {
+            "body_copied_material_count": result.get(
+                "body_copied_material_count", 0
+            ),
+            "source_open_body_policy": result.get("source_open_body_policy"),
+            "receipt_exports_body_text": False,
+        },
+        "authority_boundary": {
+            "metadata_projection_only": True,
+            "private_video_exported": False,
+            "raw_sensor_data_exported": False,
+            "live_operation_authorized": False,
+            "real_world_location_claim_authorized": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": omitted,
+            "reason": (
+                "Card output preserves command-speed, count, freshness, and "
+                "boundary fields while the full receipt on disk keeps row "
+                "detail."
+            ),
+            "drilldown": (
+                "rerun without --card or inspect the written "
+                f"{BUNDLE_RESULT_NAME} receipt"
+            ),
+        },
+    }
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -1008,21 +1245,45 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-simulation-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        result = run(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs."
+                "spatial_world_model_counterfactual_simulation_replay run"
+                f"{card_suffix}"
+            ),
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-simulation-bundle":
-        result = run_simulation_bundle(args.input, args.out)
+        result = run_simulation_bundle(
+            args.input,
+            args.out,
+            command=(
+                "python -m microcosm_core.organs."
+                "spatial_world_model_counterfactual_simulation_replay "
+                f"run-simulation-bundle{card_suffix}"
+            ),
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(result["status"])
     return 0 if result["status"] == PASS else 1
 
 
