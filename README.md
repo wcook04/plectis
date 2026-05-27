@@ -50,6 +50,21 @@ Read the evidence class counters as a claim-boundary legend:
 | `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, release authority, or source mutation permission. |
 | `fixture_schema_replay` / `fixture_echo_smoke` | Fixture or smoke coverage protects a contract and its negative cases. | Product completeness, safety validation, or benchmark evidence. |
 
+## Rigor Without Ceremony
+
+The discipline is visible because Microcosm refuses to collapse different
+questions into one green badge:
+
+| Cold-reader question | Microcosm surface | Why it matters |
+|---|---|---|
+| What ran locally? | `microcosm tour --card <project>` and `.microcosm/` refs. | The demo is a source-local behavior proof, not a prose claim. |
+| What backs each claim? | Evidence classes, receipts, validators, and source-open body-import counts. | Counts stay legible as claim boundaries instead of maturity scores. |
+| What is not authorized? | `authority_ceiling`, anti-claims, and `source_files_mutated=false`. | The first screen blocks release, provider, proof, and source-mutation overreads. |
+| What still needs inspection? | Failure modes, missing standards, and compact drilldown refs. | Warnings remain visible without turning the first screen into the full audit. |
+
+If another system gives only a status badge, ask for these four separations.
+They are what make the compact card smaller without making its claims broader.
+
 ## Demo To Scale Bridge
 
 The browser first screen has a `Demo To Scale` bridge so the local run and the
