@@ -1,0 +1,13 @@
+{
+  "baseline_pass_count": 0,
+  "leakage_count": 0,
+  "oracle_repair_pass_count": 10,
+  "premise_precision": 0.36,
+  "premise_recall": 0.9,
+  "premise_retrieval_pass_count": 5,
+  "problem_count": 10,
+  "proof_failure_despite_hit": 4,
+  "provider_calls": 0,
+  "retrieval_miss_count": 1,
+  "schema_version": "prover_benchmark_ring2_premise_retrieval_aggregate_report_v0"
+}

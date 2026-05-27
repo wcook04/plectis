@@ -1,6 +1,6 @@
 # Lean/Std Premise Index
 
-`lean_std_premise_index` is the closed public premise-index lane for the formal-math slice. It validates premise metadata that a cold reader can inspect without importing Mathlib, exposing proof bodies, or relying on private macro run state.
+`lean_std_premise_index` is the closed public premise-index lane for the formal-math slice. It validates premise metadata and selected Ring2 premise-retrieval macro receipt bodies that a cold reader can inspect without importing Mathlib, exposing proof bodies, or relying on private macro run state.
 
 ## Runtime Route
 
@@ -14,6 +14,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli lean-std-premise-index run-index-bu
 - `projection_protocol.json` records source pattern ids, macro source refs, public replacement refs, projection receipts, omitted material, and copy policy.
 - `premise_index.json` carries public metadata rows: premise id, declaration name, namespace, `Init/` source ref, retrieval terms, and split eligibility.
 - `index_policy.json` keeps the closed-index authority ceiling explicit.
+- `source_module_manifest.json` records six source-open body imports: the normalized Lean/Std premise index plus five exact public-safe Ring2 premise-retrieval macro receipt or graph-pattern bodies under `source_modules/`.
 
 ## Negative Cases
 
@@ -21,8 +22,8 @@ The fixture rejects Mathlib premise refs, proof-body leakage, oracle-needed prem
 
 ## Authority Ceiling
 
-This lane is metadata only. It does not run Lean or Lake, import Mathlib, expose proof bodies, expose oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, authorize public release, or claim secret export.
+This lane is public-safe body only. It does not run Lean or Lake, import Mathlib, expose proof bodies, expose oracle-needed premise ids, tune on test split truth, call providers, prove theorem correctness, authorize public release, or claim secret export.
 
 ## Receipts
 
-The validator emits `lean_std_premise_index_result.json`, `lean_std_premise_index_board.json`, `lean_std_premise_index_validation_receipt.json`, and an acceptance receipt under `receipts/acceptance/first_wave/`. Runtime-shell execution emits `exported_lean_std_premise_index_bundle_validation_result.json`.
+The validator emits `lean_std_premise_index_result.json`, `lean_std_premise_index_board.json`, `lean_std_premise_index_validation_receipt.json`, and an acceptance receipt under `receipts/acceptance/first_wave/`. Runtime-shell execution emits `exported_lean_std_premise_index_bundle_validation_result.json` after checking the source-module manifest, target file digests, line counts, byte counts, and secret-exclusion boundary.

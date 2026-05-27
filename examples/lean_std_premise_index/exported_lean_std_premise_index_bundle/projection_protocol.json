@@ -9,7 +9,12 @@
   "source_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
-    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py"
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
   ],
   "projection_receipt_refs": [
     "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
@@ -19,7 +24,13 @@
     "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
     "fixtures/first_wave/lean_std_premise_index/input/index_policy.json",
     "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
-    "standards/std_microcosm_lean_std_premise_index.json"
+    "standards/std_microcosm_lean_std_premise_index.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
   ],
   "copied_material": [
     {
@@ -38,6 +49,86 @@
         "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
       ],
       "normalization": "host-local Lean toolchain absolute paths are normalized to lean-toolchain:// public refs"
+    },
+    {
+      "material_id": "lean_std_ring2_top_aggregate_report_body_import",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "source_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ],
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material"
+    },
+    {
+      "material_id": "lean_std_premise_retrieval_aggregate_report_body_import",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "source_sha256": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ],
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material"
+    },
+    {
+      "material_id": "lean_std_premise_retrieval_cost_metrics_body_import",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "source_sha256": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ],
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material"
+    },
+    {
+      "material_id": "lean_std_premise_retrieval_graph_update_candidates_body_import",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_pattern_body",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ],
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material"
+    },
+    {
+      "material_id": "lean_std_premise_retrieval_graph_variant_body_import",
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_pattern_body",
+      "body_copied": true,
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "source_sha256": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ],
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material"
     }
   ],
   "omitted_material": [
@@ -57,7 +148,7 @@
       "omission_receipt_ref": "lean_std_premise_index.omission.provider_and_private_bodies"
     }
   ],
-  "copy_policy": "copy_non_secret_macro_premise_descriptors_with_provenance",
+  "copy_policy": "copy_non_secret_macro_premise_descriptors_and_public_safe_Ring2_premise_retrieval_receipts_with_provenance",
   "authority_ceiling": {
     "lean_lake_execution_authorized": false,
     "formal_proof_authority": false,
@@ -67,6 +158,6 @@
     "oracle_needed_ids_public": false,
     "release_authorized": false
   },
-  "anti_claim": "This projection copies the non-secret macro Lean/Std premise-index descriptors with provenance and public path normalization. It does not copy proof bodies, oracle-needed premise ids, provider payloads, private run logs, or host-local absolute paths.",
+  "anti_claim": "This projection copies the non-secret macro Lean/Std premise-index descriptors and selected public-safe Ring2 premise-retrieval receipt bodies with provenance and public path normalization. It does not copy proof bodies, oracle-needed premise ids, provider payloads, private run logs, or host-local absolute paths.",
   "body_material_status": "copied_non_secret_macro_body_with_provenance"
 }

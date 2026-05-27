@@ -1,0 +1,28 @@
+{
+  "decomposition_settings": {
+    "repair_gate": "none",
+    "repair_rounds": 0,
+    "subgoal_decomposition": "none"
+  },
+  "description": "statement + allowed premise index -> retrieve premises -> synthesize Lean candidate -> Lean check -> oracle retrieval audit -> quartet -> learning row",
+  "graph_variant_id": "premise_retrieval_graph_v0",
+  "nodes": [
+    "prover_lab_direct_candidate",
+    "prover_lab_premise_retrieval",
+    "prover_oracle_lean_check",
+    "prover_oracle_statement_reconciliation",
+    "prover_oracle_critique",
+    "prover_oracle_ideal_packet",
+    "prover_evolve_learning_row"
+  ],
+  "provider": {
+    "provider_calls": 0,
+    "provider_or_nim_needed": false
+  },
+  "retrieval_settings": {
+    "mathlib": "not_used_lean_std_toolchain_only",
+    "premise_retrieval": "allowed_lean_std_index",
+    "strategy_conditioned": false
+  },
+  "schema_version": "prover_graph_variant_v0"
+}

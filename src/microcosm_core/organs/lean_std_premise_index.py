@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter, defaultdict
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +44,7 @@ SOURCE_SHA256 = "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b
 PUBLIC_LEAN_TOOLCHAIN_PREFIX = "lean-toolchain://leanprover/lean4/v4.29.1/src/lean/"
 
 INPUT_NAMES = ("projection_protocol.json", "premise_index.json", "index_policy.json")
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 NEGATIVE_INPUT_NAMES = (
     "mathlib_premise_forbidden.json",
     "proof_body_leakage.json",
@@ -76,6 +78,11 @@ OVERCLAIM_KEYS = (
     "provider_calls_authorized",
     "release_authorized",
 )
+SOURCE_BODY_MATERIAL_CLASSES = {
+    "public_lean_std_premise_descriptor_index",
+    "public_macro_receipt_body",
+    "public_macro_pattern_body",
+}
 
 AUTHORITY_CEILING = {
     "status": PASS,
@@ -153,7 +160,244 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
     bundle_manifest = input_dir / "bundle_manifest.json"
     if bundle_manifest.is_file():
         payloads["bundle_manifest"] = read_json_strict(bundle_manifest)
+    source_module_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_module_manifest.is_file():
+        payloads["source_module_manifest"] = read_json_strict(source_module_manifest)
     return payloads
+
+
+def _sha256_hex(path: Path) -> str:
+    return sha256(path.read_bytes()).hexdigest()
+
+
+def _line_count(path: Path) -> int:
+    text = path.read_text(encoding="utf-8")
+    return text.count("\n") + (0 if text.endswith("\n") else 1)
+
+
+def _strip_sha256_prefix(value: object) -> str:
+    text = str(value or "")
+    return text.removeprefix("sha256:")
+
+
+def _manifest_rows(payload: object) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    rows: list[dict[str, Any]] = []
+    for key in ("modules", "source_faithful_modules"):
+        rows.extend(_rows(payload, key))
+    return rows
+
+
+def _target_refs(row: dict[str, Any]) -> list[str]:
+    refs = _strings(row.get("target_refs"))
+    target_ref = row.get("target_ref")
+    if isinstance(target_ref, str) and target_ref:
+        refs.append(target_ref)
+    path = row.get("path")
+    if isinstance(path, str) and path:
+        refs.append(path)
+    deduped: list[str] = []
+    for ref in refs:
+        if ref not in deduped:
+            deduped.append(ref)
+    return deduped
+
+
+def _candidate_target_paths(ref: str, *, input_dir: Path, public_root: Path) -> list[Path]:
+    path = Path(ref)
+    if path.is_absolute():
+        return [path]
+    if ref.startswith("microcosm-substrate/"):
+        return [public_root / Path(*path.parts[1:])]
+    if ref.startswith("source_modules/"):
+        return [input_dir / path]
+    return [input_dir / path, public_root / path]
+
+
+def _resolve_target_path(
+    row: dict[str, Any],
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path | None:
+    input_root = input_dir.resolve(strict=False)
+    fallback: Path | None = None
+    for ref in _target_refs(row):
+        for candidate in _candidate_target_paths(ref, input_dir=input_dir, public_root=public_root):
+            if fallback is None:
+                fallback = candidate
+            if candidate.is_file() and candidate.resolve(strict=False).is_relative_to(input_root):
+                return candidate
+    for ref in _target_refs(row):
+        for candidate in _candidate_target_paths(ref, input_dir=input_dir, public_root=public_root):
+            if candidate.is_file():
+                return candidate
+    return fallback
+
+
+def _source_module_target_paths(
+    payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> list[Path]:
+    paths: list[Path] = []
+    for row in _manifest_rows(payload):
+        target = _resolve_target_path(row, input_dir=input_dir, public_root=public_root)
+        if target is not None and target.is_file():
+            paths.append(target)
+    return paths
+
+
+def _source_module_manifest_result(
+    payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_ref = _display(input_dir / SOURCE_MODULE_MANIFEST_NAME, public_root=public_root)
+    if not isinstance(payload, dict):
+        status = "blocked" if require_manifest else "not_present"
+        findings = []
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported Lean/Std premise-index bundle must include a source module manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "findings": findings,
+            "source_module_manifest_ref": manifest_ref,
+            "source_module_count": 0,
+            "verified_source_module_count": 0,
+            "source_module_imports": [],
+        }
+
+    findings: list[dict[str, Any]] = []
+    imports: list[dict[str, Any]] = []
+    rows = _manifest_rows(payload)
+    declared_count = payload.get("module_count")
+    if isinstance(declared_count, int) and declared_count != len(rows):
+        findings.append(
+            _finding(
+                "LEAN_STD_INDEX_SOURCE_MODULE_COUNT_MISMATCH",
+                "Source module manifest module_count must equal the number of module rows.",
+                case_id="source_module_manifest",
+                subject_id=str(payload.get("manifest_id") or "source_module_manifest"),
+                subject_kind="source_module_manifest",
+            )
+        )
+    for row in rows:
+        module_id = str(row.get("module_id") or "")
+        material_class = str(row.get("material_class") or "")
+        target = _resolve_target_path(row, input_dir=input_dir, public_root=public_root)
+        if not module_id:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_ID_REQUIRED",
+                    "Every source module import row must carry a stable module_id.",
+                    case_id="source_module_manifest",
+                    subject_id="missing_module_id",
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        if material_class not in SOURCE_BODY_MATERIAL_CLASSES:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_CLASS_INVALID",
+                    "Source module material_class must be one of the public body material classes.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_BODY_POLICY_INVALID",
+                    "Source module imports must be copied body files while receipts keep body_in_receipt false.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if target is None or not target.is_file():
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module import target file is missing.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        digest = _sha256_hex(target)
+        expected_digest = _strip_sha256_prefix(row.get("target_sha256") or row.get("sha256"))
+        if expected_digest and digest != expected_digest:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module target file digest does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        lines = _line_count(target)
+        bytes_count = target.stat().st_size
+        expected_lines = row.get("target_line_count", row.get("line_count"))
+        expected_bytes = row.get("target_byte_count", row.get("byte_count"))
+        if isinstance(expected_lines, int) and lines != expected_lines:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Source module target file line count does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if isinstance(expected_bytes, int) and bytes_count != expected_bytes:
+            findings.append(
+                _finding(
+                    "LEAN_STD_INDEX_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                    "Source module target file byte count does not match the manifest.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        imports.append(
+            {
+                "module_id": module_id,
+                "material_class": material_class,
+                "source_ref": row.get("source_ref"),
+                "target_ref": _display(target, public_root=public_root),
+                "target_sha256": f"sha256:{digest}",
+                "target_line_count": lines,
+                "target_byte_count": bytes_count,
+                "body_copied": row.get("body_copied") is True,
+                "body_in_receipt": row.get("body_in_receipt") is True,
+                "source_to_target_relation": row.get("source_to_target_relation"),
+            }
+        )
+    return {
+        "status": PASS if not findings else "blocked",
+        "findings": findings,
+        "source_module_manifest_ref": manifest_ref,
+        "source_module_count": len(rows),
+        "verified_source_module_count": len(imports) if not findings else 0,
+        "source_module_imports": imports,
+    }
 
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
@@ -523,12 +767,28 @@ def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-def _scan_inputs(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+def _scan_inputs(
+    input_dir: Path,
+    *,
+    include_negative: bool,
+    source_module_manifest: object,
+) -> dict[str, Any]:
     public_root = _public_root_for_path(input_dir)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
+    paths = _input_paths(input_dir, include_negative=include_negative)
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if manifest_path.is_file():
+        paths.append(manifest_path)
+    paths.extend(
+        _source_module_target_paths(
+            source_module_manifest,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+    )
     return _secret_exclusion_scan(
         scan_paths(
-            _input_paths(input_dir, include_negative=include_negative),
+            paths,
             forbidden_classes=policy,
             display_root=public_root,
         )
@@ -542,6 +802,7 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     protocol = _validate_protocol(payloads.get("projection_protocol"))
     index = _validate_entries(
@@ -565,10 +826,20 @@ def _build_result(
         for case_id, codes in expected.items()
         if not set(codes) <= set(observed.get(case_id, []))
     ]
-    positive_findings = _merge_findings(protocol, index, policy)
+    source_module_manifest = _source_module_manifest_result(
+        payloads.get("source_module_manifest"),
+        input_dir=input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_lean_std_premise_index_bundle",
+    )
+    positive_findings = _merge_findings(protocol, index, policy, source_module_manifest)
     negative_findings = _merge_findings(*negative_results)
     error_codes = sorted({row["error_code"] for row in positive_findings + negative_findings})
-    secret_scan = _scan_inputs(input_dir, include_negative=include_negative)
+    secret_scan = _scan_inputs(
+        input_dir,
+        include_negative=include_negative,
+        source_module_manifest=payloads.get("source_module_manifest"),
+    )
     bundle_manifest = payloads.get("bundle_manifest", {})
     if not isinstance(bundle_manifest, dict):
         bundle_manifest = {}
@@ -596,8 +867,19 @@ def _build_result(
         "public_runtime_refs": protocol.get("public_runtime_refs", []),
         "copied_material": protocol.get("copied_material", []),
         "copied_material_count": protocol.get("copied_material_count", 0),
-        "body_copied_material_count": protocol.get("body_copied_material_count", 0),
+        "body_copied_material_count": max(
+            protocol.get("body_copied_material_count", 0),
+            source_module_manifest.get("verified_source_module_count", 0),
+        ),
         "omitted_material_count": protocol.get("omitted_material_count", 0),
+        "source_module_manifest_status": source_module_manifest.get("status"),
+        "source_module_manifest_ref": source_module_manifest.get("source_module_manifest_ref"),
+        "source_module_count": source_module_manifest.get("source_module_count", 0),
+        "verified_source_module_count": source_module_manifest.get(
+            "verified_source_module_count",
+            0,
+        ),
+        "source_module_imports": source_module_manifest.get("source_module_imports", []),
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
         "missing_negative_cases": missing,
@@ -645,6 +927,11 @@ def _common_receipt(
         "copied_material_count": result["copied_material_count"],
         "body_copied_material_count": result["body_copied_material_count"],
         "omitted_material_count": result["omitted_material_count"],
+        "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+        "source_module_count": result.get("source_module_count"),
+        "verified_source_module_count": result.get("verified_source_module_count"),
+        "source_module_imports": result.get("source_module_imports", []),
         "premise_count": result["premise_count"],
         "namespace_counts": result["namespace_counts"],
         "split_counts": result["split_counts"],
@@ -681,6 +968,8 @@ def _build_board(result: dict[str, Any]) -> dict[str, Any]:
         "anti_claim": result["anti_claim"],
         "body_material_status": result["body_material_status"],
         "body_copied_material_count": result["body_copied_material_count"],
+        "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "verified_source_module_count": result.get("verified_source_module_count"),
     }
 
 
@@ -723,6 +1012,9 @@ def _source_summary_card(result: dict[str, Any]) -> dict[str, Any]:
         "copied_material_count": result.get("copied_material_count"),
         "body_copied_material_count": result.get("body_copied_material_count"),
         "omitted_material_count": result.get("omitted_material_count"),
+        "source_module_manifest_status": result.get("source_module_manifest_status"),
+        "source_module_count": result.get("source_module_count"),
+        "verified_source_module_count": result.get("verified_source_module_count"),
         "body_material_status": result.get("body_material_status"),
         "source_refs_exported": False,
         "copied_material_rows_exported": False,
