@@ -6,12 +6,14 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import proof_diagnostic_evidence_spine as proof_spine
 from microcosm_core.organs.proof_diagnostic_evidence_spine import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
     PUBLIC_RING2_ARTIFACT_IMPORTS,
     PUBLIC_RING2_ARTIFACT_TARGET_REFS,
     SOURCE_DIGESTS,
+    result_card,
     run,
     run_evidence_bundle,
 )
@@ -211,6 +213,59 @@ def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
     }
     assert all(row["digest_status"] == "pass" for row in copied_by_id.values())
     assert all(row["body_copied"] is True for row in copied_by_id.values())
+
+
+def test_proof_diagnostic_evidence_spine_card_reuses_fresh_bundle_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = tmp_path / "receipts"
+    result = run_evidence_bundle(
+        PROOF_EXPORTED_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+    assert result["card_schema_version"] == "proof_diagnostic_evidence_spine_card_v1"
+    card = result_card(result)
+    assert card["receipt_reused"] is False
+    assert card["copied_macro_body_artifact_count"] == len(PUBLIC_RING2_ARTIFACT_IMPORTS)
+    assert card["copied_macro_body_digest_status"] == "pass"
+    assert card["freshness_digest"] == result["freshness_digest"]
+    assert "copied_macro_body_artifacts" in card["omitted_full_payload_keys"]
+    assert "proof_receipts" in card["omitted_full_payload_keys"]
+    card_text = json.dumps(card, sort_keys=True)
+    assert "copied_macro_body_artifacts" not in card
+    assert "proof_receipts" not in card
+    assert str(tmp_path) not in card_text
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the full receipt")
+
+    monkeypatch.setattr(
+        proof_spine,
+        "validate_copied_macro_body_artifacts",
+        fail_if_rebuilt,
+    )
+
+    cached = run_evidence_bundle(
+        PROOF_EXPORTED_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    cached_card = result_card(cached)
+
+    assert cached["status"] == "pass"
+    assert cached["receipt_reused"] is True
+    assert cached["freshness_digest"] == result["freshness_digest"]
+    assert cached_card["receipt_reused"] is True
+    assert cached_card["copied_macro_body_artifact_count"] == len(
+        PUBLIC_RING2_ARTIFACT_IMPORTS
+    )
 
 
 def test_proof_diagnostic_fixture_manifest_exposes_ring2_body_floor() -> None:
