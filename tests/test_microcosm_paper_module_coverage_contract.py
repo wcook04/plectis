@@ -417,7 +417,18 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     ]:
         assert required in entry_lattice
 
+    depends_line = next(
+        line for line in entry_lattice.splitlines() if line.startswith("**Depends on:**")
+    )
+    assert "`paper_module_coverage_metabolism`" in depends_line
+    assert "`paper_module_entry_projection_integrity`" in depends_line
+    assert (
+        "direct dependency edges to `paper_module_coverage_metabolism` and "
+        "`paper_module_entry_projection_integrity`"
+    ) in entry_lattice
+    assert "entry/count honesty as required depth rungs" in entry_lattice
     assert "Verify paper-module coverage/depth" in entry_lattice
+    assert "Verify entry/count honesty" in entry_lattice
     assert "Route public Microcosm exports" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
     assert "paper_module_coverage_contract.module_depth_roles" in product_roof
