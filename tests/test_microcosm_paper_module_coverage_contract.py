@@ -439,6 +439,13 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
+    assert "type-plane row consumer" in public_export_bridge
+    assert "entry-depth freshness binding" in public_export_bridge
+    assert (
+        "`public_microcosm_exports` opens this bridge before generated public files"
+        in public_export_bridge
+    )
+    assert "focused coverage regression" in public_export_bridge
     assert "paper_module_entry_projection_integrity" in public_export_bridge
     assert "entry/count projection integrity" in public_export_bridge
     assert "microcosm_paper_module_depth" in coverage_metabolism
