@@ -70,6 +70,10 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
     assert receipt["html_assertions"]["first_screen_authority_ceiling_visible"] is True
     assert receipt["html_assertions"]["raw_observatory_model_not_embedded"] is True
     assert receipt["html_assertions"]["observatory_html_under_first_screen_budget"] is True
+    assert (
+        receipt["html_assertions"]["observable_first_artifact_slots_visible"]
+        is True
+    )
     assert receipt["html_assertions"]["causal_chain_section_present"] is True
     assert receipt["html_assertions"]["pattern_binding_visible"] is True
     assert receipt["html_assertions"]["standard_binding_visible"] is True
@@ -125,6 +129,10 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         receipt["model_assertions"][
             "observatory_card_first_screen_endpoint_present"
         ]
+        is True
+    )
+    assert (
+        receipt["model_assertions"]["observable_first_artifact_contract_pass"]
         is True
     )
     assert receipt["model_assertions"]["first_screen_composition_status_pass"] is True
@@ -400,6 +408,64 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         "fixture_echo_smoke",
     }
     assert "first-screen card" in first_screen_landing["projection_rule"]
+    observable_first_artifact = receipt["observable_first_artifact_proof"]
+    assert observable_first_artifact["status"] == "pass"
+    assert observable_first_artifact["contract_ref"] == (
+        "paper_modules/agent_route_observability_runtime.md#observable-first-artifact-contract"
+    )
+    assert observable_first_artifact["blocked_slot_ids"] == []
+    assert set(observable_first_artifact["required_slot_ids"]) == {
+        "local_action",
+        "selected_route",
+        "work_transaction",
+        "event_and_evidence_chain",
+        "authority_boundary",
+        "structural_scale_bridge",
+    }
+    assert all(
+        slot["status"] == "pass"
+        for slot in observable_first_artifact["slots"].values()
+    )
+    assert (
+        observable_first_artifact["slots"]["selected_route"]["selected_route_id"]
+        == "readme_onboarding_route"
+    )
+    assert (
+        observable_first_artifact["slots"]["work_transaction"][
+            "source_files_mutated"
+        ]
+        is False
+    )
+    assert (
+        observable_first_artifact["slots"]["event_and_evidence_chain"][
+            "event_count"
+        ]
+        > 0
+    )
+    assert (
+        "verified_macro_body_import"
+        in observable_first_artifact["slots"]["event_and_evidence_chain"][
+            "evidence_class_ids"
+        ]
+    )
+    assert (
+        observable_first_artifact["slots"]["authority_boundary"]["safe_to_show"][
+            "release_authorized"
+        ]
+        is False
+    )
+    assert (
+        observable_first_artifact["slots"]["structural_scale_bridge"][
+            "public_safe_body_material_count"
+        ]
+        > 0
+    )
+    assert observable_first_artifact["presentation_boundary"] == {
+        "browser_or_video_projection_allowed": True,
+        "raw_json_first_allowed": False,
+        "marketing_page_authorized": False,
+        "live_provider_or_operator_trace_authorized": False,
+    }
     projection_status_counts = receipt["runtime_bridge_proof"][
         "projection_status_counts"
     ]

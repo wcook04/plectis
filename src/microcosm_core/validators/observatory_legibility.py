@@ -10,6 +10,17 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 CHECKER_ID = "checker.microcosm.validators.observatory_legibility"
+OBSERVABLE_FIRST_ARTIFACT_CONTRACT_REF = (
+    "paper_modules/agent_route_observability_runtime.md#observable-first-artifact-contract"
+)
+OBSERVABLE_FIRST_ARTIFACT_SLOT_IDS = [
+    "local_action",
+    "selected_route",
+    "work_transaction",
+    "event_and_evidence_chain",
+    "authority_boundary",
+    "structural_scale_bridge",
+]
 
 
 def _public_relative(root: Path, path: Path) -> str:
@@ -37,6 +48,163 @@ def _html_private_hits(html: str) -> list[str]:
         ]
         if needle in html
     ]
+
+
+def _all_false(payload: dict[str, Any], keys: list[str]) -> bool:
+    return all(payload.get(key) is False for key in keys)
+
+
+def _observable_first_artifact_contract(
+    *,
+    observatory_card: dict[str, Any],
+    first_screen_composition: dict[str, Any],
+    route: dict[str, Any],
+    work: dict[str, Any],
+    events: list[Any],
+    evidence: list[Any],
+    evidence_class_ids: list[str],
+    source_open_body_import_floor: dict[str, Any],
+) -> dict[str, Any]:
+    safe_to_show = (
+        observatory_card.get("safe_to_show", {})
+        if isinstance(observatory_card.get("safe_to_show"), dict)
+        else {}
+    )
+    command_refs = [
+        observatory_card.get("command"),
+        first_screen_composition.get("human_first_command"),
+        first_screen_composition.get("shared_first_command"),
+    ]
+    command_refs = [str(ref) for ref in command_refs if isinstance(ref, str) and ref]
+    selected_route_id = observatory_card.get("selected_route_id")
+    causal_summary = (
+        observatory_card.get("causal_chain_summary", {})
+        if isinstance(observatory_card.get("causal_chain_summary"), dict)
+        else {}
+    )
+    work_summary = (
+        causal_summary.get("work_transaction", {})
+        if isinstance(causal_summary.get("work_transaction"), dict)
+        else {}
+    )
+    slots = {
+        "local_action": {
+            "status": PASS
+            if any(ref.startswith("microcosm ") for ref in command_refs)
+            else "blocked",
+            "command_refs": command_refs,
+            "required_cue": "exact command before visual state",
+        },
+        "selected_route": {
+            "status": PASS
+            if isinstance(selected_route_id, str)
+            and bool(selected_route_id)
+            and route.get("route_id") == selected_route_id
+            and isinstance(observatory_card.get("route_explanation_endpoint"), str)
+            else "blocked",
+            "selected_route_id": selected_route_id,
+            "route_explanation_endpoint": observatory_card.get(
+                "route_explanation_endpoint"
+            ),
+            "required_cue": "selected_route_id plus route explanation endpoint",
+        },
+        "work_transaction": {
+            "status": PASS
+            if isinstance(work.get("work_id"), str)
+            and work.get("status") in {"closed", PASS}
+            and work.get("source_files_mutated") is not True
+            else "blocked",
+            "work_id": work.get("work_id"),
+            "work_status": work.get("status"),
+            "source_files_mutated": work.get("source_files_mutated") is True,
+            "required_cue": "local work id and non-mutating state boundary",
+        },
+        "event_and_evidence_chain": {
+            "status": PASS
+            if bool(events)
+            and bool(evidence)
+            and bool(evidence_class_ids)
+            and work_summary.get("event_ref_count", 0) > 0
+            and work_summary.get("evidence_ref_count", 0) > 0
+            else "blocked",
+            "event_count": len(events),
+            "evidence_count": len(evidence),
+            "evidence_class_ids": evidence_class_ids,
+            "required_cue": "event refs, evidence refs, evidence class, and anti-claim",
+        },
+        "authority_boundary": {
+            "status": PASS
+            if isinstance(observatory_card.get("authority"), str)
+            and "not hosting" in observatory_card["authority"]
+            and _all_false(
+                safe_to_show,
+                [
+                    "release_authorized",
+                    "provider_calls_authorized",
+                    "source_files_mutated",
+                    "proof_correctness_claim",
+                    "credential_equivalent_live_access_exported",
+                ],
+            )
+            else "blocked",
+            "authority": observatory_card.get("authority"),
+            "safe_to_show": safe_to_show,
+            "required_cue": "authority ceiling beside the positive claim",
+        },
+        "structural_scale_bridge": {
+            "status": PASS
+            if source_open_body_import_floor.get("status") == PASS
+            and source_open_body_import_floor.get(
+                "public_safe_body_material_count", 0
+            )
+            > 0
+            and observatory_card.get("first_screen_endpoint")
+            == "/project/first-screen"
+            and observatory_card.get("full_observatory_endpoint")
+            == "/project/observatory"
+            else "blocked",
+            "source_open_body_import_floor_status": source_open_body_import_floor.get(
+                "status"
+            ),
+            "public_safe_body_material_count": source_open_body_import_floor.get(
+                "public_safe_body_material_count"
+            ),
+            "first_screen_endpoint": observatory_card.get("first_screen_endpoint"),
+            "full_observatory_endpoint": observatory_card.get(
+                "full_observatory_endpoint"
+            ),
+            "required_cue": "local run linked to the larger source-open substrate",
+        },
+    }
+    blocked_slot_ids = [
+        slot_id for slot_id, slot in slots.items() if slot.get("status") != PASS
+    ]
+    return {
+        "schema_version": "microcosm_observable_first_artifact_contract_v1",
+        "status": PASS if not blocked_slot_ids else "blocked",
+        "contract_ref": OBSERVABLE_FIRST_ARTIFACT_CONTRACT_REF,
+        "required_slot_ids": OBSERVABLE_FIRST_ARTIFACT_SLOT_IDS,
+        "blocked_slot_ids": blocked_slot_ids,
+        "slots": slots,
+        "presentation_boundary": {
+            "browser_or_video_projection_allowed": True,
+            "raw_json_first_allowed": False,
+            "marketing_page_authorized": False,
+            "live_provider_or_operator_trace_authorized": False,
+        },
+        "endpoint_order": [
+            observatory_card.get("html_endpoint"),
+            observatory_card.get("first_screen_endpoint"),
+            observatory_card.get("endpoint"),
+            observatory_card.get("full_observatory_endpoint"),
+        ],
+        "anti_claim": (
+            "Observable-first validation proves the compact command-to-route "
+            "board is inspectable; it does not authorize release, hosting, "
+            "provider calls, private-data equivalence, or whole-system "
+            "correctness."
+        ),
+    }
 
 
 def validate_legibility(
@@ -85,6 +253,11 @@ def validate_legibility(
     evidence_classes = evidence_class_legend.get("classes", [])
     if not isinstance(evidence_classes, list):
         evidence_classes = []
+    evidence_class_ids = [
+        str(row.get("evidence_class"))
+        for row in evidence_classes
+        if isinstance(row, dict) and row.get("evidence_class")
+    ]
     observatory_reader_sequence = observatory_card.get("reader_sequence", [])
     if not isinstance(observatory_reader_sequence, list):
         observatory_reader_sequence = []
@@ -208,9 +381,31 @@ def validate_legibility(
         evidence = []
     if not isinstance(bridge_cells, list):
         bridge_cells = []
+    observable_first_artifact = _observable_first_artifact_contract(
+        observatory_card=observatory_card,
+        first_screen_composition=first_screen_composition,
+        route=route,
+        work=work,
+        events=events,
+        evidence=evidence,
+        evidence_class_ids=evidence_class_ids,
+        source_open_body_import_floor=source_open_body_import_floor,
+    )
 
     html_assertions = {
         "root_is_not_raw_json_only": "Causal Chain" in html and "JSON Drilldowns" in html,
+        "observable_first_artifact_slots_visible": all(
+            token in html
+            for token in [
+                "microcosm hello",
+                "Causal Chain",
+                "Work Transaction",
+                "Events and Evidence",
+                "Source-Open Body Import Floor",
+                "Release remains unauthorized",
+                "/project/observatory-card",
+            ]
+        ),
         "first_screen_card_endpoint_visible": "/project/first-screen" in html,
         "observatory_card_endpoint_visible": "/project/observatory-card" in html,
         "first_screen_text_card_visible": "Microcosm first screen" in html
@@ -364,6 +559,9 @@ def validate_legibility(
     }
     model_assertions = {
         "model_status_pass": model.get("status") == PASS,
+        "observable_first_artifact_contract_pass": (
+            observable_first_artifact.get("status") == PASS
+        ),
         "observatory_card_first_screen_endpoint_present": (
             observatory_card.get("html_endpoint") == "/"
             and observatory_card.get("first_screen_endpoint") == "/project/first-screen"
@@ -937,6 +1135,7 @@ def validate_legibility(
             "authority_boundary": landing_frame.get("authority_boundary"),
             "projection_rule": landing_frame.get("projection_rule"),
         },
+        "observable_first_artifact_proof": observable_first_artifact,
         "causal_chain_proof": {
             "route_id": route.get("route_id"),
             "pattern_binding_ids": [
