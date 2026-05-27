@@ -19,6 +19,7 @@
     "status": "pass"
   },
   "board_id": "mechanistic_interpretability_circuit_attribution_public_board",
+  "body_copied_material_count": 2,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -45,7 +46,7 @@
     ]
   },
   "causal_intervention_count": 6,
-  "created_at": "2026-05-25T18:19:35+00:00",
+  "created_at": "2026-05-27T00:35:20+00:00",
   "feature_count": 6,
   "negative_case_count": 8,
   "observed_negative_case_count": 8,
@@ -54,12 +55,17 @@
   "route": "mechanistic_interpretability_circuit_attribution_replay",
   "schema_version": "mechanistic_interpretability_circuit_attribution_replay_board_v1",
   "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
   "source_module_summary": {
     "body_import_status": "copied_non_secret_macro_body_landed",
+    "body_in_receipt": false,
     "body_text_in_receipt": false,
     "bundle_id": "first_wave_mechanistic_interpretability_fixture",
     "findings": [],
     "manifest_id": "mechanistic_interpretability_fixture_oracle_attribution_source_modules_import",
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
     "module_count": 2,
     "module_ids": [
       "oracle_attribution_legacy_node_body_import",
@@ -117,6 +123,40 @@
     ],
     "status": "pass",
     "verified_module_count": 2
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "hidden_chain_of_thought_exported": false,
+      "live_model_access_authorized": false,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_body_exported": false,
+      "provider_payload_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 2,
+    "body_material_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "status": "pass",
   "target_refs": [

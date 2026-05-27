@@ -411,6 +411,7 @@
     "release_authorized": false,
     "status": "pass"
   },
+  "body_copied_material_count": 2,
   "body_import_status": "real_runtime_receipt_landed",
   "body_import_verification": {
     "body_import_status": "real_runtime_receipt_landed",
@@ -437,8 +438,9 @@
     ]
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run",
-  "created_at": "2026-05-25T18:19:35+00:00",
+  "body_material_status": "copied_non_secret_macro_body_landed",
+  "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run --input fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input --out receipts/first_wave/mechanistic_interpretability_circuit_attribution_replay --acceptance-out receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+  "created_at": "2026-05-27T00:35:20+00:00",
   "features": [
     {
       "body_in_receipt": false,
@@ -497,6 +499,103 @@
   ],
   "finding_count": 0,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:4f88c0bf058646b7ca9c2942b5cb2d4fd38a9665532fca1f3de3a986c2c390df",
+    "card_schema_version": "mechanistic_interpretability_circuit_attribution_replay_command_card_v1",
+    "include_negative": true,
+    "input_count": 17,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_protocol.json",
+        "sha256": "sha256:a526eaa1b736bcf153f13e750112e90f44ec6c16c449d3f0ce3ba982ed747bb6",
+        "size_bytes": 2876
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/intervention_policy.json",
+        "sha256": "sha256:33f145a032d76cdd761b349509417d57ccc69be603246935a17e6a71d1468d1f",
+        "size_bytes": 1139
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/feature_catalog.json",
+        "sha256": "sha256:dd65551eb933d5a67aaf58683c79cab4c97dd81685dc526b8d8bc0883b5b6d3a",
+        "size_bytes": 2219
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/attribution_replays.json",
+        "sha256": "sha256:bd6dcdec96c22c2b1dac7d31c249e5dd2850342dd98f4f3ed9e4d1ecfcb6f9b0",
+        "size_bytes": 14964
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
+        "sha256": "sha256:5758d748b3cb7e9cf223918c7e9cdbc36732351477b2b00c159320d4fd4cd326",
+        "size_bytes": 4078
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/private_model_weights_export.json",
+        "sha256": "sha256:c1b8978ddfc73a1365ca0762d1e8e4c3d9c5bf4ba00152e7fec6290780b836ea",
+        "size_bytes": 2532
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/raw_activation_dump.json",
+        "sha256": "sha256:f36302a7ee9171380ce130fe98bb759ca8bf01f430338ce1a15e0f4d7629c4c2",
+        "size_bytes": 2496
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/proprietary_prompt_export.json",
+        "sha256": "sha256:a092e5aab227cb86aa78b7169dda6deb4beb39fede7e9bfcf56db5b04083b7cb",
+        "size_bytes": 2520
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/hidden_chain_of_thought_export.json",
+        "sha256": "sha256:c2218386904dd539292cf43bbe206913105f8a4839d32741285fd71d3b78dabe",
+        "size_bytes": 2540
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/unverifiable_feature_name.json",
+        "sha256": "sha256:251c611580ace00352be22403ceb41d5132e7c48e883482aad56cc4ad7fbc812",
+        "size_bytes": 2520
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/graph_screenshot_without_edges.json",
+        "sha256": "sha256:9125763d099c768c91fe3dbf034ffc4399ed7e29b16114f4fbc761ce4168642e",
+        "size_bytes": 2223
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/transparency_claim_without_intervention.json",
+        "sha256": "sha256:48820c846647758a18413698c140984c96eefe9f2eeda2ce4520773398a966ba",
+        "size_bytes": 2541
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/faithfulness_claim_without_sufficiency_limit.json",
+        "sha256": "sha256:67cc638a0fc898d85fe8ae944fe9a5efdb2567e4cabcdaf906b8e3c6c180162f",
+        "size_bytes": 2564
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/bundle_manifest.json",
+        "sha256": "sha256:dfee8cd04ac0f1dc71164fbdace21af63bd7e457f4bcc4add400551d0968d8e7",
+        "size_bytes": 3127
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/nodes/oracle/oracle_attribution_map.json",
+        "sha256": "sha256:659fad058524170be2788d4a9d590c8a1e419f51d8738cf1b51a93c3c043ca85",
+        "size_bytes": 1989
+      },
+      {
+        "path": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_modules/codex/substrate/nodes/oracle/oracle_attribution_map.json",
+        "sha256": "sha256:fddf05b33b965e28bd060f2110061064f7771be2449f9c0306af9296912bad8d",
+        "size_bytes": 3665
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_freshness_basis_v1",
+    "validator_schema_version": "mechanistic_interpretability_circuit_attribution_replay_result_v1"
+  },
   "input_mode": "fixture",
   "input_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input",
   "negative_case_findings": [
@@ -606,6 +705,7 @@
   },
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "positive_findings": [],
+  "receipt_reused": false,
   "release_authorized": false,
   "safe_to_show": {
     "body_in_receipt": false,
@@ -618,6 +718,7 @@
   },
   "schema_version": "mechanistic_interpretability_circuit_attribution_replay_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -629,6 +730,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 16,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
@@ -643,12 +753,17 @@
   ],
   "selected_route_id": "mechanistic_interpretability_circuit_attribution_replay",
   "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json",
   "source_module_summary": {
     "body_import_status": "copied_non_secret_macro_body_landed",
+    "body_in_receipt": false,
     "body_text_in_receipt": false,
     "bundle_id": "first_wave_mechanistic_interpretability_fixture",
     "findings": [],
     "manifest_id": "mechanistic_interpretability_fixture_oracle_attribution_source_modules_import",
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
     "module_count": 2,
     "module_ids": [
       "oracle_attribution_legacy_node_body_import",
@@ -706,6 +821,40 @@
     ],
     "status": "pass",
     "verified_module_count": 2
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "hidden_chain_of_thought_exported": false,
+      "live_model_access_authorized": false,
+      "private_model_weights_exported": false,
+      "proprietary_prompt_body_exported": false,
+      "provider_payload_exported": false,
+      "raw_activation_dump_exported": false,
+      "release_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 2,
+    "body_material_ids": [
+      "oracle_attribution_legacy_node_body_import",
+      "oracle_attribution_substrate_node_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported circuit attribution bundle for copied Oracle attribution-map source bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_refs": [
     "microcosm-substrate/receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",

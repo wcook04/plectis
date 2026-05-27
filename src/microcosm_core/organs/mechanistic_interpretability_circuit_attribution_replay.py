@@ -158,6 +158,11 @@ ANTI_CLAIM = (
 BODY_IMPORT_STATUS = "real_runtime_receipt_landed"
 SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
 BODY_DIGEST_PREFIX = "sha256:"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_BODY_STATUS = SOURCE_MODULE_IMPORT_STATUS
+SOURCE_OPEN_BODY_SCHEMA = (
+    "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1"
+)
 SOURCE_MODULE_MATERIAL_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_tool_body",
@@ -412,17 +417,21 @@ def _source_module_manifest_result(
 
     findings: list[dict[str, Any]] = []
     module_results: list[dict[str, Any]] = []
+    material_classes: set[str] = set()
     for row in _rows(manifest_payload, "modules"):
         module_id = str(row.get("module_id") or "source_module")
         source_ref = str(row.get("source_ref") or "")
         target_ref = str(row.get("target_ref") or "")
         target = _target_path_for_ref(target_ref, public_root=public_root)
         row_findings: list[str] = []
+        material_class = row.get("material_class")
 
         if row.get("classification") != "copied_non_secret_macro_body":
             row_findings.append("classification_must_be_copied_non_secret_macro_body")
-        if row.get("material_class") not in SOURCE_MODULE_MATERIAL_CLASSES:
+        if material_class not in SOURCE_MODULE_MATERIAL_CLASSES:
             row_findings.append("material_class_must_be_public_macro_pattern_or_tool_body")
+        else:
+            material_classes.add(str(material_class))
         if row.get("body_copied") is not True or row.get("body_in_receipt") is not False:
             row_findings.append("body_must_be_copied_without_receipt_body_text")
         if not target.is_file():
@@ -493,9 +502,57 @@ def _source_module_manifest_result(
         "verified_module_count": sum(1 for row in module_results if row["status"] == PASS),
         "module_ids": [row["module_id"] for row in module_results],
         "public_safe_body_material_ids": [row["module_id"] for row in module_results],
+        "material_classes": sorted(material_classes),
         "modules": module_results,
         "body_text_in_receipt": False,
+        "body_in_receipt": False,
         "findings": findings,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_summary: dict[str, Any],
+    *,
+    manifest_ref: str,
+) -> dict[str, Any]:
+    material_ids = _strings(source_module_summary.get("public_safe_body_material_ids"))
+    material_classes = _strings(source_module_summary.get("material_classes"))
+    imported = source_module_summary.get("status") == PASS and bool(material_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_summary.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_BODY_STATUS if imported else "",
+        "body_material_count": len(material_ids) if imported else 0,
+        "body_material_ids": material_ids if imported else [],
+        "material_classes": material_classes if imported else [],
+        "source_manifest_refs": [manifest_ref] if imported and manifest_ref else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "private_model_weights_exported": False,
+            "raw_activation_dump_exported": False,
+            "proprietary_prompt_body_exported": False,
+            "hidden_chain_of_thought_exported": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_payload_exported": False,
+            "live_model_access_authorized": False,
+            "benchmark_score_claim_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported circuit attribution bundle for copied Oracle "
+            "attribution-map source bodies; receipts carry refs, digests, "
+            "counts, and verdicts only."
+        )
+        if imported
+        else "",
     }
 
 
@@ -763,6 +820,15 @@ def _build_result(
         payloads.get("source_module_manifest"),
         public_root=public_root,
     )
+    manifest_ref = (
+        _display(input_dir / SOURCE_MODULE_MANIFEST_NAME, public_root=public_root)
+        if (input_dir / SOURCE_MODULE_MANIFEST_NAME).is_file()
+        else ""
+    )
+    source_open_body_imports = _source_open_body_import_summary(
+        source_module_summary,
+        manifest_ref=manifest_ref,
+    )
 
     if (
         not isinstance(attribution_protocol, dict)
@@ -934,7 +1000,13 @@ def _build_result(
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": source_module_summary["body_import_status"],
+        "source_module_manifest_ref": manifest_ref,
         "source_module_summary": source_module_summary,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "source_refs": SOURCE_REFS,
         "target_refs": TARGET_REFS,
         "attribution_summary": {
@@ -1030,7 +1102,10 @@ def _board(result: dict[str, Any]) -> dict[str, Any]:
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result["source_module_import_status"],
+        "source_module_manifest_ref": result.get("source_module_manifest_ref", ""),
         "source_module_summary": result["source_module_summary"],
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
     }
@@ -1077,7 +1152,10 @@ def _write_receipts(
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result["source_module_import_status"],
+        "source_module_manifest_ref": result.get("source_module_manifest_ref", ""),
         "source_module_summary": result["source_module_summary"],
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1109,7 +1187,10 @@ def _write_receipts(
         "body_import_status": BODY_IMPORT_STATUS,
         "body_import_verification": BODY_IMPORT_VERIFICATION,
         "source_module_import_status": result["source_module_import_status"],
+        "source_module_manifest_ref": result.get("source_module_manifest_ref", ""),
         "source_module_summary": result["source_module_summary"],
+        "source_open_body_imports": result.get("source_open_body_imports"),
+        "body_copied_material_count": result.get("body_copied_material_count", 0),
         "target_refs": TARGET_REFS,
         "anti_claim": ANTI_CLAIM,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
@@ -1234,6 +1315,9 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "verified_module_count"
             ),
             "body_import_status": result.get("body_import_status"),
+            "source_open_body_material_count": result.get(
+                "body_copied_material_count"
+            ),
         },
         "validation": {
             "finding_count": result.get("finding_count"),
@@ -1253,6 +1337,7 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "attribution_replays_in_card": False,
             "secret_exclusion_scan_in_card": False,
             "source_module_bodies_in_card": False,
+            "source_open_body_imports_in_card": False,
         },
         "authority_boundary": {
             "private_model_weights_export_authorized": False,

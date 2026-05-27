@@ -93,6 +93,38 @@ def test_mechanistic_interpretability_circuit_attribution_replay_observes_negati
     assert result["source_module_summary"]["public_safe_body_material_ids"] == (
         ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
     )
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert (
+        result["source_open_body_imports"]["source_import_class"]
+        == "copied_non_secret_macro_body"
+    )
+    assert result["source_open_body_imports"]["body_material_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        result["source_open_body_imports"]["body_material_ids"]
+        == ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert result["source_open_body_imports"]["material_classes"] == [
+        "public_macro_pattern_body"
+    ]
+    assert result["source_open_body_imports"]["source_manifest_refs"] == [
+        "fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json"
+    ]
+    assert result["source_open_body_imports"]["aggregate_floor_ref"].endswith(
+        "source_module_manifest.json::modules"
+    )
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_workingness"]
+        is False
+    )
+    assert result["body_copied_material_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
     for case_id, codes in EXPECTED_NEGATIVE_CASES.items():
         assert result["negative_case_summary"]["observed_codes"][case_id] == codes
 
@@ -177,6 +209,17 @@ def test_mechanistic_interpretability_exported_bundle_validates_runtime_shape(
     assert result["source_module_summary"]["module_count"] == len(
         ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
     )
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        result["source_open_body_imports"]["body_material_ids"]
+        == ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert result["source_open_body_imports"]["source_manifest_refs"] == [
+        "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
+    ]
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
 
@@ -213,8 +256,10 @@ def test_mechanistic_interpretability_bundle_card_reuses_fresh_receipt(
     assert first_card["circuit_attribution"]["feature_count"] == 6
     assert first_card["circuit_attribution"]["replay_count"] == 6
     assert first_card["circuit_attribution"]["source_module_count"] == 2
+    assert first_card["circuit_attribution"]["source_open_body_material_count"] == 2
     assert first_card["body_floor"]["features_in_card"] is False
     assert first_card["body_floor"]["attribution_replays_in_card"] is False
+    assert first_card["body_floor"]["source_open_body_imports_in_card"] is False
     assert "features" not in first_card
     assert "attribution_replays" not in first_card
 
@@ -273,3 +318,38 @@ def test_mechanistic_interpretability_oracle_attribution_source_modules_are_exac
         assert row["body_in_receipt"] is False
         assert row["target_body_digest"] == _sha256_ref(target)
         assert _sha256_ref(source) == _sha256_ref(target)
+
+
+def test_mechanistic_interpretability_fixture_manifest_exports_body_floor() -> None:
+    manifest = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "core/fixture_manifests/"
+            "mechanistic_interpretability_circuit_attribution_replay.fixture_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    body_imports = manifest["source_open_body_imports"]
+    assert body_imports["status"] == "pass"
+    assert body_imports["body_material_status"] == (
+        "copied_non_secret_macro_body_landed"
+    )
+    assert body_imports["body_material_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert (
+        body_imports["body_material_ids"]
+        == ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
+    assert body_imports["material_classes"] == ["public_macro_pattern_body"]
+    assert body_imports["source_manifest_refs"] == [
+        "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
+    ]
+    assert body_imports["aggregate_floor_ref"].endswith(
+        "source_module_manifest.json::modules"
+    )
+    assert body_imports["body_text_exported_in_receipts"] is False
+    assert body_imports["body_text_exported_in_workingness"] is False
+    assert manifest["body_copied_material_count"] == len(
+        ORACLE_ATTRIBUTION_SOURCE_BODY_MATERIAL_IDS
+    )
