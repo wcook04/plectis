@@ -2332,6 +2332,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["source_command"] == "microcosm tour <project>"
     assert card["drilldown_command"] == "microcosm tour <project>"
     assert card["endpoint"] == "/tour"
+    assert card["source_files_mutated"] is False
     assert card["first_screen"]["primary_command"] == "microcosm tour --card <project>"
     assert card["first_contact_surface_count"] == 8
     assert card["first_contact_surface_ids"] == [
@@ -2468,6 +2469,12 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["output_economy"]["receipt_persisted"] is False
     assert card["output_economy"]["receipt_write_policy_exported"] is True
     assert card["output_economy"]["first_contact_surface_refs_exported"] is True
+    assert card["safe_to_show"]["project_local_state_refs_visible"] is True
+    assert card["safe_to_show"]["source_files_mutated"] is False
+    assert card["safe_to_show"]["source_mutation_authorized"] is False
+    assert card["safe_to_show"]["provider_calls_authorized"] is False
+    assert card["safe_to_show"]["release_or_hosting_authorized"] is False
+    assert card["safe_to_show"]["proof_correctness_claim"] is False
     assert "route_cards" not in card
     assert "route_cards_by_id" not in card
     assert "endpoint_path" not in card
