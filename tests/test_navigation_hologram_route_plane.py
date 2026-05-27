@@ -6,10 +6,12 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import navigation_hologram_route_plane as route_plane
 from microcosm_core.organs.navigation_hologram_route_plane import (
     EXPORTED_ROUTE_PLANE_BUNDLE_RECEIPT_PATH,
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    result_card,
     run,
     run_route_plane_bundle,
 )
@@ -434,3 +436,38 @@ def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
     for hit in payload["secret_exclusion_scan"]["hits"]:
         assert hit["body_in_receipt"] is False
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_navigation_hologram_route_plane_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = tmp_path / "receipts/first_wave/navigation_hologram_route_plane"
+    result = run_route_plane_bundle(
+        NAV_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(route_plane, "validate_exported_route_rows", fail_if_rebuilt)
+
+    cached = run_route_plane_bundle(
+        NAV_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    card = result_card(cached)
+
+    assert cached["receipt_reused"] is True
+    assert card["receipt_reused"] is True
+    assert card["route_row_count"] == 41
+    assert card["source_module_count"] == len(ROUTE_PLANE_SOURCE_MODULE_IDS)
+    assert card["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert "route_rows" not in json.dumps(card, sort_keys=True)

@@ -248,6 +248,7 @@ SYSTEM_ATLAS_GRAPH = Path("state/system_atlas/system_atlas.graph.json")
 SYSTEM_ATLAS_SUMMARY = Path("state/system_atlas/system_atlas_summary.json")
 SYSTEM_ATLAS_STANDARD = Path("codex/standards/std_system_atlas.json")
 SYSTEM_ATLAS_BUILDER = Path("tools/meta/factory/build_system_atlas.py")
+STANDARD_TYPE_PLANE = Path("codex/standards/std_standard_type_plane.json")
 PYTHON_FILE_PROFILE_ID = "python_scope_navigation_v0"
 PYTHON_FILE_NATIVE_PROFILE_BANDS = [
     "module_docs",
@@ -990,6 +991,40 @@ def _paper_module_compression_packet(module: dict[str, Any]) -> dict[str, Any]:
     return packet
 
 
+def _paper_module_compression_passport(module: dict[str, Any]) -> dict[str, Any]:
+    comp = module.get("compression") if isinstance(module.get("compression"), dict) else {}
+    status = str(comp.get("compression_status") or comp.get("status") or "missing").strip()
+    if status != "authored":
+        return {}
+    sources = comp.get("compression_sources") if isinstance(comp.get("compression_sources"), Mapping) else {}
+
+    def _is_authored(field: str) -> bool:
+        return str(sources.get(field) or "").lower().startswith("authored")
+
+    passport: dict[str, Any] = {
+        "source_contract": "codex/standards/std_paper_module.json::compression_passport_projection_contract",
+    }
+    cluster_keys = comp.get("cluster_keys")
+    if isinstance(cluster_keys, list) and _is_authored("cluster_keys"):
+        filtered_keys = [str(item).strip() for item in cluster_keys if str(item).strip()]
+        if filtered_keys:
+            passport["cluster_keys"] = filtered_keys
+
+    for source_field, passport_field in (
+        ("atom", "atom"),
+        ("open_when", "when_to_open"),
+        ("do_not_open_when", "when_not_to_open"),
+        ("safe_drilldown", "safe_drilldown"),
+    ):
+        value = comp.get(source_field)
+        if isinstance(value, str) and value.strip() and _is_authored(source_field):
+            passport[passport_field] = value.strip()
+
+    if set(passport) == {"source_contract"}:
+        return {}
+    return passport
+
+
 def _flag_row(module: dict[str, Any], *, index: dict[str, Any]) -> dict[str, Any]:
     slug = str(module.get("slug") or "")
     previews = module.get("previews") if isinstance(module.get("previews"), dict) else {}
@@ -1027,6 +1062,9 @@ def _flag_row(module: dict[str, Any], *, index: dict[str, Any]) -> dict[str, Any
     }
     compression = _paper_module_compression_packet(module)
     row["compression"] = compression
+    compression_passport = _paper_module_compression_passport(module)
+    if compression_passport:
+        row["compression_passport"] = compression_passport
     if compression.get("open_when"):
         row["open_when"] = compression["open_when"]
     return row
@@ -5499,7 +5537,7 @@ def _standard_flag_row(row: dict[str, Any], *, repo_root: Path) -> dict[str, Any
     authority = row.get("authority") if isinstance(row.get("authority"), dict) else {}
     claim = _standard_claim(data)
     navigation_contract = _navigation_contract_summary(data)
-    return {
+    result = {
         "row_id": f"standard:{standard_id}::flag",
         "artifact_kind": "standard",
         "band": "flag",
@@ -5537,6 +5575,9 @@ def _standard_flag_row(row: dict[str, Any], *, repo_root: Path) -> dict[str, Any
         "drilldown_command": f"./repo-python kernel.py --option-surface standards --band card --ids {standard_id}",
         "evidence_command": _standard_evidence_command(row),
     }
+    if isinstance(data.get("compression_passport"), Mapping):
+        result["compression_passport"] = dict(data.get("compression_passport") or {})
+    return result
 
 
 def _standard_card_row(row: dict[str, Any], *, repo_root: Path) -> dict[str, Any]:
@@ -11133,9 +11174,80 @@ def _system_atlas_entity_flag(entity: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _system_atlas_live_type_plane_overlay_entities(
+    repo_root: Path,
+    *,
+    requested_ids: Sequence[str],
+    existing_entity_ids: set[str],
+) -> list[dict[str, Any]]:
+    requested = {str(item) for item in requested_ids if str(item).strip()}
+    if not requested:
+        return []
+    try:
+        from tools.meta.factory import build_system_atlas
+    except Exception:
+        return []
+    try:
+        type_rows = build_system_atlas._type_plane_rows()
+        candidates = (
+            build_system_atlas._type_plane_artifact_entities(
+                type_rows,
+                existing_entity_ids=existing_entity_ids,
+            )
+            + build_system_atlas._type_plane_surface_entities(type_rows)
+            + build_system_atlas._type_plane_validator_entities(type_rows)
+        )
+    except Exception:
+        return []
+
+    out: list[dict[str, Any]] = []
+    seen = set(existing_entity_ids)
+    source_ref = str(STANDARD_TYPE_PLANE)
+    for candidate in candidates:
+        entity_id = str(candidate.get("id") or "")
+        if entity_id not in requested or entity_id in seen:
+            continue
+        seen.add(entity_id)
+        entity = dict(candidate)
+        metrics = dict(entity.get("metrics") if isinstance(entity.get("metrics"), dict) else {})
+        metrics["system_atlas_live_overlay"] = {
+            "status": "live_standard_type_plane_overlay",
+            "source_ref": source_ref,
+            "reason": (
+                "Requested type-plane entity is absent from the generated System Atlas graph; "
+                "the option surface projected it from the current standards type-plane source."
+            ),
+            "freshness_boundary": f"./repo-python {SYSTEM_ATLAS_BUILDER} --check",
+            "drilldown": (list(entity.get("next_drilldowns") or [None])[0])
+            or "./repo-python kernel.py --option-surface navigation_type_plane --band card",
+        }
+        entity["metrics"] = metrics
+        source_of_truth = [str(item) for item in list(entity.get("source_of_truth") or [])]
+        if source_ref not in source_of_truth:
+            source_of_truth.insert(0, source_ref)
+        entity["source_of_truth"] = source_of_truth
+        evidence_paths = [str(item) for item in list(entity.get("evidence_paths") or [])]
+        if source_ref not in evidence_paths:
+            evidence_paths.insert(0, source_ref)
+        entity["evidence_paths"] = evidence_paths
+        out.append(entity)
+    return out
+
+
 def _system_atlas_entity_card(entity: dict[str, Any], *, graph: dict[str, Any]) -> dict[str, Any]:
     row = _system_atlas_entity_flag(entity)
     next_drilldowns = [str(item) for item in list(entity.get("next_drilldowns") or [])]
+    metrics = entity.get("metrics") if isinstance(entity.get("metrics"), dict) else {}
+    overlay = metrics.get("system_atlas_live_overlay") if isinstance(metrics, dict) else None
+    overlay = overlay if isinstance(overlay, dict) else None
+    omission_reason = "The System Atlas card is a control-plane row over generated state. Reopen evidence paths before promoting a claim."
+    omission_drilldown = f"jq '.entities[] | select(.id==\"{row['id']}\")' state/system_atlas/system_atlas.graph.json"
+    if overlay:
+        omission_reason = (
+            "This System Atlas card is a source-backed standards type-plane overlay. "
+            "Use the type-plane drilldown for the live contract and the builder check for generated graph freshness."
+        )
+        omission_drilldown = str(overlay.get("drilldown") or omission_drilldown)
     row.update(
         {
             "row_id": f"system_atlas:{row['id']}::card",
@@ -11149,7 +11261,7 @@ def _system_atlas_entity_card(entity: dict[str, Any], *, graph: dict[str, Any]) 
             "next_drilldown_command": next_drilldowns[0]
             if next_drilldowns
             else f"./repo-python kernel.py --option-surface system_atlas --band card --ids {row['id']}",
-            "metrics": entity.get("metrics") if isinstance(entity.get("metrics"), dict) else {},
+            "metrics": metrics,
             "omission_receipt": {
                 "omitted": [
                     "source file bodies",
@@ -11157,8 +11269,8 @@ def _system_atlas_entity_card(entity: dict[str, Any], *, graph: dict[str, Any]) 
                     "provider/browser/feed artifact bodies",
                     "transitive graph neighborhoods",
                 ],
-                "reason": "The System Atlas card is a control-plane row over generated state. Reopen evidence paths before promoting a claim.",
-                "drilldown": f"jq '.entities[] | select(.id==\"{row['id']}\")' state/system_atlas/system_atlas.graph.json",
+                "reason": omission_reason,
+                "drilldown": omission_drilldown,
             },
         }
     )
@@ -11300,10 +11412,28 @@ def build_system_atlas_option_surface(
         return payload
 
     entities = [item for item in list(graph.get("entities") or []) if isinstance(item, dict)]
+    generated_graph_entity_count = len(entities)
     findings = [item for item in list(graph.get("findings") or []) if isinstance(item, dict)]
     by_id = {str(entity.get("id") or ""): entity for entity in entities}
     selected = [by_id[item] for item in ids if item in by_id] if ids else entities
     missing_ids = [item for item in ids if item not in by_id]
+    live_type_plane_overlay_entities: list[dict[str, Any]] = []
+    if ids and band in {"flag", "card"} and missing_ids:
+        live_type_plane_overlay_entities = _system_atlas_live_type_plane_overlay_entities(
+            repo_root,
+            requested_ids=missing_ids,
+            existing_entity_ids=set(by_id),
+        )
+        if live_type_plane_overlay_entities:
+            for entity in live_type_plane_overlay_entities:
+                entity_id = str(entity.get("id") or "")
+                if not entity_id or entity_id in by_id:
+                    continue
+                by_id[entity_id] = entity
+                entities.append(entity)
+            selected = [by_id[item] for item in ids if item in by_id] if ids else entities
+            missing_ids = [item for item in ids if item not in by_id]
+    overlay_entity_ids = [str(entity.get("id") or "") for entity in live_type_plane_overlay_entities]
     source_coupling = _system_atlas_source_coupling(
         graph,
         current_source_inputs=_system_atlas_current_source_inputs(repo_root),
@@ -11362,6 +11492,19 @@ def build_system_atlas_option_surface(
                 "repair_command": f"./repo-python {SYSTEM_ATLAS_BUILDER} --check",
             }
         )
+    if live_type_plane_overlay_entities:
+        warnings.append(
+            {
+                "kind": "system_atlas_live_type_plane_overlay",
+                "message": (
+                    "Resolved requested standards type-plane ids from std_standard_type_plane because "
+                    "they were absent from the generated System Atlas graph."
+                ),
+                "resolved_ids": overlay_entity_ids,
+                "source_ref": str(STANDARD_TYPE_PLANE),
+                "freshness_boundary": f"./repo-python {SYSTEM_ATLAS_BUILDER} --check",
+            }
+        )
 
     payload = {
         "kind": "standard_owned_option_surface",
@@ -11386,13 +11529,19 @@ def build_system_atlas_option_surface(
             str(SYSTEM_ATLAS_SUMMARY),
             str(SYSTEM_ATLAS_STANDARD),
             str(SYSTEM_ATLAS_BUILDER),
+            str(STANDARD_TYPE_PLANE),
         ],
         "summary": {
             "row_count": len(rows),
             "total_available": len(entities),
+            "generated_graph_entity_count": generated_graph_entity_count,
+            "live_type_plane_overlay_count": len(live_type_plane_overlay_entities),
+            "missing_ids_resolved_by_live_overlay": overlay_entity_ids,
             "finding_count": len(findings),
             "query_used": False,
-            "selection_method": "generated_system_atlas_graph",
+            "selection_method": "generated_system_atlas_graph_plus_live_type_plane_overlay"
+            if live_type_plane_overlay_entities
+            else "generated_system_atlas_graph",
             "drilldown_by": "entity_id" if band in {"flag", "card"} else "cluster_or_finding",
             "graph_generated_at": graph.get("generated_at"),
             "projection_freshness_status": currentness.get("status"),
@@ -11412,6 +11561,7 @@ def build_system_atlas_option_surface(
             "control_replacement": ENTRY_REPLACEMENT,
             "mutation_rule": f"Refresh with ./repo-python {SYSTEM_ATLAS_BUILDER}; do not hand-edit state/system_atlas/*.json.",
             "cluster_first_for_high_cardinality": band == "cluster_flag",
+            "live_type_plane_overlay_count": len(live_type_plane_overlay_entities),
             "source_coupling_status": source_coupling.get("status"),
             "safe_to_commit_generated_outputs_without_sources": source_coupling.get(
                 "safe_to_commit_generated_outputs_without_sources"

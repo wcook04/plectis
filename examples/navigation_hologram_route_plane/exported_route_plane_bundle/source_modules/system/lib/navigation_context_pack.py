@@ -486,6 +486,9 @@ CLUSTER_FIRST_KIND_IDS = {
     "standard_skill_map",
 }
 NEXT_COMMAND_TRIM_PROTECTED_SUBSTRINGS = (
+    "--option-surface paper_modules --band card --ids microcosm_entry_lattice",
+    "--option-surface navigation_type_plane --band card --ids public_microcosm_exports",
+    "--paper-module-coverage",
     "--option-surface cognitive_operators --band flag",
     "--option-surface cognitive_operators --band card",
     "--option-surface concepts --band card",
@@ -567,6 +570,13 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("generated_projection_ownership", GENERATED_PROJECTION_OWNER_SELECTED_ID),
     ("external_benchmark_calibration", EXTERNAL_BENCHMARK_CALIBRATION_SELECTED_ID),
     ("paper_modules", "system_self_comprehension_root"),
+    ("paper_modules", "microcosm_entry_lattice"),
+    ("standards", "std_microcosm"),
+    ("paper_modules", "paper_module_coverage_metabolism"),
+    ("paper_modules", "paper_module_entry_projection_integrity"),
+    ("paper_modules", "microcosm_public_export_type_plane"),
+    ("navigation_type_plane", "public_microcosm_exports"),
+    ("paper_modules", "microcosm_substrate"),
     ("standards", "std_autonomous_seed_prompt"),
     ("standards", "std_uppropagation_intake"),
     ("standards", "std_doctrine_section_unit"),
@@ -665,6 +675,89 @@ SYSTEM_ATLAS_QUERY_PHRASES = (
     "system self-comprehension",
     "whole system",
     "unified index",
+)
+MICROCOSM_PAPER_MODULE_DEPTH_QUERY_PHRASES = (
+    "microcosm paper module",
+    "microcosm paper modules",
+    "microcosm paper-module",
+    "microcosm paper-modules",
+    "paper module coverage",
+    "paper-module coverage",
+    "paper module depth",
+    "paper-module depth",
+    "paper module atlas",
+    "paper-module atlas",
+    "microcosm atlas entry",
+    "microcosm entry lattice",
+    "microcosm public export",
+    "microcosm public exports",
+    "public microcosm export",
+    "public microcosm exports",
+)
+MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS = (
+    (
+        "paper_modules",
+        "microcosm_entry_lattice",
+        1.012,
+        "Microcosm paper-module/depth query should open the standard-backed entry lattice before broad System Atlas self-comprehension rows.",
+        "entry_lattice",
+    ),
+    (
+        "standards",
+        "std_microcosm",
+        1.011,
+        "Microcosm paper-module/depth query needs the machine-readable standard contract before module-source evidence.",
+        "standard_contract",
+    ),
+    (
+        "paper_modules",
+        "paper_module_coverage_metabolism",
+        1.010,
+        "Microcosm paper-module/depth query should carry the coverage-health metabolism module that owns sidecar freshness and queue interpretation.",
+        "coverage_metabolism",
+    ),
+    (
+        "paper_modules",
+        "paper_module_entry_projection_integrity",
+        1.0095,
+        "Microcosm paper-module/depth query should expose the entry/count projection-integrity child after the coverage roof.",
+        "entry_projection_integrity",
+    ),
+    (
+        "paper_modules",
+        "microcosm_public_export_type_plane",
+        1.009,
+        "Microcosm paper-module/depth query should expose the public export type-plane bridge before generated public-export projections.",
+        "public_export_type_plane_bridge",
+    ),
+    (
+        "navigation_type_plane",
+        "public_microcosm_exports",
+        1.008,
+        "Microcosm public-export coverage should resolve the standard type-plane row as a navigation bridge, not as source authority.",
+        "standard_type_plane_row",
+    ),
+    (
+        "paper_modules",
+        "microcosm_substrate",
+        1.007,
+        "Microcosm paper-module/depth query should keep the product roof visible after the entry lattice and coverage contract.",
+        "product_roof",
+    ),
+)
+MICROCOSM_PAPER_MODULE_DEPTH_NEXT_COMMANDS = (
+    (
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids "
+        "microcosm_entry_lattice,paper_module_coverage_metabolism,"
+        "paper_module_entry_projection_integrity,"
+        "microcosm_public_export_type_plane,microcosm_substrate"
+    ),
+    "./repo-python kernel.py --option-surface standards --band card --ids std_microcosm",
+    (
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card "
+        "--ids public_microcosm_exports"
+    ),
+    "./repo-python kernel.py --paper-module-coverage",
 )
 PUBLIC_SAFE_DISSEMINATION_GATE_QUERY_PHRASES = (
     "atlas refs",
@@ -1379,6 +1472,25 @@ def _is_system_atlas_query(query: str) -> bool:
     terms = _query_terms(query)
     return bool(terms & SYSTEM_ATLAS_QUERY_TERMS) or any(
         phrase in lower_query for phrase in SYSTEM_ATLAS_QUERY_PHRASES
+    )
+
+
+def _is_microcosm_paper_module_depth_query(query: str) -> bool:
+    lower_query = str(query or "").casefold().replace("_", " ").replace("-", " ")
+    terms = _query_terms(lower_query)
+    if any(
+        phrase.replace("-", " ") in lower_query
+        for phrase in MICROCOSM_PAPER_MODULE_DEPTH_QUERY_PHRASES
+    ):
+        return True
+    if not ({"microcosm", "microcosms"} & terms):
+        return False
+    if {"paper", "module"} <= terms or {"paper", "modules"} <= terms:
+        return True
+    return bool(
+        ({"coverage", "depth"} <= terms)
+        or ({"atlas", "entry"} <= terms)
+        or ({"public"} <= terms and {"export", "exports"} & terms)
     )
 
 
@@ -2529,6 +2641,16 @@ def _merge_candidates(
             source_kind="external_benchmark_calibration_anchor",
             facet="verisoftbench_micro_10_provider_repair_owner_route",
         )
+    if _is_microcosm_paper_module_depth_query(query):
+        for kind_id, row_id, score, reason, facet in MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS:
+            add(
+                kind_id,
+                row_id,
+                score,
+                reason,
+                source_kind="microcosm_paper_module_depth_anchor",
+                facet=facet,
+            )
     if _is_system_atlas_query(query):
         add(
             "paper_modules",
@@ -3518,6 +3640,16 @@ def _selected_rows(
     # textually similar candidate that says "not for this situation."
     query_tokens = _gate_tokens(query)
     for row in selected:
+        if str(row.get("selection_source_kind") or "") == "microcosm_paper_module_depth_anchor":
+            row["affordance_compatibility"] = {
+                "compatibility_bucket": 0,
+                "compatibility_label": "microcosm_paper_module_depth_anchor",
+                "affordance_boost": 1.35,
+                "anti_trigger_overlap": 0,
+                "positive_trigger_overlap": 1,
+                "reason": "Microcosm paper-module/depth query matched the standard-backed depth anchor set.",
+            }
+            continue
         if str(row.get("kind_id") or "") == "derived_facts":
             row.setdefault(
                 "affordance_compatibility",
@@ -4573,6 +4705,11 @@ def _dedupe_commands(commands: list[str]) -> list[str]:
 def _next_commands(selected_rows: list[dict[str, Any]], lattice_commands: list[str]) -> list[str]:
     selected = {(str(row.get("kind_id") or ""), str(row.get("row_id") or "")) for row in selected_rows}
     commands: list[str] = []
+    if (
+        ("paper_modules", "microcosm_entry_lattice") in selected
+        and ("standards", "std_microcosm") in selected
+    ):
+        commands.extend(MICROCOSM_PAPER_MODULE_DEPTH_NEXT_COMMANDS)
     selected_seed_ids = [
         row_id
         for kind_id, row_id in sorted(selected)
@@ -5040,6 +5177,19 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
             return []
         return [item for item in value[:limit] if item not in (None, "", [], {})]
 
+    def compact_passport_value(value: Any, *, limit: int = 4, max_chars: int = 180) -> Any:
+        if isinstance(value, list):
+            return [
+                compact_passport_value(item, max_chars=max_chars)
+                for item in compact_list(value, limit=limit)
+            ]
+        if isinstance(value, str):
+            cleaned = value.strip()
+            if len(cleaned) <= max_chars:
+                return cleaned
+            return cleaned[: max_chars - 3].rstrip() + "..."
+        return value
+
     def omit_row_field(row: MutableMapping[str, Any], key: str) -> None:
         if key not in row:
             return
@@ -5054,10 +5204,24 @@ def _compact_routine_selected_row_affordances(packet: dict[str, Any]) -> None:
                 for key, value in {
                     "status": passport.get("status"),
                     "source": passport.get("source"),
+                    "atom": compact_passport_value(passport.get("atom"), max_chars=72),
                     "cluster_keys": compact_list(passport.get("cluster_keys"), limit=8),
-                    "sufficiency_claims": compact_list(passport.get("sufficiency_claims"), limit=4),
-                    "when_to_open": compact_list(passport.get("when_to_open"), limit=4),
-                    "anti_triggers": compact_list(passport.get("anti_triggers"), limit=4),
+                    "sufficiency_claims": compact_passport_value(
+                        passport.get("sufficiency_claims"), limit=2, max_chars=96
+                    ),
+                    "when_to_open": compact_passport_value(
+                        passport.get("when_to_open"), max_chars=96
+                    ),
+                    "when_not_to_open": compact_passport_value(
+                        passport.get("when_not_to_open"), max_chars=96
+                    ),
+                    "safe_drilldown": compact_passport_value(passport.get("safe_drilldown")),
+                    "landmines": compact_passport_value(
+                        passport.get("landmines"), max_chars=96
+                    ),
+                    "anti_triggers": compact_passport_value(
+                        passport.get("anti_triggers"), max_chars=96
+                    ),
                 }.items()
                 if value not in (None, "", [], {})
             }
@@ -5201,10 +5365,29 @@ def _budget_trim(
         int(context_budget or 0) - BUDGET_METADATA_HEADROOM_TOKENS - reserve,
     )
     routine_byte_economy_active = bool(reserve and int(context_budget or 0) <= 12000)
+    microcosm_depth_handoff_step_ids = {
+        "open_microcosm_depth_module_cards",
+        "open_microcosm_standard_contract",
+        "open_public_microcosm_export_type_plane",
+        "verify_microcosm_paper_module_coverage",
+    }
+
+    def protected_sequence_step(step: Any) -> bool:
+        if not isinstance(step, Mapping):
+            return False
+        return str(step.get("step_id") or "") in microcosm_depth_handoff_step_ids
 
     def compact_sequence_steps(steps: Any, max_steps: int) -> list[dict[str, Any]]:
         compact: list[dict[str, Any]] = []
-        for step in list(steps or [])[:max_steps]:
+        raw_steps = [step for step in list(steps or []) if isinstance(step, Mapping)]
+        selected_steps = list(raw_steps[:max_steps])
+        selected_step_ids = {str(step.get("step_id") or "") for step in selected_steps}
+        for step in raw_steps[max_steps:]:
+            step_id = str(step.get("step_id") or "")
+            if protected_sequence_step(step) and step_id not in selected_step_ids:
+                selected_steps.append(step)
+                selected_step_ids.add(step_id)
+        for step in selected_steps:
             if not isinstance(step, Mapping):
                 continue
             row = {
@@ -5250,7 +5433,14 @@ def _budget_trim(
                         for inner_key in ("step_id", "emits", "success_check", "required")
                         if isinstance(row, Mapping) and row.get(inner_key) not in (None, "", [])
                     }
-                    for row in list(receipt.get("proof_chain") or [])[:3]
+                    for row in [
+                        *list(receipt.get("proof_chain") or [])[:3],
+                        *[
+                            proof_row
+                            for proof_row in list(receipt.get("proof_chain") or [])[3:]
+                            if protected_sequence_step(proof_row)
+                        ],
+                    ]
                     if isinstance(row, Mapping)
                 ],
             }.items()
@@ -5982,7 +6172,16 @@ def _budget_trim(
             if isinstance(row.get("affordance_passport"), Mapping):
                 compact_row["affordance_passport"] = compact_hard_ceiling_mapping(
                     row.get("affordance_passport"),
-                    keys=("status", "source", "cluster_keys", "sufficiency_claims"),
+                    keys=(
+                        "status",
+                        "source",
+                        "atom",
+                        "cluster_keys",
+                        "when_to_open",
+                        "when_not_to_open",
+                        "safe_drilldown",
+                        "sufficiency_claims",
+                    ),
                 )
             if isinstance(row.get("affordance_compatibility"), Mapping):
                 compact_row["affordance_compatibility"] = compact_hard_ceiling_mapping(
@@ -6151,9 +6350,14 @@ def _budget_trim(
                     if isinstance(task_conditioned.get("reentry_receipt"), Mapping)
                     else {}
                 )
+                matched_intent_ids = list(
+                    task_conditioned.get("matched_intent_ids")
+                    or reentry_receipt.get("matched_intent_ids")
+                    or []
+                )[:3]
                 entry_intent_value = {
                     "task_conditioned": {
-                        "matched_intent_ids": list(task_conditioned.get("matched_intent_ids") or [])[:3],
+                        "matched_intent_ids": matched_intent_ids,
                         "first_opening": compact_navigation_index_first_opening(
                             task_conditioned.get("first_opening")
                         ),
@@ -6176,6 +6380,16 @@ def _budget_trim(
             coverage_closure_value = compact_coverage_closure_receipt(
                 spine.get("coverage_closure_receipt")
             )
+            reentry_receipt = (
+                task_conditioned.get("reentry_receipt")
+                if isinstance(task_conditioned.get("reentry_receipt"), Mapping)
+                else {}
+            )
+            matched_intent_ids = list(
+                task_conditioned.get("matched_intent_ids")
+                or reentry_receipt.get("matched_intent_ids")
+                or []
+            )[:3]
             entry_intent_value = (
                 {
                     "default_control_sequence": compact_sequence_steps(
@@ -6184,7 +6398,7 @@ def _budget_trim(
                     ),
                     "task_conditioned": {
                         "matched_intent_count": task_conditioned.get("matched_intent_count"),
-                        "matched_intent_ids": list(task_conditioned.get("matched_intent_ids") or [])[:3],
+                        "matched_intent_ids": matched_intent_ids,
                         "selected_openings": list(task_conditioned.get("selected_openings") or [])[:2],
                         "first_opening": compact_navigation_index_first_opening(
                             task_conditioned.get("first_opening")
@@ -6193,7 +6407,7 @@ def _budget_trim(
                             task_conditioned.get("handoff_sequence"),
                             3,
                         ),
-                        "reentry_receipt": compact_reentry_receipt(task_conditioned.get("reentry_receipt")),
+                        "reentry_receipt": compact_reentry_receipt(reentry_receipt),
                     }
                 }
                 if task_conditioned
@@ -6501,6 +6715,29 @@ def _budget_trim(
                 "kind_id": row.get("kind_id"),
                 "row_id": row.get("row_id"),
                 "reason": "dropped by final budget trim",
+                "drilldown": row.get("drilldown_command"),
+            }
+        )
+    while _estimate_tokens(packet) > effective_budget and len(packet.get("selected_rows") or []) > 6:
+        selected_rows = packet["selected_rows"]
+        pop_index = None
+        for index in range(len(selected_rows) - 1, -1, -1):
+            row = selected_rows[index]
+            key = (str(row.get("kind_id") or ""), str(row.get("row_id") or ""))
+            if (
+                key not in BUDGET_TRIM_PROTECTED_ROWS
+                and str(row.get("selection_source_kind") or "") == "system_atlas_protocol_anchor"
+            ):
+                pop_index = index
+                break
+        if pop_index is None:
+            break
+        row = selected_rows.pop(pop_index)
+        omitted.append(
+            {
+                "kind_id": row.get("kind_id"),
+                "row_id": row.get("row_id"),
+                "reason": "dropped generic System Atlas anchor by final budget trim",
                 "drilldown": row.get("drilldown_command"),
             }
         )

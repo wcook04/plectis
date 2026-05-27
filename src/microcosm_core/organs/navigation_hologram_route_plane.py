@@ -34,6 +34,20 @@ AFFORDANCE_NAME = "affordance_passport_selection_receipt.json"
 CODE_ARCH_NAME = "code_architecture_projection_packet_receipt.json"
 ROUTE_PLANE_BUNDLE_RESULT_NAME = "exported_route_plane_bundle_validation_result.json"
 REAL_ROUTE_BODY_MATERIAL_STATUS = "copied_non_secret_macro_route_substrate_with_provenance"
+CARD_SCHEMA_VERSION = "navigation_hologram_route_plane_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = [
+    "cluster_flag",
+    "card",
+    "findings",
+    "secret_exclusion_scan",
+    "source_module_results",
+    "route_lease",
+    "entry_payload_admission",
+    "affordance_passport_selection",
+    "code_architecture_projection_packet",
+    "real_substrate_refs",
+    "freshness_basis",
+]
 
 EXPECTED_RECEIPT_PATHS = [
     PREFLIGHT_REL,
@@ -207,6 +221,73 @@ def _stable_hash(payload: object) -> str:
         "utf-8"
     )
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _json_digest(payload: object) -> str:
+    return _stable_hash(payload)
+
+
+def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
+    public_ref = public_relative_path(path, display_root=public_root)
+    if not path.exists():
+        return {
+            "path": public_ref,
+            "exists": False,
+            "size_bytes": 0,
+            "mtime_ns": 0,
+        }
+    stat = path.stat()
+    return {
+        "path": public_ref,
+        "exists": path.is_file(),
+        "size_bytes": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def _route_plane_bundle_freshness_basis(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    manifest_payload: object | None = None,
+) -> list[dict[str, Any]]:
+    paths = [
+        *_route_plane_bundle_paths(input_dir),
+        *_source_module_paths(input_dir, manifest_payload),
+    ]
+    entries = [
+        _file_freshness_entry(path, public_root=public_root)
+        for path in paths
+    ]
+    return sorted(entries, key=lambda item: str(item["path"]))
+
+
+def _fresh_route_plane_bundle_receipt(
+    out_dir: str | Path,
+    *,
+    freshness_digest: str,
+) -> dict[str, Any] | None:
+    receipt_path = Path(out_dir) / ROUTE_PLANE_BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        payload = read_json_strict(receipt_path)
+    except (OSError, json.JSONDecodeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("card_schema_version") != CARD_SCHEMA_VERSION:
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_route_plane_bundle":
+        return None
+    if payload.get("freshness_digest") != freshness_digest:
+        return None
+    result = dict(payload)
+    result["receipt_reused"] = True
+    result["freshness_status"] = "current"
+    return result
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
@@ -1377,6 +1458,11 @@ def _write_route_plane_bundle_receipt(
     )
     payload.update(
         {
+            "card_schema_version": validation_result["card_schema_version"],
+            "freshness_basis": validation_result["freshness_basis"],
+            "freshness_digest": validation_result["freshness_digest"],
+            "freshness_status": validation_result["freshness_status"],
+            "receipt_reused": validation_result["receipt_reused"],
             "bundle_manifest_schema_version": validation_result[
                 "bundle_manifest_schema_version"
             ],
@@ -1420,16 +1506,126 @@ def _write_route_plane_bundle_receipt(
     return receipt_path
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    receipt_paths = [
+        Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
+        for path in result.get("receipt_paths", [])
+    ]
+    common = {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "organ_id": result.get("organ_id", ORGAN_ID),
+        "fixture_id": result.get("fixture_id"),
+        "status": result.get("status"),
+        "input_mode": result.get("input_mode", "fixture_regression"),
+        "command": result.get("command"),
+        "receipt_paths": receipt_paths,
+        "receipt_reused": bool(result.get("receipt_reused")),
+        "freshness_status": result.get("freshness_status", "rebuilt"),
+    }
+    if result.get("input_mode") == "exported_route_plane_bundle":
+        secret_scan = result.get("secret_exclusion_scan", {})
+        if not isinstance(secret_scan, dict):
+            secret_scan = {}
+        return {
+            **common,
+            "bundle_id": result.get("bundle_id"),
+            "route_row_count": result.get("route_row_count", 0),
+            "selected_row_ids": result.get("selected_row_ids", []),
+            "source_coupling_status": result.get("source_coupling_status"),
+            "authority_allowed": result.get("authority_allowed"),
+            "body_material_status": result.get("body_material_status"),
+            "source_module_count": result.get("source_module_count", 0),
+            "source_module_manifest_status": result.get("source_module_manifest_status"),
+            "source_module_digest_status": result.get("source_module_digest_status"),
+            "source_module_anchor_status": result.get("source_module_anchor_status"),
+            "secret_exclusion_scan": {
+                "status": secret_scan.get("status"),
+                "blocking_hit_count": secret_scan.get("blocking_hit_count", 0),
+                "hit_count": len(secret_scan.get("hits", []))
+                if isinstance(secret_scan.get("hits"), list)
+                else 0,
+                "body_in_receipt": secret_scan.get("body_in_receipt", False),
+            },
+            "error_code_count": len(result.get("error_codes", [])),
+            "error_codes": result.get("error_codes", []),
+            "finding_count": len(result.get("findings", [])),
+            "freshness_digest": result.get("freshness_digest"),
+            "omitted_full_payload_keys": [
+                key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+            ],
+        }
+
+    private_scan = result.get("private_state_scan", {})
+    if not isinstance(private_scan, dict):
+        private_scan = {}
+    expected_cases = result.get("expected_negative_cases", {})
+    observed_cases = result.get("observed_negative_cases", {})
+    return {
+        **common,
+        "selected_row_ids": result.get("selected_row_ids", []),
+        "source_coupling_status": result.get("source_coupling_status"),
+        "authority_allowed": result.get("authority_allowed"),
+        "duplicate_route_ids": result.get("duplicate_route_ids", []),
+        "expected_negative_case_count": len(expected_cases)
+        if isinstance(expected_cases, dict)
+        else 0,
+        "observed_negative_case_count": len(observed_cases)
+        if isinstance(observed_cases, dict)
+        else 0,
+        "missing_negative_cases": result.get("missing_negative_cases", []),
+        "error_code_count": len(result.get("error_codes", [])),
+        "private_state_scan": {
+            "status": private_scan.get("status"),
+            "blocking_hit_count": private_scan.get("blocking_hit_count", 0),
+            "hit_count": len(private_scan.get("hits", []))
+            if isinstance(private_scan.get("hits"), list)
+            else 0,
+            "body_redacted": private_scan.get("body_redacted", True),
+        },
+        "omitted_full_payload_keys": [
+            key
+            for key in (
+                "cluster_flag",
+                "card",
+                "findings",
+                "private_state_scan",
+                "fixture_inputs",
+                "route_lease",
+                "entry_payload_admission",
+                "affordance_passport_selection",
+                "code_architecture_projection_packet",
+            )
+            if key in result
+        ],
+    }
+
+
 def run_route_plane_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str | None = None,
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
     public_root = _public_root_for_path(input_path)
     payloads = _load_route_plane_bundle(input_path)
+    freshness_basis = _route_plane_bundle_freshness_basis(
+        input_path,
+        public_root=public_root,
+        manifest_payload=payloads["source_module_manifest"],
+    )
+    freshness_digest = _json_digest(freshness_basis)
+    if reuse_fresh_receipt:
+        cached = _fresh_route_plane_bundle_receipt(
+            out_dir,
+            freshness_digest=freshness_digest,
+        )
+        if cached is not None:
+            return cached
+
     scan_result = _scan_bundle_inputs(input_path, public_root)
     secret_scan = dict(scan_result)
     secret_scan["body_material_status"] = "secret_exclusion_scan_no_payload_body_export"
@@ -1499,6 +1695,11 @@ def run_route_plane_bundle(
             "status": status,
             "input_mode": "exported_route_plane_bundle",
             "bundle_id": bundle_id,
+            "card_schema_version": CARD_SCHEMA_VERSION,
+            "freshness_basis": freshness_basis,
+            "freshness_digest": freshness_digest,
+            "freshness_status": "current",
+            "receipt_reused": False,
             "bundle_manifest_schema_version": manifest.get("schema_version"),
             "validator_id": VALIDATOR_ID,
             "anti_claim": (
@@ -1685,24 +1886,40 @@ def main(argv: list[str] | None = None) -> int:
     run_parser = subparsers.add_parser("run")
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
-    bundle_parser = subparsers.add_parser("validate-route-plane-bundle")
+    run_parser.add_argument("--card", action="store_true")
+    bundle_parser = subparsers.add_parser(
+        "validate-route-plane-bundle",
+        aliases=["run-route-plane-bundle"],
+    )
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
     if args.action == "run":
         command = (
             "python -m microcosm_core.organs.navigation_hologram_route_plane "
             f"run --input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = run(args.input, args.out, command=command)
-    elif args.action == "validate-route-plane-bundle":
+    elif args.action in {"validate-route-plane-bundle", "run-route-plane-bundle"}:
         command = (
             "python -m microcosm_core.organs.navigation_hologram_route_plane "
-            f"validate-route-plane-bundle --input {args.input} --out {args.out}"
+            f"{args.action} --input {args.input} --out {args.out}"
         )
-        result = run_route_plane_bundle(args.input, args.out, command=command)
+        if args.card:
+            command += " --card"
+        result = run_route_plane_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:
         parser.error("expected subcommand: run or validate-route-plane-bundle")
+    if args.card:
+        print(json.dumps(result_card(result), ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
