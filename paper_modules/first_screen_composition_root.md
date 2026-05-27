@@ -87,6 +87,28 @@ This comparison frame is not marketing copy. It is the rule that keeps the
 first screen from sounding impressive while hiding the authority boundary that
 made the compression possible.
 
+## Observable Artifact Bridge
+
+The first screen has two sibling projections: the terminal card and the compact
+browser board. They are the same artifact in different media, not two separate
+claims. The terminal card may be emitted by `microcosm hello <project>` or
+`microcosm tour --card <project>`; the browser board may be emitted by a
+first-screen or observatory compact endpoint. Both must show the same five
+slots before linking to deeper drilldowns:
+
+| Slot | Terminal card cue | Browser board cue |
+|---|---|---|
+| Open command | Exact command a reader can rerun. | Command label pinned above the board. |
+| Local proof | Route/work/event/evidence chain summary. | The selected route and first causal edge. |
+| Causal chain | Receipt or validator refs. | Event/evidence refs before graph expansion. |
+| Evidence legend | Evidence class plus anti-claim. | Legend beside counts, not hidden in hover text. |
+| Authority ceiling | Forbidden reads named in text. | Boundary band visible before any motion. |
+
+The browser projection can make the first artifact more inspectable, but it
+cannot become a marketing page. A screenshot or video is first-screen material
+only when it preserves command, receipt, evidence class, anti-claim, and
+authority ceiling in the frame.
+
 ## Reader Branches
 
 The shared first command comes before branching. Reader branches select the
@@ -122,8 +144,8 @@ The standard is intentionally a composition contract, not a runtime authority.
 When a runtime card consumes it, validation should check that the card has a
 single terminal selector, one shared behavior proof, the three reader route
 ids, the reader-selection card ref, evidence-accounting context, a
-runnable-to-structural join, discipline comparison frame, omission receipts,
-and the authority ceiling.
+runnable-to-structural join, discipline comparison frame, observable artifact
+bridge, omission receipts, and the authority ceiling.
 
 ## Public Card Emitter
 

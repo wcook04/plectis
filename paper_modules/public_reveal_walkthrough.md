@@ -88,6 +88,30 @@ impressive-looking artifact with the boundary that keeps it honest:
 If the reveal cannot show those boundaries on the first view, it should defer
 the visual flourish and keep the compact receipt-backed route visible instead.
 
+## Browser/Video Reveal Board
+
+The reveal board is the public visual candidate for a 60-second walkthrough. It
+must therefore be more than raw JSON, but it must still be less than a product
+claim. The first browser/video frame should show:
+
+1. The command that produced the local state.
+2. The selected route and one-line route reason.
+3. The route explanation through work, events, evidence, and receipt refs.
+4. The evidence legend, including evidence class and anti-claim.
+5. The compact observatory or first-screen endpoint used for the board.
+6. The authority ceiling before totals, motion, or full-model drilldown.
+
+Motion is allowed to make the causal order easier to inspect: command to local
+state, local state to selected route, selected route to work/event/evidence,
+and evidence to receipt or validator. Motion is not allowed to displace the
+command, receipt/evidence ref, anti-claim, or authority ceiling from the first
+view.
+
+The board should end by offering exactly three next steps: reader-specific
+branch, receipt drilldown, and full observatory JSON. That keeps the visual
+surface from expanding into a second README while still making the public
+reveal inspectable by readers who will not start in the terminal.
+
 The validated claim is narrow:
 
 > Microcosm turns a repo into a local operating substrate: patterns, routes,

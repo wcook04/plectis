@@ -88,6 +88,22 @@ shorter row with command, receipt, class, anti-claim, and failure mode over a
 longer row that lists more organs without explaining what each boundary
 prevents.
 
+## Observable Drilldown Order
+
+Browser-first readers follow the same route map as terminal-first readers. The
+route order is compressed, not replaced:
+
+1. First-screen card or compact browser board.
+2. `microcosm tour --card <project>` as the shared behavior proof.
+3. Selected route plus work/event/evidence refs.
+4. Compact observatory view for the same route.
+5. Full route map, receipts, standards, and raw JSON drilldowns.
+
+The compact observatory row must carry the same command ref, receipt ref,
+evidence class, anti-claim, and authority ceiling as the terminal route row.
+If the browser board cannot show those fields, it is a preview only and cannot
+serve as the cold-reader route handoff.
+
 `readme_onboarding_route` is the selected route only for projects with a README;
 folders without one still get a route/work/event/evidence path through the
 selected route emitted by `tour` and `compile`.
