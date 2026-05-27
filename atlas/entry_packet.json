@@ -7,6 +7,39 @@
     "route_ref": "atlas/entry_packet.json::reader_first_screen_routes",
     "purpose": "Choose the reader-specific second screen after the shared local behavior card has made .microcosm state visible.",
     "shared_prerequisite_command": "microcosm tour --card <project>",
+    "reader_selection_card": {
+      "schema_version": "microcosm_reader_selection_card_v1",
+      "surface_ref": "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
+      "purpose": "Let a cold reader choose one branch from a single screen after the shared local behavior proof.",
+      "shared_rule": "Run the shared behavior card first; branch only after .microcosm state, selected_route_id, and the authority ceiling are visible.",
+      "selection_rows": [
+        {
+          "reader_id": "safety_evals_engineer",
+          "cold_question": "Can I audit the evidence discipline without trusting product claims?",
+          "route_command": "microcosm status --card <project>",
+          "trust_signal": "evidence classes, body-import counts, failure modes, and authority ceilings stay separated.",
+          "stop_when": "You can name what the public package proves, what it only projects, and what remains warning-only.",
+          "anti_overread": "A low body-import count is a scoped evidence boundary, not a failure score."
+        },
+        {
+          "reader_id": "hiring_reviewer",
+          "cold_question": "Is this real enough to judge the builder quickly?",
+          "route_command": "microcosm legibility-scorecard",
+          "trust_signal": "question-to-command mapping, endpoint parity, and no-reader-success guarantees are explicit.",
+          "stop_when": "You can point to a runnable local card, a 10-minute route, and the boundaries it refuses to cross.",
+          "anti_overread": "Legibility is interview signal only, not production readiness or benchmark authority."
+        },
+        {
+          "reader_id": "peer_developer",
+          "cold_question": "Can I clone it and inspect useful local state in an hour?",
+          "route_command": "microcosm tour --card <project>",
+          "trust_signal": ".microcosm refs, selected_route_id, causal-chain refs, and source_files_mutated=false are visible.",
+          "stop_when": "You can rerun the first card, inspect observe/explain refs, and avoid raw receipt spelunking.",
+          "anti_overread": "A useful route card is not a claim that every organ is complete."
+        }
+      ],
+      "authority": "reader branch selection only; not release, proof-correctness, production, hiring, or safety-evaluation authority"
+    },
     "routes": [
       {
         "reader_id": "safety_evals_engineer",
@@ -54,6 +87,7 @@
   "allowed_drilldowns": [
     "atlas/entry_packet.json::local_first_screen_route",
     "atlas/entry_packet.json::reader_first_screen_routes",
+    "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
     "atlas/entry_packet.json::cold_clone_probe_route",
     "atlas/entry_packet.json::observatory_route",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
@@ -151,6 +185,7 @@
       "microcosm tour <project>"
     ],
     "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
+    "reader_selection_ref": "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
     "reader_route_ids": [
       "safety_evals_engineer",
       "hiring_reviewer",
