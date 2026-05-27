@@ -297,11 +297,18 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert viewport_by_id["authority_boundary"]["proof_surface"] == (
         "overclaim_tripwire_matrix"
     )
+    assert viewport_by_id["authority_boundary"]["source_packet"] == (
+        "discipline_comparison_strip"
+    )
+    assert viewport_by_id["authority_boundary"]["first_visible_surface"] == (
+        "discipline_comparison_strip"
+    )
     for row in viewport_by_id.values():
         assert row["viewport_copy"]
         assert "authority_ceiling" in row["must_preserve"]
         assert "anti_claim" in row["must_preserve"]
         assert "omission_receipt" in row["must_preserve"]
+        assert "discipline_comparison_strip" in row["must_preserve"]
         assert "release_or_hosting_authority" in row["must_not_claim"]
         assert "provider_call_authority" in row["must_not_claim"]
         assert "private_root_equivalence" in row["must_not_claim"]
@@ -635,6 +642,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         assert "authority_ceiling" in row["must_preserve"]
         assert "anti_claim" in row["must_preserve"]
         assert "omission_receipt" in row["must_preserve"]
+        assert "discipline_comparison_strip" in row["must_preserve"]
         assert "release_or_hosting_authority" in row["must_not_claim"]
         assert "provider_call_authority" in row["must_not_claim"]
         assert "private_root_equivalence" in row["must_not_claim"]
@@ -708,6 +716,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert problem_by_id["honest_numbers_without_context"]["proof_surface"] == (
         "evidence_class_legend"
     )
+    assert problem_by_id["discipline_invisible_without_comparison"][
+        "primary_packet"
+    ] == "discipline_comparison_strip"
+    assert problem_by_id["discipline_invisible_without_comparison"][
+        "first_surface"
+    ] == "discipline_comparison_strip"
     assert problem_by_id["runnable_vs_structural_split"]["proof_surface"] == (
         "first_contact_surface_refs"
     )
@@ -769,6 +783,57 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "one shared local behavior command before reader branching" in card[
         "comparison_frame"
     ]["microcosm_entry_discipline"]
+    discipline_comparison_strip = card["discipline_comparison_strip"]
+    comparison_by_id = {
+        row["comparison_id"]: row for row in discipline_comparison_strip["rows"]
+    }
+    assert discipline_comparison_strip["schema_version"] == (
+        "microcosm_discipline_comparison_strip_v1"
+    )
+    assert discipline_comparison_strip["purpose"] == (
+        "make_microcosm_rigor_visible_as_operational_differences"
+    )
+    assert "not as superiority" in discipline_comparison_strip["strip_rule"]
+    assert set(comparison_by_id) == {
+        "failure_modes_declared",
+        "evidence_counts_contextualized",
+        "body_copy_boundaries",
+        "reader_branch_authority_shared",
+        "local_behavior_before_claims",
+    }
+    for row in comparison_by_id.values():
+        assert row["ordinary_entry_pattern"]
+        assert row["microcosm_discipline"]
+        assert row["visible_check_surface"]
+        assert row["reader_rule"]
+        assert row["not_claim"]
+    assert comparison_by_id["failure_modes_declared"][
+        "visible_check_surface"
+    ] == "authority_ceiling"
+    assert comparison_by_id["evidence_counts_contextualized"][
+        "visible_check_surface"
+    ] == "evidence_class_legend"
+    assert comparison_by_id["body_copy_boundaries"]["visible_check_surface"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert comparison_by_id["reader_branch_authority_shared"][
+        "visible_check_surface"
+    ] == "reader_route_menu"
+    assert comparison_by_id["local_behavior_before_claims"][
+        "visible_check_surface"
+    ] == "behavior_proof_packet"
+    assert discipline_comparison_strip["safe_to_show"] == {
+        "uses_existing_first_screen_packets": True,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "claims_external_benchmark": False,
+        "claims_superiority": False,
+        "claims_release_or_hosting": False,
+        "claims_whole_system_correctness": False,
+    }
+    assert discipline_comparison_strip["authority"] == (
+        "comparison_strip_not_benchmark_or_superiority_claim"
+    )
     doctrine_effect_frame = card["doctrine_effect_frame"]
     doctrine_rows = doctrine_effect_frame["effect_rows"]
     doctrine_by_handle = {row["doctrine_handle"]: row for row in doctrine_rows}
@@ -880,6 +945,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "consumer_rule"
     ]
     assert "cold-entry problem map" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
+    assert "discipline comparison strip" in card["entry_surface_contract"][
         "consumer_rule"
     ]
     state_write_boundary = card["state_write_boundary"]
@@ -1013,6 +1081,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "overclaim_tripwire_matrix" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "discipline_comparison_strip" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "reader_exit_criteria" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -1062,6 +1133,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
+    assert card["validation"]["checks"]["discipline_comparison_strip"] is True
     assert card["validation"]["checks"]["reader_route_menu"] is True
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
@@ -1249,7 +1321,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Public scale:" in text
     assert "source-open materials" in text
     assert "Counts are receipt-backed handles" in text
-    assert "tripwires translate overclaims" in text
+    assert "comparison strip + tripwires translate overclaims" in text
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
@@ -1340,7 +1412,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert assertions["success"] in text
         assert "Authority ceiling:" in text
         assert "Counts are receipt-backed handles" in text
-        assert "tripwires translate overclaims" in text
+        assert "comparison strip + tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
         assert "problem map binds the gaps" in text
@@ -1377,7 +1449,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "doctrine prevents mistakes" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
-    assert "tripwires translate overclaims" in result.stdout
+    assert "comparison strip + tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
@@ -1410,7 +1482,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "doctrine prevents mistakes" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
-    assert "tripwires translate overclaims" in result.stdout
+    assert "comparison strip + tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout

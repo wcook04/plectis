@@ -396,6 +396,7 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
         "authority_ceiling",
         "anti_claim",
         "omission_receipt",
+        "discipline_comparison_strip",
     ]
     must_not_claim = [
         "release_or_hosting_authority",
@@ -472,10 +473,10 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
             {
                 "slot_id": "authority_boundary",
                 "viewport_copy": (
-                    "Tripwires translate overclaims before any deeper drilldown."
+                    "Comparison strip and tripwires make rigor visible without claim inflation."
                 ),
-                "source_packet": "authority_ceiling",
-                "first_visible_surface": "anti_claim",
+                "source_packet": "discipline_comparison_strip",
+                "first_visible_surface": "discipline_comparison_strip",
                 "proof_surface": "overclaim_tripwire_matrix",
                 "must_preserve": must_preserve,
                 "must_not_claim": must_not_claim,
@@ -890,6 +891,7 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
         "authority_ceiling",
         "anti_claim",
         "omission_receipt",
+        "discipline_comparison_strip",
     ]
     shared_must_not_claim = [
         "release_or_hosting_authority",
@@ -1049,9 +1051,9 @@ def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
             {
                 "problem_shape_id": "discipline_invisible_without_comparison",
                 "reader_risk": "rigor_reads_as_ceremony_or_obviousness",
-                "compression_answer": "show_common_failures_and_visible_microcosm_boundaries",
-                "primary_packet": "comparison_frame",
-                "first_surface": "authority_ceiling",
+                "compression_answer": "show_side_by_side_failures_and_microcosm_boundaries",
+                "primary_packet": "discipline_comparison_strip",
+                "first_surface": "discipline_comparison_strip",
                 "proof_surface": "overclaim_tripwire_matrix",
                 "not_claim": "external_benchmark_equivalence",
             },
@@ -1406,6 +1408,85 @@ def _comparison_frame() -> dict[str, Any]:
     }
 
 
+def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_discipline_comparison_strip_v1",
+        "purpose": "make_microcosm_rigor_visible_as_operational_differences",
+        "strip_rule": (
+            "Show what Microcosm does differently from a typical cold-entry surface "
+            "as inspectable boundaries, not as superiority, benchmark, or maturity claims."
+        ),
+        "rows": [
+            {
+                "comparison_id": "failure_modes_declared",
+                "ordinary_entry_pattern": "polished claims hide failure surfaces",
+                "microcosm_discipline": (
+                    "first-screen packets expose anti_claim, authority ceiling, omission "
+                    "receipt, and explicit failure-mode refs"
+                ),
+                "visible_check_surface": "authority_ceiling",
+                "reader_rule": "Treat refusal fields as part of the product surface.",
+                "not_claim": "better_than_other_systems",
+            },
+            {
+                "comparison_id": "evidence_counts_contextualized",
+                "ordinary_entry_pattern": "counts read as maturity, readiness, or progress scores",
+                "microcosm_discipline": (
+                    "counts are evidence-class accounting with named claim ceilings and "
+                    "missing-profile disclosure"
+                ),
+                "visible_check_surface": "evidence_class_legend",
+                "reader_rule": "Read low or high counts as boundary accounting.",
+                "not_claim": "maturity_or_readiness_score",
+            },
+            {
+                "comparison_id": "body_copy_boundaries",
+                "ordinary_entry_pattern": "body copying is implied or hidden behind prose",
+                "microcosm_discipline": (
+                    "body imports are evidence classes; copied body status must preserve "
+                    "validator and source-boundary refs"
+                ),
+                "visible_check_surface": EVIDENCE_CLASS_REGISTRY_REF,
+                "reader_rule": "Ask what crossed a declared copy boundary.",
+                "not_claim": "private_body_equivalence",
+            },
+            {
+                "comparison_id": "reader_branch_authority_shared",
+                "ordinary_entry_pattern": "audience-specific pitch creates different claim ceilings",
+                "microcosm_discipline": (
+                    "reader routes change inspection order while inheriting the same "
+                    "authority ceiling and omission receipt"
+                ),
+                "visible_check_surface": "reader_route_menu",
+                "reader_rule": "Choose a branch only after the shared behavior proof.",
+                "not_claim": "reader_specific_authority",
+            },
+            {
+                "comparison_id": "local_behavior_before_claims",
+                "ordinary_entry_pattern": "status claims appear before runnable local evidence",
+                "microcosm_discipline": (
+                    f"`{shared_first_command}` writes .microcosm state and exposes "
+                    "front_door_status, selected_route_id, state refs, and source_files_mutated"
+                ),
+                "visible_check_surface": "behavior_proof_packet",
+                "reader_rule": "Run the local behavior card before trusting the scale story.",
+                "not_claim": "release_or_proof_correctness",
+            },
+        ],
+        "safe_to_show": {
+            "uses_existing_first_screen_packets": True,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_external_benchmark": False,
+            "claims_superiority": False,
+            "claims_release_or_hosting": False,
+            "claims_whole_system_correctness": False,
+        },
+        "authority": "comparison_strip_not_benchmark_or_superiority_claim",
+    }
+
+
 def _doctrine_effect_frame() -> dict[str, Any]:
     return {
         "schema_version": "microcosm_doctrine_effect_frame_v1",
@@ -1534,8 +1615,9 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "reader landing packets, behavior-proof packet, first-run ladder, local state receipt trail, "
             "first-viewport manifest, overclaim tripwire matrix, reader exit "
             "criteria, evidence-count frame, video-storyboard packet, artifact-fit "
-            "matrix, cold-entry problem map, evidence-class legend, doctrine-effect "
-            "frame, observatory landing frame, README-entry contract, omission "
+            "matrix, cold-entry problem map, discipline comparison strip, "
+            "evidence-class legend, doctrine-effect frame, observatory landing "
+            "frame, README-entry contract, omission "
             "receipt, and authority ceiling."
         ),
         "format_contract": {
@@ -1594,7 +1676,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
             "first-run ladder, first-viewport manifest, local state receipt trail, "
-            "first-contact surface refs, overclaim tripwires, "
+            "first-contact surface refs, overclaim tripwires, discipline comparison strip, "
             "reader branches, reader route menu, reader landing packets, reader exit criteria, video storyboard packet, "
             "artifact fit matrix, cold-entry problem map, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
@@ -1620,6 +1702,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "local_state_receipt_trail",
             "first_contact_surface_refs",
             "overclaim_tripwire_matrix",
+            "discipline_comparison_strip",
             "reader_exit_criteria",
             "video_storyboard_packet",
             "artifact_fit_matrix",
@@ -1757,6 +1840,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     local_state_receipt_trail = payload.get("local_state_receipt_trail", {})
     first_contact_surface_refs = payload.get("first_contact_surface_refs", {})
     overclaim_tripwire_matrix = payload.get("overclaim_tripwire_matrix", {})
+    discipline_comparison_strip = payload.get("discipline_comparison_strip", {})
     first_contact_surfaces = (
         first_contact_surface_refs.get("surfaces", {})
         if isinstance(first_contact_surface_refs, dict)
@@ -1785,6 +1869,21 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     overclaim_ids = {
         str(row.get("tripwire_id")) for row in overclaim_rows if isinstance(row, dict)
     }
+    discipline_comparison_rows = (
+        discipline_comparison_strip.get("rows", [])
+        if isinstance(discipline_comparison_strip, dict)
+        else []
+    )
+    discipline_comparison_ids = {
+        str(row.get("comparison_id"))
+        for row in discipline_comparison_rows
+        if isinstance(row, dict)
+    }
+    discipline_comparison_safe_to_show = (
+        discipline_comparison_strip.get("safe_to_show", {})
+        if isinstance(discipline_comparison_strip, dict)
+        else {}
+    )
     reader_exit_criteria = payload.get("reader_exit_criteria", {})
     reader_exit_rows = (
         reader_exit_criteria.get("criteria", [])
@@ -2146,6 +2245,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 and "authority_ceiling" in row.get("must_preserve", [])
                 and "anti_claim" in row.get("must_preserve", [])
                 and "omission_receipt" in row.get("must_preserve", [])
+                and "discipline_comparison_strip" in row.get("must_preserve", [])
                 and "release_or_hosting_authority" in row.get("must_not_claim", [])
                 and "provider_call_authority" in row.get("must_not_claim", [])
                 and "private_root_equivalence" in row.get("must_not_claim", [])
@@ -2417,6 +2517,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 and "authority_ceiling" in row.get("must_preserve", [])
                 and "anti_claim" in row.get("must_preserve", [])
                 and "omission_receipt" in row.get("must_preserve", [])
+                and "discipline_comparison_strip" in row.get("must_preserve", [])
                 and isinstance(row.get("must_not_claim"), list)
                 and "release_or_hosting_authority" in row.get("must_not_claim", [])
                 and "provider_call_authority" in row.get("must_not_claim", [])
@@ -2512,6 +2613,56 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         "comparison_frame": (
             payload.get("comparison_frame", {}).get("purpose")
             == "make_rigor_visible_without_claim_inflation"
+        ),
+        "discipline_comparison_strip": (
+            isinstance(discipline_comparison_strip, dict)
+            and discipline_comparison_strip.get("schema_version")
+            == "microcosm_discipline_comparison_strip_v1"
+            and discipline_comparison_strip.get("purpose")
+            == "make_microcosm_rigor_visible_as_operational_differences"
+            and "not as superiority, benchmark, or maturity claims"
+            in discipline_comparison_strip.get("strip_rule", "")
+            and discipline_comparison_ids
+            == {
+                "failure_modes_declared",
+                "evidence_counts_contextualized",
+                "body_copy_boundaries",
+                "reader_branch_authority_shared",
+                "local_behavior_before_claims",
+            }
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("ordinary_entry_pattern"), str)
+                and bool(row.get("ordinary_entry_pattern"))
+                and isinstance(row.get("microcosm_discipline"), str)
+                and bool(row.get("microcosm_discipline"))
+                and isinstance(row.get("visible_check_surface"), str)
+                and bool(row.get("visible_check_surface"))
+                and isinstance(row.get("reader_rule"), str)
+                and bool(row.get("reader_rule"))
+                and isinstance(row.get("not_claim"), str)
+                and bool(row.get("not_claim"))
+                for row in discipline_comparison_rows
+            )
+            and discipline_comparison_safe_to_show.get(
+                "uses_existing_first_screen_packets"
+            )
+            is True
+            and discipline_comparison_safe_to_show.get("exports_private_paths")
+            is False
+            and discipline_comparison_safe_to_show.get("exports_provider_payloads")
+            is False
+            and discipline_comparison_safe_to_show.get("claims_external_benchmark")
+            is False
+            and discipline_comparison_safe_to_show.get("claims_superiority") is False
+            and discipline_comparison_safe_to_show.get("claims_release_or_hosting")
+            is False
+            and discipline_comparison_safe_to_show.get(
+                "claims_whole_system_correctness"
+            )
+            is False
+            and discipline_comparison_strip.get("authority")
+            == "comparison_strip_not_benchmark_or_superiority_claim"
         ),
         "doctrine_effect_frame": (
             isinstance(doctrine_effect_frame, dict)
@@ -2638,6 +2789,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "local_state_receipt_trail",
                     "first_contact_surface_refs",
                     "overclaim_tripwire_matrix",
+                    "discipline_comparison_strip",
                     "reader_exit_criteria",
                     "video_storyboard_packet",
                     "artifact_fit_matrix",
@@ -2722,6 +2874,7 @@ def first_screen_composition_card(
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
+        "discipline_comparison_strip": _discipline_comparison_strip(project_label),
         "doctrine_effect_frame": _doctrine_effect_frame(),
         "readme_entry_contract": _readme_entry_contract(project_label),
         "entry_surface_contract": _entry_surface_contract(project_label),
@@ -2867,7 +3020,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),
-        "  Counts are receipt-backed handles; tripwires translate overclaims before drilldown.",
+        "  Counts are receipt-backed handles; comparison strip + tripwires translate overclaims before drilldown.",
         _evidence_class_summary_line(payload),
         "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
