@@ -152,6 +152,9 @@ def test_formal_math_premise_retrieval_cli_card_compacts_exported_bundle(
     assert payload["output_profile"] == "compact_card_no_retrieval_rows"
     assert payload["input_mode"] == "exported_premise_retrieval_bundle"
     assert payload["receipt_paths"]
+    assert payload["receipt_reused"] is False
+    assert payload["freshness_status"] == "current"
+    assert payload["freshness_digest"].startswith("sha256:")
     assert payload["secret_exclusion_scan_summary"]["scanned_path_count"] == 11
     assert payload["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan_summary"]["body_text_exported"] is False
@@ -164,6 +167,60 @@ def test_formal_math_premise_retrieval_cli_card_compacts_exported_bundle(
     assert "retrievals" not in payload
     assert "copied_material" not in payload
     assert "source_refs" not in payload
+    assert "retrievals" in payload["omitted_full_payload_keys"]
+    assert "freshness_basis" in payload["omitted_full_payload_keys"]
+
+
+def test_formal_math_premise_retrieval_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_premise_retrieval"
+    )
+
+    result = run_retrieval_bundle(
+        BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    card = premise_module._result_card(result)
+
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+    assert result["card_schema_version"] == "formal_math_premise_retrieval_card_v1"
+    assert result["freshness_digest"].startswith("sha256:")
+    assert card["receipt_reused"] is False
+    assert card["freshness_digest"] == result["freshness_digest"]
+    assert card["premise_count"] == 11
+    assert card["query_count"] == 4
+    assert card["secret_exclusion_scan_summary"]["scanned_path_count"] == 11
+    assert "retrievals" in card["omitted_full_payload_keys"]
+    assert "freshness_basis" in card["omitted_full_payload_keys"]
+    assert "retrievals" not in card
+    assert "secret_exclusion_scan" not in card
+    assert str(tmp_path) not in json.dumps(card, sort_keys=True)
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the premise retrieval receipt")
+
+    monkeypatch.setattr(premise_module, "_build_result", fail_if_rebuilt)
+
+    cached = run_retrieval_bundle(
+        BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    cached_card = premise_module._result_card(cached)
+
+    assert cached["status"] == "pass"
+    assert cached["receipt_reused"] is True
+    assert cached["freshness_digest"] == result["freshness_digest"]
+    assert cached_card["receipt_reused"] is True
+    assert cached_card["premise_count"] == 11
 
 
 def test_formal_math_premise_retrieval_imports_real_macro_premise_index() -> None:
