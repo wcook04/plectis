@@ -30,6 +30,27 @@ The accepted path is:
 10. `microcosm reveal`
 11. `microcosm cold-reader-route-map run-route-map-bundle`
 
+## Reader-Specific Evidence Routing
+
+The route map should make the evidence-count frame visible before the reader
+chooses a drilldown. Honest counters are not progress badges:
+
+- A safety/evals engineer follows `microcosm status --card`, authority, and
+  workingness first. The useful question is whether each claim names its
+  evidence class, validator, failure mode, and authority ceiling.
+- A hiring reviewer follows the first-screen card and legibility scorecard
+  first. The useful question is whether small verified counts are framed as
+  honest proof boundaries instead of hidden or inflated.
+- A peer developer follows `microcosm tour --card`, `microcosm compile`, and
+  `microcosm explain` first. The useful question is whether a fresh clone can
+  reproduce the route/work/event/evidence chain locally.
+
+The route map must therefore preserve both the command order and the evidence
+interpretation order: command, receipt ref, evidence class, anti-claim,
+authority ceiling, then deeper route. Reader-specific branches may hide other
+branches, but they may not hide the accounting frame that prevents "1 verified
+import" from being read as either failure or marketing.
+
 `readme_onboarding_route` is the selected route only for projects with a README;
 folders without one still get a route/work/event/evidence path through the
 selected route emitted by `tour` and `compile`.

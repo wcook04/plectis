@@ -27,6 +27,29 @@ The composition root says what has to fit on one screen:
    calls, source mutation, private-data equivalence, score-based progress, and
    whole-system correctness.
 
+## Evidence Accounting Frame
+
+The first screen must explain honest counters before a reader sees them as
+scores. Counts such as source-open body materials, rows with source imports,
+verified macro imports, external subprocess witnesses, and algorithmic
+projections are accounting fields. They answer "what kind of evidence is this
+and where can I inspect it," not "how mature is the whole system."
+
+That distinction is reader-visible:
+
+| Counter shape | First-screen interpretation | Forbidden read |
+|---|---|---|
+| Small verified count | A narrow proof cell exists and carries higher authority. | The rest of the system is unimplemented. |
+| Large source-open material count | Public imported body material is inspectable by path and receipt. | More bodies automatically mean stronger proof. |
+| Algorithmic projection count | A generated surface is present and needs source-coupling context. | Generated rows are source authority. |
+| Rows with source imports | Some organs expose copied body material through validators. | Every organ has equal evidence depth. |
+
+Reader branches can choose different next evidence surfaces, but they inherit
+the same accounting frame. A safety/evals reader should ask for authority and
+failure-mode boundaries; a hiring reviewer should ask whether the counters are
+traceable rather than inflated; a peer developer should ask which command lets
+them reproduce the local evidence trail.
+
 ## Reader Branches
 
 The shared first command comes before branching. Reader branches select the

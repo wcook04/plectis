@@ -33,6 +33,27 @@ visible as a landed public replacement when its extension board exists, and
 points back to the macro projection intake board without copying private
 macro bodies.
 
+## Evidence Counts In The Reveal
+
+The reveal board should not ask a cold reader to decode evidence-class numbers
+from context. When the walkthrough shows source-open body material counts,
+verified import counts, subprocess witnesses, algorithmic projection counts, or
+rows with source imports, it should pair each number with the evidence class
+and the anti-claim:
+
+- Counts prove that the public route exposes an inspectable accounting surface.
+- Counts do not prove release readiness, whole-system correctness, or equal
+  evidence depth across every organ.
+- A small high-authority count is stronger than a large low-authority count
+  for the claim it actually covers.
+- Generated or projected rows are reveal handles; source files, validators,
+  receipts, and authority ceilings remain the proof surfaces.
+
+This keeps the public reveal from becoming a dashboard of impressive totals.
+The first reveal task is to show how a reader can move from number to receipt
+to source boundary without crossing into private bodies, provider payloads,
+account/session state, or release claims.
+
 The validated claim is narrow:
 
 > Microcosm turns a repo into a local operating substrate: patterns, routes,
