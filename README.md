@@ -28,6 +28,10 @@ JSON instead of terminal text.
 After that shared card, branch by reader instead of forcing one README to carry
 every job:
 
+If an agent lands on this README, the agent-facing equivalent is `AGENTS.md`;
+use it after this human first-screen map, then follow `skills/cold_start_navigation.md`
+for the shortest validation route.
+
 | Reader | Open next | What to check |
 |---|---|---|
 | Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority && microcosm workingness` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes. |
