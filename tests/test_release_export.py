@@ -153,6 +153,15 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         candidate["authority_state"]["release_authorization_gate"]["invoked"]
         is False
     )
+    gate_decision = candidate["release_authorization_gate_decision"]
+    assert gate_decision["gate_id"] == release_export.RELEASE_AUTHORIZATION_GATE_ID
+    assert gate_decision["dry_run"] is True
+    assert gate_decision["release_authorization_allowed_now"] is False
+    assert gate_decision["decision"] == "defer"
+    assert (
+        "RELEASE_AUTHORIZATION_SOURCE_IDENTITY_UNAVAILABLE"
+        in gate_decision["blocking_codes"]
+    )
     warning_rows = candidate["external_warning_classification"]["warnings"]
     warning_ids = {row["warning_id"] for row in warning_rows}
     assert {
@@ -193,6 +202,93 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         == 1
     )
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
+def _candidate_packet_for_gate_decision(
+    *,
+    source_tree_state_kind: str,
+    dirty_source_path_count: int = 0,
+) -> dict:
+    source = {
+        "status": "available",
+        "source_root_ref": "microcosm-substrate",
+        "source_tree_state_kind": source_tree_state_kind,
+        "git_head": "abc123",
+        "dirty_source_path_count": dirty_source_path_count,
+        "dirty_source_path_sample": ["README.md"] if dirty_source_path_count else [],
+        "dirty_source_path_overflow_count": 0,
+        "body_in_receipt": False,
+    }
+    warning_rows = release_export._release_candidate_warning_rows(source)
+    return {
+        "schema_version": "microcosm_release_candidate_packet_v1",
+        "status": "pass_with_external_warnings",
+        "candidate_state": "validated_release_candidate_pending_explicit_authorization",
+        "candidate_identity": {
+            "source": source,
+            "artifact": {
+                "artifact_dir": release_export.ARTIFACT_DIR_NAME,
+                "mode": "generated_standalone_folder",
+                "artifact_payload_hash_sha256": "def456",
+                "file_count": 1,
+                "payload_bytes": 1,
+            },
+            "release_receipt_ref": release_export.RELEASE_RECEIPT_REF,
+        },
+        "validation_summary": {
+            "export_status": "pass",
+            "blocking_codes": [],
+        },
+        "authority_state": {
+            "release_authorized": False,
+            "release_authorization_gate": {
+                "gate_id": release_export.RELEASE_AUTHORIZATION_GATE_ID,
+                "invoked": False,
+            },
+        },
+        "external_warning_classification": {
+            "warning_count": len(warning_rows),
+            "release_blocking_warning_count": sum(
+                1 for row in warning_rows if row.get("release_blocking") is True
+            ),
+            "release_authorization_blocking_warning_count": sum(
+                1
+                for row in warning_rows
+                if row.get("release_authorization_blocking") is True
+            ),
+            "warnings": warning_rows,
+        },
+    }
+
+
+def test_release_authorization_gate_dry_run_defers_dirty_source() -> None:
+    packet = _candidate_packet_for_gate_decision(
+        source_tree_state_kind="git_head_with_worktree_delta",
+        dirty_source_path_count=2,
+    )
+
+    decision = release_export._release_authorization_gate_decision(packet)
+
+    assert decision["decision"] == "defer"
+    assert decision["operator_authorization_gate_eligible"] is False
+    assert "RELEASE_AUTHORIZATION_DIRTY_SOURCE_TREE" in decision["blocking_codes"]
+    assert decision["blocking_promotion_inputs"] == ["source_tree_dirty_at_export"]
+    assert decision["evaluated_inputs"]["dirty_source_path_count"] == 2
+
+
+def test_release_authorization_gate_dry_run_allows_clean_candidate_to_wait_for_operator() -> None:
+    packet = _candidate_packet_for_gate_decision(
+        source_tree_state_kind="git_head_clean",
+        dirty_source_path_count=0,
+    )
+
+    decision = release_export._release_authorization_gate_decision(packet)
+
+    assert decision["decision"] == "ready_pending_operator_authorization"
+    assert decision["operator_authorization_gate_eligible"] is True
+    assert decision["release_authorization_allowed_now"] is False
+    assert decision["blocking_codes"] == []
+    assert decision["required_actions"] == []
 
 
 def test_release_export_rejects_output_inside_source_root(tmp_path: Path) -> None:

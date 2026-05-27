@@ -638,7 +638,13 @@ def _release_candidate_warning_rows(
 def _release_authorization_gate(
     *,
     release_authorization_blocking_warning_count: int,
+    source_identity_status: str,
 ) -> dict[str, Any]:
+    additional_inputs: list[str] = []
+    if source_identity_status != "available":
+        additional_inputs.append("source_identity_available")
+    if release_authorization_blocking_warning_count:
+        additional_inputs.append("clean_source_root_or_explicit_dirty_material_authorization")
     return {
         "gate_id": RELEASE_AUTHORIZATION_GATE_ID,
         "invoked": False,
@@ -651,12 +657,145 @@ def _release_authorization_gate(
             "inventory_exclusion_runnable_projection_and_install_mode_statuses_pass",
             "release_authority_state_is_promoted_by_gate_receipt_not_by_export_validation",
         ],
-        "additional_gate_input_count": release_authorization_blocking_warning_count,
-        "additional_gate_inputs": [
-            "clean_source_root_or_explicit_dirty_material_authorization"
-        ]
-        if release_authorization_blocking_warning_count
-        else [],
+        "additional_gate_input_count": len(additional_inputs),
+        "additional_gate_inputs": additional_inputs,
+    }
+
+
+def _release_authorization_gate_decision(
+    candidate_packet: dict[str, Any],
+) -> dict[str, Any]:
+    validation = candidate_packet.get("validation_summary") or {}
+    authority = candidate_packet.get("authority_state") or {}
+    gate = authority.get("release_authorization_gate") or {}
+    warning_classification = (
+        candidate_packet.get("external_warning_classification") or {}
+    )
+    identity = candidate_packet.get("candidate_identity") or {}
+    source = identity.get("source") or {}
+    artifact = identity.get("artifact") or {}
+    warning_rows = warning_classification.get("warnings") or []
+    warning_ids = {
+        row.get("warning_id")
+        for row in warning_rows
+        if isinstance(row, dict) and row.get("warning_id")
+    }
+    dirty_count = source.get("dirty_source_path_count")
+    hard_denial_codes: list[str] = []
+    deferred_codes: list[str] = []
+    blocking_inputs: list[str] = []
+    required_actions: list[str] = []
+
+    gate_invoked = gate.get("invoked") is True
+    release_authorized = authority.get("release_authorized") is True
+    if release_authorized and not gate_invoked:
+        hard_denial_codes.append("RELEASE_AUTHORIZED_WITHOUT_EXPLICIT_GATE_RECEIPT")
+        blocking_inputs.append("release_authorization_authority_state")
+        required_actions.append("repair_authority_receipt_before_promotion")
+
+    validation_blocking_codes = list(validation.get("blocking_codes") or [])
+    if validation.get("export_status") != "pass" or validation_blocking_codes:
+        hard_denial_codes.append("RELEASE_CANDIDATE_VALIDATION_NOT_PASSING")
+        blocking_inputs.append("candidate_validation_status")
+        required_actions.append("return_to_failing_validator_or_residual_owner")
+
+    if warning_classification.get("release_blocking_warning_count", 0):
+        hard_denial_codes.append("RELEASE_BLOCKING_WARNING_PRESENT")
+        blocking_inputs.append("release_blocking_warning_count")
+        required_actions.append("clear_release_blocking_warning_before_promotion")
+
+    if source.get("status") != "available" or not source.get("git_head"):
+        deferred_codes.append("RELEASE_AUTHORIZATION_SOURCE_IDENTITY_UNAVAILABLE")
+        blocking_inputs.append("source_identity")
+        required_actions.append("regenerate_candidate_from_git_source_root")
+    elif (
+        source.get("source_tree_state_kind") == "git_head_with_worktree_delta"
+        or "source_tree_dirty_at_export" in warning_ids
+        or (isinstance(dirty_count, int) and dirty_count > 0)
+    ):
+        deferred_codes.append("RELEASE_AUTHORIZATION_DIRTY_SOURCE_TREE")
+        blocking_inputs.append("source_tree_dirty_at_export")
+        required_actions.append(
+            "regenerate_from_clean_source_tree_or_authorize_dirty_material_fingerprint"
+        )
+    elif warning_classification.get("release_authorization_blocking_warning_count", 0):
+        deferred_codes.append("RELEASE_AUTHORIZATION_BLOCKING_WARNING_PRESENT")
+        blocking_inputs.append("release_authorization_blocking_warnings")
+        required_actions.append("satisfy_release_authorization_blocking_warning")
+
+    if hard_denial_codes:
+        decision = "deny"
+        decision_reason = (
+            "Release authorization is denied because the candidate has a "
+            "validator, warning, or authority defect that must return to its "
+            "owning lane before promotion."
+        )
+    elif deferred_codes:
+        decision = "defer"
+        decision_reason = (
+            "Release authorization is deferred because the candidate is export-"
+            "shape validated but its source identity is not clean enough for "
+            "public promotion."
+        )
+    else:
+        decision = "ready_pending_operator_authorization"
+        decision_reason = (
+            "The candidate is gate-eligible, but release remains unauthorized "
+            "until the operator explicitly invokes the release authorization "
+            "gate and records its receipt."
+        )
+
+    unique_inputs = list(dict.fromkeys(blocking_inputs))
+    unique_actions = list(dict.fromkeys(required_actions))
+    return {
+        "schema_version": "microcosm_release_authorization_gate_decision_v1",
+        "gate_id": RELEASE_AUTHORIZATION_GATE_ID,
+        "dry_run": True,
+        "gate_invoked": gate_invoked,
+        "decision": decision,
+        "decision_reason": decision_reason,
+        "release_authorization_allowed_now": False,
+        "release_authorized_after_dry_run": False,
+        "operator_authorization_gate_eligible": (
+            decision == "ready_pending_operator_authorization"
+        ),
+        "blocking_codes": hard_denial_codes + deferred_codes,
+        "blocking_promotion_inputs": unique_inputs,
+        "required_actions": unique_actions,
+        "clean_source_requirement": (
+            "An authorized public release must bind the artifact to a clean "
+            "git HEAD unless a separate dirty-material authorization rule is "
+            "explicitly invoked."
+        ),
+        "dirty_material_authorization_rule": (
+            "Dirty-source promotion requires a stable dirty-diff/material "
+            "fingerprint, path classification, and an explicit authorization "
+            "receipt. This exporter does not promote dirty material by default."
+        ),
+        "evaluated_inputs": {
+            "candidate_status": candidate_packet.get("status"),
+            "candidate_state": candidate_packet.get("candidate_state"),
+            "export_status": validation.get("export_status"),
+            "validation_blocking_codes": validation_blocking_codes,
+            "release_blocking_warning_count": warning_classification.get(
+                "release_blocking_warning_count"
+            ),
+            "release_authorization_blocking_warning_count": (
+                warning_classification.get(
+                    "release_authorization_blocking_warning_count"
+                )
+            ),
+            "source_status": source.get("status"),
+            "source_tree_state_kind": source.get("source_tree_state_kind"),
+            "git_head": source.get("git_head"),
+            "dirty_source_path_count": dirty_count,
+            "dirty_source_path_sample": source.get("dirty_source_path_sample", []),
+            "artifact_payload_hash_sha256": artifact.get(
+                "artifact_payload_hash_sha256"
+            ),
+            "release_receipt_ref": identity.get("release_receipt_ref"),
+            "release_authorized": authority.get("release_authorized"),
+        },
     }
 
 
@@ -696,9 +835,10 @@ def _release_candidate_packet(
     promotion_gate = _release_authorization_gate(
         release_authorization_blocking_warning_count=(
             release_authorization_blocking_warning_count
-        )
+        ),
+        source_identity_status=str(source.get("status") or "unavailable"),
     )
-    return {
+    packet = {
         "schema_version": "microcosm_release_candidate_packet_v1",
         "status": validation_status,
         "candidate_state": candidate_state,
@@ -760,6 +900,10 @@ def _release_candidate_packet(
             "authorization gate can do that."
         ),
     }
+    packet["release_authorization_gate_decision"] = (
+        _release_authorization_gate_decision(packet)
+    )
+    return packet
 
 
 def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) -> dict[str, Any]:
