@@ -5244,8 +5244,8 @@ def _load_claude_desktop_titles() -> dict[str, dict]:
     return out
 
 
-def _load_codex_thread_names() -> dict[str, str]:
-    out: dict[str, str] = {}
+def _load_codex_thread_title_records() -> dict[str, dict]:
+    out: dict[str, dict] = {}
     if not CODEX_SESSION_INDEX.is_file():
         return out
     try:
@@ -5261,10 +5261,21 @@ def _load_codex_thread_names() -> dict[str, str]:
                 sid = rec.get("id")
                 tn = rec.get("thread_name")
                 if sid and tn:
-                    out[str(sid)] = str(tn)
+                    out[str(sid)] = {
+                        "thread_name": str(tn),
+                        "updated_at": rec.get("updated_at") or "",
+                    }
     except Exception:
         pass
     return out
+
+
+def _load_codex_thread_names() -> dict[str, str]:
+    return {
+        sid: str(rec.get("thread_name") or "")
+        for sid, rec in _load_codex_thread_title_records().items()
+        if rec.get("thread_name")
+    }
 
 
 def _load_title_aliases() -> dict[str, str]:
@@ -5282,6 +5293,18 @@ def _load_title_aliases() -> dict[str, str]:
 def _path_mtime_ms(path: Path) -> int | None:
     try:
         return int(path.stat().st_mtime * 1000)
+    except Exception:
+        return None
+
+
+def _iso_mtime_ms(value: str) -> int | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        return int(_dt.datetime.fromisoformat(text).timestamp() * 1000)
     except Exception:
         return None
 
@@ -5361,8 +5384,6 @@ def _resolve_session_title(
 ) -> tuple[str, str]:
     """Returns (title, title_source)."""
     alias_key = f"{provider}:{session_id}"
-    if alias_key in title_aliases:
-        return title_aliases[alias_key], "operator_alias"
     if provider == "codex":
         if session_id in codex_thread_names:
             return codex_thread_names[session_id], "codex_thread_name"
@@ -5375,6 +5396,8 @@ def _resolve_session_title(
         preview = _peek_claude_first_prompt(session_file)
         if preview:
             return preview, "claude_first_prompt_preview"
+    if alias_key in title_aliases:
+        return title_aliases[alias_key], "operator_alias"
     return "", "no_title_resolved"
 
 
@@ -5399,6 +5422,55 @@ def _mission_ordinal(title: str) -> tuple[int | None, int | None, str | None]:
         return (int(m.group(1)), int(m.group(2)), "title_numeric_pair")
     except Exception:
         return (None, None, None)
+
+
+def _row_title_authority_fact(
+    *,
+    provider: str,
+    session_id: str,
+    session_file: Path,
+    title: str,
+    title_source: str,
+    title_aliases: dict[str, str],
+    codex_thread_records: dict[str, dict],
+    claude_desktop_titles: dict[str, dict],
+    prompt_preview: str,
+) -> dict:
+    alias_key = f"{provider}:{session_id}"
+    operator_alias = title_aliases.get(alias_key, "")
+    source_title = ""
+    source_version_ms: int | None = None
+    authority = title_source
+    if provider == "codex":
+        rec = codex_thread_records.get(session_id) or {}
+        source_title = str(rec.get("thread_name") or "")
+        source_version_ms = _iso_mtime_ms(str(rec.get("updated_at") or "")) or _path_mtime_ms(CODEX_SESSION_INDEX)
+    elif provider == "claude_code":
+        desktop = (claude_desktop_titles or {}).get(session_id) or {}
+        desktop_title = str(desktop.get("title") or "").strip()
+        if desktop_title:
+            source_title = desktop_title
+            metadata_path = str(desktop.get("metadata_path") or "")
+            source_version_ms = _path_mtime_ms(Path(metadata_path)) if metadata_path else None
+        else:
+            source_version_ms = _path_mtime_ms(session_file)
+    if not source_title and title_source in ("codex_thread_name", "claude_desktop_title", "claude_desktop_user_title"):
+        source_title = title
+    if title_source == "operator_alias":
+        source_version_ms = _path_mtime_ms(TRACE_STRUCTURER_TITLE_ALIASES) or source_version_ms
+    if title_source in ("trace_prompt_title", "claude_first_prompt_preview", "current_turn_prompt_title", "current_turn_prompt_preview"):
+        source_version_ms = _path_mtime_ms(session_file) or source_version_ms
+    display_title = source_title or operator_alias or title or prompt_preview or session_id[:6]
+    title_marker = "old_prefix" if _has_operator_old_title_prefix(source_title or operator_alias or title or "") else "none"
+    return {
+        "title_authority": authority,
+        "source_title": source_title,
+        "operator_alias": operator_alias,
+        "display_title": display_title,
+        "prompt_preview": prompt_preview,
+        "title_marker": title_marker,
+        "source_title_version_ms": source_version_ms,
+    }
 
 
 def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | None:
@@ -5796,7 +5868,12 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
     reparse unchanged multi-megabyte JSONL sessions.
     """
     started_perf = time.perf_counter()
-    codex_thread_names = _load_codex_thread_names()
+    codex_thread_records = _load_codex_thread_title_records()
+    codex_thread_names = {
+        sid: str(rec.get("thread_name") or "")
+        for sid, rec in codex_thread_records.items()
+        if rec.get("thread_name")
+    }
     title_aliases = _load_title_aliases()
     claude_desktop_titles = _load_claude_desktop_titles()
     title_authority = _title_authority_sources(claude_desktop_titles)
@@ -5908,6 +5985,11 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         latest_completed = completed_active.get("latest_completed_turn")
         active_turn = completed_active.get("active_turn")
         preferred_trace_turn = completed_active.get("preferred_trace_turn")
+        prompt_preview = ""
+        for preview_turn in (preferred_trace_turn, active_turn, latest_completed):
+            if isinstance(preview_turn, dict) and preview_turn.get("prompt_preview"):
+                prompt_preview = str(preview_turn.get("prompt_preview") or "").strip()[:180]
+                break
         if not title:
             for title_source_turn in (preferred_trace_turn, active_turn, latest_completed):
                 if not isinstance(title_source_turn, dict):
@@ -5920,6 +6002,17 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                     title = fallback_title
                     title_source = "trace_prompt_title"
                     break
+        title_fact = _row_title_authority_fact(
+            provider=c["provider"],
+            session_id=c["session_id"],
+            session_file=Path(c["session_file"]),
+            title=title,
+            title_source=title_source,
+            title_aliases=title_aliases,
+            codex_thread_records=codex_thread_records,
+            claude_desktop_titles=claude_desktop_titles,
+            prompt_preview=prompt_preview,
+        )
         short_label = _short_label_for(title, c["provider"], c["session_id"])
         ord_start, ord_end, ord_source = _mission_ordinal(title)
         # Enrich latest_clip_meta with prompt_sha16 from full row if present
@@ -5935,6 +6028,13 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "session_id": c["session_id"],
             "session_file": c["session_file"],
             "title": title,
+            "display_title": title_fact["display_title"],
+            "source_title": title_fact["source_title"],
+            "operator_alias": title_fact["operator_alias"],
+            "prompt_preview": title_fact["prompt_preview"],
+            "title_authority": title_fact["title_authority"],
+            "title_marker": title_fact["title_marker"],
+            "source_title_version_ms": title_fact["source_title_version_ms"],
             "short_label": short_label,
             "title_source": title_source,
             "mtime_utc": c["mtime_utc"],
@@ -5969,12 +6069,20 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         reason = None
         if r.get("is_archived"):
             reason = "archived"
-        elif _has_operator_old_title_prefix(r.get("title") or r.get("short_label") or ""):
+        elif _has_operator_old_title_prefix(r.get("source_title") or r.get("operator_alias") or r.get("title") or r.get("short_label") or ""):
             reason = "operator_old_title_marker"
         elif not r.get("title"):
             reason = "no_title_resolved"
         if reason:
             r["inactive_reason"] = reason
+            if reason == "operator_old_title_marker":
+                retired_at_ms = r.get("source_title_version_ms") or _path_mtime_ms(Path(r.get("session_file") or ""))
+                r["retirement"] = {
+                    "retired_cause": "old_prefix",
+                    "retired_at_ms": retired_at_ms,
+                    "retired_title_version_ms": retired_at_ms,
+                    "title_marker": "old_prefix",
+                }
             inactive_rows.append(r)
         else:
             active_rows.append(r)

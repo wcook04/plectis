@@ -20,7 +20,7 @@
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
   "command": "python -m microcosm_core.organs.macro_projection_import_protocol run-projection-bundle --input examples/macro_projection_import_protocol/exported_projection_import_bundle --out receipts/first_wave/macro_projection_import_protocol",
-  "created_at": "2026-05-27T22:57:44+00:00",
+  "created_at": "2026-05-27T22:59:11+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [],
@@ -7650,18 +7650,18 @@
           "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
         ],
         "body_copied": true,
-        "body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
+        "body_digest": "sha256:dc2b0e82192b4381d7680482c0cd3d49f2f019f1003d16c1f439e5a65231dc8a",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
           ],
-          "source_body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
-          "source_line_count": 5930,
+          "source_body_digest": "sha256:dc2b0e82192b4381d7680482c0cd3d49f2f019f1003d16c1f439e5a65231dc8a",
+          "source_line_count": 6499,
           "source_ref": "tools/meta/observability/cli_prompt_trace.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
-          "target_line_count": 5930,
+          "target_body_digest": "sha256:dc2b0e82192b4381d7680482c0cd3d49f2f019f1003d16c1f439e5a65231dc8a",
+          "target_line_count": 6499,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
@@ -29091,7 +29091,7 @@
   },
   "source_ref_count": 294,
   "source_ref_digest_manifest": {
-    "aggregate_sha256": "sha256:84453baff173c2b1320c8b1aa3f456ae77b28653d96286980323be2c1de1b203",
+    "aggregate_sha256": "sha256:b870464c0a87edfe3191ec14674c8402321a8b7858e50adac02fdde6bf591420",
     "digest_rows_exported": false,
     "missing_source_ref_count": 3,
     "schema_version": "macro_projection_source_ref_digest_manifest_v1",
