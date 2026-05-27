@@ -2099,6 +2099,73 @@ def _reader_causal_chain_card(
     }
 
 
+def _project_observe_state_write_proof_card(project: Path) -> dict[str, Any]:
+    state_root = _state_dir(project)
+    state_ref_statuses: dict[str, bool] = {}
+    required_state_refs = [
+        f"{STATE_DIR}/routes.json",
+        f"{STATE_DIR}/work_items.json",
+        f"{STATE_DIR}/{EVENT_STREAM}",
+        f"{STATE_DIR}/{EVIDENCE_DIR}/",
+        f"{STATE_DIR}/graph.json",
+        f"{STATE_DIR}/state_index.json",
+    ]
+    for ref in required_state_refs:
+        relative = ref.removeprefix(f"{STATE_DIR}/")
+        target = state_root / relative.rstrip("/")
+        state_ref_statuses[ref] = target.exists()
+    missing_state_refs = [
+        ref for ref, exists in state_ref_statuses.items() if not exists
+    ]
+    state_file_count = (
+        sum(1 for ref in state_root.rglob("*") if ref.is_file())
+        if state_root.is_dir()
+        else 0
+    )
+    return {
+        "schema_version": "microcosm_project_observe_state_write_proof_ref_v1",
+        "status": PASS
+        if state_root.is_dir() and not missing_state_refs
+        else "missing_state_refs",
+        "status_scope": "project_local_state_write_handoff",
+        "state_dir": STATE_DIR,
+        "state_dir_exists": state_root.is_dir(),
+        "state_file_count": state_file_count,
+        "required_state_refs": required_state_refs,
+        "missing_state_refs": missing_state_refs,
+        "state_ref_statuses": state_ref_statuses,
+        "state_write_result_ref": (
+            "microcosm tour --card <project>::state_write_result"
+        ),
+        "state_write_status_ref": (
+            "microcosm tour --card <project>::front_door_status."
+            "surface_statuses.state_write"
+        ),
+        "state_inspection_status_ref": (
+            "microcosm tour --card <project>::front_door_status."
+            "surface_statuses.state_inspection"
+        ),
+        "status_card_project_state_ref": (
+            "microcosm status --card <project>::front_door.project_state"
+        ),
+        "tour_card_writes_microcosm_state": True,
+        "observe_writes_microcosm_state": False,
+        "status_card_writes_microcosm_state": False,
+        "source_files_mutated": False,
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "reader_action": (
+            "Use these refs to verify that tour --card wrote the local "
+            ".microcosm state before treating observe as the causal-chain lens."
+        ),
+    }
+
+
 def observe_project(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
