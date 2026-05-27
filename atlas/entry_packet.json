@@ -93,8 +93,10 @@
     "microcosm first-screen <project>::doctrine_effect_frame",
     "standards/std_microcosm_concept.json",
     "standards/std_microcosm_mechanism.json",
+    "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
     "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
     "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
+    "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop",
     "atlas/entry_packet.json::cold_clone_probe_route",
     "atlas/entry_packet.json::observatory_route",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
@@ -272,7 +274,187 @@
         "reader_rule": "Mechanism rows are reusable state, proof, routing, or doctrine transformations with validator attachment."
       }
     ],
+    "population_loop": {
+      "composition_root": "atlas/entry_packet.json::concept_mechanism_entry_route",
+      "reader_rule": "Use the first-screen doctrine frame only as the door; choose one specimen, inspect its concept/mechanism binding, run or cite its validator, then refine the owning standard, pressure row, fixture, or WorkItem residual.",
+      "sequence": [
+        "read microcosm first-screen <project>::doctrine_effect_frame",
+        "open standards/std_microcosm_concept.json and standards/std_microcosm_mechanism.json",
+        "choose one population_specimens row",
+        "run the specimen validation command or inspect the named receipt",
+        "refine the owner surface or capture a residual when the specimen cannot carry the pressure"
+      ],
+      "pressure_refs": [
+        "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
+        "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
+        "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop"
+      ],
+      "build_new_threshold": "do not create a parallel concept index unless no existing standard, pressure row, atlas route, diagnostic bundle, fixture manifest, or WorkItem lane can carry the specimen without distortion"
+    },
+    "population_specimens": [
+      {
+        "specimen_id": "first_screen_doctrine_effect_frame",
+        "specimen_role": "entry_surface_specimen",
+        "entry_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+        "source_refs": [
+          "src/microcosm_core/first_screen_composition.py::_doctrine_effect_frame",
+          "tests/test_first_screen_composition_card.py",
+          "tests/test_readme_first_screen_entry.py"
+        ],
+        "concept_binding": {
+          "concept_role": "doctrine handles as typed mistake-prevention boundaries",
+          "relationship_shape": "first-screen handle -> standard floor -> public pressure row",
+          "payload_shape_ref": "doctrine_effect_frame.effect_rows[doctrine_handle=CONCEPTS]",
+          "anti_glossary_rule": "CONCEPTS must expose source refs, relationships, payload shape, and public-safe boundary, not a glossary or label list"
+        },
+        "mechanism_binding": {
+          "mechanism_role": "first-screen projection that routes a reader into runnable validation surfaces",
+          "concept_pair_ref": "first_screen_doctrine_effect_frame.concept_binding",
+          "transformation_shape": "project substrate -> doctrine_effect_frame -> standards and specimen route refs",
+          "state_or_proof_effect": "runtime first-screen output emits CONCEPTS and MECHANISMS before standards-tree search is required",
+          "anti_feature_prose_rule": "MECHANISMS must name a transformation and validator lane, not feature prose or a feature description"
+        },
+        "omission_receipt": {
+          "omitted": [
+            "full standards tree",
+            "macro doctrine bodies",
+            "private source bodies"
+          ],
+          "drilldown": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+        },
+        "anti_claims": [
+          "This specimen proves entry routing and shape, not doctrine completeness.",
+          "This specimen does not authorize release or private-data equivalence."
+        ],
+        "validator_refs": [
+          "microcosm first-screen --full <project>",
+          "tests/test_first_screen_composition_card.py::test_first_screen_payload_exposes_doctrine_effect_frame",
+          "tests/test_readme_first_screen_entry.py::test_agent_entry_routes_concepts_and_mechanisms_from_first_screen"
+        ]
+      },
+      {
+        "specimen_id": "executable_doctrine_grammar_standard_bundle",
+        "specimen_role": "standard_shape_specimen",
+        "entry_ref": "microcosm executable-doctrine-grammar validate-standards-bundle",
+        "source_refs": [
+          "src/microcosm_core/organs/executable_doctrine_grammar.py",
+          "examples/executable_doctrine_grammar/exported_standards_bundle",
+          "tests/test_executable_doctrine_grammar.py"
+        ],
+        "concept_binding": {
+          "concept_role": "standard as public-safe schema contract with explicit authority ceiling",
+          "relationship_shape": "standard row -> paper module slug -> receipt expectations -> negative cases",
+          "payload_shape_ref": "standards bundle accepted_standard_ids and valid_module_slugs",
+          "anti_glossary_rule": "concept population must carry required fields and anti-claims, not glossary or prose-only definitions"
+        },
+        "mechanism_binding": {
+          "mechanism_role": "validator turns standard rows and fixtures into pass/block receipts",
+          "concept_pair_ref": "executable_doctrine_grammar_standard_bundle.concept_binding",
+          "transformation_shape": "standards bundle -> executable grammar validator -> receipt paths and error codes",
+          "state_or_proof_effect": "invalid standards are blocked by negative cases such as missing teleology, missing receipt expectations, or prose-only authority",
+          "anti_feature_prose_rule": "mechanism population must expose validator attachment and receipt output, not feature prose"
+        },
+        "omission_receipt": {
+          "omitted": [
+            "private source bodies",
+            "provider payloads",
+            "raw operator voice"
+          ],
+          "drilldown": "examples/executable_doctrine_grammar/exported_standards_bundle"
+        },
+        "anti_claims": [
+          "This specimen validates public standard shape only.",
+          "This specimen does not prove macro doctrine completeness."
+        ],
+        "validator_refs": [
+          "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
+          "tests/test_executable_doctrine_grammar.py::test_executable_doctrine_grammar_accepts_exported_standards_bundle"
+        ]
+      },
+      {
+        "specimen_id": "standards_meta_diagnostics_bundle",
+        "specimen_role": "organ_standard_receipt_mapping_specimen",
+        "entry_ref": "microcosm standards-meta-diagnostics run-diagnostics-bundle",
+        "source_refs": [
+          "src/microcosm_core/organs/standards_meta_diagnostics.py",
+          "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+          "core/standards_registry.json",
+          "tests/test_standards_meta_diagnostics.py"
+        ],
+        "concept_binding": {
+          "concept_role": "organ-standard-runtime-receipt coverage as projection-only evidence",
+          "relationship_shape": "organ id -> standard id -> validator id -> receipt ref",
+          "payload_shape_ref": "standards_meta_diagnostics.diagnostic_projection",
+          "anti_glossary_rule": "coverage concepts must state authority ceiling and public/private boundary, not glossary coverage labels"
+        },
+        "mechanism_binding": {
+          "mechanism_role": "diagnostic bundle checks accepted organs against standards, runtime contracts, and real receipts",
+          "concept_pair_ref": "standards_meta_diagnostics_bundle.concept_binding",
+          "transformation_shape": "exported diagnostics bundle -> coverage projection -> pass/block receipt",
+          "state_or_proof_effect": "accepted_organ_count and covered_organ_ids are validated without becoming release authority",
+          "anti_feature_prose_rule": "diagnostics mechanism must name checked mappings and receipt lane, not feature prose"
+        },
+        "omission_receipt": {
+          "omitted": [
+            "covered organ body text",
+            "private state scan bodies",
+            "release-readiness claims"
+          ],
+          "drilldown": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle"
+        },
+        "anti_claims": [
+          "This specimen is coverage projection, not registry source authority.",
+          "This specimen does not authorize release, provider calls, or whole-system correctness."
+        ],
+        "validator_refs": [
+          "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+          "tests/test_standards_meta_diagnostics.py::test_standards_meta_diagnostics_bundle_validates_runtime_shape"
+        ]
+      },
+      {
+        "specimen_id": "voice_to_doctrine_self_improvement_loop_bundle",
+        "specimen_role": "refinement_loop_specimen",
+        "entry_ref": "microcosm voice-to-doctrine-self-improvement-loop run-bundle",
+        "source_refs": [
+          "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
+          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle",
+          "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
+          "tests/test_voice_to_doctrine_self_improvement_loop.py"
+        ],
+        "concept_binding": {
+          "concept_role": "local pressure rows as typed candidates for owner-surface refinement",
+          "relationship_shape": "lesson -> pressure shape -> owner surface -> result status",
+          "payload_shape_ref": "doctrine_loop_summary and status_counts",
+          "anti_glossary_rule": "population pressure must resolve to an owner surface, residual, or nothing_to_refine receipt, not glossary advice"
+        },
+        "mechanism_binding": {
+          "mechanism_role": "recursive self-improvement loop that senses pressure, classifies, mutates or captures, validates, and publishes reentry",
+          "concept_pair_ref": "voice_to_doctrine_self_improvement_loop_bundle.concept_binding",
+          "transformation_shape": "local lessons -> owner surface decisions -> validation and closeout receipt",
+          "state_or_proof_effect": "status_counts distinguish refined_existing_surface, workitem_captured, and nothing_to_refine",
+          "anti_feature_prose_rule": "refinement mechanism must produce result states and reentry conditions, not feature prose or advice-only prose"
+        },
+        "omission_receipt": {
+          "omitted": [
+            "raw operator voice",
+            "private thread bodies",
+            "provider payloads",
+            "live Task Ledger rows"
+          ],
+          "drilldown": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle"
+        },
+        "anti_claims": [
+          "This specimen demonstrates local refinement, not global doctrine promotion.",
+          "This specimen does not authorize hand-editing doctrine nodes or exporting raw voice."
+        ],
+        "validator_refs": [
+          "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
+          "tests/test_voice_to_doctrine_self_improvement_loop.py::test_voice_to_doctrine_exported_bundle_validates_runtime_shape"
+        ]
+      }
+    ],
     "validation_commands": [
+      "microcosm first-screen --full <project>",
       "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
       "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
       "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine"

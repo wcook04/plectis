@@ -107,6 +107,35 @@
       "title": "Mechanism Handle Requires Runnable Contract"
     },
     {
+      "authority_boundary": "specimen_population_route_not_parallel_concept_index_or_release_authority",
+      "claim": "Concept and mechanism population must route from the agent entry into at least one runnable or inspectable specimen with concept binding, mechanism binding, omission receipt, anti-claims, and validator refs.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation",
+        "assimilation"
+      ],
+      "route_refs": [
+        "AGENTS.md::Concept And Mechanism Entry",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+        "microcosm first-screen --full <project>",
+        "microcosm executable-doctrine-grammar validate-standards-bundle",
+        "microcosm standards-meta-diagnostics run-diagnostics-bundle",
+        "microcosm voice-to-doctrine-self-improvement-loop run-bundle"
+      ],
+      "runtime_hook": "atlas.entry_packet.concept_mechanism_entry_route.population_specimens",
+      "source_refs": [
+        "standards/std_microcosm_concept.json::population_specimen_contract",
+        "standards/std_microcosm_mechanism.json::population_specimen_contract",
+        "src/microcosm_core/organs/executable_doctrine_grammar.py",
+        "src/microcosm_core/organs/standards_meta_diagnostics.py",
+        "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py"
+      ],
+      "standard_id": "concept_mechanism_requires_population_specimen_loop",
+      "title": "Concept/Mechanism Requires Population Specimen Loop"
+    },
+    {
       "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
       "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
       "kernel_primitive_refs": [

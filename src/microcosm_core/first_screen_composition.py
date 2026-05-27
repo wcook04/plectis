@@ -1528,22 +1528,30 @@ def _doctrine_effect_frame() -> dict[str, Any]:
                 "prevents": "letting repeated public terms drift into vague labels",
                 "visible_effect": (
                     "concept handles must keep source refs, relationships, payload "
-                    "shape, and the public-safe standard boundary visible"
+                    "shape, public-safe standard boundary, and specimen route visible"
                 ),
                 "first_screen_surface": "doctrine_effect_frame",
                 "standard_ref": "standards/std_microcosm_concept.json",
                 "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+                "specimen_route_ref": (
+                    "atlas/entry_packet.json::"
+                    "concept_mechanism_entry_route.population_specimens"
+                ),
             },
             {
                 "doctrine_handle": "MECHANISMS",
                 "prevents": "describing a feature without the transformation it performs",
                 "visible_effect": (
                     "mechanism handles must name the state, proof, routing, or "
-                    "doctrine transformation plus validator attachment"
+                    "doctrine transformation plus validator attachment and specimen"
                 ),
                 "first_screen_surface": "doctrine_effect_frame",
                 "standard_ref": "standards/std_microcosm_mechanism.json",
                 "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+                "specimen_route_ref": (
+                    "atlas/entry_packet.json::"
+                    "concept_mechanism_entry_route.population_specimens"
+                ),
             },
             {
                 "doctrine_handle": "ANTI_PRINCIPLES",

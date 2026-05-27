@@ -94,9 +94,15 @@ The standards are the floor: `standards/std_microcosm_concept.json` governs
 typed vocabulary boundaries, and `standards/std_microcosm_mechanism.json`
 governs operational transformations. The populated local pressure rows are
 `core/public_standard_pressure.json::concept_handle_requires_entry_surface` and
-`core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract`.
-Use the executable grammar and standards-meta diagnostics commands from the
-AGENTS route when you need validation instead of another prose summary.
+`core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract`;
+the specimen loop pressure row is
+`core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop`.
+Then open
+`atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens`.
+Those rows bind concept role to mechanism role with source refs, payload shape,
+omission receipt, anti-claims, and validator refs. Use the first-screen,
+executable grammar, standards-meta diagnostics, or voice-to-doctrine specimen
+instead of writing another prose summary.
 
 ## Proof-Lab Drilldown
 

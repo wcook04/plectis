@@ -28,6 +28,24 @@
     "reader_rule": "Use concept rows as typed vocabulary boundaries with source refs, relationships, payload shape, omission receipt, and anti-claims; do not treat them as glossary-only prose.",
     "required": true
   },
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "required_for_population": true,
+    "row_must_bind": [
+      "concept_role",
+      "mechanism_pair_ref",
+      "source_refs",
+      "relationship_shape",
+      "payload_shape_ref",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ],
+    "reader_rule": "A populated concept row must point to at least one runnable or inspectable specimen that shows why the vocabulary boundary matters; glossary-only prose is insufficient."
+  },
   "first_wave_required": true,
   "kind_id": "concept",
   "kind_name": "Concept",
@@ -121,6 +139,7 @@
     "created_at",
     "relationships",
     "entry_surface_contract",
+    "population_specimen_contract",
     "validator_refs",
     "receipt_refs",
     "omission_receipt",
@@ -145,6 +164,10 @@
     {
       "path": "src/microcosm_core/first_screen_composition.py",
       "role": "doctrine_effect_frame_projection"
+    },
+    {
+      "path": "atlas/entry_packet.json",
+      "role": "concept_mechanism_population_specimen_route"
     },
     {
       "role": "id_refs_only_no_source_bodies",
@@ -194,6 +217,7 @@
     "reject missing source_refs unless the fixture declares synthetic origin",
     "reject authority upgrades not backed by receipt_refs",
     "require entry_surface_contract so concept rows are discoverable from AGENTS.md and the first-screen doctrine_effect_frame",
+    "require population_specimen_contract so concept rows route from entry to at least one specimen-backed validation loop",
     "require public_private_boundary before public projection"
   ],
   "validator_contract": {

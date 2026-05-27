@@ -961,6 +961,7 @@
         "codex/doctrine/paper_modules/microcosm_substrate.md",
         "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
         "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
         "codex/standards/std_microcosm.json",
         "codex/standards/std_standard_type_plane.json",
@@ -969,7 +970,7 @@
       ],
       "source_authority": "microcosm-substrate/, publication_manifest.yaml, self-indexing-cognitive-substrate/ archaeology, and dissemination builders; public exports are projections over internal source authority and public Microcosm owner surfaces.",
       "write_contract": "Public microcosm exports require redaction, synthetic fixture, rights, and projection receipts before publication; internal authority remains upstream.",
-      "read_contract": "Use standards-first entry, then the Microcosm first-screen sequence (`microcosm hello <project>` for the non-writing map, `microcosm tour --card <project>` for behavior proof, and `microcosm first-screen <project>` for JSON route shape), then microcosm_substrate product doctrine, microcosm_entry_lattice route depth, microcosm_public_export_type_plane bridge guidance, paper_module_coverage_metabolism, paper_module_entry_projection_integrity, and dissemination/public constellation context before opening public export files; the legacy system_microcosm option surface is a Laboratory/control-view compatibility route, not the public Microcosm definition.",
+      "read_contract": "Use standards-first entry, then the Microcosm first-screen sequence (`microcosm hello <project>` for the non-writing map, `microcosm tour --card <project>` for behavior proof, and `microcosm first-screen <project>` for JSON route shape), then microcosm_substrate product doctrine, microcosm_entry_lattice route depth, microcosm_public_export_type_plane bridge guidance, microcosm_runtime_organ_atlas source-loci depth, paper_module_coverage_metabolism, paper_module_entry_projection_integrity, and dissemination/public constellation context before opening public export files; the legacy system_microcosm option surface is a Laboratory/control-view compatibility route, not the public Microcosm definition.",
       "option_surface_command": "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
       "atlas_projection_policy": "System Atlas may project public export candidates only as public/dissemination leaves with disclosure and provenance posture.",
       "currentness_policy": "Public exports are current only when the publication manifest, renderer output, receipt bundle, and Microcosm first-screen/authority/workingness contracts agree with the selected internal authority snapshot.",
@@ -977,7 +978,7 @@
         "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
         "./repo-python kernel.py --paper-module microcosm_substrate",
         "./repo-python kernel.py --paper-module microcosm_public_export_type_plane",
-        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_substrate,microcosm_entry_lattice,microcosm_public_export_type_plane,paper_module_coverage_metabolism,paper_module_entry_projection_integrity",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_substrate,microcosm_entry_lattice,microcosm_public_export_type_plane,microcosm_runtime_organ_atlas,paper_module_coverage_metabolism,paper_module_entry_projection_integrity",
         "./repo-python kernel.py --term microcosm --term-band context",
         "./repo-python kernel.py --context-pack \"public microcosm export dissemination boundary\" --context-budget 12000"
       ],
@@ -995,6 +996,7 @@
           "microcosm_substrate",
           "microcosm_entry_lattice",
           "microcosm_public_export_type_plane",
+          "microcosm_runtime_organ_atlas",
           "paper_module_coverage_metabolism",
           "paper_module_entry_projection_integrity",
           "public_constellation_strategy",
@@ -1014,6 +1016,7 @@
         "standard_bridge": "codex/standards/std_microcosm.json::paper_module_coverage_contract.standard_type_plane_bridge",
         "atlas_drilldowns": [
           "paper_modules:microcosm_public_export_type_plane",
+          "paper_modules:microcosm_runtime_organ_atlas",
           "standards:std_microcosm",
           "standards:std_standard_type_plane"
         ],
@@ -1027,6 +1030,7 @@
         "self-indexing-cognitive-substrate/",
         "codex/standards/std_microcosm.json::paper_module_coverage_contract.standard_type_plane_bridge",
         "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
         "tools/meta/dissemination/render_public_projection.py",
         "system/lib/kernel/commands/generated_artifact_surfaces.py"

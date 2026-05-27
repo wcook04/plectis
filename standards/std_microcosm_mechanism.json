@@ -28,6 +28,24 @@
     "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
     "required": true
   },
+  "population_specimen_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "specimen_route_contract_not_macro_doctrine_source_authority",
+    "loop_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+    "minimum_specimen_count": 3,
+    "required_for_population": true,
+    "row_must_bind": [
+      "mechanism_role",
+      "concept_pair_ref",
+      "source_refs",
+      "transformation_shape",
+      "state_or_proof_effect",
+      "omission_receipt",
+      "anti_claims",
+      "validator_refs"
+    ],
+    "reader_rule": "A populated mechanism row must point to at least one runnable or inspectable specimen that shows the transformation and validator lane; feature prose is insufficient."
+  },
   "first_wave_required": true,
   "kind_id": "mechanism",
   "kind_name": "Mechanism",
@@ -122,6 +140,7 @@
     "created_at",
     "relationships",
     "entry_surface_contract",
+    "population_specimen_contract",
     "validator_refs",
     "receipt_refs",
     "omission_receipt",
@@ -146,6 +165,10 @@
     {
       "path": "src/microcosm_core/first_screen_composition.py",
       "role": "doctrine_effect_frame_projection"
+    },
+    {
+      "path": "atlas/entry_packet.json",
+      "role": "concept_mechanism_population_specimen_route"
     },
     {
       "role": "id_refs_only_no_source_bodies",
@@ -195,6 +218,7 @@
     "reject missing source_refs unless the fixture declares synthetic origin",
     "reject authority upgrades not backed by receipt_refs",
     "require entry_surface_contract so mechanism rows are discoverable from AGENTS.md and the first-screen doctrine_effect_frame",
+    "require population_specimen_contract so mechanism rows route from entry to at least one runnable or inspectable validation loop",
     "require public_private_boundary before public projection"
   ],
   "validator_contract": {

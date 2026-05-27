@@ -221,11 +221,17 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
             encoding="utf-8"
         )
     )
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
     pressure_by_id = {
         row["standard_id"]: row
         for row in pressure["rows"]
         if isinstance(row, dict)
     }
+    population_specimens = entry_packet["concept_mechanism_entry_route"][
+        "population_specimens"
+    ]
 
     assert concept["entry_surface_contract"]["agent_entry_ref"] == (
         "AGENTS.md::Concept And Mechanism Entry"
@@ -234,6 +240,16 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
         "microcosm first-screen <project>::doctrine_effect_frame"
     )
     assert "entry_surface_contract" in concept["required_fields"]
+    assert "population_specimen_contract" in concept["required_fields"]
+    assert concept["population_specimen_contract"]["loop_ref"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+    )
+    assert concept["population_specimen_contract"]["minimum_specimen_count"] <= len(
+        population_specimens
+    )
+    assert "mechanism_pair_ref" in concept["population_specimen_contract"][
+        "row_must_bind"
+    ]
     assert any(
         source_ref.get("path") == "AGENTS.md"
         for source_ref in concept["source_refs"]
@@ -254,6 +270,16 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
         "microcosm first-screen <project>::doctrine_effect_frame"
     )
     assert "entry_surface_contract" in mechanism["required_fields"]
+    assert "population_specimen_contract" in mechanism["required_fields"]
+    assert mechanism["population_specimen_contract"]["loop_ref"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+    )
+    assert mechanism["population_specimen_contract"][
+        "minimum_specimen_count"
+    ] <= len(population_specimens)
+    assert "transformation_shape" in mechanism["population_specimen_contract"][
+        "row_must_bind"
+    ]
     assert any(
         source_ref.get("path") == "AGENTS.md"
         for source_ref in mechanism["source_refs"]
@@ -268,6 +294,74 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
         in pressure_by_id["mechanism_handle_requires_runnable_contract"][
             "route_refs"
         ]
+    )
+    assert "concept_mechanism_requires_population_specimen_loop" in pressure_by_id
+    assert (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+        in pressure_by_id["concept_mechanism_requires_population_specimen_loop"][
+            "route_refs"
+        ]
+    )
+
+
+def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+    route = entry_packet["concept_mechanism_entry_route"]
+    specimens = route["population_specimens"]
+    specimen_by_id = {row["specimen_id"]: row for row in specimens}
+
+    assert set(specimen_by_id) >= {
+        "first_screen_doctrine_effect_frame",
+        "executable_doctrine_grammar_standard_bundle",
+        "standards_meta_diagnostics_bundle",
+        "voice_to_doctrine_self_improvement_loop_bundle",
+    }
+    assert route["population_loop"]["build_new_threshold"].startswith(
+        "do not create a parallel concept index"
+    )
+    assert any(
+        command.startswith("microcosm first-screen --full")
+        for command in route["validation_commands"]
+    )
+
+    for specimen in specimens:
+        concept_binding = specimen["concept_binding"]
+        mechanism_binding = specimen["mechanism_binding"]
+
+        assert concept_binding["concept_role"] != mechanism_binding["mechanism_role"]
+        assert concept_binding["payload_shape_ref"]
+        assert concept_binding["relationship_shape"]
+        assert "glossary" in concept_binding["anti_glossary_rule"]
+        assert mechanism_binding["transformation_shape"]
+        assert mechanism_binding["state_or_proof_effect"]
+        assert "feature prose" in mechanism_binding["anti_feature_prose_rule"]
+        assert mechanism_binding["concept_pair_ref"] == (
+            f"{specimen['specimen_id']}.concept_binding"
+        )
+        assert specimen["source_refs"]
+        assert specimen["validator_refs"]
+        assert specimen["anti_claims"]
+        assert specimen["omission_receipt"]["drilldown"]
+
+    assert any(
+        "test_executable_doctrine_grammar_accepts_exported_standards_bundle" in ref
+        for ref in specimen_by_id[
+            "executable_doctrine_grammar_standard_bundle"
+        ]["validator_refs"]
+    )
+    assert any(
+        "test_standards_meta_diagnostics_bundle_validates_runtime_shape" in ref
+        for ref in specimen_by_id["standards_meta_diagnostics_bundle"][
+            "validator_refs"
+        ]
+    )
+    assert any(
+        "test_voice_to_doctrine_exported_bundle_validates_runtime_shape" in ref
+        for ref in specimen_by_id[
+            "voice_to_doctrine_self_improvement_loop_bundle"
+        ]["validator_refs"]
     )
 
 

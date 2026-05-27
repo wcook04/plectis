@@ -113,7 +113,19 @@ point back to this agent-entry section and the first-screen doctrine frame.
 
 Use `core/public_standard_pressure.json` for the populated local pressure rows
 `concept_handle_requires_entry_surface` and
-`mechanism_handle_requires_runnable_contract`.
+`mechanism_handle_requires_runnable_contract`, plus
+`concept_mechanism_requires_population_specimen_loop` for the specimen-backed
+population rule.
+
+Do not stop at the standards. Continue through
+`atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens`.
+Those rows are the specimen-backed loop: each specimen binds a concept role to a
+mechanism role, names source refs, relationship shape, payload shape,
+anti-claims, omission receipt, validator refs, and the public/private authority
+boundary. Use the specimen whose validator matches the pressure:
+first-screen route shape, executable grammar standard shape, standards-meta
+organ mapping, or voice-to-doctrine refinement. Only create a new packet if none
+of those existing lanes can carry the pressure without distortion.
 
 - Standard shape: `microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar`
 - Organ-to-standard mapping: `microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics`

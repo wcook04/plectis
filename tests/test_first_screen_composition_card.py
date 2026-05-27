@@ -861,11 +861,19 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert doctrine_by_handle["CONCEPTS"]["agent_entry_ref"] == (
         "AGENTS.md::Concept And Mechanism Entry"
     )
+    assert doctrine_by_handle["CONCEPTS"]["specimen_route_ref"] == (
+        "atlas/entry_packet.json::"
+        "concept_mechanism_entry_route.population_specimens"
+    )
     assert doctrine_by_handle["MECHANISMS"]["standard_ref"] == (
         "standards/std_microcosm_mechanism.json"
     )
     assert doctrine_by_handle["MECHANISMS"]["agent_entry_ref"] == (
         "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert doctrine_by_handle["MECHANISMS"]["specimen_route_ref"] == (
+        "atlas/entry_packet.json::"
+        "concept_mechanism_entry_route.population_specimens"
     )
     assert doctrine_by_handle["CONSTITUTION"]["first_screen_surface"] == (
         "authority_ceiling"

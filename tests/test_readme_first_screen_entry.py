@@ -136,12 +136,22 @@ def test_agent_entry_routes_concepts_and_mechanisms_from_first_screen() -> None:
     assert "standards/std_microcosm_mechanism.json" in agents
     assert "concept_handle_requires_entry_surface" in agents
     assert "mechanism_handle_requires_runnable_contract" in agents
+    assert "concept_mechanism_requires_population_specimen_loop" in agents
+    assert "concept_mechanism_entry_route.population_specimens" in agents
+    assert "first-screen route shape" in agents
+    assert "voice-to-doctrine refinement" in agents
 
     assert "## Concept And Mechanism Drilldown" in cold_start
     assert "AGENTS.md::Concept And Mechanism Entry" in cold_start
+    assert "concept_mechanism_entry_route.population_specimens" in cold_start
+    assert "concept_mechanism_requires_population_specimen_loop" in cold_start
 
     allowed_drilldowns = set(entry_packet["allowed_drilldowns"])
     assert "atlas/entry_packet.json::concept_mechanism_entry_route" in allowed_drilldowns
+    assert (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens"
+        in allowed_drilldowns
+    )
     assert "microcosm first-screen <project>::doctrine_effect_frame" in allowed_drilldowns
     route = entry_packet["concept_mechanism_entry_route"]
     assert route["agent_entry_ref"] == "AGENTS.md::Concept And Mechanism Entry"
@@ -152,3 +162,19 @@ def test_agent_entry_routes_concepts_and_mechanisms_from_first_screen() -> None:
         "concept",
         "mechanism",
     }
+    assert route["population_loop"]["composition_root"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route"
+    )
+    assert len(route["population_specimens"]) >= 3
+    for specimen in route["population_specimens"]:
+        assert specimen["concept_binding"]["concept_role"]
+        assert specimen["concept_binding"]["payload_shape_ref"]
+        assert specimen["mechanism_binding"]["mechanism_role"]
+        assert specimen["mechanism_binding"]["transformation_shape"]
+        assert specimen["mechanism_binding"]["state_or_proof_effect"]
+        assert specimen["mechanism_binding"]["concept_pair_ref"].endswith(
+            ".concept_binding"
+        )
+        assert specimen["validator_refs"]
+        assert specimen["anti_claims"]
+        assert specimen["omission_receipt"]["omitted"]
