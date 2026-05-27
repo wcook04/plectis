@@ -152,6 +152,62 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "all_corpus_compression_navigation_only_not_source_truth_release_"
         "permission_proof_correctness_or_candidate_axiom_authority"
     )
+    budget_honesty = contract["context_pack_budget_honesty_contract"]
+    assert "over-budget routine packet is repair evidence" in budget_honesty[
+        "purpose"
+    ]
+    assert "budget.contract_status is within_budget" in budget_honesty[
+        "budget_rule"
+    ]
+    assert "budget.over_budget is true" in budget_honesty["budget_rule"]
+    assert "selected Microcosm depth slice as handles" in budget_honesty[
+        "budget_rule"
+    ]
+    assert "microcosm_entry_lattice" in budget_honesty["protected_row_rule"]
+    assert [
+        locus["source_ref"] for locus in budget_honesty["owner_loci"]
+    ] == [
+        "system/lib/navigation_context_pack.py::BUDGET_TRIM_PROTECTED_ROWS",
+        "system/lib/navigation_context_pack.py::_budget_trim",
+        (
+            "system/lib/navigation_context_pack.py::_budget_trim::"
+            "hard_ceiling_selected_row_handles"
+        ),
+        (
+            "system/server/tests/test_navigation_context_pack.py::"
+            "test_context_pack_navigation_spine_long_query_stays_under_budget"
+        ),
+        (
+            "system/server/tests/test_navigation_context_pack.py::"
+            "test_context_pack_cli_emits_budgeted_json"
+        ),
+        (
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py::"
+            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+        ),
+    ]
+    assert budget_honesty["required_status_fields"] == [
+        "budget.requested_tokens",
+        "budget.estimated_tokens",
+        "budget.over_budget",
+        "budget.contract_status",
+        "budget.hard_ceiling_repair_status",
+        "budget.routine_selected_row_economy.status",
+        "budget.routine_economy_effective_ceiling_tokens",
+        (
+            "navigation_index_spine.entry_intent_openings.task_conditioned."
+            "reentry_receipt.status"
+        ),
+    ]
+    assert any(
+        "patch navigation_context_pack.py budget trimming" in action
+        for action in budget_honesty["repair_actions"]
+    )
+    assert budget_honesty["authority_ceiling"] == (
+        "context_pack_budget_honesty_only_not_source_truth_release_permission_"
+        "proof_correctness_or_candidate_axiom_authority"
+    )
     source_loci = contract["source_loci_depth_contract"]
     assert source_loci["coverage_claim_rule"] == (
         "100% paper-module coverage means every authored module is routed, "
@@ -479,12 +535,13 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
     assert rule["fields"] == [
         "primary_modules",
         "supporting_lattice_modules",
-        "module_depth_roles",
-        "required_projection_surfaces",
-        "all_corpus_compression_dispatch",
-        "source_loci_depth_contract",
-        "atlas_source_coupling_closeout_contract",
-        "atlas_option_surfaces",
+            "module_depth_roles",
+            "required_projection_surfaces",
+            "all_corpus_compression_dispatch",
+            "context_pack_budget_honesty_contract",
+            "source_loci_depth_contract",
+            "atlas_source_coupling_closeout_contract",
+            "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
         "standard_type_plane_bridge",
@@ -601,16 +658,29 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "--option-surface navigation_type_plane --band card --ids public_microcosm_exports",
         "--paper-module-coverage",
         "selected_depth_slice",
+        "context_pack_budget_honesty_contract",
+        "budget.contract_status",
+        "budget.over_budget",
+        "budget.hard_ceiling_repair_status",
+        "budget.routine_selected_row_economy.status",
+        "budget.routine_economy_effective_ceiling_tokens",
+        "navigation_index_spine.entry_intent_openings.task_conditioned.reentry_receipt.status",
         "all-row `flag` is compatibility",
         "system/lib/standard_option_surface.py::_paper_module_cluster_rows",
         "system/lib/standard_option_surface.py::_paper_module_compression_packet",
         "system/lib/standard_option_surface.py::_paper_module_compression_passport",
         "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS",
+        "system/lib/navigation_context_pack.py::BUDGET_TRIM_PROTECTED_ROWS",
+        "system/lib/navigation_context_pack.py::_budget_trim",
+        "hard_ceiling_selected_row_handles",
         "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
         "system/lib/navigation_coverage_matrix.py::build_coverage_enforcement_matrix",
+        "system/server/tests/test_navigation_context_pack.py::test_context_pack_navigation_spine_long_query_stays_under_budget",
+        "system/server/tests/test_navigation_context_pack.py::test_context_pack_cli_emits_budgeted_json",
         "generated_sidecar_closeout_rule",
         "do not commit generated paper-module sidecars or System Atlas outputs",
         "all_corpus_compression_navigation_only_not_source_truth_release_permission_proof_correctness_or_candidate_axiom_authority",
+        "context_pack_budget_honesty_only_not_source_truth_release_permission_proof_correctness_or_candidate_axiom_authority",
         "handoff sequence",
         "context-pack selected row order",
         "context-pack next command order",
@@ -735,6 +805,22 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "cognitive_operators" in coverage_metabolism
     assert "All-Corpus Compression Dispatch" in coverage_metabolism
     assert "all-row `flag` remains a compatibility redirect" in coverage_metabolism
+    assert "context_pack_budget_honesty_contract" in coverage_metabolism
+    assert "budget.contract_status" in coverage_metabolism
+    assert "budget.over_budget" in coverage_metabolism
+    assert "system/lib/navigation_context_pack.py::BUDGET_TRIM_PROTECTED_ROWS" in coverage_metabolism
+    assert "system/lib/navigation_context_pack.py::_budget_trim" in coverage_metabolism
+    assert "hard_ceiling_selected_row_handles" in coverage_metabolism
+    assert (
+        "system/server/tests/test_navigation_context_pack.py::"
+        "test_context_pack_navigation_spine_long_query_stays_under_budget"
+        in coverage_metabolism
+    )
+    assert (
+        "system/server/tests/test_navigation_context_pack.py::"
+        "test_context_pack_cli_emits_budgeted_json"
+        in coverage_metabolism
+    )
     assert (
         "system/lib/standard_option_surface.py::_paper_module_cluster_rows"
         in coverage_metabolism
@@ -791,6 +877,13 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "microcosm_public_export_type_plane" in entry_projection_integrity
     assert "microcosm_runtime_organ_atlas" in entry_projection_integrity
     assert "entry/count projection honesty contract" in entry_projection_integrity
+    assert "Context-Pack Budget-Honesty Gate" in entry_projection_integrity
+    assert "context_pack_budget_honesty_contract" in entry_projection_integrity
+    assert "budget.contract_status == within_budget" in entry_projection_integrity
+    assert "budget.over_budget == true" in entry_projection_integrity
+    assert "system/lib/navigation_context_pack.py::BUDGET_TRIM_PROTECTED_ROWS" in entry_projection_integrity
+    assert "system/lib/navigation_context_pack.py::_budget_trim" in entry_projection_integrity
+    assert "hard_ceiling_selected_row_handles" in entry_projection_integrity
 
 
 def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
