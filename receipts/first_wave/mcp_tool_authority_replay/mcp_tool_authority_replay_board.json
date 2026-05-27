@@ -1,7 +1,7 @@
 {
-  "anti_claim": "MCP tool authority replay validates a synthetic tool-use contract: manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback receipts, untrusted-output instruction/data separation, cold replay, negative cases, and generated receipts. It does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
+  "anti_claim": "MCP tool authority replay validates a public trace-backed tool-use contract: manifest scope, call metadata, approval token refs, side-effect ledger refs, rollback receipts, untrusted-output instruction/data separation, cold replay, negative cases, and public agent-execution trace spans. It does not access live MCP accounts, export credentials or provider payloads, obey tool output as instruction, mutate source, claim benchmark safety, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "synthetic_mcp_tool_authority_replay_receipts_only",
+    "authority_ceiling": "public_agent_execution_trace_refactor_over_mcp_tool_authority_policy",
     "benchmark_score_claim_authorized": false,
     "credential_export_authorized": false,
     "live_mcp_account_access_authorized": false,
@@ -13,11 +13,23 @@
     "untrusted_tool_output_instruction_authorized": false
   },
   "board_id": "mcp_tool_authority_public_board",
-  "body_redacted": true,
+  "body_copied_material_count": 0,
+  "body_import_verification": {
+    "classification": "extension_of_existing_public_refactor",
+    "source_ref": "system/lib/agent_execution_trace.py",
+    "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+    "validation_refs": [
+      "microcosm-substrate/tests/test_mcp_tool_authority_replay.py"
+    ],
+    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_status": "verified"
+  },
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
   "call_rows": [
     {
       "approval_token_ref": "not_required",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_arguments_hash": "sha256:docs_lookup_public_hash_001",
       "call_id": "call_docs_lookup_001",
       "capability_scope_ref": "scope/docs_lookup_readonly",
@@ -35,8 +47,8 @@
     },
     {
       "approval_token_ref": "approval/synthetic_ticket_update_001",
-      "body_redacted": true,
-      "call_arguments_hash": "sha256:ticket_update_redacted_hash_001",
+      "body_in_receipt": false,
+      "call_arguments_hash": "sha256:ticket_update_body_free_hash_001",
       "call_id": "call_ticket_update_001",
       "capability_scope_ref": "scope/ticket_update_limited",
       "cold_replay_receipt_ref": "receipts/cold_replay/ticket_update_001.json",
@@ -53,7 +65,7 @@
     },
     {
       "approval_token_ref": "not_required",
-      "body_redacted": true,
+      "body_in_receipt": false,
       "call_arguments_hash": "sha256:untrusted_web_result_hash_001",
       "call_id": "call_untrusted_web_result_001",
       "capability_scope_ref": "scope/untrusted_web_result_readonly",
@@ -72,7 +84,7 @@
   ],
   "cold_replay_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": true,
       "call_id": "call_docs_lookup_001",
       "evidence_refs": [
         "tool_manifest:tool_docs_lookup",
@@ -83,7 +95,7 @@
       "status": "pass"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": true,
       "call_id": "call_ticket_update_001",
       "evidence_refs": [
         "tool_manifest:tool_ticket_update",
@@ -94,7 +106,7 @@
       "status": "pass"
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": true,
       "call_id": "call_untrusted_web_result_001",
       "evidence_refs": [
         "tool_manifest:tool_web_result",
@@ -129,26 +141,270 @@
     }
   ],
   "organ_id": "mcp_tool_authority_replay",
-  "private_state_scan": {
-    "blocking_hit_count": 0,
-    "body_redacted": true,
-    "hit_count": 0,
-    "hits": [],
-    "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 15,
-    "status": "pass"
+  "public_agent_execution_trace": {
+    "audit": {
+      "coverage": {
+        "body_in_receipt": false,
+        "call_argument_hash_coverage": true,
+        "capability_scope_coverage": true,
+        "cold_replay_receipt_coverage": true,
+        "instruction_data_split_coverage": true,
+        "rollback_receipt_coverage": true,
+        "untrusted_output_data_boundary_coverage": true,
+        "write_side_effect_approval_coverage": true,
+        "write_side_effect_ledger_coverage": true
+      },
+      "finding_count": 0,
+      "findings": []
+    },
+    "authority_ceiling": {
+      "credential_entry_authorized": false,
+      "external_network_mutation_authorized": false,
+      "hidden_reasoning_exported": false,
+      "live_account_action_authorized": false,
+      "live_browser_control_authorized": false,
+      "live_home_session_logs_read": false,
+      "provider_payload_read": false,
+      "raw_screenshot_body_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "bundle_id": "mcp_tool_authority_replay_fixture_input",
+    "input_ref": "fixtures/first_wave/mcp_tool_authority_replay/input",
+    "protocol_id": "mcp_tool_authority_public_projection_protocol",
+    "schema_version": "public_agent_execution_trace_refactor_v0",
+    "source_faithful_refactor": {
+      "omitted_live_material": [
+        "live MCP account bodies",
+        "credential values and access tokens",
+        "provider payload bodies",
+        "raw tool payload bodies",
+        "raw tool result bodies",
+        "private account identifiers"
+      ],
+      "preserved_semantics": [
+        "observable_action_span_rows",
+        "authority_boundary_metadata",
+        "sequence_ordered_trace",
+        "audit_findings",
+        "public_summary_counts",
+        "capability_scope_refs",
+        "approval_token_refs",
+        "side_effect_ledger_refs",
+        "rollback_receipt_refs",
+        "cold_replay_receipt_refs",
+        "instruction_data_split_refs"
+      ],
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
+      "verification_mode": "extension_of_existing_public_refactor"
+    },
+    "source_refs": [
+      "system/lib/agent_execution_trace.py",
+      "codex/standards/std_agent_execution_trace.json"
+    ],
+    "source_symbols": [
+      "system/lib/agent_execution_trace.py::Span",
+      "system/lib/agent_execution_trace.py::build_agent_execution_trace",
+      "system/lib/agent_execution_trace.py::write_agent_execution_trace",
+      "codex/standards/std_agent_execution_trace.json::types.Span",
+      "codex/standards/std_agent_execution_trace.json::strict_boundary"
+    ],
+    "span_count": 3,
+    "spans": [
+      {
+        "action_kind": "mcp_tool_authority_call",
+        "agent": "microcosm_public_fixture",
+        "approval_token_ref": "not_required",
+        "authority_verdict_id": "not_required",
+        "body_in_receipt": false,
+        "call_arguments_hash": "sha256:docs_lookup_public_hash_001",
+        "capability_scope_ref": "scope/docs_lookup_readonly",
+        "cold_replay_receipt_ref": "receipts/cold_replay/docs_lookup_001.json",
+        "credential_exported": false,
+        "duration_ms": 0,
+        "episode_id": "call_docs_lookup_001",
+        "final_answer_only_grading": false,
+        "input_digest": "sha256:55a870751b805a34e77dd3d70eb6e7f40aa92693df1ef0ed77af9a4b6c9681f2",
+        "instruction_data_split_ref": "split/docs_lookup_instruction_data_v1",
+        "ledger_diff_ref": "none",
+        "live_account_access": false,
+        "observation_ref": "source/public_docs_capsule_001",
+        "outcome": "readonly_lookup",
+        "private_ref_metadata_only": true,
+        "recovery_ref": "none",
+        "result_source_capsule_ref": "source/public_docs_capsule_001",
+        "rollback_receipt_ref": "none",
+        "sequence_index": 0,
+        "session_id": "mcp_tool_authority_replay_fixture_input",
+        "side_effect_class": "none",
+        "source_ref": "mcp_tool_authority_replay_bundle",
+        "span_id": "span:call_docs_lookup_001",
+        "state_transition_ref": "none",
+        "target_refs": [
+          "scope/docs_lookup_readonly"
+        ],
+        "tool_class": "readonly_lookup",
+        "tool_id": "tool_docs_lookup",
+        "tool_name": "mcp_tool_authority_replay",
+        "tool_requires_approval": false,
+        "tool_requires_rollback_receipt": false,
+        "turn_index": 0,
+        "untrusted_output_as_instruction": false,
+        "untrusted_output_ignored": false
+      },
+      {
+        "action_kind": "mcp_tool_authority_call",
+        "agent": "microcosm_public_fixture",
+        "approval_token_ref": "approval/synthetic_ticket_update_001",
+        "authority_verdict_id": "approval/synthetic_ticket_update_001",
+        "body_in_receipt": false,
+        "call_arguments_hash": "sha256:ticket_update_body_free_hash_001",
+        "capability_scope_ref": "scope/ticket_update_limited",
+        "cold_replay_receipt_ref": "receipts/cold_replay/ticket_update_001.json",
+        "credential_exported": false,
+        "duration_ms": 0,
+        "episode_id": "call_ticket_update_001",
+        "final_answer_only_grading": false,
+        "input_digest": "sha256:4a715c5c6668383499aa79ac4fa20c39d798d39b87802bd5595407baf03d7d86",
+        "instruction_data_split_ref": "split/ticket_update_instruction_data_v1",
+        "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
+        "live_account_access": false,
+        "observation_ref": "source/synthetic_ticket_capsule_001",
+        "outcome": "approved_write",
+        "private_ref_metadata_only": true,
+        "recovery_ref": "rollback/synthetic_ticket_update_001",
+        "result_source_capsule_ref": "source/synthetic_ticket_capsule_001",
+        "rollback_receipt_ref": "rollback/synthetic_ticket_update_001",
+        "sequence_index": 1,
+        "session_id": "mcp_tool_authority_replay_fixture_input",
+        "side_effect_class": "write",
+        "source_ref": "mcp_tool_authority_replay_bundle",
+        "span_id": "span:call_ticket_update_001",
+        "state_transition_ref": "ledger_diff/synthetic_ticket_update_001",
+        "target_refs": [
+          "scope/ticket_update_limited"
+        ],
+        "tool_class": "write_side_effect",
+        "tool_id": "tool_ticket_update",
+        "tool_name": "mcp_tool_authority_replay",
+        "tool_requires_approval": true,
+        "tool_requires_rollback_receipt": true,
+        "turn_index": 1,
+        "untrusted_output_as_instruction": false,
+        "untrusted_output_ignored": false
+      },
+      {
+        "action_kind": "mcp_tool_authority_call",
+        "agent": "microcosm_public_fixture",
+        "approval_token_ref": "not_required",
+        "authority_verdict_id": "not_required",
+        "body_in_receipt": false,
+        "call_arguments_hash": "sha256:untrusted_web_result_hash_001",
+        "capability_scope_ref": "scope/untrusted_web_result_readonly",
+        "cold_replay_receipt_ref": "receipts/cold_replay/untrusted_web_result_001.json",
+        "credential_exported": false,
+        "duration_ms": 0,
+        "episode_id": "call_untrusted_web_result_001",
+        "final_answer_only_grading": false,
+        "input_digest": "sha256:1898b2ffc0b0f42a8bd1936cfeddb3cc28ed2842f1c99b9da38dadc1f69fc0f8",
+        "instruction_data_split_ref": "split/untrusted_tool_output_data_only_v1",
+        "ledger_diff_ref": "none",
+        "live_account_access": false,
+        "observation_ref": "source/untrusted_web_capsule_001",
+        "outcome": "untrusted_result_data_only",
+        "private_ref_metadata_only": true,
+        "recovery_ref": "none",
+        "result_source_capsule_ref": "source/untrusted_web_capsule_001",
+        "rollback_receipt_ref": "none",
+        "sequence_index": 2,
+        "session_id": "mcp_tool_authority_replay_fixture_input",
+        "side_effect_class": "none",
+        "source_ref": "mcp_tool_authority_replay_bundle",
+        "span_id": "span:call_untrusted_web_result_001",
+        "state_transition_ref": "none",
+        "target_refs": [
+          "scope/untrusted_web_result_readonly"
+        ],
+        "tool_class": "untrusted_result",
+        "tool_id": "tool_web_result",
+        "tool_name": "mcp_tool_authority_replay",
+        "tool_requires_approval": false,
+        "tool_requires_rollback_receipt": false,
+        "turn_index": 2,
+        "untrusted_output_as_instruction": false,
+        "untrusted_output_ignored": true
+      }
+    ],
+    "status": "pass",
+    "summary": {
+      "action_kind_counts": {
+        "mcp_tool_authority_call": 3
+      },
+      "finding_count": 0,
+      "outcome_counts": {
+        "approved_write": 1,
+        "readonly_lookup": 1,
+        "untrusted_result_data_only": 1
+      },
+      "session_count": 1,
+      "total_span_count": 3,
+      "trace_digest": "sha256:fea26aa3b321bd892fa49e6c48f78e5d1d64665ce7519bfc23bcc4450cfeca57"
+    },
+    "target_refs": [
+      "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
+    ],
+    "target_symbols": [
+      "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::main"
+    ]
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
-    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
-    "microcosm-substrate/receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_result.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_board.json",
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
   ],
   "schema_version": "mcp_tool_authority_replay_board_v1",
+  "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
+    "blocking_hit_count": 0,
+    "body_in_receipt": false,
+    "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
+    "hit_count": 0,
+    "hits": [],
+    "omitted_output_fields": [
+      "source_excerpt",
+      "body"
+    ],
+    "real_substrate_default": true,
+    "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 15,
+    "status": "pass",
+    "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
   "side_effect_rows": [
     {
       "approval_token_ref": "approval/synthetic_ticket_update_001",
-      "body_redacted": true,
+      "body_in_receipt": true,
       "call_id": "call_ticket_update_001",
       "ledger_diff_ref": "ledger_diff/synthetic_ticket_update_001",
       "rollback_receipt_ref": "rollback/synthetic_ticket_update_001",
@@ -156,13 +412,41 @@
       "side_effect_id": "side_effect_ticket_update_001"
     }
   ],
+  "source_module_manifest_ref": "fixtures/first_wave/mcp_tool_authority_replay/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_mcp_account_access_authorized": false,
+      "provider_payload_exported": false,
+      "raw_tool_payload_exported": false,
+      "release_authorized": false,
+      "tool_result_body_exported": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "mcp_tool_authority_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "source_pattern_ids": [
     "mcp_tool_authority_replay_compound"
   ],
   "status": "pass",
   "tool_rows": [
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/docs_lookup_readonly",
       "computed_verdict": "accepted_tool_metadata",
       "reason_codes": [],
@@ -173,7 +457,7 @@
       "untrusted_result": false
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/ticket_update_limited",
       "computed_verdict": "accepted_tool_metadata",
       "reason_codes": [],
@@ -184,7 +468,7 @@
       "untrusted_result": false
     },
     {
-      "body_redacted": true,
+      "body_in_receipt": false,
       "capability_scope_ref": "scope/untrusted_web_result_readonly",
       "computed_verdict": "accepted_tool_metadata",
       "reason_codes": [],

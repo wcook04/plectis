@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 36,
+  "rows_with_source_body_imports": 37,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 367,
+  "source_open_body_material_count": 373,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 36,
-    "source_open_body_material_count": 367,
+    "rows_with_source_body_imports": 37,
+    "source_open_body_material_count": 373,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -6637,7 +6637,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public-safe MCP-like tool-authority replay: synthetic tool manifests, scoped calls, approval refs, side-effect ledger refs, rollback refs, untrusted-output data boundaries, cold replay receipts, and falsification fixtures.",
         "receipt_expectation_count": 2,
-        "required_field_count": 16,
+        "required_field_count": 19,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -6652,7 +6652,7 @@
         "standard_ref": "standards/std_microcosm_mcp_tool_authority_replay.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm show how tool-use authority claims are admitted only when scope, approval, side-effect, rollback, untrusted-output, cold replay, negative cases, and authority ceilings align.",
-        "validation_rule_count": 6
+        "validation_rule_count": 7
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -6669,7 +6669,36 @@
           "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
         ],
         "negative_case_independence": "partial_policy_checks_not_real_world_validation",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {},
+          "body_material_count": 6,
+          "body_material_ids": [
+            "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+            "mcp_tool_authority_extracted_patterns_ledger_body_import",
+            "agent_execution_trace_runtime_body_import",
+            "agent_execution_trace_standard_body_import",
+            "extracted_pattern_route_readiness_standard_body_import",
+            "mission_transaction_preflight_control_body_import"
+          ],
+          "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_control_plane_body",
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_standard_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported MCP tool-authority bundle for copied macro bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "source_faithful_refactor",
         "validator_command": "python -m microcosm_core.organs.mcp_tool_authority_replay run --input fixtures/first_wave/mcp_tool_authority_replay/input --out receipts/first_wave/mcp_tool_authority_replay",
         "verdict_source": "derived_projection_metric"
@@ -6677,7 +6706,36 @@
       "ordinal": 39,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {},
+        "body_material_count": 6,
+        "body_material_ids": [
+          "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+          "mcp_tool_authority_extracted_patterns_ledger_body_import",
+          "agent_execution_trace_runtime_body_import",
+          "agent_execution_trace_standard_body_import",
+          "extracted_pattern_route_readiness_standard_body_import",
+          "mission_transaction_preflight_control_body_import"
+        ],
+        "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/mcp_tool_authority_replay.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_control_plane_body",
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_standard_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported MCP tool-authority bundle for copied macro bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_mcp_tool_authority_replay.json",
         "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",

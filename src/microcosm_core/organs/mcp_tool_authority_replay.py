@@ -47,8 +47,23 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "tool_result_rows",
     "side_effect_rows",
     "cold_replay_rows",
+    "source_module_imports",
+    "source_open_body_imports",
     "authority_ceiling",
     "anti_claim",
+)
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_mcp_tool_authority_macro_body_landed"
+SOURCE_OPEN_BODY_SCHEMA = "mcp_tool_authority_source_open_body_imports_v1"
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_tool_body",
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_control_plane_body",
+    }
 )
 
 INPUT_NAMES = (
@@ -175,7 +190,62 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+        public_root / "core/private_state_forbidden_classes.json",
+    ]
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -185,7 +255,12 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     public_root = _public_root_for_path(source)
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
-    for path in _input_paths(source, include_negative=include_negative):
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
         display = _display(path, public_root=public_root)
         if path.is_file():
             rows.append(
@@ -320,6 +395,258 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
             str(row.get("error_code") or ""),
         ),
     )
+
+
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported MCP tool-authority bundle must include a source module manifest for copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "MCP_TOOL_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify copied material as non-secret macro body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while keeping receipt fields body-free.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "MCP_TOOL_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "MCP_TOOL_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared MCP tool-authority macro anchors.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "source_refs": source_refs,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "live_mcp_account_access_authorized": False,
+            "credential_or_account_bound_payload_exported": False,
+            "raw_tool_payload_exported": False,
+            "provider_payload_exported": False,
+            "tool_result_body_exported": False,
+            "release_authorized": False,
+            "benchmark_score_claim_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported MCP tool-authority bundle for copied macro trace, "
+            "standard, route-readiness, mission-transaction, and reconstruction "
+            "bodies; receipts carry refs, hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
@@ -828,7 +1155,7 @@ def _build_result(
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -846,6 +1173,12 @@ def _build_result(
     side_effects = validate_side_effect_ledger(payloads["side_effect_ledger"])
     cold_replay = validate_cold_replay(payloads["cold_replay"])
     public_trace = build_public_mcp_tool_authority_trace(input_dir)
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_mcp_tool_authority_bundle",
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
 
     observed = _merge_observed(
         projection,
@@ -855,6 +1188,7 @@ def _build_result(
         results,
         side_effects,
         cold_replay,
+        source_modules,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -866,9 +1200,15 @@ def _build_result(
         results,
         side_effects,
         cold_replay,
+        source_modules,
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
+    source_module_ok = (
+        source_modules["status"] == PASS
+        if input_mode == "exported_mcp_tool_authority_bundle"
+        else source_modules["status"] in {PASS, "not_present"}
+    )
     status = (
         PASS
         if not missing
@@ -881,8 +1221,10 @@ def _build_result(
         and side_effects["status"] == PASS
         and cold_replay["status"] == PASS
         and public_trace["status"] == PASS
+        and source_module_ok
         else "blocked"
     )
+    copied_body_landed = source_open_body_imports["status"] == PASS
     return {
         "schema_version": "mcp_tool_authority_replay_result_v1",
         "created_at": utc_now(),
@@ -909,14 +1251,32 @@ def _build_result(
         "target_refs": projection["target_refs"],
         "target_symbols": projection["target_symbols"],
         "public_runtime_refs": projection["public_runtime_refs"],
-        "body_import_status": projection["body_import_status"],
-        "body_import_classification": str(
-            projection["body_import_verification"].get("classification")
-            or projection["body_import_verification"].get("verification_mode")
-            or ""
+        "body_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS
+            if copied_body_landed
+            else projection["body_import_status"]
         ),
-        "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
+        "body_import_classification": (
+            "copied_non_secret_public_mcp_tool_authority_macro_body_import"
+            if copied_body_landed
+            else str(
+                projection["body_import_verification"].get("classification")
+                or projection["body_import_verification"].get("verification_mode")
+                or ""
+            )
+        ),
+        "product_path_role": (
+            "copied_non_secret_macro_body_plus_public_agent_execution_trace_refactor"
+            if copied_body_landed
+            else "source_faithful_public_agent_execution_trace_refactor"
+        ),
         "body_import_verification": projection["body_import_verification"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_imports": source_modules,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports["body_material_count"],
         "tool_policy_id": tool_policy["policy_id"],
         "allowed_tool_classes": tool_policy["allowed_tool_classes"],
         "tool_count": manifest["tool_count"],
@@ -937,6 +1297,8 @@ def _build_result(
         "side_effect_rows": side_effects["side_effect_rows"],
         "cold_replay_rows": cold_replay["cold_replay_rows"],
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
     }
 
 
@@ -974,7 +1336,12 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "call_rows": result["call_rows"],
         "side_effect_rows": result["side_effect_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
+        "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
@@ -1031,6 +1398,12 @@ def _write_receipts(
         "output_instruction_ignored_count": result["output_instruction_ignored_count"],
         "rollback_receipt_count": result["rollback_receipt_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
@@ -1048,6 +1421,12 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
@@ -1123,6 +1502,10 @@ def run_tool_authority_bundle(
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    secret_scan = result.get("secret_exclusion_scan")
+    scan = secret_scan if isinstance(secret_scan, dict) else {}
+    source_imports = result.get("source_open_body_imports")
+    source_body_floor = source_imports if isinstance(source_imports, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -1152,7 +1535,24 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "missing_negative_case_count": len(result.get("missing_negative_cases") or []),
             "error_code_count": len(result.get("error_codes") or []),
             "finding_count": len(result.get("findings") or []),
-            "body_in_receipt": result.get("body_in_receipt") is True,
+            "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+        },
+        "body_floor": {
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+            "secret_exclusion_scan_in_card": False,
+            "tool_rows_in_card": False,
+            "call_rows_in_card": False,
+            "source_open_body_imports_in_card": False,
+        },
+        "source_body_floor": {
+            "source_module_manifest_status": result.get("source_module_manifest_status"),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "body_material_status": source_body_floor.get("body_material_status"),
+            "body_material_count": source_body_floor.get("body_material_count", 0),
+            "body_material_classes": source_body_floor.get("body_material_classes", {}),
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
         },
         "authority_boundary": {
             "live_mcp_account_access_authorized": False,

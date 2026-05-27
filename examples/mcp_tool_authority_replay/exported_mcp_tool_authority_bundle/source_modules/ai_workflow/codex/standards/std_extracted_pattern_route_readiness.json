@@ -1,0 +1,127 @@
+{
+  "kind": "standard",
+  "artifact": "extracted_pattern_route_readiness",
+  "schema_version": "extracted_pattern_route_readiness_standard_v1",
+  "purpose": "Govern macro-side pattern routing readiness so future microcosm reconstruction selects coherent organs instead of isolated mined pattern rows.",
+  "authority_boundary": {
+    "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "routing_overlays": [
+      "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+      "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+      "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+      "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
+    ],
+    "validator": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+    "validation_report": "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+    "public_microcosm_authority": false
+  },
+  "governing_principles": [
+    "pri_001",
+    "pri_121",
+    "pri_128",
+    "pri_139",
+    "pri_142"
+  ],
+  "sibling_standards": [
+    "codex/standards/std_extracted_pattern_substrate_bindings.json",
+    "codex/standards/std_pattern_deliverables.json",
+    "codex/standards/std_agent_entry_surface.json"
+  ],
+  "route_readiness_contract": {
+    "unit_of_selection": "organ_bundle_not_pattern_row",
+    "hard_floor": "No mined pattern row is a standalone future leaf until a selector proves organ membership, prerequisites, direct import or regression-wrapper contract, proof or validator boundary, and anti-claim.",
+    "root_substrate_required_before_leaf_selection": [
+      "root_binding_and_executable_grammar",
+      "proof_diagnostic_evidence_spine",
+      "navigation_hologram_route_plane",
+      "mission_transaction_work_spine"
+    ],
+    "selector_must_open": [
+      "row_to_organ_router",
+      "organ_route_cards",
+      "organ_fixture_specs",
+      "route_readiness_audit"
+    ],
+    "selector_must_reject": [
+      "hard_no_standalone pattern ids",
+      "macro_only rows without direct import target, deletion disposition, or exact secret/credential exclusion",
+      "fixture_only rows that substitute for non-secret macro substrate",
+      "publication wrappers without proof and authority gates",
+      "formal lab rows without split policy and repair receipts",
+      "cockpit rows without imported source-backed typed views and render checks"
+    ],
+    "current_refinement_contract": {
+      "owner_field": "last_refinement",
+      "route_source": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::foundation_combination_routes/frontier_combination_routes",
+      "required_links": [
+        "route_id resolves to a binding-sidecar combination route",
+        "readiness_id resolves to route_readiness_audit.organ_readiness",
+        "touched_pattern_ids resolve in extracted_patterns_ledger.jsonl and in the selected route",
+        "selected route has no missing_pattern_ids or missing_detailed_binding_pattern_ids",
+        "selected route target_existing_organs overlap readiness route_to_organ_ids",
+        "readiness route_to_organ_ids are backed by organ fixture specs",
+        "route_evidence_refs cite the binding route, readiness row, substrate binding validator, and route-readiness validator"
+      ],
+      "anti_theater_rule": "A continuity note is not route-ready unless the checker can join it to binding routes, readiness rows, fixture strategy, source refs, anti-claim, and validation hooks."
+    }
+  },
+  "validation_rules": {
+    "hard_errors": [
+      "route readiness audit source ledger count or hash does not match extracted_patterns_ledger.jsonl",
+      "audit_summary counts drift from companion overlays",
+      "router duplicate pattern refs are not listed in intentional_router_overlaps",
+      "routing overlays reference pattern ids absent from the extracted ledger",
+      "selector contract allows pattern row selection or omits required companion overlays",
+      "organ readiness rows allow individual_row_selection",
+      "readiness route_to_organ_ids lack fixture specs",
+      "fixture specs lack imported substrate target, regression-wrapper inputs, negative cases, validator/check, or anti-claim",
+      "dependency DAG edge references an undefined organ node",
+      "dependency DAG contains a cycle",
+      "hard_no_standalone pattern ids are marked selectable",
+      "last_refinement is missing, points at an unknown binding route or readiness row, names patterns outside the selected route, cites a route with unresolved detailed-binding gaps, lacks fixture strategy/source refs/anti-claim, or omits required evidence refs"
+    ],
+    "warnings": [
+      "future extensions should keep weak or macro-only families folded unless direct import targets, exact secret/credential exclusions, and anti-claim gates are added"
+    ]
+  },
+  "owner_tool_contract": {
+    "check": "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --check",
+    "refresh": "./repo-python tools/meta/factory/check_extracted_pattern_route_readiness.py --write-report",
+    "tests": "./repo-pytest system/server/tests/test_extracted_pattern_route_readiness.py"
+  },
+  "compliance_coverage": {
+    "standard_ref": "codex/standards/std_compliance_coverage.json",
+    "adapter": "system/lib/compliance/extracted_pattern_adapter.py::scan_extracted_pattern_route_readiness",
+    "owner_validator": "tools/meta/factory/check_extracted_pattern_route_readiness.py::check_report",
+    "ledger_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_extracted_pattern_route_readiness",
+    "scanner_scope": [
+      "codex/standards/std_extracted_pattern_route_readiness.json",
+      "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "state/microcosm_portfolio/extracted_pattern_route_readiness_audit.json",
+      "state/microcosm_portfolio/extracted_pattern_row_to_organ_router.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_route_cards.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_fixture_specs.json",
+      "state/microcosm_portfolio/extracted_pattern_route_decision_matrix.json",
+      "state/microcosm_portfolio/extracted_pattern_organ_dependency_dag.json",
+      "state/microcosm_portfolio/extracted_pattern_internal_routing_graph.json",
+      "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
+      "state/microcosm_portfolio/extracted_pattern_route_readiness_validation_report.json",
+      "tools/meta/factory/check_extracted_pattern_route_readiness.py::check_report"
+    ],
+    "projection_contract": {
+      "scanner_role": "read_only_compliance_projection",
+      "owner_tool_remains_authority": true,
+      "generated_report_staleness": "surface_as_refresh_projection_finding",
+      "forbidden": [
+        "refresh claimed sidecars from the compliance adapter",
+        "select public Microcosm leaves from the scanner",
+        "duplicate the owner checker route-readiness rules"
+      ]
+    },
+    "atlas_navigation_use": "Atlas and navigation consume this standard through the generated compliance_ledger row after build_compliance_ledger.py runs; the route-readiness overlays and owner checker remain mutation authority."
+  }
+}

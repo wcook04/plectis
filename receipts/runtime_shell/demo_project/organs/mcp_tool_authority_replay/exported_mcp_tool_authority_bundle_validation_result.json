@@ -18,8 +18,9 @@
     "unapproved_side_effect_authorized": false,
     "untrusted_tool_output_instruction_authorized": false
   },
-  "body_import_classification": "extension_of_existing_public_refactor",
-  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_copied_material_count": 6,
+  "body_import_classification": "copied_non_secret_public_mcp_tool_authority_macro_body_import",
+  "body_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
   "body_import_verification": {
     "classification": "extension_of_existing_public_refactor",
     "source_ref": "system/lib/agent_execution_trace.py",
@@ -31,6 +32,9 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+  "body_text_exported_in_receipts": false,
+  "body_text_in_receipt": false,
   "bundle_id": "mcp_tool_authority_public_trace_refactor",
   "call_count": 3,
   "call_rows": [
@@ -126,18 +130,110 @@
       "status": "pass"
     }
   ],
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "command": "python -m microcosm_core.organs.mcp_tool_authority_replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
+  "created_at": "2026-05-27T02:26:22+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.mcp_tool_authority_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:abd58bb0ea528101e3f70ad9f2cec242454b9060e36a71fed067cdfa5a000104",
+    "card_schema_version": "mcp_tool_authority_replay_command_card_v1",
+    "include_negative": false,
+    "input_count": 16,
+    "inputs": [
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/projection_protocol.json",
+        "sha256": "sha256:755fd805ca6074d16bc89c98ace590d589e30c8fe914ced590d55fb1222cd63f",
+        "size_bytes": 2840
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/tool_policy.json",
+        "sha256": "sha256:97f04234c068dcde9fc8ea0b9e8273682c61ede7e86b50b9de6d15ad2e770ac2",
+        "size_bytes": 1279
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/tool_manifest.json",
+        "sha256": "sha256:d2b1fed756c3d29722ef4b60c1fbe778f8f16fde2ea2263026dd7a827151d55c",
+        "size_bytes": 1307
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/tool_calls.json",
+        "sha256": "sha256:56576c15e6626bb1bd2614e77624c07407a437a825567d563a1fb83e9f4da429",
+        "size_bytes": 2858
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/tool_results.json",
+        "sha256": "sha256:c4619471b6b4d34d36890a6bae7e7d8a6b2c1f5df462cac4db2569596f2235ac",
+        "size_bytes": 1236
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/side_effect_ledger.json",
+        "sha256": "sha256:98fb3e879a6b8a449450d80122e4d5c3ca9712fc1445c5c4606bf67898ead632",
+        "size_bytes": 654
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/cold_replay.json",
+        "sha256": "sha256:5c554a5217bf865c10d2357a97e82b9fc16ab31bed1aebda3c4c504e0b1acad9",
+        "size_bytes": 1082
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/bundle_manifest.json",
+        "sha256": "sha256:10518ec8e1066122e1e6013d405f70d67055c3b606fb9da68754b9b06b4aabd1",
+        "size_bytes": 3354
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+        "sha256": "sha256:dcbbcb173a06c61687483cb19c452a14d0b3e8baffd7a826390ababc4792bdab",
+        "size_bytes": 14236
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "size_bytes": 295524
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "size_bytes": 936934
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "size_bytes": 224689
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "size_bytes": 47570
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_extracted_pattern_route_readiness.json",
+        "sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+        "size_bytes": 7644
+      },
+      {
+        "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
+        "sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+        "size_bytes": 19500
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "mcp_tool_authority_replay_freshness_basis_v1",
+    "validator_schema_version": "exported_mcp_tool_authority_bundle_validation_result_v1"
+  },
   "input_mode": "exported_mcp_tool_authority_bundle",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
   "organ_id": "mcp_tool_authority_replay",
   "output_instruction_ignored_count": 1,
-  "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
+  "product_path_role": "copied_non_secret_macro_body_plus_public_agent_execution_trace_refactor",
   "projection_receipt_refs": [
     "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
     "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json"
@@ -377,6 +473,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "rollback_receipt_count": 1,
   "schema_version": "exported_mcp_tool_authority_bundle_validation_result_v1",
   "secret_exclusion_scan": {
@@ -401,7 +498,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 8,
+    "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -417,6 +514,96 @@
       "side_effect_id": "side_effect_ticket_update_001"
     }
   ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 2,
+      "public_macro_tool_body": 1
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 6,
+    "module_ids": [
+      "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+      "mcp_tool_authority_extracted_patterns_ledger_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_standard_body_import",
+      "mission_transaction_preflight_control_body_import"
+    ],
+    "observed_negative_cases": {},
+    "source_module_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+    "source_module_manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+    "source_refs": [
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_extracted_pattern_route_readiness.json",
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 6
+  },
+  "source_module_manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "credential_or_account_bound_payload_exported": false,
+      "live_mcp_account_access_authorized": false,
+      "provider_payload_exported": false,
+      "raw_tool_payload_exported": false,
+      "release_authorized": false,
+      "tool_result_body_exported": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 2,
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+      "mcp_tool_authority_extracted_patterns_ledger_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_standard_body_import",
+      "mission_transaction_preflight_control_body_import"
+    ],
+    "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported MCP tool-authority bundle for copied macro trace, standard, route-readiness, mission-transaction, and reconstruction bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "mcp_tool_authority_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "mcp_tool_authority_replay_compound"
   ],

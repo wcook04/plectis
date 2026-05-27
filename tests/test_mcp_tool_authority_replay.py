@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -12,6 +13,7 @@ import microcosm_core.organs.mcp_tool_authority_replay as mcp_tool_authority_rep
 from microcosm_core.organs.mcp_tool_authority_replay import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    SOURCE_MODULE_IMPORT_STATUS,
     main,
     run,
     run_tool_authority_bundle,
@@ -138,13 +140,18 @@ def test_mcp_tool_authority_exported_bundle_validates_runtime_shape(
     assert result["approved_side_effect_count"] == 1
     assert result["output_instruction_ignored_count"] == 1
     assert result["cold_replay_pass_count"] == 3
-    assert result["body_import_status"] == "extension_of_existing_public_refactor_landed"
+    assert result["body_import_status"] == SOURCE_MODULE_IMPORT_STATUS
     assert result["body_import_classification"] == (
-        "extension_of_existing_public_refactor"
+        "copied_non_secret_public_mcp_tool_authority_macro_body_import"
     )
     assert result["product_path_role"] == (
-        "source_faithful_public_agent_execution_trace_refactor"
+        "copied_non_secret_macro_body_plus_public_agent_execution_trace_refactor"
     )
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] >= 6
+    assert result["body_material_status"] == SOURCE_MODULE_IMPORT_STATUS
+    assert result["body_copied_material_count"] >= 6
     assert result["body_import_verification"]["verification_mode"] == (
         "extension_of_existing_public_refactor"
     )
@@ -190,9 +197,14 @@ def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
     assert first_card["tool_authority"]["tool_count"] == 3
     assert first_card["tool_authority"]["call_count"] == 3
+    assert first_card["source_body_floor"]["body_material_count"] >= 6
+    assert first_card["source_body_floor"]["body_material_status"] == (
+        SOURCE_MODULE_IMPORT_STATUS
+    )
     assert "call_rows" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "public_agent_execution_trace" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
 
     def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
         raise AssertionError("fresh card path should reuse the existing receipt")
@@ -207,6 +219,35 @@ def test_mcp_tool_authority_bundle_card_reuses_fresh_receipt(
         first_card["command_speed"]["freshness_digest"]
     )
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
+
+
+def test_mcp_tool_authority_source_modules_are_exact_macro_body_imports() -> None:
+    manifest_path = BUNDLE_INPUT / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["module_count"] >= 6
+    assert manifest["body_in_receipt"] is False
+
+    repo_root = MICROCOSM_ROOT.parent
+    for row in manifest["modules"]:
+        source = repo_root / row["source_ref"]
+        target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
+        target = MICROCOSM_ROOT / target_ref
+
+        assert source.is_file(), row["module_id"]
+        assert target.is_file(), row["module_id"]
+        source_digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
+        target_digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+        assert source_digest == target_digest == row["sha256"]
+        assert row["source_sha256"] == source_digest
+        assert row["target_sha256"] == target_digest
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        body = target.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in body
 
 
 def test_public_agent_execution_trace_refactor_builds_mcp_tool_authority_spans() -> None:

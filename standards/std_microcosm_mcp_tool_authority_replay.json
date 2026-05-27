@@ -17,14 +17,19 @@
     "unapproved_side_effect_authority": false,
     "untrusted_tool_output_instruction_authority": false
   },
-  "body_import_status": "extension_of_existing_public_refactor_landed",
+  "body_copied_material_count": 6,
+  "body_import_classification": "copied_non_secret_public_mcp_tool_authority_macro_body_import",
+  "body_import_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
   "body_import_verification": {
+    "source_module_count": 6,
+    "source_module_manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+    "source_module_manifest_status": "pass",
     "source_ref": "system/lib/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "validation_refs": [
       "microcosm-substrate/tests/test_mcp_tool_authority_replay.py"
     ],
-    "verification_mode": "extension_of_existing_public_refactor",
+    "verification_mode": "copied_non_secret_macro_body_plus_extension_of_existing_public_refactor",
     "verification_status": "verified"
   },
   "body_in_receipt": false,
@@ -47,6 +52,7 @@
     "module_slug": "mcp_tool_authority_replay",
     "required": true
   },
+  "product_path_role": "copied_non_secret_macro_body_plus_public_agent_execution_trace_refactor",
   "public_private_boundary": {
     "allowed_public_inputs": [
       "synthetic tool ids",
@@ -72,21 +78,25 @@
   },
   "receipt_contract": {
     "must_record": [
+      "anti_claim",
+      "approved_side_effect_count",
+      "authority_ceiling",
+      "body_copied_material_count",
+      "body_import_verification",
+      "call_count",
+      "cold_replay_pass_count",
+      "negative_case_coverage",
+      "output_instruction_ignored_count",
       "protocol_id",
+      "public_agent_execution_trace",
+      "rollback_receipt_count",
+      "secret_exclusion_scan",
+      "source_module_manifest_ref",
+      "source_module_manifest_status",
+      "source_open_body_imports",
       "source_pattern_ids",
       "tool_count",
-      "call_count",
-      "write_side_effect_count",
-      "approved_side_effect_count",
-      "output_instruction_ignored_count",
-      "rollback_receipt_count",
-      "cold_replay_pass_count",
-      "secret_exclusion_scan",
-      "public_agent_execution_trace",
-      "body_import_verification",
-      "authority_ceiling",
-      "anti_claim",
-      "negative_case_coverage"
+      "write_side_effect_count"
     ],
     "receipt_id": "receipt.microcosm.mcp_tool_authority_replay",
     "required": true
@@ -96,7 +106,8 @@
     "receipt must cite source refs, source pattern ids, tool/call/side-effect/output-boundary/rollback/cold-replay counts, negative-case coverage, secret-exclusion scan, public agent-execution trace, body-import verification, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
-    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json"
+    "receipts/first_wave/mcp_tool_authority_replay/mcp_tool_authority_replay_validation_receipt.json",
+    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle_validation_result.json"
   ],
   "relationships": {
     "canonical_organ_model_ref": "core/organ_registry.json#mcp_tool_authority_replay",
@@ -109,27 +120,69 @@
     ]
   },
   "required_fields": [
-    "protocol_id",
-    "source_refs",
-    "source_pattern_ids",
-    "projection_receipt_refs",
-    "target_refs",
-    "target_symbols",
+    "anti_claim",
+    "authority_ceiling",
+    "body_copied_material_count",
     "body_import_status",
     "body_import_verification",
+    "cold_replays",
+    "projection_receipt_refs",
+    "protocol_id",
     "public_agent_execution_trace",
-    "tools",
+    "side_effects",
+    "source_module_manifest_ref",
+    "source_open_body_imports",
+    "source_pattern_ids",
+    "source_refs",
+    "target_refs",
+    "target_symbols",
     "tool_calls",
     "tool_results",
-    "side_effects",
-    "cold_replays",
-    "authority_ceiling",
-    "anti_claim"
+    "tools"
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
     "rule": "macro source refs stay path-level metadata while public trace targets and runtime refs prove the source-faithful refactor path"
+  },
+  "source_module_manifest_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 2,
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "mcp_tool_authority_high_novelty_growth_receipt_body_import",
+      "mcp_tool_authority_extracted_patterns_ledger_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_standard_body_import",
+      "mission_transaction_preflight_control_body_import"
+    ],
+    "body_material_status": "copied_non_secret_mcp_tool_authority_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported MCP tool-authority bundle for copied macro bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "mcp_tool_authority_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_refs": [
     {
@@ -141,6 +194,11 @@
       "field": "runtime_example",
       "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
     }
   ],
   "standard_id": "std_microcosm_mcp_tool_authority_replay",
@@ -177,18 +235,21 @@
     "require write-capable calls to cite approval token, ledger diff, and rollback receipt refs",
     "require untrusted tool output to stay data and be ignored as instruction",
     "reject overbroad scopes, credential export, tool-output-as-instruction, unapproved side effects, live account access, final-answer-only grading, missing rollback receipts, and unredacted tool payloads",
-    "emit body-free receipts, secret-exclusion scan, and public agent-execution trace spans"
+    "emit body-free receipts, secret-exclusion scan, and public agent-execution trace spans",
+    "verify copied source modules by digest and required anchors while keeping body text out of receipts"
   ],
   "validator_contract": {
     "minimum_checks": [
-      "projection_protocol_density",
-      "tool_policy_authority_floor",
-      "tool_manifest_scope_floor",
-      "tool_call_authority_floor",
-      "side_effect_approval_and_rollback",
-      "untrusted_output_instruction_boundary",
       "cold_replay_coverage",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "projection_protocol_density",
+      "side_effect_approval_and_rollback",
+      "source_module_manifest_digest_floor",
+      "source_open_body_import_floor",
+      "tool_call_authority_floor",
+      "tool_manifest_scope_floor",
+      "tool_policy_authority_floor",
+      "untrusted_output_instruction_boundary"
     ],
     "required": true,
     "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay"
