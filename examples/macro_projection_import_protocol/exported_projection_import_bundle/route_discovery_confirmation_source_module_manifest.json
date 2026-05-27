@@ -30,7 +30,8 @@
         "\"accepted_appended\": accepted_appended"
       ],
       "anchor_count": 7,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_route_graph_export_no_accepted_edge_mutation_authority_no_provider_payload_bodies"
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_route_graph_export_no_accepted_edge_mutation_authority_no_provider_payload_bodies",
+      "material_class": "public_macro_tool_body"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and read-only macro confirmation smoke checks; copied route-discovery-confirmation source is body evidence, not authority to mutate accepted edges, update the canonical route graph, execute live providers, export prompt/operator/provider bodies, inspect browser/HUD live access, inspect private account/session state, or send recipient material",

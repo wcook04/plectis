@@ -26,7 +26,8 @@
       "source_role": "Builds compact route-node cards from file bodies, including authority plane, JSON keys, symbols/imports, top terms, verb cues, and evidence snippets.",
       "source_sha256": "3f2f15e2fca909cd33227f80d93ce6853a2a4067124ebba7a290c8a66f6f97c1",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_node_card_builder.py",
-      "target_sha256": "3f2f15e2fca909cd33227f80d93ce6853a2a4067124ebba7a290c8a66f6f97c1"
+      "target_sha256": "3f2f15e2fca909cd33227f80d93ce6853a2a4067124ebba7a290c8a66f6f97c1",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -49,7 +50,8 @@
       "source_role": "Builds deterministic directed route-candidate relation cards from node cards using import, schema, evidence, and lexical signals without deciding final route truth.",
       "source_sha256": "e356a61313de519cec5db5f9e5bf809925e3c4180aa1d90cbe02f58a8e1892a5",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_candidate_builder.py",
-      "target_sha256": "e356a61313de519cec5db5f9e5bf809925e3c4180aa1d90cbe02f58a8e1892a5"
+      "target_sha256": "e356a61313de519cec5db5f9e5bf809925e3c4180aa1d90cbe02f58a8e1892a5",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -72,7 +74,8 @@
       "source_role": "Ranks candidate route pairs with a local graph and accepted-edge context using personalized PageRank for inspection order.",
       "source_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_graph_candidate_ranker.py",
-      "target_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796"
+      "target_sha256": "14104952f0470f62f89102fb01653b0288026f2ea3762749f97e16e17238d796",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -95,7 +98,8 @@
       "source_role": "Canonicalizes discovered route edges against allowed Rosetta verbs, inflection aliases, and schema pattern clusters.",
       "source_sha256": "999a234a99b963da9864d2547d54b50ff7f0cf5b42753099c986d0bab2727d1c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_discovery_edc.py",
-      "target_sha256": "999a234a99b963da9864d2547d54b50ff7f0cf5b42753099c986d0bab2727d1c"
+      "target_sha256": "999a234a99b963da9864d2547d54b50ff7f0cf5b42753099c986d0bab2727d1c",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -118,7 +122,8 @@
       "source_role": "Extracts directed route pairs whose candidate connector verb needs correction while preserving prior-verb boundary for downstream review.",
       "source_sha256": "1b5b919d96d61fa67b041d76b5aea1464b48c3b2a5a4a2852f4b37345b3dd021",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_verb_correction.py",
-      "target_sha256": "1b5b919d96d61fa67b041d76b5aea1464b48c3b2a5a4a2852f4b37345b3dd021"
+      "target_sha256": "1b5b919d96d61fa67b041d76b5aea1464b48c3b2a5a4a2852f4b37345b3dd021",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -141,7 +146,8 @@
       "source_role": "Builds optional NVIDIA retrieval-hint queries/passages for route candidate selection only; copied for source-open body inspection, not live provider execution.",
       "source_sha256": "6642c5533d199b7781425184dd2242ff3734eb7429f153ab8e9498db460270ee",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/nvidia_route_hints.py",
-      "target_sha256": "6642c5533d199b7781425184dd2242ff3734eb7429f153ab8e9498db460270ee"
+      "target_sha256": "6642c5533d199b7781425184dd2242ff3734eb7429f153ab8e9498db460270ee",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -164,7 +170,8 @@
       "source_role": "Focused regression body for route-worker packet node cards, deterministic pairs, graph ranking, verb correction, EDC canonicalization, and neutral retrieval hint passages.",
       "source_sha256": "6d6e792432694e9618b70366e43bfba5936753b1ddaa2ea6c832564f7fa0275c",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_worker_packet.py",
-      "target_sha256": "6d6e792432694e9618b70366e43bfba5936753b1ddaa2ea6c832564f7fa0275c"
+      "target_sha256": "6d6e792432694e9618b70366e43bfba5936753b1ddaa2ea6c832564f7fa0275c",
+      "material_class": "public_macro_tool_body"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation into pytest temp state, and neutral passage assertions; copied source modules are body evidence, not authority to execute live providers, mutate route graphs, export prompt/operator/provider bodies, or inspect private state",

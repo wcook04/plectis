@@ -40,7 +40,8 @@
       "sha256_match": true,
       "line_count": 233,
       "byte_count": 8959,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "command_output_sidecar_helper_body_import",
@@ -63,7 +64,8 @@
       "sha256_match": true,
       "line_count": 158,
       "byte_count": 5753,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "command_output_audit_body_import",
@@ -86,7 +88,8 @@
       "sha256_match": true,
       "line_count": 531,
       "byte_count": 21494,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "command_output_projection_standard_body_import",
@@ -109,7 +112,8 @@
       "sha256_match": true,
       "line_count": 322,
       "byte_count": 18088,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     }
   ],
   "validation_contract_ref": "command_output_projection_runtime_contract.json"

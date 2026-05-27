@@ -21,6 +21,7 @@ SYSTEM_TERM_STANDARD = Path("codex/standards/std_system_term.json")
 RAW_SEED_PRINCIPLES_STANDARD = Path("codex/standards/principles/std_raw_seed_principles.json")
 SYSTEM_AXIOM_CANDIDATE_STANDARD = Path("codex/standards/principles/std_system_axiom_candidate.json")
 SKILL_STANDARD = Path("codex/standards/std_skill.json")
+COMPLIANCE_COVERAGE_STANDARD = Path("codex/standards/std_compliance_coverage.json")
 PYTHON_STANDARD = Path("codex/standards/std_python.py")
 COMPRESSION_PROFILES = Path("codex/doctrine/compression_profiles.json")
 ANNEX_AUTHORITY_INDEX = Path("codex/standards/annex/annex_authority_index.json")
@@ -30,10 +31,31 @@ SYSTEM_ATLAS_STANDARD = Path("codex/standards/std_system_atlas.json")
 STANDARD_TYPE_PLANE_STANDARD = Path("codex/standards/std_standard_type_plane.json")
 CONFIG_AUTHORITY_STANDARD = Path("codex/standards/std_config_authority_registry.json")
 FRONTEND_COMPONENT_STANDARD = Path("codex/standards/std_frontend_component_index.json")
+TYPE_A_AUTONOMOUS_SEED_STANDARD = Path("codex/standards/std_autonomous_seed_prompt.json")
+EXTRACTED_PATTERN_SUBSTRATE_STANDARD = Path(
+    "codex/standards/std_extracted_pattern_substrate_bindings.json"
+)
+MICROCOSM_STANDARD = Path("codex/standards/std_microcosm.json")
 WAVE_042_DIR = Path(
     "state/meta_missions/system_microcosm_probe/ledgers/"
     "navigation_hologram_microcosm/wave_042"
 )
+REQUIRED_NAVIGATION_CONTRACT_FIELDS = {
+    "profile_id",
+    "artifact_kind",
+    "navigable_bands",
+    "band_contracts",
+    "navigable_scopes",
+    "navigable_facets",
+    "population_policy",
+    "creator_skill_id",
+    "navigator_skill_id",
+    "source_authority",
+    "currentness_policy",
+    "dependency_neighborhood_policy",
+    "edge_compression_policy",
+    "validation_probe",
+}
 
 
 def _utc_now() -> str:
@@ -51,6 +73,19 @@ def _load_json(path: Path) -> dict[str, Any]:
 def _navigation_contract_from_json(root: Path, path: Path) -> dict[str, Any] | None:
     contract = _load_json(root / path).get("navigation_contract")
     return contract if isinstance(contract, dict) else None
+
+
+def _contract_missing_required_fields(contract: dict[str, Any]) -> list[str]:
+    return sorted(field for field in REQUIRED_NAVIGATION_CONTRACT_FIELDS if field not in contract)
+
+
+def _nested_navigation_contract_from_json(root: Path, path: Path, *keys: str) -> dict[str, Any] | None:
+    value: Any = _load_json(root / path)
+    for key in keys:
+        if not isinstance(value, dict):
+            return None
+        value = value.get(key)
+    return value if isinstance(value, dict) else None
 
 
 def _navigation_contracts_from_json(root: Path, path: Path) -> dict[str, Any]:
@@ -193,6 +228,7 @@ def _contract_row(
         "currentness_policy": source.get("currentness_policy"),
         "dependency_neighborhood_policy": source.get("dependency_neighborhood_policy"),
         "validation_probe": source.get("validation_probe"),
+        "missing_contract_fields": _contract_missing_required_fields(source) if source else [],
         "adapter_support_status_preserved": atlas_row.get("support_status"),
         "does_not_upgrade_option_surface_support": atlas_row.get("support_status") != "option_surface_supported",
         "profile_gap": atlas_row.get("profile_gap"),
@@ -279,6 +315,15 @@ def _draft_contracts() -> dict[str, dict[str, Any]]:
 
 def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]]:
     contracts: dict[str, tuple[str, str, dict[str, Any]]] = {}
+    navigation_contract_catalog = _navigation_contracts_from_json(root, NAVIGATION_CONTRACT_STANDARD)
+    for kind_id, contract in navigation_contract_catalog.items():
+        if not isinstance(contract, dict):
+            continue
+        contracts[str(kind_id)] = (
+            "declared_incomplete" if _contract_missing_required_fields(contract) else "declared",
+            f"{NAVIGATION_CONTRACT_STANDARD}::navigation_contracts.{kind_id}",
+            contract,
+        )
     for kind_id, path in (
         ("paper_modules", PAPER_MODULE_STANDARD),
         ("standards", STANDARDS_REGISTRY_STANDARD),
@@ -286,13 +331,28 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
         ("principles", RAW_SEED_PRINCIPLES_STANDARD),
         ("axiom_candidates", SYSTEM_AXIOM_CANDIDATE_STANDARD),
         ("skills", SKILL_STANDARD),
+        ("compliance_ledger", COMPLIANCE_COVERAGE_STANDARD),
         ("system_atlas", SYSTEM_ATLAS_STANDARD),
         ("config_authorities", CONFIG_AUTHORITY_STANDARD),
         ("frontend_components", FRONTEND_COMPONENT_STANDARD),
+        ("type_a_autonomous_seeds", TYPE_A_AUTONOMOUS_SEED_STANDARD),
+        ("system_microcosm", MICROCOSM_STANDARD),
     ):
         contract = _navigation_contract_from_json(root, path)
         if contract:
             contracts[kind_id] = ("declared", str(path) + "::navigation_contract", contract)
+    standard_skill_map_contract = _nested_navigation_contract_from_json(
+        root,
+        SKILL_STANDARD,
+        "standard_skill_map_contract",
+        "navigation_contract",
+    )
+    if standard_skill_map_contract:
+        contracts["standard_skill_map"] = (
+            "declared",
+            str(SKILL_STANDARD) + "::standard_skill_map_contract.navigation_contract",
+            standard_skill_map_contract,
+        )
     python_contract = _python_navigation_contract(root)
     if python_contract:
         contracts["python_files"] = ("declared", str(PYTHON_STANDARD) + "::PYTHON_STANDARD.navigation_contract", python_contract)
@@ -330,6 +390,66 @@ def _declared_contracts(root: Path) -> dict[str, tuple[str, str, dict[str, Any]]
     return contracts
 
 
+def _navigation_contract_from_governing_refs(
+    root: Path,
+    atlas_row: dict[str, Any],
+) -> tuple[str, str, dict[str, Any]] | None:
+    """Discover a contract from a kind row's governing standards."""
+    kind_id = str(atlas_row.get("kind_id") or "")
+    refs = atlas_row.get("governing_standard_refs")
+    if not kind_id or not isinstance(refs, list):
+        return None
+    for ref in refs:
+        rel = str(ref).split("::", 1)[0]
+        if not rel.endswith(".json"):
+            continue
+        contract = _navigation_contract_from_json(root, Path(rel))
+        if contract and contract.get("artifact_kind") == kind_id:
+            status = "declared_incomplete" if _contract_missing_required_fields(contract) else "declared"
+            return (status, f"{rel}::navigation_contract", contract)
+        mapped_contract = _navigation_contracts_from_json(root, Path(rel)).get(kind_id)
+        if not isinstance(mapped_contract, dict):
+            continue
+        if mapped_contract.get("artifact_kind") != kind_id:
+            continue
+        status = "declared_incomplete" if _contract_missing_required_fields(mapped_contract) else "declared"
+        return (status, f"{rel}::navigation_contracts.{kind_id}", mapped_contract)
+    return None
+
+
+def _audit_source_refs(atlas_rows: list[dict[str, Any]]) -> list[str]:
+    refs = {
+        str(NAVIGATION_CONTRACT_STANDARD),
+        "codex/standards/std_kind_atlas.json",
+        str(PAPER_MODULE_STANDARD),
+        str(SYSTEM_TERM_STANDARD),
+        str(RAW_SEED_PRINCIPLES_STANDARD),
+        str(SYSTEM_AXIOM_CANDIDATE_STANDARD),
+        str(SKILL_STANDARD),
+        str(COMPLIANCE_COVERAGE_STANDARD),
+        str(PYTHON_STANDARD),
+        str(COMPRESSION_PROFILES),
+        str(ANNEX_AUTHORITY_INDEX),
+        str(STANDARDS_REGISTRY_STANDARD),
+        str(SYSTEM_ATLAS_STANDARD),
+        str(STANDARD_TYPE_PLANE_STANDARD),
+        str(CONFIG_AUTHORITY_STANDARD),
+        str(FRONTEND_COMPONENT_STANDARD),
+        str(TYPE_A_AUTONOMOUS_SEED_STANDARD),
+        str(EXTRACTED_PATTERN_SUBSTRATE_STANDARD),
+        str(MICROCOSM_STANDARD),
+    }
+    for row in atlas_rows:
+        governing_refs = row.get("governing_standard_refs")
+        if not isinstance(governing_refs, list):
+            continue
+        for ref in governing_refs:
+            rel = str(ref).split("::", 1)[0]
+            if rel.endswith((".json", ".py")):
+                refs.add(rel)
+    return sorted(refs)
+
+
 def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
     """Build a read-only audit of Kind Atlas rows vs declared navigation contracts."""
     root = Path(repo_root)
@@ -343,6 +463,9 @@ def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
         kind_id = str(atlas_row.get("kind_id") or "")
         if kind_id in declared:
             status, ref, contract = declared[kind_id]
+            rows.append(_contract_row(atlas_row=atlas_row, status=status, contract_ref=ref, contract=contract))
+        elif discovered := _navigation_contract_from_governing_refs(root, atlas_row):
+            status, ref, contract = discovered
             rows.append(_contract_row(atlas_row=atlas_row, status=status, contract_ref=ref, contract=contract))
         elif kind_id in drafts:
             rows.append(
@@ -387,28 +510,13 @@ def build_kind_band_contract_audit(repo_root: Path | str) -> dict[str, Any]:
         "generated_at": generated_at,
         "authority_posture": "read_only_currentness_audit_not_generic_row_support",
         "governing_standard": str(NAVIGATION_CONTRACT_STANDARD),
-        "source_refs": [
-            str(NAVIGATION_CONTRACT_STANDARD),
-            "codex/standards/std_kind_atlas.json",
-            str(PAPER_MODULE_STANDARD),
-            str(SYSTEM_TERM_STANDARD),
-            str(RAW_SEED_PRINCIPLES_STANDARD),
-            str(SYSTEM_AXIOM_CANDIDATE_STANDARD),
-            str(SKILL_STANDARD),
-            str(PYTHON_STANDARD),
-            str(COMPRESSION_PROFILES),
-            str(ANNEX_AUTHORITY_INDEX),
-            str(STANDARDS_REGISTRY_STANDARD),
-            str(SYSTEM_ATLAS_STANDARD),
-            str(STANDARD_TYPE_PLANE_STANDARD),
-            str(CONFIG_AUTHORITY_STANDARD),
-            str(FRONTEND_COMPONENT_STANDARD),
-        ],
+        "source_refs": _audit_source_refs(atlas_rows),
         "summary": {
             "total_kinds": len(rows),
             "contract_status_counts": status_counts,
             "declared_count": status_counts.get("declared", 0),
             "profile_declared_count": status_counts.get("profile_declared", 0),
+            "declared_incomplete_count": status_counts.get("declared_incomplete", 0),
             "drafted_candidate_count": status_counts.get("drafted_candidate", 0),
             "missing_count": status_counts.get("missing", 0),
             "axis_split_rows": axis_split_rows,

@@ -18,6 +18,64 @@ def _rows_by_id(payload: dict) -> dict[str, dict]:
     return {row["kind_id"]: row for row in payload["rows"]}
 
 
+def _write_fast_paper_module_fixture(root: Path, *, atlas_count: int, module_count: int) -> None:
+    index_path = root / kind_atlas.PAPER_MODULE_INDEX
+    index_path.parent.mkdir(parents=True, exist_ok=True)
+    index_path.write_text(
+        json.dumps(
+            {
+                "modules": [
+                    {
+                        "slug": f"fixture_module_{index:03d}",
+                        "file": f"codex/doctrine/paper_modules/fixture_module_{index:03d}.md",
+                    }
+                    for index in range(module_count)
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    graph_path = root / kind_atlas.SYSTEM_ATLAS_GRAPH
+    graph_path.parent.mkdir(parents=True, exist_ok=True)
+    graph_path.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-05-25T00:00:00Z",
+                "entities": [
+                    {
+                        "id": "kind_paper_modules",
+                        "kind": "ArtifactKind",
+                        "title": "Paper Modules",
+                        "summary": "Subsystem paper-module corpus.",
+                        "metrics": {
+                            "kind_id": "paper_modules",
+                            "kind_atlas_row_count": atlas_count,
+                            "support_status": "option_surface_supported",
+                            "bands": ["cluster_flag", "flag", "card"],
+                            "option_surface_command": (
+                                "./repo-python kernel.py --option-surface paper_modules --band cluster_flag"
+                            ),
+                            "cluster_command": (
+                                "./repo-python kernel.py --option-surface paper_modules --band cluster_flag"
+                            ),
+                            "card_command": (
+                                "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug>"
+                            ),
+                            "governing_standard_refs": ["codex/standards/std_paper_module.json"],
+                            "projection_refs": ["codex/doctrine/paper_modules/_index.json"],
+                            "currentness": {
+                                "status": "projection_available",
+                                "source_refs_checked": ["codex/doctrine/paper_modules/_index.json"],
+                            },
+                        },
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
 def test_python_scope_meta_reads_top_level_meta_without_full_index(tmp_path, monkeypatch) -> None:
     index_path = tmp_path / kind_atlas.PYTHON_SCOPE_INDEX
     index_path.parent.mkdir(parents=True)
@@ -307,6 +365,21 @@ def test_kind_atlas_fast_path_keeps_source_cluster_promotions_cluster_first() ->
         "--option-surface type_a_autonomous_seeds --band cluster_flag"
     )
     assert "cluster_flag" in rows["type_a_autonomous_seeds"]["bands"]
+
+
+def test_kind_atlas_fast_path_reconciles_paper_module_count_from_live_index(tmp_path: Path) -> None:
+    _write_fast_paper_module_fixture(tmp_path, atlas_count=3, module_count=5)
+
+    payload = build_kind_atlas(tmp_path, band="flag", fast=True)
+    rows = _rows_by_id(payload)
+
+    assert payload["summary"]["fast_path"] is True
+    assert rows["paper_modules"]["row_count"] == 5
+    overlay = rows["paper_modules"]["currentness"]["fast_live_overlay"]
+    assert overlay["status"] == "applied"
+    assert overlay["previous_system_atlas_count"] == 3
+    assert overlay["live_source_count"] == 5
+    assert overlay["source_ref"] == "codex/doctrine/paper_modules/_index.json"
 
 
 def test_kind_atlas_card_exposes_rung_support_and_omissions() -> None:

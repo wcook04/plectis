@@ -464,6 +464,25 @@ def build_navigation_surface_audit(
             notes=["Measured in memory only; cluster_flag is the task_class contents page."],
         ),
         _measure_route(
+            route_id="compliance_ledger.cluster_flag",
+            command="./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+            role="scanner-depth compliance ledger contents page",
+            budget_bytes=budget_bytes,
+            builder=lambda: build_option_surface(root, "compliance_ledger", band="cluster_flag"),
+            safe_alternative=None,
+            expectation="contents_page",
+        ),
+        _measure_route(
+            route_id="compliance_ledger.row_flag_all.library",
+            command="build_option_surface(repo_root, 'compliance_ledger', band='flag')",
+            role="library-only measurement of the unsafe all-compliance-ledger flag payload",
+            budget_bytes=budget_bytes,
+            builder=lambda: build_option_surface(root, "compliance_ledger", band="flag"),
+            safe_alternative="./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+            expectation="known_unsafe_reference",
+            notes=["Measured in memory only; cluster_flag is the scanner-depth contents page."],
+        ),
+        _measure_route(
             route_id="paper_modules.row_flag_one",
             command="./repo-python kernel.py --option-surface paper_modules --band flag --ids navigation_hologram_theory",
             role="explicit row-level paper-module flag drilldown",
@@ -544,6 +563,7 @@ def build_navigation_surface_audit(
         "annex_distillation_patterns",
         "row_patches",
         "transform_job_receipts",
+        "compliance_ledger",
     ):
         all_rows = measured_by_id.get(f"{kind_id}.row_flag_all.library", {})
         cluster = measured_by_id.get(f"{kind_id}.cluster_flag", {})
@@ -614,6 +634,7 @@ def build_navigation_surface_audit(
             "./repo-python kernel.py --option-surface annex_distillation_patterns --band cluster_flag",
             "./repo-python kernel.py --option-surface row_patches --band cluster_flag",
             "./repo-python kernel.py --option-surface transform_job_receipts --band cluster_flag",
+            "./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
             "./repo-python kernel.py --clusterability-audit --context-budget 12000",
             "./repo-python kernel.py --navigation-surface-audit \"<task>\" --context-budget 12000",
         ],

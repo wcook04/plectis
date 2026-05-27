@@ -32,10 +32,10 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 8758,
+      "line_count": 8761,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
-      "sha256": "c64ff63f41dcbd6c383f5d5453dbe7ee94544933d8f8a300eeeacb05f6136feb",
+      "sha256": "323a3fa9867e2de9aad083f2d07f47608dfd4b1cac19567a71091bf74937c380",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/mission_transaction_landing_preflight.py"
     },

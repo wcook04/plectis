@@ -49,6 +49,7 @@
     ],
     "extraction_mode_enum": [
       "authored",
+      "compiled",
       "deterministic_extractor",
       "llm0_extractor_with_validation",
       "live_probe",
@@ -953,6 +954,40 @@
     "3_expected_latent_wrong_dominant": "Expected verb is latent and family is right, but dominance choice is wrong. Dominance-policy failure (the model perceives the relation but lacks the dominance law).",
     "4_expected_dominant": "Expected verb is the chosen dominant verb. Success.",
     "rule": "Failure levels are diagnostic, not penalty weights. They separate semantic blindness (1) from family perception failure (2) from dominance perception failure (3). A scoreboard reporting only verb_accuracy_given_pair hides whether the gap is ontology, family law, or dominance law."
+  },
+  "compliance_scanner_contract": {
+    "scanner": "system/lib/compliance/navigation_rosetta_grammar_adapter.py::scan_navigation_rosetta_grammar",
+    "adapter_registry": "system/lib/compliance/__init__.py",
+    "ledger_row": "codex/hologram/compliance/ledger.json::by_standard[std_navigation_rosetta_grammar]",
+    "runtime_probe": "./repo-python kernel.py --navigation-context-rosetta --context-budget 12000",
+    "coverage_path": "codex/standards/std_navigation_rosetta_grammar.json + system/lib/navigation_context_rosetta.py::build_navigation_context_rosetta",
+    "runtime_projection": "system/lib/navigation_context_rosetta.py",
+    "governed_artifact_kind": "navigation_rosetta_grammar",
+    "checks": [
+      "standard declares required grammar token shapes with non-empty required_fields",
+      "base relation verbs, operator semantics, selector policies, impact axes, and proof obligations are present and unique",
+      "navigation-context-rosetta projection names this standard as governing_standard_ref",
+      "representative context rows preserve context atom provenance, population honesty, currentness, confidence, and evidence commands"
+    ],
+    "runtime_projection_aliases": {
+      "band": "selected_band",
+      "cost": "estimated_cost",
+      "utility": "estimated_utility",
+      "scope": "axis_vector.scopes",
+      "facet": "axis_vector.facets",
+      "omission_receipt": "packet.omission_receipt"
+    },
+    "atlas_navigation_use": "Atlas/navigation consumers should use the std_navigation_rosetta_grammar compliance ledger card to distinguish baseline standard-file visibility from domain scanner proof over the live Rosetta projection."
+  },
+  "navigation_contract": {
+    "surface_role": "ATLAS_NAVIGATION_COMPLIANCE_CARD",
+    "first_contact_allowed": false,
+    "option_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_navigation_rosetta_grammar",
+    "runtime_probe": "./repo-python kernel.py --navigation-context-rosetta --context-budget 12000",
+    "source_authority": "codex/standards/std_navigation_rosetta_grammar.json",
+    "projection_authority": "system/lib/navigation_context_rosetta.py",
+    "read_rule": "Open the compliance ledger card first to confirm scanner status, then use the runtime probe only when the task needs live packet examples or budget/currentness details.",
+    "write_rule": "Do not hand-edit generated Rosetta packets; change the standard or projection producer, then rerun the compliance ledger builder."
   },
   "related_surfaces": {
     "navigation_contract": "codex/standards/std_navigation_contract.json",

@@ -3540,9 +3540,12 @@ def _pulse_hot_now_lines(active_execution: Mapping[str, Any]) -> list[str]:
         command_key = "cards" if active_claims or session_rows else "overview"
         command_label = "open" if command_key == "cards" else "overview"
         cards_command = str(drilldowns.get(command_key) or "").strip()
+        no_heartbeat_command = str(drilldowns.get("seed_speed_no_heartbeat") or "").strip()
         work_ledger_line = f"  work ledger: {' '.join(bits)}"
         if cards_command:
             work_ledger_line += f" | {command_label}: {cards_command}"
+        if no_heartbeat_command and no_heartbeat_command != cards_command:
+            work_ledger_line += f" | no-heartbeat: {no_heartbeat_command}"
         lines.append(work_ledger_line)
         if claim_collision_count:
             collision_word = "collision" if claim_collision_count == 1 else "collisions"
@@ -5686,7 +5689,7 @@ def _info_active_execution_entry(
             ],
             "drilldown_commands": {
                 key: drilldowns.get(key)
-                for key in ("cards", "overview")
+                for key in ("cards", "seed_speed_no_heartbeat", "overview")
                 if drilldowns.get(key)
             },
         },
@@ -7553,7 +7556,7 @@ def _preflight_compact_active_execution(active_execution: object) -> dict[str, A
             "heartbeat_gap_claim_sessions": compact_heartbeat_gap_rows,
             "drilldown_commands": {
                 key: drilldowns.get(key)
-                for key in ("cards", "seed_speed", "full", "claims")
+                for key in ("cards", "seed_speed", "seed_speed_no_heartbeat", "full", "claims")
                 if drilldowns.get(key)
             },
         },

@@ -1,7 +1,7 @@
 {
   "kind": "agent_bootstrap_live",
   "schema_version": "agent_bootstrap_live_v0",
-  "generated_at": "2026-05-26T19:21:30.640401+00:00",
+  "generated_at": "2026-05-27T13:32:39.720720+00:00",
   "source_event": null,
   "live_bindings": {
     "pipeline_state_rel": null,
@@ -20,7 +20,7 @@
     "orchestration_active_driver": "no_active_runtime_phase",
     "orchestration_gate_reason": "no_active_runtime_phase",
     "orchestration_event_log_rel": "tools/meta/control/orchestration_events.jsonl",
-    "orchestration_latest_event_id": "orch_20260526T192130_501183_0000_5e41c4cf12",
+    "orchestration_latest_event_id": "orch_20260527T133239_587585_0000_8adbcca3f9",
     "orchestration_current_owner": "control_room_manager",
     "orchestration_next_handoff": "human_operator",
     "active_directive_path": null,
@@ -38,7 +38,7 @@
     "factory_last_run": "2026-03-25T02:01:06.404686+00:00",
     "factory_last_event_at": "2026-04-27T07:44:10.226050+00:00",
     "factory_stage_observed_at": "2026-03-25T02:01:06.404686+00:00",
-    "factory_state_age_days": 62,
+    "factory_state_age_days": 63,
     "factory_state_freshness": "stale_historical_snapshot",
     "factory_state_role": "historical_snapshot",
     "factory_state_live": false,
@@ -3325,7 +3325,7 @@
         "path": "AGENTS.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35418,
+        "bytes": 34153,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3333,7 +3333,7 @@
         "path": "CODEX.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 34660,
+        "bytes": 32037,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       },
@@ -3341,7 +3341,7 @@
         "path": "CLAUDE.md",
         "exists": true,
         "non_empty": true,
-        "bytes": 35958,
+        "bytes": 28308,
         "budget_bytes": 36045,
         "budget_status": "within_budget"
       }

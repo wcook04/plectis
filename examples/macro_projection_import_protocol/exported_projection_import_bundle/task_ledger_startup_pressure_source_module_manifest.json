@@ -62,11 +62,11 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_task_ledger_work_ledger_kernel_export",
-      "source_sha256": "6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
-      "target_sha256": "6fab565a6f681f7ab1e976a329eeae308b42ddd6e7a989e403b16f8dbcd1ea5a",
+      "source_sha256": "51f708cc87ec070ad8eb8f29e7812a0e6c5fe706a537903d6b25778e3909e83a",
+      "target_sha256": "51f708cc87ec070ad8eb8f29e7812a0e6c5fe706a537903d6b25778e3909e83a",
       "sha256_match": true,
-      "line_count": 20438,
-      "byte_count": 933185,
+      "line_count": 20441,
+      "byte_count": 933481,
       "anchor_count": 5
     },
     {

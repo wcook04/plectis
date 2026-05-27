@@ -140,14 +140,31 @@
       "codex/standards/std_system_term.json",
       "codex/standards/std_system_atlas.json",
       "codex/standards/std_skill.json",
+      "codex/standards/std_compliance_coverage.json",
       "codex/standards/std_standard_type_plane.json",
       "codex/standards/std_config_authority_registry.json",
       "codex/standards/std_frontend_component_index.json",
+      "codex/standards/std_autonomous_seed_prompt.json",
+      "codex/standards/std_prompt_ledger.json",
+      "codex/standards/std_extracted_pattern_substrate_bindings.json",
+      "codex/standards/std_microcosm.json",
       "codex/standards/principles/std_raw_seed_principles.json",
       "codex/standards/principles/std_system_axiom_candidate.json",
       "codex/standards/std_python.py",
       "codex/doctrine/compression_profiles.json",
       "codex/standards/annex/annex_authority_index.json",
+      "codex/standards/std_derived_fact.json",
+      "codex/standards/std_imagination.json",
+      "codex/standards/std_compute_provider.json",
+      "codex/standards/std_transform_job.json",
+      "codex/standards/std_mechanism_projection_ledger.json",
+      "codex/standards/std_mechanism_facet_manifest.json",
+      "codex/standards/std_navigation_trace_event.json",
+      "codex/standards/std_cognitive_operator.json",
+      "codex/standards/principles/std_teleology_node.json",
+      "codex/standards/principles/std_concept.json",
+      "codex/standards/principles/std_mechanism.json",
+      "system/lib/compliance/navigation_contract_adapter.py",
       "system/lib/kind_band_contract_audit.py"
     ],
     "navigation_contract": {
@@ -159,6 +176,7 @@
     },
     "finding_policy": {
       "missing_contracts": "warning aggregate finding with kind-id preview",
+      "incomplete_contracts": "warning aggregate finding for discovered contracts that do not satisfy required_contract_fields",
       "drafted_candidates": "warning aggregate finding until promoted into source standards or profiles",
       "unpopulated_units": "info aggregate finding",
       "audit_support_upgrade": "error because the audit must preserve support status"
@@ -170,10 +188,3642 @@
       "finding_count_basis": "aggregate_finding_rows",
       "count_sources": {
         "missing_required_atom": "candidate_target_payload.missing_count",
+        "navigation_contract_schema_incomplete": "candidate_target_payload.incomplete_count",
         "draft_contract_not_promoted": "candidate_target_payload.drafted_candidate_count",
         "unpopulated_navigation_unit": "candidate_target_payload.unpopulated_unit_count"
       },
       "rule": "A compact aggregate finding may represent many affected kinds; compliance cards must expose the affected count so Atlas does not under-rank the repair lane."
+    }
+  },
+  "navigation_contracts": {
+    "prompt_shelf_metadata": {
+      "profile_id": "prompt_shelf_metadata_navigation_v0",
+      "artifact_kind": "prompt_shelf_metadata",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Prompt Shelf Metadata.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Prompt Shelf Metadata item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Prompt Shelf Metadata item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "prompt_shelf",
+        "metadata_row",
+        "handoff_frame",
+        "invocation_lane"
+      ],
+      "navigable_facets": [
+        "source",
+        "availability",
+        "handoff_boundary",
+        "lane",
+        "freshness"
+      ],
+      "telescope_facets": [
+        "source",
+        "availability",
+        "handoff_boundary",
+        "lane",
+        "freshness"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "prompt shelf metadata and Type B to Type A handoff framing rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface prompt_shelf_metadata --band flag",
+          "source": "prompt shelf metadata and Type B to Type A handoff framing rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface prompt_shelf_metadata --band card --ids <id>",
+          "source": "prompt shelf metadata and Type B to Type A handoff framing rows"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_agent_entry_surface.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Prompt Shelf Metadata rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface prompt_shelf_metadata --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_agent_entry_surface.json",
+        "./repo-python kernel.py --option-surface prompt_shelf_metadata --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "derived_facts": {
+      "profile_id": "derived_facts_navigation_v0",
+      "artifact_kind": "derived_facts",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Derived Facts / State Axes.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Derived Facts / State Axes item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Derived Facts / State Axes item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "fact",
+        "axis",
+        "facet",
+        "source_ref",
+        "projection"
+      ],
+      "navigable_facets": [
+        "authority",
+        "volatility",
+        "route",
+        "currentness",
+        "confidence"
+      ],
+      "telescope_facets": [
+        "authority",
+        "volatility",
+        "route",
+        "currentness",
+        "confidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "derived fact standards and generated system facts projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface derived_facts --band flag",
+          "source": "derived fact standards and generated system facts projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface derived_facts --band card --ids <id>",
+          "source": "derived fact standards and generated system facts projections"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_derived_fact.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Derived Facts / State Axes rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface derived_facts --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_derived_fact.json",
+        "./repo-python kernel.py --option-surface derived_facts --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "teleologies": {
+      "profile_id": "teleologies_navigation_v0",
+      "artifact_kind": "teleologies",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Shared Desire / Teleology Nodes.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Shared Desire / Teleology Nodes item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Shared Desire / Teleology Nodes item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "teleology_node",
+        "desire_statement",
+        "experience_clause",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "desire",
+        "agent_experience",
+        "operator_experience",
+        "success_signal",
+        "non_goal"
+      ],
+      "telescope_facets": [
+        "desire",
+        "agent_experience",
+        "operator_experience",
+        "success_signal",
+        "non_goal"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "teleology node rows and raw-seed-derived principle projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface teleologies --band flag",
+          "source": "teleology node rows and raw-seed-derived principle projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface teleologies --band card --ids <id>",
+          "source": "teleology node rows and raw-seed-derived principle projections"
+        }
+      },
+      "creator_skill_id": "raw-seed-distill",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_teleology_node.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Shared Desire / Teleology Nodes rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface teleologies --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_teleology_node.json",
+        "./repo-python kernel.py --option-surface teleologies --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "principles_by_teleology": {
+      "profile_id": "principles_by_teleology_navigation_v0",
+      "artifact_kind": "principles_by_teleology",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Principles By Teleology.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Principles By Teleology item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Principles By Teleology item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "teleology_node",
+        "principle_edge",
+        "principle_row",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "desire",
+        "principle_alignment",
+        "edge_direction",
+        "coverage",
+        "evidence"
+      ],
+      "telescope_facets": [
+        "desire",
+        "principle_alignment",
+        "edge_direction",
+        "coverage",
+        "evidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "teleology-to-principle projection rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface principles_by_teleology --band flag",
+          "source": "teleology-to-principle projection rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface principles_by_teleology --band card --ids <id>",
+          "source": "teleology-to-principle projection rows"
+        }
+      },
+      "creator_skill_id": "raw-seed-distill",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_teleology_node.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Principles By Teleology rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface principles_by_teleology --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_teleology_node.json",
+        "./repo-python kernel.py --option-surface principles_by_teleology --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "anti_principles": {
+      "profile_id": "anti_principles_navigation_v0",
+      "artifact_kind": "anti_principles",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Anti-Principles.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Anti-Principles item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Anti-Principles item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "anti_principle",
+        "parent_principle",
+        "teleology_edge",
+        "recovery_route"
+      ],
+      "navigable_facets": [
+        "failure_attractor",
+        "constitutional_risk",
+        "recovery_protocol",
+        "boundary",
+        "blocked_commitment"
+      ],
+      "telescope_facets": [
+        "failure_attractor",
+        "constitutional_risk",
+        "recovery_protocol",
+        "boundary",
+        "blocked_commitment"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "anti-principle rows bound to parent teleology and principle refs"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface anti_principles --band flag",
+          "source": "anti-principle rows bound to parent teleology and principle refs"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface anti_principles --band card --ids <id>",
+          "source": "anti-principle rows bound to parent teleology and principle refs"
+        }
+      },
+      "creator_skill_id": "raw-seed-distill",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_teleology_node.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Anti-Principles rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface anti_principles --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_teleology_node.json",
+        "./repo-python kernel.py --option-surface anti_principles --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "anti_axioms": {
+      "profile_id": "anti_axioms_navigation_v0",
+      "artifact_kind": "anti_axioms",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Anti-Axioms.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Anti-Axioms item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Anti-Axioms item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "anti_axiom",
+        "axiom_candidate",
+        "teleology_edge",
+        "violation_profile"
+      ],
+      "navigable_facets": [
+        "failure_attractor",
+        "blocked_commitment",
+        "recovery_protocol",
+        "boundary",
+        "violation_predicate"
+      ],
+      "telescope_facets": [
+        "failure_attractor",
+        "blocked_commitment",
+        "recovery_protocol",
+        "boundary",
+        "violation_predicate"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "anti-axiom rows bound to axiom candidates and teleology refs"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface anti_axioms --band flag",
+          "source": "anti-axiom rows bound to axiom candidates and teleology refs"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface anti_axioms --band card --ids <id>",
+          "source": "anti-axiom rows bound to axiom candidates and teleology refs"
+        }
+      },
+      "creator_skill_id": "raw-seed-distill",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_teleology_node.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Anti-Axioms rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface anti_axioms --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_teleology_node.json",
+        "./repo-python kernel.py --option-surface anti_axioms --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "concepts": {
+      "profile_id": "concepts_navigation_v0",
+      "artifact_kind": "concepts",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Concepts.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Concepts item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Concepts item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "concept",
+        "concept_family",
+        "relationship_edge",
+        "source_ref"
+      ],
+      "navigable_facets": [
+        "definition",
+        "role",
+        "related_mechanisms",
+        "examples",
+        "evidence"
+      ],
+      "telescope_facets": [
+        "definition",
+        "role",
+        "related_mechanisms",
+        "examples",
+        "evidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "concept rows and concept relationship projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concepts --band flag",
+          "source": "concept rows and concept relationship projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concepts --band card --ids <id>",
+          "source": "concept rows and concept relationship projections"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_concept.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Concepts rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface concepts --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_concept.json",
+        "./repo-python kernel.py --option-surface concepts --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "mechanisms": {
+      "profile_id": "mechanisms_navigation_v0",
+      "artifact_kind": "mechanisms",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Mechanisms.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Mechanisms item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Mechanisms item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "mechanism",
+        "implementation_edge",
+        "source_ref",
+        "candidate_relation"
+      ],
+      "navigable_facets": [
+        "purpose",
+        "trigger",
+        "inputs",
+        "outputs",
+        "failure_modes"
+      ],
+      "telescope_facets": [
+        "purpose",
+        "trigger",
+        "inputs",
+        "outputs",
+        "failure_modes"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "mechanism rows and mechanism relationship projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface mechanisms --band flag",
+          "source": "mechanism rows and mechanism relationship projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface mechanisms --band card --ids <id>",
+          "source": "mechanism rows and mechanism relationship projections"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_mechanism.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Mechanisms rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface mechanisms --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_mechanism.json",
+        "./repo-python kernel.py --option-surface mechanisms --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "concept_mechanism_candidates": {
+      "profile_id": "concept_mechanism_candidates_navigation_v0",
+      "artifact_kind": "concept_mechanism_candidates",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Concept/Mechanism Candidates.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Concept/Mechanism Candidates item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Concept/Mechanism Candidates item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "candidate",
+        "concept",
+        "mechanism",
+        "curation_state"
+      ],
+      "navigable_facets": [
+        "hypothesis",
+        "evidence",
+        "adoption_status",
+        "risk",
+        "source_fit"
+      ],
+      "telescope_facets": [
+        "hypothesis",
+        "evidence",
+        "adoption_status",
+        "risk",
+        "source_fit"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "concept/mechanism candidate projection rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concept_mechanism_candidates --band flag",
+          "source": "concept/mechanism candidate projection rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concept_mechanism_candidates --band card --ids <id>",
+          "source": "concept/mechanism candidate projection rows"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_concept.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Concept/Mechanism Candidates rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface concept_mechanism_candidates --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_concept.json",
+        "./repo-python kernel.py --option-surface concept_mechanism_candidates --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "concept_mechanism_candidate_curations": {
+      "profile_id": "concept_mechanism_candidate_curations_navigation_v0",
+      "artifact_kind": "concept_mechanism_candidate_curations",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Concept/Mechanism Candidate Curations.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Concept/Mechanism Candidate Curations item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Concept/Mechanism Candidate Curations item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "curation",
+        "candidate",
+        "curator_receipt",
+        "adoption_decision"
+      ],
+      "navigable_facets": [
+        "decision",
+        "rationale",
+        "evidence",
+        "next_route",
+        "boundary"
+      ],
+      "telescope_facets": [
+        "decision",
+        "rationale",
+        "evidence",
+        "next_route",
+        "boundary"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "curation receipts for concept/mechanism candidates"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concept_mechanism_candidate_curations --band flag",
+          "source": "curation receipts for concept/mechanism candidates"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface concept_mechanism_candidate_curations --band card --ids <id>",
+          "source": "curation receipts for concept/mechanism candidates"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_concept.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Concept/Mechanism Candidate Curations rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface concept_mechanism_candidate_curations --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_concept.json",
+        "./repo-python kernel.py --option-surface concept_mechanism_candidate_curations --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "axioms_by_teleology": {
+      "profile_id": "axioms_by_teleology_navigation_v0",
+      "artifact_kind": "axioms_by_teleology",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Axiom Candidates By Teleology.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Axiom Candidates By Teleology item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Axiom Candidates By Teleology item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "teleology_node",
+        "axiom_candidate",
+        "principle_edge",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "desire",
+        "formal_clause",
+        "violation_predicates",
+        "maturity",
+        "coverage"
+      ],
+      "telescope_facets": [
+        "desire",
+        "formal_clause",
+        "violation_predicates",
+        "maturity",
+        "coverage"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "teleology-to-axiom candidate projection rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface axioms_by_teleology --band flag",
+          "source": "teleology-to-axiom candidate projection rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface axioms_by_teleology --band card --ids <id>",
+          "source": "teleology-to-axiom candidate projection rows"
+        }
+      },
+      "creator_skill_id": "raw-seed-distill",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/principles/std_teleology_node.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Axiom Candidates By Teleology rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface axioms_by_teleology --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/principles/std_teleology_node.json",
+        "./repo-python kernel.py --option-surface axioms_by_teleology --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "imaginations": {
+      "profile_id": "imaginations_navigation_v0",
+      "artifact_kind": "imaginations",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Imaginations.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Imaginations item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Imaginations item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "imagination",
+        "scenario",
+        "source_seed",
+        "test_probe"
+      ],
+      "navigable_facets": [
+        "possibility",
+        "constraint",
+        "evidence",
+        "risk",
+        "route"
+      ],
+      "telescope_facets": [
+        "possibility",
+        "constraint",
+        "evidence",
+        "risk",
+        "route"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "imagination rows and scenario/test probe projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface imaginations --band flag",
+          "source": "imagination rows and scenario/test probe projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface imaginations --band card --ids <id>",
+          "source": "imagination rows and scenario/test probe projections"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_imagination.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Imaginations rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface imaginations --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_imagination.json",
+        "./repo-python kernel.py --option-surface imaginations --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "external_benchmark_calibration": {
+      "profile_id": "external_benchmark_calibration_navigation_v0",
+      "artifact_kind": "external_benchmark_calibration",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for External Benchmark Calibration.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected External Benchmark Calibration item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected External Benchmark Calibration item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "benchmark",
+        "calibration_row",
+        "import_candidate",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "external_reference",
+        "local_fit",
+        "adoption_boundary",
+        "measurement",
+        "status"
+      ],
+      "telescope_facets": [
+        "external_reference",
+        "local_fit",
+        "adoption_boundary",
+        "measurement",
+        "status"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "Microcosm benchmark calibration rows and external benchmark imports"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface external_benchmark_calibration --band flag",
+          "source": "Microcosm benchmark calibration rows and external benchmark imports"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface external_benchmark_calibration --band card --ids <id>",
+          "source": "Microcosm benchmark calibration rows and external benchmark imports"
+        }
+      },
+      "creator_skill_id": "public-microcosm-evolution-seed",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_microcosm.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "External Benchmark Calibration rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface external_benchmark_calibration --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_microcosm.json",
+        "./repo-python kernel.py --option-surface external_benchmark_calibration --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "transform_job_receipts": {
+      "profile_id": "transform_job_receipts_navigation_v0",
+      "artifact_kind": "transform_job_receipts",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Transform Job Receipts.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Transform Job Receipts item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Transform Job Receipts item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "job",
+        "receipt",
+        "input_ref",
+        "output_ref",
+        "compute_provider"
+      ],
+      "navigable_facets": [
+        "status",
+        "provenance",
+        "artifact_delta",
+        "validation",
+        "provider"
+      ],
+      "telescope_facets": [
+        "status",
+        "provenance",
+        "artifact_delta",
+        "validation",
+        "provider"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "transform job receipt rows and provider output metadata"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface transform_job_receipts --band flag",
+          "source": "transform job receipt rows and provider output metadata"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface transform_job_receipts --band card --ids <id>",
+          "source": "transform job receipt rows and provider output metadata"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_transform_job.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Transform Job Receipts rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface transform_job_receipts --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_transform_job.json",
+        "./repo-python kernel.py --option-surface transform_job_receipts --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "row_patches": {
+      "profile_id": "row_patches_navigation_v0",
+      "artifact_kind": "row_patches",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Row Patches.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Row Patches item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Row Patches item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "patch",
+        "row",
+        "hunk",
+        "transaction",
+        "receipt"
+      ],
+      "navigable_facets": [
+        "mutation",
+        "owner",
+        "validation",
+        "rollback_boundary",
+        "status"
+      ],
+      "telescope_facets": [
+        "mutation",
+        "owner",
+        "validation",
+        "rollback_boundary",
+        "status"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "row patch receipts and transform job mutation manifests"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface row_patches --band flag",
+          "source": "row patch receipts and transform job mutation manifests"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface row_patches --band card --ids <id>",
+          "source": "row patch receipts and transform job mutation manifests"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_transform_job.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Row Patches rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface row_patches --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_transform_job.json",
+        "./repo-python kernel.py --option-surface row_patches --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "renderer_passports": {
+      "profile_id": "renderer_passports_navigation_v0",
+      "artifact_kind": "renderer_passports",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Renderer Passports.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Renderer Passports item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Renderer Passports item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "renderer",
+        "passport",
+        "standard_row",
+        "output_surface"
+      ],
+      "navigable_facets": [
+        "input_contract",
+        "output_shape",
+        "source_manifest",
+        "freshness",
+        "boundary"
+      ],
+      "telescope_facets": [
+        "input_contract",
+        "output_shape",
+        "source_manifest",
+        "freshness",
+        "boundary"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "renderer passport projection generated from standard type-plane rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface renderer_passports --band flag",
+          "source": "renderer passport projection generated from standard type-plane rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface renderer_passports --band card --ids <id>",
+          "source": "renderer passport projection generated from standard type-plane rows"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_standard_type_plane.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Renderer Passports rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface renderer_passports --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_standard_type_plane.json",
+        "./repo-python kernel.py --option-surface renderer_passports --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit",
+        "./repo-python tools/meta/factory/build_renderer_passports.py --check"
+      ]
+    },
+    "agent_observations": {
+      "profile_id": "agent_observations_navigation_v0",
+      "artifact_kind": "agent_observations",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Agent Observations.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Agent Observations item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Agent Observations item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "observation",
+        "session",
+        "route",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "behavior_signal",
+        "source_context",
+        "route_quality",
+        "propagation",
+        "confidence"
+      ],
+      "telescope_facets": [
+        "behavior_signal",
+        "source_context",
+        "route_quality",
+        "propagation",
+        "confidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "agent observation rows emitted by navigation and diagnostics surfaces"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface agent_observations --band flag",
+          "source": "agent observation rows emitted by navigation and diagnostics surfaces"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface agent_observations --band card --ids <id>",
+          "source": "agent observation rows emitted by navigation and diagnostics surfaces"
+        }
+      },
+      "creator_skill_id": "agent-session-diagnostics",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_agent_entry_surface.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Agent Observations rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface agent_observations --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_agent_entry_surface.json",
+        "./repo-python kernel.py --option-surface agent_observations --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "navigation_training_emissions": {
+      "profile_id": "navigation_training_emissions_navigation_v0",
+      "artifact_kind": "navigation_training_emissions",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Navigation Training Emissions.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Navigation Training Emissions item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Navigation Training Emissions item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "emission",
+        "anti_pattern",
+        "repair_route",
+        "source_session"
+      ],
+      "navigable_facets": [
+        "training_signal",
+        "route_repair",
+        "evidence",
+        "priority",
+        "status"
+      ],
+      "telescope_facets": [
+        "training_signal",
+        "route_repair",
+        "evidence",
+        "priority",
+        "status"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "navigation training emission rows and repair route projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface navigation_training_emissions --band flag",
+          "source": "navigation training emission rows and repair route projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface navigation_training_emissions --band card --ids <id>",
+          "source": "navigation training emission rows and repair route projections"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_agent_entry_surface.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Navigation Training Emissions rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface navigation_training_emissions --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_agent_entry_surface.json",
+        "./repo-python kernel.py --option-surface navigation_training_emissions --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "navigation_mechanism_candidates": {
+      "profile_id": "navigation_mechanism_candidates_navigation_v0",
+      "artifact_kind": "navigation_mechanism_candidates",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Navigation Mechanism Candidates.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Navigation Mechanism Candidates item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Navigation Mechanism Candidates item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "candidate",
+        "mechanism",
+        "projection_row",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "mechanism_type",
+        "adoption_state",
+        "confidence",
+        "route",
+        "source_fit"
+      ],
+      "telescope_facets": [
+        "mechanism_type",
+        "adoption_state",
+        "confidence",
+        "route",
+        "source_fit"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "mechanism projection ledger candidates and navigation trace evidence"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface navigation_mechanism_candidates --band flag",
+          "source": "mechanism projection ledger candidates and navigation trace evidence"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface navigation_mechanism_candidates --band card --ids <id>",
+          "source": "mechanism projection ledger candidates and navigation trace evidence"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_mechanism_projection_ledger.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Navigation Mechanism Candidates rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface navigation_mechanism_candidates --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_mechanism_projection_ledger.json",
+        "./repo-python kernel.py --option-surface navigation_mechanism_candidates --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "skill_compression_debt": {
+      "profile_id": "skill_compression_debt_navigation_v0",
+      "artifact_kind": "skill_compression_debt",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Skill Compression Debt.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Skill Compression Debt item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Skill Compression Debt item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "skill",
+        "section",
+        "debt_row",
+        "remediation_route"
+      ],
+      "navigable_facets": [
+        "token_pressure",
+        "trigger_quality",
+        "workflow_gap",
+        "repair",
+        "evidence"
+      ],
+      "telescope_facets": [
+        "token_pressure",
+        "trigger_quality",
+        "workflow_gap",
+        "repair",
+        "evidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "skill registry rows and compression debt projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface skill_compression_debt --band flag",
+          "source": "skill registry rows and compression debt projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface skill_compression_debt --band card --ids <id>",
+          "source": "skill registry rows and compression debt projections"
+        }
+      },
+      "creator_skill_id": "local-to-general-propagation",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_skill.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Skill Compression Debt rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface skill_compression_debt --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_skill.json",
+        "./repo-python kernel.py --option-surface skill_compression_debt --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "standard_projection_gaps": {
+      "profile_id": "standard_projection_gaps_navigation_v0",
+      "artifact_kind": "standard_projection_gaps",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Standard Projection Gaps.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Standard Projection Gaps item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Standard Projection Gaps item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "standard",
+        "projection_gap",
+        "command",
+        "owner_tool"
+      ],
+      "navigable_facets": [
+        "missing_projection",
+        "owner",
+        "currentness",
+        "repair_route",
+        "impact"
+      ],
+      "telescope_facets": [
+        "missing_projection",
+        "owner",
+        "currentness",
+        "repair_route",
+        "impact"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "Kind Atlas and command-output projection gap rows"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface standard_projection_gaps --band flag",
+          "source": "Kind Atlas and command-output projection gap rows"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface standard_projection_gaps --band card --ids <id>",
+          "source": "Kind Atlas and command-output projection gap rows"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_kind_atlas.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Standard Projection Gaps rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface standard_projection_gaps --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_kind_atlas.json",
+        "./repo-python kernel.py --option-surface standard_projection_gaps --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "artifact_projection_debt": {
+      "profile_id": "artifact_projection_debt_navigation_v0",
+      "artifact_kind": "artifact_projection_debt",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Artifact Projection Debt.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Artifact Projection Debt item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Artifact Projection Debt item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "artifact",
+        "debt_cluster",
+        "source_projection",
+        "repair_lane"
+      ],
+      "navigable_facets": [
+        "debt_type",
+        "layer_sprawl",
+        "freshness",
+        "impact",
+        "owner"
+      ],
+      "telescope_facets": [
+        "debt_type",
+        "layer_sprawl",
+        "freshness",
+        "impact",
+        "owner"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "artifact projection debt rows emitted by navigation metabolism"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface artifact_projection_debt --band flag",
+          "source": "artifact projection debt rows emitted by navigation metabolism"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface artifact_projection_debt --band card --ids <id>",
+          "source": "artifact projection debt rows emitted by navigation metabolism"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_kind_atlas.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Artifact Projection Debt rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface artifact_projection_debt --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_kind_atlas.json",
+        "./repo-python kernel.py --option-surface artifact_projection_debt --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "cognitive_operators": {
+      "profile_id": "cognitive_operators_navigation_v0",
+      "artifact_kind": "cognitive_operators",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Cognitive Operators.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Cognitive Operators item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Cognitive Operators item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "operator",
+        "family",
+        "route",
+        "evidence_ref"
+      ],
+      "navigable_facets": [
+        "purpose",
+        "input",
+        "output",
+        "constraints",
+        "failure_mode"
+      ],
+      "telescope_facets": [
+        "purpose",
+        "input",
+        "output",
+        "constraints",
+        "failure_mode"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "cognitive operator standard rows and route projections"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "source": "cognitive operator standard rows and route projections"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface cognitive_operators --band card --ids <id>",
+          "source": "cognitive operator standard rows and route projections"
+        }
+      },
+      "creator_skill_id": "doctrine-population",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_cognitive_operator.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Cognitive Operators rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_cognitive_operator.json",
+        "./repo-python kernel.py --option-surface cognitive_operators --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "github_import_candidates": {
+      "profile_id": "github_import_candidates_navigation_v0",
+      "artifact_kind": "github_import_candidates",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for GitHub Import Candidates.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected GitHub Import Candidates item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected GitHub Import Candidates item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "repository",
+        "import_candidate",
+        "annex_candidate",
+        "decision"
+      ],
+      "navigable_facets": [
+        "source_url",
+        "fit",
+        "adoption_boundary",
+        "status",
+        "evidence"
+      ],
+      "telescope_facets": [
+        "source_url",
+        "fit",
+        "adoption_boundary",
+        "status",
+        "evidence"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "GitHub import candidate rows surfaced by the Kind Atlas and annex lanes"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface github_import_candidates --band flag",
+          "source": "GitHub import candidate rows surfaced by the Kind Atlas and annex lanes"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface github_import_candidates --band card --ids <id>",
+          "source": "GitHub import candidate rows surfaced by the Kind Atlas and annex lanes"
+        }
+      },
+      "creator_skill_id": "claude-skills-annex",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_kind_atlas.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "GitHub Import Candidates rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface github_import_candidates --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_kind_atlas.json",
+        "./repo-python kernel.py --option-surface github_import_candidates --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "authoring_contracts": {
+      "profile_id": "authoring_contracts_navigation_v0",
+      "artifact_kind": "authoring_contracts",
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "navigable_bands": [
+        "cluster_flag",
+        "flag",
+        "card"
+      ],
+      "band_contracts": {
+        "cluster_flag": {
+          "purpose": "Cluster-level browse signal for Authoring Contracts.",
+          "minimum_payload": [
+            "kind_id",
+            "row_count_or_status",
+            "top_refs"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_history"
+          ],
+          "drilldown_to": "flag"
+        },
+        "flag": {
+          "purpose": "One-row triage flag for a selected Authoring Contracts item.",
+          "minimum_payload": [
+            "id",
+            "title_or_label",
+            "status",
+            "authority_ref"
+          ],
+          "forbidden": [
+            "full_source_body",
+            "unbounded_neighbor_expansion"
+          ],
+          "drilldown_to": "card"
+        },
+        "card": {
+          "purpose": "Decision-ready card for a selected Authoring Contracts item.",
+          "minimum_payload": [
+            "id",
+            "summary",
+            "source_refs",
+            "validation_or_freshness"
+          ],
+          "forbidden": [
+            "implicit_source_authority",
+            "silent_edge_omission"
+          ],
+          "drilldown_to": "source_authority"
+        }
+      },
+      "navigable_scopes": [
+        "contract",
+        "authored_artifact",
+        "mutation_lane",
+        "validation_probe"
+      ],
+      "navigable_facets": [
+        "required_fields",
+        "boundary",
+        "owner",
+        "freshness",
+        "mutation_rule"
+      ],
+      "telescope_facets": [
+        "required_fields",
+        "boundary",
+        "owner",
+        "freshness",
+        "mutation_rule"
+      ],
+      "population_policy": {
+        "band:cluster_flag": {
+          "populated_by": "compiled",
+          "emitter": "system/lib/standard_option_surface.py option-surface adapter",
+          "source": "authoring contract rows across standards and command-output projection metadata"
+        },
+        "band:flag": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface authoring_contracts --band flag",
+          "source": "authoring contract rows across standards and command-output projection metadata"
+        },
+        "band:card": {
+          "populated_by": "compiled",
+          "emitter": "./repo-python kernel.py --option-surface authoring_contracts --band card --ids <id>",
+          "source": "authoring contract rows across standards and command-output projection metadata"
+        }
+      },
+      "creator_skill_id": "navigation-metabolism",
+      "navigator_skill_id": "navigation-seed",
+      "source_authority": {
+        "standard": "codex/standards/std_kind_atlas.json",
+        "kind_atlas": "codex/standards/std_kind_atlas.json",
+        "option_surface_owner": "system/lib/standard_option_surface.py",
+        "projection_boundary": "Authoring Contracts rows are navigable projections over their named source authorities; mutation routes stay with the standard or builder that owns the source row."
+      },
+      "currentness_policy": {
+        "mode": "option_surface_currentness_with_source_authority_check",
+        "rule": "Use the option-surface row as browse projection only; when decisions require mutation or fresh truth, open the named source authority and run the validation probe.",
+        "check_commands": [
+          "./repo-python kernel.py --option-surface authoring_contracts --band flag",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "dependency_neighborhood_policy": {
+        "mode": "first_order_source_and_owner_edges",
+        "rule": "Expose direct source authority, owner standard, builder, validation, and immediate semantic edges first; downshift broader system neighborhoods to counts with drilldown refs.",
+        "first_order": [
+          "source_authority",
+          "owner_standard",
+          "builder_or_adapter",
+          "validation_probe"
+        ],
+        "second_order": [
+          "related_principles",
+          "related_workitems",
+          "consumer_surfaces"
+        ],
+        "beyond_second_order": "omit_with_count_reason_and_drilldown"
+      },
+      "edge_compression_policy": {
+        "edge_row_shape": "std_navigation_contract.edge_row_shape",
+        "bidirectional_gloss_required": true,
+        "first_order_band": "card",
+        "second_order_band": "flag",
+        "beyond_second_order": "omit_with_count_reason_and_drilldown",
+        "required_edge_fields": [
+          "source_ref",
+          "target_ref",
+          "verb",
+          "reverse_verb",
+          "confidence",
+          "evidence_ref",
+          "drilldown_ref"
+        ]
+      },
+      "validation_probe": [
+        "./repo-python -m json.tool codex/standards/std_kind_atlas.json",
+        "./repo-python kernel.py --option-surface authoring_contracts --band flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
     }
   },
   "non_goals": [

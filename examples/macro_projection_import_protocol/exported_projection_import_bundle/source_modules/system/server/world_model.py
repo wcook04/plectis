@@ -75,7 +75,10 @@ from system.lib.launchable_operations import (
     prepare_launch_operation as _shared_prepare_launch_operation,
     start_meta_mission_run as _shared_start_meta_mission_run,
 )
-from system.lib.lab_oracle_evolve_overnight import load_overnight_status as _load_lab_oracle_evolve_overnight_status
+from system.lib.lab_oracle_evolve_overnight import (
+    default_overnight_paths as _lab_oracle_evolve_overnight_paths,
+    load_overnight_status as _load_lab_oracle_evolve_overnight_status,
+)
 from system.lib import metabolism_market_clock as _market_clock
 from system.lib import provider_metabolism_signal as _provider_metabolism_signal
 from system.lib import metabolism_scheduler as _metabolism_scheduler
@@ -381,6 +384,14 @@ def _path_mtime_iso(path: Path) -> Optional[str]:
         return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
     except Exception:
         return None
+
+
+def _path_cache_stamp(path: Path) -> Tuple[bool, Optional[int], Optional[int]]:
+    try:
+        stat = path.stat()
+        return True, int(stat.st_mtime_ns), int(stat.st_size)
+    except OSError:
+        return False, None, None
 
 
 def _safe_read_json_path(path: Path) -> Optional[Dict[str, Any]]:
@@ -4049,14 +4060,21 @@ def load_lab_oracle_evolve_snapshot(repo_root: Path, limit: int = 24) -> Dict[st
     """Read-only Lab/Oracle/Evolve runs snapshot for the cockpit tile.
 
     Cold builds walk state/runs/* + per-run row construction (~500 ms).
-    Wrapped in swr_get keyed by (repo_root, limit) so the snapshot cold
-    path doesn't pay that wall. ttl_s=10 matches the parent snapshot
-    freshness. Direct callers needing live data go through
+    Wrapped in swr_get keyed by (repo_root, limit, overnight plan/ledger
+    freshness) so a newly materialized Evolve overnight plan is visible
+    without waiting for TTL expiry. ttl_s=10 remains a safety net for run-dir
+    freshness. Direct callers needing exact run-row liveness go through
     _uncached_load_lab_oracle_evolve_snapshot.
     """
+    overnight_plan_path, overnight_ledger_path = _lab_oracle_evolve_overnight_paths(repo_root)
     return swr_get(
         "lab_oracle_evolve_snapshot",
-        (str(repo_root.resolve()), int(limit)),
+        (
+            str(repo_root.resolve()),
+            int(limit),
+            _path_cache_stamp(overnight_plan_path),
+            _path_cache_stamp(overnight_ledger_path),
+        ),
         lambda: _uncached_load_lab_oracle_evolve_snapshot(repo_root, limit),
         ttl_s=10.0,
     )

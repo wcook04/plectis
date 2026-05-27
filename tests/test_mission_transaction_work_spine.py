@@ -79,7 +79,7 @@ WORK_LEDGER_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
 ]
-WORK_LEDGER_SOURCE_LINE_COUNT = 11242
+WORK_LEDGER_SOURCE_LINE_COUNT = 13870
 CHECKPOINT_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
 CHECKPOINT_SOURCE_MODULE_IDS = [
     "checkpoint_script_body_import",

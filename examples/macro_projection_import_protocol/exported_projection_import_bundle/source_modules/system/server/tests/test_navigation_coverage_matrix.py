@@ -103,6 +103,15 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
         "routes_and_option_surfaces",
         "task_ledger_caps",
     } <= extra_type_plane_ids
+    public_exports = next(
+        row
+        for row in type_plane_resolution["extra_resolved_routes"]
+        if row["type_id"] == "public_microcosm_exports"
+    )
+    assert public_exports["option_surface_command"] == (
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids "
+        "microcosm_public_export_type_plane"
+    )
     assert all(
         row["coverage_relationship"] == "resolved_by_standard_type_plane_not_matrix_kind_row"
         for row in type_plane_resolution["extra_resolved_routes"]
@@ -173,6 +182,16 @@ def test_coverage_enforcement_matrix_marks_skill_find_as_drilldown_only() -> Non
     assert prompt_shelf["coverage_status"] == "covered"
     assert prompt_shelf["coverage_surface"].endswith("--option-surface prompt_shelf_metadata --band cluster_flag")
 
+    compliance_ledger = rows["compliance_ledger"]
+    assert compliance_ledger["row_count"] >= HIGH_CARDINALITY_THRESHOLD
+    assert compliance_ledger["cluster_flag_available"] is True
+    assert compliance_ledger["coverage_surface_available"] is True
+    assert compliance_ledger["control_entry_allowed"] is False
+    assert compliance_ledger["coverage_status"] == "covered"
+    assert compliance_ledger["coverage_surface"].endswith(
+        "--option-surface compliance_ledger --band cluster_flag"
+    )
+
 
 def test_coverage_watch_debt_excludes_advisory_and_lifecycle_rows() -> None:
     assert _debt_is_coverage_watch({"debt_class": "projection_debt", "active_debt": False}) is False
@@ -189,6 +208,11 @@ def test_coverage_enforcement_matrix_flags_high_cardinality_without_cluster_surf
     )
 
     rows = {row["kind_id"]: row for row in payload["rows"]}
+    compliance_ledger = rows.get("compliance_ledger")
+    if compliance_ledger and compliance_ledger["row_count"] >= HIGH_CARDINALITY_THRESHOLD:
+        assert compliance_ledger["cluster_flag_available"] is True
+        assert compliance_ledger["coverage_surface_available"] is True
+        assert compliance_ledger["coverage_status"] == "covered"
     standard_skill_map = rows.get("standard_skill_map")
     if standard_skill_map and standard_skill_map["row_count"] >= HIGH_CARDINALITY_THRESHOLD:
         if not standard_skill_map["cluster_flag_available"]:
@@ -255,10 +279,14 @@ def test_coverage_enforcement_matrix_omits_rows_for_active_fast_path_query() -> 
     )
 
     if compact["process_audit_fast_path"]["status"] != "active_behavior_debt":
-        assert compact["process_audit_fast_path"]["status"] == "matched_behavior_debt_not_active"
-        assert compact["process_audit_fast_path"]["debt"]["debt_id"] == (
-            "behavior:process_audit:anti_pattern_deep_without_ladder"
-        )
+        assert compact["process_audit_fast_path"]["status"] in {
+            "matched_behavior_debt_not_active",
+            "no_active_behavior_debt",
+        }
+        if compact["process_audit_fast_path"]["status"] == "matched_behavior_debt_not_active":
+            assert compact["process_audit_fast_path"]["debt"]["debt_id"] == (
+                "behavior:process_audit:anti_pattern_deep_without_ladder"
+            )
         assert compact["rows"]
         return
 

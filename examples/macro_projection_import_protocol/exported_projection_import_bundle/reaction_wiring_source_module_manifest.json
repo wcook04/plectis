@@ -47,7 +47,10 @@
       "source_sha256": "d62c6bb1151132e41cbfac783445148b38bd0ae857d6bc2c5da80bb32fcbec61",
       "target_sha256": "d62c6bb1151132e41cbfac783445148b38bd0ae857d6bc2c5da80bb32fcbec61",
       "source_line_count": 649,
-      "target_line_count": 649
+      "target_line_count": 649,
+      "sha256_match": true,
+      "line_count": 649,
+      "byte_count": 26592
     },
     {
       "module_id": "reaction_wiring_engine_body_import",
@@ -70,7 +73,10 @@
       "source_sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
       "target_sha256": "e30b0788e5277f4bac79cc7c9da59b1f393fb131dfb57857ca105dc76bc7e3bb",
       "source_line_count": 2364,
-      "target_line_count": 2364
+      "target_line_count": 2364,
+      "sha256_match": true,
+      "line_count": 2364,
+      "byte_count": 92618
     },
     {
       "module_id": "reaction_wiring_proof_cli_body_import",
@@ -90,7 +96,10 @@
       "source_sha256": "aab21a7a91a0c36ca9ba05af508ccc6aa33fdc1e59a82eb5955e7d9973ce053e",
       "target_sha256": "aab21a7a91a0c36ca9ba05af508ccc6aa33fdc1e59a82eb5955e7d9973ce053e",
       "source_line_count": 117,
-      "target_line_count": 117
+      "target_line_count": 117,
+      "sha256_match": true,
+      "line_count": 117,
+      "byte_count": 4412
     }
   ]
 }

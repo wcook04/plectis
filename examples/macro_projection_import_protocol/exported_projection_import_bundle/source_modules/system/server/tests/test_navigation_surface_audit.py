@@ -118,6 +118,7 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
         "annex_distillation_patterns.cluster_flag",
         "row_patches.cluster_flag",
         "transform_job_receipts.cluster_flag",
+        "compliance_ledger.cluster_flag",
     )
     cluster_flag_non_violation_statuses = {"valid", "contents_page_too_large"}
     for route_id in cluster_flag_routes:
@@ -148,6 +149,7 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
     assert high_card["annex_distillation_patterns"]["cluster_adapter_status"] == "implemented"
     assert high_card["transform_job_receipts"]["cluster_adapter_status"] == "implemented"
     assert high_card["row_patches"]["cluster_adapter_status"] == "implemented"
+    assert high_card["compliance_ledger"]["cluster_adapter_status"] == "implemented"
     missing_cluster = {
         row["kind_id"]
         for row in payload["high_cardinality_kinds"]
@@ -177,6 +179,9 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
         finding["finding_id"] for finding in payload["findings"]
     }
     assert "transform_job_receipts_cluster_flag_compresses_global_overview" in {
+        finding["finding_id"] for finding in payload["findings"]
+    }
+    assert "compliance_ledger_cluster_flag_compresses_global_overview" in {
         finding["finding_id"] for finding in payload["findings"]
     }
 

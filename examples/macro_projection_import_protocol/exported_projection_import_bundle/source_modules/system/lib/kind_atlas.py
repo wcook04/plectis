@@ -899,6 +899,60 @@ def _fast_type_a_autonomous_seed_row(repo_root: Path) -> dict[str, Any]:
     }
 
 
+def _apply_fast_live_count_overlay(root: Path, row: dict[str, Any]) -> dict[str, Any]:
+    kind_id = str(row.get("kind_id") or "")
+    if kind_id != "paper_modules":
+        return row
+
+    live_count, _index = _paper_module_count(root)
+    system_atlas_count = _int(row.get("row_count"))
+    if live_count == system_atlas_count:
+        return row
+
+    row = dict(row)
+    row["row_count"] = live_count
+    currentness = (
+        dict(row.get("currentness") or {})
+        if isinstance(row.get("currentness"), Mapping)
+        else {}
+    )
+    source_refs = [
+        str(item)
+        for item in list(currentness.get("source_refs_checked") or [])
+        if str(item).strip()
+    ]
+    paper_index_ref = str(PAPER_MODULE_INDEX)
+    if paper_index_ref not in source_refs:
+        source_refs.append(paper_index_ref)
+    source_mtimes = (
+        dict(currentness.get("source_mtimes") or {})
+        if isinstance(currentness.get("source_mtimes"), Mapping)
+        else {}
+    )
+    index_mtime = _mtime(root / PAPER_MODULE_INDEX)
+    if index_mtime:
+        source_mtimes[paper_index_ref] = index_mtime
+    currentness.update(
+        {
+            "source_refs_checked": source_refs,
+            "source_mtimes": source_mtimes,
+            "fast_live_overlay": {
+                "status": "applied",
+                "field": "row_count",
+                "previous_system_atlas_count": system_atlas_count,
+                "live_source_count": live_count,
+                "source_ref": paper_index_ref,
+                "reason": (
+                    "routine kind-atlas fast rows use System Atlas for breadth, "
+                    "but paper-module corpus size is authoritative in the module index"
+                ),
+            },
+        }
+    )
+    row["currentness"] = currentness
+    return row
+
+
 def _fast_rows_from_system_atlas(root: Path) -> list[dict[str, Any]]:
     graph = _load_json(root / SYSTEM_ATLAS_GRAPH)
     entities = graph.get("entities") if isinstance(graph.get("entities"), list) else []
@@ -941,6 +995,7 @@ def _fast_rows_from_system_atlas(root: Path) -> list[dict[str, Any]]:
         }
         if isinstance(metrics.get("row_count_semantics"), Mapping):
             row["row_count_semantics"] = dict(metrics.get("row_count_semantics") or {})
+        row = _apply_fast_live_count_overlay(root, row)
         rows.append(row)
         seen.add(kind_id)
     if "cognitive_operators" not in seen:

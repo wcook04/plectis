@@ -42,8 +42,8 @@
   },
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
-  "command": "python -m microcosm_core.organs.world_model_projection_drift_control_room run-drift-control-bundle",
-  "created_at": "2026-05-26T23:57:57+00:00",
+  "command": "world_model_projection_drift_control_room run-drift-control-bundle",
+  "created_at": "2026-05-27T14:28:58+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -165,8 +165,75 @@
   },
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
+  "freshness_basis": {
+    "basis_digest": "sha256:fe4b1d8d709d725c099e54cc13eadd319c641297c39671f5bc311f46f2e2e190",
+    "card_schema_version": "world_model_projection_drift_command_card_v1",
+    "include_negative": false,
+    "input_count": 11,
+    "inputs": [
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/projection_protocol.json",
+        "sha256": "sha256:aac52e00a8f4e67b92bdcde17cdb98d621df386128b0e73d0c98a42f9441a79f",
+        "size_bytes": 6941
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_policy.json",
+        "sha256": "sha256:c0e155bdd01518e920cc86a0536cf372c6f62d1a942a975ff443dcc4b606de07",
+        "size_bytes": 1541
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/drift_rows.json",
+        "sha256": "sha256:82125c052d221f3b0ebedf0d0e97368749e7a2539e22f4034b405fe3c129c5db",
+        "size_bytes": 6836
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/bundle_manifest.json",
+        "sha256": "sha256:2cfc12437433178ae1935ebfbb0751b3954948b7e6ba3d5001e92bea2f5d9572",
+        "size_bytes": 3513
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+        "sha256": "sha256:7fc64e4f0b43c9a52b9848298a6a52aa0984f2046775d2e2171b8b71d61e4d28",
+        "size_bytes": 7061
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/world_model.py",
+        "sha256": "sha256:b92629bc80e64edd961fa4d2b8247bf9d75d3868db028c460e8c438c0d4bef6d",
+        "size_bytes": 747225
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
+        "sha256": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
+        "size_bytes": 353243
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/tools/meta/observability/view_quality_census.py",
+        "sha256": "sha256:9af792fa6a611715f76bf31c3c2f995e13a29014e1b12c8e0dc5dcfeab9b4ee3",
+        "size_bytes": 148951
+      },
+      {
+        "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/tests/test_view_quality_census.py",
+        "sha256": "sha256:8531b8e09bd3a8a49ef734c81e574cd3ef48886b3d6db0f30fcac784de7283f9",
+        "size_bytes": 44848
+      },
+      {
+        "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
+        "sha256": "sha256:f1ebd344ae0bd6f42859619ab8886d93e2746e5d2623bf9876134aecb2f28aab",
+        "size_bytes": 47559
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "world_model_projection_drift_freshness_basis_v1",
+    "validator_schema_version": "exported_projection_drift_control_bundle_validation_result_v1"
+  },
   "input_mode": "exported_projection_drift_control_bundle",
-  "input_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
+  "input_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle",
   "negative_case_findings": [],
   "negative_case_summary": {
     "expected_missing": {},
@@ -177,8 +244,9 @@
   "organ_id": "world_model_projection_drift_control_room",
   "positive_findings": [],
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/world_model_projection_drift_control_room/exported_projection_drift_control_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "release_authorized": false,
   "safe_to_show": {
     "body_in_receipt": false,
@@ -227,7 +295,7 @@
   ],
   "selected_route_id": "world_model_projection_drift_control_room",
   "source_module_import_status": "copied_non_secret_macro_body_landed",
-  "source_module_manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+  "source_module_manifest_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
   "source_module_summary": {
     "body_in_receipt": false,
     "findings": [],
@@ -242,12 +310,12 @@
       "view_quality_action_map_test_body_import"
     ],
     "source_module_import_status": "copied_non_secret_macro_body_landed",
-    "source_module_manifest_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
+    "source_module_manifest_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
     "status": "pass",
     "verified_module_count": 4
   },
   "source_open_body_imports": {
-    "aggregate_floor_ref": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "body_text_in_receipt": false,
       "broad_checkpoint_authorized": false,
@@ -274,7 +342,7 @@
     "schema_version": "world_model_projection_drift_control_room_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
+      "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json"
     ],
     "status": "pass"
   },

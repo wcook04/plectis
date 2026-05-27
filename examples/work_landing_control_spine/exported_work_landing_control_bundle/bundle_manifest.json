@@ -79,8 +79,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 8758,
-      "expected_sha256": "c64ff63f41dcbd6c383f5d5453dbe7ee94544933d8f8a300eeeacb05f6136feb",
+      "expected_line_count": 8761,
+      "expected_sha256": "323a3fa9867e2de9aad083f2d07f47608dfd4b1cac19567a71091bf74937c380",
       "material_class": "public_macro_tool_body",
       "path": "source_modules/system/lib/mission_transaction_landing_preflight.py",
       "required_anchors": [
@@ -124,7 +124,7 @@
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
       "expected_line_count": 55,
-      "expected_sha256": "1189dfd502ede46cc7b4359b0e3ef69f6d9387da6a0fcf15f01497ec523986e4",
+      "expected_sha256": "8b423dab9c788c1a1fe791dfad122d328a7bde8301f3dfdf18df13a4572fb235",
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
       "required_anchors": [],

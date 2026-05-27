@@ -27,7 +27,8 @@
       "source_role": "Builds deterministic operator-court adjudication packets, hides prior connector guesses by default, detects baseline leakage, scores route outputs, and builds appeal rows.",
       "source_sha256": "7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
-      "target_sha256": "7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b"
+      "target_sha256": "7ab2fc11eb2035f2a26b491a02bfc0de7f2ed8bc206e4c9222102076e02ee79b",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 6,
@@ -51,7 +52,8 @@
       "source_role": "Macro routing-pilot harness body that assembles prompts, scores candidates, appends operator-court appeals, and contains provider dispatch code copied only as public source evidence, not execution authority.",
       "source_sha256": "0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
-      "target_sha256": "0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a"
+      "target_sha256": "0f9ced92169103111021d8e8dba2fd9f25d137a3acdeb40494de97ce6d7bc72a",
+      "material_class": "public_macro_tool_body"
     },
     {
       "anchor_count": 5,
@@ -74,7 +76,8 @@
       "source_role": "Focused regression body for operator-court prompt boundary, leakage detection, score confusion matrix, and appeal generation.",
       "source_sha256": "27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
-      "target_sha256": "27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f"
+      "target_sha256": "27f97239c72448f8505dddbffb4d5de160877f094ebf7d1647eba58d81f9ff9f",
+      "material_class": "public_macro_tool_body"
     }
   ],
   "public_runtime_policy": "public validation uses exact source digests, anchor checks, and syntax compilation; copied route-operator court and routing-pilot harness source modules are body evidence, not authority to execute live providers, mutate route graphs, export prompt/operator/provider bodies, inspect browser/HUD live access, or inspect private account/session state",

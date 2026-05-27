@@ -131,6 +131,7 @@ KNOWN_GENERATED_SUFFIXES = (
 )
 KNOWN_SOURCE_INDEXES = {
     "codex/doctrine/documentation_theory_index.json",
+    "codex/doctrine/agent_entrypoints/entrypoint_registry.json",
     "codex/doctrine/facts/fact_registry.json",
     "codex/doctrine/system_vocabulary/term_registry.json",
     "microcosm-substrate/core/organ_registry.json",
@@ -3067,6 +3068,8 @@ def _is_generated_like(path: str) -> bool:
     if _is_runtime_run_artifact(token):
         return False
     if token.startswith("codex/standards/"):
+        return False
+    if token.startswith("microcosm-substrate/standards/"):
         return False
     if token in KNOWN_SOURCE_INDEXES:
         return False

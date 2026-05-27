@@ -12,6 +12,7 @@ from system.lib.active_execution_constellation import (
 )
 from system.lib.kernel.commands import navigate as kernel_navigate
 from system.lib.kernel_navigation import NavigationResult
+from system.lib.work_ledger_commands import WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -218,6 +219,14 @@ def test_projection_carries_work_ledger_pass_awareness_cards(tmp_path: Path) -> 
     assert awareness[1]["session_id"] == "sess_imported_without_heartbeat"
     assert awareness[1]["source"] == "projected_unknown"
     assert payload["live_sessions"]["counts"]["claim_session_heartbeat_gap_count"] == 1
+    assert (
+        payload["live_sessions"]["drilldown_commands"]["seed_speed_no_heartbeat"]
+        == WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND
+    )
+    assert (
+        payload["live_sessions"]["runtime_source_freshness"]["no_heartbeat_refresh_command"]
+        == WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND
+    )
     heartbeat_gaps = payload["live_sessions"]["heartbeat_gap_claim_sessions"]
     assert heartbeat_gaps[0]["session_id"] == "sess_imported_without_heartbeat"
     assert heartbeat_gaps[0]["scope_ref"] == "system/lib/imported.py"
@@ -232,6 +241,10 @@ def test_projection_carries_work_ledger_pass_awareness_cards(tmp_path: Path) -> 
     compact = compact_active_execution_constellation_for_entry(payload)
     assert compact["live_sessions"]["awareness_cards"][0]["pass_state"] == "validating"
     assert compact["live_sessions"]["counts"]["claim_session_heartbeat_gap_count"] == 1
+    assert (
+        compact["live_sessions"]["drilldown_commands"]["seed_speed_no_heartbeat"]
+        == WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND
+    )
     assert (
         compact["live_sessions"]["heartbeat_gap_claim_sessions"][0]["session_id"]
         == "sess_imported_without_heartbeat"

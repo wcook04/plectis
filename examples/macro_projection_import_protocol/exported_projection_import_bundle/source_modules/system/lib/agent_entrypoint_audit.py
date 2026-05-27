@@ -714,7 +714,44 @@ def _check_architectural_constraint_principle_anchor(ledger: Mapping[str, Any]) 
     return findings
 
 
-def _classify_topology_ref_scope(ref_kind: str, ref: str) -> dict[str, Any]:
+def _scope_overrides_from_registry(registry: Mapping[str, Any]) -> dict[tuple[str, str], dict[str, Any]]:
+    overrides: dict[tuple[str, str], dict[str, Any]] = {}
+    for raw in (registry.get("doctrine_ref_scope_overrides") or []):
+        if not isinstance(raw, Mapping):
+            continue
+        ref = str(raw.get("ref") or "").strip()
+        if not ref:
+            continue
+        ref_kind = str(raw.get("ref_kind") or "*").strip() or "*"
+        scope_class = str(raw.get("scope_class") or "").strip()
+        if scope_class not in {"shared", "actor_local", "unknown"}:
+            continue
+        actor_scope = raw.get("actor_scope")
+        if isinstance(actor_scope, str):
+            actor_scope = actor_scope.strip() or None
+        elif actor_scope is not None:
+            actor_scope = str(actor_scope).strip() or None
+        scope_reason = str(
+            raw.get("scope_reason")
+            or raw.get("reason")
+            or "Authored entrypoint registry scope override."
+        ).strip()
+        if scope_class == "shared" and not actor_scope:
+            actor_scope = "all"
+        overrides[(ref_kind, ref)] = {
+            "scope_class": scope_class,
+            "actor_scope": actor_scope,
+            "scope_reason": scope_reason,
+        }
+    return overrides
+
+
+def _classify_topology_ref_scope(
+    ref_kind: str,
+    ref: str,
+    *,
+    scope_overrides: Mapping[tuple[str, str], Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     """
     [ACTION]
     - Teleology: Classify a topology doctrine ref as `shared` (all actors should
@@ -722,10 +759,11 @@ def _classify_topology_ref_scope(ref_kind: str, ref: str) -> dict[str, Any]:
       missing-from-other-actor is NOT a defect), or `unknown` (needs operator/owner
       metadata to decide). Per pri_130 + the operator's same-turn triage of the 9
       measured asymmetric refs.
-    - Mechanism: Two layers. Explicit triage table from the operator's prior turn
-      classifies known-by-name refs first. Heuristic fallback uses path naming
-      (`claude_*` / Claude-prefixed filenames → claude actor_local; `codex_*`
-      filenames → codex actor_local; `voice_archaeology*` substrate → shared).
+    - Mechanism: Two layers. Authored triage rows in
+      entrypoint_registry.json::doctrine_ref_scope_overrides classify known refs
+      first. Heuristic fallback uses path naming (`claude_*` /
+      Claude-prefixed filenames → claude actor_local; `codex_*` filenames →
+      codex actor_local; `voice_archaeology*` substrate → shared).
       Default is `unknown` so the audit keeps emitting warnings for refs the
       classifier hasn't been taught yet, rather than silently passing them.
     - Guarantee: Always returns a dict with the three required keys; never raises.
@@ -733,31 +771,14 @@ def _classify_topology_ref_scope(ref_kind: str, ref: str) -> dict[str, Any]:
     """
     ref_lower = (ref or "").lower()
     stem = ref_lower.rsplit("/", 1)[-1]
-    # Operator triage from prior turn: explicit initial classifications.
-    EXPLICIT_CLAUDE_LOCAL = frozenset({
-        "codex/doctrine/paper_modules/claude_agents_materialization.md",
-        "codex/doctrine/paper_modules/station_render_engine.md",
-        "codex/doctrine/skills/frontend/frontend_visual_verification.md",
-    })
-    EXPLICIT_SHARED = frozenset({
-        "codex/doctrine/paper_modules/voice_archaeology.md",
-        "codex/doctrine/skills/raw_seed/archaeological_voice_mining.md",
-        "codex/doctrine/skills/doctrine/concept_mechanism_curation.md",
-        "codex/doctrine/skills/doctrine/principles_curation.md",
-        "codex/doctrine/skills/doctrine/meta_mission_authoring.md",
-    })
-    if ref in EXPLICIT_CLAUDE_LOCAL:
-        return {
-            "scope_class": "actor_local",
-            "actor_scope": "claude",
-            "scope_reason": "Operator-triaged 2026-04-28: Claude-specific doctrine (subagents / UI render-engine / frontend visual verification).",
-        }
-    if ref in EXPLICIT_SHARED:
-        return {
-            "scope_class": "shared",
-            "actor_scope": "all",
-            "scope_reason": "Operator-triaged 2026-04-28: shared substrate (voice-archaeology corpus mining / doctrine curation skills) applies to any agent.",
-        }
+    if scope_overrides:
+        override = scope_overrides.get((ref_kind, ref)) or scope_overrides.get(("*", ref))
+        if override:
+            return {
+                "scope_class": str(override.get("scope_class") or "unknown"),
+                "actor_scope": override.get("actor_scope"),
+                "scope_reason": str(override.get("scope_reason") or "Authored entrypoint registry scope override."),
+            }
     # Standard for voice_archaeology — operator confirmed shared.
     if ref_kind == "standard" and "voice_archaeology" in ref_lower:
         return {
@@ -812,7 +833,11 @@ _TOPOLOGY_SURFACES = (
 )
 
 
-def _build_entry_surface_topology(*, repo_root: Path) -> dict[str, Any]:
+def _build_entry_surface_topology(
+    *,
+    repo_root: Path,
+    scope_overrides: Mapping[tuple[str, str], Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     """
     [ACTION]
     - Teleology: Derive a navigation topology graph over the four entry
@@ -1040,7 +1065,11 @@ def _build_entry_surface_topology(*, repo_root: Path) -> dict[str, Any]:
     # whose intended actor can reach them.
     scope_counts: dict[str, int] = {"shared": 0, "actor_local": 0, "unknown": 0}
     for row in seen_refs.values():
-        scope = _classify_topology_ref_scope(row["ref_kind"], row["ref"])
+        scope = _classify_topology_ref_scope(
+            row["ref_kind"],
+            row["ref"],
+            scope_overrides=scope_overrides,
+        )
         row["scope_class"] = scope["scope_class"]
         row["actor_scope"] = scope["actor_scope"]
         row["scope_reason"] = scope["scope_reason"]
@@ -1864,7 +1893,11 @@ def build_agent_entrypoint_audit(
     entry_surface_budget_ledger = _build_entry_surface_budget_ledger(repo_root=repo_root)
     findings.extend(_check_entry_surface_reserve(entry_surface_budget_ledger))
     findings.extend(_check_architectural_constraint_principle_anchor(entry_surface_budget_ledger))
-    entry_surface_topology = _build_entry_surface_topology(repo_root=repo_root)
+    scope_overrides = _scope_overrides_from_registry(entrypoint_payload)
+    entry_surface_topology = _build_entry_surface_topology(
+        repo_root=repo_root,
+        scope_overrides=scope_overrides,
+    )
     findings.extend(_check_route_pointer_quality(entry_surface_topology))
     findings.extend(_check_shared_doctrine_adapter_asymmetry(entry_surface_topology))
     findings = _attach_repair_metadata(findings, entrypoint_records=entrypoint_records)

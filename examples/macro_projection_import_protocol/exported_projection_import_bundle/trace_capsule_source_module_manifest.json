@@ -42,7 +42,8 @@
       "sha256_match": true,
       "line_count": 4649,
       "byte_count": 193591,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "trace_capsule_cli_prompt_trace_test_body_import",
@@ -65,7 +66,8 @@
       "sha256_match": true,
       "line_count": 103,
       "byte_count": 3409,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "agent_trace_structurer_parser_body_import",
@@ -88,7 +90,8 @@
       "sha256_match": true,
       "line_count": 3541,
       "byte_count": 145209,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     },
     {
       "module_id": "agent_trace_structurer_parser_test_body_import",
@@ -111,7 +114,8 @@
       "sha256_match": true,
       "line_count": 989,
       "byte_count": 46212,
-      "anchor_count": 5
+      "anchor_count": 5,
+      "material_class": "public_macro_tool_body"
     }
   ],
   "validation_contract_refs": [

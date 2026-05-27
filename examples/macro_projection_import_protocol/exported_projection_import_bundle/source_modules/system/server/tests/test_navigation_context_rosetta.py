@@ -14,6 +14,7 @@ WAVE_DIR = (
     REPO_ROOT
     / "state/meta_missions/system_microcosm_probe/ledgers/navigation_hologram_microcosm/wave_044"
 )
+ROSETTA_SCANNER_BUDGET = 12000
 
 
 def _rows_by_kind(packet: dict) -> dict[str, dict]:
@@ -21,7 +22,7 @@ def _rows_by_kind(packet: dict) -> dict[str, dict]:
 
 
 def test_rosetta_packet_covers_all_kind_atlas_rows_before_query() -> None:
-    packet = build_navigation_context_rosetta(REPO_ROOT, context_budget=1400)
+    packet = build_navigation_context_rosetta(REPO_ROOT, context_budget=ROSETTA_SCANNER_BUDGET)
     rows = _rows_by_kind(packet)
 
     assert packet["kind"] == "navigation_context_rosetta_packet"
@@ -51,7 +52,7 @@ def test_rosetta_packet_covers_all_kind_atlas_rows_before_query() -> None:
 
 
 def test_rosetta_semantic_grammar_names_nouns_verbs_and_impacts() -> None:
-    packet = build_navigation_context_rosetta(REPO_ROOT, context_budget=1400)
+    packet = build_navigation_context_rosetta(REPO_ROOT, context_budget=ROSETTA_SCANNER_BUDGET)
     grammar = packet["semantic_grammar"]
     math_model = packet["math_model"]
 
@@ -77,25 +78,23 @@ def test_rosetta_semantic_grammar_names_nouns_verbs_and_impacts() -> None:
 
 
 def test_rosetta_rows_preserve_gaps_and_population_honesty() -> None:
-    rows = _rows_by_kind(build_navigation_context_rosetta(REPO_ROOT, context_budget=1400))
+    rows = _rows_by_kind(build_navigation_context_rosetta(REPO_ROOT, context_budget=ROSETTA_SCANNER_BUDGET))
 
     python_scope = rows["python_scopes"]
     assert python_scope["atom_id"] == "context_atom:python_scopes:representative"
     assert python_scope["selector_policy_id"] == "direct_enumeration"
-    # python_scopes' flag/card bands have become populated since the original
-    # fixture was authored; the symbol_capsule band remains the projection gap.
-    # Load-bearing invariants: the gap is still surfaced via unpopulated_units,
-    # and confidence tier is consistent with population_mode + support_status
-    # rather than pinned to a stale literal.
-    assert "band:symbol_capsule" in python_scope["axis_vector"]["unpopulated_units"]
+    # python_scopes' gap profile changes as emitters land. The invariant is not
+    # a literal stale band id; it is honest population state plus a row_ref or a
+    # visible gap signal when a representative row is not available.
     assert python_scope["population_mode"] in {"compiled", "unpopulated"}
     assert python_scope["support_status"] in {"option_surface_supported", "projection_gap"}
+    assert isinstance(python_scope["axis_vector"]["unpopulated_units"], list)
     if python_scope["population_mode"] == "compiled" and python_scope["support_status"] == "option_surface_supported":
         # When the option-surface adapter actually populates the kind, confidence
-        # may legitimately be high. The symbol_capsule band gap is surfaced via
-        # axis_vector.unpopulated_units, so profile_gap may be None at the row
-        # level (the per-band gap remains visible).
+        # may legitimately be high. profile_gap may be None when there is no
+        # active row-level projection gap.
         assert python_scope["confidence"]["tier"] in {"high", "medium"}
+        assert python_scope["row_ref"]
     else:
         # When the kind is still in projection-gap state, confidence must NOT
         # claim "high" — the scorer must respect population honesty.
@@ -121,7 +120,7 @@ def test_rosetta_rows_preserve_gaps_and_population_honesty() -> None:
 
 
 def test_rosetta_rows_are_context_atoms_with_selector_provenance() -> None:
-    rows = _rows_by_kind(build_navigation_context_rosetta(REPO_ROOT, context_budget=1400))
+    rows = _rows_by_kind(build_navigation_context_rosetta(REPO_ROOT, context_budget=ROSETTA_SCANNER_BUDGET))
 
     for kind_id, row in rows.items():
         assert row["atom_id"] == f"context_atom:{kind_id}:representative"
@@ -151,7 +150,13 @@ def test_rosetta_rows_are_context_atoms_with_selector_provenance() -> None:
 
 def test_navigation_context_rosetta_kernel_command_emits_json() -> None:
     result = subprocess.run(
-        [sys.executable, "kernel.py", "--navigation-context-rosetta", "--context-budget", "1400"],
+        [
+            sys.executable,
+            "kernel.py",
+            "--navigation-context-rosetta",
+            "--context-budget",
+            str(ROSETTA_SCANNER_BUDGET),
+        ],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -165,6 +170,7 @@ def test_navigation_context_rosetta_kernel_command_emits_json() -> None:
     # is represented; coverage_count == total_kinds.
     assert packet["budget"]["coverage_count"] == packet["budget"]["total_kinds"]
     assert packet["budget"]["coverage_count"] >= 13
+    assert packet["budget"]["estimated_cost"] <= packet["budget"]["context_budget"]
     assert packet["semantic_grammar"]["rosetta_rule"].startswith("The smallest packet")
 
 

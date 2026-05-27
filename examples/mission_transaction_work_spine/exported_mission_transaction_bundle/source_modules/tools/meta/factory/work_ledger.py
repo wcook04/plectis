@@ -733,7 +733,30 @@ def cmd_session_status(args: argparse.Namespace) -> int:
         limit=overview_limit,
     )
     if seed_speed:
-        return _print(_seed_speed_status(overview, limit=limit))
+        dirty_tree_pressure = None
+        if bool(getattr(args, "no_heartbeat", False)) or bool(
+            getattr(args, "dirty_tree_pressure", False)
+        ):
+            dirty_paths, dirty_scan_status = _dirty_paths_from_git_status(REPO_ROOT)
+            dirty_tree_pressure = work_ledger_runtime.build_dirty_tree_bankruptcy_pressure(
+                REPO_ROOT,
+                status=payload,
+                dirty_paths=dirty_paths,
+                dirty_scan_status=dirty_scan_status,
+                bankruptcy_authorized=bool(
+                    getattr(args, "bankruptcy_authorized", False)
+                ),
+                limit=limit,
+            )
+            dirty_tree_pressure["sweep_dry_run"] = True
+        return _print(
+            _seed_speed_status(
+                overview,
+                limit=limit,
+                prefer_non_heartbeat=bool(getattr(args, "no_heartbeat", False)),
+                dirty_tree_pressure=dirty_tree_pressure,
+            )
+        )
     if getattr(args, "with_session_cards", False):
         return _print(overview)
     return _print(
@@ -1101,8 +1124,19 @@ def _cohort_speed_summary(
     }
 
 
-def _seed_speed_status(overview: Mapping[str, Any], *, limit: int) -> Dict[str, Any]:
-    return work_ledger_runtime.build_seed_speed_status(overview, limit=limit)
+def _seed_speed_status(
+    overview: Mapping[str, Any],
+    *,
+    limit: int,
+    prefer_non_heartbeat: bool = False,
+    dirty_tree_pressure: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
+    return work_ledger_runtime.build_seed_speed_status(
+        overview,
+        limit=limit,
+        prefer_non_heartbeat=prefer_non_heartbeat,
+        dirty_tree_pressure=dirty_tree_pressure,
+    )
 
 
 def _seed_speed_heartbeat_gap_row(card: Mapping[str, Any]) -> Dict[str, Any]:
@@ -3425,6 +3459,30 @@ def build_parser() -> argparse.ArgumentParser:
         "--speed-only",
         action="store_true",
         help="Alias for --seed-speed.",
+    )
+    session_status.add_argument(
+        "--no-heartbeat",
+        action="store_true",
+        help=(
+            "For --seed-speed, promote the non-heartbeat coordination lane to "
+            "first_action when heartbeat repair would otherwise be first."
+        ),
+    )
+    session_status.add_argument(
+        "--dirty-tree-pressure",
+        action="store_true",
+        help=(
+            "For --seed-speed, include a compact dirty-tree pressure focus; "
+            "--no-heartbeat enables this automatically."
+        ),
+    )
+    session_status.add_argument(
+        "--bankruptcy-authorized",
+        action="store_true",
+        help=(
+            "For --seed-speed --dirty-tree-pressure, evaluate the broad checkpoint "
+            "guard as operator-authorized while still remaining read-only."
+        ),
     )
     session_status.add_argument(
         "--session-id",

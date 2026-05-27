@@ -19,6 +19,7 @@ from system.lib.work_ledger_commands import (
     WORK_LEDGER_FULL_CLAIMS_CARDS_COMMAND,
     WORK_LEDGER_REFRESH_CLAIMS_COMMAND,
     WORK_LEDGER_SEED_SPEED_COMMAND,
+    WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND,
     WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,
 )
 from system.lib.phase_activation import load_explicit_active_phase
@@ -863,6 +864,7 @@ def _live_sessions(
             "age_seconds": runtime_source_freshness.get("age_seconds"),
             "stale_after_seconds": runtime_source_freshness.get("stale_after_seconds"),
             "refresh_command": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "no_heartbeat_refresh_command": WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND,
         },
         "counts": {
             "active_claims": cohort_counts.get("active_claims", counts.get("active_claims", len(claims))),
@@ -900,6 +902,7 @@ def _live_sessions(
         "drilldown_commands": {
             "cards": WORK_LEDGER_SEED_SPEED_COMMAND,
             "seed_speed": WORK_LEDGER_SEED_SPEED_COMMAND,
+            "seed_speed_no_heartbeat": WORK_LEDGER_SEED_SPEED_NO_HEARTBEAT_COMMAND,
             "claims": WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
             "full": WORK_LEDGER_FULL_CLAIMS_CARDS_COMMAND,
             "overview": WORK_LEDGER_SESSION_OVERVIEW_CARDS_COMMAND,

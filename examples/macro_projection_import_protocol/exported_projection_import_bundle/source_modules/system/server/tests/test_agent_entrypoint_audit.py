@@ -650,6 +650,53 @@ def test_route_pointer_quality_accepts_preceding_rosetta_owner(tmp_path: Path) -
     assert not [item for item in audit["findings"] if item["rule"].startswith("route_pointer_missing")]
 
 
+def test_doctrine_ref_scope_overrides_come_from_entrypoint_registry(tmp_path: Path) -> None:
+    ref = "codex/doctrine/skills/raw_seed/agent_seed_authoring.md"
+    _write(tmp_path / "CLAUDE.md", f"Claude local seed authoring route: `{ref}`.\n")
+    _write(tmp_path / "CODEX.md", "Codex adapter routes to AGENTS.md.\n")
+    _write(tmp_path / "AGENTS.md", "Shared hub.\n")
+    _write_json(tmp_path / "codex/doctrine/agent_entrypoints/axis_registry.json", {"axes": []})
+    _write_json(
+        tmp_path / "codex/doctrine/agent_entrypoints/entrypoint_registry.json",
+        {
+            "entrypoints": [
+                {"id": "claude_code", "required_axes": []},
+                {"id": "codex", "required_axes": []},
+                {"id": "shared", "required_axes": []},
+            ],
+            "doctrine_ref_scope_overrides": [
+                {
+                    "ref_kind": "skill",
+                    "ref": ref,
+                    "scope_class": "actor_local",
+                    "actor_scope": "claude",
+                    "scope_reason": "Fixture: Claude-only agent-seed authoring.",
+                }
+            ],
+            "dotfile_tree_inventory": {},
+        },
+    )
+    _seed_full_bootstrap(tmp_path)
+    _seed_paper_module_index(tmp_path, [])
+
+    audit = build_agent_entrypoint_audit(repo_root=tmp_path)["audit"]
+    ref_rows = [
+        row
+        for row in audit["entry_surface_topology"]["adapter_reachability"]["refs"]
+        if row["ref"] == ref
+    ]
+    assert ref_rows
+    assert ref_rows[0]["scope_class"] == "actor_local"
+    assert ref_rows[0]["actor_scope"] == "claude"
+    assert ref_rows[0]["scope_reason"] == "Fixture: Claude-only agent-seed authoring."
+    assert not [
+        item
+        for item in audit["findings"]
+        if item.get("doctrine_ref") == ref
+        and item["rule"] in {"scope_unknown_adapter_asymmetry", "actor_local_doctrine_misrouted"}
+    ]
+
+
 def test_generated_block_drift_compares_against_rendered_projection(tmp_path: Path) -> None:
     _write(
         tmp_path / "AGENTS.md",

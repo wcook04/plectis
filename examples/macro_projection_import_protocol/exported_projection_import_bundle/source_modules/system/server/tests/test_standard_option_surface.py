@@ -343,6 +343,15 @@ def test_paper_modules_card_projects_authored_compression_when_present() -> None
     assert authored["open_when"]
     assert authored["do_not_open_when"]
     assert authored["safe_drilldown"].startswith("./repo-python kernel.py")
+    passport = authored["compression_passport"]
+    assert passport["source_contract"] == (
+        "codex/standards/std_paper_module.json::compression_passport_projection_contract"
+    )
+    assert passport["atom"]
+    assert passport["cluster_keys"]
+    assert passport["when_to_open"] == authored["open_when"]
+    assert passport["when_not_to_open"] == authored["do_not_open_when"]
+    assert passport["safe_drilldown"] == authored["safe_drilldown"]
     sources = authored["compression"]["compression_sources"]
     assert sources.get("open_when", "").startswith("authored")
     assert sources.get("do_not_open_when", "").startswith("authored")
@@ -354,6 +363,7 @@ def test_paper_modules_card_projects_authored_compression_when_present() -> None
     assert "open_when" not in fallback or fallback.get("open_when") in (None, "")
     assert "do_not_open_when" not in fallback or fallback.get("do_not_open_when") in (None, "")
     assert "safe_drilldown" not in fallback or fallback.get("safe_drilldown") in (None, "")
+    assert "compression_passport" not in fallback
     # And they must surface authoring debt so the gap is visible at the row.
     assert "authoring_debt" in fallback["compression"]
 
@@ -483,6 +493,74 @@ def test_system_atlas_option_surface_projects_source_coupling_when_inputs_move(
     assert row["currentness"]["freshness_command"] == payload["currentness"]["freshness_command"]
     assert row["source_coupling_status"] == "source_inputs_changed_since_artifact_generation"
     assert row["safe_to_commit_generated_outputs_without_sources"] is False
+
+
+def test_system_atlas_option_surface_resolves_missing_type_plane_ids_from_standard(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    graph_path = tmp_path / "state" / "system_atlas" / "system_atlas.graph.json"
+    graph_path.parent.mkdir(parents=True)
+    source_inputs = [
+        {
+            "source_id": "standard_type_plane",
+            "path": "codex/standards/std_standard_type_plane.json",
+            "count": 1,
+            "latest_mtime": "2026-05-27T00:00:00Z",
+        }
+    ]
+    graph_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "system_atlas_graph_v1",
+                "generated_at": "2026-05-27T00:00:00Z",
+                "generated_by": "tools/meta/factory/build_system_atlas.py",
+                "source_inputs": source_inputs,
+                "entities": [],
+                "findings": [],
+                "summary": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        standard_option_surface,
+        "_system_atlas_current_source_inputs",
+        lambda repo_root: source_inputs,
+    )
+
+    requested_ids = [
+        "kind_standards_compliance_projection",
+        "surface_type_plane_standards_compliance_projection_option_surface",
+        "validator_type_plane_standards_compliance_projection",
+    ]
+    payload = standard_option_surface.build_option_surface(
+        tmp_path,
+        "system_atlas",
+        band="card",
+        ids=requested_ids,
+    )
+
+    assert payload["selection"]["missing_ids"] == []
+    assert payload["summary"]["selection_method"] == "generated_system_atlas_graph_plus_live_type_plane_overlay"
+    assert payload["summary"]["generated_graph_entity_count"] == 0
+    assert payload["summary"]["live_type_plane_overlay_count"] == 3
+    assert payload["summary"]["missing_ids_resolved_by_live_overlay"] == requested_ids
+    assert payload["source_coupling"]["status"] == "source_inputs_match_checked_artifact"
+    rows = {row["id"]: row for row in payload["rows"]}
+    assert set(rows) == set(requested_ids)
+
+    kind_row = rows["kind_standards_compliance_projection"]
+    assert kind_row["metrics"]["standard_type_plane"]["type_id"] == "standards_compliance_projection"
+    assert kind_row["metrics"]["system_atlas_live_overlay"]["status"] == "live_standard_type_plane_overlay"
+    assert kind_row["omission_receipt"]["drilldown"] == (
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids standards_compliance_projection"
+    )
+    assert any(
+        warning["kind"] == "system_atlas_live_type_plane_overlay"
+        and warning["resolved_ids"] == requested_ids
+        for warning in payload["warnings"]
+    )
 
 
 def test_task_ledger_cluster_flag_groups_workitem_views() -> None:
@@ -849,6 +927,11 @@ def test_kind_atlas_includes_type_a_observation_surfaces() -> None:
     assert rows["artifact_projection_debt"]["bands"] == ["cluster_flag", "flag", "card"]
     assert rows["artifact_projection_debt"]["option_surface_command"].endswith(
         "--option-surface artifact_projection_debt --band cluster_flag"
+    )
+    assert rows["compliance_ledger"]["support_status"] == "option_surface_supported"
+    assert rows["compliance_ledger"]["bands"] == ["cluster_flag", "flag", "card"]
+    assert rows["compliance_ledger"]["option_surface_command"].endswith(
+        "--option-surface compliance_ledger --band cluster_flag"
     )
     assert rows["standard_skill_map"]["support_status"] == "option_surface_supported"
     assert rows["standard_skill_map"]["bands"] == ["cluster_flag", "flag", "card"]
@@ -2013,6 +2096,244 @@ def test_compliance_ledger_card_exposes_standard_skill_map_status(tmp_path: Path
     assert row["navigation_role"].startswith("Validates")
 
 
+def test_compliance_ledger_card_exposes_microcosm_status(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_microcosm",
+                        "validator": "system/lib/compliance/microcosm_adapter.py::scan_microcosm",
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 6,
+                        "checked_artifact_count": 6,
+                        "compliant_artifact_count": 6,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": 1.0,
+                        "top_failure_kinds": [],
+                        "findings": [],
+                        "evidence_refs": [
+                            "microcosm-substrate/atlas/entry_packet.json",
+                            "microcosm-substrate/standards/meta/index.json",
+                        ],
+                        "metabolism_trigger_state": "ready_compliant",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_microcosm]"
+                        ),
+                        "coverage_row_kind": "domain_scanner",
+                        "scanner_depth_status": "domain_scanner_present",
+                        "microcosm_status": {
+                            "entry_packet_exists": True,
+                            "standards_meta_lane": {
+                                "organ_exists": True,
+                                "index_exists": True,
+                            },
+                            "option_surface_status": {
+                                "surface_role": "ATLAS_PROJECTION",
+                                "first_contact_allowed": False,
+                            },
+                        },
+                        "navigation_role": (
+                            "Validates the Microcosm entry packet and standards meta lane."
+                        ),
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_microcosm"],
+    )
+    row = payload["rows"][0]
+
+    assert row["standard_id"] == "std_microcosm"
+    assert row["coverage_row_kind"] == "domain_scanner"
+    assert row["scanner_depth_status"] == "domain_scanner_present"
+    assert row["coverage_path"] == (
+        "codex/hologram/compliance/ledger.json::by_standard[std_microcosm]"
+    )
+    assert row["microcosm_status"]["entry_packet_exists"] is True
+    assert row["microcosm_status"]["standards_meta_lane"]["organ_exists"] is True
+    assert row["microcosm_status"]["option_surface_status"]["surface_role"] == (
+        "ATLAS_PROJECTION"
+    )
+    assert row["microcosm_status"]["option_surface_status"]["first_contact_allowed"] is False
+    assert "microcosm-substrate/atlas/entry_packet.json" in row["evidence_refs"]
+    assert row["navigation_role"].startswith("Validates")
+
+
+def test_compliance_ledger_card_exposes_actionable_finding_targets(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    seed_path = (
+        "state/meta_missions/type_a_autonomous_seed_loop/seeds/"
+        "example_autonomous_seed.json"
+    )
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_autonomous_seed_prompt",
+                        "validator": (
+                            "system/lib/compliance/autonomous_seed_prompt_adapter.py::"
+                            "scan_autonomous_seed_prompt"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 2,
+                        "checked_artifact_count": 2,
+                        "compliant_artifact_count": 1,
+                        "noncompliant_artifact_count": 1,
+                        "compliance_rate": 0.5,
+                        "top_failure_kinds": [
+                            {"finding_kind": "missing_required_field", "count": 1}
+                        ],
+                        "findings": [
+                            {
+                                "finding_id": "fcf_test_seed_prompt",
+                                "finding_kind": "missing_required_field",
+                                "severity": "warning",
+                                "summary": "Example seed missing required fields.",
+                                "candidate_target_paths": [
+                                    seed_path,
+                                    "codex/standards/std_autonomous_seed_prompt.json",
+                                ],
+                                "candidate_target_payload": {
+                                    "impacted_seed_count": 1,
+                                    "impacted_seed_paths_preview": [seed_path],
+                                    "impacted_seed_missing_fields_preview": {
+                                        "example": ["lane", "scope_shape"],
+                                    },
+                                    "repair_targets_preview": [
+                                        {
+                                            "seed_id": "example",
+                                            "path": seed_path,
+                                            "missing_fields": ["lane", "scope_shape"],
+                                            "validation_command": (
+                                                "./repo-python kernel.py "
+                                                "--validate-seed-heartbeat "
+                                                f"{seed_path}"
+                                            ),
+                                            "option_surface_command": (
+                                                "./repo-python kernel.py --option-surface "
+                                                "type_a_autonomous_seeds --band card "
+                                                "--ids example"
+                                            ),
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                        "evidence_refs": [
+                            "codex/standards/std_autonomous_seed_prompt.json",
+                        ],
+                        "metabolism_trigger_state": "scanner_partial",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": (
+                            "codex/hologram/compliance/ledger.json::"
+                            "by_standard[std_autonomous_seed_prompt]"
+                        ),
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(
+        tmp_path,
+        "compliance_ledger",
+        band="card",
+        ids=["std_autonomous_seed_prompt"],
+    )
+    row = payload["rows"][0]
+    actionable = row["actionable_findings"][0]
+
+    assert row["repair_target_paths_preview"] == [
+        seed_path,
+        "codex/standards/std_autonomous_seed_prompt.json",
+    ]
+    assert actionable["finding_kind"] == "missing_required_field"
+    assert actionable["candidate_target_paths"][0] == seed_path
+    assert actionable["candidate_target_payload"]["impacted_seed_paths_preview"] == [seed_path]
+    assert actionable["candidate_target_payload"]["repair_targets_preview"][0]["path"] == seed_path
+
+
+def test_compliance_ledger_card_keeps_baseline_companion_non_claiming(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    standard_path = "codex/standards/std_example.json"
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_example",
+                        "validator": (
+                            "system/lib/compliance/standard_baseline_adapter.py::"
+                            "scan_standard_baseline[std_example]"
+                        ),
+                        "validated_at": "2026-05-26T00:00:00+00:00",
+                        "applicable_artifact_count": 0,
+                        "checked_artifact_count": 0,
+                        "compliant_artifact_count": 0,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": None,
+                        "top_failure_kinds": [],
+                        "findings": [],
+                        "evidence_refs": [standard_path],
+                        "metabolism_trigger_state": "baseline_only",
+                        "specialization_of": "std_compliance_coverage",
+                        "coverage_path": standard_path,
+                        "coverage_depth": "baseline_standard_file_only",
+                        "coverage_row_kind": "baseline_inventory_only",
+                        "baseline_companion": True,
+                        "scanner_adapter_present": False,
+                        "adapter_registered": True,
+                        "governed_projection_present": False,
+                        "compliance_claim_status": "no_compliance_claim",
+                        "scanner_depth_status": "missing_domain_scanner",
+                        "coverage_depth_gap": True,
+                        "baseline_reason": "standard_inventory_row_only",
+                        "domain_scanner_status": "missing_domain_specific_adapter",
+                    }
+                ],
+                "metabolism_worklist": {"ready_now": [], "deferred_until_scanner_authored": ["std_example"]},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(tmp_path, "compliance_ledger", band="card", ids=["std_example"])
+    row = payload["rows"][0]
+
+    assert row["claim"] == (
+        "coverage_depth=baseline_standard_file_only "
+        "claim_status=no_compliance_claim "
+        "scanner_depth=missing_domain_scanner"
+    )
+    assert row["compliance_rate"] is None
+    assert row["checked_artifact_count"] == 0
+    assert row["compliant_artifact_count"] == 0
+    assert row["noncompliant_artifact_count"] == 0
+    assert row["coverage_row_kind"] == "baseline_inventory_only"
+    assert row["compliance_claim_status"] == "no_compliance_claim"
+    assert row["baseline_companion"] is True
+    assert row["scanner_adapter_present"] is False
+    assert row["coverage_depth_gap"] is True
+
+
 def test_compliance_ledger_card_exposes_config_authority_registry_status(tmp_path: Path) -> None:
     ledger = tmp_path / "codex/hologram/compliance/ledger.json"
     ledger.parent.mkdir(parents=True)
@@ -2280,6 +2601,135 @@ def test_compliance_ledger_card_exposes_navigation_contract_status(tmp_path: Pat
     assert row["navigation_role"].startswith("Validates")
 
 
+def test_compliance_ledger_cluster_flag_groups_by_scanner_depth(tmp_path: Path) -> None:
+    ledger = tmp_path / "codex/hologram/compliance/ledger.json"
+    ledger.parent.mkdir(parents=True)
+    ledger.write_text(
+        json.dumps(
+            {
+                "by_standard": [
+                    {
+                        "standard_id": "std_baseline",
+                        "validator": (
+                            "system/lib/compliance/standard_baseline_adapter.py::"
+                            "scan_standard_baseline[std_baseline]"
+                        ),
+                        "applicable_artifact_count": 0,
+                        "checked_artifact_count": 0,
+                        "compliant_artifact_count": 0,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": None,
+                        "metabolism_trigger_state": "baseline_only",
+                        "coverage_depth": "baseline_standard_file_only",
+                        "coverage_row_kind": "baseline_inventory_only",
+                        "baseline_companion": True,
+                        "scanner_adapter_present": False,
+                        "adapter_registered": True,
+                        "governed_projection_present": False,
+                        "compliance_claim_status": "no_compliance_claim",
+                        "scanner_depth_status": "missing_domain_scanner",
+                        "coverage_depth_gap": True,
+                        "baseline_reason": "standard_inventory_row_only",
+                        "domain_scanner_status": "missing_domain_specific_adapter",
+                        "standard_file_status": "present",
+                        "id_resolution_source": "standard_inventory",
+                    },
+                    {
+                        "standard_id": "std_domain_partial",
+                        "validator": "system/lib/compliance/example_adapter.py::scan_example",
+                        "applicable_artifact_count": 4,
+                        "checked_artifact_count": 4,
+                        "compliant_artifact_count": 2,
+                        "noncompliant_artifact_count": 2,
+                        "compliance_rate": 0.5,
+                        "metabolism_trigger_state": "scanner_partial",
+                    },
+                    {
+                        "standard_id": "std_domain_ready",
+                        "validator": "system/lib/compliance/example_adapter.py::scan_example",
+                        "applicable_artifact_count": 2,
+                        "checked_artifact_count": 2,
+                        "compliant_artifact_count": 2,
+                        "noncompliant_artifact_count": 0,
+                        "compliance_rate": 1.0,
+                        "metabolism_trigger_state": "ready_compliant",
+                    },
+                    {
+                        "standard_id": "std_compliance_coverage",
+                        "validator": (
+                            "system/lib/compliance/compliance_coverage_adapter.py::"
+                            "scan_compliance_coverage"
+                        ),
+                        "applicable_artifact_count": 4,
+                        "checked_artifact_count": 4,
+                        "compliant_artifact_count": 3,
+                        "noncompliant_artifact_count": 1,
+                        "compliance_rate": 0.75,
+                        "metabolism_trigger_state": "scanner_partial",
+                        "coverage_row_kind": "scanner_coverage_self_audit",
+                        "compliance_claim_status": (
+                            "row_coverage_complete_domain_scanner_partial"
+                        ),
+                        "scanner_depth_status": "missing_domain_scanners",
+                        "coverage_depth_gap": True,
+                        "ledger_row_coverage": {
+                            "covered_standard_count": 4,
+                            "standards_total": 4,
+                        },
+                        "domain_scanner_coverage": {
+                            "domain_scanner_count": 2,
+                            "baseline_companion_count": 1,
+                            "pending_domain_scanner_count": 1,
+                        },
+                    },
+                ],
+                "metabolism_worklist": {"ready_now": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    payload = build_option_surface(tmp_path, "compliance_ledger", band="cluster_flag")
+
+    assert payload["profile_status"] == "supported"
+    assert payload["band"] == "cluster_flag"
+    assert payload["summary"]["selection_method"] == "artifact_kind_cluster_overview"
+    assert payload["summary"]["drilldown_by"] == "coverage_row_kind_scanner_depth_status"
+    assert payload["summary"]["grouping_keys"] == [
+        "coverage_row_kind",
+        "scanner_depth_status",
+    ]
+    assert payload["summary"]["total_available"] == 4
+    assert payload["governing_standard"]["owned_bands"] == ["cluster_flag", "flag", "card"]
+    assert payload["navigation_boundary"]["cluster_first_for_high_cardinality"] is True
+
+    rows = {row["cluster_id"]: row for row in payload["rows"]}
+    baseline = rows["baseline_inventory_only:missing_domain_scanner"]
+    assert baseline["count"] == 1
+    assert baseline["baseline_companion_count"] == 1
+    assert baseline["domain_scanner_count"] == 0
+    assert baseline["coverage_depth_gap_count"] == 1
+    assert baseline["compliance_claim_statuses"] == ["no_compliance_claim"]
+    assert baseline["top_ids"] == ["std_baseline"]
+    assert "--band card --ids std_baseline" in baseline["card_drilldown_command"]
+
+    domain_partial = rows["domain_scanner:domain_scanner_present"]
+    assert domain_partial["count"] == 2
+    assert domain_partial["domain_scanner_count"] == 2
+    assert domain_partial["noncompliant_standard_count"] == 1
+    assert domain_partial["noncompliant_artifact_count_total"] == 2
+    assert domain_partial["lowest_known_compliance_rate"] == 0.5
+
+    self_audit = rows["scanner_coverage_self_audit:missing_domain_scanners"]
+    assert self_audit["self_audit_count"] == 1
+    assert self_audit["coverage_depth_gap_count"] == 1
+    assert self_audit["domain_scanner_coverage"]["baseline_companion_count"] == 1
+    assert self_audit["ledger_row_coverage"]["covered_standard_count"] == 4
+    assert payload["summary"]["recommended_first_cluster"]["cluster_id"] == (
+        "baseline_inventory_only:missing_domain_scanner"
+    )
+
+
 def test_standard_skill_map_cluster_flag_groups_by_pairing_status(tmp_path: Path) -> None:
     projection = tmp_path / "codex/hologram/skills/standard_skill_map.json"
     projection.parent.mkdir(parents=True)
@@ -2397,6 +2847,44 @@ def test_navigation_type_plane_option_surface_exposes_standard_owned_graph() -> 
     assert row["authority_posture"] == "standard_row_is_source_generated_type_plane_is_projection"
     assert row["field_coverage"]["known_gaps"] is True
     assert "full governing standard bodies" in row["omission_receipt"]["omitted"]
+
+    public_payload = build_option_surface(
+        REPO_ROOT,
+        "navigation_type_plane",
+        band="card",
+        ids=["public_microcosm_exports"],
+    )
+    public_row = public_payload["rows"][0]
+    assert public_row["entry_depth_contract"]["coverage_role_contract"] == (
+        "codex/standards/std_microcosm.json::"
+        "paper_module_coverage_contract.module_depth_roles"
+    )
+    assert public_row["entry_depth_contract"]["supporting_lattice_depth"] == [
+        "prime_directives",
+        "local_to_general_propagation",
+        "navigation_hologram_theory",
+    ]
+    assert public_row["compression_passport"]["safe_drilldown"] == (
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card "
+        "--ids public_microcosm_exports"
+    )
+    assert "public microcosm exports" in public_row["compression_passport"][
+        "cluster_keys"
+    ]
+
+    microcosm_standard_payload = build_option_surface(
+        REPO_ROOT,
+        "standards",
+        band="card",
+        ids=["std_microcosm"],
+    )
+    standard_row = microcosm_standard_payload["rows"][0]
+    assert standard_row["compression_passport"]["safe_drilldown"] == (
+        "./repo-python kernel.py --option-surface standards --band card --ids std_microcosm"
+    )
+    assert "microcosm paper module coverage" in standard_row["compression_passport"][
+        "cluster_keys"
+    ]
 
 
 def test_row_patches_cluster_flag_groups_by_target_facet() -> None:
