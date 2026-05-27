@@ -101,6 +101,23 @@ METABOLISM_REQUIRED_BOARD_KEYS = (
     "claim_boundary",
     "anti_claims",
 )
+CARD_SCHEMA_VERSION = "executable_doctrine_grammar_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "findings",
+    "private_state_scan",
+    "paper_module_results",
+    "standard_group_index",
+    "source_module_imports",
+    "source_open_body_imports",
+    "artifact_refs",
+    "artifact_digests",
+    "source_refs",
+    "fixture_inputs",
+    "bundle_inputs",
+    "freshness_basis",
+)
 
 
 def _public_root_for_path(path: str | Path) -> Path:
@@ -133,6 +150,13 @@ def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _sha256_file(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _json_digest(payload: Any) -> str:
+    encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def _finding(
@@ -512,6 +536,11 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
         "source_pattern_ids",
         "input_mode",
         "bundle_id",
+        "card_schema_version",
+        "freshness_basis",
+        "freshness_digest",
+        "freshness_status",
+        "receipt_reused",
     )
     payload = {
         "schema_version": schema_version,
@@ -1075,6 +1104,84 @@ def _scan_metabolism_bundle_inputs(input_dir: Path, public_root: Path) -> dict[s
     )
 
 
+def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
+    public_ref = public_relative_path(path, display_root=public_root)
+    if not path.exists():
+        return {
+            "path": public_ref,
+            "exists": False,
+            "size_bytes": 0,
+            "mtime_ns": 0,
+        }
+    stat = path.stat()
+    return {
+        "path": public_ref,
+        "exists": path.is_file(),
+        "size_bytes": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def _metabolism_bundle_input_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    paths: list[Path] = [input_dir / filename for filename in METABOLISM_REQUIRED_FILES]
+    paths.extend(_source_artifact_paths(input_dir, public_root=public_root))
+    paths.append(public_root / "core/private_state_forbidden_classes.json")
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def _metabolism_bundle_freshness_basis(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> list[dict[str, Any]]:
+    return sorted(
+        (
+            _file_freshness_entry(path, public_root=public_root)
+            for path in _metabolism_bundle_input_paths(input_dir, public_root=public_root)
+        ),
+        key=lambda item: str(item["path"]),
+    )
+
+
+def _fresh_metabolism_bundle_receipt(
+    out_dir: str | Path,
+    *,
+    freshness_digest: str,
+) -> dict[str, Any] | None:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    receipt_path = target / METABOLISM_BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        payload = read_json_strict(receipt_path)
+    except (OSError, json.JSONDecodeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("card_schema_version") != CARD_SCHEMA_VERSION:
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_executable_grammar_metabolism_bundle":
+        return None
+    if payload.get("freshness_digest") != freshness_digest:
+        return None
+    result = dict(payload)
+    result["receipt_reused"] = True
+    result["freshness_status"] = "current"
+    return result
+
+
 def _metabolism_bundle_findings(
     *,
     manifest: dict[str, Any],
@@ -1186,11 +1293,26 @@ def validate_executable_grammar_metabolism_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str | None = None,
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     if not input_path.is_absolute():
         input_path = Path.cwd() / input_path
     public_root = _public_root_for_path(input_path)
+    freshness_basis = _metabolism_bundle_freshness_basis(
+        input_path,
+        public_root=public_root,
+    )
+    freshness_digest = _json_digest(freshness_basis)
+    if reuse_fresh_receipt:
+        cached = _fresh_metabolism_bundle_receipt(
+            out_dir,
+            freshness_digest=freshness_digest,
+        )
+        if cached is not None:
+            return cached
+
     manifest_path = input_path / "bundle_manifest.json"
     readme_path = input_path / "README.md"
     board_path = input_path / "grammar_board.json"
@@ -1243,6 +1365,11 @@ def validate_executable_grammar_metabolism_bundle(
             ),
             "input_mode": "exported_executable_grammar_metabolism_bundle",
             "bundle_id": str(manifest.get("bundle_id") or ""),
+            "card_schema_version": CARD_SCHEMA_VERSION,
+            "freshness_basis": freshness_basis,
+            "freshness_digest": freshness_digest,
+            "freshness_status": "current",
+            "receipt_reused": False,
             "anti_claim": (
                 "The exported executable-grammar metabolism bundle validates an exact "
                 "public macro specimen plus standards-registry/type-plane support copy. "
@@ -1304,30 +1431,140 @@ def validate_executable_grammar_metabolism_bundle(
     return result
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    if not isinstance(scan, dict):
+        return {
+            "status": None,
+            "blocking_hit_count": 0,
+            "hit_count": 0,
+            "body_redacted": None,
+        }
+    hits = scan.get("hits", [])
+    return {
+        "status": scan.get("status"),
+        "blocking_hit_count": scan.get("blocking_hit_count", 0),
+        "hit_count": len(hits) if isinstance(hits, list) else 0,
+        "body_redacted": scan.get("body_redacted"),
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    receipt_paths = [
+        Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
+        for path in result.get("receipt_paths", [])
+    ]
+    common = {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "organ_id": result.get("organ_id", ORGAN_ID),
+        "fixture_id": result.get("fixture_id"),
+        "status": result.get("status"),
+        "input_mode": result.get("input_mode", "fixture_regression"),
+        "command": result.get("command"),
+        "receipt_paths": receipt_paths,
+        "receipt_reused": bool(result.get("receipt_reused")),
+        "freshness_status": result.get("freshness_status", "rebuilt"),
+    }
+    if result.get("input_mode") == "exported_executable_grammar_metabolism_bundle":
+        source_open = result.get("source_open_body_imports", {})
+        if not isinstance(source_open, dict):
+            source_open = {}
+        source_modules = result.get("source_module_imports", {})
+        if not isinstance(source_modules, dict):
+            source_modules = {}
+        authority = result.get("authority_ceiling", {})
+        if not isinstance(authority, dict):
+            authority = {}
+        return {
+            **common,
+            "bundle_id": result.get("bundle_id"),
+            "grammar_rule_count": result.get("grammar_rule_count", 0),
+            "grammar_case_count": result.get("grammar_case_count", 0),
+            "source_capsule_count": result.get("source_capsule_count", 0),
+            "provider_replay_bridge_case_count": result.get(
+                "provider_replay_bridge_case_count", 0
+            ),
+            "body_copied_material_count": result.get("body_copied_material_count", 0),
+            "body_material_status": result.get("body_material_status"),
+            "body_text_in_receipt": result.get("body_text_in_receipt", False),
+            "source_module_count": source_modules.get("module_count", 0),
+            "source_open_body_import_summary": {
+                "status": source_open.get("status"),
+                "body_material_count": source_open.get("body_material_count", 0),
+                "material_classes": source_open.get("material_classes", []),
+                "body_in_receipt": source_open.get("body_in_receipt", False),
+            },
+            "source_ref_count": len(result.get("source_refs", []))
+            if isinstance(result.get("source_refs"), list)
+            else 0,
+            "private_state_scan": _scan_card(result.get("private_state_scan")),
+            "authority_ceiling": authority.get("authority_ceiling"),
+            "private_standards_engine_exported": authority.get(
+                "private_standards_engine_exported"
+            ),
+            "error_code_count": len(result.get("error_codes", [])),
+            "error_codes": result.get("error_codes", []),
+            "finding_count": len(result.get("findings", [])),
+            "freshness_digest": result.get("freshness_digest"),
+            "omitted_full_payload_keys": [
+                key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+            ],
+        }
+
+    expected_cases = result.get("expected_negative_cases", {})
+    observed_cases = result.get("observed_negative_cases", {})
+    return {
+        **common,
+        "bundle_id": result.get("bundle_id"),
+        "expected_negative_case_count": len(expected_cases)
+        if isinstance(expected_cases, dict)
+        else 0,
+        "observed_negative_case_count": len(observed_cases)
+        if isinstance(observed_cases, dict)
+        else 0,
+        "missing_negative_case_count": len(result.get("missing_negative_cases", [])),
+        "accepted_standard_count": len(result.get("accepted_standard_ids", [])),
+        "rejected_standard_count": len(result.get("rejected_standard_ids", [])),
+        "valid_module_count": len(result.get("valid_module_slugs", [])),
+        "invalid_module_count": len(result.get("invalid_module_slugs", [])),
+        "error_code_count": len(result.get("error_codes", [])),
+        "private_state_scan": _scan_card(result.get("private_state_scan")),
+        "omitted_full_payload_keys": [
+            key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+        ],
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("--input", required=True)
     validate_parser.add_argument("--out", required=True)
+    validate_parser.add_argument("--card", action="store_true")
     bundle_parser = subparsers.add_parser("validate-standards-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     metabolism_parser = subparsers.add_parser("validate-executable-grammar-metabolism-bundle")
     metabolism_parser.add_argument("--input", required=True)
     metabolism_parser.add_argument("--out", required=True)
+    metabolism_parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
     if args.command_name == "validate":
         command = (
             "python -m microcosm_core.organs.executable_doctrine_grammar "
             f"validate --input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = validate(args.input, args.out, command=command)
     elif args.command_name == "validate-standards-bundle":
         command = (
             "python -m microcosm_core.organs.executable_doctrine_grammar "
             f"validate-standards-bundle --input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = validate_standards_bundle(args.input, args.out, command=command)
     elif args.command_name == "validate-executable-grammar-metabolism-bundle":
         command = (
@@ -1335,16 +1572,21 @@ def main(argv: list[str] | None = None) -> int:
             "validate-executable-grammar-metabolism-bundle "
             f"--input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = validate_executable_grammar_metabolism_bundle(
             args.input,
             args.out,
             command=command,
+            reuse_fresh_receipt=args.card,
         )
     else:
         parser.error(
             "expected subcommand: validate, validate-standards-bundle, "
             "or validate-executable-grammar-metabolism-bundle"
         )
+    if args.card:
+        print(json.dumps(result_card(result), ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

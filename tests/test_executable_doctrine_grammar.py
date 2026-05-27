@@ -3,11 +3,14 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+from typing import Any
 from pathlib import Path
 
+from microcosm_core.organs import executable_doctrine_grammar as executable_grammar
 from microcosm_core.organs.executable_doctrine_grammar import (
     EXPECTED_NEGATIVE_CASES,
     EXPECTED_RECEIPT_PATHS,
+    result_card,
     validate,
     validate_executable_grammar_metabolism_bundle,
     validate_standards_bundle,
@@ -156,6 +159,57 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert "matched_excerpt" not in text
     assert "private standards engine" in text
     assert "/Users/" not in text
+
+
+def test_executable_doctrine_grammar_metabolism_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = tmp_path / "receipts"
+    result = validate_executable_grammar_metabolism_bundle(
+        METABOLISM_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+    assert result["card_schema_version"] == "executable_doctrine_grammar_card_v1"
+    card = result_card(result)
+    assert card["receipt_reused"] is False
+    assert card["grammar_rule_count"] == 5
+    assert card["source_module_count"] == 12
+    assert card["source_open_body_import_summary"]["body_material_count"] == 12
+    assert card["freshness_digest"] == result["freshness_digest"]
+    assert "source_module_imports" in card["omitted_full_payload_keys"]
+    assert "artifact_digests" in card["omitted_full_payload_keys"]
+    assert "source_module_imports" not in card
+    assert "artifact_digests" not in card
+    assert str(tmp_path) not in json.dumps(card, sort_keys=True)
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the metabolism receipt")
+
+    monkeypatch.setattr(
+        executable_grammar,
+        "validate_source_module_imports",
+        fail_if_rebuilt,
+    )
+
+    cached = validate_executable_grammar_metabolism_bundle(
+        METABOLISM_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    cached_card = result_card(cached)
+
+    assert cached["status"] == "pass"
+    assert cached["receipt_reused"] is True
+    assert cached["freshness_digest"] == result["freshness_digest"]
+    assert cached_card["receipt_reused"] is True
+    assert cached_card["source_module_count"] == 12
 
 
 def test_executable_doctrine_grammar_source_modules_are_exact_macro_imports() -> None:
