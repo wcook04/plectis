@@ -115,6 +115,55 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         packet["reader_route_id"]: packet
         for packet in reader_landing_packets["packets"]
     }
+    reader_route_menu = card["reader_route_menu"]
+    menu_by_id = {
+        row["reader_route_id"]: row for row in reader_route_menu["routes"]
+    }
+    assert reader_route_menu["schema_version"] == (
+        "microcosm_reader_route_menu_v1"
+    )
+    assert reader_route_menu["purpose"] == (
+        "make_reader_typed_first_screens_copyable_without_separate_entry_"
+        "artifacts"
+    )
+    assert "shared map and behavior proof first" in reader_route_menu["menu_rule"]
+    assert reader_route_menu["default_command"] == card["human_first_command"]
+    assert reader_route_menu["shared_behavior_command"] == (
+        card["shared_first_command"]
+    )
+    assert reader_route_menu["machine_card_command"] == (
+        "microcosm first-screen <project>"
+    )
+    assert set(menu_by_id) == route_ids
+    assert menu_by_id["safety_evals_engineer"]["terminal_command"] == (
+        "microcosm hello --reader safety_evals_engineer <project>"
+    )
+    assert menu_by_id["safety_evals_engineer"]["text_projection_command"] == (
+        "microcosm first-screen --format text --reader safety_evals_engineer <project>"
+    )
+    assert menu_by_id["safety_evals_engineer"]["not_a_claim"] == (
+        "safety_evaluation_complete"
+    )
+    assert reader_route_menu["safe_to_show"] == {
+        "uses_existing_reader_packets": True,
+        "creates_new_entry_artifact": False,
+        "creates_reader_specific_claim_ceiling": False,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "claims_release_or_hosting": False,
+        "claims_reader_success": False,
+    }
+    assert reader_route_menu["authority"] == (
+        "reader_route_menu_not_new_entry_artifact_or_reader_success_authority"
+    )
+    for row in menu_by_id.values():
+        assert row["label"]
+        assert " --reader " in row["terminal_command"]
+        assert " --reader " in row["text_projection_command"]
+        assert row["first_action"]
+        assert row["proof_surface"]
+        assert row["exit_check"]
+        assert row["authority"].startswith("focused_projection_only_not_")
     assert reader_landing_packets["purpose"] == (
         "turn_reader_routes_into_first_action_proof_success_packets"
     )
@@ -191,7 +240,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert ladder_steps["status_confirmation"]["writes_microcosm_state"] is False
     assert ladder_steps["reader_branch"]["command"] == (
-        "choose reader route from reader_landing_packets"
+        "choose reader route from reader_route_menu"
     )
     assert first_run_ladder["authority"] == (
         "copyable_run_order_not_quickstart_inventory_or_release_authority"
@@ -238,6 +287,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert viewport_by_id["reader_branch"]["proof_surface"] == (
         "reader_exit_criteria"
+    )
+    assert viewport_by_id["reader_branch"]["source_packet"] == (
+        "reader_route_menu"
+    )
+    assert viewport_by_id["reader_branch"]["first_visible_surface"] == (
+        "focused reader commands"
     )
     assert viewport_by_id["authority_boundary"]["proof_surface"] == (
         "overclaim_tripwire_matrix"
@@ -588,9 +643,15 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "validation.checks" in artifact_fit_by_id["machine_json_card"][
         "must_preserve"
     ]
+    assert "reader_route_menu" in artifact_fit_by_id["terminal_text_projection"][
+        "must_preserve"
+    ]
     assert "readme_entry_contract.required_markdown_order" in artifact_fit_by_id[
         "readme_first_screen"
     ]["must_preserve"]
+    assert "reader_route_menu" in artifact_fit_by_id["readme_first_screen"][
+        "must_preserve"
+    ]
     assert "observatory_landing_frame.required_visible_handles" in artifact_fit_by_id[
         "browser_landing"
     ]["must_preserve"]
@@ -639,7 +700,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["human_first_command"]
     )
     assert problem_by_id["audience_is_not_one_person"]["primary_packet"] == (
-        "reader_landing_packets"
+        "reader_route_menu"
+    )
+    assert problem_by_id["audience_is_not_one_person"]["first_surface"] == (
+        "focused reader commands"
     )
     assert problem_by_id["honest_numbers_without_context"]["proof_surface"] == (
         "evidence_class_legend"
@@ -760,6 +824,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"],
         "microcosm first-screen <project>",
     ) in readme_order_pairs
+    assert ("reader_route_menu", "quickstart_command_inventory") in readme_order_pairs
     assert ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
     assert (
         "first_viewport_manifest",
@@ -791,6 +856,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader landing packets" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "reader route menu" in card["entry_surface_contract"]["consumer_rule"]
     assert "behavior-proof packet" in card["entry_surface_contract"][
         "consumer_rule"
     ]
@@ -926,6 +992,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader_landing_packets" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "reader_route_menu" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "behavior_proof_packet" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -993,6 +1062,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert card["validation"]["checks"]["workingness_drilldown"] is True
     assert card["validation"]["checks"]["comparison_frame"] is True
+    assert card["validation"]["checks"]["reader_route_menu"] is True
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["first_run_ladder"] is True
@@ -1097,6 +1167,23 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm tour --card .",
         "microcosm status --card .",
     ]
+    assert card["reader_route_menu"]["default_command"] == "microcosm hello ."
+    assert card["reader_route_menu"]["shared_behavior_command"] == (
+        "microcosm tour --card ."
+    )
+    assert card["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen ."
+    )
+    assert {
+        row["reader_route_id"]: row["terminal_command"]
+        for row in card["reader_route_menu"]["routes"]
+    } == {
+        "safety_evals_engineer": (
+            "microcosm hello --reader safety_evals_engineer ."
+        ),
+        "hiring_reviewer": "microcosm hello --reader hiring_reviewer .",
+        "peer_developer": "microcosm hello --reader peer_developer .",
+    }
     assert [
         row["state_ref"] for row in card["local_state_receipt_trail"]["trail"]
     ] == [
@@ -1117,6 +1204,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
+    assert card["validation"]["checks"]["reader_route_menu"] is True
     assert card["validation"]["checks"]["video_storyboard_packet"] is True
     assert card["validation"]["checks"]["artifact_fit_matrix"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
@@ -1169,16 +1257,16 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "source_files_mutated=false"
     ) in text
     assert (
-        "Safety/evals: Run `microcosm status --card .`. Proof: "
+        "Safety/evals: microcosm hello --reader safety_evals_engineer . | Proof: "
         "`microcosm authority` plus `microcosm workingness`"
     ) in text
     assert (
-        "Hiring: Run `microcosm hello .` before the longer tour. "
-        "Proof: `microcosm tour --card .`"
+        "Hiring: microcosm hello --reader hiring_reviewer . | Proof: "
+        "`microcosm tour --card .`"
     ) in text
     assert (
-        "Peer developer: Run `microcosm tour --card .`. "
-        "Proof: `microcosm observe .`"
+        "Peer developer: microcosm hello --reader peer_developer . | Proof: "
+        "`microcosm observe .`"
     ) in text
     assert (
         "observatory: microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
@@ -1241,6 +1329,11 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
             "events -> evidence -> graph."
         ) in text
         assert f"Reader branch: {assertions['label']}" in text
+        assert f"  Command: microcosm hello --reader {reader_id} ." in text
+        assert (
+            "Text card: microcosm first-screen --format text "
+            f"--reader {reader_id} ."
+        ) in text
         assert "  Question: " in text
         assert f"  First action: {assertions['first_action']}" in text
         assert f"  Proof: {assertions['proof']}" in text
@@ -1321,6 +1414,15 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
+    assert (
+        "  Command: microcosm hello --reader safety_evals_engineer ."
+        in result.stdout
+    )
+    assert (
+        "Text card: microcosm first-screen --format text --reader "
+        "safety_evals_engineer ."
+        in result.stdout
+    )
     assert "  First action: Run `microcosm status --card .`." in result.stdout
     assert (
         "  Proof: `microcosm authority` plus `microcosm workingness`"

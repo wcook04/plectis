@@ -218,6 +218,87 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
     }
 
 
+def _reader_route_menu(project_label: str) -> dict[str, Any]:
+    return {
+        "schema_version": "microcosm_reader_route_menu_v1",
+        "purpose": (
+            "make_reader_typed_first_screens_copyable_without_separate_entry_"
+            "artifacts"
+        ),
+        "menu_rule": (
+            "Show the shared map and behavior proof first; focused reader commands "
+            "only change the terminal projection, not the authority ceiling."
+        ),
+        "default_command": f"microcosm hello {project_label}",
+        "shared_behavior_command": f"microcosm tour --card {project_label}",
+        "machine_card_command": f"microcosm first-screen {project_label}",
+        "routes": [
+            {
+                "reader_route_id": "safety_evals_engineer",
+                "label": READER_LABELS["safety_evals_engineer"],
+                "terminal_command": (
+                    f"microcosm hello --reader safety_evals_engineer {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader safety_evals_engineer {project_label}"
+                ),
+                "first_action": f"Run `microcosm status --card {project_label}`.",
+                "proof_surface": (
+                    "`microcosm authority` plus `microcosm workingness`"
+                ),
+                "exit_check": "cite evidence-class ceilings and body-copy boundaries",
+                "not_a_claim": "safety_evaluation_complete",
+                "authority": "focused_projection_only_not_safety_approval",
+            },
+            {
+                "reader_route_id": "hiring_reviewer",
+                "label": READER_LABELS["hiring_reviewer"],
+                "terminal_command": (
+                    f"microcosm hello --reader hiring_reviewer {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader hiring_reviewer {project_label}"
+                ),
+                "first_action": (
+                    f"Run `microcosm hello {project_label}` before the longer tour."
+                ),
+                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "exit_check": "separate runnable behavior from refused claims",
+                "not_a_claim": "candidate_assessed_or_interview_ready",
+                "authority": "focused_projection_only_not_candidate_assessment",
+            },
+            {
+                "reader_route_id": "peer_developer",
+                "label": READER_LABELS["peer_developer"],
+                "terminal_command": (
+                    f"microcosm hello --reader peer_developer {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader peer_developer {project_label}"
+                ),
+                "first_action": f"Run `microcosm tour --card {project_label}`.",
+                "proof_surface": f"`microcosm observe {project_label}`",
+                "exit_check": "follow the route/work/event/evidence chain locally",
+                "not_a_claim": "integration_complete",
+                "authority": "focused_projection_only_not_integration_guarantee",
+            },
+        ],
+        "safe_to_show": {
+            "uses_existing_reader_packets": True,
+            "creates_new_entry_artifact": False,
+            "creates_reader_specific_claim_ceiling": False,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_release_or_hosting": False,
+            "claims_reader_success": False,
+        },
+        "authority": "reader_route_menu_not_new_entry_artifact_or_reader_success_authority",
+    }
+
+
 def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
@@ -296,9 +377,9 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
             },
             {
                 "step_id": "reader_branch",
-                "command": "choose reader route from reader_landing_packets",
+                "command": "choose reader route from reader_route_menu",
                 "writes_microcosm_state": False,
-                "expected_surface": "reader-specific first action, proof surface, and drilldown",
+                "expected_surface": "reader-specific command, first action, and proof surface",
                 "success_read": "next inspection surface selected by reader job",
                 "authority": "inspection_order_only_not_reader_specific_claim_ceiling",
             },
@@ -382,8 +463,8 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
                 "viewport_copy": (
                     "Reader routes branch only after the shared local behavior proof."
                 ),
-                "source_packet": "reader_landing_packets",
-                "first_visible_surface": "reader_routes",
+                "source_packet": "reader_route_menu",
+                "first_visible_surface": "focused reader commands",
                 "proof_surface": "reader_exit_criteria",
                 "must_preserve": must_preserve,
                 "must_not_claim": must_not_claim,
@@ -840,6 +921,7 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
                 "must_preserve": [
                     *shared_must_preserve,
                     "reader_routes",
+                    "reader_route_menu",
                     "reader_exit_criteria",
                 ],
                 "must_not_claim": shared_must_not_claim,
@@ -881,6 +963,7 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
                 "must_preserve": [
                     *shared_must_preserve,
                     "readme_entry_contract.required_markdown_order",
+                    "reader_route_menu",
                     "reader_landing_packets",
                 ],
                 "must_not_claim": shared_must_not_claim,
@@ -949,8 +1032,8 @@ def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
                 "problem_shape_id": "audience_is_not_one_person",
                 "reader_risk": "one_generic_pitch_overloads_three_jobs",
                 "compression_answer": "shared_behavior_first_then_reader_typed_branch",
-                "primary_packet": "reader_landing_packets",
-                "first_surface": "reader_routes",
+                "primary_packet": "reader_route_menu",
+                "first_surface": "focused reader commands",
                 "proof_surface": "reader_exit_criteria",
                 "not_claim": "reader_success_or_reader_specific_authority",
             },
@@ -1406,6 +1489,11 @@ def _readme_entry_contract(project_label: str) -> dict[str, Any]:
                 "reason": "Local behavior proof precedes the machine-readable reader map.",
             },
             {
+                "surface": "reader_route_menu",
+                "must_precede": "quickstart_command_inventory",
+                "reason": "Focused reader commands are first-screen branches, not inventory rows.",
+            },
+            {
                 "surface": "reader_routes",
                 "must_precede": "quickstart_command_inventory",
                 "reason": "Reader branching happens before the long command list.",
@@ -1442,8 +1530,8 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
         ),
         "consumer_rule": (
             "README, CLI, and observatory consumers should reuse this package contract and "
-            "preserve the shared first command, reader route ids, reader landing packets, "
-            "behavior-proof packet, first-run ladder, local state receipt trail, "
+            "preserve the shared first command, reader route ids, reader route menu, "
+            "reader landing packets, behavior-proof packet, first-run ladder, local state receipt trail, "
             "first-viewport manifest, overclaim tripwire matrix, reader exit "
             "criteria, evidence-count frame, video-storyboard packet, artifact-fit "
             "matrix, cold-entry problem map, evidence-class legend, doctrine-effect "
@@ -1507,7 +1595,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "The browser landing frame should show the hello card command, behavior proof, "
             "first-run ladder, first-viewport manifest, local state receipt trail, "
             "first-contact surface refs, overclaim tripwires, "
-            "reader branches, reader landing packets, reader exit criteria, video storyboard packet, "
+            "reader branches, reader route menu, reader landing packets, reader exit criteria, video storyboard packet, "
             "artifact fit matrix, cold-entry problem map, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
@@ -1524,6 +1612,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "serve_command",
             "bounded_validation_command",
             "reader_route_ids",
+            "reader_route_menu",
             "reader_landing_packets",
             "behavior_proof_packet",
             "first_run_ladder",
@@ -1629,6 +1718,22 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         for packet in reader_packet_rows
         if isinstance(packet, dict)
     }
+    reader_route_menu = payload.get("reader_route_menu", {})
+    reader_route_menu_rows = (
+        reader_route_menu.get("routes", [])
+        if isinstance(reader_route_menu, dict)
+        else []
+    )
+    reader_route_menu_ids = {
+        str(row.get("reader_route_id"))
+        for row in reader_route_menu_rows
+        if isinstance(row, dict)
+    }
+    reader_route_menu_safe_to_show = (
+        reader_route_menu.get("safe_to_show", {})
+        if isinstance(reader_route_menu, dict)
+        else {}
+    )
     human_first_command = payload.get("human_first_command", "")
     shared_first_command = payload.get("shared_first_command", "")
     text_projection = payload.get("text_projection", {})
@@ -1870,6 +1975,68 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 )
                 for packet in reader_packet_rows
             )
+        ),
+        "reader_route_menu": (
+            isinstance(reader_route_menu, dict)
+            and reader_route_menu.get("schema_version")
+            == "microcosm_reader_route_menu_v1"
+            and reader_route_menu.get("purpose")
+            == (
+                "make_reader_typed_first_screens_copyable_without_separate_entry_"
+                "artifacts"
+            )
+            and "shared map and behavior proof first"
+            in reader_route_menu.get("menu_rule", "")
+            and reader_route_menu.get("default_command") == human_first_command
+            and reader_route_menu.get("shared_behavior_command")
+            == shared_first_command
+            and reader_route_menu.get("machine_card_command")
+            == f"microcosm first-screen {payload.get('project_label')}"
+            and reader_route_menu_ids == REQUIRED_ROUTE_IDS
+            and all(
+                isinstance(row, dict)
+                and row.get("label") == READER_LABELS.get(str(row.get("reader_route_id")))
+                and isinstance(row.get("terminal_command"), str)
+                and row["terminal_command"]
+                == (
+                    "microcosm hello --reader "
+                    f"{row.get('reader_route_id')} {payload.get('project_label')}"
+                )
+                and isinstance(row.get("text_projection_command"), str)
+                and row["text_projection_command"]
+                == (
+                    "microcosm first-screen --format text --reader "
+                    f"{row.get('reader_route_id')} {payload.get('project_label')}"
+                )
+                and isinstance(row.get("first_action"), str)
+                and bool(row.get("first_action"))
+                and isinstance(row.get("proof_surface"), str)
+                and bool(row.get("proof_surface"))
+                and isinstance(row.get("exit_check"), str)
+                and bool(row.get("exit_check"))
+                and isinstance(row.get("not_a_claim"), str)
+                and bool(row.get("not_a_claim"))
+                and str(row.get("authority", "")).startswith(
+                    "focused_projection_only_not_"
+                )
+                for row in reader_route_menu_rows
+            )
+            and reader_route_menu_safe_to_show.get("uses_existing_reader_packets")
+            is True
+            and reader_route_menu_safe_to_show.get("creates_new_entry_artifact")
+            is False
+            and reader_route_menu_safe_to_show.get(
+                "creates_reader_specific_claim_ceiling"
+            )
+            is False
+            and reader_route_menu_safe_to_show.get("exports_private_paths") is False
+            and reader_route_menu_safe_to_show.get("exports_provider_payloads")
+            is False
+            and reader_route_menu_safe_to_show.get("claims_release_or_hosting")
+            is False
+            and reader_route_menu_safe_to_show.get("claims_reader_success") is False
+            and reader_route_menu.get("authority")
+            == "reader_route_menu_not_new_entry_artifact_or_reader_success_authority"
         ),
         "behavior_proof_packet": (
             isinstance(behavior_proof_packet, dict)
@@ -2382,6 +2549,8 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 f"microcosm first-screen {payload.get('project_label', '<project>')}",
             )
             in readme_order_pairs
+            and ("reader_route_menu", "quickstart_command_inventory")
+            in readme_order_pairs
             and ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
             and (
                 "first_viewport_manifest",
@@ -2461,6 +2630,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "serve_command",
                     "bounded_validation_command",
                     "reader_route_ids",
+                    "reader_route_menu",
                     "reader_landing_packets",
                     "behavior_proof_packet",
                     "first_run_ladder",
@@ -2537,6 +2707,7 @@ def first_screen_composition_card(
             ),
         },
         "reader_routes": _reader_routes(project_label),
+        "reader_route_menu": _reader_route_menu(project_label),
         "reader_landing_packets": _reader_landing_packets(project_label),
         "behavior_proof_packet": _behavior_proof_packet(project_label),
         "first_run_ladder": _first_run_ladder(project_label),
@@ -2600,9 +2771,21 @@ def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
 
 
+def _reader_menu_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    route_menu = payload.get("reader_route_menu", {})
+    if not isinstance(route_menu, dict):
+        return {}
+    return {
+        str(row.get("reader_route_id")): row
+        for row in route_menu.get("routes", [])
+        if isinstance(row, dict)
+    }
+
+
 def _reader_branch_lines(
     route_by_id: dict[str, dict[str, Any]],
     packet_by_id: dict[str, dict[str, Any]],
+    menu_by_id: dict[str, dict[str, Any]],
     reader_id: str,
 ) -> list[str]:
     if reader_id == "all":
@@ -2611,7 +2794,7 @@ def _reader_branch_lines(
             *[
                 (
                     f"  {READER_LABELS[route_id]}: "
-                    f"{packet_by_id[route_id]['first_action']} Proof: "
+                    f"{menu_by_id[route_id]['terminal_command']} | Proof: "
                     f"{packet_by_id[route_id]['proof_surface']}"
                 )
                 for route_id in READER_ROUTE_IDS
@@ -2620,8 +2803,13 @@ def _reader_branch_lines(
 
     route = route_by_id[reader_id]
     packet = packet_by_id[reader_id]
+    menu = menu_by_id[reader_id]
     return [
         f"Reader branch: {READER_LABELS[reader_id]}",
+        (
+            f"  Command: {menu['terminal_command']} | "
+            f"Text card: {menu['text_projection_command']}"
+        ),
         f"  Question: {route['first_question']}",
         f"  First action: {packet['first_action']}",
         f"  Proof: {packet['proof_surface']}",
@@ -2659,6 +2847,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         raise ValueError(f"unknown first-screen reader route: {reader_id}")
     route_by_id = _reader_route_map(payload)
     packet_by_id = _reader_packet_map(payload)
+    menu_by_id = _reader_menu_map(payload)
     human_first_command = payload.get(
         "human_first_command", "microcosm hello <project>"
     )
@@ -2682,7 +2871,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         _evidence_class_summary_line(payload),
         "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
-        *_reader_branch_lines(route_by_id, packet_by_id, reader_id),
+        *_reader_branch_lines(route_by_id, packet_by_id, menu_by_id, reader_id),
         "",
         "Runnable-to-structural join:",
         "  This card is the map; the first run writes .microcosm and exercises the larger public substrate:",
@@ -2698,8 +2887,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "  authority/workingness: microcosm authority / microcosm workingness",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
-        "Authority ceiling: No release, hosted publication, provider-call, source-mutation,",
-        "  private-equivalence, score-progress, or whole-system-correctness authority.",
+        "Authority ceiling: No release, hosted publication, provider-call, source-mutation, private-equivalence, score-progress, or whole-system-correctness authority.",
         "",
         f"Omission receipt: deeper evidence remains behind {payload['omission_receipt']['drilldown']}.",
     ]

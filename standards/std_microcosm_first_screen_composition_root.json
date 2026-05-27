@@ -52,6 +52,7 @@
       "public command names",
       "public-root file refs",
       "reader route ids",
+      "focused reader command refs",
       "folder-local .microcosm state refs",
       "overclaim translation rows",
       "reader exit criteria",
@@ -78,6 +79,7 @@
       "composition_root_id",
       "shared_first_command",
       "reader_route_ids",
+      "reader_route_menu",
       "reader_landing_packets",
       "behavior_proof_packet",
       "first_run_ladder",
@@ -105,7 +107,7 @@
     },
     "receipt_expectations": [
         "receipt.microcosm.first_screen_composition_root",
-        "receipt should cite the shared first command, reader branch ids, reader landing packets, behavior-proof packet, first-run ladder, first-viewport manifest, local state receipt trail, first-contact surface refs, overclaim tripwire matrix, reader exit criteria, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, README-entry contract, entry-surface contract, runnable-vs-structural join, observatory landing frame with a copyable localhost serve command, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+        "receipt should cite the shared first command, reader branch ids, reader route menu, reader landing packets, behavior-proof packet, first-run ladder, first-viewport manifest, local state receipt trail, first-contact surface refs, overclaim tripwire matrix, reader exit criteria, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, README-entry contract, entry-surface contract, runnable-vs-structural join, observatory landing frame with a copyable localhost serve command, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
   "receipt_refs": [
     {
@@ -137,6 +139,7 @@
     "composition_root_id",
     "shared_first_command",
     "reader_routes",
+    "reader_route_menu",
     "reader_landing_packets",
     "behavior_proof_packet",
     "first_run_ladder",
@@ -214,6 +217,7 @@
     "compression_bands": [
       "one_screen_card",
       "reader_branch_handles",
+      "reader_route_menu",
       "reader_landing_packets",
       "behavior_proof_packet",
       "first_run_ladder",
@@ -235,6 +239,7 @@
     "failure_modes": [
       "first screen starts with a long command inventory instead of one shared behavior command",
       "reader routes diverge before the shared local behavior card",
+      "reader route choices exist without copyable focused hello and text-card commands",
       "reader branches name audiences without one first action, one proof surface, and one success criterion",
       "the shared behavior command is named without success fields that tell a reader what local proof to inspect",
       "the first screen names useful commands without a copyable run order from map to proof to status confirmation to reader branch",
@@ -252,7 +257,7 @@
       "visual or observatory entry claims hosted publication or release authority",
       "card omits the drilldown path that preserves the deeper route map, receipts, standards, and workingness evidence"
     ],
-        "ontology": "A one-screen public compression contract that states what Microcosm is, the single shared first command, the copyable first-run ladder, the first-viewport manifest, the local state receipt trail, the first-contact route/work/event/evidence/graph/observatory/proof/status surface refs, the overclaim tripwire matrix, the reader exit criteria, the behavior-proof success fields, the reader-specific first action/proof/success packet, the honest evidence-count frame, the runnable-to-structural join, the local observatory serve command with endpoint order, and the authority ceiling.",
+        "ontology": "A one-screen public compression contract that states what Microcosm is, the single shared first command, the copyable reader route menu, the copyable first-run ladder, the first-viewport manifest, the local state receipt trail, the first-contact route/work/event/evidence/graph/observatory/proof/status surface refs, the overclaim tripwire matrix, the reader exit criteria, the behavior-proof success fields, the reader-specific first action/proof/success packet, the honest evidence-count frame, the runnable-to-structural join, the local observatory serve command with endpoint order, and the authority ceiling.",
     "rebuild_action": "project_then_validate_when_runtime_consumes",
     "teleology": "Let a cold reader understand the substrate before choosing a drilldown, without weakening the deeper route map, receipts, standards, or workingness surfaces."
   },
@@ -267,6 +272,7 @@
     "require an overclaim tripwire matrix that translates common cold-reader overclaims into valid bounded reads before drilldown",
     "require reader exit criteria that tell each reader when the first screen is complete and which drilldown to open if it is not",
     "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
+    "require a reader route menu with copyable focused `microcosm hello --reader <route> <project>` and `microcosm first-screen --format text --reader <route> <project>` commands for each route",
     "require reader landing packets to carry one first action, one proof surface, one success criterion, one next drilldown, and no reader-specific authority ceiling",
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",
     "require source-open material counts to derive from implemented-organ fixture manifests before falling back to the workingness receipt",
@@ -286,6 +292,7 @@
     "minimum_checks": [
       "shared_first_command",
       "reader_route_ids",
+      "reader_route_menu",
       "reader_landing_packets",
       "behavior_proof_packet",
       "first_run_ladder",
