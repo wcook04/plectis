@@ -40,6 +40,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/microcosm_substrate.md",
         "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
         "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md",
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md",
         "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
         "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
@@ -56,6 +57,9 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "entry_lattice": "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
         "public_export_bridge": (
             "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
+        ),
+        "runtime_organ_source_loci": (
+            "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
         ),
         "coverage_metabolism": (
             "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
@@ -195,6 +199,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "microcosm_substrate_product_roof",
         "microcosm_entry_lattice_route_depth",
         "microcosm_public_export_type_plane_bridge",
+        "microcosm_runtime_organ_atlas_source_loci_depth",
         "paper_module_coverage_metabolism_corpus_health",
         "paper_module_entry_projection_integrity_entry_count_honesty",
         "selected_module_card_then_source_evidence",
@@ -213,6 +218,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
         "atlas_drilldowns": [
             "paper_modules:microcosm_public_export_type_plane",
+            "paper_modules:microcosm_runtime_organ_atlas",
             "standards:std_microcosm",
             "standards:std_standard_type_plane",
         ],
@@ -246,7 +252,8 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                     "--band card --ids microcosm_entry_lattice,"
                     "paper_module_coverage_metabolism,"
                     "paper_module_entry_projection_integrity,"
-                    "microcosm_public_export_type_plane,microcosm_substrate"
+                    "microcosm_public_export_type_plane,"
+                    "microcosm_runtime_organ_atlas,microcosm_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "combined_microcosm_module_cards",
@@ -303,6 +310,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                 "role": "public_export_type_plane_bridge",
             },
             {
+                "kind_id": "paper_modules",
+                "row_id": "microcosm_runtime_organ_atlas",
+                "role": "runtime_organ_source_loci",
+            },
+            {
                 "kind_id": "navigation_type_plane",
                 "row_id": "public_microcosm_exports",
                 "role": "standard_type_plane_row",
@@ -320,7 +332,8 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                     "--band card --ids microcosm_entry_lattice,"
                     "paper_module_coverage_metabolism,"
                     "paper_module_entry_projection_integrity,"
-                    "microcosm_public_export_type_plane,microcosm_substrate"
+                    "microcosm_public_export_type_plane,"
+                    "microcosm_runtime_organ_atlas,microcosm_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
                 "role": "combined_microcosm_module_cards",
@@ -460,6 +473,9 @@ def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
     assert roles["public_export_bridge"] == (
         "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
     )
+    assert roles["runtime_organ_source_loci"] == (
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+    )
     assert roles["coverage_metabolism"] == (
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
     )
@@ -485,6 +501,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         REPO_ROOT
         / "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md"
     ).read_text(encoding="utf-8")
+    runtime_organ_atlas = (
+        REPO_ROOT
+        / "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+    ).read_text(encoding="utf-8")
     coverage_metabolism = (
         REPO_ROOT
         / "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
@@ -497,6 +517,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
         "microcosm_public_export_type_plane",
+        "microcosm_runtime_organ_atlas",
+        "runtime organ source-loci",
         "paper_module_coverage_metabolism",
         "paper_module_entry_projection_integrity",
         "generated sidecars",
@@ -506,6 +528,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "context-pack selected row order",
         "context-pack next command order",
         "source_loci_depth_contract",
+        "runtime organ atlas",
         "atlas_source_coupling_closeout_contract",
         "System Atlas source-coupling",
         "build_system_atlas.py --check",
@@ -525,14 +548,19 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "`paper_module_coverage_metabolism`" in depends_line
     assert "`paper_module_entry_projection_integrity`" in depends_line
     assert (
-        "direct dependency edges to `paper_module_coverage_metabolism` and "
+        "standard-backed role edge to `microcosm_runtime_organ_atlas` and "
+        "the direct dependency edges to `paper_module_coverage_metabolism` and "
         "`paper_module_entry_projection_integrity`"
     ) in entry_lattice
+    assert "runtime source-loci depth" in entry_lattice
     assert "entry/count honesty as required depth rungs" in entry_lattice
     assert "Verify paper-module coverage/depth" in entry_lattice
     assert "Verify entry/count honesty" in entry_lattice
     assert "Route public Microcosm exports" in entry_lattice
+    assert "Verify runtime organ source-loci depth" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
+    assert "microcosm_runtime_organ_atlas" in product_roof
+    assert "Inspect runtime organ source-loci depth" in product_roof
     assert "paper_module_coverage_contract.module_depth_roles" in product_roof
     assert "paper_module_entry_projection_integrity" in product_roof
     assert "entry/count honesty" in product_roof
@@ -555,6 +583,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
     assert "type-plane row consumer" in public_export_bridge
+    assert "microcosm_runtime_organ_atlas" in public_export_bridge
     assert "entry-depth freshness binding" in public_export_bridge
     assert "paper_module_coverage_contract.source_loci_depth_contract" in public_export_bridge
     assert (
@@ -567,10 +596,21 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "`public_microcosm_exports` opens this bridge before generated public files"
         in public_export_bridge
     )
+    assert "runtime organ source-loci depth" in public_export_bridge
     assert "focused coverage regression" in public_export_bridge
+    assert "Runtime Organ Families" in runtime_organ_atlas
+    assert "microcosm-substrate/src/microcosm_core/cli.py::main" in runtime_organ_atlas
+    assert "microcosm-substrate/src/microcosm_core/project_substrate.py::compile_project" in runtime_organ_atlas
+    assert "microcosm-substrate/src/microcosm_core/runtime_shell.py::RuntimeShell" in runtime_organ_atlas
+    assert "microcosm-substrate/src/microcosm_core/validators/public_entry_docs.py::_entry_packet_route_contract" in runtime_organ_atlas
+    assert "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py" in runtime_organ_atlas
+    assert "microcosm-substrate/tests/test_formal_math_premise_retrieval.py" in runtime_organ_atlas
+    assert "Entry and Atlas Integration" in runtime_organ_atlas
+    assert "runtime_organ_source_loci" in runtime_organ_atlas
     assert "paper_module_entry_projection_integrity" in public_export_bridge
     assert "entry/count projection integrity" in public_export_bridge
     assert "microcosm_paper_module_depth" in coverage_metabolism
+    assert "microcosm_runtime_organ_atlas" in coverage_metabolism
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
     assert "Source-Loci Coverage Contract" in coverage_metabolism
@@ -605,6 +645,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "system/lib/kind_atlas.py::_system_atlas_currentness" in entry_projection_integrity
     assert "explicit Microcosm consumers" in entry_projection_integrity
     assert "microcosm_public_export_type_plane" in entry_projection_integrity
+    assert "microcosm_runtime_organ_atlas" in entry_projection_integrity
     assert "entry/count projection honesty contract" in entry_projection_integrity
 
 
@@ -620,6 +661,14 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
 
     assert bridge["paper_module"] in row["governing_standard_refs"]
     assert bridge["paper_module"] in row["projection_refs"]
+    assert (
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        in row["governing_standard_refs"]
+    )
+    assert (
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        in row["projection_refs"]
+    )
     assert row["entry_depth_contract"]["standard_bridge"] == (
         "codex/standards/std_microcosm.json::"
         "paper_module_coverage_contract.standard_type_plane_bridge"
@@ -628,6 +677,7 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "microcosm_substrate",
         "microcosm_entry_lattice",
         "microcosm_public_export_type_plane",
+        "microcosm_runtime_organ_atlas",
         "paper_module_coverage_metabolism",
         "paper_module_entry_projection_integrity",
         "public_constellation_strategy",
