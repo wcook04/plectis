@@ -11509,25 +11509,25 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:b84a954e53ba001e43c8917d551135ac311cd818ed9085ebcb80bf2669502f1d",
+      "body_digest": "sha256:8ede5578024c87bc64172128e82b4dbe5898cfff7d1671fc8c33fe8291d670a2",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_generated_projection_control_sources_compile_and_preserve_generated_state_boundary",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_generated_projection_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:b84a954e53ba001e43c8917d551135ac311cd818ed9085ebcb80bf2669502f1d",
-        "source_line_count": 1158,
+        "source_body_digest": "sha256:8ede5578024c87bc64172128e82b4dbe5898cfff7d1671fc8c33fe8291d670a2",
+        "source_line_count": 1163,
         "source_ref": "system/lib/generated_projection_registry.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:b84a954e53ba001e43c8917d551135ac311cd818ed9085ebcb80bf2669502f1d",
-        "target_line_count": 1158,
+        "target_body_digest": "sha256:8ede5578024c87bc64172128e82b4dbe5898cfff7d1671fc8c33fe8291d670a2",
+        "target_line_count": 1163,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/generated_projection_registry.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1158,
+      "body_line_count": 1163,
       "body_text_in_receipt": false,
       "claim_ceiling": "public generated-projection control source-module body import only; not generated projection output authority, live Task Ledger or Work Ledger mutation, owner repair execution, provider calls, prompt/provider body export, browser/HUD live access, account/session state, credential export, release, publication, source mutation, private-root equivalence, or whole-system correctness authority",
       "classification": [
