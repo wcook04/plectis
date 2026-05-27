@@ -170,6 +170,39 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                 "role": "product_roof",
             },
         ],
+        "context_pack_next_command_order": [
+            {
+                "command": (
+                    "./repo-python kernel.py --option-surface paper_modules "
+                    "--band card --ids microcosm_entry_lattice,"
+                    "paper_module_coverage_metabolism,"
+                    "microcosm_public_export_type_plane,microcosm_substrate"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "combined_microcosm_module_cards",
+            },
+            {
+                "command": (
+                    "./repo-python kernel.py --option-surface standards "
+                    "--band card --ids std_microcosm"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "standard_contract_card",
+            },
+            {
+                "command": (
+                    "./repo-python kernel.py --option-surface navigation_type_plane "
+                    "--band card --ids public_microcosm_exports"
+                ),
+                "surface_role": "ATLAS_PROJECTION",
+                "role": "public_export_type_plane_card",
+            },
+            {
+                "command": "./repo-python kernel.py --paper-module-coverage",
+                "surface_role": "DRILLDOWN",
+                "role": "coverage_health_receipt",
+            },
+        ],
         "required_prompt_shapes": [
             "microcosm paper module",
             "paper module coverage",
@@ -313,6 +346,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "supporting route-lattice modules",
         "module_depth_roles",
         "context-pack selected row order",
+        "context-pack next command order",
         "microcosm_paper_module_depth",
         "navigation_type_plane",
         "entry-packet parity rule",
