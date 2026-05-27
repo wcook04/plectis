@@ -17,6 +17,11 @@
       "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle",
       "field": "runtime_example",
       "role": "runtime_example_source"
+    },
+    {
+      "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+      "field": "source_module_manifest",
+      "role": "copied_non_secret_macro_body_manifest"
     }
   ],
   "relationships": {
@@ -37,6 +42,9 @@
     "source_pattern_ids",
     "projection_receipt_refs",
     "public_runtime_refs",
+    "source_module_imports",
+    "source_open_body_imports",
+    "body_copied_material_count",
     "transition_trace",
     "cp2_translation_trace",
     "evolve_mutation_trace",
@@ -53,11 +61,13 @@
     "translate CP2 residual requests into typed action candidates only",
     "accept bounded Evolve policy mutations only with rerun evidence",
     "reject oracle/provider visibility in forward transition rows",
-    "reject proof bodies, private source refs, provider payloads, and arbitrary source mutation"
+    "reject proof bodies, private source refs, provider payloads, and arbitrary source mutation",
+    "verify exported source-module body copies by manifest hash and required provenance anchors",
+    "keep copied macro body text in source_modules only; receipts carry refs, hashes, classes, counts, anchors, and verdicts"
   ],
   "receipt_expectations": [
     "receipt.microcosm.certificate_kernel_execution_lab",
-    "receipt must cite certificate ids, source refs, source pattern ids, projection receipts, public runtime refs, transition trace, CP2 translation trace, Evolve mutation trace, authority counters, receipt transparency contract, secret-exclusion scan, negative-case coverage, and anti-claim"
+    "receipt must cite certificate ids, source refs, source pattern ids, projection receipts, public runtime refs, source-module import status, source-open body imports, transition trace, CP2 translation trace, Evolve mutation trace, authority counters, receipt transparency contract, secret-exclusion scan, negative-case coverage, and anti-claim"
   ],
   "validator_contract": {
     "required": true,
@@ -69,6 +79,7 @@
       "cp2_typed_action_translation",
       "bounded_evolve_policy_rerun",
       "private_source_ref_rejection",
+      "source_module_manifest_hash_anchor_verification",
       "negative_case_coverage"
     ]
   },
@@ -80,6 +91,9 @@
       "certificate_manifest_id",
       "source_pattern_ids",
       "source_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "projection_receipt_refs",
       "transition_trace",
       "cp2_translation_trace",
@@ -109,7 +123,10 @@
       "transition ids",
       "CP2 action classes",
       "Evolve policy artifact ids",
-      "authority counters"
+      "authority counters",
+      "copied non-secret macro source body refs",
+      "source-module hashes and required anchors",
+      "source-open body import counts and classes"
     ],
     "forbidden_public_inputs": [
       "proof bodies",
@@ -137,6 +154,10 @@
       "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle"
     },
     {
+      "surface": "source_module_manifest",
+      "path": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    },
+    {
       "surface": "organ",
       "path": "src/microcosm_core/organs/certificate_kernel_execution_lab.py"
     }
@@ -162,7 +183,9 @@
     "Route provider/NIM material through typed CP2 action candidates only.",
     "Limit Evolve to certificate routing policy artifacts and require rerun evidence.",
     "Reject oracle/provider visibility in forward transition rows.",
-    "Reject proof bodies, raw tactic scripts, private source refs, and arbitrary source mutation."
+    "Reject proof bodies, raw tactic scripts, private source refs, and arbitrary source mutation.",
+    "Validate exported copied macro source modules by manifest hash and required anchors.",
+    "Keep copied macro body text under source_modules while receipts expose only refs, hashes, classes, counts, anchors, and verdicts."
   ],
   "authority_ceiling": {
     "status": "pass",
@@ -193,6 +216,7 @@
       "CP2 action class",
       "Evolve policy artifact id",
       "oracle/provider separation counters",
+      "source-module body refs, hashes, counts, and classes",
       "authority ceiling",
       "anti-claim"
     ],
@@ -212,7 +236,7 @@
     "command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab"
   },
   "receipt_id": "receipt.microcosm.certificate_kernel_execution_lab",
-  "anti_claim": "This standard governs a source-available public certificate-kernel fixture and verifier-lab execution receipt. It does not import macro proof bodies, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
+  "anti_claim": "This standard governs a source-available public certificate-kernel fixture, copied non-secret macro source-module bundle, and verifier-lab execution receipt. It does not export proof bodies through receipts, certify general theorem correctness, call providers, authorize release, or claim benchmark solve-rate.",
   "standard_payload": {
     "ontology": "A public certificate-kernel execution lab that carries Lean/Lake tool-witness metadata, analyzer receipts, typed CP2 action translation, bounded Evolve policy reruns, negative cases, and authority ceilings without exporting proof, provider, oracle, private-source, stdout, stderr, credential, or account-bound payload bodies.",
     "teleology": "Let a cold reader rerun proof-adjacent Microcosm substrate locally while seeing exactly where execution evidence stops and proof correctness, provider authority, and release authority do not begin.",
@@ -225,11 +249,13 @@
       "bounded_evolve_policy",
       "negative_cases",
       "authority_ceiling",
+      "source_module_body_floor",
       "receipt_transparency"
     ],
     "failure_modes": [
       "Lean/Lake return code is treated as general proof correctness instead of bounded fixture witness",
       "compiled declaration count is reported without source hash, import, and manifest coupling",
+      "copied macro body source files are present but not hash- and anchor-checked against a source-module manifest",
       "proof body or raw tactic script is exported in a public packet or receipt",
       "provider text, oracle ideal answer, or oracle-needed premise id is counted as forward success",
       "CP2 residual request is emitted as an untyped provider instruction instead of a typed action candidate",

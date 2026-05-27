@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 43,
+  "rows_with_source_body_imports": 44,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 407,
+  "source_open_body_material_count": 416,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 43,
-    "source_open_body_material_count": 407,
+    "rows_with_source_body_imports": 44,
+    "source_open_body_material_count": 416,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -7795,7 +7795,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "tool_witness_present_but_not_general_authority",
-      "failure_mode_count": 8,
+      "failure_mode_count": 9,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
@@ -7807,6 +7807,7 @@
       "known_failure_modes": [
         "Lean/Lake return code is treated as general proof correctness instead of bounded fixture witness",
         "compiled declaration count is reported without source hash, import, and manifest coupling",
+        "copied macro body source files are present but not hash- and anchor-checked against a source-module manifest",
         "proof body or raw tactic script is exported in a public packet or receipt",
         "provider text, oracle ideal answer, or oracle-needed premise id is counted as forward success",
         "CP2 residual request is emitted as an untyped provider instruction instead of a typed action candidate",
@@ -7832,7 +7833,7 @@
         "missing_requirement_ids": [],
         "ontology": "A public certificate-kernel execution lab that carries Lean/Lake tool-witness metadata, analyzer receipts, typed CP2 action translation, bounded Evolve policy reruns, negative cases, and authority ceilings without exporting proof, provider, oracle, private-source, stdout, stderr, credential, or account-bound payload bodies.",
         "receipt_expectation_count": 2,
-        "required_field_count": 13,
+        "required_field_count": 16,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -7847,7 +7848,7 @@
         "standard_ref": "standards/std_microcosm_certificate_kernel_execution_lab.json",
         "standard_status": "draft",
         "teleology": "Let a cold reader rerun proof-adjacent Microcosm substrate locally while seeing exactly where execution evidence stops and proof correctness, provider authority, and release authority do not begin.",
-        "validation_rule_count": 8
+        "validation_rule_count": 10
       },
       "observed_workingness": {
         "claim_ceiling": "tool witness only, not general proof authority",
@@ -7864,7 +7865,42 @@
           "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json"
         ],
         "negative_case_independence": "bounded_to_declared_toy_witness_scope",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only",
+            "proof_bodies_in_receipts": false,
+            "provider_calls_authorized": false,
+            "release_authorized": false
+          },
+          "body_material_count": 9,
+          "body_material_ids": [
+            "period_noncollapse_strike_runner_body_import",
+            "period_noncollapse_lakefile_body_import",
+            "period_noncollapse_toolchain_body_import",
+            "period_noncollapse_root_module_body_import",
+            "certificate_kernel_lean_body_import",
+            "generated_certificates_lean_body_import",
+            "generated_certificate_shard_b10_l6_a11_body_import",
+            "certificate_kernel_profile_receipt_body_import",
+            "generated_certificates_profile_receipt_body_import"
+          ],
+          "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_proof_body",
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported certificate-kernel bundle for copied macro Lean kernel, generated certificate, strike-runner, toolchain, and Lean profile receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_runtime_receipt",
         "validator_command": "python -m microcosm_core.organs.certificate_kernel_execution_lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab --acceptance-out receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
         "verdict_source": "subprocess_or_tool_witness"
@@ -7872,7 +7908,42 @@
       "ordinal": 46,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only",
+          "proof_bodies_in_receipts": false,
+          "provider_calls_authorized": false,
+          "release_authorized": false
+        },
+        "body_material_count": 9,
+        "body_material_ids": [
+          "period_noncollapse_strike_runner_body_import",
+          "period_noncollapse_lakefile_body_import",
+          "period_noncollapse_toolchain_body_import",
+          "period_noncollapse_root_module_body_import",
+          "certificate_kernel_lean_body_import",
+          "generated_certificates_lean_body_import",
+          "generated_certificate_shard_b10_l6_a11_body_import",
+          "certificate_kernel_profile_receipt_body_import",
+          "generated_certificates_profile_receipt_body_import"
+        ],
+        "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_proof_body",
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported certificate-kernel bundle for copied macro Lean kernel, generated certificate, strike-runner, toolchain, and Lean profile receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_certificate_kernel_execution_lab.json",
         "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",

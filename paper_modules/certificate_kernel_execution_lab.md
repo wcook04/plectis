@@ -3,8 +3,11 @@
 `certificate_kernel_execution_lab` is a source-available public runtime refactor
 of the macro certificate-kernel pattern. It runs a small Lean/Lake certificate kernel,
 generated certificate rows, analyzer metadata, CP2 typed-action reruns, and
-bounded Evolve policy reruns without importing private proof bodies. The v2
-fixture carries both a simple `NatSumCertificate` row family and a miniature
+bounded Evolve policy reruns without importing private proof bodies. The
+exported bundle also carries copied non-secret macro body modules from the real
+Erdos #257 certificate-kernel substrate: Lean kernel files, generated
+certificates, the strike runner, toolchain files, and Lean profile receipts. The
+v2 fixture carries both a simple `NatSumCertificate` row family and a miniature
 `BoundedOrderCertificate` family so the public lab is no longer only a
 single-shape arithmetic receipt.
 
@@ -15,12 +18,15 @@ single-shape arithmetic receipt.
 - CLI: `microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab`
 - Standard: `standards/std_microcosm_certificate_kernel_execution_lab.json`
 - Fixture manifest: `core/fixture_manifests/certificate_kernel_execution_lab.fixture_manifest.json`
+- Source-module manifest: `examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json`
 
 ## Authority Boundary
 
 The lab proves only that the declared public Lean fixture compiled and that the
 declared transition rows were accepted, rejected, or left residual under the
-local verifier. It does not import macro proof bodies, expose proof text, count
+local verifier. The copied macro body modules are public source-open body
+material, but receipts cite them only by manifest row, hash, class, count, and
+required anchor. It does not expose proof text through receipts, count
 oracle/provider output as proof authority, mutate source, claim benchmark
 solve-rate, or authorize release.
 
@@ -29,7 +35,8 @@ solve-rate, or authorize release.
 Receipts are public evidence. The lab exposes structured theorem/declaration
 names, Lean/Lake command identity, return codes, hashes, declaration counts,
 accepted/residual counts, negative-case ids, CP2 action classes, Evolve policy
-artifact ids, authority counters, authority ceiling, and anti-claim. It omits
+artifact ids, source-module manifest status, copied body-material counts,
+authority counters, authority ceiling, and anti-claim. It omits
 only proof, provider, oracle-answer, private-source, and stdout/stderr payload
 bodies, and records that omission through `secret_exclusion_scan` and
 `body_in_receipt: false` rather than treating absence as product evidence.
@@ -43,8 +50,12 @@ bodies, and records that omission through `secret_exclusion_scan` and
   reruns proving downstream effect.
 - Bounded Evolve mutations over certificate row selection policy, accepted only
   after reruns and no leakage regression.
+- Source-open body import rows for the real macro certificate-kernel body floor:
+  exact copied targets under `source_modules/ai_workflow`, source/target hashes,
+  material classes, and provenance anchors, with receipt body text forbidden.
 
 ## Anti-Claim
 
-This is a source-available certificate-kernel laboratory, not a miniature private
-macro dump and not general proof authority beyond the declared fixture rows.
+This is a source-available certificate-kernel laboratory with copied non-secret
+macro body material, not a private macro dump and not general proof authority
+beyond the declared fixture rows and source-module body refs.

@@ -1,0 +1,234 @@
+{
+  "schema_version": "certificate_kernel_execution_lab_source_module_manifest_v1",
+  "manifest_id": "certificate_kernel_execution_lab_source_modules",
+  "bundle_id": "public_certificate_kernel_execution_lab_runtime_example",
+  "classification": "copied_non_secret_macro_body_imports",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_motto": "open-source everything except keys, credentials, account/session state, cookies, provider payload bodies, browser/HUD live-access, recipient-send state, and credential-equivalent material",
+  "body_storage_policy": "exact_macro_body_copies_live_under_source_modules_ai_workflow",
+  "module_count": 9,
+  "body_in_receipt": false,
+  "body_text_in_receipt": false,
+  "receipt_body_policy": "receipts may carry refs, hashes, counts, classes, anchors, and verdicts, but not copied source body text",
+  "secret_exclusion_boundary": {
+    "keys_credentials_account_session_state": false,
+    "cookies": false,
+    "provider_payload_bodies": false,
+    "browser_hud_live_access": false,
+    "recipient_send_state": false,
+    "credential_equivalent_material": false,
+    "private_macro_proof_bodies": false
+  },
+  "public_runtime_policy": {
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "proof_bodies_in_receipts": false,
+    "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only"
+  },
+  "omitted_material": [
+    "keys_credentials_account_session_state_cookies",
+    "provider_payload_bodies",
+    "browser_hud_live_access",
+    "recipient_send_state",
+    "credential_equivalent_material",
+    "raw_operator_voice",
+    "private_erdos257_proof_bodies"
+  ],
+  "blocked_source_refs": [],
+  "modules": [
+    {
+      "module_id": "period_noncollapse_strike_runner_body_import",
+      "source_ref": "tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
+      "target_ref": "source_modules/ai_workflow/tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
+      "path": "source_modules/ai_workflow/tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:f9aa4c418c2fb3296bc5eb095c803e7d06214b583b0b7cf26dd022e72c5d59ce",
+      "source_sha256": "sha256:f9aa4c418c2fb3296bc5eb095c803e7d06214b583b0b7cf26dd022e72c5d59ce",
+      "target_sha256": "sha256:f9aa4c418c2fb3296bc5eb095c803e7d06214b583b0b7cf26dd022e72c5d59ce",
+      "line_count": 24177,
+      "byte_count": 1238352,
+      "required_anchors": [
+        "LEAN_MICROKERNEL_FILE",
+        "_finalize_local_layer_certificate_kernel",
+        "\"certificate_kernel_status\"",
+        "\"no_provider_proof_calls_for_erdos257\""
+      ]
+    },
+    {
+      "module_id": "period_noncollapse_lakefile_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/lakefile.toml",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/lakefile.toml",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/lakefile.toml",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:9a1f88d286ba9662359674ebbff6cf184605b6aa3e0409966f20814778a457b8",
+      "source_sha256": "sha256:9a1f88d286ba9662359674ebbff6cf184605b6aa3e0409966f20814778a457b8",
+      "target_sha256": "sha256:9a1f88d286ba9662359674ebbff6cf184605b6aa3e0409966f20814778a457b8",
+      "line_count": 16,
+      "byte_count": 320,
+      "required_anchors": [
+        "name = \"erdos257_period_noncollapse\"",
+        "mathlib",
+        "Erdos257PeriodNoncollapse",
+        "v4.29.1"
+      ]
+    },
+    {
+      "module_id": "period_noncollapse_toolchain_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/lean-toolchain",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/lean-toolchain",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/lean-toolchain",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:88a1d79c54cf3777f22b61a68377f44150124ba67f889c98587b2291885358a5",
+      "source_sha256": "sha256:88a1d79c54cf3777f22b61a68377f44150124ba67f889c98587b2291885358a5",
+      "target_sha256": "sha256:88a1d79c54cf3777f22b61a68377f44150124ba67f889c98587b2291885358a5",
+      "line_count": 2,
+      "byte_count": 26,
+      "required_anchors": [
+        "leanprover/lean4:v4.29.1"
+      ]
+    },
+    {
+      "module_id": "period_noncollapse_root_module_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
+      "material_class": "public_macro_proof_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:d25e0671595695884d3cb4c82fb138f8b611823c95e0ce289e806c37ef332cb8",
+      "source_sha256": "sha256:d25e0671595695884d3cb4c82fb138f8b611823c95e0ce289e806c37ef332cb8",
+      "target_sha256": "sha256:d25e0671595695884d3cb4c82fb138f8b611823c95e0ce289e806c37ef332cb8",
+      "line_count": 3,
+      "byte_count": 179,
+      "required_anchors": [
+        "Root module for the Erdos #257 finite period-noncollapse microkernel.",
+        "import Erdos257PeriodNoncollapse.CertificateKernel",
+        "import Erdos257PeriodNoncollapse.GeneratedCertificates"
+      ]
+    },
+    {
+      "module_id": "certificate_kernel_lean_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+      "material_class": "public_macro_proof_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+      "source_sha256": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+      "target_sha256": "sha256:35c03fb050059ce5c306fe47d090dee1f3d4c2be0a2fabda5344a99325e512c5",
+      "line_count": 4438,
+      "byte_count": 140328,
+      "required_anchors": [
+        "valuation_deficit_blocks_dvd",
+        "period_witness_certificate_implies_no_prime_drop",
+        "PrimeComponentWitness",
+        "finite_period_noncollapse_from_emitted_certificate_table"
+      ]
+    },
+    {
+      "module_id": "generated_certificates_lean_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates.lean",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates.lean",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates.lean",
+      "material_class": "public_macro_proof_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:70e78f463bc0e92760d8a4fd13b4f6bb0bc207526224a837954d03296e04945e",
+      "source_sha256": "sha256:70e78f463bc0e92760d8a4fd13b4f6bb0bc207526224a837954d03296e04945e",
+      "target_sha256": "sha256:70e78f463bc0e92760d8a4fd13b4f6bb0bc207526224a837954d03296e04945e",
+      "line_count": 27726,
+      "byte_count": 1234783,
+      "required_anchors": [
+        "Generated direct-prime emitted certificate aggregate.",
+        "emittedCertificate_b2_L10_A31",
+        "orderOf_b2_mod33_eq_10_from_emittedCertificate_denNorm",
+        "concrete_generated_b2_F30_A9_p2_prime_witness"
+      ]
+    },
+    {
+      "module_id": "generated_certificate_shard_b10_l6_a11_body_import",
+      "source_ref": "formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates/b10_L6_A11.lean",
+      "target_ref": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates/b10_L6_A11.lean",
+      "path": "source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates/b10_L6_A11.lean",
+      "material_class": "public_macro_proof_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:9d2ea4a462a6559332c88605fbcd2ef85930368cb72db67bcbacdbb137006cab",
+      "source_sha256": "sha256:9d2ea4a462a6559332c88605fbcd2ef85930368cb72db67bcbacdbb137006cab",
+      "target_sha256": "sha256:9d2ea4a462a6559332c88605fbcd2ef85930368cb72db67bcbacdbb137006cab",
+      "line_count": 118,
+      "byte_count": 4497,
+      "required_anchors": [
+        "Generated direct-prime emitted certificate shard: b10_L6_A11.",
+        "concrete_generated_b10_F6_A11_p2_prime_witness",
+        "emittedCertificate_b10_L6_A11",
+        "orderOf_b10_mod90909_eq_6_from_emittedCertificate_denNorm"
+      ]
+    },
+    {
+      "module_id": "certificate_kernel_profile_receipt_body_import",
+      "source_ref": "state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
+      "target_ref": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
+      "path": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
+      "material_class": "public_macro_receipt_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:2ea6229b72bd049b1e7bcf548deb0e434498579defdc0be95e818cb3a87f1b90",
+      "source_sha256": "sha256:2ea6229b72bd049b1e7bcf548deb0e434498579defdc0be95e818cb3a87f1b90",
+      "target_sha256": "sha256:2ea6229b72bd049b1e7bcf548deb0e434498579defdc0be95e818cb3a87f1b90",
+      "line_count": 364,
+      "byte_count": 10244,
+      "required_anchors": [
+        "\"kind\": \"lean_profile_run\"",
+        "\"command\": \"lake env lean --profile Erdos257PeriodNoncollapse/CertificateKernel.lean\"",
+        "\"duration_ms\": 28120.053",
+        "\"event_count\": 34"
+      ]
+    },
+    {
+      "module_id": "generated_certificates_profile_receipt_body_import",
+      "source_ref": "state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
+      "target_ref": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
+      "path": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
+      "material_class": "public_macro_receipt_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "sha256": "sha256:62224e0aab0abc5b3659427ee5fa4d698a81ee452d246f71a90e6f88d3d0671e",
+      "source_sha256": "sha256:62224e0aab0abc5b3659427ee5fa4d698a81ee452d246f71a90e6f88d3d0671e",
+      "target_sha256": "sha256:62224e0aab0abc5b3659427ee5fa4d698a81ee452d246f71a90e6f88d3d0671e",
+      "line_count": 3407,
+      "byte_count": 91740,
+      "required_anchors": [
+        "\"kind\": \"lean_profile_run\"",
+        "\"command\": \"lake env lean --profile Erdos257PeriodNoncollapse/GeneratedCertificates.lean\"",
+        "\"duration_ms\": 126064.543",
+        "\"event_count\": 542"
+      ]
+    }
+  ]
+}

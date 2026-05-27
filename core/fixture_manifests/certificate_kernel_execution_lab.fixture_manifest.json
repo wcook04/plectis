@@ -14,6 +14,53 @@
     "fixtures/first_wave/certificate_kernel_execution_lab/input/evolve_certificate_mutates_source.json",
     "fixtures/first_wave/certificate_kernel_execution_lab/input/certificate_manifest_private_source_ref.json"
   ],
+  "exported_body_refs": [
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse.lean",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/CertificateKernel.lean",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/formal_math/erdos257_period_noncollapse/Erdos257PeriodNoncollapse/GeneratedCertificates.lean",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json"
+  ],
+  "source_open_body_imports": {
+    "schema_version": "certificate_kernel_execution_lab_source_open_body_imports_v1",
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+    "body_material_count": 9,
+    "body_material_ids": [
+      "period_noncollapse_strike_runner_body_import",
+      "period_noncollapse_lakefile_body_import",
+      "period_noncollapse_toolchain_body_import",
+      "period_noncollapse_root_module_body_import",
+      "certificate_kernel_lean_body_import",
+      "generated_certificates_lean_body_import",
+      "generated_certificate_shard_b10_l6_a11_body_import",
+      "certificate_kernel_profile_receipt_body_import",
+      "generated_certificates_profile_receipt_body_import"
+    ],
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "authority_ceiling": {
+      "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only",
+      "provider_calls_authorized": false,
+      "release_authorized": false,
+      "proof_bodies_in_receipts": false
+    },
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported certificate-kernel bundle for copied macro Lean kernel, generated certificate, strike-runner, toolchain, and Lean profile receipt bodies; receipts carry refs, hashes, counts, and verdicts only."
+  },
   "receipt_refs": [
     "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_result.json",
     "receipts/first_wave/certificate_kernel_execution_lab/certificate_kernel_execution_lab_board.json",
@@ -54,4 +101,3 @@
   },
   "anti_claim": "This fixture manifest accepts only public replacement certificate-kernel execution receipts, analyzer metadata, typed CP2 candidate metadata, bounded Evolve policy rerun rows, and negative-case leakage coverage. It does not authorize macro proof-body import, provider calls, oracle-to-forward success, arbitrary Evolve mutation, public release, hosted deployment, publication operations, recipient work, or secret export."
 }
-

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -15,11 +16,17 @@ from microcosm_core.organs.certificate_kernel_execution_lab import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/certificate_kernel_execution_lab/input"
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
     / "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle"
 )
+SOURCE_MODULE_MANIFEST = EXPORTED_BUNDLE / "source_module_manifest.json"
+
+
+def _sha256(path: Path) -> str:
+    return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -129,6 +136,28 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_manifest_ref"].endswith(
+        "exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    )
+    assert result["source_module_count"] == 9
+    assert result["verified_source_module_count"] == 9
+    assert result["body_copied_material_count"] == 9
+    source_open = result["source_open_body_imports"]
+    assert source_open["status"] == "pass"
+    assert source_open["body_material_status"] == (
+        "copied_non_secret_certificate_kernel_macro_body_landed"
+    )
+    assert source_open["body_material_count"] == 9
+    assert source_open["body_text_exported_in_receipts"] is False
+    assert source_open["body_text_exported_in_workingness"] is False
+    assert "public_macro_proof_body" in source_open["material_classes"]
+    assert "public_macro_tool_body" in source_open["material_classes"]
+    assert "public_macro_receipt_body" in source_open["material_classes"]
+    source_modules = result["source_module_imports"]
+    assert source_modules["status"] == "pass"
+    assert source_modules["verified_module_count"] == 9
+    assert source_modules["findings"] == []
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert all(
         ref.startswith(
@@ -137,6 +166,40 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
         )
         for ref in result["public_runtime_refs"]
     )
+
+
+def test_certificate_kernel_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["module_count"] == 9
+    assert manifest["body_in_receipt"] is False
+    assert manifest["body_text_in_receipt"] is False
+    assert manifest["blocked_source_refs"] == []
+
+    modules = manifest["modules"]
+    assert len(modules) == manifest["module_count"]
+    assert {row["material_class"] for row in modules} == {
+        "public_macro_proof_body",
+        "public_macro_receipt_body",
+        "public_macro_tool_body",
+    }
+    for row in modules:
+        source_path = SOURCE_ROOT / row["source_ref"]
+        target_path = EXPORTED_BUNDLE / row["target_ref"]
+        assert source_path.is_file(), row["source_ref"]
+        assert target_path.is_file(), row["target_ref"]
+        assert target_path.read_bytes() == source_path.read_bytes()
+        assert _sha256(source_path) == row["source_sha256"]
+        assert _sha256(target_path) == row["target_sha256"]
+        assert _sha256(target_path) == row["sha256"]
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        target_text = target_path.read_text(encoding="utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in target_text
 
 
 def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
@@ -163,6 +226,18 @@ def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
                 "bundle_id": "public_certificate_kernel_execution_lab_runtime_example",
                 "certificate_lab_id": "public_certificate_kernel_execution_lab",
                 "certificate_manifest_id": "public_certificate_kernel_manifest",
+                "source_module_manifest_status": "pass",
+                "source_module_manifest_ref": (
+                    "examples/certificate_kernel_execution_lab/"
+                    "exported_certificate_kernel_execution_lab_bundle/"
+                    "source_module_manifest.json"
+                ),
+                "body_copied_material_count": 9,
+                "source_open_body_imports": {
+                    "status": "pass",
+                    "body_material_count": 9,
+                    "body_text_exported_in_receipts": False,
+                },
                 "authority_counters": {
                     "transition_count": 10,
                     "accepted_transition_count": 7,
@@ -220,11 +295,17 @@ def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
     assert payload["cache_freshness"]["tracked_input_count"] >= 3
     assert payload["authority_counters"]["accepted_transition_count"] == 7
     assert payload["runtime_summary"]["lake_return_code"] == 0
+    assert payload["body_floor"]["source_module_manifest_status"] == "pass"
+    assert payload["body_floor"]["source_open_body_import_status"] == "pass"
+    assert payload["body_floor"]["source_open_body_import_count"] == 9
+    assert payload["body_floor"]["body_copied_material_count"] == 9
+    assert payload["body_floor"]["body_text_exported_in_receipts"] is False
     assert payload["output_economy"]["full_transition_trace_exported"] is False
     assert payload["output_economy"]["claim_separation_rows_exported"] is False
     assert len(encoded.encode("utf-8")) < 3600
     assert "transition_trace" not in payload
     assert "claim_separation" not in payload
+    assert "source_open_body_imports" not in payload
     assert "proof_body" not in _walk_keys(payload)
     assert "provider_text" not in _walk_keys(payload)
     assert str(tmp_path) not in encoded

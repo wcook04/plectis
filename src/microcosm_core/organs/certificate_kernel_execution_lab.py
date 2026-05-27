@@ -42,6 +42,19 @@ BUNDLE_RESULT_NAME = (
     "exported_certificate_kernel_execution_lab_bundle_validation_result.json"
 )
 CARD_SCHEMA_VERSION = "certificate_kernel_execution_lab_command_card_v1"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_certificate_kernel_macro_body_landed"
+SOURCE_OPEN_BODY_SCHEMA = "certificate_kernel_execution_lab_source_open_body_imports_v1"
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_tool_body",
+        "public_macro_receipt_body",
+        "public_macro_proof_body",
+        "public_standard_body",
+    }
+)
 
 NEGATIVE_INPUT_NAMES = (
     "transition_provider_oracle_visible.json",
@@ -209,7 +222,7 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    return public_relative_path(path, display_root=public_root)
+    return public_relative_path(path.resolve(strict=False), display_root=public_root)
 
 
 def _path_is_relative_to(path: Path, root: Path) -> bool:
@@ -260,6 +273,20 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         paths.extend(sorted(project_dir.rglob("*.lean")))
     if (input_dir / "bundle_manifest.json").is_file():
         paths.append(input_dir / "bundle_manifest.json")
+    source_module_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_module_manifest.is_file():
+        paths.append(source_module_manifest)
+        try:
+            manifest = read_json_strict(source_module_manifest)
+        except Exception:
+            manifest = {}
+        module_rows = manifest.get("modules", []) if isinstance(manifest, dict) else []
+        for row in module_rows:
+            if not isinstance(row, dict):
+                continue
+            row_path = row.get("path")
+            if isinstance(row_path, str) and row_path:
+                paths.append(input_dir / row_path)
     if include_negative:
         paths.extend(input_dir / name for name in NEGATIVE_INPUT_NAMES)
     return paths
@@ -285,6 +312,309 @@ def _safe_ref(path: Path, *, public_root: Path, fallback: str) -> str:
     if _path_is_relative_to(resolved_path, resolved_root):
         return _display(resolved_path, public_root=resolved_root)
     return fallback
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    if target_ref.startswith(f"{public_root.name}/"):
+        return public_root / target_ref.removeprefix(f"{public_root.name}/")
+    target = Path(target_ref)
+    if target.is_absolute():
+        return target
+    public_candidate = public_root / target_ref
+    if public_candidate.is_file():
+        return public_candidate
+    return input_dir / target_ref
+
+
+def _normalize_sha256(value: object) -> str:
+    digest = str(value or "")
+    if not digest:
+        return ""
+    return digest if digest.startswith("sha256:") else f"sha256:{digest}"
+
+
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    (
+                        "Exported certificate-kernel bundle must include copied "
+                        "non-secret macro source modules."
+                    ),
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "blocked_source_refs": [],
+            "omitted_material": [],
+            "findings": findings,
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+    blocked_source_refs = (
+        _strings(manifest.get("blocked_source_refs")) if isinstance(manifest, dict) else []
+    )
+    omitted_material = (
+        _strings(manifest.get("omitted_material")) if isinstance(manifest, dict) else []
+    )
+    if not isinstance(manifest, dict):
+        findings.append(
+            _finding(
+                "CERTIFICATE_KERNEL_SOURCE_MODULE_MANIFEST_NOT_OBJECT",
+                "Source-module manifest must be a JSON object.",
+                case_id="source_module_manifest_shape",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_IMPORT_CLASS_MISMATCH",
+                    "Source-module manifest must declare copied non-secret macro body import class.",
+                    case_id="source_module_manifest_class",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_BODY_RECEIPT_FORBIDDEN",
+                    "Source-module manifest must not claim body text is exported in receipts.",
+                    case_id="source_module_manifest_receipt_boundary",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        declared_count = manifest.get("module_count")
+        if isinstance(declared_count, int) and declared_count != len(modules):
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source-module manifest module_count must equal the modules array length.",
+                    case_id="source_module_manifest_count",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+
+    verified_count = 0
+    for index, row in enumerate(modules):
+        module_id = str(row.get("module_id") or f"source_module_{index}")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_IMPORT_CLASS_MISMATCH",
+                    "Source-module row must declare copied non-secret macro body import class.",
+                    case_id=module_id,
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_MATERIAL_CLASS_FORBIDDEN",
+                    "Source-module row material class must be public-safe source body material.",
+                    case_id=module_id,
+                    subject_id=material_class or module_id,
+                    subject_kind="source_module_material_class",
+                )
+            )
+        if row.get("body_copied") is not True:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_BODY_NOT_COPIED",
+                    "Source-module row must represent an exact copied macro body.",
+                    case_id=module_id,
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if row.get("body_in_receipt") is not False or row.get("body_text_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_BODY_TEXT_RECEIPT_FORBIDDEN",
+                    "Source-module row may not export body text through receipt payloads.",
+                    case_id=module_id,
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if not target_ref:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_TARGET_REF_REQUIRED",
+                    "Source-module row must name its copied target path.",
+                    case_id=module_id,
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file() and row.get("path"):
+            target = input_dir / str(row.get("path"))
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_TARGET_MISSING",
+                    "Source-module copied target path is missing from the bundle.",
+                    case_id=module_id,
+                    subject_id=target_ref,
+                    subject_kind="source_module_target",
+                )
+            )
+            continue
+        actual_sha = f"sha256:{_sha256(target)}"
+        expected_shas = {
+            _normalize_sha256(row.get("sha256")),
+            _normalize_sha256(row.get("source_sha256")),
+            _normalize_sha256(row.get("target_sha256")),
+        }
+        if "" in expected_shas or actual_sha not in expected_shas:
+            findings.append(
+                _finding(
+                    "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH",
+                    "Source-module copied target hash must match manifest hashes.",
+                    case_id=module_id,
+                    subject_id=target_ref,
+                    subject_kind="source_module_target",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
+        ]
+        if missing_anchors:
+            finding = _finding(
+                "CERTIFICATE_KERNEL_SOURCE_MODULE_REQUIRED_ANCHOR_MISSING",
+                "Source-module copied target is missing required provenance anchors.",
+                case_id=module_id,
+                subject_id=target_ref,
+                subject_kind="source_module_target",
+            )
+            finding["missing_anchors"] = missing_anchors
+            findings.append(finding)
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": dict(sorted(material_class_counts.items())),
+        "source_refs": sorted(set(source_refs)),
+        "blocked_source_refs": blocked_source_refs,
+        "omitted_material": omitted_material,
+        "findings": findings,
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = str(source_module_result.get("source_module_manifest_ref") or "")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [manifest_ref] if imported and manifest_ref else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "blocked_source_refs": source_module_result.get("blocked_source_refs", []),
+        "omitted_material": source_module_result.get("omitted_material", []),
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "formal_proof_authority": "bounded_public_macro_certificate_kernel_body_refs_only",
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_bodies_in_receipts": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported certificate-kernel bundle for copied macro Lean kernel, "
+            "generated certificate, strike-runner, toolchain, and Lean profile "
+            "receipt bodies; receipts carry refs, hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
 
 
 def _receipt_freshness(
@@ -345,6 +675,9 @@ def _certificate_kernel_execution_card(
     lake_build = payload.get("lake_project_build", {})
     if not isinstance(lake_build, dict):
         lake_build = {}
+    source_open = payload.get("source_open_body_imports", {})
+    if not isinstance(source_open, dict):
+        source_open = {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "card_id": "certificate_kernel_execution_lab_command_card",
@@ -397,6 +730,18 @@ def _certificate_kernel_execution_card(
             "secret_scan_blocking_hit_count": secret_scan.get("blocking_hit_count"),
             "body_in_receipt": payload.get("body_in_receipt", False),
             "real_runtime_receipt": payload.get("real_runtime_receipt", False),
+        },
+        "body_floor": {
+            "source_module_manifest_status": payload.get(
+                "source_module_manifest_status"
+            ),
+            "source_module_manifest_ref": payload.get("source_module_manifest_ref"),
+            "source_open_body_import_status": source_open.get("status"),
+            "source_open_body_import_count": source_open.get("body_material_count"),
+            "body_copied_material_count": payload.get("body_copied_material_count"),
+            "body_text_exported_in_receipts": source_open.get(
+                "body_text_exported_in_receipts"
+            ),
         },
         "authority_ceiling": payload.get("authority_ceiling", AUTHORITY_CEILING),
         "anti_claim": payload.get("anti_claim", ANTI_CLAIM),
@@ -1150,6 +1495,13 @@ def _build_result(
         *[row for row in evolve_mutations if row.get("contract_rejected")],
     ]
     bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_certificate_kernel_execution_lab_bundle",
+    )
+    findings.extend(source_modules.get("findings", []))
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
     status = (
         PASS
         if secret_scan["blocking_hit_count"] == 0
@@ -1166,6 +1518,10 @@ def _build_result(
         and len(evolve_mutations) >= 1
         and len(evolve_accepted) >= 1
         and all(row.proof_body_exported is False for row in transitions)
+        and (
+            input_mode != "exported_certificate_kernel_execution_lab_bundle"
+            or source_modules["status"] == PASS
+        )
         else "blocked"
     )
     return {
@@ -1180,6 +1536,20 @@ def _build_result(
         "bundle_id": bundle_manifest.get("bundle_id"),
         "certificate_lab_id": packet.get("certificate_lab_id"),
         "certificate_manifest_id": manifest.get("manifest_id"),
+        "source_module_manifest_status": source_modules.get("status"),
+        "source_module_manifest_ref": source_modules.get(
+            "source_module_manifest_ref"
+        ),
+        "source_module_imports": source_modules,
+        "source_module_count": source_modules.get("module_count", 0),
+        "verified_source_module_count": source_modules.get(
+            "verified_module_count", 0
+        ),
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports.get("body_material_status"),
+        "body_copied_material_count": source_open_body_imports.get(
+            "body_material_count", 0
+        ),
         "source_refs": _strings(packet.get("source_refs")),
         "source_pattern_ids": _strings(packet.get("source_pattern_ids")),
         "projection_receipt_refs": _strings(packet.get("projection_receipt_refs")),
@@ -1280,6 +1650,14 @@ def _common_receipt(
         "bundle_id",
         "certificate_lab_id",
         "certificate_manifest_id",
+        "source_module_manifest_status",
+        "source_module_manifest_ref",
+        "source_module_imports",
+        "source_module_count",
+        "verified_source_module_count",
+        "source_open_body_imports",
+        "body_material_status",
+        "body_copied_material_count",
         "expected_negative_cases",
         "observed_negative_cases",
         "missing_negative_cases",

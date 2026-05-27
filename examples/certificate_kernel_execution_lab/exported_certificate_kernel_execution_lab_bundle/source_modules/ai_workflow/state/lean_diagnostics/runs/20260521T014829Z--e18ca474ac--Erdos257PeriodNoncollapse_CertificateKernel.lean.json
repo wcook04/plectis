@@ -1,0 +1,364 @@
+{
+  "args": [
+    "lake",
+    "env",
+    "lean",
+    "--profile",
+    "Erdos257PeriodNoncollapse/CertificateKernel.lean"
+  ],
+  "command": "lake env lean --profile Erdos257PeriodNoncollapse/CertificateKernel.lean",
+  "duration_ms": 28120.053,
+  "ended_at": "2026-05-21T01:48:29Z",
+  "generated_at": "2026-05-21T01:48:29Z",
+  "kind": "lean_profile_run",
+  "profile": {
+    "cumulative": [
+      {
+        "duration_ms": 14300.0,
+        "line": 47,
+        "phase": "import"
+      },
+      {
+        "duration_ms": 9610.0,
+        "line": 50,
+        "phase": "interpretation"
+      },
+      {
+        "duration_ms": 7260.0,
+        "line": 59,
+        "phase": "tactic execution"
+      },
+      {
+        "duration_ms": 6560.0,
+        "line": 61,
+        "phase": "typeclass inference"
+      },
+      {
+        "duration_ms": 4960.0,
+        "line": 58,
+        "phase": "simp"
+      },
+      {
+        "duration_ms": 3710.0,
+        "line": 45,
+        "phase": "elaboration"
+      },
+      {
+        "duration_ms": 2400.0,
+        "line": 38,
+        "phase": "blocked (unaccounted)"
+      },
+      {
+        "duration_ms": 1630.0,
+        "line": 60,
+        "phase": "type checking"
+      },
+      {
+        "duration_ms": 679.0,
+        "line": 56,
+        "phase": "ring"
+      },
+      {
+        "duration_ms": 602.0,
+        "line": 52,
+        "phase": "linting"
+      },
+      {
+        "duration_ms": 534.0,
+        "line": 54,
+        "phase": "parsing"
+      },
+      {
+        "duration_ms": 421.0,
+        "line": 44,
+        "phase": "dsimp"
+      },
+      {
+        "duration_ms": 283.0,
+        "line": 55,
+        "phase": "process pre-definitions"
+      },
+      {
+        "duration_ms": 163.0,
+        "line": 57,
+        "phase": "share common exprs"
+      },
+      {
+        "duration_ms": 160.0,
+        "line": 40,
+        "phase": "compilation (LCNF base)"
+      },
+      {
+        "duration_ms": 142.0,
+        "line": 49,
+        "phase": "instantiate metavars"
+      },
+      {
+        "duration_ms": 105.0,
+        "line": 53,
+        "phase": "norm_num"
+      },
+      {
+        "duration_ms": 63.9,
+        "line": 43,
+        "phase": "congr simp thm"
+      },
+      {
+        "duration_ms": 39.3,
+        "line": 48,
+        "phase": "initialization"
+      },
+      {
+        "duration_ms": 27.0,
+        "line": 46,
+        "phase": "fix level params"
+      },
+      {
+        "duration_ms": 24.5,
+        "line": 42,
+        "phase": "compilation (LCNF mono)"
+      },
+      {
+        "duration_ms": 8.81,
+        "line": 41,
+        "phase": "compilation (LCNF impure)"
+      },
+      {
+        "duration_ms": 8.68,
+        "line": 51,
+        "phase": "let-to-have transformation"
+      },
+      {
+        "duration_ms": 6.41,
+        "line": 37,
+        "phase": "attribute application"
+      },
+      {
+        "duration_ms": 5.31,
+        "line": 39,
+        "phase": "compilation (IR)"
+      }
+    ],
+    "cumulative_count": 25,
+    "event_count": 34,
+    "events": [
+      {
+        "duration_ms": 14300.0,
+        "line": 34,
+        "phase": "import",
+        "subject": null
+      },
+      {
+        "duration_ms": 1720.0,
+        "line": 3,
+        "phase": "interpretation",
+        "subject": "Mathlib.Tactic._aux_Mathlib_Tactic_Linarith_Frontend___elabRules_Mathlib_Tactic_nlinarith_1._boxed"
+      },
+      {
+        "duration_ms": 1350.0,
+        "line": 26,
+        "phase": "tactic execution",
+        "subject": "Lean.Parser.Tactic.rcases"
+      },
+      {
+        "duration_ms": 1130.0,
+        "line": 4,
+        "phase": "interpretation",
+        "subject": "Mathlib.Tactic._aux_Mathlib_Tactic_Linarith_Frontend___elabRules_Mathlib_Tactic_nlinarith_1._boxed"
+      },
+      {
+        "duration_ms": 500.0,
+        "line": 14,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 476.0,
+        "line": 10,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 410.0,
+        "line": 1,
+        "phase": "interpretation",
+        "subject": "Mathlib.Tactic.RingNF._aux_Mathlib_Tactic_Ring_RingNF___elabRules_Mathlib_Tactic_RingNF_ringNF_1._boxed"
+      },
+      {
+        "duration_ms": 404.0,
+        "line": 27,
+        "phase": "tactic execution",
+        "subject": "Lean.Parser.Tactic.rcases"
+      },
+      {
+        "duration_ms": 379.0,
+        "line": 23,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 324.0,
+        "line": 15,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 314.0,
+        "line": 5,
+        "phase": "tactic execution",
+        "subject": "Lean.Parser.Tactic.exact"
+      },
+      {
+        "duration_ms": 292.0,
+        "line": 13,
+        "phase": "dsimp",
+        "subject": null
+      },
+      {
+        "duration_ms": 275.0,
+        "line": 8,
+        "phase": "tactic execution",
+        "subject": "Lean.Parser.Tactic.omega"
+      },
+      {
+        "duration_ms": 265.0,
+        "line": 32,
+        "phase": "interpretation",
+        "subject": "Aesop.Frontend.Parser.eraseRules"
+      },
+      {
+        "duration_ms": 209.0,
+        "line": 7,
+        "phase": "ring",
+        "subject": null
+      },
+      {
+        "duration_ms": 198.0,
+        "line": 11,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 181.0,
+        "line": 21,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 166.0,
+        "line": 19,
+        "phase": "elaboration",
+        "subject": null
+      },
+      {
+        "duration_ms": 163.0,
+        "line": 18,
+        "phase": "typeclass inference",
+        "subject": "PosMulStrictMono"
+      },
+      {
+        "duration_ms": 158.0,
+        "line": 29,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 156.0,
+        "line": 20,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 155.0,
+        "line": 33,
+        "phase": "interpretation",
+        "subject": "Aesop.Frontend.saturate"
+      },
+      {
+        "duration_ms": 154.0,
+        "line": 17,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 147.0,
+        "line": 25,
+        "phase": "elaboration",
+        "subject": null
+      },
+      {
+        "duration_ms": 144.0,
+        "line": 12,
+        "phase": "elaboration",
+        "subject": null
+      },
+      {
+        "duration_ms": 138.0,
+        "line": 6,
+        "phase": "type checking",
+        "subject": null
+      },
+      {
+        "duration_ms": 136.0,
+        "line": 35,
+        "phase": "parsing",
+        "subject": null
+      },
+      {
+        "duration_ms": 132.0,
+        "line": 9,
+        "phase": "ring",
+        "subject": null
+      },
+      {
+        "duration_ms": 129.0,
+        "line": 28,
+        "phase": "elaboration",
+        "subject": null
+      },
+      {
+        "duration_ms": 127.0,
+        "line": 2,
+        "phase": "compilation (LCNF base)",
+        "subject": null
+      },
+      {
+        "duration_ms": 122.0,
+        "line": 22,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 121.0,
+        "line": 30,
+        "phase": "simp",
+        "subject": null
+      },
+      {
+        "duration_ms": 118.0,
+        "line": 24,
+        "phase": "tactic execution",
+        "subject": "Lean.Parser.Tactic.exact"
+      },
+      {
+        "duration_ms": 111.0,
+        "line": 16,
+        "phase": "simp",
+        "subject": null
+      }
+    ],
+    "raw_output_sha256": "sha256:7bc84a68e5c7a950446f5aeaa09a18b6e5cdd9543eefe69454b17f1ed81d6f40",
+    "schema_version": "lean_profile_parse_v0"
+  },
+  "project_root": "formal_math/erdos257_period_noncollapse",
+  "returncode": 0,
+  "schema_version": "lean_profile_run_v0",
+  "source": "lake_env_lean_profile",
+  "source_file": "Erdos257PeriodNoncollapse/CertificateKernel.lean",
+  "started_at": "2026-05-21T01:48:01Z",
+  "status": "PASS",
+  "stderr_sha256": "sha256:9d8228f6e32cf374b1d24b981b64895a4138e8e41bd405ae5533a1e1d911fb71",
+  "stderr_tail": "interpretation of Aesop.Frontend.Parser.eraseRules took 265ms\ninterpretation of Aesop.Frontend.saturate took 155ms\nimport took 14.3s\nparsing took 136ms\ncumulative profiling times:\n\tattribute application 6.41ms\n\tblocked (unaccounted) 2.4s\n\tcompilation (IR) 5.31ms\n\tcompilation (LCNF base) 160ms\n\tcompilation (LCNF impure) 8.81ms\n\tcompilation (LCNF mono) 24.5ms\n\tcongr simp thm 63.9ms\n\tdsimp 421ms\n\telaboration 3.71s\n\tfix level params 27ms\n\timport 14.3s\n\tinitialization 39.3ms\n\tinstantiate metavars 142ms\n\tinterpretation 9.61s\n\tlet-to-have transformation 8.68ms\n\tlinting 602ms\n\tnorm_num 105ms\n\tparsing 534ms\n\tprocess pre-definitions 283ms\n\tring 679ms\n\tshare common exprs 163ms\n\tsimp 4.96s\n\ttactic execution 7.26s\n\ttype checking 1.63s\n\ttypeclass inference 6.56s\n",
+  "stdout_sha256": "sha256:a587e5c16d9dfada9e88a6a874a63391f9ae38ee042d4b949c4a7afe1f1d223c",
+  "stdout_tail": "interpretation of Mathlib.Tactic.RingNF._aux_Mathlib_Tactic_Ring_RingNF___elabRules_Mathlib_Tactic_RingNF_ringNF_1._boxed took 410ms\ncompilation (LCNF base) took 127ms\ninterpretation of Mathlib.Tactic._aux_Mathlib_Tactic_Linarith_Frontend___elabRules_Mathlib_Tactic_nlinarith_1._boxed took 1.72s\ninterpretation of Mathlib.Tactic._aux_Mathlib_Tactic_Linarith_Frontend___elabRules_Mathlib_Tactic_nlinarith_1._boxed took 1.13s\ntactic execution of Lean.Parser.Tactic.exact took 314ms\ntype checking took 138ms\nring took 209ms\ntactic execution of Lean.Parser.Tactic.omega took 275ms\nring took 132ms\nsimp took 476ms\nsimp took 198ms\nelaboration took 144ms\ndsimp took 292ms\nsimp took 500ms\nsimp took 324ms\nsimp took 111ms\nsimp took 154ms\ntypeclass inference of PosMulStrictMono took 163ms\nelaboration took 166ms\nsimp took 156ms\nsimp took 181ms\nsimp took 122ms\nsimp took 379ms\ntactic execution of Lean.Parser.Tactic.exact took 118ms\nelaboration took 147ms\ntactic execution of Lean.Parser.Tactic.rcases took 1.35s\ntactic execution of Lean.Parser.Tactic.rcases took 404ms\nelaboration took 129ms\nsimp took 158ms\nsimp took 121ms\n"
+}

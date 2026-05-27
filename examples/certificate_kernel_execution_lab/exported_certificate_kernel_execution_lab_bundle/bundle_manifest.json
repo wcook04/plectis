@@ -4,9 +4,40 @@
   "organ_id": "certificate_kernel_execution_lab",
   "input_mode": "exported_certificate_kernel_execution_lab_bundle",
   "contains_negative_cases": false,
+  "source_module_manifest_ref": "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
+  "source_module_import_count": 9,
+  "source_open_body_imports": {
+    "schema_version": "certificate_kernel_execution_lab_source_open_body_imports_v1",
+    "status": "pass",
+    "source_import_class": "copied_non_secret_macro_body",
+    "body_material_status": "copied_non_secret_certificate_kernel_macro_body_landed",
+    "body_material_count": 9,
+    "body_material_ids": [
+      "period_noncollapse_strike_runner_body_import",
+      "period_noncollapse_lakefile_body_import",
+      "period_noncollapse_toolchain_body_import",
+      "period_noncollapse_root_module_body_import",
+      "certificate_kernel_lean_body_import",
+      "generated_certificates_lean_body_import",
+      "generated_certificate_shard_b10_l6_a11_body_import",
+      "certificate_kernel_profile_receipt_body_import",
+      "generated_certificates_profile_receipt_body_import"
+    ],
+    "material_classes": [
+      "public_macro_proof_body",
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "source_manifest_refs": [
+      "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
+    ],
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false
+  },
   "source_refs": [
     "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/certificate_lab_packet.json",
     "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/certificate_manifest.json",
+    "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json",
     "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/CertificateKernel.lean",
     "examples/certificate_kernel_execution_lab/exported_certificate_kernel_execution_lab_bundle/lake_project/MicrocosmCertificateLab/GeneratedCertificates.lean"
   ],
