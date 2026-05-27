@@ -599,6 +599,9 @@ PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (
             "docs/system_atlas/lean_full_fidelity_evidence_packet_verification.generated.md",
             "state/system_atlas/lean_full_fidelity_evidence_packet_replay_receipt.json",
             "docs/system_atlas/lean_full_fidelity_evidence_packet_replay.generated.md",
+            "state/system_atlas/lean_full_fidelity_cold_reviewer_capsule_manifest.json",
+            "state/system_atlas/lean_full_fidelity_cold_reviewer_capsule_receipt.json",
+            "docs/system_atlas/lean_full_fidelity_cold_reviewer_capsule.generated.md",
         ),
         source_authorities=(
             "formal_math/**/*.lean",
@@ -612,6 +615,7 @@ PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (
             "system/server/tests/test_formal_math*.py",
             "tools/meta/factory/build_lean_mathematics_microcosm_projection.py",
             "tools/meta/factory/run_lean_full_fidelity_packet_replay.py",
+            "tools/meta/factory/run_lean_full_fidelity_cold_reviewer_capsule.py",
         ),
         check_command=(
             "./repo-python",
@@ -625,8 +629,8 @@ PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (
             "--write",
             "--compact",
         ),
-        manual_edit_boundary="Do not hand-edit the Lean mathematics microcosm projection, full-fidelity packet, replay/verifier receipts, or markdown; update formal-math source surfaces, the replay runner, or the builder, then rerun build_lean_mathematics_microcosm_projection.py --write.",
-        deterministic_regeneration_expectation="repair_command must deterministically reproduce the dynamic Lean microcosm, operator-authorized full-fidelity evidence packet, replay receipt, and packet verifier receipt from local Lean project files, diagnostics, formal-math operation receipts, generated docs, and tests.",
+        manual_edit_boundary="Do not hand-edit the Lean mathematics microcosm projection, full-fidelity packet, replay/verifier/capsule receipts, or markdown; update formal-math source surfaces, the replay/capsule runners, or the builder, then rerun build_lean_mathematics_microcosm_projection.py --write.",
+        deterministic_regeneration_expectation="repair_command must deterministically reproduce the dynamic Lean microcosm, operator-authorized full-fidelity evidence packet, replay receipt, packet verifier receipt, and cold reviewer capsule receipt from local Lean project files, diagnostics, formal-math operation receipts, generated docs, and tests.",
         stale_drift_handling="Run check_command before trusting the Lean microcosm as a current route surface; on drift, rerun repair_command and land source-authority changes with generated outputs.",
     ),
     GeneratedProjectionOwner(

@@ -11954,6 +11954,40 @@ def cmd_agent_recent_activity(
     )
 
 
+def cmd_host_pressure(*, window_s: int = 900, write_path: str | None = None) -> int:
+    """Emit the host-aware progress-pressure packet for parallel agents."""
+    try:
+        from system.lib.agent_observability import AgentTraceStore
+        from system.lib.host_pressure import build_progress_pressure_packet_from_store
+
+        store = AgentTraceStore(state.REPO_ROOT)
+        packet = build_progress_pressure_packet_from_store(
+            store,
+            state.REPO_ROOT,
+            window_s=window_s,
+        )
+        if write_path:
+            target = Path(write_path).expanduser()
+            if not target.is_absolute():
+                target = state.REPO_ROOT / target
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            try:
+                packet["written_path"] = str(target.relative_to(state.REPO_ROOT))
+            except ValueError:
+                packet["written_path"] = str(target)
+    except Exception as exc:  # noqa: BLE001 - kernel command must return JSON
+        return emit_json_with_code(
+            {
+                "kind": "progress_pressure_ledger",
+                "schema_version": "progress_pressure_packet_v0",
+                "error": f"{type(exc).__name__}: {exc}",
+            },
+            2,
+        )
+    return emit_json(packet)
+
+
 def cmd_agent_experience_diagnostics(
     *,
     last: int = 50,

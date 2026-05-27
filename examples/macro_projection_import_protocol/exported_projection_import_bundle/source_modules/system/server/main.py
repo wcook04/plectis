@@ -95,6 +95,7 @@ from system.lib.agent_observability_animation import (
     build_agent_observability_animation_delta,
     build_agent_observability_animation_scene,
 )
+from system.lib.host_pressure import build_progress_pressure_packet_from_store
 from system.lib.agent_mission_status import build_agent_mission_status
 from system.lib.work_ledger_runtime import load_runtime_status as _load_work_ledger_runtime_status
 from system.core.forensics import reconstruct_run_state
@@ -2989,6 +2990,28 @@ def get_agent_observability_mission_status(
         )
     except Exception as exc:
         logger.exception("Agent observability mission-status failed")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.get("/api/agent-observability/host-pressure")
+def get_agent_observability_host_pressure(
+    window_s: int = Query(default=900, ge=30, le=7200),
+):
+    """
+    [ACTION]
+    - Teleology: Correlate recent agent progress with low-overhead host pressure
+      so parallel Codex/Claude work is judged by useful progress per pressure.
+    - Guarantee: Read-only. Emits bounded counts/classes and governor advice;
+      deep profilers remain trigger-only outside this endpoint.
+    """
+    try:
+        return build_progress_pressure_packet_from_store(
+            agent_trace_store,
+            REPO_ROOT,
+            window_s=window_s,
+        )
+    except Exception as exc:
+        logger.exception("Agent observability host-pressure failed")
         raise HTTPException(status_code=500, detail=str(exc))
 
 

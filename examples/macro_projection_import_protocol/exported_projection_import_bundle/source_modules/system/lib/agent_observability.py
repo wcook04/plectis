@@ -1208,6 +1208,7 @@ class AgentObservabilitySampler:
         codex_probe_interval_s: float = 45.0,
         file_scan_interval_s: float = 5.0,
         process_probe_interval_s: float = 60.0,
+        host_pressure_interval_s: float = 60.0,
         operator_bridge_interval_s: float = 10.0,
         operator_bridge_limit: int = 50,
         file_limit: int = 6,
@@ -1220,6 +1221,7 @@ class AgentObservabilitySampler:
         self.codex_probe_interval_s = max(float(codex_probe_interval_s), self.poll_interval_s)
         self.file_scan_interval_s = max(float(file_scan_interval_s), self.poll_interval_s)
         self.process_probe_interval_s = max(float(process_probe_interval_s), self.poll_interval_s)
+        self.host_pressure_interval_s = max(float(host_pressure_interval_s), self.poll_interval_s)
         self.operator_bridge_interval_s = max(float(operator_bridge_interval_s), self.poll_interval_s)
         self.operator_bridge_limit = max(int(operator_bridge_limit), 1)
         self.file_limit = max(int(file_limit), 1)
@@ -1232,8 +1234,10 @@ class AgentObservabilitySampler:
         self._last_codex_probe_s = 0.0
         self._last_file_scan_s = 0.0
         self._last_process_probe_s = 0.0
+        self._last_host_pressure_s = 0.0
         self._last_operator_bridge_s = -self.operator_bridge_interval_s
         self._last_process_digest: Optional[str] = None
+        self._last_host_pressure_digest: Optional[str] = None
         self._last_claude_session_digests: dict[str, str] = {}
         self._poll_count = 0
 
@@ -1259,6 +1263,9 @@ class AgentObservabilitySampler:
         if now - self._last_process_probe_s >= self.process_probe_interval_s:
             self._last_process_probe_s = now
             self._emit_process_snapshot()
+        if now - self._last_host_pressure_s >= self.host_pressure_interval_s:
+            self._last_host_pressure_s = now
+            self._emit_host_pressure_snapshot()
         if now - self._last_file_scan_s >= self.file_scan_interval_s:
             self._last_file_scan_s = now
             self._tail_recent_files()
@@ -1523,6 +1530,48 @@ class AgentObservabilitySampler:
                 f"Codex {summary['codex_processes']}"
             ),
         )
+
+    def _emit_host_pressure_snapshot(self) -> None:
+        try:
+            from system.lib.host_pressure import build_progress_pressure_packet
+
+            status = self.store.status()
+            events = self.store.replay(limit=2000)
+            packet = build_progress_pressure_packet(
+                self.repo_root,
+                trace_status=status,
+                recent_events=events,
+                window_s=15 * 60,
+            )
+            compact_signal = {
+                "bottleneck_class": packet.get("summary", {}).get("bottleneck_class"),
+                "governor_decision": packet.get("summary", {}).get("governor_decision"),
+                "active_agents": packet.get("summary", {}).get("active_agents"),
+                "pressure_index": packet.get("summary", {}).get("pressure_index"),
+                "progress_per_pressure": packet.get("summary", {}).get("progress_per_pressure"),
+            }
+            digest = _stable_digest(compact_signal)
+            if digest == self._last_host_pressure_digest:
+                return
+            self._last_host_pressure_digest = digest
+            self.store.emit(
+                source_runtime="backend",
+                source_event_name="host_pressure_snapshot",
+                canonical_type="runtime.host_pressure",
+                session_id="host_pressure",
+                trace_id="host_pressure",
+                payload=packet,
+                summary=(
+                    f"host pressure: {compact_signal['bottleneck_class']} "
+                    f"({compact_signal['governor_decision']})"
+                ),
+            )
+        except Exception as exc:
+            self.store.emit_gap(
+                source_runtime="backend",
+                reason="host_pressure_snapshot_failed",
+                payload={"error": str(exc)},
+            )
 
     def _tail_recent_files(self) -> None:
         for path in recent_codex_rollout_files(limit=self.file_limit):
