@@ -1,5 +1,5 @@
 {
-  "anti_claim": "This fixture validates a public voice-to-doctrine self-improvement loop over synthetic lesson rows and real macro refs. It does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edit doctrine nodes, promote global doctrine, mutate source, or authorize release.",
+  "anti_claim": "This fixture validates a public voice-to-doctrine self-improvement loop over synthetic lesson rows, real macro refs, and copied non-secret macro source bodies in the exported bundle. It does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edit doctrine nodes, promote global doctrine, mutate source, or authorize release.",
   "authority_ceiling": "public self-improvement fixture with real macro paper-module and skill refs only",
   "body_import_status": "source_faithful_public_refactor_landed",
   "body_import_verification": {
@@ -7,13 +7,56 @@
       "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "codex/doctrine/paper_modules/doctrine_population_loop.md",
       "codex/doctrine/paper_modules/local_to_general_propagation.md",
-      "codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+      "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "codex/standards/std_task_ledger.json"
     ],
+    "source_module_manifest_ref": "microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
+    "source_module_count": 8,
     "target_ref": "microcosm-substrate/src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
     "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run",
-    "verification_mode": "source_faithful_public_refactor"
+    "verification_mode": "source_faithful_public_refactor_plus_exact_public_body_copies"
   },
   "body_in_receipt": false,
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "global_doctrine_promotion_authorized": false,
+      "private_data_equivalence_authorized": false,
+      "provider_calls_authorized": false,
+      "raw_operator_voice_export_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_count": 8,
+    "body_material_ids": [
+      "recursive_self_improvement_operating_loop_paper_module_body",
+      "doctrine_population_loop_paper_module_body",
+      "local_to_general_propagation_paper_module_body",
+      "local_to_general_propagation_skill_body",
+      "local_to_general_propagation_plane_home_decision_table_body",
+      "task_ledger_metacontrol_uppropagation_skill_body",
+      "task_ledger_skill_body",
+      "task_ledger_standard_body"
+    ],
+    "body_material_status": "copied_non_secret_voice_to_doctrine_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_paper_module_body",
+      "public_macro_skill_body",
+      "public_macro_standard_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported voice-to-doctrine bundle for exact copied recursive self-improvement, doctrine population, local-to-general propagation, Task Ledger, and Task Ledger standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "expected_negative_cases": [
     "raw_operator_voice_export",
     "doctrine_node_hand_edit",
@@ -45,6 +88,10 @@
     {
       "path": "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/local_lessons.json",
       "role": "synthetic local lesson rows that route into owner mutations, residual capture, and typed nothing_to_refine"
+    },
+    {
+      "path": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
+      "role": "exported bundle source-body manifest with hashes and public-safe boundaries"
     },
     {
       "path": "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/raw_operator_voice_export.json",

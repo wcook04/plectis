@@ -1,0 +1,1585 @@
+{
+  "kind": "standard",
+  "schema_version": "std_task_ledger_v1",
+  "id": "std_task_ledger",
+  "title": "Task Ledger Standard",
+  "purpose": "Machine-readable schema for the agent-mediated task ledger — the durable, rank-ordered, justification-bearing todo surface that any agent (Type A or Type B) may read, append to, re-rank, or annotate. The ledger is the system's mental todo list at all times; entries may be promoted to active work or signed off through std_task_sign_off.",
+  "governance": {
+    "authority": "codex/standards/standards_registry.json -> task_ledger group (when registered)",
+    "writer": "agent or human via task_ledger_apply lane (canonical) or operator-mediated direct edit (rescue only)",
+    "validator": "state/task_ledger/ledger.json schema_version match + per-row required_fields presence",
+    "drift_sensitivity": "high — re-rank events without justification break the audit chain",
+    "sibling_standards": {
+      "sign_off_axis": "codex/standards/std_task_sign_off.json — defines the completion-with-notes shape for tasks promoted to signed-off state",
+      "compression_axis": "codex/standards/std_skill.json::compression_authoring_contract — the atom/flag/card rung pattern this standard inherits"
+    }
+  },
+  "schema": {
+    "required_top_level_keys": [
+      "kind",
+      "schema_version",
+      "ledger_id",
+      "generated_at",
+      "updated_at",
+      "authority",
+      "expansion_contract",
+      "tasks"
+    ],
+    "ledger_top_level_shape": {
+      "kind": "task_ledger",
+      "schema_version": "task_ledger_v1",
+      "ledger_id": "Stable id, e.g. 'global' or 'phase_09_44'",
+      "generated_at": "ISO-8601 of first creation",
+      "updated_at": "ISO-8601 of most recent mutation",
+      "authority": {
+        "lifecycle": "always 'curated'",
+        "projection_of": "ordered list of source surfaces this file projects (raw_seed paragraphs, paper modules, axiom_candidates, etc.)",
+        "non_authority_surfaces": "optional list of surfaces this ledger MUST NOT overwrite"
+      },
+      "expansion_contract": {
+        "status_flow": "ordered list: proposed -> accepted -> active -> blocked -> completed -> retired",
+        "rank_rule": "Ranks are ordinal integers (1 = highest priority). Ties allowed. Every rank change MUST append a rank_history entry with justification.",
+        "evidence_rule": "Every task SHOULD record at least one evidence_ref (raw_seed paragraph, paper module, commit, or operator voice). Evidence-less tasks are valid but flagged in the projection.",
+        "dependency_rule": "depends_on names hard internal WorkItem prerequisites. A WorkItem is schedulable only when each hard dependency satisfies dependency_satisfied. dependencies is broad context unless a typed schema explicitly promotes it to a hard edge. Dangling ids, self-deps, and cycles are rejected at validation.",
+        "naming_rule": "Use long searchable slugs and explicit titles. Optimize for grep and cluster_flag browsing, not brevity."
+      }
+    },
+    "task_required_fields": {
+      "id": "Stable short id, e.g. task_001, task_042. Sequential within the ledger; never reused.",
+      "slug": "Long-form searchable slug, kebab-case. Example: install-agent-flow-as-lane-6-substrate-wedge",
+      "title": "Short but explicit display title.",
+      "statement": "Single-paragraph description of what the task is and why it matters.",
+      "status": "One of: proposed | accepted | active | blocked | completed | retired",
+      "rank": "Ordinal integer (1 = highest priority). Ties allowed. Re-rank requires rank_history append.",
+      "rank_history": "Array of {rank, set_at, set_by, justification}. Every rank change appends one row. Never edited or deleted.",
+      "compression_passport": "Authored Russian-doll identity: {atom, flag, card, when_to_open, when_not_to_open, safe_drilldown, landmines}. See std_skill.json::compression_authoring_contract for budgets (atom <=6 words, flag <=180 chars, card <=1200 chars).",
+      "created_at": "ISO-8601 of task creation",
+      "updated_at": "ISO-8601 of most recent mutation (any field except rank_history append, which sets its own set_at)",
+      "author": "Agent or human id that created the task. Example: claude_code, codex, operator"
+    },
+    "task_optional_fields": {
+      "evidence_refs": "Array of {ref, role, gloss}. role in {motivation, exemplar, counterexample, boundary, source_voice}. ref may be a par_id, commit sha, paper-module slug, or doctrine path.",
+      "depends_on": "Array of hard internal WorkItem prerequisite ids. These edges participate in dependency graph validation and schedulability projections.",
+      "dependencies": "Array of broad dependency/context refs, such as files, providers, receipts, gates, or related WorkItems. This field is displayed and audited but is not scheduler authority unless typed by a future schema.",
+      "blocks": "Reverse-dependency array; populated by validation, not authored directly.",
+      "owner": "Agent or operator currently responsible. May be null when unassigned.",
+      "tags": "String array. Examples: {wiring, doctrine, frontend, dispatch, cleanup}.",
+      "notes": "Array of {at, by, note}. Append-only running log. Operator-readable.",
+      "completed_at": "ISO-8601 of completion. Required when status reaches 'completed'.",
+      "sign_off_id": "Stable reference into state/task_ledger/sign_offs.json::sign_offs[]; populated when sign-off is authored.",
+      "epistemic_posture": "Optional note on how provisional, contested, or load-bearing the task is.",
+      "scope_profile": "Optional {authority_scope, domain, subdomain, scope_id, paper_module, substrate_surface} for active rows."
+    }
+  },
+  "work_item_spine_contract": {
+    "purpose": "Upgrade the Task Ledger from ranked todos into the event-sourced WorkItem domain ledger. The Task Ledger owns intended work, satisfaction, integration, rank, sign-off, and propagation. The Work Ledger remains the execution/concurrency substrate and is linked by refs.",
+    "canonical_event_log": "state/task_ledger/events.jsonl",
+    "projection_paths": [
+      "state/task_ledger/ledger.json",
+      "state/task_ledger/sign_offs.json",
+      "state/task_ledger/views/capture_inbox.json",
+      "state/task_ledger/views/promotion_candidates.json",
+      "state/task_ledger/views/execution_menu_schedulable.json",
+      "state/task_ledger/views/schedulable_by_rank.json",
+      "state/task_ledger/views/dependency_graph.json",
+      "state/task_ledger/views/dependency_blocked.json",
+      "state/task_ledger/views/dependency_anomalies.json",
+      "state/task_ledger/views/unlocks_by_rank.json",
+      "state/task_ledger/views/mission_operating_picture.json",
+      "state/task_ledger/views/cap_census.json",
+      "state/task_ledger/views/cap_cartography.json",
+      "state/task_ledger/views/ready_by_rank.json",
+      "state/task_ledger/views/active_wip.json",
+      "state/task_ledger/views/blocked.json",
+      "state/task_ledger/views/operator_needed.json",
+      "state/task_ledger/views/bridge_assignable.json",
+      "state/task_ledger/views/provider_assignable.json",
+      "state/task_ledger/views/metabolic_running.json",
+      "state/task_ledger/views/meta_mission_active.json",
+      "state/task_ledger/views/needs_signoff.json",
+      "state/task_ledger/views/propagation_needed.json",
+      "state/task_ledger/views/incomplete_work_items.json",
+      "state/task_ledger/views/missing_satisfaction_contract.json",
+      "state/task_ledger/views/missing_integration_contract.json",
+      "state/task_ledger/views/legacy_snapshot_unmodeled.json",
+      "state/task_ledger/views/work_ledger_unlinked.json",
+      "state/task_ledger/views/state_transitioned_no_execution_route.json",
+      "state/task_ledger/views/prompt_trace_unlinked.json",
+      "state/task_ledger/views/stale_review.json",
+      "state/task_ledger/views/recent_events.json"
+    ],
+    "work_ledger_refs": [
+      "codex/standards/std_work_ledger.json",
+      "codex/doctrine/paper_modules/work_ledger.md",
+      "codex/ledger/<phase_id>/work_ledger.jsonl",
+      "state/work_ledger/runtime_status.json"
+    ],
+    "projection_rule": "Events are mutation authority. Projection edits are rescue-only and must be represented by work_item.projection_rescue_recorded.",
+    "projection_performance_contract": {
+      "purpose": "Keep capture reflex and sign-off mutation lanes cheap enough that agents do not avoid them or launch duplicate commands while waiting.",
+      "single_append_rebuild_rule": "A mutation command that preflights the post-append projection and then appends under the Task Ledger lock must reuse that validated projection for the write phase; it must not load, validate, and build the same projection a second time unless the append was idempotent or the preflight projection is unavailable.",
+      "high_cardinality_duplicate_scan_rule": "Semantic duplicate detection over large capture buckets must use bounded indexed candidate selection, with high-frequency token skips recorded in the detection payload, rather than comparing every capture row pair.",
+      "regression_surfaces": [
+        "system/lib/task_ledger_events.py::append_event_and_rebuild",
+        "system/lib/task_ledger_events.py::_semantic_duplicate_groups",
+        "system/server/tests/test_task_ledger_events.py::test_semantic_duplicate_scan_uses_index_for_large_capture_bucket"
+      ]
+    },
+    "dependency_status_projection": {
+      "purpose": "Make WorkItem dependency and unlock relationships readable without requiring a second ledger lookup.",
+      "producer": "system/lib/task_ledger_events.py::_build_dependency_views",
+      "consumer_rule": "Task Ledger option-surface cards, dependency_graph, dependency_blocked, unlocks_by_rank, and Station/Vantage work spine may project compact dependency edge summaries, but state/task_ledger/events.jsonl remains mutation authority.",
+      "fields": {
+        "schedulable": "Boolean dependency eligibility after hard depends_on edges, dangling edges, and cycle anomalies are considered.",
+        "hard_dep_count": "Count of hard internal prerequisite WorkItem ids from depends_on.",
+        "satisfied_dep_ids": "Hard dependency ids satisfied by signoff, closed state, propagation state, or explicit dependency_resolutions.",
+        "unsatisfied_dep_ids": "Hard dependency ids still preventing schedulability.",
+        "dangling_dep_ids": "Hard dependency ids that do not resolve to a WorkItem.",
+        "dependency_states": "Backward-compatible upstream dependency edge rows with id, title, state, rank, relationship, sign_off_id, satisfied, and reason.",
+        "upstream_dependency_edges": "Alias/explicit edge array for titled upstream hard dependencies; use this when explaining what a cap waits on.",
+        "downstream_unlock_ids": "WorkItem ids whose depends_on includes this row.",
+        "downstream_unlock_edges": "Titled downstream edge array with waiting_on_this, downstream_schedulable, downstream_unsatisfied_dep_ids, and unlock_status; use this when explaining what completing this cap unlocks.",
+        "anomaly_refs": "Dependency anomaly ids from dependency_anomalies."
+      },
+      "browse_commands": [
+        "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>",
+        "./repo-python kernel.py --option-surface task_ledger --band flag --ids <work_item_id>",
+        "jq '.items[] | select(.id==\"<work_item_id>\")' state/task_ledger/views/dependency_graph.json",
+        "jq '.items[] | select(.id==\"<work_item_id>\")' state/task_ledger/views/unlocks_by_rank.json"
+      ]
+    }
+  },
+  "metacontrol_contract": {
+    "purpose": "Make the Task Ledger's attention-control policy explicit: capture can be cheap and high-recall because commitment, priority, mutation authority, adapter enforcement, and propagation disposition are separate lanes.",
+    "authority_split": {
+      "event_authority": "state/task_ledger/events.jsonl is the durable mutation authority for WorkItems, captures, notes, claims, sign-offs, propagation records, and retirements.",
+      "projection_authority": "state/task_ledger/ledger.json, state/task_ledger/sign_offs.json, state/task_ledger/views/*.json, organizer-report, option surfaces, HUD/Kanban/Station surfaces, and adapter summaries are read models unless their owner command explicitly appends a Task Ledger event.",
+      "mutation_lane": "tools/meta/factory/task_ledger_apply.py is the canonical command-side interface. Direct projection edits are rescue-only and must be represented by a projection-rescue event or a follow-up capture.",
+      "read_only_search_lane": "tools/meta/factory/task_ledger_apply.py search --query <text-or-id> is the bounded projection-backed lookup lane for known text/id queries. It reads state/task_ledger/ledger.json once, emits compact rows with card drilldowns, and must not append events, rebuild projections, or scan the repo.",
+      "actuation_templates": "organizer-report actuation_recommendations are proposals. They name event verbs, payload fields, review posture, and blast radius; they do not execute the events. A command template may use placeholders for values the operator must choose, but it must not pretend a placeholder WorkItem id is an executable target when the source row is a group; group rows must expose concrete item_ids plus an operator-review drilldown before any single-row mutation command."
+    },
+    "task_ledger_metadata_settlement_contract": {
+      "purpose": "Keep source commits and Task Ledger closeout metadata coupled without pretending they are one atomic write when the Task Ledger append log is actively claimed by another session.",
+      "applies_when": [
+        "A source, docs, or tests commit has landed and the remaining work is satisfaction, execution receipt, signoff, propagation, projection, or WorkItem status settlement in Task Ledger.",
+        "The intended Task Ledger payload is rejected during validation before append.",
+        "state/task_ledger/events.jsonl or its deterministic projections are blocked by a live Work Ledger/path claim, single-writer lock, or serial intake queue."
+      ],
+      "payload_validation_rule": "Validate payload shape before treating settlement as in progress. A rejected payload that did not append is a local preflight failure, not partial ledger mutation; fix the payload and rerun through the same serial lane.",
+      "exact_surface_status_vocabulary": [
+        "exists",
+        "missing",
+        "command",
+        "schema",
+        "implied"
+      ],
+      "exact_surface_status_rule": "integration_contract.exact_surfaces_discovered.status must use the validator vocabulary above. Use status=exists only for disk-grounded paths or historical exists evidence, status=missing only with absence evidence, and command/schema/implied only with evidence objects.",
+      "serial_authority_rule": "Task Ledger metadata settlement is a same-authority append-log write. Do not run mutating task_ledger_apply.py commands in parallel; use one direct event command, one batch command, or the enqueue-execution-receipt/drain-intake lane when several agents need the same authority file.",
+      "claim_blocker_rule": "A live exclusive claim on state/task_ledger/events.jsonl is a governed blocker. Do not bypass it with the wrong session id, broad staging, manual projection edits, or direct JSONL edits.",
+      "legal_continuations": [
+        {
+          "id": "settle_now",
+          "rule": "If authority-health, payload validation, and Work Ledger claim checks are clear, append the Task Ledger event, rebuild/check projections, and record the closeout receipt."
+        },
+        {
+          "id": "wait_or_retry_while_claimable",
+          "rule": "If the blocker is a short live lease and the current turn can safely continue, refresh claims after the lease window and settle through the normal lane when it clears."
+        },
+        {
+          "id": "serial_intake",
+          "rule": "If the settlement event type supports intake, enqueue the receipt request and let the Task Ledger serial drainer append it under the ledger lock."
+        },
+        {
+          "id": "blocked_residual",
+          "rule": "If settlement cannot safely append now, capture or update a residual that names the source commit, intended event type, blocking session or claim, lease/retry evidence, owner path, and re-entry condition."
+        }
+      ],
+      "required_receipt_fields": [
+        "source_commit_or_artifact_ref",
+        "intended_task_ledger_event_type",
+        "payload_validation_status",
+        "authority_health_status",
+        "work_ledger_claim_state",
+        "selected_legal_continuation",
+        "projection_rebuild_or_check_status",
+        "reentry_condition"
+      ],
+      "done_claim_rule": "Do not call the WorkItem fully settled until the Task Ledger event exists in events.jsonl and deterministic projections validate, or until a blocked residual explicitly records why settlement is deferred and how to re-enter."
+    },
+    "priority_rubric_contract": {
+      "rubric_id": "work_graph_priority_metabolism_v0",
+      "supersedes": [
+        "workitem_priority_rubric_v0"
+      ],
+      "purpose": "Define what priority means for accumulated work pressure before a low-pass organizer seed chooses a bounded owner action.",
+      "object_classes": [
+        "execution_menu_commitment",
+        "dependency_blocker",
+        "cap_family",
+        "self_error_cluster",
+        "autonomous_seed_drift",
+        "mechanism_or_route_pressure",
+        "missing_contract",
+        "duplicate_or_supersession_chain",
+        "propagation_debt",
+        "generated_state_or_work_ledger_gap",
+        "operator_review_or_signoff_gap",
+        "raw_capture_memory"
+      ],
+      "hard_gates_before_score": [
+        "Task Ledger authority must be clean or recovered before priority claims are trusted.",
+        "Git metadata writes and Work Ledger/path claims must be available before source mutation.",
+        "Execution-menu commitments outrank promotion candidates because commitment is a separate event boundary.",
+        "Hard depends_on edges, active write collisions, and public/secret boundaries must be satisfied, blocked, or dispositioned before mutation.",
+        "Rows missing satisfaction, integration, exact surfaces, or completion contracts route to shaping before execution scoring.",
+        "Raw capture volume, recency, and salience are never priority by themselves."
+      ],
+      "score_axes_in_order": [
+        "operator_or_phase_alignment",
+        "downstream_unlock_value",
+        "repeated_failure_signal",
+        "proof_readiness",
+        "owner_surface_confidence",
+        "substrate_reuse_gain",
+        "future_agent_time_saved",
+        "propagation_value",
+        "blast_radius_validation_and_review_cost"
+      ],
+      "cluster_order": [
+        "execution_menu_committed",
+        "execution_menu_schedulable",
+        "dependency_blocked",
+        "cap_family_pressure",
+        "self_error_pressure",
+        "autonomous_seed_pressure",
+        "mechanism_pressure_lens",
+        "work_ledger_unlinked",
+        "metabolic_running",
+        "meta_mission_active",
+        "mission_operating_picture",
+        "promotion_candidates",
+        "missing_contracts",
+        "merge_or_retire",
+        "propagation_needed",
+        "needs_signoff",
+        "operator_needed",
+        "raw_capture_inbox",
+        "possible_adapter_leaks"
+      ],
+      "autonomous_seed_rule": "A low-intensity organizer seed may scan Task Ledger views, cluster work-pressure object classes, patch an owning source/standard/skill/route/seed/paper-module when safe, emit receipts, and propose exact event commands when the event lane is the owner. It must not auto-promote, auto-rerank, auto-retire semantic duplicate groups, execute work from capture_inbox, or treat sorting/classification as success when a patchable owner action exists.",
+      "report_projection": "tools/meta/factory/task_ledger_apply.py organizer-report projects priority_rubric and priority_cluster_summary from system/lib/task_ledger_events.py."
+    },
+    "blocked_primary_ambition_preservation": {
+      "purpose": "Keep a high-value Type A execution wave from collapsing into low-yield adjacent bookkeeping when Work Ledger/path claims block the primary mutation lane.",
+      "applies_when": [
+        "A Work Ledger session-preflight, mutation-check, or active-claim overlap says the highest-value primary mutation path is blocked, claimed, unsafe, or not yet claimable.",
+        "The agent is tempted to land a tiny hygiene correction near the blocked work and close out while the larger capability remains unadvanced.",
+        "The task was triggered by operator correction, ambition-collapse, proof-conservation failure, blocked residual closure, or a reusable coordination lesson."
+      ],
+      "legal_continuations": [
+        {
+          "id": "finish_when_claimable",
+          "rule": "If the claim clears within the current safe execution window, claim the primary paths and finish the high-value patch with validation."
+        },
+        {
+          "id": "adopt_or_coordinate_blocker",
+          "rule": "If the blocking session owns the same capability and coordination is available, adopt, wait, hand off, or explicitly bind to that session's closeout instead of starting unrelated work."
+        },
+        {
+          "id": "uncontended_sibling",
+          "rule": "If primary files remain blocked, advance the same capability through the largest uncontended sibling surface: projection, standard, skill, test harness, route, health card, or residual surfacing."
+        },
+        {
+          "id": "residual_then_ranked_independent",
+          "rule": "If no same-capability sibling is safe, update or create the residual with exact blocker, owner paths, re-entry condition, and validation target, then switch only to a ranked independent WorkItem or stop explicitly."
+        }
+      ],
+      "one_line_hygiene_rule": "A one-line hygiene edit is valid only when the agent states why it is the highest-yield legal move under the current claim state; ease, proximity, or desire to avoid a no-op is not sufficient.",
+      "required_receipt_fields": [
+        "primary_target",
+        "blocker_classification",
+        "claim_or_collision_evidence",
+        "selected_legal_continuation",
+        "why_highest_yield_legal_move",
+        "reentry_condition"
+      ],
+      "specimen": {
+        "episode": "operator_action_receipt_future_guard",
+        "small_hygiene_commit": "57f33c798",
+        "high_value_guard_commit": "be308adcc",
+        "retired_residual": "hud_operator_action_receipt_future_guard_blocked",
+        "lesson": "Standard honesty was necessary, but the execution wave became satisfying only when the generic proof-governed health guard landed and the blocked residual was retired."
+      }
+    },
+    "work_shaped_signal_producer_contract": {
+      "purpose": "Give adjacent substrate systems one durable boundary for actionable, stale, invalid, generalizable, blocked, orphaned, duplicated, signoff-ready, or propagation-ready signals.",
+      "producer_rule": "A producer that notices work-shaped pressure must link to an existing WorkItem or capture, produce a capture plan, append through the owning event command, expose a bounded pending-adoption row, or explicitly record nothing_to_refine. It must not create a shadow ledger.",
+      "outcomes": [
+        "capture_plan",
+        "existing_workitem_link",
+        "event_append",
+        "pending_adoption",
+        "nothing_to_refine"
+      ],
+      "minimum_packet_fields": [
+        "producer_id",
+        "source_kind",
+        "source_ref",
+        "source_hash",
+        "signal_type",
+        "title",
+        "statement",
+        "candidate_work_item_type",
+        "recommended_event",
+        "confidence",
+        "idempotency_key",
+        "review_required",
+        "dedupe_keys"
+      ],
+      "projection_boundary": "Producer projections are scout surfaces. Before any mutation, the owning apply lane must recompute source evidence, idempotency, and existing linkage from live authorities.",
+      "authority_rule": "Task Ledger events are the WorkItem authority; source ledgers remain provenance authority; generated views and reports are read-only unless they name an owner command that appends an event."
+    },
+    "problem_signal_capture_contract": {
+      "purpose": "Make it cheap to complain, worry, suggest, aspire, unify, refine, or name a problem without creating a parallel problem ledger.",
+      "rule": "Complaints, problems, ideas, aspirations, fears, unifying principles, refinement wants, integration pressure, and ordinary todos enter as WorkItem-shaped capture signals first. Capture preserves the signal; assimilation decides whether it becomes build work, unification, integration, refinement, retirement, propagation, research, or no-op.",
+      "input_signal_kinds": [
+        "complaint",
+        "problem",
+        "idea",
+        "aspiration",
+        "fear",
+        "unifying_principle",
+        "task",
+        "todo",
+        "refinement",
+        "integration",
+        "unification",
+        "verification",
+        "retirement",
+        "propagation"
+      ],
+      "minimum_capture_shape": [
+        "source_ref",
+        "surface",
+        "signal_kind",
+        "complaint_or_desire",
+        "why_it_matters",
+        "suspected_owner",
+        "desired_change",
+        "evidence_or_absence",
+        "confidence",
+        "dedupe_keys"
+      ],
+      "normalization_rule": "Use work_item_type=capture until the organizer pass shapes the row. A shaped signal may promote to task, next_action, slice, subphase, phase, meta_mission, metabolic_reflex, bridge_action, provider_job, synth_seed_propagation, signoff_followup, closeout_residual, or an owner-surface refinement disposition.",
+      "framing_rule": "Capture stays high-recall; assimilation may add a problem frame before ranking. The frame names the suspected mismatch, such as missing owner, stale projection, route ambiguity, capability gap, doctrine drift, implementation bug, validation failure, duplicate work, or no-op evidence.",
+      "owner_resolution_rule": "The first useful answer to a complaint is not implementation; it is owner surface, correction lane, and proof signal. If no owner exists, capture missing-owner evidence and route through Task Ledger metacontrol up-propagation.",
+      "cybernetic_binding": "Problem signals are feedback. They should be compared against governing intent, evidence, standards, projections, and operator pressure, then routed to the owner lane that can correct the mismatch.",
+      "theory_vocabulary": "Algedonic problem signal is allowed as doctrine vocabulary for pain, risk, opportunity, desire, or coherence pressure. Operational schemas and user-facing outputs should keep the plainer terms problem signal, problem frame, disposition, escalation, proof signal, and uncertainty probe.",
+      "anti_shadow_board_rule": "Do not create a separate complaints board, ideas vault, fears list, or priority tracker. Use the Task Ledger capture and assimilation lanes, then project specialized views only as read models."
+    },
+    "agent_principle_failure_mode_cap_contract": {
+      "purpose": "Preserve Type A behavior lessons as rich failure-mode CAPs before they are aggregated into agent-principle promotion decisions.",
+      "candidate_work_item_type": "agent_principle_failure_mode",
+      "required_tags": [
+        "agent_principle_candidate",
+        "failure_mode"
+      ],
+      "capture_command_template": "./repo-python tools/meta/factory/task_ledger_apply.py quick-capture --created-by <agent_id> --candidate-work-item-type agent_principle_failure_mode --tag agent_principle_candidate --tag failure_mode --payload-json '<json>' --rebuild",
+      "required_payload_fields": [
+        "local_case",
+        "failure_mode",
+        "triggering_context",
+        "suspected_agent_principle_pressure",
+        "narrower_owner_checked",
+        "sibling_cases_or_absence",
+        "overgeneralization_guard",
+        "desired_diagnostic",
+        "candidate_existing_principles",
+        "currentness_boundary"
+      ],
+      "statement_rule": "The CAP statement must say what happened, why it matters for Type A behavior, and what later aggregation should compare.",
+      "aggregation_rule": "Principles may be diagnosed across multiple CAPs by failure_mode, suspected principle pressure, candidate pri_* ids, and owner checks; repeated CAPs raise priority but do not bypass principles_curation or raw_seed_principles standard checks.",
+      "anti_thin_cap_rule": "A CAP that lacks triggering_context, overgeneralization_guard, or narrower_owner_checked is not valid evidence for agent-principle promotion until shaped or noted."
+    },
+    "type_a_prioritization_protocol": {
+      "purpose": "Let Type A turn heterogeneous WorkItem signals into owner-routed correction paths across build, unification, integration, refinement, verification, propagation, retirement, investigation, escalation, and no-op evidence.",
+      "control_question": "What correction path, if any, would make this signal stop recurring for the right reason while respecting authority, evidence, dependencies, WIP, operator pressure, and proof obligations?",
+      "canonical_ladder": "capture -> normalize -> frame_problem -> link_existing_authority -> route_owner -> decide_disposition -> order_by_gates_then_score -> commit_wip_slice -> prove -> learn_or_propagate",
+      "ordering_ladder": [
+        {
+          "step": "capture",
+          "rule": "Preserve the signal cheaply with source, surface, signal kind, desired change, and evidence or absence. Capture does not imply authority, priority, or implementation."
+        },
+        {
+          "step": "normalize",
+          "rule": "Translate each complaint, idea, fear, aspiration, or todo into a capture signal with source, suspected owner, desired change, and evidence or absence."
+        },
+        {
+          "step": "frame_problem",
+          "rule": "Name the mismatch before ranking: symptom versus root, missing owner, stale projection, route ambiguity, capability gap, doctrine drift, implementation bug, validation failure, duplicate work, recurring toil, or valid no-op evidence."
+        },
+        {
+          "step": "link_existing_authority",
+          "rule": "Link to existing WorkItems, caps, standards, skills, paper modules, principles, axiom candidates, projections, or code surfaces before authoring new rows."
+        },
+        {
+          "step": "route_owner",
+          "rule": "Name the owner surface and mutation lane that can prevent recurrence, not only the surface where the symptom appeared."
+        },
+        {
+          "step": "decide_disposition",
+          "rule": "Choose correct, investigate, merge, retire, block, escalate, delegate, propagate, ask, no-op, or leave-as-capture before treating the item as executable work."
+        },
+        {
+          "step": "order_by_gates_then_score",
+          "rule": "Apply owner, evidence, dependency, authority, blast-radius/reversibility, WIP, and identity/viability gates first; score only among rows that survive the relevant gates."
+        },
+        {
+          "step": "commit_wip_slice",
+          "rule": "Promote only the small WIP-limited set into execution_menu. Everything else remains shaped, blocked, merged, retired, delegated, propagated, escalated, or left as capture with a reason."
+        },
+        {
+          "step": "prove",
+          "rule": "Name the proof signal before work starts: validation output, option-surface change, projection health, signoff evidence, recurrence reduction, or explicit disconfirming evidence."
+        },
+        {
+          "step": "learn_or_propagate",
+          "rule": "Close the loop through signoff, propagation, owner-surface refinement, or explicit nothing_to_refine when the signal taught no reusable lesson."
+        }
+      ],
+      "gates_before_score": [
+        {
+          "gate": "owner",
+          "question": "Is the owner surface or correction lane known?",
+          "failure_result": "Route to owner discovery or Task Ledger metacontrol instead of implementation."
+        },
+        {
+          "gate": "evidence",
+          "question": "Is there enough evidence to act?",
+          "failure_result": "Prioritize an uncertainty probe, source inspection, or disconfirming check."
+        },
+        {
+          "gate": "dependency",
+          "question": "Does this unblock other work or depend on a prerequisite?",
+          "failure_result": "Order prerequisite authority, schema, projection, or duplicate-retirement work first."
+        },
+        {
+          "gate": "authority",
+          "question": "Is mutation allowed through a known lane?",
+          "failure_result": "Block, ask, or shape the lane before mutation."
+        },
+        {
+          "gate": "blast_radius_reversibility",
+          "question": "Is the action scoped and reversible enough for the current evidence?",
+          "failure_result": "Require stronger proof, narrower slice, or operator/metacontrol escalation."
+        },
+        {
+          "gate": "wip",
+          "question": "Can this fit the current execution menu?",
+          "failure_result": "Shape, block, merge, retire, delegate, or leave as capture; do not silently promote."
+        },
+        {
+          "gate": "identity_viability",
+          "question": "Does this threaten governing intent, actor classification, source authority, or system coherence?",
+          "failure_result": "Escalate to the appropriate operator, axiom, standard, or metacontrol lane."
+        }
+      ],
+      "decision_axes": {
+        "severity": "How consequential is the mismatch if true?",
+        "priority_basis": "Why this next move now after gates and dependencies?",
+        "escalation_level": "Which control layer must see it: capture only, owner lane, metacontrol, operator, or constitutional doctrine?",
+        "uncertainty_next_probe": "What is the cheapest evidence-gathering move that would confirm, disconfirm, or reframe the signal?"
+      },
+      "path_output_shape": [
+        "subject_id",
+        "input_signal_kind",
+        "source_voice",
+        "problem_statement",
+        "problem_frame",
+        "desired_state",
+        "current_evidence",
+        "owner_surface",
+        "correction_lane",
+        "recommended_next_move",
+        "disposition",
+        "depends_on",
+        "expected_unlock",
+        "severity",
+        "priority_basis",
+        "escalation_level",
+        "uncertainty_next_probe",
+        "proof_signal"
+      ],
+      "anti_patterns": [
+        "rank newest or loudest captures first",
+        "treat complaints as final answers instead of feedback signals",
+        "skip problem framing and implement the literal complaint as root cause",
+        "collapse severity, priority, and escalation into one scalar score",
+        "implement before owner surface and correction lane are known",
+        "mix capture_inbox with execution_menu",
+        "create a parallel priority system outside Task Ledger events"
+      ]
+    },
+    "capture_commitment_split": {
+      "quick_capture": "quick-capture is cheap, high-recall attention capture. It preserves source refs and enough statement to recover the thought.",
+      "not_commitment": "A captured row is not rank, claim, shape, promotion, or implementation start.",
+      "promotion_candidates": "promotion_candidates is the shaped-capture review queue. Rows here may be valuable and well-described, but they are still attention candidates, not implementation commitments.",
+      "commitment_queue": "execution_menu is the WIP-limited commitment queue for WorkItems with explicit commitment event evidence: work_item.promoted, work_item.claimed, work_item.state_transitioned, work_item.rerank_committed with portfolio-commitment semantics, or operator/controller override. Implementation work should normally come from execution_menu, ready_by_rank, or an explicit operator/controller override; shaped-ready capture and legacy rank_history alone are not enough.",
+      "active_wip_policy": "active_wip must stay bounded and explainable. This standard does not impose a hard numeric cap yet; organizer-report should surface WIP pressure before any blocking cap is enforced.",
+      "rank_policy": "Rank and promotion changes require justification and, where operator-review-required, explicit operator or controller approval."
+    },
+    "provider_native_task_affordance_boundary": {
+      "policy_id": "provider_native_task_affordance_boundary",
+      "rule": "Provider-native task affordances are session-local scratch, not durable WorkItem authority.",
+      "allowed_use": "TodoWrite, TaskCreate, TaskUpdate, TaskList, spawn_task chips, native schedule offers, and equivalent adapter task displays may be used for within-session progress display, scratch planning, or operator-visible coordination hints.",
+      "forbidden_use": "They must not be used as cross-session storage, durable backlog, priority authority, sign-off evidence, propagation disposition, or substitute for a Task Ledger event.",
+      "durable_side_work_rule": "Durable side work must be quick-captured, shaped, blocked, retired, propagated, or explicitly recorded as nothing_to_refine/already_propagated_verified through the Task Ledger or owning propagation lane.",
+      "partial_instruction_residual_rule": "When a broad operator instruction contains more deliverables than the current runtime slice executes, the agent must bind the executed slice to the active mission/WorkItem and route each remaining durable deliverable to an existing matching cap_*/WorkItem, a new quick-capture, a blocker/retirement disposition, or an explicit no-residual/no-op verdict before final response. Native TODOs and prose summaries are scratch only.",
+      "spawn_task_rule": "spawn_task/native chips may carry work only when they also create or point to a cap_*/WorkItem id; otherwise they are audit evidence for possible adapter leakage, not authority.",
+      "self_detected_error_capture_rule": "Self-detected errors are a tripwire trigger class equivalent to flag-without-capture. Any self-noticed mistake, false claim, fabricated id/path/fact, broken edit, wrong-tool detour, hallucinated CLI flag, or bad routing decision must be quick-captured BEFORE the operator-facing acknowledgment or correction, and the cap_id cited inline. Tripwire phrases include 'I was wrong', 'my mistake', 'I made an error', 'I broke', 'I fabricated', 'I made up', 'false claim', 'bad edit path', 'I miscounted', 'I misread', 'wrong file', 'wrong command'. The capture title names the failure class; --note carries one or two sentences of failure mode plus minimal recoverable context (quick on-the-fly register, not a postmortem). Tag with self_error plus the affected subsystem. Mistake-without-capture is a hard protocol violation, not a soft preference. Operator anchor: 2026-05-04 'if you ever make a mistake just add it to the todo as a failure mode with a bit of context, just a quick on the fly one'.",
+      "observed_failure_capture_invariant": "If an agent observes a failing test, command error, failed validation, substrate drift, contradiction, or self-error and does not fix it in the same turn, it must create or reference a durable WorkItem/capture before final response. Reporting the issue in prose is not a substitute for a WorkItem. The legal closeout states are: fixed and validated, captured as a new cap_*/WorkItem, or explicitly linked to an existing capture that names the original failure."
+    },
+    "propagation_actuation_floor": {
+      "policy_id": "propagation_actuation_floor",
+      "rule": "Propagation-debt work is owner-surface actuation by default. A work_item.propagation_recorded event is the receipt after a source, standard, skill, route, checker, projector, or code owner is patched or verified; it is not the repair itself.",
+      "applies_when": [
+        "organizer-report or propagation_needed names closed work with a reusable lesson",
+        "operator asks to continue, consume, actuate, or work propagation debt",
+        "a CAP/WorkItem title or lesson names a concrete owner surface"
+      ],
+      "required_sequence": [
+        "open the WorkItem card and source_event_ids",
+        "inspect the named owner surface or owner command",
+        "land the bounded owner edit or owner-tool run when safe",
+        "validate the owner surface and the Task Ledger projection",
+        "append propagation/signoff evidence only after the owner mutation or already-present proof is known"
+      ],
+      "allowed_non_edit_outcomes": [
+        "already_propagated_verified with exact owner-surface evidence",
+        "nothing_to_refine after owner inspection proves no reusable behavior remains",
+        "captured or blocked residual with re-entry condition when the owner edit is unsafe, claimed, policy-bound, or outside current authority",
+        "record-only bookkeeping when the operator explicitly asks for cap-only or propagation-record-only cleanup"
+      ],
+      "invalid_exit_patterns": [
+        "append caps only after the operator asked to do the work",
+        "append work_item.propagation_recorded without inspecting the owner surface named by the lesson",
+        "treat propagation_needed count reduction as proof when no source/standard/skill/route/checker/projector/code surface changed or was verified",
+        "hide an unsafe owner edit behind generic capture instead of naming the blocker and re-entry condition"
+      ]
+    },
+    "organizer_report_role": {
+      "surface": "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report",
+      "role": "first metacontrol surface before portfolio mutation",
+      "mandatory_before": [
+        "promote",
+        "rerank",
+        "duplicate retirement",
+        "bulk shaping",
+        "adapter-leak capture decisions",
+        "propagation queue grooming",
+        "execution-menu grooming"
+      ],
+      "not_required_before": [
+        "single low-friction quick-capture of noticed side work",
+        "single evidence note on a known WorkItem",
+        "read-only browse or validation"
+      ],
+      "guarantees": [
+        "explains classifier status",
+        "links durable projections such as propagation_needed",
+        "emits safe command templates for supported mutation verbs",
+        "labels review posture and blast radius",
+        "never auto-mutates"
+      ]
+    },
+    "adapter_leak_enforcement_ladder": [
+      {
+        "level": 0,
+        "name": "prose_policy",
+        "status": "active",
+        "rule": "Adapters name provider-native task tools as scratch only and route durable side work to Task Ledger events."
+      },
+      {
+        "level": 1,
+        "name": "read_only_possible_leak_report",
+        "status": "active",
+        "rule": "organizer-report scans bounded recent transcript files and reports possible leaks without claiming true leak rate."
+      },
+      {
+        "level": 2,
+        "name": "calibrated_sample",
+        "status": "active",
+        "rule": "Report calibration_sample, classification_basis, skipped noise reasons, signal families, and estimated_precision status."
+      },
+      {
+        "level": 3,
+        "name": "warning_only_hook",
+        "status": "future_requires_operator_approval",
+        "entry_condition": "Reviewed sample precision is high enough that warnings teach more than they annoy; recommended floor is roughly 70-80% true durable leaks on a bounded reviewed sample."
+      },
+      {
+        "level": 4,
+        "name": "blocking_or_redirect_hook",
+        "status": "future_not_current",
+        "entry_condition": "Only high-confidence native durable-work payloads are caught, false positives are rare, and the operator approves blocking behavior."
+      }
+    ],
+    "merge_dedupe_ladder": [
+      {
+        "level": 0,
+        "name": "deterministic_current",
+        "rules": ["closed/signoff capture detection", "exact normalized duplicate grouping"]
+      },
+      {
+        "level": 1,
+        "name": "facet_overlap_future",
+        "rules": ["same source_ref", "same surface", "same phase", "same candidate_work_item_type", "title-token overlap", "shared target artifact", "shared operator phrase"]
+      },
+      {
+        "level": 2,
+        "name": "semantic_future",
+        "rule": "Embedding or opaque semantic dedupe is deferred until deterministic and faceted dedupe are exhausted and review affordances exist."
+      }
+    ],
+    "review_boundaries": {
+      "operator_review_required": [
+        "promotion into execution priority when priority is contested",
+        "rank/rerank commits",
+        "duplicate retirement when source authority or supersession is ambiguous",
+        "possible adapter-leak quick-capture unless the durable leak is obvious"
+      ],
+      "agent_allowed_when_evidence_clear": [
+        "quick-capture noticed side work",
+        "append a factual note",
+        "record nothing_to_refine when no reusable lesson, residual, blocked write, or route gap exists",
+        "record already_propagated_verified when the target artifact already contains the lesson and evidence refs are named",
+        "record propagation debt when the needed target is clear but not safe to edit in the current slice"
+      ],
+      "never_auto_execute": [
+        "provider output",
+        "bridge packet recommendations",
+        "organizer-report actuation templates",
+        "native provider TODO/chip content"
+      ]
+    }
+  },
+  "option_surface_contract": {
+    "artifact_kind": "task_ledger",
+    "purpose": "Expose Task Ledger WorkItems through standard option-surface bands so agents can browse ordering, triage, and execution menus before opening raw JSON.",
+    "owned_bands": [
+      "cluster_flag",
+      "flag",
+      "card"
+    ],
+    "source_authority": [
+      "state/task_ledger/events.jsonl",
+      "state/task_ledger/ledger.json",
+      "state/task_ledger/views/*.json"
+    ],
+    "cluster_flag_rule": "Group by existing Task Ledger views such as execution_menu, promotion_candidates, ready_by_rank, active_wip, blocked, operator_needed, bridge_assignable, provider_assignable, metabolic_running, meta_mission_active, mission_operating_picture, cap_census, cap_cartography, capture_triage, capture_inbox, missing_contracts_ranked, missing_satisfaction_contract, missing_integration_contract, incomplete_work_items, needs_signoff, propagation_needed, merge_or_retire_candidates, legacy_snapshot_unmodeled, prompt_trace_unlinked, work_ledger_unlinked, stale_review, recent_events, and signoffs. Also expose mechanism:<mech_id> clusters as read-only affinity views over WorkItems that deterministically mention or match existing mech_* rows; these clusters organize work pressure by mechanism without making mechanisms a second backlog or WorkItem authority.",
+    "organizer_routing_rule": "Cluster rows SHOULD expose compact organizer_routing with organizer_role, recommended_next_events, conceptual_next_events, missing_affordance_count, and routing_scent_not_authority=true. Repeated command templates SHOULD be hoisted once to payload.event_command_hints instead of duplicated into every cluster row; recommended_next_events resolve against that shared command vocabulary. Full row-specific routing evidence belongs in organizer-report, the cluster source_ref view JSON, selected WorkItem flag/card drilldowns, or the named source-code route table. recommended_next_events must be directly executable through the current Task Ledger apply command vocabulary; conceptual names belong under conceptual_next_events. These hints guide triage and planning passes but do not grant mutation or priority authority.",
+    "flag_rule": "Expose stable id, title, state, work_item_type, candidate_work_item_type, triage status, recommended action, missing contracts, source refs, prompt/Work Ledger linkage, views, rank, updated_at, and card drilldown.",
+    "card_rule": "Expose the selected WorkItem with statement, satisfaction refs, raw seed refs, integration paths, acceptance checks, dependency_status with upstream_dependency_edges/downstream_unlock_edges when available, authority/execution summary, projection completeness, source event ids, and omission receipt.",
+    "mutation_rule": "The option surface is read-only. Mutations must append Task Ledger events through task_ledger_apply.py and rebuild projections."
+  },
+  "compliance_scanner_contract": {
+    "purpose": "Give Task Ledger its own compliance-ledger row so Atlas/navigation can distinguish clean event authority, warning-only validation, stale read models, and option-surface boundary violations before using WorkItem state.",
+    "governed_artifact_kind": "task_ledger",
+    "canonical_event_log": "state/task_ledger/events.jsonl",
+    "projection_paths": [
+      "state/task_ledger/ledger.json",
+      "state/task_ledger/sign_offs.json",
+      "state/task_ledger/views/*.json"
+    ],
+    "builder": "system/lib/task_ledger_events.py::rebuild_projections",
+    "validator": "./repo-python tools/meta/factory/task_ledger_apply.py validate --allow-warnings",
+    "authority_health_command": "./repo-python tools/meta/factory/task_ledger_apply.py authority-health --projection-check",
+    "option_surface_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+    "scanner": "system/lib/compliance/task_ledger_adapter.py::scan_task_ledger",
+    "navigation_contract": {
+      "cluster_axis": "task_ledger_view",
+      "cluster_first_for_high_cardinality": true,
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "mutation_rule": "Browse rows only. Mutations must append Task Ledger events through task_ledger_apply.py."
+    },
+    "finding_policy": {
+      "authority_health_not_clean": "error",
+      "event_log_validation_errors": "error",
+      "event_log_validation_warnings": "warning",
+      "projection_check_mismatches": "warning",
+      "option_surface_boundary_violation": "error"
+    }
+  },
+  "organizer_metabolism": {
+    "purpose": "Separate cheap salience capture from planning and priority authority.",
+    "control_loop": [
+      "capture_inbox is the complete low-friction capture log; its count may include closed and shaped audit rows. Active untriaged cap pressure is raw_capture_inbox_count / capture_triage.category_counts.raw_capture_inbox, not the total capture_inbox count.",
+      "capture_triage gates traces into shape, promote, block, merge, defer, or retire decisions.",
+      "promotion_candidates receives shaped captures that need review before commitment.",
+      "execution_menu is the commitment boundary for explicit promotion, rerank-commit, claim, state transition, active state, or operator/controller override only; legacy rank_history alone is review priority metadata.",
+      "needs_signoff and signoffs consolidate completed work into evidence, lessons, and residual captures.",
+      "merge_or_retire_candidates and stale_review provide trace evaporation so old captures do not pollute planning."
+    ],
+    "organizer_row_contract": {
+      "organizer_role": "Role of the cluster in the planning metabolism, such as salience_inbox, gating_triage, commitment_boundary, consolidation, trace_evaporation, provenance_linkage, or execution_linkage.",
+      "cluster_claim": "One-sentence claim describing why this cluster exists. Cluster_flag may omit this when the row purpose already carries the same contents-page claim.",
+      "organizer_actions": "Allowed organizer moves such as shape, promote, block, merge, retire, signoff, request_operator, or link evidence.",
+      "recommended_next_events": "Event types an organizer pass can append through the current task_ledger_apply.py command vocabulary when it acts on the cluster.",
+      "supported_command_event_types": "Cluster-page list of recommended_next_events that have directly executable command hints in payload.event_command_hints.",
+      "supported_commands": "Full command hints keyed by event_type. On cluster_flag pages this detail is hoisted to payload.event_command_hints to avoid repeating templates per cluster row; owner drilldowns may expose the expanded form when needed.",
+      "conceptual_next_events": "Event names that describe a desired organizer move but are not directly executable through task_ledger_apply.py yet.",
+      "missing_affordance_refs": "Exact owner references for conceptual_next_events, usually EVENT_BY_COMMAND gaps or missing apply-lane commands. Cluster_flag may expose only missing_affordance_count with drilldowns to keep the contents page bounded.",
+      "common_source_surfaces": "Frequent provenance surfaces for this cluster. These are routing hints, not source authority. Cluster_flag may expose only common_source_surface_count and source_ref; selected flag/card rows or organizer-report carry detail.",
+      "common_integration_paths": "Exact WorkItem integration paths derived from current rows when present. Cluster_flag may expose only common_integration_path_count.",
+      "common_file_hints": "Likely files or commands to inspect during triage. These are routing scent and must be verified before mutation. Cluster_flag may expose only common_file_hint_count.",
+      "mechanism_id": "Optional mech_* id when the cluster row groups WorkItems by deterministic affinity to an existing doctrine mechanism. The id is routing scent; the WorkItem event log and mechanism JSON remain separate authorities.",
+      "match_reason_counts": "Optional reason histogram for derived affinity clusters, e.g. direct_mechanism_ref, mechanism_name_token_overlap, mechanism_tag_overlap, or generic_mechanism_pressure.",
+      "routing_scent_not_authority": "Boolean true. Cluster metadata helps choose a drilldown but cannot mutate the ledger or reorder work by itself.",
+      "salience_boundary": "Captures are observations, not priorities; priority starts only at execution_menu, rank/promotion, or explicit operator/controller authority. Cluster_flag may use salience_boundary_ref instead of repeating the prose boundary in every row."
+    },
+    "anti_pollution_rule": "Repeated or stale traces must be merged, retired, blocked, or linked as evidence instead of remaining forever as apparent pending priorities.",
+    "compaction_governance_contract": {
+      "owner_view": "state/task_ledger/views/merge_or_retire_candidates.json",
+      "owner_report": "task_ledger_apply.py organizer-report::merge_or_retire_diagnostic",
+      "purpose": "Give recursive up-propagation and repeated CAP passes a concrete trace-evaporation route before they add another standard, skill paragraph, or capture.",
+      "decision_ladder": [
+        "already_closed_capture -> leave closed unless a projection consumer needs a note",
+        "possible_duplicate_capture_group -> choose a kept row, then retire duplicate rows or add provenance notes through supported events",
+        "semantic_duplicate_capture_group -> require operator review before selecting canonical, merge, supersede, retire, or link-as-evidence disposition",
+        "unsupported direct merge/supersede event -> represent the disposition with work_item.retired, work_item.note_added, work_item.propagation_recorded, work_item.shaped, or work_item.captured until an apply-lane event exists"
+      ],
+      "proof_signals": [
+        "candidate row exposes kind, item_ids/id, evidence, and recommended_action",
+        "organizer-report exposes counts_by_kind, semantic_conflict_detector, and the compaction_governance packet",
+        "Task Ledger option-surface cluster row exposes merge_or_retire_candidates governance_route",
+        "final disposition appends an event through task_ledger_apply.py and preserves source histories"
+      ],
+      "anti_accretion_rule": "When duplicate or overlapping procedural pressure is already visible in merge_or_retire_candidates, do not create a new CAP or prose-only doctrine reminder as the first move; append a supported disposition event, shape the existing row, or record the operator-review boundary."
+    },
+    "retirement_evidence_contract": {
+      "owner_surface": "codex/standards/std_task_ledger.json::organizer_metabolism.retirement_evidence_contract",
+      "purpose": "Prevent stale-fixed capture cleanup from becoming title-scan ledger pruning by requiring falsifiable current-state proof before retirement.",
+      "applies_to": [
+        "cap_* and cap_quick_* rows whose claim names a concrete bug, stale projection, obsolete path, deprecated command, or fixed CLI/checker behavior",
+        "merge_or_retire_candidates, stale_review, capture_triage, and capture_inbox rows selected for stale-fixed retirement",
+        "batch retirement waves using task_ledger_apply.py batch"
+      ],
+      "exclusions": [
+        "self_error rows preserve failure-mode learning; append notes or propagation receipts instead of retiring them for being fixed",
+        "concurrent_edit, git_metadata, scoped_commit_blocked, sandbox_blocked, and paper_module_validator rows describe operating conditions, not stale-fixed bugs",
+        "domain-semantics rows whose acceptance depends on operator judgment or threshold policy"
+      ],
+      "required_pre_retirement_classification": [
+        "extract the falsifiable claim from title, statement, source_refs, named command, or integration_contract",
+        "verify the current owner surface with one proof route: source_read, git_log_probe, or live_diagnostic",
+        "classify each candidate as stale_fixed, survived, not_applicable, or needs_shape_before_retirement",
+        "batch groups of three or more retirement events through task_ledger_apply.py batch instead of repeated retire --rebuild cycles"
+      ],
+      "proof_routes": {
+        "source_read": "Read the named source file or projection and compare the current contents against the cap's quoted defect.",
+        "git_log_probe": "Run git log -G with a discriminating claim string on the named path and cite the commit SHA that fixed the claim.",
+        "live_diagnostic": "Rerun the command/checker named by the cap and cite a timestamped output fact showing the claim is now false."
+      },
+      "retire_payload_requirements": [
+        "reason cites the proof route and specific receipt, such as commit SHA, command output timestamp, or source location",
+        "reason distinguishes stale_fixed from duplicate, superseded, operator-waived, or not_applicable dispositions",
+        "retirement event preserves source histories by leaving source_refs and prior event ids recoverable through Task Ledger projections"
+      ],
+      "survivor_disposition_rule": "Candidates whose claims still hold receive a note, shape, block, or tiny owner patch; they must not silently disappear from the sweep.",
+      "honest_landing_rule": "When a scoped state/task_ledger commit absorbs an ambient append-only event tail, the commit message or settlement receipt names the owned retire/note ids and acknowledges same-authority tail absorption.",
+      "procedural_skill": "codex/doctrine/skills/task_ledger/stale_fixed_cap_sweeper.md",
+      "future_projection_target": "state/task_ledger/views/stale_fixed_candidates.json may automate this classification, but until then merge_or_retire_candidates and stale_review are triage surfaces, not proof."
+    },
+    "mutation_rule": "Organizer passes append directly supported Task Ledger events such as work_item.captured, work_item.triaged, work_item.shaped, work_item.promoted, work_item.blocked, work_item.unblocked, work_item.note_added, work_item.retired, work_item.signoff_recorded, or work_item.propagation_recorded. Follow-up capture reuses work_item.captured through quick-capture/capture instead of a parallel followup event. Other conceptual moves such as bridge delegation, provider job creation, or schema migration must either map to a supported command hint or stay under conceptual_next_events until an apply-lane command exists. Option surfaces remain browse/read projections."
+  },
+  "cap_identity_contract": {
+    "purpose": "Define CAP as Task Ledger identity, not a second backlog or informal synonym.",
+    "definition": "A CAP is a Task Ledger WorkItem-shaped capability, capture, complaint, correction, or capacity-building pressure row. It lives in state/task_ledger/events.jsonl and projections, usually with a cap_* or cap_quick_* subject id, but its authority is the WorkItem event model rather than the prefix.",
+    "authority_rule": "CAPs are authored, shaped, promoted, blocked, signed off, propagated, retired, and validated through the same Task Ledger event lanes as other WorkItems. No CAP view, sidebar TODO, prompt trace, provider chip, Station tile, markdown list, or skill note is a competing CAP authority.",
+    "id_prefix_guidance": {
+      "cap_quick_*": "Low-friction capture id for a fresh noticed signal, broad gesture, bug-like finding, or side work. It preserves recoverability without implying rank, shape, claim, or implementation start.",
+      "cap_*": "Durable WorkItem id for shaped or promoted capability/correction work, including legacy CAP rows. Prefix alone does not imply schedulability.",
+      "task_*": "Legacy or non-CAP WorkItem ids remain valid and may participate in the same dependency graph."
+    },
+    "minimum_cap_packet": [
+      "title",
+      "statement",
+      "source_ref or evidence_or_absence",
+      "candidate_work_item_type",
+      "signal_kind or complaint_or_desire",
+      "suspected_owner or owner_surface_unknown",
+      "desired_change or satisfaction_contour",
+      "confidence"
+    ],
+    "shape_before_commitment_fields": [
+      "satisfaction_contract or completion",
+      "integration_contract with candidate_surfaces and exact_surfaces_discovered when known",
+      "authority",
+      "dependency_status or hard depends_on decisions",
+      "proof_signal or acceptance_checks",
+      "non_goals for broad capability CAPs"
+    ],
+    "candidate_vs_exact_surface_rule": "CAP authoring may preserve candidate surfaces as hypotheses, but execution, promotion, signoff, or claims of completion require exact surfaces, command evidence, schema evidence, or explicit absence receipts. Do not collapse candidate_surfaces into exact_surfaces_discovered.",
+    "dependency_rule": "Hard dependencies live in depends_on and are scheduler authority. Broad related paths, providers, receipts, prompts, or ideas live in dependencies or notes until a typed event promotes them to hard edges. Dependency decisions must be checked through card-band dependency_status or dependency views before ranking or explanation.",
+    "broad_capability_rule": "When the operator names a throughput idea, provider lane, corpus pass, or 'wire X through Y' gesture, preserve the capability as a CAP without pretending implementation certainty. The CAP must name invariant outcome, candidate owner surfaces, non-goals, success signals, and continuous-run cursor/budget/stop-condition expectations when applicable.",
+    "projection_rule": "CAP projections should keep identity and routing cheap: cluster rows group by Task Ledger views; flag/card rows expose id, state, work_item_type, contracts, closeout_assurance, projection_completeness, dependency_status, source_event_ids, and omission receipts. Cap Census owns cap-universe reconciliation. Cap Cartography owns map-ready, frontend-agnostic clusters, bounded representative nodes, typed source-evidenced edges, lineage, and level-of-detail hints. Projections must never teach CAPs as a separate board.",
+    "validation_rule": "After CAP identity, shape, dependency, pass-standard, or CAP propagation edits, run Task Ledger validation and reopen at least one relevant option-surface card or skill/card projection that should now teach the rule.",
+    "anti_patterns": [
+      "treating cap_* prefix as priority or schedulability",
+      "creating a CAP markdown board outside Task Ledger events",
+      "promoting broad capability gestures before duplicate/owner/current-state checks",
+      "using candidate surfaces as if they were exact landing surfaces",
+      "encoding broad context refs as hard dependencies without scheduler evidence"
+    ]
+  },
+  "cap_standard_propagation_contract": {
+    "purpose": "Make CAP standard changes land across the source, registry, generated, and browse surfaces that future agents actually read.",
+    "applies_when": [
+      "std_task_ledger.json changes any cap_* contract",
+      "cap_reflex_improvement changes a reusable CAP workflow rule",
+      "a CAP pass changes how agents should interpret CAP identity, ordering, projection, dependency, signoff, or closeout",
+      "a repeated broad CAP request reveals that one surface teaches an older CAP rule than another"
+    ],
+    "required_surface_classes": {
+      "standard_authority": [
+        "codex/standards/std_task_ledger.json::cap_identity_contract",
+        "codex/standards/std_task_ledger.json::cap_standard_propagation_contract",
+        "codex/standards/std_task_ledger.json::cap_reflex_pass_contract"
+      ],
+      "source_skill": [
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement.md frontmatter description",
+        "codex/doctrine/skills/task_ledger/cap_reflex_improvement.md workflow rule text"
+      ],
+      "registry_surface": [
+        "codex/doctrine/skills/skill_registry.json description",
+        "codex/doctrine/skills/skill_registry.json context_pack_anchors.trigger_phrases",
+        "codex/doctrine/skills/skill_registry.json agent_surface"
+      ],
+      "generated_agent_surface": [
+        ".agents/skills/cap-reflex-improvement/SKILL.md",
+        ".agents/skills/.ai_workflow_generated.json"
+      ],
+      "browse_projection": [
+        "./repo-python kernel.py --option-surface skills --band card --ids cap_reflex_improvement",
+        "./repo-python kernel.py --option-surface standards --band card --ids std_task_ledger"
+      ]
+    },
+    "publication_rule": "If a CAP standard edit changes agent behavior, source-skill prose and registry metadata must mention the new contract by id before generated Agent Skills are rebuilt. Generated surfaces are refreshed by their builder, never hand-edited.",
+    "drift_rule": "When source skill frontmatter, skill body, registry description, generated Agent Skill description, or option-surface card disagree about the active CAP contract set, treat that as propagation drift and repair the nearest owner surface instead of adding another prose-only reminder.",
+    "validation_rule": "Run strict JSON checks for edited JSON, Task Ledger validation, skill projection invariant checks, regenerate agent-skills when registry/source-skill publication changes, and reopen both the CAP skill card and the Task Ledger standard card when available.",
+    "closeout_receipt_fields": [
+      "contract_ids_changed",
+      "source_skill_updated",
+      "registry_updated",
+      "generated_agent_skill_refreshed",
+      "browse_projection_checked",
+      "validation_commands"
+    ],
+    "anti_patterns": [
+      "updating std_task_ledger.json while leaving the CAP skill frontmatter with the old rule",
+      "editing generated Agent Skill files by hand",
+      "adding a CAP trigger phrase to the registry without rebuilding generated Agent Skills",
+      "treating a final response as the propagation receipt when no disk surface was updated",
+      "checking only JSON validity when the change is meant to teach future agents"
+    ]
+  },
+  "cap_reflex_pass_contract": {
+    "purpose": "Make operator-directed CAP improvement passes first-class Task Ledger standard behavior instead of a skill-only habit.",
+    "entry_surfaces": [
+      "./repo-python tools/meta/factory/task_ledger_apply.py organizer-report --transcript-file-limit 2",
+      "./repo-python tools/meta/factory/task_ledger_apply.py search --query <text-or-id> --limit 20",
+      "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+      "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>"
+    ],
+    "candidate_views": [
+      "execution_menu",
+      "execution_menu_schedulable",
+      "ready_by_rank",
+      "schedulable_by_rank",
+      "dependency_blocked",
+      "unlocks_by_rank",
+      "promotion_candidates",
+      "capture_triage",
+      "missing_contracts_ranked",
+      "missing_satisfaction_contract",
+      "missing_integration_contract",
+      "needs_signoff",
+      "propagation_needed",
+      "merge_or_retire_candidates"
+    ],
+    "priority_path_required": {
+      "format": "<cap_id> -> <signal_kind> -> <problem_frame> -> <owner_surface> -> <disposition> -> <next_move> -> <proof_signal>",
+      "rule": "Before promoting, reranking, shaping, signing off, retiring, or implementing from a CAP pass, the agent records the priority path in evidence terms. The path may live in a note, shape payload, commit message, signoff, propagation receipt, or closeout artifact, but it must be recoverable from disk."
+    },
+    "admissibility_gates": [
+      "owner surface is known or the missing owner is captured as the defect",
+      "source evidence is current enough for the mutation",
+      "hard dependencies and downstream unlocks were read from dependency_status or the dependency views",
+      "operator-review-required rows are not mutated past review without explicit authority",
+      "the intended action has a local proof signal or an explicit blocker",
+      "the mutation can be expressed through a supported Task Ledger apply command, bounded code patch, or typed capture"
+    ],
+    "improvement_outcomes": [
+      "event_append",
+      "bounded_implementation",
+      "existing_workitem_link",
+      "signoff_or_propagation_receipt",
+      "captured_residual",
+      "nothing_to_refine"
+    ],
+    "mutation_authority_rule": "CAP pass mutations append Task Ledger events through task_ledger_apply.py or patch the owning source artifact. state/task_ledger/views/*.json, organizer-report output, and option-surface rows are read-only projections.",
+    "run_to_stopping_condition_rule": "A CAP pass should continue through the largest coherent low-blast-radius wave while the next item shares the same complaint lane, survives the admissibility gates, and has a proof route. A single note, one shaped row, or one validation pass is not by itself a stopping condition.",
+    "valid_stopping_conditions": [
+      "next useful candidate requires operator review",
+      "blast radius or same-path dirty entanglement makes the next mutation unsafe",
+      "source evidence is unavailable or stale in a way that changes the decision",
+      "validation fails and must be diagnosed before additional mutation",
+      "remaining candidates are outside the current complaint lane",
+      "continuing would invent authority outside existing standards, skills, paper modules, or apply lanes"
+    ],
+    "repeat_pass_progression_rule": "When the operator repeats the same broad CAP-standard or CAP-ordering request, the pass must not re-prove the same adjacent doctrine move. If identity, propagation, and priority-path rules are already current, the next pass must either execute/sign off the current top CAP, repair a reducer/projection that blocks proof, perform a bounded queue-health audit, or return a no-op verdict with evidence.",
+    "repeat_pass_action_classes": [
+      "execute_current_top",
+      "signoff_with_existing_proof",
+      "repair_projection_or_reducer",
+      "bounded_queue_health_audit",
+      "standardize_missing_pass_rule",
+      "no_op_with_evidence"
+    ],
+    "repeat_pass_action_class_evidence": {
+      "execute_current_top": {
+        "required_evidence": [
+          "current top CAP id",
+          "card-band dependency_status.schedulable=true",
+          "owner surface and exact next command or file path",
+          "local proof route"
+        ],
+        "valid_outcome": "bounded_implementation or event_append"
+      },
+      "signoff_with_existing_proof": {
+        "required_evidence": [
+          "current top or selected CAP id",
+          "needs_signoff or signoff-ready signal",
+          "existing proof refs",
+          "propagation/residual check"
+        ],
+        "valid_outcome": "signoff_or_propagation_receipt"
+      },
+      "repair_projection_or_reducer": {
+        "required_evidence": [
+          "projection or reducer field that blocks a proof dimension",
+          "owning source file or builder",
+          "before/after card or view evidence",
+          "validation command"
+        ],
+        "valid_outcome": "bounded_implementation"
+      },
+      "bounded_queue_health_audit": {
+        "required_evidence": [
+          "views inspected",
+          "top CAP state and dependency status",
+          "first blocked/operator-review/high-blast-radius boundary",
+          "whether any proof_dimension changed"
+        ],
+        "valid_outcome": "event_append, captured_residual, or no_op_with_evidence"
+      },
+      "standardize_missing_pass_rule": {
+        "required_evidence": [
+          "missing standard rule",
+          "source skill or run behavior already relying on it",
+          "surface classes that need propagation",
+          "validation and projection refresh"
+        ],
+        "valid_outcome": "bounded_implementation"
+      },
+      "no_op_with_evidence": {
+        "required_evidence": [
+          "current top CAP id and state",
+          "why no repeat_pass_action_class is admissible",
+          "fresh organizer-report or card evidence",
+          "explicit proof_dimensions_changed=[]",
+          "next legal unblocker or operator-review boundary"
+        ],
+        "valid_outcome": "nothing_to_refine"
+      }
+    },
+    "proof_dimensions": [
+      "top execution readiness changed",
+      "blocker correctness changed",
+      "signoff correctness changed",
+      "projection trust changed",
+      "downstream unlock visibility changed",
+      "missing-contract class eliminated",
+      "CAP teaching surface convergence changed"
+    ],
+    "proof_requirement_rule": "A CAP pass counts as improved only when at least one proof_dimension changes and the change is recoverable from a Task Ledger event, source patch, generated projection refresh, validation result, or explicit no-op verdict. Prose-only descriptions do not satisfy proof unless they resolve a named routing ambiguity and land on disk.",
+    "no_op_with_evidence_rule": "A no-op verdict is valid only when the agent has reopened the current top CAP or queue evidence, selected no admissible repeat_pass_action_class, and recorded proof_dimensions_changed=[] plus the exact boundary that prevents safe mutation. A no-op verdict is not a substitute for executing a schedulable top CAP.",
+    "top_path_saturation_rule": "If the same top CAP remains actionable across repeated CAP-reflex passes, do not continue sweeping lower rows or adding adjacent doctrine. Execute it, prove it is blocked, sign it off with existing proof, or create/route the missing blocker CAP that names the proof absence.",
+    "invalid_repetition_patterns": [
+      "duplicating an already-current priority-path note",
+      "adding another adjacent standard section while the same top CAP remains directly executable",
+      "batch-shaping lower legacy rows only because they are available",
+      "claiming improvement from validation alone when no queue/proof dimension changed",
+      "returning nothing_to_refine without naming the current top CAP or evidence that it is not actionable"
+    ],
+    "up_propagation_rule": "If the pass teaches reusable behavior, deposit it in the narrowest owning plane: std_task_ledger for schema-grade CAP behavior, cap_reflex_improvement or adjacent skills for agent workflow, a paper module for subsystem ontology, router/entry projections for discoverability, or a new/linked WorkItem when the lesson is deferred. When the reusable behavior changes CAP standards or skill teaching surfaces, follow cap_standard_propagation_contract so source, registry, generated Agent Skill, and browse projections converge.",
+    "closeout_receipt_fields": [
+      "cap_slice",
+      "cap_improvements",
+      "priority_paths",
+      "repeat_pass_action_class",
+      "repeat_pass_action_class_evidence",
+      "proof_dimensions_changed",
+      "top_path_saturation_verdict",
+      "validation",
+      "up_propagation_home",
+      "refinement_result"
+    ]
+  },
+  "work_item_model": {
+    "required_fields": {
+      "id": "Stable subject id. Legacy task_NNN ids remain valid. Captures may use cap_NNN.",
+      "kind": "Always work_item in the projected model.",
+      "work_item_type": "One of capture | task | next_action | slice | subphase | phase | meta_mission | metabolic_reflex | bridge_action | provider_job | synth_seed_propagation | signoff_followup | closeout_residual.",
+      "title": "Human-readable title.",
+      "origin": "Where the work came from: operator voice, raw_seed, synth_seed, Type A discovery, sign-off, provider receipt, bridge packet, standard gap, skill gap, paper-module gap, or migration.",
+      "purpose": "What intended change the item exists to advance.",
+      "satisfaction_contract": "What the WorkItem serves.",
+      "integration_contract": "Where the WorkItem must land.",
+      "state": "Lifecycle state.",
+      "confidence": "0.0-1.0 confidence in plan and execution readiness.",
+      "plan": "Current plan or shaping notes.",
+      "depends_on": "Hard internal WorkItem prerequisites that must satisfy dependency_satisfied before the row is schedulable.",
+      "dependencies": "Broad dependency/context refs such as tasks, files, providers, gates, or receipts. Displayed and audited, but not scheduler authority unless typed.",
+      "authority": "Who or what may authorize the next transition.",
+      "execution": "Lane, owner, route, work-ledger refs, provider/bridge packet, and current next action.",
+      "completion": "Definition of done, acceptance checks, required evidence, and sign-off requirements.",
+      "closeout_assurance": "Optional evidence argument for a done, propagated, sign-off, or no-op claim. Required when operator correction, self-error, ambition-collapse, or settlement-only underreach signals are active.",
+      "propagation": "Where lessons, deltas, captures, standards, skills, paper modules, seeds, or prompt shelf changes must propagate.",
+      "lineage": "Parent/child WorkItems, legacy ids, capture ids, subphase/thread ids.",
+      "provenance": "Source refs, event ids, raw seed refs, operator voice refs, commit/receipt refs."
+    },
+    "allowed_work_item_types": [
+      "capture",
+      "task",
+      "next_action",
+      "slice",
+      "subphase",
+      "phase",
+      "meta_mission",
+      "metabolic_reflex",
+      "bridge_action",
+      "provider_job",
+      "synth_seed_propagation",
+      "signoff_followup",
+      "closeout_residual"
+    ]
+  },
+  "closeout_assurance_contract": {
+    "purpose": "Make closeout claims falsifiable at the WorkItem/card layer instead of leaving the evidence argument in chat.",
+    "applies_when": [
+      "an operator corrects a previous done/no-op/settlement-only closeout",
+      "the WorkItem captures self-error, ambition-collapse, closeout underreach, or reusable incident learning",
+      "a pass claims the reusable failure class is resolved rather than only the immediate dirty state",
+      "a no-op verdict is issued after adjacent owner-surface inspection",
+      "a vertical-integration cap is about to close on a shell, refusal, registry, queue, projection, or validator without a real consumer or positive execution-path receipt"
+    ],
+    "fields": {
+      "claim": "Exact done/no-op/propagation claim being made.",
+      "context": "Array of context tags such as operator_escalation_after_done, generated_state_landing, cap_self_error, or no_op_verdict.",
+      "evidence_refs": "Array of changed paths, tests, validation commands, receipts, commits, Task Ledger events, or standard/skill refs supporting the claim.",
+      "corrective_action_strength": "weak | medium | strong | very_strong.",
+      "strength_reason": "Why the action strength was classified that way.",
+      "counterexample_checks": "Array naming checks that would falsify or downgrade the closeout claim.",
+      "owner_surface": "Narrow owner surface absorbing the reusable lesson, or owner_surfaces_changed when more than one changed.",
+      "owner_surfaces_changed": "Optional array of owner surfaces changed by the pass.",
+      "residuals": "Array of residual WorkItem ids, blockers, or explicit empty array when none remain."
+    },
+    "corrective_action_strength_ladder": {
+      "weak": "Apology, note, remember-next-time prose, or manual checklist only.",
+      "medium": "WorkItem propagation, explicit standard/skill clause, closeout checklist, dry-run warning, or operator-visible receipt.",
+      "strong": "Owner-tool behavior, validator/preflight check, regression test, generated projection field, impossible-to-miss status, or fixed-point replan logic.",
+      "very_strong": "Invalid closeout cannot be emitted without evidence, or incomplete owner-bundle/underreach claims fail closed."
+    },
+    "projection_completeness_rule": "The reducer projects has_closeout_assurance, closeout_assurance_complete, corrective_action_strength, evidence count, counterexample-check count, residual count, and owner-surface presence. closeout_assurance_complete requires claim, evidence_refs, valid corrective_action_strength, counterexample_checks, residuals key, and an owner surface.",
+    "card_projection_rule": "Task Ledger card rows must expose closeout_assurance and closeout evidence refs so a future Type A can inspect the closeout argument before trusting a done/no-op claim.",
+    "invalid_exit_patterns": [
+      "operator-corrected done claim without closeout_assurance or explicit no-op disconfirming checks",
+      "corrective_action_strength stated without evidence_refs",
+      "green validation used as the only evidence for resolving a reusable failure class",
+      "residuals omitted rather than declared empty or routed",
+      "vertical-integration cap closed on shell, refusal, registry, queue, projection, or validator only, when the cap's declared satisfaction shape includes a consumer or positive execution path that has not yet landed; refusal-only caps remain valid when refusal is the cap's declared satisfaction shape"
+    ]
+  },
+  "satisfaction_contract": {
+    "purpose": "Records what the WorkItem serves and what evidence would prove satisfaction.",
+    "fields": {
+      "satisfaction_refs": "Array of typed refs to principles, axioms, imagined states, raw seed, synth seed, standards, skills, paper modules, operator voice, receipts, or commits.",
+      "served_outcome": "The outcome advanced by the WorkItem.",
+      "non_satisfaction": "Conditions that prove the WorkItem failed or only created theatre.",
+      "conflict_refs": "Known tensions or constraints.",
+      "satisfaction_evidence": "Checks, projections, receipts, tests, or sign-offs proving the served outcome.",
+      "principle_refs": "Principles served or constrained.",
+      "axiom_refs": "Axiom candidates served or constrained.",
+      "imagined_state_refs": "Imagination rows advanced.",
+      "operator_voice_refs": "Operator voice blocks or source refs.",
+      "raw_seed_refs": "Raw seed paragraph ids or shards.",
+      "synth_seed_refs": "Synth seed sections or deltas."
+    }
+  },
+  "integration_contract": {
+    "purpose": "Records where the WorkItem must land and prevents parallel-surface drift.",
+    "fields": {
+      "candidate_surfaces": "Possible paths, commands, standards, skills, modules, frontends, bridge routes, provider lanes, or state surfaces.",
+      "exact_surfaces_discovered": "Disk-grounded entries only. Each entry names a real existing path, a missing path with absence receipt, a command, or a schema surface.",
+      "exact_paths": "Convenience list of repo-relative paths extracted from exact_surfaces_discovered.",
+      "surface_durability": "Derived classification for exact_surfaces_discovered entries. Repo-relative existing paths, command evidence, and schema surfaces may count as durable proof; absolute local paths are historical observations unless promoted into an owned artifact store or durable manifest.",
+      "discovery_commands": "Commands run to establish exact surfaces.",
+      "discovery_receipts": "Receipt paths that record discovery evidence.",
+      "integration_mode": "reuse | densify | finish_half_built | import_from_annex | bridge_research | provider_route | build_new.",
+      "anti_parallel_surface_check": "Why this is not duplicating an existing substrate, or why build_new is justified.",
+      "substrate_pattern_reused": "Existing native pattern reused, such as Work Ledger JSONL + deterministic projection.",
+      "annexes_consulted": "Annex paths and patterns consulted.",
+      "propagation_targets": "Surfaces to update or capture after completion.",
+      "type_a_discovery_required": "Boolean indicating whether a future Type A must re-discover before mutation.",
+      "unresolved_surface_questions": "Known unknowns preserved as work, not hidden."
+    },
+    "validation_rules": [
+      "candidate_surfaces may be speculative; exact_surfaces_discovered must never be speculative.",
+      "exact_surfaces_discovered.status must be one of exists, missing, command, schema, or implied; unknown labels are validation failures before append.",
+      "status=exists requires a path that exists on disk at append time, or historical command evidence showing the path existed when captured; append-only event replay must not fail solely because a previously accepted absolute local path disappeared later.",
+      "Absolute local paths such as /tmp receipts or host dotfile skill paths may remain replayable evidence, but they do not satisfy durable proof-surface obligations; promote them to repo-owned artifacts or durable manifests before claiming satisfaction proof.",
+      "status=missing requires absence evidence and must not point to an existing path.",
+      "status=command or status=schema requires evidence describing the command or schema inspected.",
+      "integration_mode=build_new requires anti_parallel_surface_check."
+    ]
+  },
+  "workitem_authoring_contract": {
+    "purpose": "Prevent todo, capture, and assimilation wording from freezing implementation choices before current-state discovery.",
+    "principle_ref": "pri_140",
+    "rule": "WorkItems preserve durable intent, evidence, and satisfaction boundaries while treating implementation route, exact surfaces, ordering, and tactics as provisional until execution-time discovery verifies current ownership and substrate state.",
+    "required_layers": {
+      "invariant_intent": "The durable obligation or desired outcome that should survive renamed files, generated surfaces, partial prior work, or changed ownership.",
+      "evidence_refs": "Operator voice, raw seed refs, prior pass receipts, docs, standards, skills, WorkItems, tests, or absence receipts that justify preserving the signal.",
+      "candidate_surfaces": "Likely paths, commands, standards, skills, modules, provider lanes, or state surfaces to inspect. Candidate surfaces are hypotheses, not mutation authority.",
+      "execution_time_discovery": "The ownership, generated-vs-source, current coverage, duplicate, and authority checks required before mutation.",
+      "satisfaction_contour": "Observable outcome or proof condition that would show the WorkItem was actually satisfied."
+    },
+    "anti_patterns": [
+      "Freezing a speculative file path, section, method, or owner as if it were an exact target.",
+      "Avoiding specificity about evidence, intended outcome, or satisfaction in the name of being open-ended.",
+      "Treating stale candidate_surfaces as binding after the substrate changes.",
+      "Collapsing candidate_surfaces and exact_surfaces_discovered into one prose field."
+    ],
+    "validation_guidance": [
+      "Before execution, exact_surfaces_discovered may be empty if candidate_surfaces and type_a_discovery_required preserve the uncertainty.",
+      "At execution or promotion, exact_surfaces_discovered must be populated with disk-grounded entries, command evidence, schema evidence, or explicit missing-surface receipts.",
+      "A precise execution plan is valid after current-state discovery; pri_140 forbids premature precision, not proof-backed precision."
+    ]
+  },
+  "event_model": {
+    "schema_version": "task_ledger_event_v1",
+    "canonical_event_log": "state/task_ledger/events.jsonl",
+    "event_id_format": "wie_<timestamp>_<short_random>",
+    "required_fields": [
+      "schema_version",
+      "event_id",
+      "event_type",
+      "created_at",
+      "created_by",
+      "subject_id",
+      "subject_kind",
+      "previous_event_hash",
+      "event_hash",
+      "source",
+      "refs",
+      "payload"
+    ],
+    "hash_rule": "event_hash is sha256 over canonical JSON excluding event_hash. previous_event_hash chains to the prior event or null for the first event.",
+    "append_rule": "Writers append under file lock. expected_previous_event_hash may be supplied for optimistic concurrency; mismatch is a validation failure.",
+    "authority_health_rule": "state/task_ledger/events_audit.jsonl is an ignored recovery journal, not WorkItem authority. If it contains event_ids missing from state/task_ledger/events.jsonl, normal append and projection rebuild commands must fail with authority_recovery_required until audit-recover --replay restores the canonical event log.",
+    "visibility_receipt_rule": "Append-style Task Ledger commands report whether the event is present in events.jsonl, whether the audit journal exists, and whether selected WorkItem cards are projection-visible after a rebuild. Without --rebuild, success means appended_to_authority but projection/card visibility is stale_until_rebuild.",
+    "bootstrap_rule": "Legacy v0 task rows are imported as work_item.legacy_bootstrapped events with full legacy_snapshot.",
+    "quick_capture_rule": "task_ledger_apply.py quick-capture is the low-friction noticed-work affordance for sidebar TODO pressure. It appends a normal work_item.captured event, may mint a cap_quick_* subject id, preserves source refs, and leaves shape/rank/merge/promote/retire decisions to capture_triage, promotion_candidates, and execution_menu. Policy-shaped, prompt-friction-shaped, mechanism-shaped, or actor-dynamics-shaped captures must carry enough tags/payload to route beyond generic TODO triage.",
+    "quick_capture_surface_ref_rule": "The quick-capture --surface value names one concrete anchoring path, command, schema, option-surface id, or owner artifact. When several surfaces matter, preserve them in payload, notes, or shape events rather than concatenating paths into a fake filesystem path.",
+    "projection_rebuild_retry_rule": "Append and projection rebuild are separate concerns. Run append/rebuild operations serially for the same ledger. If a rebuild collision or retry occurs after append, rerun projection and validate serially, then add bookkeeping evidence to the affected WorkItem instead of treating the retry as a second substantive TODO.",
+    "same_authority_append_log_landing": "Valid Task Ledger events appended through the canonical apply lane remain attributable by event_id, created_by, previous_event_hash, and event_hash even when several agents' events land in one projection bundle. Same-authority event/projection interleaving is not a hard-stop and not broad-checkpoint by default: validate the event log, refresh stale projections if required, and land through generated_state_drainer.py settle --owner-id task_ledger_projection so the manifest records source and projection hashes without appending another Task Ledger event.",
+    "duplicate_event_id_rule": "A repeated event_id is idempotent only when the incoming event hashes to the exact existing event content. Same event_id with different content or event_hash is a validation failure."
+  },
+  "notice_classification_ladder": {
+    "rule": "Capture is not commitment. The notice shape determines the next durable lane.",
+    "lanes": [
+      {
+        "notice_shape": "trivial_local_side_task",
+        "correct_lane": "quick_capture",
+        "anti_pattern": "leaving it in final prose"
+      },
+      {
+        "notice_shape": "coupled_safe_sibling_fix",
+        "correct_lane": "do_now_then_report",
+        "anti_pattern": "capturing instead of fixing obvious coupled work"
+      },
+      {
+        "notice_shape": "follow_up_work_needing_triage",
+        "correct_lane": "Task Ledger capture or WorkItem",
+        "anti_pattern": "widening current scope without ownership"
+      },
+      {
+        "notice_shape": "prompt_friction_or_repeated_agent_failure",
+        "correct_lane": "up-propagation intake, Prompt Ledger, or WorkItem",
+        "anti_pattern": "treating it as a one-off annoyance"
+      },
+      {
+        "notice_shape": "policy_or_doctrine_refinement",
+        "correct_lane": "WorkItem plus owning paper module, skill, standard, or concept surface",
+        "anti_pattern": "hiding it as cap_quick with no escalation marker"
+      },
+      {
+        "notice_shape": "new_mechanism_possibility",
+        "correct_lane": "concept/mechanism candidate lane plus WorkItem",
+        "anti_pattern": "inventing implementation before checking existing mechanisms"
+      },
+      {
+        "notice_shape": "type_a_type_b_actor_dynamics",
+        "correct_lane": "con_016 actor-axis owner plus local-to-general propagation",
+        "anti_pattern": "collapsing substrate authority, class tier, surface, and lane into one ladder"
+      }
+    ]
+  },
+  "execution_receipt_contract": {
+    "purpose": "Task Ledger execution receipts preserve the proof that claimed work reached an evidence-backed closeout state.",
+    "commit_hash_rule": "A commit_hash is required for landed git closeout receipts. It may be absent only for explicitly validated-uncommitted closeouts where the system could not write git metadata.",
+    "validated_uncommitted_allowed_closeout_states": [
+      "validated_uncommitted_git_metadata_blocked"
+    ],
+    "validated_uncommitted_required_fields": [
+      "transaction_id",
+      "closeout_state",
+      "no_commit_reason",
+      "validation_refs"
+    ],
+    "validated_uncommitted_rule": "Validated-uncommitted receipts do not replace scoped commits. They make the blocked commit state auditable by carrying validation refs, a no-commit reason, and optional commit_blocker_refs until a later landed receipt can supersede the exceptional closeout.",
+    "authority_mutation_checkpoint_rule": "A clean Task Ledger execution-receipt closeout must not append into pre-existing dirty Task Ledger authority/projection state without an anchor decision. The apply lane must either classify a clean pre-append authority baseline, checkpoint/isolate the authority delta through the governed state lane, refuse before mutation, or residualize the unanchored mutation with a re-entry condition.",
+    "authority_mutation_checkpoint_schema": "task_ledger_authority_mutation_checkpoint_v1",
+    "authority_mutation_clean_closeout_states": [
+      "complete",
+      "completed",
+      "closed",
+      "done",
+      "landed",
+      "propagated",
+      "refined",
+      "signed_off"
+    ],
+    "authority_mutation_guard_surface": "tools/meta/factory/task_ledger_apply.py::record-execution-receipt"
+  },
+  "validation_hardening": {
+    "strict_json_rule": "Task Ledger validation MUST parse WorkItem-owned JSON and JSONL with duplicate-key rejection. Standard json.loads success is insufficient because duplicate keys silently keep the last value.",
+    "strict_json_surfaces": [
+      "codex/standards/std_task_ledger.json",
+      "codex/standards/std_task_sign_off.json",
+      "state/task_ledger/events.jsonl",
+      "state/task_ledger/ledger.json",
+      "state/task_ledger/sign_offs.json",
+      "state/task_ledger/views/*.json",
+      "state/task_ledger/discovery_receipts/*.json",
+      "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json"
+    ],
+    "parser_rule": "Duplicate top-level and nested object keys reject the surface before schema or projection validation.",
+    "jsonl_rule": "Every non-empty events.jsonl line is parsed independently with duplicate-key rejection before event schema checks.",
+    "why": "Doctrine/state artifacts can otherwise pass parse checks while losing source fields such as updated_at or last_reconciled_at."
+  },
+  "event_types": [
+    "work_item.legacy_bootstrapped",
+    "work_item.captured",
+    "work_item.triaged",
+    "work_item.promoted",
+    "work_item.shaped",
+    "work_item.split",
+    "work_item.claimed",
+    "work_item.released",
+    "work_item.state_transitioned",
+    "work_item.blocked",
+    "work_item.unblocked",
+    "work_item.note_added",
+    "work_item.rerank_proposed",
+    "work_item.rerank_committed",
+    "work_item.integration_discovered",
+    "work_item.satisfaction_linked",
+    "work_item.execution_profile_set",
+    "work_item.bridge_delegated",
+    "work_item.provider_job_created",
+    "work_item.provider_job_completed",
+    "work_item.execution_receipt_recorded",
+    "work_item.reviewed",
+    "work_item.signoff_recorded",
+    "work_item.propagation_recorded",
+    "work_item.followup_captured",
+    "work_item.retired",
+    "work_item.projection_rescue_recorded",
+    "work_item.schema_migrated"
+  ],
+  "state_machine": {
+    "states": [
+      "captured",
+      "triaged",
+      "shaping",
+      "ready",
+      "claimed",
+      "active",
+      "blocked",
+      "review",
+      "signoff",
+      "propagated",
+      "done",
+      "retired"
+    ],
+    "rule": "captured is low-friction; ready requires enough integration discovery; claimed/active require owner or Work Ledger claim evidence; done requires sign-off and propagation or explicit no-propagation receipt.",
+    "terminal_attention_states": {
+      "states": ["done", "propagated", "retired"],
+      "rule": "Done, propagated, and retired WorkItems are terminal for organizer attention queues such as promotion_candidates, execution_menu, and actionable contract-debt diagnostics. Propagated may satisfy downstream dependencies, but it must not remain schedulable, promotable, or counted as unfinished work."
+    }
+  },
+  "concurrency_contract": {
+    "fields": {
+      "agent_run_id": "Codex/Claude/provider/bridge session id when available.",
+      "thread_id": "Operator tab/thread/subphase name where relevant.",
+      "claim_policy": "soft_claim | path_claim | exclusive_work_item_claim.",
+      "lease": "leased_at, leased_until, heartbeat, owner.",
+      "multi_agent_eligibility": "Whether parallel agents may work child items.",
+      "expected_base_projection": "Optional projection hash/cursor observed before append.",
+      "work_ledger_refs": "References to Work Ledger sessions, claims, path claims, read receipts, runtime status, and work_ledger.jsonl events."
+    },
+    "no_orphan_mutation_rule": "A WorkItem must not be active without owner/session/claim evidence, explicit blocked state, or stale/orphan projection entry.",
+    "boundary": "Do not recreate Work Ledger session/path-claim machinery; reference it."
+  },
+  "execution_profile": {
+    "fields": {
+      "route": "chatgpt_bridge | claude_code | codex | local | daemon | provider_worker",
+      "allowed_agent_lanes": "type_a | type_b | bridge | provider_worker | operator | daemon",
+      "recommended_thinking_level": "displayed recommendation; never brittle Chrome control unless verified.",
+      "bridge_enforceability": "display_only | manual_confirm | verified_control | unsupported",
+      "confidence_to_start": "Minimum confidence to move from shaping to ready/active.",
+      "plan_status": "absent | shaping | ready | stale | blocked",
+      "tool_provider_policy": "Allowed tools/providers and receipt requirements.",
+      "authority_gate": "operator/controller/standard/test gate required before high-blast transitions."
+    }
+  },
+  "completion_contract": {
+    "fields": {
+      "definition_of_done": "Concrete done criteria.",
+      "acceptance_checks": "Commands, tests, projections, schema checks, review checks.",
+      "evidence_required": "Commits, receipts, logs, screenshots, provider receipts, bridge receipts.",
+      "signoff_required": "Boolean or authority rule.",
+      "lessons": "What changed in the general system.",
+      "followup_captures": "Residual work captured or retired.",
+      "propagation_targets": "Standards, skills, paper modules, seeds, prompt shelf, HUD/bridge/frontend/provider lanes."
+    },
+    "closeout_slice_helper": "tools/meta/factory/task_ledger_apply.py closeout-slice records a WorkItem sign-off, rebuilds projections, validates the event log, and prints Work Ledger close/finalize commands so session-finalize remains last.",
+    "work_ledger_closeout_order": "If a Type A session touched work, append Work Ledger progress/closeout evidence while the read receipt is still live, then run session-finalize. session-finalize releases active claims by default; use --no-release-claims only for diagnostics. Work Ledger writes after session-finalize are invalid by design."
+  },
+  "projection_view_model": {
+    "views": [
+      "ledger projection",
+      "sign_offs projection",
+      "capture inbox",
+      "active WIP",
+      "ready by rank",
+      "schedulable by rank",
+      "execution menu schedulable",
+      "dependency graph",
+      "dependency blocked",
+      "dependency anomalies",
+      "unlocks by rank",
+      "mission operating picture",
+      "blocked by authority",
+      "operator needed",
+      "bridge assignable",
+      "provider assignable",
+      "metabolic running",
+      "meta-mission active",
+      "needs signoff",
+      "incomplete work items",
+      "missing satisfaction contract",
+      "missing integration contract",
+      "legacy snapshot unmodeled",
+      "work ledger unlinked",
+      "prompt trace unlinked",
+      "stale review",
+      "recent events"
+    ],
+    "determinism_rule": "Rebuilding projections twice from the same event log must produce the same payload when generated_at is fixed.",
+    "dependency_satisfied": "A hard dependency is satisfied when the upstream WorkItem has state done or propagated, has sign-off evidence, or the dependent WorkItem carries an explicit dependency_resolutions entry with status resolved, satisfied, waived, superseded, or folded. Retired is not satisfied by default; it requires explicit resolution, rewiring, or waiver."
+  },
+  "compression_authoring_contract": {
+    "purpose": "Every task ships its own compressed rungs so option-surface browse can enumerate the ledger before opening individual entries. Pattern inherited from std_skill.json.",
+    "required_rungs": ["atom", "flag", "card"],
+    "required_navigation_fields": [
+      "stable_id",
+      "when_to_open",
+      "when_not_to_open",
+      "safe_drilldown"
+    ],
+    "field_budgets": {
+      "atom": {"max_words": 6},
+      "flag": {"max_chars": 180},
+      "card": {"max_chars": 1200}
+    },
+    "source_field": "compression_passport",
+    "forbidden_low_band_fields": [
+      "full statement prose",
+      "complete notes log",
+      "rank history excerpts",
+      "evidence ref neighborhoods",
+      "session transcript excerpts"
+    ],
+    "projection_rule": "Option surfaces must prefer compression_passport. Tasks lacking atom/flag/card create authoring_debt and surface in the ledger's debt projection."
+  },
+  "navigation_contract": {
+    "profile_id": "task_ledger_v1",
+    "artifact_kind": "task_ledger",
+    "surface_role": "ATLAS_PROJECTION",
+    "first_contact_allowed": false,
+    "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+    "navigable_bands": ["identity", "rank_card", "context", "evidence", "history"],
+    "band_contracts": {
+      "identity": {
+        "purpose": "Cheapest browse row: select a task by id, slug, status, rank.",
+        "minimum_payload": ["id", "slug", "title", "status", "rank"],
+        "forbidden": ["full statement", "rank_history", "notes log"],
+        "drilldown_to": "rank_card"
+      },
+      "rank_card": {
+        "purpose": "Operating decision row: apply, reprioritize, or sign off.",
+        "minimum_payload": ["identity fields", "compression_passport.atom", "compression_passport.flag", "compression_passport.card", "current rank justification"],
+        "forbidden": ["full evidence neighborhood", "rank_history pre-current"],
+        "drilldown_to": "context"
+      },
+      "context": {
+        "purpose": "Bounded working packet for actually doing the task.",
+        "minimum_payload": ["statement", "evidence_refs", "depends_on", "compression_passport"],
+        "forbidden": ["pretend evidence has been opened"],
+        "drilldown_to": "evidence"
+      },
+      "evidence": {
+        "purpose": "Source-authority packet: open raw_seed paragraphs, commits, paper modules referenced.",
+        "minimum_payload": ["evidence_refs resolved", "depends_on with current status of each"],
+        "forbidden": ["uncited promotion of candidate doctrine"],
+        "drilldown_to": "history"
+      },
+      "history": {
+        "purpose": "Audit trail: rank_history, notes, sign_off lookup, lessons_propagated chain.",
+        "minimum_payload": ["rank_history", "notes", "sign_off_id when present"],
+        "forbidden": [],
+        "drilldown_to": "raw evidence_refs and cited substrate"
+      }
+    },
+    "telescope_facets": [
+      {"facet": "identity", "rule": "id, slug, title, status, rank are the cheapest identity facets."},
+      {"facet": "rank_history", "rule": "Append-only; expands at history band."},
+      {"facet": "evidence_refs", "rule": "Expand at context/evidence bands; never at identity."},
+      {"facet": "compression_passport", "rule": "atom expands at identity, flag/card at rank_card, full at context."},
+      {"facet": "notes", "rule": "Expands at history; tail-only at rank_card."}
+    ],
+    "navigable_scopes": [
+      "ledger",
+      "work_item",
+      "dependency_edge",
+      "sign_off",
+      "capture",
+      "view"
+    ],
+    "navigable_facets": [
+      "identity",
+      "rank",
+      "status",
+      "dependency_state",
+      "evidence_refs",
+      "compression_passport",
+      "sign_off",
+      "notes",
+      "propagation"
+    ],
+    "population_policy": {
+      "band:identity": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/standard_option_surface.py task_ledger flag/card adapters",
+        "source": "state/task_ledger/ledger.json projected from state/task_ledger/events.jsonl"
+      },
+      "band:rank_card": {
+        "populated_by": "compiled",
+        "emitter": "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>",
+        "source": "state/task_ledger/ledger.json plus state/task_ledger/views/dependency_graph.json"
+      },
+      "band:context": {
+        "populated_by": "compiled",
+        "emitter": "./repo-python kernel.py --option-surface task_ledger --band card --ids <work_item_id>",
+        "source": "event-sourced task projection, dependency views, and evidence refs"
+      },
+      "band:evidence": {
+        "populated_by": "live_computed",
+        "emitter": "task-specific evidence_command or cited source refs",
+        "source": "state/task_ledger/events.jsonl, commits, paper modules, standards, and raw-seed refs named by the WorkItem"
+      },
+      "band:history": {
+        "populated_by": "compiled",
+        "source": "state/task_ledger/events.jsonl replay and projected notes/rank/signoff fields"
+      },
+      "scope:dependency_edge": {
+        "populated_by": "compiled",
+        "source": "state/task_ledger/views/dependency_graph.json and state/task_ledger/views/unlocks_by_rank.json"
+      },
+      "scope:sign_off": {
+        "populated_by": "compiled",
+        "source": "state/task_ledger/sign_offs.json"
+      }
+    },
+    "creator_skill_id": "task-ledger-metacontrol-uppropagation",
+    "navigator_skill_id": "task-ledger-metacontrol-uppropagation",
+    "source_authority": {
+      "event_log": "state/task_ledger/events.jsonl",
+      "primary_projection": "state/task_ledger/ledger.json",
+      "view_dir": "state/task_ledger/views",
+      "mutation_lane": "tools/meta/factory/task_ledger_apply.py",
+      "standard": "codex/standards/std_task_ledger.json"
+    },
+    "currentness_policy": {
+      "mode": "event_log_projection_rebuild",
+      "rule": "Task Ledger option-surface rows are read models over state/task_ledger/events.jsonl; rebuild/check projections before treating rank, dependency, capture, or signoff counts as current.",
+      "check_commands": [
+        "./repo-python tools/meta/factory/task_ledger_apply.py authority-health",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate",
+        "./repo-python kernel.py --option-surface task_ledger --band cluster_flag"
+      ]
+    },
+    "dependency_neighborhood_policy": {
+      "mode": "hard_dep_edges_first_order",
+      "rule": "Expose hard depends_on, downstream unlock, signoff, and blocking anomaly edges as first-order context; keep broad dependencies, historic notes, and distant campaign clusters as counts with drilldown refs."
+    },
+    "edge_compression_policy": {
+      "edge_row_shape": "std_navigation_contract.edge_row_shape",
+      "bidirectional_gloss_required": true,
+      "first_order_band": "rank_card",
+      "second_order_band": "identity",
+      "beyond_second_order": "omit_with_count_reason_and_drilldown"
+    },
+    "validation_probe": [
+      "./repo-python -m json.tool codex/standards/std_task_ledger.json",
+      "./repo-python tools/meta/factory/task_ledger_apply.py authority-health",
+      "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+      "./repo-python kernel.py --kind-band-contract-audit"
+    ]
+  },
+  "naming_contract": {
+    "id_format": "task_NNN, snake_case sequential within ledger. Example: task_001",
+    "slug_format": "kebab-case, long-form searchable. Example: wire-vantage-to-station-landing-tile",
+    "file_location": "state/task_ledger/ledger.json (canonical) and per-phase ledgers at obsidian/.../<phase>/task_ledger.json (optional projection)",
+    "registry_entry": "When kind-atlas registration lands (v1), this file appears at state/task_ledger/ledger.json with the canonical schema."
+  },
+  "promotion_rules": {
+    "completion_to_sign_off": "When a task reaches status='completed', a sign_off row SHOULD be authored in state/task_ledger/sign_offs.json per std_task_sign_off.json. The sign_off_id back-reference closes the loop.",
+    "retired_without_completion": "Tasks may be retired without completion when superseded, abandoned, or invalidated by reversal. The retirement justification becomes a final rank_history entry with rank=null.",
+    "ledger_compression": "When >100 completed/retired tasks accumulate, the ledger MAY emit a compressed projection at state/task_ledger/ledger_compressed.json grouping by completion period. Original entries remain in ledger.json as authority."
+  }
+}

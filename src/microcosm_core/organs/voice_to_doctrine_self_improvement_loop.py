@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -32,6 +33,7 @@ ACCEPTANCE_RECEIPT_REL = (
     "voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_voice_to_doctrine_bundle_validation_result.json"
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -100,11 +102,16 @@ VALID_OUTCOMES = {
     "nothing_to_refine",
     "already_propagated_verified",
 }
+SOURCE_BODY_MATERIAL_CLASSES = {
+    "public_macro_paper_module_body",
+    "public_macro_skill_body",
+    "public_macro_standard_body",
+}
 
 AUTHORITY_CEILING = {
     "status": PASS,
     "authority_ceiling": (
-        "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs"
+        "public_voice_to_doctrine_self_improvement_fixture_with_real_macro_bodies"
     ),
     "raw_operator_voice_export_authorized": False,
     "private_thread_body_export_authorized": False,
@@ -119,9 +126,9 @@ ANTI_CLAIM = (
     "Voice-to-doctrine self-improvement validates the public shape of the macro "
     "metabolism: local pressure is classified, routed to an owner surface, "
     "mutated or captured there, validated, and closed with a re-entry condition. "
-    "It imports real macro paper-module and skill refs as public substrate, but "
-    "it does not export raw operator voice, private thread bodies, provider "
-    "payloads, live Task Ledger rows, hand-edited doctrine nodes, global "
+    "It imports real macro paper-module, skill, and standard bodies as public "
+    "substrate, but it does not export raw operator voice, private thread bodies, "
+    "provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global "
     "promotion authority, source mutation, or release authority."
 )
 
@@ -145,6 +152,9 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
+    source_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_manifest.is_file():
+        paths.append(source_manifest)
     return paths
 
 
@@ -153,6 +163,19 @@ def _scan_input_paths(input_dir: Path) -> list[Path]:
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
+    source_manifest = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if source_manifest.is_file():
+        paths.append(source_manifest)
+        try:
+            source_payload = read_json_strict(source_manifest)
+        except Exception:
+            source_payload = {}
+        public_root = _public_root_for_path(input_dir)
+        if isinstance(source_payload, dict):
+            for row in _rows(source_payload, "modules"):
+                target_ref = row.get("target_ref")
+                if isinstance(target_ref, str) and target_ref:
+                    paths.append(public_root / target_ref)
     return paths
 
 
@@ -257,6 +280,230 @@ def _blocking_findings(
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     return any(key in row for key in FORBIDDEN_KEYS)
+
+
+def _source_module_result(
+    payload: object,
+    *,
+    input_dir: Path,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    if not manifest_path.is_file():
+        if not require_manifest:
+            return {
+                "status": "not_present",
+                "findings": [],
+                "observed_negative_cases": {},
+                "source_module_manifest_ref": None,
+                "source_module_count": 0,
+                "verified_source_module_count": 0,
+                "body_copied_material_count": 0,
+                "source_module_imports": [],
+                "source_open_body_imports": {
+                    "status": "not_present",
+                    "source_import_class": None,
+                    "body_material_count": 0,
+                    "body_material_byte_count": 0,
+                    "body_text_exported_in_receipts": False,
+                    "body_in_receipt": False,
+                },
+            }
+        finding = _finding(
+            "VOICE_DOCTRINE_SOURCE_MODULE_MANIFEST_MISSING",
+            "Exported voice-to-doctrine bundle must carry copied source-module manifest.",
+            case_id="source_module_manifest",
+            subject_id=SOURCE_MODULE_MANIFEST_NAME,
+            subject_kind="source_module_manifest",
+        )
+        return {
+            "status": "fail",
+            "findings": [finding],
+            "observed_negative_cases": {},
+            "source_module_manifest_ref": None,
+            "source_module_count": 0,
+            "verified_source_module_count": 0,
+            "body_copied_material_count": 0,
+            "source_module_imports": [],
+            "source_open_body_imports": {
+                "status": "fail",
+                "source_import_class": None,
+                "body_material_count": 0,
+                "body_material_byte_count": 0,
+                "body_text_exported_in_receipts": False,
+                "body_in_receipt": False,
+            },
+        }
+
+    manifest = payload if isinstance(payload, dict) else {}
+    findings: list[dict[str, Any]] = []
+    module_imports: list[dict[str, Any]] = []
+    verified_count = 0
+    byte_count = 0
+    modules = _rows(manifest, "modules")
+    if not modules:
+        findings.append(
+            _finding(
+                "VOICE_DOCTRINE_SOURCE_MODULE_ROWS_MISSING",
+                "Source-module manifest must list copied macro source bodies.",
+                case_id="source_module_manifest",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    for row in modules:
+        module_id = str(row.get("module_id") or "missing_module_id")
+        target_ref = row.get("target_ref")
+        source_ref = str(row.get("source_ref") or "")
+        material_class = str(row.get("material_class") or "")
+        required_anchors = _strings(row.get("required_anchors"))
+        module_findings: list[dict[str, Any]] = []
+        if material_class not in SOURCE_BODY_MATERIAL_CLASSES:
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_CLASS_INVALID",
+                    "Copied source bodies must use public macro body material classes.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if not isinstance(target_ref, str) or not target_ref:
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_TARGET_REF_MISSING",
+                    "Copied source body row must name a Microcosm target_ref.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+            target_path = None
+        else:
+            target_path = public_root / target_ref
+        actual_sha = None
+        actual_byte_count = 0
+        actual_line_count = 0
+        anchors_present = False
+        if target_path is None or not target_path.is_file():
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_TARGET_MISSING",
+                    "Copied source body target_ref must exist in the public bundle.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        else:
+            body = target_path.read_bytes()
+            text = body.decode("utf-8")
+            actual_sha = hashlib.sha256(body).hexdigest()
+            actual_byte_count = len(body)
+            actual_line_count = text.count("\n") + (0 if text.endswith("\n") else 1)
+            expected_target_sha = str(row.get("target_sha256") or "")
+            expected_source_sha = str(row.get("source_sha256") or "")
+            if actual_sha != expected_target_sha or (
+                expected_source_sha and expected_source_sha != actual_sha
+            ):
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_HASH_MISMATCH",
+                        "Copied source body hash must match the manifest.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            if row.get("byte_count") != actual_byte_count:
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                        "Copied source body byte_count must match the target file.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            if row.get("line_count") != actual_line_count:
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                        "Copied source body line_count must match the target file.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+            anchors_present = all(anchor in text for anchor in required_anchors)
+            if not anchors_present:
+                module_findings.append(
+                    _finding(
+                        "VOICE_DOCTRINE_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Copied source body must contain each manifest anchor.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    )
+                )
+        if not source_ref:
+            module_findings.append(
+                _finding(
+                    "VOICE_DOCTRINE_SOURCE_MODULE_SOURCE_REF_MISSING",
+                    "Copied source body row must retain its macro source_ref.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        findings.extend(module_findings)
+        if not module_findings:
+            verified_count += 1
+            byte_count += actual_byte_count
+        module_imports.append(
+            {
+                "module_id": module_id,
+                "source_ref": source_ref,
+                "target_ref": target_ref,
+                "material_class": material_class,
+                "sha256": actual_sha,
+                "byte_count": actual_byte_count,
+                "line_count": actual_line_count,
+                "required_anchor_count": len(required_anchors),
+                "required_anchors_present": anchors_present,
+                "body_in_receipt": False,
+            }
+        )
+    status = PASS if not findings else "fail"
+    return {
+        "status": status,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "source_module_count": len(modules),
+        "verified_source_module_count": verified_count,
+        "body_copied_material_count": verified_count,
+        "source_module_imports": module_imports,
+        "source_open_body_imports": {
+            "status": status,
+            "source_import_class": manifest.get("source_import_class"),
+            "body_material_count": verified_count,
+            "body_material_byte_count": byte_count,
+            "module_ids": sorted(
+                str(row.get("module_id") or "") for row in modules if row.get("module_id")
+            ),
+            "source_refs": sorted(
+                str(row.get("source_ref") or "") for row in modules if row.get("source_ref")
+            ),
+            "target_refs": sorted(
+                str(row.get("target_ref") or "") for row in modules if row.get("target_ref")
+            ),
+            "manifest_ref": _display(manifest_path, public_root=public_root),
+            "body_text_exported_in_receipts": False,
+            "body_in_receipt": False,
+        },
+    }
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
@@ -625,6 +872,7 @@ def run(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
     include_negative: bool = True,
+    require_source_module_manifest: bool = False,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     output_dir = Path(out)
@@ -637,6 +885,12 @@ def run(
     lessons_result = validate_lessons(
         payloads.get("local_lessons"),
         owner_map=owner_result["owner_map"],
+    )
+    source_module_result = _source_module_result(
+        payloads.get("source_module_manifest"),
+        input_dir=input_path,
+        public_root=public_root,
+        require_manifest=require_source_module_manifest,
     )
     negative_result = (
         validate_negative_cases(payloads) if include_negative else {"findings": [], "observed_negative_cases": {}}
@@ -654,6 +908,7 @@ def run(
         policy_result,
         owner_result,
         lessons_result,
+        source_module_result,
         negative_result,
     )
     missing_negative_cases = (
@@ -670,16 +925,22 @@ def run(
         policy_result,
         owner_result,
         lessons_result,
+        source_module_result,
         negative_result,
     )
     blocking_findings = _blocking_findings(
         findings, include_negative=include_negative
+    )
+    source_modules_ok = source_module_result["status"] == PASS or (
+        source_module_result["status"] == "not_present"
+        and not require_source_module_manifest
     )
     status = (
         PASS
         if not blocking_findings
         and not missing_negative_cases
         and secret_scan.get("status") == PASS
+        and source_modules_ok
         else "fail"
     )
     receipt_refs = _receipt_paths(
@@ -711,6 +972,21 @@ def run(
         "owner_counts": lessons_result["owner_counts"],
         "source_pattern_refs": protocol_result["source_pattern_refs"],
         "body_import_verification": protocol_result["body_import_verification"],
+        "source_module_manifest_status": source_module_result["status"],
+        "source_module_manifest_ref": source_module_result[
+            "source_module_manifest_ref"
+        ],
+        "source_module_count": source_module_result["source_module_count"],
+        "verified_source_module_count": source_module_result[
+            "verified_source_module_count"
+        ],
+        "body_copied_material_count": source_module_result[
+            "body_copied_material_count"
+        ],
+        "source_module_imports": source_module_result["source_module_imports"],
+        "source_open_body_imports": source_module_result[
+            "source_open_body_imports"
+        ],
         "required_sequence": policy_result["required_sequence"],
         "observed_negative_cases": observed,
         "expected_negative_cases": EXPECTED_NEGATIVE_CASES if include_negative else {},
@@ -751,6 +1027,12 @@ def run(
             "lesson_owner_deposits_present": result["lesson_count"] >= 4,
             "negative_cases_observed": missing_negative_cases == [],
             "secret_exclusion_scan_passed": secret_scan.get("status") == PASS,
+            "source_module_manifest_required": require_source_module_manifest,
+            "source_module_manifest_verified": source_module_result["status"] == PASS,
+            "source_module_count": source_module_result["source_module_count"],
+            "verified_source_module_count": source_module_result[
+                "verified_source_module_count"
+            ],
             "receipt_only_progress_rejected": (
                 "VOICE_DOCTRINE_RECEIPT_ONLY_PROGRESS" in result["error_codes"]
                 if include_negative
@@ -777,7 +1059,13 @@ def run_voice_to_doctrine_bundle(
     out: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    result = run(input_dir, out, command=command, include_negative=False)
+    result = run(
+        input_dir,
+        out,
+        command=command,
+        include_negative=False,
+        require_source_module_manifest=True,
+    )
     bundle_manifest_path = Path(input_dir) / "bundle_manifest.json"
     manifest = read_json_strict(bundle_manifest_path) if bundle_manifest_path.is_file() else {}
     result = dict(result)
@@ -788,8 +1076,9 @@ def run_voice_to_doctrine_bundle(
     )
     result["expected_negative_cases"] = {}
     result["missing_negative_cases"] = []
-    result["error_codes"] = []
-    result["findings"] = []
+    if result.get("status") == PASS:
+        result["error_codes"] = []
+        result["findings"] = []
     write_json_atomic(Path(out) / BUNDLE_RESULT_NAME, result)
     return result
 
@@ -873,9 +1162,6 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             ),
             "workitem_capture_count": result.get("workitem_capture_count"),
             "nothing_to_refine_count": result.get("nothing_to_refine_count"),
-            "already_propagated_verified_count": result.get(
-                "already_propagated_verified_count"
-            ),
             "status_counts": result.get("status_counts", {}),
             "source_pattern_ref_count": len(result.get("source_pattern_refs", [])),
             "required_sequence_count": len(result.get("required_sequence", [])),
@@ -906,6 +1192,18 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 result.get("metadata_projection_not_live_learning_authority") is True
             ),
         },
+        "source_body_floor": {
+            "source_module_manifest_status": result.get(
+                "source_module_manifest_status"
+            ),
+            "source_module_count": result.get("source_module_count", 0),
+            "verified_source_module_count": result.get(
+                "verified_source_module_count", 0
+            ),
+            "body_copied_material_count": result.get(
+                "body_copied_material_count", 0
+            ),
+        },
         "no_export_guards": {
             "findings_exported": False,
             "blocking_findings_exported": False,
@@ -929,6 +1227,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "source_pattern_refs",
                 "required_sequence",
                 "body_import_verification.source_refs",
+                "source_open_body_imports.source_refs",
+                "source_module_imports",
                 "secret_exclusion_scan.hits",
                 "secret_exclusion_scan.scan_scope",
                 "anti_claim",

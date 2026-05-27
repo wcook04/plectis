@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -15,6 +16,7 @@ from microcosm_core.organs.voice_to_doctrine_self_improvement_loop import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input"
@@ -24,6 +26,15 @@ BUNDLE_INPUT = (
     / "examples/voice_to_doctrine_self_improvement_loop/"
     "exported_voice_to_doctrine_bundle"
 )
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+FIXTURE_MANIFEST = (
+    MICROCOSM_ROOT
+    / "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -64,8 +75,9 @@ def test_voice_to_doctrine_loop_observes_negative_cases(tmp_path: Path) -> None:
         "local_to_general_propagation",
     }
     assert result["body_import_verification"]["verification_mode"] == (
-        "source_faithful_public_refactor"
+        "source_faithful_public_refactor_plus_exact_public_body_copies"
     )
+    assert result["body_import_verification"]["source_module_count"] == 8
     assert result["authority_ceiling"]["raw_operator_voice_export_authorized"] is False
     assert result["authority_ceiling"]["doctrine_node_hand_edit_authorized"] is False
     assert result["authority_ceiling"]["global_doctrine_promotion_authorized"] is False
@@ -130,6 +142,16 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
     assert result["metadata_projection_not_live_learning_authority"] is True
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_count"] == 8
+    assert result["verified_source_module_count"] == 8
+    assert result["body_copied_material_count"] == 8
+    assert result["source_open_body_imports"]["status"] == "pass"
+    assert result["source_open_body_imports"]["body_material_count"] == 8
+    assert (
+        result["source_open_body_imports"]["body_text_exported_in_receipts"]
+        is False
+    )
     assert result["status_counts"] == {
         "nothing_to_refine": 1,
         "refined_existing_surface": 2,
@@ -144,6 +166,34 @@ def test_voice_to_doctrine_exported_bundle_validates_runtime_shape(
         "bind_closeout",
         "publish_reentry_condition",
     ]
+
+
+def test_voice_to_doctrine_source_modules_are_exact_macro_body_copies() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    fixture_manifest = json.loads(FIXTURE_MANIFEST.read_text(encoding="utf-8"))
+
+    assert manifest["source_module_import_status"] == "pass"
+    assert manifest["module_count"] == 8
+    assert fixture_manifest["source_open_body_imports"]["status"] == "pass"
+    assert fixture_manifest["source_open_body_imports"]["body_material_count"] == 8
+    assert fixture_manifest["source_open_body_imports"]["source_manifest_refs"] == [
+        "examples/voice_to_doctrine_self_improvement_loop/"
+        "exported_voice_to_doctrine_bundle/source_module_manifest.json"
+    ]
+    for row in manifest["modules"]:
+        source = SOURCE_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"]
+        text = target.read_text(encoding="utf-8")
+
+        assert source.is_file()
+        assert target.is_file()
+        assert source.read_bytes() == target.read_bytes()
+        assert _sha256(source) == row["source_sha256"]
+        assert _sha256(target) == row["target_sha256"]
+        assert row["source_sha256"] == row["target_sha256"]
+        assert row["required_anchors_present"] is True
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_voice_to_doctrine_bundle_card_prints_compact_summary(
@@ -185,12 +235,18 @@ def test_voice_to_doctrine_bundle_card_prints_compact_summary(
     assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
     assert card["secret_exclusion_scan_summary"]["hits_exported"] is False
     assert card["authority_ceiling"]["release_authorized"] is False
+    assert card["source_body_floor"]["source_module_manifest_status"] == "pass"
+    assert card["source_body_floor"]["source_module_count"] == 8
+    assert card["source_body_floor"]["verified_source_module_count"] == 8
+    assert card["source_body_floor"]["body_copied_material_count"] == 8
     assert card["no_export_guards"]["findings_exported"] is False
     assert card["no_export_guards"]["observed_negative_cases_exported"] is False
     assert card["output_economy"]["full_payload_drilldown"] == "rerun without --card"
     assert "findings" not in card
     assert "blocking_findings" not in card
     assert "observed_negative_cases" not in card
+    assert "source_open_body_imports" not in card
+    assert "source_module_imports" not in card
     assert "anti_claim" not in card
 
 

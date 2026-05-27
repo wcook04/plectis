@@ -1,8 +1,8 @@
 {
   "already_propagated_verified_count": 0,
-  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module and skill refs as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
+  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module, skill, and standard bodies as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
   "authority_ceiling": {
-    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs",
+    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_with_real_macro_bodies",
     "doctrine_node_hand_edit_authorized": false,
     "global_doctrine_promotion_authorized": false,
     "live_task_ledger_mutation_authorized": false,
@@ -15,20 +15,28 @@
   },
   "blocking_error_codes": [],
   "blocking_findings": [],
+  "body_copied_material_count": 8,
   "body_import_verification": {
+    "source_module_count": 8,
+    "source_module_manifest_ref": "source_module_manifest.json",
     "source_refs": [
       "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "codex/doctrine/paper_modules/doctrine_population_loop.md",
-      "codex/doctrine/paper_modules/local_to_general_propagation.md"
+      "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "codex/standards/std_task_ledger.json"
     ],
     "target_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
     "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run_voice_to_doctrine_bundle",
-    "verification_mode": "source_faithful_public_refactor"
+    "verification_mode": "source_faithful_public_refactor_plus_exact_public_body_copies"
   },
   "body_in_receipt": false,
   "bundle_id": "voice_to_doctrine_self_improvement_loop_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:36+00:00",
+  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run-bundle --input microcosm-substrate/examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/voice_to_doctrine_self_improvement_loop",
+  "created_at": "2026-05-27T05:32:25+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -85,9 +93,149 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 5,
+    "scanned_path_count": 14,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_count": 8,
+  "source_module_imports": [
+    {
+      "body_in_receipt": false,
+      "byte_count": 52072,
+      "line_count": 521,
+      "material_class": "public_macro_paper_module_body",
+      "module_id": "recursive_self_improvement_operating_loop_paper_module_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "b575acca764e87aa46f82dd94ee22ed58c6f8d2d1c9ecbcdff8bd158e0d04926",
+      "source_ref": "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 20930,
+      "line_count": 178,
+      "material_class": "public_macro_paper_module_body",
+      "module_id": "doctrine_population_loop_paper_module_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "0f3f7cfd31abf2861db1b70c345c487ef2ea96dcb0dbb8ea184898c625bbb0e5",
+      "source_ref": "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 29631,
+      "line_count": 201,
+      "material_class": "public_macro_paper_module_body",
+      "module_id": "local_to_general_propagation_paper_module_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "522ae19fee79ccf4b9711755ff0f596868e3b7b524586e5f388015b124ee584b",
+      "source_ref": "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 11568,
+      "line_count": 106,
+      "material_class": "public_macro_skill_body",
+      "module_id": "local_to_general_propagation_skill_body",
+      "required_anchor_count": 3,
+      "required_anchors_present": true,
+      "sha256": "976a28fc0d5d36814a26d2bd39e5e7b201784a74ea37dcb7ef1726d51b5af520",
+      "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 29840,
+      "line_count": 173,
+      "material_class": "public_macro_skill_body",
+      "module_id": "local_to_general_propagation_plane_home_decision_table_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "4fae37d4fd9cf16afaacf35e826ed17be6a92674f31675fbcb5d4d8f5edc53ec",
+      "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 20035,
+      "line_count": 155,
+      "material_class": "public_macro_skill_body",
+      "module_id": "task_ledger_metacontrol_uppropagation_skill_body",
+      "required_anchor_count": 3,
+      "required_anchors_present": true,
+      "sha256": "91da8889925be6e87ad858c6906d614726abf075bf538c1627cef7442922727a",
+      "source_ref": "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 33479,
+      "line_count": 356,
+      "material_class": "public_macro_skill_body",
+      "module_id": "task_ledger_skill_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "252aa6f6468f642b38c877f8a7bc20c6ab5ac5a027f64d9a5c5cfadcc05f363f",
+      "source_ref": "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md"
+    },
+    {
+      "body_in_receipt": false,
+      "byte_count": 111597,
+      "line_count": 1585,
+      "material_class": "public_macro_standard_body",
+      "module_id": "task_ledger_standard_body",
+      "required_anchor_count": 2,
+      "required_anchors_present": true,
+      "sha256": "8ddb7bd4922dcc655763cc8a9f547a18e61faa833949fa7a24faf27c7fbb26e1",
+      "source_ref": "codex/standards/std_task_ledger.json",
+      "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/standards/std_task_ledger.json"
+    }
+  ],
+  "source_module_manifest_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_byte_count": 309152,
+    "body_material_count": 8,
+    "body_text_exported_in_receipts": false,
+    "manifest_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
+    "module_ids": [
+      "doctrine_population_loop_paper_module_body",
+      "local_to_general_propagation_paper_module_body",
+      "local_to_general_propagation_plane_home_decision_table_body",
+      "local_to_general_propagation_skill_body",
+      "recursive_self_improvement_operating_loop_paper_module_body",
+      "task_ledger_metacontrol_uppropagation_skill_body",
+      "task_ledger_skill_body",
+      "task_ledger_standard_body"
+    ],
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_refs": [
+      "codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "codex/standards/std_task_ledger.json"
+    ],
+    "status": "pass",
+    "target_refs": [
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/standards/std_task_ledger.json"
+    ]
   },
   "source_pattern_refs": [
     "doctrine_population_loop",
@@ -104,5 +252,6 @@
     "workitem_captured": 1
   },
   "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
+  "verified_source_module_count": 8,
   "workitem_capture_count": 1
 }

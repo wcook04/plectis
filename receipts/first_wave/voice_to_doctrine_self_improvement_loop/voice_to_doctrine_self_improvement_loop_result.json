@@ -1,8 +1,8 @@
 {
   "already_propagated_verified_count": 0,
-  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module and skill refs as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
+  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module, skill, and standard bodies as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
   "authority_ceiling": {
-    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs",
+    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_with_real_macro_bodies",
     "doctrine_node_hand_edit_authorized": false,
     "global_doctrine_promotion_authorized": false,
     "live_task_ledger_mutation_authorized": false,
@@ -15,19 +15,27 @@
   },
   "blocking_error_codes": [],
   "blocking_findings": [],
+  "body_copied_material_count": 0,
   "body_import_verification": {
+    "source_module_count": 8,
+    "source_module_manifest_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
     "source_refs": [
       "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "codex/doctrine/paper_modules/doctrine_population_loop.md",
-      "codex/doctrine/paper_modules/local_to_general_propagation.md"
+      "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "codex/standards/std_task_ledger.json"
     ],
     "target_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
     "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run",
-    "verification_mode": "source_faithful_public_refactor"
+    "verification_mode": "source_faithful_public_refactor_plus_exact_public_body_copies"
   },
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run",
-  "created_at": "2026-05-23T07:40:05+00:00",
+  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out microcosm-substrate/receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out microcosm-substrate/receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+  "created_at": "2026-05-27T05:32:21+00:00",
   "error_codes": [
     "VOICE_DOCTRINE_CONSUME_WITHOUT_DEPOSIT",
     "VOICE_DOCTRINE_DIRECT_NODE_EDIT_FORBIDDEN",
@@ -158,6 +166,7 @@
   ],
   "schema_version": "voice_to_doctrine_self_improvement_loop_result_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -169,9 +178,30 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 4,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_count": 0,
+  "source_module_imports": [],
+  "source_module_manifest_ref": null,
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_byte_count": 0,
+    "body_material_count": 0,
+    "body_text_exported_in_receipts": false,
+    "source_import_class": null,
+    "status": "not_present"
   },
   "source_pattern_refs": [
     "doctrine_population_loop",
@@ -188,5 +218,6 @@
     "workitem_captured": 1
   },
   "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
+  "verified_source_module_count": 0,
   "workitem_capture_count": 1
 }

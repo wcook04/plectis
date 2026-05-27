@@ -1,7 +1,7 @@
 {
-  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module and skill refs as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
+  "anti_claim": "Voice-to-doctrine self-improvement validates the public shape of the macro metabolism: local pressure is classified, routed to an owner surface, mutated or captured there, validated, and closed with a re-entry condition. It imports real macro paper-module, skill, and standard bodies as public substrate, but it does not export raw operator voice, private thread bodies, provider payloads, live Task Ledger rows, hand-edited doctrine nodes, global promotion authority, source mutation, or release authority.",
   "authority_ceiling": {
-    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_only_with_real_macro_refs",
+    "authority_ceiling": "public_voice_to_doctrine_self_improvement_fixture_with_real_macro_bodies",
     "doctrine_node_hand_edit_authorized": false,
     "global_doctrine_promotion_authorized": false,
     "live_task_ledger_mutation_authorized": false,
@@ -67,8 +67,8 @@
     }
   ],
   "body_in_receipt": false,
-  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run",
-  "created_at": "2026-05-23T07:40:05+00:00",
+  "command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input microcosm-substrate/fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out microcosm-substrate/receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out microcosm-substrate/receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+  "created_at": "2026-05-27T05:32:21+00:00",
   "fixture_id": "first_wave.voice_to_doctrine_self_improvement_loop",
   "organ_id": "voice_to_doctrine_self_improvement_loop",
   "owner_surface_ids": [

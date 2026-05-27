@@ -13,6 +13,8 @@
   "public_private_boundary": {
     "allowed_public_material": [
       "macro pattern refs",
+      "copied non-secret macro source bodies",
+      "source-module hashes and anchors",
       "owner surface ids",
       "public validation refs",
       "negative-case ids and error codes",
@@ -41,6 +43,7 @@
     "report observed and expected negative-case ids",
     "separate blocking findings from expected negative-case rejections",
     "include owner surface counts, status counts, and source pattern refs",
+    "include copied source-module counts and hashes without exporting body text",
     "include authority ceiling and anti-claim",
     "omit raw/private/provider bodies"
   ],
@@ -54,7 +57,8 @@
       "recursive_self_improvement_operating_loop",
       "doctrine_population_loop",
       "local_to_general_propagation"
-    ]
+    ],
+    "requires_source_module_manifest": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json"
   },
   "required_fields": [
     "lesson_id",
@@ -80,6 +84,26 @@
     {
       "path": "codex/doctrine/paper_modules/local_to_general_propagation.md",
       "role": "macro_propagation_source"
+    },
+    {
+      "path": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "role": "macro_propagation_skill_source"
+    },
+    {
+      "path": "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "role": "macro_propagation_decision_table_source"
+    },
+    {
+      "path": "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "role": "macro_task_ledger_metacontrol_source"
+    },
+    {
+      "path": "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "role": "macro_task_ledger_skill_source"
+    },
+    {
+      "path": "codex/standards/std_task_ledger.json",
+      "role": "macro_task_ledger_standard_source"
     }
   ],
   "standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
@@ -109,6 +133,8 @@
     "reject raw voice, private thread, provider payload, and secret-like bodies",
     "reject direct doctrine-node mutation routes",
     "reject receipt-only progress",
+    "require exported runtime bundles to carry and verify source_module_manifest.json",
+    "require copied source modules to match manifest hashes, byte counts, line counts, material classes, and anchors",
     "require validation and closeout refs for each lesson",
     "require re-entry condition for residual captures",
     "require stewardship and next-best-lane checks for nothing_to_refine"
@@ -118,6 +144,7 @@
       "schema",
       "owner_surface_map",
       "lesson_deposit",
+      "source_modules",
       "negative_cases",
       "secret_exclusion"
     ],

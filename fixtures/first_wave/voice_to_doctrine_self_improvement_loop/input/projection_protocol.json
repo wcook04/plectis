@@ -14,17 +14,27 @@
     "codex/doctrine/paper_modules/doctrine_population_loop.md",
     "codex/doctrine/paper_modules/local_to_general_propagation.md",
     "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
-    "codex/doctrine/skills/doctrine/public_microcosm_evolution_seed.md"
+    "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+    "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+    "codex/doctrine/skills/task_ledger/task_ledger.md",
+    "codex/standards/std_task_ledger.json"
   ],
   "body_import_verification": {
     "source_refs": [
       "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "codex/doctrine/paper_modules/doctrine_population_loop.md",
-      "codex/doctrine/paper_modules/local_to_general_propagation.md"
+      "codex/doctrine/paper_modules/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
+      "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
+      "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
+      "codex/doctrine/skills/task_ledger/task_ledger.md",
+      "codex/standards/std_task_ledger.json"
     ],
+    "source_module_count": 8,
+    "source_module_manifest_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
     "target_ref": "src/microcosm_core/organs/voice_to_doctrine_self_improvement_loop.py",
     "target_symbol": "microcosm_core.organs.voice_to_doctrine_self_improvement_loop::run",
-    "verification_mode": "source_faithful_public_refactor"
+    "verification_mode": "source_faithful_public_refactor_plus_exact_public_body_copies"
   },
   "public_private_boundary": {
     "public_allowed": [

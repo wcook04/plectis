@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 44,
+  "rows_with_source_body_imports": 45,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 416,
+  "source_open_body_material_count": 424,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 44,
-    "source_open_body_material_count": 416,
+    "rows_with_source_body_imports": 45,
+    "source_open_body_material_count": 424,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -7989,7 +7989,7 @@
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
         "ontology": "A public-safe organ that turns local pressure into owner-surface mutation, residual capture, or typed no-op under validation.",
-        "receipt_expectation_count": 5,
+        "receipt_expectation_count": 6,
         "required_field_count": 9,
         "required_substrate": {
           "claim_ceiling_declared": true,
@@ -8005,7 +8005,7 @@
         "standard_ref": "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
         "standard_status": "draft",
         "teleology": "Show the macro system's most important property: it learns from local work and updates its own substrate without rule drift.",
-        "validation_rule_count": 8
+        "validation_rule_count": 10
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -8022,7 +8022,43 @@
           "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "global_doctrine_promotion_authorized": false,
+            "private_data_equivalence_authorized": false,
+            "provider_calls_authorized": false,
+            "raw_operator_voice_export_authorized": false,
+            "release_authorized": false,
+            "source_mutation_authorized": false
+          },
+          "body_material_count": 8,
+          "body_material_ids": [
+            "recursive_self_improvement_operating_loop_paper_module_body",
+            "doctrine_population_loop_paper_module_body",
+            "local_to_general_propagation_paper_module_body",
+            "local_to_general_propagation_skill_body",
+            "local_to_general_propagation_plane_home_decision_table_body",
+            "task_ledger_metacontrol_uppropagation_skill_body",
+            "task_ledger_skill_body",
+            "task_ledger_standard_body"
+          ],
+          "body_material_status": "copied_non_secret_voice_to_doctrine_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_paper_module_body",
+            "public_macro_skill_body",
+            "public_macro_standard_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported voice-to-doctrine bundle for exact copied recursive self-improvement, doctrine population, local-to-general propagation, Task Ledger, and Task Ledger standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.voice_to_doctrine_self_improvement_loop run --input fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input --out receipts/first_wave/voice_to_doctrine_self_improvement_loop --acceptance-out receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
         "verdict_source": "validator_computation"
@@ -8030,7 +8066,43 @@
       "ordinal": 47,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "global_doctrine_promotion_authorized": false,
+          "private_data_equivalence_authorized": false,
+          "provider_calls_authorized": false,
+          "raw_operator_voice_export_authorized": false,
+          "release_authorized": false,
+          "source_mutation_authorized": false
+        },
+        "body_material_count": 8,
+        "body_material_ids": [
+          "recursive_self_improvement_operating_loop_paper_module_body",
+          "doctrine_population_loop_paper_module_body",
+          "local_to_general_propagation_paper_module_body",
+          "local_to_general_propagation_skill_body",
+          "local_to_general_propagation_plane_home_decision_table_body",
+          "task_ledger_metacontrol_uppropagation_skill_body",
+          "task_ledger_skill_body",
+          "task_ledger_standard_body"
+        ],
+        "body_material_status": "copied_non_secret_voice_to_doctrine_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/voice_to_doctrine_self_improvement_loop.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_paper_module_body",
+          "public_macro_skill_body",
+          "public_macro_standard_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported voice-to-doctrine bundle for exact copied recursive self-improvement, doctrine population, local-to-general propagation, Task Ledger, and Task Ledger standard bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
         "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
