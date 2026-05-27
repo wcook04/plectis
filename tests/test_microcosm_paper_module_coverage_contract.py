@@ -393,6 +393,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         REPO_ROOT
         / "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
     ).read_text(encoding="utf-8")
+    entry_projection_integrity = (
+        REPO_ROOT
+        / "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md"
+    ).read_text(encoding="utf-8")
 
     for required in [
         "std_microcosm.json::paper_module_coverage_contract",
@@ -417,14 +421,21 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "Route public Microcosm exports" in entry_lattice
     assert "Verify paper-module coverage without bloating this roof" in product_roof
     assert "paper_module_coverage_contract.module_depth_roles" in product_roof
+    assert "paper_module_entry_projection_integrity" in product_roof
+    assert "entry/count honesty" in product_roof
     assert "sidecars as source truth" in product_roof
     assert "first-screen <project>` emits the JSON one-screen reader map" in product_roof
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
+    assert "paper_module_entry_projection_integrity" in public_export_bridge
+    assert "entry/count projection integrity" in public_export_bridge
     assert "microcosm_paper_module_depth" in coverage_metabolism
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
+    assert "explicit Microcosm consumers" in entry_projection_integrity
+    assert "microcosm_public_export_type_plane" in entry_projection_integrity
+    assert "entry/count projection honesty contract" in entry_projection_integrity
 
 
 def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> None:
