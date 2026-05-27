@@ -436,6 +436,14 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "entry/count honesty" in product_roof
     assert "sidecars as source truth" in product_roof
     assert "first-screen <project>` emits the JSON one-screen reader map" in product_roof
+    assert "Source-Loci Depth Contract" in product_roof
+    assert "microcosm_core/cli.py::main" in product_roof
+    assert "microcosm_core/first_screen_composition.py::first_screen_composition_card" in product_roof
+    assert "microcosm_core/project_substrate.py::compile_project" in product_roof
+    assert "microcosm_core/runtime_shell.py::RuntimeShell" in product_roof
+    assert "microcosm_core/validators/public_entry_docs.py::_entry_packet_route_contract" in product_roof
+    assert "test_microcosm_paper_module_coverage_contract.py::" in product_roof
+    assert "runtime truth belongs to these loci" in product_roof
     assert "entry-packet paper-module ref classification" in public_export_bridge
     assert "primary/support module taxonomy" in public_export_bridge
     assert "module depth roles" in public_export_bridge
