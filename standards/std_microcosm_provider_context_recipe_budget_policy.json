@@ -15,9 +15,14 @@
     ]
   },
   "source_refs": [
-    "codex/standards/std_transform_job.json",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "codex/standards/std_compute_provider.json",
+    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
     "tools/meta/factory/run_prover_graph_benchmark.py",
-    "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+    "codex/standards/std_provider_adapter.json",
+    "codex/standards/std_provider_navigation_transform_receipt.json",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "codex/standards/std_transform_job.json"
   ],
   "relationships": {
     "organ_id": "provider_context_recipe_budget_policy",
@@ -46,7 +51,10 @@
     "source_module_manifest.modules[].target_sha256",
     "source_module_manifest.modules[].required_anchors",
     "source_open_body_imports.body_material_count",
-    "source_open_body_imports.body_material_ids"
+    "source_open_body_imports.body_material_ids",
+    "source_module_manifest.modules[].material_class",
+    "source_module_manifest.modules[].line_count",
+    "source_module_manifest.modules[].byte_count"
   ],
   "validation_rules": [
     "Every recipe budget must match the public recipe table ceiling.",
@@ -58,7 +66,10 @@
     "Copied source module digests must match source-to-target and retain required provider-context anchors.",
     "Release, provider, proof-authority, and Lean/Lake authority overclaims are rejected.",
     "The exact std_transform_job standard body must be copied into Microcosm beside the provider-context compiler modules, because the compiler emits that ABI.",
-    "The fixture manifest source_open_body_imports count must include both copied macro tool bodies and the copied transform-job standard body."
+    "The fixture manifest source_open_body_imports count must include both copied macro tool bodies and the copied transform-job standard body.",
+    "The provider receipt reducer source body must be copied into Microcosm because it enforces truth-side leakage and premise-budget classification downstream of context recipes.",
+    "The batch calibration report builder source body must be copied because it aggregates reducer outputs without provider dispatch and preserves recipe-policy metrics.",
+    "Provider adapter, compute-provider, and provider-navigation transform receipt standards must be copied beside the provider-context organ because they define the public budget, fallback, receipt, candidate-only, and mutation-authority boundaries."
   ],
   "receipt_expectations": [
     "result receipt with recipe projections and omitted-section metadata",
@@ -66,7 +77,8 @@
     "board receipt with public contract and authority ceiling",
     "validation receipt with negative-case coverage",
     "fixture acceptance receipt",
-    "fixture manifest source-open body-floor receipt with copied macro tool bodies plus copied std_transform_job standard body counted without source text in receipts"
+    "fixture manifest source-open body-floor receipt with copied macro tool bodies plus copied std_transform_job standard body counted without source text in receipts",
+    "source module import receipt fields count copied reducer, calibration, adapter, compute-provider, and provider-navigation standard bodies without source text in receipts"
   ],
   "validator_contract": {
     "module": "microcosm_core.organs.provider_context_recipe_budget_policy",
@@ -110,11 +122,14 @@
     "recipe deliverable type drifts from the reducer route contract",
     "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence",
     "std_transform_job body remains only a source_ref while provider-context compiler modules compile that ABI",
-    "source_open_body_imports omits the copied transform-job standard body from body-floor counts"
+    "source_open_body_imports omits the copied transform-job standard body from body-floor counts",
+    "provider receipt reducer remains only a source_ref while context recipes feed reducer policy downstream",
+    "provider boundary standards remain only source_refs while public context recipes claim budget, fallback, candidate-only, or mutation-authority policy",
+    "batch calibration report builder is absent, hiding reducer taxonomy and recipe-policy aggregate metrics behind receipt pointers"
   ],
   "standard_payload": {
     "ontology": "A public-safe provider-context recipe budget organ over copied macro source modules plus redacted public recipe metadata.",
-    "teleology": "Make the real provider-context recipe compiler and formal ladder consumer inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
+    "teleology": "Make the real provider-context recipe compiler, reducer, batch calibration, and provider-boundary policy inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
     "anti_purpose": "Turning copied recipe-policy source or metadata into provider-call authority, proof authority, private-root equivalence, hosted publication, or release authority.",
     "compression_bands": [
       "source_module",
@@ -132,15 +147,23 @@
       "provider call authority is smuggled into a public recipe or source-module receipt",
       "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
       "recipe deliverable type drifts from the reducer route contract",
-      "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+      "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence",
+      "provider receipt reducer remains only a source_ref while context recipes feed reducer policy downstream",
+      "provider boundary standards remain only source_refs while public context recipes claim budget, fallback, candidate-only, or mutation-authority policy",
+      "batch calibration report builder is absent, hiding reducer taxonomy and recipe-policy aggregate metrics behind receipt pointers"
     ],
     "rebuild_action": "run provider_context_recipe_budget_policy on fixture and exported bundle, then run microcosm workingness to verify source-open body material count increases"
   },
   "source_digests": {
-    "tools/meta/factory/run_prover_graph_benchmark.py": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+    "codex/standards/std_compute_provider.json": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py": "sha256:5b658b7b480760ab28460927dc11fbbc4a790ed91bb289e81061b19fabb692a6",
-    "codex/standards/std_transform_job.json": "sha256:c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf"
+    "tools/meta/factory/run_prover_graph_benchmark.py": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+    "codex/standards/std_provider_adapter.json": "sha256:248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+    "codex/standards/std_provider_navigation_transform_receipt.json": "sha256:512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+    "tools/meta/factory/reduce_prover_provider_receipts.py": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+    "codex/standards/std_transform_job.json": "sha256:017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b"
   },
-  "body_material_status": "copied_non_secret_macro_tool_and_standard_bodies_with_provenance",
-  "body_material_count": 3
+  "body_material_status": "copied_non_secret_macro_tool_and_standard_bodies_with_reducer_calibration_and_provider_boundary_provenance",
+  "body_material_count": 8
 }

@@ -1,0 +1,241 @@
+{
+  "kind": "standard",
+  "schema_version": "std_provider_adapter_v1",
+  "id": "std_provider_adapter",
+  "slug": "provider-adapter-contract",
+  "title": "Provider Adapter Contract",
+  "status": "active",
+  "scope": "repository-wide",
+  "purpose": "Contract for binding an LLM provider adapter to the compute provider registry, ledger rows, budget gates, fallback policy, and provider receipts before runtime provider code is refactored or added.",
+  "provenance": {
+    "annex_slug": "deepscroll",
+    "pattern_id": "p004",
+    "pattern_name": "provider_agnostic_llm_interface_with_named_fallback",
+    "source_locus": [
+      "annexes/deepscroll/repo/deepscroll/llm.py"
+    ],
+    "sister_annexes": [
+      "arxiv-2512-24601"
+    ],
+    "transfer_note": "deepscroll's provider-keyed LLMInterface plus fallback-provider shape is translated here into an ai_workflow standard. Runtime refactors are intentionally deferred behind the 09.44 provider-ledger proof."
+  },
+  "authority_surfaces": {
+    "compute_provider_policy": "codex/standards/std_compute_provider.json",
+    "provider_registry": "codex/doctrine/compute/provider_registry.json",
+    "compute_ledger": "codex/hologram/compute/ledger.json",
+    "transform_job_standard": "codex/standards/std_transform_job.json",
+    "type_a_seat_control": "codex/standards/std_type_a_seat_control.json"
+  },
+  "field_contract": {
+    "provider_id": {
+      "type": "string",
+      "description": "Stable provider key. Must match a provider row in codex/doctrine/compute/provider_registry.json."
+    },
+    "adapter_id": {
+      "type": "string",
+      "description": "Stable adapter key for the provider binding. Prefer <provider_id> or <provider_id>:<api_shape> when one provider has multiple adapter shapes."
+    },
+    "adapter_module": {
+      "type": "string",
+      "description": "Import path or runtime binding that owns the adapter implementation, such as system.lib.nvidia_nim. Contract landing does not require this module to exist yet."
+    },
+    "api_shape": {
+      "type": "string",
+      "enum": [
+        "openai_compatible",
+        "native",
+        "bridge_cli",
+        "local_runtime"
+      ],
+      "description": "Provider call shape exposed by the adapter."
+    },
+    "base_url_policy": {
+      "type": "string",
+      "enum": [
+        "required",
+        "optional",
+        "forbidden"
+      ],
+      "description": "Whether callers must, may, or must not configure a base URL for this adapter."
+    },
+    "auth_env_refs": {
+      "type": "array",
+      "items": "string",
+      "description": "Environment variable names or secret references required by the adapter. Values are never stored in this contract."
+    },
+    "model_resolution": {
+      "required_fields": [
+        "explicit_model_required",
+        "default_model_allowed",
+        "model_alias_policy"
+      ],
+      "description": "Model selection policy. explicit_model_required must be true for governed provider work; model aliases must resolve through provider registry or ledger rows."
+    },
+    "capabilities": {
+      "required_fields": [
+        "chat",
+        "structured_output",
+        "tool_calling",
+        "streaming",
+        "embeddings",
+        "rerank"
+      ],
+      "value_type": "boolean_or_unknown",
+      "description": "Capability flags that gate task-class routing and receipt expectations."
+    },
+    "rate_limit_claims": {
+      "required_fields": [
+        "rpm",
+        "tpm",
+        "daily_requests",
+        "source_kind",
+        "source_ref"
+      ],
+      "source_kind_enum": [
+        "official_doc",
+        "account_probe",
+        "assumed_default",
+        "unknown"
+      ],
+      "description": "Provider or model limit claims with explicit source posture. Unknowns must stay visible instead of becoming hidden SDK defaults."
+    },
+    "fallback_policy": {
+      "required_fields": [
+        "allowed",
+        "chain",
+        "cooldown_seconds",
+        "budget_gate_required"
+      ],
+      "description": "Named fallback is same-job recovery only. It must not collapse independent provider lanes into one global winner."
+    },
+    "execution_limits": {
+      "required_fields": [
+        "max_parallel_requests",
+        "timeout_seconds",
+        "max_retries"
+      ],
+      "description": "Adapter-level ceilings enforced before provider calls."
+    },
+    "budget_policy": {
+      "required_fields": [
+        "free_only_default",
+        "allow_paid_default",
+        "max_cost_default",
+        "budget_source"
+      ],
+      "description": "Default budget posture for this adapter. Automatic lower-class workers default to free-only unless an explicit operator budget exists."
+    },
+    "receipt_requirements": {
+      "required_fields": [
+        "request_id_required",
+        "model_id_required",
+        "provider_id_required",
+        "rate_limit_snapshot_required",
+        "budget_snapshot_required",
+        "fallback_attempts_required"
+      ],
+      "description": "Fields that must be present in provider receipts when the adapter is used for governed work."
+    }
+  },
+  "adapter_row_template": {
+    "provider_id": "string",
+    "adapter_id": "string",
+    "adapter_module": "string",
+    "api_shape": "openai_compatible | native | bridge_cli | local_runtime",
+    "base_url_policy": "required | optional | forbidden",
+    "auth_env_refs": [
+      "string"
+    ],
+    "model_resolution": {
+      "explicit_model_required": true,
+      "default_model_allowed": false,
+      "model_alias_policy": "ledger_bound"
+    },
+    "capabilities": {
+      "chat": "boolean",
+      "structured_output": "boolean",
+      "tool_calling": "boolean",
+      "streaming": "boolean",
+      "embeddings": "boolean",
+      "rerank": "boolean"
+    },
+    "rate_limit_claims": {
+      "rpm": "number|null",
+      "tpm": "number|null",
+      "daily_requests": "number|null",
+      "source_kind": "official_doc | account_probe | assumed_default | unknown",
+      "source_ref": "string"
+    },
+    "fallback_policy": {
+      "allowed": "boolean",
+      "chain": [
+        "provider_id:model_id"
+      ],
+      "cooldown_seconds": "number",
+      "budget_gate_required": true
+    },
+    "execution_limits": {
+      "max_parallel_requests": "number",
+      "timeout_seconds": "number",
+      "max_retries": "number"
+    },
+    "budget_policy": {
+      "free_only_default": "boolean",
+      "allow_paid_default": "boolean",
+      "max_cost_default": "number|null",
+      "budget_source": "string"
+    },
+    "receipt_requirements": {
+      "request_id_required": true,
+      "model_id_required": true,
+      "provider_id_required": true,
+      "rate_limit_snapshot_required": true,
+      "budget_snapshot_required": true,
+      "fallback_attempts_required": true
+    }
+  },
+  "fallback_policy": {
+    "rule": "Fallback chains are named, ledger-governed, budget-gated, and receipt-visible.",
+    "lane_boundary": "Fallback is same-job recovery after a selected lane is unavailable. It is not a scheduler rule for idling another independent provider lane.",
+    "receipt_rule": "Every fallback attempt must be visible in the provider receipt with attempted provider_id, model_id, status, and reason."
+  },
+  "runtime_refactor_gate": {
+    "rule": "Runtime adapter code must not land from this standard alone.",
+    "required_before_runtime_refactor": [
+      "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check reports ok=true",
+      "At least one bounded provider_transform_job has written a validated provider_receipt and row_patch under state/compute_workers/",
+      "metabolism_scheduler broad-chat blocking remains verified for NVIDIA and OpenRouter provider lanes"
+    ],
+    "deferred_runtime_targets": [
+      "system/lib/provider_adapter.py",
+      "system/lib/provider_compat.py",
+      "system/lib/nvidia_nim.py"
+    ]
+  },
+  "p005_compatibility_appendix": {
+    "annex_slug": "deepscroll",
+    "pattern_id": "p005",
+    "status": "requirement_recorded_not_runtime_adopted",
+    "rule": "Future provider adapters must declare model-family API parameter compatibility before use.",
+    "minimum_declarations": [
+      "token_limit_parameter_name",
+      "supports_temperature",
+      "system_prompt_transport",
+      "reasoning_model_family_detection",
+      "structured_output_transport"
+    ],
+    "non_goal": "This appendix does not adopt p005 as a runtime code change in the p004 contract landing."
+  },
+  "validation_rules": [
+    "provider_id must resolve to codex/doctrine/compute/provider_registry.json.",
+    "explicit_model_required must be true for governed provider work.",
+    "default_model_allowed must be false unless a registry model profile explicitly names the default and its budget posture.",
+    "model_alias_policy must be ledger_bound.",
+    "fallback_policy.allowed=true requires a non-empty named chain, cooldown_seconds, and budget_gate_required=true.",
+    "rate_limit_claims.source_kind must be one of official_doc, account_probe, assumed_default, or unknown.",
+    "budget_policy must make free-only and paid-call defaults explicit.",
+    "receipt_requirements must require provider_id, model_id, request_id, rate_limit snapshot, budget snapshot, and fallback attempts.",
+    "Adapters must not hide provider SDK fallback, retry, budget, or rate-limit behavior behind unrecorded defaults.",
+    "Adapter rows may guide implementation only after runtime_refactor_gate.required_before_runtime_refactor is satisfied."
+  ]
+}

@@ -2183,23 +2183,43 @@
       ],
       "next_runtime_surface": "pytest microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine",
       "public_safe_body_material_ids": [
+        "provider_context_batch_calibration_report_body_import",
+        "provider_context_compute_provider_standard_body_import",
+        "provider_context_formal_ladder_eval_body_import",
         "provider_context_graph_benchmark_body_import",
-        "provider_context_formal_ladder_eval_body_import"
+        "provider_context_provider_adapter_standard_body_import",
+        "provider_context_provider_navigation_transform_receipt_standard_body_import",
+        "provider_context_receipt_reducer_body_import",
+        "provider_context_transform_job_standard_body_import"
       ],
       "selected_pattern_ids": [
         "provider_context_recipe_budget_policy",
-        "formal_problem_ladder_provider_context_eval"
+        "formal_problem_ladder_provider_context_eval",
+        "provider_receipt_truth_side_leakage_detector",
+        "provider_metabolism_ledger"
       ],
       "source_refs": [
-        "tools/meta/factory/run_prover_graph_benchmark.py",
+        "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "codex/standards/std_compute_provider.json",
         "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "tools/meta/factory/run_prover_graph_benchmark.py",
+        "codex/standards/std_provider_adapter.json",
+        "codex/standards/std_provider_navigation_transform_receipt.json",
+        "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "codex/standards/std_transform_job.json",
         "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
         "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json"
       ],
       "target_refs": [
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
-        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
         "standards/std_microcosm_provider_context_recipe_budget_policy.json"
       ],
       "validation_refs": [

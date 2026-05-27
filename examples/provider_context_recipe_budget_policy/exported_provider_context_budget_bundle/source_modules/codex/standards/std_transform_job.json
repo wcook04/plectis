@@ -167,6 +167,26 @@
     "openrouter_rule": "Automatic OpenRouter transform jobs remain free-only unless a specific job carries an explicit operator-approved paid budget.",
     "retry_rule": "The harness records failed run fingerprints and blocks uncontrolled duplicate reruns unless force is explicit."
   },
+  "compliance_scanner_contract": {
+    "governed_artifact_kind": "transform_job_provider_plane",
+    "scanner": "system/lib/compliance/transform_job_adapter.py::scan_transform_jobs",
+    "coverage_path": "codex/hologram/compliance/ledger.json::by_standard[std_transform_job]",
+    "projection_builder": "tools/meta/factory/build_compliance_ledger.py",
+    "option_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_transform_job",
+    "navigation_contract": {
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "entry_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+      "cluster_surface": "./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+      "card_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_transform_job"
+    },
+    "scanner_scope": [
+      "state/compute_workers/transform_jobs/",
+      "state/compute_workers/receipts/",
+      "state/compute_workers/row_patches/"
+    ],
+    "finding_policy": "Schema and receipt validation failures are provider-plane compliance debt. They are visible to Atlas/navigation as repair targets, but any source mutation or row-patch promotion remains controller-gated."
+  },
   "annex_patterns": [
     {
       "annex_slug": "free-claude-code",

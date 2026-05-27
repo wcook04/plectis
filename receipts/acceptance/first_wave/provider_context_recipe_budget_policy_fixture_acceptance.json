@@ -12,7 +12,7 @@
   },
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+  "command": "python -m microcosm_core.organs.provider_context_recipe_budget_policy run --input microcosm-substrate/fixtures/first_wave/provider_context_recipe_budget_policy/input --out microcosm-substrate/receipts/first_wave/provider_context_recipe_budget_policy",
   "context_packets": [
     {
       "approximate_tokens": 260,
@@ -257,7 +257,7 @@
       "recipe_id": "strategy_classification_4kb"
     }
   ],
-  "created_at": "2026-05-26T18:57:49+00:00",
+  "created_at": "2026-05-27T07:08:52+00:00",
   "deliverable_routes": {
     "fewshot_64kb": "redacted_synthesis_advisory",
     "minimal_4kb": "environment_metadata",
@@ -393,7 +393,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 12,
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "receipt_id": "provider_context_budget_fixture_acceptance_v1",
@@ -410,15 +410,110 @@
     "strategy_classification_4kb"
   ],
   "schema_version": "provider_context_budget_fixture_acceptance_v1",
-  "source_module_count": 3,
+  "source_module_count": 8,
   "source_module_error_codes": [],
   "source_module_ids": [
+    "provider_context_batch_calibration_report_body_import",
+    "provider_context_compute_provider_standard_body_import",
     "provider_context_formal_ladder_eval_body_import",
     "provider_context_graph_benchmark_body_import",
+    "provider_context_provider_adapter_standard_body_import",
+    "provider_context_provider_navigation_transform_receipt_standard_body_import",
+    "provider_context_receipt_reducer_body_import",
     "provider_context_transform_job_standard_body_import"
   ],
   "source_module_import_status": "pass",
   "source_module_imports": [
+    {
+      "anchor_results": [
+        {
+          "anchor": "Build aggregate reports for the prover provider batch calibration run.",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "def build_reports(run_root: Path) -> dict[str, Any]:",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"schema_version\": \"prover_provider_reducer_taxonomy_decision_v0\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"schema_version\": \"prover_provider_recipe_policy_metrics_v0\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"provider_calls_by_reducer\": 0",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"fake_provider_results_counted\": 0",
+          "body_redacted": true,
+          "present": true
+        }
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 356,
+      "module_id": "provider_context_batch_calibration_report_body_import",
+      "present_anchor_count": 6,
+      "required_anchor_count": 6,
+      "sha256_match": true,
+      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "source_sha256": "076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+      "target_ref": "source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "target_sha256": "076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a"
+    },
+    {
+      "anchor_results": [
+        {
+          "anchor": "\"schema_version\": \"std_compute_provider_v1\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"provider_lane_policy\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"scheduler_shape\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "provider_receipts plus draft row_patches",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "records receipts and row patches",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"forbidden_to_low_authority_reason\"",
+          "body_redacted": true,
+          "present": true
+        }
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 1043,
+      "module_id": "provider_context_compute_provider_standard_body_import",
+      "present_anchor_count": 6,
+      "required_anchor_count": 6,
+      "sha256_match": true,
+      "source_ref": "codex/standards/std_compute_provider.json",
+      "source_sha256": "97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+      "target_ref": "source_modules/codex/standards/std_compute_provider.json",
+      "target_sha256": "97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d"
+    },
     {
       "anchor_results": [
         {
@@ -512,6 +607,141 @@
     {
       "anchor_results": [
         {
+          "anchor": "\"schema_version\": \"std_provider_adapter_v1\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"fallback_policy\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"budget_policy\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"receipt_requirements\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"runtime_refactor_gate\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "provider receipts when the adapter is used for governed work",
+          "body_redacted": true,
+          "present": true
+        }
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 241,
+      "module_id": "provider_context_provider_adapter_standard_body_import",
+      "present_anchor_count": 6,
+      "required_anchor_count": 6,
+      "sha256_match": true,
+      "source_ref": "codex/standards/std_provider_adapter.json",
+      "source_sha256": "248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+      "target_ref": "source_modules/codex/standards/std_provider_adapter.json",
+      "target_sha256": "248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba"
+    },
+    {
+      "anchor_results": [
+        {
+          "anchor": "\"schema_version\": \"provider_navigation_transform_receipt_v0\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"mutation_authority\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "candidate_only rows",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "Provider output cannot write Task Ledger",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"route_pattern_candidate\"",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"standard_gap_candidate\"",
+          "body_redacted": true,
+          "present": true
+        }
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 52,
+      "module_id": "provider_context_provider_navigation_transform_receipt_standard_body_import",
+      "present_anchor_count": 6,
+      "required_anchor_count": 6,
+      "sha256_match": true,
+      "source_ref": "codex/standards/std_provider_navigation_transform_receipt.json",
+      "source_sha256": "512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+      "target_ref": "source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+      "target_sha256": "512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda"
+    },
+    {
+      "anchor_results": [
+        {
+          "anchor": "Reduce prover provider receipts into Lean-checked Oracle/Foundry evidence.",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "TRUTH_SIDE_FORBIDDEN_MARKERS = (",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "def _truth_side_leakage_hits(",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "def _classify_failure(",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "def reduce_receipt(",
+          "body_redacted": true,
+          "present": true
+        },
+        {
+          "anchor": "\"schema_version\": \"provider_receipt_reducer_run_summary_v0\"",
+          "body_redacted": true,
+          "present": true
+        }
+      ],
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 926,
+      "module_id": "provider_context_receipt_reducer_body_import",
+      "present_anchor_count": 6,
+      "required_anchor_count": 6,
+      "sha256_match": true,
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "source_sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "target_ref": "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "target_sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6"
+    },
+    {
+      "anchor_results": [
+        {
           "anchor": "\"schema_version\": \"std_transform_job_v1\"",
           "body_redacted": true,
           "present": true
@@ -544,15 +774,15 @@
       ],
       "body_copied": true,
       "body_in_receipt": false,
-      "line_count": 188,
+      "line_count": 208,
       "module_id": "provider_context_transform_job_standard_body_import",
       "present_anchor_count": 6,
       "required_anchor_count": 6,
       "sha256_match": true,
       "source_ref": "codex/standards/std_transform_job.json",
-      "source_sha256": "c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf",
+      "source_sha256": "017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b",
       "target_ref": "source_modules/codex/standards/std_transform_job.json",
-      "target_sha256": "c0fc1efcb9dec48545f6f4ee58c40c7d622447c1f89575b24f16f4f3b8d864bf"
+      "target_sha256": "017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b"
     }
   ],
   "source_module_manifest_ref": "source_module_manifest.json",
@@ -560,7 +790,12 @@
     "provider_context_recipe_budget_policy"
   ],
   "source_refs": [
+    "codex/standards/std_compute_provider.json",
+    "codex/standards/std_provider_adapter.json",
+    "codex/standards/std_provider_navigation_transform_receipt.json",
     "codex/standards/std_transform_job.json",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
   ],

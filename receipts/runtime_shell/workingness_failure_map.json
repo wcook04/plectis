@@ -44,7 +44,7 @@
   "rows_with_future_work_targets": 30,
   "rows_with_source_body_imports": 45,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 446,
+  "source_open_body_material_count": 451,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -56,7 +56,7 @@
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
     "rows_with_source_body_imports": 45,
-    "source_open_body_material_count": 446,
+    "source_open_body_material_count": 451,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -2590,7 +2590,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "algorithmic_projection_needs_stronger_independent_witness_for_wider_claims",
-      "failure_mode_count": 9,
+      "failure_mode_count": 12,
       "future_work_target_count": 1,
       "future_work_targets": [
         {
@@ -2608,7 +2608,10 @@
         "provider call authority is smuggled into a public recipe or source-module receipt",
         "omitted over-budget sections are hidden instead of emitted through an omitted_sections manifest",
         "recipe deliverable type drifts from the reducer route contract",
-        "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence"
+        "budget validation claims theorem proof, Lean/Lake execution, release, publication, or private macro equivalence",
+        "provider receipt reducer remains only a source_ref while context recipes feed reducer policy downstream",
+        "provider boundary standards remain only source_refs while public context recipes claim budget, fallback, candidate-only, or mutation-authority policy",
+        "batch calibration report builder is absent, hiding reducer taxonomy and recipe-policy aggregate metrics behind receipt pointers"
       ],
       "needs_to_work": {
         "anti_purpose": "Turning copied recipe-policy source or metadata into provider-call authority, proof authority, private-root equivalence, hosted publication, or release authority.",
@@ -2633,8 +2636,8 @@
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
         "ontology": "A public-safe provider-context recipe budget organ over copied macro source modules plus redacted public recipe metadata.",
-        "receipt_expectation_count": 6,
-        "required_field_count": 15,
+        "receipt_expectation_count": 7,
+        "required_field_count": 18,
         "required_substrate": {
           "claim_ceiling_declared": true,
           "current_authority_receipt_present": true,
@@ -2648,8 +2651,8 @@
         },
         "standard_ref": "standards/std_microcosm_provider_context_recipe_budget_policy.json",
         "standard_status": "accepted",
-        "teleology": "Make the real provider-context recipe compiler and formal ladder consumer inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
-        "validation_rule_count": 10
+        "teleology": "Make the real provider-context recipe compiler, reducer, batch calibration, and provider-boundary policy inspectable in Microcosm while keeping provider payload bodies, proof bodies, live access state, credentials, and release authority excluded.",
+        "validation_rule_count": 13
       },
       "observed_workingness": {
         "claim_ceiling": "projection mechanics only, not domain correctness",
@@ -2678,13 +2681,18 @@
             "runtime_correctness_claim": false,
             "truth_side_material_authorized": false
           },
-          "body_material_count": 3,
+          "body_material_count": 8,
           "body_material_ids": [
+            "provider_context_batch_calibration_report_body_import",
+            "provider_context_compute_provider_standard_body_import",
             "provider_context_formal_ladder_eval_body_import",
             "provider_context_graph_benchmark_body_import",
+            "provider_context_provider_adapter_standard_body_import",
+            "provider_context_provider_navigation_transform_receipt_standard_body_import",
+            "provider_context_receipt_reducer_body_import",
             "provider_context_transform_job_standard_body_import"
           ],
-          "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
+          "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
           "body_text_exported_in_receipts": false,
           "body_text_exported_in_workingness": false,
           "fixture_manifest_ref": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",
@@ -2719,13 +2727,18 @@
           "runtime_correctness_claim": false,
           "truth_side_material_authorized": false
         },
-        "body_material_count": 3,
+        "body_material_count": 8,
         "body_material_ids": [
+          "provider_context_batch_calibration_report_body_import",
+          "provider_context_compute_provider_standard_body_import",
           "provider_context_formal_ladder_eval_body_import",
           "provider_context_graph_benchmark_body_import",
+          "provider_context_provider_adapter_standard_body_import",
+          "provider_context_provider_navigation_transform_receipt_standard_body_import",
+          "provider_context_receipt_reducer_body_import",
           "provider_context_transform_job_standard_body_import"
         ],
-        "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
+        "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_workingness": false,
         "fixture_manifest_ref": "core/fixture_manifests/provider_context_recipe_budget_policy.fixture_manifest.json",

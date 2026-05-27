@@ -435,9 +435,23 @@ PROOF_DIAGNOSTIC_RING2_RUNTIME_BODY_MATERIAL_IDS = [
     "proof_diagnostic_ring2_oracle_run_summary_body_import",
 ]
 PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_IDS = [
-    "provider_context_graph_benchmark_body_import",
+    "provider_context_batch_calibration_report_body_import",
+    "provider_context_compute_provider_standard_body_import",
     "provider_context_formal_ladder_eval_body_import",
+    "provider_context_graph_benchmark_body_import",
+    "provider_context_provider_adapter_standard_body_import",
+    "provider_context_provider_navigation_transform_receipt_standard_body_import",
+    "provider_context_receipt_reducer_body_import",
+    "provider_context_transform_job_standard_body_import",
 ]
+PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_CLASSES = {
+    "provider_context_compute_provider_standard_body_import": "public_macro_standard_body",
+    "provider_context_provider_adapter_standard_body_import": "public_macro_standard_body",
+    "provider_context_provider_navigation_transform_receipt_standard_body_import": (
+        "public_macro_standard_body"
+    ),
+    "provider_context_transform_job_standard_body_import": "public_macro_standard_body",
+}
 WORLD_MODEL_PROJECTION_DRIFT_SOURCE_BODY_MATERIAL_IDS = [
     "world_model_drift_aggregate_source_body_import",
     "world_model_drift_endpoint_source_body_import",
@@ -3345,6 +3359,7 @@ def _assert_exact_source_module_body_import(
     material_ids: list[str],
     cell_id: str,
     expected_material_class: str = "public_macro_tool_body",
+    expected_material_classes_by_id: dict[str, str] | None = None,
 ) -> None:
     by_material = {
         row["material_id"]: row
@@ -3352,6 +3367,9 @@ def _assert_exact_source_module_body_import(
     }
     for material_id in material_ids:
         row = by_material[material_id]
+        expected_class = (
+            expected_material_classes_by_id or {}
+        ).get(material_id, expected_material_class)
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
@@ -3359,7 +3377,7 @@ def _assert_exact_source_module_body_import(
         source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
-        assert row["material_class"] == expected_material_class
+        assert row["material_class"] == expected_class
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
         assert row["body_import_verification"]["source_body_digest"] == source_digest
@@ -3402,6 +3420,7 @@ def test_provider_context_source_modules_body_import_is_unified_under_macro_proj
         public_root=public_root,
         material_ids=PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_IDS,
         cell_id="provider_context_source_modules_import",
+        expected_material_classes_by_id=PROVIDER_CONTEXT_SOURCE_BODY_MATERIAL_CLASSES,
     )
 
 

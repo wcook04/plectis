@@ -1,0 +1,52 @@
+{
+  "kind": "standard",
+  "schema_version": "standard_v1",
+  "id": "std_provider_navigation_transform_receipt",
+  "title": "Provider Navigation Transform Receipt Standard",
+  "purpose": "Constrain NIM/OpenRouter navigation mechanism workers to strict structured-output candidate receipts with no mutation authority.",
+  "authority": {
+    "projection_code": "system/lib/navigation_mechanism_factory.py",
+    "provider_policy_standard": "codex/standards/std_compute_provider.json",
+    "mutation_allowed": false
+  },
+  "receipt_shape": {
+    "schema_version": "provider_navigation_transform_receipt_v0",
+    "required_fields": [
+      "schema_version",
+      "provider",
+      "model",
+      "input_refs",
+      "output_kind",
+      "candidate_payload",
+      "confidence",
+      "abstentions",
+      "mutation_authority",
+      "validation_status",
+      "local_validator"
+    ],
+    "provider_values": [
+      "nvidia_nim",
+      "openrouter"
+    ],
+    "output_kind_values": [
+      "route_pattern_candidate",
+      "mechanism_facet_candidate",
+      "replay_test_candidate",
+      "standard_gap_candidate",
+      "workitem_bucket_suggestion",
+      "duplicate_or_retire_candidate",
+      "paired_reflection_summary"
+    ],
+    "validation_status_values": [
+      "unvalidated",
+      "valid",
+      "invalid"
+    ]
+  },
+  "validation_rules": [
+    "mutation_authority must be false.",
+    "candidate_payload must validate against the local output_kind schema before any owner-tool apply.",
+    "A provider receipt can create projection claims only as candidate_only rows.",
+    "Provider output cannot write Task Ledger, Work Ledger, Prompt Ledger, standards, mechanisms, skills, entrypoints, or raw seed."
+  ]
+}

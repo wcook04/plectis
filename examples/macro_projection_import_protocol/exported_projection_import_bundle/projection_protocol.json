@@ -8821,57 +8821,109 @@
     },
     {
       "applied_edits": [
-        "exact_copy_macro_provider_context_graph_benchmark_source_body_into_public_provider_context_bundle",
+        "exact_copy_provider_context_batch_calibration_report_body_import_into_public_provider_context_bundle",
         "bind_provider_context_source_body_to_macro_projection_body_floor",
         "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
       ],
       "body_copied": true,
-      "body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "body_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-        "source_line_count": 7168,
-        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "source_body_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+        "source_line_count": 356,
+        "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
-        "target_line_count": 7168,
-        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "target_body_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+        "target_line_count": 356,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "claim_ceiling": "public provider-context graph benchmark source body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
-      "material_id": "provider_context_graph_benchmark_body_import",
+      "material_id": "provider_context_batch_calibration_report_body_import",
       "provenance_refs": [
         "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
         "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+      "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
       "source_refs": [
-        "tools/meta/factory/run_prover_graph_benchmark.py",
+        "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
         "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
       ],
-      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "source_role": "Macro batch calibration report builder that aggregates reduced provider receipts into recipe-policy, leakage, row-patch-review, cost, and taxonomy reports without provider dispatch.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
       "validation_refs": [
         "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
       ],
-      "body_line_count": 7168
+      "body_line_count": 356
     },
     {
       "applied_edits": [
-        "exact_copy_macro_formal_ladder_provider_context_source_body_into_public_provider_context_bundle",
+        "exact_copy_provider_context_compute_provider_standard_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+        "source_line_count": 1043,
+        "source_ref": "codex/standards/std_compute_provider.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+        "target_line_count": 1043,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_standard_body",
+      "material_id": "provider_context_compute_provider_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_compute_provider.json",
+      "source_refs": [
+        "codex/standards/std_compute_provider.json",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro compute-provider policy standard defining provider lanes, authority tiers, transform-job packets, provider receipts, draft row patches, and low-authority worker boundaries.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 1043
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_formal_ladder_eval_body_import_into_public_provider_context_bundle",
         "bind_provider_context_source_body_to_macro_projection_body_floor",
         "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
       ],
@@ -8894,7 +8946,7 @@
       },
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "claim_ceiling": "public formal-ladder provider-context evaluator source body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
@@ -8912,12 +8964,268 @@
         "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
       ],
+      "source_role": "Macro formal problem ladder evaluator that consumes the provider-context harness into transform jobs, optional provider dispatch receipts, reduction, and recipe policy metrics.",
       "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
       "validation_refs": [
         "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
       ],
       "body_line_count": 1478
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_graph_benchmark_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "source_line_count": 7168,
+        "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+        "target_line_count": 7168,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "provider_context_graph_benchmark_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
+      "source_refs": [
+        "tools/meta/factory/run_prover_graph_benchmark.py",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro prover graph benchmark harness that defines provider context recipe ids, budget ceilings, bounded section fill, leakage audits, and std_transform_job compilation without provider dispatch in v0.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 7168
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_provider_adapter_standard_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+        "source_line_count": 241,
+        "source_ref": "codex/standards/std_provider_adapter.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:248211860480f2ba3b9e8272386abc7e9f1bbd0dc1a69f636c6fd41ec1897fba",
+        "target_line_count": 241,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_standard_body",
+      "material_id": "provider_context_provider_adapter_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_provider_adapter.json",
+      "source_refs": [
+        "codex/standards/std_provider_adapter.json",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro provider adapter contract body for registry binding, model resolution, fallback policy, budget policy, receipt requirements, and runtime-refactor gates.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 241
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_provider_navigation_transform_receipt_standard_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+        "source_line_count": 52,
+        "source_ref": "codex/standards/std_provider_navigation_transform_receipt.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:512d4847809f6f32621de5f96a7096b2c417050775a923201f3e02d71a18cfda",
+        "target_line_count": 52,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_standard_body",
+      "material_id": "provider_context_provider_navigation_transform_receipt_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_provider_navigation_transform_receipt.json",
+      "source_refs": [
+        "codex/standards/std_provider_navigation_transform_receipt.json",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro provider navigation transform receipt standard that keeps provider-generated navigation candidates candidate-only and mutation-free.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 52
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_receipt_reducer_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+        "source_line_count": 926,
+        "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+        "target_line_count": 926,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_tool_body",
+      "material_id": "provider_context_receipt_reducer_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+      "source_refs": [
+        "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro provider receipt reducer that classifies provider output, detects truth-side leakage, audits premise budgets, reviews row patches, and writes advisory evidence without provider calls or source promotion.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 926
+    },
+    {
+      "applied_edits": [
+        "exact_copy_provider_context_transform_job_standard_body_import_into_public_provider_context_bundle",
+        "bind_provider_context_source_body_to_macro_projection_body_floor",
+        "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
+      ],
+      "body_copied": true,
+      "body_digest": "sha256:017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b",
+      "body_import_verification": {
+        "runtime_consumed_by": [
+          "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+          "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+        ],
+        "source_body_digest": "sha256:017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b",
+        "source_line_count": 208,
+        "source_ref": "codex/standards/std_transform_job.json",
+        "source_to_target_relation": "exact_copy",
+        "target_body_digest": "sha256:017d75b5cdfa7520dafe88eb7ede6773f0b592ec32f7303988b448281c66ab3b",
+        "target_line_count": 208,
+        "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+        "verification_mode": "exact_source_digest_match",
+        "verification_status": "verified"
+      },
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
+      "classification": [
+        "copied_non_secret_macro_body"
+      ],
+      "credential_exposure_risk": "low",
+      "material_class": "public_macro_standard_body",
+      "material_id": "provider_context_transform_job_standard_body_import",
+      "provenance_refs": [
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json",
+        "codex/standards/std_microcosm.json#direct_import_with_verification"
+      ],
+      "public_safe_mode": "direct_verified_macro_body",
+      "source_ref": "codex/standards/std_transform_job.json",
+      "source_refs": [
+        "codex/standards/std_transform_job.json",
+        "microcosm-substrate/examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json"
+      ],
+      "source_role": "Macro std_transform_job standard body that defines the provider-context transform-job ABI: projection input packets, provider receipts, row patches, authority ceilings, and local-evidence override policy.",
+      "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "body_line_count": 208
     },
     {
       "applied_edits": [
@@ -13099,6 +13407,7 @@
     "public_runtime_ref",
     "public_macro_pattern_body",
     "public_macro_tool_body",
+    "public_macro_standard_body",
     "public_macro_receipt_body",
     "public_macro_proof_body"
   ],
@@ -13330,7 +13639,17 @@
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_paragraph_ledger.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_attempt_recovery.py",
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
-    "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json"
+    "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+    "standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
   "purpose": "Import, refactor, and unify real non-secret macro substrate inside Microcosm, with metadata and fixtures only as claim-bounded regression scaffolding around verified bodies.",
   "schema_version": "macro_projection_import_protocol_fixture_v1",
@@ -13621,7 +13940,14 @@
     "system/server/tests/test_route_operator_court.py",
     "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
     "tools/meta/control/route_discovery_confirmation.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "codex/standards/std_compute_provider.json",
+    "codex/standards/std_provider_adapter.json",
+    "codex/standards/std_provider_navigation_transform_receipt.json",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "codex/standards/std_transform_job.json",
+    "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
   "steps": [
     {

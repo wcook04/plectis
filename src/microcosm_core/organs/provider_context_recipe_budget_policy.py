@@ -34,13 +34,45 @@ BUNDLE_RESULT_NAME = "exported_provider_context_budget_bundle_validation_result.
 
 SOURCE_PATTERN_IDS = ["provider_context_recipe_budget_policy"]
 SOURCE_REFS = [
+    "codex/standards/std_compute_provider.json",
+    "codex/standards/std_provider_adapter.json",
+    "codex/standards/std_provider_navigation_transform_receipt.json",
     "codex/standards/std_transform_job.json",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
 ]
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 
 EXPECTED_SOURCE_MODULES = {
+    "provider_context_batch_calibration_report_body_import": {
+        "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "target_ref": (
+            "source_modules/tools/meta/factory/"
+            "build_prover_provider_batch_context_calibration_report.py"
+        ),
+        "required_anchors": [
+            "Build aggregate reports for the prover provider batch calibration run.",
+            "def build_reports(run_root: Path) -> dict[str, Any]:",
+            '"schema_version": "prover_provider_reducer_taxonomy_decision_v0"',
+            '"schema_version": "prover_provider_recipe_policy_metrics_v0"',
+            '"provider_calls_by_reducer": 0',
+            '"fake_provider_results_counted": 0',
+        ],
+    },
+    "provider_context_compute_provider_standard_body_import": {
+        "source_ref": "codex/standards/std_compute_provider.json",
+        "target_ref": "source_modules/codex/standards/std_compute_provider.json",
+        "required_anchors": [
+            '"schema_version": "std_compute_provider_v1"',
+            '"provider_lane_policy"',
+            '"scheduler_shape"',
+            "provider_receipts plus draft row_patches",
+            "records receipts and row patches",
+            '"forbidden_to_low_authority_reason"',
+        ],
+    },
     "provider_context_transform_job_standard_body_import": {
         "source_ref": "codex/standards/std_transform_job.json",
         "target_ref": "source_modules/codex/standards/std_transform_job.json",
@@ -75,6 +107,47 @@ EXPECTED_SOURCE_MODULES = {
             '"schema_version": "provider_context_pack_manifest_v0"',
             "def reduce_dispatched_receipts(",
             '"schema_version": "prover_formal_problem_ladder_recipe_policy_metrics_v0"',
+        ],
+    },
+    "provider_context_provider_adapter_standard_body_import": {
+        "source_ref": "codex/standards/std_provider_adapter.json",
+        "target_ref": "source_modules/codex/standards/std_provider_adapter.json",
+        "required_anchors": [
+            '"schema_version": "std_provider_adapter_v1"',
+            '"fallback_policy"',
+            '"budget_policy"',
+            '"receipt_requirements"',
+            '"runtime_refactor_gate"',
+            "provider receipts when the adapter is used for governed work",
+        ],
+    },
+    "provider_context_provider_navigation_transform_receipt_standard_body_import": {
+        "source_ref": "codex/standards/std_provider_navigation_transform_receipt.json",
+        "target_ref": (
+            "source_modules/codex/standards/"
+            "std_provider_navigation_transform_receipt.json"
+        ),
+        "required_anchors": [
+            '"schema_version": "provider_navigation_transform_receipt_v0"',
+            '"mutation_authority"',
+            "candidate_only rows",
+            "Provider output cannot write Task Ledger",
+            '"route_pattern_candidate"',
+            '"standard_gap_candidate"',
+        ],
+    },
+    "provider_context_receipt_reducer_body_import": {
+        "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
+        "target_ref": (
+            "source_modules/tools/meta/factory/reduce_prover_provider_receipts.py"
+        ),
+        "required_anchors": [
+            "Reduce prover provider receipts into Lean-checked Oracle/Foundry evidence.",
+            "TRUTH_SIDE_FORBIDDEN_MARKERS = (",
+            "def _truth_side_leakage_hits(",
+            "def _classify_failure(",
+            "def reduce_receipt(",
+            '"schema_version": "provider_receipt_reducer_run_summary_v0"',
         ],
     },
 }

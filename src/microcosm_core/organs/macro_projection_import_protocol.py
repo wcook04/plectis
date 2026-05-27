@@ -89,6 +89,7 @@ TRUE_FORBIDDEN_MATERIAL_CLASSES = {
 }
 PUBLIC_SAFE_BODY_MATERIAL_CLASSES = {
     "public_macro_pattern_body",
+    "public_macro_standard_body",
     "public_macro_tool_body",
     "public_macro_receipt_body",
     "public_macro_proof_body",
@@ -2366,9 +2367,10 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
         "action_required": False,
         "status_reason": (
             "The provider-context recipe budget policy carries exact copied "
-            "non-secret graph-benchmark and formal-ladder evaluator source "
-            "bodies inside its public bundle. The import is validated by "
-            "digest and anchor checks while excluding provider payload bodies, "
+            "non-secret graph-benchmark, formal-ladder evaluator, provider "
+            "receipt reducer, batch calibration report, and provider boundary "
+            "standard bodies inside its public bundle. The import is validated "
+            "by digest and anchor checks while excluding provider payload bodies, "
             "proof bodies, live access state, credentials, and release authority."
         ),
         "landed_evidence_refs": [
@@ -2386,6 +2388,32 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
                 "examples/provider_context_recipe_budget_policy/"
                 "exported_provider_context_budget_bundle/source_modules/"
                 "tools/meta/factory/run_prover_formal_problem_ladder_eval.py"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "tools/meta/factory/reduce_prover_provider_receipts.py"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "tools/meta/factory/"
+                "build_prover_provider_batch_context_calibration_report.py"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "codex/standards/std_provider_adapter.json"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "codex/standards/std_compute_provider.json"
+            ),
+            (
+                "examples/provider_context_recipe_budget_policy/"
+                "exported_provider_context_budget_bundle/source_modules/"
+                "codex/standards/std_provider_navigation_transform_receipt.json"
             ),
             (
                 "receipts/runtime_shell/demo_project/organs/"

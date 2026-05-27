@@ -1,0 +1,1043 @@
+{
+  "kind": "standard",
+  "schema_version": "std_compute_provider_v1",
+  "id": "std_compute_provider",
+  "slug": "compute-provider-and-worker-policy",
+  "title": "Compute Provider And Worker Policy",
+  "status": "active",
+  "scope": "repository-wide",
+  "purpose": "Contract for auditing model providers, agent harnesses, rate limits, authority tiers, task-class permissions, and schema-gated worker packet routing before cheap or external compute is used.",
+  "statement": "Cheap compute consumes materialized holographic projections and returns typed evidence. Context-rich authoring agents own projection authoring, doctrine/shard/skill/paper-module mutation, and final assimilation.",
+  "authority_surfaces": {
+    "provider_registry": "codex/doctrine/compute/provider_registry.json",
+    "generated_ledger": "codex/hologram/compute/ledger.json",
+    "generated_model_catalog": "codex/hologram/compute/model_catalog.json",
+    "generated_audit": "codex/hologram/compute/audit.json",
+    "runtime_module": "system/lib/compute_throughput.py",
+    "builder": "tools/meta/factory/build_compute_throughput_ledger.py",
+    "bridge_capabilities": "tools/meta/bridge/provider_capabilities.json",
+    "provider_pressure": "state/metabolism/metabolism.sqlite::providers",
+    "nvidia_status": "system/lib/nvidia_nim.py::runtime_status",
+    "openrouter_free_status": "system/lib/openrouter_free_runtime.py::runtime_status"
+  },
+  "transform_job_standard": "codex/standards/std_transform_job.json",
+  "classification_axes": {
+    "agency_class": {
+      "values": ["operator", "type_a", "type_b", "provider_endpoint", "deterministic_cache"],
+      "rule": "Agency class describes what kind of actor is working: controller, bounded worker, raw endpoint, cache, or operator voice."
+    },
+    "authority_tier": {
+      "values": ["operator_voice", "authoring_agent", "bounded_worker", "provider_endpoint"],
+      "rule": "Authority tier describes what the actor may author or mutate. A high-intelligence Type B worker remains bounded_worker unless a Type A lane imports and validates its output."
+    },
+    "intelligence_tier": {
+      "values": ["cache", "free_mining", "lower", "middle", "upper", "selectable"],
+      "rule": "Intelligence tier describes expected reasoning depth/cost. It is selectable for Bridge ChatGPT model tiers and must not be confused with agency class."
+    },
+    "bridge_rule": "Bridge is normally agency_class=type_b and authority_tier=bounded_worker. Its intelligence_tier can be lower, middle, or upper depending on selected model/timing tier."
+  },
+  "provider_model_row_contract": {
+    "required_fields": [
+      "provider_id",
+      "model_id",
+      "display_name",
+      "endpoint_kind",
+      "modalities",
+      "capabilities",
+      "pricing_class",
+      "limit_claims",
+      "live_probe_status",
+      "latency_stats",
+      "schema_score",
+      "last_seen_at",
+      "source_refs",
+      "authority_ceiling"
+    ],
+    "limit_claim_source_kinds": [
+      "unknown",
+      "assumed_default",
+      "header_observed",
+      "operator_override",
+      "official_doc"
+    ],
+    "rule": "Provider model rows are metadata and runtime-status affordance rows. They may guide a transform_job pilot but never authorize broad chat or source mutation by themselves."
+  },
+  "provider_lane_policy": {
+    "rule": "NVIDIA and OpenRouter are separate provider-throughput lanes. The repo hub should maximize both under independent cooldown, quota, and payload gates.",
+    "single_job_selection": "A transform_job selects one provider lane for one bounded row transform.",
+    "fallback_semantics": "Fallback is same-job recovery after a lane is unavailable; it is not a reason to idle another independent lane.",
+    "scheduler_shape": "Always-on provider metabolism materializes tiny per-provider jobs, records receipts and row patches under compute-worker state, and never dispatches broad chat, private payloads, raw-seed rewriting, or source mutation."
+  },
+  "authority_tiers": {
+    "operator_voice": {
+      "description": "Human-authored raw intent. Not a worker tier.",
+      "can_author": [
+        "raw_seed"
+      ],
+      "low_authority": false
+    },
+    "authoring_agent": {
+      "description": "Context-rich filesystem/navigation envelope with repo rules, validation obligations, and write authority.",
+      "can_author": [
+        "doctrine",
+        "shards",
+        "skills",
+        "paper_modules",
+        "code",
+        "final_assimilation"
+      ],
+      "low_authority": false
+    },
+    "bounded_worker": {
+      "description": "Injected-context worker envelope that consumes materialized projections and returns typed evidence or candidate output under controller validation.",
+      "agency_class": "type_b",
+      "intelligence_tier": "selectable_by_provider_or_model_tier",
+      "can_author": [],
+      "low_authority": true
+    },
+    "provider_endpoint": {
+      "description": "Raw model/API backend with no repo semantics. Safe only behind a worker packet and output schema.",
+      "can_author": [],
+      "low_authority": true
+    }
+  },
+  "limit_claim_sources": [
+    "measured",
+    "header_observed",
+    "official_doc",
+    "operator_declared",
+    "operator_override",
+    "assumed_default",
+    "unknown",
+    "unverified"
+  ],
+  "verification_statuses": [
+    "local_verified",
+    "measured",
+    "operator_declared",
+    "official_doc",
+    "unverified"
+  ],
+  "task_classes": {
+    "annex_pattern_candidate_extraction": {
+      "label": "Annex pattern candidate extraction",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "annex_family",
+        "annex_contents",
+        "annex_notes",
+        "rubric",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "candidates",
+          "evidence",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python -m tools.meta.factory.build_compute_throughput_ledger --check",
+      "forbidden_surfaces": [
+        "raw_seed.md",
+        "codex/doctrine/concepts/",
+        "codex/doctrine/mechanisms/",
+        "codex/doctrine/skills/",
+        "codex/doctrine/paper_modules/"
+      ]
+    },
+    "paper_module_fact_audit": {
+      "label": "Paper-module fact audit",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "paper_module_tldr",
+        "code_loci_projection",
+        "fact_assertions",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "findings",
+          "evidence",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+      "forbidden_surfaces": [
+        "codex/doctrine/paper_modules/*.md"
+      ]
+    },
+    "broken_link_or_route_detection": {
+      "label": "Broken link or route detection",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "route_projection",
+        "link_inventory",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "broken_refs",
+          "checked_refs",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/audit/harness_audit.py --json",
+      "forbidden_surfaces": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "CODEX.md"
+      ]
+    },
+    "module_coverage_gap_scan": {
+      "label": "Module coverage gap scan",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "hologram_scope_tree",
+        "paper_module_index",
+        "route_coverage",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "gaps",
+          "coverage_inputs",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+      "forbidden_surfaces": [
+        "codex/doctrine/paper_modules/*.md"
+      ]
+    },
+    "provider_docs_summarization": {
+      "label": "Provider docs summarization",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "docs_excerpt",
+        "summary_rubric",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "summary",
+          "volatile_claims",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python -m tools.meta.factory.build_compute_throughput_ledger --check",
+      "forbidden_surfaces": [
+        "codex/doctrine/compute/provider_registry.json"
+      ]
+    },
+    "schema_conformance_check": {
+      "label": "Schema conformance check",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "schema",
+        "candidate_payload",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "valid",
+          "violations",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-pytest system/server/tests/test_compute_throughput.py",
+      "forbidden_surfaces": [
+        "codex/standards/"
+      ]
+    },
+    "duplicate_concept_detection": {
+      "label": "Duplicate concept detection",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "doctrine_projection",
+        "concept_index",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "candidate_duplicates",
+          "evidence",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --doctrine-runtime",
+      "forbidden_surfaces": [
+        "codex/doctrine/concepts/",
+        "codex/doctrine/mechanisms/"
+      ]
+    },
+    "stale_count_detection": {
+      "label": "Stale count detection",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "status_payload",
+        "generated_surface",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "stale_counts",
+          "checked_surfaces",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --pulse",
+      "forbidden_surfaces": [
+        "generated_authority_sources"
+      ]
+    },
+    "navigation_axis_presence_audit": {
+      "label": "Navigation axis presence audit",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "routing_hologram",
+        "semantic_route_status",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "axis_findings",
+          "missing_axes",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --route-status",
+      "forbidden_surfaces": [
+        "codex/doctrine/routing_hologram.json"
+      ]
+    },
+    "test_output_triage": {
+      "label": "Test-output triage",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "test_output",
+        "changed_file_summary",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "failures",
+          "likely_causes",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-pytest system/server/tests/test_compute_throughput.py system/server/tests/test_kernel_compute.py",
+      "forbidden_surfaces": [
+        "source_writes"
+      ]
+    },
+    "metadata_probe": {
+      "label": "Provider metadata probe",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "provider_metadata_endpoint",
+        "redacted_provider_config",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "configured",
+          "live_probe",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "model_inference_payloads",
+        "secret_values",
+        "private_repo_content"
+      ]
+    },
+    "quota_health_check": {
+      "label": "Provider quota health check",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "provider_key_status_endpoint",
+        "redacted_provider_config",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "limits",
+          "usage",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check --live-probe",
+      "forbidden_surfaces": [
+        "model_inference_payloads",
+        "secret_values",
+        "private_repo_content"
+      ]
+    },
+    "prover_context_hypothesis": {
+      "label": "Prover context-pack hypothesis generation",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "prover_context_pack",
+        "retrieval_report_ref",
+        "skill_decision_ref",
+        "provider_task",
+        "allowed_premise_ids",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "lean_proof_body",
+          "premise_ids_used",
+          "notes",
+          "confidence",
+          "omissions"
+        ],
+        "properties": {
+          "lean_proof_body": {
+            "type": "string"
+          },
+          "premise_ids_used": {
+            "type": "array"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "omissions": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": false
+      },
+      "validation_command": "./repo-python tools/meta/factory/run_prover_graph_benchmark.py --provider-context-sweep --check --json",
+      "forbidden_surfaces": [
+        "truth_side_proof_bodies",
+        "oracle_only_repair_bodies",
+        "test_split_truth",
+        "source_writes"
+      ],
+      "authority_note": "Provider workers may emit a Lean proof-body hypothesis from a bounded prover context pack only. Lean acceptance and Prover-Oracle/Foundry attribution remain Type A controller work; provider text is never success by itself."
+    },
+    "prover_strategy_classification": {
+      "label": "Prover strategy classification (provider chooses one mathematical_strategy_atlas_v0 strategy_id; advisory only)",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "prover_context_pack",
+        "retrieval_report_ref",
+        "skill_decision_ref",
+        "provider_task",
+        "allowed_premise_ids",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "strategy_id",
+          "confidence",
+          "reasons",
+          "decomposition_hint",
+          "forbidden_output_audit",
+          "omissions"
+        ],
+        "properties": {
+          "strategy_id": {
+            "type": "string",
+            "enum": [
+              "equality_normal_form",
+              "iff_split",
+              "constructor_injectivity",
+              "recursive_data_induction",
+              "membership_decomposition",
+              "composition_fusion",
+              "symmetry_or_orientation",
+              "contradiction_or_false_target"
+            ]
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "decomposition_hint": {
+            "type": "string"
+          },
+          "expected_tactic_family": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expected_premise_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "forbidden_output_audit": {
+            "type": "object",
+            "required": [
+              "contains_lean_proof_body",
+              "contains_full_tactic_script",
+              "contains_oracle_material"
+            ],
+            "properties": {
+              "contains_lean_proof_body": {
+                "type": "boolean"
+              },
+              "contains_full_tactic_script": {
+                "type": "boolean"
+              },
+              "contains_oracle_material": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "omissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "validation_command": "./repo-python tools/meta/factory/run_prover_graph_benchmark.py --provider-context-sweep --check --json",
+      "forbidden_surfaces": [
+        "oracle_only_repair_bodies",
+        "truth_side_proof_bodies",
+        "test_split_truth",
+        "source_writes"
+      ],
+      "authority_note": "Provider workers classify the target into exactly one mathematical_strategy_atlas_v0 strategy_id and emit bounded advisory metadata. Provider output is never proof authority; deterministic search consumption + downstream evaluator deltas remain Type A controller work. Mechanical prevention: output_schema enumerates strategy_id (8 known values), uses additionalProperties=false, and excludes proof/tactic/oracle output fields, so the provider cannot return forbidden material even if asked. The forbidden_surfaces list above protects against input-side leakage (oracle/test/source surfaces). Reducer-level strategy_id enum validation + leakage audit remain Type A controller work."
+    },
+    "derive_flag": {
+      "label": "Affordance-row flag derivation",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "source_row",
+        "existing_affordance_row",
+        "connector_neighborhood",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "flag",
+          "evidence_refs",
+          "omissions",
+          "confidence"
+        ],
+        "properties": {
+          "flag": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array"
+          },
+          "omissions": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          }
+        }
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "raw_seed.md",
+        "private_payloads",
+        "source_writes"
+      ]
+    },
+    "draft_card": {
+      "label": "Affordance-row card draft",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "flag",
+        "bounded_source_excerpt",
+        "connector_neighborhood",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "card",
+          "evidence_refs",
+          "omissions",
+          "confidence"
+        ],
+        "properties": {
+          "card": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array"
+          },
+          "omissions": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          }
+        }
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "raw_seed.md",
+        "private_payloads",
+        "source_writes"
+      ]
+    },
+    "raw_seed_candidate_io": {
+      "label": "Raw-seed candidate I/O",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "bounded_raw_seed_excerpt",
+        "paragraph_metadata",
+        "candidate_rubric",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "shards",
+          "notes",
+          "_summary",
+          "evidence_refs",
+          "omissions",
+          "confidence"
+        ],
+        "properties": {
+          "shards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "parent_paragraph_id",
+                "segment_ordinal",
+                "clarified_statement",
+                "voice_anchor",
+                "compression_ratio",
+                "distillation_confidence",
+                "gestures_towards",
+                "compression_notes"
+              ],
+              "properties": {
+                "parent_paragraph_id": {"type": "string"},
+                "segment_ordinal": {"type": "string"},
+                "clarified_statement": {
+                  "type": "string",
+                  "description": "Materially clearer restatement of the operator's intent; not a typo, punctuation, or headline pass over the voice_anchor."
+                },
+                "voice_anchor": {
+                  "type": "string",
+                  "description": "Contiguous 6-20 word substring copied exactly from bounded_raw_seed_excerpt.text; no paraphrase, ellipsis, or stitched phrases."
+                },
+                "support_excerpt": {"type": "string"},
+                "compression_ratio": {"type": "number"},
+                "distillation_confidence": {"type": "number"},
+                "gestures_towards": {"type": "array"},
+                "compression_notes": {"type": "array"}
+              }
+            }
+          },
+          "notes": {
+            "type": "object"
+          },
+          "_summary": {
+            "type": "object"
+          },
+          "evidence_refs": {
+            "type": "array"
+          },
+          "omissions": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "worker_dissent_or_uncertainty": {
+            "type": "string"
+          }
+        }
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "source_writes",
+        "direct_production_edits",
+        "raw_seed_authority_mutation",
+        "full_raw_seed_dump"
+      ],
+      "authority_note": "Type B providers may process bounded raw-seed excerpts into candidate JSON only. The required output is canonical raw-seed distillation shape: shards[].clarified_statement says the operator's intent much more clearly, and shards[].voice_anchor is a verbatim source excerpt. Summary-only takeaway/anchor outputs are invalid. Providers do not author extracted_shards.json, raw_seed.md, doctrine, principles, or final assimilation."
+    },
+    "check_evidence_pointer": {
+      "label": "Affordance-row evidence pointer check",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "claim",
+        "evidence_ref",
+        "bounded_excerpt",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "valid",
+          "checked_refs",
+          "violations",
+          "confidence"
+        ],
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "checked_refs": {
+            "type": "array"
+          },
+          "violations": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          }
+        }
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "raw_seed.md",
+        "private_payloads",
+        "source_writes"
+      ]
+    },
+    "route_candidate_discovery": {
+      "label": "Route candidate discovery",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "routing_hologram_digest",
+        "query_or_node",
+        "candidate_budget",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "candidate_edges",
+          "evidence",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --route-status",
+      "forbidden_surfaces": [
+        "codex/doctrine/routing_hologram.json",
+        "source_writes",
+        "raw_seed.md"
+      ]
+    },
+    "route_edge_judgment": {
+      "label": "Route edge judgment",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "edge_candidate",
+        "bounded_source_excerpt",
+        "neighbor_context",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "judgment",
+          "confidence",
+          "evidence_refs",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --route-status",
+      "forbidden_surfaces": [
+        "codex/doctrine/routing_hologram.json",
+        "source_writes",
+        "raw_seed.md"
+      ]
+    },
+    "route_pair_rerank_hint": {
+      "label": "Route pair rerank hint",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "route_pair_batch",
+        "ranking_rubric",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "rerank_hints",
+          "evidence",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python kernel.py --route-status",
+      "forbidden_surfaces": [
+        "codex/doctrine/routing_hologram.json",
+        "source_writes",
+        "raw_seed.md"
+      ]
+    },
+    "route_worker_benchmark": {
+      "label": "Route worker benchmark",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "benchmark_fixture",
+        "expected_schema",
+        "provider_model_row",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "schema_score",
+          "latency_observation",
+          "violations",
+          "provenance"
+        ]
+      },
+      "validation_command": "./repo-python tools/meta/factory/build_compute_throughput_ledger.py --check",
+      "forbidden_surfaces": [
+        "codex/doctrine/routing_hologram.json",
+        "source_writes",
+        "raw_seed.md"
+      ]
+    },
+    "populate_routing_atoms": {
+      "label": "Python navigation routing-atom population",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "target_row",
+        "target_facet",
+        "module_skeleton",
+        "routed_neighborhood",
+        "decision_output_schema",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "decision",
+          "evidence_refs",
+          "omissions",
+          "confidence"
+        ],
+        "properties": {
+          "decision": {
+            "type": "object"
+          },
+          "evidence_refs": {
+            "type": "array"
+          },
+          "omissions": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "worker_dissent_or_uncertainty": {
+            "type": "string"
+          }
+        }
+      },
+      "validation_command": "./repo-pytest system/server/tests/test_navigation_population_acceptance.py -k populate_routing_atoms",
+      "forbidden_surfaces": [
+        "raw_seed.md",
+        "private_payloads",
+        "source_writes",
+        "direct_production_edits"
+      ],
+      "authority_note": "Provider endpoints may propose typed routing-atom decisions for python_navigation_population only as provider receipts and draft row patches. The provider output cannot mutate navigation source, standards, doctrine, or generated projections without Type A reducer review."
+    },
+    "paid_model_call": {
+      "label": "Paid model call",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Paid provider calls require an explicit operator budget gate."
+    },
+    "private_payload_call": {
+      "label": "Private payload call",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "External-provider private payloads require an explicit data-residency gate."
+    },
+    "embedding_population": {
+      "label": "Embedding population",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Embedding population must use the repo-owned embedding substrate and provider-specific runtime guard."
+    },
+    "ungoverned_chat_completion": {
+      "label": "Ungoverned chat completion",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Hosted chat calls require an explicit task packet, quota ledger, and no-spend/provider policy."
+    },
+    "raw_seed_to_shard_authoring": {
+      "label": "Raw-seed-to-shard authoring",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Voice-preserving shard authoring requires full repo context and controller-gated assimilation."
+    },
+    "doctrine_node_minting": {
+      "label": "Doctrine node minting",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Doctrine minting changes the system ontology and must stay controller-gated."
+    },
+    "paper_module_authoring": {
+      "label": "Paper-module authoring",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Paper modules are authored projections, not worker evidence."
+    },
+    "skill_authoring": {
+      "label": "Skill authoring",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Skills define agent behavior and must be authored through the skill-authoring lane."
+    },
+    "principle_extraction": {
+      "label": "Principle extraction",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Principles are voice- and doctrine-grade commitments."
+    },
+    "voice_distillation": {
+      "label": "Voice distillation",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Voice distillation can pollute intent if performed by low-context workers."
+    },
+    "direct_production_edits": {
+      "label": "Direct production edits",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Low-authority workers return evidence only; they do not mutate production files."
+    },
+    "security_sensitive_code_changes": {
+      "label": "Security-sensitive code changes",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Security changes require full-context review and validation."
+    },
+    "final_assimilation": {
+      "label": "Final assimilation",
+      "low_authority_allowed": false,
+      "required_authority_tier": "authoring_agent",
+      "forbidden_to_low_authority_reason": "Assimilation decides what becomes repo truth."
+    }
+  },
+  "worker_packet_contract": {
+    "required_fields": [
+      "task_class",
+      "authority_tier",
+      "provider_id",
+      "materialized_projection_inputs",
+      "forbidden_surfaces",
+      "output_schema",
+      "provenance_requirements",
+      "validation_command",
+      "receipt_target"
+    ],
+    "rule": "Worker packets are zero-write by default. A low-authority worker may return typed evidence only; controller review decides any durable change."
+  },
+  "worker_packet_contract_v2": {
+    "standard_ref": "std_transform_job",
+    "required_artifacts": [
+      "transform_job",
+      "provider_receipt"
+    ],
+    "optional_artifacts": [
+      "row_patch"
+    ],
+    "state_root": "state/compute_workers/",
+    "rule": "Low-authority providers consume transform_job packets and return provider_receipts plus draft row_patches. The controller owns validation and promotion."
+  },
+  "risk_fields": [
+    "data_residency",
+    "tos_risk",
+    "ip_sensitivity",
+    "operator_approval_required"
+  ],
+  "provenance": {
+    "raw_seed_motifs": [
+      "cheap compute consumes projections",
+      "expensive context-rich agents author projections",
+      "holographic pattern makes lower-authority work coherent"
+    ],
+    "annex_patterns": [
+      {
+        "annex_slug": "openclaw-mission-control",
+        "pattern": "queue worker dispatch table with retry backoff"
+      },
+      {
+        "annex_slug": "hermes-agent",
+        "pattern": "spawn-per-call execution backend with process registry"
+      },
+      {
+        "annex_slug": "agentic-stack",
+        "pattern": "portable harness over file-owned brain"
+      },
+      {
+        "annex_slug": "hyperswitch",
+        "pattern": "provider adapter plus routing registry"
+      },
+      {
+        "annex_slug": "free-claude-code",
+        "pattern": "OpenAI-compatible provider adapter and rate-limit wrapper translated into repo-owned transform jobs, not copied as a proxy"
+      },
+      {
+        "annex_slug": "tradingagents",
+        "pattern": "single provider factory with normalized model tiers and content output"
+      }
+    ]
+  }
+}

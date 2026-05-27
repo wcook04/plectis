@@ -7,8 +7,8 @@
     "release_authorized": false,
     "truth_side_material_authorized": false
   },
-  "body_copied_material_count": 3,
-  "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
+  "body_copied_material_count": 8,
+  "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
   "expected_receipts": [
     "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_result.json",
     "receipts/first_wave/provider_context_recipe_budget_policy/provider_context_budget_board.json",
@@ -30,16 +30,36 @@
       "role": "exact copied macro source module manifest with source-to-target hashes and required anchors"
     },
     {
-      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
-      "role": "exact copied non-secret macro provider-context recipe compiler source body"
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "role": "Macro batch calibration report builder that aggregates reduced provider receipts into recipe-policy, leakage, row-patch-review, cost, and taxonomy reports without provider dispatch."
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_compute_provider.json",
+      "role": "Macro compute-provider policy standard defining provider lanes, authority tiers, transform-job packets, provider receipts, draft row patches, and low-authority worker boundaries."
     },
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
-      "role": "exact copied non-secret macro formal ladder provider-context consumer source body"
+      "role": "Macro formal problem ladder evaluator that consumes the provider-context harness into transform jobs, optional provider dispatch receipts, reduction, and recipe policy metrics."
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+      "role": "Macro prover graph benchmark harness that defines provider context recipe ids, budget ceilings, bounded section fill, leakage audits, and std_transform_job compilation without provider dispatch in v0."
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_provider_adapter.json",
+      "role": "Macro provider adapter contract body for registry binding, model resolution, fallback policy, budget policy, receipt requirements, and runtime-refactor gates."
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+      "role": "Macro provider navigation transform receipt standard that keeps provider-generated navigation candidates candidate-only and mutation-free."
+    },
+    {
+      "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "role": "Macro provider receipt reducer that classifies provider output, detects truth-side leakage, audits premise budgets, reviews row patches, and writes advisory evidence without provider calls or source promotion."
     },
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/source_modules/codex/standards/std_transform_job.json",
-      "role": "exact copied non-secret macro std_transform_job standard body consumed by the provider-context transform-job compiler"
+      "role": "Macro std_transform_job standard body that defines the provider-context transform-job ABI: projection input packets, provider receipts, row patches, authority ceilings, and local-evidence override policy."
     },
     {
       "path": "fixtures/first_wave/provider_context_recipe_budget_policy/input/budget_overflow_recipe.json",
@@ -90,13 +110,18 @@
       "truth_side_material_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 3,
+    "body_material_count": 8,
     "body_material_ids": [
+      "provider_context_batch_calibration_report_body_import",
+      "provider_context_compute_provider_standard_body_import",
       "provider_context_formal_ladder_eval_body_import",
       "provider_context_graph_benchmark_body_import",
+      "provider_context_provider_adapter_standard_body_import",
+      "provider_context_provider_navigation_transform_receipt_standard_body_import",
+      "provider_context_receipt_reducer_body_import",
       "provider_context_transform_job_standard_body_import"
     ],
-    "body_material_status": "exact_copied_non_secret_provider_context_macro_source_and_transform_job_standard_bodies_with_digest_provenance",
+    "body_material_status": "exact_copied_non_secret_provider_context_macro_reducer_calibration_policy_and_standard_bodies_with_digest_provenance",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_workingness": false,
     "material_classes": [

@@ -27,6 +27,15 @@ PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_p
 PYTHONPATH=src python3 -m microcosm_core.cli provider-context-recipe-budget-policy run-budget-bundle --input examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle --out receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy
 ```
 
+## Source-Open Body Floor
+
+The public bundle carries exact non-secret macro bodies for the context recipe
+compiler, formal ladder consumer, provider receipt reducer, batch calibration
+report, transform-job ABI, provider adapter policy, compute-provider policy,
+and provider-navigation transform receipt policy. The validator checks every
+copied module by digest and required anchors; receipts report only paths,
+hashes, counts, anchor status, and verdicts.
+
 ## Negative Cases
 
 - `budget_overflow_recipe` rejects recipes above the public byte ceiling.

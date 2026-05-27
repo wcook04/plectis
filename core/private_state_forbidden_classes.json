@@ -13,7 +13,7 @@
   "public_safe_macro_import": {
     "policy_id": "verified_macro_import_classification_v1",
     "source_context": "verified_macro_import",
-    "summary": "Body-bearing macro material is not forbidden merely because it is a body. Real non-secret macro proof, tool, pattern, and receipt bodies are the default import target; only secrets, credentials, operator conversation bodies, provider payloads, account-bound material, and raw operator voice stay blocked.",
+    "summary": "Body-bearing macro material is not forbidden merely because it is a body. Real non-secret macro proof, tool, pattern, standard, and receipt bodies are the default import target; only secrets, credentials, operator conversation bodies, provider payloads, account-bound material, and raw operator voice stay blocked.",
     "risk_routing": {
       "none": "direct_verified_public",
       "low": "verified_light_edit",
@@ -23,6 +23,7 @@
     "public_safe_body_material_classes": [
       "public_macro_pattern_body",
       "public_macro_tool_body",
+      "public_macro_standard_body",
       "public_macro_receipt_body",
       "public_macro_proof_body"
     ],

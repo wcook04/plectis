@@ -20,8 +20,13 @@ from microcosm_core.organs.provider_context_recipe_budget_policy import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/provider_context_recipe_budget_policy/input"
 PROVIDER_CONTEXT_SOURCE_MODULE_IDS = [
+    "provider_context_batch_calibration_report_body_import",
+    "provider_context_compute_provider_standard_body_import",
     "provider_context_formal_ladder_eval_body_import",
     "provider_context_graph_benchmark_body_import",
+    "provider_context_provider_adapter_standard_body_import",
+    "provider_context_provider_navigation_transform_receipt_standard_body_import",
+    "provider_context_receipt_reducer_body_import",
     "provider_context_transform_job_standard_body_import",
 ]
 
@@ -65,7 +70,7 @@ def test_provider_context_recipe_budget_observes_required_negative_cases(
     assert result["missing_negative_cases"] == []
     assert result["private_state_scan"]["blocking_hit_count"] == 0
     assert result["source_module_import_status"] == "pass"
-    assert result["source_module_count"] == 3
+    assert result["source_module_count"] == len(PROVIDER_CONTEXT_SOURCE_MODULE_IDS)
     assert result["authority_ceiling"]["provider_calls_authorized"] is False
     assert result["authority_ceiling"]["formal_proof_authority"] is False
     for case_id, codes in EXPECTED_NEGATIVE_CASES.items():
@@ -181,7 +186,9 @@ def test_provider_context_fixture_card_stdout_is_compact_and_keeps_full_receipts
     assert card["provider_context_summary"]["recipe_count"] == 6
     assert card["provider_context_summary"]["context_packet_count"] == 6
     assert card["provider_context_summary"]["context_packets_exported"] is False
-    assert card["provider_context_summary"]["source_module_count"] == 3
+    assert card["provider_context_summary"]["source_module_count"] == len(
+        PROVIDER_CONTEXT_SOURCE_MODULE_IDS
+    )
     assert card["negative_case_coverage"]["expected_case_count"] == len(
         EXPECTED_NEGATIVE_CASES
     )
@@ -314,3 +321,4 @@ def test_provider_context_fixture_manifest_counts_source_open_body_floor() -> No
     assert body_imports["body_in_receipt"] is False
     assert set(body_imports["body_material_ids"]) == set(PROVIDER_CONTEXT_SOURCE_MODULE_IDS)
     assert "public_macro_standard_body" in body_imports["material_classes"]
+    assert "public_macro_tool_body" in body_imports["material_classes"]
