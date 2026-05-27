@@ -138,6 +138,38 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "microcosm_extracted_patterns",
             "system_microcosm",
         ],
+        "context_pack_selected_row_order": [
+            {
+                "kind_id": "paper_modules",
+                "row_id": "microcosm_entry_lattice",
+                "role": "entry_lattice",
+            },
+            {
+                "kind_id": "standards",
+                "row_id": "std_microcosm",
+                "role": "standard_contract",
+            },
+            {
+                "kind_id": "paper_modules",
+                "row_id": "paper_module_coverage_metabolism",
+                "role": "coverage_metabolism",
+            },
+            {
+                "kind_id": "paper_modules",
+                "row_id": "microcosm_public_export_type_plane",
+                "role": "public_export_type_plane_bridge",
+            },
+            {
+                "kind_id": "navigation_type_plane",
+                "row_id": "public_microcosm_exports",
+                "role": "standard_type_plane_row",
+            },
+            {
+                "kind_id": "paper_modules",
+                "row_id": "microcosm_substrate",
+                "role": "product_roof",
+            },
+        ],
         "required_prompt_shapes": [
             "microcosm paper module",
             "paper module coverage",
@@ -280,6 +312,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "generated sidecars",
         "supporting route-lattice modules",
         "module_depth_roles",
+        "context-pack selected row order",
         "microcosm_paper_module_depth",
         "navigation_type_plane",
         "entry-packet parity rule",
