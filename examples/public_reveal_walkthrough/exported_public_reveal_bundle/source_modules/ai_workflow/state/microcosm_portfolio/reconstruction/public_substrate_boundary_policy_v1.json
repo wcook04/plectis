@@ -1,0 +1,367 @@
+{
+  "schema_version": "public_substrate_boundary_policy_v1",
+  "created_at": "2026-05-18T01:20:00Z",
+  "refined_at": "2026-05-18T03:25:00Z",
+  "created_by": "codex",
+  "assigned_lane": "public_substrate_boundary_language_repair",
+  "artifact_role": "boundary_language_policy_for_macro_projection_surface",
+  "status": "active",
+  "authority_boundary": {
+    "scope": "macro-side reconstruction handoff language and projection-readiness checks",
+    "not_public_code_authority": true,
+    "does_not_authorize_public_root_write": true,
+    "does_not_authorize_self_indexing_cognitive_substrate_write": true,
+    "policy_ref_md": "state/microcosm_portfolio/reconstruction/public_substrate_boundary_policy_v1.md"
+  },
+  "public_substrate_rule": {
+    "statement": "The public microcosm releases public substrate organs and code patterns wherever projection or refactor is safe.",
+    "public_substrate_includes": [
+      "public substrate organ architecture",
+      "public substrate code patterns",
+      "public-safe macro proof bodies with provenance",
+      "public-safe macro tool bodies with provenance",
+      "public-safe macro pattern bodies with provenance",
+      "public-safe macro receipt bodies with provenance",
+      "standards and standard registries",
+      "public-safe projection contracts",
+      "authority-boundary manifests",
+      "synthetic replacement fixture contracts",
+      "schema-only projection contracts",
+      "validator, receipt, and negative-case contracts",
+      "route-plane, WorkItem, Work Ledger, and evidence-cell contracts",
+      "paper-module authoring contracts and public-safe doctrine sections"
+    ],
+    "not_excluded_by_default": [
+      "public substrate code",
+      "public substrate organs",
+      "public-safe code patterns",
+      "standards",
+      "validators",
+      "route-plane contracts",
+      "proof fixtures",
+      "public-safe body imports after scanner classification, provenance recording, validation refs, and claim ceilings"
+    ]
+  },
+  "public_safe_macro_import_rule": {
+    "default": "classify_before_omitting",
+    "allowed_when": [
+      "material_class is public_macro_pattern_body, public_macro_tool_body, public_macro_receipt_body, or public_macro_proof_body",
+      "private_state_risk routes to direct_public or public_safe_with_light_edits",
+      "source refs, provenance refs, validation refs, applied edits when needed, and claim ceiling are present",
+      "scanner rejects no true private sentinel or forbidden material class",
+      "release, publication, recipient-work, private-root equivalence, and whole-system correctness claims remain false"
+    ],
+    "blocked_when": [
+      "material is raw seed, operator thread, provider payload, credential, secret, recipient packet, release packet, live operator state, or non-public evidence body",
+      "private_state_risk is high",
+      "medium-risk material lacks case-review receipt",
+      "public-safe import claims source authority above the macro contract"
+    ],
+    "lean_policy": "Lean and proof bodies use the same public-safe macro import classification as tools, patterns, and receipts; they are neither privileged nor excluded as a special case."
+  },
+  "excluded_classes": [
+    {
+      "class_id": "forbidden_content_body",
+      "label": "forbidden content body",
+      "examples": [
+        "raw seed body text",
+        "prompt shelf body text",
+        "provider payload body text",
+        "provider or oracle private proof body text",
+        "benchmark answer body text",
+        "release packet body text",
+        "recipient packet body text",
+        "hosted-public or website body text",
+        "prediction or market-private body text"
+      ],
+      "public_treatment": "exclude, replace with synthetic replacement fixture, or reduce to schema-only projection"
+    },
+    {
+      "class_id": "live_operator_state",
+      "label": "live operator state",
+      "examples": [
+        "operator threads",
+        "HUD/browser/cockpit state",
+        "live Task Ledger rows",
+        "live Work Ledger rows",
+        "local auth-adjacent host state"
+      ],
+      "public_treatment": "exclude or replace with synthetic replacement fixture"
+    },
+    {
+      "class_id": "true_private_source_body",
+      "label": "true private source body",
+      "examples": [
+        "private memory body",
+        "formal/prover lab payload body that contains provider or oracle private material",
+        "bridge transcript body",
+        "provider transcript body"
+      ],
+      "public_treatment": "path-level lineage, body-redacted digest, synthetic replacement fixture, schema-only projection, or case review; do not use this class for public-safe macro proof/tool/pattern/receipt bodies"
+    },
+    {
+      "class_id": "non_public_evidence_body",
+      "label": "non-public evidence body",
+      "examples": [
+        "evidence used for reconstruction lineage but not copied into fixtures",
+        "body-bearing runtime evidence",
+        "operator-mediated advisory content"
+      ],
+      "public_treatment": "omit body; carry lineage, schema, anti-claim, or replacement fixture only"
+    }
+  ],
+  "projection_modes": {
+    "direct_public_with_provenance": "Allow a public-safe macro body to flow after scanner classification, source refs, provenance refs, validation refs, and claim ceiling are present.",
+    "public_safe_body_with_light_edits": "Allow a none/low-risk public-safe body after private path/reference cleanup, provenance, validation refs, and bounded claims.",
+    "case_review": "Hold medium-risk material until a typed review receipt chooses direct import, redaction, schema-only, or synthetic-only treatment.",
+    "public_safe_projection": "Project or refactor structure only after blocklist and authority checks pass.",
+    "synthetic_replacement_fixture": "Replace a forbidden content body or live operator state with toy data that exercises the same contract.",
+    "schema_only_projection": "Expose field names, shapes, validation rules, and error codes without source rows or payload bodies.",
+    "path_level_lineage_only": "Carry path, id, digest, status, or body-redacted receipt metadata.",
+    "target_only_not_source": "Name a public substrate path as a future destination without treating that path as source authority.",
+    "forbidden_content_body_excluded": "Reject the source as fixture input, receipt body, implementation evidence, or authority."
+  },
+  "legacy_term_translation": {
+    "keep_private_forever": "forbidden_content_body_excluded",
+    "macro_only": "non_public_evidence_body_omitted_or_schema_only_projection",
+    "macro-only": "non_public_evidence_body_omitted_or_schema_only_projection",
+    "macro_only_evidence_not_candidate_leaf": "non_public_evidence_body_omitted_and_direct_public_leaf_excluded",
+    "macro_only_schema_exclusion_contract": "schema_only_projection_or_forbidden_content_body_excluded",
+    "macro_only_boundary": "authority_boundary_for_non_public_evidence_body_or_live_operator_state",
+    "macro_planning_only": "macro_side_planning_evidence_not_public_fixture_body",
+    "private_state_scan": "compatibility validator label for non-public content body, forbidden content body, private source body, and live operator state scanning",
+    "private_state_risks": "compatibility risk-field label for non-public content body, forbidden content body, private source body, and live operator state classification",
+    "private_boundary": "compatibility failure/status label for an authority boundary failure involving a forbidden content body, private source body, non-public evidence body, live operator state, or public-root mutation/source-authority attempt",
+    "blocked_private_body_reference": "compatibility dry-run status for a blocked forbidden content body, private source body, non-public evidence body, or live operator state reference",
+    "hidden_substrate_integration_manifest": "legacy source-ledger label for an authority-boundary source-lineage manifest over non-public evidence bodies",
+    "hidden-substrate": "legacy source-ledger adjective for non-public evidence-body lineage, not public substrate exclusion",
+    "sanitization": "legacy source-ledger label for replacing forbidden content bodies with synthetic replacement fixtures or schema-only projections",
+    "sanitized": "legacy source-ledger label for forbidden content-body replacement, not substrate cleanup",
+    "private_only": "legacy source-ledger decision label for non-public evidence-body omission or direct public leaf exclusion",
+    "private-only": "legacy source-ledger decision label for non-public evidence-body omission or direct public leaf exclusion"
+  },
+  "macro_only_compatibility_policy": {
+    "keep_private_forever": "Compatibility projection-mode label only. It means forbidden content-body exclusion from fixture bodies, receipt bodies, source authority, or implementation evidence because the source class is a forbidden content body, non-public evidence body, private source body, live operator state, or release/dissemination wrapper. It does not mean public substrate exclusion.",
+    "macro_only": "Compatibility route label only. It means macro-side planning evidence, non-public evidence-body omission, schema-only projection, or direct public leaf exclusion. It does not mark public substrate organs or code patterns as private.",
+    "macro-only": "Compatibility disposition label only. It means the row is not a standalone public leaf driver because its body is non-public evidence, macro-side planning evidence, or schema-only material. It does not block public-safe projection of releasable public substrate organs.",
+    "macro_only_evidence_not_candidate_leaf": "Compatibility overlay role only. It means the row remains evidence for lineage or anti-claim policy while its body is omitted from public fixtures and it is excluded from direct leaf scheduling.",
+    "macro_only_schema_exclusion_contract": "Compatibility fixture/negative-case label only. It means a macro-only row with an attached private payload body must be rejected or reduced to schema-only projection.",
+    "macro_only_boundary": "Compatibility normalization flag only. It means an authority boundary around non-public evidence bodies, forbidden content bodies, private source bodies, or live operator state.",
+    "macro_planning_only": "Compatibility blocklist projection policy only. It means planning references may remain in macro reconstruction artifacts while public fixture bodies and implementation imports are forbidden.",
+    "does_not_mark_private": [
+      "public substrate",
+      "public substrate organ",
+      "public substrate code patterns",
+      "standards",
+      "validators",
+      "route plane",
+      "proof spine",
+      "work spine"
+    ]
+  },
+  "compatibility_label_policy": {
+    "private_state_scan": "Compatibility validator/file label only. It means scan for non-public content bodies, forbidden content bodies, private source bodies, and live operator state before accepting a public fixture or receipt.",
+    "private_state_scan_result": "Compatibility receipt field only. It must record body-exclusion results and must not imply that the public substrate is private.",
+    "private_state_scan_focus": "Compatibility negative-case field only. It names the non-public content bodies, forbidden content bodies, private source bodies, or live operator state classes a fixture must reject.",
+    "private_state_scan_summary": "Compatibility receipt summary only. It summarizes body/state exclusion results without carrying source bodies.",
+    "private_state_risk": "Compatibility risk field only. It flags content/state hazards that require public-safe projection, synthetic replacement fixtures, schema-only projection, or omission.",
+    "private_state_risks": "Compatibility risk array only. It classifies non-public content bodies, forbidden content bodies, private source bodies, or live operator state hazards before projection.",
+    "private_state_risk_summary": "Compatibility risk summary only. It describes why a public-safe projection needs omission, schema-only projection, or synthetic replacement fixtures.",
+    "private_state_forbidden_terms": "Compatibility fixture filename only. It carries scanner vocabulary, not source authority or public substrate exclusion.",
+    "does_not_mark_private": [
+      "public substrate",
+      "public substrate organ",
+      "public substrate code patterns",
+      "standards",
+      "validators",
+      "route plane",
+      "proof spine",
+      "work spine"
+    ]
+  },
+  "hyphenated_private_state_label_policy": {
+    "private-state scan": "Compatibility prose only. It means scanner coverage for non-public content bodies, forbidden content bodies, private source bodies, and live operator state.",
+    "private-state exclusions": "Compatibility prose only. It means non-public content and live-state exclusions, not substrate exclusion.",
+    "private-state bodies": "Compatibility prose only. It means private source bodies, forbidden content bodies, or live operator state bodies.",
+    "private-root gate": "Compatibility prose only. It means authority-boundary gate over forbidden content/state sources, not a private substrate gate.",
+    "private-state authority leak": "Compatibility prose only. It means a forbidden content body, private source body, or live operator state was treated as public authority.",
+    "current_public_root_guard": "When microcosm-substrate/** appears in private_state_exclusions compatibility arrays, it excludes current public-root source authority or public-root mutation attempts during macro validation; it does not make the future public substrate private."
+  },
+  "private_boundary_failure_label_policy": {
+    "summary": "Compatibility failure/status labels mean authority-boundary failures against forbidden content bodies, private source bodies, non-public evidence bodies, live operator state, or public-root mutation/source-authority attempts; they do not mark the public substrate as private.",
+    "private_boundary": "Compatibility failure class only. It means an authority boundary rejected a forbidden content body, private source body, non-public evidence body, live operator state, or public-root mutation/source-authority attempt.",
+    "private_boundary_schema_or_synthetic_only": "Compatibility overlay flag only. It means the row can remain as schema-only projection or synthetic replacement fixture input after body-bearing evidence is omitted.",
+    "private_boundary_order_violation": "Compatibility dependency-order failure only. It means an authority boundary validator or standard was ordered too late to guard forbidden content/state input.",
+    "blocked_private_body_reference": "Compatibility dry-run status only. It means a forbidden content body, private source body, non-public evidence body, or live operator state reference was blocked.",
+    "blocked_private_boundary_violation": "Compatibility expected error code only. It means the validator rejected an authority-boundary violation involving forbidden content/state input.",
+    "blocked_private_state": "Compatibility blocker/status label only. It means non-public content bodies, forbidden content bodies, private source bodies, or live operator state were blocked before receipt or fixture acceptance.",
+    "private_body_reference_detected": "Compatibility finding label only. It means a body-bearing non-public source reference was detected and must be omitted or replaced.",
+    "private_state_body_ref": "Compatibility fixture/receipt field label only. It points to a forbidden body reference that must not be copied.",
+    "private_state_body_ref_blocks": "Compatibility blocklist label only. It names forbidden content body, private source body, non-public evidence body, or live operator state references that block direct projection.",
+    "private_state_body_or_operator_voice_body": "Compatibility fixture class only. It means private source body or live operator state body material that must be replaced by a synthetic replacement fixture or schema-only projection.",
+    "private_state_body_leak": "Compatibility fixture variant only. It is a synthetic negative-case filename for forbidden content/state leakage, not an observed source body.",
+    "PRIVATE_STATE_BODY_IN_FRESHNESS_RECEIPT": "Compatibility error code only. It means a freshness receipt attempted to carry a forbidden content body, private source body, non-public evidence body, or live operator state body.",
+    "does_not_mark_private": [
+      "public substrate",
+      "public substrate organ",
+      "public substrate code patterns",
+      "standards",
+      "validators",
+      "route plane",
+      "proof spine",
+      "work spine"
+    ]
+  },
+  "source_ledger_legacy_label_policy": {
+    "summary": "Legacy source-ledger labels remain evidence labels only. They must be translated before build use and do not mark the public substrate as hidden or private.",
+    "hidden_substrate_integration_manifest": "Legacy pattern id. Translate to authority-boundary source-lineage manifest for non-public evidence bodies.",
+    "hidden-substrate": "Legacy title adjective. Translate to source-lineage over forbidden content bodies, private source bodies, non-public evidence bodies, or live operator state; do not use it as public substrate posture.",
+    "sanitization": "Legacy process label. Translate to replacing forbidden content bodies with a synthetic replacement fixture or schema-only projection.",
+    "sanitized": "Legacy process label. Translate to forbidden content-body replacement or schema-only projection, not substrate cleanup.",
+    "private_only": "Legacy decision label. Translate to non-public evidence-body omission, schema-only projection, or direct public leaf exclusion.",
+    "private-only": "Legacy decision label. Translate to non-public evidence-body omission, schema-only projection, or direct public leaf exclusion.",
+    "does_not_mark_private": [
+      "public substrate",
+      "public substrate organ",
+      "public substrate code patterns",
+      "standards",
+      "validators",
+      "route plane",
+      "proof spine",
+      "work spine"
+    ]
+  },
+  "required_terms": [
+    "public substrate",
+    "public substrate organ",
+    "public-safe projection",
+    "forbidden content body",
+    "live operator state",
+    "non-public evidence body",
+    "synthetic replacement fixture",
+    "schema-only projection",
+    "authority boundary"
+  ],
+  "discouraged_terms": [
+    {
+      "term": "private substrate",
+      "replacement": "forbidden content body, private source body, or non-public evidence body"
+    },
+    {
+      "term": "keep substrate private",
+      "replacement": "exclude forbidden content bodies and live operator state"
+    },
+    {
+      "term": "private organ",
+      "replacement": "public substrate organ with forbidden content bodies omitted, or non-public evidence-only row"
+    },
+    {
+      "term": "macro-only",
+      "replacement": "non-public evidence-body omission, schema-only projection, or macro-side planning evidence"
+    },
+    {
+      "term": "sanitize substrate",
+      "replacement": "replace forbidden content with a synthetic replacement fixture"
+    },
+    {
+      "term": "private-state exclusions",
+      "replacement": "non-public content and live-state exclusions"
+    },
+    {
+      "term": "private-state bodies",
+      "replacement": "private source bodies, forbidden content bodies, or live operator state bodies"
+    },
+    {
+      "term": "private-root gate",
+      "replacement": "authority-boundary gate"
+    }
+  ],
+  "language_gate": {
+    "scanned_artifacts": [
+      "state/microcosm_portfolio/reconstruction/projection_ready_architecture_v1.md",
+      "state/microcosm_portfolio/reconstruction/projection_ready_architecture_v1.json",
+      "state/microcosm_portfolio/reconstruction/NEXT_AUTONOMY_BUILD_SEED.md",
+      "state/microcosm_portfolio/reconstruction/NEXT_TYPE_A_WAVE_1_PROMPT.md",
+      "state/microcosm_portfolio/reconstruction/source_projection_blocklist_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_fixture_validator_readiness_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_acceptance_tests_v1.json",
+      "state/microcosm_portfolio/reconstruction/concept_mechanism_paper_module_plan_v1.json",
+      "state/microcosm_portfolio/reconstruction/macro_to_public_projection_map_v1.json",
+      "state/microcosm_portfolio/reconstruction/organ_projection_ir_v1.json",
+      "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json",
+      "state/microcosm_portfolio/reconstruction/deterministic_organ_build_order_v1.json",
+      "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json",
+      "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json",
+      "state/microcosm_portfolio/reconstruction/anti_principle_failure_mirror_v1.json",
+      "state/microcosm_portfolio/reconstruction/pattern_status_correction_overlay_v1.json",
+      "state/microcosm_portfolio/reconstruction/validator_command_plan_v1.md"
+    ],
+    "prohibited_phrases": [
+      "private substrate",
+      "keep substrate private",
+      "substrate private",
+      "non-public substrate",
+      "private organ",
+      "sanitize substrate",
+      "sanitized substrate",
+      "hidden substrate"
+    ],
+    "required_combined_terms": [
+      "public substrate",
+      "non-public content body",
+      "forbidden content body",
+      "live operator state",
+      "non-public evidence body",
+      "synthetic replacement fixture",
+      "schema-only projection",
+      "authority boundary"
+    ],
+    "compatibility_labels_requiring_translation": [
+      "private_state_scan",
+      "private_state_scan_result",
+      "private_state_scan_focus",
+      "private_state_scan_summary",
+      "private_state_risk",
+      "private_state_risks",
+      "private_state_risk_summary",
+      "private_state_forbidden_terms"
+    ],
+    "macro_only_labels_requiring_translation": [
+      "keep_private_forever",
+      "macro_only",
+      "macro-only",
+      "macro_only_evidence_not_candidate_leaf",
+      "macro_only_schema_exclusion_contract",
+      "macro_only_boundary",
+      "macro_planning_only"
+    ],
+    "private_boundary_failure_labels_requiring_translation": [
+      "private_boundary",
+      "private_boundary_schema_or_synthetic_only",
+      "private_boundary_order_violation",
+      "blocked_private_body_reference",
+      "blocked_private_boundary_violation",
+      "blocked_private_state",
+      "private_body_reference_detected",
+      "private_state_body_ref",
+      "private_state_body_ref_blocks",
+      "private_state_body_or_operator_voice_body",
+      "private_state_body_leak",
+      "PRIVATE_STATE_BODY_IN_FRESHNESS_RECEIPT"
+    ],
+    "source_ledger_legacy_labels_requiring_translation": [
+      "hidden_substrate_integration_manifest",
+      "hidden-substrate",
+      "sanitization",
+      "sanitized",
+      "private_only",
+      "private-only"
+    ],
+    "build_driver_artifacts_requiring_policy_ref": [
+      "organ_projection_ir_v1.json",
+      "microcosm_rebuild_mission_graph_v1.json"
+    ],
+    "policy": "Banned phrases may appear only inside this policy's discouraged_terms or term-replacement catalog, not in key public build handoff or projection-planning surfaces. The checker must also fail when this list drifts from the actual scanned surfaces, when mechanical build-driver artifacts lack this policy reference, or when compatibility private-state labels, hyphenated private-state prose, macro-only labels, private-boundary failure/status labels, or source-ledger legacy labels are not translated as non-public content/body and live-state scanners, risk classifiers, authority-boundary guards, non-public evidence-body omissions, schema-only projections, macro-side planning evidence, forbidden content-body exclusions, direct-leaf exclusions, authority-boundary failures, source-lineage manifests, synthetic replacement fixtures, or schema-only projections."
+  },
+  "anti_claim": "This policy hardens boundary language only; it does not build public code, authorize public-root writes, publish release material, or prove public build readiness beyond the checker receipt."
+}

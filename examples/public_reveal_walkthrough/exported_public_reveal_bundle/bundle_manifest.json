@@ -2,6 +2,34 @@
   "schema_version": "public_reveal_bundle_manifest_v1",
   "bundle_id": "public_reveal_walkthrough_runtime_example",
   "input_mode": "exported_public_reveal_bundle",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "status": "pass",
+    "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
+    "body_material_count": 4,
+    "body_material_ids": [
+      "public_reveal_first_slice_execution_receipt_body_import",
+      "public_reveal_runtime_shell_reorientation_receipt_body_import",
+      "public_reveal_clean_clone_state_fixture_receipt_body_import",
+      "public_reveal_public_substrate_boundary_policy_body_import"
+    ],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "body_material_classes": {
+      "public_macro_receipt_body": 3,
+      "public_macro_tool_body": 1
+    },
+    "source_manifest_refs": [
+      "source_module_manifest.json"
+    ],
+    "aggregate_floor_ref": "source_module_manifest.json::modules",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false
+  },
+  "body_copied_material_count": 4,
   "body_in_receipt": false,
   "real_runtime_receipt": true,
   "synthetic_receipt_standin_allowed": false,

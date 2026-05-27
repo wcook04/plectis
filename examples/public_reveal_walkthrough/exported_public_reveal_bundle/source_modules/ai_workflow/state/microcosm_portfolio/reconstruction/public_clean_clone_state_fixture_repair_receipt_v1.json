@@ -1,0 +1,71 @@
+{
+  "schema_version": "public_clean_clone_state_fixture_repair_receipt_v1",
+  "status": "pass",
+  "generated_at": "2026-05-20T13:52:31Z",
+  "consumed_seed": "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_CLEAN_CLONE_STATE_FIXTURE_REPAIR_SEED.md",
+  "consumed_repair_receipt": "state/microcosm_portfolio/reconstruction/public_clean_clone_test_bootstrap_repair_receipt_v1.json",
+  "repair_applied": {
+    "public_preflight_support_snapshots_added": true,
+    "private_reconstruction_state_reads_removed_from_public_preflight_tests": true,
+    "private_bodies_copied": false,
+    "release_authorized": false
+  },
+  "files_changed": [
+    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "microcosm-substrate/core/preflight_support/fixture_negative_case_matrix_v1.json",
+    "microcosm-substrate/core/preflight_support/microcosm_rebuild_mission_graph_v1.json",
+    "microcosm-substrate/core/preflight_support/validator_receipt_coverage_map_v1.json",
+    "microcosm-substrate/tests/test_dependency_preflight.py",
+    "microcosm-substrate/tests/test_fixture_freshness.py",
+    "microcosm-substrate/tests/test_first_wave_acceptance.py",
+    "microcosm-substrate/receipts/cold_clone_probe.json",
+    "microcosm-substrate/receipts/first_wave/pattern_binding_contract/pattern_binding_validation_result.json",
+    "state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.json",
+    "state/microcosm_portfolio/reconstruction/public_clean_clone_state_fixture_repair_receipt_v1.md"
+  ],
+  "source_root_validation": {
+    "focused_preflight_acceptance_tests": "pass_12_passed",
+    "full_public_tests": "pass_42_passed",
+    "bootstrap": "pass",
+    "receipt_path_scan": "pass_no_matches",
+    "receipt_body_scan": "pass_no_matches"
+  },
+  "clean_clone_validation": {
+    "staging_dir": "system_temp:microcosm-clean-clone-statefix.1PVPxV",
+    "venv_created": true,
+    "pip_install_editable_test_extra": "pass",
+    "cli_help": "pass",
+    "focused_tests": "pass_8_passed",
+    "full_public_tests": "pass_42_passed",
+    "bootstrap": "pass",
+    "receipt_path_scan": "pass_no_matches",
+    "receipt_body_scan": "pass_no_matches",
+    "metadata_check": {
+      "missing": [],
+      "test_extra": [
+        "pytest>=8,<9"
+      ],
+      "license_file_exists": true,
+      "support_snapshot_exists": true
+    }
+  },
+  "residuals": [
+    {
+      "cap_id": "cap_quick_clean_clone_tests_depend_on_private_reco_6ce0dac04914",
+      "status": "resolved",
+      "resolution": "Public preflight/acceptance tests now use public-safe support snapshots under microcosm-substrate/core/preflight_support."
+    },
+    {
+      "cap_id": "cap_quick_release_repair_scoped_preflight_sees_unr_d9008be5b316",
+      "status": "active_nonblocking",
+      "reason": "Unrelated doctrine projection dirt remains outside this lane."
+    }
+  ],
+  "decision": {
+    "clean_clone_state_fixture_repair_passed": true,
+    "clean_clone_staging_passed": true,
+    "release_authorized": false,
+    "next_seed_path": "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_RELEASE_OPERATOR_APPROVAL_GATE_SEED.md"
+  },
+  "anti_claim": "This repair makes the public clean-clone test/preflight path self-contained and validates it in private staging. It does not authorize release, hosting, publication, recipient work, provider calls, private-data equivalence, Lean/Lake execution, new public organ implementation, or whole-system correctness."
+}

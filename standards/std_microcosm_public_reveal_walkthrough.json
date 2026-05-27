@@ -12,7 +12,7 @@
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
-    "source_body_authority": false,
+    "source_body_authority": "only_when_digest_verified_by_source_module_manifest_and_validator",
     "standard_authority": "walkthrough_schema_and_validator_expectation_only",
     "status": "pass"
   },
@@ -118,6 +118,11 @@
       "field": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
       "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
+      "path": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_floor_manifest"
     }
   ],
   "standard_id": "std_microcosm_public_reveal_walkthrough",
@@ -143,7 +148,8 @@
     "require at least five walkthrough steps within a ten-minute budget",
     "require commands and evidence refs for each reveal move",
     "reject release, hosting, publication, provider, private-equivalence, and whole-system-correctness overclaims",
-    "require secret-exclusion scan and real-runtime receipts with bodies outside receipt payloads"
+    "require secret-exclusion scan and real-runtime receipts with bodies outside receipt payloads",
+    "require exported reveal bundles to verify copied macro reconstruction receipt and boundary-policy bodies through source_module_manifest.json"
   ],
   "validator_contract": {
     "minimum_checks": [
@@ -151,7 +157,8 @@
       "command_presence",
       "evidence_ref_presence",
       "negative_case_coverage",
-      "authority_ceiling"
+      "authority_ceiling",
+      "source_module_manifest_digest_and_anchor_verification"
     ],
     "required": true,
     "validator_id": "validator.microcosm.public_reveal_walkthrough"

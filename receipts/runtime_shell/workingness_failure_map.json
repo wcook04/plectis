@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 34,
+  "rows_with_source_body_imports": 35,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 357,
+  "source_open_body_material_count": 361,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 34,
-    "source_open_body_material_count": 357,
+    "rows_with_source_body_imports": 35,
+    "source_open_body_material_count": 361,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -4855,7 +4855,7 @@
         "authority_ceiling": {
           "private_data_equivalence_authority": false,
           "release_authority": false,
-          "source_body_authority": false,
+          "source_body_authority": "only_when_digest_verified_by_source_module_manifest_and_validator",
           "standard_authority": "walkthrough_schema_and_validator_expectation_only",
           "status": "pass"
         },
@@ -4878,7 +4878,7 @@
         "standard_ref": "standards/std_microcosm_public_reveal_walkthrough.json",
         "standard_status": "draft",
         "teleology": "Make Microcosm legible to a cold technical reader in under ten minutes.",
-        "validation_rule_count": 4
+        "validation_rule_count": 5
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -4895,7 +4895,31 @@
           "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {},
+          "body_material_count": 4,
+          "body_material_ids": [
+            "public_reveal_first_slice_execution_receipt_body_import",
+            "public_reveal_runtime_shell_reorientation_receipt_body_import",
+            "public_reveal_clean_clone_state_fixture_receipt_body_import",
+            "public_reveal_public_substrate_boundary_policy_body_import"
+          ],
+          "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json and source_modules/ for copied public-reveal macro reconstruction receipts and boundary policy bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough",
         "verdict_source": "validator_computation"
@@ -4903,7 +4927,31 @@
       "ordinal": 30,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {},
+        "body_material_count": 4,
+        "body_material_ids": [
+          "public_reveal_first_slice_execution_receipt_body_import",
+          "public_reveal_runtime_shell_reorientation_receipt_body_import",
+          "public_reveal_clean_clone_state_fixture_receipt_body_import",
+          "public_reveal_public_substrate_boundary_policy_body_import"
+        ],
+        "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/public_reveal_walkthrough.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json and source_modules/ for copied public-reveal macro reconstruction receipts and boundary policy bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_public_reveal_walkthrough.json",
         "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",

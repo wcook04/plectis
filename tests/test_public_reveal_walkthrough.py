@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -17,6 +18,13 @@ from microcosm_core.organs.public_reveal_walkthrough import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/public_reveal_walkthrough/input"
 BUNDLE_INPUT = MICROCOSM_ROOT / "examples/public_reveal_walkthrough/exported_public_reveal_bundle"
+SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+PUBLIC_REVEAL_SOURCE_MODULE_IDS = {
+    "public_reveal_first_slice_execution_receipt_body_import",
+    "public_reveal_runtime_shell_reorientation_receipt_body_import",
+    "public_reveal_clean_clone_state_fixture_receipt_body_import",
+    "public_reveal_public_substrate_boundary_policy_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -112,6 +120,19 @@ def test_public_reveal_exported_bundle_validates_runtime_shape(tmp_path: Path) -
     assert result["reveal_board"]["release_authorized"] is False
     assert result["public_claim"].startswith("Microcosm turns a repo")
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["body_copied_material_count"] == 4
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 4
+    assert set(source_imports["body_material_ids"]) == PUBLIC_REVEAL_SOURCE_MODULE_IDS
+    assert source_imports["body_material_classes"] == {
+        "public_macro_receipt_body": 3,
+        "public_macro_tool_body": 1,
+    }
+    assert source_imports["body_in_receipt"] is False
+    assert source_imports["body_text_in_receipt"] is False
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
@@ -155,6 +176,9 @@ def test_public_reveal_exported_bundle_card_is_compact(
     assert card["negative_case_coverage"]["expected_case_count"] == 0
     assert card["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
     assert card["secret_exclusion_scan_summary"]["hits_exported"] is False
+    assert card["source_open_body_imports"]["status"] == "pass"
+    assert card["source_open_body_imports"]["body_material_count"] == 4
+    assert card["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["no_export_guards"]["step_rows_exported"] is False
     assert card["no_export_guards"]["commands_exported"] is False
@@ -164,6 +188,35 @@ def test_public_reveal_exported_bundle_card_is_compact(
     assert "commands" not in card
     assert "evidence_refs" not in card
     assert "public_runtime_refs" not in card
+
+
+def test_public_reveal_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    modules = manifest["modules"]
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 4
+    assert {row["module_id"] for row in modules} == PUBLIC_REVEAL_SOURCE_MODULE_IDS
+
+    for row in modules:
+        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
+        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
+        source_bytes = source_path.read_bytes()
+        target_bytes = target_path.read_bytes()
+        digest = hashlib.sha256(source_bytes).hexdigest()
+
+        assert source_bytes == target_bytes
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        text = target_bytes.decode("utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_public_reveal_fixture_card_honors_acceptance_out(
