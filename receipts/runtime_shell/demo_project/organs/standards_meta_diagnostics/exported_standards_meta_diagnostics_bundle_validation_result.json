@@ -11,9 +11,11 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
+  "body_copied_material_count": 3,
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_macro_body_landed",
   "bundle_id": "public_standards_meta_diagnostics_runtime_example",
-  "command": "microcosm run examples/runtime_shell/demo_project",
+  "command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics",
   "covered_organ_ids": [
     "agent_benchmark_integrity_anti_gaming_replay",
     "agent_memory_temporal_conflict_replay",
@@ -60,11 +62,68 @@
     "verifier_lab_execution_spine",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "created_at": "2026-05-27T01:24:22+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.standards_meta_diagnostics",
+  "freshness_basis": {
+    "basis_digest": "sha256:3686e7d5d1e430457ae713fb3565658e8b05cab29cc56f38f55182cdd2168218",
+    "card_schema_version": "standards_meta_diagnostics_command_card_v1",
+    "include_negative": false,
+    "input_count": 9,
+    "inputs": [
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/standards_inventory.json",
+        "sha256": "c8b751fb3e726b92822d28fa0ea7953c511517b4e5a4466b16fefd35da2b4d57",
+        "size_bytes": 53976
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/organ_runtime_contracts.json",
+        "sha256": "b847ce5caccd2efbfa95b6507ca35717c1df954ddf67c86f09ac73380fd56bda",
+        "size_bytes": 27297
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/diagnostic_policy.json",
+        "sha256": "bb1c23697ac816b7beca7c5858f46ba804ce98a7922fa1a66197732250952ab4",
+        "size_bytes": 2368
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/bundle_manifest.json",
+        "sha256": "c335ed8f6f1b62739a740b69405fe41fd0200560dd060e01a69cf58e70e10ec5",
+        "size_bytes": 2201
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+        "sha256": "663155ac56373538e5b08861d66ad3737278c03f73ac354d34705ea7166f8c4b",
+        "size_bytes": 7539
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/meta_diagnostics_workbench_specimen.py",
+        "sha256": "a19c14dc563c3e783712e81170621e6ff23c0a5c4a033e703ae462e405256300",
+        "size_bytes": 70794
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/tests/test_meta_diagnostics_workbench.py",
+        "sha256": "91a9fdbc0a5395735e421a6ffb229c2ce004c9405177e1d0479811b0242209bd",
+        "size_bytes": 7878
+      },
+      {
+        "path": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/meta_diagnostics_workbench/receipt.json",
+        "sha256": "498f463e9c9b4a0649bbe1687dd8002892154ed2cf5349ea7aaceaff12ff2982",
+        "size_bytes": 5542
+      },
+      {
+        "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
+        "sha256": "957b7cc848974e3972be93c060e6e7d498eb18644f4a9c34047df8de79e261f4",
+        "size_bytes": 46779
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "standards_meta_diagnostics_freshness_basis_v1",
+    "validator_schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1"
+  },
   "input_mode": "exported_standards_meta_diagnostics_bundle",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
@@ -87,6 +146,7 @@
     "receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle_validation_result.json"
   ],
   "receipt_ref_count": 184,
+  "receipt_reused": false,
   "runtime_contract_count": 44,
   "schema_version": "exported_standards_meta_diagnostics_bundle_validation_result_v1",
   "secret_exclusion_scan": {
@@ -111,9 +171,76 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 3,
+    "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "copied_non_secret_macro_body_landed",
+  "source_module_manifest_ref": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 3,
+    "module_ids": [
+      "standards_meta_diagnostics_macro_generator_body_import",
+      "standards_meta_diagnostics_macro_test_body_import",
+      "standards_meta_diagnostics_macro_receipt_body_import"
+    ],
+    "source_module_import_status": "copied_non_secret_macro_body_landed",
+    "source_module_manifest_ref": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+    "source_refs": [
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/meta_diagnostics_workbench_specimen.py",
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/tests/test_meta_diagnostics_workbench.py",
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/meta_diagnostics_workbench/receipt.json"
+    ],
+    "status": "pass",
+    "verified_module_count": 3
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "body_material_count": 3,
+    "body_material_ids": [
+      "standards_meta_diagnostics_macro_generator_body_import",
+      "standards_meta_diagnostics_macro_test_body_import",
+      "standards_meta_diagnostics_macro_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported standards meta diagnostics bundle for copied macro meta-diagnostics source, test, and receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "standards_meta_diagnostics_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "standards_meta_diagnostics",
@@ -123,7 +250,11 @@
   "source_refs": [
     "microcosm-substrate/core/standards_registry.json",
     "microcosm-substrate/core/organ_registry.json",
-    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json"
+    "microcosm-substrate/core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/meta_diagnostics_workbench_specimen.py",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/tests/test_meta_diagnostics_workbench.py",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/meta_diagnostics_workbench/receipt.json"
   ],
   "standard_mapping_count": 44,
   "status": "pass",

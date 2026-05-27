@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 33,
+  "rows_with_source_body_imports": 34,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 354,
+  "source_open_body_material_count": 357,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 33,
-    "source_open_body_material_count": 354,
+    "rows_with_source_body_imports": 34,
+    "source_open_body_material_count": 357,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -5711,7 +5711,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 12,
+      "failure_mode_count": 15,
       "future_work_target_count": 0,
       "future_work_targets": [],
       "known_failure_modes": [
@@ -5726,24 +5726,27 @@
         "synthetic receipt stand-in accepted instead of real runtime receipt refs",
         "diagnostics bundle accepted without fixture, paper-module, standards inventory, runtime contract, and acceptance-receipt source refs",
         "coverage map pass claimed as release readiness, product maturity, source mutation authorization, or whole-system correctness",
-        "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries"
+        "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries",
+        "exported diagnostics bundle lacks copied macro source modules and relies on pointer-shaped evidence",
+        "copied source module digest or declared anchor diverges from the target body",
+        "receipt embeds macro body text instead of carrying refs, hashes, counts, and verdicts"
       ],
       "needs_to_work": {
         "anti_purpose": "A standards coverage board that points at registry rows and acceptance receipts while missing runtime contracts, negative-case rejection, public/private boundaries, or source-open validator evidence.",
-        "authority_boundary": "public_standards_meta_diagnostics_projection_only",
+        "authority_boundary": "public_standards_meta_diagnostics_projection_with_copied_non_secret_macro_body_floor",
         "authority_ceiling": {
           "private_data_equivalence_claim": false,
           "provider_calls_authorized": false,
           "release_authorized": false,
           "source_mutation_authorized": false,
-          "standards_meta_diagnostics_authority": "coverage_projection_only_not_registry_authority",
+          "standards_meta_diagnostics_authority": "coverage_projection_and_copied_macro_body_floor_not_registry_authority",
           "standards_registry_authority": false,
           "status": "pass",
           "whole_system_correctness_claim": false
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, and secret-exclusion results.",
+        "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, secret-exclusion results, and copied non-secret macro body source modules.",
         "receipt_expectation_count": 4,
         "required_field_count": 10,
         "required_substrate": {
@@ -5759,8 +5762,8 @@
         },
         "standard_ref": "standards/std_microcosm_standards_meta_diagnostics.json",
         "standard_status": "accepted_public_runtime_standard",
-        "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
-        "validation_rule_count": 4
+        "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable and by importing the real macro meta-diagnostics mechanism body without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
+        "validation_rule_count": 5
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -5777,7 +5780,36 @@
           "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_in_receipt": false,
+            "credential_or_account_bound_payload_exported": false,
+            "provider_payload_exported": false,
+            "release_authorized": false,
+            "whole_system_correctness_claim": false
+          },
+          "body_material_count": 3,
+          "body_material_ids": [
+            "standards_meta_diagnostics_macro_generator_body_import",
+            "standards_meta_diagnostics_macro_test_body_import",
+            "standards_meta_diagnostics_macro_receipt_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open the source module manifest and source_modules directory for copied macro meta-diagnostics source, test, and receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
         "verdict_source": "validator_computation"
@@ -5785,7 +5817,36 @@
       "ordinal": 33,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_in_receipt": false,
+          "credential_or_account_bound_payload_exported": false,
+          "provider_payload_exported": false,
+          "release_authorized": false,
+          "whole_system_correctness_claim": false
+        },
+        "body_material_count": 3,
+        "body_material_ids": [
+          "standards_meta_diagnostics_macro_generator_body_import",
+          "standards_meta_diagnostics_macro_test_body_import",
+          "standards_meta_diagnostics_macro_receipt_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/standards_meta_diagnostics.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open the source module manifest and source_modules directory for copied macro meta-diagnostics source, test, and receipt bodies; receipts carry refs, hashes, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_standards_meta_diagnostics.json",
         "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",

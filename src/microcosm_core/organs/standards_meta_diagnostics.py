@@ -40,6 +40,7 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "public_runtime_refs",
     "anti_claim",
     "authority_ceiling",
+    "source_module_summary",
 )
 
 SOURCE_PATTERN_IDS = [
@@ -68,6 +69,19 @@ INPUT_NAMES = (
     "standards_inventory.json",
     "organ_runtime_contracts.json",
     "diagnostic_policy.json",
+)
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = "copied_non_secret_macro_body_landed"
+SOURCE_OPEN_BODY_SCHEMA = "standards_meta_diagnostics_source_open_body_imports_v1"
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_tool_body",
+        "public_macro_receipt_body",
+        "public_macro_proof_body",
+        "public_standard_body",
+    }
 )
 NEGATIVE_INPUT_NAMES = (
     "missing_standard_ref.json",
@@ -154,11 +168,318 @@ def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[P
     manifest = input_dir / "bundle_manifest.json"
     if manifest.is_file():
         paths.append(manifest)
+    public_root = _public_root_for_path(input_dir)
+    paths.extend(_source_module_paths(input_dir, public_root=public_root))
+    paths.append(Path(__file__).resolve())
     return paths
 
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _strings(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *(
+            [input_dir / "bundle_manifest.json"]
+            if (input_dir / "bundle_manifest.json").is_file()
+            else []
+        ),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported standards meta diagnostics bundle must include a source module manifest for copied macro body material.",
+                    case_id="source_module_manifest",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "body_in_receipt": False,
+            "source_refs": [],
+            "findings": findings,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [_display(manifest_path, public_root=public_root)]
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "STANDARDS_META_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify body imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify the copied material as non-secret macro body.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while keeping receipt fields body-free.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "STANDARDS_META_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor for anchor in _strings(row.get("required_anchors")) if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "STANDARDS_META_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared macro diagnostics anchors.",
+                        case_id="source_module_manifest",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": _display(manifest_path, public_root=public_root),
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "body_in_receipt": False,
+        "source_refs": source_refs,
+        "findings": findings,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "body_text_in_receipt": False,
+            "provider_payload_exported": False,
+            "credential_or_account_bound_payload_exported": False,
+            "release_authorized": False,
+            "whole_system_correctness_claim": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported standards meta diagnostics bundle for copied macro "
+            "meta-diagnostics source, test, and receipt bodies; receipts carry "
+            "refs, hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -493,12 +814,14 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "runtime_contract_count": result["runtime_contract_count"],
             "receipt_ref_count": result["receipt_ref_count"],
             "pressure_row_count": result["pressure_row_count"],
+            "source_open_body_material_count": result["body_copied_material_count"],
             "body_in_receipt": False,
         },
         "public_contract": {
             "standards_are_mapped_to_organs": True,
             "runtime_contracts_are_mapped_to_organs": True,
             "receipt_refs_are_required": True,
+            "copied_macro_body_source_modules_required_for_exported_bundle": True,
             "private_source_bodies_forbidden": True,
             "release_overclaims_rejected": True,
             "body_in_receipt": False,
@@ -545,6 +868,13 @@ def _common_receipt(
         "receipt_ref_count",
         "pressure_row_count",
         "covered_organ_ids",
+        "source_module_manifest_status",
+        "source_module_manifest_ref",
+        "source_module_import_status",
+        "source_module_summary",
+        "source_open_body_imports",
+        "body_material_status",
+        "body_copied_material_count",
         "body_in_receipt",
         "real_runtime_receipt",
         "synthetic_receipt_standin_allowed",
@@ -578,9 +908,15 @@ def _build_result(
     negative_payloads = {
         name: payloads[name] for name in NEGATIVE_INPUT_STEMS if name in payloads
     }
+    source_module_result = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=not include_negative,
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_module_result)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -608,7 +944,11 @@ def _build_result(
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     observed = negative["observed_negative_cases"]
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = [*positive_findings, *negative["findings"]]
+    findings = [
+        *positive_findings,
+        *negative["findings"],
+        *source_module_result["findings"],
+    ]
     error_codes = sorted({finding["error_code"] for finding in findings})
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
@@ -628,8 +968,14 @@ def _build_result(
         if not positive_findings
         and not missing
         and not secret_scan["blocking_hit_count"]
+        and source_module_result["status"] in {PASS, "not_present"}
         else "blocked"
     )
+    source_module_refs = [
+        str(ref)
+        for ref in source_module_result.get("source_refs", [])
+        if isinstance(ref, str)
+    ]
     return {
         "schema_version": "standards_meta_diagnostics_result_v1",
         "created_at": utc_now(),
@@ -641,7 +987,7 @@ def _build_result(
         "input_mode": input_mode,
         "bundle_id": bundle_manifest.get("bundle_id"),
         "source_pattern_ids": SOURCE_PATTERN_IDS,
-        "source_refs": SOURCE_REFS,
+        "source_refs": [*SOURCE_REFS, *source_module_refs],
         "public_runtime_refs": PUBLIC_RUNTIME_REFS,
         "expected_negative_cases": expected,
         "observed_negative_cases": observed,
@@ -657,6 +1003,13 @@ def _build_result(
         "receipt_ref_count": receipt_ref_count,
         "pressure_row_count": pressure_row_count,
         "covered_organ_ids": covered_organs,
+        "source_module_manifest_status": source_module_result["status"],
+        "source_module_manifest_ref": source_module_result["source_module_manifest_ref"],
+        "source_module_import_status": source_module_result["source_module_import_status"],
+        "source_module_summary": source_module_result,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports["body_material_count"],
         "body_in_receipt": False,
         "real_runtime_receipt": status == PASS,
         "synthetic_receipt_standin_allowed": False,
@@ -800,6 +1153,20 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "runtime_contract_count": result.get("runtime_contract_count"),
             "receipt_ref_count": result.get("receipt_ref_count"),
             "pressure_row_count": result.get("pressure_row_count"),
+            "source_open_body_material_count": result.get("body_copied_material_count"),
+        },
+        "source_open_body_imports": {
+            "status": (result.get("source_open_body_imports") or {}).get("status")
+            if isinstance(result.get("source_open_body_imports"), dict)
+            else None,
+            "body_material_count": (
+                (result.get("source_open_body_imports") or {}).get("body_material_count")
+                if isinstance(result.get("source_open_body_imports"), dict)
+                else None
+            ),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
         },
         "validation": {
             "missing_negative_case_count": len(result.get("missing_negative_cases") or []),

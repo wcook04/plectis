@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,12 @@ EXPORTED_BUNDLE = (
     MICROCOSM_ROOT
     / "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle"
 )
+SOURCE_MODULE_MANIFEST = EXPORTED_BUNDLE / "source_module_manifest.json"
+STANDARDS_META_SOURCE_MODULE_IDS = {
+    "standards_meta_diagnostics_macro_generator_body_import",
+    "standards_meta_diagnostics_macro_receipt_body_import",
+    "standards_meta_diagnostics_macro_test_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -110,6 +117,19 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
     assert result["synthetic_receipt_standin_allowed"] is False
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["body_copied_material_count"] == 3
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 3
+    assert set(source_imports["body_material_ids"]) == STANDARDS_META_SOURCE_MODULE_IDS
+    assert source_imports["body_material_classes"] == {
+        "public_macro_receipt_body": 1,
+        "public_macro_tool_body": 2,
+    }
+    assert source_imports["body_in_receipt"] is False
+    assert source_imports["body_text_in_receipt"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in _walk_keys(result)
 
@@ -136,6 +156,8 @@ def test_standards_meta_diagnostics_bundle_card_reuses_fresh_receipt(
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
     assert first_card["diagnostic_projection"]["accepted_organ_count"] == 44
+    assert first_card["source_open_body_imports"]["status"] == "pass"
+    assert first_card["source_open_body_imports"]["body_material_count"] == 3
     assert "covered_organ_ids" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
 
@@ -152,6 +174,36 @@ def test_standards_meta_diagnostics_bundle_card_reuses_fresh_receipt(
         first_card["command_speed"]["freshness_digest"]
     )
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
+    assert cached_card["source_open_body_imports"] == first_card["source_open_body_imports"]
+
+
+def test_standards_meta_diagnostics_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    modules = manifest["modules"]
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 3
+    assert {row["module_id"] for row in modules} == STANDARDS_META_SOURCE_MODULE_IDS
+
+    for row in modules:
+        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
+        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
+        source_bytes = source_path.read_bytes()
+        target_bytes = target_path.read_bytes()
+        digest = hashlib.sha256(source_bytes).hexdigest()
+
+        assert source_bytes == target_bytes
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        text = target_bytes.decode("utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_standards_meta_diagnostics_receipts_use_secret_exclusion(tmp_path: Path) -> None:

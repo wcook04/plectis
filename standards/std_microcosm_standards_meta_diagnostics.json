@@ -1,33 +1,65 @@
 {
-  "schema_version": "std_microcosm_standards_meta_diagnostics_v1",
-  "standard_id": "std_microcosm_standards_meta_diagnostics",
+  "anti_claim": "Standards meta diagnostics summarizes public standards, organ, runtime, receipt coverage, and copied non-secret macro meta-diagnostics body imports only; it does not become registry authority, expose private sources, authorize release, or prove whole-system correctness.",
+  "authority_boundary": "public_standards_meta_diagnostics_projection_with_copied_non_secret_macro_body_floor",
+  "authority_ceiling": {
+    "private_data_equivalence_claim": false,
+    "provider_calls_authorized": false,
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "standards_meta_diagnostics_authority": "coverage_projection_and_copied_macro_body_floor_not_registry_authority",
+    "standards_registry_authority": false,
+    "status": "pass",
+    "whole_system_correctness_claim": false
+  },
   "kind_id": "microcosm_public_runtime_organ_standard",
-  "status": "accepted_public_runtime_standard",
-  "authority_boundary": "public_standards_meta_diagnostics_projection_only",
-  "source_refs": [
-    "core/standards_registry.json",
-    "core/organ_registry.json",
-    "core/acceptance/first_wave_acceptance.json",
-    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
-    "src/microcosm_core/organs/standards_meta_diagnostics.py",
-    "tests/test_standards_meta_diagnostics.py",
-    "fixtures/first_wave/standards_meta_diagnostics/input",
-    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
-    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
-    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
-    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
-    "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
-    "paper_modules/standards_meta_diagnostics.md"
+  "public_private_boundary": {
+    "private_inputs_forbidden": [
+      "private macro source bodies",
+      "provider payload bodies",
+      "raw seed bodies",
+      "secrets",
+      "release claims",
+      "keys and credentials",
+      "account/session state and cookies",
+      "browser/HUD live-access state",
+      "recipient-send state",
+      "credential-equivalent material"
+    ],
+    "public_inputs": "public standards inventory, runtime contracts, diagnostic policy, registry refs, receipt refs, and copied non-secret macro source-module bodies with hashes and anchors",
+    "release_authorized": false
+  },
+  "receipt_contract": {
+    "body_copied_material_count": 3,
+    "body_in_receipt": false,
+    "body_text_in_receipt": false,
+    "real_runtime_receipt_required": true,
+    "required_negative_cases": [
+      "missing_standard_ref",
+      "unmapped_accepted_organ",
+      "missing_receipt_ref",
+      "release_overclaim",
+      "private_source_leakage"
+    ],
+    "secret_exclusion_scan_required": true,
+    "source_module_manifest_required_for_exported_bundle": true,
+    "status_field": "status",
+    "synthetic_receipt_standin_allowed": false
+  },
+  "receipt_expectations": [
+    "standards_meta_diagnostics_result.json",
+    "standards_meta_diagnostics_board.json",
+    "standards_meta_diagnostics_validation_receipt.json",
+    "standards_meta_diagnostics_fixture_acceptance.json"
   ],
   "relationships": {
-    "used_by_organs": [
-      "standards_meta_diagnostics"
-    ],
     "depends_on_standards": [
       "std_microcosm_omission_receipt",
       "std_microcosm_authority_boundary",
       "std_microcosm_fixture",
       "std_microcosm_public_reveal_walkthrough"
+    ],
+    "used_by_organs": [
+      "standards_meta_diagnostics"
     ]
   },
   "required_fields": [
@@ -42,61 +74,28 @@
     "runtime_contracts",
     "authority_ceiling"
   ],
-  "validation_rules": [
-    "Every accepted adapter-backed organ must have a standards inventory row.",
-    "Every inventory row must carry standard_id, standard_ref, registry_row_ref, and at least one receipt ref.",
-    "Every accepted organ must have a runtime contract row with a CLI command and runtime step.",
-    "Private source bodies, provider payload bodies, release authority, provider-call authority, private-data equivalence, and whole-system correctness claims are rejected."
+  "schema_version": "std_microcosm_standards_meta_diagnostics_v1",
+  "source_refs": [
+    "core/standards_registry.json",
+    "core/organ_registry.json",
+    "core/acceptance/first_wave_acceptance.json",
+    "core/preflight_support/organ_fixture_validator_readiness_v1.json",
+    "src/microcosm_core/organs/standards_meta_diagnostics.py",
+    "tests/test_standards_meta_diagnostics.py",
+    "fixtures/first_wave/standards_meta_diagnostics/input",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_result.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_board.json",
+    "receipts/first_wave/standards_meta_diagnostics/standards_meta_diagnostics_validation_receipt.json",
+    "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
+    "paper_modules/standards_meta_diagnostics.md",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_module_manifest.json",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/meta_diagnostics_workbench_specimen.py",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/tests/test_meta_diagnostics_workbench.py",
+    "examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle/source_modules/self-indexing-cognitive-substrate/microcosms/meta_diagnostics_workbench/receipt.json"
   ],
-  "receipt_expectations": [
-    "standards_meta_diagnostics_result.json",
-    "standards_meta_diagnostics_board.json",
-    "standards_meta_diagnostics_validation_receipt.json",
-    "standards_meta_diagnostics_fixture_acceptance.json"
-  ],
-  "validator_contract": {
-    "runner": "microcosm_core.organs.standards_meta_diagnostics",
-    "fixture_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
-    "runtime_bundle_command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics"
-  },
-  "receipt_contract": {
-    "status_field": "status",
-    "required_negative_cases": [
-      "missing_standard_ref",
-      "unmapped_accepted_organ",
-      "missing_receipt_ref",
-      "release_overclaim",
-      "private_source_leakage"
-    ],
-    "secret_exclusion_scan_required": true,
-    "body_in_receipt": false,
-    "real_runtime_receipt_required": true,
-    "synthetic_receipt_standin_allowed": false
-  },
-  "public_private_boundary": {
-    "public_inputs": "public standards inventory, runtime contracts, diagnostic policy, registry refs, and receipt refs",
-    "private_inputs_forbidden": [
-      "private macro source bodies",
-      "provider payload bodies",
-      "raw seed bodies",
-      "secrets",
-      "release claims"
-    ],
-    "release_authorized": false
-  },
-  "authority_ceiling": {
-    "status": "pass",
-    "standards_meta_diagnostics_authority": "coverage_projection_only_not_registry_authority",
-    "standards_registry_authority": false,
-    "source_mutation_authorized": false,
-    "provider_calls_authorized": false,
-    "private_data_equivalence_claim": false,
-    "whole_system_correctness_claim": false,
-    "release_authorized": false
-  },
+  "standard_id": "std_microcosm_standards_meta_diagnostics",
   "standard_payload": {
-    "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, and secret-exclusion results.",
-    "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness.",
     "anti_purpose": "A standards coverage board that points at registry rows and acceptance receipts while missing runtime contracts, negative-case rejection, public/private boundaries, or source-open validator evidence.",
     "compression_bands": [
       "accepted_organ",
@@ -106,7 +105,10 @@
       "diagnostic_policy",
       "negative_case",
       "secret_exclusion",
-      "authority_ceiling"
+      "authority_ceiling",
+      "source_module_manifest",
+      "copied_macro_body",
+      "body_hash_anchor"
     ],
     "failure_modes": [
       "accepted organ admitted without a standards inventory row",
@@ -120,8 +122,25 @@
       "synthetic receipt stand-in accepted instead of real runtime receipt refs",
       "diagnostics bundle accepted without fixture, paper-module, standards inventory, runtime contract, and acceptance-receipt source refs",
       "coverage map pass claimed as release readiness, product maturity, source mutation authorization, or whole-system correctness",
-      "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries"
-    ]
+      "receipt duplicates macro body text instead of carrying public refs, hashes, verdicts, and omission boundaries",
+      "exported diagnostics bundle lacks copied macro source modules and relies on pointer-shaped evidence",
+      "copied source module digest or declared anchor diverges from the target body",
+      "receipt embeds macro body text instead of carrying refs, hashes, counts, and verdicts"
+    ],
+    "ontology": "A public standards-meta diagnostics organ that checks accepted adapter-backed organs against standard mappings, runtime contracts, receipt refs, diagnostic policy ceilings, negative cases, secret-exclusion results, and copied non-secret macro body source modules.",
+    "teleology": "Keep the Microcosm runtime spine coherent for cold readers by making standards coverage executable and by importing the real macro meta-diagnostics mechanism body without turning coverage projection into registry authority, source mutation authority, release authority, or whole-system correctness."
   },
-  "anti_claim": "Standards meta diagnostics summarizes public standards, organ, runtime, and receipt coverage only; it does not become registry authority, expose private sources, authorize release, or prove whole-system correctness."
+  "status": "accepted_public_runtime_standard",
+  "validation_rules": [
+    "Every accepted adapter-backed organ must have a standards inventory row.",
+    "Every inventory row must carry standard_id, standard_ref, registry_row_ref, and at least one receipt ref.",
+    "Every accepted organ must have a runtime contract row with a CLI command and runtime step.",
+    "Private source bodies, provider payload bodies, release authority, provider-call authority, private-data equivalence, and whole-system correctness claims are rejected.",
+    "Exported runtime bundle must include source_module_manifest.json and copied non-secret macro body modules whose target hashes and anchors validate while keeping receipt bodies empty."
+  ],
+  "validator_contract": {
+    "fixture_command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
+    "runner": "microcosm_core.organs.standards_meta_diagnostics",
+    "runtime_bundle_command": "python -m microcosm_core.organs.standards_meta_diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out receipts/runtime_shell/demo_project/organs/standards_meta_diagnostics"
+  }
 }

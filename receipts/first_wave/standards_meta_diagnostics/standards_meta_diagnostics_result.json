@@ -11,7 +11,9 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
+  "body_copied_material_count": 0,
   "body_in_receipt": false,
+  "body_material_status": "",
   "bundle_id": null,
   "command": "python -m microcosm_core.organs.standards_meta_diagnostics run --input fixtures/first_wave/standards_meta_diagnostics/input --out receipts/first_wave/standards_meta_diagnostics",
   "covered_organ_ids": [
@@ -60,7 +62,7 @@
     "verifier_lab_execution_spine",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-23T07:19:57+00:00",
+  "created_at": "2026-05-27T01:24:22+00:00",
   "error_codes": [
     "STANDARDS_META_AUTHORITY_OVERCLAIM",
     "STANDARDS_META_MISSING_RECEIPT_REF",
@@ -128,6 +130,63 @@
     }
   ],
   "fixture_id": "first_wave.standards_meta_diagnostics",
+  "freshness_basis": {
+    "basis_digest": "sha256:c41d35b8de00cac8ee5175641ad627ae819a5b91ca398ec27c0084756848b319",
+    "card_schema_version": "standards_meta_diagnostics_command_card_v1",
+    "include_negative": true,
+    "input_count": 9,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/standards_inventory.json",
+        "sha256": "c8b751fb3e726b92822d28fa0ea7953c511517b4e5a4466b16fefd35da2b4d57",
+        "size_bytes": 53976
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/organ_runtime_contracts.json",
+        "sha256": "b847ce5caccd2efbfa95b6507ca35717c1df954ddf67c86f09ac73380fd56bda",
+        "size_bytes": 27297
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/diagnostic_policy.json",
+        "sha256": "bb1c23697ac816b7beca7c5858f46ba804ce98a7922fa1a66197732250952ab4",
+        "size_bytes": 2368
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/missing_standard_ref.json",
+        "sha256": "bb98cce927f43c179b57eda6a1d89d94747d26607ffa1aa2ef5742b6c7ff984f",
+        "size_bytes": 668
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/unmapped_accepted_organ.json",
+        "sha256": "9e68073b4269823f75237dcfa87ea1f54f04ac474e0b61550f98f264a4691ba6",
+        "size_bytes": 884
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/missing_receipt_ref.json",
+        "sha256": "80dc2017e21a3625b8fe67a1a3fc06bffdd4dbe1cbc7cb6b89714d31c3c580e4",
+        "size_bytes": 387
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/release_overclaim.json",
+        "sha256": "a71ce2cbe98321584d19802fb11904857c266482dc21888ffdf5f564e4add046",
+        "size_bytes": 231
+      },
+      {
+        "path": "fixtures/first_wave/standards_meta_diagnostics/input/private_source_leakage.json",
+        "sha256": "dc9f5f3e733df43d9b75463de6e06cf3f1f8427ff58ba86cbdb2bde3c466b9eb",
+        "size_bytes": 264
+      },
+      {
+        "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
+        "sha256": "957b7cc848974e3972be93c060e6e7d498eb18644f4a9c34047df8de79e261f4",
+        "size_bytes": 46779
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "standards_meta_diagnostics_freshness_basis_v1",
+    "validator_schema_version": "standards_meta_diagnostics_result_v1"
+  },
   "input_mode": "first_wave_fixture",
   "missing_negative_cases": [],
   "observed_negative_cases": {
@@ -169,9 +228,11 @@
     "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json"
   ],
   "receipt_ref_count": 184,
+  "receipt_reused": false,
   "runtime_contract_count": 44,
   "schema_version": "standards_meta_diagnostics_result_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -183,9 +244,58 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_status": "not_present",
+  "source_module_manifest_ref": "fixtures/first_wave/standards_meta_diagnostics/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_module_summary": {
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "findings": [],
+    "material_classes": [],
+    "module_count": 0,
+    "module_ids": [],
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": "fixtures/first_wave/standards_meta_diagnostics/input/source_module_manifest.json",
+    "source_refs": [],
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "body_text_in_receipt": false,
+      "credential_or_account_bound_payload_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "whole_system_correctness_claim": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "standards_meta_diagnostics_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
   },
   "source_pattern_ids": [
     "standards_meta_diagnostics",
