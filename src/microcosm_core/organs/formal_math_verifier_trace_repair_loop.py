@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.private_state_scan as private_state_scan
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -28,6 +30,27 @@ ACCEPTANCE_RECEIPT_REL = (
     "formal_math_verifier_trace_repair_loop_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_verifier_trace_repair_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "formal_math_verifier_trace_repair_loop_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "authority_ceiling",
+    "anti_claim",
+    "body_material_contract",
+    "copied_material",
+    "curriculum_edges",
+    "failure_mode_ledger",
+    "findings",
+    "freshness_basis",
+    "observed_negative_cases",
+    "projection_receipt_refs",
+    "secret_exclusion_scan",
+    "source_digests",
+    "source_module_manifest",
+    "source_open_body_imports",
+    "source_pattern_ids",
+    "source_refs",
+    "target_refs",
+    "verifier_attempts",
+)
 
 RUN_ID = "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
 PREMISE_RETRIEVAL_VARIANT_ID = "premise_retrieval_graph_v0"
@@ -286,6 +309,94 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
         paths.append(bundle_manifest)
     paths.extend(_source_module_scan_paths(input_dir))
     return paths
+
+
+def _json_digest(value: Any) -> str:
+    encoded = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
+def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
+    public_ref = _display(path, public_root=public_root)
+    if not path.exists():
+        return {
+            "path": public_ref,
+            "exists": False,
+            "size_bytes": 0,
+            "mtime_ns": 0,
+        }
+    stat = path.stat()
+    return {
+        "path": public_ref,
+        "exists": path.is_file(),
+        "size_bytes": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def _dedupe_paths(paths: list[Path]) -> list[Path]:
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = path.resolve(strict=False).as_posix()
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def _loop_bundle_freshness_basis(
+    input_dir: Path,
+    *,
+    public_root: Path,
+) -> list[dict[str, Any]]:
+    paths = [
+        Path(__file__).resolve(strict=False),
+        Path(private_state_scan.__file__).resolve(strict=False),
+        public_root / "core/private_state_forbidden_classes.json",
+        *_input_paths(input_dir, include_negative=False),
+    ]
+    return sorted(
+        (
+            _file_freshness_entry(path, public_root=public_root)
+            for path in _dedupe_paths(paths)
+        ),
+        key=lambda item: str(item["path"]),
+    )
+
+
+def _fresh_loop_bundle_receipt(
+    out_dir: str | Path,
+    *,
+    freshness_digest: str,
+) -> dict[str, Any] | None:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    receipt_path = target / BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("card_schema_version") != CARD_SCHEMA_VERSION:
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_verifier_trace_repair_bundle":
+        return None
+    if payload.get("freshness_digest") != freshness_digest:
+        return None
+    result = dict(payload)
+    result["receipt_reused"] = True
+    result["freshness_status"] = "current"
+    return result
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -1136,21 +1247,50 @@ def run_loop_bundle(
         "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
         "run-loop-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     out = Path(out_dir)
+    if not out.is_absolute():
+        out = Path.cwd() / out
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_path(input_path)
+    freshness_basis = _loop_bundle_freshness_basis(input_path, public_root=public_root)
+    freshness_digest = _json_digest(freshness_basis)
+    if reuse_fresh_receipt:
+        cached = _fresh_loop_bundle_receipt(out, freshness_digest=freshness_digest)
+        if cached is not None:
+            return cached
+
     out.mkdir(parents=True, exist_ok=True)
     result = _build_result(
-        Path(input_dir),
+        input_path,
         command=command,
         input_mode="exported_verifier_trace_repair_bundle",
         include_negative=False,
     )
+    result.update(
+        {
+            "card_schema_version": CARD_SCHEMA_VERSION,
+            "freshness_basis": freshness_basis,
+            "freshness_digest": freshness_digest,
+            "freshness_status": "current",
+            "receipt_reused": False,
+        }
+    )
     bundle_path = out / BUNDLE_RESULT_NAME
-    public_root = _public_root_for_path(out)
+    receipt_root = _public_root_for_path(out)
     payload = {
         **result,
         "schema_version": "exported_verifier_trace_repair_bundle_validation_result_v1",
-        "receipt_paths": [_display(bundle_path, public_root=public_root)],
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "freshness_basis": freshness_basis,
+        "freshness_digest": freshness_digest,
+        "freshness_status": "current",
+        "receipt_reused": False,
+        "receipt_paths": [_display(bundle_path, public_root=receipt_root)],
     }
     write_json_atomic(bundle_path, payload)
     return payload
@@ -1172,8 +1312,12 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
         if action == "run-loop-bundle"
         else "formal_math_verifier_trace_repair_loop_fixture_card"
     )
+    receipt_paths = [
+        Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
+        for path in result.get("receipt_paths", [])
+    ]
     return {
-        "schema_version": "formal_math_verifier_trace_repair_loop_card_v1",
+        "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
         "organ_id": ORGAN_ID,
         "command": result.get("command"),
@@ -1186,7 +1330,10 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
             "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
             f"{action} --input <input> --out <out>"
         ),
-        "receipt_paths": result.get("receipt_paths", []),
+        "receipt_paths": receipt_paths,
+        "receipt_reused": bool(result.get("receipt_reused")),
+        "freshness_status": result.get("freshness_status", "rebuilt"),
+        "freshness_digest": result.get("freshness_digest"),
         "expected_negative_cases": result.get("expected_negative_cases", []),
         "missing_negative_cases": result.get("missing_negative_cases", []),
         "error_codes": result.get("error_codes", []),
@@ -1229,6 +1376,9 @@ def _result_card(result: dict[str, Any]) -> dict[str, Any]:
         "proof_bodies_exported": False,
         "oracle_premise_ids_exported": False,
         "provider_payloads_exported": False,
+        "omitted_full_payload_keys": [
+            key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+        ],
     }
 
 
@@ -1256,29 +1406,29 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    command = (
+        "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
+        f"{args.action} --input {args.input} --out {args.out}"
+    )
+    if args.card:
+        command += " --card"
     if args.action == "run":
         result = run(
             args.input,
             args.out,
-            command=(
-                "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
-                f"run --input {args.input} --out {args.out}"
-            ),
+            command=command,
         )
     elif args.action == "run-loop-bundle":
         result = run_loop_bundle(
             args.input,
             args.out,
-            command=(
-                "python -m microcosm_core.organs.formal_math_verifier_trace_repair_loop "
-                f"run-loop-bundle --input {args.input} --out {args.out}"
-            ),
+            command=command,
+            reuse_fresh_receipt=args.card,
         )
     else:
         return 2
-    print_json = __import__("json").dumps
     output = _result_card(result) if args.card else result
-    print(print_json(output, indent=2, sort_keys=True))
+    print(json.dumps(output, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 

@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import microcosm_core.organs.formal_math_verifier_trace_repair_loop as trace_module
 from microcosm_core.organs.formal_math_verifier_trace_repair_loop import (
     EXPECTED_NEGATIVE_CASES,
     main,
@@ -207,6 +208,9 @@ def test_formal_math_verifier_trace_repair_cli_card_compacts_exported_bundle(
     assert payload["output_profile"] == "compact_card_no_trace_rows_or_source_bodies"
     assert payload["input_mode"] == "exported_verifier_trace_repair_bundle"
     assert payload["receipt_paths"]
+    assert payload["receipt_reused"] is False
+    assert payload["freshness_status"] == "current"
+    assert payload["freshness_digest"].startswith("sha256:")
     assert payload["secret_exclusion_scan_summary"]["scanned_path_count"] == 13
     assert payload["secret_exclusion_scan_summary"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan_summary"]["body_text_exported"] is False
@@ -223,6 +227,59 @@ def test_formal_math_verifier_trace_repair_cli_card_compacts_exported_bundle(
     assert payload["proof_bodies_exported"] is False
     assert "verifier_attempts" not in payload
     assert "failure_mode_ledger" not in payload
+    assert "verifier_attempts" in payload["omitted_full_payload_keys"]
+    assert "freshness_basis" in payload["omitted_full_payload_keys"]
+
+
+def test_formal_math_verifier_trace_repair_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop"
+    )
+
+    result = run_loop_bundle(
+        BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    card = trace_module._result_card(result)
+
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+    assert result["card_schema_version"] == "formal_math_verifier_trace_repair_loop_card_v1"
+    assert result["freshness_digest"].startswith("sha256:")
+    assert card["receipt_reused"] is False
+    assert card["freshness_digest"] == result["freshness_digest"]
+    assert card["attempt_count"] == 5
+    assert card["secret_exclusion_scan_summary"]["scanned_path_count"] == 13
+    assert "verifier_attempts" in card["omitted_full_payload_keys"]
+    assert "freshness_basis" in card["omitted_full_payload_keys"]
+    assert "verifier_attempts" not in card
+    assert "secret_exclusion_scan" not in card
+    assert str(tmp_path) not in json.dumps(card, sort_keys=True)
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the verifier trace receipt")
+
+    monkeypatch.setattr(trace_module, "_build_result", fail_if_rebuilt)
+
+    cached = run_loop_bundle(
+        BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    cached_card = trace_module._result_card(cached)
+
+    assert cached["status"] == "pass"
+    assert cached["receipt_reused"] is True
+    assert cached["freshness_digest"] == result["freshness_digest"]
+    assert cached_card["receipt_reused"] is True
+    assert cached_card["attempt_count"] == 5
 
 
 def test_formal_math_verifier_trace_repair_exported_source_modules_are_exact_copies() -> None:
