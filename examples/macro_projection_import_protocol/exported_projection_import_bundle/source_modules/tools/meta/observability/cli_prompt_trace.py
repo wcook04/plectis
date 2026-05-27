@@ -1946,7 +1946,12 @@ def _md_table_code(value: Any) -> str:
 def _closeout_command_display(ev: ToolEvent) -> str:
     command = _capsule_command(ev)
     if command:
-        return _single_line(command, limit=180)
+        candidates = _capsule_command_surface_argvs(command)
+        if candidates and candidates[0]:
+            exe = Path(candidates[0][0]).name or "command"
+        else:
+            exe = _tool_base_name(ev.name) or "command"
+        return f"{exe} command_sha16={_sha16(command)}"
     base = _tool_base_name(ev.name)
     if base:
         return base
@@ -2954,6 +2959,8 @@ class CapsuleEvidenceClassification:
     identity: str
     validation_class: str = ""
     residual_id: str = ""
+    residual_ids: tuple[str, ...] = ()
+    ambient_warning_class: str = ""
 
 
 @dataclass(frozen=True)
@@ -3009,8 +3016,31 @@ class CapsuleEvidenceSummary:
 
     @property
     def captured_residual_ids(self) -> tuple[str, ...]:
-        ids = sorted({row.residual_id for row in (*self.checks, *self.governance_receipts) if row.residual_id})
+        ids = sorted({
+            residual_id
+            for row in (*self.checks, *self.governance_receipts)
+            for residual_id in (row.residual_ids or ((row.residual_id,) if row.residual_id else ()))
+        })
         return tuple(ids)
+
+
+@dataclass(frozen=True)
+class CapsuleResidualTaxonomy:
+    open_product_residuals: tuple[str, ...] = ()
+    open_validation_process_residuals: tuple[str, ...] = ()
+    closed_residuals_seen: tuple[str, ...] = ()
+    projection_or_view_artifacts_seen: tuple[str, ...] = ()
+    unresolved_residual_mentions: tuple[str, ...] = ()
+
+    @property
+    def all_residual_mentions(self) -> tuple[str, ...]:
+        return tuple(sorted({
+            *self.open_product_residuals,
+            *self.open_validation_process_residuals,
+            *self.closed_residuals_seen,
+            *self.projection_or_view_artifacts_seen,
+            *self.unresolved_residual_mentions,
+        }))
 
 
 def _fs_safe_token(value: str, fallback: str = "artifact") -> str:
@@ -3463,14 +3493,195 @@ def _capsule_evidence_result(bucket: str, exit_code: int | None, is_error: bool,
 
 
 _CAPSULE_RESIDUAL_ID_RE = re.compile(r"\bcap_[A-Za-z0-9][A-Za-z0-9_.:-]*")
+_CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE: dict[str, dict] | None = None
+_CAPSULE_CLOSED_RESIDUAL_STATES = {
+    "done",
+    "closed",
+    "retired",
+    "satisfied",
+    "superseded",
+    "accepted",
+}
+_CAPSULE_PROJECTION_ARTIFACT_SUFFIXES = (
+    ".json",
+    ".jsonl",
+    ".md",
+    ".py",
+    ".txt",
+    ".csv",
+)
+_CAPSULE_KNOWN_RESIDUAL_IDS = (
+    "microcosm_dogfood_paper_module_sidecar_claim",
+    "microcosm_cold_entry_real_trace_comparison_absent",
+    "microcosm_first_screen_output_size",
+    "microcosm_dogfood_sandbox_idempotence",
+    "root_readme_audience_layer_commit_blocker",
+)
+
+
+def _capsule_task_ledger_work_items() -> dict[str, dict]:
+    global _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
+    if _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE is not None:
+        return _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
+    ledger_path = REPO_ROOT / "state" / "task_ledger" / "ledger.json"
+    try:
+        data = json.loads(ledger_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE = {}
+        return _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
+    items = data.get("work_items") if isinstance(data, dict) else None
+    if not isinstance(items, list):
+        _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE = {}
+        return _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
+    _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE = {
+        str(item.get("id")): item
+        for item in items
+        if isinstance(item, dict) and item.get("id")
+    }
+    return _CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE
+
+
+def _capsule_ordered_unique(values: Iterable[str]) -> tuple[str, ...]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for value in values:
+        if not value or value in seen:
+            continue
+        seen.add(value)
+        out.append(value)
+    return tuple(out)
+
+
+def _capsule_residual_ids(command: str, output_text: str) -> tuple[str, ...]:
+    text = f"{command}\n{output_text}"
+    residual_ids: list[str] = []
+    for residual_id in _CAPSULE_KNOWN_RESIDUAL_IDS:
+        if residual_id in text:
+            residual_ids.append(residual_id)
+    lowered = text.lower()
+    if "sidecar_residual" in lowered and "open" in lowered:
+        residual_ids.append("microcosm_dogfood_paper_module_sidecar_claim")
+    for match in _CAPSULE_RESIDUAL_ID_RE.finditer(text):
+        token = match.group(0).strip(".,;:'\"")
+        if token != "cap_id":
+            residual_ids.append(token)
+    return _capsule_ordered_unique(residual_ids)
 
 
 def _capsule_residual_id(command: str, output_text: str) -> str:
-    for match in _CAPSULE_RESIDUAL_ID_RE.finditer(f"{command}\n{output_text}"):
-        token = match.group(0).strip(".,;:'\"")
-        if token != "cap_id":
-            return token
-    return ""
+    residual_ids = _capsule_residual_ids(command, output_text)
+    return residual_ids[0] if residual_ids else ""
+
+
+def _capsule_residual_is_projection_artifact(residual_id: str) -> bool:
+    if not residual_id:
+        return False
+    lowered = residual_id.lower()
+    return lowered.endswith(_CAPSULE_PROJECTION_ARTIFACT_SUFFIXES)
+
+
+def _capsule_residual_is_validation_process(residual_id: str, item: dict | None) -> bool:
+    fields = [residual_id]
+    if isinstance(item, dict):
+        fields.extend(str(value) for value in (
+            item.get("title"),
+            item.get("state"),
+            item.get("work_item_type"),
+            item.get("candidate_work_item_type"),
+        ) if value)
+        tags = item.get("tags")
+        if isinstance(tags, list):
+            fields.extend(str(tag) for tag in tags)
+    text = " ".join(fields).lower()
+    return any(token in text for token in (
+        "validation_process",
+        "pytest_wrapper",
+        "wrapper_hung",
+        "wrapper hung",
+        "process",
+        "validation runner",
+    ))
+
+
+def _capsule_residual_taxonomy(rows: Iterable[CapsuleEvidenceClassification]) -> CapsuleResidualTaxonomy:
+    buckets: dict[str, set[str]] = {
+        "open_product_residuals": set(),
+        "open_validation_process_residuals": set(),
+        "closed_residuals_seen": set(),
+        "projection_or_view_artifacts_seen": set(),
+        "unresolved_residual_mentions": set(),
+    }
+    ledger_items = _capsule_task_ledger_work_items()
+    for row in rows:
+        residual_ids = row.residual_ids or ((row.residual_id,) if row.residual_id else ())
+        for residual_id in residual_ids:
+            if _capsule_residual_is_projection_artifact(residual_id):
+                buckets["projection_or_view_artifacts_seen"].add(residual_id)
+                continue
+            item = ledger_items.get(residual_id)
+            state = str(item.get("state") or "").lower() if isinstance(item, dict) else ""
+            if state in _CAPSULE_CLOSED_RESIDUAL_STATES:
+                buckets["closed_residuals_seen"].add(residual_id)
+            elif isinstance(item, dict):
+                if _capsule_residual_is_validation_process(residual_id, item):
+                    buckets["open_validation_process_residuals"].add(residual_id)
+                else:
+                    buckets["open_product_residuals"].add(residual_id)
+            elif residual_id in _CAPSULE_KNOWN_RESIDUAL_IDS:
+                buckets["open_product_residuals"].add(residual_id)
+            else:
+                buckets["unresolved_residual_mentions"].add(residual_id)
+    return CapsuleResidualTaxonomy(
+        open_product_residuals=tuple(sorted(buckets["open_product_residuals"])),
+        open_validation_process_residuals=tuple(sorted(buckets["open_validation_process_residuals"])),
+        closed_residuals_seen=tuple(sorted(buckets["closed_residuals_seen"])),
+        projection_or_view_artifacts_seen=tuple(sorted(buckets["projection_or_view_artifacts_seen"])),
+        unresolved_residual_mentions=tuple(sorted(buckets["unresolved_residual_mentions"])),
+    )
+
+
+def _capsule_pytest_wrapper_passed_then_failed(command: str, output_text: str) -> bool:
+    text = f"{command}\n{output_text}".lower()
+    if "pytest" not in text:
+        return False
+    if not re.search(r"\b\d+\s+passed\b", text):
+        return False
+    if re.search(r"\b\d+\s+failed\b|\bfailures?\b", text):
+        return False
+    return any(marker in text for marker in (
+        "wrapper hung",
+        "hung after printing pass",
+        "process running with session id",
+        "timed out",
+        "timeout",
+        "killed",
+        "interrupted",
+        "exit code -1",
+    ))
+
+
+def _capsule_ambient_warning_class(command: str, output_text: str) -> str:
+    text = f"{command}\n{output_text}"
+    lowered = text.lower()
+    if "task_ledger_apply.py" not in lowered or "validate" not in lowered:
+        return ""
+    if "valid_with_warnings" not in lowered:
+        return ""
+    zero_error_markers = (
+        '"error_count": 0',
+        '"errors": 0',
+        "error_count=0",
+        "errors=0",
+        "0 errors",
+    )
+    if not any(marker in lowered for marker in zero_error_markers):
+        return ""
+    if (
+        "historical_evidence_durability_backlog" in lowered
+        or ("evidence" in lowered and "durability" in lowered)
+    ):
+        return "historical_evidence_durability_backlog"
+    return "external_validation_warning"
 
 
 def _capsule_validation_class(
@@ -3478,8 +3689,11 @@ def _capsule_validation_class(
     result: str,
     command: str,
     output_text: str,
+    ambient_warning_class: str = "",
 ) -> str:
     text = f"{command}\n{output_text}".lower()
+    if ambient_warning_class:
+        return "ambient_validation_warning"
     if bucket == "governance":
         if "task_ledger_apply.py" in text and any(token in text for token in ("quick-capture", " capture", "cap_")):
             return "captured_residual"
@@ -3502,6 +3716,8 @@ def _capsule_validation_class(
         return "stale_selector_retry"
     if "build_standard_skill_map.py" in text or "standard_skill_map" in text:
         return "out_of_scope_discoverability_failure"
+    if _capsule_pytest_wrapper_passed_then_failed(command, output_text):
+        return "validation_process_warning"
     return "scoped_validation_failure"
 
 
@@ -3516,13 +3732,23 @@ def _capsule_evidence_classification(
     if not bucket:
         return None
     result = _capsule_evidence_result(bucket, exit_code, is_error, output_text)
+    ambient_warning_class = _capsule_ambient_warning_class(command, output_text)
+    residual_ids = _capsule_residual_ids(command, output_text)
     return CapsuleEvidenceClassification(
         bucket=bucket,
         result=result,
         label=label,
         identity=identity,
-        validation_class=_capsule_validation_class(bucket, result, command, output_text),
-        residual_id=_capsule_residual_id(command, output_text),
+        validation_class=_capsule_validation_class(
+            bucket,
+            result,
+            command,
+            output_text,
+            ambient_warning_class,
+        ),
+        residual_id=residual_ids[0] if residual_ids else "",
+        residual_ids=residual_ids,
+        ambient_warning_class=ambient_warning_class,
     )
 
 
@@ -4184,15 +4410,45 @@ def render_trace_capsule_text(
     governance_pass_count, governance_fail_count, governance_other_count = evidence_summary.governance_counts
     terminal_governance_pass_count, terminal_governance_fail_count, terminal_governance_other_count = evidence_summary.terminal_governance_counts
     diagnostic_fail_count = evidence_summary.diagnostic_fail_count
-    captured_residual_ids = list(evidence_summary.captured_residual_ids)
+    residual_taxonomy = _capsule_residual_taxonomy([*check_rows, *governance_rows, *diagnostic_rows])
+    captured_residual_ids = list(residual_taxonomy.all_residual_mentions)
+    open_product_residuals = list(residual_taxonomy.open_product_residuals)
+    open_validation_process_residuals = list(residual_taxonomy.open_validation_process_residuals)
+    closed_residuals_seen = list(residual_taxonomy.closed_residuals_seen)
+    projection_or_view_artifacts_seen = list(residual_taxonomy.projection_or_view_artifacts_seen)
+    unresolved_residual_mentions = list(residual_taxonomy.unresolved_residual_mentions)
+    ambient_validation_rows = [
+        row
+        for row in [*check_rows, *governance_rows, *diagnostic_rows]
+        if row.validation_class == "ambient_validation_warning"
+    ]
+    ambient_terminal_warning_rows = [
+        row for row in terminal_check_rows if row.validation_class == "ambient_validation_warning"
+    ]
+    validation_process_terminal_rows = [
+        row for row in terminal_check_rows if row.validation_class == "validation_process_warning"
+    ]
+    ambient_warning_classes = sorted(
+        {row.ambient_warning_class or "external_validation_warning" for row in ambient_validation_rows}
+    )
+    owner_terminal_check_rows = [
+        row
+        for row in terminal_check_rows
+        if row.validation_class not in {"ambient_validation_warning", "validation_process_warning"}
+    ]
+    owner_terminal_pass_count, owner_terminal_fail_count, owner_terminal_other_count = _capsule_result_counts(
+        owner_terminal_check_rows
+    )
     nonblocking_failure_classes = {
         "stale_selector_retry",
         "out_of_scope_discoverability_failure",
         "exploratory_diagnostic_failure",
+        "ambient_validation_warning",
+        "validation_process_warning",
     }
     blocking_terminal_failures = [
         row
-        for row in terminal_check_rows
+        for row in owner_terminal_check_rows
         if row.result == "fail" and row.validation_class not in nonblocking_failure_classes
     ]
     nonblocking_terminal_failures = [
@@ -4200,12 +4456,32 @@ def render_trace_capsule_text(
         for row in terminal_check_rows
         if row.result == "fail" and row.validation_class in nonblocking_failure_classes
     ]
+    owner_scope_validation = "unknown"
+    if blocking_terminal_failures:
+        owner_scope_validation = "needs_review"
+    elif owner_terminal_pass_count > 0:
+        owner_scope_validation = "pass"
+    elif owner_terminal_fail_count > 0:
+        owner_scope_validation = "needs_review"
+    ambient_validation = "valid_with_warnings" if ambient_validation_rows else "none"
+    ambient_warning_class_summary = ",".join(ambient_warning_classes) if ambient_warning_classes else "none"
+    ambient_validation_warning_summary = ambient_warning_class_summary
+    validation_process = (
+        "needs_review"
+        if validation_process_terminal_rows or open_validation_process_residuals
+        else "none"
+    )
+    has_validation_process_warning = validation_process != "none"
     final_validation = "unknown"
     if blocking_terminal_failures:
         final_validation = "needs_review"
-    elif terminal_check_pass_count > 0 and captured_residual_ids and nonblocking_terminal_failures:
-        final_validation = "passed_with_captured_residual"
-    elif terminal_check_pass_count > 0:
+    elif owner_terminal_pass_count > 0 and ambient_terminal_warning_rows and has_validation_process_warning:
+        final_validation = "pass_with_external_and_validation_process_warnings"
+    elif owner_terminal_pass_count > 0 and ambient_terminal_warning_rows:
+        final_validation = "pass_with_external_warnings"
+    elif owner_terminal_pass_count > 0 and has_validation_process_warning:
+        final_validation = "pass_with_validation_process_warnings"
+    elif owner_terminal_pass_count > 0:
         final_validation = "passed"
     elif terminal_check_fail_count:
         final_validation = "needs_review"
@@ -4216,7 +4492,18 @@ def render_trace_capsule_text(
     validation_class_summary = " ".join(
         f"{key}={value}" for key, value in sorted(validation_class_counts.items())
     ) or "none=0"
-    residual_summary = ",".join(captured_residual_ids) if captured_residual_ids else "none"
+    residual_summary = ",".join(open_product_residuals) if open_product_residuals else "none"
+    validation_process_residual_summary = (
+        ",".join(open_validation_process_residuals) if open_validation_process_residuals else "none"
+    )
+    closed_residuals_seen_summary = ",".join(closed_residuals_seen) if closed_residuals_seen else "none"
+    projection_or_view_artifacts_seen_summary = (
+        ",".join(projection_or_view_artifacts_seen) if projection_or_view_artifacts_seen else "none"
+    )
+    unresolved_residual_mentions_summary = (
+        ",".join(unresolved_residual_mentions) if unresolved_residual_mentions else "none"
+    )
+    captured_residual_summary = ",".join(captured_residual_ids) if captured_residual_ids else "none"
     final_assistant_text = _capsule_final_assistant_text(turn)
     closeout_present = bool(final_assistant_text or commit_hash)
     changed_paths = sorted({str(row.get("path") or "") for row in edit_rows if row.get("path")})
@@ -4268,10 +4555,21 @@ def render_trace_capsule_text(
         f"result: {result_summary}",
         f"changed: {changed}",
         f"final_validation: {final_validation}",
+        f"owner_scope_validation: {owner_scope_validation}",
+        f"ambient_validation: {ambient_validation}",
+        f"ambient_warning_class: {ambient_warning_class_summary}",
+        f"open_product_residuals: {residual_summary}",
+        f"open_validation_process_residuals: {validation_process_residual_summary}",
+        f"closed_residuals_seen: {closed_residuals_seen_summary}",
+        f"ambient_validation_warnings: {ambient_validation_warning_summary}",
+        f"projection_or_view_artifacts_seen: {projection_or_view_artifacts_seen_summary}",
+        f"unresolved_residual_mentions: {unresolved_residual_mentions_summary}",
+        "release_authority: none",
         f"checks: pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}",
         f"terminal_checks: pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}",
-        f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
-        f"validation_semantics: scoped_failures={len(blocking_terminal_failures)} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} captured_residuals={residual_summary} classes={validation_class_summary}",
+        f"owner_scope_terminal_checks: pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}",
+        f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) owner_scope_terminal_checks(pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
+        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} scoped_failures={len(blocking_terminal_failures)} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
         f"governance_receipts: pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}",
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
@@ -4339,6 +4637,22 @@ def render_trace_capsule_text(
         "recovered_check_failures": recovered_failures,
         "final_validation_basis": final_validation_basis,
         "final_validation": final_validation,
+        "owner_scope_validation": owner_scope_validation,
+        "ambient_validation": ambient_validation,
+        "ambient_warning_classes": ambient_warning_classes,
+        "ambient_validation_warnings": ambient_warning_classes,
+        "validation_process": validation_process,
+        "external_terminal_warning_count": len(ambient_terminal_warning_rows),
+        "validation_process_terminal_warning_count": len(validation_process_terminal_rows),
+        "owner_scope_terminal_validation_count": len(owner_terminal_check_rows),
+        "owner_scope_terminal_validation_pass_count": owner_terminal_pass_count,
+        "owner_scope_terminal_validation_fail_count": owner_terminal_fail_count,
+        "open_product_residuals": open_product_residuals,
+        "open_validation_process_residuals": open_validation_process_residuals,
+        "closed_residuals_seen": closed_residuals_seen,
+        "projection_or_view_artifacts_seen": projection_or_view_artifacts_seen,
+        "unresolved_residual_mentions": unresolved_residual_mentions,
+        "release_authority": "none",
         "validation_class_counts": validation_class_counts,
         "captured_residual_ids": captured_residual_ids,
         "blocking_terminal_failure_count": len(blocking_terminal_failures),
@@ -4965,6 +5279,48 @@ def _load_title_aliases() -> dict[str, str]:
     return {}
 
 
+def _path_mtime_ms(path: Path) -> int | None:
+    try:
+        return int(path.stat().st_mtime * 1000)
+    except Exception:
+        return None
+
+
+def _title_authority_sources(claude_desktop_titles: dict[str, dict]) -> dict:
+    sources: list[dict] = []
+    for source_id, path in (
+        ("codex_session_index", CODEX_SESSION_INDEX),
+        ("agent_trace_title_aliases", TRACE_STRUCTURER_TITLE_ALIASES),
+    ):
+        mtime_ms = _path_mtime_ms(path)
+        if mtime_ms is not None:
+            sources.append({"id": source_id, "path": str(path), "mtime_ms": mtime_ms})
+    claude_paths = [
+        str(row.get("metadata_path") or "")
+        for row in (claude_desktop_titles or {}).values()
+        if row.get("metadata_path")
+    ]
+    claude_mtimes = [
+        mtime_ms
+        for mtime_ms in (_path_mtime_ms(Path(path)) for path in claude_paths)
+        if mtime_ms is not None
+    ]
+    if claude_mtimes:
+        sources.append({
+            "id": "claude_desktop_sessions",
+            "path": str(CLAUDE_DESKTOP_SESSIONS),
+            "mtime_ms": max(claude_mtimes),
+            "file_count": len(claude_mtimes),
+        })
+    latest = max((int(s["mtime_ms"]) for s in sources), default=None)
+    return {
+        "schema": "agent_trace_title_authority_v1",
+        "latest_mtime_ms": latest,
+        "source_count": len(sources),
+        "sources": sources,
+    }
+
+
 def _peek_claude_first_prompt(path: Path, *, max_chars: int = 200) -> str:
     """Cheap scan: return the first real user-prompt preview without full parse."""
     try:
@@ -5023,6 +5379,11 @@ def _resolve_session_title(
 
 
 MISSION_ORDINAL_RE = re.compile(r"^\s*(?:old\s+)?(\d+)\s*[, ]\s*(\d+)\b")
+OPERATOR_OLD_TITLE_PREFIX_RE = re.compile(r"^\s*old(?:$|[^a-z0-9])", re.I)
+
+
+def _has_operator_old_title_prefix(title: str) -> bool:
+    return bool(OPERATOR_OLD_TITLE_PREFIX_RE.search(str(title or "")))
 
 
 def _mission_ordinal(title: str) -> tuple[int | None, int | None, str | None]:
@@ -5116,15 +5477,20 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
     out: dict = {}
     if latest_completed is not None:
         out["latest_completed_turn"] = _summarize_trace_turn(latest_completed, complete_override=True)
-    if latest_active is not None and latest_active is not latest_completed:
-        out["active_turn"] = _summarize_trace_turn(latest_active, complete_override=False)
-    active_summary = out.get("active_turn") or {}
     completed_summary = out.get("latest_completed_turn") or {}
+    active_summary: dict = {}
+    if latest_active is not None and latest_active is not latest_completed:
+        active_summary = _summarize_trace_turn(latest_active, complete_override=False)
     if _active_turn_is_preferred(active_summary, completed_summary):
+        out["active_turn"] = active_summary
         out["preferred_trace_turn"] = active_summary
     elif completed_summary:
+        if active_summary:
+            out["stale_active_turn"] = active_summary
+            out["active_turn_stale"] = True
         out["preferred_trace_turn"] = completed_summary
     elif active_summary:
+        out["active_turn"] = active_summary
         out["preferred_trace_turn"] = active_summary
     sidechains = _claude_subagent_sidechain_summaries(session_file) if provider == "claude_code" else []
     subagent_packet = _subagent_deployment_packet(turns, sidechains=sidechains)
@@ -5164,13 +5530,16 @@ def _active_turn_is_preferred(active_turn: dict | None, completed_turn: dict | N
     return _turn_activity_sort_value(active_turn) > _turn_activity_sort_value(completed_turn)
 
 
-MISSION_SUMMARY_CACHE_SCHEMA = "agent_trace_structurer_mission_summary_cache_v5"
+MISSION_SUMMARY_CACHE_SCHEMA = "agent_trace_structurer_mission_summary_cache_v7"
 MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
+    "agent_trace_structurer_mission_summary_cache_v6",
+    "agent_trace_structurer_mission_summary_cache_v5",
     "agent_trace_structurer_mission_summary_cache_v4",
     "agent_trace_structurer_mission_summary_cache_v3",
     "agent_trace_structurer_mission_summary_cache_v2",
 )
 MISSION_INDEX_STALE_REPARSE_BUDGET = 1
+MISSION_INDEX_RECENT_STALE_REPARSE_SECONDS = 25 * 60
 
 
 def _mission_summary_cache_key(provider: str, session_id: str, session_file: Path) -> str:
@@ -5209,6 +5578,17 @@ def _session_file_meta(provider: str, session_id: str, session_file: Path, row: 
         "mtime_epoch": float(mtime_epoch or 0),
         "size_bytes": int(size_bytes or 0),
     }
+
+
+def _mission_source_recently_changed(meta: dict, *, now_epoch: float | None = None) -> bool:
+    try:
+        mtime_epoch = float(meta.get("mtime_epoch") or 0)
+    except (TypeError, ValueError):
+        return False
+    if mtime_epoch <= 0:
+        return False
+    now = time.time() if now_epoch is None else now_epoch
+    return 0 <= now - mtime_epoch <= MISSION_INDEX_RECENT_STALE_REPARSE_SECONDS
 
 
 def _load_mission_summary_cache() -> dict:
@@ -5293,6 +5673,37 @@ def _mission_summary_cache_store(cache: dict, meta: dict, summary: dict) -> None
         "updated_at": now,
         "last_used_at": now,
     }
+
+
+def _summary_turn_is_active(turn: dict | None) -> bool:
+    if not isinstance(turn, dict):
+        return False
+    return turn.get("status") == "in_flight" or turn.get("is_complete") is False
+
+
+def _mission_summary_has_active_turn(summary: dict | None) -> bool:
+    if not isinstance(summary, dict):
+        return False
+    return _summary_turn_is_active(summary.get("active_turn")) or _summary_turn_is_active(summary.get("preferred_trace_turn"))
+
+
+def _downgrade_soft_stale_active_summary(summary: dict) -> dict:
+    """Keep stale completed metadata, but never project stale active_turn as live."""
+    downgraded = json.loads(json.dumps(summary))
+    active_turn = downgraded.pop("active_turn", None)
+    preferred = downgraded.get("preferred_trace_turn")
+    stale_turn = active_turn if _summary_turn_is_active(active_turn) else preferred
+    if stale_turn:
+        downgraded["stale_active_turn"] = stale_turn
+    latest_completed = downgraded.get("latest_completed_turn")
+    if _summary_turn_is_active(preferred):
+        if latest_completed:
+            downgraded["preferred_trace_turn"] = latest_completed
+        else:
+            downgraded.pop("preferred_trace_turn", None)
+    downgraded["active_turn_stale"] = True
+    downgraded["cache_state"] = "soft_stale_active_downgraded"
+    return downgraded
 
 
 def _write_mission_summary_cache(cache: dict, *, max_entries: int = 200) -> None:
@@ -5388,6 +5799,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
     codex_thread_names = _load_codex_thread_names()
     title_aliases = _load_title_aliases()
     claude_desktop_titles = _load_claude_desktop_titles()
+    title_authority = _title_authority_sources(claude_desktop_titles)
     summary_cache = _load_mission_summary_cache()
     cache_stats = {
         "hits": 0,
@@ -5395,6 +5807,8 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         "soft_stale_hits": 0,
         "misses": 0,
         "stale": 0,
+        "recent_stale_forced": 0,
+        "legacy_active_forced": 0,
         "skipped_archived": 0,
         "stored": 0,
     }
@@ -5437,6 +5851,9 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             session_path = Path(c["session_file"])
             source_meta = _session_file_meta(c["provider"], c["session_id"], session_path, c)
             cached_summary, cache_state = _mission_summary_cache_lookup(summary_cache, source_meta)
+            if cache_state == "stale" and _mission_source_recently_changed(source_meta):
+                cache_stats["recent_stale_forced"] += 1
+                cache_state = "recent_stale_forced"
             if cache_state == "stale" and stale_reparse_remaining <= 0:
                 soft_summary, soft_state = _mission_summary_cache_lookup(
                     summary_cache,
@@ -5448,15 +5865,24 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             if cache_state == "hit":
                 cache_stats["hits"] += 1
             elif cache_state == "legacy_hit":
-                cache_stats["hits"] += 1
-                cache_stats["legacy_hits"] += 1
                 cache_dirty = True
+                if _mission_summary_has_active_turn(cached_summary) or (cached_summary or {}).get("stale_active_turn"):
+                    cached_summary = None
+                    cache_state = "legacy_active_forced"
+                    cache_stats["legacy_active_forced"] += 1
+                else:
+                    cache_stats["hits"] += 1
+                    cache_stats["legacy_hits"] += 1
             elif cache_state == "soft_stale_hit":
                 cache_stats["hits"] += 1
                 cache_stats["soft_stale_hits"] += 1
-            elif cache_state == "stale":
+                if _mission_summary_has_active_turn(cached_summary):
+                    cached_summary = _downgrade_soft_stale_active_summary(cached_summary)
+                    cache_stats["soft_stale_active_downgraded"] = cache_stats.get("soft_stale_active_downgraded", 0) + 1
+            elif cache_state in ("stale", "recent_stale_forced", "legacy_active_forced"):
                 cache_stats["stale"] += 1
-                stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
+                if cache_state == "stale":
+                    stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
             else:
                 cache_stats["misses"] += 1
             if cached_summary is not None:
@@ -5470,6 +5896,10 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                 cache_dirty = True
                 if cache_state == "stale":
                     cache_state = "refreshed_stale"
+                elif cache_state == "recent_stale_forced":
+                    cache_state = "refreshed_recent_stale"
+                elif cache_state == "legacy_active_forced":
+                    cache_state = "refreshed_legacy_active"
                 elif cache_state == "miss":
                     cache_state = "stored_miss"
             summary_cache_state = cache_state
@@ -5521,6 +5951,8 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "latest_clip": last_clip_meta,
             "latest_completed_turn": latest_completed,
             "active_turn": active_turn,
+            "stale_active_turn": completed_active.get("stale_active_turn"),
+            "active_turn_stale": bool(completed_active.get("active_turn_stale")),
             "preferred_trace_turn": preferred_trace_turn,
             "subagent_deployments": completed_active.get("subagent_deployments") or [],
             "subagent_summary": completed_active.get("subagent_summary") or {},
@@ -5529,16 +5961,15 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "trace_summary_cache_state": completed_active.get("cache_state") or summary_cache_state,
             "status": "archived" if desktop.get("is_archived") else "live",
         })
-    # Operator rule: titles containing "old" mark inactive missions. Split so
-    # the chip rail can render active by default and keep history queryable.
+    # Operator rule: titles starting with "old" mark inactive missions. Split
+    # so the chip rail can render active by default and keep history queryable.
     active_rows: list[dict] = []
     inactive_rows: list[dict] = []
     for r in rows:
-        title_lower = (r.get("title") or "").lower()
         reason = None
         if r.get("is_archived"):
             reason = "archived"
-        elif re.search(r"\bold\b", title_lower):
+        elif _has_operator_old_title_prefix(r.get("title") or r.get("short_label") or ""):
             reason = "operator_old_title_marker"
         elif not r.get("title"):
             reason = "no_title_resolved"
@@ -5612,6 +6043,7 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "summary_cache": cache_stats,
             "summary_cache_path": str(TRACE_STRUCTURER_MISSION_SUMMARY_CACHE),
         },
+        "title_authority": title_authority,
         "active_rows": active_rows,
         "inactive_rows": inactive_rows,
         # Backwards compat: existing consumers reading 'rows' still work.
