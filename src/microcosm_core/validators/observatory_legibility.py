@@ -54,6 +54,85 @@ def _all_false(payload: dict[str, Any], keys: list[str]) -> bool:
     return all(payload.get(key) is False for key in keys)
 
 
+def _source_open_body_floor_legible(floor: dict[str, Any]) -> bool:
+    if not isinstance(floor, dict):
+        return False
+    material_count = floor.get("public_safe_body_material_count")
+    base_visible = (
+        floor.get("status") in {PASS, "blocked"}
+        and isinstance(material_count, int)
+        and material_count > 0
+        and floor.get("body_text_exported_in_status") is False
+        and floor.get("body_text_exported_in_receipts") is False
+        and isinstance(floor.get("reader_action"), str)
+        and bool(floor.get("reader_action"))
+        and isinstance(floor.get("summary_ref"), str)
+        and bool(floor.get("summary_ref"))
+        and isinstance(floor.get("full_status_ref"), str)
+        and bool(floor.get("full_status_ref"))
+    )
+    if not base_visible:
+        return False
+    if floor.get("status") == PASS:
+        return True
+    defect_count = floor.get("defect_count")
+    return (
+        isinstance(defect_count, int)
+        and defect_count > 0
+        and isinstance(floor.get("defect_preview"), list)
+        and isinstance(floor.get("full_defects_ref"), str)
+        and bool(floor.get("full_defects_ref"))
+    )
+
+
+def _tour_legibility_visible(tour: dict[str, Any]) -> bool:
+    if not isinstance(tour, dict):
+        return False
+    if tour.get("status") == PASS:
+        return True
+    front_door = (
+        tour.get("front_door_status", {})
+        if isinstance(tour.get("front_door_status"), dict)
+        else {}
+    )
+    blocking_surface_ids = {
+        str(surface_id)
+        for surface_id in front_door.get("blocking_surface_ids", [])
+        if isinstance(surface_id, str)
+    }
+    route_cards = _rows(tour, "route_cards")
+    endpoint_path = tour.get("endpoint_path", [])
+    if not isinstance(endpoint_path, list):
+        endpoint_path = []
+    allowed_bounded_blockers = {"macro_body_import_floor", "spine"}
+    blocking_details = (
+        front_door.get("blocking_surface_details", {})
+        if isinstance(front_door.get("blocking_surface_details"), dict)
+        else {}
+    )
+    safe_to_show = (
+        front_door.get("safe_to_show", {})
+        if isinstance(front_door.get("safe_to_show"), dict)
+        else {}
+    )
+    return (
+        tour.get("status") == "blocked"
+        and "macro_body_import_floor" in blocking_surface_ids
+        and blocking_surface_ids.issubset(allowed_bounded_blockers)
+        and all(surface_id in blocking_details for surface_id in blocking_surface_ids)
+        and _source_open_body_floor_legible(
+            tour.get("source_open_body_import_floor", {})
+            if isinstance(tour.get("source_open_body_import_floor"), dict)
+            else {}
+        )
+        and safe_to_show.get("blocking_surface_ids_visible") is True
+        and len(route_cards) >= 10
+        and "/tour" in endpoint_path
+        and isinstance(tour.get("anti_claim"), str)
+        and "does not authorize release" in tour.get("anti_claim", "")
+    )
+
+
 def _observable_first_artifact_contract(
     *,
     observatory_card: dict[str, Any],
@@ -86,6 +165,9 @@ def _observable_first_artifact_contract(
         causal_summary.get("work_transaction", {})
         if isinstance(causal_summary.get("work_transaction"), dict)
         else {}
+    )
+    source_open_body_floor_legible = _source_open_body_floor_legible(
+        source_open_body_import_floor
     )
     slots = {
         "local_action": {
@@ -153,7 +235,7 @@ def _observable_first_artifact_contract(
         },
         "structural_scale_bridge": {
             "status": PASS
-            if source_open_body_import_floor.get("status") == PASS
+            if source_open_body_floor_legible
             and source_open_body_import_floor.get(
                 "public_safe_body_material_count", 0
             )
@@ -168,6 +250,13 @@ def _observable_first_artifact_contract(
             ),
             "public_safe_body_material_count": source_open_body_import_floor.get(
                 "public_safe_body_material_count"
+            ),
+            "source_open_body_import_floor_legible": (
+                source_open_body_floor_legible
+            ),
+            "defect_count": source_open_body_import_floor.get("defect_count"),
+            "full_defects_ref": source_open_body_import_floor.get(
+                "full_defects_ref"
             ),
             "first_screen_endpoint": observatory_card.get("first_screen_endpoint"),
             "full_observatory_endpoint": observatory_card.get(
@@ -391,6 +480,10 @@ def validate_legibility(
         evidence_class_ids=evidence_class_ids,
         source_open_body_import_floor=source_open_body_import_floor,
     )
+    source_open_body_floor_legible = _source_open_body_floor_legible(
+        source_open_body_import_floor
+    )
+    tour_legibility_visible = _tour_legibility_visible(tour)
 
     html_assertions = {
         "root_is_not_raw_json_only": "Causal Chain" in html and "JSON Drilldowns" in html,
@@ -615,14 +708,9 @@ def validate_legibility(
             "fixture_echo_smoke",
         },
         "source_open_body_import_floor_present": (
-            source_open_body_import_floor.get("status") == PASS
-            and source_open_body_import_floor.get("public_safe_body_material_count", 0)
-            > 0
-            and source_open_body_import_floor.get("body_text_exported_in_status")
-            is False
-            and source_open_body_import_floor.get("body_text_exported_in_receipts")
-            is False
+            source_open_body_floor_legible
         ),
+        "source_open_body_import_floor_legible": source_open_body_floor_legible,
         "route_pattern_refs_present": bool(route.get("pattern_refs")),
         "route_standard_refs_present": bool(route.get("standard_pressure_refs")),
         "pattern_bindings_resolve": bool(pattern_bindings)
@@ -633,7 +721,8 @@ def validate_legibility(
         "work_state_history_present": bool(work.get("state_history")),
         "events_present": bool(events),
         "evidence_present": bool(evidence),
-        "ten_minute_tour_status_pass": tour.get("status") == PASS,
+        "ten_minute_tour_status_pass": tour_legibility_visible,
+        "ten_minute_tour_legibility_visible": tour_legibility_visible,
         "ten_minute_tour_endpoint_present": "/tour" in (tour.get("endpoint_path") or []),
         "runtime_bridge_warning_status_bounded": runtime_bridge.get("status")
         in {PASS, "blocked"}

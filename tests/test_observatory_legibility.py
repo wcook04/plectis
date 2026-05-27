@@ -5,6 +5,7 @@ from pathlib import Path
 
 from microcosm_core import cli
 from microcosm_core import project_substrate
+from microcosm_core.validators import observatory_legibility as validator_module
 from microcosm_core.validators.observatory_legibility import validate_legibility
 
 
@@ -35,6 +36,49 @@ def _scratch_project(tmp_path: Path) -> Path:
     project_substrate.state_graph(project)
     project_substrate.list_evidence(project)
     return project
+
+
+def test_observatory_legibility_bounded_tour_blocker_contract() -> None:
+    body_floor = {
+        "status": "blocked",
+        "public_safe_body_material_count": 407,
+        "body_text_exported_in_status": False,
+        "body_text_exported_in_receipts": False,
+        "reader_action": "Open the status card for source-open body floor details.",
+        "summary_ref": "microcosm status --card::front_door.source_open_body_import_floor",
+        "full_status_ref": "microcosm status::macro_body_import_floor",
+        "defect_count": 1,
+        "defect_preview": [{"material_id": "example"}],
+        "full_defects_ref": "microcosm status::macro_body_import_floor.defects",
+    }
+    base_tour = {
+        "status": "blocked",
+        "source_open_body_import_floor": body_floor,
+        "route_cards": [{"card_id": f"route_{idx}"} for idx in range(10)],
+        "endpoint_path": ["/tour"],
+        "anti_claim": "Local tour does not authorize release or provider calls.",
+        "front_door_status": {
+            "blocking_surface_ids": ["macro_body_import_floor", "spine"],
+            "blocking_surface_details": {
+                "macro_body_import_floor": {"status": "blocked"},
+                "spine": {"status": "blocked"},
+            },
+            "safe_to_show": {"blocking_surface_ids_visible": True},
+        },
+    }
+
+    assert validator_module._tour_legibility_visible(base_tour) is True
+
+    unbounded = dict(base_tour)
+    unbounded["front_door_status"] = {
+        **base_tour["front_door_status"],
+        "blocking_surface_ids": ["macro_body_import_floor", "unexpected_surface"],
+        "blocking_surface_details": {
+            "macro_body_import_floor": {"status": "blocked"},
+            "unexpected_surface": {"status": "blocked"},
+        },
+    }
+    assert validator_module._tour_legibility_visible(unbounded) is False
 
 
 def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -> None:
@@ -148,7 +192,9 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         is True
     )
     assert receipt["model_assertions"]["ten_minute_tour_status_pass"] is True
+    assert receipt["model_assertions"]["ten_minute_tour_legibility_visible"] is True
     assert receipt["model_assertions"]["source_open_body_import_floor_present"] is True
+    assert receipt["model_assertions"]["source_open_body_import_floor_legible"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_status_pass"] is True
     assert receipt["model_assertions"]["verifier_trace_lens_no_proof_authority"] is True
     assert receipt["model_assertions"]["verifier_repair_loop_lens_status_pass"] is True
@@ -460,6 +506,15 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         ]
         > 0
     )
+    assert (
+        observable_first_artifact["slots"]["structural_scale_bridge"][
+            "source_open_body_import_floor_legible"
+        ]
+        is True
+    )
+    assert observable_first_artifact["slots"]["structural_scale_bridge"][
+        "source_open_body_import_floor_status"
+    ] in {"pass", "blocked"}
     assert observable_first_artifact["presentation_boundary"] == {
         "browser_or_video_projection_allowed": True,
         "raw_json_first_allowed": False,

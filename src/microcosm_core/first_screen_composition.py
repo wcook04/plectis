@@ -648,6 +648,132 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
     }
 
 
+def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
+    human_first_command = f"microcosm hello {project_label}"
+    shared_first_command = f"microcosm tour --card {project_label}"
+    first_screen_json_command = f"microcosm first-screen {project_label}"
+    bounded_observatory_command = _bounded_observatory_serve_command(project_label)
+    shared_must_preserve = [
+        "human_first_command",
+        "shared_first_command",
+        "authority_ceiling",
+        "anti_claim",
+        "omission_receipt",
+    ]
+    shared_must_not_claim = [
+        "release_or_hosting_authority",
+        "provider_call_authority",
+        "private_root_equivalence",
+        "whole_system_correctness",
+        "reader_success",
+    ]
+    return {
+        "schema_version": "microcosm_first_screen_artifact_fit_matrix_v1",
+        "purpose": "keep_all_cold_entry_forms_bound_to_one_source_card",
+        "source_of_truth": (
+            "microcosm_core.first_screen_composition.first_screen_composition_card"
+        ),
+        "matrix_rule": (
+            "Terminal text, README order, browser landing, machine JSON, and short-video "
+            "forms are projections over one first-screen contract, not independent "
+            "cold-entry artifacts."
+        ),
+        "rows": [
+            {
+                "surface_id": "terminal_text_projection",
+                "artifact_form": "terminal_text",
+                "consumer_surface": human_first_command,
+                "source_projection": (
+                    "microcosm_core.first_screen_composition.first_screen_text_card"
+                ),
+                "first_job": "show_the_map_before_state_writing",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "reader_routes",
+                    "reader_exit_criteria",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+            {
+                "surface_id": "local_behavior_card",
+                "artifact_form": "terminal_state_writer",
+                "consumer_surface": shared_first_command,
+                "source_projection": "microcosm tour --card output",
+                "first_job": "write_local_state_and_expose_behavior_proof",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "behavior_proof_packet",
+                    "local_state_receipt_trail",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+            {
+                "surface_id": "machine_json_card",
+                "artifact_form": "public_json",
+                "consumer_surface": first_screen_json_command,
+                "source_projection": (
+                    "microcosm_core.first_screen_composition.first_screen_composition_card"
+                ),
+                "first_job": "give_consumers_the_complete_public_contract",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "validation.checks",
+                    "public_private_boundary",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+            {
+                "surface_id": "readme_first_screen",
+                "artifact_form": "markdown_entry_order",
+                "consumer_surface": "README.md::Choose Your First Screen",
+                "source_projection": "readme_entry_contract",
+                "first_job": "place_the_card_before_the_long_inventory",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "readme_entry_contract.required_markdown_order",
+                    "reader_landing_packets",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+            {
+                "surface_id": "browser_landing",
+                "artifact_form": "localhost_html_read_model",
+                "consumer_surface": bounded_observatory_command,
+                "source_projection": "observatory_landing_frame",
+                "first_job": "reuse_the_card_as_the_first_viewport",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "observatory_landing_frame.required_visible_handles",
+                    "first_contact_surface_refs",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+            {
+                "surface_id": "short_video_storyboard",
+                "artifact_form": "presentation_plan",
+                "consumer_surface": "video_storyboard_packet",
+                "source_projection": "video_storyboard_packet",
+                "first_job": "compress_sixty_seconds_without_new_claims",
+                "must_preserve": [
+                    *shared_must_preserve,
+                    "video_storyboard_packet.beats",
+                    "video_storyboard_packet.safe_to_show",
+                ],
+                "must_not_claim": shared_must_not_claim,
+            },
+        ],
+        "safe_to_show": {
+            "binds_to_single_source_contract": True,
+            "allows_multiple_projection_forms": True,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "creates_new_release_artifact": False,
+            "creates_reader_specific_claim_ceiling": False,
+        },
+        "authority": "projection_fit_matrix_not_new_artifact_authority",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -1055,9 +1181,9 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "preserve the shared first command, reader route ids, reader landing packets, "
             "behavior-proof packet, first-run ladder, local state receipt trail, "
             "overclaim tripwire matrix, reader exit criteria, evidence-count frame, "
-            "video-storyboard packet, evidence-class legend, doctrine-effect frame, "
-            "observatory landing frame, README-entry contract, omission receipt, and "
-            "authority ceiling."
+            "video-storyboard packet, artifact-fit matrix, evidence-class legend, "
+            "doctrine-effect frame, observatory landing frame, README-entry "
+            "contract, omission receipt, and authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -1115,8 +1241,8 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
             "first-run ladder, local state receipt trail, first-contact surface refs, overclaim tripwires, "
-            "reader branches, reader landing packets, reader exit criteria, video storyboard packet, public "
-            "scale handles, evidence-class "
+            "reader branches, reader landing packets, reader exit criteria, video storyboard packet, "
+            "artifact fit matrix, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
         ),
@@ -1140,6 +1266,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "overclaim_tripwire_matrix",
             "reader_exit_criteria",
             "video_storyboard_packet",
+            "artifact_fit_matrix",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -1310,6 +1437,20 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     video_storyboard_safe_to_show = (
         video_storyboard_packet.get("safe_to_show", {})
         if isinstance(video_storyboard_packet, dict)
+        else {}
+    )
+    artifact_fit_matrix = payload.get("artifact_fit_matrix", {})
+    artifact_fit_rows = (
+        artifact_fit_matrix.get("rows", [])
+        if isinstance(artifact_fit_matrix, dict)
+        else []
+    )
+    artifact_fit_ids = {
+        str(row.get("surface_id")) for row in artifact_fit_rows if isinstance(row, dict)
+    }
+    artifact_fit_safe_to_show = (
+        artifact_fit_matrix.get("safe_to_show", {})
+        if isinstance(artifact_fit_matrix, dict)
         else {}
     )
     behavior_proof_fields = (
@@ -1693,6 +1834,58 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and video_storyboard_packet.get("authority")
             == "presentation_plan_over_existing_first_screen_contract_only"
         ),
+        "artifact_fit_matrix": (
+            isinstance(artifact_fit_matrix, dict)
+            and artifact_fit_matrix.get("schema_version")
+            == "microcosm_first_screen_artifact_fit_matrix_v1"
+            and artifact_fit_matrix.get("purpose")
+            == "keep_all_cold_entry_forms_bound_to_one_source_card"
+            and artifact_fit_matrix.get("source_of_truth")
+            == "microcosm_core.first_screen_composition.first_screen_composition_card"
+            and "not independent cold-entry artifacts"
+            in artifact_fit_matrix.get("matrix_rule", "")
+            and len(artifact_fit_rows) == 6
+            and artifact_fit_ids
+            == {
+                "terminal_text_projection",
+                "local_behavior_card",
+                "machine_json_card",
+                "readme_first_screen",
+                "browser_landing",
+                "short_video_storyboard",
+            }
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("artifact_form"), str)
+                and bool(row.get("artifact_form"))
+                and isinstance(row.get("consumer_surface"), str)
+                and bool(row.get("consumer_surface"))
+                and isinstance(row.get("source_projection"), str)
+                and bool(row.get("source_projection"))
+                and isinstance(row.get("first_job"), str)
+                and bool(row.get("first_job"))
+                and isinstance(row.get("must_preserve"), list)
+                and "authority_ceiling" in row.get("must_preserve", [])
+                and "anti_claim" in row.get("must_preserve", [])
+                and "omission_receipt" in row.get("must_preserve", [])
+                and isinstance(row.get("must_not_claim"), list)
+                and "release_or_hosting_authority" in row.get("must_not_claim", [])
+                and "provider_call_authority" in row.get("must_not_claim", [])
+                and "private_root_equivalence" in row.get("must_not_claim", [])
+                for row in artifact_fit_rows
+            )
+            and artifact_fit_safe_to_show.get("binds_to_single_source_contract")
+            is True
+            and artifact_fit_safe_to_show.get("allows_multiple_projection_forms")
+            is True
+            and artifact_fit_safe_to_show.get("exports_private_paths") is False
+            and artifact_fit_safe_to_show.get("exports_provider_payloads") is False
+            and artifact_fit_safe_to_show.get("creates_new_release_artifact") is False
+            and artifact_fit_safe_to_show.get("creates_reader_specific_claim_ceiling")
+            is False
+            and artifact_fit_matrix.get("authority")
+            == "projection_fit_matrix_not_new_artifact_authority"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -1837,6 +2030,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "overclaim_tripwire_matrix",
                     "reader_exit_criteria",
                     "video_storyboard_packet",
+                    "artifact_fit_matrix",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -1910,6 +2104,7 @@ def first_screen_composition_card(
         "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),
         "reader_exit_criteria": _reader_exit_criteria(project_label),
         "video_storyboard_packet": _video_storyboard_packet(project_label),
+        "artifact_fit_matrix": _artifact_fit_matrix(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -2054,7 +2249,8 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         (
             "  observatory: "
             f"{_bounded_observatory_serve_command(str(payload['project_label']))} "
-            "-> /project/first-screen -> /project/observatory-card"
+            "-> /project/first-screen -> /project/observatory-card; artifact fit: "
+            "terminal/README/browser/JSON/video project this card."
         ),
         "  authority/workingness: microcosm authority / microcosm workingness",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",

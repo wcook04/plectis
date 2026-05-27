@@ -435,6 +435,85 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert video_storyboard_packet["authority"] == (
         "presentation_plan_over_existing_first_screen_contract_only"
     )
+    artifact_fit_matrix = card["artifact_fit_matrix"]
+    artifact_fit_by_id = {
+        row["surface_id"]: row for row in artifact_fit_matrix["rows"]
+    }
+    assert artifact_fit_matrix["schema_version"] == (
+        "microcosm_first_screen_artifact_fit_matrix_v1"
+    )
+    assert artifact_fit_matrix["purpose"] == (
+        "keep_all_cold_entry_forms_bound_to_one_source_card"
+    )
+    assert artifact_fit_matrix["source_of_truth"] == (
+        "microcosm_core.first_screen_composition.first_screen_composition_card"
+    )
+    assert "not independent cold-entry artifacts" in artifact_fit_matrix[
+        "matrix_rule"
+    ]
+    assert set(artifact_fit_by_id) == {
+        "terminal_text_projection",
+        "local_behavior_card",
+        "machine_json_card",
+        "readme_first_screen",
+        "browser_landing",
+        "short_video_storyboard",
+    }
+    assert artifact_fit_by_id["terminal_text_projection"]["consumer_surface"] == (
+        card["human_first_command"]
+    )
+    assert artifact_fit_by_id["terminal_text_projection"]["source_projection"] == (
+        "microcosm_core.first_screen_composition.first_screen_text_card"
+    )
+    assert artifact_fit_by_id["local_behavior_card"]["consumer_surface"] == (
+        card["shared_first_command"]
+    )
+    assert artifact_fit_by_id["machine_json_card"]["consumer_surface"] == (
+        "microcosm first-screen <project>"
+    )
+    assert artifact_fit_by_id["readme_first_screen"]["consumer_surface"] == (
+        "README.md::Choose Your First Screen"
+    )
+    assert artifact_fit_by_id["browser_landing"]["consumer_surface"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert artifact_fit_by_id["short_video_storyboard"]["consumer_surface"] == (
+        "video_storyboard_packet"
+    )
+    for row in artifact_fit_by_id.values():
+        assert row["artifact_form"]
+        assert row["first_job"]
+        assert "authority_ceiling" in row["must_preserve"]
+        assert "anti_claim" in row["must_preserve"]
+        assert "omission_receipt" in row["must_preserve"]
+        assert "release_or_hosting_authority" in row["must_not_claim"]
+        assert "provider_call_authority" in row["must_not_claim"]
+        assert "private_root_equivalence" in row["must_not_claim"]
+        assert "whole_system_correctness" in row["must_not_claim"]
+        assert "reader_success" in row["must_not_claim"]
+    assert "validation.checks" in artifact_fit_by_id["machine_json_card"][
+        "must_preserve"
+    ]
+    assert "readme_entry_contract.required_markdown_order" in artifact_fit_by_id[
+        "readme_first_screen"
+    ]["must_preserve"]
+    assert "observatory_landing_frame.required_visible_handles" in artifact_fit_by_id[
+        "browser_landing"
+    ]["must_preserve"]
+    assert "video_storyboard_packet.safe_to_show" in artifact_fit_by_id[
+        "short_video_storyboard"
+    ]["must_preserve"]
+    assert artifact_fit_matrix["safe_to_show"] == {
+        "binds_to_single_source_contract": True,
+        "allows_multiple_projection_forms": True,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "creates_new_release_artifact": False,
+        "creates_reader_specific_claim_ceiling": False,
+    }
+    assert artifact_fit_matrix["authority"] == (
+        "projection_fit_matrix_not_new_artifact_authority"
+    )
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -573,6 +652,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "video-storyboard packet" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "artifact-fit matrix" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -704,6 +786,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "video_storyboard_packet" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "artifact_fit_matrix" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -749,6 +834,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert card["validation"]["checks"]["video_storyboard_packet"] is True
+    assert card["validation"]["checks"]["artifact_fit_matrix"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -844,6 +930,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert card["validation"]["checks"]["video_storyboard_packet"] is True
+    assert card["validation"]["checks"]["artifact_fit_matrix"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -911,6 +998,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     )
     assert "-> /project/first-screen -> /project/observatory-card" in text
     assert (
+        "artifact fit: terminal/README/browser/JSON/video project this card."
+        in text
+    )
+    assert (
         "This card is the map; the first run writes .microcosm and exercises "
         "the larger public substrate:"
     ) in text
@@ -970,6 +1061,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
+        assert "artifact fit: terminal/README/browser/JSON/video" in text
         assert "doctrine prevents mistakes" in text
         assert "exit when you can choose a drilldown" in text
         assert "without the command inventory" in text
