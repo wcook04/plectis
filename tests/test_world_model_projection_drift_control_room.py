@@ -7,8 +7,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.organs.world_model_projection_drift_control_room import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_drift_control_bundle,
 )
@@ -234,6 +237,81 @@ def test_world_model_projection_drift_exported_bundle_validates_runtime_shape(
     assert result["body_copied_material_count"] == len(SOURCE_MODULE_IDS)
     assert result["body_in_receipt"] is False
     assert result["secret_exclusion_scan"]["status"] == "pass"
+
+
+def test_world_model_projection_drift_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "world_model_projection_drift_control_room"
+    )
+    args = [
+        "run-drift-control-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 11
+    drift = first_card["projection_drift_control"]
+    assert drift["row_count"] == 8
+    assert drift["source_ref_count"] == 8
+    assert drift["target_ref_count"] == 8
+    assert drift["repair_route_count"] == 8
+    assert drift["validation_ref_count"] == 8
+    assert drift["source_authority_claim_count"] == 0
+    assert drift["live_repair_authorized_count"] == 0
+    assert drift["source_mutation_authorized_count"] == 0
+    assert drift["automatic_doctrine_promotion_count"] == 0
+    assert first_card["source_modules"]["module_count"] == len(SOURCE_MODULE_IDS)
+    assert first_card["source_modules"]["verified_module_count"] == len(
+        SOURCE_MODULE_IDS
+    )
+    assert first_card["source_open_body_imports"]["body_material_count"] == len(
+        SOURCE_MODULE_IDS
+    )
+    assert (
+        first_card["source_open_body_imports"]["body_text_exported_in_receipts"]
+        is False
+    )
+    assert first_card["negative_case_coverage"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "drift_rows" not in _walk_keys(first_card)
+    assert "positive_findings" not in _walk_keys(first_card)
+    assert "negative_case_findings" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "authority_ceiling" not in _walk_keys(first_card)
+    assert "anti_claim" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        world_model_projection_drift_control_room,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_world_model_projection_drift_fixture_manifest_exports_body_floor_summary(

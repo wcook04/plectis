@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -28,6 +29,17 @@ ACCEPTANCE_RECEIPT_REL = (
     "world_model_projection_drift_control_room_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_projection_drift_control_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "world_model_projection_drift_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "drift_rows",
+    "positive_findings",
+    "negative_case_findings",
+    "authority_ceiling",
+    "anti_claim",
+    "safe_to_show",
+    "secret_exclusion_scan",
+    "drift_control_board",
+)
 
 INPUT_NAMES = (
     "projection_protocol.json",
@@ -165,8 +177,6 @@ def _strings(value: object) -> list[str]:
 
 
 def _sha256_digest(path: Path) -> str:
-    import hashlib
-
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
@@ -365,6 +375,113 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
     public_root = _public_root_for_path(input_dir)
     paths.extend(_source_module_paths(input_dir, public_root=public_root))
     return paths
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    return [
+        *_scan_paths_for_input(source, include_negative=include_negative),
+        Path(__file__).resolve(),
+        public_root / "core/private_state_forbidden_classes.json",
+    ]
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256_digest(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "world_model_projection_drift_control_room_result_v1"
+        if include_negative
+        else "exported_projection_drift_control_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "world_model_projection_drift_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_drift_control_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_projection_drift_control_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("input_mode") != "exported_projection_drift_control_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -875,6 +992,8 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -889,15 +1008,24 @@ def run_drift_control_bundle(
         "python -m microcosm_core.organs.world_model_projection_drift_control_room "
         "run-drift-control-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    source = Path(input_dir)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    if reuse_fresh_receipt:
+        cached = _fresh_drift_control_bundle_receipt(source, out, command=command)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_projection_drift_control_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -909,6 +1037,126 @@ def run_drift_control_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    drift_summary_payload = result.get("drift_summary")
+    drift_summary = (
+        drift_summary_payload if isinstance(drift_summary_payload, dict) else {}
+    )
+    negatives_payload = result.get("negative_case_summary")
+    negatives = negatives_payload if isinstance(negatives_payload, dict) else {}
+    source_modules_payload = result.get("source_module_summary")
+    source_modules = (
+        source_modules_payload if isinstance(source_modules_payload, dict) else {}
+    )
+    source_open_payload = result.get("source_open_body_imports")
+    source_open = source_open_payload if isinstance(source_open_payload, dict) else {}
+    scan_payload = result.get("secret_exclusion_scan")
+    secret_scan = scan_payload if isinstance(scan_payload, dict) else {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "projection_drift_control": {
+            "row_count": drift_summary.get("row_count"),
+            "source_ref_count": drift_summary.get("source_ref_count"),
+            "target_ref_count": drift_summary.get("target_ref_count"),
+            "repair_route_count": drift_summary.get("repair_route_count"),
+            "validation_ref_count": drift_summary.get("validation_ref_count"),
+            "source_authority_claim_count": drift_summary.get(
+                "source_authority_claim_count"
+            ),
+            "live_repair_authorized_count": drift_summary.get(
+                "live_repair_authorized_count"
+            ),
+            "source_mutation_authorized_count": drift_summary.get(
+                "source_mutation_authorized_count"
+            ),
+            "automatic_doctrine_promotion_count": drift_summary.get(
+                "automatic_doctrine_promotion_count"
+            ),
+        },
+        "source_open_body_imports": {
+            "status": source_open.get("status"),
+            "source_import_class": source_open.get("source_import_class"),
+            "body_material_status": source_open.get("body_material_status"),
+            "body_material_count": source_open.get("body_material_count"),
+            "material_classes": source_open.get("material_classes", []),
+            "body_text_exported_in_receipts": source_open.get(
+                "body_text_exported_in_receipts"
+            ),
+            "body_text_exported_in_workingness": source_open.get(
+                "body_text_exported_in_workingness"
+            ),
+        },
+        "source_modules": {
+            "source_module_import_status": result.get(
+                "source_module_import_status"
+            ),
+            "module_count": source_modules.get("module_count"),
+            "verified_module_count": source_modules.get("verified_module_count"),
+            "material_classes": source_modules.get("material_classes", []),
+            "body_in_receipt": source_modules.get("body_in_receipt"),
+        },
+        "negative_case_coverage": {
+            "expected_negative_case_count": negatives.get(
+                "expected_negative_case_count"
+            ),
+            "observed_negative_case_count": negatives.get(
+                "observed_negative_case_count"
+            ),
+            "missing_negative_case_count": len(negatives.get("expected_missing") or {}),
+            "finding_count": result.get("finding_count"),
+        },
+        "validation": {
+            "secret_exclusion_blocking_hit_count": secret_scan.get(
+                "blocking_hit_count"
+            ),
+            "body_in_receipt": result.get("body_in_receipt") is True,
+            "release_authorized": result.get("release_authorized") is True,
+        },
+        "body_floor": {
+            "drift_rows_in_card": False,
+            "positive_findings_in_card": False,
+            "negative_case_findings_in_card": False,
+            "secret_exclusion_scan_in_card": False,
+            "authority_ceiling_in_card": False,
+            "anti_claim_in_card": False,
+            "drift_control_board_in_card": False,
+        },
+        "authority_boundary": {
+            "public_runtime_receipt_required": True,
+            "release_authorized": False,
+            "hosted_public_authorized": False,
+            "publication_authorized": False,
+            "provider_calls_authorized": False,
+            "provider_payload_exported": False,
+            "source_authority_claim": False,
+            "source_mutation_authorized": False,
+            "live_route_repair_authorized": False,
+            "live_task_ledger_mutation_authorized": False,
+            "private_runtime_data_exported": False,
+            "proof_body_exported": False,
+            "automatic_doctrine_promotion_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": (
+                "rerun without --card or inspect the written receipt file"
+            ),
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="world_model_projection_drift_control_room")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -916,21 +1164,40 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-drift-control-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        command = f"world_model_projection_drift_control_room run{card_suffix}"
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-drift-control-bundle":
-        result = run_drift_control_bundle(args.input, args.out)
+        command = (
+            "world_model_projection_drift_control_room "
+            f"run-drift-control-bundle{card_suffix}"
+        )
+        result = run_drift_control_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    output = result_card(result) if args.card else result["status"]
+    print(json.dumps(output, indent=2, sort_keys=True) if args.card else output)
     return 0 if result["status"] == PASS else 1
 
 
