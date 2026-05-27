@@ -45,12 +45,29 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "target_symbols",
     "public_runtime_refs",
     "body_import_verification",
+    "source_module_imports",
+    "source_open_body_imports",
     "episode_rows",
     "belief_state_rows",
     "feedback_rows",
     "reward_rows",
     "trajectory_group_rows",
     "cold_replay_rows",
+)
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = (
+    "copied_non_secret_belief_state_process_reward_macro_body_landed"
+)
+SOURCE_OPEN_BODY_SCHEMA = "belief_state_process_reward_replay_source_open_body_imports_v1"
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_control_plane_body",
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
+    }
 )
 
 INPUT_NAMES = (
@@ -182,6 +199,63 @@ def _sha256(path: Path) -> str:
     return f"sha256:{digest.hexdigest()}"
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    return [
+        *_input_paths(source, include_negative=include_negative),
+        *_source_module_paths(source, public_root=public_root),
+        Path(__file__).resolve(),
+        public_root / "core/private_state_forbidden_classes.json",
+    ]
+
+
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     source = Path(input_dir)
     if not source.is_absolute():
@@ -191,7 +265,7 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
     rows: list[dict[str, Any]] = []
     missing: list[str] = []
     seen: set[Path] = set()
-    for path in _input_paths(source, include_negative=include_negative):
+    for path in _freshness_paths(source, include_negative=include_negative):
         key = path.resolve(strict=False)
         if key in seen:
             continue
@@ -341,6 +415,263 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported belief-state process reward bundle must include a source module manifest for copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "BELIEF_REWARD_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify copied material as non-secret macro body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while keeping receipt fields body-free.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "BELIEF_REWARD_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor
+            for anchor in _strings(row.get("required_anchors"))
+            if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "BELIEF_REWARD_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared belief-reward macro anchors.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "source_refs": source_refs,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "hidden_reasoning_exported": False,
+            "provider_payload_exported": False,
+            "private_memory_body_exported": False,
+            "live_training_payload_exported": False,
+            "benchmark_submission_payload_exported": False,
+            "source_mutation_authorized": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "benchmark_score_claim_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported belief-state process reward bundle for copied macro "
+            "pattern, reconstruction, canonical-organ, trace-standard, trace "
+            "runtime, and route-readiness tool bodies; receipts carry refs, "
+            "hashes, counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
+
+
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     return any(key in row for key in FORBIDDEN_KEYS)
 
@@ -364,6 +695,9 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
     target_refs = _strings(protocol.get("target_refs"))
     target_symbols = _strings(protocol.get("target_symbols"))
     public_runtime_refs = _strings(protocol.get("public_runtime_refs"))
+    source_open_body_import_refs = _strings(
+        protocol.get("source_open_body_import_refs")
+    )
     body_import = protocol.get("body_import_verification", {})
     if not isinstance(body_import, dict):
         body_import = {}
@@ -385,6 +719,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         )
         or not any(ref.endswith("run_reward_bundle") for ref in target_symbols)
         or not public_runtime_refs
+        or len(source_open_body_import_refs) < 3
         or not _strings(protocol.get("reimplemented"))
         or not _strings(protocol.get("omitted"))
         or protocol.get("body_import_status")
@@ -427,6 +762,7 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
         "target_refs": target_refs,
         "target_symbols": target_symbols,
         "public_runtime_refs": public_runtime_refs,
+        "source_open_body_import_refs": source_open_body_import_refs,
         "body_import_status": protocol.get("body_import_status"),
         "body_import_verification": body_import,
         "findings": findings,
@@ -965,7 +1301,7 @@ def _build_result(
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     secret_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -985,6 +1321,12 @@ def _build_result(
     trajectories = validate_trajectory_groups(payloads["trajectory_groups"])
     cold_replay = validate_cold_replay(payloads["cold_replay"])
     negatives = validate_negative_cases(negative_payloads)
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_belief_state_process_reward_bundle",
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
 
     observed = _merge_observed(
         projection,
@@ -996,6 +1338,7 @@ def _build_result(
         trajectories,
         cold_replay,
         negatives,
+        source_modules,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1009,6 +1352,7 @@ def _build_result(
         trajectories,
         cold_replay,
         negatives,
+        source_modules,
     )
     positive_findings = _merge_findings(
         projection,
@@ -1019,6 +1363,7 @@ def _build_result(
         rewards,
         trajectories,
         cold_replay,
+        source_modules,
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
@@ -1036,6 +1381,10 @@ def _build_result(
         and rewards["status"] == PASS
         and trajectories["status"] == PASS
         and cold_replay["status"] == PASS
+        and (
+            input_mode != "exported_belief_state_process_reward_bundle"
+            or source_modules["status"] == PASS
+        )
         else "blocked"
     )
     return {
@@ -1082,6 +1431,15 @@ def _build_result(
         "target_refs": projection["target_refs"],
         "target_symbols": projection["target_symbols"],
         "public_runtime_refs": projection["public_runtime_refs"],
+        "source_open_body_import_refs": projection["source_open_body_import_refs"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_imports": source_modules,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "reward_policy_id": reward_policy["policy_id"],
         "allowed_process_reward_sources": reward_policy[
             "allowed_process_reward_sources"
@@ -1147,6 +1505,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "reward_rows": result["reward_rows"],
         "trajectory_group_rows": result["trajectory_group_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
@@ -1206,6 +1568,10 @@ def _write_receipts(
         "outcome_reward_count": result["outcome_reward_count"],
         "trajectory_group_count": result["trajectory_group_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
@@ -1227,6 +1593,10 @@ def _write_receipts(
         "secret_exclusion_scan": result["secret_exclusion_scan"],
         "public_agent_execution_trace": result["public_agent_execution_trace"],
         "body_import_verification": result["body_import_verification"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_in_receipt": False,
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -1308,6 +1678,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     trace = public_trace if isinstance(public_trace, dict) else {}
     secret_scan = result.get("secret_exclusion_scan")
     scan = secret_scan if isinstance(secret_scan, dict) else {}
+    source_imports = result.get("source_open_body_imports")
+    source_body_floor = source_imports if isinstance(source_imports, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -1346,11 +1718,23 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "public_trace_status": trace.get("status"),
             "public_trace_span_count": trace.get("span_count"),
             "body_import_status": result.get("body_import_status"),
+            "source_module_manifest_status": result.get(
+                "source_module_manifest_status"
+            ),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "body_material_status": source_body_floor.get("body_material_status"),
+            "body_material_count": source_body_floor.get("body_material_count", 0),
+            "body_material_classes": source_body_floor.get(
+                "body_material_classes",
+                {},
+            ),
         },
         "body_floor": {
             "body_in_receipt": result.get("body_in_receipt") is True,
             "secret_exclusion_scan_in_card": False,
             "public_agent_execution_trace_in_card": False,
+            "source_module_imports_in_card": False,
+            "source_open_body_imports_in_card": False,
         },
         "authority_boundary": {
             "hidden_reasoning_export_authorized": False,

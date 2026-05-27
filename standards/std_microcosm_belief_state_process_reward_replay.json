@@ -69,6 +69,8 @@
       "outcome_reward_count",
       "trajectory_group_count",
       "cold_replay_pass_count",
+      "source_open_body_imports",
+      "source_module_manifest_status",
       "private_state_scan",
       "authority_ceiling",
       "anti_claim",
@@ -79,7 +81,7 @@
   },
   "receipt_expectations": [
     "receipt.microcosm.belief_state_process_reward_replay",
-    "receipt must cite source refs, source pattern ids, episode count, belief-state count, accepted feedback count, process and outcome reward counts, trajectory count, cold replay count, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+    "receipt must cite source refs, source pattern ids, episode count, belief-state count, accepted feedback count, process and outcome reward counts, trajectory count, cold replay count, negative-case coverage, source-open body imports, source module manifest status, private-state scan, authority ceiling, and anti-claim"
   ],
   "receipt_refs": [
     "receipts/first_wave/belief_state_process_reward_replay/belief_state_process_reward_replay_validation_receipt.json"
@@ -108,13 +110,15 @@
     "reward_events",
     "trajectory_groups",
     "cold_replays",
+    "source_open_body_imports",
+    "source_module_manifest_status",
     "authority_ceiling",
     "anti_claim"
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata, public replacements stay public-root relative, and copied non-secret macro bodies live under exported bundle source_modules with digest and anchor checks"
   },
   "source_refs": [
     {
@@ -126,6 +130,11 @@
       "field": "runtime_example",
       "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_open_body_imports",
+      "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_floor"
     }
   ],
   "standard_id": "std_microcosm_belief_state_process_reward_replay",
@@ -160,6 +169,7 @@
     "require three synthetic partially observable episodes: terminal investigation, mock purchase, and formal planning toy",
     "require typed belief-state JSON with observation digest, predicted next evidence, feedback ref, discrepancy score, and redaction flags",
     "require process rewards tied to deterministic verifier or observed feedback refs plus outcome rewards and cold replay",
+    "require exported runtime bundle source_module_manifest.json to verify copied non-secret macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness bodies",
     "reject hidden reasoning export, neural-judge-only labels, hidden gold labels, reward-by-formatting, verifier bypass, benchmark claims, and final-answer-only scoring",
     "emit redacted receipts and private-state scan"
   ],
@@ -172,7 +182,8 @@
       "verifier_feedback_floor",
       "process_and_outcome_reward_floor",
       "trajectory_group_cold_replay_coverage",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_open_body_import_floor"
     ],
     "required": true,
     "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay"

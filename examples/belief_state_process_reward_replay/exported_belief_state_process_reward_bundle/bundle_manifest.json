@@ -24,5 +24,15 @@
     "verifier_feedback.json"
   ],
   "private_ref_metadata_only": true,
-  "schema_version": "exported_belief_state_process_reward_bundle_manifest_v1"
+  "schema_version": "exported_belief_state_process_reward_bundle_manifest_v1",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "body_material_count": 6,
+    "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "source_manifest_refs": [
+      "source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
 }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -28,6 +29,11 @@ BUNDLE_INPUT = (
     / "examples/belief_state_process_reward_replay/"
     "exported_belief_state_process_reward_bundle"
 )
+SOURCE_ROOT = MICROCOSM_ROOT.parent
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -137,11 +143,52 @@ def test_belief_state_process_reward_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["body_copied_material_count"] == 6
+    assert (
+        result["source_open_body_imports"]["body_material_status"]
+        == "copied_non_secret_belief_state_process_reward_macro_body_landed"
+    )
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert result["episode_count"] == 3
     assert result["process_reward_count"] == 6
     assert result["outcome_reward_count"] == 3
     assert result["cold_replay_pass_count"] == 3
     assert result["authority_ceiling"]["hidden_reasoning_export_authorized"] is False
+
+
+def test_belief_state_process_reward_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 6
+    assert {
+        row["module_id"] for row in manifest["modules"]
+    } == {
+        "belief_reward_extracted_patterns_ledger_body_import",
+        "belief_reward_high_novelty_growth_receipt_body_import",
+        "belief_reward_canonical_organ_model_body_import",
+        "agent_execution_trace_runtime_body_import",
+        "agent_execution_trace_standard_body_import",
+        "extracted_pattern_route_readiness_tool_body_import",
+    }
+
+    for row in manifest["modules"]:
+        source = SOURCE_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
+            "microcosm-substrate/"
+        )
+        text = target.read_text(encoding="utf-8")
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == row["source_sha256"]
+        assert _sha256(target) == row["target_sha256"]
+        assert row["source_sha256"] == row["target_sha256"]
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_belief_state_process_reward_bundle_card_reuses_fresh_receipt(
@@ -178,10 +225,18 @@ def test_belief_state_process_reward_bundle_card_reuses_fresh_receipt(
     assert first_card["validation"]["missing_negative_case_count"] == 0
     assert first_card["validation"]["public_trace_status"] == "pass"
     assert first_card["validation"]["public_trace_span_count"] == 6
+    assert first_card["validation"]["source_module_manifest_status"] == "pass"
+    assert first_card["validation"]["body_material_count"] == 6
+    assert (
+        first_card["validation"]["body_material_status"]
+        == "copied_non_secret_belief_state_process_reward_macro_body_landed"
+    )
     assert "episode_rows" not in _walk_keys(first_card)
     assert "belief_state_rows" not in _walk_keys(first_card)
     assert "feedback_rows" not in _walk_keys(first_card)
     assert "reward_rows" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "public_agent_execution_trace" not in _walk_keys(first_card)
 

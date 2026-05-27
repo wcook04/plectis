@@ -46,5 +46,32 @@
     "verifier_feedback.json"
   ],
   "schema_version": "microcosm_fixture_manifest_v1",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json::modules",
+    "body_material_count": 6,
+    "body_material_ids": [
+      "belief_reward_extracted_patterns_ledger_body_import",
+      "belief_reward_high_novelty_growth_receipt_body_import",
+      "belief_reward_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "validator": "microcosm_core.organs.belief_state_process_reward_replay"
 }

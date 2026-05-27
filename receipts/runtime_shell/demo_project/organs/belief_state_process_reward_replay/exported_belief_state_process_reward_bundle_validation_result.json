@@ -101,6 +101,7 @@
       "trajectory_group_id": "traj_terminal_001"
     }
   ],
+  "body_copied_material_count": 6,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
@@ -113,6 +114,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
   "bundle_id": "belief_state_process_reward_public_trace_refactor",
   "cold_replay_count": 3,
   "cold_replay_pass_count": 3,
@@ -148,8 +150,8 @@
       "trajectory_group_id": "traj_plan_001"
     }
   ],
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "command": "python -m microcosm_core.organs.belief_state_process_reward_replay run-reward-bundle --input microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay",
+  "created_at": "2026-05-27T03:11:08+00:00",
   "episode_count": 3,
   "episode_rows": [
     {
@@ -253,6 +255,108 @@
   ],
   "findings": [],
   "fixture_id": "first_wave.belief_state_process_reward_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:ecd6c08c131f0a79bc9087e8c6fa29fc481a6bf0d514d476e572e9c87b9f5ada",
+    "card_schema_version": "belief_state_process_reward_replay_command_card_v1",
+    "include_negative": false,
+    "input_count": 18,
+    "inputs": [
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/projection_protocol.json",
+        "sha256": "sha256:96e7f4a5d1a097ca1561e3bec78cbbc677695fde10ee832969df448a01f0df73",
+        "size_bytes": 4900
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/reward_policy.json",
+        "sha256": "sha256:c07dcb75847067f7d3f2b623836a017c09874c6e30568098865c1828fe6eb5b3",
+        "size_bytes": 966
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/task_episodes.json",
+        "sha256": "sha256:4173e1b3f966d9635d91c7c3816cc4ea4b7dddb9898e1c39069768f348dabb33",
+        "size_bytes": 1510
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/belief_states.json",
+        "sha256": "sha256:b6fb289ba11fb86240814dc657b7d3504a6e78f9a4dbc1933ba42d006b7754fc",
+        "size_bytes": 4804
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/verifier_feedback.json",
+        "sha256": "sha256:87772f4e095e0959a1c5b666a8c18ee197c144a09bf7b64119d3c74abe3ac3c4",
+        "size_bytes": 2401
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/reward_events.json",
+        "sha256": "sha256:5d81e8f2d001b556a543a2c85e5e5c13ddcdf4f2cd80bf252f33a2e22751cd69",
+        "size_bytes": 5149
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/trajectory_groups.json",
+        "sha256": "sha256:d9e9ed02aca350206bc9d9920c06fe794ab99189249d60d725499af641181186",
+        "size_bytes": 1292
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/cold_replay.json",
+        "sha256": "sha256:2b971408e8080df4c16f59e7810e17bf1de4044f223a6dfb4d0563b0f5fd9d60",
+        "size_bytes": 881
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/bundle_manifest.json",
+        "sha256": "sha256:ab265948172c3ab8f218efa892319f9324ab20d0c2b23d3593bafc194ff17ac5",
+        "size_bytes": 1531
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+        "sha256": "sha256:b2ded2d4add8afc9e52867a7509f233c54fff611bb5f6e069c45658f4ad83932",
+        "size_bytes": 15362
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "size_bytes": 936934
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "size_bytes": 295524
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+        "sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+        "size_bytes": 502499
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "size_bytes": 224689
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "size_bytes": 47570
+      },
+      {
+        "path": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+        "size_bytes": 46117
+      },
+      {
+        "path": "src/microcosm_core/organs/belief_state_process_reward_replay.py",
+        "sha256": "sha256:0973760f024f3fc44cb7bd92cf86fc040a29454bc0d0737506c446df9132e5e7",
+        "size_bytes": 73135
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "belief_state_process_reward_replay_freshness_basis_v1",
+    "validator_schema_version": "exported_belief_state_process_reward_bundle_validation_result_v1"
+  },
   "input_mode": "exported_belief_state_process_reward_bundle",
   "minimum_reliability_score": 0.8,
   "missing_negative_cases": [],
@@ -576,8 +680,9 @@
     "python -m microcosm_core.macro_tools.agent_execution_trace belief-reward"
   ],
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "reward_event_count": 9,
   "reward_policy_id": "belief_process_reward_public_policy_v1",
   "reward_rows": [
@@ -722,9 +827,110 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 9,
+    "scanned_path_count": 16,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 6,
+    "module_ids": [
+      "belief_reward_extracted_patterns_ledger_body_import",
+      "belief_reward_high_novelty_growth_receipt_body_import",
+      "belief_reward_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "observed_negative_cases": {},
+    "source_module_import_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+    "source_module_manifest_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+    "source_refs": [
+      "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 6
+  },
+  "source_module_manifest_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_import_refs": [
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+  ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "benchmark_submission_payload_exported": false,
+      "hidden_reasoning_exported": false,
+      "live_training_payload_exported": false,
+      "private_memory_body_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "belief_reward_extracted_patterns_ledger_body_import",
+      "belief_reward_high_novelty_growth_receipt_body_import",
+      "belief_reward_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported belief-state process reward bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "belief_state_process_reward_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "belief_state_process_reward_replay_compound"

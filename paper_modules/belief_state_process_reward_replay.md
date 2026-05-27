@@ -2,7 +2,8 @@
 
 This module is the public Microcosm projection of a belief-state process reward
 claim contract. It is now backed by the public agent-execution trace refactor
-lane, not by fixture echo as product evidence, and it is not a
+lane plus copied non-secret macro source bodies, not by fixture echo as product
+evidence, and it is not a
 hidden-reasoning export, live RL run, neural-judge-only label set, hidden-gold
 benchmark, provider call, source mutation, benchmark-score claim, or release
 claim.
@@ -28,6 +29,12 @@ a source-faithful public trace span set line up.
   build_public_belief_state_process_reward_trace` turns the public bundle into
   ordered trace spans that preserve belief, verifier, process-reward,
   outcome-reward, and cold-replay refs while keeping bodies out of receipts.
+- `examples/belief_state_process_reward_replay/
+  exported_belief_state_process_reward_bundle/source_module_manifest.json`
+  verifies exact copied macro bodies for the extracted-pattern ledger,
+  high-novelty reconstruction receipt, canonical organ model, agent-execution
+  trace runtime, trace standard, and route-readiness checker. Those bodies live
+  in `source_modules/`; receipts carry refs, hashes, counts, and verdicts only.
 - Hidden reasoning export, hidden gold labels, reward-by-formatting, verifier
   bypass, benchmark-performance claims, and final-answer-only scoring are
   expected falsification fixtures.

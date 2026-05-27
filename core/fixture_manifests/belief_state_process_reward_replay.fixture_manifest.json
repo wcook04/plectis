@@ -82,6 +82,45 @@
   ],
   "organ_id": "belief_state_process_reward_replay",
   "private_state_scan_posture": "scan fixture inputs and receipts against public forbidden-class sentinels; emit redacted output labels only",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "benchmark_submission_payload_exported": false,
+      "hidden_reasoning_exported": false,
+      "live_training_payload_exported": false,
+      "private_memory_body_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "belief_reward_extracted_patterns_ledger_body_import",
+      "belief_reward_high_novelty_growth_receipt_body_import",
+      "belief_reward_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_belief_state_process_reward_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported belief-state process reward bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "schema_version": "microcosm_fixture_manifest_v1",
   "standard_ref": "standards/std_microcosm_belief_state_process_reward_replay.json",
   "validator_command": "python -m microcosm_core.organs.belief_state_process_reward_replay run --input fixtures/first_wave/belief_state_process_reward_replay/input --out receipts/first_wave/belief_state_process_reward_replay --acceptance-out receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
