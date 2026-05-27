@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import materials_chemistry_closed_loop_lab_safety_replay
 from microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_lab_bundle,
 )
@@ -150,3 +153,67 @@ def test_materials_chemistry_exported_bundle_validates_runtime_shape(
     assert result["authority_ceiling"]["robot_command_authorized"] is False
     assert result["authority_ceiling"]["discovery_claim_authorized"] is False
     assert result["authority_ceiling"]["release_authorized"] is False
+
+
+def test_materials_chemistry_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "materials_chemistry_closed_loop_lab_safety_replay"
+    )
+    args = [
+        "run-lab-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 10
+    assert first_card["materials_lab_safety"]["candidate_material_count"] == 4
+    assert first_card["materials_lab_safety"]["experiment_count"] == 4
+    assert first_card["materials_lab_safety"]["simulator_assay_count"] == 4
+    assert first_card["materials_lab_safety"]["wetlab_protocol_export_count"] == 0
+    assert first_card["materials_lab_safety"]["robot_command_count"] == 0
+    assert first_card["public_lab_evolve_replay"]["replay_case_count"] == 4
+    assert first_card["public_lab_evolve_replay"]["boundary_case_count"] == 0
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "candidate_materials" not in _walk_keys(first_card)
+    assert "experiments" not in _walk_keys(first_card)
+    assert "simulator_assays" not in _walk_keys(first_card)
+    assert "active_learning_decisions" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "authority_ceiling" not in _walk_keys(first_card)
+    assert "anti_claim" not in _walk_keys(first_card)
+    assert "wetlab_step_body" not in _walk_keys(first_card)
+    assert "robot_command_payload" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        materials_chemistry_closed_loop_lab_safety_replay,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]

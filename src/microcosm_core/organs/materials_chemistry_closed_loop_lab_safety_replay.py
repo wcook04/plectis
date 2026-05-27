@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -42,6 +43,22 @@ ACCEPTANCE_RECEIPT_REL = (
     "materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_materials_lab_safety_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "materials_lab_safety_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "candidate_materials",
+    "experiments",
+    "simulator_assays",
+    "active_learning_decisions",
+    "positive_findings",
+    "negative_case_findings",
+    "public_lab_evolve_replay_rows",
+    "secret_exclusion_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "body_import_verification",
+    "safe_to_show",
+    "materials_lab_safety_board",
+)
 BODY_IMPORT_STATUS = "source_faithful_refactor_landed"
 BODY_IMPORT_CLASSIFICATION = "source_faithful_refactor"
 PRODUCT_PATH_ROLE = "runtime_spine_product_substrate"
@@ -224,6 +241,125 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     if manifest.is_file():
         paths.append(manifest)
     return paths
+
+
+def _code_freshness_paths() -> list[Path]:
+    core_root = Path(__file__).resolve().parents[1]
+    return [
+        Path(__file__).resolve(),
+        core_root / "macro_tools/lab_evolve_replay.py",
+    ]
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    return [
+        *_input_paths(source, include_negative=include_negative),
+        *_code_freshness_paths(),
+        public_root / "core/private_state_forbidden_classes.json",
+    ]
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "materials_chemistry_closed_loop_lab_safety_replay_result_v1"
+        if include_negative
+        else "exported_materials_lab_safety_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "materials_lab_safety_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_lab_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_materials_lab_safety_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("input_mode") != "exported_materials_lab_safety_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
@@ -1226,6 +1362,8 @@ def run(
         input_mode="fixture",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -1240,15 +1378,24 @@ def run_lab_bundle(
         "python -m microcosm_core.organs."
         "materials_chemistry_closed_loop_lab_safety_replay run-lab-bundle"
     ),
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    source = Path(input_dir)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
+    if reuse_fresh_receipt:
+        cached = _fresh_lab_bundle_receipt(source, out, command=command)
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_materials_lab_safety_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     bundle_path = out / BUNDLE_RESULT_NAME
     public_root = _public_root_for_path(out)
     payload = {
@@ -1260,6 +1407,98 @@ def run_lab_bundle(
     return payload
 
 
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    summary = result.get("materials_lab_safety_summary")
+    lab_summary = summary if isinstance(summary, dict) else {}
+    replay = result.get("public_lab_evolve_replay")
+    replay_payload = replay if isinstance(replay, dict) else {}
+    replay_summary = replay_payload.get("summary")
+    replay_counts = replay_summary if isinstance(replay_summary, dict) else {}
+    negatives = result.get("negative_case_summary")
+    negative_summary = negatives if isinstance(negatives, dict) else {}
+    scan = result.get("secret_exclusion_scan")
+    secret_scan = scan if isinstance(scan, dict) else {}
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "materials_lab_safety": {
+            "candidate_material_count": lab_summary.get("candidate_material_count"),
+            "experiment_count": lab_summary.get("experiment_count"),
+            "simulator_assay_count": lab_summary.get("simulator_assay_count"),
+            "active_learning_decision_count": lab_summary.get(
+                "active_learning_decision_count"
+            ),
+            "simulator_only_experiment_count": lab_summary.get(
+                "simulator_only_experiment_count"
+            ),
+            "wetlab_protocol_export_count": lab_summary.get(
+                "wetlab_protocol_export_count"
+            ),
+            "robot_command_count": lab_summary.get("robot_command_count"),
+            "discovery_claim_count": lab_summary.get("discovery_claim_count"),
+        },
+        "public_lab_evolve_replay": {
+            "status": replay_payload.get("status"),
+            "replay_case_count": replay_counts.get("replay_case_count"),
+            "boundary_case_count": replay_counts.get("boundary_case_count"),
+            "source_capsule_count": replay_counts.get("source_capsule_count"),
+        },
+        "validation": {
+            "expected_negative_case_count": negative_summary.get(
+                "expected_negative_case_count"
+            ),
+            "observed_negative_case_count": negative_summary.get(
+                "observed_negative_case_count"
+            ),
+            "missing_negative_case_count": len(
+                negative_summary.get("expected_missing") or {}
+            ),
+            "finding_count": result.get("finding_count"),
+            "secret_exclusion_blocking_hit_count": secret_scan.get(
+                "blocking_hit_count"
+            ),
+        },
+        "body_floor": {
+            "body_in_receipt": False,
+            "public_lab_evolve_replay_rows_in_card": False,
+            "secret_exclusion_scan_in_card": False,
+            "authority_ceiling_in_card": False,
+            "anti_claim_in_card": False,
+            "body_import_verification_in_card": False,
+            "materials_rows_in_card": False,
+        },
+        "authority_boundary": {
+            "simulator_only": True,
+            "wetlab_protocol_authorized": False,
+            "hazardous_synthesis_authorized": False,
+            "reagent_amounts_authorized": False,
+            "controlled_or_bioactive_target_authorized": False,
+            "live_lab_credentials_authorized": False,
+            "robot_command_authorized": False,
+            "private_lab_notebook_exported": False,
+            "discovery_claim_authorized": False,
+            "release_authorized": False,
+            "provider_calls_authorized": False,
+            "publication_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="materials_chemistry_closed_loop_lab_safety_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -1267,21 +1506,43 @@ def _parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--input", required=True)
     run_parser.add_argument("--out", required=True)
     run_parser.add_argument("--acceptance-out")
+    run_parser.add_argument("--card", action="store_true")
     bundle_parser = sub.add_parser("run-lab-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
-        result = run(args.input, args.out, acceptance_out=args.acceptance_out)
+        command = (
+            "materials_chemistry_closed_loop_lab_safety_replay run"
+            f"{card_suffix}"
+        )
+        result = run(
+            args.input,
+            args.out,
+            command=command,
+            acceptance_out=args.acceptance_out,
+        )
     elif args.action == "run-lab-bundle":
-        result = run_lab_bundle(args.input, args.out)
+        command = (
+            "materials_chemistry_closed_loop_lab_safety_replay run-lab-bundle"
+            f"{card_suffix}"
+        )
+        result = run_lab_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     else:  # pragma: no cover
         raise ValueError(args.action)
-    print(result["status"])
+    output = result_card(result) if args.card else result["status"]
+    print(json.dumps(output, indent=2, sort_keys=True) if args.card else output)
     return 0 if result["status"] == PASS else 1
 
 
