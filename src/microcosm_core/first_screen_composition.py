@@ -563,6 +563,91 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
     }
 
 
+def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
+    shared_first_command = f"microcosm tour --card {project_label}"
+    status_card_command = f"microcosm status --card {project_label}"
+    observatory_command = _bounded_observatory_serve_command(project_label)
+    return {
+        "schema_version": "microcosm_video_storyboard_packet_v1",
+        "purpose": "make_a_sixty_second_cold_entry_artifact_without_new_claims",
+        "artifact_rule": (
+            "A video, screenshot board, or browser reveal may project these beats, "
+            "but every beat must point back to the same package-backed first-screen "
+            "commands and authority ceiling."
+        ),
+        "allowed_artifact_forms": [
+            "terminal_capture",
+            "browser_walkthrough",
+            "static_reveal_board",
+            "short_video",
+        ],
+        "source_projection": (
+            "microcosm_core.first_screen_composition.first_screen_composition_card"
+        ),
+        "first_run_command": shared_first_command,
+        "bounded_observatory_command": observatory_command,
+        "beats": [
+            {
+                "beat_id": "open_map",
+                "timebox_seconds": 8,
+                "visible_surface": f"microcosm hello {project_label}",
+                "reader_takeaway": "one screen names the local evidence router",
+                "proof_ref": "terminal_text_projection",
+            },
+            {
+                "beat_id": "prove_local_behavior",
+                "timebox_seconds": 12,
+                "visible_surface": shared_first_command,
+                "reader_takeaway": ".microcosm state is written without source mutation",
+                "proof_ref": "front_door_status.status + source_files_mutated=false",
+            },
+            {
+                "beat_id": "show_route_chain",
+                "timebox_seconds": 10,
+                "visible_surface": f"microcosm observe {project_label}",
+                "reader_takeaway": "route, work, event, evidence, and graph refs join",
+                "proof_ref": ".microcosm/events.jsonl + .microcosm/graph.json",
+            },
+            {
+                "beat_id": "frame_evidence_counts",
+                "timebox_seconds": 10,
+                "visible_surface": status_card_command,
+                "reader_takeaway": "counts are claim-boundary accounting, not maturity scores",
+                "proof_ref": EVIDENCE_CLASS_REGISTRY_REF,
+            },
+            {
+                "beat_id": "open_authority_boundary",
+                "timebox_seconds": 10,
+                "visible_surface": "microcosm authority && microcosm workingness",
+                "reader_takeaway": "authority ceilings and failure envelopes stay visible",
+                "proof_ref": WORKINGNESS_MAP_REF,
+            },
+            {
+                "beat_id": "choose_reader_branch",
+                "timebox_seconds": 10,
+                "visible_surface": "reader_landing_packets",
+                "reader_takeaway": "safety, hiring, and developer readers get different next surfaces",
+                "proof_ref": "reader_exit_criteria",
+            },
+        ],
+        "safe_to_show": {
+            "uses_public_first_screen_card": True,
+            "uses_localhost_read_model": True,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "uses_live_operator_or_browser_session": False,
+            "claims_release_or_hosting": False,
+            "claims_reader_success": False,
+        },
+        "anti_claim": (
+            "The storyboard compresses how to look at Microcosm; it is not a "
+            "release artifact, benchmark, hiring verdict, safety evaluation, "
+            "hosted demo, or private-root equivalence claim."
+        ),
+        "authority": "presentation_plan_over_existing_first_screen_contract_only",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -970,7 +1055,7 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "preserve the shared first command, reader route ids, reader landing packets, "
             "behavior-proof packet, first-run ladder, local state receipt trail, "
             "overclaim tripwire matrix, reader exit criteria, evidence-count frame, "
-            "evidence-class legend, doctrine-effect frame, "
+            "video-storyboard packet, evidence-class legend, doctrine-effect frame, "
             "observatory landing frame, README-entry contract, omission receipt, and "
             "authority ceiling."
         ),
@@ -1030,7 +1115,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
             "first-run ladder, local state receipt trail, first-contact surface refs, overclaim tripwires, "
-            "reader branches, reader landing packets, reader exit criteria, public "
+            "reader branches, reader landing packets, reader exit criteria, video storyboard packet, public "
             "scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
@@ -1054,6 +1139,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "first_contact_surface_refs",
             "overclaim_tripwire_matrix",
             "reader_exit_criteria",
+            "video_storyboard_packet",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -1210,6 +1296,22 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         for row in reader_exit_rows
         if isinstance(row, dict)
     }
+    video_storyboard_packet = payload.get("video_storyboard_packet", {})
+    video_storyboard_beats = (
+        video_storyboard_packet.get("beats", [])
+        if isinstance(video_storyboard_packet, dict)
+        else []
+    )
+    video_storyboard_beat_ids = {
+        str(row.get("beat_id"))
+        for row in video_storyboard_beats
+        if isinstance(row, dict)
+    }
+    video_storyboard_safe_to_show = (
+        video_storyboard_packet.get("safe_to_show", {})
+        if isinstance(video_storyboard_packet, dict)
+        else {}
+    )
     behavior_proof_fields = (
         behavior_proof_packet.get("proof_fields", [])
         if isinstance(behavior_proof_packet, dict)
@@ -1519,6 +1621,78 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and reader_exit_criteria.get("authority")
             == "exit_criteria_not_reader_success_or_release_authority"
         ),
+        "video_storyboard_packet": (
+            isinstance(video_storyboard_packet, dict)
+            and video_storyboard_packet.get("schema_version")
+            == "microcosm_video_storyboard_packet_v1"
+            and video_storyboard_packet.get("purpose")
+            == "make_a_sixty_second_cold_entry_artifact_without_new_claims"
+            and "same package-backed first-screen commands and authority ceiling"
+            in video_storyboard_packet.get("artifact_rule", "")
+            and video_storyboard_packet.get("allowed_artifact_forms")
+            == [
+                "terminal_capture",
+                "browser_walkthrough",
+                "static_reveal_board",
+                "short_video",
+            ]
+            and video_storyboard_packet.get("source_projection")
+            == "microcosm_core.first_screen_composition.first_screen_composition_card"
+            and video_storyboard_packet.get("first_run_command")
+            == shared_first_command
+            and video_storyboard_packet.get("bounded_observatory_command")
+            == _bounded_observatory_serve_command(str(payload.get("project_label")))
+            and len(video_storyboard_beats) == 6
+            and video_storyboard_beat_ids
+            == {
+                "open_map",
+                "prove_local_behavior",
+                "show_route_chain",
+                "frame_evidence_counts",
+                "open_authority_boundary",
+                "choose_reader_branch",
+            }
+            and sum(
+                row.get("timebox_seconds", 0)
+                for row in video_storyboard_beats
+                if isinstance(row, dict)
+                and isinstance(row.get("timebox_seconds"), int)
+                and not isinstance(row.get("timebox_seconds"), bool)
+            )
+            <= 60
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("timebox_seconds"), int)
+                and not isinstance(row.get("timebox_seconds"), bool)
+                and row.get("timebox_seconds") > 0
+                and isinstance(row.get("visible_surface"), str)
+                and bool(row.get("visible_surface"))
+                and isinstance(row.get("reader_takeaway"), str)
+                and bool(row.get("reader_takeaway"))
+                and isinstance(row.get("proof_ref"), str)
+                and bool(row.get("proof_ref"))
+                for row in video_storyboard_beats
+            )
+            and video_storyboard_safe_to_show.get("uses_public_first_screen_card")
+            is True
+            and video_storyboard_safe_to_show.get("uses_localhost_read_model")
+            is True
+            and video_storyboard_safe_to_show.get("exports_private_paths")
+            is False
+            and video_storyboard_safe_to_show.get("exports_provider_payloads")
+            is False
+            and video_storyboard_safe_to_show.get(
+                "uses_live_operator_or_browser_session"
+            )
+            is False
+            and video_storyboard_safe_to_show.get("claims_release_or_hosting")
+            is False
+            and video_storyboard_safe_to_show.get("claims_reader_success")
+            is False
+            and "not a release artifact" in video_storyboard_packet.get("anti_claim", "")
+            and video_storyboard_packet.get("authority")
+            == "presentation_plan_over_existing_first_screen_contract_only"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -1662,6 +1836,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "first_contact_surface_refs",
                     "overclaim_tripwire_matrix",
                     "reader_exit_criteria",
+                    "video_storyboard_packet",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -1734,6 +1909,7 @@ def first_screen_composition_card(
         "first_contact_surface_refs": _first_contact_surface_refs(project_label),
         "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),
         "reader_exit_criteria": _reader_exit_criteria(project_label),
+        "video_storyboard_packet": _video_storyboard_packet(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),

@@ -370,6 +370,71 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert exit_by_id["peer_developer"]["not_a_claim"] == "integration_complete"
     for row in exit_by_id.values():
         assert row["exit_when"]
+    video_storyboard_packet = card["video_storyboard_packet"]
+    storyboard_by_id = {
+        row["beat_id"]: row for row in video_storyboard_packet["beats"]
+    }
+    assert video_storyboard_packet["schema_version"] == (
+        "microcosm_video_storyboard_packet_v1"
+    )
+    assert video_storyboard_packet["purpose"] == (
+        "make_a_sixty_second_cold_entry_artifact_without_new_claims"
+    )
+    assert "video, screenshot board, or browser reveal" in video_storyboard_packet[
+        "artifact_rule"
+    ]
+    assert video_storyboard_packet["allowed_artifact_forms"] == [
+        "terminal_capture",
+        "browser_walkthrough",
+        "static_reveal_board",
+        "short_video",
+    ]
+    assert video_storyboard_packet["source_projection"] == (
+        "microcosm_core.first_screen_composition.first_screen_composition_card"
+    )
+    assert video_storyboard_packet["first_run_command"] == (
+        card["shared_first_command"]
+    )
+    assert video_storyboard_packet["bounded_observatory_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert set(storyboard_by_id) == {
+        "open_map",
+        "prove_local_behavior",
+        "show_route_chain",
+        "frame_evidence_counts",
+        "open_authority_boundary",
+        "choose_reader_branch",
+    }
+    assert sum(row["timebox_seconds"] for row in storyboard_by_id.values()) <= 60
+    assert storyboard_by_id["open_map"]["visible_surface"] == (
+        "microcosm hello <project>"
+    )
+    assert storyboard_by_id["prove_local_behavior"]["visible_surface"] == (
+        card["shared_first_command"]
+    )
+    assert storyboard_by_id["show_route_chain"]["proof_ref"] == (
+        ".microcosm/events.jsonl + .microcosm/graph.json"
+    )
+    assert storyboard_by_id["frame_evidence_counts"]["proof_ref"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert storyboard_by_id["choose_reader_branch"]["proof_ref"] == (
+        "reader_exit_criteria"
+    )
+    assert video_storyboard_packet["safe_to_show"] == {
+        "uses_public_first_screen_card": True,
+        "uses_localhost_read_model": True,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "uses_live_operator_or_browser_session": False,
+        "claims_release_or_hosting": False,
+        "claims_reader_success": False,
+    }
+    assert "not a release artifact" in video_storyboard_packet["anti_claim"]
+    assert video_storyboard_packet["authority"] == (
+        "presentation_plan_over_existing_first_screen_contract_only"
+    )
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -505,6 +570,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader exit criteria" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "video-storyboard packet" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -633,6 +701,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "reader_exit_criteria" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "video_storyboard_packet" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -677,6 +748,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
+    assert card["validation"]["checks"]["video_storyboard_packet"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -771,6 +843,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
+    assert card["validation"]["checks"]["video_storyboard_packet"] is True
     assert {route["reader_route_id"] for route in card["reader_routes"]} == {
         "safety_evals_engineer",
         "hiring_reviewer",
