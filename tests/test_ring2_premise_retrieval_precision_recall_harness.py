@@ -6,8 +6,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harness
 from microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_precision_recall_bundle,
 )
@@ -222,6 +225,69 @@ def test_ring2_precision_recall_exported_bundle_validates_runtime_shape(
             "exported_ring2_precision_recall_bundle_validation_result.json"
         )
     ]
+
+
+def test_ring2_precision_recall_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "ring2_premise_retrieval_precision_recall_harness"
+    )
+    args = [
+        "run-precision-recall-bundle",
+        "--input",
+        str(EXPORTED_BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 10
+    assert first_card["ring2_precision_recall"]["problem_count"] == 10
+    assert first_card["ring2_precision_recall"]["mean_precision_at_k"] == 0.36
+    assert first_card["ring2_precision_recall"]["mean_recall_at_k"] == 0.9
+    assert first_card["source_body_floor"]["status"] == "pass"
+    assert first_card["source_body_floor"]["body_material_count"] == 4
+    assert first_card["source_body_floor"]["body_material_id_count"] == 4
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "source_artifact_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
+    assert "body_material_ids" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "source_digests" not in _walk_keys(first_card)
+    assert "evaluations" not in _walk_keys(first_card)
+    assert "retrieved_premise_ids" not in _walk_keys(first_card)
+    assert "needed_premise_ids" not in _walk_keys(first_card)
+    assert "proof_body" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        ring2_premise_retrieval_precision_recall_harness,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_ring2_precision_recall_source_artifacts_are_exact_copies() -> None:

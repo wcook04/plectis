@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,26 @@ ACCEPTANCE_RECEIPT_REL = (
     "ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json"
 )
 BUNDLE_RESULT_NAME = "exported_ring2_precision_recall_bundle_validation_result.json"
+CARD_SCHEMA_VERSION = "ring2_precision_recall_command_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "missing_negative_cases",
+    "error_codes",
+    "findings",
+    "secret_exclusion_scan",
+    "authority_ceiling",
+    "anti_claim",
+    "source_pattern_ids",
+    "source_refs",
+    "source_digests",
+    "body_material_contract",
+    "copied_material",
+    "source_artifact_imports",
+    "source_open_body_imports",
+    "evaluations",
+    "ring2_precision_recall_board",
+)
 
 SOURCE_PATTERN_IDS = ["ring2_premise_retrieval_precision_recall_harness"]
 RUN_ID = "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
@@ -213,6 +234,114 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     return f"sha256:{digest}"
+
+
+def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    source = Path(input_dir)
+    public_root = _public_root_for_path(source)
+    paths = [*_input_paths(source, include_negative=include_negative)]
+    bundle_manifest = source / "bundle_manifest.json"
+    if bundle_manifest.is_file():
+        paths.append(bundle_manifest)
+    paths.append(public_root / "core/private_state_forbidden_classes.json")
+    return paths
+
+
+def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    source = Path(input_dir)
+    if not source.is_absolute():
+        source = Path.cwd() / source
+    public_root = _public_root_for_path(source)
+
+    rows: list[dict[str, Any]] = []
+    missing: list[str] = []
+    seen: set[Path] = set()
+    for path in _freshness_paths(source, include_negative=include_negative):
+        key = path.resolve(strict=False)
+        if key in seen:
+            continue
+        seen.add(key)
+        display = _display(path, public_root=public_root)
+        if path.is_file():
+            rows.append(
+                {
+                    "path": display,
+                    "sha256": _sha256(path),
+                    "size_bytes": path.stat().st_size,
+                }
+            )
+        else:
+            missing.append(display)
+
+    validator_schema_version = (
+        "ring2_precision_recall_result_v1"
+        if include_negative
+        else "exported_ring2_precision_recall_bundle_validation_result_v1"
+    )
+    basis_digest = hashlib.sha256(
+        json.dumps(
+            {
+                "card_schema_version": CARD_SCHEMA_VERSION,
+                "include_negative": include_negative,
+                "inputs": rows,
+                "missing_inputs": missing,
+                "validator_schema_version": validator_schema_version,
+            },
+            sort_keys=True,
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        "schema_version": "ring2_precision_recall_freshness_basis_v1",
+        "basis_digest": f"sha256:{basis_digest}",
+        "card_schema_version": CARD_SCHEMA_VERSION,
+        "include_negative": include_negative,
+        "input_count": len(rows),
+        "missing_path_count": len(missing),
+        "validator_schema_version": validator_schema_version,
+        "inputs": rows,
+        "missing_inputs": missing,
+    }
+
+
+def _fresh_precision_recall_bundle_receipt(
+    input_dir: Path,
+    out_dir: Path,
+    *,
+    command: str,
+) -> dict[str, Any] | None:
+    path = out_dir / BUNDLE_RESULT_NAME
+    if not path.is_file():
+        return None
+    try:
+        payload = read_json_strict(path)
+    except (OSError, TypeError, ValueError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("schema_version") != (
+        "exported_ring2_precision_recall_bundle_validation_result_v1"
+    ):
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("status") != PASS:
+        return None
+    if payload.get("input_mode") != "exported_ring2_precision_recall_bundle":
+        return None
+    if payload.get("command") != command:
+        return None
+    basis = _freshness_basis(input_dir, include_negative=False)
+    existing_basis = payload.get("freshness_basis")
+    if not isinstance(existing_basis, dict):
+        return None
+    if existing_basis.get("basis_digest") != basis["basis_digest"]:
+        return None
+    if basis["missing_path_count"]:
+        return None
+    reused = dict(payload)
+    reused["freshness_basis"] = basis
+    reused["receipt_reused"] = True
+    return reused
 
 
 def _line_count(path: Path) -> int:
@@ -799,6 +928,8 @@ def _common_receipt(
         "adversarial_decoy_case_id",
         "adversarial_decoy_observed",
         "evaluations",
+        "freshness_basis",
+        "receipt_reused",
     )
     payload = {
         "schema_version": schema_version,
@@ -1008,6 +1139,8 @@ def run(
         input_mode="fixture_input",
         include_negative=True,
     )
+    result["freshness_basis"] = _freshness_basis(Path(input_dir), include_negative=True)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
         Path(out_dir),
@@ -1020,19 +1153,124 @@ def run_precision_recall_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str = "run-precision-recall-bundle",
+    *,
+    reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
+    source = Path(input_dir)
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    if reuse_fresh_receipt:
+        cached = _fresh_precision_recall_bundle_receipt(
+            source,
+            out,
+            command=command,
+        )
+        if cached is not None:
+            return cached
     result = _build_result(
-        Path(input_dir),
+        source,
         command=command,
         input_mode="exported_ring2_precision_recall_bundle",
         include_negative=False,
     )
+    result["freshness_basis"] = _freshness_basis(source, include_negative=False)
+    result["receipt_reused"] = False
     return _write_receipts(
         result,
-        Path(out_dir),
+        out,
         acceptance_out=None,
         bundle_mode=True,
     )
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    freshness_basis = result.get("freshness_basis")
+    freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
+    secret_scan = result.get("secret_exclusion_scan")
+    scan = secret_scan if isinstance(secret_scan, dict) else {}
+    source_imports = result.get("source_open_body_imports")
+    imports = source_imports if isinstance(source_imports, dict) else {}
+    metric_aggregation = result.get("metric_aggregation")
+    metrics = metric_aggregation if isinstance(metric_aggregation, dict) else {}
+    failure_modes = result.get("failure_mode_counts")
+    return {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "status": result.get("status"),
+        "organ_id": result.get("organ_id"),
+        "input_mode": result.get("input_mode"),
+        "bundle_id": result.get("bundle_id"),
+        "command_speed": {
+            "receipt_reused": result.get("receipt_reused") is True,
+            "freshness_digest": freshness.get("basis_digest"),
+            "freshness_input_count": freshness.get("input_count"),
+            "freshness_missing_path_count": freshness.get("missing_path_count"),
+        },
+        "ring2_precision_recall": {
+            "problem_count": result.get("problem_count"),
+            "mean_precision_at_k": result.get("mean_precision_at_k"),
+            "mean_recall_at_k": result.get("mean_recall_at_k"),
+            "total_hit_count": metrics.get("total_hit_count"),
+            "total_retrieval_candidate_count": metrics.get(
+                "total_retrieval_candidate_count"
+            ),
+            "total_needed_premise_count": metrics.get("total_needed_premise_count"),
+            "failure_mode_counts": (
+                failure_modes if isinstance(failure_modes, dict) else {}
+            ),
+            "adversarial_decoy_observed": result.get("adversarial_decoy_observed"),
+        },
+        "source_body_floor": {
+            "status": imports.get("status"),
+            "body_material_count": imports.get("body_material_count"),
+            "body_material_id_count": len(imports.get("body_material_ids") or []),
+            "source_artifacts_pass": result.get("source_artifacts_pass"),
+            "source_artifact_count": result.get("source_artifact_count"),
+            "copied_source_artifact_count": result.get(
+                "copied_source_artifact_count"
+            ),
+        },
+        "validation": {
+            "expected_negative_case_count": len(
+                result.get("expected_negative_cases") or []
+            ),
+            "missing_negative_case_count": len(
+                result.get("missing_negative_cases") or []
+            ),
+            "error_code_count": len(result.get("error_codes") or []),
+            "finding_count": len(result.get("findings") or []),
+            "secret_exclusion_blocking_hit_count": scan.get("blocking_hit_count"),
+        },
+        "body_floor": {
+            "body_in_receipt": False,
+            "secret_exclusion_scan_in_card": False,
+            "authority_ceiling_in_card": False,
+            "anti_claim_in_card": False,
+            "source_refs_in_card": False,
+            "source_digests_in_card": False,
+            "body_material_contract_in_card": False,
+            "copied_material_in_card": False,
+            "source_artifact_imports_in_card": False,
+            "source_open_body_imports_in_card": False,
+            "evaluation_rows_in_card": False,
+            "ring2_precision_recall_board_in_card": False,
+        },
+        "authority_boundary": {
+            "after_the_fact_labels_allowed_for_metrics": True,
+            "labels_allowed_in_provider_context": False,
+            "proof_bodies_allowed": False,
+            "test_split_tuning_authorized": False,
+            "provider_calls_authorized": False,
+            "lean_lake_execution_authorized": False,
+            "formal_proof_authority": False,
+            "benchmark_performance_authority": False,
+            "release_authorized": False,
+        },
+        "receipt_paths": result.get("receipt_paths", []),
+        "omission_receipt": {
+            "omitted_full_payload_keys": list(CARD_OMITTED_FULL_PAYLOAD_KEYS),
+            "full_payload_drilldown": "rerun without --card or inspect the written receipt file",
+        },
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -1041,17 +1279,42 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--input", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--acceptance-out")
+    parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
+    card_suffix = " --card" if args.card else ""
     if args.action == "run":
+        acceptance_suffix = (
+            f" --acceptance-out {args.acceptance_out}" if args.acceptance_out else ""
+        )
+        command = (
+            "python -m microcosm_core.organs."
+            "ring2_premise_retrieval_precision_recall_harness "
+            f"run --input {args.input} --out {args.out}{acceptance_suffix}"
+            f"{card_suffix}"
+        )
         result = run(
             args.input,
             args.out,
             acceptance_out=args.acceptance_out,
-            command=args.action,
+            command=command,
         )
     else:
-        result = run_precision_recall_bundle(args.input, args.out, command=args.action)
-    print(f"{ORGAN_ID}: {result['status']} -> {args.out}")
+        command = (
+            "python -m microcosm_core.organs."
+            "ring2_premise_retrieval_precision_recall_harness "
+            f"run-precision-recall-bundle --input {args.input} --out {args.out}"
+            f"{card_suffix}"
+        )
+        result = run_precision_recall_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
+    if args.card:
+        print(json.dumps(result_card(result), indent=2, sort_keys=True))
+    else:
+        print(f"{ORGAN_ID}: {result['status']} -> {args.out}")
     return 0 if result["status"] == PASS else 1
 
 
