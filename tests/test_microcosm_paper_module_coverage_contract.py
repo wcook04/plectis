@@ -126,6 +126,57 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             "test_microcosm_paper_module_coverage_contract.py -q"
         ),
     ]
+    atlas_closeout = contract["atlas_source_coupling_closeout_contract"]
+    assert "System Atlas source-coupling route" in atlas_closeout["purpose"]
+    assert "System Atlas and Kind Atlas are navigation projections" in atlas_closeout[
+        "projection_role_rule"
+    ]
+    assert [
+        locus["source_ref"] for locus in atlas_closeout["source_coupling_loci"]
+    ] == [
+        "tools/meta/factory/build_system_atlas.py::main",
+        "system/lib/navigation_index_spine.py::_system_atlas_source_coupling",
+        "system/lib/navigation_index_spine.py::_system_atlas_currentness",
+        "system/lib/kind_atlas.py::_system_atlas_currentness",
+        "system/lib/navigation_context_pack.py::_generated_projection_owner_selected_row",
+        (
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py::"
+            "test_microcosm_paper_module_coverage_contract_is_standard_backed"
+        ),
+    ]
+    assert atlas_closeout["required_closeout_proof"] == [
+        "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+        "./repo-python tools/meta/factory/build_system_atlas.py --check",
+        (
+            'AIW_CONTEXT_PACK_DISABLE_SEMANTIC=1 ./repo-python kernel.py '
+            '--context-pack "<Microcosm paper-module depth task>" '
+            "--context-budget 12000"
+        ),
+        (
+            './repo-python kernel.py --coverage-enforcement-matrix '
+            '"<Microcosm paper-module depth task>" --context-budget 12000'
+        ),
+        (
+            "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py -q"
+        ),
+    ]
+    assert atlas_closeout["closeout_status_fields"] == [
+        "navigation_index_spine.currentness.status",
+        "source_coupling.status",
+        "source_coupling.changed_source_count",
+        "source_coupling.dirty_changed_source_count",
+        "source_coupling.safe_to_commit_generated_outputs_without_sources",
+    ]
+    assert "do not refresh or commit state/system_atlas" in atlas_closeout[
+        "blocked_refresh_rule"
+    ]
+    assert atlas_closeout["authority_ceiling"] == (
+        "atlas_source_coupling_closeout_only_not_generated_atlas_source_truth_"
+        "release_permission_proof_correctness_or_candidate_axiom_authority"
+    )
     assert contract["atlas_option_surfaces"] == [
         "paper_modules",
         "standards",
@@ -353,6 +404,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "module_depth_roles",
         "required_projection_surfaces",
         "source_loci_depth_contract",
+        "atlas_source_coupling_closeout_contract",
         "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
@@ -454,6 +506,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "context-pack selected row order",
         "context-pack next command order",
         "source_loci_depth_contract",
+        "atlas_source_coupling_closeout_contract",
+        "System Atlas source-coupling",
+        "build_system_atlas.py --check",
+        "stale_source_coupling",
         "100% paper-module coverage means every authored module is routed, current, and drilldown-visible",
         "microcosm_paper_module_depth",
         "navigation_type_plane",
@@ -483,6 +539,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "sidecars as source truth" in product_roof
     assert "first-screen <project>` emits the JSON one-screen reader map" in product_roof
     assert "Source-Loci Depth Contract" in product_roof
+    assert "Atlas source-coupling closeout" in product_roof
+    assert "paper_module_coverage_contract.atlas_source_coupling_closeout_contract" in product_roof
+    assert "build_system_atlas.py --check" in product_roof
+    assert "navigation_index_spine.currentness.status" in product_roof
     assert "microcosm_core/cli.py::main" in product_roof
     assert "microcosm_core/first_screen_composition.py::first_screen_composition_card" in product_roof
     assert "microcosm_core/project_substrate.py::compile_project" in product_roof
@@ -497,6 +557,11 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "type-plane row consumer" in public_export_bridge
     assert "entry-depth freshness binding" in public_export_bridge
     assert "paper_module_coverage_contract.source_loci_depth_contract" in public_export_bridge
+    assert (
+        "paper_module_coverage_contract.atlas_source_coupling_closeout_contract"
+        in public_export_bridge
+    )
+    assert "Atlas source-coupling closeout" in public_export_bridge
     assert "source-loci depth" in public_export_bridge
     assert (
         "`public_microcosm_exports` opens this bridge before generated public files"
@@ -509,6 +574,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
     assert "Source-Loci Coverage Contract" in coverage_metabolism
+    assert "Atlas Source-Coupling Closeout" in coverage_metabolism
+    assert "std_microcosm.json::paper_module_coverage_contract.atlas_source_coupling_closeout_contract" in coverage_metabolism
+    assert "system/lib/navigation_index_spine.py::_system_atlas_currentness" in coverage_metabolism
+    assert "source_coupling.safe_to_commit_generated_outputs_without_sources" in coverage_metabolism
     assert "tools/meta/factory/build_paper_module_index.py::main" in coverage_metabolism
     assert "system/lib/paper_modules.py::build_route_coverage" in coverage_metabolism
     assert (
@@ -530,6 +599,10 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         in coverage_metabolism
     )
     assert "std_microcosm.json::paper_module_coverage_contract.source_loci_depth_contract" in coverage_metabolism
+    assert "System Atlas Source-Coupling Closeout" in entry_projection_integrity
+    assert "tools/meta/factory/build_system_atlas.py::main" in entry_projection_integrity
+    assert "system/lib/navigation_index_spine.py::_system_atlas_source_coupling" in entry_projection_integrity
+    assert "system/lib/kind_atlas.py::_system_atlas_currentness" in entry_projection_integrity
     assert "explicit Microcosm consumers" in entry_projection_integrity
     assert "microcosm_public_export_type_plane" in entry_projection_integrity
     assert "entry/count projection honesty contract" in entry_projection_integrity
