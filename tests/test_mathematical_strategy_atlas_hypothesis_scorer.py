@@ -10,6 +10,7 @@ from microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer import 
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
     SOURCE_PATTERN_IDS,
+    SOURCE_REFS,
     main,
     run,
     run_strategy_bundle,
@@ -25,10 +26,7 @@ EXPORTED_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle"
 )
-SOURCE_ARTIFACT_REFS = [
-    "tools/meta/factory/run_prover_graph_benchmark.py",
-    "tools/meta/factory/reduce_prover_provider_receipts.py",
-]
+SOURCE_ARTIFACT_REFS = SOURCE_REFS
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -76,6 +74,12 @@ def test_mathematical_strategy_atlas_scorer_covers_negative_cases(
         result["strategy_board"]["public_contract"]["drilldown_regression_not_product_organ"]
         is True
     )
+    assert result["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
+    assert result["source_modules_pass"] is True
+    assert result["strategy_board"]["source_body_import_projection"][
+        "copied_source_artifact_count"
+    ] == len(SOURCE_ARTIFACT_REFS)
     assert result["authority_ceiling"]["oracle_label_visibility_authorized"] is False
     for codes in EXPECTED_NEGATIVE_CASES.values():
         for code in codes:
@@ -99,17 +103,21 @@ def test_mathematical_strategy_atlas_scorer_accepts_exported_bundle(
     assert result["error_codes"] == []
     assert result["strategy_selection_miss_case_ids"] == ["typed_unknown_strategy_miss"]
     assert result["body_material_status"] == (
-        "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance"
+        "copied_non_secret_macro_strategy_atlas_body_floor_with_provenance"
     )
     assert (
         result["source_module_import_status"]
-        == "copied_strategy_atlas_macro_tool_source_modules_verified"
+        == "copied_strategy_atlas_macro_body_floor_verified"
     )
     assert result["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)
     assert result["copied_source_artifact_count"] == len(SOURCE_ARTIFACT_REFS)
     assert result["source_modules_pass"] is True
     assert all(row["exists"] is True for row in result["source_module_imports"])
     assert all(row["digest_match"] is True for row in result["source_module_imports"])
+    assert all(
+        row["missing_required_anchors"] == []
+        for row in result["source_module_imports"]
+    )
     assert result["strategy_board"]["source_body_import_projection"][
         "copied_source_artifact_count"
     ] == len(SOURCE_ARTIFACT_REFS)
@@ -167,16 +175,38 @@ def test_mathematical_strategy_atlas_bundle_card_is_compact(
     assert "scan_scope" not in payload["private_state_scan"]
 
 
-def test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies() -> None:
+def _assert_source_manifest_exact_copies(input_dir: Path) -> None:
     manifest = json.loads(
-        (EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text(
-            encoding="utf-8"
-        )
+        (input_dir / "source_module_manifest.json").read_text(encoding="utf-8")
     )
     modules = {row["source_ref"]: row for row in manifest["modules"]}
     assert sorted(modules) == sorted(SOURCE_ARTIFACT_REFS)
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
+
+    for source_ref in SOURCE_ARTIFACT_REFS:
+        source = MICROCOSM_ROOT.parent / source_ref
+        target = input_dir / "source_artifacts" / source_ref
+        assert target.is_file()
+        source_bytes = source.read_bytes()
+        target_bytes = target.read_bytes()
+        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+        assert source_bytes == target_bytes
+        assert modules[source_ref]["sha256"] == digest
+        assert modules[source_ref]["byte_count"] == len(source_bytes)
+        assert modules[source_ref]["line_count"] == len(
+            source.read_text(encoding="utf-8").splitlines()
+        )
+        assert modules[source_ref]["body_in_receipt"] is False
+        assert modules[source_ref]["required_anchors"]
+        assert all(
+            anchor in target.read_text(encoding="utf-8")
+            for anchor in modules[source_ref]["required_anchors"]
+        )
+
+
+def test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies() -> None:
+    _assert_source_manifest_exact_copies(EXPORTED_BUNDLE_INPUT)
 
     bundle_manifest = json.loads(
         (EXPORTED_BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
@@ -186,16 +216,9 @@ def test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies() 
         SOURCE_ARTIFACT_REFS
     )
 
-    for source_ref in SOURCE_ARTIFACT_REFS:
-        source = MICROCOSM_ROOT.parent / source_ref
-        target = EXPORTED_BUNDLE_INPUT / "source_artifacts" / source_ref
-        assert target.is_file()
-        source_bytes = source.read_bytes()
-        target_bytes = target.read_bytes()
-        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
-        assert source_bytes == target_bytes
-        assert modules[source_ref]["sha256"] == digest
-        assert modules[source_ref]["body_in_receipt"] is False
+
+def test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies() -> None:
+    _assert_source_manifest_exact_copies(FIXTURE_INPUT)
 
 
 def test_mathematical_strategy_atlas_exported_bundle_receipt_omits_source_bodies(
@@ -225,6 +248,8 @@ def test_mathematical_strategy_atlas_exported_bundle_receipt_omits_source_bodies
         assert "src/ai_workflow" not in text
         assert "def _strategy_cards" not in text
         assert "def _provider_value" not in text
+        assert "test_strategy_classification_reducer_accepts_valid_advisory" not in text
+        assert "prover_skill_foundry_candidate_atlas_v0" not in text
         payload = json.loads(text)
         assert payload["status"] == "pass"
         assert payload["source_module_import_count"] == len(SOURCE_ARTIFACT_REFS)

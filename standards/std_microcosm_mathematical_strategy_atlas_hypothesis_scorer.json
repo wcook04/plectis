@@ -1,94 +1,71 @@
 {
-  "schema_version": "public_microcosm_standard_v1",
-  "standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
+  "anti_claim": "This standard governs public pre-oracle mathematical strategy metadata and copied non-secret macro tool, test, standard, and runtime strategy artifact bodies. It does not run Lean/Lake, prove theorem correctness, reveal oracle strategy labels, expose proof/provider payload bodies, call providers, tune on test answers, or authorize release.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Strategy atlas material must state that it is not Lean/Lake execution, proof authority, oracle visibility, provider authority, test tuning, or release authority"
+  },
+  "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_authority",
+  "authority_ceiling": {
+    "copied_public_runtime_artifact_bodies_allowed": true,
+    "copied_public_standard_bodies_allowed": true,
+    "copied_public_tool_bodies_allowed": true,
+    "formal_proof_authority": false,
+    "lean_lake_authority": false,
+    "mathlib_dependent_proof_authority": false,
+    "oracle_label_authority": false,
+    "provider_authority": false,
+    "release_authority": false,
+    "standard_authority": "public_strategy_hypothesis_fixture_receipt_schema_only",
+    "status": "pass"
+  },
+  "first_wave_required": true,
   "kind_id": "mathematical_strategy_atlas_hypothesis_scorer",
   "kind_name": "Mathematical strategy atlas hypothesis scorer",
-  "status": "draft",
-  "first_wave_required": true,
-  "wave": "w1_formal_math_strategy_atlas",
-  "authority_boundary": "pre_oracle_strategy_hypothesis_metadata_not_proof_authority",
-  "source_refs": [
-    {
-      "path": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json",
-      "field": "strategy_atlas",
-      "role": "public_fixture_source"
-    },
-    {
-      "path": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
-      "field": "runtime_example",
-      "role": "runtime_example_source"
-    },
-    {
-      "path": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json",
-      "field": "source_module_manifest",
-      "role": "copied_macro_tool_body_provenance"
-    }
-  ],
-  "relationships": {
-    "canonical_organ_model_ref": "core/organ_registry.json#mathematical_strategy_atlas_hypothesis_scorer",
-    "used_by_organs": [
-      "mathematical_strategy_atlas_hypothesis_scorer",
-      "formal_math_premise_retrieval",
-      "formal_math_lean_proof_witness"
+  "omission_receipt": {
+    "drilldown": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json",
+    "omitted": [
+      "Lean/Lake execution logs",
+      "proof bodies",
+      "oracle strategy labels",
+      "provider payload bodies",
+      "private formal-math lab contents",
+      "credential or account/session material",
+      "release claims"
     ],
-    "source_pattern_id_sample": [
-      "mathematical_strategy_atlas_hypothesis_scorer"
-    ]
+    "reason": "public slice carries strategy metadata, synthetic feature fixtures, exact copied non-secret macro tool bodies, negative cases, and body-free receipts only"
   },
-  "required_fields": [
-    "source_pattern_ids",
-    "source_refs",
-    "strategy_ids",
-    "scored_cases",
-    "selected_strategy_ids",
-    "strategy_selection_miss_case_ids",
-    "authority_ceiling",
-    "anti_claim",
-    "body_material_status",
-    "source_module_import_status",
-    "source_module_manifest_ref",
-    "source_module_import_count",
-    "copied_source_artifact_count",
-    "source_modules_pass"
-  ],
-  "validation_rules": [
-    "select strategy before oracle labels or proof outcomes are visible",
-    "choose only from the public known_strategy_ids enum",
-    "classify no-match cases as STRATEGY_SELECTION_MISS",
-    "attach retrieval-term additions as strategy hints only",
-    "reject proof, provider, or source body fields",
-    "reject oracle strategy labels and post-oracle selection",
-    "reject release, provider-call, proof-authority, and test-tuning overclaims",
-    "emit private-state scan and redacted receipts",
-    "validate copied macro strategy tool bodies through source_module_manifest rows",
-    "require exact digest matches for run_prover_graph_benchmark.py and reduce_prover_provider_receipts.py copies",
-    "reject source body export in generated receipts while allowing body files in bundle source_artifacts"
-  ],
-  "receipt_expectations": [
-    "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
-    "receipt must cite source pattern ids, source refs, strategy ids, scored cases, selected strategy ids, miss classifiers, copied source module counts, source module manifest ref, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
-  ],
-  "validator_contract": {
-    "required": true,
-    "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer",
-    "minimum_checks": [
-      "known_strategy_id_enum",
-      "feature_overlap_scoring",
-      "strategy_selection_miss_classifier",
-      "pre_oracle_selection_boundary",
-      "proof_body_rejection",
-      "oracle_label_rejection",
-      "post_oracle_rejection",
-      "release_overclaim_rejection",
-      "negative_case_coverage",
-      "source_module_manifest_present_for_exported_bundle",
-      "source_module_digest_match",
-      "source_body_receipt_omission"
+  "paper_module_contract": {
+    "module_slug": "mathematical_strategy_atlas",
+    "required": true
+  },
+  "public_private_boundary": {
+    "allowed_public_inputs": [
+      "strategy ids",
+      "feature tags",
+      "retrieval term labels",
+      "synthetic problem shapes",
+      "fixture negative cases",
+      "public-safe source refs",
+      "copied non-secret prover graph benchmark tool body",
+      "copied non-secret provider receipt reducer tool body",
+      "source module manifest refs and digests",
+      "copied non-secret prover graph benchmark harness test body",
+      "copied non-secret provider strategy reducer test body",
+      "copied non-secret compute-provider strategy classification standard body",
+      "copied public runtime strategy cards, strategy hypothesis set, and prover skill atlas artifacts"
+    ],
+    "default_posture": "public_safe_when_strategy_inputs_are_metadata_and_receipts_are_redacted",
+    "forbidden_public_inputs": [
+      "proof bodies",
+      "oracle strategy labels",
+      "provider payload bodies",
+      "operator thread content",
+      "private raw seed text",
+      "release claims",
+      "credential-bearing private source bodies"
     ]
   },
   "receipt_contract": {
-    "required": true,
-    "receipt_id": "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
     "must_record": [
       "source_pattern_ids",
       "source_refs",
@@ -108,46 +85,103 @@
       "source_module_import_count",
       "copied_source_artifact_count",
       "source_modules_pass"
-    ]
-  },
-  "public_private_boundary": {
-    "default_posture": "public_safe_when_strategy_inputs_are_metadata_and_receipts_are_redacted",
-    "allowed_public_inputs": [
-      "strategy ids",
-      "feature tags",
-      "retrieval term labels",
-      "synthetic problem shapes",
-      "fixture negative cases",
-      "public-safe source refs",
-      "copied non-secret prover graph benchmark tool body",
-      "copied non-secret provider receipt reducer tool body",
-      "source module manifest refs and digests"
     ],
-    "forbidden_public_inputs": [
-      "proof bodies",
-      "oracle strategy labels",
-      "provider payload bodies",
-      "operator thread content",
-      "private raw seed text",
-      "release claims",
-      "credential-bearing private source bodies"
+    "receipt_id": "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
+    "required": true
+  },
+  "receipt_expectations": [
+    "receipt.microcosm.mathematical_strategy_atlas_hypothesis_scorer",
+    "receipt must cite source pattern ids, source refs, strategy ids, scored cases, selected strategy ids, miss classifiers, copied source module counts, source module manifest ref, negative-case coverage, private-state scan, authority ceiling, and anti-claim"
+  ],
+  "receipt_refs": [
+    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json"
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#mathematical_strategy_atlas_hypothesis_scorer",
+    "source_pattern_id_sample": [
+      "mathematical_strategy_atlas_hypothesis_scorer"
+    ],
+    "used_by_organs": [
+      "mathematical_strategy_atlas_hypothesis_scorer",
+      "formal_math_premise_retrieval",
+      "formal_math_lean_proof_witness"
     ]
   },
-  "authority_ceiling": {
-    "status": "pass",
-    "standard_authority": "public_strategy_hypothesis_fixture_receipt_schema_only",
-    "lean_lake_authority": false,
-    "mathlib_dependent_proof_authority": false,
-    "formal_proof_authority": false,
-    "oracle_label_authority": false,
-    "provider_authority": false,
-    "release_authority": false,
-    "copied_public_tool_bodies_allowed": true
+  "required_fields": [
+    "source_pattern_ids",
+    "source_refs",
+    "strategy_ids",
+    "scored_cases",
+    "selected_strategy_ids",
+    "strategy_selection_miss_case_ids",
+    "authority_ceiling",
+    "anti_claim",
+    "body_material_status",
+    "source_module_import_status",
+    "source_module_manifest_ref",
+    "source_module_import_count",
+    "copied_source_artifact_count",
+    "source_modules_pass"
+  ],
+  "schema_version": "public_microcosm_standard_v1",
+  "source_coupling_contract": {
+    "required": true,
+    "rule": "macro source refs for non-secret tool, test, standard, and runtime artifact bodies must be copied into source_artifacts with exact digest, count, and anchor checks; forbidden bodies remain omitted with receipt-only refs"
   },
-  "anti_claim": "This standard governs public pre-oracle mathematical strategy metadata and copied non-secret macro tool bodies. It does not run Lean/Lake, prove theorem correctness, reveal oracle strategy labels, expose proof/provider payload bodies, call providers, tune on test answers, or authorize release.",
+  "source_refs": [
+    {
+      "field": "strategy_atlas",
+      "path": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json",
+      "role": "public_fixture_source"
+    },
+    {
+      "field": "runtime_example",
+      "path": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle",
+      "role": "runtime_example_source"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_module_manifest.json",
+      "role": "copied_macro_tool_body_provenance"
+    },
+    {
+      "field": "fixture_source_module_manifest",
+      "path": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
+      "role": "copied_macro_body_floor_provenance"
+    },
+    {
+      "field": "macro_harness_test_body",
+      "path": "system/server/tests/test_prover_graph_benchmark_harness.py",
+      "role": "copied_macro_tool_test_body"
+    },
+    {
+      "field": "macro_reducer_test_body",
+      "path": "system/server/tests/test_prover_provider_strategy_classification_reducer.py",
+      "role": "copied_macro_reducer_test_body"
+    },
+    {
+      "field": "provider_strategy_classification_standard_body",
+      "path": "codex/standards/std_compute_provider.json",
+      "role": "copied_macro_standard_body"
+    },
+    {
+      "field": "runtime_strategy_cards_artifact_body",
+      "path": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
+      "role": "copied_macro_runtime_artifact_body"
+    },
+    {
+      "field": "runtime_strategy_hypothesis_set_artifact_body",
+      "path": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
+      "role": "copied_macro_runtime_artifact_body"
+    },
+    {
+      "field": "runtime_prover_skill_atlas_artifact_body",
+      "path": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json",
+      "role": "copied_macro_runtime_artifact_body"
+    }
+  ],
+  "standard_id": "std_microcosm_mathematical_strategy_atlas_hypothesis_scorer",
   "standard_payload": {
-    "ontology": "A public-safe formal-math strategy atlas that maps problem feature tags to a known strategy enum before retrieval or proof execution, backed by copied non-secret prover strategy harness and reducer tool bodies.",
-    "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses grounded in real macro control-plane code, not by hidden oracle labels, receipt-only pointers, or undifferentiated tactic search.",
     "anti_purpose": "Turning strategy selection into proof authority, oracle leakage, provider output, or release authority.",
     "compression_bands": [
       "strategy_atlas",
@@ -166,37 +200,44 @@
       "copied macro tool body digest drifts from source",
       "receipt includes copied macro source body text instead of refs and digests"
     ],
-    "rebuild_action": "draft"
+    "ontology": "A public-safe formal-math strategy atlas that maps problem feature tags to a known strategy enum before retrieval or proof execution, backed by copied non-secret prover strategy harness, reducer, regression-test, provider-standard, and runtime strategy-artifact bodies.",
+    "rebuild_action": "draft",
+    "teleology": "Let Microcosm show that proof work is steered by explicit strategy hypotheses grounded in real macro control-plane code, tests, standards, and public runtime artifacts, not by hidden oracle labels, receipt-only pointers, or undifferentiated tactic search."
   },
-  "receipt_refs": [
-    "receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer/mathematical_strategy_atlas_validation_receipt.json"
+  "status": "draft",
+  "validation_rules": [
+    "select strategy before oracle labels or proof outcomes are visible",
+    "choose only from the public known_strategy_ids enum",
+    "classify no-match cases as STRATEGY_SELECTION_MISS",
+    "attach retrieval-term additions as strategy hints only",
+    "reject proof, provider, or source body fields",
+    "reject oracle strategy labels and post-oracle selection",
+    "reject release, provider-call, proof-authority, and test-tuning overclaims",
+    "emit private-state scan and redacted receipts",
+    "validate copied macro strategy tool, test, standard, and runtime artifact bodies through source_module_manifest rows",
+    "require exact digest, line-count, byte-count, and required-anchor matches for every copied strategy atlas body row",
+    "reject source body export in generated receipts while allowing body files in bundle source_artifacts"
   ],
+  "validator_contract": {
+    "minimum_checks": [
+      "known_strategy_id_enum",
+      "feature_overlap_scoring",
+      "strategy_selection_miss_classifier",
+      "pre_oracle_selection_boundary",
+      "proof_body_rejection",
+      "oracle_label_rejection",
+      "post_oracle_rejection",
+      "release_overclaim_rejection",
+      "negative_case_coverage",
+      "source_module_manifest_present_for_exported_bundle",
+      "source_module_digest_match",
+      "source_body_receipt_omission"
+    ],
+    "required": true,
+    "validator_id": "validator.microcosm.organs.mathematical_strategy_atlas_hypothesis_scorer"
+  },
   "validator_refs": [
     "microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer"
   ],
-  "paper_module_contract": {
-    "required": true,
-    "module_slug": "mathematical_strategy_atlas"
-  },
-  "omission_receipt": {
-    "omitted": [
-      "Lean/Lake execution logs",
-      "proof bodies",
-      "oracle strategy labels",
-      "provider payload bodies",
-      "private formal-math lab contents",
-      "credential or account/session material",
-      "release claims"
-    ],
-    "reason": "public slice carries strategy metadata, synthetic feature fixtures, exact copied non-secret macro tool bodies, negative cases, and body-free receipts only",
-    "drilldown": "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/strategy_atlas.json"
-  },
-  "anti_claim_contract": {
-    "required": true,
-    "rule": "Strategy atlas material must state that it is not Lean/Lake execution, proof authority, oracle visibility, provider authority, test tuning, or release authority"
-  },
-  "source_coupling_contract": {
-    "required": true,
-    "rule": "macro source refs for non-secret tool bodies must be copied into source_artifacts with exact digest checks; forbidden bodies remain omitted with receipt-only refs"
-  }
+  "wave": "w1_formal_math_strategy_atlas"
 }

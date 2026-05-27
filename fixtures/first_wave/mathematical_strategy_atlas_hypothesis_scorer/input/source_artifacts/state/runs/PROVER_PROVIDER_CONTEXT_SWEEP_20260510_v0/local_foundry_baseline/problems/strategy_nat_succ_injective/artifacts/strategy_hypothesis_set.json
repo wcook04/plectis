@@ -1,0 +1,63 @@
+{
+  "oracle_expected_strategy_ids_visible": false,
+  "problem_features": [
+    "constructor_equality",
+    "equality_target",
+    "succ_equality"
+  ],
+  "problem_id": "strategy_nat_succ_injective",
+  "proof_body_visible": false,
+  "schema_version": "strategy_hypothesis_set_v0",
+  "selected_strategy_id": "constructor_injectivity",
+  "strategy_hypotheses": [
+    {
+      "mathematical_lens": "Equality of constructed values can imply equality of constructor arguments.",
+      "proof_plan_template": "intro h; exact Nat.succ.inj h",
+      "retrieval_expansion_terms": [
+        "successor",
+        "injective",
+        "constructor",
+        "inj",
+        "nat"
+      ],
+      "score": 12,
+      "strategy_id": "constructor_injectivity",
+      "trigger_features": [
+        "constructor_equality",
+        "succ_equality"
+      ]
+    },
+    {
+      "mathematical_lens": "View the target as two expressions to normalize toward a shared canonical form.",
+      "proof_plan_template": "try exact/rewrite/simp using the highest-scoring equality premise",
+      "retrieval_expansion_terms": [
+        "equality",
+        "normal",
+        "nat",
+        "bool",
+        "length",
+        "reverse"
+      ],
+      "score": 5,
+      "strategy_id": "equality_normal_form",
+      "trigger_features": [
+        "equality_target"
+      ]
+    },
+    {
+      "mathematical_lens": "Quantified goals over recursively defined data often want induction or a library induction theorem.",
+      "proof_plan_template": "try Nat.add_zero; otherwise induction on the recursive argument",
+      "retrieval_expansion_terms": [
+        "induction",
+        "recursive",
+        "zero",
+        "successor",
+        "add_zero"
+      ],
+      "score": 1,
+      "strategy_id": "recursive_data_induction",
+      "trigger_features": []
+    }
+  ],
+  "strategy_phase": "pre_oracle"
+}

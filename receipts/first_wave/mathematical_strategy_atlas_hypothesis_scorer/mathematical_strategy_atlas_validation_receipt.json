@@ -1,21 +1,25 @@
 {
   "all_expectations_met": true,
-  "anti_claim": "Mathematical strategy atlas scoring validates public pre-oracle strategy hypotheses and retrieval lenses only. It does not run Lean or Lake, prove theorem correctness, expose proof bodies or oracle labels, tune on test answers, call providers, or authorize release.",
+  "anti_claim": "Mathematical strategy atlas projection is a drilldown regression surface for public pre-oracle strategy hypotheses, retrieval lenses, and copied non-secret macro tool bodies only. It does not run Lean or Lake, prove theorem correctness, expose proof bodies, provider payload bodies, or oracle labels, tune on test answers, call providers, or authorize release.",
   "authority_ceiling": {
-    "authority_ceiling": "strategy_hypothesis_metadata_not_proof_or_oracle_authority",
+    "authority_ceiling": "strategy_hypothesis_projection_not_substrate_or_proof_authority",
+    "copied_public_tool_bodies_allowed": true,
     "formal_proof_authority": false,
     "lean_lake_execution_authorized": false,
     "mathlib_dependent_proof_authority": false,
     "oracle_label_visibility_authorized": false,
     "provider_calls_authorized": false,
+    "provider_payload_bodies_allowed": false,
     "release_authorized": false,
     "status": "pass",
     "test_split_tuning_authorized": false
   },
+  "body_material_status": "copied_non_secret_macro_strategy_atlas_body_floor_with_provenance",
   "body_redacted": true,
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
-  "created_at": "2026-05-21T13:43:29+00:00",
+  "command": "python -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out microcosm-substrate/receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer --card",
+  "copied_source_artifact_count": 8,
+  "created_at": "2026-05-27T13:34:54+00:00",
   "error_codes": [
     "MATH_STRATEGY_ORACLE_LABEL_FORBIDDEN",
     "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
@@ -66,7 +70,7 @@
     {
       "body_redacted": true,
       "error_code": "MATH_STRATEGY_RELEASE_OVERCLAIM",
-      "message": "Strategy scoring attempted to authorize release, proof authority, providers, or test tuning.",
+      "message": "Strategy projection attempted to authorize release, proof authority, providers, or test tuning.",
       "negative_case_id": "release_overclaim",
       "subject_id": "formal_proof_authority,provider_calls_authorized,publication_authorized,release_authorized,test_split_tuning_authorized",
       "subject_kind": "authority_ceiling"
@@ -98,12 +102,22 @@
   "oracle_labels_excluded": true,
   "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 8,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 17,
     "status": "pass"
   },
   "problem_count": 3,
@@ -121,12 +135,22 @@
     "recursive_data_induction",
     "unknown"
   ],
+  "source_module_import_count": 8,
+  "source_module_import_status": "copied_strategy_atlas_macro_body_floor_verified",
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_module_manifest.json",
+  "source_modules_pass": true,
   "source_pattern_ids": [
     "mathematical_strategy_atlas_hypothesis_scorer"
   ],
   "source_refs": [
     "tools/meta/factory/run_prover_graph_benchmark.py",
-    "tools/meta/factory/reduce_prover_provider_receipts.py"
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "system/server/tests/test_prover_graph_benchmark_harness.py",
+    "system/server/tests/test_prover_provider_strategy_classification_reducer.py",
+    "codex/standards/std_compute_provider.json",
+    "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
+    "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
+    "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json"
   ],
   "status": "pass",
   "strategy_count": 4,

@@ -2,7 +2,7 @@
   "anti_claim": "These copied bodies make the public strategy atlas accountable to the real prover harness, reducer tests, provider schema, and public runtime strategy artifacts. They do not authorize provider calls, expose provider payload bodies, run Lean/Lake, prove theorem correctness, reveal oracle labels, or authorize release.",
   "body_in_receipt": false,
   "body_storage_policy": "exact_non_secret_PROVER_strategy_atlas_tool_test_standard_and_runtime_artifact_bodies_copied_into_public_strategy_atlas_bundle",
-  "manifest_id": "mathematical_strategy_atlas_macro_body_floor_source_module_manifest",
+  "manifest_id": "mathematical_strategy_atlas_fixture_macro_body_floor_source_module_manifest",
   "material_class_counts": {
     "public_macro_receipt_body": 3,
     "public_macro_standard_body": 1,
@@ -29,7 +29,7 @@
       "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
       "source_role": "Macro prover graph benchmark harness that defines the mathematical strategy atlas, provider strategy-classification packets, and public pre-oracle strategy hypotheses.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/run_prover_graph_benchmark.py",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -55,7 +55,7 @@
       "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
       "source_role": "Macro provider receipt reducer body that validates strategy_id advisories and blocks proof/oracle leakage before row-patch acceptance.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/tools/meta/factory/reduce_prover_provider_receipts.py",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -81,7 +81,7 @@
       "source_ref": "system/server/tests/test_prover_graph_benchmark_harness.py",
       "source_role": "Macro harness regression tests for split-aware prover manifests, statement-only hammer search, skill-atlas overlay, and proof-body leakage boundaries.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/system/server/tests/test_prover_graph_benchmark_harness.py",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_graph_benchmark_harness.py",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -107,7 +107,7 @@
       "source_ref": "system/server/tests/test_prover_provider_strategy_classification_reducer.py",
       "source_role": "Macro reducer regression tests proving provider strategy classifications accept known ids and reject proof-body, oracle, and schema leakage.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/system/server/tests/test_prover_provider_strategy_classification_reducer.py",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/system/server/tests/test_prover_provider_strategy_classification_reducer.py",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -133,7 +133,7 @@
       "source_ref": "codex/standards/std_compute_provider.json",
       "source_role": "Compute-provider standard body defining the prover_strategy_classification schema, strategy enum, forbidden surfaces, and advisory-only authority ceiling.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/codex/standards/std_compute_provider.json",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/codex/standards/std_compute_provider.json",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -159,7 +159,7 @@
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
       "source_role": "Macro runtime artifact carrying the public mathematical_strategy_atlas_v0 strategy card set used by the prover context sweep.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -185,7 +185,7 @@
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
       "source_role": "Macro runtime artifact showing the pre-oracle strategy hypothesis set for strategy_nat_succ_injective without proof bodies or oracle labels visible.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",
@@ -211,7 +211,7 @@
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json",
       "source_role": "Macro runtime artifact carrying the skill-foundry candidate atlas derived from the strategy cards while preserving oracle/proof-body boundaries.",
       "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/mathematical_strategy_atlas_hypothesis_scorer/exported_mathematical_strategy_atlas_bundle/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json",
+      "target_ref": "microcosm-substrate/fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input/source_artifacts/state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json",
       "validation_refs": [
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_exported_source_modules_are_exact_copies",
         "tests/test_mathematical_strategy_atlas_hypothesis_scorer.py::test_mathematical_strategy_atlas_fixture_source_modules_are_exact_copies",

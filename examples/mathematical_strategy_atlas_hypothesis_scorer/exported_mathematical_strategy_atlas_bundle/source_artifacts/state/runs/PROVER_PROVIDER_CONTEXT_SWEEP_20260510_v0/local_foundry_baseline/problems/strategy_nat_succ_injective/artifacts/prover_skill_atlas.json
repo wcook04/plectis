@@ -1,0 +1,581 @@
+{
+  "cells": [
+    {
+      "case_memory": {
+        "adaptation_notes": [
+          "Promote the Ring-2/strategy orientation failure into a reusable skill-cell repair.",
+          "Foundry seed: keep orientation as an explicit candidate, but require perturbation evidence before global promotion."
+        ],
+        "derived_abstractions": [
+          "orientation repair as proof-synthesis step, not oracle repair"
+        ],
+        "negative_cases": [
+          {
+            "failure": "strategy and premise hit, proof skeleton emitted direct theorem orientation",
+            "problem_id": "strategy_list_length_append_symmetry_hit_fail",
+            "source_run": "PROVER_BENCHMARK_STRATEGY_20260510_control_graph_v0"
+          }
+        ],
+        "positive_cases": []
+      },
+      "critic": {
+        "Lean_error_interpretation": "If the equality premise is retrieved and direct exact fails, try the symmetric orientation before broad tactic search.",
+        "expected_failure_modes": [
+          "PREMISE_RETRIEVAL_MISS",
+          "PROOF_SYNTHESIS_FAIL",
+          "STRATEGY_SELECTION_MISS"
+        ],
+        "mismatch_diagnostics": [
+          "retrieved premise missing",
+          "strategy selected a non-orientation lens",
+          "retrieved theorem family matches but sides are reversed"
+        ]
+      },
+      "evaluation": {
+        "leakage_boundaries": [
+          "truth-side proof bodies remain oracle-only",
+          "oracle_needed_premise_ids are audited only after Lean check"
+        ],
+        "metrics": [
+          "skill_selection_count",
+          "orientation_failure_repaired_count",
+          "proof_success_given_skill_hit"
+        ],
+        "promotion_gate": "quarantine unless it repairs more than the seed length_append symmetry case",
+        "train_dev_test_policy": "skill may be selected on train/dev and reported on test; no proof-body leakage"
+      },
+      "family": "equality_orientation",
+      "mathematical_lens": "A retrieved equality theorem may need to be applied symmetrically or rewritten in the opposite direction before it matches the target.",
+      "proof_plan_method": {
+        "fallback_templates": [
+          "classify PROOF_SYNTHESIS_FAIL_ORIENTATION if premise hit still fails"
+        ],
+        "skeleton_templates": [
+          "exact <retrieved equality theorem>",
+          "exact Eq.symm <retrieved equality theorem>",
+          "rw [<retrieved equality theorem>]",
+          "rw [<- <retrieved equality theorem>]"
+        ],
+        "tactic_templates": [
+          "exact Eq.symm",
+          "rw",
+          "simp"
+        ]
+      },
+      "provenance": {
+        "local_doctrine_refs": [
+          "codex/doctrine/paper_modules/mathematics_mission_pipeline.md",
+          "codex/doctrine/missions/prover_lab.md",
+          "codex/doctrine/missions/prover_oracle.md",
+          "codex/doctrine/missions/prover_evolve.md"
+        ],
+        "public_prior_art": [
+          "proof planning",
+          "LeanDojo/ReProver",
+          "Schoenfeld control"
+        ],
+        "source_runs": [
+          "state/runs/PROVER_BENCHMARK_STRATEGY_20260510_control_graph_v0/graph_variant_comparison.json",
+          "state/runs/PROVER_SKILL_ATLAS_20260510_composition_root_v0/graph_variant_comparison.json"
+        ],
+        "source_strategy_cards": [
+          "symmetry_or_orientation",
+          "equality_normal_form"
+        ]
+      },
+      "recognizer": {
+        "confidence_rule": "High when the selected strategy is symmetry_or_orientation and a retrieved equality premise names the same theorem family as the target.",
+        "negative_features": [
+          "direct_orientation",
+          "non_equality_target"
+        ],
+        "trigger_features": [
+          "equality_target",
+          "reversed_orientation",
+          "symmetry_needed",
+          "length_append"
+        ]
+      },
+      "repair_policy": {
+        "bounded_repairs": [
+          "Eq.symm wrapper",
+          "rewrite direction flip"
+        ],
+        "induction_variable_repair": "not_applicable",
+        "orientation_rules": [
+          "prefer Eq.symm for theorem-shaped equality facts",
+          "prefer rewrite direction only after exact orientation fails"
+        ],
+        "rewrite_direction_repair": "allowed_without_oracle_body_copy"
+      },
+      "retrieval_policy": {
+        "allowed_source_rules": [
+          "use only premise ids/statements retrieved before oracle",
+          "do not read candidate_body, ideal_body, repair_body, or retrieval_body fixtures"
+        ],
+        "concept_targets": [
+          "Eq.symm",
+          "rewrite direction"
+        ],
+        "premise_family_targets": [
+          "equality theorem",
+          "length append theorem"
+        ],
+        "query_expansion_terms": [
+          "orientation",
+          "symmetry",
+          "reverse",
+          "rewrite",
+          "length",
+          "append"
+        ]
+      },
+      "schema_version": "prover_skill_cell_v0",
+      "skill_id": "skill_equality_orientation_v1",
+      "view_generator": {
+        "related_problem_moves": [
+          "symmetry",
+          "rewrite direction",
+          "normal-form orientation"
+        ],
+        "representation_transforms": [
+          "direct theorem view",
+          "symmetric theorem view",
+          "rewrite-forward view",
+          "rewrite-backward view"
+        ],
+        "subproblem_templates": [
+          "match target lhs/rhs against retrieved equality rhs/lhs",
+          "choose Eq.symm when direct exact fails by reversed sides"
+        ]
+      }
+    },
+    {
+      "case_memory": {
+        "adaptation_notes": [
+          "Treat irrelevant retrieved-premise citation as a reusable proof-synthesis failure cluster."
+        ],
+        "derived_abstractions": [
+          "target-family matching before theorem exact"
+        ],
+        "negative_cases": [
+          {
+            "failure": "strategy and premise hit, but skeleton cited an unrelated retrieved equality theorem",
+            "problem_ids": [
+              "strategy_bool_not_not",
+              "strategy_list_length_append",
+              "strategy_list_reverse_reverse"
+            ],
+            "source_run": "PROVER_SKILL_ATLAS_20260510_composition_root_v0"
+          }
+        ],
+        "positive_cases": []
+      },
+      "critic": {
+        "Lean_error_interpretation": "If a retrieved equality theorem from the wrong family is cited, debit proof synthesis rather than retrieval.",
+        "expected_failure_modes": [
+          "PROOF_SYNTHESIS_FAIL",
+          "PREMISE_RETRIEVAL_MISS",
+          "STRATEGY_SELECTION_MISS"
+        ],
+        "mismatch_diagnostics": [
+          "wrong retrieved premise cited",
+          "target family token missed",
+          "retrieved theorem has right family but wrong orientation"
+        ]
+      },
+      "evaluation": {
+        "leakage_boundaries": [
+          "oracle_needed_premise_ids remain oracle-only",
+          "proof bodies remain oracle-only"
+        ],
+        "metrics": [
+          "family_mismatch_repaired_count",
+          "proof_success_given_family_match",
+          "leakage_count"
+        ],
+        "train_dev_test_policy": "evaluate across train/dev/test as report-only for held-out cases"
+      },
+      "family": "equality_normal_form",
+      "mathematical_lens": "When equality-normal-form retrieval returns several true equality premises, choose the premise family that matches the target representation before emitting Lean.",
+      "proof_plan_method": {
+        "fallback_templates": [
+          "classify PROOF_SYNTHESIS_FAIL_FAMILY_MISMATCH if the target family match still fails"
+        ],
+        "skeleton_templates": [
+          "exact Bool.not_not b",
+          "exact List.reverse_reverse xs",
+          "exact List.length_append",
+          "exact Nat.add_comm m n"
+        ],
+        "tactic_templates": [
+          "exact",
+          "rw",
+          "simp"
+        ]
+      },
+      "provenance": {
+        "local_doctrine_refs": [
+          "codex/doctrine/paper_modules/mathematics_mission_pipeline.md"
+        ],
+        "public_prior_art": [
+          "proof planning",
+          "DreamCoder abstraction loop",
+          "derivational analogy"
+        ],
+        "source_runs": [
+          "state/runs/PROVER_SKILL_ATLAS_20260510_composition_root_v0/graph_variant_comparison.json"
+        ],
+        "source_strategy_cards": [
+          "equality_normal_form"
+        ]
+      },
+      "recognizer": {
+        "confidence_rule": "High when equality_normal_form was selected, the oracle-needed family was retrieved pre-oracle, and the v0 skeleton cited a different retrieved premise.",
+        "negative_features": [
+          "reversed_orientation",
+          "non_equality_target"
+        ],
+        "trigger_features": [
+          "equality_target",
+          "bool_not",
+          "list_reverse",
+          "length_append",
+          "nat_add"
+        ]
+      },
+      "repair_policy": {
+        "bounded_repairs": [
+          "target-family premise selection"
+        ],
+        "induction_variable_repair": "not_applicable",
+        "orientation_rules": [
+          "defer reversed orientation to skill_equality_orientation_v1"
+        ],
+        "rewrite_direction_repair": "not_in_this_cell"
+      },
+      "retrieval_policy": {
+        "allowed_source_rules": [
+          "use only retrieved premise ids/statements and target syntax",
+          "do not read oracle_needed_premise_ids before Lean check"
+        ],
+        "concept_targets": [
+          "target-family match",
+          "retrieval-rank override"
+        ],
+        "premise_family_targets": [
+          "Bool.not_not",
+          "List.reverse_reverse",
+          "List.length_append",
+          "Nat.add_comm"
+        ],
+        "query_expansion_terms": [
+          "equality",
+          "normal",
+          "bool not_not",
+          "reverse_reverse",
+          "length_append",
+          "add_comm"
+        ]
+      },
+      "schema_version": "candidate_prover_skill_cell_v0",
+      "skill_id": "skill_equality_family_disambiguation_v0",
+      "view_generator": {
+        "related_problem_moves": [
+          "premise family disambiguation",
+          "normal-form theorem selection"
+        ],
+        "representation_transforms": [
+          "Boolean involution view",
+          "list reverse involution view",
+          "list length append view",
+          "Nat commutativity view"
+        ],
+        "subproblem_templates": [
+          "match target tokens against retrieved theorem family before exact",
+          "prefer family match over highest retrieval rank"
+        ]
+      }
+    },
+    {
+      "case_memory": {
+        "adaptation_notes": [
+          "Quarantine as corpus/index readiness, not a proof-method promotion."
+        ],
+        "derived_abstractions": [
+          "retrieval miss must not be counted as skill failure"
+        ],
+        "negative_cases": [
+          {
+            "failure": "strategy hit but premise was intentionally withheld from allowed source slice",
+            "problem_id": "strategy_list_map_map_index_miss",
+            "source_run": "PROVER_SKILL_ATLAS_20260510_composition_root_v0"
+          }
+        ],
+        "positive_cases": []
+      },
+      "critic": {
+        "Lean_error_interpretation": "Do not debit proof synthesis when the premise is absent from the allowed index.",
+        "expected_failure_modes": [
+          "PREMISE_RETRIEVAL_MISS"
+        ],
+        "mismatch_diagnostics": [
+          "source index omission",
+          "novel premise split"
+        ]
+      },
+      "evaluation": {
+        "leakage_boundaries": [
+          "oracle repair remains comparator only"
+        ],
+        "metrics": [
+          "premise_miss_count",
+          "index_expansion_needed"
+        ],
+        "train_dev_test_policy": "quarantine until a non-held-out source slice contains map_map"
+      },
+      "family": "composition_fusion",
+      "mathematical_lens": "Nested map/fusion goals need the map_map family in the allowed premise index; a proof skill cannot compensate when the premise is withheld.",
+      "proof_plan_method": {
+        "fallback_templates": [
+          "quarantine when premise is not in allowed source slice"
+        ],
+        "skeleton_templates": [
+          "exact List.map_map"
+        ],
+        "tactic_templates": [
+          "exact",
+          "simp [Function.comp_def]"
+        ]
+      },
+      "provenance": {
+        "local_doctrine_refs": [
+          "codex/doctrine/paper_modules/mathematics_mission_pipeline.md"
+        ],
+        "public_prior_art": [
+          "LeanDojo novel-premise split"
+        ],
+        "source_runs": [
+          "state/runs/PROVER_SKILL_ATLAS_20260510_composition_root_v0/graph_variant_comparison.json"
+        ],
+        "source_strategy_cards": [
+          "composition_fusion"
+        ]
+      },
+      "recognizer": {
+        "confidence_rule": "High when composition_fusion is selected and map_map is absent from retrieved premises.",
+        "negative_features": [
+          "premise_list_map_map_retrieved"
+        ],
+        "trigger_features": [
+          "nested_map",
+          "function_composition"
+        ]
+      },
+      "repair_policy": {
+        "bounded_repairs": [],
+        "induction_variable_repair": "not_applicable",
+        "orientation_rules": [],
+        "rewrite_direction_repair": "not_applicable"
+      },
+      "retrieval_policy": {
+        "allowed_source_rules": [
+          "requires index/source expansion; no oracle proof-body copy"
+        ],
+        "concept_targets": [
+          "function composition"
+        ],
+        "premise_family_targets": [
+          "List.map_map"
+        ],
+        "query_expansion_terms": [
+          "map",
+          "map_map",
+          "fusion",
+          "composition"
+        ]
+      },
+      "schema_version": "candidate_prover_skill_cell_v0",
+      "skill_id": "skill_composition_fusion_index_expansion_v0",
+      "view_generator": {
+        "related_problem_moves": [
+          "source index expansion"
+        ],
+        "representation_transforms": [
+          "map fusion view"
+        ],
+        "subproblem_templates": [
+          "retrieve map_map before proof synthesis"
+        ]
+      }
+    },
+    {
+      "case_memory": {
+        "adaptation_notes": [
+          "Do not promote from test-only evidence."
+        ],
+        "derived_abstractions": [
+          "strategy scorer fixes need train/dev perturbations"
+        ],
+        "negative_cases": [
+          {
+            "failure": "held-out strategy selection miss",
+            "problem_id": "strategy_list_length_append_wrong_lens",
+            "source_run": "PROVER_SKILL_ATLAS_20260510_composition_root_v0"
+          }
+        ],
+        "positive_cases": []
+      },
+      "critic": {
+        "Lean_error_interpretation": "Wrong strategy lens, not premise retrieval.",
+        "expected_failure_modes": [
+          "STRATEGY_SELECTION_MISS"
+        ],
+        "mismatch_diagnostics": [
+          "generic equality scorer outranked orientation cue"
+        ]
+      },
+      "evaluation": {
+        "leakage_boundaries": [
+          "no prompt tuning on test split"
+        ],
+        "metrics": [
+          "strategy_selection_miss_count"
+        ],
+        "train_dev_test_policy": "quarantine; held-out case is report-only"
+      },
+      "family": "strategy_selection",
+      "mathematical_lens": "Detect reversed-orientation language before generic equality-normal-form wins the strategy scorer.",
+      "proof_plan_method": {
+        "fallback_templates": [
+          "defer until train/dev perturbation validates trigger"
+        ],
+        "skeleton_templates": [
+          "exact Eq.symm <retrieved equality theorem>"
+        ],
+        "tactic_templates": [
+          "exact Eq.symm"
+        ]
+      },
+      "provenance": {
+        "local_doctrine_refs": [
+          "codex/doctrine/paper_modules/mathematics_mission_pipeline.md"
+        ],
+        "public_prior_art": [
+          "Schoenfeld control",
+          "proof planning"
+        ],
+        "source_runs": [
+          "state/runs/PROVER_SKILL_ATLAS_20260510_composition_root_v0/graph_variant_comparison.json"
+        ],
+        "source_strategy_cards": [
+          "symmetry_or_orientation",
+          "equality_normal_form"
+        ]
+      },
+      "recognizer": {
+        "confidence_rule": "Requires train/dev evidence; current witness is held-out report-only.",
+        "negative_features": [
+          "direct_orientation"
+        ],
+        "trigger_features": [
+          "equality_target",
+          "reversed_orientation",
+          "length_append"
+        ]
+      },
+      "repair_policy": {
+        "bounded_repairs": [
+          "strategy trigger score patch"
+        ],
+        "induction_variable_repair": "not_applicable",
+        "orientation_rules": [
+          "prefer orientation when reversed cue is explicit"
+        ],
+        "rewrite_direction_repair": "through skill_equality_orientation_v1"
+      },
+      "retrieval_policy": {
+        "allowed_source_rules": [
+          "do not tune directly on held-out failure"
+        ],
+        "concept_targets": [
+          "strategy trigger calibration"
+        ],
+        "premise_family_targets": [
+          "List.length_append"
+        ],
+        "query_expansion_terms": [
+          "orientation",
+          "opposite",
+          "symmetry",
+          "length_append"
+        ]
+      },
+      "schema_version": "candidate_prover_skill_cell_v0",
+      "skill_id": "skill_reversed_orientation_trigger_v0",
+      "view_generator": {
+        "related_problem_moves": [
+          "strategy scorer trigger adjustment"
+        ],
+        "representation_transforms": [
+          "symmetric theorem view"
+        ],
+        "subproblem_templates": [
+          "route to symmetry_or_orientation before retrieval"
+        ]
+      }
+    }
+  ],
+  "composition_root": "prover_skill_atlas_v0_run_artifact",
+  "leakage_policy": {
+    "oracle_needed_premise_ids_visible_before_check": false,
+    "oracle_repair_is_comparator_not_forward_skill_success": true,
+    "truth_side_proof_bodies_in_skill_cells": false
+  },
+  "schema_version": "prover_skill_foundry_candidate_atlas_v0",
+  "skill_cell_count": 4,
+  "source_id": "prover_skill_foundry_v0",
+  "strategy_card_mapping": [
+    {
+      "mapped_candidate_skill_ids": [
+        "skill_equality_orientation_v1",
+        "skill_equality_family_disambiguation_v0",
+        "skill_reversed_orientation_trigger_v0"
+      ],
+      "strategy_id": "equality_normal_form"
+    },
+    {
+      "mapped_candidate_skill_ids": [],
+      "strategy_id": "iff_split"
+    },
+    {
+      "mapped_candidate_skill_ids": [],
+      "strategy_id": "constructor_injectivity"
+    },
+    {
+      "mapped_candidate_skill_ids": [],
+      "strategy_id": "recursive_data_induction"
+    },
+    {
+      "mapped_candidate_skill_ids": [],
+      "strategy_id": "membership_decomposition"
+    },
+    {
+      "mapped_candidate_skill_ids": [
+        "skill_composition_fusion_index_expansion_v0"
+      ],
+      "strategy_id": "composition_fusion"
+    },
+    {
+      "mapped_candidate_skill_ids": [
+        "skill_equality_orientation_v1",
+        "skill_reversed_orientation_trigger_v0"
+      ],
+      "strategy_id": "symmetry_or_orientation"
+    },
+    {
+      "mapped_candidate_skill_ids": [],
+      "strategy_id": "contradiction_or_false_target"
+    }
+  ]
+}

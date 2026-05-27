@@ -1,0 +1,352 @@
+{
+  "card_count": 8,
+  "cards": [
+    {
+      "credit_assignment_rule": "Credit when normalization strategy is selected before oracle and Lean accepts or fails only on tactic orientation.",
+      "expected_problem_shapes": [
+        "Nat equality",
+        "Bool equality",
+        "List length/reverse equality"
+      ],
+      "failure_modes": [
+        "wrong orientation",
+        "premise retrieved but not applicable"
+      ],
+      "leakage_boundary": "No proof body or oracle-needed premise id is visible before Lean check.",
+      "lean_tactic_affordances": [
+        "exact",
+        "rw",
+        "simp"
+      ],
+      "likely_required_premises": [
+        "premise_nat_add_comm",
+        "premise_nat_add_assoc",
+        "premise_bool_not_not",
+        "premise_list_reverse_reverse",
+        "premise_list_length_append"
+      ],
+      "mathematical_lens": "View the target as two expressions to normalize toward a shared canonical form.",
+      "name": "Equality normal form",
+      "negative_triggers": [
+        "reversed_orientation"
+      ],
+      "oracle_diagnostics": [
+        "PROOF_SYNTHESIS_FAIL",
+        "STRATEGY_SELECTION_MISS"
+      ],
+      "proof_plan_template": "try exact/rewrite/simp using the highest-scoring equality premise",
+      "representation_transform": "Normalize both sides by theorem families such as commutativity, associativity, involution, or length lemmas.",
+      "retrieval_expansion_terms": [
+        "equality",
+        "normal",
+        "nat",
+        "bool",
+        "length",
+        "reverse"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "equality_normal_form",
+      "trigger_features": [
+        "equality_target",
+        "nat_add",
+        "bool_not",
+        "list_reverse",
+        "length_append"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when iff target routes to bidirectional proof planning.",
+      "expected_problem_shapes": [
+        "P <-> Q from P -> Q and Q -> P"
+      ],
+      "failure_modes": [
+        "hypotheses not aligned",
+        "using Iff.rfl when directions are not definitional"
+      ],
+      "leakage_boundary": "Only statement and Iff.intro premise statement are visible before oracle.",
+      "lean_tactic_affordances": [
+        "intro",
+        "exact Iff.intro"
+      ],
+      "likely_required_premises": [
+        "premise_iff_intro"
+      ],
+      "mathematical_lens": "Treat an iff target as two directed implications.",
+      "name": "Iff split",
+      "negative_triggers": [
+        "pure_equality"
+      ],
+      "oracle_diagnostics": [
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "intro both implication hypotheses; exact Iff.intro hpq hqp",
+      "representation_transform": "Construct Iff.intro and solve both directions.",
+      "retrieval_expansion_terms": [
+        "iff",
+        "intro",
+        "implication",
+        "equivalence"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "iff_split",
+      "trigger_features": [
+        "iff_target",
+        "two_implications"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when constructor equality triggers injection before retrieval.",
+      "expected_problem_shapes": [
+        "Nat.succ m = Nat.succ n -> m = n"
+      ],
+      "failure_modes": [
+        "wrong constructor family",
+        "missing no-confusion/injection lemma"
+      ],
+      "leakage_boundary": "The proof body remains oracle-only.",
+      "lean_tactic_affordances": [
+        "intro",
+        "exact Nat.succ.inj"
+      ],
+      "likely_required_premises": [
+        "premise_nat_succ_inj"
+      ],
+      "mathematical_lens": "Equality of constructed values can imply equality of constructor arguments.",
+      "name": "Constructor injectivity",
+      "negative_triggers": [
+        "not_constructor_target"
+      ],
+      "oracle_diagnostics": [
+        "PREMISE_RETRIEVAL_MISS",
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "intro h; exact Nat.succ.inj h",
+      "representation_transform": "Introduce the equality and apply the constructor injectivity theorem.",
+      "retrieval_expansion_terms": [
+        "successor",
+        "injective",
+        "constructor",
+        "inj",
+        "nat"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "constructor_injectivity",
+      "trigger_features": [
+        "constructor_equality",
+        "succ_equality"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when recursive-data shape triggers induction/library-recursion planning.",
+      "expected_problem_shapes": [
+        "forall n, n + 0 = n",
+        "list recursion properties"
+      ],
+      "failure_modes": [
+        "wrong induction variable",
+        "base/step mismatch"
+      ],
+      "leakage_boundary": "No oracle proof body in forward induction skeleton.",
+      "lean_tactic_affordances": [
+        "induction",
+        "simp",
+        "exact Nat.add_zero"
+      ],
+      "likely_required_premises": [
+        "premise_nat_add_zero"
+      ],
+      "mathematical_lens": "Quantified goals over recursively defined data often want induction or a library induction theorem.",
+      "name": "Recursive data induction",
+      "negative_triggers": [
+        "closed_ground_term"
+      ],
+      "oracle_diagnostics": [
+        "DECOMPOSITION_BAD",
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "try Nat.add_zero; otherwise induction on the recursive argument",
+      "representation_transform": "Choose the recursive argument and either apply the library lemma or emit an induction skeleton.",
+      "retrieval_expansion_terms": [
+        "induction",
+        "recursive",
+        "zero",
+        "successor",
+        "add_zero"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "recursive_data_induction",
+      "trigger_features": [
+        "quantified_nat",
+        "recursive_function",
+        "add_zero"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when constructed-membership targets expand retrieval with membership lemmas.",
+      "expected_problem_shapes": [
+        "a in xs ++ ys iff a in xs or a in ys"
+      ],
+      "failure_modes": [
+        "wrong collection constructor",
+        "missing iff orientation"
+      ],
+      "leakage_boundary": "No known proof body in premise index.",
+      "lean_tactic_affordances": [
+        "exact List.mem_append"
+      ],
+      "likely_required_premises": [
+        "premise_list_mem_append"
+      ],
+      "mathematical_lens": "Membership in a constructed collection is equivalent to membership in its parts.",
+      "name": "Membership decomposition",
+      "negative_triggers": [
+        "numeric_equality"
+      ],
+      "oracle_diagnostics": [
+        "PREMISE_RETRIEVAL_MISS",
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "exact List.mem_append",
+      "representation_transform": "Retrieve and apply the collection membership characterization lemma.",
+      "retrieval_expansion_terms": [
+        "membership",
+        "mem",
+        "append",
+        "or",
+        "list"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "membership_decomposition",
+      "trigger_features": [
+        "list_membership",
+        "append_membership",
+        "iff_target"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when nested-map view expands retrieval to fusion premises.",
+      "expected_problem_shapes": [
+        "map g (map f xs) = map (g o f) xs"
+      ],
+      "failure_modes": [
+        "premise index omits fusion lemma",
+        "function composition notation mismatch"
+      ],
+      "leakage_boundary": "Oracle needed premise ids are audited only after Lean check.",
+      "lean_tactic_affordances": [
+        "exact List.map_map",
+        "simp [Function.comp_def]"
+      ],
+      "likely_required_premises": [
+        "premise_list_map_map"
+      ],
+      "mathematical_lens": "Nested structure-preserving operations may fuse into one operation over a composed function.",
+      "name": "Composition fusion",
+      "negative_triggers": [
+        "non_nested_map"
+      ],
+      "oracle_diagnostics": [
+        "PREMISE_RETRIEVAL_MISS",
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "exact List.map_map",
+      "representation_transform": "Search map/fusion lemmas and orient the composed function correctly.",
+      "retrieval_expansion_terms": [
+        "map",
+        "composition",
+        "compose",
+        "fusion",
+        "function"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "composition_fusion",
+      "trigger_features": [
+        "nested_map",
+        "function_composition"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit strategy selection separately from proof synthesis success.",
+      "expected_problem_shapes": [
+        "rhs = lhs when library lemma gives lhs = rhs"
+      ],
+      "failure_modes": [
+        "strategy selected but v0 skeleton emits the direct theorem only"
+      ],
+      "leakage_boundary": "Orientation diagnosis is oracle-side after check.",
+      "lean_tactic_affordances": [
+        "exact Eq.symm",
+        "rw [<- lemma]"
+      ],
+      "likely_required_premises": [
+        "premise_list_length_append"
+      ],
+      "mathematical_lens": "A retrieved equality premise may solve the target only after reversing or rewriting in the right direction.",
+      "name": "Symmetry or orientation",
+      "negative_triggers": [
+        "direct_orientation"
+      ],
+      "oracle_diagnostics": [
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "try Eq.symm around the direct equality premise",
+      "representation_transform": "Try Eq.symm or directed rewrite after retrieving the direct lemma.",
+      "retrieval_expansion_terms": [
+        "orientation",
+        "symmetric",
+        "reverse",
+        "length",
+        "append"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "symmetry_or_orientation",
+      "trigger_features": [
+        "reversed_orientation",
+        "symmetry_needed"
+      ]
+    },
+    {
+      "credit_assignment_rule": "Credit when contradiction shape avoids irrelevant premise lookup.",
+      "expected_problem_shapes": [
+        "False -> P"
+      ],
+      "failure_modes": [
+        "contradiction hypothesis not named or not present"
+      ],
+      "leakage_boundary": "No theorem proof body required.",
+      "lean_tactic_affordances": [
+        "cases h",
+        "exact False.elim h"
+      ],
+      "likely_required_premises": [],
+      "mathematical_lens": "False assumptions or impossible targets collapse by contradiction elimination.",
+      "name": "Contradiction or false target",
+      "negative_triggers": [
+        "constructive_data_target"
+      ],
+      "oracle_diagnostics": [
+        "PROOF_SYNTHESIS_FAIL"
+      ],
+      "proof_plan_template": "exact False.elim h",
+      "representation_transform": "Introduce/case-analyze the contradiction and eliminate False.",
+      "retrieval_expansion_terms": [
+        "false",
+        "contradiction",
+        "absurd",
+        "cases"
+      ],
+      "schema_version": "mathematical_strategy_card_v0",
+      "strategy_id": "contradiction_or_false_target",
+      "trigger_features": [
+        "false_assumption",
+        "negated_target"
+      ]
+    }
+  ],
+  "leakage_policy": {
+    "oracle_expected_strategy_visible_to_lab": false,
+    "truth_side_proof_bodies_in_cards": false
+  },
+  "schema_version": "mathematical_strategy_atlas_v0",
+  "source_id": "lean_std_strategy_cards_v0"
+}

@@ -32,14 +32,13 @@ BUNDLE_RESULT_NAME = "exported_mathematical_strategy_atlas_bundle_validation_res
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 CARD_SCHEMA_VERSION = "mathematical_strategy_atlas_hypothesis_scorer_command_card_v1"
 BODY_MATERIAL_STATUS = (
-    "copied_non_secret_macro_strategy_atlas_tool_body_with_provenance"
+    "copied_non_secret_macro_strategy_atlas_body_floor_with_provenance"
 )
-SOURCE_MODULE_IMPORT_STATUS = (
-    "copied_strategy_atlas_macro_tool_source_modules_verified"
-)
+SOURCE_MODULE_IMPORT_STATUS = "copied_strategy_atlas_macro_body_floor_verified"
 PUBLIC_SAFE_BODY_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_tool_body",
+    "public_macro_standard_body",
     "public_macro_receipt_body",
     "public_macro_proof_body",
 }
@@ -51,6 +50,24 @@ SOURCE_PATTERN_IDS = [
 SOURCE_REFS = [
     "tools/meta/factory/run_prover_graph_benchmark.py",
     "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "system/server/tests/test_prover_graph_benchmark_harness.py",
+    "system/server/tests/test_prover_provider_strategy_classification_reducer.py",
+    "codex/standards/std_compute_provider.json",
+    (
+        "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/"
+        "local_foundry_baseline/problems/strategy_nat_succ_injective/"
+        "artifacts/strategy_cards.json"
+    ),
+    (
+        "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/"
+        "local_foundry_baseline/problems/strategy_nat_succ_injective/"
+        "artifacts/strategy_hypothesis_set.json"
+    ),
+    (
+        "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/"
+        "local_foundry_baseline/problems/strategy_nat_succ_injective/"
+        "artifacts/prover_skill_atlas.json"
+    ),
 ]
 
 UNKNOWN_STRATEGY_ID = "unknown"
@@ -206,6 +223,22 @@ def _line_count(path: Path) -> int:
     return len(path.read_text(encoding="utf-8").splitlines())
 
 
+def _int_or_none(value: object) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _required_anchors(row: dict[str, Any]) -> list[str]:
+    anchors = row.get("required_anchors", [])
+    if not isinstance(anchors, list):
+        return []
+    return [str(anchor) for anchor in anchors if isinstance(anchor, str)]
+
+
 def _finding(
     code: str,
     message: str,
@@ -298,6 +331,15 @@ def validate_source_module_imports(
         expected_digest = _normalize_sha256(row.get("sha256"))
         exists = target.is_file()
         actual_digest = _sha256(target) if exists else None
+        actual_line_count = _line_count(target) if exists else None
+        actual_byte_count = len(target.read_bytes()) if exists else None
+        expected_line_count = _int_or_none(row.get("line_count"))
+        expected_byte_count = _int_or_none(row.get("byte_count"))
+        required_anchors = _required_anchors(row)
+        target_text = target.read_text(encoding="utf-8") if exists else ""
+        missing_required_anchors = [
+            anchor for anchor in required_anchors if anchor not in target_text
+        ]
         material_class = str(row.get("material_class") or "")
         source_ref = str(row.get("source_ref") or "")
         target_ref = _display(target, public_root=public_root)
@@ -314,10 +356,16 @@ def validate_source_module_imports(
             "source_to_target_relation": str(
                 row.get("source_to_target_relation") or "exact_copy"
             ),
-            "source_line_count": _line_count(target) if exists else None,
-            "target_line_count": _line_count(target) if exists else None,
+            "manifest_line_count": expected_line_count,
+            "source_line_count": actual_line_count,
+            "target_line_count": actual_line_count,
+            "manifest_byte_count": expected_byte_count,
+            "target_byte_count": actual_byte_count,
+            "required_anchor_count": len(required_anchors),
+            "missing_required_anchors": missing_required_anchors,
             "body_in_receipt": False,
             "body_material_status": BODY_MATERIAL_STATUS,
+            "source_role": str(row.get("source_role") or ""),
         }
         imports.append(import_row)
 
@@ -366,6 +414,44 @@ def validate_source_module_imports(
                 _finding(
                     "MATH_STRATEGY_SOURCE_MODULE_DIGEST_MISMATCH",
                     "Copied source module digest must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if (
+            exists
+            and expected_line_count is not None
+            and actual_line_count != expected_line_count
+        ):
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_LINE_COUNT_MISMATCH",
+                    "Copied source module line count must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if (
+            exists
+            and expected_byte_count is not None
+            and actual_byte_count != expected_byte_count
+        ):
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_BYTE_COUNT_MISMATCH",
+                    "Copied source module byte count must match the source_module_manifest row.",
+                    case_id="source_module_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        if exists and missing_required_anchors:
+            findings.append(
+                _finding(
+                    "MATH_STRATEGY_SOURCE_MODULE_REQUIRED_ANCHOR_MISSING",
+                    "Copied source module must contain every required anchor from the manifest row.",
                     case_id="source_module_floor",
                     subject_id=module_id,
                     subject_kind="source_module",
