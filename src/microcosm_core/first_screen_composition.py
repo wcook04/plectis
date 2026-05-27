@@ -774,6 +774,112 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
     }
 
 
+def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
+    human_first_command = f"microcosm hello {project_label}"
+    shared_first_command = f"microcosm tour --card {project_label}"
+    return {
+        "schema_version": "microcosm_cold_entry_problem_map_v1",
+        "purpose": "bind_cold_entry_problem_shapes_to_existing_first_screen_packets",
+        "map_rule": (
+            "Each cold-entry problem shape must resolve to an existing first-screen "
+            "packet or drilldown. The map explains why the packet exists; it does "
+            "not create a second entry artifact."
+        ),
+        "rows": [
+            {
+                "problem_shape_id": "first_thing_best_thing_gap",
+                "reader_risk": "long_inventory_before_best_evidence",
+                "compression_answer": "open_the_map_then_run_the_shared_behavior_card",
+                "primary_packet": "first_run_ladder",
+                "first_surface": human_first_command,
+                "proof_surface": shared_first_command,
+                "not_claim": "quickstart_inventory_complete",
+            },
+            {
+                "problem_shape_id": "audience_is_not_one_person",
+                "reader_risk": "one_generic_pitch_overloads_three_jobs",
+                "compression_answer": "shared_behavior_first_then_reader_typed_branch",
+                "primary_packet": "reader_landing_packets",
+                "first_surface": "reader_routes",
+                "proof_surface": "reader_exit_criteria",
+                "not_claim": "reader_success_or_reader_specific_authority",
+            },
+            {
+                "problem_shape_id": "honest_numbers_without_context",
+                "reader_risk": "low_counts_read_as_failure_or_hidden_maturity_score",
+                "compression_answer": "make_counts_claim_boundary_accounting",
+                "primary_packet": "evidence_count_frame",
+                "first_surface": EVIDENCE_CLASS_REGISTRY_REF,
+                "proof_surface": "evidence_class_legend",
+                "not_claim": "maturity_readiness_or_progress_score",
+            },
+            {
+                "problem_shape_id": "discipline_invisible_without_comparison",
+                "reader_risk": "rigor_reads_as_ceremony_or_obviousness",
+                "compression_answer": "show_common_failures_and_visible_microcosm_boundaries",
+                "primary_packet": "comparison_frame",
+                "first_surface": "authority_ceiling",
+                "proof_surface": "overclaim_tripwire_matrix",
+                "not_claim": "external_benchmark_equivalence",
+            },
+            {
+                "problem_shape_id": "size_paradox",
+                "reader_risk": "large_public_substrate_reads_as_diffuse",
+                "compression_answer": "make_the_first_command_the_composition_root",
+                "primary_packet": "scale_frame",
+                "first_surface": shared_first_command,
+                "proof_surface": WORKINGNESS_MAP_REF,
+                "not_claim": "whole_system_correctness",
+            },
+            {
+                "problem_shape_id": "runnable_vs_structural_split",
+                "reader_risk": "local_demo_seen_apart_from_public_scale",
+                "compression_answer": "join_folder_local_state_to_structural_drilldowns",
+                "primary_packet": "runnable_structural_join",
+                "first_surface": ".microcosm/",
+                "proof_surface": "first_contact_surface_refs",
+                "not_claim": "private_root_equivalence",
+            },
+            {
+                "problem_shape_id": "doctrine_reads_as_ceremony",
+                "reader_risk": "governance_words_look_like_status_signaling",
+                "compression_answer": "translate_doctrine_handles_into_mistakes_prevented",
+                "primary_packet": "doctrine_effect_frame",
+                "first_surface": "authority_ceiling",
+                "proof_surface": "omission_receipt",
+                "not_claim": "doctrine_as_credential",
+            },
+            {
+                "problem_shape_id": "frontend_surface_not_seductive",
+                "reader_risk": "browser_or_video_viewers_miss_the_real_entry_contract",
+                "compression_answer": "make_browser_and_video_forms_project_the_same_card",
+                "primary_packet": "artifact_fit_matrix",
+                "first_surface": "observatory_landing_frame",
+                "proof_surface": "video_storyboard_packet",
+                "not_claim": "hosted_release_or_standalone_video_authority",
+            },
+            {
+                "problem_shape_id": "card_discipline_not_default",
+                "reader_risk": "compact_card_exists_but_is_not_the_first_loaded_surface",
+                "compression_answer": "make_hello_and_readme_order_point_at_the_card_first",
+                "primary_packet": "readme_entry_contract",
+                "first_surface": "text_projection",
+                "proof_surface": "entry_surface_contract",
+                "not_claim": "full_surface_removed_or_depth_weakened",
+            },
+        ],
+        "safe_to_show": {
+            "uses_existing_first_screen_packets": True,
+            "creates_new_entry_artifact": False,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_release_or_hosting": False,
+            "claims_reader_success": False,
+        },
+        "authority": "problem_shape_map_not_strategy_or_release_authority",
+    }
+
+
 def _evidence_count_frame() -> dict[str, Any]:
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -1181,9 +1287,10 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "preserve the shared first command, reader route ids, reader landing packets, "
             "behavior-proof packet, first-run ladder, local state receipt trail, "
             "overclaim tripwire matrix, reader exit criteria, evidence-count frame, "
-            "video-storyboard packet, artifact-fit matrix, evidence-class legend, "
-            "doctrine-effect frame, observatory landing frame, README-entry "
-            "contract, omission receipt, and authority ceiling."
+            "video-storyboard packet, artifact-fit matrix, cold-entry problem "
+            "map, evidence-class legend, doctrine-effect frame, observatory "
+            "landing frame, README-entry contract, omission receipt, and "
+            "authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -1242,7 +1349,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "The browser landing frame should show the hello card command, behavior proof, "
             "first-run ladder, local state receipt trail, first-contact surface refs, overclaim tripwires, "
             "reader branches, reader landing packets, reader exit criteria, video storyboard packet, "
-            "artifact fit matrix, public scale handles, evidence-class "
+            "artifact fit matrix, cold-entry problem map, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
             "observatory lens inventory."
         ),
@@ -1267,6 +1374,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "reader_exit_criteria",
             "video_storyboard_packet",
             "artifact_fit_matrix",
+            "cold_entry_problem_map",
             "public_scale_counts",
             "evidence_count_interpretation",
             "evidence_class_legend",
@@ -1451,6 +1559,22 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     artifact_fit_safe_to_show = (
         artifact_fit_matrix.get("safe_to_show", {})
         if isinstance(artifact_fit_matrix, dict)
+        else {}
+    )
+    cold_entry_problem_map = payload.get("cold_entry_problem_map", {})
+    cold_entry_problem_rows = (
+        cold_entry_problem_map.get("rows", [])
+        if isinstance(cold_entry_problem_map, dict)
+        else []
+    )
+    cold_entry_problem_ids = {
+        str(row.get("problem_shape_id"))
+        for row in cold_entry_problem_rows
+        if isinstance(row, dict)
+    }
+    cold_entry_problem_safe_to_show = (
+        cold_entry_problem_map.get("safe_to_show", {})
+        if isinstance(cold_entry_problem_map, dict)
         else {}
     )
     behavior_proof_fields = (
@@ -1886,6 +2010,57 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and artifact_fit_matrix.get("authority")
             == "projection_fit_matrix_not_new_artifact_authority"
         ),
+        "cold_entry_problem_map": (
+            isinstance(cold_entry_problem_map, dict)
+            and cold_entry_problem_map.get("schema_version")
+            == "microcosm_cold_entry_problem_map_v1"
+            and cold_entry_problem_map.get("purpose")
+            == "bind_cold_entry_problem_shapes_to_existing_first_screen_packets"
+            and "not create a second entry artifact"
+            in cold_entry_problem_map.get("map_rule", "")
+            and cold_entry_problem_ids
+            == {
+                "first_thing_best_thing_gap",
+                "audience_is_not_one_person",
+                "honest_numbers_without_context",
+                "discipline_invisible_without_comparison",
+                "size_paradox",
+                "runnable_vs_structural_split",
+                "doctrine_reads_as_ceremony",
+                "frontend_surface_not_seductive",
+                "card_discipline_not_default",
+            }
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("reader_risk"), str)
+                and bool(row.get("reader_risk"))
+                and isinstance(row.get("compression_answer"), str)
+                and bool(row.get("compression_answer"))
+                and isinstance(row.get("primary_packet"), str)
+                and bool(row.get("primary_packet"))
+                and isinstance(row.get("first_surface"), str)
+                and bool(row.get("first_surface"))
+                and isinstance(row.get("proof_surface"), str)
+                and bool(row.get("proof_surface"))
+                and isinstance(row.get("not_claim"), str)
+                and bool(row.get("not_claim"))
+                for row in cold_entry_problem_rows
+            )
+            and cold_entry_problem_safe_to_show.get(
+                "uses_existing_first_screen_packets"
+            )
+            is True
+            and cold_entry_problem_safe_to_show.get("creates_new_entry_artifact")
+            is False
+            and cold_entry_problem_safe_to_show.get("exports_private_paths") is False
+            and cold_entry_problem_safe_to_show.get("exports_provider_payloads")
+            is False
+            and cold_entry_problem_safe_to_show.get("claims_release_or_hosting")
+            is False
+            and cold_entry_problem_safe_to_show.get("claims_reader_success") is False
+            and cold_entry_problem_map.get("authority")
+            == "problem_shape_map_not_strategy_or_release_authority"
+        ),
         "evidence_count_frame": (
             payload.get("evidence_count_frame", {}).get("interpretation")
             == "accounting_not_maturity_score"
@@ -2031,6 +2206,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "reader_exit_criteria",
                     "video_storyboard_packet",
                     "artifact_fit_matrix",
+                    "cold_entry_problem_map",
                     "public_scale_counts",
                     "evidence_class_legend",
                     "doctrine_effect_frame",
@@ -2105,6 +2281,7 @@ def first_screen_composition_card(
         "reader_exit_criteria": _reader_exit_criteria(project_label),
         "video_storyboard_packet": _video_storyboard_packet(project_label),
         "artifact_fit_matrix": _artifact_fit_matrix(project_label),
+        "cold_entry_problem_map": _cold_entry_problem_map(project_label),
         "evidence_count_frame": _evidence_count_frame(),
         "evidence_class_legend": _evidence_class_legend(root),
         "comparison_frame": _comparison_frame(),
@@ -2250,7 +2427,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             "  observatory: "
             f"{_bounded_observatory_serve_command(str(payload['project_label']))} "
             "-> /project/first-screen -> /project/observatory-card; artifact fit: "
-            "terminal/README/browser/JSON/video project this card."
+            "terminal/README/browser/JSON/video project this card; problem map binds the gaps."
         ),
         "  authority/workingness: microcosm authority / microcosm workingness",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",

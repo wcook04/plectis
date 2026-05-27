@@ -514,6 +514,63 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert artifact_fit_matrix["authority"] == (
         "projection_fit_matrix_not_new_artifact_authority"
     )
+    cold_entry_problem_map = card["cold_entry_problem_map"]
+    problem_by_id = {
+        row["problem_shape_id"]: row for row in cold_entry_problem_map["rows"]
+    }
+    assert cold_entry_problem_map["schema_version"] == (
+        "microcosm_cold_entry_problem_map_v1"
+    )
+    assert cold_entry_problem_map["purpose"] == (
+        "bind_cold_entry_problem_shapes_to_existing_first_screen_packets"
+    )
+    assert "not create a second entry artifact" in cold_entry_problem_map[
+        "map_rule"
+    ]
+    assert set(problem_by_id) == {
+        "first_thing_best_thing_gap",
+        "audience_is_not_one_person",
+        "honest_numbers_without_context",
+        "discipline_invisible_without_comparison",
+        "size_paradox",
+        "runnable_vs_structural_split",
+        "doctrine_reads_as_ceremony",
+        "frontend_surface_not_seductive",
+        "card_discipline_not_default",
+    }
+    assert problem_by_id["first_thing_best_thing_gap"]["primary_packet"] == (
+        "first_run_ladder"
+    )
+    assert problem_by_id["first_thing_best_thing_gap"]["first_surface"] == (
+        card["human_first_command"]
+    )
+    assert problem_by_id["audience_is_not_one_person"]["primary_packet"] == (
+        "reader_landing_packets"
+    )
+    assert problem_by_id["honest_numbers_without_context"]["proof_surface"] == (
+        "evidence_class_legend"
+    )
+    assert problem_by_id["runnable_vs_structural_split"]["proof_surface"] == (
+        "first_contact_surface_refs"
+    )
+    assert problem_by_id["card_discipline_not_default"]["proof_surface"] == (
+        "entry_surface_contract"
+    )
+    for row in problem_by_id.values():
+        assert row["reader_risk"]
+        assert row["compression_answer"]
+        assert row["not_claim"]
+    assert cold_entry_problem_map["safe_to_show"] == {
+        "uses_existing_first_screen_packets": True,
+        "creates_new_entry_artifact": False,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "claims_release_or_hosting": False,
+        "claims_reader_success": False,
+    }
+    assert cold_entry_problem_map["authority"] == (
+        "problem_shape_map_not_strategy_or_release_authority"
+    )
     assert card["evidence_count_frame"]["interpretation"] == "accounting_not_maturity_score"
     assert card["evidence_count_frame"]["legend_ref"] == (
         "core/organ_evidence_classes.json"
@@ -655,6 +712,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "artifact-fit matrix" in card["entry_surface_contract"][
         "consumer_rule"
     ]
+    assert "cold-entry problem map" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
     state_write_boundary = card["state_write_boundary"]
     assert state_write_boundary["schema_version"] == (
         "microcosm_first_screen_state_write_boundary_v1"
@@ -789,6 +849,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "artifact_fit_matrix" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "cold_entry_problem_map" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "public_scale_counts" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -835,6 +898,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["reader_exit_criteria"] is True
     assert card["validation"]["checks"]["video_storyboard_packet"] is True
     assert card["validation"]["checks"]["artifact_fit_matrix"] is True
+    assert card["validation"]["checks"]["cold_entry_problem_map"] is True
     assert card["validation"]["checks"]["doctrine_effect_frame"] is True
     assert card["validation"]["checks"]["readme_entry_contract"] is True
     assert card["validation"]["checks"]["entry_surface_contract"] is True
@@ -998,7 +1062,8 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     )
     assert "-> /project/first-screen -> /project/observatory-card" in text
     assert (
-        "artifact fit: terminal/README/browser/JSON/video project this card."
+        "artifact fit: terminal/README/browser/JSON/video project this card; "
+        "problem map binds the gaps."
         in text
     )
     assert (
@@ -1061,7 +1126,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
-        assert "artifact fit: terminal/README/browser/JSON/video" in text
+        assert "problem map binds the gaps" in text
         assert "doctrine prevents mistakes" in text
         assert "exit when you can choose a drilldown" in text
         assert "without the command inventory" in text
