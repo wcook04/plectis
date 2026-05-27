@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import shutil
 from pathlib import Path
 from typing import Any
@@ -33,6 +34,11 @@ FIXTURE_MANIFESTS = (
     MICROCOSM_ROOT
     / "core/fixture_manifests/agent_sandbox_policy_escape_replay.fixture_manifest.json",
 )
+SOURCE_ROOT = MICROCOSM_ROOT.parent
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -174,6 +180,13 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
         result["body_import_classification"]
         == "extension_of_existing_public_refactor"
     )
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["body_copied_material_count"] == 6
+    assert (
+        result["source_open_body_imports"]["body_material_status"]
+        == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
+    )
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert result["body_in_receipt"] is False
     assert (
         "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py"
@@ -186,6 +199,40 @@ def test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape(
     assert {
         span["tool_name"] for span in result["public_agent_execution_trace"]["spans"]
     } == {"sandbox_policy_action"}
+
+
+def test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 6
+    assert {
+        row["module_id"] for row in manifest["modules"]
+    } == {
+        "sandbox_policy_extracted_patterns_ledger_body_import",
+        "sandbox_policy_high_novelty_growth_receipt_body_import",
+        "sandbox_policy_canonical_organ_model_body_import",
+        "agent_execution_trace_runtime_body_import",
+        "agent_execution_trace_standard_body_import",
+        "extracted_pattern_route_readiness_tool_body_import",
+    }
+
+    for row in manifest["modules"]:
+        source = SOURCE_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix(
+            "microcosm-substrate/"
+        )
+        text = target.read_text(encoding="utf-8")
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == row["source_sha256"]
+        assert _sha256(target) == row["target_sha256"]
+        assert row["source_sha256"] == row["target_sha256"]
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_agent_sandbox_policy_escape_bundle_card_reuses_fresh_receipt(
@@ -217,10 +264,20 @@ def test_agent_sandbox_policy_escape_bundle_card_reuses_fresh_receipt(
     assert first_card["sandbox_policy"]["policy_verdict_count"] == 6
     assert first_card["sandbox_policy"]["blocked_without_execution_count"] == 4
     assert first_card["validation"]["public_agent_execution_trace_span_count"] == 6
+    assert first_card["validation"]["source_module_manifest_status"] == "pass"
+    assert first_card["validation"]["body_material_count"] == 6
+    assert (
+        first_card["validation"]["body_material_status"]
+        == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
+    )
+    assert first_card["body_floor"]["source_module_imports_in_card"] is False
+    assert first_card["body_floor"]["source_open_body_imports_in_card"] is False
     assert "request_rows" not in _walk_keys(first_card)
     assert "policy_verdict_rows" not in _walk_keys(first_card)
     assert "secret_exclusion_scan" not in _walk_keys(first_card)
     assert "public_agent_execution_trace" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
 
     def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
         raise AssertionError("fresh card path should reuse the existing receipt")
@@ -278,6 +335,14 @@ def test_agent_sandbox_policy_fixture_manifests_bind_public_trace_refactor() -> 
             manifest["product_path_role"]
             == "source_faithful_public_agent_execution_trace_refactor"
         )
+        assert manifest["body_copied_material_count"] == 6
+        assert (
+            manifest["body_material_status"]
+            == "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed"
+        )
+        assert manifest["source_open_body_imports"]["status"] == "pass"
+        assert manifest["source_open_body_imports"]["body_material_count"] == 6
+        assert manifest["source_open_body_imports"]["body_text_exported_in_receipts"] is False
         assert manifest["body_in_receipt"] is False
         assert manifest["body_import_verification"] == {
             "source_ref": "system/lib/agent_execution_trace.py",

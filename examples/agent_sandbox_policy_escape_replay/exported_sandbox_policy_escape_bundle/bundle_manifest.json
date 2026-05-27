@@ -1,10 +1,54 @@
 {
   "authority_ceiling": "public_agent_execution_trace_refactor_over_sandbox_policy_fixture_regression_inputs",
+  "body_copied_material_count": 6,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
   "bundle_id": "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle",
   "input_mode": "exported_sandbox_policy_escape_bundle",
   "organ_id": "agent_sandbox_policy_escape_replay",
-  "product_path_role": "source_faithful_public_agent_execution_trace_refactor"
+  "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
+  "source_module_manifest_ref": "source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "executable_escape_payload_exported": false,
+      "live_network_payload_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_environment_payload_exported": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "sandbox_policy_extracted_patterns_ledger_body_import",
+      "sandbox_policy_high_novelty_growth_receipt_body_import",
+      "sandbox_policy_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  }
 }

@@ -1,5 +1,6 @@
 {
   "authority_ceiling": "public_agent_execution_trace_refactor_with_sandbox_policy_fixture_regression_inputs",
+  "body_copied_material_count": 6,
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
     "source_ref": "system/lib/agent_execution_trace.py",
@@ -11,6 +12,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
   "fixture_id": "fixture::agent_sandbox_policy_escape_replay::first_wave_contract_v1",
   "fixture_runtime_refs": [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
@@ -109,10 +111,56 @@
   "organ_id": "agent_sandbox_policy_escape_replay",
   "positive_fixture_count": 7,
   "product_path_role": "source_faithful_public_agent_execution_trace_refactor",
+  "schema_version": "microcosm_fixture_manifest_v1",
+  "source_module_manifest_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "executable_escape_payload_exported": false,
+      "live_network_payload_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_environment_payload_exported": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "sandbox_policy_extracted_patterns_ledger_body_import",
+      "sandbox_policy_high_novelty_growth_receipt_body_import",
+      "sandbox_policy_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "source_refs": [
     "system/lib/agent_execution_trace.py",
     "codex/standards/std_agent_execution_trace.json",
-    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sandbox_policy_escape_replay_compound"
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_sandbox_policy_escape_replay_compound",
+    "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_agent_sandbox_policy_escape_replay_growth_v1",
+    "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json::candidate_leaf_name=agent_sandbox_policy_escape_replay",
+    "tools/meta/factory/check_extracted_pattern_route_readiness.py"
   ],
   "target_refs": [
     "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
@@ -121,6 +169,5 @@
   "target_symbols": [
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
-  ],
-  "schema_version": "microcosm_fixture_manifest_v1"
+  ]
 }

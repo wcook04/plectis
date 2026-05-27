@@ -18,6 +18,7 @@
     "tool_output_authority_expansion_authorized": false
   },
   "blocked_without_execution_count": 4,
+  "body_copied_material_count": 0,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
@@ -40,6 +41,7 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -57,7 +59,7 @@
   },
   "body_in_receipt": false,
   "cold_replay_pass_count": 6,
-  "created_at": "2026-05-23T14:53:33+00:00",
+  "created_at": "2026-05-27T03:32:54+00:00",
   "fixture_id": "first_wave.agent_sandbox_policy_escape_replay",
   "negative_case_coverage": {
     "expected": [
@@ -313,6 +315,7 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -322,14 +325,15 @@
     ]
   },
   "receipt_paths": [
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
   ],
   "rollback_verified_count": 2,
   "schema_version": "agent_sandbox_policy_escape_replay_validation_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -341,11 +345,52 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
   "side_effect_receipt_count": 6,
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/agent_sandbox_policy_escape_replay/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "executable_escape_payload_exported": false,
+      "live_network_payload_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_environment_payload_exported": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "agent_sandbox_policy_escape_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "status": "pass",
   "validator_id": "validator.microcosm.organs.agent_sandbox_policy_escape_replay"
 }

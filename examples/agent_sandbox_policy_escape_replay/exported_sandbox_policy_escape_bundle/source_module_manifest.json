@@ -1,0 +1,218 @@
+{
+  "body_in_receipt": false,
+  "body_storage_policy": "exact_non_secret_macro_agent_sandbox_policy_escape_source_bodies_copied_into_public_source_module_bundle",
+  "bundle_id": "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "agent_sandbox_policy_escape_replay_source_open_body_import",
+  "module_count": 6,
+  "modules": [
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 936934,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 373,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "sandbox_policy_extracted_patterns_ledger_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "required_anchors": [
+        "\"pattern_id\": \"agent_sandbox_policy_escape_replay_compound\"",
+        "policy capsule, requested action",
+        "system/lib/agent_execution_trace.py",
+        "codex/standards/std_agent_execution_trace.json"
+      ],
+      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "source_role": "Macro extracted-pattern ledger body containing the agent_sandbox_policy_escape_replay_compound row and its sandbox-policy, trace, route-readiness, and public projection source refs.",
+      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 295524,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 4825,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "sandbox_policy_high_novelty_growth_receipt_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "required_anchors": [
+        "\"actual_substrate_agent_sandbox_policy_escape_replay_growth_v1\"",
+        "\"agent_sandbox_policy_escape_replay_compound\"",
+        "one_agent_sandbox_policy_escape_replay_compound_row_appended",
+        "sandboxed blockchain transaction replay"
+      ],
+      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "source_role": "Macro reconstruction receipt body that introduced the sandbox-policy escape replay growth tranche and binds it to real source refs.",
+      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 502499,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 9040,
+      "material_class": "public_macro_control_plane_body",
+      "module_id": "sandbox_policy_canonical_organ_model_body_import",
+      "path": "source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+      "required_anchors": [
+        "\"candidate_leaf_name\": \"agent_sandbox_policy_escape_replay\"",
+        "\"pattern_id\": \"agent_sandbox_policy_escape_replay_compound\"",
+        "canonical_organ_model_v2",
+        "live exploit harness"
+      ],
+      "sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+      "source_role": "Macro canonical organ model body carrying the build-facing leaf metadata and active-leaf guard for agent_sandbox_policy_escape_replay.",
+      "source_sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+      "target_sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 224689,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 5158,
+      "material_class": "public_macro_tool_body",
+      "module_id": "agent_execution_trace_runtime_body_import",
+      "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "required_anchors": [
+        "Project each Claude / Codex session rollout into a **span-and-trace",
+        "build_agent_execution_trace",
+        "TRACE_OUTPUT_PRIVACY_BOUNDARY",
+        "NEVER parses"
+      ],
+      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_role": "Macro agent-execution trace runtime body that parses observable tool spans and enforces the no-hidden-reasoning trace boundary inherited by the public sandbox-policy trace refactor.",
+      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 47570,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 664,
+      "material_class": "public_macro_standard_body",
+      "module_id": "agent_execution_trace_standard_body_import",
+      "path": "source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "required_anchors": [
+        "\"id\": \"std_agent_execution_trace\"",
+        "\"strict_boundary\"",
+        "\"never_parses\"",
+        "\"trace_ontology_contract\""
+      ],
+      "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "codex/standards/std_agent_execution_trace.json",
+      "source_role": "Macro agent-execution trace standard body that defines observable-action trace authority, private-output exclusions, and generated projection boundaries.",
+      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "anchor_count": 4,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "byte_count": 46117,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1180,
+      "material_class": "public_macro_tool_body",
+      "module_id": "extracted_pattern_route_readiness_tool_body_import",
+      "path": "source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "required_anchors": [
+        "build_route_readiness_validation_report",
+        "REPORT_SCHEMA = \"extracted_pattern_route_readiness_validation_report_v1\"",
+        "route_readiness_validator_ref",
+        "macro_pattern_route_readiness_machine_check"
+      ],
+      "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+      "source_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "source_role": "Macro route-readiness checker body that validates mined pattern rows before they become selectable public projection substrate.",
+      "source_sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "target_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "target_sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+        "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+      ]
+    }
+  ],
+  "omitted_material": [
+    {
+      "reason": "Those bodies are secret, credential-equivalent, live-access, account-bound, raw environment, executable exploit payload, real target, or provider payload material.",
+      "replacement_criteria": "Only public-safe synthetic sandbox-policy rows, observable trace/source refs, exact non-secret macro source bodies, digest-verified targets, and body-free omission receipts may enter this bundle.",
+      "source_ref": "private live sandbox, browser/HUD, provider, account, credential, raw environment, executable payload, and real target surfaces"
+    },
+    {
+      "reason": "External research links are attention/provenance refs for the macro pattern row, not ai_workflow-owned macro source bodies.",
+      "replacement_criteria": "Keep external refs in extracted-pattern metadata; import local macro ledger, reconstruction, standard, and tool bodies that implement the trace and readiness mechanics.",
+      "source_ref": "external_attention_refs"
+    }
+  ],
+  "public_runtime_policy": "source_modules_are_sandbox_policy_body_floor_not_live_sandbox_provider_network_exploit_or_security_benchmark_authority",
+  "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+  "schema_version": "agent_sandbox_policy_escape_replay_source_module_manifest_v1",
+  "secret_exclusion_boundary": "no_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_live_network_payloads_executable_escape_payloads_security_benchmark_claims_or_credential_equivalent_material",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_secrets_raw_environment_executable_escape_payloads_or_credential_equivalent_material",
+  "validation_contract_refs": [
+    "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_source_modules_are_exact_macro_body_imports",
+    "microcosm-substrate/tests/test_agent_sandbox_policy_escape_replay.py::test_agent_sandbox_policy_escape_exported_bundle_validates_runtime_shape"
+  ]
+}

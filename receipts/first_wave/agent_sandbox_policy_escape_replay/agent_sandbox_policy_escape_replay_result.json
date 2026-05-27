@@ -26,6 +26,7 @@
   },
   "block_count": 4,
   "blocked_without_execution_count": 4,
+  "body_copied_material_count": 0,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
@@ -48,6 +49,7 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -64,6 +66,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "",
   "bundle_id": null,
   "cold_replay_count": 6,
   "cold_replay_pass_count": 6,
@@ -129,8 +132,8 @@
       "verdict_reproduced": true
     }
   ],
-  "command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run",
-  "created_at": "2026-05-23T14:53:33+00:00",
+  "command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run --input microcosm-substrate/fixtures/first_wave/agent_sandbox_policy_escape_replay/input --out microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay",
+  "created_at": "2026-05-27T03:32:54+00:00",
   "error_codes": [
     "SANDBOX_POLICY_AFTER_EXECUTION",
     "SANDBOX_POLICY_EXECUTABLE_PAYLOAD_FORBIDDEN",
@@ -219,6 +222,103 @@
     }
   ],
   "fixture_id": "first_wave.agent_sandbox_policy_escape_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:782e241535dd240862aba3360c310c8daf5d888c64e02469c25121fcb3e8ea59",
+    "card_schema_version": "agent_sandbox_policy_escape_replay_command_card_v1",
+    "include_negative": true,
+    "input_count": 17,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/projection_protocol.json",
+        "sha256": "sha256:00a259f227a58dbe4067fa1fc3c49789a4c5dd3e545c4a1297f86f96d257bdce",
+        "size_bytes": 4381
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/sandbox_policy.json",
+        "sha256": "sha256:107d5fe0b927d82fbf1c2921bacec610d81df6f9a904e6cb9db01578d1f9e348",
+        "size_bytes": 1254
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/action_requests.json",
+        "sha256": "sha256:d9814e7de44389ce7db63f532df13a0896021d7a68311b311539febbc4b2ac8c",
+        "size_bytes": 4007
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_verdicts.json",
+        "sha256": "sha256:679f04816ae18351dcc6512c7f8e4b43da943b023a832bd8ee774643ecfb9cb8",
+        "size_bytes": 2443
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/side_effect_receipts.json",
+        "sha256": "sha256:9c9d4ee4cda475d0b24e481c844e029985298e5dc115dde1d9424173737ce195",
+        "size_bytes": 2275
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/rollback_receipts.json",
+        "sha256": "sha256:cdce982b6c4f36608d1a7efaa99a040b15c56eac188836c2efaeef024095ac74",
+        "size_bytes": 595
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/cold_replay.json",
+        "sha256": "sha256:fd0537437e601c905f167a2b4f68c23d81f088dada17866f7b00a5575b8308c4",
+        "size_bytes": 3078
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/real_secret_material.json",
+        "sha256": "sha256:b3317dab6e943e87266093abb4e8a3605cf36cdb9b22c5137143e1e8a35b0397",
+        "size_bytes": 106
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/live_network_access.json",
+        "sha256": "sha256:991fae62fd9cca339cdd7ca82951ef7a181d46f56845d5d494f1fac27f2f8d50",
+        "size_bytes": 105
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/raw_environment_export.json",
+        "sha256": "sha256:b01ce8fd79a4faa0960c3034c749465b41d44f91074378374d58cf6d42a4a358",
+        "size_bytes": 111
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/policy_after_execution.json",
+        "sha256": "sha256:4f78f0cc7f6a0657a855df32c9f24633466c5d6236c6c5a96f268d8326c76d03",
+        "size_bytes": 111
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/unlogged_side_effect.json",
+        "sha256": "sha256:f59754527b51b66336637f7db93f12eea1d39c4b893f211a5369fa062d1b45fe",
+        "size_bytes": 109
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/tool_output_policy_bypass.json",
+        "sha256": "sha256:c1b269f829867e81005ab82d10bfda88c311f95b9516a7bdb1cf11d49af6d740",
+        "size_bytes": 111
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/executable_escape_payload.json",
+        "sha256": "sha256:9d8ef4a2a7825e07ce52040b4c6e985b762f75564ffab673d13815d4057415c8",
+        "size_bytes": 116
+      },
+      {
+        "path": "fixtures/first_wave/agent_sandbox_policy_escape_replay/input/security_benchmark_claim.json",
+        "sha256": "sha256:96eb08081546a1228527e1d342fbf8a403f44583da64781991204346d8b32ad2",
+        "size_bytes": 110
+      },
+      {
+        "path": "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
+        "sha256": "sha256:da6a9005dbc54a6d10598567d568683003ea13f41943e9a6fdb8b6d4a84de836",
+        "size_bytes": 70431
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "agent_sandbox_policy_escape_replay_freshness_basis_v1",
+    "validator_schema_version": "agent_sandbox_policy_escape_replay_result_v1"
+  },
   "input_mode": "fixture",
   "missing_negative_cases": [],
   "observed_negative_cases": {
@@ -551,6 +651,7 @@
       "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
+      "microcosm_core.macro_tools.agent_execution_trace::build_public_prompt_injection_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_research_replication_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_memory_conflict_trace",
       "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
@@ -564,11 +665,12 @@
     "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
   ],
   "receipt_paths": [
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
-    "receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
-    "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_result.json",
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_board.json",
+    "microcosm-substrate/receipts/first_wave/agent_sandbox_policy_escape_replay/agent_sandbox_policy_escape_replay_validation_receipt.json",
+    "microcosm-substrate/receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json"
   ],
+  "receipt_reused": false,
   "request_rows": [
     {
       "action_kind": "filesystem_delete",
@@ -663,6 +765,7 @@
   "sandbox_policy_id": "sandbox_policy_escape_public_contract_v1",
   "schema_version": "agent_sandbox_policy_escape_replay_result_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -674,6 +777,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
@@ -747,6 +859,61 @@
       "verdict": "block"
     }
   ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "findings": [],
+    "material_classes": [],
+    "module_count": 0,
+    "module_ids": [],
+    "observed_negative_cases": {},
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/agent_sandbox_policy_escape_replay/input/source_module_manifest.json",
+    "source_refs": [],
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_module_manifest_ref": "microcosm-substrate/fixtures/first_wave/agent_sandbox_policy_escape_replay/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_import_refs": [
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+  ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "executable_escape_payload_exported": false,
+      "live_network_payload_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_environment_payload_exported": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "agent_sandbox_policy_escape_replay_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "source_pattern_ids": [
     "agent_sandbox_policy_escape_replay_compound"
   ],

@@ -54,6 +54,15 @@ Public runtime surface: a body-free sandbox policy bundle plus generated
 receipts under `receipts/first_wave/agent_sandbox_policy_escape_replay/` and
 `receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/`.
 
+Source-open body floor: the exported bundle now carries
+`source_module_manifest.json` plus six exact copied non-secret macro bodies
+under `source_modules/ai_workflow/`: the extracted-pattern ledger, the high
+novelty reconstruction receipt, the canonical organ model, the macro
+`system/lib/agent_execution_trace.py` runtime, `std_agent_execution_trace`, and
+the extracted-pattern route-readiness checker. Receipts and cards cite the
+manifest, hashes, material classes, and counts only; full body text stays in
+the bundle source module files.
+
 Validation proves the projection boundary and public trace-refactor mechanics
 for this contract; it does not prove real sandbox security, live model behavior,
 benchmark scores, exploit resistance, or whole-system safety.

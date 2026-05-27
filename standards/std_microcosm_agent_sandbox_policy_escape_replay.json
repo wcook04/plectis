@@ -74,7 +74,11 @@
       "body_import_verification",
       "authority_ceiling",
       "anti_claim",
-      "negative_case_coverage"
+      "negative_case_coverage",
+      "source_module_manifest_status",
+      "source_module_manifest_ref",
+      "source_open_body_imports",
+      "body_copied_material_count"
     ],
     "receipt_id": "receipt.microcosm.agent_sandbox_policy_escape_replay",
     "required": true
@@ -108,8 +112,11 @@
   ],
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
+    "body_copied_material_count": 6,
+    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "copied_body_manifest_ref": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata, public replacements stay public-root relative, and copied non-secret macro bodies live under source_module_manifest.json plus source_modules/ with digest checks, material classes, and body-free receipts"
   },
   "source_refs": [
     {
@@ -121,6 +128,11 @@
       "field": "public_trace_refactor_bundle",
       "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle",
       "role": "source_faithful_public_refactor_input"
+    },
+    {
+      "field": "source_module_manifest",
+      "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
     }
   ],
   "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
@@ -146,7 +158,7 @@
       "executable_escape_payload",
       "security_benchmark_claim"
     ],
-    "ontology": "A public-safe sandbox policy-escape replay: source-faithful public agent-execution trace spans over action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, and authority ceilings.",
+    "ontology": "A public-safe sandbox policy-escape replay: source-faithful public agent-execution trace spans over action requests, pre-execution policy verdicts, side-effect receipts, rollback receipts, cold replay, falsification fixtures, authority ceilings, and exact copied non-secret macro source modules for the local body floor.",
     "rebuild_action": "draft",
     "teleology": "Make Microcosm show how agent sandbox/security claims are admitted only when containment policy, diffs, rollback, negative cases, receipts, and ceilings align."
   },
@@ -157,7 +169,8 @@
     "require blocked requests to have zero side effects and allowed/reviewed requests to have diff receipts",
     "require rollback receipts for side-effecting allowed or reviewed actions",
     "reject real secrets, live network, raw environment export, policy-after-execution, unlogged side effects, tool-output authority bypass, executable payloads, and security benchmark claims",
-    "emit redacted receipts and private-state scan"
+    "emit redacted receipts and private-state scan",
+    "require exported sandbox-policy bundles to validate source_module_manifest.json, exact copied source_modules digests, public-safe material classes, and body-free receipt boundaries"
   ],
   "validator_contract": {
     "minimum_checks": [

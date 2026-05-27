@@ -26,6 +26,7 @@
   },
   "block_count": 4,
   "blocked_without_execution_count": 4,
+  "body_copied_material_count": 6,
   "body_import_classification": "extension_of_existing_public_refactor",
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
@@ -65,6 +66,7 @@
     "verification_status": "verified"
   },
   "body_in_receipt": false,
+  "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
   "bundle_id": "agent_sandbox_policy_escape_replay_public_trace_refactor_bundle",
   "cold_replay_count": 6,
   "cold_replay_pass_count": 6,
@@ -130,13 +132,110 @@
       "verdict_reproduced": true
     }
   ],
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:21+00:00",
+  "command": "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run-sandbox-bundle --input microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay",
+  "created_at": "2026-05-27T03:32:55+00:00",
   "error_codes": [],
   "executed_action_count": 2,
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.agent_sandbox_policy_escape_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:8dd93d7cc9aef2f865e031baf6797e4bccd9b5c9b02f04e3195a00e206175518",
+    "card_schema_version": "agent_sandbox_policy_escape_replay_command_card_v1",
+    "include_negative": false,
+    "input_count": 17,
+    "inputs": [
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/projection_protocol.json",
+        "sha256": "sha256:05eb32de2e39f5398c920185c2c2582c04eb2be031c6c156ffad3b61b80c641a",
+        "size_bytes": 4411
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/sandbox_policy.json",
+        "sha256": "sha256:107d5fe0b927d82fbf1c2921bacec610d81df6f9a904e6cb9db01578d1f9e348",
+        "size_bytes": 1254
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/action_requests.json",
+        "sha256": "sha256:d9814e7de44389ce7db63f532df13a0896021d7a68311b311539febbc4b2ac8c",
+        "size_bytes": 4007
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/policy_verdicts.json",
+        "sha256": "sha256:679f04816ae18351dcc6512c7f8e4b43da943b023a832bd8ee774643ecfb9cb8",
+        "size_bytes": 2443
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/side_effect_receipts.json",
+        "sha256": "sha256:9c9d4ee4cda475d0b24e481c844e029985298e5dc115dde1d9424173737ce195",
+        "size_bytes": 2275
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/rollback_receipts.json",
+        "sha256": "sha256:cdce982b6c4f36608d1a7efaa99a040b15c56eac188836c2efaeef024095ac74",
+        "size_bytes": 595
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/cold_replay.json",
+        "sha256": "sha256:fd0537437e601c905f167a2b4f68c23d81f088dada17866f7b00a5575b8308c4",
+        "size_bytes": 3078
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/bundle_manifest.json",
+        "sha256": "sha256:14b9b81640d694a66ba69dc603ccc22e78f3e05c6de6f5eac799583974f34861",
+        "size_bytes": 2828
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+        "sha256": "sha256:5cf5e7569f56315f3824aa6d81796672cf2a42d5f637039c0008ffef4a19069e",
+        "size_bytes": 15853
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+        "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+        "size_bytes": 936934
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+        "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+        "size_bytes": 295524
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+        "sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+        "size_bytes": 502499
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "size_bytes": 224689
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+        "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+        "size_bytes": 47570
+      },
+      {
+        "path": "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+        "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+        "size_bytes": 46117
+      },
+      {
+        "path": "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
+        "sha256": "sha256:da6a9005dbc54a6d10598567d568683003ea13f41943e9a6fdb8b6d4a84de836",
+        "size_bytes": 70431
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "agent_sandbox_policy_escape_replay_freshness_basis_v1",
+    "validator_schema_version": "exported_sandbox_policy_escape_bundle_validation_result_v1"
+  },
   "input_mode": "exported_sandbox_policy_escape_bundle",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
@@ -458,8 +557,9 @@
     "microcosm_core.organs.agent_sandbox_policy_escape_replay::run_sandbox_bundle"
   ],
   "receipt_paths": [
-    "receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json"
+    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "request_rows": [
     {
       "action_kind": "filesystem_delete",
@@ -575,7 +675,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 8,
+    "scanned_path_count": 15,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -648,6 +748,109 @@
       "verdict": "block"
     }
   ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "findings": [],
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "module_count": 6,
+    "module_ids": [
+      "sandbox_policy_extracted_patterns_ledger_body_import",
+      "sandbox_policy_high_novelty_growth_receipt_body_import",
+      "sandbox_policy_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "observed_negative_cases": {},
+    "source_module_import_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "source_module_manifest_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+    "source_refs": [
+      "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+      "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+    ],
+    "status": "pass",
+    "verified_module_count": 6
+  },
+  "source_module_manifest_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_import_refs": [
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+  ],
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "account_session_exported": false,
+      "browser_hud_live_access_exported": false,
+      "credential_payload_exported": false,
+      "executable_escape_payload_exported": false,
+      "live_network_payload_exported": false,
+      "provider_calls_authorized": false,
+      "provider_payload_exported": false,
+      "raw_environment_payload_exported": false,
+      "release_authorized": false,
+      "security_benchmark_claim_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_control_plane_body": 1,
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_standard_body": 1,
+      "public_macro_tool_body": 2
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "sandbox_policy_extracted_patterns_ledger_body_import",
+      "sandbox_policy_high_novelty_growth_receipt_body_import",
+      "sandbox_policy_canonical_organ_model_body_import",
+      "agent_execution_trace_runtime_body_import",
+      "agent_execution_trace_standard_body_import",
+      "extracted_pattern_route_readiness_tool_body_import"
+    ],
+    "body_material_status": "copied_non_secret_agent_sandbox_policy_escape_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported sandbox-policy escape bundle for copied macro pattern, reconstruction, canonical-organ, trace-standard, trace runtime, and route-readiness tool bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "agent_sandbox_policy_escape_replay_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_manifest_refs": [
+      "microcosm-substrate/examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "source_pattern_ids": [
     "agent_sandbox_policy_escape_replay_compound"
   ],

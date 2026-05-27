@@ -37,6 +37,20 @@
     "microcosm_core.macro_tools.agent_execution_trace::build_public_sandbox_policy_trace",
     "microcosm_core.organs.agent_sandbox_policy_escape_replay::run"
   ],
+  "reimplemented": [
+    "public sandbox policy verdict replay",
+    "side-effect and rollback receipt validation",
+    "source-faithful public agent-execution trace projection"
+  ],
+  "source_open_body_import_refs": [
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_module_manifest.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
+    "examples/agent_sandbox_policy_escape_replay/exported_sandbox_policy_escape_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py"
+  ],
   "source_pattern_ids": [
     "agent_sandbox_policy_escape_replay_compound"
   ],
