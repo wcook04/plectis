@@ -83,6 +83,49 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/_route_coverage.json",
         "codex/doctrine/paper_modules/README.md",
     ]
+    source_loci = contract["source_loci_depth_contract"]
+    assert source_loci["coverage_claim_rule"] == (
+        "100% paper-module coverage means every authored module is routed, "
+        "current, and drilldown-visible through the paper-module route graph; "
+        "explanation depth still requires the selected owner paper module, "
+        "source loci, and focused regression to cite the live substrate behind "
+        "the claim."
+    )
+    assert [
+        locus["source_ref"] for locus in source_loci["runtime_loci"]
+    ] == [
+        "tools/meta/factory/build_paper_module_index.py::main",
+        "system/lib/paper_modules.py::build_route_coverage",
+        "system/lib/kernel/commands/navigate.py::cmd_paper_module_coverage",
+        (
+            "system/lib/kernel_navigation.py::"
+            "KernelNavigation.build_paper_module_route_coverage"
+        ),
+        "system/lib/standard_option_surface.py::build_option_surface",
+        "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS",
+        (
+            "system/lib/navigation_context_pack.py::"
+            "MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        ),
+        (
+            "system/lib/navigation_context_pack.py::"
+            "_is_microcosm_paper_module_depth_query"
+        ),
+        (
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py::"
+            "test_microcosm_paper_module_coverage_contract_is_projected_into_modules"
+        ),
+    ]
+    assert source_loci["required_closeout_proof"] == [
+        "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+        "./repo-python kernel.py --paper-module-coverage",
+        (
+            "PYTHONPATH=microcosm-substrate/src ./repo-pytest "
+            "microcosm-substrate/tests/"
+            "test_microcosm_paper_module_coverage_contract.py -q"
+        ),
+    ]
     assert contract["atlas_option_surfaces"] == [
         "paper_modules",
         "standards",
@@ -309,6 +352,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "supporting_lattice_modules",
         "module_depth_roles",
         "required_projection_surfaces",
+        "source_loci_depth_contract",
         "atlas_option_surfaces",
         "healthy_state_receipt",
         "depth_order",
@@ -409,6 +453,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "handoff sequence",
         "context-pack selected row order",
         "context-pack next command order",
+        "source_loci_depth_contract",
+        "100% paper-module coverage means every authored module is routed, current, and drilldown-visible",
         "microcosm_paper_module_depth",
         "navigation_type_plane",
         "entry-packet parity rule",
@@ -442,6 +488,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "microcosm_core/project_substrate.py::compile_project" in product_roof
     assert "microcosm_core/runtime_shell.py::RuntimeShell" in product_roof
     assert "microcosm_core/validators/public_entry_docs.py::_entry_packet_route_contract" in product_roof
+    assert "paper_module_coverage_contract.source_loci_depth_contract" in product_roof
     assert "test_microcosm_paper_module_coverage_contract.py::" in product_roof
     assert "runtime truth belongs to these loci" in product_roof
     assert "entry-packet paper-module ref classification" in public_export_bridge
@@ -449,6 +496,8 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "module depth roles" in public_export_bridge
     assert "type-plane row consumer" in public_export_bridge
     assert "entry-depth freshness binding" in public_export_bridge
+    assert "paper_module_coverage_contract.source_loci_depth_contract" in public_export_bridge
+    assert "source-loci depth" in public_export_bridge
     assert (
         "`public_microcosm_exports` opens this bridge before generated public files"
         in public_export_bridge
@@ -459,6 +508,28 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     assert "microcosm_paper_module_depth" in coverage_metabolism
     assert "navigation_type_plane" in coverage_metabolism
     assert "cognitive_operators" in coverage_metabolism
+    assert "Source-Loci Coverage Contract" in coverage_metabolism
+    assert "tools/meta/factory/build_paper_module_index.py::main" in coverage_metabolism
+    assert "system/lib/paper_modules.py::build_route_coverage" in coverage_metabolism
+    assert (
+        "system/lib/kernel/commands/navigate.py::cmd_paper_module_coverage"
+        in coverage_metabolism
+    )
+    assert (
+        "system/lib/kernel_navigation.py::KernelNavigation.build_paper_module_route_coverage"
+        in coverage_metabolism
+    )
+    assert "system/lib/standard_option_surface.py::build_option_surface" in coverage_metabolism
+    assert "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS" in coverage_metabolism
+    assert (
+        "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        in coverage_metabolism
+    )
+    assert (
+        "system/lib/navigation_context_pack.py::_is_microcosm_paper_module_depth_query"
+        in coverage_metabolism
+    )
+    assert "std_microcosm.json::paper_module_coverage_contract.source_loci_depth_contract" in coverage_metabolism
     assert "explicit Microcosm consumers" in entry_projection_integrity
     assert "microcosm_public_export_type_plane" in entry_projection_integrity
     assert "entry/count projection honesty contract" in entry_projection_integrity
