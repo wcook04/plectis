@@ -307,6 +307,156 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
     }
 
 
+def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
+    human_first_command = f"microcosm hello {project_label}"
+    shared_first_command = f"microcosm tour --card {project_label}"
+    bounded_serve_command = _bounded_observatory_serve_command(project_label)
+    must_preserve = [
+        "authority_ceiling",
+        "anti_claim",
+        "omission_receipt",
+    ]
+    must_not_claim = [
+        "release_or_hosting_authority",
+        "provider_call_authority",
+        "private_root_equivalence",
+        "whole_system_correctness",
+        "reader_success",
+    ]
+    return {
+        "schema_version": "microcosm_first_viewport_manifest_v1",
+        "purpose": (
+            "make_single_screen_cold_entry_composition_explicit_for_cli_readme_"
+            "browser_json_and_video"
+        ),
+        "composition_rule": (
+            "Every first-contact projection should render these slots in order before "
+            "the long command inventory or full observatory lens list."
+        ),
+        "slots": [
+            {
+                "slot_id": "identity",
+                "viewport_copy": (
+                    "Microcosm is a local evidence router with explicit claim ceilings."
+                ),
+                "source_packet": "text_projection",
+                "first_visible_surface": human_first_command,
+                "proof_surface": "authority_ceiling",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+            {
+                "slot_id": "first_run",
+                "viewport_copy": "Open the map, then run the behavior-proof card.",
+                "source_packet": "first_run_ladder",
+                "first_visible_surface": shared_first_command,
+                "proof_surface": "behavior_proof_packet",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+            {
+                "slot_id": "proof_chain",
+                "viewport_copy": (
+                    "The first run writes inspectable .microcosm state, not source "
+                    "mutations."
+                ),
+                "source_packet": "local_state_receipt_trail",
+                "first_visible_surface": ".microcosm/",
+                "proof_surface": "first_contact_surface_refs",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+            {
+                "slot_id": "evidence_context",
+                "viewport_copy": (
+                    "Counts are evidence-class accounting, not maturity or readiness scores."
+                ),
+                "source_packet": "evidence_count_frame",
+                "first_visible_surface": EVIDENCE_CLASS_REGISTRY_REF,
+                "proof_surface": "evidence_class_legend",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+            {
+                "slot_id": "reader_branch",
+                "viewport_copy": (
+                    "Reader routes branch only after the shared local behavior proof."
+                ),
+                "source_packet": "reader_landing_packets",
+                "first_visible_surface": "reader_routes",
+                "proof_surface": "reader_exit_criteria",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+            {
+                "slot_id": "authority_boundary",
+                "viewport_copy": (
+                    "Tripwires translate overclaims before any deeper drilldown."
+                ),
+                "source_packet": "authority_ceiling",
+                "first_visible_surface": "anti_claim",
+                "proof_surface": "overclaim_tripwire_matrix",
+                "must_preserve": must_preserve,
+                "must_not_claim": must_not_claim,
+            },
+        ],
+        "problem_shape_slot_map": [
+            {
+                "problem_shape_id": "first_thing_best_thing_gap",
+                "slot_id": "first_run",
+            },
+            {
+                "problem_shape_id": "audience_is_not_one_person",
+                "slot_id": "reader_branch",
+            },
+            {
+                "problem_shape_id": "honest_numbers_without_context",
+                "slot_id": "evidence_context",
+            },
+            {
+                "problem_shape_id": "discipline_invisible_without_comparison",
+                "slot_id": "authority_boundary",
+            },
+            {
+                "problem_shape_id": "size_paradox",
+                "slot_id": "identity",
+            },
+            {
+                "problem_shape_id": "runnable_vs_structural_split",
+                "slot_id": "proof_chain",
+            },
+            {
+                "problem_shape_id": "doctrine_reads_as_ceremony",
+                "slot_id": "authority_boundary",
+            },
+            {
+                "problem_shape_id": "frontend_surface_not_seductive",
+                "slot_id": "identity",
+            },
+            {
+                "problem_shape_id": "card_discipline_not_default",
+                "slot_id": "first_run",
+            },
+        ],
+        "consumer_surfaces": {
+            "terminal": human_first_command,
+            "readme": "README.md::Choose Your First Screen",
+            "browser": f"{bounded_serve_command} -> /",
+            "json": f"microcosm first-screen {project_label}",
+            "video": "video_storyboard_packet",
+        },
+        "safe_to_show": {
+            "uses_existing_first_screen_packets": True,
+            "creates_new_entry_artifact": False,
+            "exports_private_paths": False,
+            "exports_provider_payloads": False,
+            "claims_release_or_hosting": False,
+            "claims_reader_success": False,
+        },
+        "authority": "viewport_manifest_not_new_claim_or_renderer_authority",
+    }
+
+
 def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
     shared_first_command = f"microcosm tour --card {project_label}"
     return {
@@ -1260,6 +1410,14 @@ def _readme_entry_contract(project_label: str) -> dict[str, Any]:
                 "must_precede": "quickstart_command_inventory",
                 "reason": "Reader branching happens before the long command list.",
             },
+            {
+                "surface": "first_viewport_manifest",
+                "must_precede": "quickstart_command_inventory",
+                "reason": (
+                    "Every entry projection should carry the same ordered slots before "
+                    "expanding the inventory."
+                ),
+            },
         ],
         "consumer_rule": (
             "README and docs consumers must show the package-backed hello/tour card "
@@ -1286,11 +1444,11 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
             "README, CLI, and observatory consumers should reuse this package contract and "
             "preserve the shared first command, reader route ids, reader landing packets, "
             "behavior-proof packet, first-run ladder, local state receipt trail, "
-            "overclaim tripwire matrix, reader exit criteria, evidence-count frame, "
-            "video-storyboard packet, artifact-fit matrix, cold-entry problem "
-            "map, evidence-class legend, doctrine-effect frame, observatory "
-            "landing frame, README-entry contract, omission receipt, and "
-            "authority ceiling."
+            "first-viewport manifest, overclaim tripwire matrix, reader exit "
+            "criteria, evidence-count frame, video-storyboard packet, artifact-fit "
+            "matrix, cold-entry problem map, evidence-class legend, doctrine-effect "
+            "frame, observatory landing frame, README-entry contract, omission "
+            "receipt, and authority ceiling."
         ),
         "format_contract": {
             "json": "machine-readable public card",
@@ -1347,7 +1505,8 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
         },
         "first_viewport_rule": (
             "The browser landing frame should show the hello card command, behavior proof, "
-            "first-run ladder, local state receipt trail, first-contact surface refs, overclaim tripwires, "
+            "first-run ladder, first-viewport manifest, local state receipt trail, "
+            "first-contact surface refs, overclaim tripwires, "
             "reader branches, reader landing packets, reader exit criteria, video storyboard packet, "
             "artifact fit matrix, cold-entry problem map, public scale handles, evidence-class "
             "legend, doctrine-effect frame, and authority ceiling before the deeper "
@@ -1368,6 +1527,7 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
             "reader_landing_packets",
             "behavior_proof_packet",
             "first_run_ladder",
+            "first_viewport_manifest",
             "local_state_receipt_trail",
             "first_contact_surface_refs",
             "overclaim_tripwire_matrix",
@@ -1601,6 +1761,40 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
         for row in first_run_steps
         if isinstance(row, dict)
     }
+    first_viewport_manifest = payload.get("first_viewport_manifest", {})
+    first_viewport_slots = (
+        first_viewport_manifest.get("slots", [])
+        if isinstance(first_viewport_manifest, dict)
+        else []
+    )
+    first_viewport_slot_ids = [
+        str(row.get("slot_id")) for row in first_viewport_slots if isinstance(row, dict)
+    ]
+    first_viewport_problem_slots = (
+        first_viewport_manifest.get("problem_shape_slot_map", [])
+        if isinstance(first_viewport_manifest, dict)
+        else []
+    )
+    first_viewport_problem_ids = {
+        str(row.get("problem_shape_id"))
+        for row in first_viewport_problem_slots
+        if isinstance(row, dict)
+    }
+    first_viewport_problem_slot_ids = {
+        str(row.get("slot_id"))
+        for row in first_viewport_problem_slots
+        if isinstance(row, dict)
+    }
+    first_viewport_consumer_surfaces = (
+        first_viewport_manifest.get("consumer_surfaces", {})
+        if isinstance(first_viewport_manifest, dict)
+        else {}
+    )
+    first_viewport_safe_to_show = (
+        first_viewport_manifest.get("safe_to_show", {})
+        if isinstance(first_viewport_manifest, dict)
+        else {}
+    )
     observatory_landing_frame = payload.get("observatory_landing_frame", {})
     doctrine_effect_frame = payload.get("doctrine_effect_frame", {})
     readme_entry_contract = payload.get("readme_entry_contract", {})
@@ -1751,6 +1945,70 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             )
             and local_state_receipt_trail.get("authority")
             == "local_state_receipt_trail_not_private_root_equivalence"
+        ),
+        "first_viewport_manifest": (
+            isinstance(first_viewport_manifest, dict)
+            and first_viewport_manifest.get("schema_version")
+            == "microcosm_first_viewport_manifest_v1"
+            and first_viewport_manifest.get("purpose")
+            == (
+                "make_single_screen_cold_entry_composition_explicit_for_cli_"
+                "readme_browser_json_and_video"
+            )
+            and "before the long command inventory"
+            in first_viewport_manifest.get("composition_rule", "")
+            and first_viewport_slot_ids
+            == [
+                "identity",
+                "first_run",
+                "proof_chain",
+                "evidence_context",
+                "reader_branch",
+                "authority_boundary",
+            ]
+            and all(
+                isinstance(row, dict)
+                and isinstance(row.get("viewport_copy"), str)
+                and bool(row.get("viewport_copy"))
+                and isinstance(row.get("source_packet"), str)
+                and bool(row.get("source_packet"))
+                and isinstance(row.get("first_visible_surface"), str)
+                and bool(row.get("first_visible_surface"))
+                and isinstance(row.get("proof_surface"), str)
+                and bool(row.get("proof_surface"))
+                and "authority_ceiling" in row.get("must_preserve", [])
+                and "anti_claim" in row.get("must_preserve", [])
+                and "omission_receipt" in row.get("must_preserve", [])
+                and "release_or_hosting_authority" in row.get("must_not_claim", [])
+                and "provider_call_authority" in row.get("must_not_claim", [])
+                and "private_root_equivalence" in row.get("must_not_claim", [])
+                and "whole_system_correctness" in row.get("must_not_claim", [])
+                and "reader_success" in row.get("must_not_claim", [])
+                for row in first_viewport_slots
+            )
+            and first_viewport_problem_ids == cold_entry_problem_ids
+            and first_viewport_problem_slot_ids.issubset(set(first_viewport_slot_ids))
+            and first_viewport_consumer_surfaces.get("terminal")
+            == human_first_command
+            and first_viewport_consumer_surfaces.get("readme")
+            == "README.md::Choose Your First Screen"
+            and first_viewport_consumer_surfaces.get("browser")
+            == (
+                f"{_bounded_observatory_serve_command(str(payload.get('project_label')))} -> /"
+            )
+            and first_viewport_consumer_surfaces.get("json")
+            == f"microcosm first-screen {payload.get('project_label')}"
+            and first_viewport_consumer_surfaces.get("video")
+            == "video_storyboard_packet"
+            and first_viewport_safe_to_show.get("uses_existing_first_screen_packets")
+            is True
+            and first_viewport_safe_to_show.get("creates_new_entry_artifact") is False
+            and first_viewport_safe_to_show.get("exports_private_paths") is False
+            and first_viewport_safe_to_show.get("exports_provider_payloads") is False
+            and first_viewport_safe_to_show.get("claims_release_or_hosting") is False
+            and first_viewport_safe_to_show.get("claims_reader_success") is False
+            and first_viewport_manifest.get("authority")
+            == "viewport_manifest_not_new_claim_or_renderer_authority"
         ),
         "first_contact_surface_refs": (
             isinstance(first_contact_surface_refs, dict)
@@ -2124,6 +2382,12 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 f"microcosm first-screen {payload.get('project_label', '<project>')}",
             )
             in readme_order_pairs
+            and ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
+            and (
+                "first_viewport_manifest",
+                "quickstart_command_inventory",
+            )
+            in readme_order_pairs
             and all(
                 isinstance(row, dict)
                 and isinstance(row.get("reason"), str)
@@ -2200,6 +2464,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                     "reader_landing_packets",
                     "behavior_proof_packet",
                     "first_run_ladder",
+                    "first_viewport_manifest",
                     "local_state_receipt_trail",
                     "first_contact_surface_refs",
                     "overclaim_tripwire_matrix",
@@ -2275,6 +2540,7 @@ def first_screen_composition_card(
         "reader_landing_packets": _reader_landing_packets(project_label),
         "behavior_proof_packet": _behavior_proof_packet(project_label),
         "first_run_ladder": _first_run_ladder(project_label),
+        "first_viewport_manifest": _first_viewport_manifest(project_label),
         "local_state_receipt_trail": _local_state_receipt_trail(project_label),
         "first_contact_surface_refs": _first_contact_surface_refs(project_label),
         "overclaim_tripwire_matrix": _overclaim_tripwire_matrix(project_label),

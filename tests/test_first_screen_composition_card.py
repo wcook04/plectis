@@ -196,6 +196,100 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert first_run_ladder["authority"] == (
         "copyable_run_order_not_quickstart_inventory_or_release_authority"
     )
+    first_viewport_manifest = card["first_viewport_manifest"]
+    viewport_by_id = {
+        row["slot_id"]: row for row in first_viewport_manifest["slots"]
+    }
+    problem_slot_by_id = {
+        row["problem_shape_id"]: row["slot_id"]
+        for row in first_viewport_manifest["problem_shape_slot_map"]
+    }
+    assert first_viewport_manifest["schema_version"] == (
+        "microcosm_first_viewport_manifest_v1"
+    )
+    assert first_viewport_manifest["purpose"] == (
+        "make_single_screen_cold_entry_composition_explicit_for_cli_readme_"
+        "browser_json_and_video"
+    )
+    assert "before the long command inventory" in first_viewport_manifest[
+        "composition_rule"
+    ]
+    assert list(viewport_by_id) == [
+        "identity",
+        "first_run",
+        "proof_chain",
+        "evidence_context",
+        "reader_branch",
+        "authority_boundary",
+    ]
+    assert viewport_by_id["identity"]["first_visible_surface"] == (
+        card["human_first_command"]
+    )
+    assert viewport_by_id["identity"]["proof_surface"] == "authority_ceiling"
+    assert viewport_by_id["first_run"]["source_packet"] == "first_run_ladder"
+    assert viewport_by_id["first_run"]["first_visible_surface"] == (
+        card["shared_first_command"]
+    )
+    assert viewport_by_id["proof_chain"]["proof_surface"] == (
+        "first_contact_surface_refs"
+    )
+    assert viewport_by_id["evidence_context"]["first_visible_surface"] == (
+        "core/organ_evidence_classes.json"
+    )
+    assert viewport_by_id["reader_branch"]["proof_surface"] == (
+        "reader_exit_criteria"
+    )
+    assert viewport_by_id["authority_boundary"]["proof_surface"] == (
+        "overclaim_tripwire_matrix"
+    )
+    for row in viewport_by_id.values():
+        assert row["viewport_copy"]
+        assert "authority_ceiling" in row["must_preserve"]
+        assert "anti_claim" in row["must_preserve"]
+        assert "omission_receipt" in row["must_preserve"]
+        assert "release_or_hosting_authority" in row["must_not_claim"]
+        assert "provider_call_authority" in row["must_not_claim"]
+        assert "private_root_equivalence" in row["must_not_claim"]
+        assert "whole_system_correctness" in row["must_not_claim"]
+        assert "reader_success" in row["must_not_claim"]
+    assert set(problem_slot_by_id) == {
+        "first_thing_best_thing_gap",
+        "audience_is_not_one_person",
+        "honest_numbers_without_context",
+        "discipline_invisible_without_comparison",
+        "size_paradox",
+        "runnable_vs_structural_split",
+        "doctrine_reads_as_ceremony",
+        "frontend_surface_not_seductive",
+        "card_discipline_not_default",
+    }
+    assert problem_slot_by_id["first_thing_best_thing_gap"] == "first_run"
+    assert problem_slot_by_id["audience_is_not_one_person"] == "reader_branch"
+    assert problem_slot_by_id["honest_numbers_without_context"] == (
+        "evidence_context"
+    )
+    assert problem_slot_by_id["runnable_vs_structural_split"] == "proof_chain"
+    assert first_viewport_manifest["consumer_surfaces"] == {
+        "terminal": "microcosm hello <project>",
+        "readme": "README.md::Choose Your First Screen",
+        "browser": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "--max-requests 6 -> /"
+        ),
+        "json": "microcosm first-screen <project>",
+        "video": "video_storyboard_packet",
+    }
+    assert first_viewport_manifest["safe_to_show"] == {
+        "uses_existing_first_screen_packets": True,
+        "creates_new_entry_artifact": False,
+        "exports_private_paths": False,
+        "exports_provider_payloads": False,
+        "claims_release_or_hosting": False,
+        "claims_reader_success": False,
+    }
+    assert first_viewport_manifest["authority"] == (
+        "viewport_manifest_not_new_claim_or_renderer_authority"
+    )
     local_state_receipt_trail = card["local_state_receipt_trail"]
     local_state_rows = {
         row["surface_id"]: row for row in local_state_receipt_trail["trail"]
@@ -667,6 +761,10 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "microcosm first-screen <project>",
     ) in readme_order_pairs
     assert ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
+    assert (
+        "first_viewport_manifest",
+        "quickstart_command_inventory",
+    ) in readme_order_pairs
     for row in readme_order:
         assert row["reason"]
     assert card["entry_surface_contract"]["shared_behavior_surface"] == (
@@ -698,6 +796,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     ]
     assert "first-run ladder" in card["entry_surface_contract"]["consumer_rule"]
     assert "local state receipt trail" in card["entry_surface_contract"][
+        "consumer_rule"
+    ]
+    assert "first-viewport manifest" in card["entry_surface_contract"][
         "consumer_rule"
     ]
     assert "overclaim tripwire matrix" in card["entry_surface_contract"][
@@ -831,6 +932,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "first_run_ladder" in observatory_landing_frame[
         "required_visible_handles"
     ]
+    assert "first_viewport_manifest" in observatory_landing_frame[
+        "required_visible_handles"
+    ]
     assert "local_state_receipt_trail" in observatory_landing_frame[
         "required_visible_handles"
     ]
@@ -892,6 +996,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert card["validation"]["checks"]["first_run_ladder"] is True
+    assert card["validation"]["checks"]["first_viewport_manifest"] is True
     assert card["validation"]["checks"]["local_state_receipt_trail"] is True
     assert card["validation"]["checks"]["first_contact_surface_refs"] is True
     assert card["validation"]["checks"]["overclaim_tripwire_matrix"] is True
@@ -940,6 +1045,25 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm tour --card ."
     )
     assert card["text_projection"]["writes_microcosm_state"] is False
+    assert [
+        row["slot_id"] for row in card["first_viewport_manifest"]["slots"]
+    ] == [
+        "identity",
+        "first_run",
+        "proof_chain",
+        "evidence_context",
+        "reader_branch",
+        "authority_boundary",
+    ]
+    assert card["first_viewport_manifest"]["consumer_surfaces"]["terminal"] == (
+        "microcosm hello ."
+    )
+    assert card["first_viewport_manifest"]["consumer_surfaces"]["json"] == (
+        "microcosm first-screen ."
+    )
+    assert card["first_viewport_manifest"]["authority"] == (
+        "viewport_manifest_not_new_claim_or_renderer_authority"
+    )
     assert card["entry_surface_contract"]["script_surface"] == (
         "python3 scripts/first_screen_composition_card.py --project-label ."
     )
