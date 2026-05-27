@@ -8,8 +8,11 @@ from typing import Any
 from microcosm_core.macro_tools.agent_execution_trace import (
     build_public_research_replication_trace,
 )
+from microcosm_core.organs import research_replication_rubric_artifact_replay
 from microcosm_core.organs.research_replication_rubric_artifact_replay import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_replication_bundle,
 )
@@ -234,6 +237,74 @@ def test_research_replication_exported_bundle_validates_runtime_shape(
     assert result["public_agent_execution_trace"]["audit"]["coverage"][
         "cold_rerun_coverage"
     ] is True
+
+
+def test_research_replication_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "research_replication_rubric_artifact_replay"
+    )
+    args = [
+        "run-replication-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 9
+    assert first_card["research_replication"]["paper_count"] == 2
+    assert first_card["research_replication"]["replay_count"] == 2
+    assert first_card["research_replication"]["declared_artifact_hash_ref_count"] == 2
+    assert first_card["public_agent_execution_trace"]["span_count"] == 2
+    assert first_card["source_body_floor"]["status"] == "pass"
+    assert first_card["source_body_floor"]["body_material_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert first_card["source_body_floor"]["body_material_id_count"] == len(
+        RESEARCH_REPLICATION_SOURCE_MODULE_IDS
+    )
+    assert first_card["validation"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["secret_exclusion_blocking_hit_count"] == 0
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
+    assert "body_material_ids" not in _walk_keys(first_card)
+    assert "secret_exclusion_scan" not in _walk_keys(first_card)
+    assert "research_replays" not in _walk_keys(first_card)
+    assert "declared_artifact_hash_refs" not in _walk_keys(first_card)
+    assert "spans" not in _walk_keys(first_card)
+    assert "private_paper_body" not in _walk_keys(first_card)
+    assert "hidden_rubric_body" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        research_replication_rubric_artifact_replay,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
 def test_public_agent_execution_trace_refactor_builds_research_replay_spans() -> None:
