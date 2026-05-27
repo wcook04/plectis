@@ -847,12 +847,26 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "CONSTITUTION",
         "AXIOMS",
         "PRINCIPLES",
+        "CONCEPTS",
+        "MECHANISMS",
         "ANTI_PRINCIPLES",
     }
     for row in doctrine_rows:
         assert row["prevents"]
         assert row["visible_effect"]
         assert row["first_screen_surface"]
+    assert doctrine_by_handle["CONCEPTS"]["standard_ref"] == (
+        "standards/std_microcosm_concept.json"
+    )
+    assert doctrine_by_handle["CONCEPTS"]["agent_entry_ref"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert doctrine_by_handle["MECHANISMS"]["standard_ref"] == (
+        "standards/std_microcosm_mechanism.json"
+    )
+    assert doctrine_by_handle["MECHANISMS"]["agent_entry_ref"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
     assert doctrine_by_handle["CONSTITUTION"]["first_screen_surface"] == (
         "authority_ceiling"
     )

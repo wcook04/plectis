@@ -20,10 +20,13 @@ The composition root says what has to fit on one screen:
 4. Evidence counts framed as accounting, not maturity or progress scores.
 5. A runnable-to-structural join: the folder-local command is one visible
    exercise of a larger source-open substrate.
-6. An omission receipt: the card names the deeper route map, receipts,
+6. A doctrine-effect frame: concepts and mechanisms appear as public handles
+   that prevent vague labels and feature prose before deeper standards are
+   opened.
+7. An omission receipt: the card names the deeper route map, receipts,
    standards, workingness, authority, and observatory drilldowns instead of
    copying them.
-7. An authority ceiling that rejects release, hosted publication, provider
+8. An authority ceiling that rejects release, hosted publication, provider
    calls, source mutation, private-data equivalence, score-based progress, and
    whole-system correctness.
 
@@ -39,6 +42,7 @@ inventory:
 | First action | `microcosm hello <project>` | Gives every reader the same first command before audience branching. |
 | Shared proof | `microcosm tour --card <project>` | Shows one local behavior proof that can be repeated from a clone. |
 | Evidence legend | Count, evidence class, proof surface, and anti-claim. | Prevents honest counters from becoming maturity scores. |
+| Doctrine frame | Concepts and mechanisms as mistake-prevention handles. | Lets agents find `std_microcosm_concept` and `std_microcosm_mechanism` from entry instead of searching the standards tree. |
 | Structural join | "This run exercises one public organ inside a larger source-open substrate." | Connects the local command to standards, receipts, body imports, and observatory routes. |
 | Reader rail | Safety/evals, hiring, and peer developer branch handles. | Lets each reader choose a next drilldown without changing authority. |
 | Exit rule | Stop when first action, shared proof, evidence legend, and one branch next-step are understood. | Keeps the card from expanding into the long-form route map. |
@@ -145,7 +149,8 @@ When a runtime card consumes it, validation should check that the card has a
 single terminal selector, one shared behavior proof, the three reader route
 ids, the reader-selection card ref, evidence-accounting context, a
 runnable-to-structural join, discipline comparison frame, observable artifact
-bridge, omission receipts, and the authority ceiling.
+bridge, concept and mechanism rows inside the doctrine-effect frame, omission
+receipts, and the authority ceiling.
 
 ## Public Card Emitter
 

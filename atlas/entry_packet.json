@@ -88,6 +88,13 @@
     "atlas/entry_packet.json::local_first_screen_route",
     "atlas/entry_packet.json::reader_first_screen_routes",
     "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
+    "atlas/entry_packet.json::concept_mechanism_entry_route",
+    "AGENTS.md::Concept And Mechanism Entry",
+    "microcosm first-screen <project>::doctrine_effect_frame",
+    "standards/std_microcosm_concept.json",
+    "standards/std_microcosm_mechanism.json",
+    "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
+    "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
     "atlas/entry_packet.json::cold_clone_probe_route",
     "atlas/entry_packet.json::observatory_route",
     "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
@@ -105,6 +112,7 @@
     "microcosm observe <project>",
     "microcosm observe <project>::causal_chain",
     "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
     "microcosm serve <project>::first_screen_route_proof",
     "/",
     "/status",
@@ -178,6 +186,7 @@
       "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "microcosm observe <project>",
       "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
       "microcosm compile <project>",
       "microcosm python-lens <project>",
       "microcosm explain <project> <selected_route_id>",
@@ -228,6 +237,7 @@
       "status_and_workingness_route",
       "python_navigation_route",
       "route_explanation_chain_route",
+      "concept_mechanism_entry_route",
       "observatory_route",
       "proof_lab_route"
     ],
@@ -242,6 +252,32 @@
       "release_authorized": false,
       "proof_correctness_claim": false
     }
+  },
+  "concept_mechanism_entry_route": {
+    "surface_id": "microcosm_concept_mechanism_entry",
+    "entry_role": "agent-facing doctrine population and refinement route after the shared first-screen card",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "standards": [
+      {
+        "kind_id": "concept",
+        "standard_ref": "standards/std_microcosm_concept.json",
+        "pressure_ref": "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
+        "reader_rule": "Concept rows are typed vocabulary boundaries with source refs, relationships, payload shape, omission receipts, and anti-claims."
+      },
+      {
+        "kind_id": "mechanism",
+        "standard_ref": "standards/std_microcosm_mechanism.json",
+        "pressure_ref": "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
+        "reader_rule": "Mechanism rows are reusable state, proof, routing, or doctrine transformations with validator attachment."
+      }
+    ],
+    "validation_commands": [
+      "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
+      "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
+      "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine"
+    ],
+    "authority": "entry_and_validation_route_only_not_macro_doctrine_source_or_release_authority"
   },
   "cold_clone_probe_route": {
     "surface_id": "microcosm_cold_clone_probe",
@@ -455,6 +491,9 @@
   "observatory_route": {
     "surface_id": "microcosm_project_observatory",
     "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+    "bounded_validation_command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
+    "bounded_validation_request_count": 6,
+    "bounded_validation_rule": "Use bounded_validation_command for first-screen route smokes; use command for an interactive browser session.",
     "endpoint": "/project/observatory",
     "compact_endpoint": "/project/observatory-card",
     "html_endpoint": "/",

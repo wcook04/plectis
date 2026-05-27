@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 
@@ -119,3 +120,35 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
     assert agents.index("microcosm tour --card <project>") < agents.index(
         "microcosm tour <project>"
     )
+
+
+def test_agent_entry_routes_concepts_and_mechanisms_from_first_screen() -> None:
+    agents = _agents_text()
+    cold_start = _cold_start_text()
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+
+    assert "## Concept And Mechanism Entry" in agents
+    assert "microcosm first-screen <project>" in agents
+    assert "doctrine_effect_frame" in agents
+    assert "standards/std_microcosm_concept.json" in agents
+    assert "standards/std_microcosm_mechanism.json" in agents
+    assert "concept_handle_requires_entry_surface" in agents
+    assert "mechanism_handle_requires_runnable_contract" in agents
+
+    assert "## Concept And Mechanism Drilldown" in cold_start
+    assert "AGENTS.md::Concept And Mechanism Entry" in cold_start
+
+    allowed_drilldowns = set(entry_packet["allowed_drilldowns"])
+    assert "atlas/entry_packet.json::concept_mechanism_entry_route" in allowed_drilldowns
+    assert "microcosm first-screen <project>::doctrine_effect_frame" in allowed_drilldowns
+    route = entry_packet["concept_mechanism_entry_route"]
+    assert route["agent_entry_ref"] == "AGENTS.md::Concept And Mechanism Entry"
+    assert route["first_screen_ref"] == (
+        "microcosm first-screen <project>::doctrine_effect_frame"
+    )
+    assert {row["kind_id"] for row in route["standards"]} == {
+        "concept",
+        "mechanism",
+    }

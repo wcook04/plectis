@@ -28,23 +28,32 @@ The compact behavioral path is:
    `front_door.route_explanation`, `front_door.proof_lab`,
    `front_door.observatory`, and
    `front_door.source_open_body_import_floor` lenses.
+   If you run it before `.microcosm/` exists, keep the non-zero JSON as an
+   honest recovery card: `front_door.project_state.recovery`,
+   `front_door.project_recovery`, and
+   `front_door_status.blocking_surface_details.project_state` should point back
+   to `microcosm tour --card <project>` and then
+   `microcosm status --card <project>`.
 3. `microcosm workingness` opens the bounded behavior/failure map.
 4. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
-5. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
+5. `microcosm observe <project>` opens the selected route's compact causal
+   chain over route, work, event, evidence, graph, status, proof, and
+   observatory refs.
+6. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
    observatory; check `/project/observatory-card` before the expanded
    `/project/observatory`. The compact card must carry `state_inspection`
    over `.microcosm/` plus route/work/evidence/graph/proof/status refs before
    you check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
-   `/project/python-lens`, and
+   `/project/python-lens`, `/project/observe`, and
    `/project/explain/<selected_route_id>`.
-6. `microcosm compile <project>` rebuilds local state when you need an explicit
+7. `microcosm compile <project>` rebuilds local state when you need an explicit
    refresh after the first-screen proof surfaces are visible.
-7. `microcosm python-lens <project>` opens the project navigation assay.
-8. `microcosm explain <project> <selected_route_id>` opens the route/work/event
+8. `microcosm python-lens <project>` opens the project navigation assay.
+9. `microcosm explain <project> <selected_route_id>` opens the route/work/event
    and evidence chain selected by `tour --card`, `tour`, or `compile`.
-9. `microcosm evidence list <project>` lists project-local evidence refs.
-10. `microcosm tour <project>` is the full route-card, endpoint-path, and
+10. `microcosm evidence list <project>` lists project-local evidence refs.
+11. `microcosm tour <project>` is the full route-card, endpoint-path, and
    evidence-ref drilldown after the first screen is already readable.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the
@@ -55,6 +64,39 @@ Empty/non-README folders can select `missing_tests_route`, including
 `missing_tests_route` when tests are absent. The full-tour
 `route_cards_by_id.status_and_workingness` row is a drilldown for the status
 and workingness route, not the first screen.
+
+## Reader-Typed Branches
+
+`atlas/entry_packet.json::reader_first_screen_routes` names the three cold
+reader branches after the shared `microcosm tour --card <project>` card:
+
+- Safety/evals engineer: run `microcosm status --card <project>`, then
+  `microcosm authority && microcosm workingness`; read evidence classes,
+  body-import counts, authority ceilings, anti-claims, missing standards, and
+  failure modes as honesty accounting rather than maturity scores.
+- Hiring reviewer: run `microcosm legibility-scorecard`, then
+  `microcosm tour --card <project>`; read question-to-command mapping,
+  endpoint parity, local behavior, and explicit no-release/no-reader-success
+  boundaries.
+- Peer developer: run `microcosm tour --card <project>`, then
+  `microcosm observe <project>`; read `.microcosm/` state refs, the selected
+  route id, the route/work/event/evidence graph chain, and
+  `source_files_mutated=false`.
+
+## Concept And Mechanism Drilldown
+
+If the task is to read, populate, or refine Microcosm concepts and mechanisms,
+do not start from the full extracted pattern inventory. Open
+`microcosm first-screen <project>` and read `doctrine_effect_frame`, then use
+`AGENTS.md::Concept And Mechanism Entry` as the agent route.
+
+The standards are the floor: `standards/std_microcosm_concept.json` governs
+typed vocabulary boundaries, and `standards/std_microcosm_mechanism.json`
+governs operational transformations. The populated local pressure rows are
+`core/public_standard_pressure.json::concept_handle_requires_entry_surface` and
+`core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract`.
+Use the executable grammar and standards-meta diagnostics commands from the
+AGENTS route when you need validation instead of another prose summary.
 
 ## Proof-Lab Drilldown
 
@@ -96,11 +138,15 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    `PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out
    /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
    card from `atlas/entry_packet.json::proof_lab_route`.
-6. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
+6. Run `microcosm observe <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli observe <project>` to inspect
+   the compact route/work/event/evidence/graph causal-chain lens selected by
+   the first-screen route id.
+7. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
    `/project/observatory-card` before `/project/observatory` when the question
    is how the local browser/read-model ties `.microcosm` state, route, work,
    evidence, graph, status, and proof surfaces together.
-7. Run `microcosm compile <project>` or
+8. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
    want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
    are visible.
@@ -110,7 +156,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    Run `microcosm tour <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` only when you
    need the full route-card, endpoint-path, and evidence-ref drilldown.
-8. Run `microcosm python-lens <project>` or
+9. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
    `std_python_microcosm_navigation_assay`, and

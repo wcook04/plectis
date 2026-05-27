@@ -205,6 +205,72 @@ def test_first_screen_composition_root_demotes_evidence_counts_to_accounting() -
     assert "first_screen_composition_root" in standard["paper_module_contract"]["module_slug"]
 
 
+def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
+    concept = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_concept.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    mechanism = json.loads(
+        (MICROCOSM_ROOT / "standards/std_microcosm_mechanism.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    pressure = json.loads(
+        (MICROCOSM_ROOT / "core/public_standard_pressure.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    pressure_by_id = {
+        row["standard_id"]: row
+        for row in pressure["rows"]
+        if isinstance(row, dict)
+    }
+
+    assert concept["entry_surface_contract"]["agent_entry_ref"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert concept["entry_surface_contract"]["first_screen_ref"] == (
+        "microcosm first-screen <project>::doctrine_effect_frame"
+    )
+    assert "entry_surface_contract" in concept["required_fields"]
+    assert any(
+        source_ref.get("path") == "AGENTS.md"
+        for source_ref in concept["source_refs"]
+        if isinstance(source_ref, dict)
+    )
+    assert (
+        "concept_handle_requires_entry_surface"
+        in pressure_by_id
+    )
+    assert pressure_by_id["concept_handle_requires_entry_surface"][
+        "runtime_hook"
+    ] == "first_screen_composition.doctrine_effect_frame"
+
+    assert mechanism["entry_surface_contract"]["agent_entry_ref"] == (
+        "AGENTS.md::Concept And Mechanism Entry"
+    )
+    assert mechanism["entry_surface_contract"]["first_screen_ref"] == (
+        "microcosm first-screen <project>::doctrine_effect_frame"
+    )
+    assert "entry_surface_contract" in mechanism["required_fields"]
+    assert any(
+        source_ref.get("path") == "AGENTS.md"
+        for source_ref in mechanism["source_refs"]
+        if isinstance(source_ref, dict)
+    )
+    assert (
+        "mechanism_handle_requires_runnable_contract"
+        in pressure_by_id
+    )
+    assert (
+        "microcosm executable-doctrine-grammar validate-standards-bundle"
+        in pressure_by_id["mechanism_handle_requires_runnable_contract"][
+            "route_refs"
+        ]
+    )
+
+
 def test_standards_registry_rejects_duplicate_standard_ids(tmp_path: Path) -> None:
     public_root = _copy_public_standards_tree(tmp_path)
     registry_path = public_root / "core/standards_registry.json"

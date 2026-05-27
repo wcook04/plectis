@@ -96,6 +96,29 @@ whole-system correctness.
 - `agentic_vulnerability_discovery_patch_proof_replay`
 - `certificate_kernel_execution_lab`
 
+## Concept And Mechanism Entry
+
+When a Microcosm task asks to read, populate, or refine concepts and
+mechanisms, use the entry surface instead of starting from the extracted
+pattern inventory. First open `microcosm first-screen <project>` and read
+`doctrine_effect_frame`; it now exposes `CONCEPTS` and `MECHANISMS` as
+mistake-prevention handles, not ceremonial doctrine labels.
+
+The concept floor is `standards/std_microcosm_concept.json`; it governs typed
+vocabulary boundaries with source refs, relationships, payload shape, omission
+receipts, and anti-claims. The mechanism floor is
+`standards/std_microcosm_mechanism.json`; it governs reusable state, proof,
+routing, or doctrine transformations with validator attachment. Both standards
+point back to this agent-entry section and the first-screen doctrine frame.
+
+Use `core/public_standard_pressure.json` for the populated local pressure rows
+`concept_handle_requires_entry_surface` and
+`mechanism_handle_requires_runnable_contract`.
+
+- Standard shape: `microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar`
+- Organ-to-standard mapping: `microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics`
+- Local pressure -> owner surface -> validation -> closeout loop: `microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine`
+
 ## Rules
 
 1. Start with `README.md`, then run `skills/cold_start_navigation.md` if you
@@ -120,6 +143,13 @@ whole-system correctness.
    receipt ref and no release, hosting,
    credentialed provider-call, unsafe source-mutation,
    proof-authority, secret-export, or financial-advice authority.
+   Reader-typed branches live in
+   `atlas/entry_packet.json::reader_first_screen_routes`: safety/evals
+   readers go from the shared local card to status/authority/workingness,
+   hiring reviewers go to the legibility scorecard plus the local card, and
+   peer developers go to the local card plus `microcosm observe <project>`.
+   Those branches route attention; they do not create release, proof,
+   production, hiring, or safety-evaluation authority.
    The Python route loop is `microcosm python-lens <project>`; it should expose
    path-level Python roles, package roots, readiness checks, and route rows
    without source bodies, provider calls, source mutation, package-quality

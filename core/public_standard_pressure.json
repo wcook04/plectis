@@ -65,6 +65,48 @@
       "title": "Projection Lineage, Not Authority"
     },
     {
+      "authority_boundary": "public_entry_discoverability_not_doctrine_source_authority",
+      "claim": "Concept handles must be reachable from the agent entry and first-screen doctrine frame before a reader has to search standards manually.",
+      "kernel_primitive_refs": [
+        "standard",
+        "projection",
+        "explanation"
+      ],
+      "route_refs": [
+        "microcosm first-screen <project>::doctrine_effect_frame",
+        "AGENTS.md::Concept And Mechanism Entry"
+      ],
+      "runtime_hook": "first_screen_composition.doctrine_effect_frame",
+      "source_refs": [
+        "standards/std_microcosm_concept.json",
+        "core/standards_registry.json::standards[standard_id=std_microcosm_concept]"
+      ],
+      "standard_id": "concept_handle_requires_entry_surface",
+      "title": "Concept Handle Requires Entry Surface"
+    },
+    {
+      "authority_boundary": "public_runtime_handle_not_feature_prose_or_release_authority",
+      "claim": "Mechanism handles must name the state, proof, routing, or doctrine transformation plus validator attachment, not just describe a feature.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "evidence",
+        "explanation"
+      ],
+      "route_refs": [
+        "microcosm first-screen <project>::doctrine_effect_frame",
+        "AGENTS.md::Concept And Mechanism Entry",
+        "microcosm executable-doctrine-grammar validate-standards-bundle"
+      ],
+      "runtime_hook": "first_screen_composition.doctrine_effect_frame",
+      "source_refs": [
+        "standards/std_microcosm_mechanism.json",
+        "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]"
+      ],
+      "standard_id": "mechanism_handle_requires_runnable_contract",
+      "title": "Mechanism Handle Requires Runnable Contract"
+    },
+    {
       "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
       "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
       "kernel_primitive_refs": [

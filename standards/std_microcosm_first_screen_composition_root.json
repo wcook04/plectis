@@ -95,6 +95,7 @@
       "comparison_frame",
       "discipline_comparison_strip",
             "doctrine_effect_frame",
+            "concept_mechanism_entry_route",
             "readme_entry_contract",
             "entry_surface_contract",
             "scale_frame",
@@ -110,7 +111,7 @@
     },
     "receipt_expectations": [
         "receipt.microcosm.first_screen_composition_root",
-        "receipt should cite the shared first command, reader branch ids, reader route menu, reader landing packets, behavior-proof packet, first-run ladder, first-viewport manifest, local state receipt trail, first-contact surface refs, overclaim tripwire matrix, discipline comparison strip, reader exit criteria, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame, README-entry contract, entry-surface contract, runnable-vs-structural join, observatory landing frame with a copyable localhost serve command, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
+        "receipt should cite the shared first command, reader branch ids, reader route menu, reader landing packets, behavior-proof packet, first-run ladder, first-viewport manifest, local state receipt trail, first-contact surface refs, overclaim tripwire matrix, discipline comparison strip, reader exit criteria, reader focus mode, evidence-accounting frame, comparison frame, doctrine-effect frame including concept and mechanism handles, README-entry contract, entry-surface contract, runnable-vs-structural join, observatory landing frame with a copyable localhost serve command, omission receipt, authority ceiling, and anti-claim when a runtime card consumes this standard"
   ],
   "receipt_refs": [
     {
@@ -254,6 +255,7 @@
       "the first screen leaves readers to infer which common overclaims are invalid",
       "the first screen says discipline is unusual without a side-by-side operational comparison",
       "the first screen does not tell a reader when to stop reading and choose the next drilldown",
+      "the doctrine-effect frame omits concepts and mechanisms, leaving agents to search standards manually",
       "honest evidence counts are shown without explaining that they are accounting fields rather than maturity scores",
       "first-screen source-open material counts drift from the implemented-organ fixture manifests or workingness count source",
       "breadth is listed as many topics without a composition root",

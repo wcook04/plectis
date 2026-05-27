@@ -16,6 +16,18 @@
     "standard_authority": "schema_contract_and_validator_expectation_only",
     "status": "pass"
   },
+  "entry_surface_contract": {
+    "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+    "authority": "entry_discoverability_only_not_doctrine_source_authority",
+    "first_screen_ref": "microcosm first-screen <project>::doctrine_effect_frame",
+    "public_drilldowns": [
+      "standards/std_microcosm_mechanism.json",
+      "core/standards_registry.json::standards[standard_id=std_microcosm_mechanism]",
+      "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract"
+    ],
+    "reader_rule": "Use mechanism rows as operational transformation handles that name state, proof, routing, or doctrine effects plus validator attachment; do not treat them as feature prose.",
+    "required": true
+  },
   "first_wave_required": true,
   "kind_id": "mechanism",
   "kind_name": "Mechanism",
@@ -109,6 +121,7 @@
     "status",
     "created_at",
     "relationships",
+    "entry_surface_contract",
     "validator_refs",
     "receipt_refs",
     "omission_receipt",
@@ -125,6 +138,14 @@
       "field": "standards[standard_id=std_microcosm_mechanism]",
       "path": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
       "role": "macro_manifest_source"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "public_agent_entry_route_for_concept_and_mechanism_population"
+    },
+    {
+      "path": "src/microcosm_core/first_screen_composition.py",
+      "role": "doctrine_effect_frame_projection"
     },
     {
       "role": "id_refs_only_no_source_bodies",
@@ -157,8 +178,9 @@
   "standard_payload": {
     "anti_purpose": "A narrative description of a feature.",
     "compression_bands": [],
-    "failure_modes": [
+      "failure_modes": [
       "untyped artifact admitted into rebuilt substrate",
+      "mechanism standard exists but is not reachable from the agent entry or first-screen doctrine frame",
       "current public microcosm surface treated as sufficient without coverage check",
       "private source material exposed instead of synthetic/schema-only fixture",
       "projection claims source authority without coupling receipt"
@@ -172,6 +194,7 @@
     "validate required fields and enum values against this standard",
     "reject missing source_refs unless the fixture declares synthetic origin",
     "reject authority upgrades not backed by receipt_refs",
+    "require entry_surface_contract so mechanism rows are discoverable from AGENTS.md and the first-screen doctrine_effect_frame",
     "require public_private_boundary before public projection"
   ],
   "validator_contract": {

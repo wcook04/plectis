@@ -1524,6 +1524,28 @@ def _doctrine_effect_frame() -> dict[str, Any]:
                 "first_screen_surface": "reader_routes",
             },
             {
+                "doctrine_handle": "CONCEPTS",
+                "prevents": "letting repeated public terms drift into vague labels",
+                "visible_effect": (
+                    "concept handles must keep source refs, relationships, payload "
+                    "shape, and the public-safe standard boundary visible"
+                ),
+                "first_screen_surface": "doctrine_effect_frame",
+                "standard_ref": "standards/std_microcosm_concept.json",
+                "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+            },
+            {
+                "doctrine_handle": "MECHANISMS",
+                "prevents": "describing a feature without the transformation it performs",
+                "visible_effect": (
+                    "mechanism handles must name the state, proof, routing, or "
+                    "doctrine transformation plus validator attachment"
+                ),
+                "first_screen_surface": "doctrine_effect_frame",
+                "standard_ref": "standards/std_microcosm_mechanism.json",
+                "agent_entry_ref": "AGENTS.md::Concept And Mechanism Entry",
+            },
+            {
                 "doctrine_handle": "ANTI_PRINCIPLES",
                 "prevents": (
                     "turning a local demo into release, provider-call, private-data, "
@@ -2670,7 +2692,14 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and doctrine_effect_frame.get("purpose")
             == "show_doctrine_as_mistake_prevention_not_ceremony"
             and doctrine_handles
-            == {"CONSTITUTION", "AXIOMS", "PRINCIPLES", "ANTI_PRINCIPLES"}
+            == {
+                "CONSTITUTION",
+                "AXIOMS",
+                "PRINCIPLES",
+                "CONCEPTS",
+                "MECHANISMS",
+                "ANTI_PRINCIPLES",
+            }
             and all(
                 isinstance(row, dict)
                 and isinstance(row.get("prevents"), str)
@@ -3191,7 +3220,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "",
         "Runnable-to-structural join:",
         "  This card is the map; the first run writes .microcosm and exercises the larger public substrate:",
-        "  standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
+        "  concept/mechanism standards, receipts, authority boundaries, workingness, route maps, and observatory views.",
         "",
         "Drilldowns:",
         (
