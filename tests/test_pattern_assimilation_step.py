@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -20,6 +21,11 @@ ASSIMILATION_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/pattern_assimilation_step/exported_assimilation_bundle"
 )
+PATTERN_SOURCE_MODULE_IDS = {
+    "macro_pattern_autonomy_process_contract_body_import",
+    "macro_pattern_assimilation_fixture_manifest_body_import",
+    "pattern_assimilation_retracted_adapter_receipt_body_import",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -130,9 +136,18 @@ def test_pattern_assimilation_receipts_satisfy_macro_field_floor(tmp_path: Path)
         MICROCOSM_ROOT / "fixtures/first_wave/pattern_assimilation_step",
         public_root / "fixtures/first_wave/pattern_assimilation_step",
     )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/pattern_assimilation_step",
+        public_root / "examples/pattern_assimilation_step",
+    )
     validate_pattern_assimilation(
         public_root / "fixtures/first_wave/pattern_assimilation_step/input",
         public_root / "receipts/first_wave/pattern_assimilation_acceptance.json",
+        command="pytest",
+    )
+    run_assimilation_bundle(
+        public_root / "examples/pattern_assimilation_step/exported_assimilation_bundle",
+        public_root / "receipts/first_wave/pattern_assimilation_step",
         command="pytest",
     )
 
@@ -228,7 +243,22 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
         "state/meta_missions/type_a_autonomous_seed_loop/seeds/microcosm_substrate_import_autonomous_seed.json"
     ]
     assert result["assimilation_policy"]["forbidden_authority_rejected"] is True
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["source_module_manifest_ref"].endswith("source_module_manifest.json")
+    assert result["body_copied_material_count"] == 3
+    source_imports = result["source_open_body_imports"]
+    assert source_imports["status"] == "pass"
+    assert source_imports["body_material_count"] == 3
+    assert set(source_imports["body_material_ids"]) == PATTERN_SOURCE_MODULE_IDS
+    assert source_imports["body_material_classes"] == {
+        "public_macro_pattern_body": 1,
+        "public_macro_receipt_body": 1,
+        "public_macro_tool_body": 1,
+    }
+    assert source_imports["body_in_receipt"] is False
+    assert source_imports["body_text_in_receipt"] is False
     assert all(not Path(path).is_absolute() for path in result["public_replacement_refs"])
+    assert any(path.endswith("source_module_manifest.json") for path in result["public_replacement_refs"])
 
 
 def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
@@ -265,6 +295,12 @@ def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
     assert payload["private_state_scan"]["body_redacted"] is True
     assert payload["private_state_scan"]["blocking_hit_count"] == 0
     assert payload["expected_negative_cases"] == {}
+    assert payload["body_copied_material_count"] == 3
+    assert payload["source_open_body_imports"]["body_material_count"] == 3
+    assert set(payload["source_open_body_imports"]["body_material_ids"]) == (
+        PATTERN_SOURCE_MODULE_IDS
+    )
+    assert payload["source_open_body_imports"]["body_in_receipt"] is False
     assert payload["metadata_projection_not_live_learning_authority"] is True
     assert payload["authority_ceiling"]["private_data_equivalence_claim"] is False
     assert payload["authority_ceiling"]["behavior_change_overclaims_allowed"] is False
@@ -273,3 +309,33 @@ def test_pattern_assimilation_exported_bundle_receipt_is_public_safe(
     for hit in payload["private_state_scan"]["hits"]:
         assert hit["body_redacted"] is True
         assert not Path(hit["path"]).is_absolute()
+
+
+def test_pattern_assimilation_source_modules_are_exact_macro_body_imports() -> None:
+    manifest_path = ASSIMILATION_BUNDLE_INPUT / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    modules = manifest["modules"]
+
+    assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 3
+    assert {row["module_id"] for row in modules} == PATTERN_SOURCE_MODULE_IDS
+
+    for row in modules:
+        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
+        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
+        source_bytes = source_path.read_bytes()
+        target_bytes = target_path.read_bytes()
+        digest = hashlib.sha256(source_bytes).hexdigest()
+
+        assert source_bytes == target_bytes
+        assert row["source_import_class"] == "copied_non_secret_macro_body"
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
+        text = target_bytes.decode("utf-8")
+        for anchor in row["required_anchors"]:
+            assert anchor in text

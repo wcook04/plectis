@@ -5,14 +5,14 @@
     "rule": "fixture-backed proof must state what it does not prove"
   },
   "anti_claims": [
-    "This public standard does not copy private source bodies or prove public runtime completeness.",
+    "This public standard does not copy private source bodies or prove public runtime completeness; its exported bundle may count only copied non-secret macro bodies declared in source_module_manifest.json.",
     "This public standard does not authorize release, hosted-public readiness, publication, recipient work, provider calls, or private-data equivalence."
   ],
-  "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+  "authority_boundary": "public_safe_schema_standard_plus_source_module_body_import_contract_not_live_learning_authority",
   "authority_ceiling": {
     "private_data_equivalence_authority": false,
     "release_authority": false,
-    "source_body_authority": false,
+    "source_body_authority": "copied_non_secret_macro_bodies_only_via_source_module_manifest",
     "standard_authority": "schema_contract_and_validator_expectation_only",
     "status": "pass"
   },
@@ -150,8 +150,37 @@
         "cap_quick_capture_lane",
         "cap_reflex_capture_before_prose"
       ]
+    },
+    {
+      "field": "source_open_body_imports",
+      "path": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+      "role": "copied_non_secret_macro_body_manifest"
+    },
+    {
+      "path": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+      "role": "copied_macro_process_contract_body"
+    },
+    {
+      "path": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+      "role": "copied_macro_fixture_manifest_body"
+    },
+    {
+      "path": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+      "role": "copied_macro_retraction_receipt_body"
     }
   ],
+  "source_open_body_imports": {
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "macro_pattern_autonomy_process_contract_body_import",
+      "macro_pattern_assimilation_fixture_manifest_body_import",
+      "pattern_assimilation_retracted_adapter_receipt_body_import"
+    ],
+    "manifest_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+    "source_import_class": "copied_non_secret_macro_body",
+    "status": "pass"
+  },
   "standard_id": "std_microcosm_pattern_assimilation_step",
   "standard_payload": {
     "anti_purpose": "A retrospective note that does not alter standards, skills, or ledgers.",

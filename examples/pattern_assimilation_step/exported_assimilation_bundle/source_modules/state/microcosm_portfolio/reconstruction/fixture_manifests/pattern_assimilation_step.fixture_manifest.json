@@ -11,37 +11,6 @@
     "state/microcosm_portfolio/reconstruction/microcosm_rebuild_mission_graph_v1.json::mission_w1_pattern_assimilation_closeout",
     "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json::std_microcosm_pattern_assimilation_step"
   ],
-  "source_open_body_imports": {
-    "aggregate_floor_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json::modules",
-    "authority_ceiling": {
-      "body_text_exported_in_receipts": false,
-      "private_data_equivalence_claim": false,
-      "provider_payload_read": false,
-      "release_or_publication_authorized": false,
-      "source_body_authority": "copied_non_secret_macro_bodies_only_via_source_module_manifest",
-      "status": "pass"
-    },
-    "body_in_receipt": false,
-    "body_material_count": 3,
-    "body_material_ids": [
-      "macro_pattern_autonomy_process_contract_body_import",
-      "macro_pattern_assimilation_fixture_manifest_body_import",
-      "pattern_assimilation_retracted_adapter_receipt_body_import"
-    ],
-    "body_material_status": "copied_non_secret_macro_body_landed",
-    "material_classes": [
-      "public_macro_pattern_body",
-      "public_macro_receipt_body",
-      "public_macro_tool_body"
-    ],
-    "reader_action": "Open source_module_manifest.json plus source_modules/ for exact copied macro pattern-assimilation process bodies; receipts carry refs, digests, counts, and verdicts only.",
-    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
-    "source_import_class": "copied_non_secret_macro_body",
-    "source_manifest_refs": [
-      "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json"
-    ],
-    "status": "pass"
-  },
   "wave_status": {
     "first_wave": "required_closeout_after_all_wave_1_runtime_organs",
     "second_wave": "consume for external boundary, bridge continuity, and voice-to-doctrine organs after their manifests exist",
@@ -174,23 +143,6 @@
         "self_refire_target",
         "next_self_refire_direction",
         "anti_claim"
-      ]
-    },
-    {
-      "path": "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
-      "must_include": [
-        "input_mode",
-        "bundle_id",
-        "source_module_manifest_status",
-        "source_module_manifest_ref",
-        "source_open_body_imports",
-        "body_copied_material_count",
-        "public_replacement_refs",
-        "metadata_projection_not_live_learning_authority",
-        "anti_claim",
-        "authority_ceiling",
-        "private_state_scan",
-        "status"
       ]
     }
   ],
@@ -576,29 +528,6 @@
         "authority_ceiling",
         "private_state_scan",
         "receipt_paths"
-      ],
-      "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json": [
-        "schema_version",
-        "organ_id",
-        "fixture_id",
-        "validator_id",
-        "command",
-        "status",
-        "input_mode",
-        "bundle_id",
-        "source_module_manifest_status",
-        "source_module_manifest_ref",
-        "source_open_body_imports",
-        "body_copied_material_count",
-        "public_replacement_refs",
-        "metadata_projection_not_live_learning_authority",
-        "expected_negative_cases",
-        "observed_negative_cases",
-        "error_codes",
-        "anti_claim",
-        "private_state_scan",
-        "authority_ceiling",
-        "receipt_paths"
       ]
     },
     "required_negative_case_source": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::negative_cases[organ_id=pattern_assimilation_step]",
@@ -730,7 +659,7 @@
     "authority_ceiling": "synthetic_pattern_assimilation_closeout_fixture_only_not_public_build_readiness_or_global_doctrine_promotion",
     "anti_claim": "Pattern-assimilation receipt-field coverage proves only synthetic closeout-learning contract shape, negative cases, and claim ceilings. It does not ingest private lessons, promote doctrine, execute public code, consume live Task Ledger state, or authorize public-root writes."
   },
-  "anti_claim": "This fixture proves organ-closeout learning mechanics over synthetic landing summaries; it does not prove that every macro lesson is source-available, does not authorize public projection, and does not copy private doctrine, raw seed, operator content, provider payloads, or live Task Ledger state.",
+  "anti_claim": "This fixture proves organ-closeout learning mechanics over synthetic landing summaries; it does not prove that every macro lesson is public-safe, does not authorize public projection, and does not copy private doctrine, raw seed, operator content, provider payloads, or live Task Ledger state.",
   "private_state_exclusion_rules": [
     "Use synthetic organ landing summaries only.",
     "Do not include real raw seed text, prompt shelf bodies, provider payload bodies, operator thread bodies, live Task Ledger rows, HUD/browser/cockpit state, prediction or market material, private memory bodies, release packets, publication packets, recipient packets, hosted-public artifacts, or website surfaces.",

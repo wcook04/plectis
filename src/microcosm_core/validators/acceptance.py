@@ -31,6 +31,17 @@ EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH = (
     "receipts/first_wave/pattern_assimilation_step/"
     "exported_assimilation_bundle_validation_result.json"
 )
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_tool_body",
+        "public_macro_receipt_body",
+        "public_macro_proof_body",
+        "public_standard_body",
+    }
+)
 
 EXPECTED_RECEIPT_PATHS = [
     ACCEPTANCE_REL,
@@ -208,6 +219,169 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
         forbidden_classes=policy,
         display_root=public_root,
     )
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _source_module_target_path(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> tuple[Path, str]:
+    target_ref = str(row.get("target_ref") or "")
+    if target_ref.startswith("microcosm-substrate/"):
+        target_path = public_root.parent / target_ref
+    elif target_ref:
+        target_path = public_root / target_ref
+    else:
+        target_path = public_root
+
+    path_ref = str(row.get("path") or "")
+    path_target = manifest_path.parent / path_ref if path_ref else manifest_path.parent
+    if (not target_ref or not target_path.is_file()) and path_ref and path_target.is_file():
+        return path_target, public_relative_path(path_target, display_root=public_root)
+    return target_path, target_ref
+
+
+def validate_source_module_manifest(input_dir: Path, public_root: Path) -> dict[str, Any]:
+    manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
+    manifest_ref = public_relative_path(manifest_path, display_root=public_root)
+    if not manifest_path.is_file():
+        return {
+            "schema_version": "pattern_assimilation_step_source_open_body_imports_v1",
+            "status": "blocked",
+            "manifest_ref": manifest_ref,
+            "source_module_manifest_ref": manifest_ref,
+            "aggregate_floor_ref": f"{manifest_ref}::modules",
+            "source_import_class": SOURCE_IMPORT_CLASS,
+            "body_material_count": 0,
+            "body_material_ids": [],
+            "body_material_classes": {},
+            "body_material": [],
+            "body_in_receipt": False,
+            "body_text_in_receipt": False,
+            "findings": [
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_SOURCE_MODULE_MANIFEST_MISSING",
+                    "Exported assimilation bundle must include source_module_manifest.json.",
+                    subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                    subject_kind="source_module_manifest",
+                )
+            ],
+        }
+
+    manifest = read_json_strict(manifest_path)
+    modules = _rows(manifest, "modules")
+    findings: list[dict[str, Any]] = []
+    if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_SOURCE_IMPORT_CLASS_MISMATCH",
+                "source_module_manifest.json must declare copied non-secret macro body import class.",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if manifest.get("body_in_receipt") is not False:
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_SOURCE_BODY_RECEIPT_RISK",
+                "source_module_manifest.json must keep copied body text out of receipts.",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+    if int(manifest.get("module_count") or 0) != len(modules):
+        findings.append(
+            _bundle_finding(
+                "ASSIMILATION_BUNDLE_SOURCE_MODULE_COUNT_MISMATCH",
+                "source_module_manifest.json module_count must match modules.",
+                subject_id=SOURCE_MODULE_MANIFEST_NAME,
+                subject_kind="source_module_manifest",
+            )
+        )
+
+    module_cards: list[dict[str, Any]] = []
+    class_counts: Counter[str] = Counter()
+    for row in modules:
+        module_id = str(row.get("module_id") or "")
+        material_class = str(row.get("material_class") or "")
+        target_path, target_ref = _source_module_target_path(
+            row,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
+        expected_sha = str(
+            row.get("sha256") or row.get("target_sha256") or row.get("source_sha256") or ""
+        ).removeprefix("sha256:")
+        actual_sha = _sha256_file(target_path) if target_path.is_file() else ""
+        module_findings: list[str] = []
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            module_findings.append("source_import_class_mismatch")
+        if row.get("body_copied") is not True:
+            module_findings.append("body_copied_not_true")
+        if row.get("body_in_receipt") is not False or row.get("body_text_in_receipt") is not False:
+            module_findings.append("body_receipt_risk")
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            module_findings.append("unsupported_material_class")
+        if not target_path.is_file():
+            module_findings.append("target_missing")
+        if expected_sha and actual_sha and expected_sha != actual_sha:
+            module_findings.append("target_sha256_mismatch")
+        if not module_id:
+            module_findings.append("module_id_missing")
+
+        status = PASS if not module_findings else "blocked"
+        if status == PASS:
+            class_counts[material_class] += 1
+        else:
+            findings.append(
+                _bundle_finding(
+                    "ASSIMILATION_BUNDLE_SOURCE_MODULE_INVALID",
+                    "Copied source module failed the source-open body import contract.",
+                    subject_id=module_id or target_ref or "unknown_source_module",
+                    subject_kind="source_module",
+                )
+            )
+        module_cards.append(
+            {
+                "module_id": module_id,
+                "material_class": material_class,
+                "source_ref": row.get("source_ref"),
+                "target_ref": target_ref,
+                "sha256": f"sha256:{actual_sha}" if actual_sha else "",
+                "line_count": row.get("line_count"),
+                "byte_count": row.get("byte_count"),
+                "body_in_receipt": False,
+                "body_text_in_receipt": False,
+                "status": status,
+                "defect_codes": module_findings,
+            }
+        )
+
+    passed_modules = [card for card in module_cards if card["status"] == PASS]
+    return {
+        "schema_version": "pattern_assimilation_step_source_open_body_imports_v1",
+        "status": PASS if modules and not findings else "blocked",
+        "manifest_ref": manifest_ref,
+        "source_module_manifest_ref": manifest_ref,
+        "aggregate_floor_ref": f"{manifest_ref}::modules",
+        "source_import_class": SOURCE_IMPORT_CLASS,
+        "body_material_count": len(passed_modules),
+        "body_material_ids": [card["module_id"] for card in passed_modules],
+        "body_material_classes": dict(sorted(class_counts.items())),
+        "body_material": module_cards,
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ for exact copied "
+            "macro process bodies; receipts carry refs, digests, counts, and verdicts only."
+        ),
+        "findings": findings,
+    }
 
 
 def _stable_hash(payload: object) -> str:
@@ -1139,6 +1313,14 @@ def _write_assimilation_bundle_receipt(
             "next_routes": validation_result["next_routes"],
             "next_seed_paths": validation_result["next_seed_paths"],
             "assimilation_policy": validation_result["assimilation_policy"],
+            "source_module_manifest_status": validation_result[
+                "source_module_manifest_status"
+            ],
+            "source_module_manifest_ref": validation_result["source_module_manifest_ref"],
+            "source_open_body_imports": validation_result["source_open_body_imports"],
+            "body_copied_material_count": validation_result[
+                "body_copied_material_count"
+            ],
             "metadata_projection_not_live_learning_authority": validation_result[
                 "metadata_projection_not_live_learning_authority"
             ],
@@ -1180,6 +1362,7 @@ def run_assimilation_bundle(
     reentry_result = validate_exported_reentry_conditions(payloads["reentry_conditions"])
     next_best_result = validate_exported_next_best_lane_checks(payloads["next_best_lane_checks"])
     policy_result = validate_exported_assimilation_policy(payloads["assimilation_policy"])
+    source_body_result = validate_source_module_manifest(input_path, public_root)
 
     all_findings = sorted(
         [
@@ -1190,6 +1373,7 @@ def run_assimilation_bundle(
             *reentry_result["findings"],
             *next_best_result["findings"],
             *policy_result["findings"],
+            *source_body_result["findings"],
         ],
         key=lambda item: (
             str(item.get("subject_kind") or ""),
@@ -1211,6 +1395,7 @@ def run_assimilation_bundle(
         and reentry_result["reentry_condition_count"]
         and next_best_result["next_best_lane_check_count"]
         and policy_result["status"] == PASS
+        and source_body_result["status"] == PASS
         else "blocked"
     )
     bundle_fingerprint = _stable_hash(
@@ -1222,7 +1407,18 @@ def run_assimilation_bundle(
             "reentry_conditions": payloads["reentry_conditions"],
             "next_best_lane_checks": payloads["next_best_lane_checks"],
             "assimilation_policy": payloads["assimilation_policy"],
+            "source_open_body_imports": source_body_result,
         }
+    )
+    public_replacement_refs = [
+        public_relative_path(path, display_root=public_root)
+        for path in _assimilation_bundle_paths(input_path)
+    ]
+    public_replacement_refs.append(source_body_result["source_module_manifest_ref"])
+    public_replacement_refs.extend(
+        str(card["target_ref"])
+        for card in source_body_result["body_material"]
+        if card.get("target_ref")
     )
 
     result = base_receipt(
@@ -1322,12 +1518,15 @@ def run_assimilation_bundle(
                 "next_best_lane_projection_not_authority"
             ],
             "assimilation_policy": policy_result,
+            "source_module_manifest_status": source_body_result["status"],
+            "source_module_manifest_ref": source_body_result[
+                "source_module_manifest_ref"
+            ],
+            "source_open_body_imports": source_body_result,
+            "body_copied_material_count": source_body_result["body_material_count"],
             "metadata_projection_not_live_learning_authority": True,
             "bundle_fingerprint": bundle_fingerprint,
-            "public_replacement_refs": [
-                public_relative_path(path, display_root=public_root)
-                for path in _assimilation_bundle_paths(input_path)
-            ],
+            "public_replacement_refs": public_replacement_refs,
         }
     )
     receipt_path = _write_assimilation_bundle_receipt(out_dir, result, public_root=public_root)

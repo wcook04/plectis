@@ -13,7 +13,30 @@
     "stewardship_checks.json",
     "reentry_conditions.json",
     "next_best_lane_checks.json",
-    "assimilation_policy.json"
+    "assimilation_policy.json",
+    "source_module_manifest.json"
   ],
-  "schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1"
+  "schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
+  "source_module_manifest_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material_classes": {
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 3,
+    "body_material_ids": [
+      "macro_pattern_autonomy_process_contract_body_import",
+      "macro_pattern_assimilation_fixture_manifest_body_import",
+      "pattern_assimilation_retracted_adapter_receipt_body_import"
+    ],
+    "body_text_in_receipt": false,
+    "reader_action": "Open source_module_manifest.json plus source_modules/ for copied macro pattern-assimilation process bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "pattern_assimilation_step_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_module_manifest_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+    "status": "pass"
+  }
 }

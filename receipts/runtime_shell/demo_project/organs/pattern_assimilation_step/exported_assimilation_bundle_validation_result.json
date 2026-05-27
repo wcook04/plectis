@@ -66,7 +66,8 @@
     "release_or_publication_authorized": false,
     "status": "pass"
   },
-  "bundle_fingerprint": "f7ec39b7c4091d864678f1eea7d97202bb00f2f7118fa56c676a699ed4e42fec",
+  "body_copied_material_count": 3,
+  "bundle_fingerprint": "6c53c6a9f32f552822ab60f3d13a543fee79822739ec1f01750b9f17a4216333",
   "bundle_id": "public_pattern_assimilation_step_runtime_example",
   "bundle_manifest_schema_version": "pattern_assimilation_step_exported_assimilation_bundle_v1",
   "closeout_by_organ": {
@@ -114,8 +115,8 @@
     "verifier_lab_kernel": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
-  "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:20+00:00",
+  "command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
+  "created_at": "2026-05-27T00:58:33+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -258,7 +259,11 @@
     "examples/pattern_assimilation_step/exported_assimilation_bundle/stewardship_checks.json",
     "examples/pattern_assimilation_step/exported_assimilation_bundle/reentry_conditions.json",
     "examples/pattern_assimilation_step/exported_assimilation_bundle/next_best_lane_checks.json",
-    "examples/pattern_assimilation_step/exported_assimilation_bundle/assimilation_policy.json"
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/assimilation_policy.json",
+    "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+    "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+    "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+    "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json"
   ],
   "receipt_id": "pattern_assimilation_step_exported_assimilation_bundle_validation_v1",
   "receipt_paths": [
@@ -389,6 +394,72 @@
   },
   "release_authorized": false,
   "schema_version": "pattern_assimilation_step_exported_assimilation_bundle_validation_v1",
+  "source_module_manifest_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json::modules",
+    "body_in_receipt": false,
+    "body_material": [
+      {
+        "body_in_receipt": false,
+        "body_text_in_receipt": false,
+        "byte_count": 18707,
+        "defect_codes": [],
+        "line_count": 359,
+        "material_class": "public_macro_tool_body",
+        "module_id": "macro_pattern_autonomy_process_contract_body_import",
+        "sha256": "sha256:451d17e90bd2ec877bdc60707714fa3ea731bd136d35dd3546971fa3e20cbe2f",
+        "source_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json",
+        "status": "pass",
+        "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_contract_v1.json"
+      },
+      {
+        "body_in_receipt": false,
+        "body_text_in_receipt": false,
+        "byte_count": 39835,
+        "defect_codes": [],
+        "line_count": 708,
+        "material_class": "public_macro_pattern_body",
+        "module_id": "macro_pattern_assimilation_fixture_manifest_body_import",
+        "sha256": "sha256:950fdb3b6731736f14d7974b2d4e54113056e754bf075026f86a4f9fcf65d4e0",
+        "source_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+        "status": "pass",
+        "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json"
+      },
+      {
+        "body_in_receipt": false,
+        "body_text_in_receipt": false,
+        "byte_count": 6484,
+        "defect_codes": [],
+        "line_count": 108,
+        "material_class": "public_macro_receipt_body",
+        "module_id": "pattern_assimilation_retracted_adapter_receipt_body_import",
+        "sha256": "sha256:3a254ee955fcbf7843c9774ecfd17c33877ea604af5c3c85c73945a6ece2c5fe",
+        "source_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json",
+        "status": "pass",
+        "target_ref": "microcosm-substrate/examples/pattern_assimilation_step/exported_assimilation_bundle/source_modules/state/microcosm_portfolio/reconstruction/pattern_assimilation_step_real_substrate_adapter_receipt_v1.json"
+      }
+    ],
+    "body_material_classes": {
+      "public_macro_pattern_body": 1,
+      "public_macro_receipt_body": 1,
+      "public_macro_tool_body": 1
+    },
+    "body_material_count": 3,
+    "body_material_ids": [
+      "macro_pattern_autonomy_process_contract_body_import",
+      "macro_pattern_assimilation_fixture_manifest_body_import",
+      "pattern_assimilation_retracted_adapter_receipt_body_import"
+    ],
+    "body_text_in_receipt": false,
+    "findings": [],
+    "manifest_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+    "reader_action": "Open source_module_manifest.json plus source_modules/ for exact copied macro process bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "schema_version": "pattern_assimilation_step_source_open_body_imports_v1",
+    "source_import_class": "copied_non_secret_macro_body",
+    "source_module_manifest_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json",
+    "status": "pass"
+  },
   "status": "pass",
   "stewardship_check_count": 2,
   "stewardship_check_ids": [

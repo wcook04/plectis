@@ -1,0 +1,359 @@
+{
+  "schema_version": "macro_pattern_autonomy_process_contract_v1",
+  "artifact_role": "macro_pattern_surface_autonomy_process_contract",
+  "assigned_lane": "pattern_assimilation_autonomy_process_ratchet",
+  "status": "active",
+  "created_at": "2026-05-18T05:02:21Z",
+  "created_by": "codex_type_a",
+  "authority_boundary": "macro_side_process_contract_only_no_public_code_no_public_root_mutation",
+  "scope_statement": "Govern repeated macro-side autonomy seeds that harden the pattern surface process without building public code, reading public-root scratch contents as authority, or mutating self-indexing-cognitive-substrate.",
+  "source_inputs": [
+    "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+    "state/microcosm_portfolio/reconstruction/current_reconstruction_truth_index_v1.json",
+    "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+    "state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py"
+  ],
+  "run_receipt_log_ref": "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+  "required_orientation": [
+    "./repo-python kernel.py --info",
+    "./repo-python kernel.py --preflight",
+    "./repo-python kernel.py --pulse",
+    "./repo-python kernel.py --entry \"refire macro pattern surface autonomy seed\" --context-budget 12000",
+    "read current_reconstruction_truth_index_v1.json before selecting a write target",
+    "read the latest same-lane receipt from macro_pattern_autonomy_process_runs_v1.jsonl before editing"
+  ],
+  "already_run_lane_detection": {
+    "status": "active",
+    "same_lane_key_fields": [
+      "assigned_lane",
+      "self_refire_target.target_artifact_ref",
+      "changed_artifact_refs",
+      "validation_commands"
+    ],
+    "rule": "If the latest same-lane receipt already changed the proposed target artifact and validation passed, select the next incomplete self_refire_target or refine the existing contract instead of duplicating the same edit.",
+    "latest_receipt_selection": "last JSONL row with assigned_lane == pattern_assimilation_autonomy_process_ratchet",
+    "duplicate_work_error_code": "AUTONOMY_SEED_DUPLICATE_TARGET_WITHOUT_REFINEMENT"
+  },
+  "same_lane_append_order_policy": {
+    "status": "active",
+    "ordering_basis": "append_order_within_assigned_lane",
+    "source_evidence_fields": [
+      "jsonl_source_line_no",
+      "jsonl_append_index",
+      "run_id",
+      "assigned_lane",
+      "prior_same_lane_run_id"
+    ],
+    "latest_selection_rule": "Select the same-lane receipt with the highest JSONL source line among rows whose assigned_lane equals this contract's assigned_lane; do not use wall-clock timestamp sorting and do not require the same-lane row to be the global log tail.",
+    "prior_pointer_rule": "Every same-lane receipt after the first must set prior_same_lane_run_id to the immediately previous same-lane receipt by JSONL append order.",
+    "interleaved_lanes_policy": "Rows from other assigned lanes may appear before, between, or after same-lane rows in the shared JSONL log. They are counted as interleaving evidence but must not create duplicate-work failures for this lane.",
+    "deterministic_checker_fields": [
+      "same_lane_sequence_rows",
+      "same_lane_latest_selection_basis",
+      "same_lane_prior_pointer_gaps",
+      "same_lane_append_order_gaps",
+      "interleaved_different_lane_row_count",
+      "global_latest_run_id"
+    ],
+    "failure_codes": {
+      "prior_pointer_gap": "AUTONOMY_SEED_PRIOR_SAME_LANE_POINTER_GAP",
+      "append_order_gap": "AUTONOMY_SEED_SAME_LANE_APPEND_ORDER_GAP",
+      "timestamp_sorting_detected": "AUTONOMY_SEED_TIMESTAMP_SORTING_FOR_LATEST_SAME_LANE"
+    },
+    "anti_claim": "This policy hardens macro-side receipt selection only; it does not serialize concurrent seeds, block other assigned lanes, or authorize public-root writes."
+  },
+  "duplicate_target_refinement_policy": {
+    "status": "active",
+    "applies_to": "adjacent same-lane receipts whose self_refire_target.target_artifact_ref is unchanged",
+    "passing_evidence_any": [
+      "the later receipt changed the repeated target artifact",
+      "the later receipt captured an exact blocker in residual_capture_refs",
+      "the later receipt changed self_refire_target.target_artifact_ref away from the prior same-lane receipt"
+    ],
+    "deterministic_checker_field": "duplicate_target_without_refinement_rows",
+    "failure_code": "AUTONOMY_SEED_DUPLICATE_TARGET_WITHOUT_REFINEMENT",
+    "rule": "A repeated self_refire target is allowed only when the current run either refined that target or captured a blocker; otherwise the seed is looping instead of ratcheting."
+  },
+  "seed_output_freshness": {
+    "status": "active",
+    "required_current_inputs": [
+      "current_reconstruction_truth_index_v1.json",
+      "projection_readiness_check_receipt_v1.json",
+      "macro_pattern_autonomy_process_contract_v1.json",
+      "macro_pattern_autonomy_process_runs_v1.jsonl"
+    ],
+    "stale_seed_output_error_code": "AUTONOMY_SEED_STALE_OUTPUT_SURFACE",
+    "rule": "A seed output is stale when its receipt lacks the current contract fingerprint, validation command list for the edited artifacts, and either a current truth-index fingerprint or an explicit hash-loop exclusion marker for the generated truth-index cycle."
+  },
+  "concrete_edit_or_capture_blocker_gate": {
+    "status": "active",
+    "passing_outcomes": [
+      "concrete_macro_artifact_edit_validated",
+      "task_ledger_blocker_capture_with_exact_unblock_conditions"
+    ],
+    "required_receipt_fields": [
+      "concrete_improvement_made",
+      "improvement_class",
+      "changed_artifact_refs",
+      "validation_commands",
+      "residual_capture_refs",
+      "next_self_refire_direction"
+    ],
+    "failure_code": "AUTONOMY_RUN_NO_CONCRETE_EDIT_OR_BLOCKER_CAPTURE"
+  },
+  "validation_status_contract": {
+    "status": "active",
+    "allowed_statuses": [
+      "pass",
+      "pass_with_residual_capture",
+      "blocked_with_residual_recheck"
+    ],
+    "pass_with_residual_capture_requires": [
+      "concrete_improvement_made == true",
+      "residual_capture_refs is non-empty",
+      "public_root_write_attempt_count == 0",
+      "forbidden_root_write_attempt_count == 0",
+      "modified JSON/MD/Python artifacts parse or compile",
+      "external residual has exact unblock conditions"
+    ],
+    "blocked_with_residual_recheck_requires": [
+      "residual_capture_refs is non-empty",
+      "residual_lifecycle_review.status == reviewed_with_active_external_residual",
+      "residual_lifecycle_review.recheck_commands is non-empty",
+      "self_refire_precondition_review.status == reviewed_blocked_by_unmet_precondition when a deferred self_refire target is still blocked",
+      "public_root_write_attempt_count == 0",
+      "forbidden_root_write_attempt_count == 0",
+      "validation fixed-point commands rerun after the receipt append"
+    ],
+    "failure_code": "AUTONOMY_RUN_VALIDATION_STATUS_NOT_ACCEPTED",
+    "anti_claim": "This contract accepts captured and rechecked outside-lane residuals only for macro process closeout accounting; it does not mark the external residual fixed or authorize public-root writes."
+  },
+  "residual_capture_lifecycle_policy": {
+    "status": "active",
+    "applies_when": "latest same-lane run has validation_status == pass_with_residual_capture or blocked_with_residual_recheck",
+    "task_ledger_authority_refs": [
+      "state/task_ledger/events.jsonl",
+      "state/task_ledger/ledger.json"
+    ],
+    "latest_run_review_field": "residual_lifecycle_review",
+    "accepted_review_statuses": [
+      "reviewed_current",
+      "reviewed_with_active_external_residual"
+    ],
+    "required_review_fields": [
+      "status",
+      "policy_ref",
+      "reviewed_residual_capture_refs",
+      "new_residual_capture_refs",
+      "reused_residual_capture_refs",
+      "retired_residual_capture_refs",
+      "recheck_commands",
+      "owner_lane",
+      "next_recheck_condition"
+    ],
+    "ref_resolution_rule": "Every residual_capture_refs value on a pass_with_residual_capture row must resolve to either a Task Ledger event_id in state/task_ledger/events.jsonl or a subject_id visible in Task Ledger authority/projection.",
+    "acceptance_rule": "Resolved residual captures must carry Task Ledger payload.acceptance text so unblock conditions are durable outside chat.",
+    "reuse_rule": "If a residual_capture_refs value appeared on an earlier same-lane run, the latest run's residual_lifecycle_review.reused_residual_capture_refs must name it and residual_lifecycle_review.recheck_commands must be non-empty.",
+    "new_ref_rule": "Residual refs that did not appear on earlier same-lane rows must be named in residual_lifecycle_review.new_residual_capture_refs.",
+    "deterministic_checker_fields": [
+      "residual_capture_lifecycle_policy_status",
+      "residual_capture_lifecycle_review_status",
+      "residual_capture_lifecycle_ref_rows",
+      "residual_capture_lifecycle_unresolved_refs",
+      "residual_capture_lifecycle_refs_missing_acceptance",
+      "residual_capture_lifecycle_reused_refs",
+      "residual_capture_lifecycle_new_refs",
+      "residual_capture_lifecycle_review_missing_reused_refs",
+      "residual_capture_lifecycle_review_missing_new_refs",
+      "residual_capture_lifecycle_reuse_without_recheck",
+      "residual_capture_lifecycle_latest_run_accepted"
+    ],
+    "failure_codes": {
+      "missing_review": "AUTONOMY_RUN_RESIDUAL_LIFECYCLE_REVIEW_MISSING",
+      "unresolved_ref": "AUTONOMY_RUN_RESIDUAL_CAPTURE_REF_NOT_FOUND",
+      "missing_acceptance": "AUTONOMY_RUN_RESIDUAL_CAPTURE_MISSING_UNBLOCK_CONDITION",
+      "reuse_without_recheck": "AUTONOMY_RUN_RESIDUAL_REUSE_WITHOUT_RECHECK"
+    },
+    "anti_claim": "This policy validates residual capture lifecycle for macro autonomy closeout only. It does not mark the external residual fixed, execute the owning lane, or authorize public-root writes."
+  },
+  "validation_fixed_point_policy": {
+    "status": "active",
+    "fixed_point_order": [
+      "append or update the current same-lane run receipt in macro_pattern_autonomy_process_runs_v1.jsonl",
+      "parse macro_pattern_autonomy_process_runs_v1.jsonl after the append",
+      "run projection_dry_run_validator_v1.py --write after the append",
+      "run current_reconstruction_truth_index_compiler_v1.py --write after the append",
+      "run projection_readiness_checker_v1.py --write after the append"
+    ],
+    "required_validation_command_fragments_in_order": [
+      "macro_pattern_autonomy_process_runs_v1.jsonl",
+      "projection_dry_run_validator_v1.py --write",
+      "current_reconstruction_truth_index_compiler_v1.py --write",
+      "projection_readiness_checker_v1.py --write"
+    ],
+    "required_changed_artifact_refs": [
+      "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl",
+      "state/microcosm_portfolio/reconstruction/current_reconstruction_truth_index_v1.json",
+      "state/microcosm_portfolio/reconstruction/projection_readiness_check_receipt_v1.json"
+    ],
+    "readiness_consumption_rule": "The final projection_readiness_check_receipt_v1.json must consume the latest same-lane run by JSONL source line, expose latest_run_id, latest_run_source_line_no, latest_run_append_index, and accept latest_run_validation_status before the seed closes.",
+    "deterministic_checker_fields": [
+      "validation_fixed_point_policy_status",
+      "validation_fixed_point_required_command_fragments",
+      "validation_fixed_point_command_positions",
+      "validation_fixed_point_command_gaps",
+      "validation_fixed_point_changed_ref_gaps",
+      "latest_run_consumed_by_readiness_receipt",
+      "latest_run_validation_fixed_point_passed"
+    ],
+    "failure_codes": {
+      "missing_command": "AUTONOMY_SEED_FIXED_POINT_COMMAND_MISSING",
+      "command_order": "AUTONOMY_SEED_FIXED_POINT_COMMAND_ORDER_GAP",
+      "missing_changed_ref": "AUTONOMY_SEED_FIXED_POINT_CHANGED_REF_MISSING",
+      "stale_readiness_receipt": "AUTONOMY_SEED_READINESS_RECEIPT_DID_NOT_CONSUME_LATEST_SAME_LANE_ROW"
+    },
+    "anti_claim": "This policy hardens macro-side closeout ordering only; it does not serialize concurrent lanes, authorize public-root writes, or certify public runtime behavior."
+  },
+  "self_refire_target_contract": {
+    "status": "active",
+    "required_fields": [
+      "target_artifact_ref",
+      "target_artifact_role",
+      "target_reason",
+      "expected_next_action",
+      "stop_condition",
+      "validation_command"
+    ],
+    "selection_rule": "The next refire target must be specific enough that a later seed can start from it without re-reading stale reports or asking for permission.",
+    "default_next_targets": [
+      {
+        "target_artifact_ref": "state/microcosm_portfolio/reconstruction/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+        "target_artifact_role": "pattern_assimilation_fixture_contract",
+        "target_reason": "harden the public closeout fixture against duplicate same-lane autonomy outputs",
+        "expected_next_action": "add a negative fixture payload or validator receipt predicate only if the existing five-case coverage does not already catch the failure",
+        "stop_condition": "fixture manifest, readiness checker, and truth index all pass",
+        "validation_command": "./repo-python state/microcosm_portfolio/reconstruction/projection_readiness_checker_v1.py --write"
+      }
+    ]
+  },
+  "self_refire_precondition_gate": {
+    "status": "active",
+    "applies_to": "same-lane runs whose prior self_refire_target text contains deferred prerequisite markers",
+    "latest_run_review_field": "self_refire_precondition_review",
+    "precondition_markers": [
+      "only if",
+      "after A/B/C",
+      "join reducer",
+      "reducer keeps"
+    ],
+    "accepted_review_statuses": [
+      "reviewed_blocked_by_unmet_precondition",
+      "reviewed_precondition_satisfied"
+    ],
+    "required_review_fields": [
+      "status",
+      "policy_ref",
+      "prior_self_refire_target_ref",
+      "precondition_marker_hits",
+      "blocked_action",
+      "blocker_capture_refs",
+      "next_recheck_condition"
+    ],
+    "rule": "When the prior same-lane self_refire target is explicitly deferred until a reducer or batch prerequisite, a repeated same-lane seed must not consume that target early. It must either prove the prerequisite satisfied or capture the blocker and select a process-guard refinement.",
+    "deterministic_checker_fields": [
+      "self_refire_precondition_gate_status",
+      "self_refire_precondition_marker_hits",
+      "self_refire_precondition_review_status",
+      "self_refire_precondition_review_missing_fields",
+      "self_refire_precondition_unresolved_blocker_refs",
+      "self_refire_precondition_deferred_target_consumed_early",
+      "self_refire_precondition_latest_run_accepted"
+    ],
+    "failure_codes": {
+      "missing_review": "AUTONOMY_SEED_SELF_REFIRE_PRECONDITION_REVIEW_MISSING",
+      "unresolved_blocker_ref": "AUTONOMY_SEED_SELF_REFIRE_PRECONDITION_BLOCKER_REF_NOT_FOUND",
+      "deferred_target_consumed_early": "AUTONOMY_SEED_SELF_REFIRE_PRECONDITION_UNMET"
+    },
+    "anti_claim": "This gate prevents macro autonomy seeds from consuming deferred self-refire targets early. It does not execute the reducer, satisfy other lanes, authorize public-root writes, or build public code."
+  },
+  "builder_lane_pause_authorization_guard": {
+    "status": "active",
+    "public_root_write_attempt_count_must_equal": 0,
+    "forbidden_root_write_attempt_count_must_equal": 0,
+    "required_assertions": [
+      "macro_side_only",
+      "builder_lane_not_started",
+      "microcosm_substrate_not_source_authority",
+      "self_indexing_cognitive_substrate_not_mutated"
+    ]
+  },
+  "prompt_linter_contract": {
+    "status": "active",
+    "scope_note": "Scan only macro-side reconstruction prompt and seed markdown surfaces listed here; do not inspect prompt shelf bodies, provider payloads, operator thread content, release, dissemination, recipient, hosted-public, or website surfaces.",
+    "scanned_prompt_surfaces": [
+      {
+        "path": "state/microcosm_portfolio/reconstruction/NEXT_MACRO_DETERMINISM_RATCHET_SEED.md",
+        "surface_role": "macro_hardening_seed",
+        "lint_scope": "concurrent_macro_hardening_batch",
+        "lint_mode": "reject_terms"
+      },
+      {
+        "path": "state/microcosm_portfolio/reconstruction/NEXT_AUTONOMY_BUILD_SEED.md",
+        "surface_role": "suspended_builder_handoff_seed",
+        "lint_scope": "macro_handoff_guard",
+        "lint_mode": "reject_terms"
+      },
+      {
+        "path": "state/microcosm_portfolio/reconstruction/NEXT_TYPE_A_WAVE_1_PROMPT.md",
+        "surface_role": "suspended_pointer_prompt",
+        "lint_scope": "macro_handoff_pointer_guard",
+        "lint_mode": "reject_terms"
+      },
+      {
+        "path": "state/microcosm_portfolio/reconstruction/NEXT_PUBLIC_FIRST_SLICE_BUILD_SEED.md",
+        "surface_role": "reducer_authorized_first_slice_seed",
+        "lint_scope": "builder_lane_authorization_guard",
+        "lint_mode": "reject_terms"
+      }
+    ],
+    "concurrent_batch_rejection_terms": [
+      "first do all of",
+      "wait for the previous seed",
+      "after every other seed finishes",
+      "continue the public build",
+      "resume microcosm-substrate from existing files"
+    ],
+    "allowed_replacements": [
+      "read latest same-lane receipt",
+      "choose next incomplete self_refire_target",
+      "make one concrete macro-side edit or capture a blocker",
+      "do not use public-root scratch contents as authority"
+    ],
+    "failure_code": "AUTONOMY_PROMPT_SEQUENTIAL_LOCK_IN_CONCURRENT_BATCH"
+  },
+  "receipt_schema": {
+    "receipt_id": "macro_pattern_autonomy_process_run_v1",
+    "required_fields": [
+      "run_id",
+      "assigned_lane",
+      "contract_ref",
+      "contract_sha256",
+      "truth_index_ref",
+      "truth_index_sha256",
+      "prior_same_lane_run_id",
+      "already_run_lane_detection",
+      "concrete_improvement_made",
+      "improvement_class",
+      "changed_artifact_refs",
+      "validation_commands",
+      "validation_status",
+      "public_root_write_attempt_count",
+      "forbidden_root_write_attempt_count",
+      "residual_capture_refs",
+      "self_refire_target",
+      "next_self_refire_direction",
+      "anti_claim"
+    ]
+  },
+  "anti_claim": "This contract improves macro-side autonomy seed behavior only. It does not build public code, authorize public-root writes, publish anything, or certify public runtime behavior."
+}

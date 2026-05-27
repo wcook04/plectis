@@ -42,9 +42,9 @@
   "reader_action": "Use the top-level counts for a first-screen gap lens, then open thing_failure_map for per-organ failure modes and future work targets.",
   "rows_with_failure_modes": 47,
   "rows_with_future_work_targets": 30,
-  "rows_with_source_body_imports": 32,
+  "rows_with_source_body_imports": 33,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 351,
+  "source_open_body_material_count": 354,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -55,8 +55,8 @@
     "missing_standard_count": 0,
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
-    "rows_with_source_body_imports": 32,
-    "source_open_body_material_count": 351,
+    "rows_with_source_body_imports": 33,
+    "source_open_body_material_count": 354,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -4706,11 +4706,11 @@
       ],
       "needs_to_work": {
         "anti_purpose": "A retrospective note that does not alter standards, skills, or ledgers.",
-        "authority_boundary": "public_safe_schema_standard_projected_from_macro_manifest_not_source_body_authority",
+        "authority_boundary": "public_safe_schema_standard_plus_source_module_body_import_contract_not_live_learning_authority",
         "authority_ceiling": {
           "private_data_equivalence_authority": false,
           "release_authority": false,
-          "source_body_authority": false,
+          "source_body_authority": "copied_non_secret_macro_bodies_only_via_source_module_manifest",
           "standard_authority": "schema_contract_and_validator_expectation_only",
           "status": "pass"
         },
@@ -4749,7 +4749,38 @@
           "state/microcosm_portfolio/reconstruction/macro_pattern_autonomy_process_runs_v1.jsonl"
         ],
         "negative_case_independence": "validator_can_fail_without_fixture_verdict_echo",
-        "source_open_body_imports": {},
+        "source_open_body_imports": {
+          "aggregate_floor_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json::modules",
+          "authority_ceiling": {
+            "body_text_exported_in_receipts": false,
+            "private_data_equivalence_claim": false,
+            "provider_payload_read": false,
+            "release_or_publication_authorized": false,
+            "source_body_authority": "copied_non_secret_macro_bodies_only_via_source_module_manifest",
+            "status": "pass"
+          },
+          "body_material_count": 3,
+          "body_material_ids": [
+            "macro_pattern_autonomy_process_contract_body_import",
+            "macro_pattern_assimilation_fixture_manifest_body_import",
+            "pattern_assimilation_retracted_adapter_receipt_body_import"
+          ],
+          "body_material_status": "copied_non_secret_macro_body_landed",
+          "body_text_exported_in_receipts": false,
+          "body_text_exported_in_workingness": false,
+          "fixture_manifest_ref": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+          "material_classes": [
+            "public_macro_pattern_body",
+            "public_macro_receipt_body",
+            "public_macro_tool_body"
+          ],
+          "reader_action": "Open source_module_manifest.json plus source_modules/ for exact copied macro pattern-assimilation process bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+          "source_manifest_refs": [
+            "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json"
+          ],
+          "status": "pass"
+        },
         "truth_accounting_bucket": "real_import_validation",
         "validator_command": "python -m microcosm_core.validators.acceptance --only pattern_assimilation_step --input fixtures/first_wave/pattern_assimilation_step/input --out receipts/first_wave/pattern_assimilation_acceptance.json",
         "verdict_source": "validator_computation"
@@ -4757,7 +4788,38 @@
       "ordinal": 29,
       "product_path_role": "runtime_spine",
       "runtime_mode": "adapter_backed",
-      "source_open_body_imports": {},
+      "source_open_body_imports": {
+        "aggregate_floor_ref": "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json::modules",
+        "authority_ceiling": {
+          "body_text_exported_in_receipts": false,
+          "private_data_equivalence_claim": false,
+          "provider_payload_read": false,
+          "release_or_publication_authorized": false,
+          "source_body_authority": "copied_non_secret_macro_bodies_only_via_source_module_manifest",
+          "status": "pass"
+        },
+        "body_material_count": 3,
+        "body_material_ids": [
+          "macro_pattern_autonomy_process_contract_body_import",
+          "macro_pattern_assimilation_fixture_manifest_body_import",
+          "pattern_assimilation_retracted_adapter_receipt_body_import"
+        ],
+        "body_material_status": "copied_non_secret_macro_body_landed",
+        "body_text_exported_in_receipts": false,
+        "body_text_exported_in_workingness": false,
+        "fixture_manifest_ref": "core/fixture_manifests/pattern_assimilation_step.fixture_manifest.json",
+        "material_classes": [
+          "public_macro_pattern_body",
+          "public_macro_receipt_body",
+          "public_macro_tool_body"
+        ],
+        "reader_action": "Open source_module_manifest.json plus source_modules/ for exact copied macro pattern-assimilation process bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+        "source_manifest_refs": [
+          "examples/pattern_assimilation_step/exported_assimilation_bundle/source_module_manifest.json"
+        ],
+        "status": "pass"
+      },
       "source_refs": [
         "standards/std_microcosm_pattern_assimilation_step.json",
         "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
