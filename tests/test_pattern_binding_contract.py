@@ -4,12 +4,15 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 from microcosm_core.cold_clone_probe import PATTERN_RECEIPTS, run_probe
+from microcosm_core.organs import pattern_binding_contract as pattern_binding
 from microcosm_core.organs.pattern_binding_contract import (
     EXPECTED_NEGATIVE_CASES,
+    result_card,
     validate,
     validate_substrate_bundle,
 )
@@ -232,6 +235,62 @@ def test_pattern_binding_accepts_exported_substrate_bundle(tmp_path: Path) -> No
     assert "body" not in _walk_keys(receipt)
     assert "private_state_scan" not in receipt
     assert "body_redacted" not in receipt
+
+
+def test_pattern_binding_substrate_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    out_dir = tmp_path / "receipts"
+
+    result = validate_substrate_bundle(
+        PATTERN_EXPORTED_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+
+    assert result["status"] == "pass"
+    assert result["receipt_reused"] is False
+    assert result["card_schema_version"] == "pattern_binding_contract_card_v1"
+    card = result_card(result)
+    assert card["receipt_reused"] is False
+    assert card["accepted_count"] == 373
+    assert card["real_substrate_progress_count"] == 373
+    assert card["source_module_count"] == 5
+    assert card["body_copied_material_count"] == 5
+    assert card["route_readiness_summary"]["ledger_pattern_count"] == 373
+    assert card["public_runtime_ref_count"] == 480
+    assert card["freshness_digest"] == result["freshness_digest"]
+    assert "source_module_imports" in card["omitted_full_payload_keys"]
+    assert "accepted_pattern_ids" in card["omitted_full_payload_keys"]
+    assert "source_module_imports" not in card
+    assert "accepted_pattern_ids" not in card
+    assert str(tmp_path) not in json.dumps(card, sort_keys=True)
+
+    def fail_if_rebuilt(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the pattern-binding substrate receipt")
+
+    monkeypatch.setattr(pattern_binding, "validate_source_module_imports", fail_if_rebuilt)
+    monkeypatch.setattr(
+        pattern_binding.pattern_route_readiness,
+        "validate_route_readiness_bundle",
+        fail_if_rebuilt,
+    )
+
+    cached = validate_substrate_bundle(
+        PATTERN_EXPORTED_BUNDLE_INPUT,
+        out_dir,
+        command="pytest --card",
+        reuse_fresh_receipt=True,
+    )
+    cached_card = result_card(cached)
+
+    assert cached["status"] == "pass"
+    assert cached["receipt_reused"] is True
+    assert cached["freshness_digest"] == result["freshness_digest"]
+    assert cached_card["receipt_reused"] is True
+    assert cached_card["source_module_count"] == 5
 
 
 def test_pattern_binding_source_module_digest_tamper_blocks_bundle(tmp_path: Path) -> None:

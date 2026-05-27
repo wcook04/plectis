@@ -31,6 +31,24 @@ REAL_PATTERN_LEDGER_SOURCE_KEY = "real_pattern_ledger_source"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY = "real_pattern_substrate_bindings_source"
 REAL_PATTERN_ROUTE_READINESS_BUNDLE_KEY = "real_pattern_route_readiness_bundle"
 REAL_PATTERN_SUBSTRATE_BINDINGS_SCHEMA = "extracted_pattern_substrate_bindings_v1"
+CARD_SCHEMA_VERSION = "pattern_binding_contract_card_v1"
+CARD_OMITTED_FULL_PAYLOAD_KEYS = (
+    "expected_negative_cases",
+    "observed_negative_cases",
+    "findings",
+    "secret_exclusion_scan",
+    "accepted_pattern_ids",
+    "rejected_pattern_ids",
+    "duplicate_pattern_ids",
+    "source_module_imports",
+    "source_open_body_imports",
+    "public_runtime_refs",
+    "real_pattern_ledger_source",
+    "real_pattern_substrate_bindings_source",
+    "real_pattern_route_readiness_source",
+    "truth_accounting",
+    "freshness_basis",
+)
 PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
     "public_macro_pattern_body",
     "public_macro_receipt_body",
@@ -64,6 +82,11 @@ VALID_POSTURES = {"direct_public", "synthetic_only", "schema_only", "forbidden"}
 def _canonical_sha256(value: object) -> str:
     encoded = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _json_digest(value: Any) -> str:
+    encoded = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def _file_sha256(path: Path) -> str:
@@ -265,6 +288,106 @@ def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[
         if target_path.is_file():
             paths.append(target_path)
     return paths
+
+
+def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
+    public_ref = public_relative_path(path, display_root=public_root)
+    if not path.exists():
+        return {
+            "path": public_ref,
+            "exists": False,
+            "size_bytes": 0,
+            "mtime_ns": 0,
+        }
+    stat = path.stat()
+    return {
+        "path": public_ref,
+        "exists": path.is_file(),
+        "size_bytes": stat.st_size,
+        "mtime_ns": stat.st_mtime_ns,
+    }
+
+
+def _append_tree_files(paths: list[Path], path: Path) -> None:
+    if path.is_dir():
+        paths.extend(sorted(candidate for candidate in path.rglob("*") if candidate.is_file()))
+    else:
+        paths.append(path)
+
+
+def _substrate_bundle_input_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    paths: list[Path] = [Path(__file__).resolve(strict=False)]
+    paths.append(Path(pattern_route_readiness.__file__).resolve(strict=False))
+    _append_tree_files(paths, input_dir)
+
+    manifest_path = input_dir / "bundle_manifest.json"
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        manifest = {}
+    if isinstance(manifest, dict):
+        for key in (
+            REAL_PATTERN_LEDGER_SOURCE_KEY,
+            REAL_PATTERN_SUBSTRATE_BINDINGS_SOURCE_KEY,
+            REAL_PATTERN_ROUTE_READINESS_BUNDLE_KEY,
+        ):
+            spec = manifest.get(key)
+            if not isinstance(spec, dict):
+                continue
+            source_ref = str(spec.get("path") or spec.get("source_ref") or "").strip()
+            if source_ref:
+                _append_tree_files(paths, public_root / source_ref)
+
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        key = str(path.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def _substrate_bundle_freshness_basis(input_dir: Path, *, public_root: Path) -> list[dict[str, Any]]:
+    return sorted(
+        (
+            _file_freshness_entry(path, public_root=public_root)
+            for path in _substrate_bundle_input_paths(input_dir, public_root=public_root)
+        ),
+        key=lambda item: str(item["path"]),
+    )
+
+
+def _fresh_substrate_bundle_receipt(
+    out_dir: str | Path,
+    *,
+    freshness_digest: str,
+) -> dict[str, Any] | None:
+    target = Path(out_dir)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    receipt_path = target / SUBSTRATE_BUNDLE_RESULT_NAME
+    if not receipt_path.is_file():
+        return None
+    try:
+        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, dict):
+        return None
+    if payload.get("card_schema_version") != CARD_SCHEMA_VERSION:
+        return None
+    if payload.get("organ_id") != ORGAN_ID:
+        return None
+    if payload.get("input_mode") != "exported_substrate_bundle":
+        return None
+    if payload.get("freshness_digest") != freshness_digest:
+        return None
+    result = dict(payload)
+    result["receipt_reused"] = True
+    result["freshness_status"] = "current"
+    return result
 
 
 def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
@@ -1302,12 +1425,28 @@ def validate(input_dir: str | Path, out_dir: str | Path, command: str | None = N
     return result
 
 
-def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
-    bundle = load_pattern_binding_substrate_bundle(input_dir)
+def validate_substrate_bundle(
+    input_dir: str | Path,
+    out_dir: str | Path,
+    command: str | None = None,
+    *,
+    reuse_fresh_receipt: bool = False,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    if not input_path.is_absolute():
+        input_path = Path.cwd() / input_path
+    public_root = _public_root_for_bundle(input_path)
+    freshness_basis = _substrate_bundle_freshness_basis(input_path, public_root=public_root)
+    freshness_digest = _json_digest(freshness_basis)
+    if reuse_fresh_receipt:
+        cached = _fresh_substrate_bundle_receipt(out_dir, freshness_digest=freshness_digest)
+        if cached is not None:
+            return cached
+
+    bundle = load_pattern_binding_substrate_bundle(input_path)
     manifest = bundle["bundle_manifest"]
-    public_root = _public_root_for_bundle(input_dir)
-    source_imports = validate_source_module_imports(input_dir, public_root=public_root)
-    real_ledger_projection = _real_pattern_ledger_projection(input_dir, manifest)
+    source_imports = validate_source_module_imports(input_path, public_root=public_root)
+    real_ledger_projection = _real_pattern_ledger_projection(input_path, manifest)
     uses_real_ledger = real_ledger_projection is not None and real_ledger_projection["status"] == PASS
     ledger_pattern_ids = (
         {str(row["pattern_id"]) for row in real_ledger_projection["pattern_rows"]}
@@ -1315,7 +1454,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         else set()
     )
     substrate_binding_projection = _real_pattern_substrate_bindings_projection(
-        input_dir,
+        input_path,
         manifest,
         ledger_pattern_ids,
     )
@@ -1325,12 +1464,12 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     )
     if uses_real_ledger and uses_substrate_bindings:
         real_ledger_projection = _real_pattern_ledger_projection(
-            input_dir,
+            input_path,
             manifest,
             substrate_binding_projection["runtime_refs_by_pattern_id"],
         )
     route_readiness_projection = _real_pattern_route_readiness_projection(
-        input_dir,
+        input_path,
         manifest,
         out_dir,
         command,
@@ -1346,7 +1485,7 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
         input_paths.append(real_ledger_projection["path"])
     if substrate_binding_projection is not None and substrate_binding_projection["path"].is_file():
         input_paths.append(substrate_binding_projection["path"])
-    input_paths.extend(_source_artifact_paths(input_dir, public_root=public_root))
+    input_paths.extend(_source_artifact_paths(input_path, public_root=public_root))
     forbidden_terms = bundle["forbidden_terms"]
     scan_result = _receipt_safe_scan_result(scan_paths(input_paths, forbidden_classes=forbidden_terms))
     binding_result = validate_pattern_bindings(patterns, source_capsules, scan_result)
@@ -1409,6 +1548,11 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
             "input_mode": "exported_substrate_bundle",
             "bundle_id": bundle_id,
             "bundle_manifest_schema_version": manifest.get("schema_version"),
+            "card_schema_version": CARD_SCHEMA_VERSION,
+            "freshness_basis": freshness_basis,
+            "freshness_digest": freshness_digest,
+            "freshness_status": "current",
+            "receipt_reused": False,
             "accepted_count": len(accepted_rows),
             "rejected_count": len(binding_result["rejected_pattern_ids"]),
             "accepted_pattern_ids": sorted(str(row["pattern_id"]) for row in accepted_rows),
@@ -1564,36 +1708,162 @@ def validate_substrate_bundle(input_dir: str | Path, out_dir: str | Path, comman
     return result
 
 
+def _scan_card(scan: object) -> dict[str, Any]:
+    if not isinstance(scan, dict):
+        return {
+            "status": None,
+            "blocking_hit_count": 0,
+            "hit_count": 0,
+            "body_in_receipt": None,
+        }
+    hits = scan.get("hits", [])
+    return {
+        "status": scan.get("status"),
+        "blocking_hit_count": scan.get("blocking_hit_count", 0),
+        "hit_count": len(hits) if isinstance(hits, list) else 0,
+        "body_in_receipt": scan.get("body_in_receipt"),
+    }
+
+
+def result_card(result: dict[str, Any]) -> dict[str, Any]:
+    receipt_paths = [
+        Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
+        for path in result.get("receipt_paths", [])
+    ]
+    common = {
+        "schema_version": CARD_SCHEMA_VERSION,
+        "organ_id": result.get("organ_id", ORGAN_ID),
+        "fixture_id": result.get("fixture_id"),
+        "status": result.get("status"),
+        "input_mode": result.get("input_mode", "fixture_regression"),
+        "command": result.get("command"),
+        "receipt_paths": receipt_paths,
+        "receipt_reused": bool(result.get("receipt_reused")),
+        "freshness_status": result.get("freshness_status", "rebuilt"),
+    }
+    if result.get("input_mode") == "exported_substrate_bundle":
+        source_open = result.get("source_open_body_imports", {})
+        if not isinstance(source_open, dict):
+            source_open = {}
+        source_modules = result.get("source_module_imports", {})
+        if not isinstance(source_modules, dict):
+            source_modules = {}
+        route_readiness = result.get("real_pattern_route_readiness_source", {})
+        if not isinstance(route_readiness, dict):
+            route_readiness = {}
+        route_summary = route_readiness.get("route_readiness_summary", {})
+        if not isinstance(route_summary, dict):
+            route_summary = {}
+        return {
+            **common,
+            "bundle_id": result.get("bundle_id"),
+            "accepted_count": result.get("accepted_count", 0),
+            "real_substrate_progress_count": result.get("real_substrate_progress_count", 0),
+            "runtime_metadata_only_row_count": result.get("runtime_metadata_only_row_count", 0),
+            "legacy_runtime_metadata_row_count": result.get("legacy_runtime_metadata_row_count", 0),
+            "real_pattern_ledger_consumed": result.get("real_pattern_ledger_consumed", False),
+            "real_pattern_substrate_bindings_consumed": result.get(
+                "real_pattern_substrate_bindings_consumed", False
+            ),
+            "real_pattern_route_readiness_consumed": result.get(
+                "real_pattern_route_readiness_consumed", False
+            ),
+            "source_module_count": source_modules.get("module_count", 0),
+            "body_copied_material_count": result.get("body_copied_material_count", 0),
+            "source_open_body_import_summary": {
+                "status": source_open.get("status"),
+                "body_material_count": source_open.get("body_material_count", 0),
+                "material_classes": source_open.get("material_classes", []),
+                "body_in_receipt": source_open.get("body_in_receipt", False),
+            },
+            "route_readiness_summary": {
+                "ledger_pattern_count": route_summary.get("ledger_pattern_count"),
+                "route_card_count": route_summary.get("route_card_count"),
+                "fixture_spec_count": route_summary.get("fixture_spec_count"),
+                "standalone_pattern_leaf_candidate_count": route_summary.get(
+                    "standalone_pattern_leaf_candidate_count"
+                ),
+            },
+            "public_runtime_ref_count": len(result.get("public_runtime_refs", []))
+            if isinstance(result.get("public_runtime_refs"), list)
+            else 0,
+            "secret_exclusion_scan": _scan_card(result.get("secret_exclusion_scan")),
+            "error_code_count": len(result.get("error_codes", [])),
+            "error_codes": result.get("error_codes", []),
+            "finding_count": len(result.get("findings", [])),
+            "freshness_digest": result.get("freshness_digest"),
+            "omitted_full_payload_keys": [
+                key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+            ],
+        }
+
+    expected_cases = result.get("expected_negative_cases", {})
+    observed_cases = result.get("observed_negative_cases", {})
+    return {
+        **common,
+        "bundle_id": result.get("bundle_id"),
+        "expected_negative_case_count": len(expected_cases)
+        if isinstance(expected_cases, dict)
+        else 0,
+        "observed_negative_case_count": len(observed_cases)
+        if isinstance(observed_cases, dict)
+        else 0,
+        "missing_negative_case_count": len(result.get("missing_negative_cases", [])),
+        "accepted_count": result.get("accepted_count", 0),
+        "rejected_count": result.get("rejected_count", 0),
+        "duplicate_pattern_count": len(result.get("duplicate_pattern_ids", [])),
+        "error_code_count": len(result.get("error_codes", [])),
+        "secret_exclusion_scan": _scan_card(result.get("secret_exclusion_scan")),
+        "omitted_full_payload_keys": [
+            key for key in CARD_OMITTED_FULL_PAYLOAD_KEYS if key in result
+        ],
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("--input", required=True)
     validate_parser.add_argument("--out", required=True)
+    validate_parser.add_argument("--card", action="store_true")
     bundle_parser = subparsers.add_parser("validate-substrate-bundle")
     bundle_parser.add_argument("--input", required=True)
     bundle_parser.add_argument("--out", required=True)
+    bundle_parser.add_argument("--card", action="store_true")
     route_readiness_parser = subparsers.add_parser("validate-route-readiness-bundle")
     route_readiness_parser.add_argument("--input", required=True)
     route_readiness_parser.add_argument("--out", required=True)
+    route_readiness_parser.add_argument("--card", action="store_true")
     args = parser.parse_args(argv)
     if args.command_name == "validate":
         command = (
             "python -m microcosm_core.organs.pattern_binding_contract "
             f"validate --input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = validate(args.input, args.out, command=command)
     elif args.command_name == "validate-substrate-bundle":
         command = (
             "python -m microcosm_core.organs.pattern_binding_contract "
             f"validate-substrate-bundle --input {args.input} --out {args.out}"
         )
-        result = validate_substrate_bundle(args.input, args.out, command=command)
+        if args.card:
+            command += " --card"
+        result = validate_substrate_bundle(
+            args.input,
+            args.out,
+            command=command,
+            reuse_fresh_receipt=args.card,
+        )
     elif args.command_name == "validate-route-readiness-bundle":
         command = (
             "python -m microcosm_core.organs.pattern_binding_contract "
             f"validate-route-readiness-bundle --input {args.input} --out {args.out}"
         )
+        if args.card:
+            command += " --card"
         result = pattern_route_readiness.validate_route_readiness_bundle(
             args.input,
             args.out,
@@ -1601,6 +1871,8 @@ def main(argv: list[str] | None = None) -> int:
         )
     else:
         parser.error("expected subcommand: validate, validate-substrate-bundle, or validate-route-readiness-bundle")
+    if args.card:
+        print(json.dumps(result_card(result), ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
 
 
