@@ -2,24 +2,34 @@
   "schema_version": "executable_doctrine_grammar_fixture_manifest_v1",
   "organ_id": "executable_doctrine_grammar",
   "fixture_id": "first_wave.executable_doctrine_grammar",
-  "status": "public_synthetic_fixture_plus_imported_macro_specimen_manifest",
-  "body_copied_material_count": 3,
-  "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+  "status": "public_synthetic_fixture_plus_imported_macro_standards_registry_and_tool_bodies_manifest",
+  "body_copied_material_count": 12,
+  "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
   "authority_ceiling": "fixture_manifest_only_not_macro_doctrine_authority",
-  "anti_claim": "This fixture manifest covers public synthetic grammar fixtures plus an exact copied public executable-grammar macro specimen. It does not certify macro doctrine completeness, private standards-engine export, provider payload export, or later public organs.",
+  "anti_claim": "This fixture manifest covers public synthetic grammar fixtures plus exact copied public executable-grammar, standards-registry/type-plane, lattice-registry, kind-atlas, and standards option-surface macro bodies. It does not certify macro doctrine completeness, private standards-engine export, provider payload export, or later public organs.",
   "source_open_body_imports": {
     "schema_version": "executable_doctrine_grammar_source_open_body_imports_v1",
     "status": "pass",
     "source_import_class": "copied_non_secret_macro_body",
-    "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
-    "body_material_count": 3,
+    "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
+    "body_material_count": 12,
     "body_material_ids": [
       "executable_grammar_metabolism_readme_body_import",
       "executable_grammar_metabolism_board_body_import",
-      "executable_grammar_metabolism_receipt_body_import"
+      "executable_grammar_metabolism_receipt_body_import",
+      "standards_registry_root_body_import",
+      "std_standards_registry_body_import",
+      "std_standards_group_index_body_import",
+      "std_standard_type_plane_body_import",
+      "core_authority_index_body_import",
+      "lattice_registry_body_import",
+      "std_lattice_registry_body_import",
+      "standard_option_surface_tool_body_import",
+      "kind_atlas_tool_body_import"
     ],
     "material_classes": [
       "public_macro_receipt_body",
+      "public_macro_standard_body",
       "public_macro_tool_body"
     ],
     "source_manifest_refs": [
@@ -35,7 +45,7 @@
       "release_authorized": false,
       "source_mutation_authorized": false
     },
-    "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only."
+    "reader_action": "Open source_module_manifest.json plus copied executable-grammar specimen files, codex/standards registry/type-plane files, and system/lib kind-atlas/standard-option-surface files; receipts carry refs, digests, counts, and verdicts only."
   },
   "inputs": [
     {
@@ -73,6 +83,51 @@
     {
       "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/receipt.json",
       "kind": "copied_public_macro_receipt_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/standards_registry.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_registry.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_group_index.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standard_type_plane.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/core_authority_index.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/lattice_registry.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_lattice_registry.json",
+      "kind": "copied_public_macro_standard_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/standard_option_surface.py",
+      "kind": "copied_public_macro_tool_body",
+      "body_policy": "copied_non_secret_macro_body"
+    },
+    {
+      "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/kind_atlas.py",
+      "kind": "copied_public_macro_tool_body",
       "body_policy": "copied_non_secret_macro_body"
     }
   ],

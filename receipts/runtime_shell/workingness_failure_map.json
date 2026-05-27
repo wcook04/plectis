@@ -44,7 +44,7 @@
   "rows_with_future_work_targets": 30,
   "rows_with_source_body_imports": 45,
   "schema_version": "microcosm_workingness_failure_map_v1",
-  "source_open_body_material_count": 437,
+  "source_open_body_material_count": 446,
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
   "surface_counts": {
@@ -56,7 +56,7 @@
     "rows_with_failure_modes": 47,
     "rows_with_future_work_targets": 30,
     "rows_with_source_body_imports": 45,
-    "source_open_body_material_count": 437,
+    "source_open_body_material_count": 446,
     "thing_count": 47
   },
   "thing_failure_map": [
@@ -221,7 +221,7 @@
         "status_claim": "accepted_current_authority"
       },
       "evidence_gap_class": "contract_validated_but_scope_bound",
-      "failure_mode_count": 7,
+      "failure_mode_count": 9,
       "future_work_target_count": 0,
       "future_work_targets": [],
       "known_failure_modes": [
@@ -231,7 +231,9 @@
         "paper module accepted without governing standard or receipt expectations",
         "macro executable-grammar specimen imported without exact source-to-target digest checks",
         "provider replay bridge treated as real provider transcript or reliability proof",
-        "receipt duplicates macro body text instead of carrying refs, hashes, and verdicts"
+        "receipt duplicates macro body text instead of carrying refs, hashes, and verdicts",
+        "standards-registry/type-plane body imported without exact digest and allowlisted source-ref checks",
+        "kind-atlas or standards option-surface body imported as a pointer instead of copied non-secret source"
       ],
       "needs_to_work": {
         "anti_purpose": "A prose-only doctrine note, a receipt archive, or a validator that passes while copied macro specimen bodies remain unconsumed.",
@@ -248,8 +250,8 @@
         },
         "generated_receipt_count": 4,
         "missing_requirement_ids": [],
-        "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar specimen bodies.",
-        "receipt_expectation_count": 6,
+        "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and option-surface bodies.",
+        "receipt_expectation_count": 8,
         "required_field_count": 8,
         "required_substrate": {
           "claim_ceiling_declared": true,
@@ -265,7 +267,7 @@
         "standard_ref": "standards/std_microcosm_executable_doctrine_grammar.json",
         "standard_status": "draft",
         "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority.",
-        "validation_rule_count": 8
+        "validation_rule_count": 10
       },
       "observed_workingness": {
         "claim_ceiling": "validates declared public contract only",
@@ -292,21 +294,31 @@
             "release_authorized": false,
             "source_mutation_authorized": false
           },
-          "body_material_count": 3,
+          "body_material_count": 12,
           "body_material_ids": [
             "executable_grammar_metabolism_readme_body_import",
             "executable_grammar_metabolism_board_body_import",
-            "executable_grammar_metabolism_receipt_body_import"
+            "executable_grammar_metabolism_receipt_body_import",
+            "standards_registry_root_body_import",
+            "std_standards_registry_body_import",
+            "std_standards_group_index_body_import",
+            "std_standard_type_plane_body_import",
+            "core_authority_index_body_import",
+            "lattice_registry_body_import",
+            "std_lattice_registry_body_import",
+            "standard_option_surface_tool_body_import",
+            "kind_atlas_tool_body_import"
           ],
-          "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+          "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
           "body_text_exported_in_receipts": false,
           "body_text_exported_in_workingness": false,
           "fixture_manifest_ref": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
           "material_classes": [
             "public_macro_receipt_body",
+            "public_macro_standard_body",
             "public_macro_tool_body"
           ],
-          "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only.",
+          "reader_action": "Open source_module_manifest.json plus copied executable-grammar specimen files, codex/standards registry/type-plane files, and system/lib kind-atlas/standard-option-surface files; receipts carry refs, digests, counts, and verdicts only.",
           "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
           "source_manifest_refs": [
             "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"
@@ -330,21 +342,31 @@
           "release_authorized": false,
           "source_mutation_authorized": false
         },
-        "body_material_count": 3,
+        "body_material_count": 12,
         "body_material_ids": [
           "executable_grammar_metabolism_readme_body_import",
           "executable_grammar_metabolism_board_body_import",
-          "executable_grammar_metabolism_receipt_body_import"
+          "executable_grammar_metabolism_receipt_body_import",
+          "standards_registry_root_body_import",
+          "std_standards_registry_body_import",
+          "std_standards_group_index_body_import",
+          "std_standard_type_plane_body_import",
+          "core_authority_index_body_import",
+          "lattice_registry_body_import",
+          "std_lattice_registry_body_import",
+          "standard_option_surface_tool_body_import",
+          "kind_atlas_tool_body_import"
         ],
-        "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+        "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_workingness": false,
         "fixture_manifest_ref": "core/fixture_manifests/executable_doctrine_grammar.fixture_manifest.json",
         "material_classes": [
           "public_macro_receipt_body",
+          "public_macro_standard_body",
           "public_macro_tool_body"
         ],
-        "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only.",
+        "reader_action": "Open source_module_manifest.json plus copied executable-grammar specimen files, codex/standards registry/type-plane files, and system/lib kind-atlas/standard-option-surface files; receipts carry refs, digests, counts, and verdicts only.",
         "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
         "source_manifest_refs": [
           "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json"

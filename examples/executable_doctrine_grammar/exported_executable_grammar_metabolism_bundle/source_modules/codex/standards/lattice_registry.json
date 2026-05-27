@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "title": "Lattice registry — declared model of artifact kinds and operations",
+  "summary": "Boring static declaration that joins this repo's five graphs (doctrine, raw-seed, runtime, projection, test). Per std_lattice_registry.json. Authority: human-edited (M3). Consumers: build_lattice_graph.py (M1), lattice_status.py (M0E), reactions_engine.py (enforcement), select_impacted_tests.py (planned).",
+  "compression_layers": [
+    "axiom",
+    "principle",
+    "theory",
+    "skill",
+    "standard",
+    "substrate",
+    "projection"
+  ],
+  "artifact_kinds": [
+    {
+      "artifact_kind": "axiom_candidate",
+      "graph_node_kind": "axiom",
+      "compression_layer": "axiom",
+      "authority_globs": ["codex/doctrine/axioms/axiom_candidates.json"],
+      "standard": "codex/standards/std_axiom_candidate.json",
+      "validators": [],
+      "projection_builders": [],
+      "allowed_writers": ["controller", "improver_evidence_only"],
+      "apply_lane": "human_only",
+      "tests": [],
+      "freshness_inputs": ["principle"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "principle",
+      "graph_node_kind": "principle",
+      "compression_layer": "principle",
+      "authority_globs": [
+        "obsidian/okay lets do this/*/raw_seed/raw_seed_principles.json"
+      ],
+      "standard": "codex/standards/principles",
+      "validators": [
+        "tools/meta/factory/raw_seed_apply_loop.py edge-validate"
+      ],
+      "projection_builders": [
+        "tools/meta/factory/build_navigation_hologram.py"
+      ],
+      "allowed_writers": ["controller"],
+      "apply_lane": "raw_seed_apply_loop::apply-routing",
+      "tests": ["system/server/tests/test_raw_seed_apply_loop.py"],
+      "freshness_inputs": ["raw_seed_paragraph", "extracted_shard"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "paper_module",
+      "graph_node_kind": "theory",
+      "compression_layer": "theory",
+      "authority_globs": ["codex/doctrine/paper_modules/*.md"],
+      "standard": "codex/standards/std_paper_module.json",
+      "validators": ["tools/meta/factory/build_paper_module_index.py"],
+      "projection_builders": [
+        "tools/meta/factory/build_agent_bootstrap_projection.py"
+      ],
+      "allowed_writers": ["human", "type_a_agent_proposal"],
+      "apply_lane": "paper_module_apply_or_manual",
+      "tests": [
+        "system/server/tests/test_agent_bootstrap_projection.py",
+        "system/server/tests/test_paper_module_index.py"
+      ],
+      "freshness_inputs": ["standard", "skill", "raw_seed_paragraph"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "imagination",
+      "graph_node_kind": "imagination",
+      "compression_layer": "theory",
+      "authority_globs": ["codex/doctrine/imaginations/imn_*.md"],
+      "standard": "codex/standards/std_imagination.json",
+      "validators": ["tools/meta/factory/build_imagination_index.py"],
+      "projection_builders": ["tools/meta/factory/build_imagination_index.py"],
+      "allowed_writers": ["human", "type_a_agent_proposal"],
+      "apply_lane": "imagination_authoring_or_manual",
+      "tests": [],
+      "freshness_inputs": ["standard", "raw_seed_paragraph", "paper_module"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "skill",
+      "graph_node_kind": "skill",
+      "compression_layer": "skill",
+      "authority_globs": [
+        "codex/doctrine/skills/**/*.md"
+      ],
+      "standard": "codex/standards/std_skill.json",
+      "validators": ["tools/meta/factory/build_skill_catalog_projection.py"],
+      "projection_builders": [
+        "tools/meta/factory/build_skill_catalog_projection.py",
+        "tools/meta/factory/build_agent_bootstrap_projection.py"
+      ],
+      "allowed_writers": ["human", "type_a_agent_proposal"],
+      "apply_lane": "raw_seed_apply_loop::apply-routing",
+      "tests": ["system/server/tests/test_skill_catalog_projection.py"],
+      "freshness_inputs": ["standard", "paper_module"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "standard",
+      "graph_node_kind": "standard",
+      "compression_layer": "standard",
+      "authority_globs": ["codex/standards/std_*.json"],
+      "standard": "self",
+      "validators": [],
+      "projection_builders": [],
+      "allowed_writers": ["human"],
+      "apply_lane": "human_only",
+      "tests": [],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "concept",
+      "graph_node_kind": "concept",
+      "compression_layer": "standard",
+      "authority_globs": ["codex/doctrine/concepts/con_*.json"],
+      "standard": "codex/standards/std_artifact_ontology.json",
+      "validators": ["tools/meta/factory/raw_seed_apply_loop.py edge-validate"],
+      "projection_builders": [],
+      "allowed_writers": ["controller"],
+      "apply_lane": "raw_seed_apply_loop::apply-routing",
+      "tests": ["system/server/tests/test_raw_seed_apply_loop.py"],
+      "freshness_inputs": ["extracted_shard", "raw_seed_paragraph"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "mechanism",
+      "graph_node_kind": "mechanism",
+      "compression_layer": "standard",
+      "authority_globs": ["codex/doctrine/mechanisms/mech_*.json"],
+      "standard": "codex/standards/std_artifact_ontology.json",
+      "validators": ["tools/meta/factory/raw_seed_apply_loop.py edge-validate"],
+      "projection_builders": [],
+      "allowed_writers": ["controller"],
+      "apply_lane": "raw_seed_apply_loop::apply-routing",
+      "tests": ["system/server/tests/test_raw_seed_apply_loop.py"],
+      "freshness_inputs": ["extracted_shard", "raw_seed_paragraph"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "raw_seed_paragraph",
+      "graph_node_kind": "raw_seed_paragraph",
+      "compression_layer": "substrate",
+      "authority_globs": [
+        "obsidian/okay lets do this/*/raw_seed.md"
+      ],
+      "standard": "codex/doctrine/paper_modules/raw_seed_substrate.md",
+      "validators": [],
+      "projection_builders": [
+        "tools/meta/factory/raw_seed_pipeline.py"
+      ],
+      "allowed_writers": ["human"],
+      "apply_lane": "human_only",
+      "tests": ["system/server/tests/test_raw_seed_substrate.py"],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "extracted_shard",
+      "graph_node_kind": "extracted_shard",
+      "compression_layer": "substrate",
+      "authority_globs": [
+        "obsidian/okay lets do this/*/extracted_shards.json"
+      ],
+      "standard": "codex/standards/std_apply.json",
+      "validators": [],
+      "projection_builders": ["tools/meta/factory/raw_seed_pipeline.py"],
+      "allowed_writers": ["type_a_agent_proposal", "controller"],
+      "apply_lane": "raw_seed_apply_loop::apply-routing",
+      "tests": ["system/server/tests/test_raw_seed_apply_loop.py"],
+      "freshness_inputs": ["raw_seed_paragraph"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "agent_seed_paragraph",
+      "graph_node_kind": "agent_seed_paragraph",
+      "compression_layer": "substrate",
+      "authority_globs": ["obsidian/okay lets do this/*/agent_seed.md"],
+      "standard": "codex/doctrine/skills/raw_seed/agent_seed_authoring.md",
+      "validators": [],
+      "projection_builders": ["tools/meta/factory/raw_seed_pipeline.py"],
+      "allowed_writers": ["controller", "type_a_agent_proposal"],
+      "apply_lane": "kernel.py::--append-agent-seed",
+      "tests": [],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "route_graph",
+      "graph_node_kind": "route_graph",
+      "compression_layer": "projection",
+      "authority_globs": [
+        "state/semantic_routing/route_graph.json",
+        "state/semantic_routing/route_status.json",
+        "state/semantic_routing/route_drift.json",
+        "state/semantic_routing/route_evidence_summary.json"
+      ],
+      "standard": "codex/standards/std_semantic_routing.json",
+      "validators": [],
+      "projection_builders": ["tools/meta/factory/build_routing_projection.py"],
+      "allowed_writers": ["daemon_projection"],
+      "apply_lane": "deterministic_rebuild",
+      "tests": ["system/server/tests/test_semantic_routing.py"],
+      "freshness_inputs": [
+        "extracted_shard",
+        "concept",
+        "mechanism",
+        "principle",
+        "paper_module",
+        "skill",
+        "standard"
+      ],
+      "mutation_class_to_modify": "M4"
+    },
+    {
+      "artifact_kind": "agent_bootstrap_projection",
+      "graph_node_kind": "agent_bootstrap",
+      "compression_layer": "projection",
+      "authority_globs": ["CLAUDE.md", "AGENTS.md", "AGENTS.override.md", "CODEX.md"],
+      "standard": "codex/standards/std_agent_entry_surface.json",
+      "validators": ["tools/meta/factory/check_agent_bootstrap_projection.py"],
+      "projection_builders": ["tools/meta/factory/build_agent_bootstrap_projection.py"],
+      "allowed_writers": ["daemon_projection", "human"],
+      "apply_lane": "deterministic_rebuild",
+      "tests": ["system/server/tests/test_agent_bootstrap_projection.py"],
+      "freshness_inputs": ["paper_module", "skill", "standard"],
+      "mutation_class_to_modify": "M4"
+    },
+    {
+      "artifact_kind": "reaction",
+      "graph_node_kind": "reaction",
+      "compression_layer": "standard",
+      "authority_globs": ["reactions.yaml"],
+      "standard": "codex/standards/std_reactions.json",
+      "validators": ["tools/meta/control/reactions_engine.py status"],
+      "projection_builders": [],
+      "allowed_writers": ["human"],
+      "apply_lane": "human_only",
+      "tests": ["system/server/tests/test_reactions_engine.py"],
+      "freshness_inputs": ["launchable_op"],
+      "mutation_class_to_modify": "M4"
+    },
+    {
+      "artifact_kind": "launchable_op",
+      "graph_node_kind": "launchable_op",
+      "compression_layer": "standard",
+      "authority_globs": ["system/lib/launchable_operations.py"],
+      "standard": "codex/standards/std_reactions.json",
+      "validators": [],
+      "projection_builders": [],
+      "allowed_writers": ["human"],
+      "apply_lane": "human_only",
+      "tests": ["system/server/tests/test_launchable_operations.py"],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M4"
+    },
+    {
+      "artifact_kind": "test_file",
+      "graph_node_kind": "test_file",
+      "compression_layer": "projection",
+      "authority_globs": ["system/server/tests/**/*.py"],
+      "standard": "self",
+      "validators": [],
+      "projection_builders": ["tools/meta/testing/test_inventory.py"],
+      "allowed_writers": ["human"],
+      "apply_lane": "human_only",
+      "tests": [],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "test_impact_policy",
+      "graph_node_kind": "test_impact_policy",
+      "compression_layer": "standard",
+      "authority_globs": ["codex/testing/test_impact_map.json"],
+      "standard": "codex/standards/std_test_impact_map.json",
+      "validators": [],
+      "projection_builders": ["tools/meta/testing/select_impacted_tests.py"],
+      "allowed_writers": ["human", "controller"],
+      "apply_lane": "human_only",
+      "tests": [
+        "system/server/tests/test_lattice_registry.py",
+        "system/server/tests/test_select_impacted_tests.py",
+        "system/server/tests/test_run_test_slice.py"
+      ],
+      "freshness_inputs": ["test_file", "standard"],
+      "mutation_class_to_modify": "M3"
+    },
+    {
+      "artifact_kind": "lattice_event",
+      "graph_node_kind": "lattice_event",
+      "compression_layer": "projection",
+      "authority_globs": ["state/lattice/events/ledger.jsonl"],
+      "standard": "codex/standards/std_lattice_event.json",
+      "validators": ["tools/meta/factory/append_lattice_event.py"],
+      "projection_builders": [
+        "tools/meta/factory/build_lattice_graph.py",
+        "tools/meta/factory/lattice_status.py"
+      ],
+      "allowed_writers": ["daemon_projection", "improver_evidence_only", "type_a_agent_proposal"],
+      "apply_lane": "append_only",
+      "tests": ["system/server/tests/test_lattice_event_invariants.py"],
+      "freshness_inputs": [],
+      "mutation_class_to_modify": "M4"
+    }
+  ],
+  "launchable_ops": [
+    {
+      "name": "lattice_status_refresh",
+      "mutation_class": "M0E",
+      "read_globs": [
+        "codex/standards/lattice_registry.json",
+        "codex/doctrine/paper_modules/_validation_report.json",
+        "codex/doctrine/subdomains/_validation_report.json",
+        "state/semantic_routing/route_drift.json",
+        "state/semantic_routing/route_quality_audit/**/*.json",
+        "state/principles_population_audit/latest.json",
+        "state/lattice/events/ledger.jsonl",
+        "state/lattice/lattice_graph_latest.json"
+      ],
+      "write_globs": [
+        "state/lattice/lattice_status_latest.json",
+        "state/lattice/events/ledger.jsonl"
+      ],
+      "idempotency_key_fields": [
+        "registry_digest",
+        "graph_digest",
+        "ledger_tail_digest"
+      ],
+      "max_runtime_s": 30,
+      "max_parallel": 1
+    },
+    {
+      "name": "lattice_graph_refresh",
+      "mutation_class": "M1",
+      "read_globs": [
+        "codex/standards/lattice_registry.json",
+        "codex/doctrine/**/*",
+        "codex/standards/std_*.json",
+        "system/server/tests/**/*.py",
+        "obsidian/okay lets do this/**/raw_seed.md",
+        "obsidian/okay lets do this/**/extracted_shards.json",
+        "reactions.yaml"
+      ],
+      "write_globs": [
+        "state/lattice/lattice_graph_latest.json",
+        "state/lattice/events/ledger.jsonl"
+      ],
+      "idempotency_key_fields": ["registry_digest", "scan_digest"],
+      "max_runtime_s": 60,
+      "max_parallel": 1
+    }
+  ],
+  "reactions": [],
+  "fallback_test_bundles": {
+    "unknown_doctrine_change": [
+      "system/server/tests/test_agent_bootstrap_projection.py",
+      "system/server/tests/test_paper_module_index.py"
+    ],
+    "unknown_runtime_change": [
+      "system/server/tests/test_metabolismd.py",
+      "system/server/tests/test_reactions_engine.py"
+    ],
+    "unknown_server_or_ui_change": [
+      "system/server/tests/test_station_render.py"
+    ],
+    "unknown_standard_change": [
+      "system/server/tests/test_paper_module_index.py",
+      "system/server/tests/test_lattice_registry.py"
+    ],
+    "selector_code_change": [
+      "system/server/tests/test_select_impacted_tests.py",
+      "system/server/tests/test_run_test_slice.py"
+    ],
+    "lattice_substrate_change": [
+      "system/server/tests/test_lattice_event_invariants.py",
+      "system/server/tests/test_lattice_registry.py",
+      "system/server/tests/test_test_inventory.py"
+    ]
+  }
+}

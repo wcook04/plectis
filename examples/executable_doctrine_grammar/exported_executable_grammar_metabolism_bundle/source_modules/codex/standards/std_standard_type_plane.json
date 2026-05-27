@@ -1,0 +1,1343 @@
+{
+  "id": "std_standard_type_plane",
+  "kind": "standard",
+  "schema_version": "std_standard_type_plane_v0",
+  "title": "Standard Type Plane Standard",
+  "status": "candidate_with_renderer_and_queryable_projection",
+  "summary": "Defines the standards-first navigation type plane: broad artifact types route first to governing standards, and projections such as the Kind Atlas, System Atlas, paper-module sidecars, and option surfaces read from those standards.",
+  "purpose": "Make standards the landing authority for both writing and navigating artifact types. A standard says how a file is written, how that artifact kind is read, what source authority owns it, which projections expose it, how currentness is checked, and which validation proves it.",
+  "authority_posture": "Authoritative contract. This standard governs the type-plane shape; generated type-plane databases, atlas rows, option-surface rows, and paper-module sidecars are projections and must route mutation back to the owning standard.",
+  "operator_pressure": {
+    "declared_at": "2026-05-07",
+    "statement": "The standards layer must be the place where navigation and write contracts land. Paper modules and atlas surfaces are useful projections, but the durable rule belongs in standards."
+  },
+  "core_rule": "Navigation begins with artifact type. Artifact type points to a governing standard. The governing standard declares source authority, write lane, read bands, option surface, atlas projection, currentness policy, evidence drilldown, and validation probe. Projections may browse or query this shape; they do not own it.",
+  "navigation_contract": {
+    "profile_id": "navigation_type_plane_navigation_v0",
+    "artifact_kind": "navigation_type_plane",
+    "surface_role": "ATLAS_PROJECTION",
+    "first_contact_allowed": false,
+    "control_replacement": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+    "navigable_bands": [
+      "cluster_flag",
+      "flag",
+      "card"
+    ],
+    "band_contracts": {
+      "cluster_flag": {
+        "purpose": "Cluster standards type-plane rows by row status so agents can choose an artifact family before opening type rows.",
+        "minimum_payload": [
+          "cluster id",
+          "type-plane row status",
+          "row count",
+          "representative type ids",
+          "flag and card drilldown commands",
+          "coverage and gap posture"
+        ],
+        "forbidden": [
+          "full standard JSON bodies",
+          "generated graph bodies",
+          "public-export payload bodies",
+          "source-code bodies"
+        ],
+        "drilldown_to": "./repo-python kernel.py --option-surface navigation_type_plane --band flag --ids <type_id>[,<type_id>...]"
+      },
+      "flag": {
+        "purpose": "Expose one standards type-plane row with governing standards, source authority, option surface, projection refs, currentness, validation, and gap summary.",
+        "minimum_payload": [
+          "type_id",
+          "title",
+          "artifact_family",
+          "governing_standard_refs",
+          "source_authority",
+          "option_surface_command",
+          "validation_probe",
+          "known_gaps",
+          "card drilldown command"
+        ],
+        "forbidden": [
+          "raw source bodies",
+          "full generated graph/index/gap payloads",
+          "provider payloads",
+          "publication approval claims"
+        ],
+        "drilldown_to": "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids <type_id>"
+      },
+      "card": {
+        "purpose": "Bind a selected type-plane row to its standard authority, read/write contract, projection boundary, renderer passport, gap row, and validation route.",
+        "minimum_payload": [
+          "flag row fields",
+          "read_contract",
+          "write_contract",
+          "atlas_projection_policy",
+          "currentness_policy",
+          "mutation_lane",
+          "projection_refs",
+          "renderer passport link",
+          "evidence command",
+          "omission receipt"
+        ],
+        "forbidden": [
+          "full source bodies",
+          "generated state mutation",
+          "raw receipts or private operator state",
+          "claims that projections are authority"
+        ],
+        "drilldown_to": "./repo-python tools/meta/factory/build_navigation_type_plane.py --check && ./repo-python kernel.py --option-surface standards --band card --ids std_standard_type_plane"
+      }
+    },
+    "navigable_scopes": [
+      "type_plane",
+      "type_row",
+      "standard_ref",
+      "projection_ref",
+      "renderer_passport",
+      "gap_row"
+    ],
+    "navigable_facets": [
+      "artifact_family",
+      "source_authority",
+      "read_contract",
+      "write_contract",
+      "option_surface",
+      "currentness",
+      "validation",
+      "known_gap",
+      "projection_boundary",
+      "renderer_passport"
+    ],
+    "population_policy": {
+      "band:cluster_flag": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/kernel/commands/generated_artifact_surfaces.py::_navigation_type_plane_rows",
+        "source": "state/navigation_type_plane/type_plane_graph.json and state/navigation_type_plane/type_plane_index.json",
+        "freshness": "./repo-python tools/meta/factory/build_navigation_type_plane.py --check"
+      },
+      "band:flag": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/kernel/commands/generated_artifact_surfaces.py::_navigation_type_plane_node_flag_row",
+        "source": "state/navigation_type_plane/type_plane_graph.json nodes plus std_standard_type_plane.type_plane_rows"
+      },
+      "band:card": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/kernel/commands/generated_artifact_surfaces.py::_navigation_type_plane_node_flag_row",
+        "source": "selected type-plane node, generated gap rows, renderer passport projection, and source type_plane_rows entry"
+      },
+      "scope:type_row": {
+        "populated_by": "authored",
+        "source": "codex/standards/std_standard_type_plane.json::type_plane_rows[]"
+      },
+      "scope:renderer_passport": {
+        "populated_by": "compiled",
+        "source": "state/navigation_type_plane/renderer_passports.json derived from type_plane_rows and artifact_class_renderer_profiles"
+      },
+      "scope:gap_row": {
+        "populated_by": "compiled",
+        "source": "state/navigation_type_plane/type_plane_gaps.json"
+      }
+    },
+    "creator_skill_id": "standard_type_plane_authoring",
+    "navigator_skill_id": "navigation_seed",
+    "source_authority": {
+      "standard": "codex/standards/std_standard_type_plane.json",
+      "type_rows": "codex/standards/std_standard_type_plane.json::type_plane_rows",
+      "projection_builder": "system/lib/navigation_type_plane.py",
+      "option_surface_owner": "system/lib/kernel/commands/generated_artifact_surfaces.py::_navigation_type_plane_rows",
+      "generated_state": [
+        "state/navigation_type_plane/type_plane_graph.json",
+        "state/navigation_type_plane/type_plane_index.json",
+        "state/navigation_type_plane/type_plane_gaps.json",
+        "state/navigation_type_plane/renderer_passports.json"
+      ],
+      "projection_boundary": "The navigation_type_plane option surface is a generated standards-first browse projection. Source truth stays in std_standard_type_plane and the standards each type row names."
+    },
+    "currentness_policy": {
+      "mode": "source_coupled_type_plane_projection",
+      "rule": "After changes to std_standard_type_plane rows or renderer contracts, check the generated graph/index/gap/renderer projections before relying on navigation_type_plane cards.",
+      "check_commands": [
+        "./repo-python tools/meta/factory/build_navigation_type_plane.py --check",
+        "./repo-python tools/meta/factory/build_renderer_passports.py --check",
+        "./repo-python kernel.py --option-surface navigation_type_plane --band cluster_flag",
+        "./repo-python kernel.py --kind-band-contract-audit"
+      ]
+    },
+    "dependency_neighborhood_policy": {
+      "mode": "standard_projection_gap_neighborhood",
+      "rule": "Card rows expose first-order governing standards, generated projection refs, renderer passport refs, known gaps, and validation probes. Wider atlas, paper-module, annex, and Task Ledger neighborhoods downshift to counts and drilldown commands.",
+      "first_order": [
+        "governing standards",
+        "source authority",
+        "projection refs",
+        "renderer passport",
+        "known gaps",
+        "validation probes"
+      ],
+      "second_order": [
+        "System Atlas consumers",
+        "paper-module explainers",
+        "annex adaptation candidates",
+        "Task Ledger caps"
+      ],
+      "beyond_second_order": "omit_with_count_reason_and_drilldown"
+    },
+    "edge_compression_policy": {
+      "edge_row_shape": "std_navigation_contract.edge_row_shape",
+      "bidirectional_gloss_required": true,
+      "first_order_band": "card",
+      "second_order_band": "flag",
+      "beyond_second_order": "omit_with_count_reason_and_drilldown",
+      "required_edge_fields": [
+        "source_ref",
+        "target_ref",
+        "verb",
+        "reverse_verb",
+        "confidence",
+        "evidence_ref",
+        "drilldown_ref"
+      ]
+    },
+    "validation_probe": [
+      "./repo-python -m json.tool codex/standards/std_standard_type_plane.json",
+      "./repo-python tools/meta/factory/build_navigation_type_plane.py --check",
+      "./repo-python tools/meta/factory/build_renderer_passports.py --check",
+      "./repo-python kernel.py --option-surface navigation_type_plane --band cluster_flag",
+      "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids public_microcosm_exports",
+      "./repo-python kernel.py --kind-band-contract-audit",
+      "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_navigation_contract,std_standard_type_plane"
+    ]
+  },
+  "required_type_row_fields": [
+    "type_id",
+    "title",
+    "artifact_family",
+    "governing_standard_refs",
+    "source_authority",
+    "write_contract",
+    "read_contract",
+    "option_surface_command",
+    "atlas_projection_policy",
+    "currentness_policy",
+    "validation_probe",
+    "mutation_lane",
+    "annex_adaptation_policy",
+    "projection_refs",
+    "known_gaps"
+  ],
+  "type_plane_rows": [
+    {
+      "type_id": "standards",
+      "title": "Standards",
+      "artifact_family": "standard_contract",
+      "governing_standard_refs": [
+        "codex/standards/std_standards_registry.json",
+        "codex/standards/std_standards_group_index.json",
+        "codex/standards/std_standard_type_plane.json"
+      ],
+      "source_authority": "codex/standards/**/*.json plus family authority indexes",
+      "write_contract": "Open standards_registry.json and the owning group authority index before creating or revising std_*.json.",
+      "read_contract": "Use the standards option surface to select a standard, then open the JSON authority.",
+      "option_surface_command": "./repo-python kernel.py --option-surface standards --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project standards as Standard entities with governed_by and validates edges.",
+      "currentness_policy": "Validate JSON and refresh standards option surfaces through their existing builder/read path.",
+      "validation_probe": [
+        "jq '.' codex/standards/<standard>.json",
+        "./repo-python kernel.py --option-surface standards --band card --ids <standard_id>"
+      ],
+      "mutation_lane": "apply_patch or governing builder; generated projections are never hand-edited.",
+      "annex_adaptation_policy": "Annex logic may create or revise a standard only after std_annex_distillation rows name source_locus, local target, adoption lane, and validation.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py",
+        "system/lib/kind_atlas.py",
+        "state/system_atlas/system_atlas.graph.json"
+      ],
+      "known_gaps": [
+        "System Atlas ingestion of type-plane rows remains owned by cap_atlas_standard_type_plane_ingestion."
+      ]
+    },
+    {
+      "type_id": "standards_compliance_projection",
+      "title": "Standards Compliance Projection",
+      "artifact_family": "standard_quality_projection",
+      "compression_passport": {
+        "cluster_keys": [
+          "standards compliance",
+          "compliance ledger",
+          "scanner coverage",
+          "standards gaps",
+          "atlas navigation quality"
+        ],
+        "atom": "Type-plane bridge from standard quality questions into scanner coverage, compliance findings, generated ledger rows, and navigation gap repair routes.",
+        "when_to_open": "Open when a task asks whether standards are compliant, which standards have scanner coverage, how Atlas/navigation should consume compliance state, or which standard gaps are actionable.",
+        "when_not_to_open": "Do not open as a substitute for the governing standard source, a mutation authority for generated ledger state, or a claim that every baseline-only standard has a domain scanner.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids standards_compliance_projection",
+        "landmines": [
+          "Compliance ledger rows are generated projections, not source authority.",
+          "Baseline inventory coverage is discoverability, not proof of domain-specific compliance.",
+          "Finding repair belongs in the owning standard, adapter, builder, or Task Ledger cap."
+        ],
+        "sufficiency_claims": [
+          "Routes type questions through std_compliance_coverage and std_compliance_finding before opening ledger details.",
+          "Names the scanner registry, generated ledger, option-surface command, validation probes, and known Atlas/navigation gap."
+        ]
+      },
+      "governing_standard_refs": [
+        "codex/standards/std_compliance_coverage.json",
+        "codex/standards/std_compliance_finding.json",
+        "codex/standards/std_standard_type_plane.json"
+      ],
+      "source_authority": "system/lib/compliance adapters plus codex/standards/std_compliance_coverage.json and codex/standards/std_compliance_finding.json; codex/hologram/compliance/ledger.json is the generated read model and must not be hand-edited.",
+      "write_contract": "Add or revise domain scanners under system/lib/compliance, register them in system/lib/compliance/__init__.py, and keep findings shaped by std_compliance_finding. Rebuild the compliance ledger through tools/meta/factory/build_compliance_ledger.py after scanner or standard changes.",
+      "read_contract": "Start with compliance_ledger cluster_flag, drill to affected standard cards, then use navigation_type_plane gaps or the governing standard card to choose the owner lane before opening source files.",
+      "option_surface_command": "./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project standards compliance as generated quality state with scanned_by, reports_finding, and repairs_via edges, but mutation routes back to the governing standard, scanner adapter, builder, or Task Ledger cap.",
+      "currentness_policy": "Current only when the compliance ledger projection, navigation type-plane projection, and renderer passports match a fresh build from std_standard_type_plane and registered compliance adapters.",
+      "validation_probe": [
+        "./repo-python tools/meta/factory/build_compliance_ledger.py --check",
+        "./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+        "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_standard_type_plane,std_compliance_coverage",
+        "./repo-python tools/meta/factory/build_navigation_type_plane.py --check",
+        "./repo-python tools/meta/factory/build_renderer_passports.py --check",
+        "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids standards_compliance_projection"
+      ],
+      "entry_depth_contract": {
+        "control_entry": "./repo-python kernel.py --entry \"standards compliance projection\" --context-budget 12000",
+        "cluster_probe": "./repo-python kernel.py --option-surface compliance_ledger --band cluster_flag",
+        "standard_cards": [
+          "std_compliance_coverage",
+          "std_compliance_finding",
+          "std_standard_type_plane"
+        ],
+        "gap_probe": "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids standards_compliance_projection",
+        "authority_ceiling": "generated_compliance_projection_navigation_only_not_source_authority"
+      },
+      "mutation_lane": "Mutate the relevant std_*.json, compliance adapter, scanner registry, or builder; then rerun the compliance ledger, navigation type-plane, and renderer passport builders. Never hand-edit codex/hologram/compliance/ledger.json or state/navigation_type_plane/*.json.",
+      "annex_adaptation_policy": "External architecture-health or compliance-scanning patterns may motivate new scanner checks only after they name the local standard, artifact class, candidate finding shape, and validation probe.",
+      "projection_refs": [
+        "codex/hologram/compliance/ledger.json",
+        "system/lib/compliance/__init__.py",
+        "system/lib/compliance/standard_type_plane_adapter.py",
+        "tools/meta/factory/build_compliance_ledger.py",
+        "system/lib/kernel/commands/generated_artifact_surfaces.py",
+        "system/lib/standard_option_surface.py",
+        "state/navigation_type_plane/type_plane_gaps.json",
+        "state/system_atlas/system_atlas.graph.json"
+      ],
+      "known_gaps": [
+        "System Atlas explicit card drilldowns can project standards_compliance_projection rows from std_standard_type_plane when generated graph rows are stale or absent; generated graph-edge ingestion remains part of cap_atlas_standard_type_plane_ingestion.",
+        "Many standards intentionally remain baseline_inventory_only until a domain scanner is worth the maintenance cost."
+      ]
+    },
+    {
+      "type_id": "principles",
+      "title": "Principles",
+      "artifact_family": "doctrine_theory",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_raw_seed_principles.json"
+      ],
+      "source_authority": "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
+      "write_contract": "Use principles curation: complete pri_* rows with evidence, tests, edges, failure modes, and decision examples.",
+      "read_contract": "Cluster by native principle kind, then card or tape selected ids.",
+      "option_surface_command": "./repo-python kernel.py --option-surface principles --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project Principle entities and governed_by edges to std_raw_seed_principles.",
+      "currentness_policy": "Principles are curated; evidence refs must be reopened for promotion or reversal-sensitive work.",
+      "validation_probe": [
+        "jq '.' 'obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json'",
+        "./repo-python kernel.py --option-surface principles --band card --ids <pri_id>"
+      ],
+      "mutation_lane": "Direct governed hand-mint or raw_seed_apply_loop.py hand-mint-principle; do not hand-edit raw_seed.md.",
+      "annex_adaptation_policy": "Annexes can corroborate or motivate principles only through local curation, never by making external text the principle authority.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "Many principle rows still lack teleology profiles; cap_principle_teleology_navigation_population owns this population work."
+      ]
+    },
+    {
+      "type_id": "concepts",
+      "title": "Concepts",
+      "artifact_family": "doctrine_theory",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_concept.json"
+      ],
+      "source_authority": "codex/doctrine/concepts/con_*.json",
+      "write_contract": "Concept rows are curated abstract theory with principle and mechanism edges.",
+      "read_contract": "Use concept option surfaces and card rows before opening concept JSON bodies.",
+      "option_surface_command": "./repo-python kernel.py --option-surface concepts --band flag",
+      "atlas_projection_policy": "System Atlas may project Concept entities and edges to principles, mechanisms, and standards.",
+      "currentness_policy": "Concepts survive code refactors; edge and evidence checks matter more than code mtimes.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface concepts --band card --ids <con_id>"
+      ],
+      "mutation_lane": "Follow std_concept and doctrine concept curation; refine existing concepts before duplicates.",
+      "annex_adaptation_policy": "Lane 2 annex pattern transfer may create a concept only when the pattern is abstract theory and carries structured annex provenance.",
+      "projection_refs": [
+        "codex/doctrine/doctrine_index.json",
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": []
+    },
+    {
+      "type_id": "mechanisms",
+      "title": "Mechanisms",
+      "artifact_family": "process_guidance",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_mechanism.json"
+      ],
+      "source_authority": "codex/doctrine/mechanisms/mech_*.json",
+      "write_contract": "Mechanisms require code_loci or explicit implementation_gap; unimplemented runbooks belong elsewhere.",
+      "read_contract": "Use mechanism option surfaces and card rows to inspect code-grounded patterns.",
+      "option_surface_command": "./repo-python kernel.py --option-surface mechanisms --band flag",
+      "atlas_projection_policy": "System Atlas may project Mechanism entities with implements, validates, reads, and writes edges.",
+      "currentness_policy": "Mechanisms are drift-sensitive and must be reviewed when code_loci change.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface mechanisms --band card --ids <mech_id>"
+      ],
+      "mutation_lane": "Follow std_mechanism and mechanism_authoring_reflex.",
+      "annex_adaptation_policy": "Annex logic may produce or refine a mechanism only when local code embodies or will embody the pattern with code_loci/proof.",
+      "projection_refs": [
+        "codex/doctrine/doctrine_index.json",
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": []
+    },
+    {
+      "type_id": "paper_modules",
+      "title": "Paper Modules",
+      "artifact_family": "projection",
+      "governing_standard_refs": [
+        "codex/standards/std_paper_module.json"
+      ],
+      "source_authority": "codex/doctrine/paper_modules/*.md for authored subsystem projections; generated sidecars for browse/coverage only.",
+      "write_contract": "Paper modules describe bounded subsystem projections under std_paper_module. They do not become landing authority for standards-grade rules.",
+      "read_contract": "Use paper-module option surfaces, paper-module cards, route coverage, and validation report.",
+      "option_surface_command": "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project PaperModule entities and covered_by_paper_module edges, with mutation routed back to std_paper_module or the authored module as appropriate.",
+      "currentness_policy": "Freshness comes from build_paper_module_index.py source manifests and route fingerprints.",
+      "validation_probe": [
+        "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+        "./repo-python kernel.py --paper-module <slug>"
+      ],
+      "mutation_lane": "Edit authored module markdown only; refresh sidecars through the builder and avoid broad sidecar churn from unrelated dirty modules.",
+      "annex_adaptation_policy": "Annex patterns may link to paper modules as local targets, but standards-grade navigation rules must land in standards first.",
+      "projection_refs": [
+        "codex/doctrine/paper_modules/_index.json",
+        "codex/doctrine/paper_modules/_route_coverage.json",
+        "codex/doctrine/paper_modules/_validation_report.json"
+      ],
+      "known_gaps": [
+        "Global paper-module validation has existing legacy debt; cap_paper_module_standard_compliance_projection_cleanup owns cleanup and scoping."
+      ]
+    },
+    {
+      "type_id": "annex_distillation_patterns",
+      "title": "Annex Distillation Patterns",
+      "artifact_family": "external_prior_art",
+      "governing_standard_refs": [
+        "codex/standards/annex/std_annex_distillation.json"
+      ],
+      "source_authority": "annexes/<slug>/distillation.json plus source_locus paths inside annexes/<slug>/repo/",
+      "write_contract": "Rows name exact pattern logic, adoption lane, local target, source_locus, status, and validation/currentness posture.",
+      "read_contract": "Use annex inspiration, annex dogfood, distillation index, and exact pattern cards before adopting.",
+      "option_surface_command": "./repo-python kernel.py --annex-inspiration \"<problem>\" --context-budget 12000",
+      "atlas_projection_policy": "System Atlas may project Annex and external_prior_art edges, but local authority begins only after adoption into local standards/doctrine/code.",
+      "currentness_policy": "Annex currentness, route coverage, and distillation status must be checked before reuse.",
+      "validation_probe": [
+        "./repo-python kernel.py --annex-navigation-dogfood \"<task>\" --context-budget 12000"
+      ],
+      "mutation_lane": "Per-annex distillation rows are authority; aggregate indexes are generated.",
+      "annex_adaptation_policy": "This is the source pattern type for annex use. Adoption must land in a local target standard, principle, concept, mechanism, skill, builder, or code path with provenance.",
+      "projection_refs": [
+        "annexes/annex_distillation_index.json",
+        "system/lib/annex_navigation_dogfood.py",
+        "system/lib/annex_routing_coverage.py"
+      ],
+      "known_gaps": [
+        "cap_annex_currentness_navigation_ratchet owns currentness feedback and repair ratchets."
+      ]
+    },
+    {
+      "type_id": "system_atlas",
+      "title": "System Atlas",
+      "artifact_family": "projection",
+      "governing_standard_refs": [
+        "codex/standards/std_system_atlas.json"
+      ],
+      "source_authority": "state/system_atlas/system_atlas.graph.json as generated projection; source files/standards/ledgers remain authority.",
+      "write_contract": "Do not hand-edit atlas state; refresh through build_system_atlas.py.",
+      "read_contract": "Use atlas cluster/card/unknowns bands as drilldown after entry selection.",
+      "option_surface_command": "./repo-python kernel.py --option-surface system_atlas --band cluster_flag",
+      "atlas_projection_policy": "The atlas is the projection consumer of this type plane, not the source of it.",
+      "currentness_policy": "Atlas rows carry freshness_status and source manifests.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface system_atlas --band card --ids <row_id>"
+      ],
+      "mutation_lane": "Refresh builder only.",
+      "annex_adaptation_policy": "Atlas may expose annex-derived edges only as external prior art or adopted local artifact provenance.",
+      "projection_refs": [
+        "state/system_atlas/system_atlas.graph.json",
+        "docs/system_atlas/generated_system_facts_at_a_glance.md"
+      ],
+      "known_gaps": [
+        "cap_atlas_standard_type_plane_ingestion owns ingestion of type-plane rows."
+      ]
+    },
+    {
+      "type_id": "skills",
+      "title": "Skills",
+      "artifact_family": "agent_capability",
+      "governing_standard_refs": [
+        "codex/standards/std_skill.json",
+        "codex/standards/std_skill_types.json",
+        "codex/standards/std_host_skill_surface.json"
+      ],
+      "source_authority": "codex/doctrine/skills/skill_registry.json plus codex/doctrine/skills/<family>/<skill>.md per-skill bodies",
+      "write_contract": "Author a complete skill row (id, kind, family, status, triggers, description, doctrine_edges, agent_surface) in skill_registry.json paired with a markdown body; pick a skill_type from std_skill_types.json. Doctrine edges name the principles, concepts, and mechanisms the skill instantiates.",
+      "read_contract": "Use the skills option surface (cluster_flag, then flag, then card) and the registry as authority; load the markdown body only after a stable skill row is selected. Skills are not principles or paper modules; they are repeatable agent moves with triggers and outputs.",
+      "option_surface_command": "./repo-python kernel.py --option-surface skills --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project Skill entities with doctrine_edges (concepts, mechanisms, principles), family edges, and trigger groupings. Mutation routes back to skill_registry.json plus the markdown body, never atlas state.",
+      "currentness_policy": "Skills are drift-sensitive: agent_surface fields, kernel_commands, and focus_paths must track real CLI flags and source paths. Freshness rides on build_skill_catalog_projection.py and is consumed by AGENTS.md, CLAUDE.md, CODEX.md, and skill_map.md generated regions.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface skills --band card --ids <skill_id>",
+        "./repo-python tools/meta/factory/build_skill_catalog_projection.py --target all --check"
+      ],
+      "mutation_lane": "Edit codex/doctrine/skills/skill_registry.json and the matching skill markdown together; refresh projection through build_skill_catalog_projection.py. Never hand-edit skill_map.md, AGENTS.md skill catalog regions, or any builder-projected skill block.",
+      "annex_adaptation_policy": "Annex pattern transfer may produce or refine a skill only with std_annex_distillation provenance (annex_slug, pattern_id, source_locus) plus provenance.status of annex_derived recorded on the skill row and a back-pointer in the source annex notes.",
+      "projection_refs": [
+        "codex/doctrine/skills/skill_map.md",
+        "system/lib/standard_option_surface.py",
+        "tools/meta/factory/build_skill_catalog_projection.py"
+      ],
+      "known_gaps": [
+        "Many active skills still lack the skill_type axis from std_skill_types.json; the backfill pass is in progress and tracked by skill_compression_debt rows.",
+        "Compression-passport and agent_surface coverage is uneven across the 200+ active skills."
+      ]
+    },
+    {
+      "type_id": "axiom_candidates",
+      "title": "Axiom Candidates",
+      "artifact_family": "constitutional_proposal",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/standards/principles/std_teleology_node.json"
+      ],
+      "source_authority": "obsidian/<phase_dir>/raw_seed/system_axiom_candidates.json — typed candidate clauses that sit above pri_* rows but are not active doctrine until promoted.",
+      "write_contract": "Author a complete axiom_candidate row with formal_clause, dense_clause, all five compression_expansion_bands (tiny, flag, card, context, deep), at least one teleological_deliverable with desired_capability/target_surface/proof_hint, evidence_refs, dependency_neighborhood_evidence, russian_doll_exemplar_chain spanning raw paragraph through axiom row, violation_predicates, and activation_packet_behavior. authority_posture must say candidate_not_active_doctrine unless an explicit promotion receipt is cited.",
+      "read_contract": "Use the axiom_candidates option surface (flag, card, tape) before opening the family ledger JSON; expect candidate posture to remain explicit even when surfaced as runtime pressure in entry packets.",
+      "option_surface_command": "./repo-python kernel.py --option-surface axiom_candidates --band flag",
+      "atlas_projection_policy": "System Atlas may project AxiomCandidate entities with related_principles edges and teleology_refs to tel_* nodes; row status (candidate, contested, promoted, rejected, superseded) is preserved on the projection.",
+      "currentness_policy": "Candidate axioms are typed proposals, not live doctrine; cadence requires explicit disposition events when surfaced by failure, repeated operator correction, or active downstream consumers (see std_system_axiom_candidate.curation_cadence_contract).",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface axiom_candidates --band card --ids <axiom_candidate_id>",
+        "jq '.axiom_candidates[] | select(.id == \"<axiom_candidate_id>\")' 'obsidian/.../raw_seed/system_axiom_candidates.json'"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/raw_seed_apply_loop.py link-teleology --spec <spec> --commit --rationale <reason>; promotion to a pri_* row goes through raw_seed principles curation, not direct hand-mint from the axiom ledger.",
+      "annex_adaptation_policy": "External annex content may motivate a candidate but cannot become an axiom by import. The operator-voice authority gate, full row schema, and the russian_doll_exemplar_chain anchored in raw paragraph or agent synthesis still apply.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py",
+        "system/lib/navigation_context_pack.py"
+      ],
+      "known_gaps": [
+        "candidate_to_runtime_packet wiring into the entry/context-pack assembly path is partially complete; std_system_axiom_candidate.follow_on_implementation_debt names the remaining work.",
+        "Most candidates carry only the legacy teleology profile and have not yet adopted shared teleology_refs."
+      ]
+    },
+    {
+      "type_id": "teleologies",
+      "title": "Shared Desire / Teleology Nodes",
+      "artifact_family": "shared_desire",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_teleology_node.json"
+      ],
+      "source_authority": "codex/doctrine/teleology_nodes.json — first-class shared desires that several principles, anti-principles, axiom candidates, and anti-axioms can reference.",
+      "write_contract": "Author a complete tel_* node with id, title, desire_statement, end_state, agent_experience, operator_experience, deliverables (each with deliverable_id/status/desired_capability/target_surface/proof_hint), success_signals, non_goals, and evidence_refs. Teleology nodes compress the wanted world; many positive and anti commitments should share a single node.",
+      "read_contract": "Browse the teleologies option surface, then traverse principles_by_teleology and axioms_by_teleology to see which positive commitments and anti-profiles share the desire. Anti rows must reuse the parent's teleology_refs; they cannot define separate desires.",
+      "option_surface_command": "./repo-python kernel.py --option-surface teleologies --band flag",
+      "atlas_projection_policy": "System Atlas may project Teleology entities with incoming teleology_refs edges from principles, axiom_candidates, anti-principles, and anti-axioms; the compression rule (teleologies < positive/anti pairs < positive + negative rows) is preserved on the projection.",
+      "currentness_policy": "Teleology nodes are stable shared-desire compressions; mutation must keep teleologies fewer than the positive/anti pairs they explain. Adding a new node requires an authored desire body and at least one teleology_ref-bearing consumer.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface teleologies --band card --ids <tel_id>",
+        "./repo-python kernel.py --option-surface principles_by_teleology --band flag --ids <tel_id>",
+        "./repo-python kernel.py --option-surface axioms_by_teleology --band flag --ids <tel_id>"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/raw_seed_apply_loop.py link-teleology --spec <spec> --commit --rationale <reason>; do not duplicate teleology bodies row-by-row in principles or axiom_candidates, and do not hand-edit teleology_nodes.json.",
+      "annex_adaptation_policy": "Annex content cannot become a teleology by import; shared desire is operator-grounded, expressed in raw seed, and authored through the apply lane after sufficient cross-row pressure.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "Most pri_* and axiom_candidate_* rows still lack teleology_refs or authored teleology profiles; cap_principle_teleology_navigation_population owns the population work.",
+        "Only six principles and three axiom candidates currently link via teleology_refs; coverage is below the compression_rule's intended ratio."
+      ]
+    },
+    {
+      "type_id": "anti_principles",
+      "title": "Anti-Principles",
+      "artifact_family": "doctrine_failure_profile",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_teleology_node.json",
+        "codex/standards/principles/std_raw_seed_principles.json"
+      ],
+      "source_authority": "anti_principle bodies attached to pri_* rows in obsidian/<phase_dir>/raw_seed/raw_seed_principles.json; teleology_refs must equal the parent principle's teleology_refs exactly.",
+      "write_contract": "Author an anti_principle that shares its parent principle's teleology_refs verbatim. Required fields: id, title, failure_statement, teleology_refs, failure_modes, detection_signals. Forbidden fields: teleology, desire_statement, end_state, agent_experience, operator_experience, deliverables, success_signals, non_goals, evidence_refs. Optional routed-profile fields (failure_attractor, constitutional_risk, recovery_protocol, route_when_detected, route_surfaces, route_commands, boundary_conditions, failure_evidence_refs) describe how the shared desire fails, not a new desire.",
+      "read_contract": "Browse anti_principles from a chosen teleology or principle; treat anti rows as failure-attractor maps around the same shared desire, not as independent principles. The negative-space map exists to make the positive principle's failure mode legible.",
+      "option_surface_command": "./repo-python kernel.py --option-surface anti_principles --band flag",
+      "atlas_projection_policy": "System Atlas may project AntiPrinciple entities with paired-with edges to the parent principle and shares_teleology_with edges to the same tel_* nodes.",
+      "currentness_policy": "Anti-principle profiles drift when the parent principle's failure modes evolve or when a routed profile gains attractor/recovery detail; refresh on principle revisions and operator-correction-driven curation cycles.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface anti_principles --band flag",
+        "jq '.principles[] | select(.anti_principle) | .anti_principle' 'obsidian/.../raw_seed/raw_seed_principles.json'"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/raw_seed_apply_loop.py link-teleology --spec <spec> --commit --rationale <reason>; same lane as the parent principle, never hand-edited as standalone JSON.",
+      "annex_adaptation_policy": "Annex distillation may surface failure attractors, but the anti_principle row must still carry the parent principle's teleology_refs verbatim and must not introduce independent goals or evidence_refs.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "Routed-profile fields (failure_attractor, constitutional_risk, recovery_protocol, route_commands) are populated on only a small subset of anti_principles.",
+        "Many pri_* rows still lack a paired anti_principle, so the negative-space map is incomplete."
+      ]
+    },
+    {
+      "type_id": "anti_axioms",
+      "title": "Anti-Axioms",
+      "artifact_family": "doctrine_failure_profile",
+      "governing_standard_refs": [
+        "codex/standards/principles/std_system_axiom_candidate.json",
+        "codex/standards/principles/std_teleology_node.json"
+      ],
+      "source_authority": "anti_axiom bodies attached to axiom_candidate rows in obsidian/<phase_dir>/raw_seed/system_axiom_candidates.json; teleology_refs must equal the parent axiom_candidate's teleology_refs exactly.",
+      "write_contract": "Author an anti_axiom that shares its parent axiom_candidate's teleology_refs verbatim. Required fields: id, title, failure_statement, teleology_refs, failure_modes, detection_signals. Forbidden fields mirror anti_principles: no teleology body or desire fields. Routed-profile fields describe how the shared constitutional desire fails, not a new desire.",
+      "read_contract": "Browse anti_axioms from a chosen teleology or axiom_candidate; anti rows describe constitutional failure attractors around the same shared desire and inherit candidate posture from the parent row.",
+      "option_surface_command": "./repo-python kernel.py --option-surface anti_axioms --band flag",
+      "atlas_projection_policy": "System Atlas may project AntiAxiom entities with paired-with edges to the parent axiom_candidate and shares_teleology_with edges to tel_* nodes; the parent's candidate status is preserved on the projection.",
+      "currentness_policy": "Anti-axiom profiles drift when the parent axiom_candidate is revised or when a routed profile gains constitutional_risk/recovery_protocol detail; refresh on axiom revisions and on disposition events under std_system_axiom_candidate.curation_cadence_contract.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface anti_axioms --band flag",
+        "jq '.axiom_candidates[] | select(.anti_axiom) | .anti_axiom' 'obsidian/.../raw_seed/system_axiom_candidates.json'"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/raw_seed_apply_loop.py link-teleology --spec <spec> --commit --rationale <reason>; same lane as the parent axiom_candidate.",
+      "annex_adaptation_policy": "Annex distillation may surface failure attractors, but the anti_axiom row must carry the parent axiom_candidate's teleology_refs verbatim and must not redefine the desire or assert active doctrine.",
+      "projection_refs": [
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "anti_axiom coverage is sparse (four rows authored against fourteen axiom_candidates); routed-profile fields populated only on the most pressure-bearing rows.",
+        "Several axiom_candidates have no anti_axiom yet, so the constitutional failure-attractor map is partial."
+      ]
+    },
+    {
+      "type_id": "task_ledger",
+      "title": "Task Ledger WorkItems",
+      "artifact_family": "durable_work_intent",
+      "governing_standard_refs": [
+        "codex/standards/std_task_ledger.json",
+        "codex/standards/std_task_sign_off.json"
+      ],
+      "source_authority": "state/task_ledger/events.jsonl as canonical append-only event log; state/task_ledger/ledger.json and state/task_ledger/views/*.json are projections of those events.",
+      "write_contract": "Author or mutate WorkItem rows through the task_ledger_apply lane (quick-capture, claim, refine, sign-off, rebuild). Each row carries id, slug, title, statement, status, rank with rank_history justification, compression_passport, created_at, updated_at, author. Hard prerequisite edges go in depends_on; broad context goes in dependencies; sign-off uses std_task_sign_off.",
+      "read_contract": "Use the task_ledger option surface (cluster_flag, then flag, then card) and the views directory; never grep ledger.json for routing. The Task Ledger is the durable next-action surface for any agent — Type A or Type B — and outlives chat-ephemeral todos.",
+      "option_surface_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project WorkItem entities with depends_on and blocks edges, claim/sign_off lifecycle, rank with rank_history, and tags; mutation routes back to the apply lane and the event log, never atlas state.",
+      "currentness_policy": "Drift-sensitive: views are derived from events.jsonl plus ledger.json and must be rebuilt after every apply. Re-rank without an appended rank_history justification breaks the audit chain and is rejected at validation.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface task_ledger --band card --ids <cap_id>",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...} --rebuild; never hand-edit ledger.json, events.jsonl, or generated views.",
+      "annex_adaptation_policy": "Annex pattern transfer may motivate a WorkItem but the cap row must carry its own evidence_refs and route through quick-capture; annex provenance lives in tags or notes, not as authority.",
+      "projection_refs": [
+        "state/task_ledger/ledger.json",
+        "state/task_ledger/views/",
+        "system/lib/standard_option_surface.py",
+        "tools/meta/factory/task_ledger_apply.py"
+      ],
+      "known_gaps": [
+        "Many caps still carry only a default compression_passport; flag/card density varies across the 1000+ WorkItem population.",
+        "Hard depends_on coverage is partial; broad dependencies often carry routing weight that depends_on should bear, leaving schedulability projections under-typed."
+      ]
+    },
+    {
+      "type_id": "task_ledger_caps",
+      "canonical_type_id": "task_ledger",
+      "title": "Task Ledger Cap Cards",
+      "artifact_family": "renderer_slice",
+      "governing_standard_refs": [
+        "codex/standards/std_task_ledger.json",
+        "codex/standards/std_task_sign_off.json"
+      ],
+      "source_authority": "state/task_ledger/events.jsonl as canonical append-only event log; cap cards render state/task_ledger/ledger.json and state/task_ledger/views/*.json projections only.",
+      "write_contract": "Cap renderer cards may expose guarded Task Ledger actions, but mutation still goes through task_ledger_apply.py and rebuilt projections.",
+      "read_contract": "Use the task_ledger option surface, then render the selected cap through the renderer passport so state, dependencies, receipts, blockers, and next safe mutation are explicit.",
+      "option_surface_command": "./repo-python kernel.py --option-surface task_ledger --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project WorkItem entities; task_ledger_caps is the renderer profile for cap cards, not a separate authority plane.",
+      "currentness_policy": "Cap cards are fresh only when task_ledger_apply.py validate and rebuilt views agree with events.jsonl.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface task_ledger --band card --ids <cap_id>",
+        "./repo-python tools/meta/factory/task_ledger_apply.py validate"
+      ],
+      "mutation_lane": "./repo-python tools/meta/factory/task_ledger_apply.py {quick-capture,claim,refine,sign-off,...} --rebuild; never hand-edit generated Task Ledger projections.",
+      "annex_adaptation_policy": "Annex-derived work may become a cap only through Task Ledger capture with evidence refs and tags; renderer cards do not import annex authority directly.",
+      "projection_refs": [
+        "state/task_ledger/ledger.json",
+        "state/task_ledger/views/",
+        "system/lib/standard_option_surface.py",
+        "system/lib/kernel/commands/generated_artifact_surfaces.py"
+      ],
+      "known_gaps": [
+        "Task Ledger cap cards still need a dedicated Station renderer that consumes renderer_passports instead of inferring card layout ad hoc."
+      ]
+    },
+    {
+      "type_id": "routes_and_option_surfaces",
+      "canonical_type_id": "kinds",
+      "title": "Routes and Option Surfaces",
+      "artifact_family": "navigation_projection",
+      "governing_standard_refs": [
+        "codex/standards/std_kind_atlas.json",
+        "codex/standards/std_command_output_projection.json",
+        "codex/standards/std_navigation_contract.json"
+      ],
+      "source_authority": "system/lib/kind_atlas.py, system/lib/standard_option_surface.py, and governing route/navigation standards; generated command output is projection only.",
+      "write_contract": "Add or revise route and option-surface behavior in the owning standard or Python adapter, then validate through kernel output; do not create parallel trigger surfaces.",
+      "read_contract": "Start from --entry, then --kind-atlas, then --option-surface <kind_id>; route cards must name surface role, selectable rows, evidence commands, omission receipts, and control replacement.",
+      "option_surface_command": "./repo-python kernel.py --option-surface kinds --band flag",
+      "atlas_projection_policy": "Kind Atlas is the rung-0 projection for artifact-kind selection. It names supported option surfaces but does not own source authority for the rows it links to.",
+      "currentness_policy": "Route/currentness checks come from kernel entry/context-pack, kind-atlas rows, and generated-artifact-surface adapters.",
+      "validation_probe": [
+        "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "./repo-python kernel.py --kind-atlas --band flag"
+      ],
+      "mutation_lane": "Edit governing standards and owning adapter modules, then run focused kernel route tests. Generated output packets are never hand-edited.",
+      "annex_adaptation_policy": "Annex navigation ideas may become local route patterns only after landing in std_kind_atlas, std_navigation_contract, a paper module, or an owning adapter with tests.",
+      "projection_refs": [
+        "system/lib/kind_atlas.py",
+        "system/lib/standard_option_surface.py",
+        "system/lib/kernel/commands/generated_artifact_surfaces.py",
+        "codex/standards/std_command_output_projection.json"
+      ],
+      "known_gaps": [
+        "Generic route cards still compose several adapters; renderer passports provide the common frontend contract until a route-specific renderer standard exists."
+      ]
+    },
+    {
+      "type_id": "frontend_views",
+      "title": "Frontend Views",
+      "artifact_family": "frontend_projection",
+      "governing_standard_refs": [
+        "codex/standards/std_view_contract.json",
+        "codex/standards/std_ui_receipt.json",
+        "codex/doctrine/paper_modules/frontend_navigation_plane.md"
+      ],
+      "source_authority": "system/server/ui/src plus generated frontend navigation graph and UI receipts; generated graph rows are projection, not UI source authority.",
+      "write_contract": "Frontend views are implemented in system/server/ui/src under view, receipt, and station aesthetic standards; generated graph/index artifacts are refreshed through their owning tools.",
+      "read_contract": "Use frontend_views and frontend_components option surfaces before opening TSX source; renderer cards must expose view contract, fact bindings, decision contract, fixtures, density bands, and receipts.",
+      "option_surface_command": "./repo-python kernel.py --option-surface frontend_views --band flag",
+      "atlas_projection_policy": "System Atlas may project frontend views and view/component edges, but mutations route back to UI source and receipt builders.",
+      "currentness_policy": "View graph, component index, and UI receipt checks must be refreshed after view or navigation changes.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface frontend_views --band card --ids <view_id>",
+        "./repo-python kernel.py --option-surface frontend_components --band cluster_flag"
+      ],
+      "navigation_contract": {
+        "profile_id": "frontend_view_navigation_v0",
+        "artifact_kind": "frontend_views",
+        "navigable_bands": [
+          "cluster_flag",
+          "flag",
+          "card"
+        ],
+        "band_contracts": {
+          "cluster_flag": {
+            "purpose": "Cluster the generated frontend navigation graph by shell/station group so agents can choose a view family before opening row cards.",
+            "minimum_payload": [
+              "cluster id",
+              "view count",
+              "top view ids",
+              "capture coverage",
+              "visual memory coverage",
+              "drilldown commands"
+            ],
+            "forbidden": [
+              "full TSX source bodies",
+              "full edge list",
+              "screenshot bodies"
+            ],
+            "drilldown_to": "./repo-python kernel.py --option-surface frontend_views --band flag --ids <view_id>[,<view_id>...]"
+          },
+          "flag": {
+            "purpose": "Expose one frontend view row with route, purpose, capture, source component, visual-memory refs, currentness, and card drilldown.",
+            "minimum_payload": [
+              "view id",
+              "title",
+              "route",
+              "purpose",
+              "group",
+              "capture ref",
+              "source component ref",
+              "visual memory ref",
+              "evidence command"
+            ],
+            "forbidden": [
+              "full UI source body",
+              "render artifact body",
+              "transitive component closure"
+            ],
+            "drilldown_to": "./repo-python kernel.py --option-surface frontend_views --band card --ids <view_id>"
+          },
+          "card": {
+            "purpose": "Bind a selected view to source evidence, outbound/inbound navigation, capture contract, visual memory, visual settlement, and omission receipts.",
+            "minimum_payload": [
+              "flag row fields",
+              "outbound edges",
+              "inbound edge counts",
+              "capture contract",
+              "view observation packet",
+              "visual settlement ref",
+              "source evidence command"
+            ],
+            "forbidden": [
+              "raw screenshots",
+              "private runtime state",
+              "full TSX source bodies"
+            ],
+            "drilldown_to": "./repo-python kernel.py --view <view_id> && ./repo-python kernel.py --view-edges <view_id>"
+          }
+        },
+        "navigable_scopes": [
+          "view",
+          "route",
+          "interaction_state",
+          "capture_contract",
+          "source_file"
+        ],
+        "navigable_facets": [
+          "route",
+          "purpose",
+          "source_component",
+          "capture",
+          "visual_memory",
+          "currentness",
+          "drift"
+        ],
+        "population_policy": {
+          "band:cluster_flag": {
+            "populated_by": "compiled",
+            "emitter": "system/lib/standard_option_surface.py::build_frontend_views_option_surface",
+            "source": "state/frontend_navigation/navigation_graph.json plus view observation and settlement indexes",
+            "freshness": "./repo-python kernel.py --view-graph-check"
+          },
+          "band:flag": {
+            "populated_by": "compiled",
+            "emitter": "system/lib/standard_option_surface.py::_frontend_view_flag_row",
+            "source": "state/frontend_navigation/navigation_graph.json views[] rows"
+          },
+          "band:card": {
+            "populated_by": "compiled",
+            "emitter": "system/lib/standard_option_surface.py::_frontend_view_card_row",
+            "source": "navigation graph, station_views.json capture rows, visual memory index, and visual settlement index"
+          },
+          "scope:route": {
+            "populated_by": "compiled",
+            "source": "tools/meta/observability/frontend_nav_graph.py parses system/server/ui/src/App.tsx and navigation registries"
+          },
+          "facet:capture": {
+            "populated_by": "compiled",
+            "source": "tools/meta/observability/station_views.json capture bindings"
+          },
+          "facet:visual_memory": {
+            "populated_by": "compiled",
+            "source": "state/observability/view_quality/frontend_view_observation_index_v0.json and frontend_visual_settlement_v0.json"
+          }
+        },
+        "creator_skill_id": "frontend_navigation_authoring",
+        "navigator_skill_id": "frontend_ai_navigation_cli",
+        "source_authority": {
+          "ui_source": "system/server/ui/src/App.tsx, navigation/surfaces.ts, navigation/overlays.ts, pages/StationLens.tsx",
+          "capture_manifest": "tools/meta/observability/station_views.json",
+          "generated_graph": "state/frontend_navigation/navigation_graph.json",
+          "visual_memory": "state/observability/view_quality/frontend_view_observation_index_v0.json",
+          "visual_settlement": "state/observability/view_quality/frontend_visual_settlement_v0.json",
+          "projection_boundary": "Generated graph, visual memory, and visual settlement are browse projections; TS/TSX source and receipt builders remain mutation authority."
+        },
+        "currentness_policy": {
+          "mode": "source_coupled_frontend_navigation_projection",
+          "rule": "Run the view graph check after route, surface, overlay, station view, or capture edits; do not hand-edit generated frontend navigation or visual-memory projections.",
+          "freshness_commands": [
+            "./repo-python kernel.py --view-graph-check",
+            "./repo-python kernel.py --option-surface frontend_views --band cluster_flag"
+          ]
+        },
+        "dependency_neighborhood_policy": {
+          "mode": "route_capture_component_visual_memory_neighborhood",
+          "rule": "Card rows expose direct route edges, source component evidence, capture contracts, and visual-memory refs; wider graph/component closures downshift to counts and drilldown commands."
+        },
+        "edge_compression_policy": {
+          "bidirectional_gloss_required": true,
+          "first_order_band": "card",
+          "second_order_band": "flag",
+          "beyond_second_order": "omit_with_count_reason_and_drilldown"
+        },
+        "validation_probe": [
+          "./repo-python -m json.tool codex/standards/std_standard_type_plane.json",
+          "./repo-python kernel.py --option-surface frontend_views --band cluster_flag",
+          "./repo-python kernel.py --option-surface frontend_views --band card --ids station",
+          "./repo-python kernel.py --view-graph-check",
+          "./repo-python kernel.py --kind-band-contract-audit"
+        ]
+      },
+      "mutation_lane": "Edit system/server/ui/src and run frontend/UI receipt checks; do not hand-edit state/frontend_navigation projections.",
+      "annex_adaptation_policy": "External UI/wiki patterns may inform view shape, but local renderer behavior must cite the view contract, UI receipt standard, and source component path.",
+      "projection_refs": [
+        "state/frontend_navigation/navigation_graph.json",
+        "state/frontend_navigation/component_index.json",
+        "system/server/ui/src/",
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "The Station standards/wiki lens has not yet consumed renderer_passports directly."
+      ]
+    },
+    {
+      "type_id": "operator_action_receipts",
+      "title": "Operator Action Receipts",
+      "artifact_family": "operator_bridge_receipt",
+      "governing_standard_refs": [
+        "codex/standards/std_operator_action_receipt.json",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/doctrine/paper_modules/bridge_operator_proxy.md"
+      ],
+      "source_authority": "state/operator_bridge/hud_actions.jsonl as the durable receipt log; prompt_shelf_chatgpt_observer.py owns page-side collection, watcher preservation, metadata-only disk view, and health projection.",
+      "write_contract": "Operator controls that make semantic claims must classify claim/proof/body fields. Proof-governed actions preserve required proof fields or mark proof_status=missing_required_fields and receipt_incomplete=true; raw body/private/debug payloads stay out of durable metadata.",
+      "read_contract": "Start from hud_action_receipt_health for dynamic proof health, then inspect hud_actions.jsonl rows and std_operator_action_receipt before trusting a copied/exported artifact's completeness claim.",
+      "option_surface_command": "./repo-python tools/meta/observability/prompt_shelf_chatgpt_observer.py --check --hud --port 9226",
+      "atlas_projection_policy": "System Atlas may project operator action receipt health as runtime observability, but source authority remains the durable jsonl log plus the receipt standard.",
+      "currentness_policy": "Health is current only when the observer check reads the latest hud_actions.jsonl rows and the running HUD version matches the expected observer/HUD code.",
+      "validation_probe": [
+        "./repo-python -m py_compile tools/meta/observability/prompt_shelf_chatgpt_observer.py",
+        "./repo-pytest system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_reports_response_copy_proof system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_flags_response_copy_missing_proof system/server/tests/test_prompt_shelf_capture.py::test_hud_action_receipt_health_counts_future_proof_governed_actions system/server/tests/test_prompt_shelf_capture.py::test_hud_receipt_metadata_view_strips_body_and_flags_no_artifact -q",
+        "./repo-python tools/meta/observability/prompt_shelf_chatgpt_observer.py --check --hud --port 9226"
+      ],
+      "mutation_lane": "Edit std_operator_action_receipt plus the observer/test loci; do not hand-edit hud_actions.jsonl or broaden durable receipt payloads.",
+      "annex_adaptation_policy": "External logging or trace-context patterns may shape claim/proof/body vocabulary only after landing in std_operator_action_receipt and preserving the metadata-only privacy policy.",
+      "projection_refs": [
+        "state/operator_bridge/hud_actions.jsonl",
+        "tools/meta/observability/prompt_shelf_chatgpt_observer.py::hud_action_receipt_health",
+        "codex/doctrine/paper_modules/prompt_shelf.md",
+        "codex/doctrine/paper_modules/agent_trace_structurer_surface.md"
+      ],
+      "known_gaps": [
+        "No dedicated option-surface adapter exists yet for browsing historic operator action receipts; the live health command is the current narrow projection."
+      ]
+    },
+    {
+      "type_id": "public_microcosm_exports",
+      "canonical_type_id": "microcosm",
+      "title": "Public Microcosm Exports",
+      "artifact_family": "public_projection",
+      "compression_passport": {
+        "cluster_keys": [
+          "public microcosm exports",
+          "microcosm public export type plane",
+          "microcosm paper module depth",
+          "public projection boundary",
+          "dissemination export readiness"
+        ],
+        "atom": "Type-plane bridge from public Microcosm export questions into product doctrine, entry-lattice depth, behavior proof, and disclosure-bound projection checks.",
+        "when_to_open": "Open when a task asks how public Microcosm exports, public projection files, dissemination boundaries, or Microcosm export readiness should route through standards, paper modules, and first-screen behavior proof.",
+        "when_not_to_open": "Do not open as release approval, source truth, provider proof, candidate-axiom authority, or a substitute for the renderer/publication receipt owned by dissemination builders.",
+        "safe_drilldown": "./repo-python kernel.py --option-surface navigation_type_plane --band card --ids public_microcosm_exports",
+        "landmines": [
+          "Public export navigation is not publication approval.",
+          "Generated public files are not internal source authority.",
+          "Behavior proof, paper-module depth, and claim-boundary accounting must be visible before export file inspection."
+        ],
+        "sufficiency_claims": [
+          "Names the Microcosm paper-module depth order, supporting lattice depth, entry-depth contract, validation probes, and source/projection boundaries.",
+          "Routes back to std_microcosm and microcosm_public_export_type_plane before generated public export files."
+        ]
+      },
+      "governing_standard_refs": [
+        "codex/doctrine/paper_modules/microcosm_substrate.md",
+        "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
+        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
+        "codex/standards/std_microcosm.json",
+        "codex/standards/std_standard_type_plane.json",
+        "codex/doctrine/paper_modules/public_constellation_strategy.md",
+        "codex/standards/std_command_output_projection.json"
+      ],
+      "source_authority": "microcosm-substrate/, publication_manifest.yaml, self-indexing-cognitive-substrate/ archaeology, and dissemination builders; public exports are projections over internal source authority and public Microcosm owner surfaces.",
+      "write_contract": "Public microcosm exports require redaction, synthetic fixture, rights, and projection receipts before publication; internal authority remains upstream.",
+      "read_contract": "Use standards-first entry, then the Microcosm first-screen sequence (`microcosm hello <project>` for the non-writing map, `microcosm tour --card <project>` for behavior proof, and `microcosm first-screen <project>` for JSON route shape), then microcosm_substrate product doctrine, microcosm_entry_lattice route depth, microcosm_public_export_type_plane bridge guidance, paper_module_coverage_metabolism, paper_module_entry_projection_integrity, and dissemination/public constellation context before opening public export files; the legacy system_microcosm option surface is a Laboratory/control-view compatibility route, not the public Microcosm definition.",
+      "option_surface_command": "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
+      "atlas_projection_policy": "System Atlas may project public export candidates only as public/dissemination leaves with disclosure and provenance posture.",
+      "currentness_policy": "Public exports are current only when the publication manifest, renderer output, receipt bundle, and Microcosm first-screen/authority/workingness contracts agree with the selected internal authority snapshot.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_public_export_type_plane",
+        "./repo-python kernel.py --paper-module microcosm_substrate",
+        "./repo-python kernel.py --paper-module microcosm_public_export_type_plane",
+        "./repo-python kernel.py --option-surface paper_modules --band card --ids microcosm_substrate,microcosm_entry_lattice,microcosm_public_export_type_plane,paper_module_coverage_metabolism,paper_module_entry_projection_integrity",
+        "./repo-python kernel.py --term microcosm --term-band context",
+        "./repo-python kernel.py --context-pack \"public microcosm export dissemination boundary\" --context-budget 12000"
+      ],
+      "entry_depth_contract": {
+        "control_entry": "./repo-python kernel.py --entry \"public Microcosm export dissemination boundary\" --context-budget 12000",
+        "human_first_screen_projection": "microcosm hello <project>",
+        "shared_behavior_proof": "microcosm tour --card <project>",
+        "json_first_screen_projection": "microcosm first-screen <project>",
+        "claim_boundary_drilldowns": [
+          "microcosm authority --card",
+          "microcosm workingness --card",
+          "evidence_class_counters"
+        ],
+        "paper_module_depth_order": [
+          "microcosm_substrate",
+          "microcosm_entry_lattice",
+          "microcosm_public_export_type_plane",
+          "paper_module_coverage_metabolism",
+          "paper_module_entry_projection_integrity",
+          "public_constellation_strategy",
+          "dissemination_strategy"
+        ],
+        "coverage_role_contract": "codex/standards/std_microcosm.json::paper_module_coverage_contract.module_depth_roles",
+        "supporting_lattice_depth": [
+          "prime_directives",
+          "local_to_general_propagation",
+          "navigation_hologram_theory"
+        ],
+        "context_boundary_depth": [
+          "idea_microcosm_metabolism",
+          "public_constellation_strategy",
+          "dissemination_strategy"
+        ],
+        "standard_bridge": "codex/standards/std_microcosm.json::paper_module_coverage_contract.standard_type_plane_bridge",
+        "atlas_drilldowns": [
+          "paper_modules:microcosm_public_export_type_plane",
+          "standards:std_microcosm",
+          "standards:std_standard_type_plane"
+        ],
+        "export_depth_rule": "Open generated public export files only after behavior proof, paper-module depth, and claim-boundary accounting are visible.",
+        "authority_ceiling": "public_export_navigation_only_not_release_source_truth_provider_proof_or_candidate_axiom_authority"
+      },
+      "mutation_lane": "Use dissemination/public projection builders and manifests; never make public HTML, Markdown, or demos the source of internal truth.",
+      "annex_adaptation_policy": "External LLM-wiki or HTML export patterns may shape packaging only after redaction/provenance gates prove no private authority leakage.",
+      "projection_refs": [
+        "publication_manifest.yaml",
+        "self-indexing-cognitive-substrate/",
+        "codex/standards/std_microcosm.json::paper_module_coverage_contract.standard_type_plane_bridge",
+        "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
+        "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
+        "tools/meta/dissemination/render_public_projection.py",
+        "system/lib/kernel/commands/generated_artifact_surfaces.py"
+      ],
+      "known_gaps": [
+        "The public standards-as-wiki export still needs a receipt-backed renderer slice before it should be published as a canonical demo."
+      ]
+    },
+    {
+      "type_id": "derived_facts",
+      "title": "Derived Facts / State Axes",
+      "artifact_family": "live_state_projection",
+      "governing_standard_refs": [
+        "codex/standards/std_derived_fact.json"
+      ],
+      "source_authority": "codex/doctrine/facts/fact_registry.json — provider registry declaring how each fact is derived; codex/hologram/facts/ledger.json, codex/hologram/facts/audit.json, and codex/hologram/facts/navigation_cache.json are the generated current values and must not be hand-edited.",
+      "write_contract": "Extend the provider registry (FactProvider rows) when a new derived fact is needed; bind paper-module current-state claims through std_derived_fact.types.FactAssertion. Never write generated ledger, audit, or navigation_cache state directly. Provider rows declare extraction method, source_path or callable, semantic tags, and navigation hints.",
+      "read_contract": "Use the facts option surface (cluster_flag, then flag, then card) or the navigation_cache for fact lookup; treat fact rows as runtime state projections, not authored doctrine. State adjectives ('is X dirty/clean/pending/ready/active?') route through facts; the same questions in prose are drift-prone.",
+      "option_surface_command": "./repo-python kernel.py --facts --band cluster_flag",
+      "atlas_projection_policy": "System Atlas may project Fact entities with provider_ref edges, owner_surface anchors, and tags; mutation routes back to fact_registry.json or the derived-fact builder.",
+      "currentness_policy": "Generated values are rebuilt by build_fact_hologram.py from the provider registry plus current repo state. Drift sensitivity is high: a missing provider run leaves audited paper-module claims pinned to stale values.",
+      "validation_probe": [
+        "./repo-python kernel.py --fact-audit",
+        "./repo-python tools/meta/factory/build_fact_hologram.py --check"
+      ],
+      "mutation_lane": "Edit codex/doctrine/facts/fact_registry.json (provider rows), then rerun ./repo-python tools/meta/factory/build_fact_hologram.py to refresh generated state; never hand-edit codex/hologram/facts/*.json.",
+      "annex_adaptation_policy": "Annex content may suggest a fact provider shape, but the local provider row must still satisfy std_derived_fact.types.FactProvider and route back to a real source_path or callable in this repo.",
+      "projection_refs": [
+        "codex/hologram/facts/ledger.json",
+        "codex/hologram/facts/audit.json",
+        "codex/hologram/facts/navigation_cache.json",
+        "system/lib/derived_fact_hologram.py",
+        "system/lib/standard_option_surface.py"
+      ],
+      "known_gaps": [
+        "Many paper modules carry prose claims not yet bound to FactAssertion rows; the live-vs-prose drift is the failure mode this standard exists to close.",
+        "Provider coverage for state-axis questions such as workitem schedulability and navigation route freshness is partial; new providers are added on-demand."
+      ]
+    },
+    {
+      "type_id": "imaginations",
+      "title": "Imaginations",
+      "artifact_family": "counterfactual_affordance_scene",
+      "governing_standard_refs": [
+        "codex/standards/std_imagination.json"
+      ],
+      "source_authority": "codex/doctrine/imaginations/<id>.md as authored counterfactual scenes; codex/doctrine/imaginations/_index.json is generated and must not be hand-edited.",
+      "write_contract": "Author an imagination markdown body with the std_imagination.json::required_frontmatter_fields and a vivid present-tense scene. An imagination renders 'what would become possible if the future-state were already true' — it is not a principle (rule), axiom_candidate (compressed rule), standard (contract), paper_module (current-state explanation), pattern_deliverable (backlog row), or roadmap commitment. Hedges live in if_it_were_true_frame, never in body sentences.",
+      "read_contract": "Use the imaginations option surface and the imaginations index; treat counterfactual scenes as affordance previews that reveal which substrate or surface is needed to make the future-state real, not as predictions or aspirational prose.",
+      "option_surface_command": "./repo-python kernel.py --option-surface imaginations --band flag",
+      "atlas_projection_policy": "System Atlas may project Imagination entities with migrated_from edges back to source axiom_candidate teleological_deliverables, voice_anchor edges to raw-seed paragraphs, and closest_existing_substrate edges into current substrate.",
+      "currentness_policy": "Imaginations are stable counterfactual scenes; lifecycle status (active, retired_superseded, etc.) and voice_anchor.resolution.checked govern when a scene must be rerun against current substrate after substrate drift.",
+      "validation_probe": [
+        "./repo-python kernel.py --option-surface imaginations --band flag",
+        "./repo-python tools/meta/factory/build_imagination_index.py --check"
+      ],
+      "mutation_lane": "Author or revise codex/doctrine/imaginations/<id>.md, then run ./repo-python tools/meta/factory/build_imagination_index.py to refresh the generated index; field-set additions or enum changes require a v2 schema bump on std_imagination.",
+      "annex_adaptation_policy": "Annex content may motivate a new imagination, but the scene must be authored locally with voice_anchor and closest_existing_substrate grounded in this repo, not in the annex source.",
+      "projection_refs": [
+        "codex/doctrine/imaginations/_index.json",
+        "system/lib/standard_option_surface.py",
+        "tools/meta/factory/build_imagination_index.py"
+      ],
+      "known_gaps": [
+        "Many axiom_candidate teleological_deliverables[] rows have not yet been migrated to imaginations even when std_system_axiom_candidate.teleological_deliverables_migration would mark migration_action standalone_new_imagination or grouped_into_new_imagination.",
+        "Imagination coverage of frontend, dispatch, and bridge subsystem affordances is partial."
+      ]
+    }
+  ],
+  "annex_logic_contract": {
+    "rule": "Use annexes for actual source-backed logic, not vibes. A usable annex transfer names the upstream source_locus, the local target type, the target governing standard, the adoption lane, the local acceptance test, and the currentness check.",
+    "required_transfer_fields": [
+      "annex_slug",
+      "pattern_id",
+      "source_locus",
+      "upstream_logic_summary",
+      "local_problem_solved",
+      "target_type_id",
+      "target_governing_standard",
+      "local_artifact_or_cap",
+      "adoption_lane",
+      "currentness_check",
+      "validation_probe",
+      "do_not_copy"
+    ],
+    "known_annex_precedents": [
+      {
+        "annex_pattern": "corpus2skill:p003",
+        "logic": "Navigation files stay separate from full evidence stores.",
+        "local_use": "Keep standard/type rows thin and route to evidence bodies instead of embedding them."
+      },
+      {
+        "annex_pattern": "pageindex:p002",
+        "logic": "Structure is selected before page/content retrieval.",
+        "local_use": "Type plane selects artifact kind and native band before opening artifact bodies."
+      },
+      {
+        "annex_pattern": "obsidian-graph-intelligence:p001",
+        "logic": "Graph repairs are first-class suggestion objects with id, source, target, status, score, explanation, and feedback.",
+        "local_use": "Navigation/atlas repair candidates should become typed caps or suggestion rows, not prose-only observations."
+      },
+      {
+        "annex_pattern": "meta-harness:p004",
+        "logic": "Evolution is journaled append-only.",
+        "local_use": "Type-plane changes and annex adaptations need append-only ledger/cap receipts."
+      }
+    ],
+    "forbidden": [
+      "Citing an annex pattern without source_locus when moving beyond proposal.",
+      "Letting an annex pattern override a local standard.",
+      "Copying an upstream architecture when ai_workflow already has a stronger native owner.",
+      "Treating paper modules or atlas rows as the landing authority for annex-derived rules."
+    ]
+  },
+  "executable_wiki_projection_contract": {
+    "status": "candidate_with_browseable_projection",
+    "cap_owner": "cap_standards_as_llm_wiki_frontend_framework",
+    "paper_module": "codex/doctrine/paper_modules/standards_as_executable_wiki.md",
+    "operator_pressure": {
+      "declared_at": "2026-05-09",
+      "statement": "The emerging LLM-wiki/HTML-wiki pattern should be assimilated into ai_workflow through the stronger native primitive: standards and JSON/JSWN-style contracts as the grammar that makes artifact classes renderable, queryable, validatable, and safely exportable."
+    },
+    "rule": "A standard is executable wiki grammar for its artifact type. It defines source authority, write contract, read contract, projection refs, density bands, drilldown commands, validation probes, public/private policy, and receipt expectations before any HTML, Markdown, Obsidian, command-output, or React page projection is trusted.",
+    "external_pattern_taken": [
+      "raw sources stay separate from compiled knowledge surfaces",
+      "agents maintain durable interlinked pages instead of answer-only chat",
+      "static HTML or graph exports make the surface browsable",
+      "lint/maintain/report loops keep the compiled layer alive"
+    ],
+    "native_generalization": [
+      "Standards, not pages, own artifact-class grammar.",
+      "JSON/JSWN-style authority contracts decide machine shape; Markdown and HTML are projections.",
+      "Every renderer starts from artifact kind and governing standard, not from a generic document template.",
+      "Every low-band page carries omission receipts and drilldown commands.",
+      "Every public export routes through public-safety and provenance gates before publication.",
+      "Projection trust comes from source manifest, freshness, validation, and receipts, not from page existence."
+    ],
+    "renderer_passport_required_fields": [
+      "artifact_kind",
+      "governing_standard_refs",
+      "source_authority",
+      "projection_refs",
+      "density_bands",
+      "primary_facets",
+      "drilldown_commands",
+      "allowed_actions",
+      "receipt_policy",
+      "public_projection_policy"
+    ],
+    "passport_derivation_rule": {
+      "rule": "Every type_plane_rows entry produces a renderer passport. artifact_class_renderer_profiles are renderer_job/governing_refs overrides for the matching artifact_kind; their absence does not gate passport generation.",
+      "why": "A type-plane row already declares governing_standard_refs, source_authority, option_surface_command, validation_probe, mutation_lane, and projection_refs — exactly the contract a renderer passport needs. Gating passports on a separately-maintained profile list duplicated the registration step, left fifteen of nineteen type-plane rows passport-less, and made the renderer_passports option surface an under-coverage signal instead of a complete alignment surface.",
+      "passport_origin_values": [
+        "explicit_profile_with_type_plane_row",
+        "explicit_profile_only",
+        "type_plane_row_auto_derived"
+      ],
+      "renderer_job_fallback": "When no explicit profile names a renderer_job, the builder derives one from the type_plane_row title plus the standard renderer contract. Authoring an artifact_class_renderer_profiles entry overrides this fallback when bespoke renderer language is needed.",
+      "single_source_invariant": "The standards type plane is the single drop point for adding a renderable artifact kind. Adding a type_plane_rows entry registers it everywhere downstream — kind atlas, option surfaces, system atlas projections, and the renderer passport projection — without a separate profile registration step."
+    },
+    "artifact_class_renderer_profiles": [
+      {
+        "artifact_kind": "standards",
+        "renderer_job": "Show purpose, source authority, read/write contracts, validation probes, type-plane links, related caps, and renderer passport.",
+        "governing_refs": [
+          "codex/standards/std_standard_type_plane.json",
+          "codex/doctrine/paper_modules/codex_standards_registry.md"
+        ]
+      },
+      {
+        "artifact_kind": "paper_modules",
+        "renderer_job": "Show compressed subsystem claim, trust posture, dependencies, code loci, gaps, route coverage, and refresh command.",
+        "governing_refs": [
+          "codex/standards/std_paper_module.json"
+        ]
+      },
+      {
+        "artifact_kind": "task_ledger_caps",
+        "renderer_job": "Show state, rank, dependencies, satisfaction contract, exact surfaces, blockers, execution receipts, and next safe mutation.",
+        "governing_refs": [
+          "tools/meta/factory/task_ledger_apply.py",
+          "state/task_ledger/events.jsonl"
+        ]
+      },
+      {
+        "artifact_kind": "routes_and_option_surfaces",
+        "renderer_job": "Show selectable rows, evidence commands, omission receipts, surface role, and control replacement.",
+        "governing_refs": [
+          "codex/standards/std_command_output_projection.json",
+          "codex/standards/std_navigation_contract.json"
+        ]
+      },
+      {
+        "artifact_kind": "frontend_views",
+        "renderer_job": "Show view contract, fact bindings, decision contract, density bands, fixtures, receipt policy, and render receipts.",
+        "governing_refs": [
+          "codex/standards/std_view_contract.json",
+          "codex/standards/std_ui_receipt.json"
+        ]
+      },
+      {
+        "artifact_kind": "operator_action_receipts",
+        "renderer_job": "Show action identity, semantic claim, required proof fields, proof_status, missing proof, metadata-only policy, health projection, and source receipt log.",
+        "governing_refs": [
+          "codex/standards/std_operator_action_receipt.json",
+          "state/operator_bridge/hud_actions.jsonl"
+        ]
+      },
+      {
+        "artifact_kind": "public_microcosm_exports",
+        "renderer_job": "Show source authority, redaction/synthetic fixture policy, portability gate, rights posture, and publication boundary.",
+        "governing_refs": [
+          "codex/doctrine/paper_modules/public_constellation_strategy.md",
+          "publication_manifest.yaml"
+        ]
+      }
+    ],
+    "forbidden": [
+      "Treating HTML, Markdown, Obsidian, or a React lens as source authority.",
+      "Rendering an artifact class without naming its governing standard and source authority.",
+      "Generic document templates that erase artifact-class semantics.",
+      "Public wiki export without public-safety, redaction, and provenance gates.",
+      "Replacing the standards type plane with a separate wiki-specific ontology."
+    ]
+  },
+    "queryable_projection_contract": {
+        "status": "built_graph_index_gap_projection",
+        "cap_owner": "cap_queryable_standards_projection_database",
+        "builder": "tools/meta/factory/build_navigation_type_plane.py",
+        "source_change_refresh_rule": "Any change to type_plane_rows, required_type_row_fields, executable_wiki_projection_contract, or queryable_projection_contract must refresh/check the type-plane graph, renderer passports, idea-microcosm projection, and agent bootstrap projection before closeout.",
+        "validation_probes": [
+            "./repo-python tools/meta/factory/build_navigation_type_plane.py --check",
+            "./repo-python tools/meta/factory/build_renderer_passports.py --check",
+            "./repo-python tools/meta/dissemination/build_idea_microcosm_seed.py --check",
+            "./repo-python tools/meta/factory/check_agent_bootstrap_projection.py"
+        ],
+        "planned_generated_surfaces": [
+            "state/navigation_type_plane/type_plane_graph.json",
+      "state/navigation_type_plane/type_plane_index.json",
+      "state/navigation_type_plane/type_plane_gaps.json",
+      "state/navigation_type_plane/renderer_passports.json"
+    ],
+    "source_inputs": [
+      "codex/standards/std_standard_type_plane.json",
+      "codex/standards/std_kind_atlas.json",
+      "codex/standards/std_navigation_contract.json",
+      "codex/standards/std_system_atlas.json",
+      "codex/standards/std_paper_module.json",
+      "codex/standards/principles/std_raw_seed_principles.json",
+      "codex/standards/principles/std_concept.json",
+      "codex/standards/principles/std_mechanism.json",
+      "codex/standards/annex/std_annex_distillation.json",
+      "system/lib/kind_atlas.py",
+      "system/lib/standard_option_surface.py",
+      "system/lib/renderer_passports.py",
+      "system/lib/kernel/commands/generated_artifact_surfaces.py",
+      "state/system_atlas/system_atlas.graph.json",
+      "annexes/*/distillation.json"
+    ],
+    "question_shapes": [
+      "What standard owns this artifact type?",
+      "What command lets an agent browse this type before source open?",
+      "What source authority writes this row?",
+      "Which atlas rows project it?",
+      "Which annex patterns can improve it?",
+      "What caps or gaps block it?"
+    ],
+    "forbidden": [
+      "Manual edits to generated type-plane state.",
+      "Projection rows that omit source authority or governing standard.",
+      "Source bodies in low-band browse output."
+    ]
+  },
+  "related_principles": [
+    "pri_049",
+    "pri_080",
+    "pri_111",
+    "pri_122",
+    "pri_134",
+    "pri_148",
+    "pri_149"
+  ],
+  "related_caps": [
+    "cap_navigation_system_comprehension_standard_type_plane",
+    "cap_standard_type_plane_navigation_contract",
+    "cap_annex_logic_to_standards_adaptation_lanes",
+    "cap_queryable_standards_projection_database",
+    "cap_standards_as_llm_wiki_frontend_framework",
+    "cap_entry_classifier_standards_type_plane_bias",
+    "cap_paper_module_standard_compliance_projection_cleanup",
+    "cap_principle_teleology_navigation_population",
+    "cap_annex_currentness_navigation_ratchet",
+    "cap_atlas_standard_type_plane_ingestion"
+  ],
+  "validation_rules": [
+    "Every type row must name at least one governing standard and a source authority.",
+    "Every type row must distinguish write_contract from read_contract.",
+    "Every type row must name either a working option_surface_command or a known_gaps entry explaining the missing adapter.",
+    "Projection refs cannot be the only authority for a type row.",
+    "Annex adaptation must point to the target type id and target governing standard before local adoption is claimed.",
+    "Queryable projection surfaces remain generated state with source manifests and freshness status.",
+    "Paper modules may describe subsystem shape, but standards remain the landing authority for write/read/navigation contracts.",
+    "HTML, Markdown, Obsidian, command-output, and React wiki surfaces are projections; a valid renderer must route through the governing standard, source authority, drilldown commands, validation probes, and receipt policy.",
+    "The renderer passport projection covers every type_plane_rows entry; profiles override the default renderer_job but never gate passport generation."
+  ],
+  "non_goals": [
+    "Do not replace native standards with one universal schema.",
+    "Do not make the System Atlas authoritative over the standards it projects.",
+    "Do not make paper modules the home for standards-grade navigation rules.",
+    "Do not implement the generated queryable database in this standard file.",
+    "Do not turn the executable-wiki framing into a parallel wiki ontology separate from the standards type plane.",
+    "Do not gate renderer passport coverage on a separately-maintained profile list when type_plane_rows already declare governing standard, source authority, validation probes, projection refs, and mutation lane."
+  ]
+}

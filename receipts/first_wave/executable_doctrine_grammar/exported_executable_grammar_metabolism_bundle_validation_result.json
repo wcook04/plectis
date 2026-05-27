@@ -1,5 +1,5 @@
 {
-  "anti_claim": "The exported executable-grammar metabolism bundle validates an exact public macro specimen copy. It does not publish private standards engines, raw operator notes, provider transcripts, account/session state, doctrine completeness, or release authority.",
+  "anti_claim": "The exported executable-grammar metabolism bundle validates an exact public macro specimen plus standards-registry/type-plane support copy. It does not publish private standards engines, raw operator notes, provider transcripts, account/session state, doctrine completeness, or release authority.",
   "artifact_digests": {
     "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/README.md": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
     "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/grammar_board.json": "sha256:020f96d81fdbe82cd766cf0d09c6d0184e695bf339f10bff250c9292eb66971c",
@@ -19,12 +19,12 @@
     "release_authorized": false,
     "status": "pass"
   },
-  "body_copied_material_count": 3,
-  "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+  "body_copied_material_count": 12,
+  "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
   "body_text_in_receipt": false,
   "bundle_id": "public_executable_grammar_metabolism_macro_specimen",
-  "command": "python -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out receipts/first_wave/executable_doctrine_grammar",
-  "created_at": "2026-05-26T22:14:12+00:00",
+  "command": "python -m microcosm_core.organs.executable_doctrine_grammar validate-executable-grammar-metabolism-bundle --input microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle --out microcosm-substrate/receipts/first_wave/executable_doctrine_grammar",
+  "created_at": "2026-05-27T06:46:17+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -52,7 +52,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 5,
+    "scanned_path_count": 14,
     "status": "pass"
   },
   "provider_replay_bridge_case_count": 4,
@@ -66,7 +66,7 @@
   "source_capsule_count": 10,
   "source_module_imports": {
     "findings": [],
-    "module_count": 3,
+    "module_count": 12,
     "modules": [
       {
         "actual_sha256": "sha256:16f3d40a175e50ba3ea70e2c7c642e122f3e84fb196f8d8eb4618f5f666e221b",
@@ -100,6 +100,105 @@
         "source_ref": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/receipt.json"
+      },
+      {
+        "actual_sha256": "sha256:54387e1b141f6f4bb4a02a28347f361bef5a0d9e350ea79c9612298c27a2757a",
+        "body_in_receipt": false,
+        "line_count": 155,
+        "material_class": "public_macro_standard_body",
+        "module_id": "standards_registry_root_body_import",
+        "sha256": "sha256:54387e1b141f6f4bb4a02a28347f361bef5a0d9e350ea79c9612298c27a2757a",
+        "source_ref": "codex/standards/standards_registry.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/standards_registry.json"
+      },
+      {
+        "actual_sha256": "sha256:e5f5e7db6b234151c90d511e889b7bc65753bba21c3d311843b9fb434ae60557",
+        "body_in_receipt": false,
+        "line_count": 212,
+        "material_class": "public_macro_standard_body",
+        "module_id": "std_standards_registry_body_import",
+        "sha256": "sha256:e5f5e7db6b234151c90d511e889b7bc65753bba21c3d311843b9fb434ae60557",
+        "source_ref": "codex/standards/std_standards_registry.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_registry.json"
+      },
+      {
+        "actual_sha256": "sha256:49aa38b58446c0e9adb4c9682667938844df72c2ce16418d9fbc14195116612c",
+        "body_in_receipt": false,
+        "line_count": 41,
+        "material_class": "public_macro_standard_body",
+        "module_id": "std_standards_group_index_body_import",
+        "sha256": "sha256:49aa38b58446c0e9adb4c9682667938844df72c2ce16418d9fbc14195116612c",
+        "source_ref": "codex/standards/std_standards_group_index.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_group_index.json"
+      },
+      {
+        "actual_sha256": "sha256:9e01424dafb0ca86f693784025fad0821306d8f64db397339a6424792618bc4a",
+        "body_in_receipt": false,
+        "line_count": 1343,
+        "material_class": "public_macro_standard_body",
+        "module_id": "std_standard_type_plane_body_import",
+        "sha256": "sha256:9e01424dafb0ca86f693784025fad0821306d8f64db397339a6424792618bc4a",
+        "source_ref": "codex/standards/std_standard_type_plane.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standard_type_plane.json"
+      },
+      {
+        "actual_sha256": "sha256:1eb106f7bcf04fc84a16e34d10cfb705e76ff97701948df40e5c333828abba0f",
+        "body_in_receipt": false,
+        "line_count": 542,
+        "material_class": "public_macro_standard_body",
+        "module_id": "core_authority_index_body_import",
+        "sha256": "sha256:1eb106f7bcf04fc84a16e34d10cfb705e76ff97701948df40e5c333828abba0f",
+        "source_ref": "codex/standards/core_authority_index.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/core_authority_index.json"
+      },
+      {
+        "actual_sha256": "sha256:20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2",
+        "body_in_receipt": false,
+        "line_count": 384,
+        "material_class": "public_macro_standard_body",
+        "module_id": "lattice_registry_body_import",
+        "sha256": "sha256:20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2",
+        "source_ref": "codex/standards/lattice_registry.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/lattice_registry.json"
+      },
+      {
+        "actual_sha256": "sha256:f2bb920b86ece64e3c1d020b764b09f152a8992be3395f1fb48ce0983b13e02b",
+        "body_in_receipt": false,
+        "line_count": 170,
+        "material_class": "public_macro_standard_body",
+        "module_id": "std_lattice_registry_body_import",
+        "sha256": "sha256:f2bb920b86ece64e3c1d020b764b09f152a8992be3395f1fb48ce0983b13e02b",
+        "source_ref": "codex/standards/std_lattice_registry.json",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_lattice_registry.json"
+      },
+      {
+        "actual_sha256": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_in_receipt": false,
+        "line_count": 16321,
+        "material_class": "public_macro_tool_body",
+        "module_id": "standard_option_surface_tool_body_import",
+        "sha256": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "source_ref": "system/lib/standard_option_surface.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/standard_option_surface.py"
+      },
+      {
+        "actual_sha256": "sha256:0f81c2b9ac858eb7b1baf3337e2f4558f169c5e3e3770c461c447fd4a68b0e65",
+        "body_in_receipt": false,
+        "line_count": 2378,
+        "material_class": "public_macro_tool_body",
+        "module_id": "kind_atlas_tool_body_import",
+        "sha256": "sha256:0f81c2b9ac858eb7b1baf3337e2f4558f169c5e3e3770c461c447fd4a68b0e65",
+        "source_ref": "system/lib/kind_atlas.py",
+        "source_to_target_relation": "exact_copy",
+        "target_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/kind_atlas.py"
       }
     ],
     "source_module_manifest_ref": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
@@ -116,18 +215,28 @@
       "source_mutation_authorized": false
     },
     "body_in_receipt": false,
-    "body_material_count": 3,
+    "body_material_count": 12,
     "body_material_ids": [
       "executable_grammar_metabolism_readme_body_import",
       "executable_grammar_metabolism_board_body_import",
-      "executable_grammar_metabolism_receipt_body_import"
+      "executable_grammar_metabolism_receipt_body_import",
+      "standards_registry_root_body_import",
+      "std_standards_registry_body_import",
+      "std_standards_group_index_body_import",
+      "std_standard_type_plane_body_import",
+      "core_authority_index_body_import",
+      "lattice_registry_body_import",
+      "std_lattice_registry_body_import",
+      "standard_option_surface_tool_body_import",
+      "kind_atlas_tool_body_import"
     ],
-    "body_material_status": "copied_non_secret_executable_grammar_macro_body_with_provenance",
+    "body_material_status": "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance",
     "material_classes": [
       "public_macro_receipt_body",
+      "public_macro_standard_body",
       "public_macro_tool_body"
     ],
-    "reader_action": "Open source_module_manifest.json plus README.md, grammar_board.json, and receipt.json for copied executable-grammar macro bodies; receipts carry refs, digests, counts, and verdicts only.",
+    "reader_action": "Open source_module_manifest.json plus copied executable-grammar specimen, standards-registry/type-plane, lattice-registry, kind-atlas, and standards option-surface bodies; receipts carry refs, digests, counts, and verdicts only.",
     "schema_version": "executable_doctrine_grammar_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
@@ -139,7 +248,16 @@
   "source_refs": [
     "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
     "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
-    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json"
+    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+    "codex/standards/standards_registry.json",
+    "codex/standards/std_standards_registry.json",
+    "codex/standards/std_standards_group_index.json",
+    "codex/standards/std_standard_type_plane.json",
+    "codex/standards/core_authority_index.json",
+    "codex/standards/lattice_registry.json",
+    "codex/standards/std_lattice_registry.json",
+    "system/lib/standard_option_surface.py",
+    "system/lib/kind_atlas.py"
   ],
   "source_root": "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism",
   "status": "pass",

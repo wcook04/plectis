@@ -1,0 +1,212 @@
+{
+  "kind": "standard",
+  "artifact": "standards_registry",
+  "schema_version": "standards_registry_v1",
+  "purpose": "Global catalog for standards families. This file is the first thing an agent should open when it needs to understand how standards are grouped, named, and surfaced by the kernel.",
+  "required_top_level_keys": [
+    "kind",
+    "schema_version",
+    "root",
+    "purpose",
+    "naming_contract",
+    "folder_pattern",
+    "kernel_navigation_hints",
+    "groups"
+  ],
+  "naming_contract_shape": {
+    "principle": "single sentence naming doctrine for the whole standards tree",
+    "rules": "ordered list of durable naming rules"
+  },
+  "folder_pattern_shape": {
+    "group_index_file": "string pattern such as <group>_authority_index.json",
+    "json_standard_file": "string pattern such as std_<artifact>.json",
+    "markdown_guide_file": "optional human companion pattern such as std_<artifact>.md",
+    "generated_projection_file": "string pattern for mechanically regenerated projections such as <artifact>_index.json",
+    "note": "short explanation of how group roots and legacy root-level standards coexist"
+  },
+  "group_shape": {
+    "group_id": "stable lowercase token used in file names, kernel displays, and future selectors",
+    "title": "human-readable family title",
+    "group_root": "repo-relative directory that owns the family",
+    "authority_index": "repo-relative path to the family's authority index JSON",
+    "summary": "one-line explanation of what belongs in the family",
+    "storage_status": "authored | generated | legacy_root_group",
+    "kernel_navigation_hints": "ordered list of short hints for file-tree or kernel-first navigation"
+  },
+  "validation_rules": [
+    "Every group entry must point to a real authority_index JSON file.",
+    "Group ids should stay stable even if titles evolve.",
+    "The registry should describe where to start, not duplicate every per-artifact rule from the group indexes.",
+    "Names must optimize for grep, file-tree browsing, and agent recovery, not brevity."
+  ],
+  "navigation_contract": {
+    "profile_id": "standards_navigation_v0",
+    "artifact_kind": "standards",
+    "navigable_bands": [
+      "purpose",
+      "contract",
+      "schema",
+      "validators"
+    ],
+    "band_contracts": {
+      "purpose": {
+        "purpose": "Compact browse row for selecting a standard by artifact kind, family, and authority posture.",
+        "minimum_payload": [
+          "standard id",
+          "title or artifact",
+          "purpose",
+          "group id",
+          "storage status",
+          "source path"
+        ],
+        "forbidden": [
+          "full standard body",
+          "generated projection dumps",
+          "raw seed text",
+          "provider output bodies"
+        ],
+        "drilldown_to": "contract"
+      },
+      "contract": {
+        "purpose": "Working card for the standard's required fields, authority split, companion status, and safe mutation lane.",
+        "minimum_payload": [
+          "required fields",
+          "authority index",
+          "source authority",
+          "companion markdown path when present",
+          "validation rules",
+          "safe update path",
+          "forbidden update path"
+        ],
+        "forbidden": [
+          "manual generated-region edits",
+          "treating a registry row as the standard body",
+          "unbounded standards tree dumps"
+        ],
+        "drilldown_to": "schema"
+      },
+      "schema": {
+        "purpose": "Schema and field-level drilldown for authoring or repairing one governed artifact kind.",
+        "minimum_payload": [
+          "schema_version",
+          "required_top_level_keys or required_fields",
+          "field contracts",
+          "optional fields",
+          "example refs",
+          "migration notes"
+        ],
+        "forbidden": [
+          "invented required fields",
+          "cross-standard rewrites without registry evidence"
+        ],
+        "drilldown_to": "validators"
+      },
+      "validators": {
+        "purpose": "Validation and compliance drilldown for proving the standard and its generated surfaces still match.",
+        "minimum_payload": [
+          "validator command",
+          "scanner adapter when present",
+          "builder command when generated projections exist",
+          "coverage ledger row",
+          "drift checks"
+        ],
+        "forbidden": [
+          "claiming compliance without a scanner or explicit no-scanner receipt",
+          "refreshing generated outputs when source-coupling is blocked"
+        ],
+        "drilldown_to": "source_authority"
+      }
+    },
+    "navigable_scopes": [
+      {
+        "scope": "standard",
+        "rule": "One std_* contract file or standard module."
+      },
+      {
+        "scope": "companion",
+        "rule": "One markdown companion or human-readable guide tied to a standard."
+      },
+      {
+        "scope": "registry_entry",
+        "rule": "One standards registry or authority-index row that locates a standard."
+      },
+      {
+        "scope": "validator",
+        "rule": "One validator, builder, scanner adapter, or checker command that proves the standard."
+      }
+    ],
+    "navigable_facets": [
+      {
+        "facet": "required_fields",
+        "rule": "Expose required artifact fields before mutation."
+      },
+      {
+        "facet": "authority_split",
+        "rule": "Separate authored source, generated projection, registry row, and compliance evidence."
+      },
+      {
+        "facet": "validator",
+        "rule": "Name the command or adapter that validates the standard."
+      },
+      {
+        "facet": "companion",
+        "rule": "Expose companion markdown status without treating companion prose as source authority."
+      }
+    ],
+    "population_policy": {
+      "band:purpose": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/standard_option_surface.py standards cluster/card adapter",
+        "source": "codex/standards/standards_registry.json plus standards inventory"
+      },
+      "band:contract": {
+        "populated_by": "authored",
+        "source": "codex/standards/std_*.json and group authority indexes"
+      },
+      "band:schema": {
+        "populated_by": "authored",
+        "source": "standard schema fields in codex/standards/std_*.json"
+      },
+      "band:validators": {
+        "populated_by": "compiled",
+        "emitter": "system/lib/compliance and tools/meta/factory builders",
+        "source": "codex/hologram/compliance/ledger.json plus validator command refs"
+      },
+      "scope:registry_entry": {
+        "populated_by": "compiled",
+        "source": "codex/standards/standards_registry.json and authority_index files"
+      }
+    },
+    "creator_skill_id": "standards_registry",
+    "navigator_skill_id": "kernel.option_surface.standards",
+    "source_authority": {
+      "registry": "codex/standards/standards_registry.json",
+      "standard_files": "codex/standards/std_*.json and grouped std_*.json files",
+      "authority_indexes": "codex/standards/**/authority_index.json and *_authority_index.json",
+      "option_surface": "system/lib/standard_option_surface.py",
+      "compliance_ledger": "codex/hologram/compliance/ledger.json"
+    },
+    "currentness_policy": {
+      "mode": "source_walk_plus_companion_and_compliance_checks",
+      "rule": "Standards rows are source-authored; generated standards catalog, standard-skill map, compliance ledger, and agent bootstrap projections must be refreshed or checked by their owners before generated output is committed."
+    },
+    "dependency_neighborhood_policy": {
+      "mode": "registry_authority_index_and_compliance_edges",
+      "rule": "Expose the group authority index, sibling standards, companion docs, scanner adapter, authoring skill, and generated projections as first-order edges; downshift wider standards groups to counts and cluster drilldowns."
+    },
+    "edge_compression_policy": {
+      "edge_row_shape": "std_navigation_contract.edge_row_shape",
+      "bidirectional_gloss_required": true,
+      "first_order_band": "contract",
+      "second_order_band": "purpose",
+      "beyond_second_order": "omit_with_count_reason_and_drilldown"
+    },
+    "validation_probe": [
+      "./repo-python -m json.tool codex/standards/std_standards_registry.json",
+      "./repo-python kernel.py --option-surface standards --band cluster_flag",
+      "./repo-python tools/meta/factory/build_standard_skill_map.py --check",
+      "./repo-python tools/meta/factory/build_compliance_ledger.py --check",
+      "./repo-python kernel.py --kind-band-contract-audit"
+    ]
+  }
+}

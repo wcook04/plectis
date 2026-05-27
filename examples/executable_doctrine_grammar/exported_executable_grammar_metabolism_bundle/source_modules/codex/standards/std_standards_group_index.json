@@ -1,0 +1,41 @@
+{
+  "kind": "standard",
+  "artifact": "standards_group_index",
+  "schema_version": "standards_group_index_v1",
+  "purpose": "Common shape for one standards-family authority index. A group index names the family, explains when to enter it, and maps artifact kinds to their standards and path patterns.",
+  "required_top_level_keys": [
+    "kind",
+    "schema_version",
+    "group_id",
+    "title",
+    "group_root",
+    "purpose",
+    "kernel_navigation_hints",
+    "artifacts"
+  ],
+  "artifact_shape": {
+    "path_globs": "list of repo-relative glob patterns for the governed artifact kind",
+    "json_standard": "repo-relative JSON standard path",
+    "markdown_standard": "optional repo-relative markdown guide path",
+    "description": "short explanation of the artifact kind",
+    "lifecycle": "authored | generated | curated | runtime",
+    "authority_rule": "optional short note about which surface is authoritative or how regeneration works"
+  },
+  "supporting_asset_shape": {
+    "path": "repo-relative file or directory path",
+    "role": "why the asset exists",
+    "lifecycle": "authored | generated | code"
+  },
+  "kernel_navigation_hint_shape": {
+    "when": "what situation should trigger this hint",
+    "start_with": "repo-relative file to open first",
+    "next_read_order": "optional ordered list of follow-up files",
+    "commands": "optional list of related kernel commands"
+  },
+  "validation_rules": [
+    "Every artifact kind should point to a real json_standard path.",
+    "Use markdown_standard only when there is a real human-facing companion doc.",
+    "Support assets belong here only when they materially help navigation, authoring, or regeneration.",
+    "Keep descriptions concrete enough that an agent can choose the right standard without opening every file."
+  ]
+}

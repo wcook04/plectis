@@ -19,7 +19,10 @@
       "expected negative-case ids and error codes",
       "public executable-grammar metabolism specimen bodies",
       "source-to-target digests",
-      "public-relative receipt refs"
+      "public-relative receipt refs",
+      "public standards-registry and standards-group index bodies",
+      "public standard type-plane and lattice-registry bodies",
+      "public kind-atlas and standards option-surface runtime tool bodies"
     ],
     "forbidden_public_material": [
       "private standards engine bodies",
@@ -50,7 +53,9 @@
     "report paper-module grammar findings",
     "report imported executable-grammar metabolism source refs, artifact refs, and digests without duplicating body text",
     "report source_module_imports and source_open_body_imports for copied executable-grammar macro specimen bodies",
-    "include authority ceiling, anti-claim, and secret-exclusion status"
+    "include authority ceiling, anti-claim, and secret-exclusion status",
+    "report imported standards-registry/type-plane/lattice source refs and digests without duplicating body text",
+    "report imported kind-atlas and standards option-surface tool refs and digests without duplicating body text"
   ],
   "relationships": {
     "governed_by": [
@@ -61,7 +66,10 @@
     "imports_macro_patterns": [
       "executable_grammar_metabolism",
       "paper_module_authoring_runtime_self_describing",
-      "standards_registry_executable_grammar_index"
+      "standards_registry_executable_grammar_index",
+      "standards_registry_executable_grammar_foundation",
+      "standard_type_plane_executable_wiki_grammar",
+      "kind_atlas_option_surface_runtime_projection"
     ],
     "used_by_organs": [
       "executable_doctrine_grammar",
@@ -103,6 +111,42 @@
     {
       "path": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
       "role": "organ_local_source_module_manifest"
+    },
+    {
+      "path": "codex/standards/standards_registry.json",
+      "role": "macro_standards_registry_body"
+    },
+    {
+      "path": "codex/standards/std_standards_registry.json",
+      "role": "macro_standards_registry_standard_body"
+    },
+    {
+      "path": "codex/standards/std_standards_group_index.json",
+      "role": "macro_standards_group_index_standard_body"
+    },
+    {
+      "path": "codex/standards/std_standard_type_plane.json",
+      "role": "macro_standard_type_plane_body"
+    },
+    {
+      "path": "codex/standards/core_authority_index.json",
+      "role": "macro_core_authority_index_body"
+    },
+    {
+      "path": "codex/standards/lattice_registry.json",
+      "role": "macro_lattice_registry_body"
+    },
+    {
+      "path": "codex/standards/std_lattice_registry.json",
+      "role": "macro_lattice_registry_standard_body"
+    },
+    {
+      "path": "system/lib/standard_option_surface.py",
+      "role": "macro_standards_option_surface_runtime_tool_body"
+    },
+    {
+      "path": "system/lib/kind_atlas.py",
+      "role": "macro_kind_atlas_runtime_tool_body"
     }
   ],
   "standard_id": "std_microcosm_executable_doctrine_grammar",
@@ -115,9 +159,11 @@
       "paper module accepted without governing standard or receipt expectations",
       "macro executable-grammar specimen imported without exact source-to-target digest checks",
       "provider replay bridge treated as real provider transcript or reliability proof",
-      "receipt duplicates macro body text instead of carrying refs, hashes, and verdicts"
+      "receipt duplicates macro body text instead of carrying refs, hashes, and verdicts",
+      "standards-registry/type-plane body imported without exact digest and allowlisted source-ref checks",
+      "kind-atlas or standards option-surface body imported as a pointer instead of copied non-secret source"
     ],
-    "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar specimen bodies.",
+    "ontology": "A public-safe grammar runtime that validates executable standard metadata, paper-module shape, negative-case boundaries, and copied macro executable-grammar, standards-registry/type-plane, lattice, kind-atlas, and option-surface bodies.",
     "teleology": "Keep doctrine grammar executable and source-open without letting grammar validation become doctrine completeness, private-root equivalence, or release authority."
   },
   "status": "draft",
@@ -129,7 +175,9 @@
     "reject copied macro doctrine or provider payload bodies in public fixtures",
     "require imported executable-grammar metabolism specimens to pass exact digest and source-ref checks",
     "require imported executable-grammar metabolism specimens to expose source_open_body_imports body-floor accounting from source_module_manifest.json",
-    "require receipts to omit body text and expose only refs, hashes, counts, authority ceilings, and verdicts"
+    "require receipts to omit body text and expose only refs, hashes, counts, authority ceilings, and verdicts",
+    "require imported standards-registry/type-plane/lattice and option-surface support bodies to pass exact digest and allowlisted source-ref checks",
+    "require imported macro source modules to include public_macro_standard_body, public_macro_tool_body, or public_macro_receipt_body only"
   ],
   "validator_contract": {
     "minimum_checks": [

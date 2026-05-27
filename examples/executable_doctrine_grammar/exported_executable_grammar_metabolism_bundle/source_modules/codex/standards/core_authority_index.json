@@ -1,0 +1,542 @@
+{
+  "kind": "standards_group_index",
+  "schema_version": "standards_group_index_v1",
+  "group_id": "core",
+  "title": "Core Kernel Standards",
+  "group_root": "codex/standards",
+  "purpose": "Cross-cutting contracts shared across kernel navigation, authored work packets, runtime apply, and standards governance itself.",
+  "kernel_navigation_hints": [
+    {
+      "when": "You are in codex/standards/ root or editing kernel navigation, apply, planning, or self-model code.",
+      "start_with": "codex/standards/core_authority_index.json",
+      "next_read_order": [
+        "codex/standards/standards_registry.json",
+        "codex/standards/std_plan_note.json",
+        "codex/standards/std_work_note.json"
+      ],
+      "commands": [
+        "python3 kernel.py --standards",
+        "python3 kernel.py --doctrine-runtime",
+        "python3 kernel.py --context <node_id> --context-view standards"
+      ]
+    }
+  ],
+  "artifacts": {
+    "standards_registry": {
+      "path_globs": [
+        "codex/standards/standards_registry.json"
+      ],
+      "json_standard": "codex/standards/std_standards_registry.json",
+      "description": "Global family catalog and naming contract for the standards tree.",
+      "lifecycle": "authored"
+    },
+    "standards_group_index": {
+      "path_globs": [
+        "codex/standards/*_authority_index.json",
+        "codex/standards/*/*_authority_index.json"
+      ],
+      "json_standard": "codex/standards/std_standards_group_index.json",
+      "description": "Per-family authority index shape used by every standards group.",
+      "lifecycle": "authored"
+    },
+    "artifact_ontology": {
+      "path_globs": [
+        "codex/standards/std_artifact_ontology.json"
+      ],
+      "json_standard": "codex/standards/std_artifact_ontology.json",
+      "description": "Durable artifact families, authority hierarchy, invariants, and doctrine ordering for the entire repository.",
+      "lifecycle": "authored"
+    },
+    "live_projection_salience_gate": {
+      "path_globs": [
+        "codex/standards/std_live_projection_salience_gate.json",
+        "codex/standards/std_live_projection_salience_gate.md"
+      ],
+      "json_standard": "codex/standards/std_live_projection_salience_gate.json",
+      "description": "Cross-cutting attention-control extension for live projections: salience, workspace candidates, gate routes, action values, retrieval indexes, information scent, actor lenses, and weak/strong traces.",
+      "lifecycle": "authored",
+      "status": "candidate"
+    },
+    "continuity_protocol": {
+      "path_globs": [
+        "codex/standards/std_continuity_protocol.json",
+        "pipeline_resume.json",
+        "pipeline_signal.json",
+        "pipeline_attention.json",
+        "**/resume_contract.json"
+      ],
+      "json_standard": "codex/standards/std_continuity_protocol.json",
+      "description": "Lifecycle states, continuity modes, required yield artifacts, routing outcomes, and transition rules for session-boundary crossing.",
+      "lifecycle": "authored"
+    },
+    "apply_plan": {
+      "path_globs": [
+        "tools/meta/apply/**/*.json",
+        "ops.json"
+      ],
+      "json_standard": "codex/standards/std_apply.json",
+      "description": "Apply and observe runner envelope contract.",
+      "lifecycle": "authored"
+    },
+    "execution_map": {
+      "path_globs": [
+        "obsidian/**/*.md",
+        "codex/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_execution_map.json",
+      "description": "Execution-control map contract.",
+      "lifecycle": "authored"
+    },
+    "idea_packet": {
+      "path_globs": [
+        "obsidian/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_idea_packet.json",
+      "description": "Idea-packet markdown contract for authored synthesis packets.",
+      "lifecycle": "authored"
+    },
+    "living_map": {
+      "path_globs": [
+        "codex/**/*.md",
+        "obsidian/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_living_map.json",
+      "description": "Living-map document contract.",
+      "lifecycle": "authored"
+    },
+    "markdown_doc": {
+      "path_globs": [
+        "codex/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_markdown_doc.json",
+      "description": "General authored doctrine markdown contract.",
+      "lifecycle": "authored"
+    },
+    "paper_module": {
+      "path_globs": [
+        "codex/doctrine/paper_modules/*.md"
+      ],
+      "json_standard": "codex/standards/std_paper_module.json",
+      "derived_projection": "codex/doctrine/paper_modules/_index.json",
+      "route_coverage_projection": "codex/doctrine/paper_modules/_route_coverage.json",
+      "validator": "tools/meta/factory/build_paper_module_index.py",
+      "description": "Cold-readable subsystem ontology contract: required frontmatter, 10 required sections, compression formula (3/5/8/10 TLDR brackets by fan-in), status enum, density/dependency rules, consumer absorption brackets, frontend-card rendering contract, and metadata route coverage. Derived projections _index.json, _validation_report.json, _doctrine_to_paper_modules.json, and _route_coverage.json are mechanically regenerated by the builder. Paper-modules README.md is governed by std_markdown_doc.json; individual modules by std_paper_module.json.",
+      "lifecycle": "authored"
+    },
+    "imagination": {
+      "path_globs": [
+        "codex/doctrine/imaginations/imn_*.md"
+      ],
+      "json_standard": "codex/standards/std_imagination.json",
+      "governing_skill": "codex/doctrine/skills/doctrine/imagination_authoring.md",
+      "derived_projection": "codex/doctrine/imaginations/_index.json",
+      "validation_report": "codex/doctrine/imaginations/_validation_report.json",
+      "validator": "tools/meta/factory/build_imagination_index.py",
+      "description": "Governed counterfactual affordance scene: a voice-anchored, dependency-honest, present-tense rendering of an unrealized or partially realized future-state, written so the deliverable's affordances become operationally obvious without pretending the state is already true. Distinct from principle (rule), axiom_candidate (compressed rule), standard (contract), paper_module (current-state explanation), and pattern_deliverable (TODO). Markdown body for the scene; YAML frontmatter for structured fields. Hard invariants: hedge-only-in-frame, voice-or-invalid, substrate-or-invalid, horizon-or-invalid, retirement-or-invalid, no-collapse-to-neighbor. Field set frozen at v1 (2026-04-29) after operator-gated review of three domain-distinct exemplars (operator_situated_morning, raw_seed_to_doctrine_factory, provider_pressure_cockpit). Adding new required fields requires a v2 schema bump.",
+      "lifecycle": "authored",
+      "status": "v1_field_set_frozen"
+    },
+    "microcosm": {
+      "json_standard": "codex/standards/std_microcosm.json",
+      "description": "Public-safe Microcosm product/substrate primitive: the cleaner-than-macro compression of private ai_workflow laws into a smaller, runnable, low-friction object for external comprehension. Current product center is microcosm-substrate/ and `repo -> .microcosm`; release/publication authority remains external in dissemination/public gates. The old microcosm-as-experiment lane moved to the laboratory artifact and std_laboratory.json on 2026-05-21.",
+      "path_globs": [
+        "microcosm-substrate/",
+        "microcosm-substrate/README.md",
+        "microcosm-substrate/AGENTS.md",
+        "microcosm-substrate/src/microcosm_core/**",
+        "microcosm-substrate/standards/std_microcosm_*.json",
+        "codex/doctrine/paper_modules/microcosm_substrate.md"
+      ],
+      "governing_paper_module": "codex/doctrine/paper_modules/microcosm_substrate.md",
+      "lifecycle": "authored",
+      "status": "v1_public_product_meaning_split_from_laboratory"
+    },
+    "laboratory": {
+      "json_standard": "codex/standards/std_laboratory.json",
+      "description": "Controlled experiment/probe substrate formerly described as microcosm: fixture-backed laboratory waves test candidate grammar, packets, routes, receipts, validators, or product mechanics before promotion through owning lanes. Evidence, not authority. Compatibility ids such as system_microcosm_probe and microcosm_autonomous_seed_plan remain until generated routes can be renamed safely.",
+      "path_globs": [
+        "codex/doctrine/concepts/con_041_laboratory_as_controlled_experiment_substrate.json",
+        "codex/doctrine/skills/doctrine/system_microcosm_probe.md",
+        "codex/doctrine/skills/doctrine/microcosm_autonomous_seed_plan.md",
+        "state/sandboxes/system_microcosm/",
+        "self-indexing-cognitive-substrate/receipts/microcosm_probe_*.json"
+      ],
+      "governing_concept": "codex/doctrine/concepts/con_041_laboratory_as_controlled_experiment_substrate.json",
+      "governing_skill": "codex/doctrine/skills/doctrine/system_microcosm_probe.md",
+      "lifecycle": "authored",
+      "status": "v0_renamed_from_old_microcosm_probe_lane"
+    },
+    "pattern_deliverables": {
+      "path_globs": [
+        "codex/doctrine/pattern_deliverables/pattern_deliverables.json"
+      ],
+      "json_standard": "codex/standards/std_pattern_deliverables.json",
+      "governing_paper_module": "codex/doctrine/paper_modules/pattern_deliverables.md",
+      "derived_projection": "codex/doctrine/pattern_deliverables/pattern_deliverables_index.json",
+      "route_coverage_projection": "codex/doctrine/pattern_deliverables/pattern_deliverables_route_coverage.json",
+      "validator": "tools/meta/factory/build_pattern_deliverables_index.py",
+      "description": "Typed substrate for problem statements / TODOs / future deliverables / paper-module overflow surfaced from inside the system. Inverse sibling of std_annex_distillation: pattern deliverables route system pressure outward toward candidate annex matches and forward toward local artifacts (one deliverable -> many candidate matches, status-routed, kind-classified). Each row is a provenance-bound, compressible, controller-reviewed problem object with status-sensitive validation: missing forward/backward routes are warnings on captured/open, errors on routed/matched/planned/landed. The v0 authority substrate, builder, and read-only kernel browse verbs are landed; the populate-deliverable mutation skill remains pending.",
+      "lifecycle": "authored",
+      "status": "substrate_builder_and_browse_landed_populate_pending"
+    },
+    "semantic_naming": {
+      "path_globs": [
+        "codex/standards/std_semantic_naming.json",
+        "codex/doctrine/paper_modules/semantic_naming_grammar.md",
+        "codex/doctrine/system_vocabulary/term_registry.json"
+      ],
+      "json_standard": "codex/standards/std_semantic_naming.json",
+      "description": "Repository-wide semantic naming contract: names as compressed affordance rows, shard option surface before guessed queries, naming layers, reference-preserving repair order, repair-pattern option surface (root_invocation_shim, inline_authority_declaration, artifact_family_handle, case_and_scope_normalization), and storage-rename migration gate.",
+      "lifecycle": "authored"
+    },
+    "rename_migration_receipt": {
+      "path_globs": [
+        "codex/standards/std_rename_migration_receipt.json",
+        "state/semantic_naming/rename_receipts/*.json"
+      ],
+      "json_standard": "codex/standards/std_rename_migration_receipt.json",
+      "description": "Typed proof object for storage rename migrations under the semantic naming grammar. Every storage rename must either carry a completed receipt or be accompanied by a planned/blocked receipt naming the outstanding gate precondition.",
+      "lifecycle": "authored"
+    },
+    "semantic_naming_audit": {
+      "path_globs": [
+        "state/semantic_naming/audits/*.md"
+      ],
+      "description": "Bounded-sample naming audit receipts. Each receipt is explicitly non-exhaustive and enumerates candidate names, selected shard, faulty layer, proposed repair, reference-impact notes, and storage-rename posture. No machine standard yet; the audit receipt format lives by example at state/semantic_naming/audits/.",
+      "lifecycle": "informal"
+    },
+    "kind_atlas": {
+      "path_globs": [
+        "codex/standards/std_kind_atlas.json",
+        "system/lib/kind_atlas.py"
+      ],
+      "json_standard": "codex/standards/std_kind_atlas.json",
+      "description": "Rung-0 artifact-kind atlas contract: exposes governed artifact kinds as compressed option rows before keyword routing, with honest option-surface support and profile-gap posture.",
+      "lifecycle": "authored"
+    },
+    "navigation_contract": {
+      "path_globs": [
+        "codex/standards/std_navigation_contract.json",
+        "system/lib/kind_band_contract_audit.py"
+      ],
+      "json_standard": "codex/standards/std_navigation_contract.json",
+      "description": "Reusable field contract for standard-owned native navigation ladders: navigable bands, band contracts, telescope facets, source authority, currentness, dependency-neighborhood policy, and validation probes.",
+      "lifecycle": "candidate"
+    },
+    "standard_type_plane": {
+      "path_globs": [
+        "codex/standards/std_standard_type_plane.json"
+      ],
+      "json_standard": "codex/standards/std_standard_type_plane.json",
+      "description": "Standards-first navigation type plane: broad artifact types route first to governing standards, while the Kind Atlas, System Atlas, paper-module sidecars, and option surfaces remain projections over the standard-owned write/read contracts.",
+      "lifecycle": "candidate"
+    },
+    "doctrine_subdomain_registry": {
+      "path_globs": [
+        "codex/doctrine/subdomains/*.json"
+      ],
+      "json_standard": "codex/standards/std_doctrine_subdomains.json",
+      "derived_projection": "codex/doctrine/subdomains/_index.json",
+      "validator": "tools/meta/factory/build_doctrine_subdomain_index.py",
+      "description": "Repo-template doctrine ownership lattice contract: one primary subdomain plus optional secondary tags for principles, skills, mechanisms, paper modules, and annex bundles. Frontend is the first instantiated domain at codex/doctrine/subdomains/frontend.json; builder emits _index.json and _validation_report.json.",
+      "lifecycle": "authored"
+    },
+    "node_reasoning": {
+      "path_globs": [
+        "codex/substrate/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_node_reasoning.json",
+      "description": "Mission-node reasoning artifact contract.",
+      "lifecycle": "authored"
+    },
+    "node_tool": {
+      "path_globs": [
+        "codex/substrate/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_node_tool.json",
+      "description": "Tool-node contract for substrate runtime nodes.",
+      "lifecycle": "authored"
+    },
+    "observe_cycle": {
+      "path_globs": [
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_observe_cycle.json",
+      "description": "Observe-cycle summary contract.",
+      "lifecycle": "authored"
+    },
+    "observe_session": {
+      "path_globs": [
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_observe_session.json",
+      "description": "Observe-session orchestration contract.",
+      "lifecycle": "authored"
+    },
+    "orchestration_state": {
+      "path_globs": [
+        "tools/meta/control/orchestration_state.json",
+        "tools/meta/control/orchestration_brief.json",
+        "tools/meta/control/orchestration_brief.md",
+        "tools/meta/control/orchestration_events.jsonl"
+      ],
+      "json_standard": "codex/standards/std_orchestration_state.json",
+      "description": "Canonical unattended-runtime ownership, append-only event log, and machine/human projections.",
+      "lifecycle": "authored"
+    },
+    "orchestration_events": {
+      "path_globs": [
+        "tools/meta/control/orchestration_events.jsonl"
+      ],
+      "json_standard": "codex/standards/std_orchestration_events.json",
+      "description": "Append-only JSONL of orchestration event cores when the normalized decision fingerprint changes.",
+      "lifecycle": "generated"
+    },
+    "reactions": {
+      "path_globs": [
+        "reactions.yaml",
+        "tools/meta/control/reactions_state.json",
+        "tools/meta/control/reactions_ledger.jsonl",
+        "tools/meta/control/reactions_stop.flag"
+      ],
+      "json_standard": "codex/standards/std_reactions.json",
+      "description": "Phase 09.35 journal-gated reactions: tracked declarative config, runtime arm/disarm state, append-only ledger, and stop-flag. Engine `tools/meta/control/reactions_engine.py`; orchestration writer projects a `reactions` block into orchestration_state.json (single-writer rule). Cold-readable map: codex/doctrine/paper_modules/reactions_engine.md.",
+      "lifecycle": "authored"
+    },
+    "lifecycle_surface_budget": {
+      "path_globs": [
+        ".claude/settings.local.json",
+        ".claude/hooks/runtime_hook.py",
+        ".claude/hooks/test_stop_lifecycle_signal.py",
+        "system/server/tests/test_runtime_hook.py",
+        "system/server/tests/test_work_ledger_hook_runtime.py",
+        "tools/meta/control/runtime_hook_agent_observability.jsonl",
+        "tools/meta/control/runtime_hook_signals.jsonl",
+        "tools/meta/control/runtime_hook_breaker.json",
+        "tools/meta/control/runtime_hook_safe_mode"
+      ],
+      "json_standard": "codex/standards/std_lifecycle_surface_budget.json",
+      "governing_paper_module": "codex/doctrine/paper_modules/runtime_hook_ladder.md",
+      "description": "Control-plane membrane contract for automatically invoked lifecycle surfaces: synchronous hooks/interceptors stay bounded, non-recursive, telemetry write-only, and elephant-state-excluding; metabolism, observability consumption, Work Ledger enrichment, host panic forensics, and large-state scans move to async or explicit lanes.",
+      "lifecycle": "candidate",
+      "status": "incident_refinement_after_runtime_hook_watchdog_hotfix"
+    },
+    "workingness_instrument": {
+      "path_globs": [
+        "codex/standards/std_workingness_instrument.json",
+        "codex/doctrine/paper_modules/workingness_instrument.md",
+        "state/raw_seed_routing_pilot/operator_court_appeals.jsonl",
+        "state/raw_seed_routing_pilot/09_45_route_packet_bench/operator_court_matrices/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_workingness_instrument.json",
+      "description": "Candidate diagnostic truth-maintenance contract that separates observations, evidence, judgments, doctrine, projections, appeals, repairs, and mutation permissions before authority changes. Cold-readable map: codex/doctrine/paper_modules/workingness_instrument.md.",
+      "lifecycle": "candidate"
+    },
+    "metabolism_status": {
+      "path_globs": [
+        "state/metabolism/status.json",
+        "state/metabolism/runtime_ticks.json"
+      ],
+      "json_standard": "codex/standards/std_metabolism_status.json",
+      "description": "Metabolism daemon status snapshot (schema v2) with loop-phase state machine, foreground tick timestamps, and daemon_health classifier so a stalled foreground loop cannot masquerade as healthy behind a fresh background heartbeat. Writer `tools/meta/control/metabolismd.py::MetabolismRuntime.build_status_snapshot`; foreground-tick sidecar writer `MetabolismRuntime.enter_phase`.",
+      "lifecycle": "authored"
+    },
+    "patcher": {
+      "path_globs": [
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_patcher.json",
+      "description": "Patcher configuration and operation contract.",
+      "lifecycle": "authored"
+    },
+    "phase_deposit": {
+      "path_globs": [
+        "tools/meta/apply/phase_packets/**/*.json",
+        "obsidian/**/phase_deposit*.json"
+      ],
+      "json_standard": "codex/standards/std_phase_deposit.json",
+      "description": "Phase deposit packet contract.",
+      "lifecycle": "authored"
+    },
+    "phase_dock": {
+      "path_globs": [
+        "obsidian/**/phase_dock*.json"
+      ],
+      "json_standard": "codex/standards/std_phase_dock.json",
+      "description": "Phase dock orchestration packet contract.",
+      "lifecycle": "authored"
+    },
+    "phase_harbor": {
+      "path_globs": [
+        "obsidian/**/phase_harbor*.json"
+      ],
+      "json_standard": "codex/standards/std_phase_harbor.json",
+      "description": "Phase harbor bootstrap and deposit surface contract.",
+      "lifecycle": "authored"
+    },
+    "plan_manifest": {
+      "path_globs": [
+        "codex/substrate/plan/*.json"
+      ],
+      "json_standard": "codex/standards/std_plan_manifest.json",
+      "description": "Machine-readable implementation manifest contract.",
+      "lifecycle": "authored"
+    },
+    "plan_note": {
+      "path_globs": [
+        "obsidian/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_plan_note.json",
+      "description": "Canonical implementation and execution-control note contract.",
+      "lifecycle": "authored"
+    },
+    "resource_doc": {
+      "path_globs": [
+        "codex/resources/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_resource.json",
+      "description": "Resource markdown contract.",
+      "lifecycle": "authored"
+    },
+    "response_surfaces": {
+      "path_globs": [
+        "codex/substrate/**/*.json",
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_response_surfaces.json",
+      "description": "Canonical response-surface contract for machine-authoritative outputs.",
+      "lifecycle": "authored"
+    },
+    "operator_action_receipt": {
+      "path_globs": [
+        "codex/standards/std_operator_action_receipt.json",
+        "state/operator_bridge/hud_actions.jsonl",
+        "tools/meta/observability/prompt_shelf_chatgpt_observer.py",
+        "system/server/tests/test_prompt_shelf_capture.py"
+      ],
+      "json_standard": "codex/standards/std_operator_action_receipt.json",
+      "governing_paper_module": "codex/doctrine/paper_modules/prompt_shelf.md",
+      "description": "Durable metadata-only receipt contract for operator-facing HUD/bridge controls: preserves claim identity and proof-bearing fields, marks missing proof explicitly, and excludes private body/debug payloads from the durable log.",
+      "lifecycle": "authored"
+    },
+    "self_model": {
+      "path_globs": [
+        "codex/derived/self/**/*.json",
+        "codex/substrate/self/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_self_model.json",
+      "description": "Self-model and self-lens contract.",
+      "lifecycle": "authored"
+    },
+    "constitution_workspace": {
+      "path_globs": [
+        "system/lib/kernel/commands/comprehension_snapshot.py",
+        "codex/doctrine/paper_modules/system_constitution_seed.md",
+        "codex/doctrine/documentation_theory_index.json"
+      ],
+      "json_standard": "codex/standards/std_constitution_workspace.json",
+      "description": "Live what-am-I documentation global workspace rooted in the constitution seed.",
+      "lifecycle": "candidate"
+    },
+    "session_digest": {
+      "path_globs": [
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_session_digest.json",
+      "description": "Observe-session digest contract.",
+      "lifecycle": "authored"
+    },
+    "tool_config": {
+      "path_globs": [
+        "configs/**/*.json",
+        "codex/configs/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_tool_config.json",
+      "description": "Tool configuration contract.",
+      "lifecycle": "authored"
+    },
+    "typed_response_map": {
+      "path_globs": [
+        "codex/**/*.json",
+        "tools/meta/apply/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_typed_response_map.json",
+      "description": "Typed response-map contract for normalized multi-surface outputs.",
+      "lifecycle": "authored"
+    },
+    "work_note": {
+      "path_globs": [
+        "obsidian/**/*.md"
+      ],
+      "json_standard": "codex/standards/std_work_note.json",
+      "description": "Canonical work-note and continuity packet contract.",
+      "lifecycle": "authored"
+    },
+    "type_a_seat_control": {
+      "path_globs": [
+        "codex/standards/std_type_a_seat_control.json",
+        "state/autonomy_runtime/*/runtime/plans/*/seat_requests/*.json",
+        "state/autonomy_runtime/*/runtime/plans/*/seats/*/seat_ledger.jsonl"
+      ],
+      "json_standard": "codex/standards/std_type_a_seat_control.json",
+      "description": "Safe provider-neutral Type A seat request contract over the Autonomy Plan/Runtime root. Attended work projects type_a_seat_dispatch approvals; overnight auto-dispatch requires explicit AFK mode plus idle proof; Claude.app is stage_only/no-submit by default; OpenRouter/NVIDIA lower-class seats run transform_job packets.",
+      "lifecycle": "authored"
+    },
+    "bridge_info_request": {
+      "path_globs": [
+        "codex/standards/std_bridge_info_request_v1.json",
+        "docs/bridge_evidence_pull_prompt_self_improvement_protocol.md",
+        "codex/doctrine/skills/bridge_runtime/bridge_info_request_fulfillment.md",
+        "obsidian/prompt_shelf/usage/runs/**/*.md",
+        "obsidian/prompt_shelf/usage/raw_events/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_bridge_info_request_v1.json",
+      "description": "Candidate packet contract for bidirectional Type B to Type A evidence pull. Bridge reasoners may emit bounded information requests when exact substrate evidence blocks a named decision; Type A fulfills with evidence packets and repeated request patterns become information-demand telemetry.",
+      "lifecycle": "candidate"
+    },
+    "provider_adapter": {
+      "path_globs": [
+        "codex/standards/std_provider_adapter.json",
+        "codex/doctrine/compute/provider_registry.json",
+        "system/lib/*provider*.py",
+        "system/lib/nvidia_nim.py"
+      ],
+      "json_standard": "codex/standards/std_provider_adapter.json",
+      "description": "Provider adapter contract for binding LLM provider interfaces to registry rows, ledger-bound model resolution, named fallback, budget gates, rate-limit source claims, and provider receipt requirements before runtime provider refactors land.",
+      "lifecycle": "authored"
+    },
+    "transform_job": {
+      "path_globs": [
+        "codex/standards/std_transform_job.json",
+        "state/compute_workers/transform_jobs/**/*.json",
+        "state/compute_workers/row_patches/**/*.json",
+        "state/compute_workers/receipts/**/*.json"
+      ],
+      "json_standard": "codex/standards/std_transform_job.json",
+      "description": "Controller-owned transform_job, row_patch, and provider_receipt contract for lower-class Type A provider workers.",
+      "lifecycle": "authored"
+    },
+    "station_aesthetic": {
+      "path_globs": [
+        "codex/standards/std_station_aesthetic.json",
+        "system/server/ui/src/index.css",
+        "state/observability/design_references/**"
+      ],
+      "json_standard": "codex/standards/std_station_aesthetic.json",
+      "description": "Governing visual/interaction/layout/image-reference/verification contract for the Zenith Station cockpit. Covers design tokens (near-black #050805, muted gold #c7b06a, soft green #7bc78e, IBM Plex Sans Condensed + Mono), interaction-state rules (live/stale/paused/catching_up, muted amber/rose for warnings, 1-second feedback), layout rules (no card mosaics, operator decision support, single OrchestrationFrame driver), image-reference discipline (generated images are inspiration only — extract layout rhythm/hierarchy/state treatment, never fake data), accessibility constraints (color + secondary cue, 1/4-inch touch target), and verification contract (npm build gate + station_render screenshots). Routes via ./repo-python kernel.py --docs-route 'station aesthetic'. Paired paper module: frontend_station_cockpit.",
+      "lifecycle": "authored"
+    }
+  },
+  "supporting_assets": {
+    "examples_dir": {
+      "path": "codex/standards/examples",
+      "role": "Concrete examples and scaffold specs for standards consumers.",
+      "lifecycle": "authored"
+    },
+    "python_policy": {
+      "path": "codex/standards/std_python.py",
+      "role": "Python-specific validation and delta-enforcement policy.",
+      "lifecycle": "code"
+    }
+  }
+}

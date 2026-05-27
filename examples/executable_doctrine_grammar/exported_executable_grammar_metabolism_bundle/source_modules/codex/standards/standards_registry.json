@@ -1,0 +1,155 @@
+{
+  "kind": "standards_registry",
+  "schema_version": "standards_registry_v1",
+  "root": "codex/standards",
+  "purpose": "Global root for the repository's JSON-first standards system. It tells agents which standards family to open first, how files are named, and which authority index governs each family.",
+  "naming_contract": {
+    "principle": "Names are navigation surfaces. Prefer explicit, searchable, durable names over short clever ones.",
+    "rules": [
+      "Group authority indexes are named <group>_authority_index.json.",
+      "Machine-readable standards are named std_<artifact>.json.",
+      "Optional human companions are named std_<artifact>.md.",
+      "Mechanically regenerated projections are named <artifact>_index.json when they summarize another authority surface.",
+      "Curated family-local interpretation files should say what they are, not rely on a parent folder for meaning; raw_seed_principles.json is better than principles.json.",
+      "Stable ids may stay short, but titles and slugs should be long enough that grep or a file-tree browse answers the question before the file is opened."
+    ]
+  },
+  "folder_pattern": {
+    "group_index_file": "<group>_authority_index.json",
+    "json_standard_file": "std_<artifact>.json",
+    "markdown_guide_file": "std_<artifact>.md",
+    "generated_projection_file": "<artifact>_index.json",
+    "note": "Most standards families live under codex/standards/<group>/. Core cross-cutting standards still live at codex/standards/ root, so the core family is a deliberate legacy_root_group until a future migration is worth the churn."
+  },
+  "kernel_navigation_hints": [
+    "If you land in codex/standards/ without context, open this registry first.",
+    "After picking a family, open its authority index before reading individual std_*.json files.",
+    "Use python3 kernel.py --standards for the summarized catalog; use node-specific standards slices only after the owning family is known.",
+    "Doctrine (concepts, mechanisms, routing) lives under group_id doctrine — start at codex/doctrine/doctrine_registry.json, then doctrine_surface.json (raw_seed_assimilation), then doctrine_routing.json.",
+    "Operator loop: python3 kernel.py --doctrine-runtime → --pulse; pulse ROUTES now includes doctrine_control_plane when you need the full decision tree.",
+    "Concept and mechanism JSON schemas remain in the principles group (std_concept.json, std_mechanism.json).",
+    "Documentation meta (raw seed → doctrine, house view, projection discipline): codex/doctrine/documentation_theory_index.json + docs/raw_seed_doctrine_derivation.md; anchors include `observe_dump_projection_anchor`, `apply_mutation_skill_anchor`, `observe_seed_accretion_anchor` (dtx_022), `doctrine_queryability_anchor` (Problem 5, dtx_023, pair dtx_019 doctrine_surface), `problem_7_anchor_playbook_anchor` (Problem 7), `meta_complaint_coordination_anchor` (coordination lemmas), `principles_curation_discipline_anchor` (pri_014), `doctrine_concept_mechanism_curation_anchor` (con/mech doc + std_concept/std_mechanism validation_rules), `standards_foundation_up_anchor` (docs/standards_authoring_foundation_up.md), `ledger_substrate_citation_anchor` (docs/ledger_and_substrate_citation_discipline.md); repeatable pass runner; thematic raw_seed_*.md; see codex/doctrine/doctrine_registry.json documentation_meta.",
+    "Standards authoring discipline (foundation-up, registry-first): docs/standards_authoring_foundation_up.md — read this registry + group authority index before new std_*; par_* grand_simplifying_001/004, source_4_004, 217, meta_complaint_085; framework_usage.standards_foundation_up_anchor.",
+    "Orchestration snapshot + event log: codex/standards/std_orchestration_state.json + codex/standards/std_orchestration_events.json — core_authority_index orchestration_state / orchestration_events; writer system/control/orchestration.py.",
+    "Paper modules (cold-readable subsystem ontology under codex/doctrine/paper_modules/*.md): codex/standards/std_paper_module.json is the single machine-readable authority — required frontmatter, 10 required sections, compression formula, status enum, density and dependency rules, consumer absorption brackets, frontend-card rendering contract, and metadata route coverage. Derived projections live at codex/doctrine/paper_modules/_index.json, _validation_report.json, _doctrine_to_paper_modules.json, and _route_coverage.json; builder/validator at tools/meta/factory/build_paper_module_index.py. Skills: codex/doctrine/skills/doctrine/{paper_module_authoring, paper_module_lookup, paper_module_coverage}.md. Intent + current-module index + coverage gaps live in codex/doctrine/paper_modules/README.md.",
+    "Kind atlas (rung-0 navigation before keyword routing): codex/standards/std_kind_atlas.json governs artifact-kind rows; kernel entry is `./repo-python kernel.py --kind-atlas --band flag`, with `./repo-python kernel.py --option-surface kinds --band flag` as the uniform option-surface entry. Per-kind native band contracts are audited by codex/standards/std_navigation_contract.json and `./repo-python kernel.py --kind-band-contract-audit`; telescope, Russian-doll, and holographic compression name the same tiered-compression behavior.",
+    "Standards type plane: codex/standards/std_standard_type_plane.json is the standards-first landing contract for navigation and write/read authority across broad artifact types. Agents should treat paper modules, System Atlas rows, kind rows, sidecars, and option surfaces as projections over governing standards, not as the home for standards-grade rules.",
+    "Semantic naming: codex/standards/std_semantic_naming.json governs names as compressed affordance rows. Open it when ids, slugs, filenames, handles, display labels, aliases, or storage renames are confusing; it presents the shard option surface and the repair_patterns option surface (root_invocation_shim, inline_authority_declaration, artifact_family_handle, case_and_scope_normalization) before guessed queries. codex/standards/std_rename_migration_receipt.json is the typed proof object for storage rename migrations; receipts live at state/semantic_naming/rename_receipts/ and bounded audits live at state/semantic_naming/audits/.",
+    "Doctrine subdomain registries (repo-template ownership lattices such as frontend): codex/standards/std_doctrine_subdomains.json is the machine-readable authority for one-primary-plus-secondary-tag classification, with per-domain registries under codex/doctrine/subdomains/*.json and generated browse surfaces at codex/doctrine/subdomains/{_index,_validation_report}.json. Builder/validator: tools/meta/factory/build_doctrine_subdomain_index.py.",
+    "Compute throughput and worker policy: codex/standards/std_compute_provider.json + codex/doctrine/compute/provider_registry.json govern provider endpoints, agent harnesses, authority tiers, task-class permissions, and zero-write worker packets. Generated surfaces live at codex/hologram/compute/{ledger,audit}.json; builder tools/meta/factory/build_compute_throughput_ledger.py; kernel reads: --compute-providers, --compute-audit, --worker-harnesses, --worker-route <task-class>.",
+    "Safe Type A seat control: codex/standards/std_type_a_seat_control.json governs provider-neutral seat_request records under state/autonomy_runtime/<queue_id>/runtime/plans/<plan_id>/, with attended approval rows, explicit overnight+idle auto-dispatch, Claude.app stage_only/no-submit protection, and lower-class OpenRouter/NVIDIA provider seats over transform_job packets.",
+    "Bridge evidence pull: codex/standards/std_bridge_info_request_v1.json governs Type B ASK_TYPE_A / bridge_info_request packets and Type A evidence-packet responses. Repeated request shapes are evidence-demand telemetry and route through local_to_general_propagation before any prompt, skill, standard, docs-route, principle, or axiom-candidate refinement.",
+    "Transform jobs: codex/standards/std_transform_job.json governs state/compute_workers/{transform_jobs,row_patches,receipts}/. OpenRouter/NVIDIA workers consume projection packets and produce provider_receipts plus draft row_patches; controller review owns promotion."
+  ],
+  "groups": [
+    {
+      "group_id": "core",
+      "title": "Core Kernel Standards",
+      "group_root": "codex/standards",
+      "authority_index": "codex/standards/core_authority_index.json",
+      "summary": "Cross-cutting kernel, planning, apply, navigation, and standards-governance contracts.",
+      "storage_status": "legacy_root_group",
+      "kernel_navigation_hints": [
+        "Start here for top-level kernel contracts, planning note rules, and standards-about-standards.",
+        "If a standard file is in codex/standards/ root and not inside a subgroup, core owns it."
+      ]
+    },
+    {
+      "group_id": "observe",
+      "title": "Observe Runtime Standards",
+      "group_root": "codex/standards/observe",
+      "authority_index": "codex/standards/observe/observe_authority_index.json",
+      "summary": "Observe-plan, grouped response, result-note, prompt-library, and template contracts for the observe runtime.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Enter this family when working on tools/meta/apply observe runtime, grouped responses, or observe prompt shaping."
+      ]
+    },
+    {
+      "group_id": "observe_apply",
+      "title": "Observe-Apply Phase Artifact Standards",
+      "group_root": "codex/standards/observe_apply",
+      "authority_index": "codex/standards/observe_apply/observe_apply_authority_index.json",
+      "summary": "Phase-family blackboard and whiteboard artifacts, raw-seed projections, and cycle-local runtime contracts.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Enter this family when the path lives under obsidian/<family>/ or when kernel phase scaffolding, raw-seed sync, or cycle artifacts are in play.",
+        "Factory lane (bridge batch over raw_seed excerpts): std_extracted_shards.json + doctrine_runtime.raw_seed_assimilation.factory_lane_shard_extract_v0 — backlog file is extracted_shards.json, not a parallel shards.json format."
+      ]
+    },
+    {
+      "group_id": "annex",
+      "title": "Annex Standards",
+      "group_root": "codex/standards/annex",
+      "authority_index": "codex/standards/annex/annex_authority_index.json",
+      "summary": "Imported external-repo identity, tree, note, repo-wide browse, and per-annex contents-projection contracts.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Enter this family when working under annexes/ or any external-repo indexing flow.",
+        "Use annexes/annex_catalog.json as the repo-wide browse surface, then annexes/<slug>/annex_contents.json as the per-slug contents page before widening into annex_index.json or repo/."
+      ]
+    },
+    {
+      "group_id": "obsidian_vault",
+      "title": "Obsidian Vault Projection Standards",
+      "group_root": "codex/standards/obsidian_vault",
+      "authority_index": "codex/standards/obsidian_vault/obsidian_vault_authority_index.json",
+      "summary": "Contracts for projecting existing JSON/source substrates (paper modules, doctrine nodes, standards, annex notes, raw-seed phase artifacts, live state) into the operator's Obsidian vault as a strict, graph-native, human-browsable view. Authority stays in the source substrates; the vault is a one-way projection. Paper module: codex/doctrine/paper_modules/obsidian_projection_layer.md.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Enter this family when authoring a projected Obsidian note, validating the projector contract, or building a Bases view over projected notes.",
+        "Single machine-readable authority is std_obsidian_projection.json: shallow YAML frontmatter, six required body sections in order, body-wikilinks-drive-the-graph rule, Bases (.base) view contract, sub-phase integration rule, validation rules.",
+        "Vault root is obsidian/; operator-writable paths (obsidian/.obsidian/, obsidian/idea/, obsidian/meta/, obsidian/okay lets do this/) are off-limits to the projector. Projector_writes_only allowlist: obsidian/_system/, obsidian/paper_modules/, obsidian/doctrine/, obsidian/standards/, obsidian/annexes/, obsidian/operator/, obsidian/_bases/.",
+        "Phase 09.44 phase-gate compliance: standard + paper module + sample notes are gate-compliant authoring; the projector binary is a Planned surface gated on the provider-ledger pilot."
+      ]
+    },
+    {
+      "group_id": "principles",
+      "title": "Principles And Curated Interpretation Standards",
+      "group_root": "codex/standards/principles",
+      "authority_index": "codex/standards/principles/principles_authority_index.json",
+      "summary": "Curated interpretive layers that sit beside generated indexes and turn repeated patterns into explicit commitments. Also governs concept and mechanism schema standards for the doctrine hierarchy.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Enter this family when a generated index is not enough and you need curated commitments, tensions, naming doctrine, or schema-promotion guidance.",
+        "For doctrine concept/mechanism schemas, see std_concept.json and std_mechanism.json in this group.",
+        "Grouped doctrine citations (bridge-routable shards): std_doctrine_reference_bundle.json — reference_groups on concepts, mechanisms (mech_*.json), and raw_seed_principles principle nodes; observe doctrine_reference_injection compiles packs.",
+        "For the full doctrine tree and navigation surfaces, use the doctrine group (doctrine_registry.json) — principles_authority_index also lists doctrine artifact paths.",
+        "Agent bootstrap JSON + live AGENTS.md projection: std_agent_bootstrap.json, codex/doctrine/agent_bootstrap.json, builder tools/meta/factory/build_agent_bootstrap_projection.py — see doctrine_registry.json agent_bootstrap block."
+      ]
+    },
+    {
+      "group_id": "doctrine",
+      "title": "Doctrine Hierarchy And Navigation",
+      "group_root": "codex/doctrine",
+      "authority_index": "codex/doctrine/doctrine_registry.json",
+      "summary": "JSON-first principles → concepts → mechanisms registry, doctrine_surface (problems, staircase, raw_seed_assimilation), doctrine_routing (handoffs, metaphors, annex ladder), doctrine_index edge graph, and launchable observe plans for self-improvement.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Open codex/doctrine/doctrine_registry.json first, then doctrine_surface.json (compressed_briefing and raw_seed_assimilation), then doctrine_routing.json.",
+        "Emit the runtime contract anytime: python3 kernel.py --doctrine-runtime (same payload as codex/doctrine/doctrine_runtime.json).",
+        "Active-phase handoff: doctrine_runtime.json recovery_macros lists <phase_dir> pipeline_resume/attention/signal paths plus discover_* find lines under obsidian/okay lets do this and repo-root pipeline_attention.json for Cursor.",
+        "Schemas for con_* and mech_* live under codex/standards/principles/ (std_concept.json, std_mechanism.json).",
+        "Bridge audit: kernel.py --launch-observe --plan codex/doctrine/observe_plans/doctrine_coverage_audit.json --bridge --provider chatgpt --detach"
+      ]
+    },
+    {
+      "group_id": "skills",
+      "title": "Skill Registry And Composable Agent Capabilities",
+      "group_root": "codex/doctrine/skills",
+      "authority_index": "codex/doctrine/skills/skill_registry.json",
+      "summary": "Unified skill system: families of composable skills with triggers, doctrine edges, holographic catalog, and alchemy combinations. The table of contents for agent capability.",
+      "storage_status": "authored",
+      "kernel_navigation_hints": [
+        "Open codex/doctrine/skills/skill_registry.json first — it has the holographic catalog, families, triggers, and alchemy combinations.",
+        "Skill schema standard: codex/standards/std_skill.json — required fields, optional fields, kinds, naming contract.",
+        "Skill-type taxonomy standard: codex/standards/std_skill_types.json — sibling of std_skill.json, defines the 9-class SITUATION axis (orientation, substrate_navigation, authoring, audit, runtime_operation, reasoning, verification, propagation, external_integration) orthogonal to family + kind. Teacher skill: codex/doctrine/skills/doctrine/skill_type_taxonomy.md. Validator: tools/meta/audit/harness_audit.py::check_skill_registry enforces enum + per-class required agent_surface fields when skill_type is present.",
+        "Three orthogonal axes on every skill: family (WHERE it lives), kind (STRUCTURAL file shape), skill_type (SITUATION CLASS the agent recognizes).",
+        "Use the holographic_catalog for one-liner browsing. Use triggers for situation matching. Use alchemy_combinations for compound capability.",
+        "To create a new skill, use the skill_authoring skill in the doctrine family. Pick skill_type before writing the body via skill_type_taxonomy.",
+        "Legacy kernel skills in codex/doctrine/skills/kernel/_schema.json are still authoritative for kernel commands but are also registered in the unified registry.",
+        "Concept: con_027 (skill composability and alchemy). Mechanism: mech_027 (skill discovery and routing)."
+      ]
+    }
+  ]
+}

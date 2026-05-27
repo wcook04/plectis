@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -20,6 +21,20 @@ METABOLISM_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle"
 )
+METABOLISM_BODY_MATERIAL_IDS = {
+    "executable_grammar_metabolism_readme_body_import",
+    "executable_grammar_metabolism_board_body_import",
+    "executable_grammar_metabolism_receipt_body_import",
+    "standards_registry_root_body_import",
+    "std_standards_registry_body_import",
+    "std_standards_group_index_body_import",
+    "std_standard_type_plane_body_import",
+    "core_authority_index_body_import",
+    "lattice_registry_body_import",
+    "std_lattice_registry_body_import",
+    "standard_option_surface_tool_body_import",
+    "kind_atlas_tool_body_import",
+}
 
 
 def test_executable_doctrine_grammar_observes_required_negative_cases(tmp_path: Path) -> None:
@@ -92,7 +107,7 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert result["grammar_case_count"] == 6
     assert result["source_capsule_count"] == 10
     assert result["provider_replay_bridge_case_count"] == 4
-    assert result["body_copied_material_count"] == 3
+    assert result["body_copied_material_count"] == 12
     assert result["private_state_scan"]["status"] == "pass"
     assert result["private_state_scan"]["body_redacted"] is True
     assert result["receipt_paths"] == [
@@ -100,16 +115,17 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     ]
     source_imports = result["source_open_body_imports"]
     assert source_imports["status"] == "pass"
-    assert source_imports["body_material_count"] == 3
+    assert source_imports["body_material_count"] == 12
     assert source_imports["body_in_receipt"] is False
-    assert set(source_imports["body_material_ids"]) == {
-        "executable_grammar_metabolism_readme_body_import",
-        "executable_grammar_metabolism_board_body_import",
-        "executable_grammar_metabolism_receipt_body_import",
+    assert set(source_imports["body_material_ids"]) == METABOLISM_BODY_MATERIAL_IDS
+    assert set(source_imports["material_classes"]) == {
+        "public_macro_receipt_body",
+        "public_macro_standard_body",
+        "public_macro_tool_body",
     }
     source_modules = result["source_module_imports"]
     assert source_modules["status"] == "pass"
-    assert source_modules["module_count"] == 3
+    assert source_modules["module_count"] == 12
     assert all(module["body_in_receipt"] is False for module in source_modules["modules"])
     assert all(module["sha256"] == module["actual_sha256"] for module in source_modules["modules"])
 
@@ -120,11 +136,14 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
         ).read_text(encoding="utf-8")
     )
     assert receipt["body_text_in_receipt"] is False
-    assert receipt["source_open_body_imports"]["body_material_count"] == 3
-    assert receipt["body_copied_material_count"] == 3
+    assert receipt["source_open_body_imports"]["body_material_count"] == 12
+    assert receipt["body_copied_material_count"] == 12
     assert receipt["source_module_imports"]["source_module_manifest_ref"].endswith(
         "source_module_manifest.json"
     )
+    assert len(receipt["source_refs"]) == 12
+    assert "codex/standards/standards_registry.json" in receipt["source_refs"]
+    assert "system/lib/standard_option_surface.py" in receipt["source_refs"]
     assert receipt["source_root"] == (
         "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism"
     )
@@ -137,6 +156,24 @@ def test_executable_doctrine_grammar_accepts_imported_executable_grammar_metabol
     assert "matched_excerpt" not in text
     assert "private standards engine" in text
     assert "/Users/" not in text
+
+
+def test_executable_doctrine_grammar_source_modules_are_exact_macro_imports() -> None:
+    manifest = json.loads(
+        (METABOLISM_BUNDLE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["module_count"] == 12
+    assert {module["module_id"] for module in manifest["modules"]} == METABOLISM_BODY_MATERIAL_IDS
+    repo_root = MICROCOSM_ROOT.parent
+    for module in manifest["modules"]:
+        source_path = repo_root / module["source_ref"]
+        target_path = MICROCOSM_ROOT / module["target_ref"].removeprefix("microcosm-substrate/")
+        source_bytes = source_path.read_bytes()
+        target_bytes = target_path.read_bytes()
+        assert source_bytes == target_bytes
+        assert module["sha256"] == "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+        assert module["byte_count"] == len(source_bytes)
+        assert module["line_count"] == len(source_path.read_text(encoding="utf-8").splitlines())
 
 
 def test_executable_doctrine_grammar_source_module_digest_tamper_blocks_bundle(
@@ -160,7 +197,7 @@ def test_executable_doctrine_grammar_source_module_digest_tamper_blocks_bundle(
 
     assert result["status"] == "blocked"
     assert result["source_open_body_imports"]["status"] == "blocked"
-    assert result["body_copied_material_count"] == 3
+    assert result["body_copied_material_count"] == 12
     assert "EXECUTABLE_GRAMMAR_SOURCE_MODULE_DIGEST_MISMATCH" in result["error_codes"]
     assert result["body_text_in_receipt"] is False
 

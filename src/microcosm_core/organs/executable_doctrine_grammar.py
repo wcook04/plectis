@@ -28,12 +28,27 @@ STANDARDS_BUNDLE_RESULT_NAME = "exported_standards_bundle_validation_result.json
 METABOLISM_BUNDLE_RESULT_NAME = "exported_executable_grammar_metabolism_bundle_validation_result.json"
 SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
-SOURCE_BODY_STATUS = "copied_non_secret_executable_grammar_macro_body_with_provenance"
+SOURCE_BODY_STATUS = "copied_non_secret_executable_grammar_and_standards_macro_bodies_with_provenance"
 PUBLIC_SAFE_SOURCE_MODULE_CLASSES = {
+    "public_macro_standard_body",
     "public_macro_tool_body",
     "public_macro_receipt_body",
 }
 SOURCE_MODULE_RELATIONS = {"exact_copy"}
+SOURCE_MODULE_SOURCE_REF_PREFIXES = (
+    "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/",
+)
+SOURCE_MODULE_SOURCE_REF_EXACT = {
+    "codex/standards/standards_registry.json",
+    "codex/standards/std_standards_registry.json",
+    "codex/standards/std_standards_group_index.json",
+    "codex/standards/std_standard_type_plane.json",
+    "codex/standards/core_authority_index.json",
+    "codex/standards/lattice_registry.json",
+    "codex/standards/std_lattice_registry.json",
+    "system/lib/standard_option_surface.py",
+    "system/lib/kind_atlas.py",
+}
 
 GRAMMAR_AUTHORITY_CEILING = {
     "status": PASS,
@@ -920,7 +935,7 @@ def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) 
             findings.append(
                 _finding(
                     "EXECUTABLE_GRAMMAR_SOURCE_MODULE_CLASS_FORBIDDEN",
-                    "Executable-grammar body imports may include only public macro tool or receipt bodies.",
+                    "Executable-grammar body imports may include only public macro standard, tool, or receipt bodies.",
                     subject_id=module_id or target_ref or "source_module",
                     subject_kind="source_module",
                 )
@@ -943,11 +958,14 @@ def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) 
                     subject_kind="source_module",
                 )
             )
-        if not source_ref.startswith("self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/"):
+        if not (
+            source_ref in SOURCE_MODULE_SOURCE_REF_EXACT
+            or any(source_ref.startswith(prefix) for prefix in SOURCE_MODULE_SOURCE_REF_PREFIXES)
+        ):
             findings.append(
                 _finding(
                     "EXECUTABLE_GRAMMAR_SOURCE_REF_UNEXPECTED",
-                    "Source module rows must point at the executable_grammar_metabolism macro specimen.",
+                    "Source module rows must point at the executable grammar specimen or its governed standards-registry/type-plane support bodies.",
                     subject_id=module_id or target_ref or "source_module",
                     subject_kind="source_module",
                 )
@@ -1029,9 +1047,9 @@ def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str
             "private_standards_engine_exported": False,
         },
         "reader_action": (
-            "Open source_module_manifest.json plus README.md, grammar_board.json, and "
-            "receipt.json for copied executable-grammar macro bodies; receipts carry "
-            "refs, digests, counts, and verdicts only."
+            "Open source_module_manifest.json plus copied executable-grammar specimen, "
+            "standards-registry/type-plane, lattice-registry, kind-atlas, and standards "
+            "option-surface bodies; receipts carry refs, digests, counts, and verdicts only."
         )
         if modules
         else "",
@@ -1227,9 +1245,10 @@ def validate_executable_grammar_metabolism_bundle(
             "bundle_id": str(manifest.get("bundle_id") or ""),
             "anti_claim": (
                 "The exported executable-grammar metabolism bundle validates an exact "
-                "public macro specimen copy. It does not publish private standards "
-                "engines, raw operator notes, provider transcripts, account/session "
-                "state, doctrine completeness, or release authority."
+                "public macro specimen plus standards-registry/type-plane support copy. "
+                "It does not publish private standards engines, raw operator notes, "
+                "provider transcripts, account/session state, doctrine completeness, "
+                "or release authority."
             ),
             "authority_ceiling": {
                 "status": PASS,
@@ -1263,9 +1282,9 @@ def validate_executable_grammar_metabolism_bundle(
             "body_copied_material_count": source_open_body_imports["body_material_count"],
             "source_root": str(manifest.get("source_root") or ""),
             "source_refs": [
-                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/README.md",
-                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/grammar_board.json",
-                "self-indexing-cognitive-substrate/microcosms/executable_grammar_metabolism/receipt.json",
+                str(module.get("source_ref"))
+                for module in source_imports["modules"]
+                if module.get("source_ref")
             ],
             "grammar_rule_count": len(_string_list(board.get("grammar_rules"))),
             "grammar_case_count": len(_string_list(board.get("cases"))),

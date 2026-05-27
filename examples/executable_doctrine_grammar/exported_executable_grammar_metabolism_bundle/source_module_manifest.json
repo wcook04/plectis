@@ -5,10 +5,10 @@
   "source_import_class": "copied_non_secret_macro_body",
   "classification": "copied_non_secret_macro_body",
   "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
-  "body_storage_policy": "exact non-secret macro specimen bodies are copied into this public bundle as README.md, grammar_board.json, and receipt.json",
+  "body_storage_policy": "exact non-secret macro specimen, standards-registry/type-plane, lattice-registry, kind-atlas, and standards option-surface bodies are copied into this public bundle",
   "receipt_body_policy": "receipts may report paths, hashes, counts, and verdicts but must not duplicate full source bodies",
   "body_in_receipt": false,
-  "module_count": 3,
+  "module_count": 12,
   "modules": [
     {
       "module_id": "executable_grammar_metabolism_readme_body_import",
@@ -76,6 +76,195 @@
         "\"evidence_refs\"",
         "\"omissions\"",
         "\"source_capsule_count\""
+      ]
+    },
+    {
+      "module_id": "standards_registry_root_body_import",
+      "source_ref": "codex/standards/standards_registry.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/standards_registry.json",
+      "path": "source_modules/codex/standards/standards_registry.json",
+      "source_role": "Macro standards registry root that maps executable standard groups, rows, runtime hints, and validation ownership",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:54387e1b141f6f4bb4a02a28347f361bef5a0d9e350ea79c9612298c27a2757a",
+      "line_count": 155,
+      "byte_count": 17487,
+      "required_anchors": [
+        "\"schema_version\": \"standards_registry_v1\"",
+        "\"groups\"",
+        "\"kernel_navigation_hints\""
+      ]
+    },
+    {
+      "module_id": "std_standards_registry_body_import",
+      "source_ref": "codex/standards/std_standards_registry.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_registry.json",
+      "path": "source_modules/codex/standards/std_standards_registry.json",
+      "source_role": "Macro standard governing the standards registry artifact and validation contract",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:e5f5e7db6b234151c90d511e889b7bc65753bba21c3d311843b9fb434ae60557",
+      "line_count": 212,
+      "byte_count": 8644,
+      "required_anchors": [
+        "\"schema_version\": \"standards_registry_v1\"",
+        "\"validation_rules\"",
+        "\"navigation_contract\""
+      ]
+    },
+    {
+      "module_id": "std_standards_group_index_body_import",
+      "source_ref": "codex/standards/std_standards_group_index.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standards_group_index.json",
+      "path": "source_modules/codex/standards/std_standards_group_index.json",
+      "source_role": "Macro standard governing standards group index shape and artifact rows",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:49aa38b58446c0e9adb4c9682667938844df72c2ce16418d9fbc14195116612c",
+      "line_count": 41,
+      "byte_count": 1800,
+      "required_anchors": [
+        "\"schema_version\": \"standards_group_index_v1\"",
+        "\"artifact_shape\"",
+        "\"kernel_navigation_hints\""
+      ]
+    },
+    {
+      "module_id": "std_standard_type_plane_body_import",
+      "source_ref": "codex/standards/std_standard_type_plane.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_standard_type_plane.json",
+      "path": "source_modules/codex/standards/std_standard_type_plane.json",
+      "source_role": "Macro standard-type plane grammar for read/write contracts, authorities, option surfaces, and projection policy",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:9e01424dafb0ca86f693784025fad0821306d8f64db397339a6424792618bc4a",
+      "line_count": 1343,
+      "byte_count": 90651,
+      "required_anchors": [
+        "\"schema_version\": \"std_standard_type_plane_v0\"",
+        "\"type_plane_rows\"",
+        "\"validation_rules\""
+      ]
+    },
+    {
+      "module_id": "core_authority_index_body_import",
+      "source_ref": "codex/standards/core_authority_index.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/core_authority_index.json",
+      "path": "source_modules/codex/standards/core_authority_index.json",
+      "source_role": "Macro core authority index binding standard ids to owning JSON standards, source refs, and navigation hints",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:1eb106f7bcf04fc84a16e34d10cfb705e76ff97701948df40e5c333828abba0f",
+      "line_count": 542,
+      "byte_count": 28473,
+      "required_anchors": [
+        "\"schema_version\": \"standards_group_index_v1\"",
+        "\"group_id\": \"core\"",
+        "\"kernel_navigation_hints\""
+      ]
+    },
+    {
+      "module_id": "lattice_registry_body_import",
+      "source_ref": "codex/standards/lattice_registry.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/lattice_registry.json",
+      "path": "source_modules/codex/standards/lattice_registry.json",
+      "source_role": "Macro lattice registry declaring artifact kinds, launchable operations, reactions, and compression layers",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:20ed79b34fbfcf96258da13b27f5731b027044c424515e8d0a0ffbc96fd5c5a2",
+      "line_count": 384,
+      "byte_count": 14904,
+      "required_anchors": [
+        "\"schema_version\"",
+        "\"artifact_kinds\"",
+        "\"launchable_ops\""
+      ]
+    },
+    {
+      "module_id": "std_lattice_registry_body_import",
+      "source_ref": "codex/standards/std_lattice_registry.json",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/codex/standards/std_lattice_registry.json",
+      "path": "source_modules/codex/standards/std_lattice_registry.json",
+      "source_role": "Macro standard governing lattice registry top-level shape, row contracts, invariants, and rebuild freshness",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_standard_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:f2bb920b86ece64e3c1d020b764b09f152a8992be3395f1fb48ce0983b13e02b",
+      "line_count": 170,
+      "byte_count": 10416,
+      "required_anchors": [
+        "\"schema_version\": \"std_lattice_registry_v1\"",
+        "\"artifact_kind_row_contract\"",
+        "\"rebuild_freshness\""
+      ]
+    },
+    {
+      "module_id": "standard_option_surface_tool_body_import",
+      "source_ref": "system/lib/standard_option_surface.py",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/standard_option_surface.py",
+      "path": "source_modules/system/lib/standard_option_surface.py",
+      "source_role": "Macro runtime tool that projects standards and related artifacts into option surfaces with validation and evidence commands",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+      "line_count": 16321,
+      "byte_count": 720445,
+      "required_anchors": [
+        "def build_standards_option_surface(",
+        "def build_option_surface(",
+        "def _standard_index("
+      ]
+    },
+    {
+      "module_id": "kind_atlas_tool_body_import",
+      "source_ref": "system/lib/kind_atlas.py",
+      "target_ref": "microcosm-substrate/examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_modules/system/lib/kind_atlas.py",
+      "path": "source_modules/system/lib/kind_atlas.py",
+      "source_role": "Macro runtime tool that builds kind atlas rows and live counts for standards, papers, ledgers, seeds, and system artifacts",
+      "source_import_class": "copied_non_secret_macro_body",
+      "classification": "copied_non_secret_macro_body",
+      "material_class": "public_macro_tool_body",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "source_to_target_relation": "exact_copy",
+      "sha256": "sha256:0f81c2b9ac858eb7b1baf3337e2f4558f169c5e3e3770c461c447fd4a68b0e65",
+      "line_count": 2378,
+      "byte_count": 121753,
+      "required_anchors": [
+        "def build_kind_atlas(",
+        "def _build_rows(",
+        "def _standard_count("
       ]
     }
   ],

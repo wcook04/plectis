@@ -1,0 +1,170 @@
+{
+  "kind": "json_standard",
+  "schema_version": "std_lattice_registry_v1",
+  "title": "Lattice registry — declared model of artifact kinds, governance, and operations",
+  "summary": "Schema for codex/standards/lattice_registry.json. The registry is the central declared model that joins this repo's five partially-connected graphs (doctrine, raw-seed, runtime, projection, test). Every artifact_kind row declares: which standard governs it, which globs name its concrete instances, which validators check it, which projections consume it, which tests cover it, who is allowed to write it, what mutation class governs that writing, and which input artifact-kinds it depends on for freshness. Every launchable_op row declares: read_globs, write_globs, mutation_class, idempotency_key_fields, max_runtime_s, max_parallel. The registry is BORING and STATIC; runtime state lives in state/lattice/lattice_graph_latest.json (instance expansion) and the events ledger (history). Mirrors the SHACL split between data graph, shapes graph, and validation report.",
+  "emitted_by": [
+    "human-authored (controller-gated; mutation_class M3 — never auto-fire)"
+  ],
+  "consumed_by": [
+    "tools/meta/factory/build_lattice_graph.py (M1) — expands artifact_kinds into instance nodes",
+    "tools/meta/factory/lattice_status.py (M0E) — verdicts per layer",
+    "tools/meta/control/reactions_engine.py — read_globs/write_globs enforcement, mutation-class denial of M3/M4 auto-fire",
+    "tools/meta/testing/select_impacted_tests.py — artifact_kind -> tests mapping",
+    "tools/meta/observability/lattice_lens.py (planned)"
+  ],
+  "sibling_artifacts": [
+    "codex/standards/std_lattice_event.json (single event envelope)",
+    "state/lattice/lattice_graph_latest.json (expanded instance graph)",
+    "state/lattice/lattice_status_latest.json (verdict projection)",
+    "system/lib/launchable_operations.py (the registered ops; cross-checked against registry::launchable_ops)"
+  ],
+  "top_level_shape": {
+    "schema_version": {
+      "const": 1,
+      "description": "Integer schema version for the lattice_registry.json document itself."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "RFC3339",
+      "required": false,
+      "description": "Optional last-touched timestamp. Registry is human-authored, so this is informational only."
+    },
+    "registry_digest": {
+      "type": "string",
+      "format": "sha256:...",
+      "required": false,
+      "description": "Optional self-digest. lattice_status computes this on read; if present here it must match."
+    },
+    "compression_layers": {
+      "type": "array",
+      "items": "string",
+      "ordered": true,
+      "description": "The lattice ladder, top to bottom. Drives layer-status reporting in lattice_status.",
+      "canonical_value": [
+        "axiom",
+        "principle",
+        "theory",
+        "skill",
+        "standard",
+        "substrate",
+        "projection"
+      ]
+    },
+    "artifact_kinds": {
+      "type": "array",
+      "items": "artifact_kind_row",
+      "description": "Kind-level rules. One row per artifact kind. See artifact_kind_row_contract."
+    },
+    "launchable_ops": {
+      "type": "array",
+      "items": "launchable_op_row",
+      "description": "One row per registered operation. Cross-checked against system/lib/launchable_operations.py at validation time."
+    },
+    "reactions": {
+      "type": "array",
+      "items": "reaction_row",
+      "description": "One row per reaction. Cross-checked against reactions.yaml at validation time. Mutation-class denial of M3/M4 auto-fire is enforced here."
+    },
+    "fallback_test_bundles": {
+      "type": "object",
+      "description": "Conservative fallback tests when impact selection returns nothing. Keyed by change-class. Used by select_impacted_tests.",
+      "example": {
+        "unknown_doctrine_change": ["system/server/tests/test_agent_bootstrap_projection.py"],
+        "unknown_runtime_change": ["system/server/tests/test_metabolismd_lifecycle.py"],
+        "unknown_server_or_ui_change": ["system/server/tests/test_station_render_smoke.py"],
+        "unknown_standard_change": ["system/server/tests/test_paper_module_index.py"],
+        "selector_code_change": ["system/server/tests/test_select_impacted_tests.py"]
+      }
+    }
+  },
+  "artifact_kind_row_contract": {
+    "required_fields": [
+      "artifact_kind",
+      "graph_node_kind",
+      "compression_layer",
+      "authority_globs",
+      "standard",
+      "validators",
+      "projection_builders",
+      "allowed_writers",
+      "apply_lane",
+      "tests",
+      "freshness_inputs",
+      "mutation_class_to_modify"
+    ],
+    "fields": {
+      "artifact_kind": {"type": "string", "description": "Stable identifier (e.g., 'paper_module', 'principle', 'concept', 'mechanism', 'skill', 'standard', 'raw_seed_paragraph', 'extracted_shard', 'reaction', 'launchable_op', 'route_graph', 'test_file')."},
+      "graph_node_kind": {"type": "string", "description": "Node-kind label used in lattice_graph_latest.json. Often 1:1 with artifact_kind, but allows aliasing."},
+      "compression_layer": {"enum": ["axiom", "principle", "theory", "skill", "standard", "substrate", "projection"]},
+      "authority_globs": {"type": "array", "items": "string", "description": "Repo-relative globs that name concrete instances. Used by build_lattice_graph for expansion."},
+      "standard": {"type": "string", "description": "Path to the std_*.json that governs this kind, or 'self' if this row IS for standards themselves."},
+      "validators": {"type": "array", "items": "string", "description": "Tools that validate concrete instances. Read_set inputs to lattice_status verdicts."},
+      "projection_builders": {"type": "array", "items": "string", "description": "Tools that consume this kind to build derived artifacts (CLAUDE.md, route graph, etc.)."},
+      "allowed_writers": {"type": "array", "items": {"enum": ["human", "controller", "type_a_agent_proposal", "daemon_projection", "improver_evidence_only"]}, "description": "Who may write the authority paths. NOT 'who can read'."},
+      "apply_lane": {"type": "string", "description": "Name of the apply lane that gates writes (e.g., 'raw_seed_apply_loop::apply-routing', 'paper_module_apply_or_manual', 'human_only')."},
+      "tests": {"type": "array", "items": "string", "description": "Pytest paths or pytest -k expressions that cover changes to this kind."},
+      "freshness_inputs": {"type": "array", "items": "string", "description": "Other artifact_kinds (or globs) whose changes invalidate this kind's freshness. Drives the layer-blocks-layer report."},
+      "mutation_class_to_modify": {"enum": ["M3", "M4"], "description": "Mutation class required to write authority instances of this kind. Always M3 or M4; auto-fire forbidden."}
+    }
+  },
+  "launchable_op_row_contract": {
+    "required_fields": [
+      "name",
+      "mutation_class",
+      "read_globs",
+      "write_globs",
+      "idempotency_key_fields",
+      "max_runtime_s",
+      "max_parallel"
+    ],
+    "fields": {
+      "name": {"type": "string", "description": "Op name as registered in system/lib/launchable_operations.py."},
+      "mutation_class": {"enum": ["M0R", "M0E", "M1", "M2", "M3", "M4"]},
+      "read_globs": {"type": "array", "items": "string", "description": "Declared read surface. Soft contract today (informational); reactions_engine consumes for selection."},
+      "write_globs": {"type": "array", "items": "string", "description": "Declared write surface. Hard contract — reactions_engine must reject auto-fire if op writes outside these."},
+      "idempotency_key_fields": {"type": "array", "items": "string", "description": "Field names that go into sha256 for the op's idempotency_key (e.g., 'changed_artifacts_digest', 'test_impact_map_digest', 'test_inventory_digest', 'registry_digest', 'code_version')."},
+      "max_runtime_s": {"type": "integer"},
+      "max_parallel": {"type": "integer", "description": "Concurrency cap; reactions_engine enforces via single-flight by op_name+key."}
+    }
+  },
+  "reaction_row_contract": {
+    "required_fields": [
+      "id",
+      "trigger_signal",
+      "fires_op",
+      "predicate_summary",
+      "mutation_class"
+    ],
+    "fields": {
+      "id": {"type": "string", "description": "Reaction id; must match a reactions.yaml row."},
+      "trigger_signal": {"type": "string"},
+      "fires_op": {"type": "string", "description": "Must reference an existing launchable_ops row."},
+      "predicate_summary": {"type": "string"},
+      "mutation_class": {"enum": ["M0R", "M0E", "M1", "M2"], "description": "M3/M4 forbidden here. Registry validator rejects rows that point at an op of class M3/M4."},
+      "min_interval_s": {"type": "integer", "required": false, "description": "Minimum interval between fires; loop guard."},
+      "suppress_if_last_output_digest_same": {"type": "boolean", "required": false, "description": "Loop guard: if op output digest equals prior-fire output digest, suppress."}
+    }
+  },
+  "invariants": [
+    "Every artifact_kind row's standard path MUST exist on disk (or be 'self').",
+    "Every artifact_kind row's tests MUST resolve to at least one collected pytest item OR fall under fallback_test_bundles (build_lattice_graph reports artifacts_without_test_mapping in either case).",
+    "Every launchable_ops row's name MUST appear in system/lib/launchable_operations.py at registration time.",
+    "Every reactions row's fires_op MUST appear in launchable_ops AND must have mutation_class in {M0R,M0E,M1,M2}. Pointing a reaction at M3/M4 is a registry-validation failure.",
+    "Every reaction with auto-fire MUST declare either min_interval_s or suppress_if_last_output_digest_same (loop guard)."
+  ],
+  "rebuild_freshness": {
+    "self_governance": "self",
+    "registry_validator": "tools/meta/factory/lattice_status.py --validate-registry (planned)",
+    "consumer_freshness_contract": "Consumers compute sha256 over canonical-json(registry) and record it as registry_digest in their projection."
+  },
+  "related_standards": [
+    "codex/standards/std_lattice_event.json",
+    "codex/standards/std_paper_module.json",
+    "codex/standards/std_skill.json",
+    "codex/standards/std_artifact_ontology.json",
+    "codex/standards/std_apply.json",
+    "codex/standards/std_reactions.json",
+    "codex/standards/std_bridge_receipt.json"
+  ]
+}

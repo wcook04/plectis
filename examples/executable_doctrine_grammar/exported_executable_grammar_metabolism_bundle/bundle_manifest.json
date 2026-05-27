@@ -7,19 +7,29 @@
   "runtime_surfaces": [
     "README.md",
     "grammar_board.json",
-    "receipt.json"
+    "receipt.json",
+    "source_module_manifest.json",
+    "source_modules/codex/standards/standards_registry.json",
+    "source_modules/codex/standards/std_standard_type_plane.json",
+    "source_modules/system/lib/standard_option_surface.py",
+    "source_modules/system/lib/kind_atlas.py"
   ],
   "source_import_class": "copied_non_secret_macro_body",
   "source_module_manifest": "source_module_manifest.json",
   "source_open_body_imports": {
     "path": "examples/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle/source_module_manifest.json",
-    "body_material_count": 3,
+    "body_material_count": 12,
     "source_import_class": "copied_non_secret_macro_body",
     "body_in_receipt": false,
-    "authority": "digest_verified_public_macro_body_floor"
+    "authority": "digest_verified_public_macro_body_floor",
+    "material_classes": [
+      "public_macro_receipt_body",
+      "public_macro_standard_body",
+      "public_macro_tool_body"
+    ]
   },
   "authority_ceiling": "public macro specimen validation only",
-  "body_storage_policy": "exact non-secret macro specimen bodies are copied into Microcosm examples and source_modules; receipt bodies carry paths, hashes, counts, and verdicts only",
+  "body_storage_policy": "exact non-secret macro specimen bodies plus standards-registry/type-plane and supporting kind-atlas/option-surface tool bodies are copied into Microcosm examples/source_modules; receipt bodies carry paths, hashes, counts, and verdicts only",
   "source_open_payload_boundary": "open source except keys, credentials, cookies, account/session state, provider payload bodies, browser/HUD live access, recipient-send state, and credential-equivalent material",
   "anti_claim": "This bundle imports a public executable-grammar metabolism specimen. It does not expose private standards engines, raw operator notes, provider transcripts, account/session state, publication authority, or clone-ready release authority."
 }
