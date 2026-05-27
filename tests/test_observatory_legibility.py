@@ -56,6 +56,15 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         is True
     )
     assert receipt["html_assertions"]["first_screen_reader_exit_cards_visible"] is True
+
+    assert (
+        receipt["html_assertions"]["first_screen_demo_to_scale_bridge_visible"]
+        is True
+    )
+    assert (
+        receipt["html_assertions"]["first_screen_demo_to_scale_boundary_visible"]
+        is True
+    )
     assert receipt["html_assertions"]["first_screen_exit_rule_visible"] is True
     assert receipt["html_assertions"]["first_screen_hello_command_visible"] is True
     assert receipt["html_assertions"]["first_screen_authority_ceiling_visible"] is True

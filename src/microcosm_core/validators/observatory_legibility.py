@@ -232,6 +232,18 @@ def validate_legibility(
         and "Can name evidence-class ceilings" in html
         and "Can distinguish runnable local behavior" in html
         and "Can find .microcosm state refs" in html,
+
+        "first_screen_demo_to_scale_bridge_visible": (
+            "Demo To Scale" in html
+            and "Local demo" in html
+            and "Structural scale" in html
+            and "Evidence floor" in html
+            and "Authority boundary" in html
+        ),
+        "first_screen_demo_to_scale_boundary_visible": (
+            "does not claim release or private-root equivalence" in html
+            and "Counts are honest accounting fields" in html
+        ),
         "first_screen_exit_rule_visible": (
             "exit when you can choose a drilldown without the command inventory"
             in html

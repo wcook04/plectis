@@ -17397,6 +17397,86 @@ class RuntimeShell:
                 "</div>"
             )
 
+
+        def first_screen_demo_to_scale_cards() -> str:
+            state_file_count = _safe_text(state_inspection.get("state_file_count"))
+            state_inspection_status = _safe_text(state_inspection.get("status"))
+            public_safe_material_count = _safe_text(
+                source_open_body_import_floor.get("public_safe_body_material_count")
+            )
+            python_file_count = _safe_text(project_python_lens.get("python_file_count"))
+            class_counts = dict_text(
+                source_open_body_import_floor.get(
+                    "public_safe_body_material_counts_by_class"
+                )
+            )
+            if not class_counts:
+                class_counts = "class counts not projected"
+            authority_boundary = _safe_text(
+                source_open_body_import_floor.get("authority_boundary")
+                or route.get("authority")
+                or causal.get("authority_boundary")
+            )
+            rows = [
+                {
+                    "title": "Local demo",
+                    "body": (
+                        "Runs against your folder and writes inspectable "
+                        ".microcosm state refs before any drilldown."
+                    ),
+                    "proof": (
+                        f"State inspection: {state_inspection_status or 'not projected'}; "
+                        f"{state_file_count or '0'} state files"
+                    ),
+                    "endpoint": "/project/observatory-card",
+                },
+                {
+                    "title": "Structural scale",
+                    "body": (
+                        "The same surface points past the demo into the route, "
+                        "graph, Python lens, and source-open body floor."
+                    ),
+                    "proof": (
+                        f"{public_safe_material_count or '0'} public-safe body "
+                        f"materials; {python_file_count or '0'} Python files"
+                    ),
+                    "endpoint": "/project/status",
+                },
+                {
+                    "title": "Evidence floor",
+                    "body": (
+                        "Counts are honest accounting fields, not maturity "
+                        "scores or release claims."
+                    ),
+                    "proof": class_counts,
+                    "endpoint": "/project/evidence",
+                },
+                {
+                    "title": "Authority boundary",
+                    "body": (
+                        "The local run proves inspectability; it does not "
+                        "claim release or private-root equivalence."
+                    ),
+                    "proof": authority_boundary or "authority ceiling not projected",
+                    "endpoint": "/authority",
+                },
+            ]
+            cards = []
+            for item in rows:
+                cards.append(
+                    "<article class="scale-bridge-card">"
+                    f"<h3>{html.escape(item['title'])}</h3>"
+                    f"<p>{html.escape(item['body'])}</p>"
+                    f"<strong>{html.escape(item['proof'])}</strong>"
+                    f"<code>{html.escape(item['endpoint'])}</code>"
+                    "</article>"
+                )
+            return (
+                "<div class="scale-bridge-grid" aria-label="Demo to scale bridge">"
+                f"{''.join(cards)}"
+                "</div>"
+            )
+
         def event_rows(rows: list[Any]) -> str:
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No events recorded yet.</td></tr>"
@@ -17834,6 +17914,13 @@ class RuntimeShell:
     .reader-route-card dt {{ color: #68665f; font-weight: 600; }}
     .reader-route-card dd {{ margin: 0; overflow-wrap: anywhere; color: #3d3b36; }}
     .command-stack {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }}
+
+    .scale-bridge-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 10px; margin: 8px 0 14px; }}
+    .scale-bridge-card {{ display: grid; gap: 7px; align-content: start; border: 1px solid #d8d6cc; border-radius: 6px; padding: 11px; background: #f8f8f3; min-width: 0; }}
+    .scale-bridge-card h3 {{ margin: 0; font-size: 13px; }}
+    .scale-bridge-card p {{ margin: 0; color: #3d3b36; font-size: 12px; line-height: 1.45; }}
+    .scale-bridge-card strong {{ color: #24231f; font-size: 12px; overflow-wrap: anywhere; }}
+    .scale-bridge-card code {{ width: fit-content; max-width: 100%; overflow-wrap: anywhere; }}
     @media (max-width: 860px) {{ main {{ grid-template-columns: 1fr; padding: 12px; }} header {{ padding: 22px 18px 16px; }} }}
   </style>
 </head>
@@ -17849,6 +17936,8 @@ class RuntimeShell:
         <div class="terminal-card" aria-label="Microcosm first-screen text card">{html.escape(first_screen_text_projection)}</div>
         <h3>Reader Route Choices</h3>
         {first_screen_reader_route_cards()}
+        <h3>Demo To Scale</h3>
+        {first_screen_demo_to_scale_cards()}
         <div class="chain">
           <div class="node"><strong>First Run</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>
