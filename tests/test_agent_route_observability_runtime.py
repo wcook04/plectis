@@ -1357,12 +1357,16 @@ def test_agent_observability_store_bundle_validates_runtime_shape(tmp_path: Path
     assert result["source_module_manifest"]["all_expected_line_counts_matched"] is True
     assert result["source_module_manifest"]["all_expected_byte_counts_matched"] is True
     assert result["source_module_manifest"]["body_in_receipt"] is False
-    assert result["copied_macro_source_count"] == 1
+    assert result["copied_macro_source_count"] == 2
     assert result["exact_source_body_import"]["verification_mode"] == (
         "exact_source_digest_match"
     )
     assert result["exact_source_body_import"]["source_body_digest"] == (
         result["exact_source_body_import"]["target_body_digest"]
+    )
+    assert len(result["exact_source_body_import"]["source_body_digests"]) == 2
+    assert result["exact_source_body_import"]["source_body_digests"] == (
+        result["exact_source_body_import"]["target_body_digests"]
     )
     assert result["body_import_verification"]["verification_mode"] == (
         "verified_light_edit_recipe"
@@ -1414,10 +1418,14 @@ def test_agent_observability_store_receipt_is_public_safe(tmp_path: Path) -> Non
     assert payload["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert payload["secret_exclusion_scan"]["body_in_receipt"] is False
     assert payload["source_module_manifest"]["body_in_receipt"] is False
-    assert payload["copied_macro_source_count"] == 1
+    assert payload["copied_macro_source_count"] == 2
     assert payload["exact_source_body_import"]["body_in_receipt"] is False
     assert payload["exact_source_body_import"]["source_body_digest"] == (
         payload["exact_source_body_import"]["target_body_digest"]
+    )
+    assert len(payload["exact_source_body_import"]["source_body_digests"]) == 2
+    assert payload["exact_source_body_import"]["source_body_digests"] == (
+        payload["exact_source_body_import"]["target_body_digests"]
     )
     assert payload["authority_ceiling"]["release_authorized"] is False
     for hit in payload["secret_exclusion_scan"]["hits"]:
@@ -1427,19 +1435,39 @@ def test_agent_observability_store_receipt_is_public_safe(tmp_path: Path) -> Non
 
 def test_agent_observability_store_imports_public_macro_body_refactor() -> None:
     source = MICROCOSM_ROOT.parent / "system/lib/agent_observability.py"
+    classification_source = (
+        MICROCOSM_ROOT.parent / "system/lib/agent_observability_classification.py"
+    )
     bundle_source = (
         AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT
         / "source_modules/system/lib/agent_observability.py"
+    )
+    classification_bundle_source = (
+        AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT
+        / "source_modules/system/lib/agent_observability_classification.py"
     )
     target = MICROCOSM_ROOT / "src/microcosm_core/macro_tools/agent_observability_store.py"
     manifest = json.loads(
         (AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT / "source_module_manifest.json").read_text()
     )
-    row = manifest["modules"][0]
+    rows_by_path = {row["path"]: row for row in manifest["modules"]}
+    row = rows_by_path["source_modules/system/lib/agent_observability.py"]
+    classification_row = rows_by_path[
+        "source_modules/system/lib/agent_observability_classification.py"
+    ]
     source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    classification_source_digest = hashlib.sha256(
+        classification_source.read_bytes()
+    ).hexdigest()
     bundle_source_digest = hashlib.sha256(bundle_source.read_bytes()).hexdigest()
+    classification_bundle_source_digest = hashlib.sha256(
+        classification_bundle_source.read_bytes()
+    ).hexdigest()
     target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
     bundle_source_text = bundle_source.read_text(encoding="utf-8")
+    classification_bundle_source_text = classification_bundle_source.read_text(
+        encoding="utf-8"
+    )
     view = build_public_agent_observability_store_view(
         load_public_agent_observability_store_bundle(AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT)
     )
@@ -1466,17 +1494,36 @@ def test_agent_observability_store_imports_public_macro_body_refactor() -> None:
     assert bundle_source.is_file()
     assert source_digest != target_digest
     assert source_digest == bundle_source_digest
+    assert classification_source_digest == classification_bundle_source_digest
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 2
     assert row["source_ref"] == "system/lib/agent_observability.py"
     assert row["path"] == "source_modules/system/lib/agent_observability.py"
     assert row["material_class"] == "public_macro_tool_body"
     assert row["body_in_receipt"] is False
     assert row["sha256"] == source_digest
     assert row["sha256"] == bundle_source_digest
+    assert classification_row["source_ref"] == (
+        "system/lib/agent_observability_classification.py"
+    )
+    assert classification_row["path"] == (
+        "source_modules/system/lib/agent_observability_classification.py"
+    )
+    assert classification_row["material_class"] == "public_macro_tool_body"
+    assert classification_row["body_in_receipt"] is False
+    assert classification_row["sha256"] == classification_source_digest
+    assert classification_row["sha256"] == classification_bundle_source_digest
     assert "class AgentTraceStore" in bundle_source_text
     assert "class AgentObservabilitySampler" in bundle_source_text
+    assert "def classify_auth_failure_loop(" in classification_bundle_source_text
+    assert "def classify_telemetry_quality(" in classification_bundle_source_text
     compile(bundle_source_text, str(bundle_source), "exec")
+    compile(
+        classification_bundle_source_text,
+        str(classification_bundle_source),
+        "exec",
+    )
     assert event["seq"] == 1
     assert store.status()["canonical_counts"]["route.decision"] == 1
     assert view["status"] == "pass"

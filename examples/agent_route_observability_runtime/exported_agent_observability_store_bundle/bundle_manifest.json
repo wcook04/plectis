@@ -1,10 +1,11 @@
 {
   "schema_version": "public_agent_observability_store_bundle_manifest_v1",
   "bundle_id": "public_agent_observability_store_runtime_example",
-  "generated_at": "2026-05-24T10:40:00+00:00",
+  "generated_at": "2026-05-27T14:50:00+00:00",
   "max_history": 2000,
   "source_refs": [
     "system/lib/agent_observability.py",
+    "system/lib/agent_observability_classification.py",
     "codex/standards/std_agent_execution_trace.json",
     "codex/doctrine/paper_modules/agent_observability.md",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
@@ -13,16 +14,20 @@
     "src/microcosm_core/macro_tools/agent_observability_store.py",
     "src/microcosm_core/organs/agent_route_observability_runtime.py",
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
   ],
   "source_import_class": "copied_non_secret_macro_body_plus_public_light_refactor",
   "source_modules": [
-    "source_modules/system/lib/agent_observability.py"
+    "source_modules/system/lib/agent_observability.py",
+    "source_modules/system/lib/agent_observability_classification.py"
   ],
   "source_symbols": [
     "system/lib/agent_observability.py::AgentEvent",
     "system/lib/agent_observability.py::AgentTraceStore",
-    "system/lib/agent_observability.py::AgentObservabilitySampler"
+    "system/lib/agent_observability.py::AgentObservabilitySampler",
+    "system/lib/agent_observability_classification.py::classify_auth_failure_loop",
+    "system/lib/agent_observability_classification.py::classify_telemetry_quality"
   ],
   "claim_ceiling": "public metadata trace-store replay only; not live session-log, provider, browser/HUD, account, credential, recipient-send, source-mutation, or release authority",
   "body_in_receipt": false

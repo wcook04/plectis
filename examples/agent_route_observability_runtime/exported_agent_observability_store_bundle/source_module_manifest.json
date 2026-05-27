@@ -3,7 +3,7 @@
   "bundle_id": "public_agent_observability_store_runtime_example",
   "source_import_class": "copied_non_secret_macro_body",
   "body_in_receipt": false,
-  "module_count": 1,
+  "module_count": 2,
   "modules": [
     {
       "source_ref": "system/lib/agent_observability.py",
@@ -25,6 +25,25 @@
       "line_count": 1699,
       "sha256": "e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
       "byte_count": 70065,
+      "body_in_receipt": false
+    },
+    {
+      "source_ref": "system/lib/agent_observability_classification.py",
+      "path": "source_modules/system/lib/agent_observability_classification.py",
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_role": "Agent observability telemetry-quality classifier that demotes auth-failure loops, stale source runtimes, persistence warnings, stream gaps, and schema gaps from already-emitted public event metadata without reading live transcript bodies or provider payloads.",
+      "required_anchors": [
+        "SCHEMA_VERSION = \"agent_observability_classification_v0\"",
+        "CLASS_ID_AUTH_FAILURE_LOOP",
+        "def classify_auth_failure_loop(",
+        "def stale_source_warnings(",
+        "def classify_telemetry_quality("
+      ],
+      "line_count": 358,
+      "sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "byte_count": 13537,
       "body_in_receipt": false
     }
   ],

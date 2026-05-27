@@ -62,9 +62,9 @@
   "bundle_fingerprint": "f35a4438737d15475b0fca8321ad108d1444e719ad0721779d01690a62478736",
   "bundle_id": "public_route_compliance_audit_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_route_compliance_audit_bundle_v1",
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-route-compliance-bundle --input examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle --out receipts/first_wave/agent_route_observability_runtime",
   "copied_macro_source_count": 7,
-  "created_at": "2026-05-26T12:37:43+00:00",
+  "created_at": "2026-05-27T14:56:57+00:00",
   "duplicate_trace_event_ids": [],
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
@@ -76,7 +76,7 @@
     "body_in_receipt": false,
     "source_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256:0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
@@ -95,7 +95,7 @@
     "source_to_target_relation": "exact_copy",
     "target_body_digests": [
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
-      "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256:0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
@@ -352,11 +352,11 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 45577,
-        "line_count": 623,
+        "byte_count": 47570,
+        "line_count": 664,
         "material_class": "public_standard_body",
         "path": "source_modules/codex/standards/std_agent_execution_trace.json",
-        "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
         "source_ref": "codex/standards/std_agent_execution_trace.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
       },

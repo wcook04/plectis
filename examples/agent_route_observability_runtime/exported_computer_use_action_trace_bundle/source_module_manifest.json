@@ -10,8 +10,8 @@
   "modules": [
     {
       "body_in_receipt": false,
-      "byte_count": 45577,
-      "line_count": 623,
+      "byte_count": 47570,
+      "line_count": 664,
       "material_class": "public_standard_body",
       "path": "source_modules/codex/standards/std_agent_execution_trace.json",
       "required_anchors": [
@@ -19,7 +19,7 @@
         "\"strict_boundary\"",
         "\"Span\""
       ],
-      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json"

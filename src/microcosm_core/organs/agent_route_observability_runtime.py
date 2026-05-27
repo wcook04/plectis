@@ -640,6 +640,7 @@ AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_INPUT_NAMES = (
 )
 AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_PATHS = (
     "source_modules/system/lib/agent_observability.py",
+    "source_modules/system/lib/agent_observability_classification.py",
 )
 AGENT_OBSERVABILITY_STORE_SOURCE_REF = "system/lib/agent_observability.py"
 AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF = (
@@ -647,6 +648,26 @@ AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF = (
     "exported_agent_observability_store_bundle/source_modules/system/lib/"
     "agent_observability.py"
 )
+AGENT_OBSERVABILITY_STORE_CLASSIFICATION_SOURCE_REF = (
+    "system/lib/agent_observability_classification.py"
+)
+AGENT_OBSERVABILITY_STORE_CLASSIFICATION_TARGET_REF = (
+    "microcosm-substrate/examples/agent_route_observability_runtime/"
+    "exported_agent_observability_store_bundle/source_modules/system/lib/"
+    "agent_observability_classification.py"
+)
+AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_SPECS = {
+    "source_modules/system/lib/agent_observability.py": {
+        "source_ref": AGENT_OBSERVABILITY_STORE_SOURCE_REF,
+        "target_ref": AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF,
+        "material_class": "public_macro_tool_body",
+    },
+    "source_modules/system/lib/agent_observability_classification.py": {
+        "source_ref": AGENT_OBSERVABILITY_STORE_CLASSIFICATION_SOURCE_REF,
+        "target_ref": AGENT_OBSERVABILITY_STORE_CLASSIFICATION_TARGET_REF,
+        "material_class": "public_macro_tool_body",
+    },
+}
 BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS = {
     "raw_worker_transcript_body",
     "raw_bridge_transcript",
@@ -3483,20 +3504,30 @@ def validate_agent_observability_store_source_manifest(
                 )
             )
             continue
-        if row.get("source_ref") != AGENT_OBSERVABILITY_STORE_SOURCE_REF:
+        spec = AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_SPECS[expected_path]
+        if row.get("source_ref") != spec["source_ref"]:
             findings.append(
                 _bundle_finding(
                     "AGENT_OBSERVABILITY_STORE_SOURCE_REF_MISMATCH",
-                    "Agent observability store copied source body must point back to the macro agent-observability source file.",
+                    "Agent observability store copied source body must point back to its macro source file.",
                     subject_id=expected_path,
                     subject_kind="agent_observability_store_source_manifest",
                 )
             )
-        if row.get("target_ref") != AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF:
+        if row.get("target_ref") != spec["target_ref"]:
             findings.append(
                 _bundle_finding(
                     "AGENT_OBSERVABILITY_STORE_TARGET_REF_MISMATCH",
                     "Agent observability store copied source body must name its public bundle target ref.",
+                    subject_id=expected_path,
+                    subject_kind="agent_observability_store_source_manifest",
+                )
+            )
+        if row.get("material_class") != spec["material_class"]:
+            findings.append(
+                _bundle_finding(
+                    "AGENT_OBSERVABILITY_STORE_MATERIAL_CLASS_MISMATCH",
+                    "Agent observability store copied source body must retain the public macro tool material class.",
                     subject_id=expected_path,
                     subject_kind="agent_observability_store_source_manifest",
                 )
@@ -3574,6 +3605,7 @@ def validate_agent_observability_store_source_manifest(
                 "path": expected_path,
                 "source_ref": row.get("source_ref"),
                 "target_ref": row.get("target_ref"),
+                "material_class": row.get("material_class"),
                 "sha256": observed_digest,
                 "line_count": observed_line_count,
                 "byte_count": observed_byte_count,
@@ -6925,11 +6957,22 @@ def run_agent_observability_store_bundle(
     source_refs = _strings(manifest.get("source_refs")) or AGENT_OBSERVABILITY_STORE_SOURCE_REFS
     target_refs = _strings(manifest.get("target_refs")) or AGENT_OBSERVABILITY_STORE_TARGET_REFS
     observed_source_modules = _rows(source_manifest_result, "observed_modules")
-    source_body_digest = (
-        str(observed_source_modules[0].get("sha256") or "")
-        if observed_source_modules
-        else ""
-    )
+    source_body_digests = [
+        f"sha256:{row['sha256']}"
+        for row in observed_source_modules
+        if row.get("sha256")
+    ]
+    exact_import_source_refs = [
+        str(row.get("source_ref") or "")
+        for row in observed_source_modules
+        if row.get("source_ref")
+    ]
+    exact_import_target_refs = [
+        str(row.get("target_ref") or "")
+        for row in observed_source_modules
+        if row.get("target_ref")
+    ]
+    primary_source_body_digest = source_body_digests[0] if source_body_digests else ""
 
     result = base_receipt(ORGAN_ID, FIXTURE_ID, command=command)
     result.update(
@@ -6978,12 +7021,16 @@ def run_agent_observability_store_bundle(
                 "source_to_target_relation": "exact_copy",
                 "source_ref": AGENT_OBSERVABILITY_STORE_SOURCE_REF,
                 "target_ref": AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF,
-                "source_body_digest": f"sha256:{source_body_digest}"
-                if source_body_digest
+                "source_refs": exact_import_source_refs,
+                "target_refs": exact_import_target_refs,
+                "source_body_digest": primary_source_body_digest,
+                "target_body_digest": primary_source_body_digest
+                if source_manifest_result["status"] == PASS
                 else "",
-                "target_body_digest": f"sha256:{source_body_digest}"
-                if source_body_digest and source_manifest_result["status"] == PASS
-                else "",
+                "source_body_digests": source_body_digests,
+                "target_body_digests": source_body_digests
+                if source_manifest_result["status"] == PASS
+                else [],
                 "body_in_receipt": False,
             },
             "forbidden_payload_keys": sorted(

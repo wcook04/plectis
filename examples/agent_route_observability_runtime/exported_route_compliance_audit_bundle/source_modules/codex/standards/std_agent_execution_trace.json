@@ -19,6 +19,47 @@
     },
     "drift_sensitivity": "high"
   },
+  "compliance_scanner_contract": {
+    "governed_artifact_kind": "agent_execution_trace",
+    "scanner": "system/lib/compliance/agent_execution_trace_adapter.py::scan_agent_execution_trace",
+    "builder": "tools/meta/factory/build_agent_execution_trace.py",
+    "runtime": "system/lib/agent_execution_trace.py",
+    "ledger_row": "codex/hologram/compliance/ledger.json::by_standard[std_agent_execution_trace]",
+    "coverage_inputs": [
+      "codex/standards/std_agent_execution_trace.json",
+      "codex/doctrine/process/trace_rules.json",
+      "system/lib/agent_execution_trace.py",
+      "tools/meta/factory/build_agent_execution_trace.py",
+      "codex/hologram/process/ledger.json",
+      "codex/hologram/process/audit.json",
+      "codex/hologram/process/navigation_cache.json",
+      "codex/hologram/process/patterns.json",
+      "codex/hologram/process/summary.json"
+    ],
+    "validation_probe": "./repo-python tools/meta/factory/build_agent_execution_trace.py --check --limit 5 --summary",
+    "finding_policy": {
+      "privacy_boundary_violation": "error",
+      "missing_required_field": "error",
+      "missing_required_atom": "error",
+      "schema_violation": "error",
+      "generated_projection_error": "error",
+      "generated_projection_warning": "warning"
+    },
+    "navigation_contract": {
+      "surface_role": "ATLAS_PROJECTION",
+      "first_contact_allowed": false,
+      "cluster_axis": "generated_artifact_status",
+      "default_band": "card",
+      "supported_drilldowns": [
+        "process-summary",
+        "process-audit",
+        "process-patterns",
+        "process-trace"
+      ],
+      "authority_boundary": "Scanner validates standard-owned rules and generated projection shapes only. Live transcript parsing stays behind the trace builder and process routes.",
+      "privacy_boundary": "Never parse prompt bodies, operator chat bodies, assistant prose bodies, raw tool output bodies, or hidden reasoning inside the compliance scanner."
+    }
+  },
   "strict_boundary": {
     "parses": [
       "observable records: timestamp, type, uuid, parentUuid",

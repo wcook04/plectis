@@ -61,9 +61,9 @@
         "\"navigation_reference_sequence_contract\"",
         "\"types\""
       ],
-      "line_count": 623,
-      "sha256": "0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
-      "byte_count": 45577,
+      "line_count": 664,
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "byte_count": 47570,
       "body_in_receipt": false
     }
   ],

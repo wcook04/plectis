@@ -58,9 +58,9 @@
   "bundle_id": "public_agent_observability_store_runtime_example",
   "bundle_manifest_schema_version": "public_agent_observability_store_bundle_manifest_v1",
   "canonical_type_count": 6,
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-agent-observability-store-bundle --input microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
-  "copied_macro_source_count": 1,
-  "created_at": "2026-05-26T11:42:16+00:00",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime validate-agent-observability-store-bundle --input examples/agent_route_observability_runtime/exported_agent_observability_store_bundle --out receipts/first_wave/agent_route_observability_runtime",
+  "copied_macro_source_count": 2,
+  "created_at": "2026-05-27T14:53:10+00:00",
   "credential_or_cookie_exported": false,
   "error_codes": [],
   "event_decisions": [
@@ -122,10 +122,26 @@
   "exact_source_body_import": {
     "body_in_receipt": false,
     "source_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+    "source_body_digests": [
+      "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+      "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c"
+    ],
     "source_ref": "system/lib/agent_observability.py",
+    "source_refs": [
+      "system/lib/agent_observability.py",
+      "system/lib/agent_observability_classification.py"
+    ],
     "source_to_target_relation": "exact_copy",
     "target_body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+    "target_body_digests": [
+      "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+      "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c"
+    ],
     "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+    "target_refs": [
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+      "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py"
+    ],
     "verification_mode": "exact_source_digest_match",
     "verification_status": "pass"
   },
@@ -238,7 +254,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 6,
+    "scanned_path_count": 7,
     "status": "pass"
   },
   "source_module_manifest": {
@@ -246,21 +262,32 @@
     "all_expected_digests_matched": true,
     "all_expected_line_counts_matched": true,
     "body_in_receipt": false,
-    "copied_macro_source_count": 1,
+    "copied_macro_source_count": 2,
     "findings": [],
-    "module_count": 1,
+    "module_count": 2,
     "observed_modules": [
       {
         "body_in_receipt": false,
         "byte_count": 70065,
         "line_count": 1699,
+        "material_class": "public_macro_tool_body",
         "path": "source_modules/system/lib/agent_observability.py",
         "sha256": "e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
         "source_ref": "system/lib/agent_observability.py",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py"
+      },
+      {
+        "body_in_receipt": false,
+        "byte_count": 13537,
+        "line_count": 358,
+        "material_class": "public_macro_tool_body",
+        "path": "source_modules/system/lib/agent_observability_classification.py",
+        "sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+        "source_ref": "system/lib/agent_observability_classification.py",
+        "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py"
       }
     ],
-    "required_module_count": 1,
+    "required_module_count": 2,
     "source_import_class": "copied_non_secret_macro_body",
     "status": "pass"
   },
@@ -280,6 +307,7 @@
   ],
   "source_refs": [
     "system/lib/agent_observability.py",
+    "system/lib/agent_observability_classification.py",
     "codex/standards/std_agent_execution_trace.json",
     "codex/doctrine/paper_modules/agent_observability.md",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json#agent_self_observability_plane"
@@ -318,6 +346,7 @@
     "src/microcosm_core/macro_tools/agent_observability_store.py",
     "src/microcosm_core/organs/agent_route_observability_runtime.py",
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
+    "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
     "receipts/first_wave/agent_route_observability_runtime/exported_agent_observability_store_bundle_validation_result.json"
   ],
   "tool_event_count": 2,
