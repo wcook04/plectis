@@ -2859,6 +2859,17 @@ def test_navigation_type_plane_option_surface_exposes_standard_owned_graph() -> 
         "codex/standards/std_microcosm.json::"
         "paper_module_coverage_contract.module_depth_roles"
     )
+    assert "microcosm_runtime_organ_atlas" in public_row["entry_depth_contract"][
+        "paper_module_depth_order"
+    ]
+    assert (
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        in public_row["governing_standard_refs"]
+    )
+    assert (
+        "codex/doctrine/paper_modules/microcosm_runtime_organ_atlas.md"
+        in public_row["projection_refs"]
+    )
     assert public_row["entry_depth_contract"]["supporting_lattice_depth"] == [
         "prime_directives",
         "local_to_general_propagation",

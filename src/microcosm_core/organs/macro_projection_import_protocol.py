@@ -2808,7 +2808,8 @@ def _source_ref_file_candidates(source_ref: str, *, public_root: Path | None) ->
     candidates: list[Path] = []
     if public_root is not None:
         candidates.extend([public_root / ref_path, public_root.parent / ref_path])
-    candidates.append(Path.cwd() / ref_path)
+    else:
+        candidates.append(Path.cwd() / ref_path)
     unique: list[Path] = []
     seen: set[str] = set()
     for candidate in candidates:
@@ -2884,7 +2885,20 @@ def _body_import_verification_findings(
 
     if mode == "exact_source_digest_match":
         source_digest = str(verification.get("source_body_digest") or "")
-        source_refs = _source_refs_for_material(row)
+        verified_source_ref = verification.get("source_ref")
+        declared_source_refs = _source_refs_for_material(row)
+        declared_source_ref = (
+            str(row.get("source_ref"))
+            if isinstance(row.get("source_ref"), str) and row.get("source_ref")
+            else declared_source_refs[0]
+            if declared_source_refs
+            else None
+        )
+        source_refs = (
+            [verified_source_ref]
+            if isinstance(verified_source_ref, str) and verified_source_ref
+            else declared_source_refs
+        )
         if _body_digest_is_placeholder(source_digest):
             findings.append(
                 _finding(
@@ -2892,6 +2906,21 @@ def _body_import_verification_findings(
                     "exact body imports must include the source body sha256 digest.",
                     case_id="public_safe_body_import_floor",
                     subject_id=material_id,
+                    subject_kind="copied_material",
+                )
+            )
+        elif (
+            isinstance(verified_source_ref, str)
+            and verified_source_ref
+            and declared_source_ref
+            and declared_source_ref != verified_source_ref
+        ):
+            findings.append(
+                _finding(
+                    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
+                    "exact body imports must use the same declared source ref and verified source body ref.",
+                    case_id="public_safe_body_import_floor",
+                    subject_id=declared_source_ref,
                     subject_kind="copied_material",
                 )
             )

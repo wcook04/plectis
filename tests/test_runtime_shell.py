@@ -307,8 +307,28 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "event_log_ref": ".microcosm/events.jsonl",
         "evidence_dir_ref": ".microcosm/evidence/",
         "graph_ref": ".microcosm/graph.json",
+        "project_observe_command": "microcosm observe <project>",
+        "project_observe_endpoint": "/project/observe",
         "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "observatory_bounded_validation_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "--max-requests 6"
+        ),
     }
+    behavior_contract = status["front_door"]["behavior_surfaces_contract"]
+    assert behavior_contract["schema_version"] == (
+        "microcosm_first_screen_behavior_surfaces_contract_v1"
+    )
+    assert behavior_contract["required_keys"] == list(
+        status["front_door"]["behavior_surfaces"]
+    )
+    assert behavior_contract["observed_keys"] == list(
+        status["front_door"]["behavior_surfaces"]
+    )
+    assert (
+        behavior_contract["first_screen_semantics"]["bounded_observatory_validation"]
+        == "finite_server_smoke_path"
+    )
     assert status["front_door"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
@@ -1129,7 +1149,16 @@ def test_runtime_shell_spine_is_cold_reader_xray() -> None:
     }.issubset(set(non_lean_tool_body_material_ids))
     assert spine["macro_body_import_floor"]["mixed_public_safe_macro_import_assay"][
         "proof_body_material_ids"
-    ] == ["lean_certificate_kernel_body_import"]
+    ] == [
+        "lean_certificate_kernel_body_import",
+        "period_noncollapse_root_module_body_import",
+        "certificate_kernel_lean_body_import",
+        "generated_certificates_lean_body_import",
+        "generated_certificate_shard_b10_l6_a11_body_import",
+        "operator_thread_memory_test_body_import",
+        "execution_spine_root_lean_body_import",
+        "execution_spine_basic_lean_body_import",
+    ]
     assert spine["first_screen_proof_lab"]["status"] == "pass"
     assert spine["first_screen_proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
@@ -2129,6 +2158,7 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         "inspect_first_screen",
         "inspect_status_and_workingness",
         "run_first_screen_proof_lab",
+        "inspect_project_observe",
         "open_observatory",
         "compile_project",
         "inspect_python_routes",
@@ -2141,6 +2171,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert minimal_path_by_id["open_observatory"]["endpoint"] == (
         "/project/observatory-card"
     )
+    assert minimal_path_by_id["inspect_project_observe"]["endpoint"] == (
+        "/project/observe"
+    )
     assert minimal_path_by_id["open_observatory"]["expanded_endpoint"] == (
         "/project/observatory"
     )
@@ -2152,6 +2185,12 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert tour["first_screen"]["behavior_surfaces"]["observatory_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
+    assert tour["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
+        "microcosm observe <project>"
+    )
+    assert tour["first_screen"]["behavior_surfaces_contract"]["required_keys"] == list(
+        tour["first_screen"]["behavior_surfaces"]
     )
     assert tour["first_screen"]["proof_surface"]["route_id"] == (
         "formal_prover_context_strategy_gate"
@@ -3849,6 +3888,37 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["scorecard"]["time_budget_minutes"] == 10
     assert lens["scorecard"]["blocking_gap_count"] == 0
     assert lens["scorecard"]["not_score_based_progress"] is True
+    assert lens["release_readiness_verdict"] == {
+        "schema_version": "microcosm_release_readiness_verdict_v1",
+        "public_first_screen_pass": True,
+        "release_gate_blocked_by_named_residuals": False,
+        "governance_valid_with_warnings": "trace_semantic_bucket_not_release_authority",
+        "no_release_authority": True,
+        "authority_boundary": (
+            "first-screen pass plus named residual hygiene can support a "
+            "recording companion card, not release, hosting, proof correctness, "
+            "or private-root equivalence."
+        ),
+    }
+    companion = lens["recording_companion_card"]
+    assert companion["schema_version"] == "microcosm_recording_companion_card_v1"
+    assert companion["role"] == (
+        "local_runnable_evidence_bounded_substrate_for_recording_authority"
+    )
+    assert companion["not_roles"] == [
+        "separate_frontend",
+        "hosted_product",
+        "proof_system",
+        "private_root_equivalence_claim",
+    ]
+    assert "microcosm tour --card <project>" in companion["first_screen_commands"]
+    assert "source_open_body_import_manifests" in companion["evidence_classes"]
+    assert companion["fixed_residuals"] == [
+        "runtime_shell_behavior_surfaces_contract_registered",
+        "macro_projection_exact_source_digest_floor_checked",
+        "package_root_generated_state_ignored",
+        "trace_readiness_verdict_axes_named",
+    ]
     assert set(lens["negative_case_ids"]) >= {
         "architecture_legible_without_running_commands_rejected",
         "receipt_forward_first_screen_rejected",

@@ -2008,7 +2008,8 @@ def test_kernel_route_process_summary_shape() -> None:
     assert len(summary_result.stdout) < len(trace_result.stdout) + len(audit_result.stdout)
     assert tape_result.stdout.startswith("trace ")
     assert "\n000" in tape_result.stdout
-    assert "|ok" in tape_result.stdout or " | ok " in tape_result.stdout
+    tape_lines = tape_result.stdout.splitlines()[1:]
+    assert any("|ok" in line or " ok " in line for line in tape_lines)
     assert len(tape_result.stdout.encode()) <= 3600
 
 

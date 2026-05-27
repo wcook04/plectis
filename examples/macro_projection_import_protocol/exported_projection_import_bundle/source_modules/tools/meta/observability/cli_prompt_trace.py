@@ -14,7 +14,8 @@ Output modes:
   --format compact  prompt + each tool call (command + truncated output)
   --format full     prompt + each tool call (raw output, no truncation)
   --format thread-closeouts
-                    session metadata + exact final closeouts, no tool bodies
+                    session metadata + exact final closeouts + high-level
+                    changed-file/command summary, no tool bodies
   --format json     provider-agnostic envelope (schema cli_prompt_trace_v0)
 
 Selection:
@@ -45,7 +46,7 @@ import sys
 import time
 from dataclasses import dataclass, field, asdict, replace
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 HOME = Path.home()
@@ -83,6 +84,7 @@ JSON_REDACTED_OUTPUT_PREVIEW_CHARS = 240
 SESSION_AMBIGUITY_WINDOW_SECONDS = 120
 SHORT_PROMPT_CHAIN_WORD_THRESHOLD = 25
 TRACE_CAPSULE_CLOSEOUT_CHARS = 2400
+TRACE_CLOSEOUT_COMMAND_LIMIT = 25
 
 CLAUDE_COMPLETE_STOP_REASONS = {"end_turn", "max_tokens", "stop_sequence", "refusal"}
 CODEX_EXIT_CODE_RE = re.compile(r"Process exited with code\s+(-?\d+)")
@@ -976,6 +978,347 @@ def _prompt_word_count(text: str) -> int:
     return len(re.findall(r"[A-Za-z0-9_']+", text or ""))
 
 
+def _compact_one_line(text: Any, *, limit: int = 120) -> str:
+    if text is None:
+        return ""
+    redacted, _ = _redact_secrets(str(text))
+    compact = re.sub(r"\s+", " ", html.unescape(redacted)).strip()
+    if limit > 0 and len(compact) > limit:
+        return compact[: max(0, limit - 3)].rstrip() + "..."
+    return compact
+
+
+def _prompt_title_from_text(prompt_text: str, *, limit: int = 120) -> str:
+    """Derive a human label from an operator prompt when session title metadata is absent."""
+    if not prompt_text:
+        return ""
+    lines = str(prompt_text).splitlines()
+    saw_request_header = False
+    candidates: list[str] = []
+    for raw in lines:
+        line = raw.strip()
+        if not line:
+            continue
+        lower = line.lower()
+        if lower.startswith("## my request"):
+            saw_request_header = True
+            continue
+        if lower.startswith("# files mentioned by the user"):
+            continue
+        if lower.startswith("## screenshot "):
+            continue
+        if lower.startswith("<image") or lower.startswith("</image"):
+            continue
+        if lower.startswith("![") or lower.startswith("[image"):
+            continue
+        if "/temporaryitems/" in lower or "screencaptureui" in lower:
+            continue
+        if lower.startswith("# agents.md instructions"):
+            break
+        if lower.startswith("<environment_context>") or lower.startswith("<instructions>"):
+            break
+        if line.startswith("## ") and not saw_request_header:
+            continue
+        candidates.append(line)
+    if not candidates:
+        return ""
+    first = candidates[0]
+    sentence = re.split(r"(?<=[.!?])\s+", first, maxsplit=1)[0]
+    return _compact_one_line(sentence or first, limit=limit)
+
+
+def _claude_subagent_sidechain_dir(parent_session_file: Path) -> Path:
+    return parent_session_file.parent / parent_session_file.stem / "subagents"
+
+
+def _claude_subagent_sidechain_summaries(parent_session_file: Path) -> list[dict]:
+    sidechain_dir = _claude_subagent_sidechain_dir(parent_session_file)
+    if not sidechain_dir.is_dir():
+        return []
+    summaries: list[dict] = []
+    for path in sorted(sidechain_dir.glob("agent-*.jsonl"), key=lambda p: p.stat().st_mtime, reverse=True):
+        try:
+            stat = path.stat()
+        except Exception:
+            continue
+        first: dict | None = None
+        attribution_agent = ""
+        model = ""
+        last_ts = ""
+        try:
+            with path.open() as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        rec = json.loads(line)
+                    except Exception:
+                        continue
+                    if first is None:
+                        first = rec
+                    if rec.get("timestamp"):
+                        last_ts = str(rec.get("timestamp"))
+                    if rec.get("attributionAgent") and not attribution_agent:
+                        attribution_agent = str(rec.get("attributionAgent") or "")
+                    msg = rec.get("message") or {}
+                    if isinstance(msg, dict) and msg.get("model") and not model:
+                        model = str(msg.get("model") or "")
+        except Exception:
+            continue
+        if not isinstance(first, dict):
+            continue
+        prompt_text = _flatten_claude_content((first.get("message") or {}).get("content"))
+        agent_id = str(first.get("agentId") or path.stem.replace("agent-", ""))
+        try:
+            turns = parse_claude_session(path)
+        except Exception:
+            turns = []
+        latest_turn = turns[-1] if turns else None
+        summaries.append({
+            "schema": "agent_trace_subagent_sidechain_v1",
+            "provider": "claude_code",
+            "parent_session_id": str(first.get("sessionId") or parent_session_file.stem),
+            "agent_id": agent_id,
+            "attribution_agent": _compact_one_line(attribution_agent, limit=40),
+            "session_file": str(path),
+            "started_at": first.get("timestamp"),
+            "completed_at": (latest_turn.completed_at if latest_turn else None) or last_ts or _iso_from_epoch(stat.st_mtime),
+            "mtime_utc": _iso_from_epoch(stat.st_mtime),
+            "size_bytes": stat.st_size,
+            "prompt_sha16": _sha16(prompt_text) if prompt_text else "",
+            "prompt_title": _prompt_title_from_text(prompt_text, limit=90),
+            "prompt_preview": _compact_one_line(prompt_text, limit=180),
+            "turn_count": len(turns),
+            "tool_count": sum(len(t.tool_events) for t in turns),
+            "error_count": sum(1 for t in turns for e in t.tool_events if e.is_error),
+            "status": "completed" if latest_turn and latest_turn.is_complete else "running",
+            "model": _compact_one_line(model, limit=48),
+        })
+    return summaries
+
+
+def _relationship_for_subagent_child(sidechain: dict | None) -> dict:
+    if sidechain:
+        return {
+            "schema": "agent_trace_subagent_relationship_v1",
+            "kind": "linked_sidechain",
+            "parent_signal": "tool_use:Agent",
+            "child_signal": "claude_sidechain_jsonl",
+            "confidence": "high",
+            "match_rule": "same_parent_session_and_prompt_sha16",
+        }
+    return {
+        "schema": "agent_trace_subagent_relationship_v1",
+        "kind": "deployment_only",
+        "parent_signal": "tool_use:Agent",
+        "child_signal": "not_found",
+        "confidence": "medium",
+        "match_rule": "parent_tool_use_only",
+    }
+
+
+def _attach_sidechain_to_deployment(dep: dict, sidechain: dict | None) -> dict:
+    out = dict(dep)
+    out["relationship"] = _relationship_for_subagent_child(sidechain)
+    out["relationship_kind"] = out["relationship"]["kind"]
+    out["relationship_confidence"] = out["relationship"]["confidence"]
+    out["linked_child_trace"] = bool(sidechain)
+    if sidechain:
+        child_trace = {
+            key: sidechain.get(key)
+            for key in (
+                "schema",
+                "agent_id",
+                "attribution_agent",
+                "session_file",
+                "started_at",
+                "completed_at",
+                "mtime_utc",
+                "size_bytes",
+                "turn_count",
+                "tool_count",
+                "error_count",
+                "status",
+                "model",
+                "prompt_sha16",
+                "prompt_title",
+            )
+        }
+        out["child_trace"] = child_trace
+        out["agent_id"] = sidechain.get("agent_id") or out.get("agent_id") or ""
+        out["attribution_agent"] = sidechain.get("attribution_agent") or out.get("attribution_agent") or ""
+        if sidechain.get("model") and not out.get("model"):
+            out["model"] = sidechain["model"]
+        out["status"] = sidechain.get("status") or out.get("status") or ""
+    return out
+
+
+def _sidechain_only_deployment(sidechain: dict, deployment_index: int) -> dict:
+    label = sidechain.get("prompt_title") or sidechain.get("attribution_agent") or sidechain.get("agent_id") or "Sub-agent trace"
+    return {
+        "schema": "agent_trace_subagent_deployment_v1",
+        "deployment_index": deployment_index,
+        "provider": "claude_code",
+        "session_id": sidechain.get("parent_session_id") or "",
+        "turn_index": None,
+        "turn_id": "",
+        "tool_index": None,
+        "tool_name": "Agent",
+        "tool_call_id": "",
+        "description": "",
+        "label": _compact_one_line(label, limit=90),
+        "subagent_type": sidechain.get("attribution_agent") or "",
+        "model": sidechain.get("model") or "",
+        "status": sidechain.get("status") or "",
+        "started_at": sidechain.get("started_at"),
+        "completed_at": sidechain.get("completed_at"),
+        "duration_ms": _iso_diff_ms(sidechain.get("started_at"), sidechain.get("completed_at")),
+        "prompt_preview": sidechain.get("prompt_preview") or "",
+        "prompt_sha16": sidechain.get("prompt_sha16") or "",
+        "prompt_char_count": 0,
+        "relationship": {
+            "schema": "agent_trace_subagent_relationship_v1",
+            "kind": "sidechain_only",
+            "parent_signal": "missing_or_uncached_tool_use",
+            "child_signal": "claude_sidechain_jsonl",
+            "confidence": "medium",
+            "match_rule": "sidechain_parent_session_directory",
+        },
+        "relationship_kind": "sidechain_only",
+        "relationship_confidence": "medium",
+        "linked_child_trace": True,
+        "child_trace": {
+            key: sidechain.get(key)
+            for key in (
+                "schema",
+                "agent_id",
+                "attribution_agent",
+                "session_file",
+                "started_at",
+                "completed_at",
+                "mtime_utc",
+                "size_bytes",
+                "turn_count",
+                "tool_count",
+                "error_count",
+                "status",
+                "model",
+                "prompt_sha16",
+                "prompt_title",
+            )
+        },
+        "agent_id": sidechain.get("agent_id") or "",
+        "attribution_agent": sidechain.get("attribution_agent") or "",
+    }
+
+
+def _subagent_deployment_from_tool_event(turn: Turn, ev: ToolEvent, deployment_index: int) -> dict | None:
+    tool_name = (ev.name or "").strip()
+    input_obj = ev.input if isinstance(ev.input, dict) else {}
+    lower_name = tool_name.lower()
+    has_subagent_shape = any(k in input_obj for k in ("subagent_type", "description", "prompt"))
+    if lower_name not in {"agent", "task"} and not input_obj.get("subagent_type"):
+        return None
+    if lower_name == "task" and not has_subagent_shape:
+        return None
+
+    description = _compact_one_line(input_obj.get("description") or "", limit=90)
+    prompt_text = str(input_obj.get("prompt") or "")
+    prompt_title = _prompt_title_from_text(prompt_text, limit=90)
+    subagent_type = _compact_one_line(input_obj.get("subagent_type") or "", limit=40)
+    model = _compact_one_line(input_obj.get("model") or "", limit=40)
+    label = description or prompt_title or subagent_type or tool_name or "Sub-agent"
+    status = "failed" if ev.is_error else ("completed" if ev.completed_at else "running")
+    prompt_preview = _compact_one_line(prompt_text, limit=180)
+    return {
+        "schema": "agent_trace_subagent_deployment_v1",
+        "deployment_index": deployment_index,
+        "provider": turn.provider,
+        "session_id": turn.session_id,
+        "turn_index": turn.turn_index,
+        "turn_id": turn.turn_id,
+        "tool_index": ev.index,
+        "tool_name": tool_name,
+        "tool_call_id": ev.tool_call_id or "",
+        "description": description,
+        "label": label,
+        "subagent_type": subagent_type,
+        "model": model,
+        "status": status,
+        "started_at": ev.started_at,
+        "completed_at": ev.completed_at,
+        "duration_ms": ev.duration_ms,
+        "prompt_preview": prompt_preview,
+        "prompt_sha16": _sha16(prompt_text) if prompt_text else "",
+        "prompt_char_count": len(prompt_text),
+        "relationship": _relationship_for_subagent_child(None),
+        "relationship_kind": "deployment_only",
+        "relationship_confidence": "medium",
+        "linked_child_trace": False,
+    }
+
+
+def _subagent_deployments_for_turn(turn: Turn, *, limit: int | None = None) -> list[dict]:
+    deployments: list[dict] = []
+    for ev in turn.tool_events:
+        dep = _subagent_deployment_from_tool_event(turn, ev, len(deployments) + 1)
+        if dep is not None:
+            deployments.append(dep)
+    if limit is not None:
+        return deployments[:limit]
+    return deployments
+
+
+def _subagent_deployment_packet(turns: list[Turn], *, sidechains: list[dict] | None = None, limit: int = 24) -> dict:
+    deployments: list[dict] = []
+    for turn in turns:
+        deployments.extend(_subagent_deployments_for_turn(turn))
+    sidechain_rows = list(sidechains or [])
+    sidechains_by_prompt: dict[str, list[dict]] = {}
+    for sc in sidechain_rows:
+        prompt_sha = str(sc.get("prompt_sha16") or "")
+        if prompt_sha:
+            sidechains_by_prompt.setdefault(prompt_sha, []).append(sc)
+    matched_sidechain_ids: set[str] = set()
+    enriched: list[dict] = []
+    for dep in deployments:
+        prompt_sha = str(dep.get("prompt_sha16") or "")
+        match = None
+        if prompt_sha and sidechains_by_prompt.get(prompt_sha):
+            match = sidechains_by_prompt[prompt_sha].pop(0)
+            if match.get("agent_id"):
+                matched_sidechain_ids.add(str(match["agent_id"]))
+        enriched.append(_attach_sidechain_to_deployment(dep, match))
+    deployments = enriched
+    for sc in sidechain_rows:
+        agent_id = str(sc.get("agent_id") or "")
+        if agent_id and agent_id in matched_sidechain_ids:
+            continue
+        deployments.append(_sidechain_only_deployment(sc, len(deployments) + 1))
+    if not deployments:
+        return {"count": 0, "deployments": [], "latest_label": "", "models": [], "linked_trace_count": 0}
+    deployments.sort(
+        key=lambda dep: (
+            str(dep.get("started_at") or dep.get("completed_at") or ""),
+            int(dep.get("turn_index") or 0),
+            int(dep.get("tool_index") or 0),
+        ),
+        reverse=True,
+    )
+    models = sorted({str(dep.get("model") or "") for dep in deployments if dep.get("model")})
+    linked_trace_count = sum(1 for dep in deployments if dep.get("linked_child_trace"))
+    recent = deployments[: max(1, limit)]
+    return {
+        "count": len(deployments),
+        "deployments": recent,
+        "latest_label": str(recent[0].get("label") or ""),
+        "models": models,
+        "linked_trace_count": linked_trace_count,
+        "visible_count": len(recent),
+    }
+
+
 def _prompt_cycle_word_count(text: str) -> int:
     """Word count used to decide prompt-cycle boundaries.
 
@@ -1095,6 +1438,45 @@ def _split_prompt_turn_blocks(prompt_text: str) -> list[dict[str, Any]]:
     return [{"turn_index": None, "text": value}] if value else []
 
 
+PROMPT_SHARED_CHUNK_MIN_CHARS = 500
+PROMPT_SHARED_CHUNK_MIN_LINES = 5
+
+
+def _shared_line_prefix(texts: list[str]) -> str:
+    if len(texts) < 2 or not all(texts):
+        return ""
+    line_sets = [text.splitlines(keepends=True) for text in texts]
+    prefix: list[str] = []
+    for index in range(min(len(lines) for lines in line_sets)):
+        candidate = line_sets[0][index]
+        if all(lines[index] == candidate for lines in line_sets[1:]):
+            prefix.append(candidate)
+        else:
+            break
+    value = "".join(prefix)
+    if len(value) < PROMPT_SHARED_CHUNK_MIN_CHARS or len(prefix) < PROMPT_SHARED_CHUNK_MIN_LINES:
+        return ""
+    return value
+
+
+def _shared_line_suffix(texts: list[str]) -> str:
+    if len(texts) < 2 or not all(texts):
+        return ""
+    line_sets = [text.splitlines(keepends=True) for text in texts]
+    suffix: list[str] = []
+    for offset in range(1, min(len(lines) for lines in line_sets) + 1):
+        candidate = line_sets[0][-offset]
+        if all(lines[-offset] == candidate for lines in line_sets[1:]):
+            suffix.append(candidate)
+        else:
+            break
+    suffix.reverse()
+    value = "".join(suffix)
+    if len(value) < PROMPT_SHARED_CHUNK_MIN_CHARS or len(suffix) < PROMPT_SHARED_CHUNK_MIN_LINES:
+        return ""
+    return value
+
+
 def _prompt_intern_manifest(prompt_text: str) -> dict[str, Any]:
     blocks = _split_prompt_turn_blocks(prompt_text)
     by_text: dict[str, list[int | None]] = {}
@@ -1122,25 +1504,93 @@ def _prompt_intern_manifest(prompt_text: str) -> dict[str, Any]:
             "text": text,
         })
 
+    partial_blocks = [
+        block for block in blocks
+        if str(block.get("text") or "") and str(block.get("text") or "") not in ref_by_text
+    ]
+    partial_texts = [str(block.get("text") or "") for block in partial_blocks]
+    shared_prefix = _shared_line_prefix(partial_texts)
+    prefix_texts = [
+        text[len(shared_prefix):] if shared_prefix and text.startswith(shared_prefix) else text
+        for text in partial_texts
+    ]
+    shared_suffix = _shared_line_suffix(prefix_texts)
+    if shared_prefix and shared_suffix:
+        # Avoid aliasing the same lines twice if the common suffix overlaps the
+        # already-aliased prefix in short prompts.
+        min_remaining = min(len(text) for text in prefix_texts) if prefix_texts else 0
+        if len(shared_suffix) >= min_remaining:
+            shared_suffix = ""
+    chunks: list[dict[str, Any]] = []
+    if shared_prefix:
+        chunks.append({
+            "id": "prompt_chunk_001",
+            "role": "common_prefix",
+            "sha16": _sha16(shared_prefix),
+            "chars": len(shared_prefix),
+            "turn_indices": [block.get("turn_index") for block in partial_blocks if block.get("turn_index") is not None],
+            "text": shared_prefix,
+        })
+    if shared_suffix:
+        chunks.append({
+            "id": f"prompt_chunk_{len(chunks) + 1:03d}",
+            "role": "common_suffix",
+            "sha16": _sha16(shared_suffix),
+            "chars": len(shared_suffix),
+            "turn_indices": [block.get("turn_index") for block in partial_blocks if block.get("turn_index") is not None],
+            "text": shared_suffix,
+        })
+    chunk_by_role = {row["role"]: row for row in chunks}
+
     turn_refs = []
     for block in blocks:
         text = str(block.get("text") or "")
         ref = ref_by_text.get(text)
+        segments: list[dict[str, Any]] = []
+        inline_chars = 0
+        if ref:
+            segments.append({"type": "prompt_ref", "id": ref})
+        else:
+            remaining = text
+            prefix = chunk_by_role.get("common_prefix")
+            suffix = chunk_by_role.get("common_suffix")
+            if prefix and remaining.startswith(str(prefix["text"])):
+                segments.append({"type": "chunk_ref", "id": prefix["id"], "role": prefix["role"]})
+                remaining = remaining[len(str(prefix["text"])):]
+            suffix_text = str(suffix["text"]) if suffix else ""
+            has_suffix = bool(suffix_text and remaining.endswith(suffix_text))
+            middle = remaining[: len(remaining) - len(suffix_text)] if has_suffix else remaining
+            if middle:
+                inline_chars += len(middle)
+                segments.append({
+                    "type": "inline",
+                    "chars": len(middle),
+                    "sha16": _sha16(middle),
+                    "text": middle,
+                })
+            if suffix and has_suffix:
+                segments.append({"type": "chunk_ref", "id": suffix["id"], "role": suffix["role"]})
         turn_refs.append({
             "turn_index": block.get("turn_index"),
             "prompt_ref": ref,
             "sha16": _sha16(text) if text else "",
             "chars": len(text),
+            "inline_chars": inline_chars if segments else len(text),
+            "chunk_refs": [segment["id"] for segment in segments if segment.get("type") == "chunk_ref"],
+            "segments": segments,
         })
 
     return {
-        "schema": "agent_trace_prompt_intern_pool_v1",
-        "status": "available" if pool else "not_needed",
+        "schema": "agent_trace_prompt_intern_pool_v2",
+        "status": "available" if (pool or chunks) else "not_needed",
         "pool": pool,
+        "chunks": chunks,
         "turn_refs": turn_refs,
         "repeated_prompt_count": len(pool),
         "interned_turn_count": sum(len(row["turn_indices"]) for row in pool),
-        "policy": "Repeated identical prompt bodies appear once in pool[].text; later turns carry prompt_ref. Unique/changed prompts remain inline.",
+        "chunk_count": len(chunks),
+        "chunk_ref_count": sum(len(row.get("chunk_refs") or []) for row in turn_refs),
+        "policy": "Repeated identical prompt bodies appear once in pool[].text; later turns carry prompt_ref. Shared line-prefix/suffix chunks become prompt_chunk refs; unique deltas remain verbatim inline.",
     }
 
 
@@ -1158,7 +1608,8 @@ def _render_prompt_with_interns(prompt_text: str) -> list[str]:
             "# prompt_intern_pool "
             f"schema={manifest['schema']} "
             f"repeated_prompt_count={manifest['repeated_prompt_count']} "
-            f"interned_turn_count={manifest['interned_turn_count']}"
+            f"interned_turn_count={manifest['interned_turn_count']} "
+            f"chunk_count={manifest.get('chunk_count', 0)}"
         )
     ]
     for row in manifest["pool"]:
@@ -1172,18 +1623,47 @@ def _render_prompt_with_interns(prompt_text: str) -> list[str]:
         lines.append(f"[/{row['id']}]")
         lines.append("")
 
+    for row in manifest.get("chunks", []):
+        turns = ",".join(str(turn) for turn in row["turn_indices"])
+        lines.append(
+            f"# prompt_chunk {row['id']} role={row['role']} chars={row['chars']} "
+            f"sha16={row['sha16']} turns={turns}"
+        )
+        lines.append(f"[{row['id']}]")
+        lines.append(row["text"])
+        lines.append(f"[/{row['id']}]")
+        lines.append("")
+
     lines.append("# prompt_turn_sequence")
+    refs_by_turn = {
+        row.get("turn_index"): row
+        for row in manifest.get("turn_refs", [])
+    }
     for block in _split_prompt_turn_blocks(prompt_text):
         text = str(block.get("text") or "")
         turn = block.get("turn_index")
         sha16 = _sha16(text) if text else ""
+        turn_ref = refs_by_turn.get(turn) or {}
         ref = ref_by_text.get(text)
         turn_label = f"[turn {turn}]" if turn is not None else "[turn unknown]"
         if ref:
             lines.append(f"{turn_label} prompt_ref={ref}")
         else:
-            lines.append(f"{turn_label} prompt_inline chars={len(text)} sha16={sha16}")
-            if text:
+            segments = turn_ref.get("segments") if isinstance(turn_ref, dict) else None
+            if segments:
+                lines.append(f"{turn_label} prompt_segmented chars={len(text)} sha16={sha16}")
+                for segment in segments:
+                    if segment.get("type") == "chunk_ref":
+                        lines.append(f"{turn_label} prompt_chunk_ref={segment.get('id')} role={segment.get('role')}")
+                    elif segment.get("type") == "inline":
+                        lines.append(
+                            f"{turn_label} prompt_inline_delta chars={segment.get('chars')} "
+                            f"sha16={segment.get('sha16')}"
+                        )
+                        if segment.get("text"):
+                            lines.append(str(segment["text"]))
+            elif text:
+                lines.append(f"{turn_label} prompt_inline chars={len(text)} sha16={sha16}")
                 lines.append(text)
         lines.append("")
     return lines
@@ -1444,6 +1924,193 @@ def render_full(turn: Turn, *, intern_repeated_prompts: bool = False) -> str:
     return _render(turn, full=True, intern_repeated_prompts=intern_repeated_prompts)
 
 
+def _closeout_duration_label(ms: int | None) -> str:
+    if ms is None:
+        return "unknown"
+    if ms < 1000:
+        return f"{ms} ms"
+    seconds = ms / 1000
+    if seconds < 60:
+        return f"{seconds:.1f} s"
+    minutes = int(seconds // 60)
+    remainder = int(seconds % 60)
+    return f"{minutes}m {remainder}s"
+
+
+def _md_table_code(value: Any) -> str:
+    text = str(value if value is not None else "")
+    text = text.replace("`", "'").replace("|", "\\|")
+    return f"`{text}`"
+
+
+def _closeout_command_display(ev: ToolEvent) -> str:
+    command = _capsule_command(ev)
+    if command:
+        return _single_line(command, limit=180)
+    base = _tool_base_name(ev.name)
+    if base:
+        return base
+    return "tool"
+
+
+def _closeout_command_summary_rows(turn: Turn, *, limit: int = TRACE_CLOSEOUT_COMMAND_LIMIT) -> list[dict[str, Any]]:
+    buckets: dict[str, dict[str, Any]] = {}
+    for ev, output_text, exit_code, is_error in _renderable_trace_tool_events(turn.tool_events):
+        display = _closeout_command_display(ev)
+        row = buckets.setdefault(display, {
+            "command": display,
+            "count": 0,
+            "known_duration_count": 0,
+            "total_duration_ms": 0,
+            "max_duration_ms": 0,
+            "failures": 0,
+            "output_chars": 0,
+        })
+        row["count"] += 1
+        if ev.duration_ms is not None:
+            row["known_duration_count"] += 1
+            row["total_duration_ms"] += ev.duration_ms
+            row["max_duration_ms"] = max(row["max_duration_ms"], ev.duration_ms)
+        if is_error or (exit_code is not None and exit_code != 0):
+            row["failures"] += 1
+        row["output_chars"] += len(output_text or "")
+    rows = list(buckets.values())
+    rows.sort(key=lambda row: (-row["count"], -row["total_duration_ms"], row["command"]))
+    return rows[:max(1, limit)]
+
+
+def _closeout_changed_file_rows(turn: Turn, *, limit: int = 50) -> list[dict[str, Any]]:
+    buckets: dict[str, dict[str, Any]] = {}
+    for ev in turn.tool_events:
+        for delta in _capsule_tool_edit_deltas(ev):
+            path = str(delta.get("path") or "").strip()
+            if not path:
+                continue
+            row = buckets.setdefault(path, {
+                "path": path,
+                "events": 0,
+                "additions": 0,
+                "deletions": 0,
+            })
+            row["events"] += 1
+            row["additions"] += int(delta.get("additions") or 0)
+            row["deletions"] += int(delta.get("deletions") or 0)
+    rows = list(buckets.values())
+    rows.sort(key=lambda row: (-row["events"], row["path"]))
+    return rows[:max(1, limit)]
+
+
+def _trace_source_fingerprint(turn: Turn) -> str:
+    """Cheap stable fingerprint for estimate/report metadata.
+
+    Raw sidecar SHA is still used when an artifact is materialized. This avoids
+    constructing multi-megabyte raw paste text when the UI only needs report
+    bytes or a compact source identity.
+    """
+    h = hashlib.sha256()
+    for part in (
+        turn.provider,
+        turn.session_id,
+        turn.turn_id,
+        str(turn.turn_index),
+        turn.prompt_sha256_16,
+        str(len(turn.tool_events)),
+        str(len(turn.assistant_events)),
+    ):
+        h.update(str(part or "").encode("utf-8"))
+        h.update(b"\0")
+    for ev in turn.tool_events:
+        h.update(str(ev.output_sha256_16 or "").encode("utf-8"))
+        h.update(str(ev.output_char_count or 0).encode("utf-8"))
+        h.update(b"\0")
+    for ev in turn.assistant_events:
+        h.update(_sha16(ev.text or "").encode("utf-8"))
+        h.update(b"\0")
+    return h.hexdigest()[:16]
+
+
+def _closeout_report_meta(
+    turn: Turn,
+    *,
+    command_limit: int = TRACE_CLOSEOUT_COMMAND_LIMIT,
+    source_sha16: str | None = None,
+) -> dict[str, Any]:
+    renderable = _renderable_trace_tool_events(turn.tool_events)
+    durations = [ev.duration_ms for ev, *_ in renderable if ev.duration_ms is not None]
+    failures = [
+        ev for ev, _output, exit_code, is_error in renderable
+        if is_error or (exit_code is not None and exit_code != 0)
+    ]
+    closeout_blocks = [
+        row for row in _split_prompt_turn_blocks(turn.assistant_text)
+        if str(row.get("text") or "").strip()
+    ]
+    if not closeout_blocks and turn.assistant_text.strip():
+        closeout_blocks = [{"turn_index": turn.turn_index, "text": turn.assistant_text.strip()}]
+    changed_files = _closeout_changed_file_rows(turn)
+    command_rows = _closeout_command_summary_rows(turn, limit=command_limit)
+    visible_progress_rows = _closeout_visible_progress_rows(turn)
+    return {
+        "schema_version": "agent_trace_closeout_report_meta_v1",
+        "turn_count": int(((turn.source_ref or {}).get("trace_window") or {}).get("turn_count") or 1),
+        "tool_event_count": len(renderable),
+        "failed_tool_event_count": len(failures),
+        "known_duration_count": len(durations),
+        "total_duration_ms": sum(durations),
+        "max_duration_ms": max(durations) if durations else None,
+        "changed_file_count": len(changed_files),
+        "changed_files": changed_files,
+        "command_summary_limit": command_limit,
+        "command_summary_rows": command_rows,
+        "closeout_count": len(closeout_blocks),
+        "closeout_char_count": sum(len(str(row.get("text") or "")) for row in closeout_blocks),
+        "visible_progress_note_count": len(visible_progress_rows),
+        "visible_progress_category_counts": _category_counts(row["category"] for row in visible_progress_rows),
+        "visible_progress_rows": visible_progress_rows,
+        "source_sha16": source_sha16 or _trace_source_fingerprint(turn),
+    }
+
+
+def _category_counts(values: Iterable[str]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for value in values:
+        key = str(value or "other")
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def _closeout_visible_progress_rows(turn: Turn, *, limit: int = 24) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for ev in sorted(turn.assistant_events, key=lambda row: row.source_record_index):
+        text = _capsule_clean_text(" ".join((ev.text or "").strip().split()))
+        if not text:
+            continue
+        category = _capsule_reasoning_category(text)
+        if category == "closeout":
+            continue
+        rows.append({
+            "note_id": f"N{len(rows) + 1:03d}",
+            "category": category,
+            "source_record_index": ev.source_record_index,
+            "excerpt": _capsule_reasoning_excerpt(text, max_chars=170),
+            "text": text,
+            "sha16": _sha16(text),
+        })
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def _visible_thinking_block(text: str, *, max_chars: int = 4000) -> str:
+    clean = (text or "").strip()
+    if len(clean) <= max_chars:
+        return clean
+    return (
+        clean[:max_chars].rstrip()
+        + f"\n\n[app-visible thinking note truncated; omitted_chars={len(clean) - max_chars}; sha16={_sha16(clean)}]"
+    )
+
+
 def _prompt_ref_by_turn(prompt_text: str) -> dict[int | None, dict[str, Any]]:
     manifest = _prompt_intern_manifest(prompt_text)
     return {
@@ -1464,13 +2131,16 @@ def render_thread_closeout_report(
     *,
     title: str | None = None,
     intern_repeated_prompts: bool = False,
+    command_limit: int = TRACE_CLOSEOUT_COMMAND_LIMIT,
+    generated_at: str | None = None,
 ) -> str:
-    """Render a compact full-session handoff: metadata + final closeouts.
+    """Render a compact full-session handoff: metadata + visible progress + final closeouts.
 
     This is the low-bulk companion to ``--format trace-paste --full-thread``.
-    It deliberately omits tool bodies and raw prompts while preserving enough
-    prompt metadata, prompt-intern refs, and exact final closeout prose for a
-    future Type A pass to choose the right raw JSONL drilldown.
+    It deliberately omits raw tool bodies while preserving prompt bodies,
+    app-visible thinking/progress notes, prompt-intern refs, and exact final
+    closeout prose for a future Type A pass to choose the right raw JSONL
+    drilldown when needed.
     """
     trace_window = (turn.source_ref or {}).get("trace_window") or {}
     turn_summaries = trace_window.get("turn_summaries") if isinstance(trace_window, dict) else None
@@ -1492,12 +2162,20 @@ def render_thread_closeout_report(
         closeout_blocks = [{"turn_index": turn.turn_index, "text": turn.assistant_text.strip()}]
 
     title_text = title or f"{turn.provider} thread {turn.session_id[:8] if turn.session_id else 'unknown'}"
-    mode = trace_window.get("mode") if isinstance(trace_window, dict) else "selected_turn"
-    start = trace_window.get("start_turn_index") if isinstance(trace_window, dict) else turn.turn_index
-    end = trace_window.get("end_turn_index") if isinstance(trace_window, dict) else turn.turn_index
-    turn_count = trace_window.get("turn_count") if isinstance(trace_window, dict) else 1
-    tool_count = trace_window.get("tool_count") if isinstance(trace_window, dict) else len(turn.tool_events)
-    generated = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    mode = trace_window.get("mode") if isinstance(trace_window, dict) else None
+    start = trace_window.get("start_turn_index") if isinstance(trace_window, dict) else None
+    end = trace_window.get("end_turn_index") if isinstance(trace_window, dict) else None
+    turn_count = trace_window.get("turn_count") if isinstance(trace_window, dict) else None
+    mode = mode or "selected_turn"
+    start = start if start is not None else turn.turn_index
+    end = end if end is not None else turn.turn_index
+    turn_count = turn_count if turn_count is not None else 1
+    if mode == "single_turn":
+        mode = "selected_turn"
+    tool_count = trace_window.get("tool_count") if isinstance(trace_window, dict) else None
+    tool_count = tool_count if tool_count is not None else len(turn.tool_events)
+    generated = generated_at or _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    report_meta = _closeout_report_meta(turn, command_limit=command_limit)
 
     lines = [
         f"# {title_text} — Closeout Report",
@@ -1512,9 +2190,57 @@ def render_thread_closeout_report(
         f"- Source JSONL: `{turn.session_file}`",
         f"- Window: `{mode}` turns `{start}`-`{end}` (`{turn_count}` turns)",
         f"- Tool events omitted: `{tool_count}`",
-        f"- Prompt body policy: `omitted_with_sha16_and_prompt_ref_metadata`",
+        f"- Report schema: `{TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION}`",
+        f"- Prompt body policy: `included_with_prompt_interning_when_repeated`",
         f"- Closeout body policy: `exact_final_assistant_messages_included`",
+        f"- Commands: `{report_meta['tool_event_count']}` events, `{report_meta['failed_tool_event_count']}` failed/error events",
+        f"- Observed runtime: `{_closeout_duration_label(report_meta['total_duration_ms'])}` total across `{report_meta['known_duration_count']}` timed events; max `{_closeout_duration_label(report_meta['max_duration_ms'])}`",
+        f"- Files changed: `{report_meta['changed_file_count']}`",
+        f"- App-visible thinking/progress notes: `{report_meta['visible_progress_note_count']}` (`assistant_visible_only`; server-hidden reasoning is not available)",
     ]
+
+    progress_rows = report_meta["visible_progress_rows"]
+    category_counts = report_meta["visible_progress_category_counts"]
+    lines.extend([
+        "",
+        "## App-Visible Thinking Trace",
+        "",
+        "Source: app-visible assistant thinking/progress/status messages already emitted in the transcript. Server-hidden reasoning is not accessible or included.",
+    ])
+    if category_counts:
+        counts = ", ".join(f"`{key}` {value}" for key, value in sorted(category_counts.items()))
+        lines.append(f"- Category counts: {counts}")
+    else:
+        lines.append("- Category counts: none")
+    if progress_rows:
+        lines.extend([
+            "",
+            "| Note | Category | Source | Excerpt |",
+            "|---|---|---:|---|",
+        ])
+        for row in progress_rows:
+            excerpt = html.escape(str(row["excerpt"]).replace("|", "\\|"))
+            lines.append(
+                f"| `{row['note_id']}` | `{row['category']}` | {row['source_record_index']} | {excerpt} |"
+            )
+    else:
+        lines.append("- No app-visible thinking/progress notes outside closeout were detected.")
+
+    if progress_rows:
+        lines.extend(["", "### Visible Note Bodies", ""])
+        for row in progress_rows:
+            body = html.escape(_visible_thinking_block(str(row.get("text") or "")))
+            lines.extend([
+                f"#### {row['note_id']} `{row['category']}`",
+                "",
+                f"- Source record: `{row['source_record_index']}`",
+                f"- sha16: `{row['sha16']}`",
+                "",
+                "<pre>",
+                body,
+                "</pre>",
+                "",
+            ])
 
     if intern_repeated_prompts:
         manifest = _prompt_intern_manifest(turn.prompt_text)
@@ -1531,6 +2257,61 @@ def render_thread_closeout_report(
             lines.append(
                 f"- `{row['id']}`: turns `{turns}`, chars `{row['chars']}`, sha16 `{row['sha16']}`"
             )
+        for row in manifest.get("chunks", []):
+            turns = ", ".join(str(x) for x in row.get("turn_indices", []))
+            lines.append(
+                f"- `{row['id']}`: `{row.get('role')}`, turns `{turns}`, chars `{row['chars']}`, sha16 `{row['sha16']}`"
+            )
+
+    if (turn.prompt_text or "").strip():
+        prompt_lines = _render_prompt_with_interns(turn.prompt_text) if intern_repeated_prompts else [turn.prompt_text]
+        prompt_body = "\n".join(prompt_lines).replace("```", "` ` `")
+        lines.extend([
+            "",
+            "## Prompt Bodies",
+            "",
+            "```text",
+            prompt_body,
+            "```",
+        ])
+
+    lines.extend([
+        "",
+        "## Changed Files",
+        "",
+    ])
+    changed_files = report_meta["changed_files"]
+    if changed_files:
+        lines.extend([
+            "| Path | Events | +/- |",
+            "|---|---:|---:|",
+        ])
+        for row in changed_files:
+            lines.append(
+                f"| {_md_table_code(row['path'])} | {row['events']} | +{row['additions']} / -{row['deletions']} |"
+            )
+    else:
+        lines.append("_No edit/write file deltas detected in the selected window._")
+
+    lines.extend([
+        "",
+        f"## Top Commands ({min(command_limit, len(report_meta['command_summary_rows']))})",
+        "",
+    ])
+    command_rows = report_meta["command_summary_rows"]
+    if command_rows:
+        lines.extend([
+            "| Count | Timed | Total | Max | Failures | Output chars | Command / tool |",
+            "|---:|---:|---:|---:|---:|---:|---|",
+        ])
+        for row in command_rows:
+            lines.append(
+                f"| {row['count']} | {row['known_duration_count']} | `{_closeout_duration_label(row['total_duration_ms'])}` | "
+                f"`{_closeout_duration_label(row['max_duration_ms'] if row['known_duration_count'] else None)}` | "
+                f"{row['failures']} | {row['output_chars']} | {_md_table_code(row['command'])} |"
+            )
+    else:
+        lines.append("_No command/tool events detected in the selected window._")
 
     lines.extend([
         "",
@@ -2162,6 +2943,7 @@ def write_structurer_clip(
 
 
 TRACE_CAPSULE_SCHEMA_VERSION = "agent_trace_capsule_text_v3"
+TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION = "agent_trace_closeout_report_v1"
 
 
 @dataclass(frozen=True)
@@ -3206,12 +3988,16 @@ def _write_variant_index_entry(session_id: str, variant: str, artifact: dict) ->
 def _trace_window_header(turn: Turn, source_window: str) -> str:
     trace_window = (turn.source_ref or {}).get("trace_window")
     if not isinstance(trace_window, dict):
-        return f"window: {source_window} turns={turn.turn_index} count=1"
+        display_source_window = "selected_turn" if source_window == "latest_prompt_cycle" else source_window
+        return f"window: {display_source_window} turns={turn.turn_index}-{turn.turn_index} count=1 mode=selected_turn"
     count = int(trace_window.get("turn_count") or 1)
     start = trace_window.get("start_turn_index") or turn.turn_index
     end = trace_window.get("end_turn_index") or turn.turn_index
     mode = trace_window.get("mode") or source_window
-    return f"window: {source_window} turns={start}-{end} count={count} mode={mode}"
+    display_source_window = "selected_turn" if source_window == "latest_prompt_cycle" and count == 1 else source_window
+    if mode == "single_turn":
+        mode = "selected_turn"
+    return f"window: {display_source_window} turns={start}-{end} count={count} mode={mode}"
 
 
 def render_trace_capsule_text(
@@ -3220,14 +4006,20 @@ def render_trace_capsule_text(
     title: str,
     source_window: str = "latest_prompt_cycle",
     intern_repeated_prompts: bool = False,
+    include_raw_sidecar: bool = True,
+    include_prompt_body: bool = True,
 ) -> tuple[str, dict]:
     renderable = _renderable_trace_tool_events(turn.tool_events)
-    raw_sidecar_text = render_trace_paste(
-        turn,
-        include_prompt=False,
-        intern_repeated_prompts=intern_repeated_prompts,
-    )
-    source_sha16 = _sha16(raw_sidecar_text)
+    if include_raw_sidecar:
+        raw_sidecar_text = render_trace_paste(
+            turn,
+            include_prompt=include_prompt_body,
+            intern_repeated_prompts=intern_repeated_prompts,
+        )
+        source_sha16 = _sha16(raw_sidecar_text)
+    else:
+        raw_sidecar_text = ""
+        source_sha16 = _trace_source_fingerprint(turn)
     status_text = "complete" if turn.is_complete else "in_progress"
     worked_for = _duration_label(turn.started_at, turn.completed_at)
     commands_with_outputs = 0
@@ -3484,13 +4276,20 @@ def render_trace_capsule_text(
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
         f"visible_progress: notes={visible_note_count} source=assistant_visible_only",
-        f"thinking: source=assistant_visible_only notes={visible_note_count} phases={reasoning_phase_count} pivots={pivot_count} route_decisions={route_decision_count} decisions={decision_count} validation_intents={validation_intent_count}",
+        f"thinking: source=app_visible_assistant_messages notes={visible_note_count} phases={reasoning_phase_count} pivots={pivot_count} route_decisions={route_decision_count} decisions={decision_count} validation_intents={validation_intent_count}",
     ])
     header.extend(_capsule_reasoning_digest_lines(reasoning_events))
     header.extend(episode_lines)
     if commit_summary:
         header.append(f"commit: {commit_summary}")
     header.append("open: none captured" if turn.is_complete else (turn.partial_reason or "trace still in progress"))
+    prompt_body_included = include_prompt_body and bool((turn.prompt_text or "").strip())
+    if prompt_body_included:
+        header.extend(["", "PROMPT"])
+        if intern_repeated_prompts:
+            header.extend(_render_prompt_with_interns(turn.prompt_text))
+        else:
+            header.append(turn.prompt_text)
     header.extend(["", "TIMELINE"])
     lines = header + timeline
     if commit_summary:
@@ -3505,9 +4304,12 @@ def render_trace_capsule_text(
         "OMISSIONS",
         "raw_sidecar: inline_trace_paste",
         f"truncated_outputs: {truncated_outputs}",
-        "not_included: hidden_reasoning, omitted_provider_bytes_without_sidecar",
-        f"source_window: {source_window}",
+        "not_included: server_hidden_reasoning, omitted_provider_bytes_without_sidecar",
+        "included: app_visible_thinking_progress",
+        f"source_window: {'selected_turn' if source_window == 'latest_prompt_cycle' and int(((turn.source_ref or {}).get('trace_window') or {}).get('turn_count') or 1) == 1 else source_window}",
     ])
+    if not prompt_body_included:
+        lines.append("prompt_body: omitted_by_request")
     prompt_intern_summary = _prompt_intern_summary_line(turn.prompt_text) if intern_repeated_prompts else None
     if prompt_intern_summary:
         lines.append(prompt_intern_summary.replace("# ", ""))
@@ -3545,6 +4347,8 @@ def render_trace_capsule_text(
         "closeout_present": closeout_present,
         "truncated_outputs": truncated_outputs,
         "raw_sidecar_text": raw_sidecar_text,
+        "raw_sidecar_materialized": include_raw_sidecar,
+        "prompt_body_included": prompt_body_included,
     }
     if prompt_intern_summary:
         meta["prompt_interning"] = _prompt_intern_manifest(turn.prompt_text)
@@ -3556,6 +4360,7 @@ def write_trace_capsule_artifact(
     *,
     source_window: str = "latest_prompt_cycle",
     intern_repeated_prompts: bool = False,
+    include_prompt_body: bool = True,
 ) -> dict:
     title, title_source = _resolve_session_title(
         turn.provider, turn.session_id, Path(turn.session_file),
@@ -3564,15 +4369,18 @@ def write_trace_capsule_artifact(
         claude_desktop_titles=_load_claude_desktop_titles(),
     )
     if not title:
+        title = _prompt_title_from_text(turn.prompt_text)
+        title_source = "current_turn_prompt_title" if title else "current_turn_prompt_preview"
+    if not title:
         first_line = next((line.strip() for line in (turn.prompt_text or "").splitlines() if line.strip()), "")
         title = first_line[:120] or f"{turn.provider} turn {turn.turn_index}"
-        title_source = "current_turn_prompt_preview"
 
     text, meta = render_trace_capsule_text(
         turn,
         title=title,
         source_window=source_window,
         intern_repeated_prompts=intern_repeated_prompts,
+        include_prompt_body=include_prompt_body,
     )
     data = text.encode("utf-8")
     sha16 = hashlib.sha256(data).hexdigest()[:16]
@@ -3684,6 +4492,333 @@ def write_trace_capsule_artifact(
             "turn_index": turn.turn_index,
             "prompt_interning": artifact.get("prompt_interning"),
         },
+    }
+
+
+def write_closeout_report_artifact(
+    turn: Turn,
+    *,
+    source_window: str = "latest_prompt_cycle",
+    intern_repeated_prompts: bool = False,
+    command_limit: int = TRACE_CLOSEOUT_COMMAND_LIMIT,
+) -> dict:
+    title, title_source = _resolve_session_title(
+        turn.provider, turn.session_id, Path(turn.session_file),
+        codex_thread_names=_load_codex_thread_names(),
+        title_aliases=_load_title_aliases(),
+        claude_desktop_titles=_load_claude_desktop_titles(),
+    )
+    if not title:
+        title = _prompt_title_from_text(turn.prompt_text)
+        title_source = "current_turn_prompt_title" if title else "current_turn_prompt_preview"
+    if not title:
+        first_line = next((line.strip() for line in (turn.prompt_text or "").splitlines() if line.strip()), "")
+        title = first_line[:120] or f"{turn.provider} turn {turn.turn_index}"
+
+    text = render_thread_closeout_report(
+        turn,
+        title=title,
+        intern_repeated_prompts=intern_repeated_prompts,
+        command_limit=command_limit,
+    )
+    raw_sidecar_text = render_trace_paste(
+        turn,
+        include_prompt=False,
+        intern_repeated_prompts=intern_repeated_prompts,
+    )
+    meta = _closeout_report_meta(
+        turn,
+        command_limit=command_limit,
+        source_sha16=_sha16(raw_sidecar_text),
+    )
+    data = text.encode("utf-8")
+    sha16 = hashlib.sha256(data).hexdigest()[:16]
+    prompt_tag = (turn.prompt_sha256_16 or "noprompt")[:8]
+    session_tag = _short_session_tag(turn.session_id)
+    out_name = _fs_safe_token(f"{turn.provider}-{session_tag}-{prompt_tag}-closeout_report-{sha16}.md")
+    out_path = TRACE_STRUCTURER_VARIANT_ARTIFACTS / out_name
+    raw_name = _fs_safe_token(f"{turn.provider}-{session_tag}-{prompt_tag}-closeout_report-{meta['source_sha16']}.raw.txt")
+    raw_path = TRACE_STRUCTURER_RAW / raw_name
+    TRACE_STRUCTURER_VARIANT_ARTIFACTS.mkdir(parents=True, exist_ok=True)
+    TRACE_STRUCTURER_RAW.mkdir(parents=True, exist_ok=True)
+    out_path.write_bytes(data)
+    raw_path.write_text(raw_sidecar_text, encoding="utf-8")
+
+    identity_key = f"session={turn.session_id}|window={source_window}|prompt={turn.prompt_sha256_16}|turn={turn.turn_index}|variant=closeout_report"
+    artifact = {
+        "schema": "agent_trace_variant_materialization_receipt_v0",
+        "artifact_kind": "agent_trace",
+        "artifact_role": "closeout_report",
+        "variant": "closeout_report",
+        "density_tier": 0,
+        "contract_state": "defined",
+        "materialization_state": "ready_for_handoff",
+        "replay_state": "blocked_without_lossless_sources",
+        "promotion_gate": "closeout_handoff_ready_not_replay_ready",
+        "schema_version": TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION,
+        "slice_label": TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION,
+        "provider": turn.provider,
+        "session_id": turn.session_id,
+        "title": title,
+        "path": str(out_path),
+        "artifact_path": str(out_path),
+        "bytes": len(data),
+        "sha16": sha16,
+        "size_contract": {"bytes": len(data), "status": "not_applicable", "variant": "closeout_report"},
+        "trace_counts": {
+            "schema": "agent_trace_variant_content_counts_v1",
+            "variant": "closeout_report",
+            "schema_version": TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION,
+            "command_count": meta["tool_event_count"],
+            "edit_path_count": meta["changed_file_count"],
+            "validation_count": 0,
+            "closeout_present": meta["closeout_count"] > 0,
+            "closeout_count": meta["closeout_count"],
+            "top_command_limit": command_limit,
+        },
+        "closeout_report_meta": {
+            key: value
+            for key, value in meta.items()
+            if key not in {"changed_files", "command_summary_rows"}
+        },
+        "source_clip_path": str(raw_path),
+        "clip_path": str(raw_path),
+        "source_window": source_window,
+        "source_sha16": meta["source_sha16"],
+        "identity_key": identity_key,
+        "prompt_sha16": turn.prompt_sha256_16,
+        "turn_index": turn.turn_index,
+        "freshness": "captured_now",
+        "standalone": True,
+        "capabilities": {
+            "standalone_for": [
+                "read_final_closeout",
+                "inspect_changed_files",
+                "inspect_top_commands_without_tool_bodies",
+                "choose_raw_trace_drilldown",
+            ]
+        },
+        "not_standalone_for": ["replay", "byte_reconstruction", "raw_tool_output_inspection"],
+        "requires_for": {"tool_body_replay": ["provider_session_jsonl_source_v1", "trace_capsule_or_lossless_clip"]},
+        "omitted": {"event_stream": True, "tool_bodies": True, "raw_prompts": True},
+        "generated_at": _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "window_anchor": {
+            "session_id": turn.session_id,
+            "prompt_sha16": turn.prompt_sha256_16,
+            "turn_index": turn.turn_index,
+            "source_window": source_window,
+            "source_sha16": meta["source_sha16"],
+            "source_clip_path": str(raw_path),
+        },
+    }
+    trace_window = (turn.source_ref or {}).get("trace_window") or (turn.source_ref or {}).get("prompt_cycle")
+    if isinstance(trace_window, dict):
+        artifact["trace_window"] = trace_window
+        artifact["window_anchor"]["trace_window"] = trace_window
+    if intern_repeated_prompts:
+        artifact["prompt_interning"] = {
+            key: value
+            for key, value in _prompt_intern_manifest(turn.prompt_text).items()
+            if key != "pool"
+        }
+    _write_variant_index_entry(turn.session_id, "closeout_report", artifact)
+    return {
+        "ok": True,
+        "kind": "cli_prompt_trace.closeout_report_artifact_written",
+        "provider": turn.provider,
+        "session_id": turn.session_id,
+        "turn_id": turn.turn_id,
+        "turn_index": turn.turn_index,
+        "title": title,
+        "title_source": title_source,
+        "prompt_sha16": turn.prompt_sha256_16,
+        "prompt_char_count": turn.prompt_char_count,
+        "trace_window": trace_window if isinstance(trace_window, dict) else None,
+        "source_window": source_window,
+        "source_sha16": meta["source_sha16"],
+        "source_clip_path": str(raw_path),
+        "clip_path": str(raw_path),
+        "artifact_path": str(out_path),
+        "copied_bytes": len(data),
+        "bytes": {"artifact": len(data), "raw": raw_path.stat().st_size if raw_path.exists() else 0},
+        "variant": "closeout_report",
+        "slice_label": TRACE_CLOSEOUT_REPORT_SCHEMA_VERSION,
+        "variant_artifact": artifact,
+        "content_summary": {
+            "command_count": meta["tool_event_count"],
+            "top_command_limit": command_limit,
+            "edit_path_count": meta["changed_file_count"],
+            "closeout_count": meta["closeout_count"],
+            "closeout_present": meta["closeout_count"] > 0,
+            "prompt_sha16": turn.prompt_sha256_16,
+            "turn_index": turn.turn_index,
+            "prompt_interning": artifact.get("prompt_interning"),
+        },
+    }
+
+
+def _variant_estimate_row(
+    *,
+    variant: str,
+    source_window: str,
+    text: str,
+    exact: bool = True,
+    source: str = "renderer_no_write",
+) -> dict[str, Any]:
+    data = text.encode("utf-8")
+    return {
+        "variant": variant,
+        "source_window": source_window,
+        "bytes": len(data),
+        "sha16": hashlib.sha256(data).hexdigest()[:16],
+        "exact": exact,
+        "source": source,
+    }
+
+
+def _trace_variant_size_estimates(
+    turn: Turn,
+    *,
+    cycle_turn: Turn,
+    full_turn: Turn,
+    title: str,
+    include_prompt_body: bool = True,
+    materialize_trace_sidecar_for_exact_size: bool = False,
+) -> dict[str, Any]:
+    """Return UI byte estimates using the same renderers as copy/save."""
+    estimates: dict[str, Any] = {
+        "schema": "agent_trace_variant_size_estimates_v1",
+        "status": "renderer_exact_no_write" if materialize_trace_sidecar_for_exact_size else "renderer_estimate_no_write",
+        "trace_capsule": {},
+        "closeout_report": {},
+    }
+    generated_at = _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    def add(
+        variant: str,
+        source_window: str,
+        text: str,
+        *,
+        exact: bool = True,
+        source: str = "renderer_no_write",
+    ) -> None:
+        estimates.setdefault(variant, {})[source_window] = _variant_estimate_row(
+            variant=variant,
+            source_window=source_window,
+            text=text,
+            exact=exact,
+            source=source,
+        )
+
+    for source_window, source_turn in (
+        ("selected_turn", turn),
+        ("latest_prompt_cycle", cycle_turn),
+        ("full_thread", full_turn),
+    ):
+        try:
+            text, _meta = render_trace_capsule_text(
+                source_turn,
+                title=title,
+                source_window=source_window,
+                intern_repeated_prompts=True,
+                include_raw_sidecar=materialize_trace_sidecar_for_exact_size,
+                include_prompt_body=include_prompt_body,
+            )
+            add(
+                "trace_capsule",
+                source_window,
+                text,
+                exact=materialize_trace_sidecar_for_exact_size,
+                source="renderer_no_write_current" if materialize_trace_sidecar_for_exact_size else "renderer_no_write_estimate",
+            )
+        except Exception as exc:
+            estimates["trace_capsule"][source_window] = {
+                "variant": "trace_capsule",
+                "source_window": source_window,
+                "bytes": 0,
+                "exact": False,
+                "source": "renderer_no_write",
+                "error": str(exc)[:160],
+            }
+        try:
+            text = render_thread_closeout_report(
+                source_turn,
+                title=title,
+                intern_repeated_prompts=True,
+                command_limit=TRACE_CLOSEOUT_COMMAND_LIMIT,
+                generated_at=generated_at,
+            )
+            add("closeout_report", source_window, text)
+        except Exception as exc:
+            estimates["closeout_report"][source_window] = {
+                "variant": "closeout_report",
+                "source_window": source_window,
+                "bytes": 0,
+                "exact": False,
+                "source": "renderer_no_write",
+                "error": str(exc)[:160],
+            }
+    return estimates
+
+
+def measure_trace_variant_sizes(
+    turn: Turn,
+    *,
+    turns: list[Turn],
+    title: str,
+    selected_source_window: str = "latest_prompt_cycle",
+    variant: str = "all",
+    include_prompt_body: bool = True,
+) -> dict[str, Any]:
+    cycle_turn = merge_prompt_cycle(
+        prompt_cycle_turns(
+            turns,
+            turn,
+            threshold_words=SHORT_PROMPT_CHAIN_WORD_THRESHOLD,
+        ),
+        threshold_words=SHORT_PROMPT_CHAIN_WORD_THRESHOLD,
+    )
+    full_turn = merge_full_thread(full_thread_turns(turns, turn))
+    estimates = _trace_variant_size_estimates(
+        turn,
+        cycle_turn=cycle_turn,
+        full_turn=full_turn,
+        title=title,
+        include_prompt_body=include_prompt_body,
+        materialize_trace_sidecar_for_exact_size=True,
+    )
+    if variant != "all":
+        estimates = {
+            "schema": estimates["schema"],
+            "status": estimates["status"],
+            variant: estimates.get(variant, {}),
+        }
+    selected_window = selected_source_window
+    if selected_source_window == "full_thread_concise":
+        selected_window = "full_thread"
+    selected_variant = "closeout_report" if selected_source_window == "full_thread_concise" else (
+        "trace_capsule" if variant == "all" else variant
+    )
+    selected = (estimates.get(selected_variant) or {}).get(selected_window) or {}
+    return {
+        "ok": True,
+        "schema": "agent_trace_variant_size_measurement_v1",
+        "status": "measured_current_no_write",
+        "provider": turn.provider,
+        "session_id": turn.session_id,
+        "title": title,
+        "turn_index": turn.turn_index,
+        "turn_id": turn.turn_id,
+        "prompt_sha16": turn.prompt_sha256_16,
+        "source_window": selected_window,
+        "requested_source_window": selected_source_window,
+        "variant": selected_variant,
+        "bytes": selected.get("bytes"),
+        "sha16": selected.get("sha16"),
+        "exact": True,
+        "source": "renderer_no_write_current",
+        "trace_window": (turn.source_ref or {}).get("trace_window") or {},
+        "measurements": estimates,
     }
 
 
@@ -3938,6 +5073,8 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
         trace_window = (cycle_turn.source_ref or {}).get("trace_window") or (cycle_turn.source_ref or {}).get("prompt_cycle") or {}
         full_thread_window = (full_turn.source_ref or {}).get("trace_window") or (full_turn.source_ref or {}).get("full_thread") or {}
         is_complete = turn.is_complete if complete_override is None else complete_override
+        subagent_deployments = _subagent_deployments_for_turn(turn, limit=6)
+        estimate_title = _prompt_title_from_text(turn.prompt_text) or f"{turn.provider} turn {turn.turn_index}"
         summary = {
             "turn_index": turn.turn_index,
             "turn_id": turn.turn_id,
@@ -3948,7 +5085,10 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
             "prompt_sha16": turn.prompt_sha256_16,
             "prompt_char_count": turn.prompt_char_count,
             "prompt_word_count": _prompt_word_count(turn.prompt_text),
+            "prompt_title": _prompt_title_from_text(turn.prompt_text),
             "prompt_preview": (turn.prompt_text or "").strip()[:90],
+            "subagent_count": len(subagent_deployments),
+            "subagent_deployments": subagent_deployments,
             "trace_window": trace_window,
             "trace_window_prompt_sha16": trace_window.get("prompt_sha16") or turn.prompt_sha256_16,
             "trace_window_turn_count": trace_window.get("turn_count") or 1,
@@ -3959,6 +5099,13 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
             "full_thread_turn_count": full_thread_window.get("turn_count") or 1,
             "full_thread_tool_count": len(full_turn.tool_events),
             "full_thread_error_count": sum(1 for e in full_turn.tool_events if e.is_error),
+            "trace_variant_size_estimates": _trace_variant_size_estimates(
+                turn,
+                cycle_turn=cycle_turn,
+                full_turn=full_turn,
+                title=estimate_title,
+                include_prompt_body=True,
+            ),
             "is_complete": bool(is_complete),
         }
         if not is_complete:
@@ -3979,6 +5126,19 @@ def _latest_completed_turn_summary(provider: str, session_file: Path) -> dict | 
         out["preferred_trace_turn"] = completed_summary
     elif active_summary:
         out["preferred_trace_turn"] = active_summary
+    sidechains = _claude_subagent_sidechain_summaries(session_file) if provider == "claude_code" else []
+    subagent_packet = _subagent_deployment_packet(turns, sidechains=sidechains)
+    if subagent_packet.get("count"):
+        out["subagent_deployments"] = subagent_packet["deployments"]
+        out["subagent_summary"] = {
+            "count": subagent_packet["count"],
+            "latest_label": subagent_packet.get("latest_label") or "",
+            "models": subagent_packet.get("models") or [],
+            "linked_trace_count": subagent_packet.get("linked_trace_count") or 0,
+            "visible_count": subagent_packet.get("visible_count") or len(subagent_packet["deployments"]),
+        }
+    if sidechains:
+        out["subagent_sidechains"] = sidechains[:24]
     return out or None
 
 
@@ -4004,11 +5164,25 @@ def _active_turn_is_preferred(active_turn: dict | None, completed_turn: dict | N
     return _turn_activity_sort_value(active_turn) > _turn_activity_sort_value(completed_turn)
 
 
-MISSION_SUMMARY_CACHE_SCHEMA = "agent_trace_structurer_mission_summary_cache_v1"
+MISSION_SUMMARY_CACHE_SCHEMA = "agent_trace_structurer_mission_summary_cache_v5"
+MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS = (
+    "agent_trace_structurer_mission_summary_cache_v4",
+    "agent_trace_structurer_mission_summary_cache_v3",
+    "agent_trace_structurer_mission_summary_cache_v2",
+)
+MISSION_INDEX_STALE_REPARSE_BUDGET = 1
 
 
 def _mission_summary_cache_key(provider: str, session_id: str, session_file: Path) -> str:
-    return f"{provider}:{session_id}:{_sha16(str(session_file))}"
+    return f"{MISSION_SUMMARY_CACHE_SCHEMA}:{provider}:{session_id}:{_sha16(str(session_file))}"
+
+
+def _mission_summary_cache_candidate_keys(provider: str, session_id: str, session_file: Path) -> list[str]:
+    file_hash = _sha16(str(session_file))
+    keys = [_mission_summary_cache_key(provider, session_id, session_file)]
+    keys.extend(f"{schema}:{provider}:{session_id}:{file_hash}" for schema in MISSION_SUMMARY_CACHE_LEGACY_SCHEMAS)
+    keys.append(f"{provider}:{session_id}:{file_hash}")
+    return keys
 
 
 def _session_file_meta(provider: str, session_id: str, session_file: Path, row: dict | None = None) -> dict:
@@ -4051,26 +5225,58 @@ def _load_mission_summary_cache() -> dict:
     return {"schema": MISSION_SUMMARY_CACHE_SCHEMA, "entries": {}}
 
 
-def _mission_summary_cache_lookup(cache: dict, meta: dict) -> tuple[dict | None, str]:
+def _mission_summary_cache_lookup(
+    cache: dict,
+    meta: dict,
+    *,
+    allow_stale_summary: bool = False,
+) -> tuple[dict | None, str]:
     entries = cache.get("entries") or {}
-    key = _mission_summary_cache_key(meta["provider"], meta["session_id"], Path(meta["session_file"]))
-    entry = entries.get(key)
-    if not isinstance(entry, dict):
-        return None, "miss"
-    source = entry.get("source") or {}
-    same = (
-        source.get("provider") == meta["provider"]
-        and source.get("session_id") == meta["session_id"]
-        and source.get("session_file") == meta["session_file"]
-        and int(source.get("mtime_ns") or 0) == int(meta.get("mtime_ns") or 0)
-        and int(source.get("size_bytes") or 0) == int(meta.get("size_bytes") or 0)
-    )
-    if not same:
+    current_key = _mission_summary_cache_key(meta["provider"], meta["session_id"], Path(meta["session_file"]))
+    stale_seen = False
+    for key in _mission_summary_cache_candidate_keys(meta["provider"], meta["session_id"], Path(meta["session_file"])):
+        entry = entries.get(key)
+        if not isinstance(entry, dict):
+            continue
+        source = entry.get("source") or {}
+        same = (
+            source.get("provider") == meta["provider"]
+            and source.get("session_id") == meta["session_id"]
+            and source.get("session_file") == meta["session_file"]
+            and int(source.get("mtime_ns") or 0) == int(meta.get("mtime_ns") or 0)
+            and int(source.get("size_bytes") or 0) == int(meta.get("size_bytes") or 0)
+        )
+        if not same:
+            summary = entry.get("summary")
+            same_identity = (
+                source.get("provider") == meta["provider"]
+                and source.get("session_id") == meta["session_id"]
+                and source.get("session_file") == meta["session_file"]
+            )
+            if allow_stale_summary and same_identity and isinstance(summary, dict):
+                stale_summary = json.loads(json.dumps(summary))
+                stale_summary["cache_state"] = "soft_stale"
+                stale_summary["cache_source_mtime_ns"] = source.get("mtime_ns")
+                stale_summary["cache_current_mtime_ns"] = meta.get("mtime_ns")
+                return stale_summary, "soft_stale_hit"
+            stale_seen = True
+            continue
+        summary = entry.get("summary")
+        if isinstance(summary, dict):
+            now = _dt.datetime.now(_dt.timezone.utc).isoformat()
+            entry["last_used_at"] = now
+            if key != current_key:
+                entries[current_key] = {
+                    "source": meta,
+                    "summary": summary,
+                    "updated_at": entry.get("updated_at") or now,
+                    "last_used_at": now,
+                    "migrated_from": key,
+                }
+                return summary, "legacy_hit"
+            return summary, "hit"
+    if stale_seen:
         return None, "stale"
-    summary = entry.get("summary")
-    if isinstance(summary, dict):
-        entry["last_used_at"] = _dt.datetime.now(_dt.timezone.utc).isoformat()
-        return summary, "hit"
     return None, "miss"
 
 
@@ -4183,8 +5389,17 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
     title_aliases = _load_title_aliases()
     claude_desktop_titles = _load_claude_desktop_titles()
     summary_cache = _load_mission_summary_cache()
-    cache_stats = {"hits": 0, "misses": 0, "stale": 0, "skipped_archived": 0, "stored": 0}
+    cache_stats = {
+        "hits": 0,
+        "legacy_hits": 0,
+        "soft_stale_hits": 0,
+        "misses": 0,
+        "stale": 0,
+        "skipped_archived": 0,
+        "stored": 0,
+    }
     cache_dirty = False
+    stale_reparse_remaining = MISSION_INDEX_STALE_REPARSE_BUDGET
     rows: list[dict] = []
     candidates = _enumerate_candidates("auto", cwd or Path.cwd())
     for c in candidates[:limit]:
@@ -4215,17 +5430,33 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                 "trace_id": cpt.get("trace_id") or "",
             }
         desktop = (claude_desktop_titles or {}).get(c["session_id"]) or {}
-        ord_start, ord_end, ord_source = _mission_ordinal(title)
         # Parse session lazily — skip for archived rows (won't render anyway).
         completed_active: dict = {}
+        summary_cache_state = "skipped_archived" if desktop.get("is_archived") else "unknown"
         if not desktop.get("is_archived"):
             session_path = Path(c["session_file"])
             source_meta = _session_file_meta(c["provider"], c["session_id"], session_path, c)
             cached_summary, cache_state = _mission_summary_cache_lookup(summary_cache, source_meta)
+            if cache_state == "stale" and stale_reparse_remaining <= 0:
+                soft_summary, soft_state = _mission_summary_cache_lookup(
+                    summary_cache,
+                    source_meta,
+                    allow_stale_summary=True,
+                )
+                if soft_summary is not None:
+                    cached_summary, cache_state = soft_summary, soft_state
             if cache_state == "hit":
                 cache_stats["hits"] += 1
+            elif cache_state == "legacy_hit":
+                cache_stats["hits"] += 1
+                cache_stats["legacy_hits"] += 1
+                cache_dirty = True
+            elif cache_state == "soft_stale_hit":
+                cache_stats["hits"] += 1
+                cache_stats["soft_stale_hits"] += 1
             elif cache_state == "stale":
                 cache_stats["stale"] += 1
+                stale_reparse_remaining = max(0, stale_reparse_remaining - 1)
             else:
                 cache_stats["misses"] += 1
             if cached_summary is not None:
@@ -4237,11 +5468,30 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
                 _mission_summary_cache_store(summary_cache, source_meta, completed_active)
                 cache_stats["stored"] += 1
                 cache_dirty = True
+                if cache_state == "stale":
+                    cache_state = "refreshed_stale"
+                elif cache_state == "miss":
+                    cache_state = "stored_miss"
+            summary_cache_state = cache_state
         else:
             cache_stats["skipped_archived"] += 1
         latest_completed = completed_active.get("latest_completed_turn")
         active_turn = completed_active.get("active_turn")
         preferred_trace_turn = completed_active.get("preferred_trace_turn")
+        if not title:
+            for title_source_turn in (preferred_trace_turn, active_turn, latest_completed):
+                if not isinstance(title_source_turn, dict):
+                    continue
+                fallback_title = (
+                    title_source_turn.get("prompt_title")
+                    or _prompt_title_from_text(str(title_source_turn.get("prompt_preview") or ""))
+                )
+                if fallback_title:
+                    title = fallback_title
+                    title_source = "trace_prompt_title"
+                    break
+        short_label = _short_label_for(title, c["provider"], c["session_id"])
+        ord_start, ord_end, ord_source = _mission_ordinal(title)
         # Enrich latest_clip_meta with prompt_sha16 from full row if present
         if last_clip:
             cpt_full = last_clip.get("cli_prompt_trace") or {}
@@ -4272,7 +5522,11 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "latest_completed_turn": latest_completed,
             "active_turn": active_turn,
             "preferred_trace_turn": preferred_trace_turn,
+            "subagent_deployments": completed_active.get("subagent_deployments") or [],
+            "subagent_summary": completed_active.get("subagent_summary") or {},
+            "subagent_sidechains": completed_active.get("subagent_sidechains") or [],
             "artifact_freshness": artifact_freshness,
+            "trace_summary_cache_state": completed_active.get("cache_state") or summary_cache_state,
             "status": "archived" if desktop.get("is_archived") else "live",
         })
     # Operator rule: titles containing "old" mark inactive missions. Split so
@@ -4439,7 +5693,7 @@ def main() -> int:
     sel.add_argument("--sessions", action="store_true", dest="sessions_mode",
                      help="List candidate sessions across providers for selection")
     sel.add_argument("--mission-index", action="store_true", dest="mission_index_mode",
-                     help="Emit mission index JSON for recent Claude+Codex sessions (titles, mtimes, providers) and update the canonical Structurer mission_index.json. Lightweight: peeks first prompt per session; no full turn parse.")
+                     help="Emit mission index JSON for recent Claude+Codex sessions (titles, mtimes, providers) and update the canonical Structurer mission_index.json. Uses cached turn summaries and a bounded live-stale reparse budget for active sessions.")
     sel.add_argument("--check", action="store_true", help="Parseability probe; exits 0/1 with JSON status")
 
     ap.add_argument("--format", choices=["compact", "full", "trace-paste", "json", "thread-closeouts"], default="compact",
@@ -4469,6 +5723,12 @@ def main() -> int:
                          "(Raw Sources/, Captures/, clipboard_history.json). stdout becomes the receipt JSON.")
     ap.add_argument("--write-trace-capsule-artifact", action="store_true", dest="write_trace_capsule_artifact",
                     help="Fast path: render Trace Capsule v3 directly from the selected turn and update the Variant Artifacts index without building the full parser packet.")
+    ap.add_argument("--write-closeout-report-artifact", action="store_true", dest="write_closeout_report_artifact",
+                    help="Fast path: render the closeout report variant from the selected window and update the Variant Artifacts index without copying tool bodies.")
+    ap.add_argument("--measure-trace-variant", choices=["all", "trace_capsule", "closeout_report"], dest="measure_trace_variant",
+                    help="Measure exact current renderer bytes for trace variants without writing artifacts or touching the clipboard.")
+    ap.add_argument("--closeout-command-limit", type=int, default=TRACE_CLOSEOUT_COMMAND_LIMIT,
+                    help=f"Top command rows to include in --format thread-closeouts / closeout report artifacts. Default: {TRACE_CLOSEOUT_COMMAND_LIMIT}.")
     ap.add_argument("--copy", action="store_true", dest="copy_to_clipboard",
                     help="Copy stdout payload to the macOS clipboard via pbcopy")
     ap.add_argument("--copy-path", action="store_true", dest="copy_clip_path",
@@ -4568,6 +5828,55 @@ def main() -> int:
                 turn,
                 source_window=source_window,
                 intern_repeated_prompts=args.intern_repeated_prompts,
+                include_prompt_body=not args.without_prompt,
+            )
+            text = json.dumps(receipt, indent=2, ensure_ascii=False)
+            if args.copy_to_clipboard:
+                clipboard_content = Path(str(receipt.get("artifact_path") or "")).read_text(encoding="utf-8")
+        elif args.measure_trace_variant:
+            base_turn = select_turn(
+                turns,
+                turn_arg=args.turn,
+                active=args.latest_active,
+                allow_partial=args.allow_partial,
+            )
+            if args.full_thread:
+                source_window = "full_thread"
+            elif args.prompt_cycle:
+                source_window = "latest_prompt_cycle"
+            else:
+                source_window = "selected_turn"
+            title, _title_source = _resolve_session_title(
+                base_turn.provider, base_turn.session_id, Path(base_turn.session_file),
+                codex_thread_names=_load_codex_thread_names(),
+                title_aliases=_load_title_aliases(),
+                claude_desktop_titles=_load_claude_desktop_titles(),
+            )
+            if not title:
+                title = _prompt_title_from_text(base_turn.prompt_text) or f"{base_turn.provider} turn {base_turn.turn_index}"
+            receipt = measure_trace_variant_sizes(
+                base_turn,
+                turns=turns,
+                title=title,
+                selected_source_window=source_window,
+                variant=args.measure_trace_variant,
+                include_prompt_body=not args.without_prompt,
+            )
+            text = json.dumps(receipt, indent=2, ensure_ascii=False)
+            if args.copy_to_clipboard:
+                clipboard_content = text
+        elif args.write_closeout_report_artifact:
+            if args.full_thread:
+                source_window = "full_thread"
+            elif args.prompt_cycle:
+                source_window = "latest_prompt_cycle"
+            else:
+                source_window = "selected_turn"
+            receipt = write_closeout_report_artifact(
+                turn,
+                source_window=source_window,
+                intern_repeated_prompts=args.intern_repeated_prompts,
+                command_limit=args.closeout_command_limit,
             )
             text = json.dumps(receipt, indent=2, ensure_ascii=False)
             if args.copy_to_clipboard:
@@ -4618,6 +5927,7 @@ def main() -> int:
                 turn,
                 title=title,
                 intern_repeated_prompts=args.intern_repeated_prompts,
+                command_limit=args.closeout_command_limit,
             )
             if args.copy_to_clipboard:
                 clipboard_content = text

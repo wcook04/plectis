@@ -1027,7 +1027,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0615395e13c2baf6beefa220d0b797f99030670aec2c1237a2cd02811dd5c02a",
+        "body_digest": "sha256:f80cbbe8a000f15f0e02c14422cbd11798c1921a23a435864511250b3e9d997b",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3717,7 +3717,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3c34b143d1d87830302538701f53d965dd9af308a91d9fbfdfd3963c621a217b",
+        "body_digest": "sha256:b92629bc80e64edd961fa4d2b8247bf9d75d3868db028c460e8c438c0d4bef6d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5288,6 +5288,23 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
+        "body_digest": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "agent_observability_classification",
+        "source_refs": [
+          "system/lib/agent_observability_classification.py",
+          "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
+        "validation_refs": [],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
         "body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
@@ -5322,7 +5339,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5339,7 +5356,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5407,7 +5424,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5526,7 +5543,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0a4e885b5cd96a2ead1c029086fb5ded049e1277d459eb7b011d18f99d0a8331",
+        "body_digest": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -8508,11 +8525,11 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 410,
+    "copied_non_secret_macro_body_material_count": 411,
     "defect_count": 0,
     "defects": [],
     "direct_source_module_manifest_count": 35,
-    "direct_source_module_manifest_material_count": 175,
+    "direct_source_module_manifest_material_count": 176,
     "direct_source_module_manifest_refs": [
       "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
@@ -8761,6 +8778,7 @@
         "agent_route_session_attribution_source_body_import",
         "agent_memory_macro_agent_execution_trace_tool_body_import",
         "agent_observability",
+        "agent_observability_classification",
         "route_repair_suggestion_source_body_import",
         "agent_execution_trace_source_body_import",
         "agent_execution_trace",
@@ -8867,7 +8885,7 @@
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
       "status": "pass"
     },
-    "non_lean_tool_body_material_count": 297,
+    "non_lean_tool_body_material_count": 298,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -8875,12 +8893,12 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 410,
+    "public_safe_body_material_count": 411,
     "public_safe_body_material_counts_by_class": {
       "public_macro_pattern_body": 36,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 63,
-      "public_macro_tool_body": 297,
+      "public_macro_tool_body": 298,
       "public_standard_body": 6
     },
     "route_readiness": {
@@ -10575,11 +10593,13 @@
           "family_id": "exported_agent_observability_store_bundle",
           "manifest_ref": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json",
           "material_ids": [
-            "agent_observability"
+            "agent_observability",
+            "agent_observability_classification"
           ],
-          "module_count": 1,
+          "module_count": 2,
           "source_refs": [
-            "system/lib/agent_observability.py"
+            "system/lib/agent_observability.py",
+            "system/lib/agent_observability_classification.py"
           ],
           "status": "pass",
           "validation_refs": [],
@@ -13480,7 +13500,7 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 1,
-    "copied_non_secret_macro_body_material_count": 410,
+    "copied_non_secret_macro_body_material_count": 411,
     "hard_boundary_count": 6,
     "mixed_public_safe_macro_import_assay_status": "pass",
     "non_progress_organ_count": 0,

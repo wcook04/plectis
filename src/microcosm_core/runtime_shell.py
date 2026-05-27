@@ -192,6 +192,17 @@ FIRST_SCREEN_STATE_REFS = (
     "explanations/",
     "evidence/",
 )
+FIRST_SCREEN_BEHAVIOR_SURFACE_REQUIRED_KEYS = (
+    "route_state_ref",
+    "work_state_ref",
+    "event_log_ref",
+    "evidence_dir_ref",
+    "graph_ref",
+    "project_observe_command",
+    "project_observe_endpoint",
+    "observatory_command",
+    "observatory_bounded_validation_command",
+)
 OMITTED_PAYLOAD_BODY_FLAG = "body_" + "red" + "acted"
 PRIVATE_STATE_SCAN_RECEIPT_KEY = "private_" + "state" + "_scan"
 PRIVATE_STATE_SCAN_POSTURE_INPUT = "private_" + "state" + "_scan_posture"
@@ -1866,6 +1877,20 @@ def _cold_reader_first_screen_card(
         f"{project_substrate.STATE_DIR}/{state_ref}"
         for state_ref in FIRST_SCREEN_STATE_REFS
     ]
+    behavior_surfaces = {
+        "route_state_ref": f"{project_substrate.STATE_DIR}/routes.json",
+        "work_state_ref": f"{project_substrate.STATE_DIR}/work_items.json",
+        "event_log_ref": f"{project_substrate.STATE_DIR}/events.jsonl",
+        "evidence_dir_ref": f"{project_substrate.STATE_DIR}/evidence/",
+        "graph_ref": graph_summary.get("graph_ref")
+        or f"{project_substrate.STATE_DIR}/graph.json",
+        "project_observe_command": "microcosm observe <project>",
+        "project_observe_endpoint": "/project/observe",
+        "observatory_command": OBSERVATORY_SERVE_COMMAND,
+        "observatory_bounded_validation_command": (
+            OBSERVATORY_BOUNDED_VALIDATION_COMMAND
+        ),
+    }
     return {
         "schema_version": "microcosm_cold_reader_first_screen_v1",
         "status": PASS
@@ -2010,18 +2035,20 @@ def _cold_reader_first_screen_card(
             or f"{project_substrate.STATE_DIR}/python_lens.json",
             "source_files_mutated": compiled.get("source_files_mutated") is True,
         },
-        "behavior_surfaces": {
-            "route_state_ref": f"{project_substrate.STATE_DIR}/routes.json",
-            "work_state_ref": f"{project_substrate.STATE_DIR}/work_items.json",
-            "event_log_ref": f"{project_substrate.STATE_DIR}/events.jsonl",
-            "evidence_dir_ref": f"{project_substrate.STATE_DIR}/evidence/",
-            "graph_ref": graph_summary.get("graph_ref")
-            or f"{project_substrate.STATE_DIR}/graph.json",
-            "project_observe_command": "microcosm observe <project>",
-            "project_observe_endpoint": "/project/observe",
-            "observatory_command": OBSERVATORY_SERVE_COMMAND,
-            "observatory_bounded_validation_command": (
-                OBSERVATORY_BOUNDED_VALIDATION_COMMAND
+        "behavior_surfaces": behavior_surfaces,
+        "behavior_surfaces_contract": {
+            "schema_version": "microcosm_first_screen_behavior_surfaces_contract_v1",
+            "required_keys": list(FIRST_SCREEN_BEHAVIOR_SURFACE_REQUIRED_KEYS),
+            "observed_keys": list(behavior_surfaces),
+            "first_screen_semantics": {
+                "state_refs": "local_generated_state_files",
+                "project_observe": "bounded_json_causal_chain",
+                "observatory": "local_browser_inspection_surface",
+                "bounded_observatory_validation": "finite_server_smoke_path",
+            },
+            "extension_policy": (
+                "New first-screen behavior affordances must be registered here "
+                "and covered by runtime-shell tests before release readiness."
             ),
         },
         "proof_surface": {
@@ -14106,6 +14133,58 @@ class RuntimeShell:
             and all(value is False for key, value in authority_ceiling.items() if key != "synthetic_public_read_model_only")
             else "blocked"
         )
+        recording_companion_card = {
+            "schema_version": "microcosm_recording_companion_card_v1",
+            "card_id": "microcosm_recording_companion",
+            "role": (
+                "local_runnable_evidence_bounded_substrate_for_recording_authority"
+            ),
+            "not_roles": [
+                "separate_frontend",
+                "hosted_product",
+                "proof_system",
+                "private_root_equivalence_claim",
+            ],
+            "first_screen_commands": [
+                "microcosm hello <project>",
+                "microcosm tour --card <project>",
+                "microcosm status --card <project>",
+                "microcosm workingness --card",
+                "microcosm legibility-scorecard",
+                PROOF_LAB_FIRST_SCREEN_COMMAND,
+            ],
+            "evidence_classes": [
+                "local_generated_state_refs",
+                "runtime_cards",
+                "receipt_refs",
+                "source_open_body_import_manifests",
+                "proof_lab_execution_receipt",
+            ],
+            "fixed_residuals": [
+                "runtime_shell_behavior_surfaces_contract_registered",
+                "macro_projection_exact_source_digest_floor_checked",
+                "package_root_generated_state_ignored",
+                "trace_readiness_verdict_axes_named",
+            ],
+            "residual_policy": (
+                "Recording-adjacent residuals must be fixed or named as release "
+                "gate blockers; passing first-screen behavior never authorizes release."
+            ),
+        }
+        release_readiness_verdict = {
+            "schema_version": "microcosm_release_readiness_verdict_v1",
+            "public_first_screen_pass": status == PASS,
+            "release_gate_blocked_by_named_residuals": (
+                scorecard["blocking_gap_count"] != 0
+            ),
+            "governance_valid_with_warnings": "trace_semantic_bucket_not_release_authority",
+            "no_release_authority": True,
+            "authority_boundary": (
+                "first-screen pass plus named residual hygiene can support a "
+                "recording companion card, not release, hosting, proof correctness, "
+                "or private-root equivalence."
+            ),
+        }
         payload = {
             "schema_version": "microcosm_public_cold_reader_legibility_scorecard_lens_v1",
             "created_at": utc_now(),
@@ -14127,6 +14206,8 @@ class RuntimeShell:
             "required_commands": required_commands,
             "required_endpoints": required_endpoints,
             "scorecard": scorecard,
+            "release_readiness_verdict": release_readiness_verdict,
+            "recording_companion_card": recording_companion_card,
             "evidence_refs": evidence_refs,
             "negative_case_ids": negative_case_ids,
             "fixture_protocol": {

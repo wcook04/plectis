@@ -575,6 +575,7 @@ BUDGET_TRIM_PROTECTED_ROWS = {
     ("paper_modules", "paper_module_coverage_metabolism"),
     ("paper_modules", "paper_module_entry_projection_integrity"),
     ("paper_modules", "microcosm_public_export_type_plane"),
+    ("paper_modules", "microcosm_runtime_organ_atlas"),
     ("navigation_type_plane", "public_microcosm_exports"),
     ("paper_modules", "microcosm_substrate"),
     ("standards", "std_autonomous_seed_prompt"),
@@ -731,6 +732,13 @@ MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS = (
         "public_export_type_plane_bridge",
     ),
     (
+        "paper_modules",
+        "microcosm_runtime_organ_atlas",
+        1.0085,
+        "Microcosm paper-module/depth query should expose the runtime organ source-loci atlas before generated projection leaves or broad self-comprehension rows.",
+        "runtime_organ_source_loci",
+    ),
+    (
         "navigation_type_plane",
         "public_microcosm_exports",
         1.008,
@@ -750,7 +758,8 @@ MICROCOSM_PAPER_MODULE_DEPTH_NEXT_COMMANDS = (
         "./repo-python kernel.py --option-surface paper_modules --band card --ids "
         "microcosm_entry_lattice,paper_module_coverage_metabolism,"
         "paper_module_entry_projection_integrity,"
-        "microcosm_public_export_type_plane,microcosm_substrate"
+        "microcosm_public_export_type_plane,microcosm_runtime_organ_atlas,"
+        "microcosm_substrate"
     ),
     "./repo-python kernel.py --option-surface standards --band card --ids std_microcosm",
     (
@@ -6877,6 +6886,30 @@ def _budget_trim(
                     "--context-budget 20000"
                 ),
             }
+        spine = packet.get("navigation_index_spine")
+        if isinstance(spine, dict):
+            omitted_spine_sections: list[str] = []
+            for key in ("recursive_seed_handoff", "top_projection_gaps", "kind_group_rollup"):
+                if spine.pop(key, None) not in (None, "", [], {}):
+                    omitted_spine_sections.append(key)
+            if omitted_spine_sections:
+                receipt = spine.get("omission_receipt")
+                if not isinstance(receipt, dict):
+                    receipt = {}
+                omitted_values = list(receipt.get("omitted") or [])
+                omitted_values.extend(
+                    f"navigation_index_spine.{key}" for key in omitted_spine_sections
+                )
+                receipt["omitted"] = omitted_values
+                receipt.setdefault(
+                    "reason",
+                    "Hard ceiling compaction kept entry-visible route handles and source-coupling status; full detail remains behind System Atlas drilldowns.",
+                )
+                receipt.setdefault(
+                    "drilldown",
+                    "./repo-python kernel.py --option-surface system_atlas --band cluster_flag",
+                )
+                spine["omission_receipt"] = receipt
         agent_packet = (
             packet.get("agent_operating_packet")
             if isinstance(packet.get("agent_operating_packet"), Mapping)

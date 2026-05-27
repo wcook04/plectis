@@ -10746,11 +10746,25 @@ def cmd_lean_diagnostics(
             limit=limit,
         )
         if recorded_run:
+            execution_context = recorded_run.get("execution_context")
+            context = execution_context if isinstance(execution_context, Mapping) else {}
             report["recorded_run"] = {
                 "status": recorded_run.get("status"),
                 "source_file": recorded_run.get("source_file"),
                 "duration_ms": recorded_run.get("duration_ms"),
                 "written_path": recorded_run.get("written_path"),
+                "environment_status": recorded_run.get("environment_status"),
+                "dependency_cache_status": recorded_run.get("dependency_cache_status"),
+                "mode": context.get("mode"),
+                "lake_root": context.get("lake_root"),
+                "package_id": context.get("package_id"),
+                "toolchain": context.get("lean_toolchain"),
+                "command_form": context.get("command_form"),
+                "cwd": context.get("cwd"),
+                "target_file": context.get("target_file"),
+                "target_module": context.get("target_module"),
+                "recommended_dependency_commands": context.get("recommended_dependency_commands") or [],
+                "diagnostic_lines": recorded_run.get("diagnostic_lines") or [],
             }
         if write_path:
             written = write_report(report, write_path)

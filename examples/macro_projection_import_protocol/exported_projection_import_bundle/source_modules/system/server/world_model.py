@@ -302,6 +302,9 @@ LEAN_MATH_VISUAL_SURFACE_KEYS = (
     "receipt_timeline",
     "capability_cards",
     "validation_cards",
+    "full_fidelity_packet_card",
+    "full_fidelity_packet_verifier_card",
+    "disclosure_posture_cards",
     "boundary_cards",
     "provenance_card",
     "doc_section_index",
@@ -4367,6 +4370,11 @@ def load_lean_mathematics_microcosm_snapshot(repo_root: Path) -> Dict[str, Any]:
         "validation_surfaces": projection_mapping("validation_surfaces"),
         "route_cards": projection_list("route_cards"),
         "anti_claims": [str(item) for item in projection_list("anti_claims")],
+        "disclosure_postures": [
+            dict(item)
+            for item in projection_list("disclosure_postures")
+            if isinstance(item, Mapping)
+        ],
         "authority_boundary": dict(authority_boundary),
         "visual_surfaces": visual_surfaces,
         "omission_receipt": {

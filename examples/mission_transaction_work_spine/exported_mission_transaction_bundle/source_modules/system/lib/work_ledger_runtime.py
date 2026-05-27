@@ -2428,6 +2428,8 @@ def _seed_speed_dirty_pressure_focus(
             ("heartbeat_source", "heartbeat_source"),
         ):
             value = coordination.get(source_key)
+            if value in (None, "", {}, []):
+                value = group.get(source_key)
             if value not in (None, "", {}, []):
                 row[target_key] = value
         if session_id in heartbeat_gap_ids:
@@ -2859,9 +2861,17 @@ def _seed_speed_dirty_pressure_focus(
             "projected_unknown_blocking_session_count": projected_unknown_blocker_count,
             "live_blocking_session_count": live_blocker_count,
             "first_blocking_session_id": blocking_session.get("session_id"),
+            "first_blocking_session_actor": blocking_session.get("actor"),
             "first_blocking_session_heartbeat_gap": heartbeat_gap,
             "first_blocking_session_freshness_state": blocking_session.get(
                 "freshness_state"
+            ),
+            "first_blocking_session_pass_state": blocking_session.get("pass_state"),
+            "first_blocking_session_current_pass_line": blocking_session.get(
+                "current_pass_line"
+            ),
+            "first_blocking_session_recommended_action": blocking_session.get(
+                "recommended_action"
             ),
             "first_read_only_alternative_command": read_only_command,
             "first_claimed_dirty_path": paths_preview[0] if paths_preview else None,
@@ -3163,6 +3173,11 @@ def _seed_speed_dirty_pressure_focus(
         lease_summary = lease_summary or {}
         coordination_summary = coordination_summary or {}
         checkpoint_available = checkpoint_status == "available"
+        dirty_class_counts = dict(
+            dirty_tree_pressure.get("dirty_path_class_counts")
+            or dirty_tree_pressure.get("class_counts")
+            or {}
+        )
         open_lanes = ["scoped_owned_path_commit"]
         if first_action_kind == "claim_collision" and first_action_command:
             open_lanes.insert(0, "claim_collision_cleanup_dry_run")
@@ -3196,6 +3211,16 @@ def _seed_speed_dirty_pressure_focus(
             "checkpoint_blocker": scoped_work.get("first_broad_checkpoint_blocker"),
             "checkpoint_unblock_step": ladder.get("first_blocking_step"),
             "checkpoint_unblock_command": ladder.get("first_blocking_command"),
+            "dirty_total": dirty_tree_pressure.get("dirty_total"),
+            "dirty_path_class_counts": dirty_class_counts,
+            "active_claim_dirty_path_count": scoped_work.get(
+                "active_claim_dirty_path_count"
+            ),
+            "broad_checkpoint_status": scoped_work.get("broad_checkpoint_status"),
+            "broad_checkpoint_command": scoped_work.get("broad_checkpoint_command"),
+            "broad_checkpoint_blocked_by": scoped_work.get(
+                "broad_checkpoint_blocked_by"
+            ),
             "blocking_claim_session_count": blocking_claim_summary.get(
                 "blocking_session_group_count"
             ),
@@ -3232,8 +3257,20 @@ def _seed_speed_dirty_pressure_focus(
             "first_blocking_session_id": blocking_claim_summary.get(
                 "first_blocking_session_id"
             ),
+            "first_blocking_session_actor": blocking_claim_summary.get(
+                "first_blocking_session_actor"
+            ),
             "first_blocking_session_freshness_state": blocking_claim_summary.get(
                 "first_blocking_session_freshness_state"
+            ),
+            "first_blocking_session_pass_state": blocking_claim_summary.get(
+                "first_blocking_session_pass_state"
+            ),
+            "first_blocking_session_current_pass_line": blocking_claim_summary.get(
+                "first_blocking_session_current_pass_line"
+            ),
+            "first_blocking_session_recommended_action": blocking_claim_summary.get(
+                "first_blocking_session_recommended_action"
             ),
             "first_blocking_session_heartbeat_gap": blocking_claim_summary.get(
                 "first_blocking_session_heartbeat_gap"
@@ -3566,6 +3603,38 @@ def build_seed_speed_status(
         first_action = "Use the seed claim session cards to choose the disjoint write lane."
 
     heartbeat_first_action: Dict[str, Any] | None = None
+
+    def _deferred_heartbeat_action() -> Dict[str, Any]:
+        read_only_command = None
+        read_only_ref = None
+        if heartbeat_gap_claim_sessions:
+            read_only_command = (
+                str(
+                    heartbeat_gap_claim_sessions[0].get(
+                        "read_only_alternative_command"
+                    )
+                    or ""
+                ).strip()
+                or None
+            )
+            read_only_ref = "heartbeat_gap_claim_sessions[0].read_only_alternative_command"
+        if not read_only_command:
+            read_only_command = (
+                str(non_heartbeat_first_action.get("command") or "").strip() or None
+            )
+            read_only_ref = "non_heartbeat_first_action.command"
+        return {
+            "kind": first_action_kind,
+            "action": first_action,
+            "command": read_only_command,
+            "command_role": "read_only_alternative",
+            "ref": read_only_ref,
+            "deferred_heartbeat_command": first_action_command,
+            "deferred_heartbeat_ref": first_action_ref,
+            "deferred_by_no_heartbeat_mode": True,
+            "write_command_suppressed": True,
+        }
+
     if first_action_kind in {"heartbeat_gap", "projected_unknown_heartbeat"}:
         non_heartbeat_first_action = _seed_speed_choose_disjoint_lane_action(
             seed_claim_sessions,
@@ -3595,13 +3664,7 @@ def build_seed_speed_status(
         and first_action_kind != "claim_collision"
     ):
         if first_action_kind in {"heartbeat_gap", "projected_unknown_heartbeat"}:
-            heartbeat_first_action = {
-                "kind": first_action_kind,
-                "action": first_action,
-                "command": first_action_command,
-                "ref": first_action_ref,
-                "deferred_by_no_heartbeat_mode": True,
-            }
+            heartbeat_first_action = _deferred_heartbeat_action()
         first_action_kind = str(
             dirty_tree_pressure_action.get("kind") or first_action_kind
         )
@@ -3628,13 +3691,7 @@ def build_seed_speed_status(
         "heartbeat_gap",
         "projected_unknown_heartbeat",
     }:
-        heartbeat_first_action = {
-            "kind": first_action_kind,
-            "action": first_action,
-            "command": first_action_command,
-            "ref": first_action_ref,
-            "deferred_by_no_heartbeat_mode": True,
-        }
+        heartbeat_first_action = _deferred_heartbeat_action()
         first_action_kind = str(
             non_heartbeat_first_action.get("kind") or first_action_kind
         )

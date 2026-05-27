@@ -1804,11 +1804,12 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "public_macro_proof_body" in result["projection_intake_board"]["allowed_material_classes"]
     assert result["projection_intake_board"]["public_safe_body_import_count"] == 239
     assert result["projection_intake_board"]["public_safe_body_import_classes"] == {
-            "public_macro_pattern_body": 3,
-            "public_macro_proof_body": 1,
-            "public_macro_receipt_body": 26,
-            "public_macro_tool_body": 203,
-        }
+        "public_macro_pattern_body": 3,
+        "public_macro_proof_body": 1,
+        "public_macro_receipt_body": 26,
+        "public_macro_standard_body": 4,
+        "public_macro_tool_body": 205,
+    }
     assert result["runtime_severance_board"]["runtime_dependency_status"] == "pass"
     assert result["runtime_severance_board"]["macro_origin_refs_runtime_required"] is False
     assert all(

@@ -85,11 +85,11 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_sha256": "f80cbbe8a000f15f0e02c14422cbd11798c1921a23a435864511250b3e9d997b",
-      "target_sha256": "f80cbbe8a000f15f0e02c14422cbd11798c1921a23a435864511250b3e9d997b",
+      "source_sha256": "82cb24bc1ea60990ca505789c27a01270841c2f68e564deee2eed572922e9b25",
+      "target_sha256": "82cb24bc1ea60990ca505789c27a01270841c2f68e564deee2eed572922e9b25",
       "sha256_match": true,
-      "line_count": 7804,
-      "byte_count": 327178,
+      "line_count": 7861,
+      "byte_count": 329812,
       "anchor_count": 7
     },
     {

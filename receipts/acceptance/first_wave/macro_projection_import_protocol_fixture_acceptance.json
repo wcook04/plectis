@@ -1,5 +1,5 @@
 {
-  "acceptance_status": "blocked",
+  "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "macro_projection_import_protocol",
   "anti_claim": "The macro projection import protocol validates verified non-secret macro body imports and honest demotions. Metadata, provenance, and public runtime refs are not body imports. The only hard omissions are secrets, credentials, operator conversation bodies, provider payloads, and account-bound material; hosted publication remains a separate action.",
   "authority_ceiling": {
@@ -21,16 +21,14 @@
   "blocked_projection_cell_count": 0,
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "command": "debug",
-  "created_at": "2026-05-26T11:12:17+00:00",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input microcosm-substrate/fixtures/first_wave/macro_projection_import_protocol/input --out microcosm-substrate/receipts/first_wave/macro_projection_import_protocol",
+  "created_at": "2026-05-27T14:28:58+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
-    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
     "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
     "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING"
@@ -78,118 +76,6 @@
     },
     {
       "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "codex/doctrine/agent_bootstrap_live.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "codex/doctrine/agent_operating_packet.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "codex/doctrine/routing_hologram.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_bootstrap_live.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/agent_operating_packet.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH",
-      "message": "body_copied verified macro material digest must match the target_ref file.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "system/lib/kernel/commands/comprehension_snapshot.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "system/lib/work_ledger_runtime.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "tools/meta/factory/work_ledger.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
       "message": "Projection import rejects release, publication, recipient, and private-equivalence claims.",
       "negative_case_id": "release_or_private_equivalence_overclaim",
@@ -218,7 +104,7 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
-  "macro_origin_ref_count": 286,
+  "macro_origin_ref_count": 292,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
   "next_best_lane": "real_substrate_import_path",
@@ -326,7 +212,7 @@
   ],
   "projection_import_boundary": "verified_body_import_or_secret_exclusion_only",
   "protocol_id": "macro_to_microcosm_projection_import_protocol_v1",
-  "public_runtime_ref_count": 178,
+  "public_runtime_ref_count": 188,
   "public_runtime_refs": [
     "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
     "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -559,6 +445,12 @@
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
     "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
     "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
     "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
     "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
     "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
@@ -612,20 +504,20 @@
     "standards/std_microcosm_macro_projection_import_protocol.json",
     "standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
-  "public_safe_body_import_count": 184,
+  "public_safe_body_import_count": 190,
   "public_safe_body_import_routes": {
     "direct_verified_public": 3,
-    "verified_light_edit": 181
+    "verified_light_edit": 187
   },
-  "public_safe_body_import_status": "blocked",
-  "public_safe_body_material_count": 184,
+  "public_safe_body_import_status": "pass",
+  "public_safe_body_material_count": 190,
   "ready_projection_cell_count": 64,
   "receipt_id": "macro_projection_import_protocol_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/tmp/microcosm-wave209-fixture-debug/macro_projection_import_protocol_result.json",
-    "/private/tmp/microcosm-wave209-fixture-debug/projection_import_board.json",
-    "/private/tmp/microcosm-wave209-fixture-debug/projection_import_intake_board.json",
-    "/private/tmp/microcosm-wave209-fixture-debug/projection_import_validation_receipt.json",
+    "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
   ],
   "runtime_dependency_status": "pass",
@@ -684,7 +576,7 @@
     "dependency_preflight_gate_status": "pass",
     "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
     "findings": [],
-    "macro_origin_ref_count": 286,
+    "macro_origin_ref_count": 292,
     "macro_origin_ref_policy": "macro_origin_refs_are_provenance_only_not_runtime_dependencies",
     "macro_origin_refs": [
       ".claude/hooks/runtime_hook.py",
@@ -714,6 +606,7 @@
       "codex/nodes/oracle/oracle_attribution_map.json",
       "codex/standards/std_agent_execution_trace.json",
       "codex/standards/std_command_output_projection.json",
+      "codex/standards/std_compute_provider.json",
       "codex/standards/std_continuation_packet.json",
       "codex/standards/std_continuity_protocol.json",
       "codex/standards/std_controller_heartbeat.json",
@@ -722,7 +615,10 @@
       "codex/standards/std_navigation_contract.json",
       "codex/standards/std_navigation_rosetta_grammar.json",
       "codex/standards/std_prompt_ledger.json",
+      "codex/standards/std_provider_adapter.json",
+      "codex/standards/std_provider_navigation_transform_receipt.json",
       "codex/standards/std_task_ledger.json",
+      "codex/standards/std_transform_job.json",
       "codex/standards/std_work_ledger.json",
       "codex/substrate/nodes/oracle/oracle_attribution_map.json",
       "docs/bridge_resume_protocol.md",
@@ -958,7 +854,9 @@
       "tools/meta/control/work_landing.py",
       "tools/meta/factory/build_formal_math_proof_repair_lane.py",
       "tools/meta/factory/build_formal_math_proofline_spine.py",
+      "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
       "tools/meta/factory/check_station_geometry.py",
+      "tools/meta/factory/reduce_prover_provider_receipts.py",
       "tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
       "tools/meta/factory/run_prover_graph_benchmark.py",
       "tools/meta/factory/task_ledger_apply.py",
@@ -994,12 +892,13 @@
       "public_macro_pattern_body": 3,
       "public_macro_proof_body": 1,
       "public_macro_receipt_body": 13,
-      "public_macro_tool_body": 167
+      "public_macro_standard_body": 4,
+      "public_macro_tool_body": 169
     },
-    "public_safe_body_import_count": 184,
+    "public_safe_body_import_count": 190,
     "public_safe_body_import_routes": {
       "direct_verified_public": 3,
-      "verified_light_edit": 181
+      "verified_light_edit": 187
     },
     "publication_authorized": false,
     "ready_projection_cell_count": 64,
@@ -3444,6 +3343,48 @@
       {
         "dependency_role": "imported_body_target",
         "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "imported_body_target",
+        "leak_reason": null,
         "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "status": "pass"
@@ -4846,6 +4787,41 @@
         "leak_reason": null,
         "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
         "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "landed_evidence",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
         "status": "pass"
       },
       {
@@ -6783,6 +6759,48 @@
       {
         "dependency_role": "projection_cell_target",
         "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
+        "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "status": "pass"
+      },
+      {
+        "dependency_role": "projection_cell_target",
+        "leak_reason": null,
         "normalized_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
         "status": "pass"
@@ -8426,7 +8444,7 @@
         "status": "pass"
       }
     ],
-    "runtime_dependency_count": 1060,
+    "runtime_dependency_count": 1077,
     "runtime_dependency_refs": [
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle",
@@ -8659,6 +8677,12 @@
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_route_intervention.py",
       "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
       "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+      "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
       "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
       "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
       "examples/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle",
@@ -8975,7 +8999,7 @@
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
-  "source_ref_count": 245,
+  "source_ref_count": 252,
   "source_refs": [
     "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
@@ -9221,9 +9245,16 @@
     ".githooks/pre-commit",
     ".githooks/prepare-commit-msg",
     "tools/meta/control/test_raw_git_commit_guard.py",
-    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json"
+    "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/raw_git_commit_guard_source_module_manifest.json",
+    "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+    "codex/standards/std_compute_provider.json",
+    "codex/standards/std_provider_adapter.json",
+    "codex/standards/std_provider_navigation_transform_receipt.json",
+    "tools/meta/factory/reduce_prover_provider_receipts.py",
+    "codex/standards/std_transform_job.json",
+    "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
-  "status": "blocked",
+  "status": "pass",
   "validation_ref_count": 195,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
