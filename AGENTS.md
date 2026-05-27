@@ -102,7 +102,8 @@ whole-system correctness.
    need the shortest validation route.
 2. The human first-screen text projection is `microcosm hello <project>`.
    It opens the cold-entry card without writing `.microcosm/`, mutating source
-   files, calling providers, or proving local behavior. The shared
+   files (`source_files_mutated=false`), calling providers, or proving local
+   behavior. The shared
    state-writing behavior proof is `microcosm tour --card <project>`:
    repo -> `.microcosm` plus the first-screen route card. The full drilldown
    tour is `microcosm tour <project>`, and the explicit rebuild loop is

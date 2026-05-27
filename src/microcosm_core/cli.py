@@ -86,7 +86,7 @@ PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
-  microcosm first-screen <project> preview the one-screen reader branch map
+  microcosm first-screen <project> emit the compact JSON first-screen map
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
   microcosm authority --card      read the compact authority ceiling lens
@@ -848,8 +848,13 @@ def main(argv: list[str] | None = None) -> int:
     first_screen_parser.add_argument(
         "--format",
         choices=("json", "text"),
-        default="text",
-        help="emit the machine card or terminal projection",
+        default="json",
+        help="emit the JSON machine card or terminal projection",
+    )
+    first_screen_parser.add_argument(
+        "--full",
+        action="store_true",
+        help="emit the full first-screen contract JSON instead of the compact projection",
     )
     first_screen_parser.add_argument(
         "--reader",
@@ -1367,7 +1372,9 @@ def main(argv: list[str] | None = None) -> int:
                 end="",
             )
             return 0 if payload.get("status") == "pass" else 1
-        return _print_json(payload)
+        if args.full:
+            return _print_json(payload)
+        return _print_json(first_screen_composition.first_screen_compact_card(payload))
     if args.command == "authority":
         command_args = ["authority"]
         if args.card:

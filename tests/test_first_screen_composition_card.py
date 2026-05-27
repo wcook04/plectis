@@ -1300,6 +1300,40 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert '"body":' not in result.stdout
 
 
+def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
+    module = _load_module()
+    card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
+    compact = module.first_screen_compact_card(card)
+
+    compact_json = json.dumps(compact, sort_keys=True)
+    assert len(compact_json) < module.COMPACT_JSON_CARD_MAX_CHARS
+    assert compact["schema_version"] == "microcosm_first_screen_compact_card_v1"
+    assert compact["compact_projection_of"] == (
+        "microcosm_first_screen_composition_card_v1"
+    )
+    assert compact["output_policy"] == {
+        "default_json_is_first_screen_projection": True,
+        "stdout_budget_chars": module.COMPACT_JSON_CARD_MAX_CHARS,
+        "full_contract_command": "microcosm first-screen --full .",
+        "text_projection_command": "microcosm first-screen --format text .",
+        "full_contract_preserved": True,
+    }
+    assert compact["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen ."
+    )
+    assert {
+        row["reader_route_id"] for row in compact["reader_route_menu"]["routes"]
+    } == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert compact["state_write_boundary"]["this_card_writes_microcosm_state"] is False
+    assert compact["drilldowns"]["full_json"] == "microcosm first-screen --full ."
+    assert "video_storyboard_packet" not in compact
+    assert compact["omission_receipt"]["summary_first_projection"] is True
+
+
 def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     module = _load_module()
     card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")

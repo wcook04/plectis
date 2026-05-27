@@ -27,6 +27,7 @@ DENIED_AUTHORITY_KEYS = (
     "whole_system_correctness_authority",
 )
 TEXT_CARD_MAX_LINES = 32
+COMPACT_JSON_CARD_MAX_CHARS = 16000
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
 ORGAN_REGISTRY_REF = "core/organ_registry.json"
 STANDARDS_REGISTRY_REF = "core/standards_registry.json"
@@ -2903,6 +2904,168 @@ def first_screen_composition_card(
     }
     payload["status"] = payload["validation"]["status"]
     return payload
+
+
+def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    route_menu = payload.get("reader_route_menu", {})
+    routes = route_menu.get("routes", []) if isinstance(route_menu, dict) else []
+    compact_routes: list[dict[str, Any]] = []
+    for row in routes:
+        if not isinstance(row, dict):
+            continue
+        compact_routes.append(
+            {
+                "reader_route_id": row.get("reader_route_id"),
+                "label": row.get("label"),
+                "terminal_command": row.get("terminal_command"),
+                "text_projection_command": row.get("text_projection_command"),
+                "first_action": row.get("first_action"),
+                "proof_surface": row.get("proof_surface"),
+                "exit_check": row.get("exit_check"),
+                "not_a_claim": row.get("not_a_claim"),
+            }
+        )
+    return compact_routes
+
+
+def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    ladder = payload.get("first_run_ladder", {})
+    steps = ladder.get("steps", []) if isinstance(ladder, dict) else []
+    compact_steps: list[dict[str, Any]] = []
+    for row in steps:
+        if not isinstance(row, dict):
+            continue
+        compact_steps.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "step_id",
+                    "command",
+                    "expected_surface",
+                    "writes_microcosm_state",
+                    "authority",
+                )
+                if key in row
+            }
+        )
+    return compact_steps
+
+
+def _compact_scale_counts(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    scale_frame = payload.get("scale_frame", {})
+    counts = (
+        scale_frame.get("public_scale_counts", {})
+        if isinstance(scale_frame, dict)
+        else {}
+    )
+    compact_counts: dict[str, dict[str, Any]] = {}
+    for key in (
+        "implemented_organs",
+        "public_standards",
+        "source_open_materials",
+    ):
+        row = counts.get(key) if isinstance(counts, dict) else None
+        if not isinstance(row, dict):
+            continue
+        compact_counts[key] = {
+            "count": row.get("count"),
+            "read_as": row.get("read_as"),
+        }
+    return compact_counts
+
+
+def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
+    validation = payload.get("validation", {})
+    checks = validation.get("checks", {}) if isinstance(validation, dict) else {}
+    failed = [
+        check_id
+        for check_id, passed in checks.items()
+        if passed is not True
+    ] if isinstance(checks, dict) else []
+    return {
+        "source_status": validation.get("status") if isinstance(validation, dict) else None,
+        "validator_id": payload.get("validator_id"),
+        "checks_passed_count": len(checks) - len(failed) if isinstance(checks, dict) else 0,
+        "check_count": len(checks) if isinstance(checks, dict) else 0,
+        "failed_checks": failed,
+    }
+
+
+def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
+    project_label = str(payload.get("project_label") or "<project>")
+    route_menu = payload.get("reader_route_menu", {})
+    state_boundary = payload.get("state_write_boundary", {})
+    full_json_command = f"microcosm first-screen --full {project_label}"
+    text_projection_command = f"microcosm first-screen --format text {project_label}"
+    return {
+        "schema_version": "microcosm_first_screen_compact_card_v1",
+        "compact_projection_of": payload.get("schema_version"),
+        "status": payload.get("status"),
+        "project_label": project_label,
+        "human_first_command": payload.get("human_first_command"),
+        "shared_first_command": payload.get("shared_first_command"),
+        "output_policy": {
+            "default_json_is_first_screen_projection": True,
+            "stdout_budget_chars": COMPACT_JSON_CARD_MAX_CHARS,
+            "full_contract_command": full_json_command,
+            "text_projection_command": text_projection_command,
+            "full_contract_preserved": True,
+        },
+        "reader_route_menu": {
+            "default_command": route_menu.get("default_command")
+            if isinstance(route_menu, dict)
+            else None,
+            "shared_behavior_command": route_menu.get("shared_behavior_command")
+            if isinstance(route_menu, dict)
+            else None,
+            "machine_card_command": f"microcosm first-screen {project_label}",
+            "routes": _compact_reader_routes(payload),
+        },
+        "first_run_ladder": {
+            "purpose": "show_the_first_runnable_path_before_deep_contract_json",
+            "steps": _compact_first_run_steps(payload),
+        },
+        "evidence_context": {
+            "scale_counts": _compact_scale_counts(payload),
+            "evidence_class_registry_ref": EVIDENCE_CLASS_REGISTRY_REF,
+            "counts_are_authority": False,
+        },
+        "state_write_boundary": {
+            "this_card_writes_microcosm_state": False,
+            "behavioral_proof_command": state_boundary.get(
+                "behavioral_proof_command"
+            ) if isinstance(state_boundary, dict) else None,
+            "front_door_status_ref": state_boundary.get("front_door_status_ref")
+            if isinstance(state_boundary, dict)
+            else None,
+            "source_files_mutated_by_first_screen": False,
+        },
+        "authority_ceiling": payload.get("authority_ceiling"),
+        "anti_claim": payload.get("anti_claim"),
+        "public_private_boundary": payload.get("public_private_boundary"),
+        "drilldowns": {
+            "full_json": full_json_command,
+            "text_projection": text_projection_command,
+            "behavior_proof": payload.get("shared_first_command"),
+            "observatory": _bounded_observatory_serve_command(project_label),
+            "route_contract": "paper_modules/cold_reader_route_map.md",
+        },
+        "omission_receipt": {
+            "summary_first_projection": True,
+            "omitted_full_contract_keys": [
+                "video_storyboard_packet",
+                "artifact_fit_matrix",
+                "cold_entry_problem_map",
+                "discipline_comparison_strip",
+                "doctrine_effect_frame",
+            ],
+            "drilldown": payload.get("omission_receipt", {}).get("drilldown")
+            if isinstance(payload.get("omission_receipt"), dict)
+            else None,
+            "full_contract_command": full_json_command,
+        },
+        "validation": _compact_validation(payload),
+    }
 
 
 def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:

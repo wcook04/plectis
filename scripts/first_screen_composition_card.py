@@ -13,10 +13,21 @@ if str(MICROCOSM_SRC) not in sys.path:
     sys.path.insert(0, str(MICROCOSM_SRC))
 
 from microcosm_core.first_screen_composition import (  # noqa: E402
+    COMPACT_JSON_CARD_MAX_CHARS,
     TEXT_CARD_MAX_LINES,
     TEXT_READER_CHOICES,
     first_screen_composition_card,
+    first_screen_compact_card,
     first_screen_text_card,
+)
+
+__all__ = (
+    "COMPACT_JSON_CARD_MAX_CHARS",
+    "TEXT_CARD_MAX_LINES",
+    "TEXT_READER_CHOICES",
+    "first_screen_composition_card",
+    "first_screen_compact_card",
+    "first_screen_text_card",
 )
 
 
