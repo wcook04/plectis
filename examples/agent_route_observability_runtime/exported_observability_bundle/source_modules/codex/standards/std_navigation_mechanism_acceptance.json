@@ -234,5 +234,33 @@
       "future_observation.baseline_count > future_observation.post_count",
       "missing_refs=[]"
     ]
+  },
+  "compliance_coverage": {
+    "standard_ref": "codex/standards/std_compliance_coverage.json",
+    "adapter": "system/lib/compliance/navigation_mechanism_acceptance_adapter.py::scan_navigation_mechanism_acceptance",
+    "owner_validator": "tools/meta/factory/validate_navigation_mechanism_facets.py::validate_navigation_mechanism_projection",
+    "ledger_surface": "./repo-python kernel.py --option-surface compliance_ledger --band card --ids std_navigation_mechanism_acceptance",
+    "scanner_scope": [
+      "codex/standards/std_navigation_mechanism_acceptance.json",
+      "codex/ledger/navigation_mechanism_acceptance/events.jsonl",
+      "codex/ledger/navigation_mechanism_acceptance/dossiers",
+      "codex/ledger/navigation_mechanism_acceptance/owner_packets",
+      "codex/ledger/navigation_mechanism_acceptance/owner_loci",
+      "codex/ledger/navigation_mechanism_acceptance/replay_receipts",
+      "system/lib/navigation_mechanism_factory.py::build_navigation_mechanism_projection",
+      "system/lib/navigation_mechanism_factory.py::validate_navigation_mechanism_projection",
+      "tools/meta/factory/validate_navigation_mechanism_facets.py --json"
+    ],
+    "projection_contract": {
+      "scanner_role": "read_only_compliance_projection",
+      "owner_tool_remains_authority": true,
+      "compliance_evidence_not_owner_acceptance": true,
+      "forbidden": [
+        "accept candidate navigation mechanisms from compliance findings",
+        "mutate acceptance events or dossiers from the scanner",
+        "duplicate the owner validator acceptance rules"
+      ]
+    },
+    "atlas_navigation_use": "Atlas and navigation consume this standard through the generated compliance_ledger row after build_compliance_ledger.py runs; navigation-mechanism acceptance state remains owned by the event stream, dossiers, and owner validator."
   }
 }

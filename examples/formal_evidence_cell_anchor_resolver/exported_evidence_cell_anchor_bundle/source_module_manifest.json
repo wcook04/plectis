@@ -139,9 +139,9 @@
         "\"registry_source\"",
         "\"cell_id_resolver_contract\""
       ],
-      "line_count": 1337,
-      "sha256": "566de9b00c32e92adc2786a238056a50056b6003ee99c748704b617124414547",
-      "byte_count": 89407,
+      "line_count": 1590,
+      "sha256": "e62cd49e11152cb8ddad20fb262b338a5d91f767a08faf17ff77e578438b1d22",
+      "byte_count": 103970,
       "body_in_receipt": false,
       "body_copied": true,
       "source_to_target_relation": "source_faithful_public_safe_exact_copy"

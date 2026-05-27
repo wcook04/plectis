@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 747461,
+      "byte_count": 747503,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 17327,
+      "line_count": 17328,
       "material_class": "public_macro_tool_body",
       "module_id": "world_model_drift_aggregate_source_body_import",
       "required_anchors": [

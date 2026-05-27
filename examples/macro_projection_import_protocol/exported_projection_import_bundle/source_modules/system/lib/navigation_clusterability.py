@@ -14,8 +14,9 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from system.lib.kind_atlas import build_kind_atlas
-from system.lib.navigation_context_pack import HIGH_CARDINALITY_THRESHOLD
 from system.lib.standard_option_surface import build_option_surface
+
+HIGH_CARDINALITY_THRESHOLD = 80
 
 _ROUTE_SPECIFIC_CLUSTER_COMMANDS = {
     "derived_facts": {

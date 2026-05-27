@@ -5591,6 +5591,7 @@ def _info_active_execution_entry(
 
         active_execution = build_active_execution_constellation(
             state.REPO_ROOT,
+            include_runtime_status=False,
             campaign_limit=3,
             claim_limit=0,
             session_limit=0,
@@ -11954,7 +11955,12 @@ def cmd_agent_recent_activity(
     )
 
 
-def cmd_host_pressure(*, window_s: int = 900, write_path: str | None = None) -> int:
+def cmd_host_pressure(
+    *,
+    window_s: int = 900,
+    write_path: str | None = None,
+    activation_url: str | None = None,
+) -> int:
     """Emit the host-aware progress-pressure packet for parallel agents."""
     try:
         from system.lib.agent_observability import AgentTraceStore
@@ -11965,6 +11971,7 @@ def cmd_host_pressure(*, window_s: int = 900, write_path: str | None = None) -> 
             store,
             state.REPO_ROOT,
             window_s=window_s,
+            activation_url=activation_url,
         )
         if write_path:
             target = Path(write_path).expanduser()

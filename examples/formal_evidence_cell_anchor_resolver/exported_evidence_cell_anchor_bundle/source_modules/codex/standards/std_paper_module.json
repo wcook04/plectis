@@ -116,6 +116,51 @@
       "not_compared"
     ]
   },
+  "projection_closeout_contract": {
+    "purpose": "Prevent paper-module source/prose refinements from repeatedly closing while generated browse sidecars remain stale or non-reproducible.",
+    "authority_chain": [
+      "authored markdown and std_paper_module are source authority",
+      "generated sidecars and README managed regions are discoverability authority",
+      "Task Ledger/Work Ledger caps are residual authority when projection cannot be safely committed"
+    ],
+    "builder_receipt_field": "source_coupling.projection_closeout_guard",
+    "builder_owner": "tools/meta/factory/build_paper_module_index.py::_paper_module_source_coupling_receipt",
+    "generated_surfaces": [
+      "codex/doctrine/paper_modules/README.md",
+      "codex/doctrine/paper_modules/_index.json",
+      "codex/doctrine/paper_modules/_validation_report.json",
+      "codex/doctrine/paper_modules/_doctrine_to_paper_modules.json",
+      "codex/doctrine/paper_modules/_route_coverage.json"
+    ],
+    "source_coupling_statuses": {
+      "clean_source_inputs_and_artifacts": "Generated projection may be committed with the owned source/projection lane.",
+      "artifact_drift_from_clean_sources": "Sources are clean but projections are stale; run the repair command and commit generated surfaces.",
+      "artifact_matches_dirty_source_inputs": "Generated projection matches the current dirty worktree but is not reproducible without the dirty source inputs.",
+      "dirty_source_inputs_and_artifact_drift": "Generated projection is stale and dirty source inputs make a generated-only commit unsafe.",
+      "source_state_unavailable": "Git source-state could not be proven; do not land generated projections as fresh."
+    },
+    "no_stale_projection_closeout_invariant": "An authored paper-module, paper-module standard, or paper-module authoring-skill change is not a complete paper-module refinement pass until it either lands fresh generated surfaces or records a blocked projection receipt with exact dirty inputs, affected generated surfaces, owner lane, reentry command, and a guard against repeating source-only closeouts under the same blocker.",
+    "required_blocked_receipt_fields": [
+      "status",
+      "closeout_class",
+      "blocker_class",
+      "blocking_dirty_source_paths",
+      "affected_generated_surfaces",
+      "required_owner_lane",
+      "reentry_check_command",
+      "repair_command",
+      "required_reentry_condition",
+      "no_source_only_repeat_guard"
+    ],
+    "accepted_closeout_states": [
+      "generated_projection_committed",
+      "blocked_projection_hardened_with_exact_dirty_inputs"
+    ],
+    "repeat_deferral_guard": "A repeated closeout citing the same dirty-source blocker without narrowing, resolving, or escalating `source_coupling.projection_closeout_guard` fails the refinement standard.",
+    "reentry_check_command": "./repo-python tools/meta/factory/build_paper_module_index.py --check --report",
+    "repair_command": "./repo-python tools/meta/factory/build_paper_module_index.py",
+    "work_ledger_profile": "paper_module_index"
+  },
   "readme_projection_contract": {
     "target_path": "codex/doctrine/paper_modules/README.md",
     "authoritative_note": "README owns only stable human framing. Generated browse regions are builder-owned and must never become a second manual inventory.",
@@ -135,6 +180,65 @@
     ],
     "inventory_limit": 99,
     "next_attention_limit": 6
+  },
+  "audience_layer_contract": {
+    "purpose": "Keep one paper-module substrate useful to humans, agents, and machines without forking authority into separate documents.",
+    "layers": [
+      {
+        "layer": "human_orientation",
+        "reader_need": "A quick mental model, plain route choices, and visual compression when topology or flow is hard to hold in prose.",
+        "module_surfaces": [
+          "TLDR (compressed view)",
+          "Intent",
+          "Shape"
+        ],
+        "allowed_forms": [
+          "short prose",
+          "markdown tables",
+          "small Mermaid diagrams"
+        ]
+      },
+      {
+        "layer": "agent_contract",
+        "reader_need": "Dense, exact, command-ready substrate with owners, invariants, code loci, deliverables, refresh commands, and anti-rederivation boundaries.",
+        "module_surfaces": [
+          "Ontology / Types & Invariants",
+          "Code loci",
+          "Deliverables (what this subsystem lets a cold agent DO)",
+          "What a cold agent should NOT re-derive",
+          "Refresh contract"
+        ],
+        "allowed_forms": [
+          "parseable tables",
+          "exact commands",
+          "repo-relative paths",
+          "symbol ids",
+          "fact assertion tables"
+        ]
+      },
+      {
+        "layer": "machine_projection",
+        "reader_need": "Stable fields and sidecars that builders, kernel routes, coverage checks, and future frontend lenses can parse without reading narrative prose.",
+        "module_surfaces": [
+          "_index.json",
+          "_validation_report.json",
+          "_doctrine_to_paper_modules.json",
+          "_route_coverage.json",
+          "fact ledgers",
+          "builder-managed README regions"
+        ],
+        "allowed_forms": [
+          "generated JSON",
+          "fingerprints",
+          "validation rows",
+          "route metadata",
+          "managed markdown regions"
+        ]
+      }
+    ],
+    "diagram_rule": "Use diagrams only when they reduce re-derivation for humans or cold agents. Mermaid is the preferred markdown-native form. Diagrams explain shape; they do not replace code loci, standards, fact bindings, validation reports, or generated sidecars as authority.",
+    "single_truth_rule": "Do not create separate human, agent, and machine source documents for the same module. The authored markdown remains the source explanation; generated sidecars remain projections; README regions remain browse surfaces.",
+    "root_readme_rule": "A top-level README may be a human-first entry route if it points to the canonical root and live kernel routes. It must not become a fourth roof, mega-README, queue authority, or replacement for system_self_comprehension_root. When it names outside-facing Microcosm architecture, route to microcosm-substrate/README.md, microcosm_entry_lattice, microcosm_substrate, and std_microcosm instead of restating the product lattice."
   },
   "naming_contract": {
     "slug_format": "snake_case, matches filename without the .md extension. Example: bridge_runtime -> bridge_runtime.md",
@@ -472,6 +576,35 @@
       "current_state": "preferred_with_fallback"
     }
   },
+  "compression_passport_projection_contract": {
+    "purpose": "Make authored paper-module compression metadata visible to Atlas and context-pack selectors through the same first-class affordance shape used by standard and type-plane rows.",
+    "source_authority": "Authored paper-module frontmatter compiled into codex/doctrine/paper_modules/_index.json::modules[].compression by system/lib/paper_modules.py.",
+    "consumer_runtime": [
+      "system/lib/standard_option_surface.py::_paper_module_compression_passport",
+      "system/lib/navigation_context_pack.py::_affordance_passport",
+      "kernel.py --context-pack",
+      "kernel.py --option-surface paper_modules"
+    ],
+    "field_projection": {
+      "Compression atom": "compression_passport.atom",
+      "Compression keys": "compression_passport.cluster_keys",
+      "Open when": "compression_passport.when_to_open",
+      "Do not open when": "compression_passport.when_not_to_open",
+      "Safe drilldown": "compression_passport.safe_drilldown"
+    },
+    "projection_rule": "When module.compression.compression_status is authored, paper-module flag/card rows must include compression_passport populated only from authored compression fields. Fallback or missing compression stays inside the compression packet with authoring_debt and must not be promoted into compression_passport.",
+    "why_it_matters": "Paper modules are first-contact navigation atoms. If authored compression remains only as row-level open_when fields, context-pack selected_rows reports row_top_level_fallback and loses cluster-key specificity for Microcosm, coverage, and Atlas prompts.",
+    "regression_tests": [
+      "system/server/tests/test_standard_option_surface.py::test_paper_modules_card_projects_authored_compression_when_present",
+      "system/server/tests/test_navigation_context_pack.py::test_microcosm_paper_module_query_prefers_depth_handles_over_generic_operator"
+    ],
+    "principles_upheld": [
+      "pri_049 minimum sufficient read graph",
+      "pri_111 paper modules preempt re-derivation",
+      "pri_121 compress via substrate-derived projection",
+      "pri_128 live projections must be entry routes"
+    ]
+  },
   "cluster_authority_collapse_rule": {
     "purpose": "Make the paper-module contents-page rung (cluster_flag band) read like one ontology, not two parallel ones split by authoring authority. A future agent browsing clusters should see one row per canonical subdomain, with the authored-vs-heuristic split surfaced as row-level metadata, not as a duplicated cluster id.",
     "rule": "Cluster identity in the cluster_flag band is keyed by the canonical subdomain slug (e.g. `subdomain_authority_projection`) regardless of whether the underlying value came from authored `primary_subdomain` frontmatter or from the heuristic `suggested_primary_subdomain` axis. The two contributors merge into one bucket.",
@@ -494,7 +627,105 @@
       "pri_128 live projections must be entry routes"
     ]
   },
+  "option_surface_band_ladder_contract": {
+    "purpose": "Make the paper-module option surface readable as a Russian-doll ladder: broad control entry selects the artifact kind, cluster_flag groups the whole corpus, atom/flag/card select stable rows, and evidence opens authored markdown. This prevents agents from treating `band`, `flag`, `card`, and coverage packets as interchangeable.",
+    "all_corpus_browse_rule": "For all-paper-module browsing, `cluster_flag` is the normal compressed contents page. All-row `flag` without explicit ids is a compatibility path and should redirect or instruct the reader toward `cluster_flag`; use `flag` for a narrowed set or explicit ids.",
+    "rungs": [
+      {
+        "rung": "control_entry",
+        "surface_role": "CONTROL_ENTRY",
+        "command": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
+        "use_when": "First contact, route arbitration, or task-conditioned selection.",
+        "must_not_do": "Do not replace this with Kind Atlas or option-surface drilldowns as the cold-start control move."
+      },
+      {
+        "rung": "kind_atlas",
+        "surface_role": "ATLAS_PROJECTION",
+        "command": "./repo-python kernel.py --kind-atlas --band flag",
+        "use_when": "Entry selected the artifact-kind ladder or the operator explicitly asks to browse kinds.",
+        "must_show": ["kind_id", "row_count", "supported bands", "cluster command", "card command"]
+      },
+      {
+        "rung": "cluster_flag",
+        "surface_role": "ATLAS_PROJECTION",
+        "command": "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+        "use_when": "Whole-corpus paper-module browse, typed grouping, and Atlas contents-page work.",
+        "must_group_by": ["canonical subdomain", "projection class", "route-health posture", "authority distribution"],
+        "must_omit": ["full row flags", "full code loci", "module bodies", "transitive dependencies"],
+        "drilldown_to": "flag_or_card"
+      },
+      {
+        "rung": "atom",
+        "surface_role": "ATLAS_PROJECTION",
+        "command": "./repo-python kernel.py --option-surface paper_modules --band atom",
+        "use_when": "Cheapest whole-corpus selection affordance when the reader only needs slug, atom, trust chip, and drilldown command.",
+        "drilldown_to": "card"
+      },
+      {
+        "rung": "flag",
+        "surface_role": "ATLAS_PROJECTION",
+        "command": "./repo-python kernel.py --option-surface paper_modules --band flag --ids <slug1>,<slug2>",
+        "use_when": "Narrowed row-list browsing after a cluster or explicit id set is selected.",
+        "must_not_do": "Do not use all-row flag output as the optimal all-paper-module compressed browse surface."
+      },
+      {
+        "rung": "card",
+        "surface_role": "ATLAS_PROJECTION",
+        "command": "./repo-python kernel.py --option-surface paper_modules --band card --ids <slug>",
+        "use_when": "Stable module selection, currentness/trust posture, dependency hints, and authored compression passport preview.",
+        "drilldown_to": "evidence"
+      },
+      {
+        "rung": "coverage",
+        "surface_role": "DRILLDOWN",
+        "command": "./repo-python kernel.py --paper-module-coverage",
+        "use_when": "Route-health, sidecar freshness, attention-queue, and route-population decisions after entry/context selected paper-module coverage.",
+        "must_not_do": "Do not treat route-population counts as explanation depth or publication authority."
+      },
+      {
+        "rung": "evidence",
+        "surface_role": "DRILLDOWN",
+        "command": "./repo-python kernel.py --paper-module <slug>",
+        "use_when": "Source-authority read before mutation, verification, or detailed comprehension."
+      }
+    ],
+    "consumer_runtime": [
+      "system/lib/standard_option_surface.py::build_option_surface",
+      "system/lib/standard_option_surface.py::_paper_module_cluster_rows",
+      "system/lib/standard_option_surface.py::_atom_row",
+      "system/lib/standard_option_surface.py::_flag_row",
+      "system/lib/standard_option_surface.py::_card_row",
+      "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS",
+      "system/lib/kernel/commands/navigate.py::cmd_option_surface",
+      "system/lib/kernel/commands/navigate.py::cmd_paper_module_coverage"
+    ],
+    "principles_upheld": [
+      "pri_049 minimum sufficient read graph",
+      "pri_111 paper modules preempt re-derivation",
+      "pri_121 compress via substrate-derived projection",
+      "pri_128 live projections must be entry routes"
+    ]
+  },
   "band_contracts": {
+    "cluster_flag": {
+      "purpose": "Global contents-page rung for all paper modules. It gives typed groupings and representative handles before row expansion.",
+      "minimum_payload": [
+        "cluster_id",
+        "label",
+        "module_count",
+        "authority_distribution",
+        "top module ids",
+        "omission_policy",
+        "drilldown command"
+      ],
+      "forbidden": [
+        "full module bodies",
+        "all row-level flags",
+        "full code loci",
+        "transitive dependency closure"
+      ],
+      "drilldown_to": "flag_or_card"
+    },
     "atom": {
       "purpose": "Cheapest selection-affordance row for whole-system reasoning. Cheaper than tldr; row-shaped not paragraph-shaped.",
       "minimum_payload": [
@@ -509,6 +740,24 @@
         "carry full dependency closure",
         "claim ratified Will-voice without authored frontmatter",
         "carry the 220-character flag or full open_when by default"
+      ],
+      "drilldown_to": "card"
+    },
+    "flag": {
+      "purpose": "Narrowed row-list rung after the contents page or explicit ids have selected a row set.",
+      "minimum_payload": [
+        "slug",
+        "title",
+        "compression flag",
+        "status",
+        "drilldown command",
+        "compression source marker"
+      ],
+      "forbidden": [
+        "all-corpus first browse",
+        "full module body",
+        "full dependency closure",
+        "full Code loci"
       ],
       "drilldown_to": "card"
     },
@@ -528,7 +777,9 @@
     "profile_id": "paper_module_navigation_v0",
     "artifact_kind": "paper_modules",
     "navigable_bands": [
+      "cluster_flag",
       "atom",
+      "flag",
       "tldr",
       "card",
       "context",
@@ -595,7 +846,9 @@
       {"facet": "dependency_neighborhood", "rule": "Inbound/outbound paper-module and substrate edges."}
     ],
     "population_policy": {
+      "band:cluster_flag": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_paper_module_cluster_rows", "source": "codex/doctrine/paper_modules/_index.json plus _route_coverage.json paper_module_routes", "freshness": "paper-module index source_fingerprint plus route_coverage fingerprint"},
       "band:atom": {"populated_by": "compiled_with_fallback", "source": "authored Compression atom frontmatter when present; first sentence of TLDR (compressed view) otherwise, with per-field source markers", "freshness": "paper-module index source_fingerprint plus per-row compression_status"},
+      "band:flag": {"populated_by": "compiled_with_fallback", "emitter": "system/lib/standard_option_surface.py::_flag_row", "source": "codex/doctrine/paper_modules/_index.json plus authored compression fields", "freshness": "paper-module index source_fingerprint plus per-row compression_status"},
       "band:tldr": {"populated_by": "authored", "source": "paper module TLDR section/frontmatter", "freshness": "authored markdown mtime plus builder source fingerprint"},
       "band:card": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_card_row", "source": "codex/doctrine/paper_modules/_index.json plus authored markdown sections", "freshness": "paper-module index source_fingerprint"},
       "band:context": {"populated_by": "unpopulated", "reason": "No generic paper-module context-band telescope adapter exists yet."},

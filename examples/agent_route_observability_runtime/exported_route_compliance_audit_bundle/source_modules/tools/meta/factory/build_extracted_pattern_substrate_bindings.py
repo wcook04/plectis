@@ -123,6 +123,152 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
         ),
     },
     {
+        "route_id": "principle_scope_axiom_candidate_lattice_root_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "constitutional_doctrine",
+            "navigation_control",
+        ],
+        "target_existing_organs": [
+            "pattern_binding_contract",
+            "executable_doctrine_grammar",
+            "root_binding_and_executable_grammar",
+            "proof_diagnostic_evidence_spine",
+            "navigation_hologram_route_plane",
+        ],
+        "pattern_ids": [
+            "principle_scope_axiom_candidate_lattice",
+        ],
+        "why_impressive": (
+            "The principle/axiom lattice becomes reusable only when scoped principles, "
+            "teleology refs, candidate-pressure packets, non-law authority posture, "
+            "promotion cadence, violation predicates, and option-surface cards travel "
+            "as one root doctrine grammar instead of being rediscovered from raw "
+            "principle rows, candidate axiom files, or entry-packet warnings."
+        ),
+        "candidate_fixture": (
+            "Synthetic doctrine corpus with four scoped principles, two candidate axioms "
+            "under one teleology, one anti-axiom, one refinement-plan row, one "
+            "candidate-runtime-pressure entry, and negative fixtures for treating a "
+            "candidate as active law, missing violation predicates, missing teleology "
+            "refs, and standards card facets declared as strings."
+        ),
+        "anti_claim_floor": (
+            "This route proves scoped principle and candidate-axiom routing for synthetic "
+            "fixtures and live owner surfaces. It does not promote any candidate axiom "
+            "to active doctrine, certify principle truth timelessly, rewrite raw seed, "
+            "make option-surface projections source authority, bypass operator/controller "
+            "promotion, or authorize public release of private principle neighborhoods."
+        ),
+        "next_refinement_move": (
+            "Keep principle_scope_axiom_candidate_lattice under root_binding_and_"
+            "executable_grammar. Future doctrine-lattice work should open principle_"
+            "scope_ontology, raw_seed_principle_scope, std_raw_seed_principles, "
+            "std_system_axiom_candidate, agent_operating_packet, candidate runtime "
+            "pressure policy, standards and principles option-surface cards, and "
+            "focused agent-operating/diagnostic/standards-card tests before changing "
+            "principle scope, axiom candidates, or promotion doctrine."
+        ),
+    },
+    {
+        "route_id": "kernel_cli_typed_router_navigation_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "navigation_control",
+            "standard_owned_option_surfaces",
+        ],
+        "target_existing_organs": [
+            "navigation_hologram_route_plane",
+            "root_binding_and_executable_grammar",
+            "proof_diagnostic_evidence_spine",
+            "pattern_binding_contract",
+        ],
+        "pattern_ids": [
+            "kernel_cli_typed_router",
+        ],
+        "why_impressive": (
+            "The kernel CLI is reusable only when first-contact commands, typed "
+            "drilldowns, kind/card row selection, banned-route replacement, route "
+            "leases, ceremony budgets, and projection-not-authority receipts travel "
+            "as one navigation contract instead of being rediscovered from kernel.py, "
+            "entry packets, or option-surface prose."
+        ),
+        "candidate_fixture": (
+            "Synthetic mini-kernel with --info, --entry, --context-pack, --kind-atlas, "
+            "--option-surface, and --row commands; one banned-route replacement; one "
+            "route-lease admission receipt; one ceremony-budget tier; and negative "
+            "fixtures for using option surfaces as first-contact control, treating "
+            "generated rows as source authority, and bypassing owner validators."
+        ),
+        "anti_claim_floor": (
+            "This route proves typed kernel routing and command discipline for live "
+            "owner surfaces and synthetic fixtures. It does not make Atlas projections "
+            "source authority, permit every kernel flag as first-contact control, expose "
+            "private payloads, authorize public release, or replace source files, "
+            "standards, tests, and owner tools as authority."
+        ),
+        "next_refinement_move": (
+            "Keep kernel_cli_typed_router under navigation_hologram_route_plane with "
+            "root_binding_and_executable_grammar and proof_diagnostic_evidence_spine "
+            "as carry roots. Future kernel-routing work should open kernel.py, "
+            "comprehension_snapshot.py, navigate.py, navigation_context_pack.py, "
+            "kind_atlas.py, standard_option_surface.py, std_agent_entry_surface, "
+            "navigation_seed, bootstrap, navigation_metabolism, and focused entry/"
+            "kind/context/option-surface tests before adding local command doctrine."
+        ),
+    },
+    {
+        "route_id": "idea_microcosm_metabolism_meta_loop_laboratory_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "raw_seed_to_doctrine_metabolism",
+            "public_microcosm_substrate_boundary",
+            "voice_memory_alchemy",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+            "pattern_binding_contract",
+        ],
+        "pattern_ids": [
+            "idea_microcosm_metabolism_meta_loop",
+        ],
+        "why_impressive": (
+            "The Laboratory meta-loop becomes reusable only when microcosm minting, "
+            "scoring, projection, sanitization, fixture build, proof-gating, negative "
+            "cases, source-open product boundary, and generated-projection authority "
+            "ceiling travel as one contract instead of being rediscovered from legacy "
+            "idea-microcosm prose, private raw-seed lanes, or public Microcosm docs."
+        ),
+        "candidate_fixture": (
+            "Three synthetic idea cards pass through score -> project -> sanitize -> "
+            "fixture-build -> gate: one row is rejected for raw/operator/private leakage, "
+            "one row is accepted as a public-safe voice-to-doctrine fixture, and one row "
+            "scaffolds a tiny leaf only after owner-surface validation and closeout "
+            "receipts are present."
+        ),
+        "anti_claim_floor": (
+            "This route proves the Laboratory meta-loop over public-safe synthetic idea "
+            "cards and live voice-to-doctrine owner surfaces. It does not make Laboratory "
+            "receipts product authority, collapse Laboratory into public Microcosm, export "
+            "raw operator voice or private threads, authorize source mutation, or treat "
+            "generated projections as source truth."
+        ),
+        "next_refinement_move": (
+            "Keep idea_microcosm_metabolism_meta_loop under voice_to_doctrine_"
+            "self_improvement_loop with microcosm_substrate as the public product boundary. "
+            "Future agents should open idea_microcosm_metabolism, microcosm_substrate, "
+            "the voice-to-doctrine organ, its standard, fixture manifest, acceptance "
+            "receipt, route-readiness audit, and focused option-surface tests before "
+            "adding new Laboratory, Microcosm, or raw-seed metabolism doctrine."
+        ),
+    },
+    {
         "route_id": "standard_type_plane_single_drop_grammar",
         "priority_rank": 0,
         "source_cluster_ids": [
@@ -572,6 +718,755 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
         ),
     },
     {
+        "route_id": "live_projection_salience_gate_attention_control_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "navigation_projection_route_plane",
+            "raw_seed_to_doctrine_metabolism",
+            "agent_entry_runtime_and_behavior_governance",
+        ],
+        "target_existing_organs": [
+            "navigation_hologram_route_plane",
+            "root_binding_and_executable_grammar",
+            "proof_diagnostic_evidence_spine",
+            "agent_route_observability_runtime",
+            "pattern_binding_contract",
+        ],
+        "pattern_ids": [
+            "live_projection_salience_gate",
+        ],
+        "why_impressive": (
+            "The live projection salience gate turns cockpit, HUD, Atlas, raw-seed, "
+            "Task Ledger, Prompt Shelf, provider, bridge, and agent-entry projections "
+            "from tick-driven read models into attention-control surfaces: awareness "
+            "can route to background metabolism, Type A, Type B, operator attention, "
+            "WorkItem candidacy, bounded workspace broadcast, or suppression without "
+            "treating generated projections as source authority."
+        ),
+        "candidate_fixture": (
+            "Synthetic live-projection manifest with three candidate rows over a tiny "
+            "authority corpus. One row emits because it changes a Type A or operator "
+            "decision; one suppresses represented repeat pressure while preserving "
+            "source refs and reason; one stays source-local until evidence allows "
+            "WorkItem/provider promotion. Negative cases fail when full queues broadcast, "
+            "salience alone promotes a WorkItem, provider dispatch lacks governor/"
+            "budget/receipt/failure surfaces, information scent lacks when_to_stop, or "
+            "actor lenses fork the row identity."
+        ),
+        "anti_claim_floor": (
+            "This route proves salience-gated projection attention over candidate "
+            "extension standards, raw-seed projection owners, and synthetic fixtures. It "
+            "does not make salience source authority, create a cockpit registry, require "
+            "every projection to emit the extension today, promote WorkItems, dispatch "
+            "providers, publish private projection queues, or authorize generated rows "
+            "as public Microcosm release evidence."
+        ),
+        "next_refinement_move": (
+            "Keep live_projection_salience_gate under navigation_hologram_route_plane "
+            "with root_binding_and_executable_grammar, proof_diagnostic_evidence_spine, "
+            "and agent_route_observability_runtime as carry siblings. Future projection "
+            "work should open live_control_layer_projections, std_live_projection_"
+            "salience_gate, std_raw_seed_compressed_projection, raw_seed_compressed_"
+            "projection.py, raw_seed_pipeline.py, create_control_layer_live_projection, "
+            "Task Ledger/Prompt Shelf/provider projection owners, and focused raw-seed/"
+            "option-surface tests before adding cockpit, HUD, Atlas, or live-projection "
+            "doctrine."
+        ),
+    },
+    {
+        "route_id": "summary_ladders_system_facts_glance_compression_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "world_model_attention_and_authority_projection",
+            "raw_seed_to_doctrine_metabolism",
+        ],
+        "target_existing_organs": [
+            "navigation_hologram_route_plane",
+            "root_binding_and_executable_grammar",
+            "proof_diagnostic_evidence_spine",
+            "pattern_binding_contract",
+            "executable_doctrine_grammar",
+        ],
+        "pattern_ids": [
+            "summary_ladders_compression",
+            "system_facts_glance",
+        ],
+        "why_impressive": (
+            "Summary ladders and system facts at-a-glance become reusable when "
+            "cold-entry compression rows carry length bands, route tokens, proof "
+            "refs, source-authority boundaries, generated sidecars, and refresh "
+            "commands as one navigable contract instead of scattered README copy "
+            "or volatile prose."
+        ),
+        "candidate_fixture": (
+            "Synthetic cold-entry corpus with one public microcosm leaf ladder and "
+            "one generated system-facts card. Positive cases require four summary "
+            "lengths, proof refs, anti-claims, std_python or fact-route drilldowns, "
+            "projection-not-authority text, owner refresh/check commands, and "
+            "route-readiness membership. Negative cases fail when a summary row "
+            "becomes proof, facts are hand-edited, dynamic values are treated as "
+            "static doctrine, or private-root state is published."
+        ),
+        "anti_claim_floor": (
+            "This route proves cold-entry compression projections over summary "
+            "ladder fixtures, System Atlas facts, derived-fact owners, option "
+            "surfaces, and synthetic negative cases. It does not certify public "
+            "release, make generated rows source authority, replace leaf evidence "
+            "or receipts, publish private state, or freeze volatile facts into "
+            "static doctrine."
+        ),
+        "next_refinement_move": (
+            "Keep summary_ladders_compression and system_facts_glance under "
+            "navigation_hologram_route_plane with root_binding_and_executable_grammar "
+            "and proof_diagnostic_evidence_spine as carry siblings. Future cold-entry "
+            "compression work should open the summary_ladders specimen, std_summary_"
+            "ladder analogue, derived_fact_hologram, std_derived_fact, System Atlas "
+            "facts projection, agent_bootstrap_projection.py, and focused builder/"
+            "option-surface checks before adding another entry table or facts card."
+        ),
+    },
+    {
+        "route_id": "concept_mechanism_curation_doctrine_gate_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "root_binding_and_executable_grammar",
+            "executable_doctrine_grammar",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "voice_to_doctrine_self_improvement_loop",
+        ],
+        "pattern_ids": [
+            "concept_mechanism_curation",
+        ],
+        "why_impressive": (
+            "Concept/mechanism curation turns doctrine growth pressure into governed "
+            "candidate rows, option-surface cards, curation packets, concept and "
+            "mechanism standards, and source-coupled report refreshes. Future agents "
+            "can decide add_edges, covered_by_existing, author_new, defer, or reject "
+            "without grepping doctrine folders or minting parallel concept/mechanism "
+            "owners."
+        ),
+        "candidate_fixture": (
+            "Synthetic doctrine coverage fixture with four candidates: two concepts "
+            "and two mechanisms. Positive cases require candidate cards, reopened "
+            "evidence anchors, nearest-existing review, one add_edges packet, one "
+            "covered_by_existing packet, one defer packet, refreshed candidate report "
+            "effects, and option-surface card drilldowns. Negative cases fail when "
+            "candidate rows become doctrine authority, curation packets omit reopened "
+            "evidence, concepts/mechanisms are hand-minted outside their standards, or "
+            "the report is stale after substrate changes."
+        ),
+        "anti_claim_floor": (
+            "This route proves concept/mechanism curation as a governed doctrine "
+            "growth gate over candidate reports, curation receipts, standards, skills, "
+            "option surfaces, and tests. It does not promote candidate rows into "
+            "concept or mechanism law, authorize bulk doctrine minting, replace "
+            "std_concept or std_mechanism, make generated reports source authority, "
+            "or publish private raw-seed/operator evidence without the owning lanes."
+        ),
+        "next_refinement_move": (
+            "Keep concept_mechanism_curation under root_binding_and_executable_grammar "
+            "with navigation_hologram_route_plane, proof_diagnostic_evidence_spine, "
+            "and voice_to_doctrine_self_improvement_loop as carry siblings. Future "
+            "doctrine-growth work should open concept_mechanism_candidates and "
+            "concept_mechanism_candidate_curations option surfaces, std_concept, "
+            "std_mechanism, concept_mechanism_curation skill, doctrine_population_loop, "
+            "concept_mechanism_coverage.py, build_concept_mechanism_candidates.py, "
+            "and focused imagination/index tests before authoring concepts, mechanisms, "
+            "or public Microcosm leaves."
+        ),
+    },
+    {
+        "route_id": "correction_survival_loop_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "mission_transaction_and_scoped_commit",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "mission_transaction_work_spine",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "correction_survival_loop",
+        ],
+        "why_impressive": (
+            "Correction survival becomes reusable when an operator correction is captured "
+            "before prose, classified, tied to a non-empty route or doctrine diff, "
+            "validated by an effectiveness witness, and then linked back to Task Ledger, "
+            "local-to-general propagation, egress/capture tripwires, and Microcosm "
+            "privacy gates instead of remaining a chat memory."
+        ),
+        "candidate_fixture": (
+            "Synthetic correction loop fixture with four correction utterances, capture "
+            "events ordered before prose, typed failure modes, non-noise route diffs "
+            "that cite capture ids, future scenarios that route differently after the "
+            "patch, and private-content absence checks. Negative cases fail when a "
+            "correction is only logged, a route diff omits the capture id, old and new "
+            "graphs choose the same action, or real operator/CAP/provider state leaks "
+            "into the fixture."
+        ),
+        "anti_claim_floor": (
+            "This route proves a synthetic correction-survival mechanism and its live "
+            "routing owners. It does not prove that every private correction survived, "
+            "authorize live tripwire mutation, make Task Ledger captures rank or promote "
+            "work automatically, expose real operator wording, grant private-root "
+            "equivalence, or strengthen hosted-public/release authority."
+        ),
+        "next_refinement_move": (
+            "Keep correction_survival_loop under voice_to_doctrine_self_improvement_loop "
+            "with mission_transaction_work_spine, proof_diagnostic_evidence_spine, "
+            "pattern_binding_contract, and external_boundary_anti_corruption_runtime as "
+            "carry siblings. Future correction work should open the correction-survival "
+            "fixture receipt, Task Ledger capture reflex, local_to_general_propagation, "
+            "egress compliance tests, extracted-pattern binding checks, and route-readiness "
+            "audit before patching tripwires, standards, skills, or paper modules."
+        ),
+    },
+    {
+        "route_id": "cross_actor_notice_capture_doctrine_refinement_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+            "operator_thread_memory_and_type_b_handoff_membrane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "mission_transaction_work_spine",
+            "agent_route_observability_runtime",
+            "external_boundary_anti_corruption_runtime",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "bridge_phase_continuity_runtime",
+        ],
+        "pattern_ids": [
+            "cross_actor_notice_capture",
+        ],
+        "why_impressive": (
+            "Cross-actor notices become reusable when operator, agent, validator, hook, "
+            "and Type B contours are classified by notice class, captured without "
+            "adoption claims, routed to Task Ledger, Prompt Ledger, actor-axis, "
+            "concept/mechanism, paper-module, or standard owners, and then validated "
+            "by Type A against live substrate before doctrine or Microcosm projection."
+        ),
+        "candidate_fixture": (
+            "Synthetic four-notice fixture across operator, Type A agent, validator, "
+            "and Type B handoff surfaces. Positive cases classify correction, "
+            "observation, proposal, and objection lanes; preserve provenance hashes; "
+            "route ordinary side work to Task Ledger, prompt friction to Prompt Ledger, "
+            "actor-axis drift to con_016, and reusable doctrine to paper-module or "
+            "standard owners; then emit one bounded doctrine patch proposal with "
+            "validation refs. Negative cases fail when notices become generic TODOs, "
+            "Type B claims private substrate authority, doctrine is mutated before "
+            "owner verification, provenance is absent, or private transcript/provider "
+            "state leaks into the fixture."
+        ),
+        "anti_claim_floor": (
+            "This route proves actor-aware notice routing over synthetic notices and "
+            "live owner surfaces. It does not prove every private notice was captured, "
+            "promote Type B advice to substrate truth, create a parallel notice board, "
+            "rank or promote Task Ledger captures automatically, expose private "
+            "operator/provider/browser state, or authorize public Microcosm release."
+        ),
+        "next_refinement_move": (
+            "Keep cross_actor_notice_capture under voice_to_doctrine_self_improvement_loop "
+            "with mission_transaction_work_spine, agent_route_observability_runtime, "
+            "bridge_phase_continuity_runtime, proof_diagnostic_evidence_spine, "
+            "pattern_binding_contract, and external_boundary_anti_corruption_runtime "
+            "as carry siblings. Future notice-routing work should open cross_actor_"
+            "notice_capture_and_refinement_dynamics, task_ledger, prompt_shelf_"
+            "uppropagation_ledger, con_016, Task/Prompt Ledger standards, operator "
+            "thread memory lesson-candidate tests, egress capture-reflex tests, and "
+            "extracted-pattern binding/readiness checks before changing notice lanes "
+            "or projecting public Microcosm leaves."
+        ),
+    },
+    {
+        "route_id": "archaeological_voice_coverage_gate_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "archaeological_voice_coverage_gate",
+        ],
+        "why_impressive": (
+            "Archaeological voice mining becomes reusable when older obsidian/idea "
+            "voice is classified before dispatch, coverage-checked against live "
+            "doctrine before import, rejected at the import boundary when coverage "
+            "metadata is absent, and ledgered for emit, drop_overlaps, and "
+            "drop_full_coverage decisions. Future agents can use the archaeology "
+            "state, skill, standard, pipeline, and tests instead of rediscovering "
+            "where the retread and voice-theft boundaries live."
+        ),
+        "candidate_fixture": (
+            "Synthetic archaeology bundle with one will_voice file, one ai_output "
+            "file, one emit shard, one drop_overlaps shard, one drop_full_coverage "
+            "shard, and one missing coverage_check shard. Positive cases import only "
+            "emit and drop_overlaps into archaeological_shards.json while ledgering "
+            "all three coverage decisions and updating corpus_index mining_state. "
+            "Negative cases fail when ai_output is mined, coverage_check is empty, "
+            "emit or drop_overlaps lacks new_dimension, checked_against omits live "
+            "doctrine ids, or archaeological_depth is missing."
+        ),
+        "anti_claim_floor": (
+            "This route proves the coverage-gated archaeology import boundary over "
+            "synthetic/private-root-safe fixtures and live owner surfaces. It does "
+            "not authorize raw obsidian/idea publication, prove every historical "
+            "voice file is classified or mined, convert ai_output into Will voice, "
+            "make archaeological shards doctrine law, bypass raw-seed apply lanes, "
+            "or authorize public Microcosm release of private voice content."
+        ),
+        "next_refinement_move": (
+            "Keep archaeological_voice_coverage_gate under voice_to_doctrine_"
+            "self_improvement_loop with raw_seed_alchemy_review_suborgan, "
+            "pattern_binding_contract, navigation_hologram_route_plane, "
+            "proof_diagnostic_evidence_spine, and external_boundary_anti_corruption_"
+            "runtime as carry siblings. Future voice-archaeology work should open "
+            "archaeological_voice_mining, voice_archaeology, std_voice_archaeology, "
+            "voice_archaeology_pipeline.py, corpus_index, archaeological_shards, "
+            "coverage_ledger, extracted-pattern binding/readiness checks, and the "
+            "focused voice-archaeology import tests before mining, importing, or "
+            "projecting archaeological voice into Microcosm."
+        ),
+    },
+    {
+        "route_id": "voice_archaeology_coverage_aware_third_substrate_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "voice_archaeology_coverage_aware_third_substrate",
+        ],
+        "why_impressive": (
+            "Voice archaeology is reusable as the third substrate only when the "
+            "corpus index, provenance and depth classifier, coverage-aware mining "
+            "bundle, embedding search surface, archaeological shard ledger, "
+            "coverage ledger, import validator, kernel archaeology packet, and "
+            "paper/standard/skill owners travel as one route. Future agents should "
+            "open the archaeology substrate directly instead of rediscovering it "
+            "from obsidian/idea files, raw-seed metaphors, or scattered pipeline "
+            "commands."
+        ),
+        "candidate_fixture": (
+            "Synthetic archaeology corpus with will_voice, mixed, paper_draft, "
+            "ai_output, and empty files across shallow, medium, deep, and "
+            "foundational archaeological_depth bands. Positive cases require "
+            "browse filtering by priority/provenance/depth, coverage embedding "
+            "before mining, nearest-doctrine coverage context, checked_against "
+            "refs, emit/drop_overlaps/drop_full_coverage ledger decisions, "
+            "archaeological_shards import only for allowed decisions, archaeology_"
+            "shards embedding search, and option-surface route readiness. Negative "
+            "cases fail when ai_output is mined as Will voice, raw obsidian/idea "
+            "content is projected, coverage_check is missing or stale, a shard "
+            "bypasses the raw-seed/voice apply boundary, or route rows are selected "
+            "without the organ bundle."
+        ),
+        "anti_claim_floor": (
+            "This route proves the third-substrate routing contract over live owner "
+            "surfaces and synthetic/private-root-safe fixtures. It does not publish "
+            "raw obsidian/idea content, prove every historical file is classified "
+            "or mined, turn ai_output into operator voice, make archaeological "
+            "shards doctrine law, create a new apply lane, bypass coverage gates, "
+            "or authorize public Microcosm release of private voice material."
+        ),
+        "next_refinement_move": (
+            "Keep voice_archaeology_coverage_aware_third_substrate under voice_to_"
+            "doctrine_self_improvement_loop with raw_seed_alchemy_review_suborgan, "
+            "pattern_binding_contract, navigation_hologram_route_plane, proof_"
+            "diagnostic_evidence_spine, and external_boundary_anti_corruption_"
+            "runtime as carry siblings. Future third-substrate work should open "
+            "voice_archaeology, voice_archaeology_build_spec, std_voice_archaeology, "
+            "archaeological_voice_mining, voice_archaeology_pipeline.py, "
+            "embedding_substrate.py, embedding_sources.py, kernel archaeology flags, "
+            "corpus_index, archaeological_shards, coverage_ledger, extracted-pattern "
+            "binding/readiness checks, and voice-archaeology tests before mining, "
+            "importing, routing, or projecting archaeological voice."
+        ),
+    },
+    {
+        "route_id": "raw_seed_atomization_to_shards_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "raw_seed_atomization_to_shards",
+        ],
+        "why_impressive": (
+            "Raw-seed atomization becomes reusable when paragraph shards, atomized "
+            "extracted shards, the atomization ledger, distillation bridge import, "
+            "coverage/browser-index refreshes, route-review payloads, raw-seed "
+            "standards, and synthetic fixture validators travel as one route. "
+            "Future agents can open the atomization owner chain directly instead "
+            "of rediscovering it from raw_seed_atomization.md, distillation "
+            "rubrics, extracted_shards state, and pipeline tests."
+        ),
+        "candidate_fixture": (
+            "Synthetic family fixture with two raw_seed_shards paragraphs, one "
+            "Opus distillation import, one local atomization pass, one retryable "
+            "low-signal paragraph, and one route-review projection. Positive cases "
+            "assert stable atom_* ids, parent paragraph provenance, ordinal order, "
+            "sticky atomization_source, single extracted_shards backlog storage, "
+            "append-only atomization ledger states, coverage/browser_index refresh, "
+            "and route-readiness through the voice_to_doctrine_self_improvement_"
+            "loop organ bundle. Negative cases fail when raw_seed.md is edited, "
+            "doctrine is mutated by atomization, low-signal text becomes proposed_"
+            "new routing, Opus-seeded shards are overwritten by cheap reruns, or "
+            "private operator voice is projected."
+        ),
+        "anti_claim_floor": (
+            "This route proves the raw-seed atomization routing contract over live "
+            "owner surfaces and synthetic/private-root-safe fixtures. It does not "
+            "publish raw operator voice, replace parent paragraphs as authority, "
+            "mutate doctrine, prove every paragraph has been atomized, create a "
+            "second extracted-shard backlog, bypass raw-seed apply lanes, or "
+            "authorize public Microcosm release of private voice material."
+        ),
+        "next_refinement_move": (
+            "Keep raw_seed_atomization_to_shards under voice_to_doctrine_self_"
+            "improvement_loop with raw_seed_alchemy_review_suborgan, pattern_"
+            "binding_contract, navigation_hologram_route_plane, proof_diagnostic_"
+            "evidence_spine, and external_boundary_anti_corruption_runtime as "
+            "carry siblings. Future raw-seed atomization work should open raw_"
+            "seed_atomization, raw_seed_substrate, raw_seed_metabolism, raw_seed_"
+            "distillation lanes, raw-seed standards, raw_seed_atomization.py, "
+            "raw_seed_distillation.py, raw_seed_registry.py, raw_seed_pipeline.py, "
+            "family raw_seed_shards/extracted_shards/atomization_ledger/coverage "
+            "state, extracted-pattern binding/readiness checks, and focused raw-"
+            "seed atomization tests before atomizing, importing, routing, or "
+            "projecting shards."
+        ),
+    },
+    {
+        "route_id": "raw_seed_maintenance_self_pruning_campaign_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "external_reference_adoption_membranes",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "raw_seed_maintenance_deterministic_self_pruning_campaign",
+        ],
+        "why_impressive": (
+            "Raw-seed maintenance becomes reusable only when the deterministic "
+            "finding dialect, duplicate-collapse signatures, bounded binning, "
+            "bridge maintenance mission pack, preview-first campaign driver, "
+            "controller-gated apply replay, launchable operations, run ledger, "
+            "documentation-refresh gate, and generated binding/readiness checks "
+            "travel as one route. Future agents should open this self-pruning "
+            "campaign before trying to turn recurring runtime evidence into "
+            "doctrine edits or Microcosm projection claims."
+        ),
+        "candidate_fixture": (
+            "Synthetic maintenance campaign fixture with durable runtime evidence "
+            "for parser_import, reaction_barrier, worker_transport, and "
+            "throughput_policy incidents. Positive cases assert stable finding_id "
+            "and signature collapse, the 4-kind / 7-category / 5-mutation-class "
+            "dialect, bins capped at eight findings and five target paths, "
+            "required_refresh_paths on every bin, bridge mission packets carrying "
+            "finding ids and exact target paths, preview-only apply compilation, "
+            "and controller-owned apply-session replay. Negative cases fail when "
+            "chat memory or wall-clock state affects findings, a bin mixes "
+            "mutation classes, bridge authoring mutates doctrine directly, "
+            "documentation_refresh_required_paths are omitted, run artifact refs "
+            "are treated as public proof, or private raw-seed/runtime evidence is "
+            "projected into Microcosm."
+        ),
+        "anti_claim_floor": (
+            "This route proves the raw-seed maintenance self-pruning campaign "
+            "owner chain over live code, standards, mission pack, run ledger, "
+            "launchable operations, and synthetic/private-root-safe fixtures. It "
+            "does not prove the campaign is currently scheduled, does not add a "
+            "reactions-engine auto-fire, does not live-apply doctrine changes, "
+            "does not publish raw seed, runtime logs, provider payload bodies, or "
+            "operator-private evidence, does not certify that all recurring "
+            "findings were repaired, and does not authorize public Microcosm "
+            "release of private maintenance artifacts."
+        ),
+        "next_refinement_move": (
+            "Keep raw_seed_maintenance_deterministic_self_pruning_campaign under "
+            "voice_to_doctrine_self_improvement_loop with raw_seed_alchemy_review_"
+            "suborgan, pattern_binding_contract, navigation_hologram_route_plane, "
+            "proof_diagnostic_evidence_spine, and external_boundary_anti_"
+            "corruption_runtime as carry siblings. Future maintenance, hygiene, "
+            "or self-pruning work should open raw_seed_maintenance_campaign_"
+            "runtime, raw_seed_metabolism, doctrine_apply_lanes, reactions_engine, "
+            "bridge_runtime, bridge_runtime_control_plane, std_runtime_maintenance_"
+            "finding, std_apply, raw_seed_maintenance_findings.py, raw_seed_"
+            "maintenance_campaign.py, raw_seed_maintenance_apply_campaign.py, "
+            "launchable operation rows, maintenance campaign tests, extracted-"
+            "pattern binding/readiness checks, and the focused maintenance "
+            "binding test before mining, authoring, applying, routing, or "
+            "projecting campaign rows."
+        ),
+    },
+    {
+        "route_id": "raw_seed_type_discovery_campaign_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "raw_seed_type_discovery_campaign",
+        ],
+        "why_impressive": (
+            "Raw-seed type discovery becomes reusable only when the latest-N "
+            "selector, per-paragraph type classifier, type-prototype ledger, "
+            "Bridge cluster synthesis boundary, NIM guided_json fallback, schema "
+            "validator, experiment ledger, and golden-set replay harness travel "
+            "as one route. Future agents should open the campaign owner chain and "
+            "its explicit blockers instead of rediscovering type pressure from "
+            "raw-seed paragraphs, atomization code, provider probes, and bridge "
+            "dispatch notes."
+        ),
+        "candidate_fixture": (
+            "Synthetic 10-paragraph raw-seed fixture covering axiom_candidate, "
+            "principle_refinement, annex_assimilation_move, routing_obligation, "
+            "approval_plane_governance, and substrate_projection_compression. "
+            "Positive cases assert latest-N-backwards selection, multi-label "
+            "primary/secondary types, move_vector propagation targets, "
+            "coverage_check checked_against refs, guided-json schema validation, "
+            "Bridge cluster synthesis quarantine, experiment-ledger recording, "
+            "and route-readiness through the voice_to_doctrine_self_improvement_"
+            "loop organ bundle. Negative cases fail when raw_seed.md is edited, "
+            "unclassifiable paragraphs are forced into existing types, emergent "
+            "type candidates mutate doctrine without apply-lane ratification, "
+            "provider payload bodies are projected, or classifier rows are "
+            "selected as standalone Microcosm leaves."
+        ),
+        "anti_claim_floor": (
+            "This route proves the routed owner chain and blocker map for the "
+            "raw-seed type-discovery campaign. It does not prove the campaign is "
+            "fully runnable, does not ship the missing latest-N selector, mission "
+            "template, golden set, type-prototype ledger, or production run, does "
+            "not publish raw operator voice or provider payload bodies, does not "
+            "promote emergent types into doctrine law, does not bypass raw-seed "
+            "apply lanes, and does not authorize public Microcosm release of "
+            "private voice material."
+        ),
+        "next_refinement_move": (
+            "Keep raw_seed_type_discovery_campaign under voice_to_doctrine_self_"
+            "improvement_loop with raw_seed_alchemy_review_suborgan, pattern_"
+            "binding_contract, navigation_hologram_route_plane, proof_diagnostic_"
+            "evidence_spine, and external_boundary_anti_corruption_runtime as "
+            "carry siblings. Future type-discovery work should open raw_seed_"
+            "type_discovery_campaign, raw_seed_atomization, raw_seed_substrate, "
+            "raw_seed_metabolism, claude_subagent_delegation, bridge_runtime, "
+            "doctrine_apply_lanes, raw_seed_atomization.py, nvidia_nim.py, "
+            "bridge.py, meta_mission_workspace.py, run_observe_plan.py, voice_"
+            "archaeology_pipeline.py, experiment_ledger.py, extracted-pattern "
+            "binding/readiness checks, and the focused type-discovery binding "
+            "test before classifying, launching, routing, or projecting campaign "
+            "rows."
+        ),
+    },
+    {
+        "route_id": "raw_seed_source_index_packet_scope_membrane_voice_to_doctrine_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "voice_memory_alchemy",
+            "external_reference_adoption_membranes",
+            "navigation_projection_route_plane",
+        ],
+        "target_existing_organs": [
+            "voice_to_doctrine_self_improvement_loop",
+            "raw_seed_alchemy_review_suborgan",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "raw_seed_source_index_packet_scope_membrane",
+        ],
+        "why_impressive": (
+            "Raw-seed source indexing becomes reusable only when the bridge packet "
+            "option surface, explicit visibility boundary, emit_shards_for and "
+            "context_only authority sets, compact bridge response standard, "
+            "rubric skills, receive partition, quarantine reasons, bridge receipt, "
+            "and generated binding/readiness checks travel as one route. Future "
+            "agents should open this membrane before asking whether provider "
+            "output can index raw-seed paragraphs or mutate doctrine."
+        ),
+        "candidate_fixture": (
+            "Synthetic packet with two focus paragraphs, one context-only neighbor, "
+            "dynamic_fact_rows, drilldown refs, and an omission receipt. Positive "
+            "cases assert bridge packets expose only packet-local context, allow "
+            "shards only for emit_shards_for parents, preserve source-indexing "
+            "legacy keys, carry traceable voice anchors, write bridge receipts, "
+            "and import only rows accepted by the receive partition. Negative "
+            "cases fail when a context_only paragraph emits a shard, a parent "
+            "outside the packet is accepted, provider output claims global "
+            "novelty or coverage truth, doctrine/routing mutation is embedded in "
+            "the bridge response, trace anchors are missing, or raw operator "
+            "voice/provider payload bodies are projected."
+        ),
+        "anti_claim_floor": (
+            "This route proves the raw-seed source-index packet membrane over live "
+            "owner surfaces and synthetic/private-root-safe fixtures. It does not "
+            "publish raw seed, export provider payload bodies, make bridge output "
+            "doctrine authority, certify global coverage or novelty, select "
+            "context-only rows as distillation targets, bypass receive quarantine, "
+            "or authorize public Microcosm release of private voice material."
+        ),
+        "next_refinement_move": (
+            "Keep raw_seed_source_index_packet_scope_membrane under voice_to_"
+            "doctrine_self_improvement_loop with raw_seed_alchemy_review_suborgan, "
+            "pattern_binding_contract, navigation_hologram_route_plane, proof_"
+            "diagnostic_evidence_spine, and external_boundary_anti_corruption_"
+            "runtime as carry siblings. Future source-index or bridge-distillation "
+            "work should open raw_seed_distillation_lanes, raw_seed_substrate, "
+            "raw_seed_metabolism, bridge_runtime, claude_subagent_delegation, "
+            "std_extracted_shards_bridge_compact, distillation_rubric_bridge, "
+            "distillation_voice_patterns_bridge, raw_seed_distillation.py, "
+            "raw_seed_pipeline.py, extracted-pattern binding/readiness checks, "
+            "and the focused source-index packet membrane binding test before "
+            "dispatching, importing, routing, or projecting bridge rows."
+        ),
+    },
+    {
+        "route_id": "doctrine_compiler_ir_executable_lattice_contract",
+        "priority_rank": 0,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "paper_module_authoring_runtime",
+            "raw_seed_to_doctrine_metabolism",
+            "world_model_attention_and_authority_projection",
+        ],
+        "target_existing_organs": [
+            "root_binding_and_executable_grammar",
+            "executable_doctrine_grammar",
+            "pattern_binding_contract",
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+        ],
+        "pattern_ids": [
+            "doctrine_compiler_ir",
+        ],
+        "why_impressive": (
+            "Doctrine compiler IR turns principles, concepts, mechanisms, section "
+            "units, overlays, and compatibility tombstones into generated graph, "
+            "IR, surface, index, and routing projections with an explicit owner "
+            "tool and freshness gate, so doctrine is a compilable substrate rather "
+            "than a prose lattice agents must rediscover."
+        ),
+        "candidate_fixture": (
+            "Synthetic doctrine corpus with three principles, one concept, one "
+            "mechanism, one section-unit seed, one approved overlay row, and one "
+            "compatibility tombstone. Positive cases require graph, compiler IR, "
+            "section units, surface, index, routing, projection_updates, "
+            "tombstone_candidates, source-authority refs, and the owner check. "
+            "Negative cases fail when generated doctrine projections are hand-edited, "
+            "stale drift is ignored, runtime state is treated as source authority, "
+            "or candidate axioms/overlays are promoted without the owner lane."
+        ),
+        "anti_claim_floor": (
+            "This route proves doctrine graph and compiler-IR routing over live owner "
+            "surfaces and synthetic doctrine fixtures. It does not make generated "
+            "doctrine projections source authority, promote candidate axioms or "
+            "overlay rows, certify public release of private doctrine neighborhoods, "
+            "replace authored principle/concept/mechanism sources, or bypass the "
+            "doctrine graph projection check/repair lane."
+        ),
+        "next_refinement_move": (
+            "Keep doctrine_compiler_ir under root_binding_and_executable_grammar "
+            "with executable_doctrine_grammar, navigation_hologram_route_plane, and "
+            "proof_diagnostic_evidence_spine as carry siblings. Future doctrine "
+            "compiler work should open system/lib/doctrine_graph.py, "
+            "build_doctrine_graph_projection.py, std_doctrine_compiler_ir, "
+            "std_doctrine_graph, doctrine_registry_runtime, doctrine_apply_lanes, "
+            "generated_projection_registry, config-authority rows, and focused "
+            "doctrine-graph/projection tests before editing graph, IR, routing, or "
+            "registry doctrine."
+        ),
+    },
+    {
         "route_id": "compound_microcosm_cell_decision_projection_contract",
         "priority_rank": 0,
         "source_cluster_ids": [
@@ -716,8 +1611,179 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
         ),
     },
     {
-        "route_id": "formal_policy_integrity_search_foundry",
+        "route_id": "formal_prover_payload_membrane",
+        "priority_rank": 1,
+        "source_cluster_ids": [
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_policy_integrity_and_search_foundry",
+        ],
+        "target_existing_organs": [
+            "proof_diagnostic_evidence_spine",
+            "formal_prover_lab_evaluation_suborgan",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "formal_prover_payload_policy_boundary",
+        ],
+        "why_impressive": (
+            "A provider-payload membrane for formal-prover work: bounded context packs, "
+            "strategy advisories, transform jobs, row patches, provider receipts, and "
+            "reducer reports can improve the proof lab while provider text remains below "
+            "Lean/proof authority and public projection boundaries."
+        ),
+        "candidate_fixture": (
+            "Synthetic transform job plus provider receipt set with one clean context "
+            "hypothesis, one strategy advisory, one forbidden Lean proof-body advisory, "
+            "and one oracle-material leak; the reducer accepts only advisory metadata, "
+            "keeps provider_results_counted=false, and requires a separate proof receipt "
+            "before any green claim."
+        ),
+        "anti_claim_floor": (
+            "This route proves payload-boundary routing for the fixture and live prover "
+            "harness/reducer surfaces; it does not call providers, certify theorem "
+            "correctness, publish proof bodies, count provider output as success, or "
+            "authorize public release without proof receipts."
+        ),
+        "next_refinement_move": (
+            "Keep this route under proof_diagnostic_evidence_spine. The next adjacent "
+            "binding is formal_math_proofline_spine_body_safe_lineage, which must prove "
+            "body-safe lineage without copying proof bodies, prompts, provider outputs, "
+            "or oracle material."
+        ),
+    },
+    {
+        "route_id": "formal_math_proofline_body_safe_lineage",
         "priority_rank": 2,
+        "source_cluster_ids": [
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_policy_integrity_and_search_foundry",
+        ],
+        "target_existing_organs": [
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "formal_math_proofline_spine_body_safe_lineage",
+        ],
+        "why_impressive": (
+            "A body-safe formal-math proofline spine turns private Lab-to-Oracle "
+            "receipts into public-safe lineage: state, edges, claim boundaries, "
+            "repair readiness, and proof authority are derivable without copying "
+            "answers, prompts, provider outputs, Lean proof bodies, or oracle material."
+        ),
+        "candidate_fixture": (
+            "Synthetic proofline and repair-lane packets over one failed toy Lean specimen: "
+            "positive cases require claim_boundary, proof_level_rejected state, "
+            "proof_synthesis_or_repair_quality bottleneck, generated projection owner "
+            "coverage, forbidden-body-key empty sets, and a separate proof-repair receipt; "
+            "negative cases inject answer, ground_truth_proof, prompt, provider_output, "
+            "and lean_proof_body fields and must fail before projection."
+        ),
+        "anti_claim_floor": (
+            "This route proves body-safe lineage and repair-lane routing for the fixture "
+            "and live builder receipts; it does not publish benchmark bodies, claim theorem "
+            "success, expose proof or prompt payloads, count provider output as proof, "
+            "or authorize public release of private formal-math runs."
+        ),
+        "next_refinement_move": (
+            "Keep this route under proof_diagnostic_evidence_spine with the provider "
+            "payload membrane and Lean proof witness as siblings. Lean rejection "
+            "classification is now bound in the same proof diagnostic spine, so the "
+            "next adjacent repair surface is formal_proof_repair_one_row_reducer_gate: "
+            "the one-row handoff from typed rejection evidence to a governed repair "
+            "attempt and reducer receipt."
+        ),
+    },
+    {
+        "route_id": "lean_verifier_failure_classification_membrane",
+        "priority_rank": 3,
+        "source_cluster_ids": [
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_policy_integrity_and_search_foundry",
+        ],
+        "target_existing_organs": [
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "lean_verifier_feedback_failure_classification",
+        ],
+        "why_impressive": (
+            "Lean verifier outcomes become typed routing evidence instead of a flat retry "
+            "signal: provider contract failures, truth-side leakage, premise-budget "
+            "violations, undeclared library priors, premise-retrieval misses, synthesis "
+            "failures, and clean passes each land in distinct review outcomes before "
+            "repair or escalation."
+        ),
+        "candidate_fixture": (
+            "Synthetic provider-receipt reductions covering the seven reducer classes "
+            "(NONE, PROVIDER_CONTRACT_FAIL, SOLUTION_LEAKAGE, "
+            "PREMISE_BUDGET_VIOLATION, UNDECLARED_LIBRARY_PRIOR, "
+            "PREMISE_RETRIEVAL_MISS, PROOF_SYNTHESIS_FAIL) and the four review "
+            "outcomes (accept_as_advisory_signal, reject, retry, bridge_escalate). "
+            "Positive cases require Lean PASS plus CLEAN axioms for NONE; negative "
+            "cases prove leakage is rejected before repair and provider output never "
+            "becomes source authority."
+        ),
+        "anti_claim_floor": (
+            "This route proves classification and review routing for reducer fixtures "
+            "and live reducer code; it does not call providers, certify theorem "
+            "correctness, publish proof bodies, treat provider text as proof success, "
+            "or authorize public benchmark claims."
+        ),
+        "next_refinement_move": (
+            "Keep this route under proof_diagnostic_evidence_spine between the "
+            "body-safe proofline route and the formal_proof_repair_one_row_reducer_gate. "
+            "Future agents should open reduce_prover_provider_receipts.py, reducer "
+            "tests, provider payload membrane, proofline lineage route, and this "
+            "option-surface card before routing proof repair or provider escalation."
+        ),
+    },
+    {
+        "route_id": "formal_proof_repair_one_row_gate_membrane",
+        "priority_rank": 4,
+        "source_cluster_ids": [
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_policy_integrity_and_search_foundry",
+        ],
+        "target_existing_organs": [
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "formal_proof_repair_one_row_reducer_gate",
+        ],
+        "why_impressive": (
+            "A one-row proof-repair gate turns a typed Lean failure plus body-safe "
+            "proofline refs into exactly one governed provider repair attempt: provider "
+            "text remains advisory, repair packets carry no proof/prompt/oracle bodies, "
+            "and only Lean/Lake reducer receipts can promote the result."
+        ),
+        "candidate_fixture": (
+            "Synthetic failed Lean specimen with proof_repair_input_packet, lane receipt, "
+            "support-affordance finder refs, strict JSON canary/model inventory receipts, "
+            "one transform job, evaluator/reducer terminal status, and benchmark claims "
+            "disabled. Negative cases inject forbidden inline proof, prompt, provider, "
+            "oracle, or solution keys and must fail before dispatch or projection."
+        ),
+        "anti_claim_floor": (
+            "This route proves the one-row repair gate contract and attempt/evaluator "
+            "boundaries for fixtures and live owner code; it does not call providers "
+            "during binding validation, certify theorem correctness, expose proof bodies "
+            "or oracle material, count provider text as proof success, authorize repeated "
+            "blind retries, or authorize public benchmark claims."
+        ),
+        "next_refinement_move": (
+            "Keep this route under proof_diagnostic_evidence_spine after proofline "
+            "lineage and Lean failure classification. Future agents should open the "
+            "proof repair lane builder, repair-attempt runner, support-affordance "
+            "receipts, and reducer/evaluator receipts before attempting provider repair, "
+            "retry, escalation, or public projection."
+        ),
+    },
+    {
+        "route_id": "formal_policy_integrity_search_foundry",
+        "priority_rank": 5,
         "source_cluster_ids": ["formal_math_policy_integrity_and_search_foundry"],
         "target_existing_organs": [
             "proof_diagnostic_evidence_spine",
@@ -750,6 +1816,583 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
         "next_refinement_move": (
             "Fold this under the proof diagnostic organ as the no-leak/no-memorization "
             "gate that must run before policy-learning rows are credited."
+        ),
+    },
+    {
+        "route_id": "formal_benchmark_leakage_firewall_manifest_contract",
+        "priority_rank": 6,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "benchmark_split_leakage_firewall_manifest_strip",
+        ],
+        "why_impressive": (
+            "Formal benchmark evidence becomes reusable only if every forward-visible "
+            "manifest path strips proof bodies, oracle-only premise ids, and expected "
+            "strategy ids before a solver or provider sees the row. This route binds the "
+            "source manifest, statement-only hammer bandit, graph benchmark context-pack "
+            "audit, zero-leak validation, and test-split-forbidden policy as one "
+            "benchmark-integrity contract instead of a scattered implementation detail."
+        ),
+        "candidate_fixture": (
+            "Toy three-problem benchmark manifest with train/dev/test splits, candidate/"
+            "ideal/repair bodies present only in the private source objects, forward-safe "
+            "rows containing proof_body_withheld_until_oracle=True, statement-only rows "
+            "listing forbidden_forward_material, and negative cases that inject "
+            "candidate_body, ideal_body, repair_body, oracle_needed_premise_ids, "
+            "expected_strategy_ids, or test-split tuning into forward-visible output."
+        ),
+        "anti_claim_floor": (
+            "This route proves manifest serialization and validation boundaries for the "
+            "benchmark fixture and live owner code. It does not claim theorem-solving "
+            "performance, certify external benchmark correctness, expose proof bodies, "
+            "treat oracle comparator success as forward success, or allow tuning on held-out "
+            "test failures."
+        ),
+        "next_refinement_move": (
+            "Keep benchmark_split_leakage_firewall_manifest_strip folded into "
+            "formal_prover_lab_evaluation_suborgan with proof-diagnostic and "
+            "external-boundary siblings. Future formal benchmark imports should open the "
+            "manifest serializers, statement-only hammer bandit validator, graph benchmark "
+            "context-pack leakage audit, route-readiness sidecars, and option-surface card "
+            "before claiming pass-rate evidence, oracle comparator evidence, or public "
+            "Microcosm benchmark readiness."
+        ),
+    },
+    {
+        "route_id": "formal_continuous_loop_oracle_comparator_contract",
+        "priority_rank": 7,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "continuous_loop_three_lane_parallel_oracle_comparator",
+        ],
+        "why_impressive": (
+            "The continuous Lab/Oracle/Evolve runner only becomes reusable when its "
+            "three lanes stay comparable over the same problem batch: strategy_control "
+            "as baseline, skill_foundry_overlay as the forward Lab lane, and "
+            "oracle_repair_graph_v0 as the comparator lane. This route binds the "
+            "problem-batch manifest, node context contracts, oracle result index, "
+            "foundry learning filter, provider trickle queue, and run-summary invariants "
+            "so oracle repair cannot inflate forward success or mix provider throughput "
+            "failures into math evidence."
+        ),
+        "candidate_fixture": (
+            "Toy five-problem continuous-loop run over one fixed problem_batch_manifest. "
+            "The strategy_control lane passes two problems, skill_foundry_overlay passes "
+            "three, and oracle_repair_graph_v0 passes four. Validation asserts "
+            "forward_success_lane=local_foundry, oracle_repair_counts_as_forward_success=False, "
+            "oracle_result_index rows for all three lanes, foundry_learning_index rows only "
+            "from the local_foundry lane, no oracle proof body in forward contexts, "
+            "direct_provider_dispatch_in_continuous_loop=False, rate_limit_is_math_failure=False, "
+            "open_problem_success_claimed=False, and truth_side_leakage_count==0."
+        ),
+        "anti_claim_floor": (
+            "This route proves lane separation, comparator accounting, provider-throughput "
+            "isolation, and leakage boundaries for the fixture and live owner code. It "
+            "does not claim theorem-solving performance, public release readiness, "
+            "provider success, open-problem solution, in-loop mutation safety, or permission "
+            "to count oracle repair comparator success as forward Lab success."
+        ),
+        "next_refinement_move": (
+            "Keep continuous_loop_three_lane_parallel_oracle_comparator folded into "
+            "formal_prover_lab_evaluation_suborgan with proof-diagnostic and "
+            "external-boundary siblings. Future continuous-loop or graph-comparison imports "
+            "should open the continuous runner, graph benchmark harness, run receipts, "
+            "node contracts, oracle result index, foundry learning index, provider trickle "
+            "queue, route-readiness sidecars, and option-surface card before claiming "
+            "Lab gains, Evolve candidates, provider-blocked math failure, or public "
+            "Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "formal_provider_trickle_queue_rate_limit_contract",
+        "priority_rank": 8,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_trickle_queue_rate_limit_not_math_failure",
+        ],
+        "why_impressive": (
+            "The provider trickle lane becomes reusable only when provider quota "
+            "exhaustion is represented as throughput state, not proof failure. This "
+            "route binds the continuous-loop queue projection, formal-ladder dispatch "
+            "manifest, provider_trickle_queue.json, rate_limit_state.json, retry-only "
+            "429/missing policy, next_resume_command, direct_provider_dispatch_in_"
+            "continuous_loop=false, provider_dispatch_added_by_loop=false, and "
+            "rate_limit_is_math_failure=false so future imports can preserve local "
+            "Lean progress while keeping provider retry/resume work resumable and "
+            "outside math-correctness accounting."
+        ),
+        "candidate_fixture": (
+            "Toy formal-ladder dispatch manifest with one ok provider receipt, two "
+            "429 receipts, and one missing receipt. The continuous-loop trickle fixture "
+            "loads that state and asserts provider_trickle_queue.queued_rows include "
+            "only 429/missing rows, queued_count excludes ok receipts, queue_policy."
+            "retry_only_statuses=['429','missing'], concurrency=1, direct_provider_"
+            "dispatch_in_continuous_loop=False, rate_limit_is_math_failure=False, "
+            "rate_limit_state.rate_limit_is_math_failure=False, provider_dispatch_"
+            "added_by_loop=False, and next_resume_command routes through formal "
+            "problem ladder eval with --resume-rate-limited instead of dispatching "
+            "provider work inside the continuous controller."
+        ),
+        "anti_claim_floor": (
+            "This route proves provider-trickle queue routability, throughput/not-math "
+            "classification, resume boundary, and anti-contamination accounting for "
+            "live continuous-loop source plus a synthetic fixture plan. It does not "
+            "claim theorem-solving performance, provider success, proof failure, "
+            "math correctness, public Microcosm release authority, permission to treat "
+            "429s or missing receipts as failed proofs, permission to dispatch provider "
+            "jobs from the continuous loop, or permission to expose provider payloads, "
+            "account quota state, private problem manifests, proof bodies, oracle "
+            "repair bodies, or credential-equivalent provider/session material."
+        ),
+        "next_refinement_move": (
+            "Keep provider_trickle_queue_rate_limit_not_math_failure folded into "
+            "formal_prover_lab_evaluation_suborgan with proof-diagnostic and "
+            "external-boundary siblings. Future provider-throughput, context-recipe, "
+            "continuous-loop, or Evolve-candidate imports should open the continuous "
+            "runner, formal-ladder dispatch/resume manifests, provider queue and "
+            "rate-limit receipts, continuous-loop tests, extracted-pattern sidecars, "
+            "route-readiness report, and option-surface card before claiming provider "
+            "blocking, proof failure, math correctness, or public Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "formal_skill_update_candidate_advisory_quarantine_contract",
+        "priority_rank": 9,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "skill_update_candidate_promotion_advisory_quarantine_lane",
+        ],
+        "why_impressive": (
+            "Skill-update candidates become reusable only when the Evolve output is "
+            "kept advisory and quarantined until heldout or perturbation retest. This "
+            "route binds the continuous-loop skill_update_candidates.json artifact, "
+            "foundry FAIL rows, oracle-repair success/failure comparison, evidence refs, "
+            "context_recipe_update_candidates.json, promotion_policy=advisory_only_"
+            "until_retested_on_heldout_or_perturbation_family, and the no in-loop "
+            "mutation boundary so future imports can mine repair signals without "
+            "silently promoting them into skills or proof-success claims."
+        ),
+        "candidate_fixture": (
+            "Toy five-problem continuous-loop Evolve fixture over one problem batch: "
+            "two local_foundry FAIL rows with oracle_repair_success=True produce "
+            "mine_oracle_repair_into_skill_candidate rows; one local_foundry FAIL row "
+            "with oracle_repair_success=False produces quarantine_until_better_oracle_"
+            "signal; two local_foundry PASS rows produce no candidates. Validation "
+            "asserts candidate_count=3, evidence_refs carry foundry_learning_row, "
+            "proof_attempt_critique, and oracle_repair_check, promotion_policy remains "
+            "advisory_only_until_retested_on_heldout_or_perturbation_family, no candidate "
+            "body or oracle repair body is forward-visible, provider/context-recipe "
+            "candidates are advisory only, and no skill file or public Microcosm body is "
+            "mutated by the loop."
+        ),
+        "anti_claim_floor": (
+            "This route proves advisory skill-update candidate routing, quarantine "
+            "accounting, evidence-ref linkage, and promotion-boundary discipline for "
+            "source-coupled continuous-loop code plus a synthetic fixture plan. It does "
+            "not claim theorem-solving performance, provider success, actual skill "
+            "promotion, in-loop mutation safety, heldout generalization, public Microcosm "
+            "release authority, permission to count oracle repair as forward success, "
+            "or permission to expose private problem manifests, proof bodies, oracle "
+            "repair bodies, provider payloads, account/session material, or raw run "
+            "artifact contents."
+        ),
+        "next_refinement_move": (
+            "Keep skill_update_candidate_promotion_advisory_quarantine_lane under "
+            "formal_skill_update_candidate_advisory_quarantine_contract and "
+            "formal_prover_lab_evaluation_suborgan. Future Evolve, skill-foundry, "
+            "context-recipe, provider-throughput, or graph-variant imports should open "
+            "run_prover_continuous_lab_oracle_evolve_loop.py::_skill_update_candidates, "
+            "_foundry_learning_index, _oracle_result_index, _context_recipe_update_"
+            "candidates, run_loop receipts, continuous-loop tests, extracted-pattern "
+            "sidecars, route-readiness report, and the option-surface card before "
+            "claiming skill promotion, heldout success, oracle-repair learning, provider "
+            "gains, or public Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "market_oracle_equity_diff_grading_contract",
+        "priority_rank": 7,
+        "source_cluster_ids": [
+            "market_evidence_and_refusal_stack",
+            "standard_owned_option_surfaces",
+        ],
+        "target_existing_organs": [
+            "market_reasoning_evidence_suborgan",
+            "prediction_oracle_reconciliation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "oracle_deterministic_equity_diff_grading_surface",
+        ],
+        "why_impressive": (
+            "The Oracle deterministic grading floor becomes reusable only when "
+            "prediction_reconciliation schema rows, oracle_truth_diff_equity node "
+            "emission, feed_health readiness accounting, run_compare grading, schema "
+            "validator checks, and Oracle/Evolve consumers route as one non-"
+            "interpretive contract instead of being rediscovered across Lab, Oracle, "
+            "world-model, and Evolve source files."
+        ),
+        "candidate_fixture": (
+            "Synthetic subject/truth run pair with Lab CP2 targets for one hit, one "
+            "miss, and one ungraded or feed-degraded target. Positive cases assert "
+            "prediction_reconciliation.status=AVAILABLE, rows cover comparable "
+            "STOCK/ETF targets exactly once, directional_correct and percent_delta "
+            "are deterministic, feed_health separates READY/DEGRADED/BLOCKED from "
+            "prediction failure, and interpretive fields stay absent. Negative cases "
+            "inject duplicate target rows, summary count mismatch, missing subject or "
+            "truth prices, malformed asset_class/direction, and narrative blame in "
+            "the deterministic grading row and require refusal before realized "
+            "hindsight, CP2 critique, or Evolve can consume the artifact."
+        ),
+        "anti_claim_floor": (
+            "This route proves deterministic Oracle equity-diff grading routability, "
+            "feed-health boundary accounting, schema validation, and public-safe "
+            "fixture shape over source-coupled Oracle comparison code and tests. It "
+            "does not claim market prediction accuracy, truth-driver classification "
+            "quality, trading signal quality, realized hindsight explanation, CP2 "
+            "critique correctness, automated Evolve mutation safety, provider success, "
+            "public release authority, or permission to expose private ticker prices, "
+            "run artifacts, provider payloads, account/session material, bridge "
+            "responses, or raw run artifact contents."
+        ),
+        "next_refinement_move": (
+            "Keep oracle_deterministic_equity_diff_grading_surface folded into "
+            "market_reasoning_evidence_suborgan with prediction_oracle_"
+            "reconciliation_suborgan, proof diagnostics, and external-boundary "
+            "siblings. Future realized_hindsight_brief, cp2_critique, ideal_cp2, or "
+            "Evolve imports should open schema_prediction_reconciliation, "
+            "oracle_truth_diff_equity, run_compare.py, schema_validator prediction "
+            "reconciliation checks, Oracle runtime/tool tests, Evolve feed_health "
+            "tests, extracted-pattern sidecars, route-readiness reports, and the "
+            "option-surface card before claiming realized-price grading, feed "
+            "coverage, prediction failure, or public Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "market_evolve_oracle_dossier_mutation_contract",
+        "priority_rank": 9,
+        "source_cluster_ids": [
+            "market_evidence_and_refusal_stack",
+            "standard_owned_option_surfaces",
+        ],
+        "target_existing_organs": [
+            "market_reasoning_evidence_suborgan",
+            "prediction_oracle_reconciliation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "evolve_oracle_to_dossier_mutation_loop",
+        ],
+        "why_impressive": (
+            "The market Evolve loop becomes reusable only when deterministic Oracle "
+            "artifacts, realized hindsight, CP2 critique, delta-report schema gates, "
+            "dossier allowlists, multi-run doctrine-flag evidence, dry-run patch payloads, "
+            "overnight review thresholds, and no-live-mutation boundaries route as one "
+            "contract instead of being rediscovered across run_evolve, schema_evolve_delta, "
+            "world-model snapshots, and Lab/Oracle paper modules."
+        ),
+        "candidate_fixture": (
+            "Synthetic subject/truth run pair with prediction_reconciliation, "
+            "realized_hindsight_brief, cp2_critique, ideal_cp2, lab_cp2, and an "
+            "evolve_delta_report containing one UPDATE dossier_delta and one HIGH "
+            "doctrine_flag backed by two evidence_runs. Positive cases assert "
+            "DOSSIER_ALLOWLIST confinement, source_artifact/source_field provenance, "
+            "dry-run patch payloads, codex_review_after_runs=3, and Type A review after "
+            "any doctrine flag or patch op. Negative cases inject one-run HIGH flags, "
+            "off-allowlist dossier paths, missing source provenance, provider payloads, "
+            "or live dossier mutation and require refusal."
+        ),
+        "anti_claim_floor": (
+            "This route proves mutation-loop routability, provenance gates, review "
+            "thresholds, and public-safe fixture shape over live owner surfaces. It does "
+            "not claim trading signal quality, prediction accuracy, automated doctrine "
+            "promotion, live dossier mutation safety, provider success, public release "
+            "authority, or permission to expose private ticker prices, run artifacts, "
+            "provider payloads, account/session material, or raw bridge responses."
+        ),
+        "next_refinement_move": (
+            "Keep evolve_oracle_to_dossier_mutation_loop folded into market_reasoning_"
+            "evidence_suborgan with prediction_oracle_reconciliation, proof diagnostics, "
+            "and external-boundary siblings. Future market Lab/Oracle/Evolve imports "
+            "should open schema_evolve_delta, run_evolve.py, lab_oracle_evolve_"
+            "overnight.py, world-model Lab/Oracle snapshot helpers, reasoning execution "
+            "plan tests, the option-surface card, and focused binding/readiness tests "
+            "before claiming dossier learning, doctrine mutation, public Microcosm "
+            "readiness, or market-decision evidence."
+        ),
+    },
+    {
+        "route_id": "market_oracle_cp2_grounding_firewall_contract",
+        "priority_rank": 8,
+        "source_cluster_ids": [
+            "market_evidence_and_refusal_stack",
+            "standard_owned_option_surfaces",
+        ],
+        "target_existing_organs": [
+            "market_reasoning_evidence_suborgan",
+            "prediction_oracle_reconciliation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "oracle_cp2_grounding_firewall",
+        ],
+        "why_impressive": (
+            "The Oracle ideal_cp2 route becomes reusable only when the shared CP2 schema, "
+            "subject-run snapshot ledger set, Golden-ID guard, Oracle meta trace, "
+            "truth-side explicit exclusions, and engine hard-fail tests travel as one "
+            "hindsight-contamination firewall instead of being rediscovered across "
+            "schema_cp2, oracle_cp2_emitter, schema_validator, artifacts, and engine "
+            "runtime code."
+        ),
+        "candidate_fixture": (
+            "Synthetic subject/truth run pair with a Lab CP2 evidence_dictionary carrying "
+            "two subject-side ledger ids, an Oracle ideal_cp2 that reuses only those ids, "
+            "oracle_meta.truth_influence_refs and oracle_meta.explicit_exclusions carrying "
+            "truth-side handles, and negative cases for a post-T ledger id in evidence_"
+            "dictionary, missing subject snapshot context, missing oracle_meta, invalid "
+            "Oracle handle format, a new prediction target outside the subject index, and "
+            "truth-only evidence leaking into admissible grounding."
+        ),
+        "anti_claim_floor": (
+            "This route proves Oracle CP2 grounding-firewall routability, shared-schema "
+            "reuse, subject-side Golden-ID enforcement, Oracle-meta exclusion tracing, "
+            "and public-safe fixture shape over live owner surfaces. It does not claim "
+            "market prediction accuracy, truth classification quality, trading signal "
+            "quality, automated Evolve mutation safety, provider success, public release "
+            "authority, or permission to expose private ticker prices, truth-run artifacts, "
+            "provider payloads, account/session material, bridge responses, or raw run "
+            "artifact contents."
+        ),
+        "next_refinement_move": (
+            "Keep oracle_cp2_grounding_firewall folded into market_reasoning_evidence_"
+            "suborgan with prediction_oracle_reconciliation, proof diagnostics, and "
+            "external-boundary siblings. Future Oracle ideal_cp2 or Evolve imports should "
+            "open schema_cp2, oracle_cp2_emitter, schema_validator Golden-ID and "
+            "oracle_meta validators, artifacts snapshot-ledger helpers, engine Oracle "
+            "hard-fail tests, the option-surface card, and focused binding/readiness "
+            "tests before claiming hindsight-safe evidence, ideal_cp2 training data, "
+            "public Microcosm readiness, or market-decision evidence."
+        ),
+    },
+    {
+        "route_id": "formal_graph_variant_multi_arm_benchmark_comparison_contract",
+        "priority_rank": 8,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "graph_variant_multi_arm_benchmark_comparison",
+        ],
+        "why_impressive": (
+            "The graph benchmark harness only becomes reusable when graph variants are "
+            "compared as governed arms over source-backed problem manifests rather than "
+            "treated as isolated run scripts. This route binds the GRAPH_VARIANTS "
+            "catalog, run_benchmark per-arm receipts, Ring-1/Ring-2/strategy/skill "
+            "comparison reports, failure_taxonomy, by_split/by_source accounting, "
+            "premise_retrieval_metrics, strategy_control_metrics, leakage audits, and "
+            "run_hash material so future Microcosm imports can diagnose whether the "
+            "binding constraint is retrieval, strategy selection, proof synthesis, "
+            "oracle repair, proof search, provider context, or skill overlay evidence."
+        ),
+        "candidate_fixture": (
+            "Toy ten-arm graph benchmark fixture over one five-problem "
+            "problem_source_manifest. Run or replay baseline_graph_v0, "
+            "premise_retrieval_graph_v0, strategy_control_graph_v0, "
+            "strategy_control_graph_v0_skill_atlas_overlay_v0, "
+            "strategy_control_graph_v0_skill_foundry_overlay_v0, "
+            "source_guarded_strategy_graph_v0, source_guarded_foundry_graph_v0, "
+            "tactic_portfolio_graph_v0, hammer_search_graph_v0, and "
+            "oracle_repair_graph_v0. Validation asserts aggregate_report rows expose "
+            "pass_count, fail_count, pass_rate, failure_taxonomy, by_split, by_source, "
+            "premise_retrieval_metrics, strategy_control_metrics, graph_update_candidates, "
+            "cost_totals.provider_calls, leakage_audit status, split_policy='train/dev/test; "
+            "no tuning on test', and a run_hash over problem_results, aggregate, and graph "
+            "updates. Negative cases inject proof bodies, oracle-only premise ids, expected "
+            "strategy ids, provider output bypass, or test-split tuning into forward-visible "
+            "rows and require validation failure."
+        ),
+        "anti_claim_floor": (
+            "This route proves benchmark-arm routability, comparison accounting, leakage "
+            "boundaries, and receipt anchoring for the live harness plus a synthetic fixture "
+            "plan. It does not claim theorem-solving performance, certify an external "
+            "benchmark, prove all ten arms have already been replayed in one public "
+            "Microcosm receipt, count oracle repair as forward success, use test-split "
+            "failures as tuning signals, expose proof bodies or oracle-only premise ids, "
+            "or treat provider-context compilation as provider success."
+        ),
+        "next_refinement_move": (
+            "Keep graph_variant_multi_arm_benchmark_comparison folded into "
+            "formal_prover_lab_evaluation_suborgan with proof-diagnostic and "
+            "external-boundary siblings. Future graph-comparison imports should open the "
+            "GRAPH_VARIANTS catalog, run_benchmark, comparison-report helpers, live run "
+            "receipts, graph benchmark harness tests, extracted-pattern sidecars, and "
+            "option-surface card before claiming graph-node promotion, benchmark "
+            "performance, provider strategy fit, or public Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "formal_statement_only_hammer_bandit_action_value_policy_contract",
+        "priority_rank": 9,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "statement_only_hammer_bandit_action_value_policy",
+        ],
+        "why_impressive": (
+            "The statement-only hammer bandit is reusable only when target-shape "
+            "classification, tactic-action gating, Lean-checked clean proof selection, "
+            "action-value posterior rows, and status-class firewalls stay coupled. This "
+            "route binds the statement-only manifest, hammer action manifest, search "
+            "results, selected proofs, proof minimization, failure taxonomy, foundry "
+            "learning rows, adapter/oracle/provider comparator reports, and status "
+            "transition audit so future imports measure a no-provider baseline without "
+            "crediting adapter hints, raw proof bodies, provider hypotheses, or oracle "
+            "repair as forward solver discovery."
+        ),
+        "candidate_fixture": (
+            "Toy ten-problem statement-only hammer fixture across target_shape buckets "
+            "such as closed_nat_mod_decision, int_linear_arithmetic, nat_arithmetic, "
+            "and conjunction. Validation builds a statement_only_problem_manifest with "
+            "candidate_body, ideal_body, repair_body, oracle-only premise ids, and "
+            "provider payloads absent from forward rows; enumerates only shape-allowed "
+            "TACTIC_ACTION entries; selects clean proofs by no-sorry/CLEAN axiom audit, "
+            "shortest body, and fastest check; computes hammer_action_value_table buckets "
+            "from source_family, target_shape, and tactic_id; and rejects negative cases "
+            "that inject adapter candidate success, oracle repair success, provider "
+            "hypothesis success, raw proof body credit, missing Lean acceptance, or an "
+            "illegal status transition into the statement-only lane."
+        ),
+        "anti_claim_floor": (
+            "This route proves statement-only target-shape action-value routing, status "
+            "firewall accounting, comparator isolation, and receipt anchoring for the "
+            "live runner plus a synthetic fixture plan. It does not claim theorem-solving "
+            "performance, external benchmark certification, provider success, public "
+            "Microcosm release authority, permission to count adapter hints or oracle "
+            "repairs as forward solver discoveries, permission to train on proof bodies, "
+            "or permission to expose private proof, provider, adapter, or oracle payloads."
+        ),
+        "next_refinement_move": (
+            "Keep statement_only_hammer_bandit_action_value_policy folded into "
+            "formal_prover_lab_evaluation_suborgan with proof-diagnostic and "
+            "external-boundary siblings. Future target-shape, action-value, hammer-search, "
+            "provider-strategy, or skill-overlay imports should open the statement-only "
+            "hammer runner, run receipts, status transition audit, extracted-pattern "
+            "sidecars, route-readiness validators, and option-surface card before "
+            "claiming policy credit, provider gains, solver discovery, or public "
+            "Microcosm readiness."
+        ),
+    },
+    {
+        "route_id": "formal_provider_strategy_match_comparator_contract",
+        "priority_rank": 10,
+        "source_cluster_ids": [
+            "formal_math_policy_integrity_and_search_foundry",
+            "formal_prover_context_library_prior_and_strategy_gate",
+            "formal_math_proof_organ",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_strategy_match_comparator",
+        ],
+        "why_impressive": (
+            "Provider strategy classification only becomes reusable when accepted "
+            "advisory rows are compared against the deterministic strategy_control "
+            "selector on the same problem manifest without becoming proof success. "
+            "This route binds the provider strategy reducer, strategy advisory rows, "
+            "invalid/missing/leakage quarantine counts, comparable_count denominator, "
+            "strategy_match_rate receipt, and explicit provider_results_counted=false "
+            "anti-cheat boundary so future imports can measure provider strategy fit "
+            "without crediting provider text, Lean-free classification, or search "
+            "efficiency deltas as solver discovery."
+        ),
+        "candidate_fixture": (
+            "Toy ten-problem provider-strategy fixture with provider_strategy_advisory_row "
+            "outputs and a deterministic strategy_control_graph_v0 strategy_id map over "
+            "the same problem manifest digest. Validation asserts accepted advisories "
+            "with deterministic labels form the comparable_count denominator, matches "
+            "increment only when provider_strategy_id equals deterministic_strategy_id, "
+            "invalid_strategy_id, missing_strategy_id, and invalid_leakage rows are "
+            "counted outside the numerator and denominator, provider_results_counted=False, "
+            "and search-efficiency metrics such as transitions, depth, and branching "
+            "are absent until a separate injected-advisory search wave runs."
+        ),
+        "anti_claim_floor": (
+            "This route proves provider strategy-match comparator routability, reducer "
+            "accounting, and anti-cheat boundaries for live reducer code plus a synthetic "
+            "fixture plan. It does not claim theorem-solving performance, provider proof "
+            "success, solver discovery, search-efficiency gains, public Microcosm release "
+            "authority, permission to count rejected/leaking/missing advisories in the "
+            "match numerator, permission to run providers in the reducer, or permission "
+            "to expose raw provider payloads, proof bodies, oracle material, or private "
+            "problem manifests."
+        ),
+        "next_refinement_move": (
+            "Keep provider_strategy_match_comparator folded into formal_prover_lab_"
+            "evaluation_suborgan with proof-diagnostic and external-boundary siblings. "
+            "Future provider-strategy, context-recipe, or search-efficiency imports "
+            "should open reduce_prover_provider_receipts.py, compute_strategy_match_"
+            "comparison, provider strategy reducer tests, graph benchmark receipts, "
+            "statement-only and graph-variant bindings, route-readiness sidecars, and "
+            "the option-surface card before claiming provider gains, proof success, "
+            "solver discovery, or public Microcosm readiness."
         ),
     },
     {
@@ -922,16 +2565,18 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
         "target_existing_organs": ["navigation_hologram_route_plane"],
         "pattern_ids": [
             "system_atlas_kind_atlas_living_map",
+            "system_atlas_source_coupling_gate",
         ],
         "why_impressive": (
             "The atlas is reusable only when agents can route from generated Kind/System "
             "Atlas rows back to standards, builders, freshness checks, and source-coupling "
-            "receipts without treating the generated projection as authority."
+            "receipts without treating the generated projection as authority or refreshing "
+            "source-coupled outputs under active source-lane drift."
         ),
         "candidate_fixture": (
             "Synthetic atlas fixture with five artifact kinds, one owner-check row, one "
             "cluster-first option surface, one stale source manifest, one no-refresh "
-            "refusal, and a projection-not-authority receipt."
+            "refusal, one active-source-claim blocker, and a projection-not-authority receipt."
         ),
         "anti_claim_floor": (
             "This route proves source-coupled atlas navigation and no-refresh behavior for "
@@ -978,6 +2623,1067 @@ FOUNDATION_COMBINATION_ROUTE_DEFS: list[dict[str, Any]] = [
             "Keep the impact-map row under proof diagnostics with mission transaction carried "
             "as the execution sibling; future imports must cite the selector code, generated "
             "sidecar, inventory standard, and focused selector/run-slice tests before reuse."
+        ),
+    },
+    {
+        "route_id": "autonomous_proof_gate_three_color_mutation_membrane",
+        "priority_rank": 9,
+        "source_cluster_ids": [
+            "mission_transaction_and_scoped_commit",
+            "standard_owned_option_surfaces",
+        ],
+        "target_existing_organs": [
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "navigation_hologram_route_plane",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "autonomous_proof_gate_three_color_default",
+        ],
+        "why_impressive": (
+            "The mutation gate stops routing every bounded safe change to the operator: "
+            "green changes land only after deterministic verifier, rollback, projection, "
+            "route-probe, and scoped-transaction evidence; amber retries are bounded and "
+            "strengthen the verifier; red emits an exception packet instead of silently "
+            "auto-applying or asking for routine review."
+        ),
+        "candidate_fixture": (
+            "Synthetic three-proposal mutation lane: one green doc/projection change with "
+            "path scope, fingerprint, rollback artifact, projection rebuild, route probe, "
+            "and scoped commit preflight; one amber underanchored change that retries once "
+            "with the stronger independent verifier before resolving; and one red "
+            "semantic/private/high-blast proposal that emits decision_needed, "
+            "why_machine_gate_failed, safe_fallback, and disconfirming_check."
+        ),
+        "anti_claim_floor": (
+            "This route proves the internal machine-verifiable mutation membrane for "
+            "synthetic fixtures and live owner surfaces. It does not authorize live "
+            "cloud/account mutation, provider/browser/session access, irreversible "
+            "storage changes, public release, public source visibility, benchmark claims, "
+            "or bypass of Work Ledger, Task Ledger, scoped commit, publication, or "
+            "privacy gates."
+        ),
+        "next_refinement_move": (
+            "Keep autonomous_proof_gate_three_color_default as a composition route over "
+            "mission_transaction_work_spine, proof_diagnostic_evidence_spine, and "
+            "navigation_hologram_route_plane. Future agents should open "
+            "autonomous_proof_gate_default, std_navigation_population_acceptance, "
+            "routing_atom_population, std_python bridge_authoring_lane, Python compliance "
+            "campaign/verifier owners, mission transaction preflight, scoped commit, and "
+            "this option-surface card before promoting another lane or asking for "
+            "operator review on bounded green work."
+        ),
+    },
+    {
+        "route_id": "autonomous_proof_gate_promotion_amber_escalation_membrane",
+        "priority_rank": 10,
+        "source_cluster_ids": [
+            "mission_transaction_and_scoped_commit",
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+        ],
+        "target_existing_organs": [
+            "formal_prover_lab_evaluation_suborgan",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "navigation_hologram_route_plane",
+            "bridge_phase_continuity_runtime",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "autonomous_proof_gate_promotion_rule_amber_bounded_retry",
+        ],
+        "why_impressive": (
+            "The promotion membrane makes autonomous proof-gate status a proved admission "
+            "contract rather than a label: a lane must show explicit path scope, "
+            "deterministic verifier set, independent adjudicator option, rollback artifact, "
+            "route probe, and fingerprint contract before using the green/amber/red gate. "
+            "Amber stays bounded, the second retry must strengthen independent verification, "
+            "and exhaustion downgrades to a red exception packet instead of looping or "
+            "routing routine approvals to the operator."
+        ),
+        "candidate_fixture": (
+            "Synthetic promotion ledger with three lanes: one missing rollback artifact and "
+            "therefore blocked from claiming gate status; one satisfying all six admission "
+            "conditions and allowed to classify green work; and one amber lane whose first "
+            "retry is inconclusive, whose second retry must use a stronger independent "
+            "verifier, and whose exhaustion emits decision_needed, why_machine_gate_failed, "
+            "safe_fallback, evidence, and aggregate-only operator digest fields."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal lane-promotion and amber-escalation discipline for "
+            "synthetic fixtures and live owner surfaces. It does not authorize publication, "
+            "provider/browser/account access, secret handling, irreversible mutation, public "
+            "benchmark claims, or any lane self-declaring autonomous without the six-condition "
+            "admission evidence and scoped transaction receipts."
+        ),
+        "next_refinement_move": (
+            "Keep autonomous_proof_gate_promotion_rule_amber_bounded_retry as the admission "
+            "and retry contract immediately after autonomous_proof_gate_three_color_default. "
+            "Future agents should open autonomous_proof_gate_default, "
+            "std_navigation_population_acceptance promotion_rule and amber policy, "
+            "routing_atom_population, mission transaction preflight, scoped commit, Python "
+            "compliance verifier owners, Work Ledger, Task Ledger, and this option-surface "
+            "card before claiming a lane has autonomous proof-gate authority."
+        ),
+    },
+    {
+        "route_id": "navigation_population_acceptance_route_plane_contract",
+        "priority_rank": 11,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "mission_transaction_and_scoped_commit",
+            "proof_diagnostic_evidence_spine",
+        ],
+        "target_existing_organs": [
+            "navigation_hologram_route_plane",
+            "proof_diagnostic_evidence_spine",
+            "mission_transaction_work_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "navigation_population_acceptance",
+        ],
+        "why_impressive": (
+            "Navigation surface growth becomes governed when every proposed row patch "
+            "collapses into a green, amber, or red admission outcome with source "
+            "fingerprints, route probes, rollback material, verifier evidence, and an "
+            "operator packet only for red cases. The route-plane can then accept, retry, "
+            "or quarantine population work without future agents rediscovering the "
+            "standard from prose."
+        ),
+        "candidate_fixture": (
+            "Synthetic navigation-population cohort with three row patches: one green "
+            "docstring/projection-only patch carrying explicit path scope, matching "
+            "fingerprint, route probe, rollback artifact, and verifier receipts; one "
+            "amber patch with incomplete green evidence that retries under a stronger "
+            "independent verifier; and one red patch with semantic/private/high-blast "
+            "risk that emits decision_needed, why_machine_gate_failed, safe_fallback, "
+            "evidence, disconfirming_check, and aggregate-only operator digest fields."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal navigation-population admission and disposition "
+            "for synthetic fixtures and live owner surfaces. It does not authorize "
+            "publication, provider/browser/account access, secret handling, semantic "
+            "runtime edits, test edits, irreversible mutation, public release, or bypass "
+            "of Work Ledger, Task Ledger, scoped transaction preflight, route readiness, "
+            "or owner validators."
+        ),
+        "next_refinement_move": (
+            "Keep navigation_population_acceptance as the route-plane admission contract "
+            "under navigation_hologram_route_plane with proof diagnostics, mission "
+            "transaction, and external-boundary siblings. Future agents should open "
+            "std_navigation_population_acceptance, navigation_population_acceptance.py, "
+            "the extracted-pattern binding/readiness sidecars, the option-surface card, "
+            "Work Ledger claims, Task Ledger capture rules, route probes, rollback and "
+            "fingerprint contracts, and focused acceptance tests before adding another "
+            "navigation surface or treating operator review as the default."
+        ),
+    },
+    {
+        "route_id": "autonomy_runtime_metabolism_loop_control_contract",
+        "priority_rank": 12,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "autonomy_runtime_metabolism_loop",
+        ],
+        "why_impressive": (
+            "The always-on autonomy story becomes governable when the daemon contract, "
+            "plan substrate, seat lifecycle, serial runtime loop, state root, manual-assist "
+            "fallback, stop seam, Work Ledger claims, and proof-gate receipts route as one "
+            "artifact-gated control loop instead of being rediscovered across nine paper "
+            "modules and runner tests."
+        ),
+        "candidate_fixture": (
+            "Synthetic autonomy runtime tick with one enabled chain item, one Type A seed "
+            "seat that records transport/seat evidence, one bridge_campaign observation-only "
+            "item that must resolve manual_assist_required, one disabled operation skipped "
+            "without dispatch, one stop-at-next-seam flag, one plan_state closeout, and one "
+            "red refusal for live provider/account or irreversible mutation."
+        ),
+        "anti_claim_floor": (
+            "This route proves the internal runtime-loop composition for synthetic fixtures "
+            "and live owner surfaces. It does not authorize a second resident daemon, live "
+            "provider/browser/account mutation, secret handling, public release, irreversible "
+            "writes, timer-based completion, bypass of metabolismd start guards, or any "
+            "autonomy claim without Work Ledger claims, owner validators, runtime ledger "
+            "evidence, and proof-gate receipts."
+        ),
+        "next_refinement_move": (
+            "Keep autonomy_runtime_metabolism_loop as the control contract over the scoped "
+            "autonomy runner, daemon composition, plan substrate, Type A seat lifecycle, "
+            "state root, and proof gates. Future agents should open std_autonomy_runtime, "
+            "std_autonomy_plan, std_type_a_seat_control, overnight_chain_runner.py, "
+            "autonomy_plan.py, type_a_seat_control.py, metabolismd.py, codex_driver.py, "
+            "codex_resume.py, the option-surface card, and focused runtime tests before "
+            "claiming always-on autonomy behavior or splitting the runtime stack further."
+        ),
+    },
+    {
+        "route_id": "autonomy_plan_baton_closeout_bridge_continuity_contract",
+        "priority_rank": 13,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "autonomy_plan_baton_closeout_contract",
+        ],
+        "why_impressive": (
+            "The plan baton and closeout substrate becomes reusable when step validation, "
+            "runtime-item compilation, bridge_snapshot application, seat attribution, "
+            "five-sentence baton contracts, binary done/needs_another_go closeout flags, "
+            "subphase context, Work Ledger continuity, and proof receipts route as one "
+            "bridge-continuity contract instead of being rediscovered from autonomy_plan.py, "
+            "autonomy_subphase.py, seat probes, and scattered runtime tests."
+        ),
+        "candidate_fixture": (
+            "Synthetic three-step autonomy plan: one codex_task step with a self baton, one "
+            "bridge_snapshot step that returns runtime_items, next_step_updates, "
+            "provider_limits_observed, five baton sentences, and confidence >= 0.5, and "
+            "one runtime_items step with concurrent seat bindings. Positive cases assert "
+            "valid step kinds, runtime item kinds, concurrency, seat bindings, closeout "
+            "status, baton register, bridge snapshot plan_state merge, and subphase context. "
+            "Negative cases fail for four-sentence batons, unsupported closeout status, "
+            "low-confidence snapshot application, unknown runtime item kinds, live provider "
+            "payload leakage, and rewriting the source plan manifest."
+        ),
+        "anti_claim_floor": (
+            "This route proves the internal autonomy plan baton/closeout continuity contract "
+            "for synthetic fixtures and live owner surfaces. It does not launch seats, call "
+            "providers, run bridge, authorize a resident daemon, publish private plan state, "
+            "certify all plans complete, bypass Work Ledger, Task Ledger, seat approval, "
+            "snapshot confidence, scoped commit, or proof gates, or make a bridge snapshot "
+            "a substitute for controller-owned closeout."
+        ),
+        "next_refinement_move": (
+            "Keep autonomy_plan_baton_closeout_contract under bridge_phase_continuity_runtime "
+            "with mission transaction, proof diagnostics, and external-boundary siblings. "
+            "Future plan, baton, closeout, or seat-continuity work should open "
+            "autonomy_plan_surface, autonomy_plan_substrate, autonomy_plan_seat_lifecycle, "
+            "autonomy_plan_bridge_snapshot, bridge_runtime_control_plane, "
+            "claude_subagent_delegation, std_autonomy_plan, std_autonomy_runtime, "
+            "std_type_a_seat_control, autonomy_plan.py, autonomy_subphase.py, "
+            "codex_runtime_probe.py, overnight_chain_runner.py, the option-surface card, "
+            "and focused autonomy plan/snapshot/execution tests before claiming plan "
+            "continuity, baton transfer, or closeout semantics."
+        ),
+    },
+    {
+        "route_id": "reaction_autonomy_bridge_continuity_contract",
+        "priority_rank": 13,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "agent_runtime_observability_and_egress_membrane",
+            "kernel_command_projection_runtime",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+            "agent_route_observability_runtime",
+        ],
+        "pattern_ids": [
+            "reaction_evaluation_dual_fingerprint_dedupe",
+            "reaction_wake_barrier_suspend_resume",
+            "lifecycle_boundary_to_reaction_signal",
+        ],
+        "why_impressive": (
+            "The reactions substrate becomes reusable when typed signal loading, predicate "
+            "matching, armed-state gates, cooldown gates, signal_digest dedupe, terminal "
+            "outcome plus ledger-fingerprint dedupe, detached runner spawn, persisted wake "
+            "barriers, hard-kill recovery, lifecycle-boundary hook signals, and latest-only "
+            "wake semantics route as one bridge-continuity contract instead of being "
+            "rediscovered from reactions_engine.py, reactions.yaml, runtime_hook.py, "
+            "runtime_hook_ladder, and scattered reaction proof tests."
+        ),
+        "candidate_fixture": (
+            "Synthetic reactions runtime with three rows: one ordinary signal with "
+            "dedupe_by=signal_digest and terminal completed_digest_fingerprint history, "
+            "one detached operation that installs an operation_completion barrier with a "
+            "runner PID and 45-minute hard-kill guard, and one session_lifecycle_boundary "
+            "hook event promoted to stable_signal_digest. Positive cases assert six-gate "
+            "evaluation, stable digest reuse, completed digest suppression, digest-collision "
+            "refire allowance, barrier persistence, PID-exit barrier clearing, hard-kill "
+            "force clear, latest-only lifecycle wake, and Work Ledger projection action "
+            "routing. Negative cases reject per-event queue-drain claims, concurrent fires "
+            "while a barrier is active, timestamp-only refires, live provider/browser "
+            "payload export, and reaction mutation without Work Ledger/controller proof."
+        ),
+        "anti_claim_floor": (
+            "This route proves reaction autonomy routing over live owner surfaces and "
+            "synthetic/private-root-safe fixtures. It does not start the daemon, fire live "
+            "operations, mutate doctrine, publish private hook/session/operator/provider "
+            "payloads, claim lifecycle rows are a durable queue, bypass controller review, "
+            "or treat reaction logs, generated projections, or latest wake signals as "
+            "public release authority."
+        ),
+        "next_refinement_move": (
+            "Keep reaction_evaluation_dual_fingerprint_dedupe, reaction_wake_barrier_"
+            "suspend_resume, and lifecycle_boundary_to_reaction_signal under "
+            "bridge_phase_continuity_runtime with proof diagnostics, external-boundary, "
+            "and agent-route-observability siblings. Future reaction/autonomy work should "
+            "open reactions_engine, runtime_hook_ladder, continuous_runtime_layer, "
+            "autonomy_runtime_layer, bridge_runtime, std_reactions, std_orchestration_"
+            "events, reactions.yaml, runtime_hook.py, lifecycle-boundary tests, reaction "
+            "proof/targeted tick tests, generated binding/readiness sidecars, and "
+            "option-surface cards before claiming reaction dedupe, wake barriers, "
+            "lifecycle wake, or public import readiness."
+        ),
+    },
+    {
+        "route_id": "system_control_orchestration_composition_root_contract",
+        "priority_rank": 13,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+            "kernel_command_projection_runtime",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "system_control_orchestration_composition_root",
+        ],
+        "why_impressive": (
+            "Runtime control becomes reusable when phase, factory, mission queue, "
+            "apply-staging, bridge locks, docs-route focus, bootstrap actor frames, "
+            "reactions projection, Python-standard compliance, state JSON, brief JSON/MD, "
+            "event-log fingerprinting, and directive mutation route as one composition "
+            "root instead of being rediscovered from every lane independently."
+        ),
+        "candidate_fixture": (
+            "Synthetic orchestration repo with a dormant phase, invalid apply packet, "
+            "empty mission queue, neutral docs-route focus, no live bridge lock, one "
+            "bootstrap actor-context surface, one reactions projection, and one Python "
+            "standard-compliance projection. Positive cases assert the selected driver, "
+            "gate reason, coordination owner, next handoff, routing-emphasis tags, actor "
+            "frames, state/brief/event artifact paths, event fingerprint idempotence, "
+            "and docs-route focus deltas. Negative cases reject direct docs-focus JSON "
+            "mutation, direct orchestration_state writes, live bridge/provider payload "
+            "export, and treating generated artifacts as source authority."
+        ),
+        "anti_claim_floor": (
+            "This route proves the internal runtime-control composition root over live "
+            "owner surfaces and synthetic/private-root-safe snapshots. It does not arm a "
+            "runtime phase, launch bridge or provider work, mutate live directives outside "
+            "the controller helper, publish private lane payloads, bypass Work Ledger or "
+            "proof gates, replace source lane owners, or treat orchestration_state, brief, "
+            "or events as public release authority."
+        ),
+        "next_refinement_move": (
+            "Keep system_control_orchestration_composition_root under "
+            "bridge_phase_continuity_runtime with agent-route observability, mission "
+            "transaction, proof diagnostics, and external-boundary siblings. Future "
+            "control-plane or docs-route work should open system_control_runtime_"
+            "orchestration, bridge_runtime_control_plane, microcosm_substrate, "
+            "system/control/orchestration.py, system/control/documentation_route_focus.py, "
+            "std_orchestration_state, std_orchestration_events, std_agent_bootstrap, "
+            "generated orchestration state/brief/events artifacts, focused overnight/"
+            "runtime-contract tests, route-readiness sidecars, and option-surface cards "
+            "before claiming runtime-control ownership, directive mutation, or public "
+            "import readiness."
+        ),
+    },
+    {
+        "route_id": "continuous_runtime_layer_bridge_continuity_contract",
+        "priority_rank": 13,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "continuous_runtime_layer",
+        ],
+        "why_impressive": (
+            "The cross-turn runtime substrate becomes reusable when continuation packets, "
+            "state-backed Codex handoff, signal watchers, autonomous-seed continuity, "
+            "Codex resume transport, phase/pipeline helper boundaries, Work Ledger "
+            "claims, proof receipts, and public/private anti-claims route as one "
+            "bridge-continuity contract rather than as scattered paper modules and "
+            "resume scripts."
+        ),
+        "candidate_fixture": (
+            "Synthetic three-turn continuity run: first turn writes a continuation packet "
+            "from state-backed context, second turn resumes from the Codex transport after "
+            "a phase or pipeline-state transition, third turn lands one bounded action "
+            "with Work Ledger claim, proof receipt, and seed heartbeat; include one busy "
+            "thread/manual-assist fallback and one red refusal for provider/account or "
+            "irreversible mutation."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal cross-turn continuity and resume wiring for "
+            "synthetic fixtures and live owner surfaces. It does not authorize a second "
+            "resident daemon, live provider/browser/account access, secret handling, "
+            "public release, timer-based completion, unbounded autonomy, or bypass of "
+            "Work Ledger, Task Ledger, scoped commit, seed heartbeat, publication, "
+            "privacy, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep continuous_runtime_layer as the bridge-continuity substrate around "
+            "continuation packets, Codex handoff, signal watchers, autonomous seed "
+            "continuity, and phase/pipeline helper boundaries. Future agents should open "
+            "continuous_runtime_layer, phase_runtime_library, pipeline_runtime_library, "
+            "std_autonomous_seed_prompt, std_agent_entry_surface, continuation_packet.py, "
+            "pipeline_codex_handoff.py, pipeline_signal_watcher.py, codex_resume.py, "
+            "the option-surface card, and focused continuation/resume tests before "
+            "claiming persistent runtime behavior or splitting continuity from its "
+            "governed wake/claim/proof seams."
+        ),
+    },
+    {
+        "route_id": "governor_mode_dispatch_runtime_gas_pedal_contract",
+        "priority_rank": 14,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "governor_mode_dispatch_state_machine",
+        ],
+        "why_impressive": (
+            "The runtime gas pedal becomes reusable when governor modes, provider budgets, "
+            "CPU and memory pressure gates, local-cost classes, provider dispatch history, "
+            "metabolismd admission, Work Ledger claims, proof receipts, and no-paid-auto "
+            "anti-claims route as one bounded control contract instead of being rediscovered "
+            "inside scheduler and provider-pressure code."
+        ),
+        "candidate_fixture": (
+            "Synthetic governor-mode matrix: paused admits no selector dispatch, trickle allows "
+            "one remote-light local-light item while blocking heavy local work, active keeps "
+            "normal concurrency, overnight widens local pressure tolerance, sprint permits "
+            "three ChatGPT dispatches, high CPU or pressure-red cooldown blocks heavy local "
+            "launches, and provider spacing history blocks repeat dispatch before the mode "
+            "budget expires."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal dispatch admission and resource governance for "
+            "synthetic fixtures and live owner surfaces. It does not dispatch providers, "
+            "authorize paid spend, run a resident daemon, bypass Work Ledger or proof gates, "
+            "override operator stop signals, prove queue execution, or collapse continuity, "
+            "autonomy runtime, provider selection, and launch contracts into one owner."
+        ),
+        "next_refinement_move": (
+            "Keep governor_mode_dispatch_state_machine as the runtime gas-pedal contract "
+            "around metabolism_governor.py, metabolismd governor commands, provider pressure "
+            "signals, dispatch history, launchable-operation local-cost classes, and focused "
+            "governor/provider tests. Future agents should open this option-surface card, "
+            "continuous_runtime_layer, autonomy_runtime_metabolism_loop, std_metabolism_status, "
+            "std_provider_adapter, std_launchable_operation_contract, metabolism_governor.py, "
+            "metabolismd.py, provider_metabolism_signal.py, bridge_provider_pressure.py, and "
+            "the focused tests before claiming dispatch, resource, or paid-provider behavior."
+        ),
+    },
+    {
+        "route_id": "meta_mission_queue_runtime_adapter_contract",
+        "priority_rank": 15,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "bridge_phase_continuity_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "meta_mission_queue_runtime",
+        ],
+        "why_impressive": (
+            "The legacy queue lane becomes reusable when the manifest standard, explicit "
+            "operator-authored agenda, serial item executor, sync-only launchable operation "
+            "gate, queue ledger/state root, stop/resume seams, Station overnight_queue "
+            "payload, Work Ledger claims, and proof-gate receipts route as one adapter "
+            "contract instead of being collapsed into the broader autonomy runtime loop."
+        ),
+        "candidate_fixture": (
+            "Synthetic legacy queue manifest with one enabled chain item, one sync operation "
+            "item, one disabled item skipped without dispatch, one detached operation rejected "
+            "by preflight, one stop-at-next-item-boundary request, one resume-from-next-seam "
+            "run, one provider_wait projection, and one red refusal for live provider/account "
+            "access or queue-driven reactions arming."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal legacy queue-adapter composition for synthetic "
+            "fixtures and live owner surfaces. It does not authorize a scheduler, DAG or "
+            "parallel execution, detached operation items, queue-driven reaction arming, "
+            "provider/browser/account access, public release, paid spend, a resident daemon, "
+            "or bypass of Work Ledger, Task Ledger, stop seams, scoped commit, privacy, or "
+            "proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep meta_mission_queue_runtime as the compatibility adapter under "
+            "std_autonomy_runtime and autonomy_runtime_metabolism_loop, not as a second "
+            "autonomy runtime. Future agents should open meta_mission_queue_runtime, "
+            "meta_mission_runtime, overnight_meta_mission_queue, std_meta_mission_queue, "
+            "std_autonomy_runtime, overnight_chain_runner.py, chain_runtime.py, "
+            "launchable_operations.py, world_model.py, the option-surface card, and "
+            "focused queue/runtime tests before claiming queue launch, stop, resume, "
+            "provider-wait, or Station overnight_queue behavior."
+        ),
+    },
+    {
+        "route_id": "provider_metabolism_ledger_authority_class_contract",
+        "priority_rank": 15,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_metabolism_ledger",
+        ],
+        "why_impressive": (
+            "Provider output becomes reusable only when calls are routed through a typed "
+            "metabolism ledger: provider registry rows, compute ledger/model catalog "
+            "projections, task-class policy, worker packet previews, provider receipts, "
+            "row patches, cache keys, validation_result evaluator output, cost, latency, "
+            "and authority ceilings travel as one accounting contract instead of being "
+            "rediscovered across provider docs, harness code, and row-patch state."
+        ),
+        "candidate_fixture": (
+            "Synthetic compute-provider fixture with NVIDIA and OpenRouter registry rows, "
+            "one accepted route_worker packet, one rejected high-authority task, one "
+            "provider_receipt with cost/latency/validation_result fields, one cache-hit "
+            "receipt, and one draft row_patch. Assertions cover independent capacity "
+            "lanes, free-only budget, local evidence override policy id, provider output "
+            "remaining receipt/row_patch-only, and no source mutation."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal provider accounting, evaluator-output separation, "
+            "and authority-ceiling visibility for synthetic fixtures and live owner "
+            "surfaces. It does not call providers, run a daemon, dispatch work, claim "
+            "slots, promote row patches, mutate source, certify provider output as true, "
+            "authorize paid spend, override selector, liveness, reducer, governor, queue, "
+            "or apply-lane contracts, or bypass Work Ledger, Task Ledger, scoped commit, "
+            "seed heartbeat, privacy, stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep provider_metabolism_ledger as the provider accounting and evaluator "
+            "boundary around compute_throughput.py, build_compute_throughput_ledger.py, "
+            "std_compute_provider, std_provider_adapter, std_transform_job, provider "
+            "registry rows, compute hologram ledgers, type_a_worker_harness receipts, and "
+            "focused compute/provider tests. Future provider work should open this route "
+            "with provider_candidate_selector_snapshot, provider_plane_finite_pull_liveness, "
+            "type_a_reducer_row_patch_review_gate, compute_worker_receipts, and route-"
+            "readiness overlays before claiming provider evidence, dispatch, advisory "
+            "status, liveness, or release authority."
+        ),
+    },
+    {
+        "route_id": "provider_plane_finite_pull_row_job_membrane_contract",
+        "priority_rank": 16,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_plane_finite_pull_row_job",
+        ],
+        "why_impressive": (
+            "Provider application-discovery work becomes reusable when the local catalog, "
+            "liveness projection, shard selection, allowed source refs, strict output "
+            "schema, transform-job seed, no-paid/no-retry budget, source fingerprint, "
+            "receipts/row_patch-only sink, forbidden source/doctrine/task-ledger writes, "
+            "and Type A reduction route as one finite row-job membrane instead of a hidden "
+            "provider queue, daemon, or rediscovered discovery workflow."
+        ),
+        "candidate_fixture": (
+            "Synthetic provider-plane fixture with catalog, receipts, and row_patches shards. "
+            "Build application-discovery row jobs for catalog and receipts; assert exactly "
+            "one row job per shard, max_candidates <= 3, free-only budget, max_usd 0, "
+            "max_retries 0, provider_endpoint authority ceiling, provider_plane_application_"
+            "candidate target facet, bounded allowed source refs, forbidden daemon/source/"
+            "doctrine/standards/task-ledger writes, strict output schema, source-fingerprint "
+            "drift visibility, Type A controller promotion gate, and validation commands."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal finite-pull provider application-discovery row-job "
+            "composition for synthetic fixtures and live owner surfaces. It does not call "
+            "providers, run a daemon, drain a queue, retry fanout, mutate source, mutate "
+            "Task Ledger, promote row patches, certify provider output as true, authorize "
+            "paid spend, override selector, liveness, reducer, governor, queue, Work Ledger, "
+            "Task Ledger, scoped commit, seed heartbeat, privacy, stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep provider_plane_finite_pull_row_job as the finite application-discovery "
+            "row-job membrane around metabolism_row_jobs.py, provider_plane_application_"
+            "catalog.py, provider_plane_liveness.py, type_a_worker_harness.py, std_compute_"
+            "provider, std_provider_adapter, std_transform_job, Work Ledger claims, scoped "
+            "commit, and focused row-job/provider-plane tests. Future provider-plane work "
+            "should open this route with provider_metabolism_ledger, provider_candidate_"
+            "selector_snapshot, provider_plane_finite_pull_liveness, type_a_reducer_row_"
+            "patch_review_gate, compute_worker_receipts_provider_provenance, and transform_"
+            "job_provenance before claiming provider row-job dispatch, provider evidence, "
+            "draft row-patch advisory status, liveness, or release authority."
+        ),
+    },
+    {
+        "route_id": "compute_worker_receipts_provider_provenance_evidence_contract",
+        "priority_rank": 17,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "compute_worker_receipts_provider_provenance",
+        ],
+        "why_impressive": (
+            "Provider compute evidence becomes reusable only when receipts route as a "
+            "typed provenance contract: transform_job_id, provider_id, runtime provider, "
+            "model_id, task_class, prompt_hash, input_packet_digest, output_schema_hash, "
+            "local_evidence_override_policy_id, cache_key, source_fingerprints, neighbor "
+            "context hash, output_digest, usage, cost, latency, http_status, status, "
+            "validation_result, promotion_state, artifact refs, run fingerprint, cache "
+            "entry, and draft row_patch lineage travel together instead of being "
+            "rediscovered from worker code, row-job packets, ledger projections, or "
+            "private receipt directories."
+        ),
+        "candidate_fixture": (
+            "Synthetic receipt-provenance fixture with five receipts across NVIDIA and "
+            "OpenRouter and three task classes: ok, cache_hit, schema_fail, policy_reject, "
+            "and blocked_duplicate. Assertions cover receipt clustering by task_class, "
+            "source_fingerprints present but redacted from public cluster cards, local "
+            "evidence override policy id, output_schema_hash, cache_key, run fingerprint, "
+            "usage/cost/latency/http_status fields, validation_result semantics, draft "
+            "row_patch only for ok receipts, stale-source promotion blocking, and no "
+            "source/doctrine/standards mutation."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal provider receipt provenance and draft row-patch "
+            "lineage for synthetic fixtures and live owner surfaces. It does not publish "
+            "private receipt payloads, call providers, run a daemon, dispatch work, "
+            "certify provider output as true, promote row patches, mutate source, override "
+            "row-job, selector, liveness, reducer, governor, queue, Work Ledger, Task "
+            "Ledger, scoped commit, seed heartbeat, privacy, stop, or proof gates, or "
+            "authorize paid spend."
+        ),
+        "next_refinement_move": (
+            "Keep compute_worker_receipts_provider_provenance as the receipt evidence "
+            "root around type_a_worker_harness.py, std_transform_job provider_receipt, "
+            "std_compute_provider, compute_worker_receipts.md, type_a_worker_harness.md, "
+            "state/compute_workers receipts/cache/run_fingerprints/row_patches, and "
+            "focused receipt tests. Future provider-plane work should open this route "
+            "with provider_metabolism_ledger, provider_plane_finite_pull_row_job, "
+            "provider_candidate_selector_snapshot, provider_plane_finite_pull_liveness, "
+            "type_a_reducer_row_patch_review_gate, and transform_job_provenance before "
+            "claiming provider evidence, stale-source promotion behavior, receipt truth, "
+            "or row-patch lineage."
+        ),
+    },
+    {
+        "route_id": "transform_job_provenance_seed_lineage_contract",
+        "priority_rank": 18,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "transform_job_provenance",
+        ],
+        "why_impressive": (
+            "Provider-plane transformations become reusable when the transform_job seed "
+            "routes as a typed lineage contract: task_class, target row/facet/band, "
+            "source_fingerprints, input_packet digest, output_schema, local evidence "
+            "override policy, authority ceiling, forbidden surfaces, provider selection "
+            "policy, provider budget, cache_key, validation command, receipt target, "
+            "promotion_target, row-job materialization posture, and no-source-mutation "
+            "boundary travel together before any receipt or row_patch can be interpreted."
+        ),
+        "candidate_fixture": (
+            "Synthetic transform-job fixture with five jobs: a valid derive_flag job, a "
+            "row-job materialized provider_transform_job draft, a forbidden-surface policy "
+            "reject, a stale-source-fingerprint promotion block, and a paid-budget veto. "
+            "Assertions cover source_fingerprints, input_packet_digest/cache_key stability, "
+            "output_schema_hash, local_evidence_override_policy_id, provider budget "
+            "free_only/no paid, validation_command presence, receipt_target, promotion_"
+            "target draft posture, scheduler refusal without job_path, and no source/"
+            "doctrine/standards/Task Ledger mutation."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal transform-job seed lineage and materialization "
+            "contracts for synthetic fixtures and live owner surfaces. It does not call "
+            "providers, dispatch a scheduler job, claim provider slots, certify provider "
+            "output as true, publish private input packets, promote row patches, mutate "
+            "source, authorize paid spend, override receipt, row-job, selector, liveness, "
+            "reducer, governor, queue, Work Ledger, Task Ledger, scoped commit, seed "
+            "heartbeat, privacy, stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep transform_job_provenance as the seed-lineage owner around "
+            "std_transform_job.transform_job, std_provider_navigation_transform_receipt, "
+            "type_a_worker_harness.py build/normalize/materialize/run functions, "
+            "metabolism_row_jobs.py transform_job_seed rows, compute throughput ledgers, "
+            "state/compute_workers/transform_jobs, and focused transform-job tests. Future "
+            "provider-plane work should open this route with provider_plane_finite_pull_"
+            "row_job, compute_worker_receipts_provider_provenance, provider_metabolism_"
+            "ledger, provider_candidate_selector_snapshot, provider_plane_finite_pull_"
+            "liveness, and type_a_reducer_row_patch_review_gate before claiming transform "
+            "lineage, budget policy, validation command, receipt evidence, dispatch, or "
+            "promotion authority."
+        ),
+    },
+    {
+        "route_id": "worker_run_fingerprint_dedup_cache_gate_idempotent_dispatch_contract",
+        "priority_rank": 19,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "worker_run_fingerprint_dedup_cache_gate",
+        ],
+        "why_impressive": (
+            "Provider dispatch becomes reusable only when repeated worker runs route through "
+            "a content-addressed idempotency membrane: provider_id, model_id, cache_key, "
+            "prompt_hash, cache_hit receipts, failed-status run fingerprints, blocked_"
+            "duplicate receipts, running-run collision handling, and explicit force bypass "
+            "travel together instead of being rediscovered from transform jobs, receipts, "
+            "or provider-call counters."
+        ),
+        "candidate_fixture": (
+            "Synthetic worker fixture with one successful job run, a second identical job "
+            "returning cache_hit with no provider call, one schema_fail run that writes a "
+            "failed run_fingerprint, a duplicate failed run that emits blocked_duplicate "
+            "without provider call, and a force rerun that bypasses the cache/fingerprint "
+            "gates while preserving receipt lineage."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal worker idempotency and cache/duplicate suppression "
+            "for synthetic fixtures and live owner surfaces. It does not call live providers, "
+            "certify provider output as true, publish private receipt payloads, provide a "
+            "distributed lock, promote row patches, mutate source, authorize paid spend, "
+            "override transform-job, receipt, selector, liveness, reducer, governor, queue, "
+            "Work Ledger, Task Ledger, scoped commit, seed heartbeat, privacy, stop, or "
+            "proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep worker_run_fingerprint_dedup_cache_gate as the idempotent dispatch owner "
+            "around type_a_worker_harness.py FAILED_STATUSES, _fingerprint_path, _cache_path, "
+            "run_transform_job, cache_hit and blocked_duplicate receipts, run_fingerprint and "
+            "cache artifacts, std_transform_job retry/storage/status contracts, and focused "
+            "worker tests. Future provider-plane work should open this route with transform_"
+            "job_provenance, compute_worker_receipts_provider_provenance, provider_plane_"
+            "finite_pull_row_job, provider_metabolism_ledger, provider_candidate_selector_"
+            "snapshot, provider_plane_finite_pull_liveness, and type_a_reducer_row_patch_"
+            "review_gate before claiming cache hits, duplicate blocking, force reruns, "
+            "provider call counts, or rate-limit protection."
+        ),
+    },
+    {
+        "route_id": "annex_distillation_anti_corruption_boundary_adapter_contract",
+        "priority_rank": 20,
+        "source_cluster_ids": [
+            "external_reference_transfer",
+            "standard_owned_option_surfaces",
+            "agent_runtime_observability_and_egress_membrane",
+            "mission_transaction_and_scoped_commit",
+        ],
+        "target_existing_organs": [
+            "external_boundary_anti_corruption_runtime",
+            "agent_route_observability_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "navigation_hologram_route_plane",
+        ],
+        "pattern_ids": [
+            "annex_distillation_anti_corruption_boundary",
+        ],
+        "why_impressive": (
+            "External reference transfer becomes reusable only when annex patterns route "
+            "through a classified anti-corruption boundary: pattern transfer, upgrade-ours, "
+            "hybrid wrap, adapter, defer, reject, archive, and substrate-wedge mappings "
+            "travel with source loci, local targets, trust-default controller merge, "
+            "standard-transfer fields, rejection/defer triggers, and public projection "
+            "anti-claims instead of silently importing foreign semantics."
+        ),
+        "candidate_fixture": (
+            "Synthetic annex distillation fixture with eight external pattern rows covering "
+            "lanes 1-5 plus D6 mapping notes: pattern_transfer, upgrade_ours, hybrid_wrap, "
+            "anti_corruption_adapter, defer, reject, archive, and substrate_wedge reference. "
+            "Assertions cover source_locus/local_target requirements, controller-clean rows "
+            "promoted to evaluated, lane 5 rejected with rejection_reason and reevaluation_"
+            "trigger, deferred rows with reevaluation_trigger, standard-transfer fields, "
+            "notes cross-refs, projection index grouping, and no public standalone leaf."
+        ),
+        "anti_claim_floor": (
+            "This route proves annex distillation classification and external-pattern "
+            "anti-corruption boundaries for synthetic fixtures and live owner surfaces. It "
+            "does not copy external projects into doctrine, claim upstream truth, publish "
+            "private annex payloads, promote annex rows to public release authority, make "
+            "lane 6 a distillation-row enum, bypass controller merge, mutate source, or "
+            "override Work Ledger, Task Ledger, scoped commit, seed heartbeat, privacy, "
+            "stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep annex_distillation_anti_corruption_boundary as the external-reference "
+            "adapter owner around annex_import.py, annex_registry.py, std_annex_"
+            "distillation, std_annex_notes, annex paper modules, annex distillation index, "
+            "standard-transfer row validation, route_annexes, Work Ledger claims, scoped "
+            "commit, and focused annex tests. Future Microcosm import work should open "
+            "this route with codex_annex_substrate, microcosm_substrate, bridge_runtime, "
+            "claude_subagent_delegation, public_microcosm_evolution_seed, and route-"
+            "readiness overlays before claiming external pattern transfer, adaptation, "
+            "rejection, archive, substrate wedge, or public projection authority."
+        ),
+    },
+    {
+        "route_id": "provider_candidate_selector_snapshot_scorecard_contract",
+        "priority_rank": 19,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_candidate_selector_snapshot",
+        ],
+        "why_impressive": (
+            "The provider selector becomes reusable when row-job candidates, governor "
+            "dispatch gates, provider runtime pressure, historical receipt scorecards, "
+            "stale source fingerprints, OpenRouter free hard vetoes, idle explanations, "
+            "Work Ledger claims, and proof receipts route as one read-only claimability "
+            "contract instead of being rediscovered inside scheduler and provider signal "
+            "code."
+        ),
+        "candidate_fixture": (
+            "Synthetic selector snapshot with three candidates from two providers: one "
+            "provider scorecard with schema failures demotes a row, one stale receipt "
+            "blocks promotion after source-fingerprint drift, one governor or CPU local-cost "
+            "gate suppresses a row, one OpenRouter paid-spend case is hard-vetoed, and "
+            "one empty queue returns a precise why_nothing_ran idle reason."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal provider-candidate claimability explanation for "
+            "synthetic fixtures and live owner surfaces. It does not call providers, "
+            "dispatch work, claim slots, enqueue daemon jobs, mutate source, promote row "
+            "patches, authorize paid spend, override governor or queue contracts, or "
+            "bypass Work Ledger, Task Ledger, scoped commit, seed heartbeat, privacy, "
+            "stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep provider_candidate_selector_snapshot as the read-only selector and "
+            "scorecard evidence contract around provider_metabolism_signal.py, "
+            "metabolism_scheduler.py, metabolism_row_jobs.py, metabolism_governor.py, "
+            "provider receipts, stale-source fingerprints, no-paid-auto posture, and "
+            "focused selector tests. Future agents should open this option-surface card, "
+            "provider_plane_finite_pull_liveness, meta_mission_queue_runtime, "
+            "governor_mode_dispatch_state_machine, std_provider_adapter, "
+            "std_metabolism_status, std_launchable_operation_contract, provider signal "
+            "tests, scheduler tests, and route-readiness overlays before claiming provider "
+            "selection, liveness, queue consumption, or dispatch behavior."
+        ),
+    },
+    {
+        "route_id": "provider_plane_finite_pull_liveness_daemon_guard_contract",
+        "priority_rank": 20,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "provider_plane_finite_pull_liveness",
+        ],
+        "why_impressive": (
+            "The provider plane becomes governable when transform jobs, provider receipts, "
+            "draft row patches, row-patch reviews, dormant lanes, backpressured lanes, "
+            "queue counts, provider-plane pulse lines, and finite-pull safety invariants "
+            "route as one read-only liveness contract instead of being rediscovered as a "
+            "daemon, selector, queue, or row-patch promotion behavior."
+        ),
+        "candidate_fixture": (
+            "Synthetic provider-plane fixture with queued transform jobs, successful and "
+            "timed-out receipts, one lane with no successful receipt, reviewed and "
+            "unreviewed row patches, a stale provider application discovery lane, and a "
+            "provider-plane pulse render; assertions cover exact queue counts, dormant "
+            "lane reasons, backpressure, recommended read-only actions, and safety fields "
+            "for daemon disabled, finite_pull_triggered_batches, provider_endpoint ceiling, "
+            "free-only budget, and Type A promotion only."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal read-only provider-plane liveness and finite-pull "
+            "safety for synthetic fixtures and live owner surfaces. It does not call "
+            "providers, run a daemon, dispatch work, claim slots, promote row patches, "
+            "mutate source, authorize paid spend, override selector, governor, queue, or "
+            "reducer contracts, or bypass Work Ledger, Task Ledger, scoped commit, seed "
+            "heartbeat, privacy, stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep provider_plane_finite_pull_liveness as the daemon-guarded liveness "
+            "contract around provider_plane_liveness.py, provider_plane_application_catalog.py, "
+            "provider_row_patch_review.py, transform jobs, receipts, row patches, reviews, "
+            "pulse cache, provider standards, and focused liveness tests. Future agents "
+            "should open this option-surface card, provider_candidate_selector_snapshot, "
+            "type_a_reducer_row_patch_review_gate, std_provider_adapter, std_compute_provider, "
+            "std_transform_job, std_metabolism_status, the provider-plane liveness command, "
+            "focused tests, and route-readiness overlays before claiming provider liveness, "
+            "row-patch backlog, provider dispatch, or queue consumption behavior."
+        ),
+    },
+    {
+        "route_id": "type_a_reducer_row_patch_review_gate_evaluator_contract",
+        "priority_rank": 21,
+        "source_cluster_ids": [
+            "standard_owned_option_surfaces",
+            "bridge_continuity_runtime",
+            "mission_transaction_and_scoped_commit",
+            "agent_runtime_observability_and_egress_membrane",
+        ],
+        "target_existing_organs": [
+            "agent_route_observability_runtime",
+            "bridge_phase_continuity_runtime",
+            "mission_transaction_work_spine",
+            "proof_diagnostic_evidence_spine",
+            "external_boundary_anti_corruption_runtime",
+        ],
+        "pattern_ids": [
+            "type_a_reducer_row_patch_review_gate",
+        ],
+        "why_impressive": (
+            "Provider row-patch output becomes governable only when Type A reducer "
+            "decisions are immutable, typed, machine-readable review sidecars. This "
+            "contract routes accept_as_advisory_signal, reject, retry, bridge_escalate, "
+            "and record_no_op decisions, summary counts, invalid-ref handling, and "
+            "promotion-boundary evidence as one evaluator gate instead of letting "
+            "provider output self-promote from prose or raw patch existence."
+        ),
+        "candidate_fixture": (
+            "Synthetic row-patch review set with one patch for each typed outcome, one "
+            "newer duplicate review proving latest-by-patch wins, one unknown patch id "
+            "ignored by summary, and one unreviewed draft row patch visible through "
+            "provider-plane liveness. Assertions cover 7d outcome counts, accepted "
+            "advisory count, rejected/retry/bridge escalation counts, invalid-ref "
+            "count, and the promotion_boundary string on every review record."
+        ),
+        "anti_claim_floor": (
+            "This route proves internal Type A reducer review state and aggregation for "
+            "synthetic fixtures and live owner surfaces. It does not call providers, "
+            "promote row patches, mutate source, certify provider output as true, "
+            "authorize paid spend, override selector, liveness, governor, queue, or "
+            "apply-lane contracts, or bypass Work Ledger, Task Ledger, scoped commit, "
+            "seed heartbeat, privacy, stop, or proof gates."
+        ),
+        "next_refinement_move": (
+            "Keep type_a_reducer_row_patch_review_gate as the evaluator authority boundary "
+            "around provider_row_patch_review.py, row_patch_reviews sidecars, transform "
+            "jobs, provider receipts, row-patch option surfaces, provider-plane liveness, "
+            "std_transform_job, std_compute_provider, and focused provider-plane tests. "
+            "Future agents should open this option-surface card, provider_plane_finite_pull_"
+            "liveness, provider_candidate_selector_snapshot, the provider standards, "
+            "row_patches cluster/card surfaces, and route-readiness overlays before "
+            "claiming advisory promotion, review backlog, liveness, dispatch, or queue "
+            "consumption behavior."
         ),
     },
 ]

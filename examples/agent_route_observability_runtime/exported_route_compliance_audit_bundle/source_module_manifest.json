@@ -119,9 +119,9 @@
         "def build_extracted_pattern_substrate_validation_report(",
         "def main("
       ],
-      "line_count": 2601,
-      "sha256": "b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1",
-      "byte_count": 123095,
+      "line_count": 5307,
+      "sha256": "b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce",
+      "byte_count": 281575,
       "body_in_receipt": false
     },
     {
@@ -138,9 +138,9 @@
         "\"system/lib/agent_execution_trace.py::_compute_route_compliance\"",
         "\"microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/bundle_manifest.json\""
       ],
-      "line_count": 9623,
-      "sha256": "0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
-      "byte_count": 637785,
+      "line_count": 18813,
+      "sha256": "89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
+      "byte_count": 1376531,
       "body_in_receipt": false
     }
   ],

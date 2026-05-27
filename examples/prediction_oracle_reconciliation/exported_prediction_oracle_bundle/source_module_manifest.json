@@ -194,7 +194,7 @@
       "module_id": "prediction_oracle_node_lab_decide_body_import",
       "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
       "public_safe_mode": "direct_verified_macro_body",
-      "sha256": "sha256:150dda712099972ef327f28347b2cc12bfa079133593546dc595ed1f7d91e770",
+      "sha256": "sha256:b3097b44cab244a9d388b138a25af677ce02a360e75e29094d5f90a6462a2093",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/nodes/lab/decide.json",
