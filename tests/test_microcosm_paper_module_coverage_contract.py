@@ -605,6 +605,39 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
     )
     assert "runtime organ source-loci depth" in public_export_bridge
     assert "focused coverage regression" in public_export_bridge
+    assert "All-Corpus Export Dispatch" in public_export_bridge
+    assert (
+        "--option-surface paper_modules --band cluster_flag"
+        in public_export_bridge
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_cluster_rows"
+        in public_export_bridge
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_compression_packet"
+        in public_export_bridge
+    )
+    assert (
+        "system/lib/standard_option_surface.py::_paper_module_compression_passport"
+        in public_export_bridge
+    )
+    assert (
+        "system/lib/navigation_context_pack.py::MICROCOSM_PAPER_MODULE_DEPTH_ANCHORS"
+        in public_export_bridge
+    )
+    assert "system/lib/navigation_index_spine.py::ENTRY_INTENT_SPECS" in (
+        public_export_bridge
+    )
+    assert (
+        "system/lib/navigation_coverage_matrix.py::build_coverage_enforcement_matrix"
+        in public_export_bridge
+    )
+    assert "Dirty Generated-Sidecar Boundary" in public_export_bridge
+    assert (
+        "do not commit generated paper-module sidecars or System Atlas outputs"
+        in public_export_bridge
+    )
     assert "Runtime Organ Families" in runtime_organ_atlas
     assert "microcosm-substrate/src/microcosm_core/cli.py::main" in runtime_organ_atlas
     assert "microcosm-substrate/src/microcosm_core/project_substrate.py::compile_project" in runtime_organ_atlas
