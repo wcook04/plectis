@@ -5,8 +5,11 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.organs import proof_derived_governed_mutation_authorization
 from microcosm_core.organs.proof_derived_governed_mutation_authorization import (
+    CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
+    main,
     run,
     run_authorization_bundle,
 )
@@ -134,3 +137,73 @@ def test_governed_mutation_authorization_exported_bundle_validates_runtime_shape
     assert result["rollback_pass_count"] == 2
     assert result["cold_replay_pass_count"] == 3
     assert result["authority_ceiling"]["live_cloud_account_authorized"] is False
+
+
+def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
+    tmp_path: Path,
+    capsys: Any,
+    monkeypatch: Any,
+) -> None:
+    out = (
+        tmp_path
+        / "receipts/runtime_shell/demo_project/organs/"
+        "proof_derived_governed_mutation_authorization"
+    )
+    args = [
+        "run-authorization-bundle",
+        "--input",
+        str(BUNDLE_INPUT),
+        "--out",
+        str(out),
+        "--card",
+    ]
+
+    assert main(args) == 0
+    first_card = json.loads(capsys.readouterr().out)
+    assert first_card["schema_version"] == CARD_SCHEMA_VERSION
+    assert first_card["status"] == "pass"
+    assert first_card["command_speed"]["receipt_reused"] is False
+    assert first_card["command_speed"]["freshness_missing_path_count"] == 0
+    assert first_card["command_speed"]["freshness_input_count"] == 11
+    assert (
+        first_card["validation"]["bundle_id"]
+        == "proof_derived_governed_mutation_authorization_runtime_example"
+    )
+    auth = first_card["governed_mutation_authorization"]
+    assert auth["proposal_count"] == 3
+    assert auth["authorized_mutation_count"] == 3
+    assert auth["write_or_rollback_count"] == 2
+    assert auth["proof_cell_count"] == 3
+    assert auth["policy_verdict_count"] == 6
+    assert auth["logged_side_effect_count"] == 2
+    assert auth["rollback_pass_count"] == 2
+    assert auth["cold_replay_pass_count"] == 3
+    assert first_card["negative_case_coverage"]["missing_negative_case_count"] == 0
+    assert first_card["validation"]["private_state_blocking_hit_count"] == 0
+    assert "proof_cell_rows" not in _walk_keys(first_card)
+    assert "policy_verdict_rows" not in _walk_keys(first_card)
+    assert "proposal_rows" not in _walk_keys(first_card)
+    assert "side_effect_rows" not in _walk_keys(first_card)
+    assert "rollback_rows" not in _walk_keys(first_card)
+    assert "cold_replay_rows" not in _walk_keys(first_card)
+    assert "private_state_scan" not in _walk_keys(first_card)
+    assert "authority_ceiling" not in _walk_keys(first_card)
+    assert "anti_claim" not in _walk_keys(first_card)
+
+    def fail_if_rebuilt(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        raise AssertionError("fresh card path should reuse the existing receipt")
+
+    monkeypatch.setattr(
+        proof_derived_governed_mutation_authorization,
+        "_build_result",
+        fail_if_rebuilt,
+    )
+
+    assert main(args) == 0
+    cached_card = json.loads(capsys.readouterr().out)
+    assert cached_card["status"] == "pass"
+    assert cached_card["command_speed"]["receipt_reused"] is True
+    assert cached_card["command_speed"]["freshness_digest"] == (
+        first_card["command_speed"]["freshness_digest"]
+    )
+    assert cached_card["receipt_paths"] == first_card["receipt_paths"]
