@@ -45,7 +45,26 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "side_effect_rows",
     "rollback_rows",
     "cold_replay_rows",
+    "source_module_imports",
+    "source_open_body_imports",
     "authorization_board",
+)
+SOURCE_MODULE_MANIFEST_NAME = "source_module_manifest.json"
+SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_MODULE_IMPORT_STATUS = (
+    "copied_non_secret_governed_mutation_authorization_macro_body_landed"
+)
+SOURCE_OPEN_BODY_SCHEMA = (
+    "proof_derived_governed_mutation_authorization_source_open_body_imports_v1"
+)
+PUBLIC_SAFE_SOURCE_BODY_CLASSES = frozenset(
+    {
+        "public_macro_pattern_body",
+        "public_macro_receipt_body",
+        "public_macro_tool_body",
+        "public_macro_control_plane_body",
+        "public_macro_ledger_body",
+    }
 )
 
 INPUT_NAMES = (
@@ -179,11 +198,58 @@ def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _source_module_manifest_path(input_dir: Path) -> Path:
+    return input_dir / SOURCE_MODULE_MANIFEST_NAME
+
+
+def _source_module_target_path(
+    target_ref: str,
+    *,
+    input_dir: Path,
+    public_root: Path,
+) -> Path:
+    normalized = target_ref.removeprefix("microcosm-substrate/")
+    if normalized.startswith("source_modules/"):
+        return input_dir / normalized
+    return public_root / normalized
+
+
+def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    if not manifest_path.is_file():
+        return []
+    paths = [manifest_path]
+    try:
+        manifest = read_json_strict(manifest_path)
+    except Exception:
+        return paths
+    for row in _rows(manifest, "modules"):
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        if target_ref:
+            paths.append(
+                _source_module_target_path(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                )
+            )
+    return paths
+
+
+def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    public_root = _public_root_for_path(input_dir)
+    return [
+        *_input_paths(input_dir, include_negative=include_negative),
+        *_source_module_paths(input_dir, public_root=public_root),
+    ]
+
+
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
     return [
         *_input_paths(source, include_negative=include_negative),
+        *_source_module_paths(source, public_root=public_root),
         Path(__file__).resolve(),
         public_root / "core/private_state_forbidden_classes.json",
     ]
@@ -357,6 +423,262 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
             str(row.get("error_code") or ""),
         ),
     )
+
+
+def _source_module_manifest_result(
+    input_dir: Path,
+    *,
+    public_root: Path,
+    require_manifest: bool,
+) -> dict[str, Any]:
+    manifest_path = _source_module_manifest_path(input_dir)
+    manifest_ref = _display(manifest_path, public_root=public_root)
+    if not manifest_path.is_file():
+        findings = []
+        status = "blocked" if require_manifest else "not_present"
+        if require_manifest:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_MANIFEST_REQUIRED",
+                    "Exported governed-mutation authorization bundle must include a source module manifest for copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_module_manifest",
+                )
+            )
+        return {
+            "status": status,
+            "source_module_import_status": status,
+            "source_module_manifest_ref": manifest_ref,
+            "module_count": 0,
+            "verified_module_count": 0,
+            "module_ids": [],
+            "material_classes": [],
+            "body_material_classes": {},
+            "source_refs": [],
+            "findings": findings,
+            "observed_negative_cases": {},
+            "body_in_receipt": False,
+        }
+
+    manifest = read_json_strict(manifest_path)
+    findings: list[dict[str, Any]] = []
+    modules = _rows(manifest, "modules")
+    module_ids: list[str] = []
+    material_class_counts: dict[str, int] = {}
+    source_refs = [manifest_ref]
+
+    if not isinstance(manifest, dict):
+        modules = []
+        findings.append(
+            _finding(
+                "GOV_MUT_SOURCE_MODULE_MANIFEST_REQUIRED",
+                "Source module manifest must be a JSON object.",
+                case_id="source_module_manifest_floor",
+                subject_id=manifest_ref,
+                subject_kind="source_module_manifest",
+            )
+        )
+    else:
+        if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module manifest must classify imports as copied non-secret macro body material.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="source_import_class",
+                )
+            )
+        if manifest.get("body_in_receipt") is not False:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module manifest must keep body text out of receipts.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="body_in_receipt",
+                )
+            )
+        if int(manifest.get("module_count") or 0) != len(modules):
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_COUNT_MISMATCH",
+                    "Source module manifest module_count must match the module row count.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=manifest_ref,
+                    subject_kind="module_count",
+                )
+            )
+
+    verified_count = 0
+    for row in modules:
+        module_id = str(row.get("module_id") or "source_module")
+        module_ids.append(module_id)
+        material_class = str(row.get("material_class") or "")
+        if material_class:
+            material_class_counts[material_class] = (
+                material_class_counts.get(material_class, 0) + 1
+            )
+        module_findings_start = len(findings)
+        if row.get("source_import_class") != SOURCE_IMPORT_CLASS:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must classify copied material as non-secret macro body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_import_class",
+                )
+            )
+        if material_class not in PUBLIC_SAFE_SOURCE_BODY_CLASSES:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_CLASS_REQUIRED",
+                    "Source module row must use a public-safe macro body material class.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="material_class",
+                )
+            )
+        if (
+            row.get("body_copied") is not True
+            or row.get("body_in_receipt") is not False
+            or row.get("body_text_in_receipt") is not False
+        ):
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_BODY_BOUNDARY_REQUIRED",
+                    "Source module rows must copy body into source_modules while keeping receipt fields body-free.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        target_ref = str(row.get("target_ref") or row.get("path") or "")
+        target = _source_module_target_path(
+            target_ref,
+            input_dir=input_dir,
+            public_root=public_root,
+        )
+        if not target.is_file():
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_TARGET_MISSING",
+                    "Source module target body must exist inside the public bundle.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=target_ref or module_id,
+                    subject_kind="source_module",
+                )
+            )
+            continue
+        actual = _sha256(target)
+        expected_values = {
+            str(row.get("sha256") or ""),
+            str(row.get("source_sha256") or ""),
+            str(row.get("target_sha256") or ""),
+        }
+        if actual not in expected_values or "" in expected_values:
+            findings.append(
+                _finding(
+                    "GOV_MUT_SOURCE_MODULE_DIGEST_MISMATCH",
+                    "Source module digest declarations must match the copied target body.",
+                    case_id="source_module_manifest_floor",
+                    subject_id=module_id,
+                    subject_kind="source_module",
+                )
+            )
+        text = target.read_text(encoding="utf-8")
+        missing_anchors = [
+            anchor
+            for anchor in _strings(row.get("required_anchors"))
+            if anchor not in text
+        ]
+        if missing_anchors:
+            findings.append(
+                {
+                    **_finding(
+                        "GOV_MUT_SOURCE_MODULE_ANCHOR_MISSING",
+                        "Source module body must carry the declared governed-mutation macro anchors.",
+                        case_id="source_module_manifest_floor",
+                        subject_id=module_id,
+                        subject_kind="source_module",
+                    ),
+                    "missing_anchors": missing_anchors,
+                }
+            )
+        source_refs.append(_display(target, public_root=public_root))
+        if len(findings) == module_findings_start:
+            verified_count += 1
+
+    status = PASS if modules and not findings else "blocked"
+    return {
+        "status": status,
+        "source_module_import_status": (
+            SOURCE_MODULE_IMPORT_STATUS if status == PASS else "blocked"
+        ),
+        "source_module_manifest_ref": manifest_ref,
+        "module_count": len(modules),
+        "verified_module_count": verified_count,
+        "module_ids": module_ids,
+        "material_classes": sorted(material_class_counts),
+        "body_material_classes": material_class_counts,
+        "source_refs": source_refs,
+        "findings": findings,
+        "observed_negative_cases": {},
+        "body_in_receipt": False,
+    }
+
+
+def _source_open_body_import_summary(
+    source_module_result: dict[str, Any],
+) -> dict[str, Any]:
+    module_ids = _strings(source_module_result.get("module_ids"))
+    manifest_ref = source_module_result.get("source_module_manifest_ref")
+    imported = source_module_result.get("status") == PASS and bool(module_ids)
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": PASS if imported else str(source_module_result.get("status") or ""),
+        "source_import_class": SOURCE_IMPORT_CLASS if imported else "",
+        "body_material_status": SOURCE_MODULE_IMPORT_STATUS if imported else "",
+        "body_material_count": len(module_ids) if imported else 0,
+        "body_material_ids": module_ids if imported else [],
+        "material_classes": source_module_result.get("material_classes", [])
+        if imported
+        else [],
+        "body_material_classes": source_module_result.get("body_material_classes", {})
+        if imported
+        else {},
+        "source_manifest_refs": [str(manifest_ref)]
+        if imported and manifest_ref
+        else [],
+        "aggregate_floor_ref": f"{manifest_ref}::modules"
+        if imported and manifest_ref
+        else "",
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "standing_credentials_authorized": False,
+            "live_cloud_account_authorized": False,
+            "provider_payload_exported": False,
+            "proof_body_exported": False,
+            "source_mutation_authorized": False,
+            "irreversible_mutation_authorized": False,
+            "release_authorized": False,
+            "benchmark_score_claim_authorized": False,
+        },
+        "reader_action": (
+            "Open source_module_manifest.json plus source_modules/ inside the "
+            "exported governed-mutation authorization bundle for copied macro "
+            "pattern, receipt, Work Ledger, scoped-commit, mission-transaction, "
+            "and work-landing control bodies; receipts carry refs, hashes, "
+            "counts, and verdicts only."
+        )
+        if imported
+        else "",
+    }
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
@@ -1040,7 +1362,7 @@ def _build_result(
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     private_scan = scan_paths(
-        _input_paths(input_dir, include_negative=include_negative),
+        _scan_paths_for_input(input_dir, include_negative=include_negative),
         forbidden_classes=policy,
         display_root=public_root,
     )
@@ -1065,6 +1387,12 @@ def _build_result(
     side_effects = validate_side_effect_ledger(payloads["side_effect_ledger"])
     rollbacks = validate_rollback_receipts(payloads["rollback_receipts"])
     cold_replay = validate_cold_replay(payloads["cold_replay"])
+    source_modules = _source_module_manifest_result(
+        input_dir,
+        public_root=public_root,
+        require_manifest=input_mode == "exported_governed_mutation_authorization_bundle",
+    )
+    source_open_body_imports = _source_open_body_import_summary(source_modules)
 
     observed = _merge_observed(
         projection,
@@ -1075,6 +1403,7 @@ def _build_result(
         side_effects,
         rollbacks,
         cold_replay,
+        source_modules,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
@@ -1087,6 +1416,7 @@ def _build_result(
         side_effects,
         rollbacks,
         cold_replay,
+        source_modules,
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
@@ -1102,6 +1432,10 @@ def _build_result(
         and side_effects["status"] == PASS
         and rollbacks["status"] == PASS
         and cold_replay["status"] == PASS
+        and (
+            input_mode != "exported_governed_mutation_authorization_bundle"
+            or source_modules["status"] == PASS
+        )
         else "blocked"
     )
     return {
@@ -1147,6 +1481,14 @@ def _build_result(
         "rollback_pass_count": rollbacks["rollback_pass_count"],
         "cold_replay_count": cold_replay["cold_replay_count"],
         "cold_replay_pass_count": cold_replay["cold_replay_pass_count"],
+        "source_module_manifest_status": source_modules["status"],
+        "source_module_manifest_ref": source_modules["source_module_manifest_ref"],
+        "source_module_imports": source_modules,
+        "source_open_body_imports": source_open_body_imports,
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "body_copied_material_count": source_open_body_imports[
+            "body_material_count"
+        ],
         "proof_cell_rows": proof_cells["proof_cell_rows"],
         "policy_verdict_rows": verdicts["policy_verdict_rows"],
         "proposal_rows": proposals["proposal_rows"],
@@ -1192,6 +1534,10 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "side_effect_rows": result["side_effect_rows"],
         "rollback_rows": result["rollback_rows"],
         "cold_replay_rows": result["cold_replay_rows"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "body_redacted": True,
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
@@ -1251,6 +1597,10 @@ def _write_receipts(
         "logged_side_effect_count": result["logged_side_effect_count"],
         "rollback_pass_count": result["rollback_pass_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -1268,6 +1618,10 @@ def _write_receipts(
         "accepted_negative_cases": result["expected_negative_cases"],
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
+        "source_module_manifest_status": result["source_module_manifest_status"],
+        "source_module_manifest_ref": result["source_module_manifest_ref"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_copied_material_count": result["body_copied_material_count"],
         "private_state_scan": result["private_state_scan"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
@@ -1348,6 +1702,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
     private_scan_payload = result.get("private_state_scan")
     private_scan = private_scan_payload if isinstance(private_scan_payload, dict) else {}
+    source_imports = result.get("source_open_body_imports")
+    source_body_floor = source_imports if isinstance(source_imports, dict) else {}
     return {
         "schema_version": CARD_SCHEMA_VERSION,
         "status": result.get("status"),
@@ -1391,6 +1747,16 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 "blocking_hit_count"
             ),
             "bundle_id": result.get("bundle_id"),
+            "source_module_manifest_status": result.get(
+                "source_module_manifest_status"
+            ),
+            "source_module_manifest_ref": result.get("source_module_manifest_ref"),
+            "body_material_status": source_body_floor.get("body_material_status"),
+            "body_material_count": source_body_floor.get("body_material_count", 0),
+            "body_material_classes": source_body_floor.get(
+                "body_material_classes",
+                {},
+            ),
         },
         "body_floor": {
             "proof_cell_rows_in_card": False,
@@ -1399,6 +1765,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "side_effect_rows_in_card": False,
             "rollback_rows_in_card": False,
             "cold_replay_rows_in_card": False,
+            "source_module_imports_in_card": False,
+            "source_open_body_imports_in_card": False,
             "private_state_scan_in_card": False,
             "authority_ceiling_in_card": False,
             "anti_claim_in_card": False,

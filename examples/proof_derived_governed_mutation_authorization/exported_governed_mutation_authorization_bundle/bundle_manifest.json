@@ -5,5 +5,6 @@
   "expected_negative_cases": [],
   "input_mode": "exported_governed_mutation_authorization_bundle",
   "organ_id": "proof_derived_governed_mutation_authorization",
+  "source_open_body_imports_ref": "source_module_manifest.json::modules",
   "schema_version": "governed_mutation_authorization_bundle_v1"
 }

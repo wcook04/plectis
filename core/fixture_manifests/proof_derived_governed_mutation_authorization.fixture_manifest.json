@@ -85,6 +85,43 @@
     }
   ],
   "organ_id": "proof_derived_governed_mutation_authorization",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json::modules",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false
+    },
+    "body_material_count": 6,
+    "body_material_ids": [
+      "proof_governed_mutation_extracted_patterns_ledger_body_import",
+      "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+      "mission_transaction_preflight_control_body_import",
+      "scoped_commit_private_index_control_body_import",
+      "work_ledger_claim_runtime_body_import",
+      "work_landing_reconcile_control_body_import"
+    ],
+    "body_material_status": "copied_non_secret_governed_mutation_authorization_macro_body_landed",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "material_classes": [
+      "public_macro_control_plane_body",
+      "public_macro_ledger_body",
+      "public_macro_pattern_body",
+      "public_macro_receipt_body"
+    ],
+    "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported governed-mutation authorization bundle for copied macro pattern, receipt, Work Ledger, scoped-commit, mission-transaction, and work-landing control bodies; receipts carry refs, hashes, counts, and verdicts only.",
+    "schema_version": "microcosm_organ_source_open_body_import_summary_v1",
+    "source_manifest_refs": [
+      "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
+  },
   "schema_version": "microcosm_fixture_manifest_v1",
   "stable_error_codes": [
     "GOV_MUT_STANDING_CREDENTIAL_AUTHORITY",

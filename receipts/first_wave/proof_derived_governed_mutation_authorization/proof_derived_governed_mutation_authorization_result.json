@@ -26,6 +26,8 @@
   },
   "authorization_policy_id": "authorization.policy.synthetic_governed_mutation.v1",
   "authorized_mutation_count": 3,
+  "body_copied_material_count": 0,
+  "body_material_status": "",
   "bundle_id": null,
   "cold_replay_count": 3,
   "cold_replay_pass_count": 3,
@@ -64,8 +66,8 @@
       "status": "pass"
     }
   ],
-  "command": "python -m microcosm_core.organs.proof_derived_governed_mutation_authorization run",
-  "created_at": "2026-05-22T07:01:16+00:00",
+  "command": "proof_derived_governed_mutation_authorization run",
+  "created_at": "2026-05-27T02:53:57+00:00",
   "error_codes": [
     "GOV_MUT_CONSENSUS_WITHOUT_EVIDENCE",
     "GOV_MUT_FINAL_ANSWER_ONLY_SUCCESS",
@@ -153,6 +155,108 @@
     }
   ],
   "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
+  "freshness_basis": {
+    "basis_digest": "sha256:c345f2ad118fc32a5e232ab2cf44c1e8c8d38aca0d43d1d5775244a4c3380228",
+    "card_schema_version": "governed_mutation_authorization_command_card_v1",
+    "include_negative": true,
+    "input_count": 18,
+    "inputs": [
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/projection_protocol.json",
+        "sha256": "sha256:5ee57868a4896ddc479beb372c671b90500e9bc95af98c7e508311732ed06c60",
+        "size_bytes": 2238
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/authorization_policy.json",
+        "sha256": "sha256:15abaed52136ba16fd73d710f42a34dbdc1b931bee64bc656c1bd392eb236687",
+        "size_bytes": 907
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/mutation_proposals.json",
+        "sha256": "sha256:2bd8d46de84fd2fffaad3752d11fec443124252e8d6646cf8f238d4dc1c9ab9a",
+        "size_bytes": 3032
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/proof_evidence_cells.json",
+        "sha256": "sha256:29df9bf49c14cce94b498e259b4d7a019f1ba7b27c12099b3168b30ed47463ed",
+        "size_bytes": 2061
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_verdicts.json",
+        "sha256": "sha256:c97ea6d8cf4b746186cb16f7f37deeaa659f86de192ca6c12f923e856086bc1a",
+        "size_bytes": 2173
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/side_effect_ledger.json",
+        "sha256": "sha256:7617feea7baa8238e72f9de57c93513f242455f5c05edfb55bf7b0143a9a88b9",
+        "size_bytes": 949
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/rollback_receipts.json",
+        "sha256": "sha256:d826a15aa3247acdf65837c71efb8e0b45342f3205e81ece5b7616ddae7e2b7c",
+        "size_bytes": 867
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/cold_replay.json",
+        "sha256": "sha256:7474535f6bf2839c70fea68636c0db8cda876df5a7d98da0f552665f1a385408",
+        "size_bytes": 1009
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/standing_credential_authority.json",
+        "sha256": "sha256:7ca38d8b05cedaa8f2ec92b0cafbd007b339a59278f1a0bdb806328f6dcb8a96",
+        "size_bytes": 1087
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/policy_after_execution.json",
+        "sha256": "sha256:90ba8dcf510854100304056828fa9b6d5d54a1c830c98549944af58d70ee7189",
+        "size_bytes": 1017
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/hidden_policy_vote.json",
+        "sha256": "sha256:6d89e8d5086e5e4508514619ddefa539beb3c859ab9ff16fa0e555e750a8f7e2",
+        "size_bytes": 1004
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/live_cloud_credential.json",
+        "sha256": "sha256:48fe4bbb7612436a378f0b94b10f1644778d077072473c319ef76ffd8fcd4661",
+        "size_bytes": 1017
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/irreversible_mutation.json",
+        "sha256": "sha256:dde8d1a7f39a19f1e03ccf2aefc6da8afc7e3b17e6d95cd7d2f4dc300d64d2c7",
+        "size_bytes": 1169
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/unlogged_side_effect.json",
+        "sha256": "sha256:3279c803eb52f402166e97818a2ec29820e224966727219822aa229d79f6ad67",
+        "size_bytes": 1132
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/consensus_without_evidence.json",
+        "sha256": "sha256:e06160c6fef438778bff9c85b6f572be85212fd13880129db8387c62c2c78003",
+        "size_bytes": 870
+      },
+      {
+        "path": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/final_answer_only_success.json",
+        "sha256": "sha256:7c3dfe7fe08c9d98fb2d95b860b42a8dcfc77718432a90c01d6cacc4f67f47af",
+        "size_bytes": 1025
+      },
+      {
+        "path": "src/microcosm_core/organs/proof_derived_governed_mutation_authorization.py",
+        "sha256": "sha256:8faa18b754e088d74b5b5cc465caab0576e3dd2e967bba2336c4a170963659cc",
+        "size_bytes": 72460
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
+        "size_bytes": 4316
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "governed_mutation_authorization_freshness_basis_v1",
+    "validator_schema_version": "proof_derived_governed_mutation_authorization_result_v1"
+  },
   "input_mode": "fixture",
   "logged_side_effect_count": 2,
   "minimum_independent_verdicts": 2,
@@ -248,11 +352,21 @@
     }
   ],
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 16,
     "status": "pass"
   },
@@ -384,11 +498,12 @@
     "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle"
   ],
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
+  "receipt_reused": false,
   "rollback_pass_count": 2,
   "rollback_receipt_count": 2,
   "rollback_rows": [
@@ -439,6 +554,49 @@
       "synthetic_side_effect": true
     }
   ],
+  "source_module_imports": {
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "findings": [],
+    "material_classes": [],
+    "module_count": 0,
+    "module_ids": [],
+    "observed_negative_cases": {},
+    "source_module_import_status": "not_present",
+    "source_module_manifest_ref": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/source_module_manifest.json",
+    "source_refs": [],
+    "status": "not_present",
+    "verified_module_count": 0
+  },
+  "source_module_manifest_ref": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "proof_derived_governed_mutation_authorization_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "source_pattern_ids": [
     "proof_derived_governed_mutation_authorization_compound",
     "mission_transaction_landing",

@@ -14,6 +14,7 @@
     "status": "pass"
   },
   "board_id": "proof_derived_governed_mutation_authorization_public_board",
+  "body_copied_material_count": 0,
   "body_redacted": true,
   "cold_replay_rows": [
     {
@@ -137,11 +138,21 @@
     }
   ],
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
     "scanned_path_count": 16,
     "status": "pass"
   },
@@ -255,10 +266,10 @@
     }
   ],
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
-    "microcosm-substrate/receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
-    "microcosm-substrate/receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_result.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_board.json",
+    "receipts/first_wave/proof_derived_governed_mutation_authorization/proof_derived_governed_mutation_authorization_validation_receipt.json",
+    "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json"
   ],
   "rollback_rows": [
     {
@@ -307,6 +318,35 @@
       "synthetic_side_effect": true
     }
   ],
+  "source_module_manifest_ref": "fixtures/first_wave/proof_derived_governed_mutation_authorization/input/source_module_manifest.json",
+  "source_module_manifest_status": "not_present",
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "authority_ceiling": {
+      "benchmark_score_claim_authorized": false,
+      "irreversible_mutation_authorized": false,
+      "live_cloud_account_authorized": false,
+      "proof_body_exported": false,
+      "provider_payload_exported": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false,
+      "standing_credentials_authorized": false
+    },
+    "body_in_receipt": false,
+    "body_material_classes": {},
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "body_text_exported_in_receipts": false,
+    "body_text_exported_in_workingness": false,
+    "body_text_in_receipt": false,
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "proof_derived_governed_mutation_authorization_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "not_present"
+  },
   "source_pattern_ids": [
     "proof_derived_governed_mutation_authorization_compound",
     "mission_transaction_landing",

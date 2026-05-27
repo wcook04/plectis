@@ -118,7 +118,14 @@
   "schema_version": "public_microcosm_standard_v1",
   "source_coupling_contract": {
     "required": true,
-    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative"
+    "rule": "macro source refs stay path-level metadata and public replacements stay public-root relative; exact non-secret macro control bodies may be copied only through digest-verified source_module_manifest rows with body text kept out of receipts"
+  },
+  "source_open_body_import_contract": {
+    "body_text_exported_in_receipts": false,
+    "digest_verification_required": true,
+    "required": true,
+    "source_manifest_ref": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+    "status": "required_for_exported_runtime_bundle"
   },
   "source_refs": [
     {
@@ -130,6 +137,11 @@
       "field": "runtime_example",
       "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle",
       "role": "runtime_example_source"
+    },
+    {
+      "field": "source_open_body_imports",
+      "path": "examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_module_manifest.json",
+      "role": "digest_verified_non_secret_macro_body_import_manifest"
     }
   ],
   "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",

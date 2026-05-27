@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -25,6 +26,11 @@ BUNDLE_INPUT = (
     / "examples/proof_derived_governed_mutation_authorization/"
     "exported_governed_mutation_authorization_bundle"
 )
+SOURCE_ROOT = MICROCOSM_ROOT.parent
+
+
+def _sha256(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -132,11 +138,50 @@ def test_governed_mutation_authorization_exported_bundle_validates_runtime_shape
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
+    assert result["source_module_manifest_status"] == "pass"
+    assert result["body_copied_material_count"] == 6
+    assert (
+        result["source_open_body_imports"]["body_material_status"]
+        == "copied_non_secret_governed_mutation_authorization_macro_body_landed"
+    )
+    assert result["source_open_body_imports"]["body_text_exported_in_receipts"] is False
     assert result["authorized_mutation_count"] == 3
     assert result["logged_side_effect_count"] == 2
     assert result["rollback_pass_count"] == 2
     assert result["cold_replay_pass_count"] == 3
     assert result["authority_ceiling"]["live_cloud_account_authorized"] is False
+
+
+def test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports() -> None:
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
+
+    assert manifest["body_in_receipt"] is False
+    assert manifest["module_count"] == 6
+    assert {
+        row["module_id"] for row in manifest["modules"]
+    } == {
+        "proof_governed_mutation_extracted_patterns_ledger_body_import",
+        "proof_governed_mutation_high_novelty_growth_receipt_body_import",
+        "mission_transaction_preflight_control_body_import",
+        "scoped_commit_private_index_control_body_import",
+        "work_ledger_claim_runtime_body_import",
+        "work_landing_reconcile_control_body_import",
+    }
+
+    for row in manifest["modules"]:
+        source = SOURCE_ROOT / row["source_ref"]
+        target = MICROCOSM_ROOT / row["target_ref"].removeprefix("microcosm-substrate/")
+        text = target.read_text(encoding="utf-8")
+        assert source.is_file()
+        assert target.is_file()
+        assert _sha256(source) == row["source_sha256"]
+        assert _sha256(target) == row["target_sha256"]
+        assert row["source_sha256"] == row["target_sha256"]
+        assert row["body_copied"] is True
+        assert row["body_in_receipt"] is False
+        assert row["body_text_in_receipt"] is False
+        for anchor in row["required_anchors"]:
+            assert anchor in text
 
 
 def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
@@ -164,10 +209,16 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["command_speed"]["freshness_input_count"] == 11
+    assert first_card["command_speed"]["freshness_input_count"] == 18
     assert (
         first_card["validation"]["bundle_id"]
         == "proof_derived_governed_mutation_authorization_runtime_example"
+    )
+    assert first_card["validation"]["source_module_manifest_status"] == "pass"
+    assert first_card["validation"]["body_material_count"] == 6
+    assert (
+        first_card["validation"]["body_material_status"]
+        == "copied_non_secret_governed_mutation_authorization_macro_body_landed"
     )
     auth = first_card["governed_mutation_authorization"]
     assert auth["proposal_count"] == 3
@@ -186,6 +237,8 @@ def test_governed_mutation_authorization_bundle_card_reuses_fresh_receipt(
     assert "side_effect_rows" not in _walk_keys(first_card)
     assert "rollback_rows" not in _walk_keys(first_card)
     assert "cold_replay_rows" not in _walk_keys(first_card)
+    assert "source_module_imports" not in _walk_keys(first_card)
+    assert "source_open_body_imports" not in _walk_keys(first_card)
     assert "private_state_scan" not in _walk_keys(first_card)
     assert "authority_ceiling" not in _walk_keys(first_card)
     assert "anti_claim" not in _walk_keys(first_card)
