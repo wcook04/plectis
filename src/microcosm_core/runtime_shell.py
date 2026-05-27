@@ -7292,6 +7292,14 @@ class RuntimeShell:
                 "status card for drilldown warnings"
             ),
         }
+        first_contact_surface_ids = [
+            surface_id
+            for surface_id in first_contact_surface_refs.get("required_surface_ids", [])
+            if isinstance(surface_id, str)
+        ]
+        first_contact_surface_count = first_contact_surface_refs.get("surface_count")
+        if not isinstance(first_contact_surface_count, int):
+            first_contact_surface_count = len(first_contact_surface_ids)
         return {
             "schema_version": "microcosm_tour_command_speed_card_v1",
             "status": PASS if not blocking_surface_ids else "blocked",
@@ -7306,13 +7314,13 @@ class RuntimeShell:
             "blocking_surface_ids": blocking_surface_ids,
             "blocking_surface_details": blocking_surface_details,
             "front_door_status": front_door_status,
+            "first_contact_surface_count": first_contact_surface_count,
+            "first_contact_surface_ids": first_contact_surface_ids,
             "first_screen": {
                 "status": first_screen.get("status"),
                 "primary_command": first_screen.get("primary_command"),
                 "first_contact_surface_ref": "first_contact_surface_refs",
-                "first_contact_surface_ids": first_contact_surface_refs.get(
-                    "required_surface_ids", []
-                ),
+                "first_contact_surface_ids": first_contact_surface_ids,
                 "reader_routes_ref": first_screen.get("reader_routes_ref"),
                 "reader_routes": first_screen.get("reader_routes")
                 if isinstance(first_screen.get("reader_routes"), list)

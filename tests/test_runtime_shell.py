@@ -2333,6 +2333,17 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
     assert card["drilldown_command"] == "microcosm tour <project>"
     assert card["endpoint"] == "/tour"
     assert card["first_screen"]["primary_command"] == "microcosm tour --card <project>"
+    assert card["first_contact_surface_count"] == 8
+    assert card["first_contact_surface_ids"] == [
+        "route",
+        "work",
+        "events",
+        "evidence",
+        "graph",
+        "observatory",
+        "proof_lab",
+        "status",
+    ]
     assert card["first_screen"]["first_contact_surface_ref"] == (
         "first_contact_surface_refs"
     )
