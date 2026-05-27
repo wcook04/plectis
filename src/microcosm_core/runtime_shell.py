@@ -14170,6 +14170,104 @@ class RuntimeShell:
                 "Recording-adjacent residuals must be fixed or named as release "
                 "gate blockers; passing first-screen behavior never authorizes release."
             ),
+            "operator_recording_scriptlet": {
+                "schema_version": "microcosm_operator_recording_scriptlet_v1",
+                "opening_claim": (
+                    "Microcosm is the local runnable substrate behind this "
+                    "recording, not the separate front-end."
+                ),
+                "run_command": "microcosm status --card <project>",
+                "evidence_interpretation": (
+                    "The card points at local generated state, runtime cards, "
+                    "receipt refs, source-open macro projection provenance, and "
+                    "the proof-lab receipt path."
+                ),
+                "authority_boundary": (
+                    "This supports recording authority only; it does not "
+                    "authorize release, hosting, proof correctness, provider "
+                    "execution, source mutation, or private-root equivalence."
+                ),
+                "front_end_transition": (
+                    "The front-end can stay separate because Microcosm carries "
+                    "the evidence path and the authority ceiling."
+                ),
+                "do_not_say": [
+                    "released_or_hosted_product",
+                    "proof_system_correctness_claim",
+                    "private_root_equivalence_claim",
+                    "provider_execution_or_source_mutation_required",
+                ],
+            },
+            "convergence_diff_capsule": {
+                "schema_version": (
+                    "microcosm_recording_convergence_diff_capsule_v1"
+                ),
+                "before_state": [
+                    "runtime_shell_behavior_surface_contract_drift",
+                    "macro_projection_exact_copy_provenance_floor_unbound",
+                    "generated_microcosm_state_tracked_at_package_root",
+                    "trace_readiness_verdict_axes_too_ambiguous_for_recording",
+                ],
+                "landed_commits": [
+                    {
+                        "commit": "e1f8bcef0",
+                        "claim": "package_root_generated_state_ignored",
+                    },
+                    {
+                        "commit": "47dab635c",
+                        "claim": (
+                            "runtime_behavior_macro_provenance_and_readiness_"
+                            "contracts_aligned"
+                        ),
+                    },
+                ],
+                "current_head_check_command": "git log --oneline -5",
+                "after_state": [
+                    "behavior_surfaces_contract_registered",
+                    "macro_projection_exact_source_digest_floor_checked",
+                    "tracked_generated_microcosm_state_clean",
+                    "release_readiness_verdict_separates_recording_authority_from_release_authority",
+                ],
+                "proof_refs": [
+                    "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
+                    "microcosm legibility-scorecard",
+                    "microcosm status --card <project>",
+                    PROOF_LAB_FIRST_SCREEN_COMMAND,
+                    "git status --short -- 'microcosm-substrate/**/.microcosm/**'",
+                ],
+                "still_not_authorized": [
+                    "release",
+                    "hosting",
+                    "publication",
+                    "proof_correctness",
+                    "provider_execution",
+                    "source_mutation",
+                    "private_root_equivalence",
+                ],
+            },
+            "cold_reader_rehearsal": {
+                "schema_version": "microcosm_recording_cold_reader_rehearsal_v1",
+                "sequence": [
+                    "microcosm hello <project>",
+                    "microcosm legibility-scorecard",
+                    "microcosm status --card <project>",
+                    PROOF_LAB_FIRST_SCREEN_COMMAND,
+                    "git status --short -- 'microcosm-substrate/**/.microcosm/**'",
+                ],
+                "pass_condition": (
+                    "A cold reader can move command -> evidence -> authority "
+                    "ceiling -> front-end transition without operator improvisation."
+                ),
+                "regression_route": (
+                    "Patch only this companion card or scriptlet unless a real "
+                    "provenance, test, or generated-state regression reappears."
+                ),
+            },
+            "freeze_decision_rule": (
+                "If the companion card and rehearsal pass, freeze Microcosm for "
+                "recording and avoid further substrate mutation until rehearsal "
+                "evidence falsifies the card."
+            ),
         }
         release_readiness_verdict = {
             "schema_version": "microcosm_release_readiness_verdict_v1",
