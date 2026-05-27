@@ -41,6 +41,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "codex/doctrine/paper_modules/microcosm_entry_lattice.md",
         "codex/doctrine/paper_modules/microcosm_public_export_type_plane.md",
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md",
+        "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md",
         "codex/doctrine/paper_modules/idea_microcosm_metabolism.md",
         "codex/doctrine/paper_modules/public_constellation_strategy.md",
         "codex/doctrine/paper_modules/dissemination_strategy.md",
@@ -58,6 +59,10 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         ),
         "coverage_metabolism": (
             "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
+        ),
+        "entry_projection_integrity": (
+            "codex/doctrine/paper_modules/"
+            "paper_module_entry_projection_integrity.md"
         ),
         "laboratory_boundary": (
             "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
@@ -97,6 +102,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
         "microcosm_entry_lattice_route_depth",
         "microcosm_public_export_type_plane_bridge",
         "paper_module_coverage_metabolism_corpus_health",
+        "paper_module_entry_projection_integrity_entry_count_honesty",
         "selected_module_card_then_source_evidence",
     ]
     assert contract["standard_type_plane_bridge"] == {
@@ -145,6 +151,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                     "./repo-python kernel.py --option-surface paper_modules "
                     "--band card --ids microcosm_entry_lattice,"
                     "paper_module_coverage_metabolism,"
+                    "paper_module_entry_projection_integrity,"
                     "microcosm_public_export_type_plane,microcosm_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
@@ -193,6 +200,11 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
             },
             {
                 "kind_id": "paper_modules",
+                "row_id": "paper_module_entry_projection_integrity",
+                "role": "entry_projection_integrity",
+            },
+            {
+                "kind_id": "paper_modules",
                 "row_id": "microcosm_public_export_type_plane",
                 "role": "public_export_type_plane_bridge",
             },
@@ -213,6 +225,7 @@ def test_microcosm_paper_module_coverage_contract_is_standard_backed() -> None:
                     "./repo-python kernel.py --option-surface paper_modules "
                     "--band card --ids microcosm_entry_lattice,"
                     "paper_module_coverage_metabolism,"
+                    "paper_module_entry_projection_integrity,"
                     "microcosm_public_export_type_plane,microcosm_substrate"
                 ),
                 "surface_role": "ATLAS_PROJECTION",
@@ -317,6 +330,9 @@ def test_microcosm_paper_module_coverage_classifies_entry_packet_refs() -> None:
     assert "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md" in set(
         classified_refs
     )
+    assert "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md" in set(
+        classified_refs
+    )
     assert set(contract["supporting_lattice_modules"]) == {
         "codex/doctrine/paper_modules/prime_directives.md",
         "codex/doctrine/paper_modules/local_to_general_propagation.md",
@@ -351,6 +367,9 @@ def test_microcosm_paper_module_depth_roles_cover_all_classified_refs() -> None:
     assert roles["coverage_metabolism"] == (
         "codex/doctrine/paper_modules/paper_module_coverage_metabolism.md"
     )
+    assert roles["entry_projection_integrity"] == (
+        "codex/doctrine/paper_modules/paper_module_entry_projection_integrity.md"
+    )
     assert roles["laboratory_boundary"] == (
         "codex/doctrine/paper_modules/idea_microcosm_metabolism.md"
     )
@@ -379,6 +398,7 @@ def test_microcosm_paper_module_coverage_contract_is_projected_into_modules() ->
         "std_microcosm.json::paper_module_coverage_contract",
         "microcosm_public_export_type_plane",
         "paper_module_coverage_metabolism",
+        "paper_module_entry_projection_integrity",
         "generated sidecars",
         "supporting route-lattice modules",
         "module_depth_roles",
@@ -428,6 +448,7 @@ def test_public_microcosm_exports_type_plane_row_has_paper_module_bridge() -> No
         "microcosm_entry_lattice",
         "microcosm_public_export_type_plane",
         "paper_module_coverage_metabolism",
+        "paper_module_entry_projection_integrity",
         "public_constellation_strategy",
         "dissemination_strategy",
     ]
