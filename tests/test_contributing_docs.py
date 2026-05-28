@@ -15,8 +15,9 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert ".venv/bin/python -m pip install -e '.[test]'" in text
     assert ".venv/bin/microcosm hello ." in text
     assert "pytest basetemp, Python bytecode" in text
-    assert "ignored `.microcosm/test-tmp/`" in text
+    assert "`$(TMPDIR)/microcosm-substrate-test-tmp`" in text
     assert "cleaned with `make clean`" in text
+    assert "stays outside the checkout" in text
     for command in (
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "PYTHONPATH=src python3 -m microcosm_core tour --card .",
@@ -44,8 +45,9 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "`make test-all`" in text
     assert "drift-refresh lane" in text
     assert "tracked generated receipts and exported-bundle projections" in text
-    assert "same ignored pytest scratch root as `make test`" in text
-    assert "and `make ci` are the standalone" in text
+    assert "same outside-checkout pytest scratch root as" in text
+    assert "and `make ci` are the" in text
+    assert "standalone public verification floor" in text
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in text
     assert "--emit receipts/cold_clone_probe.json" not in text
     assert "--emit receipts/cold_clone_probe_local.json" not in text

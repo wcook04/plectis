@@ -5,7 +5,8 @@ PIP_CACHE_DIR ?= $(VENV)/.pip-cache
 PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
 EXPORT_OUT ?= ../microcosm-substrate-export
 SMOKE_OUT ?= .microcosm/smoke
-PYTEST_TMP ?= .microcosm/test-tmp
+TMPDIR ?= /tmp
+PYTEST_TMP ?= $(TMPDIR)/microcosm-substrate-test-tmp
 PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
 PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
 PYTEST_ARGS ?=
@@ -70,5 +71,5 @@ standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force
 
 clean:
-	rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
+	rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +
