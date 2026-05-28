@@ -75,6 +75,135 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files[
         "share/microcosm-substrate/receipts/first_wave/verifier_lab_kernel"
     ] == ["receipts/first_wave/verifier_lab_kernel/*.json"]
+
+    proof_loop_example_data = {
+        "examples/corpus_readiness_mathlib_absence_gate/"
+        "exported_corpus_readiness_bundle": [
+            "examples/corpus_readiness_mathlib_absence_gate/"
+            "exported_corpus_readiness_bundle/*.json"
+        ],
+        "examples/formal_math_readiness_gate/"
+        "exported_formal_math_readiness_bundle": [
+            "examples/formal_math_readiness_gate/"
+            "exported_formal_math_readiness_bundle/*.json"
+        ],
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle": [
+            "examples/lean_std_premise_index/"
+            "exported_lean_std_premise_index_bundle/*.json"
+        ],
+        "examples/lean_std_premise_index/"
+        "exported_lean_std_premise_index_bundle/source_modules/ring2_runs/"
+        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0": [
+            "examples/lean_std_premise_index/"
+            "exported_lean_std_premise_index_bundle/source_modules/ring2_runs/"
+            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/*.json"
+        ],
+        "examples/formal_math_premise_retrieval/"
+        "exported_premise_retrieval_bundle": [
+            "examples/formal_math_premise_retrieval/"
+            "exported_premise_retrieval_bundle/*.json"
+        ],
+        "examples/ring2_premise_retrieval_precision_recall_harness/"
+        "exported_ring2_precision_recall_bundle": [
+            "examples/ring2_premise_retrieval_precision_recall_harness/"
+            "exported_ring2_precision_recall_bundle/*.json"
+        ],
+        "examples/tactic_portfolio_availability_probe/"
+        "exported_tactic_portfolio_availability_bundle": [
+            "examples/tactic_portfolio_availability_probe/"
+            "exported_tactic_portfolio_availability_bundle/*.json"
+        ],
+        "examples/tactic_portfolio_availability_probe/"
+        "exported_tactic_portfolio_availability_bundle/source_artifacts/"
+        "tactic_affordance_probe": [
+            "examples/tactic_portfolio_availability_probe/"
+            "exported_tactic_portfolio_availability_bundle/source_artifacts/"
+            "tactic_affordance_probe/*.lean"
+        ],
+        "examples/tactic_portfolio_availability_probe/"
+        "exported_tactic_portfolio_availability_bundle/source_artifacts/"
+        "tactic_affordance_probe/portfolio_core_v0": [
+            "examples/tactic_portfolio_availability_probe/"
+            "exported_tactic_portfolio_availability_bundle/source_artifacts/"
+            "tactic_affordance_probe/portfolio_core_v0/*.lean"
+        ],
+        "examples/target_shape_tactic_routing_gate/"
+        "exported_target_shape_tactic_routing_bundle": [
+            "examples/target_shape_tactic_routing_gate/"
+            "exported_target_shape_tactic_routing_bundle/*.json"
+        ],
+        "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle": [
+            "examples/formal_math_verifier_trace_repair_loop/"
+            "exported_verifier_trace_repair_bundle/*.json"
+        ],
+        "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0": [
+            "examples/formal_math_verifier_trace_repair_loop/"
+            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/*.json"
+        ],
+        "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "premise_retrieval_graph_v0": [
+            "examples/formal_math_verifier_trace_repair_loop/"
+            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+            "premise_retrieval_graph_v0/*.json"
+        ],
+        "examples/formal_math_verifier_trace_repair_loop/"
+        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+        "oracle_repair_graph_v0": [
+            "examples/formal_math_verifier_trace_repair_loop/"
+            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
+            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
+            "oracle_repair_graph_v0/*.json"
+        ],
+        "examples/formal_evidence_cell_anchor_resolver/"
+        "exported_evidence_cell_anchor_bundle": [
+            "examples/formal_evidence_cell_anchor_resolver/"
+            "exported_evidence_cell_anchor_bundle/*.json"
+        ],
+        "examples/formal_evidence_cell_anchor_resolver/"
+        "exported_evidence_cell_anchor_bundle/source_modules/codex/standards": [
+            "examples/formal_evidence_cell_anchor_resolver/"
+            "exported_evidence_cell_anchor_bundle/source_modules/codex/standards/*.json"
+        ],
+        "examples/formal_evidence_cell_anchor_resolver/"
+        "exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/"
+        "formal_math_research_operations": [
+            "examples/formal_evidence_cell_anchor_resolver/"
+            "exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/"
+            "formal_math_research_operations/*.json"
+        ],
+        "examples/formal_evidence_cell_anchor_resolver/"
+        "exported_evidence_cell_anchor_bundle/source_modules/system/lib": [
+            "examples/formal_evidence_cell_anchor_resolver/"
+            "exported_evidence_cell_anchor_bundle/source_modules/system/lib/*.py"
+        ],
+        "examples/formal_math_lean_proof_witness/"
+        "exported_lean_proof_witness_bundle": [
+            "examples/formal_math_lean_proof_witness/"
+            "exported_lean_proof_witness_bundle/*.json"
+        ],
+        "examples/formal_math_lean_proof_witness/"
+        "exported_lean_proof_witness_bundle/lake_project": [
+            "examples/formal_math_lean_proof_witness/"
+            "exported_lean_proof_witness_bundle/lake_project/*.lean"
+        ],
+        "examples/formal_math_lean_proof_witness/"
+        "exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness": [
+            "examples/formal_math_lean_proof_witness/"
+            "exported_lean_proof_witness_bundle/lake_project/"
+            "MicrocosmProofWitness/*.lean"
+        ],
+    }
+    for rel, patterns in proof_loop_example_data.items():
+        assert data_files[f"share/microcosm-substrate/{rel}"] == patterns
+
     assert data_files[
         "share/microcosm-substrate/examples/verifier_lab_kernel/"
         "exported_verifier_lab_kernel_bundle"
