@@ -1197,10 +1197,8 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
 
     workingness = entry_packet["status_and_workingness_route"]
     assert workingness["surface_id"] == "microcosm_status_and_workingness"
-    assert (
-        workingness["command"]
-        == "microcosm status --card <project> && microcosm workingness --card"
-    )
+    assert workingness["command"] == "microcosm status --card <project>"
+    assert workingness["next_command"] == "microcosm workingness --card"
     assert workingness["status_card_command"] == "microcosm status --card <project>"
     assert workingness["workingness_command"] == "microcosm workingness --card"
     assert workingness["endpoint"] == "/workingness"

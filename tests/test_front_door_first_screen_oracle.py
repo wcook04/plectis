@@ -280,9 +280,9 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
         step["command"] for step in first_screen["minimal_command_path"]
     ]
     assert "microcosm tour --card <project>" in first_screen_commands
-    assert "microcosm status --card <project> && microcosm workingness --card" in (
-        first_screen_commands
-    )
+    assert "microcosm status --card <project>" in first_screen_commands
+    assert "microcosm workingness --card" in first_screen_commands
+    assert all("&&" not in command for command in first_screen_commands)
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in (
         first_screen_commands
     )
@@ -297,12 +297,20 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     status_step = next(
         step
         for step in first_screen["minimal_command_path"]
-        if step["step_id"] == "inspect_status_and_workingness"
+        if step["step_id"] == "inspect_status_card"
     )
     assert status_step["status_card_endpoint"] == "/project/status"
-    assert status_step["workingness_endpoint"] == "/workingness"
+    workingness_step = next(
+        step
+        for step in first_screen["minimal_command_path"]
+        if step["step_id"] == "inspect_workingness"
+    )
+    assert workingness_step["workingness_command"] == "microcosm workingness --card"
+    assert workingness_step["workingness_endpoint"] == "/workingness"
 
     status_route_card = tour["route_cards_by_id"]["status_and_workingness"]
+    assert status_route_card["command"] == "microcosm status --card <project>"
+    assert status_route_card["next_command"] == "microcosm workingness --card"
     assert status_route_card["status_card_endpoint"] == "/project/status"
     assert status_route_card["workingness_endpoint"] == "/workingness"
     assert status_route_card["endpoint"] == "/workingness"

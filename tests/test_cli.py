@@ -753,7 +753,10 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert step_ids.index("inspect_first_screen") < step_ids.index(
         "drill_receipts_only_after_behavior"
     )
-    assert step_ids.index("inspect_status_and_workingness") < step_ids.index(
+    assert step_ids.index("inspect_status_card") < step_ids.index(
+        "inspect_workingness"
+    )
+    assert step_ids.index("inspect_workingness") < step_ids.index(
         "compile_project"
     )
     assert step_ids.index("run_first_screen_proof_lab") < step_ids.index(
@@ -1611,13 +1614,20 @@ def test_cli_tour_smoke(
     assert "/workingness" in payload["endpoint_path"]
     assert "/project/observe" in payload["endpoint_path"]
     assert any(
-        row["step_id"] == "inspect_status_and_workingness"
+        row["step_id"] == "inspect_status_card"
+        for row in payload["first_screen"]["minimal_command_path"]
+    )
+    assert any(
+        row["step_id"] == "inspect_workingness"
         for row in payload["first_screen"]["minimal_command_path"]
     )
     tour_step_ids = [
         row["step_id"] for row in payload["first_screen"]["minimal_command_path"]
     ]
-    assert tour_step_ids.index("inspect_status_and_workingness") < tour_step_ids.index(
+    assert tour_step_ids.index("inspect_status_card") < tour_step_ids.index(
+        "inspect_workingness"
+    )
+    assert tour_step_ids.index("inspect_workingness") < tour_step_ids.index(
         "compile_project"
     )
     assert tour_step_ids.index("run_first_screen_proof_lab") < tour_step_ids.index(
@@ -1725,7 +1735,7 @@ def test_cli_tour_card_smoke(
     assert compact_steps_by_id["open_observatory"]["interactive_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
-    assert payload["first_screen"]["minimal_step_count"] == 9
+    assert payload["first_screen"]["minimal_step_count"] == 10
     assert payload["first_screen"]["project_observe_command"] == (
         "microcosm observe <project>"
     )

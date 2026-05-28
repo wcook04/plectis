@@ -66,7 +66,8 @@
         "reader_id": "safety_evals_engineer",
         "reader_question": "Does the evidence discipline survive scale and boundary pressure?",
         "first_screen_command": "microcosm status --card <project>",
-        "next_command": "microcosm authority --card && microcosm workingness --card",
+        "next_command": "microcosm authority --card",
+        "followup_command": "microcosm workingness --card",
         "evidence_focus": [
           "front_door.source_open_body_import_floor",
           "explicit evidence_class rows",
@@ -753,7 +754,8 @@
   },
   "status_and_workingness_route": {
     "surface_id": "microcosm_status_and_workingness",
-    "command": "microcosm status --card <project> && microcosm workingness --card",
+    "command": "microcosm status --card <project>",
+    "next_command": "microcosm workingness --card",
     "status_card_command": "microcosm status --card <project>",
     "status_card_endpoint": "/project/status",
     "workingness_command": "microcosm workingness --card",

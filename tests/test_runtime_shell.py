@@ -2216,7 +2216,8 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     )
     assert [row["step_id"] for row in tour["first_screen"]["minimal_command_path"]] == [
         "inspect_first_screen",
-        "inspect_status_and_workingness",
+        "inspect_status_card",
+        "inspect_workingness",
         "run_first_screen_proof_lab",
         "inspect_project_observe",
         "open_observatory",
@@ -2578,7 +2579,7 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
     )
     assert card["status_card"]["command"] == "microcosm status --card <project>"
-    assert card["first_screen"]["minimal_step_count"] == 9
+    assert card["first_screen"]["minimal_step_count"] == 10
     assert card["surface_statuses"]["compile"] == "pass"
     assert card["surface_statuses"]["first_screen"] == "pass"
     assert card["surface_statuses"]["proof_lab"] == "pass"
@@ -2691,6 +2692,12 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     )
     assert reader_routes["peer_developer"]["next_command"] == (
         "microcosm observe <project>"
+    )
+    assert reader_routes["safety_evals_engineer"]["next_command"] == (
+        "microcosm authority --card"
+    )
+    assert reader_routes["safety_evals_engineer"]["followup_command"] == (
+        "microcosm workingness --card"
     )
     assert "maturity scores" in reader_routes["safety_evals_engineer"][
         "anti_misread"

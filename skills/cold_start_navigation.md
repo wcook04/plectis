@@ -87,11 +87,11 @@ reader branches after the shared `microcosm tour --card <project>` card:
   local behavior proof, authority ceiling, and release/publication anti-claims
   before opening receipts or treating the repo as ready.
 - Safety/evals engineer: run `microcosm status --card <project>`, then
-  `microcosm authority --card && microcosm workingness --card`; read evidence
-  classes, body-import counts, authority ceilings, anti-claims, missing
-  standards, and failure modes as honesty accounting rather than maturity
-  scores. Open full `microcosm authority` or `microcosm workingness` only as
-  drilldowns after the card path is clear.
+  `microcosm authority --card`, then `microcosm workingness --card`; read
+  evidence classes, body-import counts, authority ceilings, anti-claims,
+  missing standards, and failure modes as honesty accounting rather than
+  maturity scores. Open full `microcosm authority` or
+  `microcosm workingness` only as drilldowns after the card path is clear.
 - Hiring reviewer: run `microcosm legibility-scorecard`, then
   `microcosm tour --card <project>`; read question-to-command mapping,
   endpoint parity, local behavior, and explicit no-release/no-reader-success
