@@ -84,6 +84,14 @@ The allowed output language is `awaiting_evidence`, `insufficient_evidence`,
 winner, produce personalized account actions, claim performance, or auto-apply
 Evolve learning.
 
+The third-wave contract is agenda compilation. Once the registry can preserve
+positive, weak, and rejected evidence, the spine must also say what is worth
+testing next and what is deliberately deferred. A valid `research_agenda`
+contains a small public-safe candidate set with selected, data-snooping-deferred,
+control, and needs-more-evidence states; search-budget metadata; family
+diversity pressure; and review-gated Oracle/Evolve implications. This makes
+closed finance assurance a floor for a research program, not a ceiling.
+
 ## Governing Standard
 
 `standards/std_microcosm_finance_forecast_evaluation_spine.json` owns the

@@ -94,6 +94,12 @@ QUANT_RESEARCH_OUTPUT_STATES = {
     "rejected",
     "blocked_authority_overclaim",
 }
+QUANT_RESEARCH_AGENDA_STATES = {
+    "selected_for_next_test",
+    "deferred_data_snooping_risk",
+    "control_candidate",
+    "needs_more_evidence",
+}
 REQUIRED_INPUTS = (
     *(SOURCE_MODULE_ROOT / name for name in REQUIRED_MODULES),
     Path(OPERATING_PICTURE_NAME),
@@ -320,6 +326,101 @@ def _quant_registry_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
             and registry_problem_count == 0
             and lineage_problem_count == 0
             and lineage_status == "stress_validated_public_demo"
+        ),
+    }
+
+
+def _quant_agenda_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
+    agenda = _as_dict(quant.get("research_agenda"))
+    policy = _as_dict(agenda.get("selection_policy"))
+    budget = _as_dict(agenda.get("search_budget"))
+    candidates = [
+        row for row in _as_list(agenda.get("candidate_agenda")) if isinstance(row, Mapping)
+    ]
+    family_ids = {str(row.get("family_id") or "") for row in candidates if row.get("family_id")}
+    state_counts: Counter[str] = Counter(str(row.get("agenda_state") or "") for row in candidates)
+    candidate_problem_count = 0
+    for row in candidates:
+        state = str(row.get("agenda_state") or "")
+        if (
+            not row.get("candidate_id")
+            or not row.get("family_id")
+            or not row.get("public_safe_hypothesis")
+            or not row.get("expected_failure_mode")
+            or state not in QUANT_RESEARCH_AGENDA_STATES
+            or row.get("authority_ceiling") != "non_advisory_research_evaluation_only"
+            or row.get("review_gated") is not True
+            or row.get("auto_apply_allowed") is not False
+            or row.get("no_advice_enabled") is not True
+            or row.get("winner_language_allowed") is not False
+        ):
+            candidate_problem_count += 1
+    policy_problem_count = 0
+    if policy.get("prefer_falsifiable") is not True:
+        policy_problem_count += 1
+    if policy.get("prefer_family_diversity") is not True:
+        policy_problem_count += 1
+    if policy.get("penalize_parameter_fishing") is not True:
+        policy_problem_count += 1
+    if policy.get("penalize_duplicate_prior_family") is not True:
+        policy_problem_count += 1
+    if policy.get("require_negative_or_control_candidate") is not True:
+        policy_problem_count += 1
+    if policy.get("performance_metric_optimization_allowed") is not False:
+        policy_problem_count += 1
+    if policy.get("winner_language_allowed") is not False:
+        policy_problem_count += 1
+    budget_problem_count = 0
+    if int(budget.get("candidate_count") or 0) != len(candidates):
+        budget_problem_count += 1
+    if int(budget.get("family_count") or 0) != len(family_ids):
+        budget_problem_count += 1
+    if int(budget.get("selected_for_next_test_count") or 0) < 1:
+        budget_problem_count += 1
+    if int(budget.get("deferred_data_snooping_count") or 0) < 1:
+        budget_problem_count += 1
+    if int(budget.get("negative_or_control_candidate_count") or 0) < 1:
+        budget_problem_count += 1
+    if int(budget.get("needs_more_evidence_count") or 0) < 1:
+        budget_problem_count += 1
+    if budget.get("data_snooping_guard_active") is not True:
+        budget_problem_count += 1
+    if budget.get("max_selected_next") not in {0, 1}:
+        budget_problem_count += 1
+    bridge = _as_dict(agenda.get("oracle_evolve_implication"))
+    advice = _as_dict(agenda.get("no_advice_mode"))
+    gate_problem_count = 0
+    if bridge.get("review_gated") is not True or bridge.get("auto_apply_allowed") is not False:
+        gate_problem_count += 1
+    if advice.get("enabled") is not True or advice.get("non_advisory_research_only") is not True:
+        gate_problem_count += 1
+    return {
+        "schema_version": agenda.get("schema_version"),
+        "status": agenda.get("status"),
+        "candidate_count": len(candidates),
+        "family_count": len(family_ids),
+        "state_counts": dict(sorted(state_counts.items())),
+        "selected_for_next_test_count": state_counts.get("selected_for_next_test", 0),
+        "deferred_data_snooping_count": state_counts.get("deferred_data_snooping_risk", 0),
+        "negative_or_control_candidate_count": state_counts.get("control_candidate", 0),
+        "needs_more_evidence_count": state_counts.get("needs_more_evidence", 0),
+        "candidate_problem_count": candidate_problem_count,
+        "policy_problem_count": policy_problem_count,
+        "budget_problem_count": budget_problem_count,
+        "gate_problem_count": gate_problem_count,
+        "compiled": (
+            agenda.get("schema_version") == "finance_quant_research_agenda_v0"
+            and agenda.get("status") == "compiled_public_safe"
+            and len(candidates) >= 4
+            and len(family_ids) >= 3
+            and state_counts.get("selected_for_next_test", 0) >= 1
+            and state_counts.get("deferred_data_snooping_risk", 0) >= 1
+            and state_counts.get("control_candidate", 0) >= 1
+            and state_counts.get("needs_more_evidence", 0) >= 1
+            and candidate_problem_count == 0
+            and policy_problem_count == 0
+            and budget_problem_count == 0
+            and gate_problem_count == 0
         ),
     }
 
@@ -924,6 +1025,7 @@ def _validate_assurance_surface(
     quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
     quant_registry = _quant_registry_summary(quant)
+    quant_agenda = _quant_agenda_summary(quant)
     quant_output_state = str(quant_comparison.get("output_state") or "")
     required_quant_markers = {
         "hypothesis_ledger": bool(quant_hypothesis.get("experiment_id"))
@@ -977,6 +1079,27 @@ def _validate_assurance_surface(
                 observed=quant_registry,
             )
         )
+    if not quant_agenda["compiled"]:
+        findings.append(
+            _finding(
+                "QUANT_RESEARCH_AGENDA_INCOMPLETE",
+                "Finance assurance must compile a public-safe quant research agenda with selected, deferred, control, and needs-evidence candidates plus closed authority gates.",
+                source=f"{ASSURANCE_SURFACE_NAME}::quant_research_experiment_spine.research_agenda",
+                expected={
+                    "schema_version": "finance_quant_research_agenda_v0",
+                    "status": "compiled_public_safe",
+                    "minimum_candidate_count": 4,
+                    "selected_for_next_test_count": 1,
+                    "deferred_data_snooping_count": 1,
+                    "negative_or_control_candidate_count": 1,
+                    "needs_more_evidence_count": 1,
+                    "review_gated": True,
+                    "auto_apply_allowed": False,
+                    "winner_language_allowed": False,
+                },
+                observed=quant_agenda,
+            )
+        )
     return {
         "schema_version": assurance_surface.get("schema_version"),
         "surface_id": assurance_surface.get("surface_id"),
@@ -1007,6 +1130,19 @@ def _validate_assurance_surface(
             ],
             "lineage_status": quant_registry["lineage_status"],
             "output_state_counts": quant_registry["output_state_counts"],
+            "agenda_status": quant_agenda["status"],
+            "agenda_candidate_count": quant_agenda["candidate_count"],
+            "agenda_family_count": quant_agenda["family_count"],
+            "agenda_selected_for_next_test_count": quant_agenda[
+                "selected_for_next_test_count"
+            ],
+            "agenda_deferred_data_snooping_count": quant_agenda[
+                "deferred_data_snooping_count"
+            ],
+            "agenda_negative_or_control_candidate_count": quant_agenda[
+                "negative_or_control_candidate_count"
+            ],
+            "agenda_needs_more_evidence_count": quant_agenda["needs_more_evidence_count"],
         },
         "body_in_receipt": False,
     }
@@ -1064,6 +1200,7 @@ def _validate_operating_picture(
     quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
     quant_registry = _quant_registry_summary(quant)
+    quant_agenda = _quant_agenda_summary(quant)
     if quant.get("schema_version") != QUANT_RESEARCH_SPINE_SCHEMA:
         findings.append(
             _finding(
@@ -1109,6 +1246,22 @@ def _validate_operating_picture(
                 observed=quant_registry,
             )
         )
+    if not quant_agenda["compiled"]:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_AGENDA_INCOMPLETE",
+                "Finance eval operating picture must expose the quant research agenda compiler with selection-budget discipline.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine.research_agenda",
+                expected={
+                    "minimum_candidate_count": 4,
+                    "selected_for_next_test_count": 1,
+                    "deferred_data_snooping_count": 1,
+                    "negative_or_control_candidate_count": 1,
+                    "needs_more_evidence_count": 1,
+                },
+                observed=quant_agenda,
+            )
+        )
     return {
         "schema_version": operating_picture.get("schema_version"),
         "generated_at": operating_picture.get("generated_at"),
@@ -1139,6 +1292,19 @@ def _validate_operating_picture(
             ],
             "lineage_status": quant_registry["lineage_status"],
             "output_state_counts": quant_registry["output_state_counts"],
+            "agenda_status": quant_agenda["status"],
+            "agenda_candidate_count": quant_agenda["candidate_count"],
+            "agenda_family_count": quant_agenda["family_count"],
+            "agenda_selected_for_next_test_count": quant_agenda[
+                "selected_for_next_test_count"
+            ],
+            "agenda_deferred_data_snooping_count": quant_agenda[
+                "deferred_data_snooping_count"
+            ],
+            "agenda_negative_or_control_candidate_count": quant_agenda[
+                "negative_or_control_candidate_count"
+            ],
+            "agenda_needs_more_evidence_count": quant_agenda["needs_more_evidence_count"],
         },
         "body_in_receipt": False,
     }

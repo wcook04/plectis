@@ -4,7 +4,8 @@
     "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release.",
     "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist.",
     "Quant research experiment receipts may compare hypotheses, evidence, split discipline, and uncertainty; they must not name an action, declare a winner, or auto-apply Evolve learning.",
-    "A single quant experiment receipt is not sufficient proof of research discipline; the public spine must carry experiment lineage plus at least one negative or insufficient-evidence stress case."
+    "A single quant experiment receipt is not sufficient proof of research discipline; the public spine must carry experiment lineage plus at least one negative or insufficient-evidence stress case.",
+    "A quant research agenda may rank what to test next, but it must preserve deferred data-snooping risk, control candidates, needs-evidence candidates, and review-gated/no-advice authority."
   ],
   "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
   "authority_ceiling": {
@@ -108,6 +109,23 @@
         "rejected",
         "blocked_authority_overclaim"
       ],
+      "winner_language_allowed": false
+    },
+    "quant_research_agenda": {
+      "auto_apply_allowed": false,
+      "candidate_states_required": [
+        "selected_for_next_test",
+        "deferred_data_snooping_risk",
+        "control_candidate",
+        "needs_more_evidence"
+      ],
+      "data_snooping_guard_required": true,
+      "experiment_selection_policy_required": true,
+      "family_diversity_required": true,
+      "minimum_candidate_count": 4,
+      "no_advice_required": true,
+      "performance_metric_optimization_allowed": false,
+      "search_budget_metadata_required": true,
       "winner_language_allowed": false
     },
     "evolve_auto_apply_allowed": false

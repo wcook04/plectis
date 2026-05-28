@@ -104,28 +104,28 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 1004,
+      "line_count": 1281,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/finance/build_eval_operating_picture.py",
-      "sha256": "273d7c6a187f2732d8a7ff7e39fc5fdeb2f6fea55e6bab7a6dbd56b106f82e85",
+      "sha256": "fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/finance/build_eval_operating_picture.py"
     },
     {
       "body_in_receipt": false,
-      "line_count": 382,
+      "line_count": 578,
       "material_class": "public_macro_receipt_body",
       "path": "finance_eval_operating_picture.json",
-      "sha256": "69bef28b6889d2db6487e5216b0b72bccd6df33427a370918b95aa29bc0cc8ec",
+      "sha256": "9c1d2dda447117bd980c7d7d1d7b9289ebb78519e9acda2df812caa73e6ac616",
       "source_import_class": "real_generated_macro_receipt",
       "source_ref": "state/finance_eval/views/finance_eval_operating_picture.json"
     },
     {
       "body_in_receipt": false,
-      "line_count": 449,
+      "line_count": 651,
       "material_class": "public_microcosm_assurance_surface",
       "path": "finance_research_assurance_surface.json",
-      "sha256": "f99657b30117416a3840250bbc6dd6673548e4f9f1a78c3de24f274e85454e0c",
+      "sha256": "1d788da67045f24225bacdfffc83bb4f2e5667f8d536f67a6acaddbdab54fad5",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json"
     },
@@ -134,7 +134,7 @@
       "line_count": 247,
       "material_class": "public_microcosm_runtime_contract",
       "path": "finance_eval_runtime_contract.json",
-      "sha256": "8248edd40d9ac47beccaf78cda0d395d5d43d0dc1723a91fabe47b267fa9af22",
+      "sha256": "f5adcebc551bdf2949bc8c61ea2e7a045703b990e2aaa845f090da7fc97e5686",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
     },
@@ -143,7 +143,7 @@
       "line_count": 90,
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
-      "sha256": "b7acc84ccbe1bc52d4283a1d5b949c8b542d8c061d2573aaa16bffeb28c7d193",
+      "sha256": "fd73a7948ff369e1e4ab1aff9d42e107ff88c1ed46fc8f4b86608ab2129245dd",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
     }

@@ -17,7 +17,7 @@
     "raw_model_confidence_set_status": "not_started",
     "status": "not_started"
   },
-  "generated_at": "2026-05-28T01:10:43+00:00",
+  "generated_at": "2026-05-28T01:56:24+00:00",
   "generator_variants": [],
   "historical_replay": {
     "brier_skill_vs_base_rate": null,
@@ -314,6 +314,202 @@
       ],
       "decision": "awaiting_evidence",
       "review_gated": true
+    },
+    "research_agenda": {
+      "agenda_id": "public_quant_research_agenda_compiler_v0",
+      "candidate_agenda": [
+        {
+          "agenda_state": "selected_for_next_test",
+          "authority_ceiling": "non_advisory_research_evaluation_only",
+          "auto_apply_allowed": false,
+          "candidate_id": "public_quant_agenda_calibration_drift_cross_family_5d",
+          "data_snooping_risk": "low",
+          "evidence_sources": [
+            "tools/finance/calibrate_forecast_probabilities.py",
+            "tools/finance/build_effective_evidence.py",
+            "tools/finance/model_selection_stats.py"
+          ],
+          "expected_failure_mode": "drift_signal_fails_under_purged_cross_family_split",
+          "expected_information_gain": "high",
+          "falsifiability": "high",
+          "family_diversity": "high",
+          "family_id": "calibration_drift_cross_family",
+          "hypothesis_type": "calibration_drift_cross_family",
+          "leakage_risks": [
+            "calibration_window_peeking",
+            "overlapping_event_windows",
+            "family_duplicate_pressure"
+          ],
+          "no_advice_enabled": true,
+          "public_safe_hypothesis": "Test whether calibration-drift evidence persists across shadow forecast and macro-volatility public fixture families.",
+          "rank": 1,
+          "review_gated": true,
+          "selection_reason": "highest information gain among public-safe candidates while remaining falsifiable and family-diverse from the current registry",
+          "selection_score": 0.82,
+          "target_universe": "public_market_fixture_universe",
+          "time_horizon": "5d",
+          "winner_language_allowed": false
+        },
+        {
+          "agenda_state": "deferred_data_snooping_risk",
+          "authority_ceiling": "non_advisory_research_evaluation_only",
+          "auto_apply_allowed": false,
+          "candidate_id": "public_quant_agenda_threshold_grid_sweep_deferred",
+          "data_snooping_risk": "high",
+          "evidence_sources": [
+            "tools/finance/variant_registry.py",
+            "tools/finance/compare_variants.py",
+            "tools/finance/spa_statistics.py"
+          ],
+          "expected_failure_mode": "apparent_variant_edge_disappears_after_spa_guard",
+          "expected_information_gain": "medium",
+          "falsifiability": "medium",
+          "family_diversity": "low",
+          "family_id": "threshold_grid_sweep",
+          "hypothesis_type": "threshold_grid_sweep",
+          "leakage_risks": [
+            "parameter_grid_fishing",
+            "duplicate_prior_family",
+            "multiple_comparison_pressure"
+          ],
+          "no_advice_enabled": true,
+          "public_safe_hypothesis": "Sweep threshold variants over the same public fixture family only after the search budget can justify the extra trial pressure.",
+          "rank": 2,
+          "review_gated": true,
+          "selection_reason": "deferred because the candidate adds many near-duplicate variants before the current family memory has enough independent evidence",
+          "selection_score": 0.31,
+          "target_universe": "public_market_fixture_universe",
+          "time_horizon": "5d",
+          "winner_language_allowed": false
+        },
+        {
+          "agenda_state": "control_candidate",
+          "authority_ceiling": "non_advisory_research_evaluation_only",
+          "auto_apply_allowed": false,
+          "candidate_id": "public_quant_agenda_temporal_permutation_control_refresh",
+          "data_snooping_risk": "low",
+          "evidence_sources": [
+            "tools/finance/event_keys.py",
+            "tools/finance/loss_differentials.py",
+            "tools/finance/model_selection.py"
+          ],
+          "expected_failure_mode": "temporal_permutation_should_not_survive_purged_split",
+          "expected_information_gain": "medium",
+          "falsifiability": "high",
+          "family_diversity": "control",
+          "family_id": "negative_control_temporal_permutation",
+          "hypothesis_type": "temporal_permutation_control",
+          "leakage_risks": [
+            "event_order_destroyed",
+            "temporal_shuffle_leakage",
+            "truth_time_contamination"
+          ],
+          "no_advice_enabled": true,
+          "public_safe_hypothesis": "Refresh the temporal-permutation control to verify that shuffled event lineage still fails before any review learning is considered.",
+          "rank": 3,
+          "review_gated": true,
+          "selection_reason": "kept as a control-family candidate so the program repeatedly proves it can reject pseudo-signal",
+          "selection_score": 0.58,
+          "target_universe": "public_market_fixture_universe",
+          "time_horizon": "5d",
+          "winner_language_allowed": false
+        },
+        {
+          "agenda_state": "needs_more_evidence",
+          "authority_ceiling": "non_advisory_research_evaluation_only",
+          "auto_apply_allowed": false,
+          "candidate_id": "public_quant_agenda_cross_asset_macro_window_needs_evidence",
+          "data_snooping_risk": "medium",
+          "evidence_sources": [
+            "tools/finance/build_price_history.py",
+            "tools/finance/refresh_feeds.py",
+            "tools/finance/build_effective_evidence.py"
+          ],
+          "expected_failure_mode": "insufficient_effective_sample_or_missing_public_artifact",
+          "expected_information_gain": "high_after_evidence",
+          "falsifiability": "medium",
+          "family_diversity": "high",
+          "family_id": "cross_asset_macro_window",
+          "hypothesis_type": "cross_asset_macro_window",
+          "leakage_risks": [
+            "missing_public_history_window",
+            "effective_sample_deficit",
+            "feed_artifact_gap"
+          ],
+          "no_advice_enabled": true,
+          "public_safe_hypothesis": "Compare cross-asset macro evidence windows only after the public fixture has enough effective samples and dated artifact lineage.",
+          "rank": 4,
+          "review_gated": true,
+          "selection_reason": "held until the evidence path has enough public-safe samples to avoid turning absence of data into a research claim",
+          "selection_score": 0.49,
+          "target_universe": "public_fixture_us_large_cap_macro_cross_asset",
+          "time_horizon": "event_windowed_forecast_horizon",
+          "winner_language_allowed": false
+        }
+      ],
+      "family_memory": [
+        {
+          "current_evidence": "not_started",
+          "family_id": "shadow_forecast_family_comparison",
+          "memory_state": "awaiting_evidence",
+          "program_implication": "retain_as_baseline_family_without_winner_language"
+        },
+        {
+          "current_evidence": "negative_control_rejected",
+          "family_id": "negative_control_temporal_permutation",
+          "memory_state": "control_rejected",
+          "program_implication": "keep_control_in_rotation_before_learning_claims"
+        },
+        {
+          "current_evidence": "too_many_near_duplicate_variants",
+          "family_id": "threshold_grid_sweep",
+          "memory_state": "deferred_data_snooping_risk",
+          "program_implication": "do_not_spend_search_budget_until_family_memory_diversifies"
+        },
+        {
+          "current_evidence": "effective_sample_deficit_0",
+          "family_id": "cross_asset_macro_window",
+          "memory_state": "needs_more_evidence",
+          "program_implication": "wait_for_public_artifact_lineage_before_testing"
+        }
+      ],
+      "no_advice_mode": {
+        "enabled": true,
+        "non_advisory_research_only": true
+      },
+      "oracle_evolve_implication": {
+        "auto_apply_allowed": false,
+        "decision": "agenda_review_required",
+        "learning_authority": "agenda_can_rank_tests_but_cannot_mutate_evolve_without_review",
+        "review_gated": true
+      },
+      "schema_version": "finance_quant_research_agenda_v0",
+      "search_budget": {
+        "budget_pressure": "controlled",
+        "candidate_count": 4,
+        "data_snooping_guard_active": true,
+        "deferred_data_snooping_count": 1,
+        "duplicate_family_count": 0,
+        "family_count": 4,
+        "max_selected_next": 1,
+        "needs_more_evidence_count": 1,
+        "negative_or_control_candidate_count": 1,
+        "prior_negative_or_insufficient_count": 1,
+        "registry_count": 2,
+        "rejected_count": 1,
+        "selected_for_next_test_count": 1
+      },
+      "selection_policy": {
+        "penalize_duplicate_prior_family": true,
+        "penalize_parameter_fishing": true,
+        "performance_metric_optimization_allowed": false,
+        "prefer_expected_information_gain": true,
+        "prefer_falsifiable": true,
+        "prefer_family_diversity": true,
+        "require_negative_or_control_candidate": true,
+        "winner_language_allowed": false
+      },
+      "status": "compiled_public_safe"
     },
     "schema_version": "finance_quant_research_experiment_spine_v0",
     "status": "awaiting_evidence"

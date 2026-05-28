@@ -756,6 +756,274 @@ def _quant_lineage_summary(registry: List[Mapping[str, Any]]) -> Dict[str, Any]:
     }
 
 
+def _quant_agenda_candidate(
+    *,
+    candidate_id: str,
+    rank: int,
+    family_id: str,
+    agenda_state: str,
+    hypothesis_type: str,
+    public_safe_hypothesis: str,
+    target_universe: str,
+    time_horizon: str,
+    evidence_sources: List[str],
+    leakage_risks: List[str],
+    expected_failure_mode: str,
+    selection_reason: str,
+    expected_information_gain: str,
+    falsifiability: str,
+    family_diversity: str,
+    data_snooping_risk: str,
+    selection_score: float,
+) -> Dict[str, Any]:
+    return {
+        "candidate_id": candidate_id,
+        "rank": rank,
+        "family_id": family_id,
+        "agenda_state": agenda_state,
+        "hypothesis_type": hypothesis_type,
+        "public_safe_hypothesis": public_safe_hypothesis,
+        "target_universe": target_universe,
+        "time_horizon": time_horizon,
+        "evidence_sources": evidence_sources,
+        "leakage_risks": leakage_risks,
+        "expected_failure_mode": expected_failure_mode,
+        "selection_reason": selection_reason,
+        "expected_information_gain": expected_information_gain,
+        "falsifiability": falsifiability,
+        "family_diversity": family_diversity,
+        "data_snooping_risk": data_snooping_risk,
+        "selection_score": selection_score,
+        "authority_ceiling": "non_advisory_research_evaluation_only",
+        "review_gated": True,
+        "auto_apply_allowed": False,
+        "no_advice_enabled": True,
+        "winner_language_allowed": False,
+    }
+
+
+def _quant_research_agenda(
+    *,
+    registry: List[Mapping[str, Any]],
+    lineage_summary: Mapping[str, Any],
+    effective_sample_deficit: int,
+    comparison_status: str,
+    output_state: str,
+) -> Dict[str, Any]:
+    candidates = [
+        _quant_agenda_candidate(
+            candidate_id="public_quant_agenda_calibration_drift_cross_family_5d",
+            rank=1,
+            family_id="calibration_drift_cross_family",
+            agenda_state="selected_for_next_test",
+            hypothesis_type="calibration_drift_cross_family",
+            public_safe_hypothesis=(
+                "Test whether calibration-drift evidence persists across shadow forecast "
+                "and macro-volatility public fixture families."
+            ),
+            target_universe="public_market_fixture_universe",
+            time_horizon="5d",
+            evidence_sources=[
+                "tools/finance/calibrate_forecast_probabilities.py",
+                "tools/finance/build_effective_evidence.py",
+                "tools/finance/model_selection_stats.py",
+            ],
+            leakage_risks=[
+                "calibration_window_peeking",
+                "overlapping_event_windows",
+                "family_duplicate_pressure",
+            ],
+            expected_failure_mode="drift_signal_fails_under_purged_cross_family_split",
+            selection_reason=(
+                "highest information gain among public-safe candidates while remaining "
+                "falsifiable and family-diverse from the current registry"
+            ),
+            expected_information_gain="high",
+            falsifiability="high",
+            family_diversity="high",
+            data_snooping_risk="low",
+            selection_score=0.82,
+        ),
+        _quant_agenda_candidate(
+            candidate_id="public_quant_agenda_threshold_grid_sweep_deferred",
+            rank=2,
+            family_id="threshold_grid_sweep",
+            agenda_state="deferred_data_snooping_risk",
+            hypothesis_type="threshold_grid_sweep",
+            public_safe_hypothesis=(
+                "Sweep threshold variants over the same public fixture family only after "
+                "the search budget can justify the extra trial pressure."
+            ),
+            target_universe="public_market_fixture_universe",
+            time_horizon="5d",
+            evidence_sources=[
+                "tools/finance/variant_registry.py",
+                "tools/finance/compare_variants.py",
+                "tools/finance/spa_statistics.py",
+            ],
+            leakage_risks=[
+                "parameter_grid_fishing",
+                "duplicate_prior_family",
+                "multiple_comparison_pressure",
+            ],
+            expected_failure_mode="apparent_variant_edge_disappears_after_spa_guard",
+            selection_reason=(
+                "deferred because the candidate adds many near-duplicate variants before "
+                "the current family memory has enough independent evidence"
+            ),
+            expected_information_gain="medium",
+            falsifiability="medium",
+            family_diversity="low",
+            data_snooping_risk="high",
+            selection_score=0.31,
+        ),
+        _quant_agenda_candidate(
+            candidate_id="public_quant_agenda_temporal_permutation_control_refresh",
+            rank=3,
+            family_id="negative_control_temporal_permutation",
+            agenda_state="control_candidate",
+            hypothesis_type="temporal_permutation_control",
+            public_safe_hypothesis=(
+                "Refresh the temporal-permutation control to verify that shuffled event "
+                "lineage still fails before any review learning is considered."
+            ),
+            target_universe="public_market_fixture_universe",
+            time_horizon="5d",
+            evidence_sources=[
+                "tools/finance/event_keys.py",
+                "tools/finance/loss_differentials.py",
+                "tools/finance/model_selection.py",
+            ],
+            leakage_risks=[
+                "event_order_destroyed",
+                "temporal_shuffle_leakage",
+                "truth_time_contamination",
+            ],
+            expected_failure_mode="temporal_permutation_should_not_survive_purged_split",
+            selection_reason=(
+                "kept as a control-family candidate so the program repeatedly proves it "
+                "can reject pseudo-signal"
+            ),
+            expected_information_gain="medium",
+            falsifiability="high",
+            family_diversity="control",
+            data_snooping_risk="low",
+            selection_score=0.58,
+        ),
+        _quant_agenda_candidate(
+            candidate_id="public_quant_agenda_cross_asset_macro_window_needs_evidence",
+            rank=4,
+            family_id="cross_asset_macro_window",
+            agenda_state="needs_more_evidence",
+            hypothesis_type="cross_asset_macro_window",
+            public_safe_hypothesis=(
+                "Compare cross-asset macro evidence windows only after the public fixture "
+                "has enough effective samples and dated artifact lineage."
+            ),
+            target_universe="public_fixture_us_large_cap_macro_cross_asset",
+            time_horizon="event_windowed_forecast_horizon",
+            evidence_sources=[
+                "tools/finance/build_price_history.py",
+                "tools/finance/refresh_feeds.py",
+                "tools/finance/build_effective_evidence.py",
+            ],
+            leakage_risks=[
+                "missing_public_history_window",
+                "effective_sample_deficit",
+                "feed_artifact_gap",
+            ],
+            expected_failure_mode="insufficient_effective_sample_or_missing_public_artifact",
+            selection_reason=(
+                "held until the evidence path has enough public-safe samples to avoid "
+                "turning absence of data into a research claim"
+            ),
+            expected_information_gain="high_after_evidence",
+            falsifiability="medium",
+            family_diversity="high",
+            data_snooping_risk="medium",
+            selection_score=0.49,
+        ),
+    ]
+    family_ids = {str(row.get("family_id") or "") for row in candidates if row.get("family_id")}
+    selected_count = sum(1 for row in candidates if row.get("agenda_state") == "selected_for_next_test")
+    deferred_count = sum(1 for row in candidates if row.get("agenda_state") == "deferred_data_snooping_risk")
+    control_count = sum(1 for row in candidates if row.get("agenda_state") == "control_candidate")
+    needs_more_evidence_count = sum(1 for row in candidates if row.get("agenda_state") == "needs_more_evidence")
+    return {
+        "schema_version": "finance_quant_research_agenda_v0",
+        "agenda_id": "public_quant_research_agenda_compiler_v0",
+        "status": "compiled_public_safe",
+        "selection_policy": {
+            "prefer_falsifiable": True,
+            "prefer_family_diversity": True,
+            "prefer_expected_information_gain": True,
+            "penalize_parameter_fishing": True,
+            "penalize_duplicate_prior_family": True,
+            "require_negative_or_control_candidate": True,
+            "performance_metric_optimization_allowed": False,
+            "winner_language_allowed": False,
+        },
+        "search_budget": {
+            "candidate_count": len(candidates),
+            "family_count": len(family_ids),
+            "registry_count": _as_int(lineage_summary.get("registry_count")),
+            "prior_negative_or_insufficient_count": _as_int(
+                lineage_summary.get("negative_or_insufficient_count")
+            ),
+            "selected_for_next_test_count": selected_count,
+            "deferred_data_snooping_count": deferred_count,
+            "negative_or_control_candidate_count": control_count,
+            "needs_more_evidence_count": needs_more_evidence_count,
+            "rejected_count": sum(
+                1
+                for entry in registry
+                if _data(_data(entry).get("model_comparison")).get("output_state") == "rejected"
+            ),
+            "max_selected_next": 1,
+            "duplicate_family_count": len(candidates) - len(family_ids),
+            "data_snooping_guard_active": True,
+            "budget_pressure": "controlled",
+        },
+        "candidate_agenda": candidates,
+        "family_memory": [
+            {
+                "family_id": "shadow_forecast_family_comparison",
+                "memory_state": output_state,
+                "current_evidence": comparison_status,
+                "program_implication": "retain_as_baseline_family_without_winner_language",
+            },
+            {
+                "family_id": "negative_control_temporal_permutation",
+                "memory_state": "control_rejected",
+                "current_evidence": "negative_control_rejected",
+                "program_implication": "keep_control_in_rotation_before_learning_claims",
+            },
+            {
+                "family_id": "threshold_grid_sweep",
+                "memory_state": "deferred_data_snooping_risk",
+                "current_evidence": "too_many_near_duplicate_variants",
+                "program_implication": "do_not_spend_search_budget_until_family_memory_diversifies",
+            },
+            {
+                "family_id": "cross_asset_macro_window",
+                "memory_state": "needs_more_evidence",
+                "current_evidence": f"effective_sample_deficit_{effective_sample_deficit}",
+                "program_implication": "wait_for_public_artifact_lineage_before_testing",
+            },
+        ],
+        "oracle_evolve_implication": {
+            "decision": "agenda_review_required",
+            "review_gated": True,
+            "auto_apply_allowed": False,
+            "learning_authority": "agenda_can_rank_tests_but_cannot_mutate_evolve_without_review",
+        },
+        "no_advice_mode": {
+            "enabled": True,
+            "non_advisory_research_only": True,
+        },
+    }
+
+
 def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str, Any]:
     source_refs = projection.get("source_refs") if isinstance(projection.get("source_refs"), Mapping) else {}
     historical = (
@@ -833,6 +1101,14 @@ def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str,
         model_selection=model_selection,
         variant_gate=variant_gate,
     )
+    lineage_summary = _quant_lineage_summary(registry)
+    research_agenda = _quant_research_agenda(
+        registry=registry,
+        lineage_summary=lineage_summary,
+        effective_sample_deficit=effective_sample_deficit,
+        comparison_status=comparison_status,
+        output_state=output_state,
+    )
     return {
         "schema_version": "finance_quant_research_experiment_spine_v0",
         "status": "available" if evidence_available else "awaiting_evidence",
@@ -882,7 +1158,8 @@ def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str,
             "output_state": output_state,
         },
         "experiment_registry": registry,
-        "lineage_summary": _quant_lineage_summary(registry),
+        "lineage_summary": lineage_summary,
+        "research_agenda": research_agenda,
         "oracle_evolve_bridge": {
             "review_gated": True,
             "auto_apply_allowed": False,

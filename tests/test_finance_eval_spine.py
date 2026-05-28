@@ -93,6 +93,13 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert quant["negative_control_count"] == 1
     assert quant["negative_or_insufficient_count"] == 2
     assert quant["lineage_status"] == "stress_validated_public_demo"
+    assert quant["agenda_status"] == "compiled_public_safe"
+    assert quant["agenda_candidate_count"] == 4
+    assert quant["agenda_family_count"] == 4
+    assert quant["agenda_selected_for_next_test_count"] == 1
+    assert quant["agenda_deferred_data_snooping_count"] == 1
+    assert quant["agenda_negative_or_control_candidate_count"] == 1
+    assert quant["agenda_needs_more_evidence_count"] == 1
     assert quant["output_state_counts"] == {
         "insufficient_evidence": 1,
         "rejected": 1,
@@ -111,6 +118,13 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert operating_quant["negative_control_count"] == 1
     assert operating_quant["negative_or_insufficient_count"] == 1
     assert operating_quant["lineage_status"] == "stress_validated_public_demo"
+    assert operating_quant["agenda_status"] == "compiled_public_safe"
+    assert operating_quant["agenda_candidate_count"] == 4
+    assert operating_quant["agenda_family_count"] == 4
+    assert operating_quant["agenda_selected_for_next_test_count"] == 1
+    assert operating_quant["agenda_deferred_data_snooping_count"] == 1
+    assert operating_quant["agenda_negative_or_control_candidate_count"] == 1
+    assert operating_quant["agenda_needs_more_evidence_count"] == 1
     assert operating_quant["output_state_counts"] == {
         "awaiting_evidence": 1,
         "rejected": 1,
@@ -235,6 +249,35 @@ def test_finance_eval_spine_rejects_single_quant_demo_without_stress_case(
 
     assert result["status"] == "blocked"
     assert "QUANT_RESEARCH_LINEAGE_INCOMPLETE" in result["error_codes"]
+
+
+def test_finance_eval_spine_rejects_quant_agenda_without_deferred_or_control_candidate(
+    tmp_path: Path,
+) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    assurance_path = bundle / "finance_research_assurance_surface.json"
+    assurance = json.loads(assurance_path.read_text(encoding="utf-8"))
+    agenda = assurance["quant_research_experiment_spine"]["research_agenda"]
+    agenda["candidate_agenda"] = [
+        row
+        for row in agenda["candidate_agenda"]
+        if row["agenda_state"] == "selected_for_next_test"
+    ]
+    agenda["search_budget"]["candidate_count"] = 1
+    agenda["search_budget"]["family_count"] = 1
+    agenda["search_budget"]["deferred_data_snooping_count"] = 0
+    agenda["search_budget"]["negative_or_control_candidate_count"] = 0
+    agenda["search_budget"]["needs_more_evidence_count"] = 0
+    assurance_path.write_text(
+        json.dumps(assurance, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "QUANT_RESEARCH_AGENDA_INCOMPLETE" in result["error_codes"]
 
 
 def test_cli_finance_eval_spine_smoke(
