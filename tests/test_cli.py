@@ -1292,6 +1292,32 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
             process.stderr.close()
 
 
+def test_cli_serve_reports_busy_port_without_traceback(tmp_path: Path) -> None:
+    project = _make_scratch_project(tmp_path)
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind(("127.0.0.1", 0))
+        sock.listen(1)
+        port = int(sock.getsockname()[1])
+        result = _run_microcosm_cli(
+            "serve",
+            str(project),
+            "--host",
+            "127.0.0.1",
+            "--port",
+            str(port),
+            "--max-requests",
+            "1",
+        )
+
+    assert result.returncode == 2
+    assert result.stdout == ""
+    assert f"microcosm serve could not bind http://127.0.0.1:{port}" in result.stderr
+    assert "address already in use" in result.stderr
+    assert "--port" in result.stderr
+    assert "Traceback" not in result.stderr
+    assert "ThreadingHTTPServer" not in result.stderr
+
+
 def test_cli_pattern_route_readiness_accepts_exported_bundle(tmp_path: Path) -> None:
     out_dir = tmp_path / "pattern-route-readiness"
     status = cli.main(

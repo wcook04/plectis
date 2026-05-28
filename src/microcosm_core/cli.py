@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import errno
 import importlib
 import json
 import shlex
@@ -2016,7 +2017,25 @@ def main(argv: list[str] | None = None) -> int:
             serve_args.extend(["--max-requests", str(args.max_requests)])
         if args.project:
             serve_args.append(_runtime_project_arg(args.project) or args.project)
-        return runtime_shell.main(serve_args, root=_public_root_for_project(args.project))
+        try:
+            return runtime_shell.main(
+                serve_args,
+                root=_public_root_for_project(args.project),
+            )
+        except OSError as exc:
+            if exc.errno != errno.EADDRINUSE:
+                raise
+            print(
+                (
+                    f"microcosm serve could not bind http://{args.host}:{args.port}: "
+                    "address already in use. Choose a free port, for example "
+                    f"`microcosm serve {args.project or '<project>'} "
+                    f"--host {args.host} --port {args.port + 1} --max-requests "
+                    f"{args.max_requests or 6}`."
+                ),
+                file=sys.stderr,
+            )
+            return 2
     if args.command == "patterns":
         if args.project:
             return project_substrate.main(["patterns", args.project])
