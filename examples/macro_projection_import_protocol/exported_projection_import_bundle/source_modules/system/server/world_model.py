@@ -17209,9 +17209,9 @@ def launch_operation(
 
 # --- Code Architecture Projection Plane transport (per codeflow_assimilation.md) ---
 
-CODE_MAP_DEFAULT_MAX_FILES = 2500
-CODE_MAP_MAX_FILES_CAP = 2500
-CODE_MAP_PACKET_CACHE_VERSION = "code-map-python-scope-plus-repo-v2"
+CODE_MAP_DEFAULT_MAX_FILES = 4000
+CODE_MAP_MAX_FILES_CAP = 4000
+CODE_MAP_PACKET_CACHE_VERSION = "code-map-python-scope-plus-repo-v3"
 BLAST_RADIUS_MAX_DEPTH_CAP = 12
 SYSTEM_ATLAS_MAX_ENTITIES_CAP = 1000
 SYSTEM_ATLAS_MAX_DEPTH_CAP = 4

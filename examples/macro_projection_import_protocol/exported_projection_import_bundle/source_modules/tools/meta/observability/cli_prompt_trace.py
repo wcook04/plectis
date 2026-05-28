@@ -64,6 +64,9 @@ TRACE_STRUCTURER_RAW = TRACE_STRUCTURER_BASE / "Raw Sources"
 TRACE_STRUCTURER_EXPORTS = TRACE_STRUCTURER_BASE / "Exports" / "AIW Captures"
 TRACE_STRUCTURER_HISTORY = TRACE_STRUCTURER_BASE / "clipboard_history.json"
 TRACE_STRUCTURER_MISSION_INDEX = TRACE_STRUCTURER_BASE / "mission_index.json"
+TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT = (
+    TRACE_STRUCTURER_BASE / "mission_index_goal_roster_refresh_receipt.json"
+)
 TRACE_STRUCTURER_MISSION_SUMMARY_CACHE = TRACE_STRUCTURER_BASE / "mission_summary_cache.json"
 TRACE_STRUCTURER_TITLE_ALIASES = TRACE_STRUCTURER_BASE / "title_aliases.json"
 TRACE_STRUCTURER_VARIANT_ARTIFACTS = TRACE_STRUCTURER_BASE / "Variant Artifacts"
@@ -6207,6 +6210,175 @@ def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) 
     return index
 
 
+def _goal_roster_refresh_receipt(index: dict) -> dict:
+    refresh = (
+        index.get("goal_roster_refresh")
+        if isinstance(index.get("goal_roster_refresh"), dict)
+        else {}
+    )
+    authority = (
+        index.get("goal_authority")
+        if isinstance(index.get("goal_authority"), dict)
+        else {}
+    )
+    return {
+        "schema": "prompt_trace_mission_index_goal_roster_refresh_receipt_v1",
+        "recorded_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+        "mission_index_path": str(TRACE_STRUCTURER_MISSION_INDEX),
+        "mission_index_generated_at": index.get("generated_at") or "",
+        "refresh": refresh,
+        "goal_authority": authority,
+        "goal_thread_count": index.get("goal_thread_count", 0),
+        "active_goal_thread_count": index.get("active_goal_thread_count", 0),
+        "mission_goal_count": index.get("mission_goal_count", 0),
+        "active_mission_goal_count": index.get("active_mission_goal_count", 0),
+    }
+
+
+def _write_goal_roster_refresh_receipt(index: dict) -> dict:
+    receipt = _goal_roster_refresh_receipt(index)
+    TRACE_STRUCTURER_BASE.mkdir(parents=True, exist_ok=True)
+    body = json.dumps(receipt, indent=2, ensure_ascii=False)
+    tmp = TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT.with_suffix(".json.tmp")
+    tmp.write_text(body + "\n", encoding="utf-8")
+    tmp.replace(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT)
+    return receipt
+
+
+def _load_json_dict(path: Path) -> dict:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8") or "{}")
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _goal_roster_projection_source(index: dict, receipt: dict, current: dict) -> dict:
+    current_count = int(current.get("goal_thread_count") or 0)
+    current_active_count = int(current.get("active_goal_thread_count") or 0)
+    return {
+        "current_goal_thread_count": current_count,
+        "current_active_goal_thread_count": current_active_count,
+        "mission_index_goal_thread_count": int(index.get("goal_thread_count") or 0),
+        "mission_index_active_goal_thread_count": int(index.get("active_goal_thread_count") or 0),
+        "receipt_goal_thread_count": int(receipt.get("goal_thread_count") or 0),
+        "receipt_active_goal_thread_count": int(receipt.get("active_goal_thread_count") or 0),
+    }
+
+
+def _goal_roster_status(cwd: Path | None = None) -> dict:
+    """Summarize whether the cached Structurer goal roster trails Codex goals."""
+    index = _load_json_dict(TRACE_STRUCTURER_MISSION_INDEX)
+    receipt = _load_json_dict(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT)
+    goals = _load_codex_thread_goals()
+    current_authority = _goal_authority_sources(goals)
+    current = {
+        "goal_authority": current_authority,
+        "goal_thread_count": len(goals),
+        "active_goal_thread_count": sum(
+            1 for goal in goals.values() if (goal or {}).get("status") == "active"
+        ),
+    }
+    counts = _goal_roster_projection_source(index, receipt, current)
+
+    index_authority = index.get("goal_authority") if isinstance(index.get("goal_authority"), dict) else {}
+    receipt_authority = (
+        receipt.get("goal_authority") if isinstance(receipt.get("goal_authority"), dict) else {}
+    )
+    current_mtime_ms = _coerce_epoch_ms(current_authority.get("mtime_ms"))
+    index_authority_mtime_ms = _coerce_epoch_ms(index_authority.get("mtime_ms"))
+    receipt_authority_mtime_ms = _coerce_epoch_ms(receipt_authority.get("mtime_ms"))
+    projected_mtimes = [
+        value
+        for value in (index_authority_mtime_ms, receipt_authority_mtime_ms)
+        if value is not None
+    ]
+    latest_projected_mtime_ms = max(projected_mtimes) if projected_mtimes else None
+
+    reasons: list[str] = []
+    if not TRACE_STRUCTURER_MISSION_INDEX.is_file():
+        reasons.append("mission_index_missing")
+    if not TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT.is_file():
+        reasons.append("refresh_receipt_missing")
+    if not current_authority.get("available"):
+        reasons.append("goal_authority_unavailable")
+    elif current_mtime_ms is not None and latest_projected_mtime_ms is None:
+        reasons.append("goal_authority_not_projected")
+    elif (
+        current_mtime_ms is not None
+        and latest_projected_mtime_ms is not None
+        and current_mtime_ms > latest_projected_mtime_ms
+    ):
+        reasons.append("goal_authority_mtime_lag")
+    if counts["current_goal_thread_count"] != counts["mission_index_goal_thread_count"]:
+        reasons.append("mission_index_goal_thread_count_delta")
+    if counts["current_active_goal_thread_count"] != counts["mission_index_active_goal_thread_count"]:
+        reasons.append("mission_index_active_goal_thread_count_delta")
+    if counts["current_goal_thread_count"] != counts["receipt_goal_thread_count"]:
+        reasons.append("receipt_goal_thread_count_delta")
+    if counts["current_active_goal_thread_count"] != counts["receipt_active_goal_thread_count"]:
+        reasons.append("receipt_active_goal_thread_count_delta")
+
+    lag_ms = None
+    if current_mtime_ms is not None and latest_projected_mtime_ms is not None:
+        lag_ms = max(0, current_mtime_ms - latest_projected_mtime_ms)
+
+    staleness: dict[str, Any] = {
+        "status": "stale" if reasons else "fresh",
+        "refresh_recommended": bool(reasons),
+        "reasons": reasons,
+        **counts,
+        "goal_thread_count_delta": counts["current_goal_thread_count"] - counts["mission_index_goal_thread_count"],
+        "active_goal_thread_count_delta": (
+            counts["current_active_goal_thread_count"]
+            - counts["mission_index_active_goal_thread_count"]
+        ),
+        "receipt_goal_thread_count_delta": (
+            counts["current_goal_thread_count"] - counts["receipt_goal_thread_count"]
+        ),
+        "receipt_active_goal_thread_count_delta": (
+            counts["current_active_goal_thread_count"]
+            - counts["receipt_active_goal_thread_count"]
+        ),
+        "current_goal_authority_mtime_ms": current_mtime_ms,
+        "mission_index_goal_authority_mtime_ms": index_authority_mtime_ms,
+        "receipt_goal_authority_mtime_ms": receipt_authority_mtime_ms,
+        "latest_projected_goal_authority_mtime_ms": latest_projected_mtime_ms,
+    }
+    if lag_ms is not None:
+        staleness["goal_authority_lag_ms"] = lag_ms
+
+    return {
+        "schema": "prompt_trace_mission_index_goal_roster_status_v1",
+        "checked_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+        "cwd": str(cwd or Path.cwd()),
+        "mission_index": {
+            "path": str(TRACE_STRUCTURER_MISSION_INDEX),
+            "available": TRACE_STRUCTURER_MISSION_INDEX.is_file(),
+            "mtime_ms": _path_mtime_ms(TRACE_STRUCTURER_MISSION_INDEX),
+            "generated_at": index.get("generated_at") or "",
+            "goal_authority": index_authority,
+            "goal_thread_count": counts["mission_index_goal_thread_count"],
+            "active_goal_thread_count": counts["mission_index_active_goal_thread_count"],
+        },
+        "refresh_receipt": {
+            "path": str(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT),
+            "available": TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT.is_file(),
+            "mtime_ms": _path_mtime_ms(TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT),
+            "recorded_at": receipt.get("recorded_at") or "",
+            "goal_authority": receipt_authority,
+            "goal_thread_count": counts["receipt_goal_thread_count"],
+            "active_goal_thread_count": counts["receipt_active_goal_thread_count"],
+        },
+        "current": current,
+        "staleness": staleness,
+        "refresh_command": (
+            "./repo-python tools/meta/observability/cli_prompt_trace.py "
+            "--mission-index-goal-roster-refresh"
+        ),
+    }
+
+
 def _load_title_aliases() -> dict[str, str]:
     if not TRACE_STRUCTURER_TITLE_ALIASES.is_file():
         return {}
@@ -7189,6 +7361,9 @@ def main() -> int:
     sel.add_argument("--mission-index-goal-roster-refresh", action="store_true",
                      dest="mission_index_goal_roster_refresh_mode",
                      help="Refresh Codex goal roster fields in the cached Structurer mission_index.json without reparsing session transcripts.")
+    sel.add_argument("--mission-index-goal-roster-status", action="store_true",
+                     dest="mission_index_goal_roster_status_mode",
+                     help="Emit read-only staleness status for the cached Structurer goal roster versus current Codex goals.")
     sel.add_argument("--check", action="store_true", help="Parseability probe; exits 0/1 with JSON status")
 
     ap.add_argument("--format", choices=["compact", "full", "trace-paste", "json", "thread-closeouts"], default="compact",
@@ -7272,11 +7447,28 @@ def main() -> int:
             tmp = TRACE_STRUCTURER_MISSION_INDEX.with_suffix(".json.tmp")
             tmp.write_text(body, encoding="utf-8")
             tmp.replace(TRACE_STRUCTURER_MISSION_INDEX)
+            _write_goal_roster_refresh_receipt(index)
             sys.stderr.write(
-                f"# refreshed mission_index goal roster ({index.get('goal_thread_count', 0)} goal threads) at {TRACE_STRUCTURER_MISSION_INDEX}\n"
+                "# refreshed mission_index goal roster "
+                f"({index.get('goal_thread_count', 0)} goal threads) "
+                f"at {TRACE_STRUCTURER_MISSION_INDEX}\n"
+            )
+            sys.stderr.write(
+                "# wrote goal roster refresh receipt to "
+                f"{TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT}\n"
             )
         except Exception as e:
             sys.stderr.write(f"# warning: could not update canonical mission index: {e}\n")
+        if args.output:
+            Path(args.output).write_text(body + ("" if body.endswith("\n") else "\n"))
+            sys.stderr.write(f"wrote {len(body)} chars to {args.output}\n")
+        else:
+            print(body)
+        return 0
+
+    if args.mission_index_goal_roster_status_mode:
+        status = _goal_roster_status(cwd=cwd)
+        body = json.dumps(status, indent=2, ensure_ascii=False)
         if args.output:
             Path(args.output).write_text(body + ("" if body.endswith("\n") else "\n"))
             sys.stderr.write(f"wrote {len(body)} chars to {args.output}\n")

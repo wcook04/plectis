@@ -26,9 +26,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/world_model.py",
       "source_role": "Station world-model reducer that composes host-agent dotfile drift, navigation graph drift, and paper-module freshness into the drift_aggregate_v1 attention surface.",
-      "source_sha256": "a3fdf65b49037b4e34cbcdfc56ac06b5d087688bf55e077f8548eb6b194b4e21",
+      "source_sha256": "7bb0aeb7edf738313f87b614de1399e9e99b6dfc5823372f0c46d818618faf5d",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
-      "target_sha256": "a3fdf65b49037b4e34cbcdfc56ac06b5d087688bf55e077f8548eb6b194b4e21"
+      "target_sha256": "7bb0aeb7edf738313f87b614de1399e9e99b6dfc5823372f0c46d818618faf5d"
     },
     {
       "anchor_count": 4,

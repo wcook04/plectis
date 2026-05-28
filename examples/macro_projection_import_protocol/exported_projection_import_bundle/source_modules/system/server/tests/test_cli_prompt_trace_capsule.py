@@ -1,3 +1,4 @@
+import json
 import os
 import sqlite3
 
@@ -144,6 +145,101 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     assert roster_row["thread_id"] == "codex-thread-1"
     assert roster_row["mission_index"]["state"] == "active_row"
     assert roster_row["mission_index"]["title"].startswith("Keep refining the goal infrastructure")
+
+
+def test_goal_roster_refresh_receipt_sidecar_is_compact(monkeypatch, tmp_path) -> None:
+    receipt_path = tmp_path / "goal_roster_receipt.json"
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_BASE", tmp_path)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_MISSION_INDEX", tmp_path / "mission_index.json")
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT", receipt_path)
+
+    receipt = trace._write_goal_roster_refresh_receipt({
+        "generated_at": "2026-05-28T15:33:46+00:00",
+        "goal_authority": {"row_count": 1, "mtime_ms": 1779982000000},
+        "goal_thread_count": 1,
+        "active_goal_thread_count": 1,
+        "mission_goal_count": 1,
+        "active_mission_goal_count": 1,
+        "goal_roster_refresh": {
+            "schema": "prompt_trace_mission_index_goal_roster_refresh_v1",
+            "goal_authority_stale_before_refresh": True,
+            "goal_authority_lag_ms": 1000000,
+        },
+        "rows": [{"large": "mission rows stay in mission_index.json"}],
+    })
+
+    written = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["schema"] == "prompt_trace_mission_index_goal_roster_refresh_receipt_v1"
+    assert written["mission_index_path"].endswith("mission_index.json")
+    assert written["refresh"]["goal_authority_stale_before_refresh"] is True
+    assert written["refresh"]["goal_authority_lag_ms"] == 1000000
+    assert written["goal_authority"]["mtime_ms"] == 1779982000000
+    assert "rows" not in written
+
+
+def test_goal_roster_status_reports_current_authority_lag(monkeypatch, tmp_path) -> None:
+    goals_db = tmp_path / "goals.sqlite"
+    conn = sqlite3.connect(goals_db)
+    conn.execute(
+        """
+        create table thread_goals (
+            thread_id text primary key,
+            goal_id text not null,
+            objective text not null,
+            status text not null,
+            token_budget integer,
+            tokens_used integer not null,
+            time_used_seconds integer not null,
+            created_at_ms integer not null,
+            updated_at_ms integer not null
+        )
+        """
+    )
+    for idx in range(2):
+        conn.execute(
+            "insert into thread_goals values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                f"codex-thread-{idx}",
+                f"goal-{idx}",
+                f"Keep refining goal infrastructure {idx}.",
+                "active",
+                None,
+                10 + idx,
+                1,
+                1779980000000,
+                1779983000000 + idx,
+            ),
+        )
+    conn.commit()
+    conn.close()
+    os.utime(goals_db, (1779983000.0, 1779983000.0))
+
+    mission_index = tmp_path / "mission_index.json"
+    receipt_path = tmp_path / "goal_roster_receipt.json"
+    cached = {
+        "goal_authority": {"mtime_ms": 1779982000000, "row_count": 1},
+        "goal_thread_count": 1,
+        "active_goal_thread_count": 1,
+    }
+    mission_index.write_text(json.dumps({"generated_at": "2026-05-28T15:33:46+00:00", **cached}))
+    receipt_path.write_text(json.dumps({"recorded_at": "2026-05-28T16:00:00+00:00", **cached}))
+
+    monkeypatch.setattr(trace, "CODEX_GOALS_DB", goals_db)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_MISSION_INDEX", mission_index)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT", receipt_path)
+
+    status = trace._goal_roster_status(cwd=tmp_path)
+
+    assert status["schema"] == "prompt_trace_mission_index_goal_roster_status_v1"
+    assert status["staleness"]["status"] == "stale"
+    assert status["staleness"]["refresh_recommended"] is True
+    assert "goal_authority_mtime_lag" in status["staleness"]["reasons"]
+    assert "mission_index_goal_thread_count_delta" in status["staleness"]["reasons"]
+    assert status["staleness"]["goal_authority_lag_ms"] == 1000000
+    assert status["staleness"]["goal_thread_count_delta"] == 1
+    assert status["current"]["goal_thread_count"] == 2
+    assert status["mission_index"]["goal_thread_count"] == 1
+    assert "rows" not in json.dumps(status)
 
 
 def test_trace_capsule_final_validation_uses_terminal_validation_rows() -> None:
