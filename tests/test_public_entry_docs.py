@@ -61,12 +61,15 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
 def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     security_path = MICROCOSM_ROOT / "SECURITY.md"
     contributing_path = MICROCOSM_ROOT / "CONTRIBUTING.md"
+    agents_path = MICROCOSM_ROOT / "AGENTS.md"
 
     assert security_path.is_file()
     assert contributing_path.is_file()
+    assert agents_path.is_file()
 
     security = security_path.read_text(encoding="utf-8")
     contributing = contributing_path.read_text(encoding="utf-8")
+    agents = agents_path.read_text(encoding="utf-8")
 
     for phrase in (
         "not a production security product",
@@ -94,6 +97,21 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "./bootstrap.sh --suite first-wave",
     ):
         assert phrase in contributing
+
+    for phrase in (
+        "make install",
+        "make smoke",
+        "make ci",
+        "microcosm hello .",
+        "microcosm tour --card .",
+        "microcosm status --card .",
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "microcosm legibility-scorecard",
+        "PYTHONPATH=src python3 -m microcosm_core <command>",
+        "public GitHub Actions entry",
+    ):
+        assert phrase in agents
 
 
 def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path) -> None:

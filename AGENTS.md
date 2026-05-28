@@ -20,9 +20,17 @@ membrane:
 
 1. Read `README.md` for the human map and install mode.
 2. From `microcosm-substrate/`, make the console command available with
-   `python3 -m pip install -e '.[test]'`. If you cannot install, use the source
-   form `PYTHONPATH=src python3 -m microcosm_core <command>`.
-3. Run the compact route before opening raw receipts:
+   `make install`. If you cannot use `make`, run
+   `python3 -m pip install -e '.[test]'` directly; if you cannot install, use
+   the source form `PYTHONPATH=src python3 -m microcosm_core <command>`.
+3. Run the standard smoke target before opening raw receipts:
+
+```bash
+make smoke
+```
+
+The smoke target runs the compact route directly. If you are inspecting each
+output, use the same commands by hand:
 
 ```bash
 microcosm hello .
@@ -40,6 +48,10 @@ the compressed public evidence map, `authority --card` is the claim ceiling,
 cold-reader comprehension check. These commands do not create release,
 hosting, proof, production, provider-call, source-mutation, or financial-advice
 authority.
+
+Before publishing, handing off, or treating the standalone clone as verified,
+run `make ci`. It is the public GitHub Actions entry and expands to install,
+test, and smoke verification.
 
 After the compact route is green, use `skills/cold_start_navigation.md` for the
 shortest validation ladder. Use the inventory below only as a public runtime
