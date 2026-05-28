@@ -35,6 +35,18 @@ microcosm workingness --card
 microcosm legibility-scorecard
 ```
 
+If you are staying source-only, use the exact same hand smoke through the
+module entry point:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+PYTHONPATH=src python3 -m microcosm_core status --card .
+PYTHONPATH=src python3 -m microcosm_core authority --card
+PYTHONPATH=src python3 -m microcosm_core workingness --card
+PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
+```
+
 Read those as a first-screen contract, not a release badge. They show local
 behavior, route state, evidence classes, failure envelopes, and authority
 ceilings before sending you into full receipt drilldowns.
