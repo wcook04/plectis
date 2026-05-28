@@ -90,6 +90,12 @@ Read the evidence class counters as a claim-boundary legend:
 | `semantic_validator` | A validator checked declared schema, policy, or routing semantics. | Runtime behavior, release authority, or source mutation permission. |
 | `fixture_schema_replay` / `fixture_echo_smoke` | Fixture or smoke coverage protects a contract and its negative cases. | Product completeness, safety validation, or benchmark evidence. |
 
+When a bundle includes `source_modules/`, treat those files as exact
+non-secret source capsules, not standalone documentation trees. Their internal
+links may still point to macro-root files outside this public slice; the
+adjacent `source_module_manifest.json` is the navigation authority for copied
+targets, digests, anchors, and omissions.
+
 ## Rigor Without Ceremony
 
 The discipline is visible because Microcosm refuses to collapse different

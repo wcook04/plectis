@@ -120,6 +120,13 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     assert "Private-root equivalence" in section
     assert "General proof authority" in section
     assert "Product completeness" in section
+    assert "When a bundle includes `source_modules/`" in section
+    assert "exact non-secret source capsules" in normalized_section
+    assert "source_module_manifest.json" in section
+    assert (
+        "navigation authority for copied targets, digests, anchors, and omissions"
+        in normalized_section
+    )
 
 
 def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
