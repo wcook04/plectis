@@ -58,7 +58,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "> $(SMOKE_OUT)/status-card.json",
         "> $(SMOKE_OUT)/stripping-guard.json",
         "Microcosm smoke receipts written to %s",
-        "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force",
+        "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
         "rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .microcosm/test-tmp",
     ):
         assert required in text

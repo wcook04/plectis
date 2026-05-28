@@ -70,7 +70,7 @@ smoke:
 ci: test smoke
 
 standalone-export: install
-	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force
+	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary
 
 clean:
 	rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info

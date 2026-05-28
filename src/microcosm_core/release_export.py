@@ -1907,6 +1907,76 @@ def build_release_export(
     return receipt
 
 
+def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[str, Any]:
+    artifact = receipt.get("artifact") or {}
+    authority = receipt.get("authority_receipt") or {}
+    candidate = receipt.get("release_candidate_packet") or {}
+    validation = candidate.get("validation_summary") or {}
+    warnings = candidate.get("external_warning_classification") or {}
+    gate = candidate.get("release_authorization_gate_decision") or {}
+    target_path = Path(target)
+
+    return {
+        "schema_version": "microcosm_release_export_summary_v1",
+        "status": receipt.get("status"),
+        "blocking_codes": receipt.get("blocking_codes") or [],
+        "artifact_path": str(target_path),
+        "release_receipt_path": str(target_path / RELEASE_RECEIPT_REF),
+        "release_receipt_ref": RELEASE_RECEIPT_REF,
+        "artifact": {
+            "artifact_dir": artifact.get("artifact_dir"),
+            "file_count": artifact.get("file_count"),
+            "payload_bytes": artifact.get("payload_bytes"),
+            "artifact_payload_hash_sha256": artifact.get(
+                "artifact_payload_hash_sha256"
+            ),
+        },
+        "validation_summary": {
+            "candidate_status": candidate.get("status"),
+            "candidate_state": candidate.get("candidate_state"),
+            "runnable_smoke_status": validation.get("runnable_smoke_status"),
+            "install_smoke_status": validation.get("install_smoke_status"),
+            "standalone_severance_status": validation.get(
+                "standalone_severance_status"
+            ),
+            "projection_freshness_status": validation.get(
+                "projection_freshness_status"
+            ),
+            "release_blocking_warning_count": warnings.get(
+                "release_blocking_warning_count"
+            ),
+            "release_authorization_blocking_warning_count": warnings.get(
+                "release_authorization_blocking_warning_count"
+            ),
+        },
+        "authority": {
+            "release_authorized": authority.get("release_authorized"),
+            "publish_authorized": authority.get("publish_authorized"),
+            "hosted_launch_authorized": authority.get("hosted_launch_authorized"),
+            "provider_calls_authorized": authority.get("provider_calls_authorized"),
+            "source_files_mutation_authorized": authority.get(
+                "source_files_mutation_authorized"
+            ),
+        },
+        "release_authorization_gate": {
+            "decision": gate.get("decision"),
+            "release_authorization_allowed_now": gate.get(
+                "release_authorization_allowed_now"
+            ),
+            "operator_authorization_gate_eligible": gate.get(
+                "operator_authorization_gate_eligible"
+            ),
+            "blocking_codes": gate.get("blocking_codes") or [],
+            "required_actions": gate.get("required_actions") or [],
+        },
+        "anti_claim": (
+            "Compact stdout summary only; the full receipt remains the authority "
+            "at release_receipt_path and this summary does not authorize release, "
+            "publication, hosting, provider calls, or private-root equivalence."
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.release_export",
@@ -1928,6 +1998,11 @@ def main(argv: list[str] | None = None) -> int:
         "--skip-smoke",
         action="store_true",
         help="write the export and receipts without running the outside-root first-screen smoke",
+    )
+    parser.add_argument(
+        "--summary",
+        action="store_true",
+        help="print a compact export summary instead of the full release receipt",
     )
     args = parser.parse_args(argv)
     if args.assess_candidate:
@@ -1956,6 +2031,8 @@ def main(argv: list[str] | None = None) -> int:
         command_parts.append("--force")
     if args.skip_smoke:
         command_parts.append("--skip-smoke")
+    if args.summary:
+        command_parts.append("--summary")
     command = " ".join(command_parts)
     receipt = build_release_export(
         args.root,
@@ -1964,7 +2041,9 @@ def main(argv: list[str] | None = None) -> int:
         run_smoke=not args.skip_smoke,
         command=command,
     )
-    print(json.dumps(receipt, ensure_ascii=True, indent=2, sort_keys=True))
+    target = Path(args.out).expanduser().resolve() / ARTIFACT_DIR_NAME
+    output = release_export_summary(receipt, target) if args.summary else receipt
+    print(json.dumps(output, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if receipt.get("status") == "pass" else 1
 
 

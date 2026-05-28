@@ -182,9 +182,26 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     written_receipt = json.loads(
         (target / release_export.RELEASE_RECEIPT_REF).read_text(encoding="utf-8")
     )
+    summary = release_export.release_export_summary(receipt, target)
 
     assert receipt["status"] == "pass"
     assert written_receipt["status"] == "pass"
+    assert summary["schema_version"] == "microcosm_release_export_summary_v1"
+    assert summary["status"] == "pass"
+    assert summary["artifact_path"] == str(target)
+    assert summary["release_receipt_path"] == str(
+        target / release_export.RELEASE_RECEIPT_REF
+    )
+    assert summary["release_receipt_ref"] == release_export.RELEASE_RECEIPT_REF
+    assert summary["artifact"]["file_count"] == receipt["artifact"]["file_count"]
+    assert (
+        summary["validation_summary"]["candidate_status"]
+        == "pass_with_external_warnings"
+    )
+    assert summary["authority"]["release_authorized"] is False
+    assert summary["release_authorization_gate"]["decision"] is not None
+    assert "release_candidate_packet" not in summary
+    assert len(json.dumps(summary, indent=2).splitlines()) < 80
     assert receipt["blocking_codes"] == []
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
@@ -386,6 +403,89 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         == 1
     )
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
+def test_release_export_main_summary_prints_compact_stdout(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    tmp_path: Path,
+) -> None:
+    out = tmp_path / "out"
+    receipt = {
+        "status": "pass",
+        "blocking_codes": [],
+        "artifact": {
+            "artifact_dir": release_export.ARTIFACT_DIR_NAME,
+            "file_count": 12,
+            "payload_bytes": 3456,
+            "artifact_payload_hash_sha256": "abc123",
+        },
+        "authority_receipt": {
+            "release_authorized": False,
+            "publish_authorized": False,
+            "hosted_launch_authorized": False,
+            "provider_calls_authorized": False,
+            "source_files_mutation_authorized": False,
+        },
+        "release_candidate_packet": {
+            "status": "pass_with_external_warnings",
+            "candidate_state": "validated_release_candidate_pending_explicit_authorization",
+            "validation_summary": {
+                "runnable_smoke_status": "pass",
+                "install_smoke_status": "pass",
+                "standalone_severance_status": "pass",
+                "projection_freshness_status": "pass",
+            },
+            "external_warning_classification": {
+                "release_blocking_warning_count": 0,
+                "release_authorization_blocking_warning_count": 0,
+            },
+            "release_authorization_gate_decision": {
+                "decision": "ready_pending_operator_authorization",
+                "release_authorization_allowed_now": False,
+                "operator_authorization_gate_eligible": True,
+                "blocking_codes": [],
+                "required_actions": ["operator_invokes_release_authorization_gate"],
+            },
+        },
+    }
+
+    def fake_build_release_export(*args: object, **kwargs: object) -> dict[str, object]:
+        assert kwargs["command"].endswith("--force --skip-smoke --summary")
+        return receipt
+
+    monkeypatch.setattr(
+        release_export, "build_release_export", fake_build_release_export
+    )
+
+    rc = release_export.main(
+        [
+            "--root",
+            str(tmp_path),
+            "--out",
+            str(out),
+            "--force",
+            "--skip-smoke",
+            "--summary",
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 0
+    assert payload["schema_version"] == "microcosm_release_export_summary_v1"
+    assert payload["status"] == "pass"
+    assert payload["artifact_path"] == str(
+        out.resolve() / release_export.ARTIFACT_DIR_NAME
+    )
+    assert payload["release_receipt_ref"] == release_export.RELEASE_RECEIPT_REF
+    assert payload["validation_summary"]["runnable_smoke_status"] == "pass"
+    assert payload["authority"]["release_authorized"] is False
+    assert (
+        payload["release_authorization_gate"]["operator_authorization_gate_eligible"]
+        is True
+    )
+    assert "release_candidate_packet" not in payload
+    assert len(json.dumps(payload, indent=2).splitlines()) < 80
 
 
 def test_release_export_skip_smoke_keeps_install_support_unclaimed(
