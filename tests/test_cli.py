@@ -1116,6 +1116,15 @@ def test_cli_serve_process_exposes_first_screen_project_routes(
         assert observatory_card["safe_to_show"]["provider_calls_authorized"] is False
         assert observatory_card["safe_to_show"]["source_files_mutated"] is False
         assert observatory_card["safe_to_show"]["proof_correctness_claim"] is False
+        causal_summary = observatory_card["causal_chain_summary"]
+        assert causal_summary["route"]["title"] == "Inspect README onboarding"
+        assert causal_summary["route"]["grounded_ref_count"] >= 1
+        assert causal_summary["route"]["pattern_ref_count"] >= 1
+        assert causal_summary["event_rows_shown"] >= 4
+        assert causal_summary["evidence_rows_shown"] >= 4
+        assert causal_summary["graph"]["node_count"] > 0
+        assert causal_summary["graph"]["edge_count"] > 0
+        assert causal_summary["graph"]["graph_ref"] == ".microcosm/graph.json"
 
         assert (
             project_observe["schema_version"]

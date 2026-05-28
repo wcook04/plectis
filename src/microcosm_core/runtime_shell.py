@@ -20471,6 +20471,41 @@ class RuntimeShell:
                 else "/project/explain/<selected_route_id>"
             )
             work_transaction = cached_landing_work_transaction(selected_route_id)
+            observe_payload = project_substrate.observe_project(
+                project_path, refresh_architecture=False
+            )
+            observe_causal = (
+                observe_payload.get("causal_chain", {})
+                if isinstance(observe_payload.get("causal_chain"), dict)
+                else {}
+            )
+            observe_events = (
+                observe_payload.get("events", [])
+                if isinstance(observe_payload.get("events"), list)
+                else []
+            )
+            observe_evidence_refs = (
+                observe_causal.get("evidence_refs", [])
+                if isinstance(observe_causal.get("evidence_refs"), list)
+                else []
+            )
+            observe_graph = (
+                observe_causal.get("graph", {})
+                if isinstance(observe_causal.get("graph"), dict)
+                else {}
+            )
+            route_payload = _read_json_if_exists(
+                project_path / project_substrate.STATE_DIR / "routes.json"
+            )
+            route_rows = _rows(route_payload, "routes")
+            selected_route = next(
+                (
+                    row
+                    for row in route_rows
+                    if row.get("route_id") == selected_route_id
+                ),
+                {},
+            )
             model = {
                 "schema_version": "microcosm_project_observatory_landing_model_v1",
                 "status": status_card.get("status"),
@@ -20521,6 +20556,13 @@ class RuntimeShell:
                 "causal_chain": {
                     "route": {
                         "route_id": selected_route_id,
+                        "title": selected_route.get("title"),
+                        "authority": selected_route.get("authority"),
+                        "grounded_refs": selected_route.get("grounded_refs", []),
+                        "pattern_refs": selected_route.get("pattern_refs", []),
+                        "standard_pressure_refs": selected_route.get(
+                            "standard_pressure_refs", []
+                        ),
                         "status": route_selection_proof.get("status"),
                         "explanation_status": route_explanation.get("status"),
                     },
@@ -20535,11 +20577,18 @@ class RuntimeShell:
                         "source_files_mutated": work_transaction.get("source_files_mutated")
                         is True,
                     },
-                    "events": [],
-                    "evidence": [],
+                    "events": observe_events,
+                    "evidence": [
+                        {"evidence_ref": ref}
+                        for ref in observe_evidence_refs
+                        if isinstance(ref, str) and ref
+                    ],
                 },
                 "graph_summary": {
-                    "graph_ref": front_door.get("graph_ref"),
+                    "node_count": observe_graph.get("node_count"),
+                    "edge_count": observe_graph.get("edge_count"),
+                    "graph_ref": front_door.get("graph_ref")
+                    or observe_graph.get("graph_ref"),
                     "status": front_door_status.get("surface_statuses", {}).get(
                         "graph"
                     )
