@@ -1615,7 +1615,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2f21b73aea041b63425ddbdd6c6778d49ca0e69a4ae473f6b37bdab14662313b",
+        "body_digest": "sha256:be39817364c2f18a5b09fb9d5994bff6c70cb4eb393e75c4f1242710654564ce",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",

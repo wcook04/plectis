@@ -185,7 +185,7 @@
     "validation_ref_count": 8
   },
   "command": "microcosm route-cleanup",
-  "created_at": "2026-05-28T15:06:32+00:00",
+  "created_at": "2026-05-28T15:24:31+00:00",
   "endpoint": "/route-cleanup",
   "lens_id": "public_route_cleanup_contract_lens",
   "negative_case_ids": [
