@@ -58,6 +58,40 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
+    security_path = MICROCOSM_ROOT / "SECURITY.md"
+    contributing_path = MICROCOSM_ROOT / "CONTRIBUTING.md"
+
+    assert security_path.is_file()
+    assert contributing_path.is_file()
+
+    security = security_path.read_text(encoding="utf-8")
+    contributing = contributing_path.read_text(encoding="utf-8")
+
+    for phrase in (
+        "not a production security product",
+        "microcosm authority --card",
+        "microcosm stripping-guard",
+        "tests/test_secret_exclusion_scan.py",
+        "Do not paste the suspected secret",
+    ):
+        assert phrase in security
+
+    for phrase in (
+        "microcosm hello .",
+        "microcosm tour --card .",
+        "microcosm status --card .",
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "microcosm legibility-scorecard",
+        "real non-secret macro bodies",
+        "fake progress",
+        "tests/test_public_entry_docs.py",
+        "./bootstrap.sh --suite first-wave",
+    ):
+        assert phrase in contributing
+
+
 def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path) -> None:
     public_root = _copy_public_entry_tree(tmp_path)
     out = public_root / "receipts/first_wave/public_entry_docs_validation.json"
