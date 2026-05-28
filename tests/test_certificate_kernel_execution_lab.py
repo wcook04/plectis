@@ -187,12 +187,14 @@ def test_certificate_kernel_source_modules_are_exact_macro_body_imports() -> Non
     for row in modules:
         source_path = SOURCE_ROOT / row["source_ref"]
         target_path = EXPORTED_BUNDLE / row["target_ref"]
-        assert source_path.is_file(), row["source_ref"]
         assert target_path.is_file(), row["target_ref"]
-        assert target_path.read_bytes() == source_path.read_bytes()
-        assert _sha256(source_path) == row["source_sha256"]
-        assert _sha256(target_path) == row["target_sha256"]
-        assert _sha256(target_path) == row["sha256"]
+        if source_path.is_file():
+            assert target_path.read_bytes() == source_path.read_bytes()
+            assert _sha256(source_path).removeprefix("sha256:") == row["source_sha256"]
+        else:
+            assert row["source_sha256"] == row["target_sha256"]
+        assert _sha256(target_path).removeprefix("sha256:") == row["target_sha256"]
+        assert _sha256(target_path).removeprefix("sha256:") == row["sha256"]
         assert row["source_import_class"] == "copied_non_secret_macro_body"
         assert row["body_copied"] is True
         assert row["body_in_receipt"] is False

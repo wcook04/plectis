@@ -51,6 +51,14 @@ PUBLIC_ROOT_RELATIVE_PREFIXES = (
 )
 
 
+def _looks_like_public_root(path: Path) -> bool:
+    return (
+        (path / "pyproject.toml").is_file()
+        and (path / "src/microcosm_core").is_dir()
+        and (path / "core/private_state_forbidden_classes.json").is_file()
+    )
+
+
 def load_forbidden_classes(path: str | Path) -> dict[str, Any]:
     payload = read_json_strict(path)
     if not isinstance(payload, dict):
@@ -67,7 +75,7 @@ def _public_root_for_path(path: str | Path) -> Path | None:
     resolved = _resolved(raw_path)
     start = resolved if raw_path.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
-        if candidate.name == PUBLIC_ROOT_DIR_NAME:
+        if candidate.name == PUBLIC_ROOT_DIR_NAME or _looks_like_public_root(candidate):
             return candidate
 
     cwd = Path.cwd().resolve(strict=False)
