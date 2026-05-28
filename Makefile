@@ -6,7 +6,8 @@ PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
 EXPORT_OUT ?= ../microcosm-substrate-export
 SMOKE_OUT ?= .microcosm/smoke
 TMPDIR ?= /tmp
-PYTEST_TMP ?= $(TMPDIR)/microcosm-substrate-test-tmp
+PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
+PYTEST_TMP ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
 PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
 PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
 PYTEST_ARGS ?=
