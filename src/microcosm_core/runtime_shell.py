@@ -7559,13 +7559,20 @@ class RuntimeShell:
             ),
         }
         source_files_mutated = generated_state.get("source_files_mutated") is True
+        cached_state_reused = (
+            compile_cache.get("status") == PASS and not project_compile_state_written
+        )
         state_write_result = {
             "schema_version": "microcosm_tour_card_state_write_result_v1",
             "status": PASS if state_root.is_dir() and not source_files_mutated else "blocked",
             "status_scope": "project_local_state_write_only",
             "command": "microcosm tour --card <project>",
             "writes_microcosm_state": project_compile_state_written,
+            "writes_microcosm_state_semantics": "current_invocation_only",
+            "current_invocation_wrote_microcosm_state": project_compile_state_written,
+            "command_writes_microcosm_state_when_needed": True,
             "project_compile_state_written": project_compile_state_written,
+            "cached_state_reused": cached_state_reused,
             "compile_cache_status": compile_cache_status,
             "compile_cache_source_ref": compile_cache.get("cache_source_ref"),
             "state_dir": state_dir,
@@ -7584,7 +7591,9 @@ class RuntimeShell:
                 "Treat this as the state availability proof for the first-screen "
                 "path; inspect the named .microcosm files before opening doctrine "
                 "or receipt drilldowns. Cached pass cards reuse current state; "
-                "missing or stale cache falls back to a rebuild."
+                "`writes_microcosm_state` is current-invocation only, while "
+                "`command_writes_microcosm_state_when_needed` remains true for "
+                "missing or stale cache rebuilds."
             ),
             "safe_to_show": {
                 "project_local_state_refs_visible": True,
