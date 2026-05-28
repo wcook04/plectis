@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -168,6 +169,8 @@ MACRO_ASSIMILATION_REL_PREFIXES = (
     "receipts/first_wave/macro_projection_import_protocol/",
     "src/microcosm_core/organs/macro_projection_import_protocol.py",
 )
+PROJECTION_FINDING_SUBJECT_ID_SAMPLE_LIMIT = 50
+PROJECTION_FINDING_SAMPLE_LIMIT = 12
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -666,6 +669,74 @@ def _secret_scan(target: Path) -> dict[str, Any]:
     }
 
 
+def _projection_finding_diagnostics(
+    findings: object,
+    *,
+    target: Path,
+    temp_root: Path,
+) -> dict[str, Any]:
+    if not isinstance(findings, list):
+        findings = []
+    rows = [row for row in findings if isinstance(row, dict)]
+
+    def _safe_string(value: object) -> str:
+        text = str(value or "")
+        if not text:
+            return ""
+        text = text.replace(target.as_posix(), "<release-artifact>")
+        text = text.replace(temp_root.as_posix(), "<projection-check-temp>")
+        if HOST_TEMP_ROOT_NEEDLE in text:
+            text = text.replace(HOST_TEMP_ROOT_NEEDLE, "<host-temp>/")
+        return text
+
+    error_code_counts = Counter(
+        _safe_string(row.get("error_code")) for row in rows if row.get("error_code")
+    )
+    subject_ids = sorted(
+        {
+            subject_id
+            for subject_id in (
+                _safe_string(row.get("subject_id")) for row in rows
+            )
+            if subject_id
+        }
+    )
+    sorted_rows = sorted(
+        rows,
+        key=lambda row: (
+            _safe_string(row.get("negative_case_id")),
+            _safe_string(row.get("subject_kind")),
+            _safe_string(row.get("subject_id")),
+            _safe_string(row.get("error_code")),
+        ),
+    )
+    finding_sample: list[dict[str, Any]] = []
+    for row in sorted_rows[:PROJECTION_FINDING_SAMPLE_LIMIT]:
+        finding_sample.append(
+            {
+                "error_code": _safe_string(row.get("error_code")),
+                "negative_case_id": _safe_string(row.get("negative_case_id")),
+                "subject_kind": _safe_string(row.get("subject_kind")),
+                "subject_id": _safe_string(row.get("subject_id")),
+                "body_in_receipt": False,
+            }
+        )
+    return {
+        "finding_error_code_counts": dict(sorted(error_code_counts.items())),
+        "finding_subject_id_count": len(subject_ids),
+        "finding_subject_ids": subject_ids[
+            :PROJECTION_FINDING_SUBJECT_ID_SAMPLE_LIMIT
+        ],
+        "finding_subject_id_overflow_count": max(
+            len(subject_ids) - PROJECTION_FINDING_SUBJECT_ID_SAMPLE_LIMIT,
+            0,
+        ),
+        "finding_sample": finding_sample,
+        "finding_sample_limit": PROJECTION_FINDING_SAMPLE_LIMIT,
+        "body_in_receipt": False,
+    }
+
+
 def _projection_freshness(target: Path) -> dict[str, Any]:
     receipt_path = target / PROJECTION_FRESHNESS_RECEIPT_REF
     if not receipt_path.is_file():
@@ -685,14 +756,16 @@ def _projection_freshness(target: Path) -> dict[str, Any]:
     runtime_shape: dict[str, Any]
     if bundle_dir.is_dir():
         with tempfile.TemporaryDirectory(prefix="microcosm-projection-freshness-") as tmp:
+            temp_root = Path(tmp)
             validation = macro_projection_import_protocol.run_projection_bundle(
                 bundle_dir,
-                Path(tmp) / "macro_projection_import_protocol",
+                temp_root / "macro_projection_import_protocol",
                 command="release-export projection freshness check",
             )
         validation_error_codes = validation.get("error_codes")
         if not isinstance(validation_error_codes, list):
             validation_error_codes = []
+        findings = validation.get("findings")
         runtime_shape = {
             "status": "pass"
             if validation.get("status") == "pass" and not validation_error_codes
@@ -709,6 +782,11 @@ def _projection_freshness(target: Path) -> dict[str, Any]:
             ),
             "macro_runtime_dependency_count": validation.get(
                 "macro_runtime_dependency_count"
+            ),
+            **_projection_finding_diagnostics(
+                findings,
+                target=target,
+                temp_root=temp_root,
             ),
         }
     else:

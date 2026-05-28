@@ -428,6 +428,106 @@ def test_release_export_skip_smoke_keeps_install_support_unclaimed(
     )
 
 
+def test_projection_freshness_receipt_names_stale_runtime_shape_subjects(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    (
+        root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
+    ).mkdir(parents=True)
+
+    def fake_run_projection_bundle(
+        bundle_dir: Path,
+        output_dir: Path,
+        *,
+        command: str,
+    ) -> dict:
+        assert bundle_dir.is_dir()
+        assert command == "release-export projection freshness check"
+        return {
+            "status": "blocked",
+            "error_codes": [
+                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
+                "MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_BLOCKED",
+            ],
+            "findings": [
+                {
+                    "error_code": (
+                        "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH"
+                    ),
+                    "message": "source body mismatch detail should stay out",
+                    "negative_case_id": "public_safe_body_import_floor",
+                    "subject_id": "system/server/main.py",
+                    "subject_kind": "public_safe_body_target",
+                    "body_in_receipt": False,
+                },
+                {
+                    "error_code": (
+                        "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH"
+                    ),
+                    "message": "release artifact path should be redacted",
+                    "negative_case_id": "public_safe_body_import_floor",
+                    "subject_id": (
+                        root
+                        / "examples/macro_projection_import_protocol/"
+                        "exported_projection_import_bundle/source_modules/"
+                        "system/lib/generated_projection_registry.py"
+                    ).as_posix(),
+                    "subject_kind": "public_safe_body_target",
+                    "body_in_receipt": False,
+                },
+                {
+                    "error_code": "MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_BLOCKED",
+                    "message": "temp output path should be redacted",
+                    "negative_case_id": "dependency_preflight_lifecycle_gate",
+                    "subject_id": (
+                        output_dir / "receipts/preflight/dependency_preflight.json"
+                    ).as_posix(),
+                    "subject_kind": "dependency_preflight_receipt",
+                    "body_in_receipt": False,
+                },
+            ],
+            "runtime_severance_status": "pass",
+            "dependency_preflight_gate_status": "blocked",
+            "organ_lifecycle_coverage_status": "pass",
+            "macro_runtime_dependency_count": 0,
+        }
+
+    monkeypatch.setattr(
+        release_export.macro_projection_import_protocol,
+        "run_projection_bundle",
+        fake_run_projection_bundle,
+    )
+
+    receipt = release_export._projection_freshness(root)
+    runtime_shape = receipt["runtime_shape_validation"]
+    serialized = json.dumps(receipt, sort_keys=True)
+
+    assert receipt["status"] == "blocked"
+    assert runtime_shape["status"] == "blocked"
+    assert runtime_shape["finding_count"] == 3
+    assert runtime_shape["finding_error_code_counts"] == {
+        "MACRO_PROJECTION_DEPENDENCY_PREFLIGHT_BLOCKED": 1,
+        "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH": 2,
+    }
+    assert runtime_shape["finding_subject_id_count"] == 3
+    assert runtime_shape["finding_subject_id_overflow_count"] == 0
+    assert "system/server/main.py" in runtime_shape["finding_subject_ids"]
+    assert any(
+        subject_id.startswith("<release-artifact>/")
+        for subject_id in runtime_shape["finding_subject_ids"]
+    )
+    assert any(
+        subject_id.startswith("<projection-check-temp>/")
+        for subject_id in runtime_shape["finding_subject_ids"]
+    )
+    assert all(row["body_in_receipt"] is False for row in runtime_shape["finding_sample"])
+    assert "source body mismatch detail should stay out" not in serialized
+    assert root.as_posix() not in serialized
+
+
 def test_release_export_blocks_missing_standalone_entry_ref(
     tmp_path: Path,
 ) -> None:
