@@ -46,9 +46,27 @@ def _make_release_root(root: Path) -> Path:
         "PRINCIPLES.md",
         "README.md",
         "bootstrap.sh",
-        "pyproject.toml",
     ):
         _write(root / file_name, f"{file_name}\n")
+    _write(
+        root / "pyproject.toml",
+        """
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "microcosm-substrate-test"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[project.scripts]
+microcosm = "microcosm_core.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+""".lstrip(),
+    )
 
     _write(root / "atlas/entry_packet.json", '{"status": "pass"}\n')
     _write(
@@ -107,7 +125,13 @@ def main(argv=None):
     if len(args) >= 2 and args[0] == "hello":
         print("hello pass")
         return 0
+    if len(args) >= 3 and args[0] == "tour" and args[1] == "--card":
+        print(json.dumps({"status": "pass"}))
+        return 0
     if len(args) >= 2 and args[0] == "first-screen":
+        print(json.dumps({"status": "pass"}))
+        return 0
+    if len(args) >= 2 and args[0] == "authority" and args[1] == "--card":
         print(json.dumps({"status": "pass"}))
         return 0
     return 1
@@ -145,7 +169,6 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
     assert receipt["authority_receipt"]["release_authorized"] is False
-    assert receipt["authority_receipt"]["wheel_install_supported"] is False
     candidate = receipt["release_candidate_packet"]
     assert candidate["status"] == "pass_with_external_warnings"
     assert (
@@ -163,8 +186,9 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     }
     assert candidate["validation_summary"]["exclusion_status"] == "pass"
     assert candidate["validation_summary"]["runnable_smoke_status"] == "pass"
+    assert candidate["validation_summary"]["install_smoke_status"] == "pass"
     assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
-    assert candidate["validation_summary"]["wheel_install_supported"] is False
+    assert candidate["validation_summary"]["wheel_install_supported"] is True
     assert candidate["authority_state"]["release_authorized"] is False
     assert (
         candidate["authority_state"]["release_authorization_gate"]["gate_id"]
@@ -200,6 +224,33 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["runnable_receipt"]["status"] == "pass"
     assert receipt["runnable_receipt"]["source_tree_cwd_used"] is False
     assert receipt["runnable_receipt"]["source_tree_pythonpath_used"] is False
+    assert receipt["install_smoke_receipt"]["status"] == "pass"
+    assert receipt["install_smoke_receipt"]["console_entrypoint_used"] is True
+    assert receipt["install_smoke_receipt"]["source_tree_cwd_used"] is False
+    assert receipt["install_smoke_receipt"]["source_tree_pythonpath_used"] is False
+    assert receipt["install_smoke_receipt"]["release_artifact_cwd_used"] is False
+    assert receipt["install_smoke_receipt"]["release_artifact_pythonpath_used"] is False
+    assert {
+        row["command_id"] for row in receipt["install_smoke_receipt"]["commands"]
+    } == {
+        "create_venv",
+        "install_artifact",
+        "hello",
+        "tour_card",
+        "first_screen",
+        "authority_card",
+    }
+    assert all(
+        row["body_in_receipt"] is False
+        for row in receipt["install_smoke_receipt"]["commands"]
+    )
+    assert receipt["authority_receipt"]["wheel_install_supported"] is True
+    assert (
+        receipt["authority_receipt"]["wheel_install_authority"]
+        == "outside_source_root_package_install_smoke_pass"
+    )
+    assert receipt["authority_receipt"]["release_authorized"] is False
+    assert receipt["authority_receipt"]["publish_authorized"] is False
     assert receipt["projection_freshness_receipt"]["status"] == "pass"
     assert (
         receipt["projection_freshness_receipt"]["macro_runtime_dependency_count"] == 0
@@ -223,6 +274,41 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         == 1
     )
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
+def test_release_export_skip_smoke_keeps_install_support_unclaimed(
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export",
+    )
+
+    assert receipt["status"] == "pass"
+    assert receipt["runnable_receipt"]["status"] == "not_run"
+    assert receipt["install_smoke_receipt"]["status"] == "not_run"
+    assert receipt["authority_receipt"]["wheel_install_supported"] is False
+    assert (
+        receipt["authority_receipt"]["wheel_install_authority"]
+        == "unsupported_until_outside_source_root_package_install_smoke_pass"
+    )
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "install_smoke_status"
+        ]
+        == "not_run"
+    )
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "wheel_install_supported"
+        ]
+        is False
+    )
 
 
 def _candidate_packet_for_gate_decision(
@@ -374,7 +460,7 @@ def test_candidate_invalidation_assessment_keeps_non_material_head_motion_gate_e
         root,
         tmp_path / "out",
         force=True,
-        run_smoke=True,
+        run_smoke=False,
         command="pytest release export",
     )
     candidate = receipt["release_candidate_packet"]
@@ -415,7 +501,7 @@ def test_candidate_invalidation_assessment_stales_on_release_material_change(
         root,
         tmp_path / "out",
         force=True,
-        run_smoke=True,
+        run_smoke=False,
         command="pytest release export",
     )
     candidate = receipt["release_candidate_packet"]
@@ -450,7 +536,7 @@ def test_candidate_invalidation_assessment_marks_status_projection_refresh_only(
         root,
         tmp_path / "out",
         force=True,
-        run_smoke=True,
+        run_smoke=False,
         command="pytest release export",
     )
     candidate = receipt["release_candidate_packet"]

@@ -563,6 +563,50 @@ def _redact_local(text: str, *, target: Path, source_root: Path) -> str:
     return redacted
 
 
+def _display_argv(argv: list[str | Path]) -> list[str]:
+    return [str(part) for part in argv]
+
+
+def _command_receipt_row(
+    command_id: str,
+    completed: subprocess.CompletedProcess[str],
+    *,
+    display_argv: list[str | Path],
+    cwd: str,
+    target: Path,
+    source_root: Path,
+) -> dict[str, Any]:
+    stdout = _redact_local(completed.stdout, target=target, source_root=source_root)
+    stderr = _redact_local(completed.stderr, target=target, source_root=source_root)
+    return {
+        "command_id": command_id,
+        "argv": _display_argv(display_argv),
+        "cwd": cwd,
+        "return_code": completed.returncode,
+        "status": "pass" if completed.returncode == 0 else "blocked",
+        "stdout_bytes": len(completed.stdout.encode("utf-8")),
+        "stderr_bytes": len(completed.stderr.encode("utf-8")),
+        "stdout_private_path_hit": (
+            "<source-root>" in stdout or "<release-artifact>" in stdout
+        ),
+        "stderr_private_path_hit": (
+            "<source-root>" in stderr or "<release-artifact>" in stderr
+        ),
+        "body_in_receipt": False,
+    }
+
+
+def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
+    blocked = [
+        row
+        for row in rows
+        if row["status"] != "pass"
+        or row["stdout_private_path_hit"]
+        or row["stderr_private_path_hit"]
+    ]
+    return "pass" if not blocked else "blocked"
+
+
 def _git_output(root: Path, args: list[str]) -> str | None:
     try:
         completed = subprocess.run(
@@ -1087,6 +1131,7 @@ def _release_candidate_packet(
     exclusion_receipt: dict[str, Any],
     authority_receipt: dict[str, Any],
     runnable_receipt: dict[str, Any],
+    install_smoke_receipt: dict[str, Any],
     projection_freshness_receipt: dict[str, Any],
     blocking_codes: list[str],
 ) -> dict[str, Any]:
@@ -1144,6 +1189,7 @@ def _release_candidate_packet(
                 exclusion_receipt.get("private_path_hits") or []
             ),
             "runnable_smoke_status": runnable_receipt.get("status"),
+            "install_smoke_status": install_smoke_receipt.get("status"),
             "projection_freshness_status": projection_freshness_receipt.get("status"),
             "projection_freshness_receipt_ref": projection_freshness_receipt.get(
                 "receipt_ref"
@@ -1219,31 +1265,18 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
                 timeout=timeout_seconds,
                 check=False,
             )
-            stdout = _redact_local(completed.stdout, target=target, source_root=source_root)
-            stderr = _redact_local(completed.stderr, target=target, source_root=source_root)
             rows.append(
-                {
-                    "command_id": command_id,
-                    "argv": ["python3", "-m", "microcosm_core.cli", *display_args],
-                    "cwd": ARTIFACT_DIR_NAME,
-                    "return_code": completed.returncode,
-                    "status": "pass" if completed.returncode == 0 else "blocked",
-                    "stdout_bytes": len(completed.stdout.encode("utf-8")),
-                    "stderr_bytes": len(completed.stderr.encode("utf-8")),
-                    "stdout_private_path_hit": "<source-root>" in stdout or "<release-artifact>" in stdout,
-                    "stderr_private_path_hit": "<source-root>" in stderr or "<release-artifact>" in stderr,
-                    "body_in_receipt": False,
-                }
+                _command_receipt_row(
+                    command_id,
+                    completed,
+                    display_argv=["python3", "-m", "microcosm_core.cli", *display_args],
+                    cwd=ARTIFACT_DIR_NAME,
+                    target=target,
+                    source_root=source_root,
+                )
             )
-    blocked = [
-        row
-        for row in rows
-        if row["status"] != "pass"
-        or row["stdout_private_path_hit"]
-        or row["stderr_private_path_hit"]
-    ]
     return {
-        "status": "pass" if not blocked else "blocked",
+        "status": _receipt_status_from_rows(rows),
         "mode": "outside_source_root_py_module",
         "command_count": len(rows),
         "commands": rows,
@@ -1252,6 +1285,151 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
         "release_artifact_pythonpath_used": True,
         "body_in_receipt": False,
     }
+
+
+def _venv_bin_path(venv: Path, name: str) -> Path:
+    bin_dir = venv / ("Scripts" if os.name == "nt" else "bin")
+    suffix = ".exe" if os.name == "nt" else ""
+    return bin_dir / f"{name}{suffix}"
+
+
+def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "status": _receipt_status_from_rows(rows),
+        "mode": "outside_source_root_package_install",
+        "command_count": len(rows),
+        "commands": rows,
+        "console_entrypoint_used": True,
+        "installed_package_used": True,
+        "source_tree_cwd_used": False,
+        "source_tree_pythonpath_used": False,
+        "release_artifact_cwd_used": False,
+        "release_artifact_pythonpath_used": False,
+        "body_in_receipt": False,
+    }
+
+
+def _run_install_smoke(
+    target: Path,
+    *,
+    source_root: Path,
+    timeout_seconds: int = 120,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    with tempfile.TemporaryDirectory(prefix="microcosm-release-install-smoke-") as tmp:
+        tmp_root = Path(tmp)
+        venv = tmp_root / "venv"
+        project = tmp_root / "scratch_project"
+        project.mkdir()
+        (project / "README.md").write_text("# Smoke Project\n", encoding="utf-8")
+        env = os.environ.copy()
+        env.pop("PYTHONPATH", None)
+        env["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
+        env["PIP_NO_INPUT"] = "1"
+
+        create_venv = subprocess.run(
+            [sys.executable, "-m", "venv", str(venv)],
+            cwd=tmp_root,
+            env=env,
+            text=True,
+            capture_output=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
+        rows.append(
+            _command_receipt_row(
+                "create_venv",
+                create_venv,
+                display_argv=["python3", "-m", "venv", "<venv>"],
+                cwd="<temp-smoke-root>",
+                target=target,
+                source_root=source_root,
+            )
+        )
+        if create_venv.returncode != 0:
+            return _install_smoke_summary(rows)
+
+        python_exe = _venv_bin_path(venv, "python")
+        microcosm_exe = _venv_bin_path(venv, "microcosm")
+        install = subprocess.run(
+            [
+                str(python_exe),
+                "-m",
+                "pip",
+                "install",
+                "--disable-pip-version-check",
+                "--no-input",
+                "-q",
+                str(target),
+            ],
+            cwd=tmp_root,
+            env=env,
+            text=True,
+            capture_output=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
+        rows.append(
+            _command_receipt_row(
+                "install_artifact",
+                install,
+                display_argv=[
+                    "<venv-python>",
+                    "-m",
+                    "pip",
+                    "install",
+                    "--disable-pip-version-check",
+                    "--no-input",
+                    "-q",
+                    "<release-artifact>",
+                ],
+                cwd="<temp-smoke-root>",
+                target=target,
+                source_root=source_root,
+            )
+        )
+        if install.returncode != 0:
+            return _install_smoke_summary(rows)
+
+        command_specs = (
+            ("hello", ["hello", str(project)], ["microcosm", "hello", "<smoke-project>"]),
+            (
+                "tour_card",
+                ["tour", "--card", str(project)],
+                ["microcosm", "tour", "--card", "<smoke-project>"],
+            ),
+            (
+                "first_screen",
+                ["first-screen", str(project)],
+                ["microcosm", "first-screen", "<smoke-project>"],
+            ),
+            (
+                "authority_card",
+                ["authority", "--card"],
+                ["microcosm", "authority", "--card"],
+            ),
+        )
+        for command_id, runtime_args, display_args in command_specs:
+            completed = subprocess.run(
+                [str(microcosm_exe), *runtime_args],
+                cwd=tmp_root,
+                env=env,
+                text=True,
+                capture_output=True,
+                timeout=timeout_seconds,
+                check=False,
+            )
+            rows.append(
+                _command_receipt_row(
+                    command_id,
+                    completed,
+                    display_argv=display_args,
+                    cwd="<temp-smoke-root>",
+                    target=target,
+                    source_root=source_root,
+                )
+            )
+    return _install_smoke_summary(rows)
 
 
 def _prepare_target(root: Path, out: Path, *, force: bool) -> Path:
@@ -1291,6 +1469,11 @@ def build_release_export(
     runnable_receipt = (
         _run_smoke(target, source_root=source_root) if run_smoke else {"status": "not_run"}
     )
+    install_smoke_receipt = (
+        _run_install_smoke(target, source_root=source_root)
+        if run_smoke
+        else {"status": "not_run"}
+    )
     blocking_codes: list[str] = []
     if missing_include_refs:
         blocking_codes.append("RELEASE_EXPORT_INCLUDE_REFS_MISSING")
@@ -1306,6 +1489,15 @@ def build_release_export(
         blocking_codes.append("RELEASE_EXPORT_PROJECTION_FRESHNESS_BLOCKED")
     if runnable_receipt.get("status") not in {"pass", "not_run"}:
         blocking_codes.append("RELEASE_EXPORT_RUNNABLE_SMOKE_BLOCKED")
+    if install_smoke_receipt.get("status") not in {"pass", "not_run"}:
+        blocking_codes.append("RELEASE_EXPORT_INSTALL_SMOKE_BLOCKED")
+
+    wheel_install_supported = install_smoke_receipt.get("status") == "pass"
+    wheel_install_authority = (
+        "outside_source_root_package_install_smoke_pass"
+        if wheel_install_supported
+        else "unsupported_until_outside_source_root_package_install_smoke_pass"
+    )
 
     receipt = {
         "schema_version": "microcosm_release_export_receipt_v1",
@@ -1370,15 +1562,15 @@ def build_release_export(
             "source_files_mutation_authorized": False,
             "private_data_equivalence_authorized": False,
             "supported_public_mode": "generated_standalone_folder",
-            "wheel_install_supported": False,
-            "wheel_install_authority": (
-                "unsupported_until_package_data_importlib_resources_and_outside_repo_wheel_smoke_pass"
-            ),
+            "wheel_install_supported": wheel_install_supported,
+            "wheel_install_authority": wheel_install_authority,
             "standalone_run_command": (
                 "PYTHONPATH=src python3 -m microcosm_core.cli hello <project>"
             ),
+            "installed_run_command": "microcosm hello <project>",
         },
         "runnable_receipt": runnable_receipt,
+        "install_smoke_receipt": install_smoke_receipt,
         "projection_freshness_receipt": projection_freshness,
         "blocking_codes": blocking_codes,
         "anti_claim": (
@@ -1395,6 +1587,7 @@ def build_release_export(
         exclusion_receipt=receipt["exclusion_receipt"],
         authority_receipt=receipt["authority_receipt"],
         runnable_receipt=receipt["runnable_receipt"],
+        install_smoke_receipt=receipt["install_smoke_receipt"],
         projection_freshness_receipt=receipt["projection_freshness_receipt"],
         blocking_codes=blocking_codes,
     )
