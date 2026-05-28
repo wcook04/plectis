@@ -5,6 +5,10 @@ PIP_CACHE_DIR ?= $(VENV)/.pip-cache
 PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
 EXPORT_OUT ?= ../microcosm-substrate-export
 SMOKE_OUT ?= .microcosm/smoke
+PYTEST_TMP ?= .microcosm/test-tmp
+PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
+PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
+PYTEST_ARGS ?=
 .DEFAULT_GOAL := help
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
@@ -40,11 +44,13 @@ install: $(VENV_PYTHON)
 	$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"
 
 test: install
-	PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)
+	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
+	PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS)
 
 test-all: install
 	@printf '%s\n' "Note: make test-all is a macro-root drift-refresh suite and may update tracked generated receipts/projections. Use make ci for the clean public verification floor."
-	PYTHONPATH=src $(VENV_PYTHON) -m pytest
+	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
+	PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS)
 
 smoke:
 	@mkdir -p $(SMOKE_OUT)
@@ -64,5 +70,5 @@ standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force
 
 clean:
-	rm -rf $(SMOKE_OUT) .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
+	rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +

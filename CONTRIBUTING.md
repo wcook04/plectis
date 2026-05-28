@@ -25,20 +25,24 @@ PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
 
-`make clean` removes the smoke receipt directory while leaving the rest of
-project-local `.microcosm/` state alone.
+`make clean` removes the smoke receipt directory and pytest scratch root while
+leaving the rest of project-local `.microcosm/` state alone.
 
 The test target creates a repository-local `.venv`, installs the test extra
 there, and then runs pytest, so a clean clone does not need pytest preinstalled
 or system-site package writes. If you want to install once up front, use
-`make install`.
+`make install`. The Makefile also routes pytest basetemp, Python bytecode
+cache, and `TMPDIR` under ignored `.microcosm/test-tmp/` so broad local runs
+can be cleaned with `make clean` instead of accumulating host temp trees.
 
 For the full macro-root development suite, use `make test-all` from a checkout
 where the sibling macro source paths are present. This is a drift-refresh lane:
 it may update tracked generated receipts and exported-bundle projections when
 the macro source changes, so run it only when you own or are explicitly auditing
-those refreshes. The default `make test` path and `make ci` are the standalone
-public verification floor.
+those refreshes. It uses the same ignored pytest scratch root as `make test`,
+but tracked receipt refreshes are still intentional output, not disposable temp
+state. The default `make test` path and `make ci` are the standalone public
+verification floor.
 
 After install, the fuller first-screen route is:
 

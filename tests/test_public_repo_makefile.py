@@ -21,6 +21,10 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)",
         "EXPORT_OUT ?= ../microcosm-substrate-export",
         "SMOKE_OUT ?= .microcosm/smoke",
+        "PYTEST_TMP ?= .microcosm/test-tmp",
+        "PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest",
+        "PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp",
+        "PYTEST_ARGS ?=",
         ".DEFAULT_GOAL := help",
         "PUBLIC_TESTS ?=",
         ".PHONY: help install venv test test-all smoke ci standalone-export clean",
@@ -35,9 +39,10 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(PYTHON) -m venv $(VENV)",
         "$(PIP_ENV) $(VENV_PYTHON) -m pip install --upgrade pip",
         '$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"',
-        "PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)",
+        "@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache",
+        "PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS)",
         "Note: make test-all is a macro-root drift-refresh suite and may update tracked generated receipts/projections. Use make ci for the clean public verification floor.",
-        "PYTHONPATH=src $(VENV_PYTHON) -m pytest",
+        "PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS)",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
@@ -51,7 +56,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "> $(SMOKE_OUT)/stripping-guard.json",
         "Microcosm smoke receipts written to %s",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force",
-        "rm -rf $(SMOKE_OUT)",
+        "rm -rf $(SMOKE_OUT) $(PYTEST_TMP)",
     ):
         assert required in text
 
