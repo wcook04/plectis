@@ -10,6 +10,8 @@ run locally, it turns repo -> .microcosm beside a project so a reader can
 inspect routes, events, evidence handles, and source links without changing
 source files or making external model calls.
 
+For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
+
 Start with one compact local command:
 
 ```bash

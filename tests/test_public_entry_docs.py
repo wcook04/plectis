@@ -58,6 +58,38 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
+    quickstart_path = MICROCOSM_ROOT / "QUICKSTART.md"
+    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    quickstart = quickstart_path.read_text(encoding="utf-8")
+
+    assert quickstart_path.is_file()
+    assert "[QUICKSTART.md](QUICKSTART.md)" in readme
+    for phrase in (
+        "python3 -m pip install -e '.[test]'",
+        "PYTHONPATH=src python3 -m microcosm_core hello .",
+        "make smoke",
+        ".microcosm/smoke/",
+        "microcosm hello .",
+        "microcosm tour --card .",
+        "microcosm status --card .",
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "microcosm legibility-scorecard",
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6",
+        "/project/observatory-card",
+        "make ci",
+        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "receipts/release/release_export_receipt.json",
+        "release_authorized=false",
+        "provider calls",
+        "source mutation",
+        "private-root equivalence",
+        "Receipts are drilldown evidence",
+    ):
+        assert phrase in quickstart
+
+
 def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     security_path = MICROCOSM_ROOT / "SECURITY.md"
     contributing_path = MICROCOSM_ROOT / "CONTRIBUTING.md"
