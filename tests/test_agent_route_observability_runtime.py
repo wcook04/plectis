@@ -384,6 +384,48 @@ def test_agent_route_observability_bundle_card_reuses_fresh_receipt(
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
+def test_agent_route_observability_bundle_card_exposes_private_scan_blocker(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/agent_route_observability_runtime",
+        public_root / "examples/agent_route_observability_runtime",
+    )
+    policy_path = (
+        public_root
+        / "examples/agent_route_observability_runtime/"
+        "exported_observability_bundle/observability_policy.json"
+    )
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    policy["synthetic_private_state_regression_token"] = (
+        "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL"
+    )
+    policy_path.write_text(
+        json.dumps(policy, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    result = run_observability_bundle(
+        public_root
+        / "examples/agent_route_observability_runtime/exported_observability_bundle",
+        public_root / "receipts/first_wave/agent_route_observability_runtime",
+        command="pytest",
+    )
+    card = result_card(result)
+
+    assert result["status"] == "blocked"
+    assert result["findings"] == []
+    assert card["status"] == "blocked"
+    assert card["validation"]["finding_count"] == 0
+    assert card["validation"]["private_state_scan_status"] == "blocked_private_state"
+    assert card["validation"]["private_state_blocking_hit_count"] == 1
+    assert card["validation"]["private_state_body_redacted"] is True
+    assert "private_state_scan" not in card
+    assert "hits" not in _walk_keys(card)
+
+
 def test_agent_route_observability_exported_bundle_receipt_is_public_safe(
     tmp_path: Path,
 ) -> None:

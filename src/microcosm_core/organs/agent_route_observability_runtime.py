@@ -8405,6 +8405,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
     )
     authority_payload = result.get("authority_ceiling")
     authority = authority_payload if isinstance(authority_payload, dict) else {}
+    private_scan_payload = result.get("private_state_scan")
+    private_scan = (
+        private_scan_payload if isinstance(private_scan_payload, dict) else {}
+    )
     error_codes = result.get("error_codes")
     findings = result.get("findings")
     missing_negative_cases = result.get("missing_negative_cases")
@@ -8448,6 +8452,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
                 if isinstance(missing_negative_cases, (list, dict))
                 else None
             ),
+            "private_state_scan_status": private_scan.get("status"),
+            "private_state_blocking_hit_count": private_scan.get(
+                "blocking_hit_count"
+            ),
+            "private_state_body_redacted": private_scan.get("body_redacted"),
         },
         "authority_boundary": {
             "metadata_projection_not_live_telemetry_authority": result.get(
