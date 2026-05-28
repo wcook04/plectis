@@ -818,9 +818,20 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
 
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     first_run = readme.split("## First Run", 1)[1]
+    installed_block = first_run.split(
+        "The same commands work without installing the console script:", 1
+    )[0].split("```bash", 1)[1].split("```", 1)[0]
     no_install_block = first_run.split(
         "The same commands work without installing the console script:", 1
     )[1].split("```", 2)[1]
+    assert (
+        "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 "
+        "--port 8765 --max-requests 6"
+    ) in installed_block
+    assert (
+        "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765\n"
+        not in installed_block
+    )
     tour_command = (
         "PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch"
     )

@@ -402,7 +402,7 @@ MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["se
 microcosm status --card /tmp/microcosm-scratch
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
-microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765
+microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6
 microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
