@@ -171,6 +171,16 @@ def test_runtime_receipt_write_gate_keeps_smoke_read_only(
     assert receipt_path.read_bytes() == before
 
 
+def test_pytest_runtime_shell_calls_keep_source_receipts_read_only() -> None:
+    receipt_path = MICROCOSM_ROOT / "receipts/runtime_shell/public_stripping_guard_lens.json"
+    before = receipt_path.read_bytes()
+
+    payload = RuntimeShell(MICROCOSM_ROOT).stripping_guard()
+
+    assert payload["status"] == "pass"
+    assert receipt_path.read_bytes() == before
+
+
 def test_runtime_shell_status_is_product_centered() -> None:
     shell = RuntimeShell(MICROCOSM_ROOT)
 
