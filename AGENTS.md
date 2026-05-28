@@ -64,6 +64,17 @@ After the compact route is green, use `skills/cold_start_navigation.md` for the
 shortest validation ladder. Use the inventory below only as a public runtime
 index, not as a substitute for running the commands.
 
+## Live CLI Registry Boundary
+
+Treat `microcosm --help` as the live console-command registry. In a source-only
+checkout, use `PYTHONPATH=src python3 -m microcosm_core --help` for the same
+registry without installing the console script. The organ inventory below also
+names route labels, bundle handles, fixture validators, and paper-module
+contracts; those are not guaranteed top-level commands unless they appear in
+the help output. If a label is not listed, use the shipped lens command,
+package tests, or fixture validator that owns it instead of inventing a CLI
+path from the label.
+
 ## Real Substrate Posture
 
 Microcosm is the public repo form of the macro system, reorganized so a cold
@@ -247,11 +258,12 @@ of those existing lanes can carry the pressure without distortion.
    The cold-reader route loop is `microcosm cold-reader-route-map
    run-route-map-bundle`; it should validate first-run route order, command
    refs, docs refs, receipt refs, and the public-runtime authority boundary.
-   The expanded loop is `microcosm init <project>`,
-   `microcosm index <project>`, `microcosm architecture <project>`,
-   `microcosm route <project>`, `microcosm explain <project> <route_id>`,
-   `microcosm work run <project>`, `microcosm observe <project>`, and
-   `microcosm evidence list <project>`.
+   The expanded local loop is `microcosm tour --card <project>`,
+   `microcosm status --card <project>`, `microcosm observe <project>`,
+   `microcosm explain <project> <route_id>`, and
+   `microcosm evidence list <project>`. Older macro stage labels such as
+   init, index, architecture, route selection, and work-run are conceptual
+   stages inside the current commands, not separate live top-level commands.
    Public input bundles and organ demos are compatibility/regression surfaces,
    not the product center.
    The `public_reveal_walkthrough` organ is the exception that binds entry
