@@ -24,7 +24,7 @@ help:
 		"Microcosm public repo commands:" \
 		"  make install             create .venv and install test extras" \
 		"  make test                run public entry and safety tests" \
-		"  make test-all            run the full local test suite" \
+		"  make test-all            run macro-root suite; may refresh tracked receipts" \
 		"  make smoke               run the first-screen CLI smoke route" \
 		"  make ci                  run test plus smoke" \
 		"  make standalone-export   export a release-gated standalone tree" \
@@ -43,6 +43,7 @@ test: install
 	PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)
 
 test-all: install
+	@printf '%s\n' "Note: make test-all is a macro-root drift-refresh suite and may update tracked generated receipts/projections. Use make ci for the clean public verification floor."
 	PYTHONPATH=src $(VENV_PYTHON) -m pytest
 
 smoke:

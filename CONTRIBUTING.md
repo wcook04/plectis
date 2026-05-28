@@ -34,8 +34,11 @@ or system-site package writes. If you want to install once up front, use
 `make install`.
 
 For the full macro-root development suite, use `make test-all` from a checkout
-where the sibling macro source paths are present. The default `make test` path
-is the standalone public verification floor.
+where the sibling macro source paths are present. This is a drift-refresh lane:
+it may update tracked generated receipts and exported-bundle projections when
+the macro source changes, so run it only when you own or are explicitly auditing
+those refreshes. The default `make test` path and `make ci` are the standalone
+public verification floor.
 
 After install, the fuller first-screen route is:
 

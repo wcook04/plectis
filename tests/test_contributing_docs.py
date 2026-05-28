@@ -38,6 +38,10 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "receipts/release/release_export_receipt.json" in text
     assert "release_authorized=false" in text
     assert "intentionally not part of `make ci`" in text
+    assert "`make test-all`" in text
+    assert "drift-refresh lane" in text
+    assert "tracked generated receipts and exported-bundle projections" in text
+    assert "and `make ci` are the standalone" in text
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in text
     assert "--emit receipts/cold_clone_probe.json" not in text
     assert "--emit receipts/cold_clone_probe_local.json" not in text
