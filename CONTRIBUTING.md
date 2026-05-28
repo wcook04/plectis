@@ -3,7 +3,13 @@
 Start by proving the public entry path from `microcosm-substrate/`:
 
 ```bash
-python3 -m pip install -e '.[test]'
+make install
+make smoke
+```
+
+The smoke target runs the same first-screen checks directly:
+
+```bash
 microcosm hello .
 microcosm tour --card .
 microcosm status --card .
@@ -47,6 +53,12 @@ boundary docs, use:
 
 ```bash
 python3 -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
+```
+
+For the repository verification path used by GitHub Actions, use:
+
+```bash
+make ci
 ```
 
 For a broad cold-clone smoke, use:

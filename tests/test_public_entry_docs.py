@@ -78,6 +78,9 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         assert phrase in security
 
     for phrase in (
+        "make install",
+        "make smoke",
+        "make ci",
         "microcosm hello .",
         "microcosm tour --card .",
         "microcosm status --card .",
