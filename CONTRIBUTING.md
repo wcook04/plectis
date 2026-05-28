@@ -16,8 +16,9 @@ PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
 
-The test target installs the test extra and then runs pytest, so a clean clone
-does not need pytest preinstalled. If you want to install once up front, use
+The test target creates a repository-local `.venv`, installs the test extra
+there, and then runs pytest, so a clean clone does not need pytest preinstalled
+or system-site package writes. If you want to install once up front, use
 `make install`.
 
 For the full macro-root development suite, use `make test-all` from a checkout
@@ -27,12 +28,12 @@ is the standalone public verification floor.
 After install, the fuller first-screen route is:
 
 ```bash
-microcosm hello .
-microcosm tour --card .
-microcosm status --card .
-microcosm authority --card
-microcosm workingness --card
-microcosm legibility-scorecard
+.venv/bin/microcosm hello .
+.venv/bin/microcosm tour --card .
+.venv/bin/microcosm status --card .
+.venv/bin/microcosm authority --card
+.venv/bin/microcosm workingness --card
+.venv/bin/microcosm legibility-scorecard
 ```
 
 If editable install is not available, use the source form:
@@ -67,11 +68,11 @@ authority is rejected.
 
 Run the focused tests for the surface you touched. For public-entry and
 boundary docs, first run `make install` or
-`python3 -m pip install -e '.[test]'` if your environment does not already
-have the test extra installed, then use the source-tree form:
+`.venv/bin/python -m pip install -e '.[test]'` if your environment does not
+already have the test extra installed, then use the source-tree form:
 
 ```bash
-PYTHONPATH=src python3 -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
+PYTHONPATH=src .venv/bin/python -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
 ```
 
 For the repository verification path used by GitHub Actions, use:

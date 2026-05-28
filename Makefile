@@ -1,4 +1,6 @@
 PYTHON ?= python3
+VENV ?= .venv
+VENV_PYTHON ?= $(VENV)/bin/python
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
 	tests/test_secret_exclusion_scan.py \
@@ -7,17 +9,22 @@ PUBLIC_TESTS ?= \
 	tests/test_public_repo_makefile.py \
 	tests/test_release_export.py
 
-.PHONY: install test test-all smoke ci clean
+.PHONY: install venv test test-all smoke ci clean
 
-install:
-	$(PYTHON) -m pip install --upgrade pip
-	$(PYTHON) -m pip install -e ".[test]"
+$(VENV_PYTHON):
+	$(PYTHON) -m venv $(VENV)
+
+venv: $(VENV_PYTHON)
+
+install: $(VENV_PYTHON)
+	$(VENV_PYTHON) -m pip install --upgrade pip
+	$(VENV_PYTHON) -m pip install -e ".[test]"
 
 test: install
-	PYTHONPATH=src $(PYTHON) -m pytest $(PUBLIC_TESTS)
+	PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)
 
 test-all: install
-	PYTHONPATH=src $(PYTHON) -m pytest
+	PYTHONPATH=src $(VENV_PYTHON) -m pytest
 
 smoke:
 	PYTHONPATH=src $(PYTHON) -m microcosm_core hello .
