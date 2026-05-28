@@ -309,10 +309,16 @@ def test_runtime_shell_status_is_product_centered() -> None:
         "graph_ref": ".microcosm/graph.json",
         "project_observe_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
-        "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "observatory_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "--max-requests 6"
+        ),
         "observatory_bounded_validation_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 6"
+        ),
+        "observatory_interactive_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765"
         ),
     }
     behavior_contract = status["front_door"]["behavior_surfaces_contract"]
@@ -909,6 +915,14 @@ def test_status_card_exposes_macro_body_import_blocker_preview() -> None:
                     "evidence_dir_ref": ".microcosm/evidence/",
                     "graph_ref": ".microcosm/graph.json",
                     "observatory_command": (
+                        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+                        "--max-requests 6"
+                    ),
+                    "observatory_bounded_validation_command": (
+                        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+                        "--max-requests 6"
+                    ),
+                    "observatory_interactive_command": (
                         "microcosm serve <project> --host 127.0.0.1 --port 8765"
                     ),
                 },
@@ -2199,6 +2213,9 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
     assert minimal_path_by_id["open_observatory"]["expanded_endpoint"] == (
         "/project/observatory"
     )
+    assert minimal_path_by_id["open_observatory"]["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
     assert tour["first_screen"]["generated_state"]["state_dir"] == ".microcosm"
     assert ".microcosm/catalog.json" in tour["first_screen"]["generated_state"]["refs"]
     assert ".microcosm/evidence/" in tour["first_screen"]["generated_state"]["refs"]
@@ -2206,6 +2223,11 @@ def test_runtime_shell_tour_is_public_safe(tmp_path: Path) -> None:
         ".microcosm/routes.json"
     )
     assert tour["first_screen"]["behavior_surfaces"]["observatory_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert tour["first_screen"]["behavior_surfaces"][
+        "observatory_interactive_command"
+    ] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
@@ -4523,6 +4545,12 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert project_status_card["front_door"]["observatory"][
         "compact_endpoint"
     ] == "/project/observatory-card"
+    assert project_status_card["front_door"]["observatory"]["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert project_status_card["front_door"]["observatory"][
+        "interactive_command"
+    ] == "microcosm serve <project> --host 127.0.0.1 --port 8765"
     assert (
         project_observe["schema_version"]
         == "microcosm_project_observe_result_v1"

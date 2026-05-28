@@ -337,6 +337,7 @@ FIRST_SCREEN_BEHAVIOR_SURFACE_REQUIRED_KEYS = (
     "project_observe_endpoint",
     "observatory_command",
     "observatory_bounded_validation_command",
+    "observatory_interactive_command",
 )
 OMITTED_PAYLOAD_BODY_FLAG = "body_" + "red" + "acted"
 PRIVATE_STATE_SCAN_RECEIPT_KEY = "private_" + "state" + "_scan"
@@ -2170,10 +2171,11 @@ def _cold_reader_first_screen_card(
         or f"{project_substrate.STATE_DIR}/graph.json",
         "project_observe_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
-        "observatory_command": OBSERVATORY_SERVE_COMMAND,
+        "observatory_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
         "observatory_bounded_validation_command": (
             OBSERVATORY_BOUNDED_VALIDATION_COMMAND
         ),
+        "observatory_interactive_command": OBSERVATORY_SERVE_COMMAND,
     }
     return {
         "schema_version": "microcosm_cold_reader_first_screen_v1",
@@ -2264,6 +2266,7 @@ def _cold_reader_first_screen_card(
             {
                 "step_id": "open_observatory",
                 "command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+                "interactive_command": OBSERVATORY_SERVE_COMMAND,
                 "endpoint": "/project/observatory-card",
                 "expanded_endpoint": "/project/observatory",
                 "shows": [
@@ -4135,7 +4138,10 @@ def _runtime_status_card(
             "event_log_ref": behavior_surfaces.get("event_log_ref"),
             "evidence_dir_ref": behavior_surfaces.get("evidence_dir_ref"),
             "graph_ref": behavior_surfaces.get("graph_ref"),
-            "observatory_command": behavior_surfaces.get("observatory_command"),
+            "observatory_command": (
+                behavior_surfaces.get("observatory_bounded_validation_command")
+                or behavior_surfaces.get("observatory_command")
+            ),
             "source_open_body_import_floor": {
                 "status": body_floor.get("status"),
                 "summary_ref": (
@@ -4454,7 +4460,12 @@ def _runtime_status_card(
         if isinstance(card["front_door"].get("route_selection_proof"), dict)
         else {}
     )
-    command = card["front_door"].get("observatory_command")
+    bounded_command = (
+        card["front_door"].get("observatory_command")
+        or OBSERVATORY_BOUNDED_VALIDATION_COMMAND
+    )
+    interactive_command = OBSERVATORY_SERVE_COMMAND
+    command = bounded_command
     raw_selected_route_id = card["front_door"].get("selected_route_id")
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
     route_proof_status = route_selection_proof.get("status")
@@ -4471,7 +4482,8 @@ def _runtime_status_card(
         "schema_version": "microcosm_status_card_observatory_ref_v1",
         "status": observatory_status,
         "command": command,
-        "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+        "bounded_validation_command": bounded_command,
+        "interactive_command": interactive_command,
         "bounded_validation_request_count": (
             OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT
         ),
@@ -7835,6 +7847,11 @@ class RuntimeShell:
                     {
                         "step_id": row.get("step_id"),
                         "command": row.get("command"),
+                        **(
+                            {"interactive_command": row.get("interactive_command")}
+                            if row.get("interactive_command")
+                            else {}
+                        ),
                     }
                     for row in minimal_path
                     if isinstance(row, dict)

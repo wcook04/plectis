@@ -953,24 +953,32 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
     route_selection_proof = front_door.get("route_selection_proof")
     if not isinstance(route_selection_proof, dict):
         route_selection_proof = {}
-    command = front_door.get("observatory_command")
+    bounded_command = (
+        front_door.get("observatory_bounded_validation_command")
+        or front_door.get("observatory_command")
+    )
+    interactive_command = (
+        front_door.get("observatory_interactive_command")
+        or OBSERVATORY_SERVE_COMMAND
+    )
     raw_selected_route_id = front_door.get("selected_route_id")
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
     route_proof_status = route_selection_proof.get("status")
     status = (
         "pass"
-        if command and route_proof_status == "pass"
+        if bounded_command and route_proof_status == "pass"
         else "actionable"
-        if command and not raw_selected_route_id
+        if bounded_command and not raw_selected_route_id
         else "missing_route_proof"
-        if command
+        if bounded_command
         else "missing_command"
     )
     return {
         "schema_version": "microcosm_status_card_observatory_ref_v1",
         "status": status,
-        "command": command,
-        "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+        "command": bounded_command,
+        "bounded_validation_command": bounded_command,
+        "interactive_command": interactive_command,
         "bounded_validation_request_count": OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT,
         "bounded_validation_rule": OBSERVATORY_BOUNDED_VALIDATION_RULE,
         "endpoint": "/project/observatory",
@@ -1132,10 +1140,12 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "status",
                 "command",
                 "bounded_validation_command",
+                "interactive_command",
                 "bounded_validation_request_count",
                 "bounded_validation_rule",
                 "endpoint",
                 "compact_endpoint",
+                "status_card_endpoint",
                 "project_observe_command",
                 "project_observe_endpoint",
                 "route_explanation_endpoint",

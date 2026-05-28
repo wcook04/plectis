@@ -549,6 +549,9 @@ def test_cli_status_card_can_overlay_project_route_state(
     observatory = payload["front_door"]["observatory"]
     assert observatory["status"] == "pass"
     assert observatory["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert observatory["interactive_command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory["endpoint"] == "/project/observatory"
@@ -683,10 +686,16 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "graph_ref": ".microcosm/graph.json",
         "project_observe_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
-        "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "observatory_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+            "--max-requests 6"
+        ),
         "observatory_bounded_validation_command": (
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 6"
+        ),
+        "observatory_interactive_command": (
+            "microcosm serve <project> --host 127.0.0.1 --port 8765"
         ),
     }
     assert first_screen["route_explanation"]["command"] == (
@@ -742,6 +751,9 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert observatory_step["command"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
         "--max-requests 6"
+    )
+    assert observatory_step["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert observatory_step["endpoint"] == "/project/observatory-card"
     assert observatory_step["expanded_endpoint"] == "/project/observatory"
@@ -840,6 +852,12 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "microcosm serve <project> --host 127.0.0.1 --port 8765 "
         "--max-requests 6"
     )
+    assert status_card["front_door"]["observatory"]["command"] == (
+        status_card["front_door"]["observatory"]["bounded_validation_command"]
+    )
+    assert status_card["front_door"]["observatory"]["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+    )
     assert status_card["front_door"]["observatory"][
         "bounded_validation_request_count"
     ] == 6
@@ -932,6 +950,9 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     )
     assert status_front_door["observatory"]["bounded_validation_command"] == (
         observatory_card["bounded_validation_command"]
+    )
+    assert status_front_door["observatory"]["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert status_front_door["observatory"]["bounded_validation_request_count"] == (
         observatory_card["bounded_validation_request_count"]
@@ -1545,6 +1566,11 @@ def test_cli_tour_smoke(
         "formal_prover_context_strategy_gate"
     )
     assert payload["first_screen"]["behavior_surfaces"]["observatory_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert payload["first_screen"]["behavior_surfaces"][
+        "observatory_interactive_command"
+    ] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["behavior_surfaces"]["project_observe_command"] == (
@@ -1574,6 +1600,12 @@ def test_cli_tour_smoke(
     )
     assert tour_step_ids.index("inspect_project_observe") < tour_step_ids.index(
         "open_observatory"
+    )
+    tour_steps_by_id = {
+        row["step_id"]: row for row in payload["first_screen"]["minimal_command_path"]
+    }
+    assert tour_steps_by_id["open_observatory"]["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert tour_step_ids.index("run_first_screen_proof_lab") < tour_step_ids.index(
         "inspect_python_routes"
@@ -1658,6 +1690,15 @@ def test_cli_tour_card_smoke(
     assert (
         payload["first_screen"]["minimal_steps"][0]["command"]
         == "microcosm tour --card <project>"
+    )
+    compact_steps_by_id = {
+        row["step_id"]: row for row in payload["first_screen"]["minimal_steps"]
+    }
+    assert compact_steps_by_id["open_observatory"]["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert compact_steps_by_id["open_observatory"]["interactive_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765"
     )
     assert payload["first_screen"]["minimal_step_count"] == 9
     assert payload["first_screen"]["project_observe_command"] == (
