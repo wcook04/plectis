@@ -54,7 +54,7 @@
         "test_dynamic_paper_lattice_projects_source_anchored_affordance_rows",
         "test_dynamic_paper_lattice_filters_scope_and_facet",
         "test_dynamic_paper_lattice_cli_emits_budgeted_json",
-        "test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error"
+        "test_dynamic_paper_lattice_unknown_slug_is_structured_selection_error"
       ],
       "material_class": "public_macro_tool_body",
       "classification": "copied_non_secret_macro_body",

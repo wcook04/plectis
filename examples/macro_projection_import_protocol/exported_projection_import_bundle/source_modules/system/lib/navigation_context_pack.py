@@ -609,6 +609,7 @@ FACT_LEDGER = Path("codex/hologram/facts/ledger.json")
 FACT_AUDIT = Path("codex/hologram/facts/audit.json")
 FACT_STANDARD = Path("codex/standards/std_derived_fact.json")
 FACT_REGISTRY = Path("codex/doctrine/facts/fact_registry.json")
+PAPER_MODULE_INDEX = Path("codex/doctrine/paper_modules/_index.json")
 QUERY_CONTROL_PLANE_TERMS = {
     "agent",
     "band",
@@ -1456,6 +1457,28 @@ def _load_json(path: Path) -> dict[str, Any]:
     except Exception:
         return {}
     return dict(payload) if isinstance(payload, dict) else {}
+
+
+def _paper_module_slugs(repo_root: Path) -> set[str]:
+    payload = _load_json(repo_root / PAPER_MODULE_INDEX)
+    modules = payload.get("modules")
+    if not isinstance(modules, list):
+        return set()
+    return {
+        slug
+        for row in modules
+        if isinstance(row, Mapping)
+        for slug in [str(row.get("slug") or "").strip()]
+        if slug
+    }
+
+
+def _explicit_paper_module_slug_hits(repo_root: Path, query: str) -> list[str]:
+    slugs = _paper_module_slugs(repo_root)
+    if not slugs:
+        return []
+    tokens = _query_terms(query)
+    return sorted(tokens & slugs)
 
 
 def _query_terms(query: str) -> set[str]:
@@ -2434,6 +2457,19 @@ def _merge_candidates(
             target_packet=row.get("target_packet"),
         )
 
+    terms = _query_terms(query)
+    lower_query = str(query or "").lower()
+    lattice_facet = "paper_lattice" if ("lattice" in terms or "--paper-lattice" in lower_query) else "exact_paper_module_slug"
+    for slug in _explicit_paper_module_slug_hits(repo_root, query):
+        add(
+            "paper_modules",
+            slug,
+            1.02,
+            "Exact paper-module slug appears in the task text; expose the selected module row before generic paper/doctrine anchors.",
+            source_kind="exact_paper_module_slug",
+            facet=lattice_facet,
+        )
+
     if _is_state_axis_query(query):
         add(
             "derived_facts",
@@ -2693,7 +2729,6 @@ def _merge_candidates(
             source_kind="system_atlas_protocol_anchor",
             facet="spine_paper_module",
         )
-        terms = _query_terms(query)
         if "type" in terms or "typeb" in terms or "type-b" in str(query).lower() or "external" in terms:
             add(
                 "compression_profiles",
@@ -2753,8 +2788,6 @@ def _merge_candidates(
             source_kind="config_plane_protocol_anchor",
             facet="compatibility_api",
         )
-    terms = _query_terms(query)
-    lower_query = str(query or "").lower()
     if (
         "lattice" in terms
         or ("dynamic" in terms and "paper" in terms)
@@ -2772,7 +2805,7 @@ def _merge_candidates(
             "paper_modules",
             "navigation_hologram_theory",
             0.92,
-            "Current supported paper-lattice exemplar and root navigation theory slug.",
+            "Root navigation theory remains the model lattice row; exact selected slugs provide concrete targets.",
             source_kind="task_anchor",
             facet="paper_lattice",
         )
@@ -3080,6 +3113,9 @@ def _affordance_compatibility(
     selected_by_workitem_anchor = (
         str(selected_row.get("selection_source_kind") or "") == "workitem_target_resolution"
     )
+    selected_by_exact_paper_module_slug = (
+        str(selected_row.get("selection_source_kind") or "") == "exact_paper_module_slug"
+    )
     passport = selected_row.get("affordance_passport") or {}
     if not isinstance(passport, Mapping):
         passport = {}
@@ -3094,6 +3130,16 @@ def _affordance_compatibility(
                 "landmine_overlap": 0,
                 "positive_trigger_overlap": 0,
                 "reason": "row selected by exact Task Ledger WorkItem id target resolution",
+            }
+        if selected_by_exact_paper_module_slug:
+            return {
+                "compatibility_bucket": 0,
+                "compatibility_label": "strong_exact_paper_module_slug_match",
+                "affordance_boost": 1.0,
+                "anti_trigger_overlap": 0,
+                "landmine_overlap": 0,
+                "positive_trigger_overlap": 0,
+                "reason": "row selected by exact stable paper-module slug in task text",
             }
         if selected_by_root_navigator_anchor:
             return {
@@ -3181,6 +3227,16 @@ def _affordance_compatibility(
             "landmine_overlap": landmine_overlap,
             "positive_trigger_overlap": pos_overlap,
             "reason": "row selected by exact Task Ledger WorkItem id target resolution",
+        }
+    if selected_by_exact_paper_module_slug:
+        return {
+            "compatibility_bucket": 0,
+            "compatibility_label": "strong_exact_paper_module_slug_match",
+            "affordance_boost": 1.0,
+            "anti_trigger_overlap": neg_overlap,
+            "landmine_overlap": landmine_overlap,
+            "positive_trigger_overlap": max(pos_overlap, 1),
+            "reason": "row selected by exact stable paper-module slug in task text",
         }
     if pos_overlap > 0:
         boost = float(min(pos_overlap, 6)) / 6.0
@@ -5668,6 +5724,8 @@ def _budget_trim(
                     "mutation_route",
                     "disclosure_posture",
                     "counts",
+                    "drilldowns",
+                    "paper_lattice",
                     "drilldown_commands",
                     "drilldown_command",
                     "evidence_command",
@@ -5862,6 +5920,8 @@ def _budget_trim(
                         "currentness",
                         "counts",
                         "disclosure_posture",
+                        "drilldowns",
+                        "paper_lattice",
                         "drilldown_command",
                         "evidence_command",
                         "selection_source_kind",
@@ -6021,6 +6081,8 @@ def _budget_trim(
                         "currentness",
                         "counts",
                         "disclosure_posture",
+                        "drilldowns",
+                        "paper_lattice",
                         "drilldown_command",
                         "evidence_command",
                         "selection_source_kind",
@@ -6096,6 +6158,8 @@ def _budget_trim(
                     "workitem_pressure",
                     "counts",
                     "disclosure_posture",
+                    "drilldowns",
+                    "paper_lattice",
                     "drilldown_command",
                     "evidence_command",
                     "selection_source_kind",

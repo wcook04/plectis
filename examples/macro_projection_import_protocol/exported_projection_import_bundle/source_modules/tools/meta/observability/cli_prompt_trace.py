@@ -41,6 +41,7 @@ import html
 import json
 import re
 import shlex
+import sqlite3
 import subprocess
 import sys
 import time
@@ -69,6 +70,7 @@ TRACE_STRUCTURER_VARIANT_ARTIFACTS = TRACE_STRUCTURER_BASE / "Variant Artifacts"
 TRACE_STRUCTURER_VARIANT_INDEX = TRACE_STRUCTURER_BASE / "variant_artifact_index.json"
 STRUCTURER_PARSER_PATH = REPO_ROOT / "tools" / "agent_trace_structurer" / "parser.mjs"
 CODEX_SESSION_INDEX = HOME / ".codex" / "session_index.jsonl"
+CODEX_GOALS_DB = HOME / ".codex" / "goals_1.sqlite"
 # Claude desktop app stores operator-edited session titles here, keyed by
 # the desktop's own sessionId. Each record carries cliSessionId pointing at
 # the corresponding ~/.claude/projects/<slug>/<uuid>.jsonl. Layout:
@@ -5887,6 +5889,172 @@ def _load_codex_thread_names() -> dict[str, str]:
     }
 
 
+def _iso_from_epoch_ms(value: int | float | None) -> str:
+    if value is None:
+        return ""
+    try:
+        return _dt.datetime.fromtimestamp(float(value) / 1000, _dt.timezone.utc).isoformat()
+    except Exception:
+        return ""
+
+
+def _objective_preview(value: str, *, limit: int = 240) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if len(text) <= limit:
+        return text
+    return text[: max(0, limit - 3)].rstrip() + "..."
+
+
+def _load_codex_thread_goals(db_path: Path = CODEX_GOALS_DB) -> dict[str, dict]:
+    """Read Codex app goal state keyed by thread/session id.
+
+    The Structurer mission index is already local-private. Still, keep the row
+    bounded: objective text is represented as a preview plus hash so the
+    mission rail can show goal-bearing threads without becoming another raw
+    goal transcript store.
+    """
+    if not db_path.is_file():
+        return {}
+    conn: sqlite3.Connection | None = None
+    try:
+        conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+        conn.row_factory = sqlite3.Row
+        rows = conn.execute(
+            """
+            select thread_id, goal_id, objective, status, token_budget,
+                   tokens_used, time_used_seconds, created_at_ms, updated_at_ms
+            from thread_goals
+            """
+        ).fetchall()
+    except Exception:
+        return {}
+    finally:
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
+    out: dict[str, dict] = {}
+    for row in rows:
+        try:
+            objective = str(row["objective"] or "")
+            thread_id = str(row["thread_id"] or "")
+            if not thread_id:
+                continue
+            out[thread_id] = {
+                "schema": "codex_thread_goal_v1",
+                "thread_id": thread_id,
+                "goal_id": str(row["goal_id"] or ""),
+                "status": str(row["status"] or ""),
+                "objective_preview": _objective_preview(objective),
+                "objective_sha16": _sha16(objective) if objective else "",
+                "token_budget": row["token_budget"],
+                "tokens_used": int(row["tokens_used"] or 0),
+                "time_used_seconds": int(row["time_used_seconds"] or 0),
+                "created_at_ms": int(row["created_at_ms"] or 0),
+                "updated_at_ms": int(row["updated_at_ms"] or 0),
+                "created_at": _iso_from_epoch_ms(row["created_at_ms"]),
+                "updated_at": _iso_from_epoch_ms(row["updated_at_ms"]),
+            }
+        except Exception:
+            continue
+    return out
+
+
+def _goal_sort_priority(goal: dict | None) -> int:
+    if not isinstance(goal, dict):
+        return 0
+    return {
+        "active": 40,
+        "usage_limited": 30,
+        "budget_limited": 30,
+        "paused": 20,
+        "blocked": 10,
+        "complete": 0,
+    }.get(str(goal.get("status") or "").lower(), 0)
+
+
+def _goal_authority_sources(goals: dict[str, dict]) -> dict:
+    mtime_ms = _path_mtime_ms(CODEX_GOALS_DB)
+    status_counts: dict[str, int] = {}
+    for goal in goals.values():
+        status = str((goal or {}).get("status") or "unknown")
+        status_counts[status] = status_counts.get(status, 0) + 1
+    payload: dict[str, Any] = {
+        "schema": "codex_thread_goal_authority_v1",
+        "path": str(CODEX_GOALS_DB),
+        "available": CODEX_GOALS_DB.is_file(),
+        "row_count": len(goals),
+        "status_counts": status_counts,
+    }
+    if mtime_ms is not None:
+        payload["mtime_ms"] = mtime_ms
+        payload["mtime"] = _iso_from_epoch_ms(mtime_ms)
+    return payload
+
+
+def _goal_thread_roster(
+    goals: dict[str, dict],
+    rows: list[dict],
+    codex_thread_records: dict[str, dict],
+) -> list[dict]:
+    """Return all known Codex goal threads with bounded mission-row linkage."""
+    mission_rows = {
+        str(r.get("session_id") or ""): r
+        for r in rows
+        if r.get("provider") == "codex" and r.get("session_id")
+    }
+    out: list[dict] = []
+    for thread_id, goal in goals.items():
+        if not isinstance(goal, dict):
+            continue
+        row = mission_rows.get(thread_id) or {}
+        title_record = codex_thread_records.get(thread_id) or {}
+        mission_state = "missing_from_recent_window"
+        if row:
+            mission_state = "inactive_row" if row.get("inactive_reason") else "active_row"
+        out.append({
+            "schema": "codex_goal_thread_roster_row_v1",
+            "thread_id": thread_id,
+            "goal_id": goal.get("goal_id") or "",
+            "status": goal.get("status") or "",
+            "objective_preview": goal.get("objective_preview") or "",
+            "objective_sha16": goal.get("objective_sha16") or "",
+            "token_budget": goal.get("token_budget"),
+            "tokens_used": int(goal.get("tokens_used") or 0),
+            "time_used_seconds": int(goal.get("time_used_seconds") or 0),
+            "created_at_ms": int(goal.get("created_at_ms") or 0),
+            "updated_at_ms": int(goal.get("updated_at_ms") or 0),
+            "created_at": goal.get("created_at") or "",
+            "updated_at": goal.get("updated_at") or "",
+            "goal_sort_priority": _goal_sort_priority(goal),
+            "mission_index": {
+                "state": mission_state,
+                "provider": row.get("provider") or "codex",
+                "session_id": thread_id,
+                "mission_key": f"codex:{thread_id}",
+                "title": (
+                    row.get("display_title")
+                    or row.get("title")
+                    or title_record.get("thread_name")
+                    or ""
+                ),
+                "short_label": row.get("short_label") or "",
+                "inactive_reason": row.get("inactive_reason") or "",
+                "row_present": bool(row),
+            },
+        })
+    out.sort(
+        key=lambda g: (
+            int(g.get("goal_sort_priority") or 0),
+            int(g.get("updated_at_ms") or 0),
+            int(g.get("tokens_used") or 0),
+        ),
+        reverse=True,
+    )
+    return out
+
+
 def _load_title_aliases() -> dict[str, str]:
     if not TRACE_STRUCTURER_TITLE_ALIASES.is_file():
         return {}
@@ -6485,7 +6653,9 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
     }
     title_aliases = _load_title_aliases()
     claude_desktop_titles = _load_claude_desktop_titles()
+    codex_thread_goals = _load_codex_thread_goals()
     title_authority = _title_authority_sources(claude_desktop_titles)
+    goal_authority = _goal_authority_sources(codex_thread_goals)
     summary_cache = _load_mission_summary_cache()
     cache_stats = {
         "hits": 0,
@@ -6632,6 +6802,8 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             if "prompt_char_count" not in last_clip_meta and cpt_full.get("prompt_char_count"):
                 last_clip_meta["prompt_char_count"] = cpt_full["prompt_char_count"]
         artifact_freshness = _classify_artifact_freshness(preferred_trace_turn or latest_completed, last_clip_meta)
+        goal = codex_thread_goals.get(c["session_id"]) if c["provider"] == "codex" else None
+        goal_priority = _goal_sort_priority(goal)
         rows.append({
             "provider": c["provider"],
             "session_id": c["session_id"],
@@ -6667,6 +6839,10 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "subagent_summary": completed_active.get("subagent_summary") or {},
             "subagent_sidechains": completed_active.get("subagent_sidechains") or [],
             "artifact_freshness": artifact_freshness,
+            "has_goal": bool(goal),
+            "goal": goal or {},
+            "goal_status": (goal or {}).get("status") or "",
+            "goal_sort_priority": goal_priority,
             "trace_summary_cache_state": completed_active.get("cache_state") or summary_cache_state,
             "status": "archived" if desktop.get("is_archived") else "live",
         })
@@ -6738,9 +6914,16 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
         return str(v)
     with_completed = [r for r in active_rows if (r.get("latest_completed_turn") or {}).get("completed_at")]
     without_completed = [r for r in active_rows if not (r.get("latest_completed_turn") or {}).get("completed_at")]
-    with_completed.sort(key=lambda r: str(r["latest_completed_turn"]["completed_at"]), reverse=True)
-    without_completed.sort(key=_activity_key, reverse=True)
+    with_completed.sort(
+        key=lambda r: (int(r.get("goal_sort_priority") or 0), str(r["latest_completed_turn"]["completed_at"])),
+        reverse=True,
+    )
+    without_completed.sort(key=lambda r: (int(r.get("goal_sort_priority") or 0), _activity_key(r)), reverse=True)
     active_rows = with_completed + without_completed
+    mission_goal_count = sum(1 for r in rows if r.get("has_goal"))
+    active_mission_goal_count = sum(1 for r in rows if (r.get("goal") or {}).get("status") == "active")
+    goal_threads = _goal_thread_roster(codex_thread_goals, rows, codex_thread_records)
+    active_goal_thread_count = sum(1 for g in goal_threads if g.get("status") == "active")
     if cache_dirty:
         _write_mission_summary_cache(summary_cache)
     duration_ms = int((time.perf_counter() - started_perf) * 1000)
@@ -6761,6 +6944,14 @@ def build_mission_index(*, cwd: Path | None = None, limit: int = 30) -> dict:
             "summary_cache_path": str(TRACE_STRUCTURER_MISSION_SUMMARY_CACHE),
         },
         "title_authority": title_authority,
+        "goal_authority": goal_authority,
+        "goal_threads": goal_threads,
+        "goal_thread_count": len(goal_threads),
+        "active_goal_thread_count": active_goal_thread_count,
+        "mission_goal_count": mission_goal_count,
+        "active_mission_goal_count": active_mission_goal_count,
+        "goal_count": len(goal_threads),
+        "active_goal_count": active_goal_thread_count,
         "active_rows": active_rows,
         "inactive_rows": inactive_rows,
         # Backwards compat: existing consumers reading 'rows' still work.

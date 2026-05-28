@@ -1319,7 +1319,7 @@ def test_dynamic_paper_lattice_sources_compile_and_carry_lattice_contract() -> N
     )
     assert "test_dynamic_paper_lattice_cli_emits_budgeted_json" in test_text
     assert (
-        "test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error"
+        "test_dynamic_paper_lattice_unknown_slug_is_structured_selection_error"
         in test_text
     )
 
