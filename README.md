@@ -6,12 +6,11 @@ evidence habits, component families, and claim limits inspectable without
 publishing the full working system.
 
 The package in this folder is one concrete witness for that public slice. When
-run locally, it writes `.microcosm/` beside a project so a reader can inspect
-routes, events, evidence handles, and source links without changing source
-files or making external model calls.
+run locally, it turns repo -> .microcosm beside a project so a reader can
+inspect routes, events, evidence handles, and source links without changing
+source files or making external model calls.
 
-Start with the map, then run one compact local command when you want a behavior
-witness:
+Start with one compact local command:
 
 ```bash
 microcosm hello .

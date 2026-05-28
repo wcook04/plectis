@@ -3712,6 +3712,7 @@ def _compact_tour_card_body_floor_defects(
                 "material_class": defect.get("material_class"),
                 "target_ref": defect.get("target_ref"),
                 "defect_codes": defect.get("defect_codes", []),
+                "body_text_in_receipt": defect.get("body_in_receipt") is True,
             }
         )
     return compact
