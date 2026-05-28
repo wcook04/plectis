@@ -818,6 +818,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
+    normalized_cold_start = " ".join(cold_start.split())
     assert "std_python_microcosm_navigation_assay" in cold_start
     assert "implementation_atlas.python_navigation_assay" in cold_start
     assert "route_utility_curriculum" in cold_start
@@ -834,6 +835,18 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "microcosm workingness" in cold_start
     assert (
         "microcosm serve <project> --host 127.0.0.1 --port 8765" in cold_start
+    )
+    assert (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        in cold_start
+    )
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core.cli serve <project> --host "
+        "127.0.0.1 --port 8765 --max-requests 6"
+    ) in cold_start
+    assert (
+        "Omit `--max-requests` only when you intentionally want an interactive server"
+        in normalized_cold_start
     )
     assert "/project/observatory-card" in cold_start
     assert "before `/project/observatory`" in cold_start
@@ -931,6 +944,10 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "microcosm observe <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
     ]
+    assert (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        in route["command_path"]
+    )
     assert route["command_path"].index(
         "microcosm status --card <project>"
     ) < route["command_path"].index("microcosm compile <project>")

@@ -354,6 +354,8 @@ REQUIRED_PHRASES_BY_DOC = {
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
+        "Omit `--max-requests` only when you intentionally want an interactive server",
         "/project/observatory-card",
         "Receipts are evidence drilldowns after the behavior route is visible",
         "evidence_class",
@@ -601,6 +603,7 @@ def _entry_packet_route_contract(
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm observe <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
     ]
     required_state_refs = [
         ".microcosm/catalog.json",
@@ -863,6 +866,7 @@ def _entry_packet_route_contract(
                 "route_cards_by_id.status_and_workingness",
                 "/project/observatory-card",
                 "before `/project/observatory`",
+                "Omit `--max-requests` only when you intentionally want an interactive server",
                 "front_door.source_open_body_import_floor",
                 "first-screen proof surfaces are visible",
                 "Receipts are evidence drilldowns after the behavior route is visible",

@@ -45,13 +45,15 @@ The compact behavioral path is:
 7. `microcosm observe <project>` opens the selected route's compact causal
    chain over route, work, event, evidence, graph, status, proof, and
    observatory refs.
-8. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
-   observatory; check `/project/observatory-card` before the expanded
+8. `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`
+   opens the bounded local observatory smoke and exits after the requested
+   hits; check `/project/observatory-card` before the expanded
    `/project/observatory`. The compact card must carry `state_inspection`
    over `.microcosm/` plus route/work/evidence/graph/proof/status refs before
    you check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
    `/project/python-lens`, `/project/observe`, and
-   `/project/explain/<selected_route_id>`.
+   `/project/explain/<selected_route_id>`. Omit `--max-requests` only when you
+   intentionally want an interactive server.
 9. `microcosm compile <project>` rebuilds local state when you need an explicit
    refresh after the first-screen proof surfaces are visible.
 10. `microcosm python-lens <project>` opens the project navigation assay.
@@ -170,10 +172,14 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    `PYTHONPATH=src python3 -m microcosm_core.cli observe <project>` to inspect
    the compact route/work/event/evidence/graph causal-chain lens selected by
    the first-screen route id.
-8. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
-   `/project/observatory-card` before `/project/observatory` when the question
-   is how the local browser/read-model ties `.microcosm` state, route, work,
-   evidence, graph, status, and proof surfaces together.
+8. Run
+   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`
+   or
+   `PYTHONPATH=src python3 -m microcosm_core.cli serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`,
+   then open `/project/observatory-card` before `/project/observatory` when
+   the question is how the local browser/read-model ties `.microcosm` state,
+   route, work, evidence, graph, status, and proof surfaces together. Omit
+   `--max-requests` only when you intentionally want an interactive server.
 9. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
    want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
@@ -455,7 +461,9 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out
    receipts/runtime_shell/demo_project/organs/cold_reader_route_map` when you
    want the executable first-run route map.
-32. Open `microcosm serve <project>` when you want the local observatory.
+32. Open bounded `microcosm serve <project> --max-requests 6` when you want a
+   local observatory route smoke; omit the limit only for an intentional
+   interactive server.
 33. Inspect `core/organ_registry.json` for accepted organs and validator
    commands only when you need evidence drilldown.
 34. Inspect `core/acceptance/first_wave_acceptance.json` for the current
