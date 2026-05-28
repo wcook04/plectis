@@ -1,0 +1,24 @@
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+
+def _has_public_data(root: Path) -> bool:
+    return (
+        (root / "standards/std_microcosm_first_screen_composition_root.json").is_file()
+        and (root / "core/organ_evidence_classes.json").is_file()
+        and (root / "core/organ_registry.json").is_file()
+    )
+
+
+def microcosm_root() -> Path:
+    checkout_root = Path(__file__).resolve().parents[2]
+    if _has_public_data(checkout_root):
+        return checkout_root
+
+    installed_root = Path(sys.prefix) / "share/microcosm-substrate"
+    if _has_public_data(installed_root):
+        return installed_root
+
+    return checkout_root

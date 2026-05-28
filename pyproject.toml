@@ -37,6 +37,12 @@ microcosm = "microcosm_core.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.data-files]
+"share/microcosm-substrate/core" = ["core/*.json"]
+"share/microcosm-substrate/core/acceptance" = ["core/acceptance/*.json"]
+"share/microcosm-substrate/core/fixture_manifests" = ["core/fixture_manifests/*.json"]
+"share/microcosm-substrate/standards" = ["standards/*.json"]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]

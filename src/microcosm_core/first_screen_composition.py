@@ -4,8 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .resource_root import microcosm_root
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
+MICROCOSM_ROOT = microcosm_root()
 STANDARD_REF = Path("standards/std_microcosm_first_screen_composition_root.json")
 READER_ROUTE_IDS = (
     "safety_evals_engineer",
