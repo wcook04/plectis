@@ -1,3 +1,5 @@
+import sqlite3
+
 from tools.meta.observability import cli_prompt_trace as trace
 from tools.meta.observability.cli_prompt_trace import (
     ToolEvent,
@@ -48,6 +50,85 @@ def _turn(
         assistant_text=assistant_text,
         is_complete=True,
     )
+
+
+def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp_path) -> None:
+    goals_db = tmp_path / "goals.sqlite"
+    conn = sqlite3.connect(goals_db)
+    conn.execute(
+        """
+        create table thread_goals (
+            thread_id text primary key,
+            goal_id text not null,
+            objective text not null,
+            status text not null,
+            token_budget integer,
+            tokens_used integer not null,
+            time_used_seconds integer not null,
+            created_at_ms integer not null,
+            updated_at_ms integer not null
+        )
+        """
+    )
+    conn.execute(
+        """
+        insert into thread_goals
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            "codex-thread-1",
+            "goal-1",
+            "Keep refining the goal infrastructure from live trace evidence.",
+            "active",
+            None,
+            42,
+            9,
+            1779980000000,
+            1779981000000,
+        ),
+    )
+    conn.commit()
+    conn.close()
+
+    session_index = tmp_path / "session_index.jsonl"
+    session_index.write_text(
+        '{"id":"codex-thread-1","thread_name":"Goal Infra Thread","updated_at":"2026-05-28T16:00:00Z"}\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(trace, "CODEX_GOALS_DB", goals_db)
+    monkeypatch.setattr(trace, "CODEX_SESSION_INDEX", session_index)
+
+    cached_active = {
+        "provider": "codex",
+        "session_id": "codex-thread-1",
+        "display_title": "Cached Mission",
+    }
+    cached_rows = [dict(cached_active)]
+    index = {
+        "schema": "prompt_trace_mission_index_v3",
+        "generated_at": "2026-05-28T15:33:46+00:00",
+        "active_rows": [cached_active],
+        "inactive_rows": [],
+        "rows": cached_rows,
+    }
+
+    refreshed = trace._refresh_mission_index_goal_roster(index)
+
+    assert refreshed["goal_thread_count"] == 1
+    assert refreshed["active_goal_thread_count"] == 1
+    assert refreshed["mission_goal_count"] == 1
+    assert refreshed["active_mission_goal_count"] == 1
+    assert refreshed["goal_authority"]["row_count"] == 1
+    assert refreshed["goal_roster_refresh"]["mode"] == "cached_mission_index_overlay"
+    assert refreshed["goal_roster_refresh"]["preserved_generated_at"] == "2026-05-28T15:33:46+00:00"
+    assert refreshed["active_rows"][0]["has_goal"] is True
+    assert refreshed["active_rows"][0]["goal_status"] == "active"
+    assert refreshed["active_rows"][0]["goal_sort_priority"] == 40
+    assert refreshed["rows"][0]["has_goal"] is True
+    roster_row = refreshed["goal_threads"][0]
+    assert roster_row["thread_id"] == "codex-thread-1"
+    assert roster_row["mission_index"]["state"] == "active_row"
+    assert roster_row["mission_index"]["title"] == "Cached Mission"
 
 
 def test_trace_capsule_final_validation_uses_terminal_validation_rows() -> None:

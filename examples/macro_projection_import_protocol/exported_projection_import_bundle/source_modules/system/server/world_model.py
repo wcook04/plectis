@@ -104,6 +104,16 @@ from system.lib import approval_registry
 from system.lib import frontend_surface_contracts
 from system.lib import meta_mission_workspace as _mmw
 from system.lib.code_architecture_projection import (
+    ANNEX_DISTILLATION_INDEX_PATH,
+    FRONTEND_NAVIGATION_GRAPH_PATH,
+    HOLOGRAM_GRAPH_PATH,
+    HOLOGRAM_QUALITY_PATH,
+    HOLOGRAM_SYMBOLS_PATH,
+    HOLOGRAM_UI_INDEX_PATH,
+    PAPER_MODULE_INDEX_PATH,
+    PAPER_MODULE_ROUTE_COVERAGE_PATH,
+    PROJECTION_LIBRARY_PATH,
+    PYTHON_SCOPE_INDEX_PATH,
     build_blast_radius_packet,
     build_code_map_packet,
 )
@@ -17199,11 +17209,24 @@ def launch_operation(
 
 # --- Code Architecture Projection Plane transport (per codeflow_assimilation.md) ---
 
-CODE_MAP_DEFAULT_MAX_FILES = 2000
+CODE_MAP_DEFAULT_MAX_FILES = 2500
 CODE_MAP_MAX_FILES_CAP = 2500
+CODE_MAP_PACKET_CACHE_VERSION = "code-map-python-scope-plus-repo-v2"
 BLAST_RADIUS_MAX_DEPTH_CAP = 12
 SYSTEM_ATLAS_MAX_ENTITIES_CAP = 1000
 SYSTEM_ATLAS_MAX_DEPTH_CAP = 4
+CODE_MAP_CACHE_SOURCE_PATHS = (
+    HOLOGRAM_GRAPH_PATH,
+    HOLOGRAM_QUALITY_PATH,
+    HOLOGRAM_SYMBOLS_PATH,
+    HOLOGRAM_UI_INDEX_PATH,
+    PYTHON_SCOPE_INDEX_PATH,
+    PAPER_MODULE_INDEX_PATH,
+    PAPER_MODULE_ROUTE_COVERAGE_PATH,
+    ANNEX_DISTILLATION_INDEX_PATH,
+    FRONTEND_NAVIGATION_GRAPH_PATH,
+    Path(PROJECTION_LIBRARY_PATH),
+)
 
 
 def _normalize_projection_path(value: str | None) -> str | None:
@@ -17230,6 +17253,30 @@ def _normalize_projection_path(value: str | None) -> str | None:
     return "/".join(parts)
 
 
+def _stat_fingerprint_for_paths(repo_root: Path, rel_paths: Iterable[Path]) -> str:
+    """
+    Build a cheap cache token for projection inputs. This is deliberately stat-based,
+    not content-hash based, so `/api/code-map` can invalidate stale packets without
+    parsing the 60MB+ Python scope index before the SWR cache lookup.
+    """
+    digest = hashlib.sha256()
+    for rel in sorted(rel_paths, key=lambda item: str(item)):
+        path = repo_root / rel
+        digest.update(str(rel).encode("utf-8"))
+        digest.update(b"\0")
+        try:
+            stat = path.stat()
+        except OSError:
+            digest.update(b"absent")
+            digest.update(b"\n")
+            continue
+        digest.update(str(stat.st_size).encode("ascii"))
+        digest.update(b":")
+        digest.update(str(stat.st_mtime_ns).encode("ascii"))
+        digest.update(b"\n")
+    return digest.hexdigest()[:16]
+
+
 def load_code_map_snapshot(
     repo_root: Path,
     *,
@@ -17247,9 +17294,11 @@ def load_code_map_snapshot(
     normalized_focus = _normalize_projection_path(focus)
     clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
     key = (
+        CODE_MAP_PACKET_CACHE_VERSION,
         str(repo_root.resolve()),
         normalized_focus or "",
         clamped_max_files,
+        _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS),
         True,
     )
     return swr_get(
@@ -17283,7 +17332,14 @@ def _build_code_map_snapshot_uncached(
 def prewarm_code_map_snapshot(repo_root: Path, *, max_files: int = CODE_MAP_DEFAULT_MAX_FILES) -> None:
     """Start a background warm of the global CodeMap packet."""
     clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
-    key = (str(repo_root.resolve()), "", clamped_max_files, True)
+    key = (
+        CODE_MAP_PACKET_CACHE_VERSION,
+        str(repo_root.resolve()),
+        "",
+        clamped_max_files,
+        _stat_fingerprint_for_paths(repo_root, CODE_MAP_CACHE_SOURCE_PATHS),
+        True,
+    )
     swr_prewarm(
         "code_map_packet",
         key,

@@ -6593,7 +6593,7 @@ def market_intelligence_validation_debt():
 @app.get("/api/code-map")
 def code_map_endpoint(
     focus: str | None = Query(default=None, description="Repo-relative focus path; narrows the packet to the focus file plus its direct neighbors. Optional."),
-    max_files: int = Query(default=2000, ge=1, description="Maximum file rows in the packet; clamped to the world_model code-map cap."),
+    max_files: int = Query(default=world_model_loader.CODE_MAP_DEFAULT_MAX_FILES, ge=1, description="Maximum file rows in the packet; clamped to the world_model code-map cap."),
 ):
     """
     [ACTION]

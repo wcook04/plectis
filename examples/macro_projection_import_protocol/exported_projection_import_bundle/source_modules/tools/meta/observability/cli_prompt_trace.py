@@ -5905,7 +5905,7 @@ def _objective_preview(value: str, *, limit: int = 240) -> str:
     return text[: max(0, limit - 3)].rstrip() + "..."
 
 
-def _load_codex_thread_goals(db_path: Path = CODEX_GOALS_DB) -> dict[str, dict]:
+def _load_codex_thread_goals(db_path: Path | None = None) -> dict[str, dict]:
     """Read Codex app goal state keyed by thread/session id.
 
     The Structurer mission index is already local-private. Still, keep the row
@@ -5913,6 +5913,7 @@ def _load_codex_thread_goals(db_path: Path = CODEX_GOALS_DB) -> dict[str, dict]:
     mission rail can show goal-bearing threads without becoming another raw
     goal transcript store.
     """
+    db_path = db_path or CODEX_GOALS_DB
     if not db_path.is_file():
         return {}
     conn: sqlite3.Connection | None = None
@@ -6053,6 +6054,90 @@ def _goal_thread_roster(
         reverse=True,
     )
     return out
+
+
+def _dedupe_mission_goal_rows(rows: Iterable[dict]) -> list[dict]:
+    out: list[dict] = []
+    seen: set[tuple[str, str]] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        key = (str(row.get("provider") or ""), str(row.get("session_id") or ""))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(row)
+    return out
+
+
+def _refresh_goal_fields_on_rows(rows: Iterable[dict], goals: dict[str, dict]) -> None:
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        goal = None
+        if row.get("provider") == "codex":
+            goal = goals.get(str(row.get("session_id") or ""))
+        row["has_goal"] = bool(goal)
+        row["goal"] = goal or {}
+        row["goal_status"] = (goal or {}).get("status") or ""
+        row["goal_sort_priority"] = _goal_sort_priority(goal)
+
+
+def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) -> dict:
+    """Overlay current Codex goal state onto a cached mission index.
+
+    This keeps goal-thread schema fresh without reparsing large session logs.
+    The mission rows stay as originally generated; only goal fields, the
+    top-level goal roster, and an explicit refresh receipt are updated.
+    """
+    started_perf = time.perf_counter()
+    if not isinstance(index, dict):
+        index = {}
+    index.setdefault("schema", "prompt_trace_mission_index_v3")
+    index.setdefault("generated_at", "")
+    index.setdefault("cwd", str(cwd or Path.cwd()))
+    for key in ("active_rows", "inactive_rows", "rows"):
+        if not isinstance(index.get(key), list):
+            index[key] = []
+
+    codex_thread_records = _load_codex_thread_title_records()
+    codex_thread_goals = _load_codex_thread_goals()
+    for key in ("active_rows", "inactive_rows", "rows"):
+        _refresh_goal_fields_on_rows(index.get(key) or [], codex_thread_goals)
+
+    roster_source_rows = index.get("rows") or [
+        *(index.get("active_rows") or []),
+        *(index.get("inactive_rows") or []),
+    ]
+    rows = _dedupe_mission_goal_rows(roster_source_rows)
+    goal_threads = _goal_thread_roster(codex_thread_goals, rows, codex_thread_records)
+    active_goal_thread_count = sum(1 for g in goal_threads if g.get("status") == "active")
+    mission_goal_count = sum(1 for r in rows if r.get("has_goal"))
+    active_mission_goal_count = sum(
+        1
+        for r in rows
+        if (r.get("goal") or {}).get("status") == "active"
+    )
+
+    index["goal_authority"] = _goal_authority_sources(codex_thread_goals)
+    index["goal_threads"] = goal_threads
+    index["goal_thread_count"] = len(goal_threads)
+    index["active_goal_thread_count"] = active_goal_thread_count
+    index["mission_goal_count"] = mission_goal_count
+    index["active_mission_goal_count"] = active_mission_goal_count
+    index["goal_count"] = len(goal_threads)
+    index["active_goal_count"] = active_goal_thread_count
+    index["goal_roster_refresh"] = {
+        "schema": "prompt_trace_mission_index_goal_roster_refresh_v1",
+        "mode": "cached_mission_index_overlay",
+        "refreshed_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+        "duration_ms": int((time.perf_counter() - started_perf) * 1000),
+        "source_row_count": len(rows),
+        "goal_row_count": len(codex_thread_goals),
+        "codex_session_title_count": len(codex_thread_records),
+        "preserved_generated_at": index.get("generated_at") or "",
+    }
+    return index
 
 
 def _load_title_aliases() -> dict[str, str]:
@@ -7034,6 +7119,9 @@ def main() -> int:
                      help="List candidate sessions across providers for selection")
     sel.add_argument("--mission-index", action="store_true", dest="mission_index_mode",
                      help="Emit mission index JSON for recent Claude+Codex sessions (titles, mtimes, providers) and update the canonical Structurer mission_index.json. Uses cached turn summaries and a bounded live-stale reparse budget for active sessions.")
+    sel.add_argument("--mission-index-goal-roster-refresh", action="store_true",
+                     dest="mission_index_goal_roster_refresh_mode",
+                     help="Refresh Codex goal roster fields in the cached Structurer mission_index.json without reparsing session transcripts.")
     sel.add_argument("--check", action="store_true", help="Parseability probe; exits 0/1 with JSON status")
 
     ap.add_argument("--format", choices=["compact", "full", "trace-paste", "json", "thread-closeouts"], default="compact",
@@ -7093,6 +7181,32 @@ def main() -> int:
             tmp.replace(TRACE_STRUCTURER_MISSION_INDEX)
             sys.stderr.write(
                 f"# wrote mission_index ({index['row_count']} rows) to {TRACE_STRUCTURER_MISSION_INDEX}\n"
+            )
+        except Exception as e:
+            sys.stderr.write(f"# warning: could not update canonical mission index: {e}\n")
+        if args.output:
+            Path(args.output).write_text(body + ("" if body.endswith("\n") else "\n"))
+            sys.stderr.write(f"wrote {len(body)} chars to {args.output}\n")
+        else:
+            print(body)
+        return 0
+
+    if args.mission_index_goal_roster_refresh_mode:
+        try:
+            index = json.loads(TRACE_STRUCTURER_MISSION_INDEX.read_text(encoding="utf-8"))
+            if not isinstance(index, dict):
+                index = {}
+        except Exception:
+            index = {}
+        index = _refresh_mission_index_goal_roster(index, cwd=cwd)
+        body = json.dumps(index, indent=2, ensure_ascii=False)
+        try:
+            TRACE_STRUCTURER_BASE.mkdir(parents=True, exist_ok=True)
+            tmp = TRACE_STRUCTURER_MISSION_INDEX.with_suffix(".json.tmp")
+            tmp.write_text(body, encoding="utf-8")
+            tmp.replace(TRACE_STRUCTURER_MISSION_INDEX)
+            sys.stderr.write(
+                f"# refreshed mission_index goal roster ({index.get('goal_thread_count', 0)} goal threads) at {TRACE_STRUCTURER_MISSION_INDEX}\n"
             )
         except Exception as e:
             sys.stderr.write(f"# warning: could not update canonical mission index: {e}\n")

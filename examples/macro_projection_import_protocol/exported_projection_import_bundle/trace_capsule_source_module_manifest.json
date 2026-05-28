@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 305643,
+      "byte_count": 310695,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7299,
+      "line_count": 7413,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_body_import",
       "required_anchors": [
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/meta/observability/cli_prompt_trace.py",
       "source_role": "Trace Capsule renderer and provider-session trace projection tool for command/output/edit/test timelines, closeout reports, prompt-cycle windows, and local-only variant artifacts",
-      "source_sha256": "10a27bae3cdefc34b95ebbab5c6ae77c610c9a841cd1f9b4fdde2f2d5f38fb08",
+      "source_sha256": "5d6504be50d68a2469a839c7e9e3455792495a137a63dfb57fb0a37606fcc360",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
-      "target_sha256": "10a27bae3cdefc34b95ebbab5c6ae77c610c9a841cd1f9b4fdde2f2d5f38fb08"
+      "target_sha256": "5d6504be50d68a2469a839c7e9e3455792495a137a63dfb57fb0a37606fcc360"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 18400,
+      "byte_count": 21225,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 423,
+      "line_count": 504,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_test_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "system/server/tests/test_cli_prompt_trace_capsule.py",
       "source_role": "Macro regression tests for terminal validation semantics, thread closeout reports, and repeated prompt interning around cli_prompt_trace Trace Capsule output",
-      "source_sha256": "6161d4df2b0817c6359be53c77245676bcb6d0b73ce3ad0a96cef499d5178652",
+      "source_sha256": "83341d7cc82d2111a4d2337d6bab636e455455172640d3091230547e0348009a",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
-      "target_sha256": "6161d4df2b0817c6359be53c77245676bcb6d0b73ce3ad0a96cef499d5178652"
+      "target_sha256": "83341d7cc82d2111a4d2337d6bab636e455455172640d3091230547e0348009a"
     },
     {
       "anchor_count": 5,
