@@ -9,12 +9,14 @@ from .resource_root import microcosm_root
 MICROCOSM_ROOT = microcosm_root()
 STANDARD_REF = Path("standards/std_microcosm_first_screen_composition_root.json")
 READER_ROUTE_IDS = (
+    "public_github_visitor",
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",
 )
 REQUIRED_ROUTE_IDS = set(READER_ROUTE_IDS)
 READER_LABELS = {
+    "public_github_visitor": "GitHub visitor",
     "safety_evals_engineer": "Safety/evals",
     "hiring_reviewer": "Hiring",
     "peer_developer": "Peer developer",
@@ -339,6 +341,20 @@ def _positive_count(row: Any) -> bool:
 def _reader_routes(project_label: str) -> list[dict[str, Any]]:
     return [
         {
+            "reader_route_id": "public_github_visitor",
+            "first_question": "What should I run first from the public repo page?",
+            "next_commands": [
+                f"microcosm hello {project_label}",
+                f"microcosm tour --card {project_label}",
+            ],
+            "evidence_focus": [
+                "copyable first command and no-install fallback",
+                "local behavior proof before receipt drilldown",
+                "release, hosting, and private-data anti-claims",
+            ],
+            "branch_authority": "selects_next_inspection_surface_only",
+        },
+        {
             "reader_route_id": "safety_evals_engineer",
             "first_question": "Does the evidence discipline survive contact with scale?",
             "next_commands": [
@@ -398,6 +414,19 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
         ),
         "packets": [
             {
+                "reader_route_id": "public_github_visitor",
+                "first_action": (
+                    f"Run `microcosm hello {project_label}` from the repo root."
+                ),
+                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "success_criterion": (
+                    "Can find the first runnable local command and name the "
+                    "release, hosting, and private-data claims this repo refuses."
+                ),
+                "next_drilldown": "README.md#first-run",
+                "authority": "inspection_order_only_not_publication_readiness",
+            },
+            {
                 "reader_route_id": "safety_evals_engineer",
                 "first_action": f"Run `microcosm status --card {project_label}`.",
                 "proof_surface": (
@@ -453,6 +482,24 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
         "shared_behavior_command": f"microcosm tour --card {project_label}",
         "machine_card_command": f"microcosm first-screen {project_label}",
         "routes": [
+            {
+                "reader_route_id": "public_github_visitor",
+                "label": READER_LABELS["public_github_visitor"],
+                "terminal_command": (
+                    f"microcosm hello --reader public_github_visitor {project_label}"
+                ),
+                "text_projection_command": (
+                    "microcosm first-screen --format text "
+                    f"--reader public_github_visitor {project_label}"
+                ),
+                "first_action": (
+                    f"Run `microcosm hello {project_label}` from the repo root."
+                ),
+                "proof_surface": f"`microcosm tour --card {project_label}`",
+                "exit_check": "find the first runnable local command and anti-claims",
+                "not_a_claim": "publication_or_reader_success_ready",
+                "authority": "focused_projection_only_not_publication_readiness",
+            },
             {
                 "reader_route_id": "safety_evals_engineer",
                 "label": READER_LABELS["safety_evals_engineer"],
@@ -983,6 +1030,15 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
             "drilldown without needing the long command inventory."
         ),
         "criteria": [
+            {
+                "reader_route_id": "public_github_visitor",
+                "exit_when": (
+                    "Can run the first command and point to the anti-claims "
+                    "before opening deeper receipts."
+                ),
+                "next_if_not_met": f"microcosm hello {project_label}",
+                "not_a_claim": "publication_or_reader_success_ready",
+            },
             {
                 "reader_route_id": "safety_evals_engineer",
                 "exit_when": (

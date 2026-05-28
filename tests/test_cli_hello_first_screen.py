@@ -48,8 +48,26 @@ def test_cli_hello_can_focus_reader_branch(
     assert "Reader branch: Peer developer" in output
     assert "First action: Run `microcosm tour --card .`." in output
     assert "Proof: `microcosm observe .`" in output
+    assert "Reader branch: GitHub visitor" not in output
     assert "Reader branch: Safety/evals" not in output
     assert "Reader branch: Hiring" not in output
+
+
+def test_cli_hello_can_focus_public_github_visitor_branch(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--reader", "public_github_visitor", "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert "Reader branch: GitHub visitor" in output
+    assert "Command: microcosm hello --reader public_github_visitor ." in output
+    assert "First action: Run `microcosm hello .` from the repo root." in output
+    assert "Proof: `microcosm tour --card .`" in output
+    assert "release, hosting, and private-data claims this repo refuses" in output
+    assert "Reader branch: Safety/evals" not in output
+    assert "Reader branch: Hiring" not in output
+    assert "Reader branch: Peer developer" not in output
 
 
 def test_cli_first_screen_json_is_compact_by_default(

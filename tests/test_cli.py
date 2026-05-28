@@ -407,6 +407,7 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
         },
     }
     assert {route["reader_route_id"] for route in payload["reader_routes"]} == {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",

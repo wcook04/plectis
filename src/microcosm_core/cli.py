@@ -38,6 +38,7 @@ class _LazyModule:
 
 TEXT_READER_CHOICES = (
     "all",
+    "public_github_visitor",
     "safety_evals_engineer",
     "hiring_reviewer",
     "peer_developer",

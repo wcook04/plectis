@@ -10,6 +10,18 @@ from typing import Any
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = MICROCOSM_ROOT / "scripts/first_screen_composition_card.py"
+EXPECTED_READER_ROUTE_IDS = {
+    "public_github_visitor",
+    "safety_evals_engineer",
+    "hiring_reviewer",
+    "peer_developer",
+}
+EXPECTED_READER_ROUTE_ID_LIST = [
+    "public_github_visitor",
+    "safety_evals_engineer",
+    "hiring_reviewer",
+    "peer_developer",
+]
 
 
 def _load_module() -> Any:
@@ -105,11 +117,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
             "behavior proof command to write .microcosm state."
         ),
     }
-    assert route_ids == {
-        "safety_evals_engineer",
-        "hiring_reviewer",
-        "peer_developer",
-    }
+    assert route_ids == EXPECTED_READER_ROUTE_IDS
     reader_landing_packets = card["reader_landing_packets"]
     packet_by_id = {
         packet["reader_route_id"]: packet
@@ -143,6 +151,15 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert menu_by_id["safety_evals_engineer"]["not_a_claim"] == (
         "safety_evaluation_complete"
+    )
+    assert menu_by_id["public_github_visitor"]["terminal_command"] == (
+        "microcosm hello --reader public_github_visitor <project>"
+    )
+    assert menu_by_id["public_github_visitor"]["text_projection_command"] == (
+        "microcosm first-screen --format text --reader public_github_visitor <project>"
+    )
+    assert menu_by_id["public_github_visitor"]["not_a_claim"] == (
+        "publication_or_reader_success_ready"
     )
     assert reader_route_menu["safe_to_show"] == {
         "uses_existing_reader_packets": True,
@@ -181,6 +198,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert packet_by_id["safety_evals_engineer"]["next_drilldown"] == (
         "core/organ_evidence_classes.json"
     )
+    assert packet_by_id["public_github_visitor"]["next_drilldown"] == (
+        "README.md#first-run"
+    )
+    assert "release, hosting, and private-data claims" in packet_by_id[
+        "public_github_visitor"
+    ]["success_criterion"]
     assert "maturity or release readiness" in packet_by_id[
         "safety_evals_engineer"
     ]["success_criterion"]
@@ -508,6 +531,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "exit_criteria_not_reader_success_or_release_authority"
     )
     assert set(exit_by_id) == route_ids
+    assert exit_by_id["public_github_visitor"]["next_if_not_met"] == (
+        "microcosm hello <project>"
+    )
     assert exit_by_id["safety_evals_engineer"]["next_if_not_met"] == (
         "microcosm status --card <project>"
     )
@@ -522,6 +548,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
     assert exit_by_id["hiring_reviewer"]["not_a_claim"] == (
         "candidate_assessed_or_interview_ready"
+    )
+    assert exit_by_id["public_github_visitor"]["not_a_claim"] == (
+        "publication_or_reader_success_ready"
     )
     assert exit_by_id["peer_developer"]["not_a_claim"] == "integration_complete"
     for row in exit_by_id.values():
@@ -1198,11 +1227,7 @@ def test_first_screen_standard_scan_binds_card_to_standard_contract() -> None:
         scan["standard_ref"]
         == "standards/std_microcosm_first_screen_composition_root.json"
     )
-    assert scan["expected_reader_route_ids"] == [
-        "safety_evals_engineer",
-        "hiring_reviewer",
-        "peer_developer",
-    ]
+    assert scan["expected_reader_route_ids"] == EXPECTED_READER_ROUTE_ID_LIST
     assert scan["missing"] == {
         "required_fields": [],
         "validator_minimum_checks": [],
@@ -1312,6 +1337,9 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         row["reader_route_id"]: row["terminal_command"]
         for row in card["reader_route_menu"]["routes"]
     } == {
+        "public_github_visitor": (
+            "microcosm hello --reader public_github_visitor ."
+        ),
         "safety_evals_engineer": (
             "microcosm hello --reader safety_evals_engineer ."
         ),
@@ -1341,20 +1369,14 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     assert card["validation"]["checks"]["reader_route_menu"] is True
     assert card["validation"]["checks"]["video_storyboard_packet"] is True
     assert card["validation"]["checks"]["artifact_fit_matrix"] is True
-    assert {route["reader_route_id"] for route in card["reader_routes"]} == {
-        "safety_evals_engineer",
-        "hiring_reviewer",
-        "peer_developer",
-    }
+    assert {route["reader_route_id"] for route in card["reader_routes"]} == (
+        EXPECTED_READER_ROUTE_IDS
+    )
     packet_ids = {
         packet["reader_route_id"]
         for packet in card["reader_landing_packets"]["packets"]
     }
-    assert packet_ids == {
-        "safety_evals_engineer",
-        "hiring_reviewer",
-        "peer_developer",
-    }
+    assert packet_ids == EXPECTED_READER_ROUTE_IDS
     assert card["validation"]["checks"]["reader_landing_packets"] is True
     assert card["validation"]["checks"]["behavior_proof_packet"] is True
     assert "/Users/" not in result.stdout
@@ -1385,11 +1407,7 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
     )
     assert {
         row["reader_route_id"] for row in compact["reader_route_menu"]["routes"]
-    } == {
-        "safety_evals_engineer",
-        "hiring_reviewer",
-        "peer_developer",
-    }
+    } == EXPECTED_READER_ROUTE_IDS
     assert compact["state_write_boundary"]["this_card_writes_microcosm_state"] is False
     assert compact["drilldowns"]["full_json"] == "microcosm first-screen --full ."
     assert "video_storyboard_packet" not in compact
@@ -1426,6 +1444,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert (
         "Behavior proof: front_door_status=pass, selected_route_id, state refs, "
         "source_files_mutated=false"
+    ) in text
+    assert (
+        "GitHub visitor: microcosm hello --reader public_github_visitor . | Proof: "
+        "`microcosm tour --card .`"
     ) in text
     assert (
         "Safety/evals: microcosm hello --reader safety_evals_engineer . | Proof: "
@@ -1465,26 +1487,49 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
     module = _load_module()
     card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
     expected = {
+        "public_github_visitor": {
+            "label": "GitHub visitor",
+            "first_action": "Run `microcosm hello .` from the repo root.",
+            "proof": "`microcosm tour --card .`",
+            "success": "release, hosting, and private-data claims",
+            "absent": [
+                "Reader branch: Safety/evals",
+                "Reader branch: Hiring",
+                "Reader branch: Peer developer",
+            ],
+        },
         "safety_evals_engineer": {
             "label": "Safety/evals",
             "first_action": "Run `microcosm status --card .`.",
             "proof": "`microcosm authority --card` plus `microcosm workingness --card`",
             "success": "maturity or release readiness",
-            "absent": ["Reader branch: Hiring", "Reader branch: Peer developer"],
+            "absent": [
+                "Reader branch: GitHub visitor",
+                "Reader branch: Hiring",
+                "Reader branch: Peer developer",
+            ],
         },
         "hiring_reviewer": {
             "label": "Hiring",
             "first_action": "Run `microcosm hello .` before the longer tour.",
             "proof": "`microcosm tour --card .`",
             "success": "public card explicitly refuses to make",
-            "absent": ["Reader branch: Safety/evals", "Reader branch: Peer developer"],
+            "absent": [
+                "Reader branch: GitHub visitor",
+                "Reader branch: Safety/evals",
+                "Reader branch: Peer developer",
+            ],
         },
         "peer_developer": {
             "label": "Peer developer",
             "first_action": "Run `microcosm tour --card .`.",
             "proof": "`microcosm observe .`",
             "success": "without provider calls",
-            "absent": ["Reader branch: Safety/evals", "Reader branch: Hiring"],
+            "absent": [
+                "Reader branch: GitHub visitor",
+                "Reader branch: Safety/evals",
+                "Reader branch: Hiring",
+            ],
         },
     }
 
