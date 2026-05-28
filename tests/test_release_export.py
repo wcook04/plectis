@@ -160,7 +160,13 @@ if __name__ == "__main__":
 def test_release_export_generates_clean_standalone_folder_and_receipt(
     tmp_path: Path,
 ) -> None:
-    root = _make_release_root(tmp_path / "source")
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git(repo, "init")
+    _git(repo, "config", "user.email", "microcosm@example.invalid")
+    _git(repo, "config", "user.name", "Microcosm Test")
+    root = _make_release_root(repo / release_export.ARTIFACT_DIR_NAME)
+    _commit_all(repo, "candidate")
     out = tmp_path / "out"
 
     receipt = release_export.build_release_export(
@@ -237,10 +243,12 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert gate_decision["gate_id"] == release_export.RELEASE_AUTHORIZATION_GATE_ID
     assert gate_decision["dry_run"] is True
     assert gate_decision["release_authorization_allowed_now"] is False
-    assert gate_decision["decision"] == "defer"
+    assert gate_decision["decision"] == "ready_pending_operator_authorization"
+    assert gate_decision["operator_authorization_gate_eligible"] is True
+    assert gate_decision["blocking_codes"] == []
     assert (
-        "RELEASE_AUTHORIZATION_SOURCE_IDENTITY_UNAVAILABLE"
-        in gate_decision["blocking_codes"]
+        candidate["candidate_identity"]["source"]["source_tree_state_kind"]
+        == "git_head_clean"
     )
     warning_rows = candidate["external_warning_classification"]["warnings"]
     warning_ids = {row["warning_id"] for row in warning_rows}
