@@ -1374,10 +1374,13 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "doctrine prevents mistakes" in text
     assert "exit when you can choose a drilldown" in text
     assert "without the command inventory" in text
-    assert "Public scale:" in text
-    assert "source-open materials" in text
+    assert "Public handles:" in text
+    assert "organ-registry rows" in text
+    assert "standard-registry rows" in text
+    assert "source-open material handles" in text
     assert "Counts are receipt-backed handles" in text
-    assert "comparison strip + tripwires translate overclaims" in text
+    assert "registries and fixture manifests" in text
+    assert "tripwires translate overclaims" in text
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
@@ -1386,7 +1389,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     ) in text
     assert (
         "Safety/evals: microcosm hello --reader safety_evals_engineer . | Proof: "
-        "`microcosm authority` plus `microcosm workingness`"
+        "`microcosm authority --card` plus `microcosm workingness --card`"
     ) in text
     assert (
         "Hiring: microcosm hello --reader hiring_reviewer . | Proof: "
@@ -1425,7 +1428,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         "safety_evals_engineer": {
             "label": "Safety/evals",
             "first_action": "Run `microcosm status --card .`.",
-            "proof": "`microcosm authority` plus `microcosm workingness`",
+            "proof": "`microcosm authority --card` plus `microcosm workingness --card`",
             "success": "maturity or release readiness",
             "absent": ["Reader branch: Hiring", "Reader branch: Peer developer"],
         },
@@ -1467,8 +1470,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert f"  Proof: {assertions['proof']}" in text
         assert assertions["success"] in text
         assert "Authority ceiling:" in text
+        assert "Public handles:" in text
         assert "Counts are receipt-backed handles" in text
-        assert "comparison strip + tripwires translate overclaims" in text
+        assert "registries and fixture manifests" in text
+        assert "tripwires translate overclaims" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
         assert "problem map binds the gaps" in text
@@ -1505,7 +1510,8 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "doctrine prevents mistakes" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
-    assert "comparison strip + tripwires translate overclaims" in result.stdout
+    assert "registries and fixture manifests" in result.stdout
+    assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
@@ -1538,7 +1544,8 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "doctrine prevents mistakes" in result.stdout
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
-    assert "comparison strip + tripwires translate overclaims" in result.stdout
+    assert "registries and fixture manifests" in result.stdout
+    assert "tripwires translate overclaims" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
@@ -1553,7 +1560,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     )
     assert "  First action: Run `microcosm status --card .`." in result.stdout
     assert (
-        "  Proof: `microcosm authority` plus `microcosm workingness`"
+        "  Proof: `microcosm authority --card` plus `microcosm workingness --card`"
         in result.stdout
     )
     assert "maturity or release readiness" in result.stdout

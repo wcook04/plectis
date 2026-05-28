@@ -3177,8 +3177,9 @@ def _scale_summary_line(payload: dict[str, Any]) -> str:
     standards = counts["public_standards"]["count"]
     source_open_materials = counts["source_open_materials"]["count"]
     return (
-        f"  Public scale: {organs} organs, {standards} standards, "
-        f"{source_open_materials} source-open materials."
+        f"  Public handles: {organs} organ-registry rows, {standards} "
+        f"standard-registry rows, {source_open_materials} source-open "
+        "material handles."
     )
 
 
@@ -3221,7 +3222,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         "",
         "Why the counts are honest:",
         _scale_summary_line(payload),
-        "  Counts are receipt-backed handles; comparison strip + tripwires translate overclaims before drilldown.",
+        "  Counts are receipt-backed handles from registries and fixture manifests; tripwires translate overclaims before drilldown.",
         _evidence_class_summary_line(payload),
         "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
