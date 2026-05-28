@@ -8,13 +8,40 @@ from microcosm_core.receipts import base_receipt, write_receipt
 from microcosm_core.secret_exclusion_scan import PASS, load_forbidden_classes, scan_paths
 
 
-SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".venv"}
+SKIP_DIRS = {
+    ".git",
+    ".microcosm",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+    "build",
+    "dist",
+    "microcosm-substrate",
+    "node_modules",
+}
+SKIP_FILE_SUFFIXES = {".pyc", ".pyo"}
+
+
+def _is_local_residue(path: Path, root: Path) -> bool:
+    try:
+        rel = path.relative_to(root)
+    except ValueError:
+        rel = path
+    parts = rel.parts
+    return (
+        any(part in SKIP_DIRS for part in parts)
+        or any(part.endswith(".egg-info") for part in parts)
+        or path.suffix in SKIP_FILE_SUFFIXES
+        or path.name == ".DS_Store"
+    )
 
 
 def _iter_scan_paths(root: Path) -> list[Path]:
     paths: list[Path] = []
     for path in root.rglob("*"):
-        if any(part in SKIP_DIRS for part in path.parts):
+        if _is_local_residue(path, root):
             continue
         if path.is_file():
             paths.append(path)

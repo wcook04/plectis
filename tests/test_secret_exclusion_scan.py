@@ -114,3 +114,43 @@ def test_secret_exclusion_validator_emits_new_receipt_contract(tmp_path: Path) -
     assert receipt["receipt_paths"] == ["receipts/first_wave/secret_exclusion_scan.json"]
     assert "private_state_scan" not in receipt
     assert "body_redacted" not in _walk_keys(receipt)
+
+
+def test_secret_exclusion_validator_skips_local_runtime_residue(tmp_path: Path) -> None:
+    root = tmp_path / "microcosm-substrate"
+    (root / "core").mkdir(parents=True)
+    (root / "core/private_state_forbidden_classes.json").write_text(
+        POLICY_PATH.read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    (root / "README.md").write_text("real substrate only\n", encoding="utf-8")
+    for residue_path in (
+        ".DS_Store",
+        ".microcosm/project_manifest.json",
+        ".pytest_cache/README.md",
+        ".venv/pyvenv.cfg",
+        "build/lib.txt",
+        "dist/microcosm.whl",
+        "microcosm-substrate/.microcosm/events.jsonl",
+        "node_modules/package/index.js",
+        "src/microcosm_substrate.egg-info/PKG-INFO",
+    ):
+        path = root / residue_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("SYNTHETIC_RAW_SEED_BODY_SENTINEL\n", encoding="utf-8")
+
+    receipt = validate_scan(root)
+
+    assert receipt["status"] == PASS
+    assert receipt["secret_exclusion_scan"]["blocking_hit_count"] == 0
+
+    (root / "public_sentinel.txt").write_text(
+        "SYNTHETIC_RAW_SEED_BODY_SENTINEL\n",
+        encoding="utf-8",
+    )
+
+    blocked = validate_scan(root)
+
+    assert blocked["status"] == BLOCKED_SECRET_EXCLUSION
+    assert blocked["secret_exclusion_scan"]["blocking_hit_count"] == 1
+    assert blocked["secret_exclusion_scan"]["hits"][0]["path"] == "public_sentinel.txt"
