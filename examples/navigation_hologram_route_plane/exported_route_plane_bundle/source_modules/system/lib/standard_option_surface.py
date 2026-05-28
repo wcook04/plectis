@@ -13154,6 +13154,7 @@ def _prompt_shelf_metadata_base_row(repo_root: Path, *, band: str) -> dict[str, 
         "owner_summary_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --summary",
         "owner_coverage_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
         "owner_check_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --check",
+        "owner_review_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --review --slot B2 --limit 12",
         "owner_repair_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --write",
         "drilldown_command": (
             "./repo-python kernel.py --option-surface prompt_shelf_metadata "
@@ -13163,6 +13164,7 @@ def _prompt_shelf_metadata_base_row(repo_root: Path, *, band: str) -> dict[str, 
         "validation_route": [
             "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --check",
             "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
+            "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --review --slot B2 --limit 12",
         ],
         "mutation_route": [
             "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --write",
@@ -13200,7 +13202,7 @@ def _prompt_shelf_metadata_base_row(repo_root: Path, *, band: str) -> dict[str, 
             "public_release_safe": False,
             "allowed_payload": (
                 "run ids, slots, receipt counts, coverage status, issue summaries, selected-row handles, "
-                "owner commands, and WorkItem/up-propagation routes"
+                "owner commands, bounded private review-drilldown commands, and WorkItem/up-propagation routes"
             ),
             "forbidden_payload": (
                 "raw run markdown, raw event JSON, prompt/provider payloads, hidden reasoning, "
@@ -13218,6 +13220,7 @@ def _prompt_shelf_metadata_base_row(repo_root: Path, *, band: str) -> dict[str, 
             "drilldowns": [
                 "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --summary",
                 "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
+                "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --review --slot B2 --limit 12",
                 "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --check",
             ],
         },
@@ -13236,6 +13239,7 @@ def _prompt_shelf_metadata_card_row(repo_root: Path) -> dict[str, Any]:
         "summary_command": row["owner_summary_command"],
         "coverage_command": row["owner_coverage_command"],
         "check_command": row["owner_check_command"],
+        "review_command": row["owner_review_command"],
         "refresh_command": row["owner_repair_command"],
         "context_pack_command": (
             './repo-python kernel.py --context-pack "prompt shelf Type B reasoning extraction '
@@ -13260,6 +13264,9 @@ def _prompt_shelf_metadata_cluster_rows(repo_root: Path) -> list[dict[str, Any]]
         )
         owner_slot_coverage_command = (
             f"./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage --slot {slot}"
+        )
+        owner_slot_review_command = (
+            f"./repo-python tools/meta/observability/prompt_shelf_runs_index.py --review --slot {slot} --limit 12"
         )
         rows.append(
             {
@@ -13288,6 +13295,7 @@ def _prompt_shelf_metadata_cluster_rows(repo_root: Path) -> list[dict[str, Any]]
                 "owner_coverage_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
                 "owner_slot_coverage_command": owner_slot_coverage_command,
                 "owner_check_command": "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --check",
+                "owner_slot_review_command": owner_slot_review_command,
                 "card_command": (
                     "./repo-python kernel.py --option-surface prompt_shelf_metadata "
                     f"--band card --ids {PROMPT_SHELF_METADATA_ROW_ID}"
@@ -13306,6 +13314,7 @@ def _prompt_shelf_metadata_cluster_rows(repo_root: Path) -> list[dict[str, Any]]
                         owner_slot_summary_command,
                         "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
                         owner_slot_coverage_command,
+                        owner_slot_review_command,
                         (
                             "./repo-python kernel.py --option-surface prompt_shelf_metadata "
                             f"--band card --ids {PROMPT_SHELF_METADATA_ROW_ID}"
@@ -14137,7 +14146,8 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
     ]
     bundle_command = f"./repo-python kernel.py --raw-seed-autonomous-seed-bundle {seed_id}"
     refresh_command = f"./repo-python kernel.py --raw-seed-autonomous-seed-refresh {seed_id}"
-    validate_command = f"./repo-python kernel.py --validate-seed-heartbeat {entry.get('json_rel')}"
+    validate_command = f"./repo-python kernel.py --validate-seed-continuity {entry.get('json_rel')}"
+    legacy_validate_command = f"./repo-python kernel.py --validate-seed-heartbeat {entry.get('json_rel')}"
     replay_receipt_contract = {
         "schema_version": "autonomous_seed_replay_receipt_v0",
         "purpose": (
@@ -14204,6 +14214,7 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
         "owner_refresh_command": refresh_command,
         "owner_list_command": "./repo-python kernel.py --raw-seed-autonomous-seeds 09",
         "owner_validate_command": validate_command,
+        "legacy_validate_command": legacy_validate_command,
         "drilldown_command": f"./repo-python kernel.py --option-surface type_a_autonomous_seeds --band card --ids {seed_id}",
         "evidence_command": bundle_command,
         "source_projection_boundary": {
@@ -14248,6 +14259,9 @@ def _type_a_seed_base_row(entry: Mapping[str, Any], *, band: str) -> dict[str, A
             validate_command,
             "./repo-python kernel.py --raw-seed-autonomous-seeds 09",
             bundle_command,
+        ],
+        "legacy_compatibility_validation_route": [
+            legacy_validate_command,
         ],
         "mutation_route": [
             refresh_command,

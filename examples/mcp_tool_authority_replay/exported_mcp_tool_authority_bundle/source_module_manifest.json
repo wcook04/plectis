@@ -23,15 +23,15 @@
         "\"tools/meta/control/mission_transaction_preflight.py\"",
         "\"codex/standards/std_agent_execution_trace.json\""
       ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
       "source_role": "Macro reconstruction body recording the actual mcp_tool_authority_replay growth pass, its source refs, and its authority boundary.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "source_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "target_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -54,15 +54,15 @@
         "\"tools/meta/control/mission_transaction_preflight.py\"",
         "\"codex/standards/std_extracted_pattern_route_readiness.json\""
       ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "source_role": "Macro extracted-pattern ledger body containing the mcp_tool_authority_replay_compound row and related route-observability source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "source_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "target_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -85,15 +85,15 @@
         "build_agent_execution_trace",
         "PROCESS_METADATA_PRIVACY_BOUNDARY"
       ],
-      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace runtime body that parses observable agent action records while excluding hidden reasoning, prompt bodies, and tool-result bodies from trace authority.",
-      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -116,15 +116,15 @@
         "\"never_parses\"",
         "\"agent_trace_capsule_text_v3\""
       ],
-      "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro standard body for the agent execution trace substrate, including privacy boundaries for prompt bodies, operator chat content, and generated trace projections.",
-      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -147,15 +147,15 @@
         "check_extracted_pattern_route_readiness.py --check",
         "\"route_readiness_contract\""
       ],
-      "sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+      "sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "codex/standards/std_extracted_pattern_route_readiness.json",
       "source_role": "Macro route-readiness standard body that binds extracted pattern rows to organ routing, audit reports, validators, and source authority.",
-      "source_sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+      "source_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/codex/standards/std_extracted_pattern_route_readiness.json",
-      "target_sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+      "target_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"
@@ -178,15 +178,15 @@
         "--owned-path",
         "mission_transaction_control_summary"
       ],
-      "sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_tool_payload_or_credentials",
       "source_ref": "tools/meta/control/mission_transaction_preflight.py",
       "source_role": "Macro mission-transaction preflight control-plane body used by scoped commit and Work Ledger landing checks for active claims and owned paths.",
-      "source_sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
       "target_ref": "microcosm-substrate/examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle/source_modules/ai_workflow/tools/meta/control/mission_transaction_preflight.py",
-      "target_sha256": "sha256:f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
       "validation_refs": [
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_mcp_tool_authority_replay.py::test_mcp_tool_authority_exported_bundle_validates_runtime_shape"

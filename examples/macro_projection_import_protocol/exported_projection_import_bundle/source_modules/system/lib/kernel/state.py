@@ -56,7 +56,7 @@ STABLE_COMMANDS = {
         "--paper-module-route-coverage", "--paper-module-route", "--facts", "--fact", "--fact-audit",
         "--paper-module-facts", "--list-docs-route-focus", "--set-docs-route-focus",
         "--organisation-control-plane", "--organization-control-plane", "--organisation-next-slice", "--organization-next-slice",
-        "--skill-find", "--command-card", "--validate-seed-heartbeat", "--session-diagnostics",
+        "--skill-find", "--command-card", "--validate-seed-continuity", "--validate-seed-heartbeat", "--session-diagnostics",
         "--orient-task", "--context", "--trace", "--direction", "--doctrine",
         "--doctrine-runtime", "--locate", "--run-context", "--lens", "--compile",
         "--standards-companion-drift", "--metabolism-row-jobs", "--provider-plane-liveness",

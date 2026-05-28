@@ -24,15 +24,15 @@
         "system/lib/agent_execution_trace.py",
         "codex/standards/std_agent_execution_trace.json"
       ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "source_role": "Macro extracted-pattern ledger body containing the indirect_prompt_injection_information_flow_policy_replay_compound row and its prompt-injection, trace, standard, and projection source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "source_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "target_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "validation_refs": [
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
@@ -55,15 +55,15 @@
         "AgentDojo evaluates tool-using agents over untrusted data",
         "End-to-end web-agent prompt-injection attacks make information-flow policy receipts"
       ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
       "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
       "source_role": "Macro high-novelty reconstruction receipt body that appended the prompt-injection information-flow replay row and binds it to external attention and local source refs.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "source_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "target_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "validation_refs": [
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
@@ -86,15 +86,15 @@
         "TRACE_OUTPUT_PRIVACY_BOUNDARY",
         "NEVER parses"
       ],
-      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro agent-execution trace runtime body that provides observable span, trace, and privacy-boundary mechanics inherited by the public prompt-injection trace refactor.",
-      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "validation_refs": [
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"
@@ -117,15 +117,15 @@
         "\"never_parses\"",
         "\"trace_ontology_contract\""
       ],
-      "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_real_accounts_raw_prompt_bodies_or_credential_equivalent_material",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro agent-execution trace standard body that defines observable-action trace authority, private-output exclusions, and generated projection boundaries.",
-      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "target_ref": "microcosm-substrate/examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "validation_refs": [
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_indirect_prompt_injection_exported_bundle_validates_runtime_shape"

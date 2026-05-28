@@ -23,7 +23,7 @@
         "\"schema_version\": \"mathematical_strategy_atlas_v0\"",
         "prover_strategy_classification"
       ],
-      "sha256": "sha256:45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
+      "sha256": "45ef10766b10008d93ec2b01dda533b69cc946bc4b6c25dbf8ecb9e0b298f590",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "tools/meta/factory/run_prover_graph_benchmark.py",
@@ -49,7 +49,7 @@
         "provider_strategy_advisory_row_v0",
         "mathematical_strategy_atlas_v0"
       ],
-      "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "sha256": "1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
@@ -75,7 +75,7 @@
         "test_skill_atlas_overlay_repairs_orientation_without_oracle_body",
         "proof_body_visible"
       ],
-      "sha256": "sha256:3b1aee0901d29f0f93d4ba028b213a3881d409d21cf3242463fbf8f1909c3137",
+      "sha256": "3b1aee0901d29f0f93d4ba028b213a3881d409d21cf3242463fbf8f1909c3137",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "system/server/tests/test_prover_graph_benchmark_harness.py",
@@ -101,7 +101,7 @@
         "test_strategy_classification_reducer_rejects_lean_proof_body_leakage",
         "\"lean_proof_body\" not in schema[\"properties\"]"
       ],
-      "sha256": "sha256:1ddcff4ce25a5f220257f0ff0ba29a12dc855b1d993027778592df796d59b3aa",
+      "sha256": "1ddcff4ce25a5f220257f0ff0ba29a12dc855b1d993027778592df796d59b3aa",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "system/server/tests/test_prover_provider_strategy_classification_reducer.py",
@@ -127,7 +127,7 @@
         "mathematical_strategy_atlas_v0 strategy_id",
         "\"contains_oracle_material\""
       ],
-      "sha256": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+      "sha256": "97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/standards/std_compute_provider.json",
@@ -153,7 +153,7 @@
         "\"card_count\": 8",
         "\"oracle_expected_strategy_visible_to_lab\": false"
       ],
-      "sha256": "sha256:e23fb7d63bd846f7816a8ff29e5ec4aa9f8a865e03d464e76d950336dfd6d93c",
+      "sha256": "e23fb7d63bd846f7816a8ff29e5ec4aa9f8a865e03d464e76d950336dfd6d93c",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_cards.json",
@@ -179,7 +179,7 @@
         "\"selected_strategy_id\": \"constructor_injectivity\"",
         "\"proof_body_visible\": false"
       ],
-      "sha256": "sha256:8d8b8d867a910d28df1d61b7137871340864c8b8ec19ace462042806c2cc7a1c",
+      "sha256": "8d8b8d867a910d28df1d61b7137871340864c8b8ec19ace462042806c2cc7a1c",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/strategy_hypothesis_set.json",
@@ -205,7 +205,7 @@
         "\"oracle_repair_is_comparator_not_forward_skill_success\": true",
         "\"truth-side proof bodies remain oracle-only\""
       ],
-      "sha256": "sha256:f210bd9d3d5745e0bbeb2eb38ab4aed017c0399bb6198d5d5ea5fbb7255bf737",
+      "sha256": "f210bd9d3d5745e0bbeb2eb38ab4aed017c0399bb6198d5d5ea5fbb7255bf737",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROVIDER_CONTEXT_SWEEP_20260510_v0/local_foundry_baseline/problems/strategy_nat_succ_injective/artifacts/prover_skill_atlas.json",

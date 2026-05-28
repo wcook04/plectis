@@ -23,15 +23,15 @@
         "system/lib/agent_execution_trace.py",
         "tools/meta/factory/check_extracted_pattern_route_readiness.py"
       ],
-      "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "source_role": "Macro extracted-pattern ledger body containing the belief_state_process_reward_replay_compound row and its process-reward, trace, route-readiness, and public projection source refs.",
-      "source_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "source_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
-      "target_sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "target_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -54,15 +54,15 @@
         "Dense verifier-grounded process rewards",
         "\"source_refs\""
       ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
       "source_role": "Macro reconstruction receipt body that introduced the memory/governed-mutation/process-reward growth tranche and binds belief-state reward replay to real source refs.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "source_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "target_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -85,15 +85,15 @@
         "canonical_organ_model_v2",
         "check_extracted_pattern_route_readiness.py"
       ],
-      "sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "sha256": "975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
       "source_role": "Macro canonical organ model body carrying the build-facing leaf metadata for belief_state_process_reward_replay and its route-readiness source refs.",
-      "source_sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "source_sha256": "975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/canonical_organ_model_v2.json",
-      "target_sha256": "sha256:975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
+      "target_sha256": "975765cee73ebce9ad5c490bb8a2ce06cb78401643f208e975b4b88882063cd2",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -116,15 +116,15 @@
         "TRACE_OUTPUT_PRIVACY_BOUNDARY",
         "NEVER parses"
       ],
-      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro agent-execution trace runtime body that parses observable tool spans and enforces the no-hidden-reasoning trace boundary inherited by the public belief-reward trace refactor.",
-      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -147,15 +147,15 @@
         "\"never_parses\"",
         "\"trace_ontology_contract\""
       ],
-      "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro agent-execution trace standard body that defines observable-action trace authority, hidden-reasoning exclusions, and generated projection boundaries.",
-      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"
@@ -178,15 +178,15 @@
         "route_readiness_validator_ref",
         "macro_pattern_route_readiness_machine_check"
       ],
-      "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "sha256": "9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_hidden_reasoning_provider_payload_browser_hud_live_access_account_session_training_or_benchmark_payloads_or_credentials",
       "source_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
       "source_role": "Macro route-readiness checker body that validates mined pattern rows before they become selectable public projection substrate.",
-      "source_sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "source_sha256": "9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
       "target_ref": "microcosm-substrate/examples/belief_state_process_reward_replay/exported_belief_state_process_reward_bundle/source_modules/ai_workflow/tools/meta/factory/check_extracted_pattern_route_readiness.py",
-      "target_sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "target_sha256": "9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
       "validation_refs": [
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_belief_state_process_reward_replay.py::test_belief_state_process_reward_exported_bundle_validates_runtime_shape"

@@ -1196,6 +1196,7 @@ def _build_rows(root: Path, *, band: str, include_generated: bool = True) -> lis
                     "./repo-python kernel.py --option-surface prompt_shelf_metadata --band cluster_flag",
                     "./repo-python kernel.py --option-surface prompt_shelf_metadata --band card --ids prompt_shelf_runs_index_v1",
                     "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --summary",
+                    "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --review --slot B2 --limit 12",
                     "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --coverage",
                     "./repo-python tools/meta/observability/prompt_shelf_runs_index.py --check",
                 ],

@@ -3588,7 +3588,7 @@ def test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture() -
     assert text.startswith("TRACE CAPSULE v3\n")
     assert "final_validation: passed" in text
     assert "terminal_checks: pass=1 fail=0 other=0 total=1" in text
-    assert "not_included: hidden_reasoning" in text
+    assert "not_included: server_hidden_reasoning" in text
     assert meta["terminal_validation_pass_count"] == 1
     assert meta["closeout_present"] is True
     assert "/Users/" not in text

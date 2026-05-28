@@ -3029,6 +3029,7 @@ class CapsuleResidualTaxonomy:
     open_product_residuals: tuple[str, ...] = ()
     open_validation_process_residuals: tuple[str, ...] = ()
     closed_residuals_seen: tuple[str, ...] = ()
+    blocked_external_observation_residuals: tuple[str, ...] = ()
     projection_or_view_artifacts_seen: tuple[str, ...] = ()
     unresolved_residual_mentions: tuple[str, ...] = ()
 
@@ -3038,6 +3039,7 @@ class CapsuleResidualTaxonomy:
             *self.open_product_residuals,
             *self.open_validation_process_residuals,
             *self.closed_residuals_seen,
+            *self.blocked_external_observation_residuals,
             *self.projection_or_view_artifacts_seen,
             *self.unresolved_residual_mentions,
         }))
@@ -3501,6 +3503,8 @@ _CAPSULE_CLOSED_RESIDUAL_STATES = {
     "satisfied",
     "superseded",
     "accepted",
+    "signoff",
+    "signed_off",
 }
 _CAPSULE_PROJECTION_ARTIFACT_SUFFIXES = (
     ".json",
@@ -3603,11 +3607,73 @@ def _capsule_residual_is_validation_process(residual_id: str, item: dict | None)
     ))
 
 
+def _capsule_residual_is_external_observation_blocker(item: dict | None) -> bool:
+    if not isinstance(item, dict):
+        return False
+    if str(item.get("state") or item.get("status") or "").lower() != "blocked":
+        return False
+
+    fields: list[str] = []
+    for key in (
+        "id",
+        "title",
+        "statement",
+        "problem",
+        "impact",
+        "acceptance",
+        "blocked_reason",
+        "blocking_condition",
+    ):
+        value = item.get(key)
+        if value:
+            fields.append(str(value))
+    tags = item.get("tags")
+    if isinstance(tags, list):
+        fields.extend(str(tag) for tag in tags if tag)
+    satisfaction_contract = item.get("satisfaction_contract")
+    if isinstance(satisfaction_contract, dict):
+        for key in ("reentry_condition", "definition_of_done"):
+            value = satisfaction_contract.get(key)
+            if isinstance(value, list):
+                fields.extend(str(part) for part in value if part)
+            elif value:
+                fields.append(str(value))
+    provenance = item.get("provenance")
+    if isinstance(provenance, dict):
+        value = provenance.get("source_kind")
+        if value:
+            fields.append(str(value))
+
+    text = " ".join(fields).lower()
+    has_observation_shape = any(token in text for token in (
+        "residual_observation",
+        "natural market",
+        "market-fire",
+        "market fire",
+        "wall-clock",
+        "clock tick",
+        "next eligible",
+        "next natural",
+    ))
+    has_external_wait = any(token in text for token in (
+        "blocked on",
+        "reentry_condition",
+        "next eligible",
+        "wall-clock",
+        "clock tick",
+        "future natural",
+        "after the first natural",
+        "next natural",
+    ))
+    return has_observation_shape and has_external_wait
+
+
 def _capsule_residual_taxonomy(rows: Iterable[CapsuleEvidenceClassification]) -> CapsuleResidualTaxonomy:
     buckets: dict[str, set[str]] = {
         "open_product_residuals": set(),
         "open_validation_process_residuals": set(),
         "closed_residuals_seen": set(),
+        "blocked_external_observation_residuals": set(),
         "projection_or_view_artifacts_seen": set(),
         "unresolved_residual_mentions": set(),
     }
@@ -3625,6 +3691,8 @@ def _capsule_residual_taxonomy(rows: Iterable[CapsuleEvidenceClassification]) ->
             elif isinstance(item, dict):
                 if _capsule_residual_is_validation_process(residual_id, item):
                     buckets["open_validation_process_residuals"].add(residual_id)
+                elif _capsule_residual_is_external_observation_blocker(item):
+                    buckets["blocked_external_observation_residuals"].add(residual_id)
                 else:
                     buckets["open_product_residuals"].add(residual_id)
             elif residual_id in _CAPSULE_KNOWN_RESIDUAL_IDS:
@@ -3635,6 +3703,7 @@ def _capsule_residual_taxonomy(rows: Iterable[CapsuleEvidenceClassification]) ->
         open_product_residuals=tuple(sorted(buckets["open_product_residuals"])),
         open_validation_process_residuals=tuple(sorted(buckets["open_validation_process_residuals"])),
         closed_residuals_seen=tuple(sorted(buckets["closed_residuals_seen"])),
+        blocked_external_observation_residuals=tuple(sorted(buckets["blocked_external_observation_residuals"])),
         projection_or_view_artifacts_seen=tuple(sorted(buckets["projection_or_view_artifacts_seen"])),
         unresolved_residual_mentions=tuple(sorted(buckets["unresolved_residual_mentions"])),
     )
@@ -3719,6 +3788,66 @@ def _capsule_validation_class(
     if _capsule_pytest_wrapper_passed_then_failed(command, output_text):
         return "validation_process_warning"
     return "scoped_validation_failure"
+
+
+_CAPSULE_RELEASE_AUTHORIZED_TRUE_RE = re.compile(
+    r"\brelease_authorized\b[`'\"\s:=_-]*true\b",
+    re.I,
+)
+
+
+def _capsule_release_candidate_gate_decision(text: str) -> str:
+    lowered = (text or "").lower()
+    if "ready_pending_operator_authorization" not in lowered:
+        return ""
+    if _CAPSULE_RELEASE_AUTHORIZED_TRUE_RE.search(text or ""):
+        return ""
+
+    release_authority_false = any(
+        marker in lowered
+        for marker in (
+            '"release_authorized": false',
+            "'release_authorized': false",
+            "release_authorized=false",
+            "release_authorized remains false",
+            "release_authorized` remains false",
+        )
+    )
+    clean_source = any(
+        marker in lowered
+        for marker in (
+            '"source_tree_state": "git_head_clean"',
+            '"source_tree_state_kind": "git_head_clean"',
+            "source_tree_state=git_head_clean",
+            "clean git head",
+            "clean-source",
+            "clean source",
+        )
+    )
+    dirty_count_zero = any(
+        marker in lowered
+        for marker in (
+            '"dirty_source_path_count": 0',
+            "'dirty_source_path_count': 0",
+            "dirty_source_path_count=0",
+            "dirty source count `0`",
+            "dirty source count 0",
+        )
+    )
+    projection_pass = any(
+        marker in lowered
+        for marker in (
+            '"projection_freshness_status": "pass"',
+            "'projection_freshness_status': 'pass'",
+            '"projection_freshness": "pass"',
+            "projection freshness `pass`",
+            "projection freshness pass",
+            "projection_freshness_status=pass",
+        )
+    )
+    if release_authority_false and clean_source and dirty_count_zero and projection_pass:
+        return "ready_pending_operator_authorization"
+    return ""
 
 
 def _capsule_evidence_classification(
@@ -4415,6 +4544,7 @@ def render_trace_capsule_text(
     open_product_residuals = list(residual_taxonomy.open_product_residuals)
     open_validation_process_residuals = list(residual_taxonomy.open_validation_process_residuals)
     closed_residuals_seen = list(residual_taxonomy.closed_residuals_seen)
+    blocked_external_observation_residuals = list(residual_taxonomy.blocked_external_observation_residuals)
     projection_or_view_artifacts_seen = list(residual_taxonomy.projection_or_view_artifacts_seen)
     unresolved_residual_mentions = list(residual_taxonomy.unresolved_residual_mentions)
     ambient_validation_rows = [
@@ -4456,9 +4586,24 @@ def render_trace_capsule_text(
         for row in terminal_check_rows
         if row.result == "fail" and row.validation_class in nonblocking_failure_classes
     ]
+    final_assistant_text = _capsule_final_assistant_text(turn)
+    product_state_text = "\n".join(
+        "\n".join(part for part in (command, ev.output_text or "") if part)
+        for ev, command, _, _ in renderable
+    )
+    release_candidate_gate_decision = _capsule_release_candidate_gate_decision(
+        "\n".join(part for part in (product_state_text, final_assistant_text) if part)
+    )
+    release_candidate_gate_ready = release_candidate_gate_decision == "ready_pending_operator_authorization"
+    historical_terminal_failures_superseded = (
+        len(blocking_terminal_failures) if release_candidate_gate_ready else 0
+    )
+    effective_blocking_terminal_failures = [] if release_candidate_gate_ready else blocking_terminal_failures
     owner_scope_validation = "unknown"
-    if blocking_terminal_failures:
+    if effective_blocking_terminal_failures:
         owner_scope_validation = "needs_review"
+    elif release_candidate_gate_ready:
+        owner_scope_validation = "pass"
     elif owner_terminal_pass_count > 0:
         owner_scope_validation = "pass"
     elif owner_terminal_fail_count > 0:
@@ -4473,7 +4618,9 @@ def render_trace_capsule_text(
     )
     has_validation_process_warning = validation_process != "none"
     final_validation = "unknown"
-    if blocking_terminal_failures:
+    if release_candidate_gate_ready:
+        final_validation = release_candidate_gate_decision
+    elif effective_blocking_terminal_failures:
         final_validation = "needs_review"
     elif owner_terminal_pass_count > 0 and ambient_terminal_warning_rows and has_validation_process_warning:
         final_validation = "pass_with_external_and_validation_process_warnings"
@@ -4497,6 +4644,11 @@ def render_trace_capsule_text(
         ",".join(open_validation_process_residuals) if open_validation_process_residuals else "none"
     )
     closed_residuals_seen_summary = ",".join(closed_residuals_seen) if closed_residuals_seen else "none"
+    blocked_external_observation_residuals_summary = (
+        ",".join(blocked_external_observation_residuals)
+        if blocked_external_observation_residuals
+        else "none"
+    )
     projection_or_view_artifacts_seen_summary = (
         ",".join(projection_or_view_artifacts_seen) if projection_or_view_artifacts_seen else "none"
     )
@@ -4504,7 +4656,6 @@ def render_trace_capsule_text(
         ",".join(unresolved_residual_mentions) if unresolved_residual_mentions else "none"
     )
     captured_residual_summary = ",".join(captured_residual_ids) if captured_residual_ids else "none"
-    final_assistant_text = _capsule_final_assistant_text(turn)
     closeout_present = bool(final_assistant_text or commit_hash)
     changed_paths = sorted({str(row.get("path") or "") for row in edit_rows if row.get("path")})
     changed = "none captured"
@@ -4561,7 +4712,10 @@ def render_trace_capsule_text(
         f"open_product_residuals: {residual_summary}",
         f"open_validation_process_residuals: {validation_process_residual_summary}",
         f"closed_residuals_seen: {closed_residuals_seen_summary}",
+        f"blocked_external_observation_residuals: {blocked_external_observation_residuals_summary}",
         f"ambient_validation_warnings: {ambient_validation_warning_summary}",
+        f"release_candidate_gate: {release_candidate_gate_decision or 'none'}",
+        f"historical_terminal_failures_superseded: {historical_terminal_failures_superseded}",
         f"projection_or_view_artifacts_seen: {projection_or_view_artifacts_seen_summary}",
         f"unresolved_residual_mentions: {unresolved_residual_mentions_summary}",
         "release_authority: none",
@@ -4569,7 +4723,7 @@ def render_trace_capsule_text(
         f"terminal_checks: pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}",
         f"owner_scope_terminal_checks: pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}",
         f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) owner_scope_terminal_checks(pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
-        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} scoped_failures={len(blocking_terminal_failures)} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
+        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
         f"governance_receipts: pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}",
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
@@ -4642,6 +4796,8 @@ def render_trace_capsule_text(
         "ambient_warning_classes": ambient_warning_classes,
         "ambient_validation_warnings": ambient_warning_classes,
         "validation_process": validation_process,
+        "release_candidate_gate_decision": release_candidate_gate_decision,
+        "historical_terminal_failures_superseded": historical_terminal_failures_superseded,
         "external_terminal_warning_count": len(ambient_terminal_warning_rows),
         "validation_process_terminal_warning_count": len(validation_process_terminal_rows),
         "owner_scope_terminal_validation_count": len(owner_terminal_check_rows),
@@ -4650,12 +4806,14 @@ def render_trace_capsule_text(
         "open_product_residuals": open_product_residuals,
         "open_validation_process_residuals": open_validation_process_residuals,
         "closed_residuals_seen": closed_residuals_seen,
+        "blocked_external_observation_residuals": blocked_external_observation_residuals,
         "projection_or_view_artifacts_seen": projection_or_view_artifacts_seen,
         "unresolved_residual_mentions": unresolved_residual_mentions,
         "release_authority": "none",
         "validation_class_counts": validation_class_counts,
         "captured_residual_ids": captured_residual_ids,
-        "blocking_terminal_failure_count": len(blocking_terminal_failures),
+        "blocking_terminal_failure_count": len(effective_blocking_terminal_failures),
+        "raw_blocking_terminal_failure_count": len(blocking_terminal_failures),
         "nonblocking_terminal_failure_count": len(nonblocking_terminal_failures),
         "commit_count": commit_count,
         "closeout_present": closeout_present,

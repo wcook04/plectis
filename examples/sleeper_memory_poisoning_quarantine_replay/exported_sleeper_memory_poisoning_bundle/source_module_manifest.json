@@ -23,15 +23,15 @@
         "\"Hidden in Memory arXiv:2605.15338\"",
         "\"synthetic_fixture_only\": true"
       ],
-      "sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
       "source_role": "Macro reconstruction body that appended the sleeper-memory poisoning, governed-mutation, and belief-process-reward replay rows plus their source refs and authority boundary.",
-      "source_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "source_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json",
-      "target_sha256": "sha256:c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
+      "target_sha256": "c954765067576b26b7d1e8806a7fdf1443fe8821297c7bc72f6800e98a2171f7",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -54,15 +54,15 @@
         "Controlled routing vocabulary",
         "Apply-lane gating"
       ],
-      "sha256": "sha256:fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
+      "sha256": "fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "codex/doctrine/paper_modules/claude_memory_plane_contract.md",
       "source_role": "Macro memory-plane contract explaining why structured paper modules, standards, skills, raw seed, and agent seed are the durable memory substrate instead of private shadow memory.",
-      "source_sha256": "sha256:fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
+      "source_sha256": "fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/claude_memory_plane_contract.md",
-      "target_sha256": "sha256:fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
+      "target_sha256": "fac688a75dc8e33f1ed60741cdb234d607b280757395a175a99c1f2ff1612793",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -86,15 +86,15 @@
         "Tier 3",
         "Active tier is advisory, never authoritative"
       ],
-      "sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+      "sha256": "9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "codex/doctrine/paper_modules/memory_injection_tiers.md",
       "source_role": "Macro memory-injection tier contract naming passive, reactive, and active substrate injection and the advisory boundary for active memory injection.",
-      "source_sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+      "source_sha256": "9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/memory_injection_tiers.md",
-      "target_sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+      "target_sha256": "9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -117,15 +117,15 @@
         "private_text not in event_text",
         "payload_policy"
       ],
-      "sha256": "sha256:35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
+      "sha256": "35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "system/server/tests/test_operator_thread_memory.py",
       "source_role": "Macro test body proving operator thread-memory events keep private transcript bodies out of event/index projections while maintaining metadata and continuation receipts.",
-      "source_sha256": "sha256:35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
+      "source_sha256": "35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
-      "target_sha256": "sha256:35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
+      "target_sha256": "35c2eee04dc2f761ca80b98284818dbc09bf1d8439fc7ab04402df1f151a3107",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -148,15 +148,15 @@
         "build_agent_execution_trace",
         "PROCESS_METADATA_PRIVACY_BOUNDARY"
       ],
-      "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "system/lib/agent_execution_trace.py",
       "source_role": "Macro process-trace runtime body that parses observable agent action records while excluding hidden reasoning, prompt bodies, and tool-result bodies from trace authority.",
-      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "source_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/system/lib/agent_execution_trace.py",
-      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"
@@ -179,15 +179,15 @@
         "\"never_parses\"",
         "\"agent_trace_capsule_text_v3\""
       ],
-      "sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
       "source_role": "Macro standard body for the agent execution trace substrate, including privacy boundaries for prompt bodies, operator chat content, and generated trace projections.",
-      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "source_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "target_ref": "microcosm-substrate/examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_modules/ai_workflow/codex/standards/std_agent_execution_trace.json",
-      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "validation_refs": [
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_sleeper_memory_poisoning_quarantine_replay.py::test_sleeper_memory_poisoning_exported_bundle_validates_runtime_shape"

@@ -2221,6 +2221,11 @@ def test_compliance_ledger_card_exposes_actionable_finding_targets(tmp_path: Pat
                                             "missing_fields": ["lane", "scope_shape"],
                                             "validation_command": (
                                                 "./repo-python kernel.py "
+                                                "--validate-seed-continuity "
+                                                f"{seed_path}"
+                                            ),
+                                            "legacy_validation_command": (
+                                                "./repo-python kernel.py "
                                                 "--validate-seed-heartbeat "
                                                 f"{seed_path}"
                                             ),

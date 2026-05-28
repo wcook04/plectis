@@ -57,7 +57,7 @@
       "anchor_count": 3,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 2833,
+      "byte_count": 2889,
       "classification": "copied_non_secret_macro_body",
       "line_count": 62,
       "material_class": "public_macro_tool_body",
@@ -71,9 +71,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/ui/package.json",
       "source_role": "Station UI package build wiring that runs the geometry checker before TypeScript and Vite build steps.",
-      "source_sha256": "333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c",
+      "source_sha256": "28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
-      "target_sha256": "333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c"
+      "target_sha256": "28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36"
     }
   ],
   "public_runtime_policy": "source_modules_are_public_example_body_not_live_macro_runtime_dependency",

@@ -12,7 +12,7 @@
     "build:embedded": "tsc -b && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=../../../apps/zenith-macos/dist/ZenithApp.app/Contents/Resources/EmbeddedWeb vite build",
     "build:embedded:installed": "tsc -b && ZENITH_UI_BASE=./ ZENITH_UI_OUTDIR=/Applications/Zenith.app/Contents/Resources/EmbeddedWeb vite build",
     "build:all": "npm run build:web && npm run build:embedded && npm run build:embedded:installed",
-    "test": "vitest run",
+    "test": "cd ../../.. && ./repo-python tools/meta/testing/frontend_vitest.py",
     "lint": "eslint .",
     "preview": "vite preview",
     "check:station-geometry": "cd ../../.. && ./repo-python tools/meta/factory/check_station_geometry.py --check",

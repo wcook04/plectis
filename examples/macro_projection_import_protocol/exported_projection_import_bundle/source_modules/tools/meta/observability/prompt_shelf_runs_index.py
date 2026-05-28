@@ -30,6 +30,12 @@ CLI
     prompt_shelf_runs_index.py --summary --slot B2  # one slot only
     prompt_shelf_runs_index.py --coverage  # fast metadata coverage; nonzero
                                            # if any --require-slots is empty
+    prompt_shelf_runs_index.py --review --slot B2 --limit 12
+                                           # bounded private excerpt review:
+                                           # prompt sent, operator addendum,
+                                           # assistant closeout, and metadata
+    prompt_shelf_runs_index.py --review --run-id <prompt_run_id>
+                                           # inspect an older selected run
 
 Integrity checks (--check)
 --------------------------
@@ -48,16 +54,19 @@ nonzero when any slot named via --require-slots has zero runs.
 
 Command economy
 ---------------
---summary, --coverage, and --check intentionally use metadata-only indexing:
+--summary, --coverage, --check, and --review intentionally use metadata-only indexing:
 they stat raw event sidecars for byte counts and integrity but do not read raw
-prompt/provider bodies. Use --print, --write, --nesting-audit, or
---b3-lint-audit when the full raw-event path is required.
+prompt/provider bodies until a bounded review row is selected. Use --print,
+--write, --nesting-audit, or --b3-lint-audit when the full raw-event path is
+required.
 
 Private-root boundary
 ---------------------
 Use --summary/--coverage as the first prompt-shelf discovery route. Do not
 scan obsidian/prompt_shelf/usage/runs or raw_events wholesale; open one
 source run/raw file only after this metadata projection selects the row.
+Use --review as the next private-root drilldown when the task needs the
+prompt-sent -> agent-closeout trace shape before proposing prompt refinements.
 """
 from __future__ import annotations
 
@@ -110,6 +119,30 @@ DEFAULT_REQUIRED_COVERAGE_SLOTS = ["A0", "B1", "B2", "B3"]
 SLOT_ALIASES_BY_DIR_SLOT = {
     "B2": {"B2.2"},
 }
+
+DEFAULT_REVIEW_LIMIT = 12
+MAX_REVIEW_LIMIT = 100
+DEFAULT_REVIEW_SNIPPET_CHARS = 700
+MAX_REVIEW_SNIPPET_CHARS = 2400
+
+REVIEW_SIGNAL_NEEDLES = (
+    "current_telos",
+    "deliverable_type",
+    "depth_floor",
+    "authority_boundary",
+    "integration_target",
+    "mutation_contour",
+    "mutation amplitude",
+    "recipient_binding_status",
+    "handoff_delivery_status",
+    "external_reviewer_replay_status",
+    "public_release_authority",
+    "proof_authority_delta",
+    "type a should",
+    "type b should",
+    "what changed",
+    "anti-goals",
+)
 
 
 @dataclass
@@ -680,6 +713,362 @@ def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None) -
     return "\n".join(lines)
 
 
+def _bounded_int(value: int | None, *, default: int, low: int, high: int) -> int:
+    try:
+        parsed = int(value if value is not None else default)
+    except (TypeError, ValueError):
+        parsed = default
+    return max(low, min(parsed, high))
+
+
+def _parse_captured_at(value: str) -> _dt.datetime:
+    if not value:
+        return _dt.datetime.min.replace(tzinfo=_dt.timezone.utc)
+    normalized = value.strip().replace("Z", "+00:00")
+    try:
+        parsed = _dt.datetime.fromisoformat(normalized)
+    except ValueError:
+        return _dt.datetime.min.replace(tzinfo=_dt.timezone.utc)
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=_dt.timezone.utc)
+    return parsed
+
+
+def _slot_dir_name_for_entry(slot: str) -> str:
+    wanted = str(slot or "").strip().upper()
+    for base_slot, dirname in SLOT_DIR_BY_SLOT.items():
+        aliases = SLOT_ALIASES_BY_DIR_SLOT.get(base_slot, set())
+        if wanted == base_slot or wanted in aliases:
+            return dirname
+    return wanted
+
+
+def _resolve_raw_event_path(entry: RunIndexEntry, *,
+                            raw_events_root: Path | None = None) -> Path | None:
+    raw_event_rel = entry.raw_event_path or ""
+    if not raw_event_rel:
+        return None
+    raw_root = raw_events_root if raw_events_root is not None else RAW_EVENTS_ROOT
+    candidates = [
+        REPO_ROOT / raw_event_rel,
+        raw_root / _slot_dir_name_for_entry(entry.prompt_slot) / Path(raw_event_rel).name,
+        raw_root / Path(raw_event_rel).name,
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _load_raw_event_for_entry(entry: RunIndexEntry, *,
+                              raw_events_root: Path | None = None) -> tuple[dict[str, Any], Path | None, list[str]]:
+    path = _resolve_raw_event_path(entry, raw_events_root=raw_events_root)
+    if path is None:
+        return {}, None, ["raw_event_missing"]
+    try:
+        return json.loads(path.read_text()), path, []
+    except (OSError, json.JSONDecodeError) as exc:
+        return {}, path, [f"raw_event_unreadable:{exc.__class__.__name__}"]
+
+
+def _clean_excerpt(text: str, *, max_chars: int) -> str:
+    compact = re.sub(r"[ \t]+", " ", str(text or "")).strip()
+    compact = re.sub(r"\n{3,}", "\n\n", compact)
+    if len(compact) <= max_chars:
+        return compact
+    return compact[: max_chars - 3].rstrip() + "..."
+
+
+def _nonempty_lines(text: str) -> list[str]:
+    return [line.strip() for line in str(text or "").splitlines() if line.strip()]
+
+
+def _first_lines_excerpt(text: str, *, max_lines: int, max_chars: int) -> str:
+    return _clean_excerpt("\n".join(_nonempty_lines(text)[:max_lines]), max_chars=max_chars)
+
+
+def _tail_lines_excerpt(text: str, *, max_lines: int, max_chars: int) -> str:
+    lines = _nonempty_lines(text)
+    return _clean_excerpt("\n".join(lines[-max_lines:]), max_chars=max_chars)
+
+
+def _signal_key(line: str) -> str:
+    stripped = line.strip().lstrip("#>- ").strip()
+    stripped = stripped.replace("**", "").replace("__", "").replace("`", "")
+    return stripped.lower()
+
+
+def _extract_contract_signals(text: str, *, max_signals: int = 12,
+                              max_chars: int = 220) -> list[str]:
+    signals: list[str] = []
+    for line in _nonempty_lines(text):
+        normalized = _signal_key(line)
+        if any(needle in normalized for needle in REVIEW_SIGNAL_NEEDLES):
+            signals.append(_clean_excerpt(line, max_chars=max_chars))
+        if len(signals) >= max_signals:
+            break
+    return signals
+
+
+def _raw_event_texts(raw: dict[str, Any]) -> tuple[str, str, dict[str, Any]]:
+    user_msg = raw.get("user_message") if isinstance(raw.get("user_message"), dict) else {}
+    assistant_msg = raw.get("assistant_message") if isinstance(raw.get("assistant_message"), dict) else {}
+    seg = raw.get("segmentation") if isinstance(raw.get("segmentation"), dict) else {}
+    return (
+        str(user_msg.get("raw_text") or ""),
+        str(assistant_msg.get("raw_text") or ""),
+        seg,
+    )
+
+
+def _entry_matches_review_contains(entry: RunIndexEntry, needle: str, *,
+                                   raw_events_root: Path | None = None) -> bool:
+    query = needle.strip().lower()
+    if not query:
+        return True
+    metadata_blob = "\n".join(
+        str(part or "")
+        for part in (
+            entry.prompt_run_id,
+            entry.prompt_slot,
+            entry.prompt_slug,
+            entry.captured_at,
+            entry.source,
+            entry.conversation_id,
+            entry.run_note_path,
+            entry.raw_event_path,
+        )
+    ).lower()
+    if query in metadata_blob:
+        return True
+    raw, _path, _issues = _load_raw_event_for_entry(entry, raw_events_root=raw_events_root)
+    user_text, assistant_text, seg = _raw_event_texts(raw)
+    body_blob = "\n".join(
+        [
+            user_text,
+            assistant_text,
+            str(seg.get("matched_prompt_invocation") or ""),
+            str(seg.get("inferred_latest_operator_addendum") or ""),
+        ]
+    ).lower()
+    return query in body_blob
+
+
+def select_review_entries(entries: list[RunIndexEntry], *,
+                          run_ids: list[str] | None = None,
+                          contains: str | None = None,
+                          limit: int = DEFAULT_REVIEW_LIMIT,
+                          raw_events_root: Path | None = None) -> list[RunIndexEntry]:
+    """Select runs for bounded review.
+
+    Default selection is recent-first and limited. ``--run-id`` overrides
+    recency so an old selected run can be inspected directly. ``--contains`` is
+    an explicit private-root body search and still returns a bounded result.
+    """
+    wanted_ids = {
+        item.strip()
+        for item in (run_ids or [])
+        for item in item.split(",")
+        if item.strip()
+    }
+    bounded_limit = _bounded_int(limit, default=DEFAULT_REVIEW_LIMIT, low=1, high=MAX_REVIEW_LIMIT)
+    ordered = sorted(
+        entries,
+        key=lambda entry: (_parse_captured_at(entry.captured_at), entry.prompt_run_id),
+        reverse=True,
+    )
+    if wanted_ids:
+        selected = [entry for entry in ordered if entry.prompt_run_id in wanted_ids]
+    else:
+        selected = ordered
+    if contains:
+        selected = [
+            entry
+            for entry in selected
+            if _entry_matches_review_contains(entry, contains, raw_events_root=raw_events_root)
+        ]
+    if wanted_ids:
+        return selected
+    return selected[:bounded_limit]
+
+
+def _review_row(entry: RunIndexEntry, *,
+                raw_events_root: Path | None = None,
+                max_snippet_chars: int = DEFAULT_REVIEW_SNIPPET_CHARS) -> dict[str, Any]:
+    max_chars = _bounded_int(
+        max_snippet_chars,
+        default=DEFAULT_REVIEW_SNIPPET_CHARS,
+        low=120,
+        high=MAX_REVIEW_SNIPPET_CHARS,
+    )
+    raw, raw_path, read_issues = _load_raw_event_for_entry(entry, raw_events_root=raw_events_root)
+    user_text, assistant_text, seg = _raw_event_texts(raw)
+    matched_prompt = str(seg.get("matched_prompt_invocation") or "")
+    operator_addendum = str(seg.get("inferred_latest_operator_addendum") or "")
+    post_prompt = str(seg.get("post_prompt_material") or "")
+    prompt_sent_excerpt = matched_prompt or user_text
+    addendum_excerpt = operator_addendum or post_prompt or _tail_lines_excerpt(user_text, max_lines=8, max_chars=max_chars)
+    user_msg = raw.get("user_message") if isinstance(raw.get("user_message"), dict) else {}
+    assistant_msg = raw.get("assistant_message") if isinstance(raw.get("assistant_message"), dict) else {}
+    return {
+        "prompt_run_id": entry.prompt_run_id,
+        "prompt_slot": entry.prompt_slot,
+        "prompt_slug": entry.prompt_slug,
+        "captured_at": entry.captured_at,
+        "source": entry.source,
+        "conversation_id": entry.conversation_id,
+        "user_turn_index": entry.user_turn_index,
+        "assistant_turn_index": entry.assistant_turn_index,
+        "match": {
+            "method": entry.match_method,
+            "confidence": entry.match_confidence,
+            "segmented": entry.segmented,
+        },
+        "char_counts": {
+            "user_message": user_msg.get("char_count", entry.user_message_chars),
+            "assistant_message": assistant_msg.get("char_count", entry.assistant_message_chars),
+            "pre_prompt": len(str(seg.get("pre_prompt_material") or "")),
+            "matched_prompt": len(matched_prompt),
+            "post_prompt": len(post_prompt),
+            "inferred_addendum": len(operator_addendum),
+        },
+        "hashes": {
+            "user_sha256_prefix": (entry.user_message_sha256 or "")[:12] or None,
+            "assistant_sha256_prefix": (entry.assistant_message_sha256 or "")[:12] or None,
+        },
+        "refs": {
+            "run_note_path": entry.run_note_path,
+            "raw_event_path": entry.raw_event_path,
+            "raw_event_resolved": raw_path.relative_to(REPO_ROOT).as_posix()
+                if raw_path is not None and REPO_ROOT in raw_path.parents
+                else (raw_path.as_posix() if raw_path is not None else None),
+        },
+        "receipt": {
+            "ledger_receipt_present": entry.ledger_receipt_present,
+            "raw_event_present": raw_path is not None,
+            "read_issues": read_issues,
+        },
+        "prompt_sent_excerpt": _clean_excerpt(prompt_sent_excerpt, max_chars=max_chars),
+        "operator_addendum_excerpt": _clean_excerpt(addendum_excerpt, max_chars=max_chars),
+        "assistant_opening_excerpt": _first_lines_excerpt(assistant_text, max_lines=8, max_chars=max_chars),
+        "assistant_closeout_excerpt": _tail_lines_excerpt(assistant_text, max_lines=10, max_chars=max_chars),
+        "prompt_contract_signals": _extract_contract_signals(user_text, max_signals=10),
+        "assistant_contract_signals": _extract_contract_signals(assistant_text, max_signals=10),
+    }
+
+
+def review_payload(entries: list[RunIndexEntry], *,
+                   raw_events_root: Path | None = None,
+                   run_ids: list[str] | None = None,
+                   contains: str | None = None,
+                   limit: int = DEFAULT_REVIEW_LIMIT,
+                   max_snippet_chars: int = DEFAULT_REVIEW_SNIPPET_CHARS) -> dict[str, Any]:
+    bounded_limit = _bounded_int(limit, default=DEFAULT_REVIEW_LIMIT, low=1, high=MAX_REVIEW_LIMIT)
+    bounded_snippet = _bounded_int(
+        max_snippet_chars,
+        default=DEFAULT_REVIEW_SNIPPET_CHARS,
+        low=120,
+        high=MAX_REVIEW_SNIPPET_CHARS,
+    )
+    selected = select_review_entries(
+        entries,
+        run_ids=run_ids,
+        contains=contains,
+        limit=bounded_limit,
+        raw_events_root=raw_events_root,
+    )
+    wanted_ids = [
+        item.strip()
+        for item in (run_ids or [])
+        for item in item.split(",")
+        if item.strip()
+    ]
+    return {
+        "__meta": {
+            "schema_version": SCHEMA_VERSION,
+            "artifact_kind": "prompt_shelf_run_review",
+            "generated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+            "selection_order": "recent_first_unless_run_id_selected",
+            "selected_count": len(selected),
+            "input_count": len(entries),
+            "limit": bounded_limit,
+            "max_snippet_chars": bounded_snippet,
+            "slot_filtered_before_review": sorted({entry.prompt_slot for entry in entries}),
+            "run_ids": wanted_ids,
+            "contains": contains or None,
+            "privacy_boundary": (
+                "private-root bounded excerpts only; raw prompt/provider bodies stay in "
+                "run_note_path/raw_event_path refs"
+            ),
+        },
+        "runs": [
+            _review_row(
+                entry,
+                raw_events_root=raw_events_root,
+                max_snippet_chars=bounded_snippet,
+            )
+            for entry in selected
+        ],
+    }
+
+
+def render_review(payload: dict[str, Any]) -> str:
+    meta = payload["__meta"]
+    lines = [
+        f"prompt_shelf_run_review — {meta['selected_count']} run(s) selected",
+        f"  generated_at: {meta['generated_at']}",
+        f"  selection:    {meta['selection_order']} · limit {meta['limit']}",
+        f"  boundary:     {meta['privacy_boundary']}",
+        "",
+    ]
+    if not payload["runs"]:
+        lines.append("  (no matching prompt-shelf runs)")
+        return "\n".join(lines)
+    for idx, row in enumerate(payload["runs"], start=1):
+        match = row["match"]
+        counts = row["char_counts"]
+        refs = row["refs"]
+        receipt = row["receipt"]
+        lines.append(f"{idx}. {row['prompt_run_id']} [{row['prompt_slot']}] {row['captured_at']}")
+        lines.append(
+            "   meta: "
+            f"source={row['source'] or 'unknown'} "
+            f"conversation_id={row['conversation_id'] or 'none'} "
+            f"turns={row['user_turn_index']}->{row['assistant_turn_index']} "
+            f"match={match['method']}/{match['confidence']:.2f} "
+            f"segmented={match['segmented']}"
+        )
+        lines.append(
+            "   chars: "
+            f"user={counts['user_message']} assistant={counts['assistant_message']} "
+            f"prompt={counts['matched_prompt']} addendum={counts['inferred_addendum']} "
+            f"post={counts['post_prompt']}"
+        )
+        lines.append(
+            "   refs: "
+            f"run_note={refs['run_note_path']} raw_event={refs['raw_event_path']} "
+            f"receipt={receipt['ledger_receipt_present']} raw_ok={receipt['raw_event_present']}"
+        )
+        if receipt["read_issues"]:
+            lines.append(f"   read_issues: {receipt['read_issues']}")
+        if row["prompt_contract_signals"]:
+            lines.append("   prompt signals:")
+            for signal in row["prompt_contract_signals"]:
+                lines.append(f"     - {signal}")
+        if row["assistant_contract_signals"]:
+            lines.append("   assistant signals:")
+            for signal in row["assistant_contract_signals"]:
+                lines.append(f"     - {signal}")
+        lines.append("   prompt sent excerpt:")
+        lines.append(f"     {row['prompt_sent_excerpt'] or '(empty)'}")
+        lines.append("   operator/addendum excerpt:")
+        lines.append(f"     {row['operator_addendum_excerpt'] or '(empty)'}")
+        lines.append("   assistant closeout excerpt:")
+        lines.append(f"     {row['assistant_closeout_excerpt'] or '(empty)'}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
 @dataclass
 class CoverageReport:
     """Per-slot coverage snapshot. Rendered by --coverage; consumed by tests."""
@@ -773,6 +1162,12 @@ def main() -> int:
     mode.add_argument("--coverage", action="store_true",
                       help="report slot coverage; nonzero if any required "
                            "slot has zero runs")
+    mode.add_argument("--review", action="store_true",
+                      help="bounded private excerpt review of selected runs: "
+                           "prompt sent, operator addendum, assistant closeout, "
+                           "and metadata")
+    mode.add_argument("--review-json", action="store_true",
+                      help="emit bounded private excerpt review as JSON")
     mode.add_argument("--nesting-audit", action="store_true",
                       help="per-capture audit of multi-anchor presence; "
                            "flags runs where more than one cockpit prompt "
@@ -788,9 +1183,23 @@ def main() -> int:
                              "(default: A0,B1,B2,B3)")
     parser.add_argument("--slot",
                         help="limit --print/--summary/--coverage to one cockpit slot, e.g. B2")
+    parser.add_argument("--limit", type=int, default=DEFAULT_REVIEW_LIMIT,
+                        help=f"maximum rows for --review/--review-json "
+                             f"(default: {DEFAULT_REVIEW_LIMIT}; cap: {MAX_REVIEW_LIMIT})")
+    parser.add_argument("--run-id", action="append", default=[],
+                        help="review one selected prompt_run_id; may be repeated "
+                             "or comma-separated; overrides recency selection")
+    parser.add_argument("--contains",
+                        help="explicit private-root search over selected raw "
+                             "prompt/provider bodies before bounded review output")
+    parser.add_argument("--max-snippet-chars", type=int,
+                        default=DEFAULT_REVIEW_SNIPPET_CHARS,
+                        help=f"maximum chars per review excerpt "
+                             f"(default: {DEFAULT_REVIEW_SNIPPET_CHARS}; "
+                             f"cap: {MAX_REVIEW_SNIPPET_CHARS})")
     args = parser.parse_args()
 
-    fast_metadata_mode = bool(args.summary or args.coverage or args.check)
+    fast_metadata_mode = bool(args.summary or args.coverage or args.check or args.review or args.review_json)
     entries = build_index(include_raw_details=not fast_metadata_mode)
     entries = filter_entries_by_slot(entries, args.slot)
     payload = projection_payload(entries)
@@ -833,6 +1242,22 @@ def main() -> int:
         report = coverage_report(entries, required_slots=required)
         print(render_coverage(report))
         return 0 if report.passed() else 1
+
+    if args.review or args.review_json:
+        review = review_payload(
+            entries,
+            raw_events_root=RAW_EVENTS_ROOT,
+            run_ids=args.run_id,
+            contains=args.contains,
+            limit=args.limit,
+            max_snippet_chars=args.max_snippet_chars,
+        )
+        if args.review_json:
+            json.dump(review, sys.stdout, indent=2)
+            sys.stdout.write("\n")
+        else:
+            print(render_review(review))
+        return 0
 
     if args.nesting_audit:
         print(render_nesting_audit(entries))

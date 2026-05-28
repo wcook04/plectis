@@ -340,6 +340,96 @@ def test_summary_exposes_private_root_metadata_boundary(tmp_path):
     assert "safe route:   use --summary/--coverage first" in summary_text
 
 
+def test_review_payload_extracts_prompt_addendum_closeout_and_signals(tmp_path):
+    run_id = "20260528T011000000000--B2--review01"
+    raw = _basic_raw_event("B2", run_id)
+    raw["segmentation"] = {
+        "matched_prompt_char_start": 0,
+        "matched_prompt_char_end": 120,
+        "pre_prompt_material": "",
+        "matched_prompt_invocation": (
+            "B2 prompt body: continue from the pasted substrate and infer "
+            "the smallest useful Type A action."
+        ),
+        "post_prompt_material": (
+            "operator says the agent routed a note instead of improving the surface"
+        ),
+        "inferred_latest_operator_addendum": (
+            "operator says read prompt sent plus closeout metadata across recent traces"
+        ),
+    }
+    raw["user_message"]["raw_text"] = (
+        raw["segmentation"]["matched_prompt_invocation"]
+        + "\n\n"
+        + raw["segmentation"]["inferred_latest_operator_addendum"]
+        + "\n\ndeliverable_type: prompt shelf refinement\n"
+        + "depth_floor: architecture-grade\n"
+        + "integration_target: prompt shelf Type B routing\n"
+    )
+    raw["user_message"]["char_count"] = len(raw["user_message"]["raw_text"])
+    raw["assistant_message"]["raw_text"] = (
+        "I inspected the live substrate.\n\n"
+        "deliverable_type: continuation delta / decision-answer binding frame\n"
+        "authority_boundary: Type A must verify live HEAD before mutation.\n\n"
+        "Closeout:\n"
+        "Type A should inspect recent prompt runs before editing prompt text.\n"
+    )
+    raw["assistant_message"]["char_count"] = len(raw["assistant_message"]["raw_text"])
+    _seed_run(tmp_path, "B2_continue", run_id, raw)
+
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+        include_raw_details=False,
+    )
+    payload = idx_mod.review_payload(
+        entries,
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        limit=1,
+        max_snippet_chars=300,
+    )
+
+    row = payload["runs"][0]
+    assert payload["__meta"]["artifact_kind"] == "prompt_shelf_run_review"
+    assert "continue from the pasted substrate" in row["prompt_sent_excerpt"]
+    assert "read prompt sent plus closeout metadata" in row["operator_addendum_excerpt"]
+    assert "Type A should inspect recent prompt runs" in row["assistant_closeout_excerpt"]
+    assert any("depth_floor" in signal for signal in row["prompt_contract_signals"])
+    assert any("authority_boundary" in signal for signal in row["assistant_contract_signals"])
+    assert row["char_counts"]["matched_prompt"] > 0
+    assert row["refs"]["raw_event_resolved"].endswith(f"{run_id}.json")
+
+    rendered = idx_mod.render_review(payload)
+    assert "prompt_shelf_run_review" in rendered
+    assert run_id in rendered
+    assert "assistant closeout excerpt" in rendered
+    assert "depth_floor" in rendered
+
+
+def test_review_selection_can_target_old_run_by_id(tmp_path):
+    older_id = "20260501T010000000000--B2--older001"
+    newer_id = "20260528T010000000000--B2--newer001"
+    older = _basic_raw_event("B2", older_id)
+    newer = _basic_raw_event("B2", newer_id)
+    older["captured_at"] = "2026-05-01T01:00:00+00:00"
+    newer["captured_at"] = "2026-05-28T01:00:00+00:00"
+    _seed_run(tmp_path, "B2_continue", older_id, older)
+    _seed_run(tmp_path, "B2_continue", newer_id, newer)
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+        include_raw_details=False,
+    )
+
+    recent = idx_mod.select_review_entries(entries, limit=1)
+    explicit = idx_mod.select_review_entries(entries, run_ids=[older_id], limit=1)
+
+    assert [entry.prompt_run_id for entry in recent] == [newer_id]
+    assert [entry.prompt_run_id for entry in explicit] == [older_id]
+
+
 def test_summary_surfaces_b2_2_variant_runs(tmp_path):
     run_id = "20260512T010000000000--B2.2--semcarry"
     _seed_run(

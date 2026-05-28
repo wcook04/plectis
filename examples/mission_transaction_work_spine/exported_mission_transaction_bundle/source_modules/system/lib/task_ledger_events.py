@@ -2934,6 +2934,11 @@ def build_projection(
             if state in WORK_ITEM_STATES:
                 item["state"] = state
                 item["status"] = payload.get("status") or state
+            if _nonempty_text(payload.get("title")):
+                item["title"] = payload["title"]
+            transition_statement = payload.get("statement") or payload.get("summary")
+            if _nonempty_text(transition_statement):
+                item["statement"] = transition_statement
             closeout_assurance = _closeout_assurance_from_payload(payload)
             if closeout_assurance:
                 item["closeout_assurance"] = closeout_assurance

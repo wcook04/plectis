@@ -2996,6 +2996,8 @@ def get_agent_observability_mission_status(
 @app.get("/api/agent-observability/host-pressure")
 def get_agent_observability_host_pressure(
     window_s: int = Query(default=900, ge=30, le=7200),
+    requested_workload_class: Optional[str] = Query(default=None),
+    operator_override: bool = Query(default=False),
 ):
     """
     [ACTION]
@@ -3009,6 +3011,8 @@ def get_agent_observability_host_pressure(
             agent_trace_store,
             REPO_ROOT,
             window_s=window_s,
+            requested_workload_class=requested_workload_class,
+            operator_override=operator_override,
         )
     except Exception as exc:
         logger.exception("Agent observability host-pressure failed")

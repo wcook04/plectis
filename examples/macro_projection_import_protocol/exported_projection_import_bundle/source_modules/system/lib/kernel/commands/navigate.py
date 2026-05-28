@@ -10513,17 +10513,25 @@ def cmd_command_card(query: str | None = None, *, limit: int = 6, debug: bool = 
     return emit_json_with_code(payload, code)
 
 
-def cmd_validate_seed_heartbeat(path: str) -> int:
-    """Emit a stale-wave reference check for a generated seed or synth heartbeat."""
+def cmd_validate_seed_heartbeat(
+    path: str,
+    *,
+    command_name: str = "validate-seed-heartbeat",
+    flag_name: str = "--validate-seed-heartbeat",
+) -> int:
+    """Emit a seed-continuity check; the heartbeat command name is legacy compatibility."""
+    neutral_continuity = command_name == "validate-seed-continuity"
+    kind = "kernel.validate.seed_continuity" if neutral_continuity else "kernel.validate.seed_heartbeat"
+    schema_version = "seed_continuity_validation_v1" if neutral_continuity else "seed_heartbeat_validation_v1"
     raw = str(path or "").strip()
     if not raw:
         return emit_json_with_code(
             {
-                "kind": "kernel.validate.seed_heartbeat",
-                "schema_version": "seed_heartbeat_validation_v1",
-                "query": {"command": "validate-seed-heartbeat", "request": raw},
+                "kind": kind,
+                "schema_version": schema_version,
+                "query": {"command": command_name, "request": raw},
                 "summary": {"status": "error", "stale_reference_count": 0},
-                "errors": ["--validate-seed-heartbeat requires a seed or synth JSON path."],
+                "errors": [f"{flag_name} requires a seed or synth JSON path."],
                 "warnings": [],
             },
             2,
@@ -10532,12 +10540,23 @@ def cmd_validate_seed_heartbeat(path: str) -> int:
     if not target.is_absolute():
         target = state.REPO_ROOT / raw
     report = validate_seed_heartbeat_references(target, root=state.REPO_ROOT)
-    report["query"] = {"command": "validate-seed-heartbeat", "request": raw}
+    report["kind"] = kind
+    report["schema_version"] = schema_version
+    report["query"] = {"command": command_name, "request": raw}
     summary = report.get("summary") if isinstance(report.get("summary"), Mapping) else {}
     status = str(summary.get("status") or "")
     if status == "unreadable":
         return emit_json_with_code(report, 2)
     return emit_json_with_code(report, 0 if status in {"ok", "warning"} else 1)
+
+
+def cmd_validate_seed_continuity(path: str) -> int:
+    """Compatibility-neutral alias for the Type A autonomous-seed continuity validator."""
+    return cmd_validate_seed_heartbeat(
+        path,
+        command_name="validate-seed-continuity",
+        flag_name="--validate-seed-continuity",
+    )
 
 
 def cmd_session_diagnostics(
@@ -11958,6 +11977,8 @@ def cmd_agent_recent_activity(
 def cmd_host_pressure(
     *,
     window_s: int = 900,
+    event_limit: int = 2000,
+    include_processes: bool = True,
     write_path: str | None = None,
     activation_url: str | None = None,
 ) -> int:
@@ -11971,6 +11992,8 @@ def cmd_host_pressure(
             store,
             state.REPO_ROOT,
             window_s=window_s,
+            event_limit=event_limit,
+            include_processes=include_processes,
             activation_url=activation_url,
         )
         if write_path:
@@ -14890,8 +14913,10 @@ _COMMAND_PROFILE_SUPPORTED_SURFACES = [
     "preflight",
     "phase",
     "context-pack",
+    "host-pressure",
     "process-summary",
     "process-bottlenecks",
+    "session-diagnostics",
     "latency-seed-digest",
     "latency-speedboard",
     "generated-state-drainer",
@@ -15095,6 +15120,59 @@ def cmd_command_profile(
                 **_command_profile_output_shape(payload),
             }
         )
+    elif surface in {"host-pressure", "host_pressure"}:
+        from system.lib.agent_observability import AgentTraceStore
+        from system.lib.host_pressure import build_progress_pressure_packet_from_store
+
+        host_pressure_phases: list[dict[str, Any]] = []
+        host_pressure_started = perf_counter()
+        repo_root = _repo_root_for_static_registry()
+        store = AgentTraceStore(repo_root)
+        packet = build_progress_pressure_packet_from_store(
+            store,
+            repo_root,
+            window_s=900,
+            event_limit=500,
+            include_processes=False,
+            profile_sink=host_pressure_phases,
+        )
+        phases.append(
+            {
+                "phase": "host_pressure_summary_build",
+                "ms": round((perf_counter() - host_pressure_started) * 1000, 3),
+                "output_bytes": _command_profile_payload_bytes(packet),
+                "event_limit": 500,
+                "include_processes": False,
+            }
+        )
+        phases.extend(host_pressure_phases)
+        summary = packet.get("summary") if isinstance(packet.get("summary"), Mapping) else {}
+        source = packet.get("source") if isinstance(packet.get("source"), Mapping) else {}
+        agents = packet.get("agents") if isinstance(packet.get("agents"), Mapping) else {}
+        payload = {
+            "schema": "host_pressure_command_profile_payload_v0",
+            "surface": "host-pressure",
+            "profiled_command": (
+                "./repo-python kernel.py --host-pressure --host-pressure-no-processes "
+                "--host-pressure-event-limit 500 --json"
+            ),
+            "summary": dict(summary),
+            "source": dict(source),
+            "agent_counts": {
+                "active_agent_count": agents.get("active_agent_count"),
+                "trace_session_count": agents.get("trace_session_count"),
+                "process_agent_hint": agents.get("process_agent_hint"),
+                "process_count": agents.get("process_count"),
+                "process_kind_counts": dict(agents.get("process_kind_counts") or {})
+                if isinstance(agents.get("process_kind_counts"), Mapping)
+                else {},
+            },
+            "privacy_boundary": (
+                "profile omits process rows by default; use --host-pressure without "
+                "--host-pressure-no-processes for full live process hints"
+            ),
+        }
+        surface = "host-pressure"
     elif surface in {"process-bottlenecks", "process_bottlenecks"}:
         process_bottleneck_started = perf_counter()
         payload = _build_process_bottlenecks_packet()
@@ -15149,6 +15227,102 @@ def cmd_command_profile(
             }
         )
         surface = "process-summary"
+    elif surface in {"session-diagnostics", "session_diagnostics"}:
+        from tools.meta.observability.session_analyzer import build_summary_report
+
+        session_diagnostics_started = perf_counter()
+        summary_report = build_summary_report(
+            store="both",
+            last=20,
+            limit=20,
+        )
+        summary_ms = round((perf_counter() - session_diagnostics_started) * 1000, 3)
+        metrics = (
+            summary_report.get("metrics")
+            if isinstance(summary_report, Mapping)
+            and isinstance(summary_report.get("metrics"), Mapping)
+            else {}
+        )
+        host_pressure = (
+            metrics.get("host_pressure")
+            if isinstance(metrics.get("host_pressure"), Mapping)
+            else {}
+        )
+        sufficiency = (
+            summary_report.get("summary_first_sufficiency")
+            if isinstance(summary_report, Mapping)
+            and isinstance(summary_report.get("summary_first_sufficiency"), Mapping)
+            else {}
+        )
+        diagnostic_profile = (
+            summary_report.get("diagnostic_profile")
+            if isinstance(summary_report, Mapping)
+            and isinstance(summary_report.get("diagnostic_profile"), Mapping)
+            else {}
+        )
+        phase_wall_ms = (
+            diagnostic_profile.get("phase_wall_ms")
+            if isinstance(diagnostic_profile.get("phase_wall_ms"), Mapping)
+            else {}
+        )
+        phases.append(
+            {
+                "phase": "session_diagnostics_summary_build",
+                "ms": summary_ms,
+                "output_bytes": _command_profile_payload_bytes(summary_report),
+                "store": "both",
+                "last": 20,
+                "source_kind": summary_report.get("source_kind")
+                if isinstance(summary_report, Mapping)
+                else None,
+                "selected_lens": sufficiency.get("selected_lens")
+                if isinstance(sufficiency, Mapping)
+                else None,
+                "host_bottleneck_class": host_pressure.get("bottleneck_class")
+                if isinstance(host_pressure, Mapping)
+                else None,
+                "host_governor_decision": host_pressure.get("governor_decision")
+                if isinstance(host_pressure, Mapping)
+                else None,
+                "host_pressure_index": host_pressure.get("pressure_index")
+                if isinstance(host_pressure, Mapping)
+                else None,
+            }
+        )
+        for phase_name, phase_ms in phase_wall_ms.items():
+            if phase_name == "total":
+                continue
+            phases.append(
+                {
+                    "phase": f"session_diagnostics.{phase_name}",
+                    "ms": round(float(phase_ms or 0), 3),
+                }
+            )
+        payload = {
+            "schema": "session_diagnostics_command_profile_payload_v0",
+            "surface": "session-diagnostics",
+            "profiled_command": (
+                "./repo-python kernel.py --session-diagnostics --lens all --last 20 "
+                "--store both --json --diagnostics-summary"
+            ),
+            "source_kind": summary_report.get("source_kind")
+            if isinstance(summary_report, Mapping)
+            else None,
+            "counts": summary_report.get("counts") if isinstance(summary_report, Mapping) else None,
+            "summary_first_sufficiency": dict(sufficiency) if isinstance(sufficiency, Mapping) else {},
+            "host_pressure": dict(host_pressure) if isinstance(host_pressure, Mapping) else {},
+            "diagnostic_profile": dict(diagnostic_profile)
+            if isinstance(diagnostic_profile, Mapping)
+            else {},
+            "next": list(summary_report.get("next") or [])[:3]
+            if isinstance(summary_report, Mapping)
+            else [],
+            "privacy_boundary": (
+                "summary profile emits counts, timings, selected lens, and host-pressure "
+                "class; raw session transcript text remains behind session-diagnostics drilldowns"
+            ),
+        }
+        surface = "session-diagnostics"
     elif surface in {"latency-seed-digest", "latency_seed_digest"}:
         from system.lib.latency_seed_digest import build_latency_seed_digest
 
@@ -15405,6 +15579,15 @@ def cmd_command_profile(
         )
     total_ms = round((perf_counter() - started) * 1000, 3)
     cache_nodes = payload.get("command_node_cache") if isinstance(payload, Mapping) else None
+    slow_phases = [
+        {
+            "phase": phase.get("phase"),
+            "ms": phase.get("ms"),
+            "output_bytes": phase.get("output_bytes"),
+        }
+        for phase in phases
+        if float(phase.get("ms") or 0.0) >= 1000.0
+    ]
     profile = {
         "kind": "command_profile",
         "schema_version": "command_profile_v0",
@@ -15422,6 +15605,8 @@ def cmd_command_profile(
         "context_budget": context_budget,
         "metabolism_profile": metabolism_profile if surface == "navigation-metabolism" else None,
         "phases": phases,
+        "slow_phase_count": len(slow_phases),
+        "slow_phases": slow_phases[:5],
         "cache_nodes": cache_nodes if isinstance(cache_nodes, Mapping) else {},
         "cache_controls": {
             "disable": "AIW_COMMAND_CACHE=0",

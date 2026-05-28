@@ -126,6 +126,22 @@ def test_trace_capsule_buckets_residual_mentions_by_state(monkeypatch) -> None:
             "title": "Trace capsule closeout report command leakage test failure",
             "tags": ["trace_capsule", "validation"],
         },
+        "cap_finance_hourly_market_feed_schedule": {
+            "id": "cap_finance_hourly_market_feed_schedule",
+            "state": "signoff",
+            "title": "Finance hourly market feed schedule",
+            "tags": ["finance", "metabolismd", "scheduler"],
+        },
+        "cap_finance_next_natural_market_fire_schedule_observation": {
+            "id": "cap_finance_next_natural_market_fire_schedule_observation",
+            "state": "blocked",
+            "title": "Observe next natural Oracle/Evolve finance market-fire schedule",
+            "statement": "Observe the next natural market-clock fire after scheduler parity.",
+            "tags": ["finance", "metabolismd", "scheduler", "residual_observation"],
+            "satisfaction_contract": {
+                "reentry_condition": "Next eligible natural market fire after scheduler parity."
+            },
+        },
         "cap_quick_focused_combined_pytest_wrapper_hung_aft_287a9def8274": {
             "id": "cap_quick_focused_combined_pytest_wrapper_hung_aft_287a9def8274",
             "state": "captured",
@@ -137,6 +153,8 @@ def test_trace_capsule_buckets_residual_mentions_by_state(monkeypatch) -> None:
         "state/task_ledger/views/cap_cartography.json",
         "microcosm_dogfood_paper_module_sidecar_claim",
         "cap_quick_trace_capsule_closeout_report_command_le_b1a9e4e5a561",
+        "cap_finance_hourly_market_feed_schedule",
+        "cap_finance_next_natural_market_fire_schedule_observation",
         "cap_quick_focused_combined_pytest_wrapper_hung_aft_287a9def8274",
     ])
 
@@ -150,16 +168,68 @@ def test_trace_capsule_buckets_residual_mentions_by_state(monkeypatch) -> None:
 
     assert "open_product_residuals: microcosm_dogfood_paper_module_sidecar_claim" in text
     assert "open_validation_process_residuals: cap_quick_focused_combined_pytest_wrapper_hung_aft_287a9def8274" in text
-    assert "closed_residuals_seen: cap_quick_trace_capsule_closeout_report_command_le_b1a9e4e5a561" in text
+    assert "cap_finance_hourly_market_feed_schedule" in text
+    assert "closed_residuals_seen: cap_finance_hourly_market_feed_schedule,cap_quick_trace_capsule_closeout_report_command_le_b1a9e4e5a561" in text
+    assert "blocked_external_observation_residuals: cap_finance_next_natural_market_fire_schedule_observation" in text
     assert "projection_or_view_artifacts_seen: cap_cartography.json" in text
     assert meta["open_product_residuals"] == ["microcosm_dogfood_paper_module_sidecar_claim"]
     assert meta["open_validation_process_residuals"] == [
         "cap_quick_focused_combined_pytest_wrapper_hung_aft_287a9def8274"
     ]
     assert meta["closed_residuals_seen"] == [
+        "cap_finance_hourly_market_feed_schedule",
         "cap_quick_trace_capsule_closeout_report_command_le_b1a9e4e5a561"
     ]
+    assert meta["blocked_external_observation_residuals"] == [
+        "cap_finance_next_natural_market_fire_schedule_observation"
+    ]
     assert meta["projection_or_view_artifacts_seen"] == ["cap_cartography.json"]
+
+
+def test_trace_capsule_treats_signed_off_finance_caps_as_closed(monkeypatch) -> None:
+    hourly_cap = "cap_finance_hourly_market_feed_schedule"
+    body_floor_cap = "cap_microcosm_finance_eval_full_body_floor_gap"
+    natural_fire_cap = "cap_finance_next_natural_market_fire_schedule_observation"
+    monkeypatch.setattr(trace, "_CAPSULE_TASK_LEDGER_WORK_ITEMS_CACHE", {
+        hourly_cap: {
+            "id": hourly_cap,
+            "state": "signoff",
+            "title": "Finance hourly market feed schedule",
+            "tags": ["finance", "scheduler"],
+        },
+        body_floor_cap: {
+            "id": body_floor_cap,
+            "state": "signed_off",
+            "title": "Microcosm finance eval body floor should cover the full macro finance spine",
+            "tags": ["finance", "microcosm"],
+        },
+        natural_fire_cap: {
+            "id": natural_fire_cap,
+            "state": "blocked",
+            "title": "Observe next natural Oracle/Evolve finance market-fire schedule",
+            "statement": "Blocked on wall-clock evidence for the next natural market fire.",
+            "tags": ["finance", "scheduler", "residual_observation"],
+        },
+    })
+    receipt_text = "\n".join([
+        hourly_cap,
+        body_floor_cap,
+        natural_fire_cap,
+    ])
+
+    text, meta = render_trace_capsule_text(
+        _turn([
+            _event(1, "./repo-python tools/meta/factory/task_ledger_apply.py validate", 0, receipt_text),
+        ]),
+        title="finance readout hygiene test",
+    )
+
+    assert "open_product_residuals: none" in text
+    assert f"closed_residuals_seen: {hourly_cap},{body_floor_cap}" in text
+    assert f"blocked_external_observation_residuals: {natural_fire_cap}" in text
+    assert meta["open_product_residuals"] == []
+    assert meta["closed_residuals_seen"] == [hourly_cap, body_floor_cap]
+    assert meta["blocked_external_observation_residuals"] == [natural_fire_cap]
 
 
 def test_trace_capsule_validation_process_warning_does_not_block_owner_scope(monkeypatch) -> None:
@@ -190,6 +260,75 @@ def test_trace_capsule_validation_process_warning_does_not_block_owner_scope(mon
     assert meta["blocking_terminal_failure_count"] == 0
     assert meta["validation_process_terminal_warning_count"] == 1
     assert meta["open_validation_process_residuals"] == [process_cap]
+
+
+def test_trace_capsule_release_candidate_gate_ready_supersedes_historical_failure() -> None:
+    release_receipt = """
+    {
+      "status": "pass",
+      "authority_receipt": {
+        "release_authorized": false,
+        "wheel_install_supported": false
+      },
+      "projection_freshness_receipt": {"status": "pass"},
+      "release_candidate_packet": {
+        "candidate_state": "validated_release_candidate_pending_explicit_authorization",
+        "candidate_identity": {
+          "source": {
+            "git_head": "3073d4dda1bbd50210fc7b8b34742e11d6fe95fa",
+            "source_tree_state_kind": "git_head_clean",
+            "dirty_source_path_count": 0
+          },
+          "artifact": {
+            "artifact_payload_hash_sha256": "ac4a0c729be7feb91b3f107d28da48f34d08b89e404fce49d9f26e1f6bde92f1",
+            "file_count": 2332,
+            "payload_bytes": 84553842
+          }
+        },
+        "release_authorization_gate_decision": {
+          "decision": "ready_pending_operator_authorization",
+          "release_authorization_allowed_now": false
+        },
+        "validation_summary": {
+          "projection_freshness_status": "pass",
+          "blocking_codes": []
+        }
+      }
+    }
+    """
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    "./repo-pytest microcosm-substrate/tests/test_runtime_shell.py -q -k status_card",
+                    1,
+                    "AttributeError: missing project observe state write proof helper",
+                ),
+                _event(
+                    2,
+                    "PYTHONPATH=src python3 -m microcosm_core.release_export --root . --out /tmp/out --force",
+                    0,
+                    release_receipt,
+                ),
+            ],
+            assistant_text=(
+                "Validated clean-source release candidate; gate decision "
+                "ready_pending_operator_authorization; release_authorized remains false."
+            ),
+        ),
+        title="release candidate gate-ready status semantics test",
+    )
+
+    assert "final_validation: ready_pending_operator_authorization" in text
+    assert "owner_scope_validation: pass" in text
+    assert "release_candidate_gate: ready_pending_operator_authorization" in text
+    assert "historical_terminal_failures_superseded: 1" in text
+    assert meta["final_validation"] == "ready_pending_operator_authorization"
+    assert meta["owner_scope_validation"] == "pass"
+    assert meta["release_candidate_gate_decision"] == "ready_pending_operator_authorization"
+    assert meta["blocking_terminal_failure_count"] == 0
+    assert meta["raw_blocking_terminal_failure_count"] == 1
 
 
 def test_thread_closeout_report_omits_tools_and_interns_repeated_prompts() -> None:

@@ -513,6 +513,15 @@ def _text_arg(args: argparse.Namespace, name: str) -> str | None:
 
 
 def _validate_command_payload(command: str, payload: Dict[str, Any]) -> None:
+    if command == "transition":
+        state = str(payload.get("state") or "").strip()
+        if state and state not in task_ledger_events.WORK_ITEM_STATES:
+            valid_states = ", ".join(sorted(task_ledger_events.WORK_ITEM_STATES))
+            raise ValueError(
+                f"transition state {state!r} is not projection-consumable; "
+                f"use one of: {valid_states}"
+            )
+        return
     if command != "propagate":
         return
     propagation = payload.get("propagation")

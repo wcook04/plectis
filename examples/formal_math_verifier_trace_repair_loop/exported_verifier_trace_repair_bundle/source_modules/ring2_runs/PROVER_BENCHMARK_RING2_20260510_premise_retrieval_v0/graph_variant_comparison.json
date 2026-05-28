@@ -67,7 +67,7 @@
       },
       "graph_variant_id": "baseline_graph_v0",
       "pass_count": 0,
-      "run_summary": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/baseline_graph_v0/run_summary.json"
+      "run_summary": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/baseline_graph_v0/run_summary.json"
     },
     {
       "cost_totals": {
@@ -132,7 +132,7 @@
         ],
         "schema_version": "premise_retrieval_metrics_v0"
       },
-      "run_summary": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
+      "run_summary": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json"
     },
     {
       "cost_totals": {
@@ -172,11 +172,14 @@
       "pass_count": 10,
       "repair_attempt_count": 10,
       "repair_success_count": 10,
-      "run_summary": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
+      "run_summary": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json"
     }
   ],
   "leakage_audit": {
     "candidate_body_forward_visible": false,
+    "forward_lab_proof_body_leaks": 0,
+    "oracle_needed_premise_ids_forward_visible": false,
+    "proof_body_withheld_until_oracle": true,
     "retrieval_body_forward_visible": false,
     "status": "PASS",
     "test_split_tuning_events": 0
@@ -187,25 +190,25 @@
     "no open-problem success claim",
     "oracle_repair_graph_v0 is a comparator, not forward success"
   ],
-  "premise_index": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+  "premise_index": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
   "premise_index_size": 11,
   "problem_count": 10,
-  "problem_source_manifest": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
+  "problem_source_manifest": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
   "representative_retrieval_hit_proof_failure": {
     "artifact_refs": {
-      "cost_metrics": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/cost_metrics.json",
-      "ideal_proof_packet": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/ideal_proof_packet.json",
-      "premise_retrieval_oracle_audit": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_oracle_audit.json",
-      "premise_retrieval_report": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_report.json",
-      "proof_attempt_critique": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
-      "prover_check_result": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_check_result.json",
-      "prover_evolve_learning_row": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_evolve_learning_row.json",
-      "prover_lab_candidate": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_lab_candidate.json",
-      "statement_reconciliation": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/statement_reconciliation.json"
+      "cost_metrics": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/cost_metrics.json",
+      "ideal_proof_packet": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/ideal_proof_packet.json",
+      "premise_retrieval_oracle_audit": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_oracle_audit.json",
+      "premise_retrieval_report": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/premise_retrieval_report.json",
+      "proof_attempt_critique": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
+      "prover_check_result": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_check_result.json",
+      "prover_evolve_learning_row": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_evolve_learning_row.json",
+      "prover_lab_candidate": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/prover_lab_candidate.json",
+      "statement_reconciliation": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/statement_reconciliation.json"
     },
     "attempt_count": 1,
     "axiom_audit_classification": "UNAUDITABLE",
-    "candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/attempt_0_candidate.lean",
+    "candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/attempt_0_candidate.lean",
     "candidate_artifact_sha256": "a2c8bbe0b250ff5d90d75459c4e0bde549efddb1d6a38c06efe180284144ab07",
     "context_recipe_id": "lean_std_premise_retrieval_v0",
     "cost_metrics": {
@@ -227,7 +230,7 @@
     },
     "domain": "nat",
     "error_class": "PROOF_CORE_GAP",
-    "final_candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/candidate.lean",
+    "final_candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/candidate.lean",
     "final_candidate_artifact_sha256": "a2c8bbe0b250ff5d90d75459c4e0bde549efddb1d6a38c06efe180284144ab07",
     "graph_variant_id": "premise_retrieval_graph_v0",
     "initial_error_class": "PROOF_CORE_GAP",
@@ -248,6 +251,9 @@
       "lean_compile_status": "FAIL",
       "missing_needed_premise_ids": [],
       "needed_premises_all_retrieved": true,
+      "oracle_needed_premise_ids": [
+        "premise_nat_add_assoc"
+      ],
       "oracle_phase": "after_lean_check",
       "premise_hit_count": 1,
       "premise_miss_count": 0,
@@ -269,19 +275,19 @@
   },
   "representative_retrieval_hit_success": {
     "artifact_refs": {
-      "cost_metrics": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/cost_metrics.json",
-      "ideal_proof_packet": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/ideal_proof_packet.json",
-      "premise_retrieval_oracle_audit": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_oracle_audit.json",
-      "premise_retrieval_report": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_report.json",
-      "proof_attempt_critique": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/proof_attempt_critique.json",
-      "prover_check_result": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_check_result.json",
-      "prover_evolve_learning_row": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_evolve_learning_row.json",
-      "prover_lab_candidate": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_lab_candidate.json",
-      "statement_reconciliation": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/statement_reconciliation.json"
+      "cost_metrics": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/cost_metrics.json",
+      "ideal_proof_packet": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/ideal_proof_packet.json",
+      "premise_retrieval_oracle_audit": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_oracle_audit.json",
+      "premise_retrieval_report": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/premise_retrieval_report.json",
+      "proof_attempt_critique": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/proof_attempt_critique.json",
+      "prover_check_result": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_check_result.json",
+      "prover_evolve_learning_row": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_evolve_learning_row.json",
+      "prover_lab_candidate": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/prover_lab_candidate.json",
+      "statement_reconciliation": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/statement_reconciliation.json"
     },
     "attempt_count": 1,
     "axiom_audit_classification": "CLEAN",
-    "candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/attempt_0_candidate.lean",
+    "candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/attempt_0_candidate.lean",
     "candidate_artifact_sha256": "f3398bac845da2c8049083d2e146b15de0ae3d350e2414e4693185fafc9314e7",
     "context_recipe_id": "lean_std_premise_retrieval_v0",
     "cost_metrics": {
@@ -303,7 +309,7 @@
     },
     "domain": "nat",
     "error_class": "NONE",
-    "final_candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/candidate.lean",
+    "final_candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_succ_injective/artifacts/candidate.lean",
     "final_candidate_artifact_sha256": "f3398bac845da2c8049083d2e146b15de0ae3d350e2414e4693185fafc9314e7",
     "graph_variant_id": "premise_retrieval_graph_v0",
     "initial_error_class": "NONE",
@@ -324,6 +330,9 @@
       "lean_compile_status": "PASS",
       "missing_needed_premise_ids": [],
       "needed_premises_all_retrieved": true,
+      "oracle_needed_premise_ids": [
+        "premise_nat_succ_inj"
+      ],
       "oracle_phase": "after_lean_check",
       "premise_hit_count": 1,
       "premise_miss_count": 0,
@@ -346,17 +355,17 @@
   "representative_retrieval_miss_oracle_repair_success": {
     "oracle_repair_row": {
       "artifact_refs": {
-        "cost_metrics": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/cost_metrics.json",
-        "ideal_proof_packet": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/ideal_proof_packet.json",
-        "proof_attempt_critique": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
-        "prover_check_result": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_check_result.json",
-        "prover_evolve_learning_row": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_evolve_learning_row.json",
-        "prover_lab_candidate": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_lab_candidate.json",
-        "statement_reconciliation": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/statement_reconciliation.json"
+        "cost_metrics": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/ideal_proof_packet.json",
+        "proof_attempt_critique": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/statement_reconciliation.json"
       },
       "attempt_count": 2,
       "axiom_audit_classification": "UNAUDITABLE",
-      "candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/attempt_0_candidate.lean",
       "candidate_artifact_sha256": "26720c1b293bab3e3011af6c4cfb465df1913689ec1fe4260b97be621ebb7f4c",
       "context_recipe_id": "lean_std_premise_retrieval_v0",
       "cost_metrics": {
@@ -378,7 +387,7 @@
       },
       "domain": "list",
       "error_class": "NONE",
-      "final_candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/candidate.lean",
+      "final_candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/candidate.lean",
       "final_candidate_artifact_sha256": "9ef46b6f41b9f707aefae26c34ef25258b79274f9a4db9808a7b7f2f35ce16c1",
       "graph_variant_id": "oracle_repair_graph_v0",
       "initial_error_class": "PREMISE_RETRIEVAL_MISS",
@@ -397,19 +406,19 @@
     },
     "premise_retrieval_row": {
       "artifact_refs": {
-        "cost_metrics": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/cost_metrics.json",
-        "ideal_proof_packet": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/ideal_proof_packet.json",
-        "premise_retrieval_oracle_audit": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_oracle_audit.json",
-        "premise_retrieval_report": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_report.json",
-        "proof_attempt_critique": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
-        "prover_check_result": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_check_result.json",
-        "prover_evolve_learning_row": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_evolve_learning_row.json",
-        "prover_lab_candidate": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_lab_candidate.json",
-        "statement_reconciliation": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/statement_reconciliation.json"
+        "cost_metrics": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/cost_metrics.json",
+        "ideal_proof_packet": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/ideal_proof_packet.json",
+        "premise_retrieval_oracle_audit": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_oracle_audit.json",
+        "premise_retrieval_report": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/premise_retrieval_report.json",
+        "proof_attempt_critique": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
+        "prover_check_result": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_check_result.json",
+        "prover_evolve_learning_row": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_evolve_learning_row.json",
+        "prover_lab_candidate": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/prover_lab_candidate.json",
+        "statement_reconciliation": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/statement_reconciliation.json"
       },
       "attempt_count": 1,
       "axiom_audit_classification": "UNAUDITABLE",
-      "candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/attempt_0_candidate.lean",
+      "candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/attempt_0_candidate.lean",
       "candidate_artifact_sha256": "afac4297f6a2053a3c9a2b464ad24946a99b47e982357bebdce7b22e1e90209c",
       "context_recipe_id": "lean_std_premise_retrieval_v0",
       "cost_metrics": {
@@ -431,7 +440,7 @@
       },
       "domain": "list",
       "error_class": "PREMISE_RETRIEVAL_MISS",
-      "final_candidate_artifact_path": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/candidate.lean",
+      "final_candidate_artifact_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/candidate.lean",
       "final_candidate_artifact_sha256": "afac4297f6a2053a3c9a2b464ad24946a99b47e982357bebdce7b22e1e90209c",
       "graph_variant_id": "premise_retrieval_graph_v0",
       "initial_error_class": "PREMISE_RETRIEVAL_MISS",
@@ -454,6 +463,9 @@
           "premise_list_map_map"
         ],
         "needed_premises_all_retrieved": false,
+        "oracle_needed_premise_ids": [
+          "premise_list_map_map"
+        ],
         "oracle_phase": "after_lean_check",
         "premise_hit_count": 0,
         "premise_miss_count": 1,
@@ -473,6 +485,6 @@
       "strategy_oracle_audit": null
     }
   },
-  "run_root": "macro-repo://state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
+  "run_root": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
   "schema_version": "prover_graph_variant_comparison_v1"
 }
