@@ -53,6 +53,13 @@ Before publishing, handing off, or treating the standalone clone as verified,
 run `make ci`. It is the public GitHub Actions entry and expands to install,
 test, and smoke verification.
 
+If you need a bounded standalone review artifact, run
+`make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export`. This
+writes a candidate folder plus `receipts/release/release_export_receipt.json`;
+it is not part of `make ci`, performs heavier outside-root smoke checks, and
+still keeps `release_authorized=false` until a separate human release decision
+exists.
+
 After the compact route is green, use `skills/cold_start_navigation.md` for the
 shortest validation ladder. Use the inventory below only as a public runtime
 index, not as a substitute for running the commands.
