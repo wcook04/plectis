@@ -18,7 +18,7 @@
     "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-28T09:56:57+00:00",
+  "created_at": "2026-05-28T14:31:09+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -58,23 +58,21 @@
     },
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
     "cache_action": {
-      "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
-      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "status": "actionable"
+      "status": "not_needed"
     },
     "cache_freshness": {
       "input_refs_exported": false,
-      "input_status": "stale",
+      "input_status": "current",
       "latest_input_mtime_ns": 1779959250490061814,
-      "receipt_mtime_ns": 1779954260239335626,
+      "receipt_mtime_ns": 1779976324710842598,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-      "stale_input_count": 2,
-      "status": "stale",
+      "stale_input_count": 0,
+      "status": "current",
       "tracked_input_count": 14
     },
-    "cache_status": "stale_cached_receipt",
-    "cached_card_status": "stale_cached_receipt",
-    "cached_receipt_bytes": 34690,
+    "cache_status": "cached_receipt_read",
+    "cached_card_status": "pass",
+    "cached_receipt_bytes": 34550,
     "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
