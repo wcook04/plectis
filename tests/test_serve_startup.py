@@ -70,6 +70,9 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
                 "utf-8"
             )
         )
+        status_card = json.loads(
+            _get(f"http://127.0.0.1:{port}/project/status").decode("utf-8")
+        )
         observatory_card = json.loads(
             _get(f"http://127.0.0.1:{port}/project/observatory-card").decode("utf-8")
         )
@@ -87,13 +90,20 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
     assert first_screen_full["schema_version"] == (
         "microcosm_first_screen_composition_card_v1"
     )
+    assert status_card["schema_version"] == "microcosm_runtime_status_card_v1"
+    assert status_card["status"] == "pass"
+    assert status_card["front_door"]["project_state"]["status"] == "pass"
+    assert status_card["front_door"]["state_write_proof"]["status"] == "pass"
+    assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert observatory_card["schema_version"] == "microcosm_project_observatory_card_v1"
     assert observatory_card["first_screen_endpoint"] == "/project/first-screen"
     assert observatory_card["first_screen_full_endpoint"] == (
         "/project/first-screen-full"
     )
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
+    assert observatory_card["selected_route_id"] == "readme_onboarding_route"
     assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert tour["selected_route_id"] == "readme_onboarding_route"
 
 
 def test_project_serve_full_observatory_embeds_compact_tour(

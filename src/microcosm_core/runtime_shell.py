@@ -20368,6 +20368,21 @@ class RuntimeShell:
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
         observatory_cache: dict[str, Any] = {}
         authority_cache_lock = threading.Lock()
+        state_prime_lock = threading.Lock()
+
+        def ensure_project_first_screen_state() -> dict[str, Any]:
+            if project_path is None:
+                return {}
+            cached = observatory_cache.get("tour_card")
+            if isinstance(cached, dict):
+                return cached
+            with state_prime_lock:
+                cached = observatory_cache.get("tour_card")
+                if isinstance(cached, dict):
+                    return cached
+                card = shell.tour_card(project_path)
+                observatory_cache["tour_card"] = card
+                return card
 
         def cached_observatory_model() -> dict[str, Any]:
             model = observatory_cache.get("model")
@@ -20415,6 +20430,7 @@ class RuntimeShell:
             card = observatory_cache.get("status_card")
             if isinstance(card, dict):
                 return card
+            ensure_project_first_screen_state()
             card = shell.status_card(project_path)
             observatory_cache["status_card"] = card
             return card
@@ -20835,7 +20851,7 @@ class RuntimeShell:
             tour = cached_model.get("tour") if isinstance(cached_model, dict) else {}
             if isinstance(tour, dict) and tour:
                 return tour
-            return shell.tour_card(project_path)
+            return ensure_project_first_screen_state()
 
         class Handler(BaseHTTPRequestHandler):
             def finish(self) -> None:
