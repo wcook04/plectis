@@ -54,6 +54,18 @@ DEFAULT_INCLUDE_REFS = (
     "standards",
     "tests",
 )
+STANDALONE_REQUIRED_PUBLIC_REFS = (
+    "README.md",
+    "AGENTS.md",
+    "pyproject.toml",
+    "src",
+    "tests",
+    "Makefile",
+    "bootstrap.sh",
+    ".github",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+)
 SKIPPED_DIR_NAMES = {
     ".git",
     ".hg",
@@ -346,6 +358,13 @@ def _artifact_payload_hash(inventory: list[dict[str, Any]]) -> str:
     return _sha256_bytes(serialized)
 
 
+def _inventory_covers_ref(inventory_paths: set[str], ref: str) -> bool:
+    normalized = ref.rstrip("/")
+    return normalized in inventory_paths or any(
+        path.startswith(f"{normalized}/") for path in inventory_paths
+    )
+
+
 def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None:
     if path.suffix not in TEXT_SUFFIXES:
         return None
@@ -432,6 +451,146 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
         if any(part.endswith(".egg-info") for part in parts):
             violations.append({"path": rel_text, "reason": "package_build_metadata"})
     return violations
+
+
+def _artifact_symlink_refs(target: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    target_root = target.resolve(strict=True)
+    for path in sorted(target.rglob("*")):
+        if not path.is_symlink():
+            continue
+        rel = path.relative_to(target).as_posix()
+        try:
+            resolved = path.resolve(strict=False)
+            target_within_artifact = _is_relative_to(resolved, target_root)
+        except OSError:
+            target_within_artifact = False
+        rows.append(
+            {
+                "path": rel,
+                "target_within_artifact": target_within_artifact,
+                "body_in_receipt": False,
+            }
+        )
+    return rows
+
+
+def _standalone_severance_receipt(
+    target: Path,
+    *,
+    inventory: list[dict[str, Any]],
+    missing_include_refs: list[str],
+    exclusion_receipt: dict[str, Any],
+    authority_receipt: dict[str, Any],
+    runnable_receipt: dict[str, Any],
+    install_smoke_receipt: dict[str, Any],
+    projection_freshness_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    inventory_paths = {str(row["path"]) for row in inventory}
+    required_missing = [
+        ref
+        for ref in STANDALONE_REQUIRED_PUBLIC_REFS
+        if not _inventory_covers_ref(inventory_paths, ref)
+    ]
+    required_present = [
+        ref
+        for ref in STANDALONE_REQUIRED_PUBLIC_REFS
+        if _inventory_covers_ref(inventory_paths, ref)
+    ]
+    artifact_residue_violations = list(
+        exclusion_receipt.get("artifact_residue_violations") or []
+    )
+    forbidden_root_prefix_hits = [
+        row
+        for row in artifact_residue_violations
+        if row.get("reason") == "forbidden_private_root"
+    ]
+    artifact_symlink_refs = _artifact_symlink_refs(target)
+    escaping_symlink_refs = [
+        row
+        for row in artifact_symlink_refs
+        if row.get("target_within_artifact") is not True
+    ]
+    private_path_hits = list(exclusion_receipt.get("private_path_hits") or [])
+    strong_secret_hits = list(exclusion_receipt.get("strong_secret_hits") or [])
+    bounded_secret = exclusion_receipt.get("bounded_secret_exclusion_scan") or {}
+
+    blocking_codes: list[str] = []
+    if required_missing:
+        blocking_codes.append("STANDALONE_REQUIRED_PUBLIC_REFS_MISSING")
+    if missing_include_refs:
+        blocking_codes.append("STANDALONE_INCLUDE_REFS_MISSING")
+    if artifact_residue_violations:
+        blocking_codes.append("STANDALONE_ARTIFACT_RESIDUE_PRESENT")
+    if forbidden_root_prefix_hits:
+        blocking_codes.append("STANDALONE_FORBIDDEN_ROOT_PREFIX_PRESENT")
+    if artifact_symlink_refs:
+        blocking_codes.append("STANDALONE_ARTIFACT_SYMLINK_PRESENT")
+    if escaping_symlink_refs:
+        blocking_codes.append("STANDALONE_ARTIFACT_SYMLINK_ESCAPE")
+    if private_path_hits:
+        blocking_codes.append("STANDALONE_PRIVATE_PATH_PRESENT")
+    if strong_secret_hits:
+        blocking_codes.append("STANDALONE_STRONG_SECRET_PATTERN_PRESENT")
+    if bounded_secret.get("status") != "pass":
+        blocking_codes.append("STANDALONE_SECRET_SCAN_BLOCKED")
+    if projection_freshness_receipt.get("status") != "pass":
+        blocking_codes.append("STANDALONE_PROJECTION_FRESHNESS_BLOCKED")
+    if runnable_receipt.get("status") not in {"pass", "not_run"}:
+        blocking_codes.append("STANDALONE_RUNNABLE_SMOKE_BLOCKED")
+    if install_smoke_receipt.get("status") not in {"pass", "not_run"}:
+        blocking_codes.append("STANDALONE_INSTALL_SMOKE_BLOCKED")
+
+    install_verified = install_smoke_receipt.get("status") == "pass"
+    return {
+        "schema_version": "microcosm_standalone_severance_receipt_v1",
+        "status": "pass" if not blocking_codes else "blocked",
+        "artifact_dir": ARTIFACT_DIR_NAME,
+        "mode": "generated_standalone_folder",
+        "claim_level": (
+            "standalone_install_verified"
+            if install_verified
+            else "standalone_shape_verified_without_install_claim"
+        ),
+        "required_public_entry_refs": list(STANDALONE_REQUIRED_PUBLIC_REFS),
+        "required_public_entry_refs_present": required_present,
+        "required_public_entry_refs_missing": required_missing,
+        "missing_include_refs": list(missing_include_refs),
+        "forbidden_root_prefix_hits": forbidden_root_prefix_hits,
+        "artifact_residue_violations": artifact_residue_violations,
+        "artifact_symlink_refs": artifact_symlink_refs,
+        "escaping_symlink_refs": escaping_symlink_refs,
+        "private_path_hit_count": len(private_path_hits),
+        "strong_secret_hit_count": len(strong_secret_hits),
+        "bounded_secret_scan_status": bounded_secret.get("status"),
+        "projection_freshness_status": projection_freshness_receipt.get("status"),
+        "runnable_smoke_status": runnable_receipt.get("status"),
+        "install_smoke_status": install_smoke_receipt.get("status"),
+        "install_smoke_supports_standalone_run": install_verified,
+        "authority_boundary": {
+            "release_authorized": authority_receipt.get("release_authorized"),
+            "publish_authorized": authority_receipt.get("publish_authorized"),
+            "hosted_launch_authorized": authority_receipt.get(
+                "hosted_launch_authorized"
+            ),
+            "provider_calls_authorized": authority_receipt.get(
+                "provider_calls_authorized"
+            ),
+            "source_files_mutation_authorized": authority_receipt.get(
+                "source_files_mutation_authorized"
+            ),
+            "private_data_equivalence_authorized": authority_receipt.get(
+                "private_data_equivalence_authorized"
+            ),
+            "supported_public_mode": authority_receipt.get("supported_public_mode"),
+        },
+        "blocking_codes": blocking_codes,
+        "anti_claim": (
+            "This receipt proves only that the generated artifact has the bounded "
+            "standalone public-tree shape described here. It is not publication "
+            "authority or proof of equivalence to private macro-system state."
+        ),
+    }
 
 
 def _expected_sentinel_fixture_path(path_ref: object) -> bool:
@@ -1154,6 +1313,7 @@ def _release_candidate_packet(
     authority_receipt: dict[str, Any],
     runnable_receipt: dict[str, Any],
     install_smoke_receipt: dict[str, Any],
+    standalone_severance_receipt: dict[str, Any],
     projection_freshness_receipt: dict[str, Any],
     blocking_codes: list[str],
 ) -> dict[str, Any]:
@@ -1212,6 +1372,17 @@ def _release_candidate_packet(
             ),
             "runnable_smoke_status": runnable_receipt.get("status"),
             "install_smoke_status": install_smoke_receipt.get("status"),
+            "standalone_severance_status": standalone_severance_receipt.get("status"),
+            "standalone_claim_level": standalone_severance_receipt.get("claim_level"),
+            "standalone_required_public_entry_refs_missing_count": len(
+                standalone_severance_receipt.get(
+                    "required_public_entry_refs_missing"
+                )
+                or []
+            ),
+            "standalone_escaping_symlink_ref_count": len(
+                standalone_severance_receipt.get("escaping_symlink_refs") or []
+            ),
             "projection_freshness_status": projection_freshness_receipt.get("status"),
             "projection_freshness_receipt_ref": projection_freshness_receipt.get(
                 "receipt_ref"
@@ -1624,6 +1795,21 @@ def build_release_export(
         ),
         "receipt_paths": [RELEASE_RECEIPT_REF],
     }
+    standalone_severance_receipt = _standalone_severance_receipt(
+        target,
+        inventory=inventory,
+        missing_include_refs=missing_include_refs,
+        exclusion_receipt=receipt["exclusion_receipt"],
+        authority_receipt=receipt["authority_receipt"],
+        runnable_receipt=receipt["runnable_receipt"],
+        install_smoke_receipt=receipt["install_smoke_receipt"],
+        projection_freshness_receipt=receipt["projection_freshness_receipt"],
+    )
+    receipt["standalone_severance_receipt"] = standalone_severance_receipt
+    if standalone_severance_receipt.get("status") != "pass":
+        blocking_codes.append("RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED")
+    receipt["status"] = "pass" if not blocking_codes else "blocked"
+    receipt["blocking_codes"] = blocking_codes
     receipt["release_candidate_packet"] = _release_candidate_packet(
         source_root=source_root,
         command=command,
@@ -1632,6 +1818,7 @@ def build_release_export(
         authority_receipt=receipt["authority_receipt"],
         runnable_receipt=receipt["runnable_receipt"],
         install_smoke_receipt=receipt["install_smoke_receipt"],
+        standalone_severance_receipt=receipt["standalone_severance_receipt"],
         projection_freshness_receipt=receipt["projection_freshness_receipt"],
         blocking_codes=blocking_codes,
     )

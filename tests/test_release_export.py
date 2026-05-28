@@ -204,6 +204,18 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert candidate["validation_summary"]["exclusion_status"] == "pass"
     assert candidate["validation_summary"]["runnable_smoke_status"] == "pass"
     assert candidate["validation_summary"]["install_smoke_status"] == "pass"
+    assert candidate["validation_summary"]["standalone_severance_status"] == "pass"
+    assert (
+        candidate["validation_summary"]["standalone_claim_level"]
+        == "standalone_install_verified"
+    )
+    assert (
+        candidate["validation_summary"][
+            "standalone_required_public_entry_refs_missing_count"
+        ]
+        == 0
+    )
+    assert candidate["validation_summary"]["standalone_escaping_symlink_ref_count"] == 0
     assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
     assert candidate["validation_summary"]["wheel_install_supported"] is True
     assert ".github" in receipt["inventory_receipt"]["include_refs"]
@@ -282,6 +294,49 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     )
     assert receipt["authority_receipt"]["release_authorized"] is False
     assert receipt["authority_receipt"]["publish_authorized"] is False
+    severance = receipt["standalone_severance_receipt"]
+    assert severance["schema_version"] == "microcosm_standalone_severance_receipt_v1"
+    assert severance["status"] == "pass"
+    assert severance["artifact_dir"] == release_export.ARTIFACT_DIR_NAME
+    assert severance["mode"] == "generated_standalone_folder"
+    assert severance["claim_level"] == "standalone_install_verified"
+    assert severance["required_public_entry_refs_missing"] == []
+    assert set(severance["required_public_entry_refs_present"]).issuperset(
+        {
+            "README.md",
+            "AGENTS.md",
+            "pyproject.toml",
+            "src",
+            "tests",
+            "Makefile",
+            "bootstrap.sh",
+            ".github",
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+        }
+    )
+    assert severance["missing_include_refs"] == []
+    assert severance["forbidden_root_prefix_hits"] == []
+    assert severance["artifact_residue_violations"] == []
+    assert severance["artifact_symlink_refs"] == []
+    assert severance["escaping_symlink_refs"] == []
+    assert severance["private_path_hit_count"] == 0
+    assert severance["strong_secret_hit_count"] == 0
+    assert severance["bounded_secret_scan_status"] == "pass"
+    assert severance["projection_freshness_status"] == "pass"
+    assert severance["runnable_smoke_status"] == "pass"
+    assert severance["install_smoke_status"] == "pass"
+    assert severance["install_smoke_supports_standalone_run"] is True
+    assert severance["authority_boundary"] == {
+        "release_authorized": False,
+        "publish_authorized": False,
+        "hosted_launch_authorized": False,
+        "provider_calls_authorized": False,
+        "source_files_mutation_authorized": False,
+        "private_data_equivalence_authorized": False,
+        "supported_public_mode": "generated_standalone_folder",
+    }
+    assert severance["blocking_codes"] == []
     assert receipt["projection_freshness_receipt"]["status"] == "pass"
     assert (
         receipt["projection_freshness_receipt"]["macro_runtime_dependency_count"] == 0
@@ -337,6 +392,17 @@ def test_release_export_skip_smoke_keeps_install_support_unclaimed(
     assert receipt["status"] == "pass"
     assert receipt["runnable_receipt"]["status"] == "not_run"
     assert receipt["install_smoke_receipt"]["status"] == "not_run"
+    assert receipt["standalone_severance_receipt"]["status"] == "pass"
+    assert (
+        receipt["standalone_severance_receipt"]["claim_level"]
+        == "standalone_shape_verified_without_install_claim"
+    )
+    assert (
+        receipt["standalone_severance_receipt"][
+            "install_smoke_supports_standalone_run"
+        ]
+        is False
+    )
     assert receipt["authority_receipt"]["wheel_install_supported"] is False
     assert (
         receipt["authority_receipt"]["wheel_install_authority"]
@@ -350,10 +416,47 @@ def test_release_export_skip_smoke_keeps_install_support_unclaimed(
     )
     assert (
         receipt["release_candidate_packet"]["validation_summary"][
+            "standalone_severance_status"
+        ]
+        == "pass"
+    )
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
             "wheel_install_supported"
         ]
         is False
     )
+
+
+def test_release_export_blocks_missing_standalone_entry_ref(
+    tmp_path: Path,
+) -> None:
+    root = _make_release_root(tmp_path / "source")
+    (root / "bootstrap.sh").unlink()
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export",
+    )
+
+    severance = receipt["standalone_severance_receipt"]
+    assert receipt["status"] == "blocked"
+    assert "RELEASE_EXPORT_INCLUDE_REFS_MISSING" in receipt["blocking_codes"]
+    assert "RELEASE_EXPORT_STANDALONE_SEVERANCE_BLOCKED" in receipt["blocking_codes"]
+    assert severance["status"] == "blocked"
+    assert severance["required_public_entry_refs_missing"] == ["bootstrap.sh"]
+    assert "STANDALONE_REQUIRED_PUBLIC_REFS_MISSING" in severance["blocking_codes"]
+    assert "STANDALONE_INCLUDE_REFS_MISSING" in severance["blocking_codes"]
+    assert (
+        receipt["release_candidate_packet"]["validation_summary"][
+            "standalone_severance_status"
+        ]
+        == "blocked"
+    )
+    assert receipt["release_candidate_packet"]["status"] == "blocked"
 
 
 def _candidate_packet_for_gate_decision(
