@@ -1919,11 +1919,15 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
     warnings = candidate.get("external_warning_classification") or {}
     gate = candidate.get("release_authorization_gate_decision") or {}
     target_path = Path(target)
+    candidate_blocking_codes = list(receipt.get("blocking_codes") or [])
+    authorization_blocking_codes = list(gate.get("blocking_codes") or [])
 
     return {
         "schema_version": "microcosm_release_export_summary_v1",
         "status": receipt.get("status"),
-        "blocking_codes": receipt.get("blocking_codes") or [],
+        "blocking_codes": candidate_blocking_codes,
+        "release_candidate_blocking_codes": candidate_blocking_codes,
+        "release_authorization_blocking_codes": authorization_blocking_codes,
         "artifact_path": str(target_path),
         "release_receipt_path": str(target_path / RELEASE_RECEIPT_REF),
         "release_receipt_ref": RELEASE_RECEIPT_REF,
@@ -1970,7 +1974,7 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
             "operator_authorization_gate_eligible": gate.get(
                 "operator_authorization_gate_eligible"
             ),
-            "blocking_codes": gate.get("blocking_codes") or [],
+            "blocking_codes": authorization_blocking_codes,
             "required_actions": gate.get("required_actions") or [],
         },
         "anti_claim": (
