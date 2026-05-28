@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
@@ -11,6 +12,8 @@ from microcosm_core.runtime_shell import (
     VERIFIER_EXECUTION_LENS_COMMAND,
     VERIFIER_EXECUTION_RECEIPT_REF,
 )
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_cli_prediction_lens_smoke(capsys: pytest.CaptureFixture[str]) -> None:
@@ -400,6 +403,33 @@ def test_cli_stripping_guard_smoke(capsys: pytest.CaptureFixture[str]) -> None:
         row["unsafe_payload_bodies_exported"] is False
         for row in payload["guard_rows"]
     )
+
+
+def test_cli_smoke_lenses_do_not_rewrite_tracked_receipt_timestamps(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    receipt_paths = [
+        MICROCOSM_ROOT
+        / "receipts/runtime_shell/public_stripping_guard_lens.json",
+        MICROCOSM_ROOT
+        / "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
+    ]
+    before = {path: path.read_text(encoding="utf-8") for path in receipt_paths}
+    after: dict[Path, str] = {}
+
+    try:
+        for command in ("stripping-guard", "legibility-scorecard"):
+            status = cli.main([command])
+            payload = json.loads(capsys.readouterr().out)
+            assert status == 0
+            assert payload["status"] == "pass"
+        after = {path: path.read_text(encoding="utf-8") for path in receipt_paths}
+    finally:
+        for path, text in before.items():
+            if path.read_text(encoding="utf-8") != text:
+                path.write_text(text, encoding="utf-8")
+
+    assert after == before
 
 
 def test_cli_standards_control_smoke(capsys: pytest.CaptureFixture[str]) -> None:

@@ -13142,6 +13142,7 @@ class RuntimeShell:
                 "public/secret export, publish, host, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -14738,6 +14739,7 @@ class RuntimeShell:
                 "create score-based progress authority, or certify production readiness."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
