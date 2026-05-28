@@ -383,6 +383,24 @@ def _proof_lab_first_screen_boundary() -> dict:
     }
 
 
+def _proof_lab_cache_action_hint(cache_status: object) -> dict:
+    if cache_status == "stale_cached_receipt":
+        return {
+            "status": "actionable",
+            "command": f"microcosm proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
+            "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+        }
+    if cache_status == "missing_cached_receipt":
+        return {
+            "status": "missing_cached_receipt",
+            "command": f"microcosm proof-lab --out {DEFAULT_PROOF_LAB_OUT}",
+            "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+        }
+    return {
+        "status": "not_needed",
+    }
+
+
 def _emit_hello(project: str, reader: str) -> int:
     payload = first_screen_composition.first_screen_composition_card(
         project_label=project
@@ -835,13 +853,10 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
         "endpoint": proof_lab.get("endpoint") or "/proof-lab",
         "route_id": proof_lab.get("route_id"),
         "receipt_ref": proof_lab.get("receipt_ref"),
-        "route_component_count": proof_lab.get("route_component_count"),
         "cache_status": proof_lab.get("cache_status"),
-        "cache_freshness_status": proof_lab.get("cache_freshness_status"),
-        "stale_input_count": proof_lab.get("stale_input_count"),
-        "proof_bodies_exported": False,
-        "release_authorized": False,
-        "proof_correctness_claim": False,
+        "cache_action": proof_lab.get("cache_action")
+        if isinstance(proof_lab.get("cache_action"), dict)
+        else _proof_lab_cache_action_hint(proof_lab.get("cache_status")),
     }
 
 
@@ -1056,10 +1071,7 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "receipt_ref",
                 "route_component_count",
                 "cache_status",
-                "cache_freshness_status",
-                "stale_input_count",
-                "proof_bodies_exported",
-                "proof_correctness_claim",
+                "cache_action",
             ],
         )
 

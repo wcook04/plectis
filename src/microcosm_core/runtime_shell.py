@@ -1759,6 +1759,24 @@ def proof_lab_first_screen_boundary() -> dict[str, Any]:
     }
 
 
+def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
+    if cache_status == "stale_cached_receipt":
+        return {
+            "status": "actionable",
+            "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+        }
+    if cache_status == "missing_cached_receipt":
+        return {
+            "status": "missing_cached_receipt",
+            "command": PROOF_LAB_FIRST_SCREEN_COMMAND,
+            "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+        }
+    return {
+        "status": "not_needed",
+    }
+
+
 def _proof_lab_input_files(root: Path) -> list[Path]:
     input_ref = root / PROOF_LAB_BUNDLE_REF
     if not input_ref.exists():
@@ -1897,6 +1915,7 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
             else receipt_status
         ),
         "cache_freshness": cache_freshness,
+        "cache_action": _proof_lab_cache_action_hint(cache_status),
         "cached_receipt_ref": PROOF_LAB_RECEIPT_REF,
         "cached_receipt_bytes": (
             receipt_path.stat().st_size if receipt_path.is_file() else 0
@@ -4418,13 +4437,10 @@ def _runtime_status_card(
         "endpoint": proof_lab_ref.get("endpoint") or "/proof-lab",
         "route_id": proof_lab_ref.get("route_id"),
         "receipt_ref": proof_lab_ref.get("receipt_ref"),
-        "route_component_count": proof_lab_ref.get("route_component_count"),
         "cache_status": proof_lab_ref.get("cache_status"),
-        "cache_freshness_status": proof_lab_ref.get("cache_freshness_status"),
-        "stale_input_count": proof_lab_ref.get("stale_input_count"),
-        "proof_bodies_exported": False,
-        "release_authorized": False,
-        "proof_correctness_claim": False,
+        "cache_action": proof_lab_ref.get("cache_action")
+        if isinstance(proof_lab_ref.get("cache_action"), dict)
+        else _proof_lab_cache_action_hint(proof_lab_ref.get("cache_status")),
     }
     route_selection_proof = (
         card["front_door"].get("route_selection_proof", {})
@@ -7833,6 +7849,9 @@ class RuntimeShell:
                 "route_id": proof_lab.get("route_id"),
                 "route_component_count": proof_lab.get("route_component_count"),
                 "receipt_ref": proof_lab.get("receipt_ref"),
+                "cache_action": _proof_lab_cache_action_hint(
+                    proof_lab.get("cache_status")
+                ),
             },
             "receipt_write_policy": {
                 "public_tour_receipt_ref": (
