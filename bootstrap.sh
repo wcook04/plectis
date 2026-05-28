@@ -17,6 +17,10 @@ Options:
   --suite SUITE          Probe suite to run (default: first-wave)
   --emit RECEIPT_PATH    Receipt path to write (default: receipts/cold_clone_probe.json)
   -h, --help             Show this help message without running the probe
+
+Environment:
+  MICROCOSM_PYTHON       Python executable override for public bootstrap runs
+  PYTHON                 Fallback Python executable override
 USAGE
 }
 
@@ -55,7 +59,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}src"
-if [[ -n "${PYTHON:-}" ]]; then
+if [[ -n "${MICROCOSM_PYTHON:-}" ]]; then
+  python_bin="$MICROCOSM_PYTHON"
+elif [[ -n "${PYTHON:-}" ]]; then
   python_bin="$PYTHON"
 elif command -v python3 >/dev/null 2>&1; then
   python_bin="python3"
