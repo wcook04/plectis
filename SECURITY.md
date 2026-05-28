@@ -65,9 +65,15 @@ make standalone-export EXPORT_OUT=/tmp/microcosm-security-boundary-export
 Inspect
 `/tmp/microcosm-security-boundary-export/microcosm-substrate/receipts/release/release_export_receipt.json`
 and include the receipt id, artifact hash, blocking codes, and release gate
-fields in the report. The expected public boundary is `release_authorized=false`,
-`gate_invoked=false`, and `release_authorization_allowed_now=false` unless a
-separate operator authorization receipt is explicitly named.
+fields in the report. The expected public boundary is:
+
+- `authority_receipt.release_authorized=false`
+- `authority_receipt.publish_authorized=false`
+- `release_candidate_packet.authority_state.release_authorization_gate.invoked=false`
+- `release_candidate_packet.release_authorization_gate_decision.release_authorization_allowed_now=false`
+
+If a report claims release approval exists, it must name the separate operator
+authorization receipt that changed those fields.
 
 Do not attach local validation byproducts such as `.venv/`, `.microcosm/`, or
 pytest caches to a public report. The release receipt path is the evidence
