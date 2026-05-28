@@ -104,7 +104,7 @@
     ],
     "authority": "reader routing only; not release, provider, proof-correctness, production, hiring, or safety-evaluation authority"
   },
-  "cold_clone_validation_command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+  "cold_clone_validation_command": "./bootstrap.sh",
   "allowed_drilldowns": [
     "atlas/entry_packet.json::local_first_screen_route",
     "atlas/entry_packet.json::reader_first_screen_routes",
@@ -120,8 +120,8 @@
     "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop",
     "atlas/entry_packet.json::cold_clone_probe_route",
     "atlas/entry_packet.json::observatory_route",
-    "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
-    "receipts/cold_clone_probe.json",
+    "./bootstrap.sh",
+    ".microcosm/cold_clone_probe.json",
     "microcosm tour --card <project>",
     "microcosm tour --card <project>::state_inspection",
     "microcosm tour --card <project>::state_refs",
@@ -265,7 +265,7 @@
       "observatory_route",
       "proof_lab_route"
     ],
-    "cold_clone_validation_suite": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+    "cold_clone_validation_suite": "./bootstrap.sh",
     "selected_route_id_source": "microcosm tour --card <project>::selected_route_id or microcosm tour <project>::selected_route_id or microcosm tour <project>::first_screen.selected_route_id or microcosm compile <project>::selected_route_id",
     "route_selection_rule": "Use the selected_route_id emitted by tour --card, tour, or compile. readme_onboarding_route is a generated route only when the project has a README. Empty or non-README folders can select missing_tests_route, including missing_tests_route when tests are absent.",
     "authority": "project-local behavioral route only, not release, provider, source mutation, production, or proof-correctness authority",
@@ -610,9 +610,10 @@
   },
   "cold_clone_probe_route": {
     "surface_id": "microcosm_cold_clone_probe",
-    "command": "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json",
+    "command": "./bootstrap.sh",
     "entry_role": "validation suite after local first-screen behavior is visible",
-    "receipt_ref": "receipts/cold_clone_probe.json",
+    "receipt_ref": ".microcosm/cold_clone_probe.json",
+    "tracked_refresh_rule": "Pass --emit only when refreshing an owned tracked receipt on purpose.",
     "authority": "validator suite receipt, not the first project-local route"
   },
   "python_navigation_route": {
@@ -1078,7 +1079,7 @@
     "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "receipts/runtime_shell/public_ten_minute_tour.json",
     "receipts/runtime_shell/workingness_failure_map.json",
-    "receipts/cold_clone_probe.json"
+    ".microcosm/cold_clone_probe.json"
   ],
   "authority_ceiling": "entry packet routes public Microcosm navigation; it is not source, release, provider, proof, or mutation authority",
   "anti_claim": "This packet is a route pointer, not a source authority or public release surface."

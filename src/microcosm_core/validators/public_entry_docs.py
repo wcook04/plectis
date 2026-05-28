@@ -685,6 +685,7 @@ def _entry_packet_route_contract(
     observatory_endpoints = _string_list(route.get("observatory_endpoints"))
     drilldown_routes = _string_list(route.get("drilldown_routes"))
     allowed_drilldowns = _string_list(payload.get("allowed_drilldowns"))
+    receipt_dependencies = _string_list(payload.get("receipt_dependencies"))
     missing_commands = [
         command for command in required_commands if command not in command_path
     ]
@@ -815,6 +816,34 @@ def _entry_packet_route_contract(
         reader_route_contract_missing.append("route_ref")
     if set(_string_list(route.get("reader_route_ids"))) != required_reader_ids:
         reader_route_contract_missing.append("local_first_screen_reader_route_ids")
+    expected_cold_clone_command = "./bootstrap.sh"
+    expected_cold_clone_receipt = ".microcosm/cold_clone_probe.json"
+    stale_cold_clone_command = (
+        "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
+    )
+    probe_route = payload.get("cold_clone_probe_route")
+    probe_route = probe_route if isinstance(probe_route, dict) else {}
+    cold_clone_boundary_mismatches = []
+    if payload.get("cold_clone_validation_command") != expected_cold_clone_command:
+        cold_clone_boundary_mismatches.append("cold_clone_validation_command")
+    if route.get("cold_clone_validation_suite") != expected_cold_clone_command:
+        cold_clone_boundary_mismatches.append("local_first_screen_route")
+    if probe_route.get("command") != expected_cold_clone_command:
+        cold_clone_boundary_mismatches.append("cold_clone_probe_route.command")
+    if probe_route.get("receipt_ref") != expected_cold_clone_receipt:
+        cold_clone_boundary_mismatches.append("cold_clone_probe_route.receipt_ref")
+    if expected_cold_clone_command not in allowed_drilldowns:
+        cold_clone_boundary_mismatches.append("allowed_drilldowns.default_command")
+    if expected_cold_clone_receipt not in allowed_drilldowns:
+        cold_clone_boundary_mismatches.append("allowed_drilldowns.local_receipt")
+    if expected_cold_clone_receipt not in receipt_dependencies:
+        cold_clone_boundary_mismatches.append("receipt_dependencies.local_receipt")
+    if stale_cold_clone_command in allowed_drilldowns:
+        cold_clone_boundary_mismatches.append("allowed_drilldowns.tracked_emit")
+    if "receipts/cold_clone_probe.json" in allowed_drilldowns:
+        cold_clone_boundary_mismatches.append("allowed_drilldowns.tracked_receipt")
+    if "receipts/cold_clone_probe.json" in receipt_dependencies:
+        cold_clone_boundary_mismatches.append("receipt_dependencies.tracked_receipt")
     cold_start_text = _normalized_text(
         doc_text_by_rel.get("skills/cold_start_navigation.md", "")
     )
@@ -878,6 +907,8 @@ def _entry_packet_route_contract(
         or reader_route_contract_missing
     ):
         blocking_reasons.append("reader_first_screen_routes_missing")
+    if cold_clone_boundary_mismatches:
+        blocking_reasons.append("cold_clone_local_receipt_boundary_mismatch")
     if cold_start_missing:
         blocking_reasons.append("cold_start_route_contract_missing")
     if cold_start_route_selection_missing_phrases:
@@ -903,6 +934,7 @@ def _entry_packet_route_contract(
         "reader_route_missing_ids": reader_route_missing_ids,
         "reader_route_missing_fields": reader_route_missing_fields,
         "reader_route_contract_missing": reader_route_contract_missing,
+        "cold_clone_boundary_mismatches": cold_clone_boundary_mismatches,
         "cold_start_missing_phrases": cold_start_missing,
         "cold_start_route_selection_missing_phrases": (
             cold_start_route_selection_missing_phrases

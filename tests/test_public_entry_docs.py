@@ -376,6 +376,54 @@ def test_public_entry_docs_block_entry_packet_route_contract_drift(
     ]["blocking_reasons"]
 
 
+def test_public_entry_docs_block_cold_clone_tracked_emit_as_default(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_public_entry_tree(tmp_path)
+    entry_packet_path = public_root / "atlas/entry_packet.json"
+    entry_packet = json.loads(entry_packet_path.read_text(encoding="utf-8"))
+    stale_command = "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
+    entry_packet["cold_clone_validation_command"] = stale_command
+    entry_packet["local_first_screen_route"]["cold_clone_validation_suite"] = (
+        stale_command
+    )
+    entry_packet["cold_clone_probe_route"]["command"] = stale_command
+    entry_packet["cold_clone_probe_route"]["receipt_ref"] = (
+        "receipts/cold_clone_probe.json"
+    )
+    entry_packet["allowed_drilldowns"].extend(
+        [stale_command, "receipts/cold_clone_probe.json"]
+    )
+    entry_packet["receipt_dependencies"].append("receipts/cold_clone_probe.json")
+    entry_packet_path.write_text(
+        json.dumps(entry_packet, ensure_ascii=True, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH" in receipt["blocking_codes"]
+    route_contract = receipt["entry_packet_route_contract"]
+    assert route_contract["status"] == "blocked"
+    assert "cold_clone_local_receipt_boundary_mismatch" in route_contract[
+        "blocking_reasons"
+    ]
+    assert set(route_contract["cold_clone_boundary_mismatches"]) >= {
+        "cold_clone_validation_command",
+        "local_first_screen_route",
+        "cold_clone_probe_route.command",
+        "cold_clone_probe_route.receipt_ref",
+        "allowed_drilldowns.tracked_emit",
+        "allowed_drilldowns.tracked_receipt",
+        "receipt_dependencies.tracked_receipt",
+    }
+
+
 def test_public_entry_docs_block_readme_route_selection_truth_drift(
     tmp_path: Path,
 ) -> None:
@@ -897,6 +945,18 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert probe["command"] in entry_packet["allowed_drilldowns"]
     assert probe["receipt_ref"] in entry_packet["allowed_drilldowns"]
     assert probe["receipt_ref"] in entry_packet["receipt_dependencies"]
+    assert entry_packet["cold_clone_validation_command"] == "./bootstrap.sh"
+    assert route["cold_clone_validation_suite"] == "./bootstrap.sh"
+    assert probe["command"] == "./bootstrap.sh"
+    assert probe["receipt_ref"] == ".microcosm/cold_clone_probe.json"
+    assert "Pass --emit only when refreshing" in probe["tracked_refresh_rule"]
+    assert (
+        "./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json"
+        not in entry_packet["allowed_drilldowns"]
+    )
+    assert "receipts/cold_clone_probe.json" not in entry_packet[
+        "receipt_dependencies"
+    ]
     assert (
         probe["entry_role"]
         == "validation suite after local first-screen behavior is visible"
