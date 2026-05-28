@@ -84,6 +84,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "microcosm authority --card",
         "microcosm workingness --card",
         "microcosm legibility-scorecard",
+        "PYTHONPATH=src python3 -m microcosm_core hello .",
         "real non-secret macro bodies",
         "fake progress",
         "tests/test_public_entry_docs.py",

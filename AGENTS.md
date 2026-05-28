@@ -21,7 +21,7 @@ membrane:
 1. Read `README.md` for the human map and install mode.
 2. From `microcosm-substrate/`, make the console command available with
    `python3 -m pip install -e '.[test]'`. If you cannot install, use the source
-   form `PYTHONPATH=src python3 -m microcosm_core.cli <command>`.
+   form `PYTHONPATH=src python3 -m microcosm_core <command>`.
 3. Run the compact route before opening raw receipts:
 
 ```bash

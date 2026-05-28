@@ -15,7 +15,7 @@ microcosm legibility-scorecard
 If editable install is not available, use the source form:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli hello .
+PYTHONPATH=src python3 -m microcosm_core hello .
 ```
 
 ## Good Contributions
@@ -54,4 +54,3 @@ For a broad cold-clone smoke, use:
 ```bash
 ./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe_local.json
 ```
-
