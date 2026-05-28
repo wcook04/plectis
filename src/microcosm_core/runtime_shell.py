@@ -21,6 +21,10 @@ from microcosm_core.public_payload_boundary import (
     public_payload_boundary,
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.resource_root import (
+    is_installed_microcosm_root,
+    microcosm_root,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -843,7 +847,7 @@ RUNTIME_STEPS: tuple[RuntimeStep, ...] = (
 
 
 def public_root() -> Path:
-    return Path(__file__).resolve().parents[2]
+    return microcosm_root()
 
 
 def _public_relative(path: Path, root: Path) -> str:
@@ -1773,10 +1777,23 @@ def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]
             "input_refs_exported": False,
         }
 
+    input_files = _proof_lab_input_files(root)
+    if is_installed_microcosm_root(root) and input_files:
+        return {
+            "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+            "status": "current",
+            "input_status": "packaged_public_data",
+            "receipt_mtime_ns": receipt_mtime_ns,
+            "tracked_input_count": len(input_files),
+            "stale_input_count": 0,
+            "latest_input_mtime_ns": None,
+            "input_refs_exported": False,
+        }
+
     latest_input_mtime_ns: int | None = None
     stale_input_count = 0
     tracked_input_count = 0
-    for input_file in _proof_lab_input_files(root):
+    for input_file in input_files:
         input_mtime_ns = input_file.stat().st_mtime_ns
         latest_input_mtime_ns = (
             input_mtime_ns

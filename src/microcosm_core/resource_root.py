@@ -12,12 +12,20 @@ def _has_public_data(root: Path) -> bool:
     )
 
 
+def installed_microcosm_root() -> Path:
+    return Path(sys.prefix) / "share/microcosm-substrate"
+
+
+def is_installed_microcosm_root(root: Path) -> bool:
+    return root.resolve(strict=False) == installed_microcosm_root().resolve(strict=False)
+
+
 def microcosm_root() -> Path:
     checkout_root = Path(__file__).resolve().parents[2]
     if _has_public_data(checkout_root):
         return checkout_root
 
-    installed_root = Path(sys.prefix) / "share/microcosm-substrate"
+    installed_root = installed_microcosm_root()
     if _has_public_data(installed_root):
         return installed_root
 
