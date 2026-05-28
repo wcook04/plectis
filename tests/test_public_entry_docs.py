@@ -167,6 +167,8 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make ci",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
+        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "fake-clone check proves the severed package can install",
         "release_authorized=false",
         "microcosm hello .",
         "microcosm tour --card .",
