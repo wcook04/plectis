@@ -99,7 +99,21 @@ breadth, honest evidence accounting, and authority limits on one first screen.
 From `microcosm-substrate/`, install the console command:
 
 ```bash
+python3 -m pip install .
+```
+
+For development, install the same command in editable mode with the test extras:
+
+```bash
 python3 -m pip install -e '.[test]'
+```
+
+Either install path should pass the first-screen self-check:
+
+```bash
+microcosm hello .
+microcosm tour --card .
+microcosm status --card .
 ```
 
 Or run the same product CLI directly from the checkout without installing the
@@ -366,7 +380,7 @@ From this directory:
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -e '.[test]'
+python -m pip install .
 mkdir -p /tmp/microcosm-scratch/src/app /tmp/microcosm-scratch/tests
 printf '# Scratch Project\n' > /tmp/microcosm-scratch/README.md
 printf '[project]\nname = "scratch-project"\nversion = "0.1.0"\n' > /tmp/microcosm-scratch/pyproject.toml
