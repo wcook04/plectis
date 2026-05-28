@@ -26,11 +26,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/wcook04/zenith"
-Documentation = "https://github.com/wcook04/zenith/blob/main/microcosm-substrate/README.md"
-Source = "https://github.com/wcook04/zenith/tree/main/microcosm-substrate"
-Issues = "https://github.com/wcook04/zenith/issues"
-Repository = "https://github.com/wcook04/zenith"
+Homepage = "https://github.com/wcook04/microcosm-substrate"
+Documentation = "https://github.com/wcook04/microcosm-substrate/blob/main/README.md"
+Source = "https://github.com/wcook04/microcosm-substrate"
+Issues = "https://github.com/wcook04/microcosm-substrate/issues"
+Repository = "https://github.com/wcook04/microcosm-substrate"
 
 [project.optional-dependencies]
 test = [

@@ -92,19 +92,25 @@ def test_pyproject_license_metadata_matches_declared_build_backend_floor() -> No
     )
 
 
-def test_pyproject_urls_point_to_current_public_repository() -> None:
+def test_pyproject_urls_point_to_standalone_public_repository() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
     assert pyproject["project"]["urls"] == {
-        "Homepage": "https://github.com/wcook04/zenith",
+        "Homepage": "https://github.com/wcook04/microcosm-substrate",
         "Documentation": (
-            "https://github.com/wcook04/zenith/blob/main/"
-            "microcosm-substrate/README.md"
+            "https://github.com/wcook04/microcosm-substrate/blob/main/README.md"
         ),
-        "Source": "https://github.com/wcook04/zenith/tree/main/microcosm-substrate",
-        "Issues": "https://github.com/wcook04/zenith/issues",
-        "Repository": "https://github.com/wcook04/zenith",
+        "Source": "https://github.com/wcook04/microcosm-substrate",
+        "Issues": "https://github.com/wcook04/microcosm-substrate/issues",
+        "Repository": "https://github.com/wcook04/microcosm-substrate",
     }
+    assert all("zenith" not in url for url in pyproject["project"]["urls"].values())
+    assert "zenith/blob/main/microcosm-substrate" not in (
+        pyproject["project"]["urls"]["Documentation"]
+    )
+    assert "tree/main/microcosm-substrate" not in (
+        pyproject["project"]["urls"]["Source"]
+    )
     assert "Macro-System" not in pyproject["project"]["urls"]
     assert all(
         "ai-workflow-proof" not in url
