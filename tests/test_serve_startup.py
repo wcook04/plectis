@@ -65,6 +65,11 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         first_screen = json.loads(
             _get(f"http://127.0.0.1:{port}/project/first-screen").decode("utf-8")
         )
+        first_screen_full = json.loads(
+            _get(f"http://127.0.0.1:{port}/project/first-screen-full").decode(
+                "utf-8"
+            )
+        )
         observatory_card = json.loads(
             _get(f"http://127.0.0.1:{port}/project/observatory-card").decode("utf-8")
         )
@@ -78,8 +83,15 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
     assert "Microcosm Observatory" in root
     assert "/project/observatory-card" in root
     assert "/project/observatory" in root
-    assert first_screen["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert first_screen["schema_version"] == "microcosm_first_screen_compact_card_v1"
+    assert first_screen_full["schema_version"] == (
+        "microcosm_first_screen_composition_card_v1"
+    )
     assert observatory_card["schema_version"] == "microcosm_project_observatory_card_v1"
+    assert observatory_card["first_screen_endpoint"] == "/project/first-screen"
+    assert observatory_card["first_screen_full_endpoint"] == (
+        "/project/first-screen-full"
+    )
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
     assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
 

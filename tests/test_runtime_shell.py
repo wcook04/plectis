@@ -4349,6 +4349,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
             project_status_card = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/first-screen", timeout=5) as response:
             first_screen = json.loads(response.read().decode("utf-8"))
+        with urlopen(f"http://{host}:{port}/project/first-screen-full", timeout=5) as response:
+            first_screen_full = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/project/observe", timeout=5) as response:
             project_observe = json.loads(response.read().decode("utf-8"))
         with urlopen(f"http://{host}:{port}/workingness", timeout=5) as response:
@@ -4455,22 +4457,33 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "JSON Drilldowns" in html
     assert "Release remains unauthorized" in html
     assert "/project/first-screen" in html
+    assert "/project/first-screen-full" in html
     assert "/project/status" in html
     assert "/project/python-lens" in html
     assert "/project/observatory-card" in html
     assert "/project/observatory" in html
     assert "Payload boundary" in html
     assert "Body " + "red" + "acted" not in html
-    assert first_screen["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert first_screen["schema_version"] == "microcosm_first_screen_compact_card_v1"
+    assert first_screen["output_policy"]["full_contract_command"] == (
+        "microcosm first-screen --full <project>"
+    )
+    assert first_screen["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen <project>"
+    )
+    assert "video_storyboard_packet" not in first_screen
     assert first_screen["status"] == "pass"
     assert first_screen["shared_first_command"] == "microcosm tour --card <project>"
-    assert first_screen["entry_surface_contract"]["shared_behavior_surface"] == (
-        first_screen["shared_first_command"]
+    assert first_screen_full["schema_version"] == (
+        "microcosm_first_screen_composition_card_v1"
     )
-    assert first_screen["evidence_count_frame"]["interpretation"] == (
+    assert first_screen_full["entry_surface_contract"]["shared_behavior_surface"] == (
+        first_screen_full["shared_first_command"]
+    )
+    assert first_screen_full["evidence_count_frame"]["interpretation"] == (
         "accounting_not_maturity_score"
     )
-    assert {route["reader_route_id"] for route in first_screen["reader_routes"]} == {
+    assert {route["reader_route_id"] for route in first_screen_full["reader_routes"]} == {
         "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
@@ -4724,9 +4737,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "/project/observatory-card"
     )
     assert observatory["json_drilldowns"]["first_screen"] == "/project/first-screen"
+    assert observatory["json_drilldowns"]["first_screen_full"] == (
+        "/project/first-screen-full"
+    )
     assert observatory["json_drilldowns"]["status_card"] == "/project/status"
     assert observatory["json_drilldowns"]["project_observe"] == "/project/observe"
-    assert observatory["first_screen_composition"] == first_screen
+    assert observatory["first_screen_card"] == first_screen
+    assert observatory["first_screen_composition"] == first_screen_full
     assert observatory_card["schema_version"] == (
         "microcosm_project_observatory_card_v1"
     )
@@ -4734,10 +4751,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory_card["endpoint"] == "/project/observatory-card"
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
     assert observatory_card["first_screen_endpoint"] == "/project/first-screen"
+    assert observatory_card["first_screen_full_endpoint"] == (
+        "/project/first-screen-full"
+    )
     assert observatory_card["status_card_endpoint"] == "/project/status"
     assert observatory_card["surface_statuses"]["first_screen_composition"] == "pass"
     assert observatory_card["surface_status_refs"]["first_screen_composition"] == (
-        "/project/first-screen"
+        "/project/first-screen-full"
     )
     assert observatory_card["first_screen_composition"]["reader_route_ids"] == [
         "public_github_visitor",

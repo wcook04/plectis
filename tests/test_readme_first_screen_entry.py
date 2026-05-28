@@ -108,8 +108,13 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     assert "microcosm workingness --card" in installed_path
     assert "\nmicrocosm workingness\n" not in installed_path
     assert "http://127.0.0.1:8765/project/first-screen" in browser_path
+    assert "/project/first-screen-full" in browser_path
+    assert "same compact one-screen\nreader map" in browser_path
     assert browser_path.index("/project/first-screen") < browser_path.index(
         "/project/observatory-card"
+    )
+    assert browser_path.index("/project/observatory") < browser_path.index(
+        "/project/first-screen-full"
     )
 
 

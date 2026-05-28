@@ -1287,6 +1287,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         "html_endpoint": "/",
         "full_observatory_endpoint": "/project/observatory",
         "first_screen_endpoint": "/project/first-screen",
+        "first_screen_full_endpoint": "/project/first-screen-full",
         "status_endpoint": "/status",
         "status_card_endpoint": "/project/status",
         "tour_endpoint": "/tour",
@@ -1320,7 +1321,8 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         "surface_status_refs": {
             "status": "/status",
             "front_door_status": "microcosm status --card <project>::front_door_status",
-            "first_screen_composition": "/project/first-screen",
+            "first_screen": "/project/first-screen",
+            "first_screen_composition": "/project/first-screen-full",
             "status_card": "/project/status",
             "route": (
                 f".microcosm/routes.json::{selected_route_id}"
@@ -1342,9 +1344,14 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                 "shows": "human-readable causal chain before raw JSON",
             },
             {
-                "step_id": "read_first_screen_composition",
+                "step_id": "read_first_screen_card",
                 "endpoint": "/project/first-screen",
                 "shows": "one-screen reader branch map backed by the shared package card",
+            },
+            {
+                "step_id": "drill_full_first_screen_contract",
+                "endpoint": "/project/first-screen-full",
+                "shows": "full first-screen composition contract preserved behind an explicit drilldown",
             },
             {
                 "step_id": "read_project_status_card",
@@ -18065,9 +18072,12 @@ class RuntimeShell:
                 "observatory card before opening doctrine or receipt drilldowns."
             ),
         )
-        first_screen_card = first_screen_composition.first_screen_composition_card(
+        first_screen_full_card = first_screen_composition.first_screen_composition_card(
             self.root,
             project_label="<project>",
+        )
+        first_screen_card = first_screen_composition.first_screen_compact_card(
+            first_screen_full_card
         )
         model.update(
             {
@@ -18082,7 +18092,8 @@ class RuntimeShell:
                     "source_mutation_authorized": False,
                 },
                 "selected_route_id": route_id,
-                "first_screen_composition": first_screen_card,
+                "first_screen_card": first_screen_card,
+                "first_screen_composition": first_screen_full_card,
                 "state_inspection": state_inspection,
                 "state_write_proof": (
                     observe.get("state_write_proof", {})
@@ -18276,6 +18287,7 @@ class RuntimeShell:
                     "reveal": "/reveal",
                     "kernel": "/kernel",
                     "first_screen": "/project/first-screen",
+                    "first_screen_full": "/project/first-screen-full",
                     "status_card": "/project/status",
                     "project_observe": "/project/observe",
                     "observatory_card": "/project/observatory-card",
@@ -20335,13 +20347,23 @@ class RuntimeShell:
             observatory_cache["status_card"] = card
             return card
 
-        def cached_first_screen_card() -> dict[str, Any]:
-            card = observatory_cache.get("first_screen_card")
+        def cached_first_screen_full_card() -> dict[str, Any]:
+            card = observatory_cache.get("first_screen_full_card")
             if isinstance(card, dict):
                 return card
             card = first_screen_composition.first_screen_composition_card(
                 shell.root,
                 project_label="<project>",
+            )
+            observatory_cache["first_screen_full_card"] = card
+            return card
+
+        def cached_first_screen_card() -> dict[str, Any]:
+            card = observatory_cache.get("first_screen_card")
+            if isinstance(card, dict):
+                return card
+            card = first_screen_composition.first_screen_compact_card(
+                cached_first_screen_full_card()
             )
             observatory_cache["first_screen_card"] = card
             return card
@@ -20385,6 +20407,7 @@ class RuntimeShell:
                 return model
             status_card = cached_status_card()
             first_screen_card = cached_first_screen_card()
+            first_screen_full_card = cached_first_screen_full_card()
             front_door = (
                 status_card.get("front_door")
                 if isinstance(status_card.get("front_door"), dict)
@@ -20444,7 +20467,8 @@ class RuntimeShell:
                 },
                 "front_door_status": front_door_status,
                 "source_open_body_import_floor": source_open_body_import_floor,
-                "first_screen_composition": first_screen_card,
+                "first_screen_card": first_screen_card,
+                "first_screen_composition": first_screen_full_card,
                 "state_inspection": {
                     "schema_version": "microcosm_project_state_inspection_card_v1",
                     "status": project_state.get("status")
@@ -20515,6 +20539,7 @@ class RuntimeShell:
                     "status": "/status",
                     "status_card": "/project/status",
                     "first_screen": "/project/first-screen",
+                    "first_screen_full": "/project/first-screen-full",
                     "observatory_card": "/project/observatory-card",
                     "observatory": "/project/observatory",
                     "tour": "/tour",
@@ -20833,6 +20858,8 @@ class RuntimeShell:
                     self._send(200, shell.status_card(project_path))
                 elif path == "/project/first-screen" and project_path is not None:
                     self._send(200, cached_first_screen_card())
+                elif path == "/project/first-screen-full" and project_path is not None:
+                    self._send(200, cached_first_screen_full_card())
                 elif path == "/project/observe" and project_path is not None:
                     self._send(
                         200,

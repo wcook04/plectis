@@ -658,10 +658,18 @@ def validate_legibility(
         "observatory_card_first_screen_endpoint_present": (
             observatory_card.get("html_endpoint") == "/"
             and observatory_card.get("first_screen_endpoint") == "/project/first-screen"
+            and observatory_card.get("first_screen_full_endpoint")
+            == "/project/first-screen-full"
             and any(
                 isinstance(row, dict)
-                and row.get("step_id") == "read_first_screen_composition"
+                and row.get("step_id") == "read_first_screen_card"
                 and row.get("endpoint") == "/project/first-screen"
+                for row in observatory_reader_sequence
+            )
+            and any(
+                isinstance(row, dict)
+                and row.get("step_id") == "drill_full_first_screen_contract"
+                and row.get("endpoint") == "/project/first-screen-full"
                 for row in observatory_reader_sequence
             )
         ),
