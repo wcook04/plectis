@@ -1441,8 +1441,8 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         f"  Public handles: {scale_counts['implemented_organs']['count']} "
         f"organ-registry rows, {scale_counts['public_standards']['count']} "
         f"standard-registry rows, "
-        f"{scale_counts['source_open_materials']['count']} source-open "
-        "material handles."
+        f"{scale_counts['source_open_materials']['count']} fixture/workingness "
+        "source-open material handles."
     )
 
     text.encode("ascii")
@@ -1460,10 +1460,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert expected_public_handles in text
     assert "organ-registry rows" in text
     assert "standard-registry rows" in text
-    assert "source-open material handles" in text
+    assert "fixture/workingness source-open material handles" in text
     assert "Counts are receipt-backed handles" in text
     assert "registries and fixture manifests" in text
-    assert "tripwires translate overclaims" in text
+    assert "status --card shows the stricter body-import floor" in text
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
@@ -1583,7 +1583,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Public handles:" in text
         assert "Counts are receipt-backed handles" in text
         assert "registries and fixture manifests" in text
-        assert "tripwires translate overclaims" in text
+        assert "status --card shows the stricter body-import floor" in text
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof: front_door_status=pass" in text
         assert "problem map binds the gaps" in text
@@ -1621,7 +1621,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
     assert "registries and fixture manifests" in result.stdout
-    assert "tripwires translate overclaims" in result.stdout
+    assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
@@ -1655,7 +1655,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "exit when you can choose a drilldown" in result.stdout
     assert "without the command inventory" in result.stdout
     assert "registries and fixture manifests" in result.stdout
-    assert "tripwires translate overclaims" in result.stdout
+    assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
     assert "Behavior proof: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
