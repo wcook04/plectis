@@ -286,6 +286,31 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         assert drilldown_command not in output
 
 
+@pytest.mark.parametrize(
+    ("command", "expected"),
+    [
+        ("macro-projection-import-protocol", "run-projection-bundle"),
+        ("verifier-lab-kernel", "run-kernel-bundle"),
+        (
+            "agentic-vulnerability-discovery-patch-proof-replay",
+            "run-patch-proof-bundle",
+        ),
+    ],
+)
+def test_cli_hidden_drilldown_commands_remain_callable(
+    command: str,
+    expected: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main([command, "--help"])
+
+    assert excinfo.value.code == 0
+    output = capsys.readouterr().out
+    assert f"usage: microcosm {command}" in output
+    assert expected in output
+
+
 def test_cli_root_evidence_list_uses_compact_rows(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

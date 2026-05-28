@@ -385,8 +385,15 @@ def _add_public_lens_parsers(subparsers) -> None:
             )
 
 
+ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset()
+
+
 def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
-    return subparsers.add_parser(command, help=PUBLIC_BUNDLE_COMMAND_HELP[command])
+    help_text = PUBLIC_BUNDLE_COMMAND_HELP[command]
+    kwargs = {"description": help_text}
+    if command in ROOT_HELP_BUNDLE_COMMANDS:
+        kwargs["help"] = help_text
+    return subparsers.add_parser(command, **kwargs)
 
 
 def _print_json(payload: dict) -> int:

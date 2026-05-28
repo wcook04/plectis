@@ -23,18 +23,26 @@ def _help_output() -> str:
     ).stdout
 
 
-def test_agent_entry_names_live_cli_registry_before_route_labels() -> None:
+def test_agent_entry_names_first_screen_cli_registry_before_route_labels() -> None:
     agents = AGENTS.read_text(encoding="utf-8")
     help_output = _help_output()
 
     assert "## Live CLI Registry Boundary" in agents
-    assert "Treat `microcosm --help` as the live console-command registry." in agents
+    assert (
+        "Treat `microcosm --help` as the bounded first-screen "
+        "console-command registry."
+    ) in agents
     assert "PYTHONPATH=src python3 -m microcosm_core --help" in agents
-    assert "not guaranteed top-level commands unless they appear in" in agents
+    assert "It is not the full drilldown inventory." in agents
+    assert "drilldown commands remain callable by exact name" in agents
     assert "microcosm observe <project>" in help_output
-    assert "agent-monitor-redteam-falsification-replay" in help_output
-    assert "agent-route-observability-runtime" in help_output
-    assert "macro-projection-import-protocol" in help_output
+    for drilldown_command in (
+        "agent-monitor-redteam-falsification-replay",
+        "agent-route-observability-runtime",
+        "macro-projection-import-protocol",
+    ):
+        assert drilldown_command in agents
+        assert drilldown_command not in help_output
     assert "microcosm evidence list <project>" in agents
 
 

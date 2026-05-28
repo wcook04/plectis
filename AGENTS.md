@@ -66,14 +66,16 @@ index, not as a substitute for running the commands.
 
 ## Live CLI Registry Boundary
 
-Treat `microcosm --help` as the live console-command registry. In a source-only
-checkout, use `PYTHONPATH=src python3 -m microcosm_core --help` for the same
+Treat `microcosm --help` as the bounded first-screen console-command registry.
+It is not the full drilldown inventory. In a source-only checkout, use
+`PYTHONPATH=src python3 -m microcosm_core --help` for the same first-screen
 registry without installing the console script. The organ inventory below also
 names route labels, bundle handles, fixture validators, and paper-module
-contracts; those are not guaranteed top-level commands unless they appear in
-the help output. If a label is not listed, use the shipped lens command,
-package tests, or fixture validator that owns it instead of inventing a CLI
-path from the label.
+contracts; drilldown commands remain callable by exact name when a route card,
+test, or inventory row names them, but they are not guaranteed to appear in
+root help. If a label is not listed in root help, use the shipped lens command,
+package tests, fixture validator, or exact drilldown command named by the
+owning route instead of inventing a CLI path from the label.
 
 ## Real Substrate Posture
 
