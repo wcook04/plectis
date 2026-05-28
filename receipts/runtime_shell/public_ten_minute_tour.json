@@ -55,7 +55,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 10,
+    "event_count": 14,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -66,7 +66,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-28T15:37:47+00:00",
+  "created_at": "2026-05-28T16:12:33+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -335,7 +335,7 @@
       }
     ],
     "primary_command": "microcosm tour --card <project>",
-    "project_ref": "scratch",
+    "project_ref": "scratch_project",
     "proof_surface": {
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "compiled_declaration_count": 8,
@@ -599,7 +599,7 @@
     "route_ref": "atlas/entry_packet.json::local_first_screen_route",
     "surface_id": "microcosm_local_first_screen"
   },
-  "project_ref": "scratch",
+  "project_ref": "scratch_project",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: tour, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
