@@ -111,6 +111,7 @@ where = ["src"]
         ),
     )
     _write(root / "src/microcosm_core/__init__.py", "")
+    _write(root / "src/microcosm_substrate.egg-info/PKG-INFO", "generated\n")
     _write(
         root / "src/microcosm_core/cli.py",
         """
@@ -224,12 +225,20 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["runnable_receipt"]["status"] == "pass"
     assert receipt["runnable_receipt"]["source_tree_cwd_used"] is False
     assert receipt["runnable_receipt"]["source_tree_pythonpath_used"] is False
+    assert receipt["runnable_receipt"]["release_artifact_cwd_used"] is False
+    assert receipt["runnable_receipt"]["bytecode_write_suppressed"] is True
     assert receipt["install_smoke_receipt"]["status"] == "pass"
     assert receipt["install_smoke_receipt"]["console_entrypoint_used"] is True
     assert receipt["install_smoke_receipt"]["source_tree_cwd_used"] is False
     assert receipt["install_smoke_receipt"]["source_tree_pythonpath_used"] is False
     assert receipt["install_smoke_receipt"]["release_artifact_cwd_used"] is False
     assert receipt["install_smoke_receipt"]["release_artifact_pythonpath_used"] is False
+    assert receipt["install_smoke_receipt"]["isolated_artifact_copy_used"] is True
+    assert (
+        receipt["install_smoke_receipt"]["install_artifact_source"]
+        == "isolated_release_artifact_copy"
+    )
+    assert receipt["install_smoke_receipt"]["bytecode_write_suppressed"] is True
     assert {
         row["command_id"] for row in receipt["install_smoke_receipt"]["commands"]
     } == {
@@ -259,6 +268,20 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert (
         receipt["exclusion_receipt"]["bounded_secret_exclusion_scan"]["status"]
         == "pass"
+    )
+    residue_paths = sorted(
+        path.relative_to(target).as_posix()
+        for path in target.rglob("*")
+        if path.name == "build"
+        or path.name == "__pycache__"
+        or path.name.endswith(".egg-info")
+        or path.suffix in {".pyc", ".pyo"}
+    )
+    assert residue_paths == []
+    assert any(
+        row["path"] == "src/microcosm_substrate.egg-info"
+        and row["reason"] == "package_build_metadata"
+        for row in receipt["exclusion_receipt"]["source_residue_excluded"]
     )
     assert not (target / ".DS_Store").exists()
     assert not (target / ".microcosm").exists()

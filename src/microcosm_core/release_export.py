@@ -215,6 +215,8 @@ def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
         return "root_local_or_nested_release_residue"
     if any(part in SKIPPED_DIR_NAMES for part in parts):
         return "cache_or_build_directory"
+    if any(part.endswith(".egg-info") for part in parts):
+        return "package_build_metadata"
     if not is_dir and rel.suffix in SKIPPED_FILE_SUFFIXES:
         return "bytecode_cache"
     if not is_dir and rel.name == ".DS_Store":
@@ -409,6 +411,8 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
             violations.append({"path": rel_text, "reason": "cache_or_bytecode"})
         if rel.suffix in SKIPPED_FILE_SUFFIXES:
             violations.append({"path": rel_text, "reason": "bytecode_cache"})
+        if any(part.endswith(".egg-info") for part in parts):
+            violations.append({"path": rel_text, "reason": "package_build_metadata"})
     return violations
 
 
@@ -1243,11 +1247,13 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
     ]
     rows: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="microcosm-release-smoke-") as tmp:
-        project = Path(tmp) / "scratch_project"
+        tmp_root = Path(tmp)
+        project = tmp_root / "scratch_project"
         project.mkdir()
         (project / "README.md").write_text("# Smoke Project\n", encoding="utf-8")
         env = os.environ.copy()
         env["PYTHONPATH"] = str(target / "src")
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
         for command_id, display_args in commands:
             runtime_args = [
                 sys.executable,
@@ -1258,7 +1264,7 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
             ]
             completed = subprocess.run(
                 runtime_args,
-                cwd=target,
+                cwd=tmp_root,
                 env=env,
                 text=True,
                 capture_output=True,
@@ -1270,7 +1276,7 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
                     command_id,
                     completed,
                     display_argv=["python3", "-m", "microcosm_core.cli", *display_args],
-                    cwd=ARTIFACT_DIR_NAME,
+                    cwd="<temp-smoke-root>",
                     target=target,
                     source_root=source_root,
                 )
@@ -1282,7 +1288,9 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
         "commands": rows,
         "source_tree_cwd_used": False,
         "source_tree_pythonpath_used": False,
+        "release_artifact_cwd_used": False,
         "release_artifact_pythonpath_used": True,
+        "bytecode_write_suppressed": True,
         "body_in_receipt": False,
     }
 
@@ -1305,6 +1313,9 @@ def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "source_tree_pythonpath_used": False,
         "release_artifact_cwd_used": False,
         "release_artifact_pythonpath_used": False,
+        "isolated_artifact_copy_used": True,
+        "install_artifact_source": "isolated_release_artifact_copy",
+        "bytecode_write_suppressed": True,
         "body_in_receipt": False,
     }
 
@@ -1319,11 +1330,24 @@ def _run_install_smoke(
     with tempfile.TemporaryDirectory(prefix="microcosm-release-install-smoke-") as tmp:
         tmp_root = Path(tmp)
         venv = tmp_root / "venv"
+        smoke_artifact = tmp_root / ARTIFACT_DIR_NAME
+        shutil.copytree(
+            target,
+            smoke_artifact,
+            ignore=shutil.ignore_patterns(
+                "__pycache__",
+                "*.pyc",
+                "*.pyo",
+                "build",
+                "*.egg-info",
+            ),
+        )
         project = tmp_root / "scratch_project"
         project.mkdir()
         (project / "README.md").write_text("# Smoke Project\n", encoding="utf-8")
         env = os.environ.copy()
         env.pop("PYTHONPATH", None)
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
         env["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
         env["PIP_NO_INPUT"] = "1"
 
@@ -1359,8 +1383,9 @@ def _run_install_smoke(
                 "install",
                 "--disable-pip-version-check",
                 "--no-input",
+                "--no-compile",
                 "-q",
-                str(target),
+                str(smoke_artifact),
             ],
             cwd=tmp_root,
             env=env,
@@ -1380,11 +1405,12 @@ def _run_install_smoke(
                     "install",
                     "--disable-pip-version-check",
                     "--no-input",
+                    "--no-compile",
                     "-q",
-                    "<release-artifact>",
+                    "<isolated-release-artifact-copy>",
                 ],
                 cwd="<temp-smoke-root>",
-                target=target,
+                target=smoke_artifact,
                 source_root=source_root,
             )
         )
@@ -1461,7 +1487,6 @@ def build_release_export(
     allowed_files, excluded_rows, missing_include_refs = _iter_allowed_files(source_root)
     inventory = _copy_allowed_files(allowed_files, root=source_root, target=target)
     artifact_payload_hash = _artifact_payload_hash(inventory)
-    residue_violations = _artifact_residue_violations(target)
     private_path_hits = _strong_private_path_hits(target, source_root=source_root)
     strong_secret_hits = _strong_secret_hits(target)
     bounded_secret_scan = _secret_scan(target)
@@ -1474,6 +1499,7 @@ def build_release_export(
         if run_smoke
         else {"status": "not_run"}
     )
+    residue_violations = _artifact_residue_violations(target)
     blocking_codes: list[str] = []
     if missing_include_refs:
         blocking_codes.append("RELEASE_EXPORT_INCLUDE_REFS_MISSING")
