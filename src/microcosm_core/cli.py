@@ -44,6 +44,7 @@ first_screen_composition = _LazyModule("microcosm_core.first_screen_composition"
 project_substrate = _LazyModule("microcosm_core.project_substrate")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
+resource_root = _LazyModule("microcosm_core.resource_root")
 finance_eval_spine = _LazyModule("microcosm_core.macro_tools.finance_eval_spine")
 work_landing_control_spine = _LazyModule(
     "microcosm_core.macro_tools.work_landing_control_spine"
@@ -203,6 +204,10 @@ def _write_json_atomic(path: Path, payload: dict) -> None:
     from microcosm_core.receipts import write_json_atomic
 
     write_json_atomic(path, payload)
+
+
+def _public_root_for_project(project: str | None) -> Path | None:
+    return resource_root.project_public_root(project)
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
@@ -1591,7 +1596,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "status":
         command_args = ["status"]
         if args.card:
-            shell = runtime_shell.RuntimeShell()
+            project_public_root = _public_root_for_project(args.project)
+            shell = (
+                runtime_shell.RuntimeShell(root=project_public_root)
+                if project_public_root is not None
+                else runtime_shell.RuntimeShell()
+            )
             payload = shell.status_card(args.project)
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
@@ -1599,7 +1609,7 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(payload)
         if args.project:
             command_args.append(args.project)
-        return runtime_shell.main(command_args)
+        return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
     if args.command == "proof-lab":
         if args.card:
             command = _proof_lab_card_command(args.input, args.out)
@@ -1646,7 +1656,7 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append("--card")
         if args.project:
             command_args.append(args.project)
-        return runtime_shell.main(command_args)
+        return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
     if args.command == "hello":
         return _emit_hello(args.project, args.reader)
     if args.command == "first-screen":
@@ -1729,7 +1739,7 @@ def main(argv: list[str] | None = None) -> int:
             serve_args.extend(["--max-requests", str(args.max_requests)])
         if args.project:
             serve_args.append(args.project)
-        return runtime_shell.main(serve_args)
+        return runtime_shell.main(serve_args, root=_public_root_for_project(args.project))
     if args.command == "patterns":
         if args.project:
             return project_substrate.main(["patterns", args.project])

@@ -35,6 +35,35 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/"
         "source_modules/microcosm_core/organs/*.py"
     ]
+    assert data_files[
+        "share/microcosm-substrate/examples/public_reveal_walkthrough/"
+        "exported_public_reveal_bundle"
+    ] == [
+        "examples/public_reveal_walkthrough/exported_public_reveal_bundle/*.json"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle"
+    ] == [
+        "examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/*.json",
+        "examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/*.jsonl",
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/source_modules/system/lib"
+    ] == [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "source_modules/system/lib/*.py"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
+        "exported_projection_import_bundle/source_modules/tools/meta/observability"
+    ] == [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "source_modules/tools/meta/observability/*.py"
+    ]
 
 
 def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(

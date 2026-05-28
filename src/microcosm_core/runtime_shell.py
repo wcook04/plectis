@@ -20806,10 +20806,10 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    shell = RuntimeShell()
+    shell = RuntimeShell(root=root) if root is not None else RuntimeShell()
 
     if args.command == "status":
         if args.card:

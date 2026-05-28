@@ -20,6 +20,23 @@ def is_installed_microcosm_root(root: Path) -> bool:
     return root.resolve(strict=False) == installed_microcosm_root().resolve(strict=False)
 
 
+def project_public_root(project: str | Path | None) -> Path | None:
+    if project is None:
+        return None
+
+    path = Path(project).expanduser()
+    if not path.is_absolute():
+        path = Path.cwd() / path
+    path = path.resolve(strict=False)
+
+    candidates = [path] if path.is_dir() else [path.parent]
+    candidates.extend(candidates[0].parents)
+    for candidate in candidates:
+        if _has_public_data(candidate):
+            return candidate
+    return None
+
+
 def microcosm_root() -> Path:
     checkout_root = Path(__file__).resolve().parents[2]
     if _has_public_data(checkout_root):

@@ -1570,6 +1570,37 @@ def test_cli_tour_smoke(
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
 
 
+def test_cli_tour_prefers_project_public_root_for_installed_clone(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    (public_root / "core").mkdir(parents=True)
+    (public_root / "standards").mkdir()
+    (public_root / "core/organ_evidence_classes.json").write_text("{}", encoding="utf-8")
+    (public_root / "core/organ_registry.json").write_text("{}", encoding="utf-8")
+    (
+        public_root / "standards/std_microcosm_first_screen_composition_root.json"
+    ).write_text("{}", encoding="utf-8")
+    captured: dict[str, object] = {}
+
+    def fake_runtime_main(args: list[str], *, root: Path | None = None) -> int:
+        captured["args"] = args
+        captured["root"] = root
+        print('{"status":"pass"}')
+        return 0
+
+    monkeypatch.setattr(cli.runtime_shell, "main", fake_runtime_main)
+
+    status = cli.main(["tour", str(public_root)])
+
+    assert status == 0
+    assert json.loads(capsys.readouterr().out) == {"status": "pass"}
+    assert captured["args"] == ["tour", str(public_root)]
+    assert captured["root"] == public_root.resolve(strict=False)
+
+
 def test_cli_tour_card_smoke(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
