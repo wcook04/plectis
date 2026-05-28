@@ -40,15 +40,48 @@ def tracked_receipt_write_blocked_under_pytest(path: str | Path) -> bool:
     return True
 
 
+def _read_json_object_if_exists(path: Path) -> dict[str, Any]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _payload_with_stable_created_at(
+    path: Path, payload: dict[str, Any]
+) -> dict[str, Any]:
+    created_at = payload.get("created_at")
+    if not isinstance(created_at, str):
+        return payload
+
+    previous = _read_json_object_if_exists(path)
+    previous_created_at = previous.get("created_at")
+    if not isinstance(previous_created_at, str):
+        return payload
+
+    previous_without_created_at = dict(previous)
+    previous_without_created_at.pop("created_at", None)
+    payload_without_created_at = dict(payload)
+    payload_without_created_at.pop("created_at", None)
+    if previous_without_created_at != payload_without_created_at:
+        return payload
+
+    stable_payload = dict(payload)
+    stable_payload["created_at"] = previous_created_at
+    return stable_payload
+
+
 def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
     target = Path(path)
     if not receipt_writes_enabled() or tracked_receipt_write_blocked_under_pytest(target):
         return
+    payload_to_write = _payload_with_stable_created_at(target, payload)
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{target.name}.", dir=str(target.parent))
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as fh:
-            json.dump(payload, fh, ensure_ascii=True, indent=2, sort_keys=True)
+            json.dump(payload_to_write, fh, ensure_ascii=True, indent=2, sort_keys=True)
             fh.write("\n")
         os.replace(tmp_name, target)
     except Exception:

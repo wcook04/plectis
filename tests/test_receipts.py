@@ -30,6 +30,38 @@ def test_receipt_writer_still_writes_by_default(tmp_path, monkeypatch) -> None:
     assert json.loads(receipt_path.read_text(encoding="utf-8")) == {"status": "pass"}
 
 
+def test_receipt_writer_preserves_created_at_for_timestamp_only_rewrites(
+    tmp_path, monkeypatch
+) -> None:
+    receipt_path = tmp_path / "receipt.json"
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+
+    write_json_atomic(
+        receipt_path,
+        {"created_at": "2026-01-01T00:00:00+00:00", "status": "pass"},
+    )
+    write_json_atomic(
+        receipt_path,
+        {"created_at": "2099-01-01T00:00:00+00:00", "status": "pass"},
+    )
+
+    assert json.loads(receipt_path.read_text(encoding="utf-8")) == {
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "status": "pass",
+    }
+
+    write_json_atomic(
+        receipt_path,
+        {"created_at": "2099-01-01T00:00:00+00:00", "status": "blocked"},
+    )
+
+    assert json.loads(receipt_path.read_text(encoding="utf-8")) == {
+        "created_at": "2099-01-01T00:00:00+00:00",
+        "status": "blocked",
+    }
+
+
 def test_receipt_writer_keeps_source_tree_receipts_read_only_under_pytest() -> None:
     receipt_paths = [
         MICROCOSM_ROOT / "receipts/runtime_shell/public_stripping_guard_lens.json",
