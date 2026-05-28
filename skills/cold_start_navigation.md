@@ -135,32 +135,35 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    machine-readable card for the bring-a-folder path; `first_command` and
    `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
    after first-screen behavior is visible.
-3. Run `microcosm tour --card <project>` or
+3. Run `microcosm hello <project>` or
+   `PYTHONPATH=src python3 -m microcosm_core.cli hello <project>` to read the
+   no-write first-screen text before building `.microcosm/`.
+4. Run `microcosm tour --card <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>` to
    build `.microcosm/` over a folder you bring and inspect the compact
    first-screen card. Start with `state_inspection.inspect_command` and
    `state_inspection.first_screen_refs` so the local state is visible before
    doctrine or receipt drilldowns.
-4. Open `atlas/entry_packet.json::status_and_workingness_route` and run
+5. Open `atlas/entry_packet.json::status_and_workingness_route` and run
    `microcosm status --card <project>`, `microcosm authority --card`, and
    `microcosm workingness --card` before raw receipts. This is the compressed
    honesty lens for
    `route_cards_by_id.status_and_workingness`, missing standards, failure
    modes, proof-lab route refs, observatory route refs, source-open body
    imports, and bounded authority.
-5. Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
+6. Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
    `PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out
    /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
    card from `atlas/entry_packet.json::proof_lab_route`.
-6. Run `microcosm observe <project>` or
+7. Run `microcosm observe <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli observe <project>` to inspect
    the compact route/work/event/evidence/graph causal-chain lens selected by
    the first-screen route id.
-7. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
+8. Run `microcosm serve <project> --host 127.0.0.1 --port 8765`, then open
    `/project/observatory-card` before `/project/observatory` when the question
    is how the local browser/read-model ties `.microcosm` state, route, work,
    evidence, graph, status, and proof surfaces together.
-8. Run `microcosm compile <project>` or
+9. Run `microcosm compile <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
    want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
    are visible.
@@ -170,7 +173,7 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    Run `microcosm tour <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` only when you
    need the full route-card, endpoint-path, and evidence-ref drilldown.
-9. Run `microcosm python-lens <project>` or
+10. Run `microcosm python-lens <project>` or
    `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
    `std_python_microcosm_navigation_assay`, and

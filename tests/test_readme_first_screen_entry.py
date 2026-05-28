@@ -112,6 +112,10 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
 def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> None:
     cold_start = _cold_start_text()
     agents = _agents_text()
+    cold_start_steps = cold_start.split("## Steps", 1)[1].split(
+        "## Authority And Evidence Drilldowns",
+        1,
+    )[0]
 
     assert "microcosm hello <project>" in cold_start
     assert "It does not build\n`.microcosm/`" in cold_start
@@ -119,6 +123,12 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
         "1. `microcosm tour --card <project>`"
     )
     assert "The compact behavioral path is:" in cold_start
+    assert "3. Run `microcosm hello <project>`" in cold_start_steps
+    assert "python3 -m microcosm_core.cli hello <project>" in cold_start_steps
+    assert "4. Run `microcosm tour --card <project>`" in cold_start_steps
+    assert cold_start_steps.index("microcosm hello <project>") < cold_start_steps.index(
+        "microcosm tour --card <project>"
+    )
 
     assert (
         "The human first-screen text projection is `microcosm hello <project>`"
