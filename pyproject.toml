@@ -9,6 +9,7 @@ description = "repo -> .microcosm: turn any folder into an inspectable work subs
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
+keywords = ["agent-runtime", "developer-tools", "microcosm", "observability", "substrate"]
 authors = [
   { name = "Microcosm Substrate Contributors" }
 ]
@@ -23,8 +24,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/wcook04/ai-workflow-proof"
-Source = "https://github.com/wcook04/ai-workflow-proof"
+Homepage = "https://github.com/wcook04/ai-workflow-proof/tree/main/microcosm-substrate"
+Documentation = "https://github.com/wcook04/ai-workflow-proof/blob/main/microcosm-substrate/README.md"
+Source = "https://github.com/wcook04/ai-workflow-proof/tree/main/microcosm-substrate"
+Issues = "https://github.com/wcook04/ai-workflow-proof/issues"
+Macro-System = "https://github.com/wcook04/ai-workflow-proof"
 
 [project.optional-dependencies]
 test = [
