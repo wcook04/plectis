@@ -1,87 +1,242 @@
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import shlex
+import sys
 from pathlib import Path
 
 from microcosm_core import first_screen_composition
-from microcosm_core import project_substrate
-from microcosm_core import runtime_shell
-from microcosm_core.macro_tools import finance_eval_spine
-from microcosm_core.macro_tools import work_landing_control_spine
-from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
-from microcosm_core.organs import agent_memory_temporal_conflict_replay
-from microcosm_core.organs import agent_monitor_redteam_falsification_replay
-from microcosm_core.organs import agent_route_observability_runtime
-from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
-from microcosm_core.organs import agent_sandbox_policy_escape_replay
-from microcosm_core.organs import (
-    agentic_vulnerability_discovery_patch_proof_replay,
+
+
+class _LazyModule:
+    def __init__(self, module_name: str) -> None:
+        object.__setattr__(self, "_module_name", module_name)
+        object.__setattr__(self, "_module", None)
+
+    @property
+    def loaded(self) -> bool:
+        return object.__getattribute__(self, "_module") is not None
+
+    def _load(self):
+        module = object.__getattribute__(self, "_module")
+        if module is None:
+            module = importlib.import_module(object.__getattribute__(self, "_module_name"))
+            object.__setattr__(self, "_module", module)
+        return module
+
+    def __getattr__(self, name: str):
+        return getattr(self._load(), name)
+
+    def __setattr__(self, name: str, value) -> None:
+        if name.startswith("_"):
+            object.__setattr__(self, name, value)
+            return
+        setattr(self._load(), name, value)
+
+
+project_substrate = _LazyModule("microcosm_core.project_substrate")
+runtime_shell = _LazyModule("microcosm_core.runtime_shell")
+finance_eval_spine = _LazyModule("microcosm_core.macro_tools.finance_eval_spine")
+work_landing_control_spine = _LazyModule(
+    "microcosm_core.macro_tools.work_landing_control_spine"
 )
-from microcosm_core.organs import belief_state_process_reward_replay
-from microcosm_core.organs import bridge_phase_continuity_runtime
-from microcosm_core.organs import certificate_kernel_execution_lab
-from microcosm_core.organs import cold_reader_route_map
-from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
-from microcosm_core.organs import executable_doctrine_grammar
-from microcosm_core.organs import formal_math_lean_proof_witness
-from microcosm_core.organs import formal_evidence_cell_anchor_resolver
-from microcosm_core.organs import formal_math_premise_retrieval
-from microcosm_core.organs import formal_math_readiness_gate
-from microcosm_core.organs import formal_math_verifier_trace_repair_loop
-from microcosm_core.organs import (
-    indirect_prompt_injection_information_flow_policy_replay,
+agent_benchmark_integrity_anti_gaming_replay = _LazyModule(
+    "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay"
 )
-from microcosm_core.organs import lean_std_premise_index
-from microcosm_core.organs import macro_projection_import_protocol
-from microcosm_core.organs import materials_chemistry_closed_loop_lab_safety_replay
-from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
-from microcosm_core.organs import mcp_tool_authority_replay
-from microcosm_core.organs import mechanistic_interpretability_circuit_attribution_replay
-from microcosm_core.organs import durable_agent_work_landing_replay
-from microcosm_core.organs import mission_transaction_work_spine
-from microcosm_core.organs import navigation_hologram_route_plane
-from microcosm_core.organs import pattern_binding_contract
-from microcosm_core.organs import prediction_oracle_reconciliation
-from microcosm_core.organs import proof_diagnostic_evidence_spine
-from microcosm_core.organs import proof_derived_governed_mutation_authorization
-from microcosm_core.organs import provider_context_recipe_budget_policy
-from microcosm_core.organs import public_reveal_walkthrough
-from microcosm_core.organs import research_replication_rubric_artifact_replay
-from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harness
-from microcosm_core.organs import sleeper_memory_poisoning_quarantine_replay
-from microcosm_core.organs import spatial_world_model_counterfactual_simulation_replay
-from microcosm_core.organs import standards_meta_diagnostics
-from microcosm_core.organs import tactic_portfolio_availability_probe
-from microcosm_core.organs import target_shape_tactic_routing_gate
-from microcosm_core.organs import undeclared_library_prior_symbol_classifier
-from microcosm_core.organs import verifier_lab_execution_spine
-from microcosm_core.organs import verifier_lab_kernel
-from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
-from microcosm_core.organs import world_model_projection_drift_control_room
-from microcosm_core.validators import acceptance
-from microcosm_core.validators import dependency_preflight
-from microcosm_core.validators import fixture_freshness
-from microcosm_core.validators import launch_compression
-from microcosm_core.validators import observatory_legibility
-from microcosm_core.validators import private_state_scan
-from microcosm_core.validators import public_entry_docs
-from microcosm_core.validators import research_kernel_density
-from microcosm_core.validators import secret_exclusion_scan
-from microcosm_core.validators import standards_registry
-from microcosm_core.validators import transaction_evidence_stability
-from microcosm_core.receipts import write_json_atomic
-from microcosm_core.schemas import read_json_strict
+agent_memory_temporal_conflict_replay = _LazyModule(
+    "microcosm_core.organs.agent_memory_temporal_conflict_replay"
+)
+agent_monitor_redteam_falsification_replay = _LazyModule(
+    "microcosm_core.organs.agent_monitor_redteam_falsification_replay"
+)
+agent_route_observability_runtime = _LazyModule(
+    "microcosm_core.organs.agent_route_observability_runtime"
+)
+agent_sabotage_scheming_monitor_replay = _LazyModule(
+    "microcosm_core.organs.agent_sabotage_scheming_monitor_replay"
+)
+agent_sandbox_policy_escape_replay = _LazyModule(
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay"
+)
+agentic_vulnerability_discovery_patch_proof_replay = _LazyModule(
+    "microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay"
+)
+belief_state_process_reward_replay = _LazyModule(
+    "microcosm_core.organs.belief_state_process_reward_replay"
+)
+bridge_phase_continuity_runtime = _LazyModule(
+    "microcosm_core.organs.bridge_phase_continuity_runtime"
+)
+certificate_kernel_execution_lab = _LazyModule(
+    "microcosm_core.organs.certificate_kernel_execution_lab"
+)
+cold_reader_route_map = _LazyModule("microcosm_core.organs.cold_reader_route_map")
+corpus_readiness_mathlib_absence_gate = _LazyModule(
+    "microcosm_core.organs.corpus_readiness_mathlib_absence_gate"
+)
+executable_doctrine_grammar = _LazyModule(
+    "microcosm_core.organs.executable_doctrine_grammar"
+)
+formal_math_lean_proof_witness = _LazyModule(
+    "microcosm_core.organs.formal_math_lean_proof_witness"
+)
+formal_evidence_cell_anchor_resolver = _LazyModule(
+    "microcosm_core.organs.formal_evidence_cell_anchor_resolver"
+)
+formal_math_premise_retrieval = _LazyModule(
+    "microcosm_core.organs.formal_math_premise_retrieval"
+)
+formal_math_readiness_gate = _LazyModule(
+    "microcosm_core.organs.formal_math_readiness_gate"
+)
+formal_math_verifier_trace_repair_loop = _LazyModule(
+    "microcosm_core.organs.formal_math_verifier_trace_repair_loop"
+)
+indirect_prompt_injection_information_flow_policy_replay = _LazyModule(
+    "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay"
+)
+lean_std_premise_index = _LazyModule("microcosm_core.organs.lean_std_premise_index")
+macro_projection_import_protocol = _LazyModule(
+    "microcosm_core.organs.macro_projection_import_protocol"
+)
+materials_chemistry_closed_loop_lab_safety_replay = _LazyModule(
+    "microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay"
+)
+mathematical_strategy_atlas_hypothesis_scorer = _LazyModule(
+    "microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer"
+)
+mcp_tool_authority_replay = _LazyModule(
+    "microcosm_core.organs.mcp_tool_authority_replay"
+)
+mechanistic_interpretability_circuit_attribution_replay = _LazyModule(
+    "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay"
+)
+durable_agent_work_landing_replay = _LazyModule(
+    "microcosm_core.organs.durable_agent_work_landing_replay"
+)
+mission_transaction_work_spine = _LazyModule(
+    "microcosm_core.organs.mission_transaction_work_spine"
+)
+navigation_hologram_route_plane = _LazyModule(
+    "microcosm_core.organs.navigation_hologram_route_plane"
+)
+pattern_binding_contract = _LazyModule("microcosm_core.organs.pattern_binding_contract")
+prediction_oracle_reconciliation = _LazyModule(
+    "microcosm_core.organs.prediction_oracle_reconciliation"
+)
+proof_diagnostic_evidence_spine = _LazyModule(
+    "microcosm_core.organs.proof_diagnostic_evidence_spine"
+)
+proof_derived_governed_mutation_authorization = _LazyModule(
+    "microcosm_core.organs.proof_derived_governed_mutation_authorization"
+)
+provider_context_recipe_budget_policy = _LazyModule(
+    "microcosm_core.organs.provider_context_recipe_budget_policy"
+)
+public_reveal_walkthrough = _LazyModule(
+    "microcosm_core.organs.public_reveal_walkthrough"
+)
+research_replication_rubric_artifact_replay = _LazyModule(
+    "microcosm_core.organs.research_replication_rubric_artifact_replay"
+)
+ring2_premise_retrieval_precision_recall_harness = _LazyModule(
+    "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness"
+)
+sleeper_memory_poisoning_quarantine_replay = _LazyModule(
+    "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay"
+)
+spatial_world_model_counterfactual_simulation_replay = _LazyModule(
+    "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay"
+)
+standards_meta_diagnostics = _LazyModule(
+    "microcosm_core.organs.standards_meta_diagnostics"
+)
+tactic_portfolio_availability_probe = _LazyModule(
+    "microcosm_core.organs.tactic_portfolio_availability_probe"
+)
+target_shape_tactic_routing_gate = _LazyModule(
+    "microcosm_core.organs.target_shape_tactic_routing_gate"
+)
+undeclared_library_prior_symbol_classifier = _LazyModule(
+    "microcosm_core.organs.undeclared_library_prior_symbol_classifier"
+)
+verifier_lab_execution_spine = _LazyModule(
+    "microcosm_core.organs.verifier_lab_execution_spine"
+)
+verifier_lab_kernel = _LazyModule("microcosm_core.organs.verifier_lab_kernel")
+voice_to_doctrine_self_improvement_loop = _LazyModule(
+    "microcosm_core.organs.voice_to_doctrine_self_improvement_loop"
+)
+world_model_projection_drift_control_room = _LazyModule(
+    "microcosm_core.organs.world_model_projection_drift_control_room"
+)
+acceptance = _LazyModule("microcosm_core.validators.acceptance")
+dependency_preflight = _LazyModule("microcosm_core.validators.dependency_preflight")
+fixture_freshness = _LazyModule("microcosm_core.validators.fixture_freshness")
+launch_compression = _LazyModule("microcosm_core.validators.launch_compression")
+observatory_legibility = _LazyModule("microcosm_core.validators.observatory_legibility")
+private_state_scan = _LazyModule("microcosm_core.validators.private_state_scan")
+public_entry_docs = _LazyModule("microcosm_core.validators.public_entry_docs")
+research_kernel_density = _LazyModule("microcosm_core.validators.research_kernel_density")
+secret_exclusion_scan = _LazyModule("microcosm_core.validators.secret_exclusion_scan")
+standards_registry = _LazyModule("microcosm_core.validators.standards_registry")
+transaction_evidence_stability = _LazyModule(
+    "microcosm_core.validators.transaction_evidence_stability"
+)
+
+
+def _read_json_strict(path: Path):
+    from microcosm_core.schemas import read_json_strict
+
+    return read_json_strict(path)
+
+
+def _write_json_atomic(path: Path, payload: dict) -> None:
+    from microcosm_core.receipts import write_json_atomic
+
+    write_json_atomic(path, payload)
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
+PROOF_LAB_BUNDLE_REF = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
+PROOF_LAB_ROUTE_REF = f"{PROOF_LAB_BUNDLE_REF}/proof_lab_route.json"
+PROOF_LAB_RECEIPT_REF = (
+    "receipts/first_wave/verifier_lab_kernel/"
+    "exported_verifier_lab_kernel_bundle_validation_result.json"
+)
 DEFAULT_PROOF_LAB_INPUT = (
-    MICROCOSM_ROOT / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
+    MICROCOSM_ROOT / PROOF_LAB_BUNDLE_REF
 )
 DEFAULT_PROOF_LAB_OUT = "/tmp/microcosm-proof-lab"
 PROOF_LAB_INPUT_PLACEHOLDER = "<proof-lab-input>"
 PROOF_LAB_OUT_PLACEHOLDER = "<proof-lab-out>"
+OBSERVATORY_SERVE_COMMAND = (
+    "microcosm serve <project> --host 127.0.0.1 --port 8765"
+)
+OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 6
+OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
+    f"{OBSERVATORY_SERVE_COMMAND} "
+    f"--max-requests {OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT}"
+)
+OBSERVATORY_BOUNDED_VALIDATION_RULE = (
+    "Use bounded_validation_command for route smokes; use command for interactive sessions."
+)
+PROOF_LAB_FIRST_SCREEN_AUTHORITY = (
+    "first-screen proof-lab route and receipt-status card only; not proof "
+    "correctness, provider execution, source mutation, release, publication, "
+    "or credential-equivalent live-access authority"
+)
+PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
+    "proof_correctness_claim": False,
+    "provider_calls_authorized": False,
+    "source_mutation_authorized": False,
+    "release_or_publication_authorized": False,
+    "credential_equivalent_live_access_exported": False,
+    "proof_bodies_or_provider_payloads_exported": False,
+}
 
 FIRST_SCREEN_HELP = """First-screen route:
   microcosm hello <project>      print the cold-entry one-screen card
@@ -95,6 +250,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm workingness           inspect behavior evidence and failure gaps
   microcosm proof-lab --card      read the cached verifier-lab receipt card
   microcosm proof-lab --out /tmp/microcosm-proof-lab
+  microcosm observe <project>     inspect route/work/event/evidence chain
   microcosm serve <project>       open the local observatory
   microcosm compile --card <project> read cached .microcosm state without rebuilding
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
@@ -165,6 +321,99 @@ def _add_public_lens_parsers(subparsers) -> None:
 def _print_json(payload: dict) -> int:
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if payload.get("status") == "pass" else 1
+
+
+def _proof_lab_first_screen_boundary() -> dict:
+    return {
+        "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
+        "anti_claims": dict(PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS),
+    }
+
+
+def _emit_hello(project: str, reader: str) -> int:
+    payload = first_screen_composition.first_screen_composition_card(
+        project_label=project
+    )
+    print(
+        first_screen_composition.first_screen_text_card(
+            payload,
+            reader_id=reader,
+        ),
+        end="",
+    )
+    return 0 if payload.get("status") == "pass" else 1
+
+
+def _emit_first_screen(project: str, *, output_format: str, full: bool, reader: str) -> int:
+    payload = first_screen_composition.first_screen_composition_card(
+        project_label=project
+    )
+    if output_format == "text":
+        print(
+            first_screen_composition.first_screen_text_card(
+                payload,
+                reader_id=reader,
+            ),
+            end="",
+        )
+        return 0 if payload.get("status") == "pass" else 1
+    if full:
+        return _print_json(payload)
+    return _print_json(first_screen_composition.first_screen_compact_card(payload))
+
+
+def _first_screen_fast_path(argv: list[str] | None) -> int | None:
+    raw_argv = list(sys.argv[1:] if argv is None else argv)
+    if not raw_argv:
+        return None
+
+    if raw_argv[0] == "hello":
+        parser = argparse.ArgumentParser(
+            prog="microcosm hello",
+            description="Print the cold-entry first-screen card.",
+        )
+        parser.add_argument(
+            "--reader",
+            choices=first_screen_composition.TEXT_READER_CHOICES,
+            default="all",
+            help="focus the terminal projection on one reader branch",
+        )
+        parser.add_argument("project", nargs="?", default="<project>")
+        args = parser.parse_args(raw_argv[1:])
+        return _emit_hello(args.project, args.reader)
+
+    if raw_argv[0] == "first-screen":
+        parser = argparse.ArgumentParser(
+            prog="microcosm first-screen",
+            description="Preview the one-screen reader route map.",
+        )
+        parser.add_argument(
+            "--format",
+            choices=("json", "text"),
+            default="json",
+            help="emit the JSON machine card or terminal projection",
+        )
+        parser.add_argument(
+            "--full",
+            action="store_true",
+            help="emit the full first-screen contract JSON instead of the compact projection",
+        )
+        parser.add_argument(
+            "--reader",
+            choices=first_screen_composition.TEXT_READER_CHOICES,
+            default="all",
+            help="focus the terminal projection on one reader branch",
+        )
+        parser.add_argument("project", nargs="?", default="<project>")
+        args = parser.parse_args(raw_argv[1:])
+        return _emit_first_screen(
+            args.project,
+            output_format=args.format,
+            full=args.full,
+            reader=args.reader,
+        )
+
+    return None
 
 
 def _public_ref(path_ref: str) -> str:
@@ -303,7 +552,7 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
                 "input_refs_exported": False,
             },
         }
-    payload = read_json_strict(receipt_path)
+    payload = _read_json_strict(receipt_path)
     if not isinstance(payload, dict):
         raise ValueError(f"Proof-lab receipt must be a JSON object: {receipt_path}")
     receipt_paths = payload.get("receipt_paths")
@@ -326,7 +575,7 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
 
 
 def _canonical_proof_lab_receipt_path() -> Path:
-    return MICROCOSM_ROOT / runtime_shell.PROOF_LAB_RECEIPT_REF
+    return MICROCOSM_ROOT / PROOF_LAB_RECEIPT_REF
 
 
 def _proof_lab_canonical_receipt_result(
@@ -340,7 +589,7 @@ def _proof_lab_canonical_receipt_result(
     canonical_path = _canonical_proof_lab_receipt_path()
     if not canonical_path.is_file():
         return None
-    payload = read_json_strict(canonical_path)
+    payload = _read_json_strict(canonical_path)
     if not isinstance(payload, dict):
         raise ValueError(
             f"Canonical proof-lab receipt must be a JSON object: {canonical_path}"
@@ -351,9 +600,9 @@ def _proof_lab_canonical_receipt_result(
         **payload,
         "command": _proof_lab_command(input_path, out_dir),
         "cache_status": cache_status,
-        "cached_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
+        "cached_receipt_ref": PROOF_LAB_RECEIPT_REF,
         "cached_receipt_bytes": canonical_path.stat().st_size,
-        "canonical_receipt_ref": runtime_shell.PROOF_LAB_RECEIPT_REF,
+        "canonical_receipt_ref": PROOF_LAB_RECEIPT_REF,
         "canonical_receipt_bytes": canonical_path.stat().st_size,
         "live_receipt_rebuild_status": live_receipt_rebuild_status,
         "local_toolchain_status": (
@@ -369,7 +618,7 @@ def _proof_lab_canonical_receipt_result(
         ),
         "receipt_paths": [str(target)],
     }
-    write_json_atomic(target, receipt)
+    _write_json_atomic(target, receipt)
     cache_freshness = _proof_lab_cache_freshness(input_path, canonical_path)
     return {
         **receipt,
@@ -461,15 +710,15 @@ def _proof_lab_first_screen_card(
         "cached_receipt_bytes": result.get("cached_receipt_bytes"),
         "cache_freshness": result.get("cache_freshness"),
         "canonical_receipt_ref": result.get("canonical_receipt_ref")
-        or runtime_shell.PROOF_LAB_RECEIPT_REF,
+        or PROOF_LAB_RECEIPT_REF,
         "live_receipt_rebuild_status": result.get("live_receipt_rebuild_status"),
         "local_toolchain_status": result.get("local_toolchain_status"),
         "fallback_reason": result.get("fallback_reason"),
         "input_ref": input_ref,
         "out_ref": out_ref,
-        "bundle_ref": runtime_shell.PROOF_LAB_BUNDLE_REF,
+        "bundle_ref": PROOF_LAB_BUNDLE_REF,
         "route_id": result.get("proof_lab_route_id"),
-        "route_ref": runtime_shell.PROOF_LAB_ROUTE_REF,
+        "route_ref": PROOF_LAB_ROUTE_REF,
         "receipt_ref": receipt_refs[0] if receipt_refs else None,
         "receipt_refs": receipt_refs,
         "proof_lab_route_id": result.get("proof_lab_route_id"),
@@ -491,6 +740,7 @@ def _proof_lab_first_screen_card(
         "safe_to_show": {
             "body_in_receipt": result.get("body_in_receipt"),
             "proof_bodies_exported": False,
+            "proof_correctness_claim": False,
             "provider_payloads_exported": False,
             "credential_equivalent_payloads_exported": False,
             "input_refs_exported": False,
@@ -498,7 +748,7 @@ def _proof_lab_first_screen_card(
             "route_metadata_visible": True,
             "receipt_refs_visible": True,
         },
-        **runtime_shell.proof_lab_first_screen_boundary(),
+        **_proof_lab_first_screen_boundary(),
         "local_path_policy": {
             "host_private_paths_exported": False,
             "repo_paths_are_repo_relative": True,
@@ -533,6 +783,9 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
         "route_id": proof_lab.get("route_id"),
         "receipt_ref": proof_lab.get("receipt_ref"),
         "route_component_count": proof_lab.get("route_component_count"),
+        "cache_status": proof_lab.get("cache_status"),
+        "cache_freshness_status": proof_lab.get("cache_freshness_status"),
+        "stale_input_count": proof_lab.get("stale_input_count"),
         "proof_bodies_exported": False,
         "release_authorized": False,
         "proof_correctness_claim": False,
@@ -563,9 +816,13 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "schema_version": "microcosm_status_card_observatory_ref_v1",
         "status": status,
         "command": command,
+        "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+        "bounded_validation_request_count": OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT,
+        "bounded_validation_rule": OBSERVATORY_BOUNDED_VALIDATION_RULE,
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
+        "project_observe_command": "microcosm observe <project>",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
@@ -604,6 +861,13 @@ def _attach_status_card_front_door_refs(payload: dict) -> dict:
         surface_statuses = {}
     if proof_lab_ref is not None and proof_lab_ref.get("status") is not None:
         surface_statuses["proof_lab"] = proof_lab_ref.get("status")
+        cache_status = proof_lab_ref.get("cache_status")
+        if cache_status == "stale_cached_receipt":
+            surface_statuses["proof_lab_cache"] = "actionable"
+        elif cache_status == "missing_cached_receipt":
+            surface_statuses["proof_lab_cache"] = cache_status
+        elif cache_status is not None:
+            surface_statuses["proof_lab_cache"] = "pass"
     if observatory_ref is not None and observatory_ref.get("status") is not None:
         surface_statuses["observatory"] = observatory_ref.get("status")
     front_door_status["surface_statuses"] = surface_statuses
@@ -642,6 +906,7 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "status",
                 "surface_statuses",
                 "blocking_surface_ids",
+                "blocking_surface_details",
                 "actionable_surface_ids",
                 "drilldown_warning_surface_ids",
                 "drilldown_blocked_surface_ids_ref",
@@ -712,8 +977,13 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
             [
                 "status",
                 "command",
+                "bounded_validation_command",
+                "bounded_validation_request_count",
+                "bounded_validation_rule",
                 "endpoint",
                 "compact_endpoint",
+                "project_observe_command",
+                "project_observe_endpoint",
                 "route_explanation_endpoint",
                 "first_screen_route_proof_ref",
                 "model_field_count",
@@ -732,6 +1002,9 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "route_id",
                 "receipt_ref",
                 "route_component_count",
+                "cache_status",
+                "cache_freshness_status",
+                "stale_input_count",
                 "proof_bodies_exported",
                 "proof_correctness_claim",
             ],
@@ -741,6 +1014,10 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
+    fast_path_status = _first_screen_fast_path(argv)
+    if fast_path_status is not None:
+        return fast_path_status
+
     parser = argparse.ArgumentParser(
         prog="microcosm",
         description=(
@@ -874,7 +1151,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_public_lens_parsers(subparsers)
     run_parser = subparsers.add_parser("run")
-    run_parser.add_argument("project", nargs="?", default=runtime_shell.DEFAULT_PROJECT_REL)
+    run_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     serve_parser = subparsers.add_parser(
         "serve",
         help="serve the local observatory over project state",
@@ -882,6 +1159,11 @@ def main(argv: list[str] | None = None) -> int:
     serve_parser.add_argument("project", nargs="?")
     serve_parser.add_argument("--host", default="127.0.0.1")
     serve_parser.add_argument("--port", type=int, default=8765)
+    serve_parser.add_argument(
+        "--max-requests",
+        type=int,
+        help="serve at most N HTTP requests, then exit cleanly",
+    )
     patterns_parser = subparsers.add_parser("patterns")
     patterns_parser.add_argument("project", nargs="?")
     route_parser = subparsers.add_parser("route")
@@ -895,7 +1177,10 @@ def main(argv: list[str] | None = None) -> int:
     work_run_parser = work_subparsers.add_parser("run")
     work_run_parser.add_argument("project")
     work_run_parser.add_argument("--work-id")
-    observe_parser = subparsers.add_parser("observe")
+    observe_parser = subparsers.add_parser(
+        "observe",
+        help="inspect compact route/work/event/evidence chain",
+    )
     observe_parser.add_argument("project")
     evidence_parser = subparsers.add_parser(
         "evidence",
@@ -1348,33 +1633,14 @@ def main(argv: list[str] | None = None) -> int:
             command_args.append(args.project)
         return runtime_shell.main(command_args)
     if args.command == "hello":
-        payload = first_screen_composition.first_screen_composition_card(
-            project_label=args.project
-        )
-        print(
-            first_screen_composition.first_screen_text_card(
-                payload,
-                reader_id=args.reader,
-            ),
-            end="",
-        )
-        return 0 if payload.get("status") == "pass" else 1
+        return _emit_hello(args.project, args.reader)
     if args.command == "first-screen":
-        payload = first_screen_composition.first_screen_composition_card(
-            project_label=args.project
+        return _emit_first_screen(
+            args.project,
+            output_format=args.format,
+            full=args.full,
+            reader=args.reader,
         )
-        if args.format == "text":
-            print(
-                first_screen_composition.first_screen_text_card(
-                    payload,
-                    reader_id=args.reader,
-                ),
-                end="",
-            )
-            return 0 if payload.get("status") == "pass" else 1
-        if args.full:
-            return _print_json(payload)
-        return _print_json(first_screen_composition.first_screen_compact_card(payload))
     if args.command == "authority":
         command_args = ["authority"]
         if args.card:
@@ -1444,6 +1710,8 @@ def main(argv: list[str] | None = None) -> int:
         return runtime_shell.main(["run", args.project])
     if args.command == "serve":
         serve_args = ["serve", "--host", args.host, "--port", str(args.port)]
+        if args.max_requests is not None:
+            serve_args.extend(["--max-requests", str(args.max_requests)])
         if args.project:
             serve_args.append(args.project)
         return runtime_shell.main(serve_args)
