@@ -869,6 +869,59 @@ def _public_relative(path: Path, root: Path) -> str:
         return path.as_posix()
 
 
+PUBLIC_AUTHORITY_REF_OVERRIDES = {
+    "pattern_binding_contract": (
+        "receipts/first_wave/pattern_binding_contract/"
+        "exported_substrate_bundle_validation_result.json"
+    ),
+    "executable_doctrine_grammar": (
+        "receipts/first_wave/executable_doctrine_grammar/"
+        "exported_executable_grammar_metabolism_bundle_validation_result.json"
+    ),
+    "proof_diagnostic_evidence_spine": (
+        "receipts/first_wave/proof_diagnostic_evidence_spine/"
+        "exported_evidence_bundle_validation_result.json"
+    ),
+    "navigation_hologram_route_plane": (
+        "receipts/first_wave/navigation_hologram_route_plane/"
+        "exported_route_plane_bundle_validation_result.json"
+    ),
+    "mission_transaction_work_spine": (
+        "receipts/first_wave/mission_transaction_work_spine/"
+        "exported_mission_transaction_bundle_validation_result.json"
+    ),
+    "agent_route_observability_runtime": (
+        "receipts/first_wave/agent_route_observability_runtime/"
+        "exported_computer_use_action_trace_bundle_validation_result.json"
+    ),
+    "pattern_assimilation_step": (
+        "receipts/first_wave/pattern_assimilation_step/"
+        "exported_assimilation_bundle_validation_result.json"
+    ),
+}
+
+
+def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, Any]:
+    source_ref = row.get("current_authority_receipt")
+    source_ref = source_ref if isinstance(source_ref, str) and source_ref else None
+    source_ref_resolves = bool(source_ref and (root / source_ref).is_file())
+    public_ref = source_ref if source_ref_resolves else None
+    organ_id = str(row.get("organ_id") or "")
+    override_ref = PUBLIC_AUTHORITY_REF_OVERRIDES.get(organ_id)
+    if public_ref is None and override_ref and (root / override_ref).is_file():
+        public_ref = override_ref
+
+    fields: dict[str, Any] = {
+        "authority_ref": public_ref or source_ref,
+        "authority_ref_resolves_in_public_tree": bool(
+            public_ref and (root / public_ref).is_file()
+        ),
+    }
+    if source_ref and source_ref != public_ref:
+        fields["source_authority_ref"] = source_ref
+    return fields
+
+
 def _read_json_if_exists(path: Path) -> dict[str, Any]:
     if not path.is_file():
         return {}
@@ -16311,7 +16364,7 @@ class RuntimeShell:
                 "organ_id": row.get("organ_id"),
                 "runtime_mode": row.get("runtime_mode"),
                 "input_mode": row.get("input_mode"),
-                "authority_ref": row.get("current_authority_receipt"),
+                **_organ_authority_ref_fields(self.root, row),
                 "generated_receipt_count": row.get("generated_receipt_count"),
                 "evidence_class": row.get("evidence_class"),
                 "evidence_strength_rank": row.get("evidence_strength_rank"),
@@ -16771,7 +16824,7 @@ class RuntimeShell:
                 "runtime_mode": row.get("runtime_mode"),
                 "evidence_class": row.get("evidence_class"),
                 "truth_accounting_bucket": row.get("truth_accounting_bucket"),
-                "authority_ref": row.get("current_authority_receipt"),
+                **_organ_authority_ref_fields(self.root, row),
                 "claim_ceiling": row.get("claim_ceiling"),
             }
             for row in adapter_backed[:8]

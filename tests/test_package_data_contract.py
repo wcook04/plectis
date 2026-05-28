@@ -79,9 +79,28 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files["share/microcosm-substrate/scripts"] == ["scripts/*.py"]
     assert data_files["share/microcosm-substrate/skills"] == ["skills/*.md"]
     assert data_files["share/microcosm-substrate/standards"] == ["standards/*.json"]
+    assert data_files["share/microcosm-substrate/receipts/acceptance"] == [
+        "receipts/acceptance/*.json",
+        "receipts/acceptance/pattern_assimilation_step",
+    ]
+    assert data_files["share/microcosm-substrate/receipts/acceptance/first_wave"] == [
+        "receipts/acceptance/first_wave/*.json"
+    ]
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
     ]
+    for receipt_dir in (
+        "agent_route_observability_runtime",
+        "executable_doctrine_grammar",
+        "mission_transaction_work_spine",
+        "navigation_hologram_route_plane",
+        "pattern_assimilation_step",
+        "pattern_binding_contract",
+        "proof_diagnostic_evidence_spine",
+    ):
+        assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
+            f"receipts/first_wave/{receipt_dir}/*.json"
+        ]
     for receipt_dir in (
         "corpus_readiness_mathlib_absence_gate",
         "formal_evidence_cell_anchor_resolver",

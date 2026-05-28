@@ -144,6 +144,10 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
         ignore=shutil.ignore_patterns("__pycache__"),
     )
     shutil.copytree(MICROCOSM_ROOT / "standards", public_root / "standards")
+    shutil.copytree(
+        MICROCOSM_ROOT / "receipts/acceptance",
+        public_root / "receipts/acceptance",
+    )
     shutil.copytree(MICROCOSM_ROOT / "receipts/first_wave", public_root / "receipts/first_wave")
     shutil.copytree(
         MICROCOSM_ROOT / "receipts/second_wave",
@@ -1582,6 +1586,22 @@ def test_runtime_shell_authority_card_is_compact_first_screen_lens() -> None:
     assert "projection_cells" not in card
     assert "evidence_refs" not in card
     assert "command_path" not in card
+
+
+def test_runtime_shell_authority_card_preview_refs_resolve_in_standalone_root(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    card = RuntimeShell(public_root).authority_card()
+
+    preview = card["organ_authority_preview"]
+    assert preview
+    assert all(row["authority_ref_resolves_in_public_tree"] is True for row in preview)
+    assert all((public_root / row["authority_ref"]).is_file() for row in preview)
+    assert any(
+        row.get("source_authority_ref", "").startswith("state/microcosm_portfolio/")
+        for row in preview
+    )
 
 
 def test_runtime_shell_blocks_unclassified_organs(tmp_path: Path) -> None:
