@@ -317,6 +317,18 @@ def test_concept_and_mechanism_standards_bind_agent_entry() -> None:
             "route_refs"
         ]
     )
+    assert "concept_mechanism_projection_consumers_preserve_loop_fields" in pressure_by_id
+    projection_pressure = pressure_by_id[
+        "concept_mechanism_projection_consumers_preserve_loop_fields"
+    ]
+    assert (
+        "atlas/entry_packet.json::concept_mechanism_entry_route.projection_consumers"
+        in projection_pressure["route_refs"]
+    )
+    assert (
+        "python -m microcosm_core.projections.concept_mechanism_read_model"
+        in projection_pressure["route_refs"]
+    )
 
 
 def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None:
@@ -326,6 +338,7 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     route = entry_packet["concept_mechanism_entry_route"]
     specimens = route["population_specimens"]
     activation_receipts = route["activation_receipts"]
+    projection_consumers = route["projection_consumers"]
     specimen_by_id = {row["specimen_id"]: row for row in specimens}
 
     assert set(specimen_by_id) >= {
@@ -337,8 +350,12 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     assert route["population_loop"]["build_new_threshold"].startswith(
         "do not create a parallel concept index"
     )
-    assert route["population_loop"]["pressure_refs"][-1] == (
+    assert (
         "core/public_standard_pressure.json::concept_mechanism_requires_activation_receipt_loop"
+        in route["population_loop"]["pressure_refs"]
+    )
+    assert route["population_loop"]["pressure_refs"][-1] == (
+        "core/public_standard_pressure.json::concept_mechanism_projection_consumers_preserve_loop_fields"
     )
     assert any(
         command.startswith("microcosm first-screen --full")
@@ -346,6 +363,10 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     )
     assert any(
         "microcosm_core.validators.concept_mechanism_population" in command
+        for command in route["validation_commands"]
+    )
+    assert any(
+        "microcosm_core.projections.concept_mechanism_read_model" in command
         for command in route["validation_commands"]
     )
 
@@ -403,6 +424,28 @@ def test_concept_mechanism_population_specimens_bind_to_runnable_lanes() -> None
     )
     assert activation["mechanism_binding"]["concept_pair_ref"] == (
         "concept_index_frontend_view_compiler_projection_guard_2026_05_27.concept_binding"
+    )
+
+    consumer_by_id = {row["consumer_id"]: row for row in projection_consumers}
+    consumer = consumer_by_id["frontend_view_compiler_concept_mechanism_read_model"]
+    assert consumer["source_route_ref"] == (
+        "atlas/entry_packet.json::concept_mechanism_entry_route"
+    )
+    assert set(consumer["input_refs"]) >= {
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+    }
+    assert "concept_binding" in consumer["preserved_fields"]
+    assert "mechanism_binding" in consumer["preserved_fields"]
+    assert "validator_refs" in consumer["preserved_fields"]
+    assert "receipt_refs" in consumer["preserved_fields"]
+    assert "parallel concept index" in consumer["authority_boundary"].replace("_", " ")
+    assert "independent concept inventory" in consumer["reentry_condition"]
+    assert consumer["consumer_receipt"]["receipt_id"] == (
+        "frontend_view_compiler_concept_mechanism_read_model_2026_05_27"
+    )
+    assert consumer["residual_disposition"] == (
+        "consumer_read_model_bound_frontend_implementation_still_bounded"
     )
 
 

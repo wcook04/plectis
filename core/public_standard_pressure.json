@@ -161,6 +161,31 @@
       "title": "Concept/Mechanism Requires Activation Receipt Loop"
     },
     {
+      "authority_boundary": "derived_projection_not_source_authority_or_parallel_concept_index",
+      "claim": "Frontend, HUD, and view-compiler consumers of concept/mechanism population must derive from population_specimens and activation_receipts while preserving proof-critical binding, validator, receipt, omission, anti-claim, and authority fields.",
+      "kernel_primitive_refs": [
+        "standard",
+        "route",
+        "projection",
+        "evidence",
+        "work"
+      ],
+      "route_refs": [
+        "atlas/entry_packet.json::concept_mechanism_entry_route.projection_consumers",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+        "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts",
+        "python -m microcosm_core.projections.concept_mechanism_read_model"
+      ],
+      "runtime_hook": "concept_mechanism_read_model.projection_consumers",
+      "source_refs": [
+        "atlas/entry_packet.json::concept_mechanism_entry_route.projection_consumers",
+        "src/microcosm_core/projections/concept_mechanism_read_model.py",
+        "tests/test_concept_mechanism_projection_read_model.py"
+      ],
+      "standard_id": "concept_mechanism_projection_consumers_preserve_loop_fields",
+      "title": "Concept/Mechanism Projection Consumers Preserve Loop Fields"
+    },
+    {
       "authority_boundary": "project_local_simulation_not_live_task_ledger_mutation",
       "claim": "A work run records definition, execution, contracts, state history, and closeout without mutating source.",
       "kernel_primitive_refs": [

@@ -283,13 +283,15 @@
         "choose one population_specimens row",
         "run the specimen validation command or inspect the named receipt",
         "write an activation_receipts row that binds pressure -> specimen -> concept role -> mechanism role -> residual disposition",
+        "compile projection_consumers only from population_specimens and activation_receipts when a frontend, HUD, or read-model consumer resumes",
         "refine the owner surface or capture a residual when the specimen cannot carry the pressure"
       ],
       "pressure_refs": [
         "core/public_standard_pressure.json::concept_handle_requires_entry_surface",
         "core/public_standard_pressure.json::mechanism_handle_requires_runnable_contract",
         "core/public_standard_pressure.json::concept_mechanism_requires_population_specimen_loop",
-        "core/public_standard_pressure.json::concept_mechanism_requires_activation_receipt_loop"
+        "core/public_standard_pressure.json::concept_mechanism_requires_activation_receipt_loop",
+        "core/public_standard_pressure.json::concept_mechanism_projection_consumers_preserve_loop_fields"
       ],
       "build_new_threshold": "do not create a parallel concept index unless no existing standard, pressure row, atlas route, diagnostic bundle, fixture manifest, or WorkItem lane can carry the specimen without distortion"
     },
@@ -500,12 +502,87 @@
         ]
       }
     ],
+    "projection_consumers": [
+      {
+        "consumer_id": "frontend_view_compiler_concept_mechanism_read_model",
+        "consumer_kind": "derived_read_model_contract",
+        "consumer_role": "frontend, HUD, and view-compiler projection over concept/mechanism specimens and activation receipts",
+        "source_route_ref": "atlas/entry_packet.json::concept_mechanism_entry_route",
+        "input_refs": [
+          "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+          "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts"
+        ],
+        "implementation_ref": "src/microcosm_core/projections/concept_mechanism_read_model.py",
+        "output_ref": "/tmp/microcosm-concept-mechanism-read-model/concept_mechanism_projection_read_model.json",
+        "preserved_fields": [
+          "pressure_id",
+          "selected_specimen_id",
+          "residual_disposition",
+          "concept_binding",
+          "mechanism_binding",
+          "validator_refs",
+          "receipt_refs",
+          "omission_receipt",
+          "anti_claims",
+          "authority_boundary"
+        ],
+        "intentional_omissions": [
+          "full Task Ledger event chain",
+          "private operator monologue",
+          "frontend visual implementation"
+        ],
+        "validator_refs": [
+          "python -m microcosm_core.projections.concept_mechanism_read_model --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-read-model",
+          "tests/test_concept_mechanism_projection_read_model.py::test_projection_read_model_preserves_proof_critical_fields",
+          "tests/test_concept_mechanism_projection_read_model.py::test_projection_read_model_rejects_independent_concept_inventory"
+        ],
+        "receipt_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.projection_consumers[consumer_id=frontend_view_compiler_concept_mechanism_read_model]",
+        "consumer_receipt": {
+          "receipt_id": "frontend_view_compiler_concept_mechanism_read_model_2026_05_27",
+          "source_route_ref": "atlas/entry_packet.json::concept_mechanism_entry_route",
+          "consumes": [
+            "population_specimens",
+            "activation_receipts"
+          ],
+          "pressure_id": "cap_quick_concept_index_frontend_view_compiler_sub_d34cd121c080",
+          "activation_receipt_ref": "atlas/entry_packet.json::concept_mechanism_entry_route.activation_receipts[receipt_id=concept_index_frontend_view_compiler_projection_guard_2026_05_27]",
+          "preserved_fields": [
+            "pressure_id",
+            "selected_specimen_id",
+            "residual_disposition",
+            "concept_binding",
+            "mechanism_binding",
+            "validator_refs",
+            "receipt_refs",
+            "omission_receipt",
+            "anti_claims",
+            "authority_boundary"
+          ],
+          "omitted_for_readability": [
+            "full Task Ledger event chain",
+            "private operator monologue",
+            "frontend visual implementation"
+          ],
+          "residual_disposition": "consumer_read_model_bound_frontend_implementation_still_bounded",
+          "reentry_condition": "frontend or HUD work may resume only by consuming this read model or the source concept_mechanism_entry_route; do not author an independent concept inventory",
+          "authority_boundary": "derived_projection_receipt_not_parallel_concept_index_or_frontend_completion_authority"
+        },
+        "residual_disposition": "consumer_read_model_bound_frontend_implementation_still_bounded",
+        "reentry_condition": "frontend or HUD work may resume only by consuming this read model or the source concept_mechanism_entry_route; do not author an independent concept inventory",
+        "authority_boundary": "derived_projection_not_source_authority_no_parallel_concept_index_no_release_or_frontend_completion_authority",
+        "anti_claims": [
+          "This consumer is a read model, not a concept registry.",
+          "This consumer does not complete frontend product work, authorize release, or replace the source concept/mechanism route."
+        ]
+      }
+    ],
     "validation_commands": [
       "microcosm first-screen --full <project>",
       "microcosm executable-doctrine-grammar validate-standards-bundle --input examples/executable_doctrine_grammar/exported_standards_bundle --out /tmp/microcosm-executable-doctrine-grammar",
       "microcosm standards-meta-diagnostics run-diagnostics-bundle --input examples/standards_meta_diagnostics/exported_standards_meta_diagnostics_bundle --out /tmp/microcosm-standards-meta-diagnostics",
       "microcosm voice-to-doctrine-self-improvement-loop run-bundle --input examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle --out /tmp/microcosm-voice-to-doctrine",
-      "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population"
+      "python -m microcosm_core.validators.concept_mechanism_population --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-population",
+      "python -m microcosm_core.projections.concept_mechanism_read_model --entry-packet atlas/entry_packet.json --pressure core/public_standard_pressure.json --out /tmp/microcosm-concept-mechanism-read-model"
     ],
     "authority": "entry_and_validation_route_only_not_macro_doctrine_source_or_release_authority"
   },
