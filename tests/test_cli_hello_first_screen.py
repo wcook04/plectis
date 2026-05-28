@@ -38,6 +38,32 @@ def test_cli_hello_prints_shared_first_screen_card(
     assert "src/ai_workflow" not in output
 
 
+def test_cli_hello_and_first_screen_do_not_create_project_state(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = tmp_path / "project"
+    project.mkdir()
+    (project / "README.md").write_text(
+        "# Demo\n\nMicrocosm no-write probe.\n",
+        encoding="utf-8",
+    )
+    (project / "app.py").write_text("print('hello')\n", encoding="utf-8")
+    state_dir = project / ".microcosm"
+
+    assert not state_dir.exists()
+
+    assert cli.main(["hello", str(project)]) == 0
+    capsys.readouterr()
+    assert not state_dir.exists()
+
+    assert cli.main(["first-screen", str(project)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
+    assert not state_dir.exists()
+
+
 def test_cli_hello_can_focus_reader_branch(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
