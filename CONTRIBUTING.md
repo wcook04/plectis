@@ -38,13 +38,14 @@ trees. The scratch root stays outside the checkout so tests that inspect git
 ancestry keep their normal cold-clone shape.
 
 For the full macro-root development suite, use `make test-all` from a checkout
-where the sibling macro source paths are present. This is a drift-refresh lane:
-it may update tracked generated receipts and exported-bundle projections when
-the macro source changes, so run it only when you own or are explicitly auditing
-those refreshes. It uses the same outside-checkout pytest scratch root as
-`make test`, but tracked receipt refreshes are still intentional output, not
-disposable temp state. The default `make test` path and `make ci` are the
-standalone public verification floor.
+where the sibling macro source paths are present.
+This is a broad drift-detection lane rather than the public release floor: it
+can surface exact-copy or source-freshness failures when macro source changes,
+while pytest keeps tracked source-tree receipts read-only unless a caller
+explicitly opts into receipt writes. It uses the same outside-checkout pytest
+scratch root as `make test`; any generated output that needs to change still
+belongs in its owner lane, not disposable temp state.
+The default `make test` path and `make ci` are the standalone public verification floor.
 
 After install, the fuller first-screen route is:
 

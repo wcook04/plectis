@@ -43,9 +43,13 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "release_authorized=false" in text
     assert "intentionally not part of `make ci`" in text
     assert "`make test-all`" in text
-    assert "drift-refresh lane" in text
-    assert "tracked generated receipts and exported-bundle projections" in text
-    assert "same outside-checkout pytest scratch root as" in text
+    assert "broad drift-detection lane" in text
+    assert "tracked source-tree receipts read-only" in text
+    assert "explicitly opts into receipt writes" in text
+    assert "same outside-checkout pytest" in text
+    assert "scratch root as `make test`" in text
+    assert "any generated output that needs to change still" in text
+    assert "belongs in its owner lane" in text
     assert "and `make ci` are the" in text
     assert "standalone public verification floor" in text
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in text
