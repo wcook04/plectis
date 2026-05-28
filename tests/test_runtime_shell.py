@@ -4783,6 +4783,17 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     )
     assert observatory_card["selected_route_id"] == "readme_onboarding_route"
     assert observatory_card["first_screen_route_proof"]["status"] == "pass"
+    assert observatory_card["front_door_status"]["status"] in {"pass", "blocked"}
+    assert isinstance(
+        observatory_card["front_door_status"]["blocking_surface_ids"], list
+    )
+    assert observatory_card["front_door_status"]["top_level_status_rule"] == (
+        "pass_when_required_surfaces_are_nonblocking; tour reports "
+        "authority/intake warning blockers"
+    )
+    assert observatory_card["surface_status_refs"]["front_door_status"] == (
+        "microcosm status --card <project>::front_door_status"
+    )
     assert observatory_card["surface_statuses"]["state_inspection"] == "pass"
     assert observatory_card["surface_status_refs"]["state_inspection"] == (
         ".microcosm/"

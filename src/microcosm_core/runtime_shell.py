@@ -1318,6 +1318,7 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
         },
         "surface_status_refs": {
             "status": "/status",
+            "front_door_status": "microcosm status --card <project>::front_door_status",
             "first_screen_composition": "/project/first-screen",
             "status_card": "/project/status",
             "route": (
@@ -1381,6 +1382,22 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
             "route_explanation_endpoint": route_explanation_endpoint,
             "blocking_surface_ids": blocking_surface_ids,
             "warning_drilldown_surface_ids": warning_surface_ids,
+        },
+        "front_door_status": {
+            "status": front_door_status.get("status") or status,
+            "status_scope": front_door_status.get("status_scope"),
+            "surface_statuses": front_door_status.get("surface_statuses", {}),
+            "blocking_surface_ids": blocking_surface_ids,
+            "warning_drilldown_surface_ids": warning_surface_ids,
+            "top_level_status_rule": front_door_status.get("top_level_status_rule")
+            or (
+                "pass_when_compact_first_screen_surfaces_pass; open "
+                "/project/status or full tour for drilldown warnings"
+            ),
+            "source_refs": [
+                "microcosm tour --card <project>::front_door_status",
+                "microcosm status --card <project>::front_door_status",
+            ],
         },
         "first_screen_composition": {
             "status": first_screen_composition_status,
