@@ -10,6 +10,7 @@ from urllib.request import urlopen
 
 import pytest
 
+from microcosm_core import project_substrate
 from microcosm_core.runtime_shell import RuntimeShell
 
 
@@ -67,6 +68,7 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         observatory_card = json.loads(
             _get(f"http://127.0.0.1:{port}/project/observatory-card").decode("utf-8")
         )
+        tour = json.loads(_get(f"http://127.0.0.1:{port}/tour").decode("utf-8"))
     finally:
         server.shutdown()
         thread.join(timeout=5)
@@ -79,3 +81,46 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
     assert first_screen["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert observatory_card["schema_version"] == "microcosm_project_observatory_card_v1"
     assert observatory_card["full_observatory_endpoint"] == "/project/observatory"
+    assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
+
+
+def test_project_deep_drilldowns_defer_full_python_lens(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    shell = RuntimeShell(root=MICROCOSM_ROOT)
+    original_python_lens = project_substrate.python_lens
+    scan_modes: list[str] = []
+
+    def tracked_python_lens(
+        project_path: str | Path,
+        *,
+        write_state: bool = True,
+        refresh_architecture: bool = True,
+        scan_mode: str = project_substrate.PYTHON_LENS_SCAN_FULL,
+    ) -> dict[str, object]:
+        scan_modes.append(scan_mode)
+        if scan_mode == project_substrate.PYTHON_LENS_SCAN_FULL:
+            raise AssertionError("public drilldowns should defer full Python lens scans")
+        return original_python_lens(
+            project_path,
+            write_state=write_state,
+            refresh_architecture=refresh_architecture,
+            scan_mode=scan_mode,
+        )
+
+    monkeypatch.setattr(project_substrate, "python_lens", tracked_python_lens)
+
+    tour_card = shell.tour_card(project)
+    tour = shell.tour(project, persist_receipt=False)
+    observatory = shell.project_observatory(project, persist_receipts=False)
+
+    assert tour_card["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert observatory["schema_version"] == "microcosm_project_observatory_v1"
+    assert (
+        observatory["python_lens"]["schema_version"]
+        == "microcosm_project_python_lens_v1"
+    )
+    assert scan_modes
+    assert set(scan_modes) == {project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN}

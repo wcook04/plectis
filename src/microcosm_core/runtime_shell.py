@@ -1058,8 +1058,13 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
         or python_lens.get("evidence_ref")
         or ".microcosm/python_lens.json"
     )
+    schema_version = str(python_lens.get("schema_version") or "")
     return {
-        "schema_version": python_lens.get("schema_version"),
+        "schema_version": (
+            "microcosm_project_python_lens_v1"
+            if schema_version == "microcosm_project_python_lens_card_v1"
+            else python_lens.get("schema_version")
+        ),
         "status": python_lens.get("status"),
         "lens_id": python_lens.get("lens_id"),
         "command": python_lens.get("command"),
@@ -1969,6 +1974,104 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
             "anti_misread": "raw receipts and full organ inventory are drilldowns",
         },
     ]
+
+
+def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
+    """Read enough cached project state for first-screen cards without a rebuild."""
+    state = project_path / project_substrate.STATE_DIR
+    if not state.is_dir():
+        return {
+            "schema_version": "microcosm_project_compile_fast_cached_card_v1",
+            "status": "missing_cached_state",
+            "cache_status": "missing_cache",
+            "state_ref": project_substrate.STATE_DIR,
+            "source_files_mutated": False,
+        }
+
+    catalog = _read_json_if_exists(state / "catalog.json")
+    routes = _read_json_if_exists(state / "routes.json")
+    graph = _read_json_if_exists(state / "graph.json")
+    if not catalog or not routes:
+        return {
+            "schema_version": "microcosm_project_compile_fast_cached_card_v1",
+            "status": "missing_cached_state",
+            "cache_status": "missing_cache",
+            "state_ref": project_substrate.STATE_DIR,
+            "source_files_mutated": False,
+        }
+
+    route_rows = _rows(routes, "routes")
+    selected_route = next(
+        (
+            row
+            for row in route_rows
+            if row.get("route_id") == "readme_onboarding_route"
+        ),
+        route_rows[0] if route_rows else {},
+    )
+    route_id = str(selected_route.get("route_id") or "")
+    work_rows = project_substrate._load_work_items(project_path)
+    selected_work = next(
+        (row for row in work_rows if row.get("route_id") == route_id),
+        work_rows[0] if work_rows else {},
+    )
+    events = _read_jsonl(state / "events.jsonl")
+    evidence_dir = state / project_substrate.EVIDENCE_DIR
+    return {
+        "schema_version": "microcosm_project_compile_fast_cached_card_v1",
+        "status": PASS if route_id else "missing_cached_route",
+        "card_id": "compile_fast_cached_state",
+        "headline": "repo -> .microcosm",
+        "command": "microcosm compile --card <project>",
+        "full_command": "microcosm compile <project>",
+        "cache_status": "cached_state_read",
+        "cache_source_ref": f"{project_substrate.STATE_DIR}/state_index.json",
+        "state_ref": project_substrate.STATE_DIR,
+        "file_count": catalog.get("file_count", 0),
+        "role_counts": catalog.get("role_counts", {}),
+        "python_lens_ref": f"{project_substrate.STATE_DIR}/python_lens.json",
+        "python_file_count": (
+            _read_json_if_exists(state / "python_lens.json").get(
+                "python_file_count", 0
+            )
+        ),
+        "route_count": routes.get("route_count", len(route_rows)),
+        "selected_route_id": route_id or None,
+        "route_ids": [
+            str(row.get("route_id")) for row in route_rows if row.get("route_id")
+        ],
+        "route_explanation_ref": (
+            f"{project_substrate.STATE_DIR}/explanations/{route_id}.json"
+            if route_id
+            else None
+        ),
+        "work_id": selected_work.get("work_id") if selected_work else None,
+        "work_item_count": len(work_rows),
+        "event_count": len(events),
+        "evidence_count": len(list(evidence_dir.glob("*.json")))
+        if evidence_dir.is_dir()
+        else 0,
+        "graph_summary": {
+            "node_count": graph.get("node_count", 0),
+            "edge_count": graph.get("edge_count", 0),
+            "graph_ref": f"{project_substrate.STATE_DIR}/graph.json",
+        },
+        "reader_action": (
+            "Use this fast cached card for repeat first-screen entry. Run "
+            "`microcosm compile <project>` when source freshness matters."
+        ),
+        "source_files_mutated": False,
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "source_files_mutated": False,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+            "freshness_certified": False,
+        },
+    }
 
 
 def _cold_reader_first_screen_card(
@@ -6437,7 +6540,10 @@ class RuntimeShell:
             project_path = self.root / project_path
         project_path = project_path.resolve(strict=False)
 
-        compiled = project_substrate.compile_project(project_path)
+        compiled = project_substrate.compile_project(
+            project_path,
+            python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
+        )
         spine = self.spine()
         authority = self.authority(persist_receipts=persist_receipt)
         body_import_floor = _macro_projection_body_import_floor(self.root)
@@ -7303,7 +7409,7 @@ class RuntimeShell:
             project_path = self.root / project_path
         project_path = project_path.resolve(strict=False)
 
-        compile_cache = project_substrate.compile_project_card(project_path)
+        compile_cache = _fast_cached_project_compile_card(project_path)
         compile_cache_status = compile_cache.get("cache_status")
         project_compile_state_written = False
         if compile_cache.get("status") == PASS:
@@ -17714,7 +17820,7 @@ class RuntimeShell:
         architecture = project_substrate.architecture_project(project_path)
         graph = project_substrate.state_graph(project_path)
         catalog = project_substrate.catalog_project(project_path)
-        python_lens = project_substrate.python_lens(project_path)
+        python_lens = project_substrate.python_lens_card(project_path)
         patterns = project_substrate.discover_patterns(project_path)
         routes = project_substrate.propose_routes(project_path)
         route_rows = _rows(routes, "routes")
@@ -20313,10 +20419,11 @@ class RuntimeShell:
         def cached_tour_payload() -> dict[str, Any]:
             if project_path is None:
                 return shell.tour(DEFAULT_PROJECT_REL)
-            tour = cached_observatory_model().get("tour")
-            if isinstance(tour, dict):
+            cached_model = observatory_cache.get("model")
+            tour = cached_model.get("tour") if isinstance(cached_model, dict) else {}
+            if isinstance(tour, dict) and tour:
                 return tour
-            return shell.tour(project_path)
+            return shell.tour_card(project_path)
 
         class Handler(BaseHTTPRequestHandler):
             def finish(self) -> None:
