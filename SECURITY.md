@@ -52,6 +52,27 @@ PYTHONPATH=src python3 -m microcosm_core authority --card
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
 
+## Release-Authority Reports
+
+If the suspected boundary failure is that a public surface implies release,
+publication, hosting, or provider authority, create a bounded release receipt
+before reporting it:
+
+```bash
+make standalone-export EXPORT_OUT=/tmp/microcosm-security-boundary-export
+```
+
+Inspect
+`/tmp/microcosm-security-boundary-export/microcosm-substrate/receipts/release/release_export_receipt.json`
+and include the receipt id, artifact hash, blocking codes, and release gate
+fields in the report. The expected public boundary is `release_authorized=false`,
+`gate_invoked=false`, and `release_authorization_allowed_now=false` unless a
+separate operator authorization receipt is explicitly named.
+
+Do not attach local validation byproducts such as `.venv/`, `.microcosm/`, or
+pytest caches to a public report. The release receipt path is the evidence
+handle; raw environment state is not.
+
 When reporting a suspected leak, include the path, command, receipt id, and a
 short redacted description. Do not paste the suspected secret, private payload,
 raw prompt body, or credential-equivalent value into the report.
