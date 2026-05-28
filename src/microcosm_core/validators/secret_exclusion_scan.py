@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 from typing import Any
 
@@ -40,11 +41,17 @@ def _is_local_residue(path: Path, root: Path) -> bool:
 
 def _iter_scan_paths(root: Path) -> list[Path]:
     paths: list[Path] = []
-    for path in root.rglob("*"):
-        if _is_local_residue(path, root):
-            continue
-        if path.is_file():
-            paths.append(path)
+    for dirpath, dirnames, filenames in os.walk(root):
+        current = Path(dirpath)
+        dirnames[:] = [
+            dirname
+            for dirname in dirnames
+            if not _is_local_residue(current / dirname, root)
+        ]
+        for filename in filenames:
+            path = current / filename
+            if not _is_local_residue(path, root):
+                paths.append(path)
     return paths
 
 
