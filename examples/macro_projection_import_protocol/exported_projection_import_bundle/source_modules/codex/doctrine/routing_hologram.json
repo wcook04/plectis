@@ -1,7 +1,7 @@
 {
   "kind": "routing_hologram",
   "generated_from": "deterministic_projection",
-  "input_sha256": "fedc2669de853cad3958ae5c32566c212aa78cd73fc1a3f5e929f55d06a2bb17",
+  "input_sha256": "6befd1f48d690e00185f870ed9365887ceb245c9226c6d5497fd8080bcedd5bf",
   "source_paths": [
     "codex/doctrine/skills/skill_registry.json",
     "codex/standards/observe_apply/std_synth_seed.json",

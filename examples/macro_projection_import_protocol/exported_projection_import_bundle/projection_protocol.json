@@ -3951,18 +3951,18 @@
         "source_authority_above_macro_contracts": false
       },
       "body_copied": true,
-      "body_digest": "sha256:2f21b73aea041b63425ddbdd6c6778d49ca0e69a4ae473f6b37bdab14662313b",
+      "body_digest": "sha256:be39817364c2f18a5b09fb9d5994bff6c70cb4eb393e75c4f1242710654564ce",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_source_manifest_matches_exact_macro_sources",
           "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_bootstrap_route_surface_projection_sources_have_route_rows",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_bootstrap_route_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:2f21b73aea041b63425ddbdd6c6778d49ca0e69a4ae473f6b37bdab14662313b",
+        "source_body_digest": "sha256:be39817364c2f18a5b09fb9d5994bff6c70cb4eb393e75c4f1242710654564ce",
         "source_line_count": 295,
         "source_ref": "codex/doctrine/routing_hologram.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:2f21b73aea041b63425ddbdd6c6778d49ca0e69a4ae473f6b37bdab14662313b",
+        "target_body_digest": "sha256:be39817364c2f18a5b09fb9d5994bff6c70cb4eb393e75c4f1242710654564ce",
         "target_line_count": 295,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/codex/doctrine/routing_hologram.json",
         "verification_mode": "exact_source_digest_match",
