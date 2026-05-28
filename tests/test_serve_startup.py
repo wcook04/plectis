@@ -1,0 +1,81 @@
+from __future__ import annotations
+
+import json
+import socket
+import threading
+import time
+from pathlib import Path
+from urllib.error import URLError
+from urllib.request import urlopen
+
+import pytest
+
+from microcosm_core.runtime_shell import RuntimeShell
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _free_loopback_port() -> int:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind(("127.0.0.1", 0))
+        return int(sock.getsockname()[1])
+
+
+def _scratch_project(tmp_path: Path) -> Path:
+    project = tmp_path / "demo_project"
+    project.mkdir()
+    (project / "README.md").write_text("# Demo Project\n\nA tiny public project.\n", encoding="utf-8")
+    src = project / "src"
+    src.mkdir()
+    (src / "demo.py").write_text("def hello() -> str:\n    return 'hello'\n", encoding="utf-8")
+    return project
+
+
+def _get(url: str) -> bytes:
+    last_error: Exception | None = None
+    for _ in range(40):
+        try:
+            with urlopen(url, timeout=5) as response:
+                return response.read()
+        except URLError as exc:
+            last_error = exc
+            time.sleep(0.05)
+    raise AssertionError(f"server did not answer {url}") from last_error
+
+
+def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    project = _scratch_project(tmp_path)
+    shell = RuntimeShell(root=MICROCOSM_ROOT)
+
+    def fail_full_observatory(*_args: object, **_kwargs: object) -> dict[str, object]:
+        raise AssertionError("full project observatory should be lazy for landing/card entry")
+
+    monkeypatch.setattr(shell, "project_observatory", fail_full_observatory)
+    port = _free_loopback_port()
+    start = time.perf_counter()
+    server = shell.serve("127.0.0.1", port, project)
+    serve_setup_ms = (time.perf_counter() - start) * 1000
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+
+    try:
+        root = _get(f"http://127.0.0.1:{port}/").decode("utf-8")
+        first_screen = json.loads(
+            _get(f"http://127.0.0.1:{port}/project/first-screen").decode("utf-8")
+        )
+        observatory_card = json.loads(
+            _get(f"http://127.0.0.1:{port}/project/observatory-card").decode("utf-8")
+        )
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+        server.server_close()
+
+    assert serve_setup_ms < 500
+    assert "Microcosm Observatory" in root
+    assert "/project/observatory-card" in root
+    assert "/project/observatory" in root
+    assert first_screen["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert observatory_card["schema_version"] == "microcosm_project_observatory_card_v1"
+    assert observatory_card["full_observatory_endpoint"] == "/project/observatory"

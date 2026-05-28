@@ -20005,6 +20005,7 @@ class RuntimeShell:
         shell = self
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
         observatory_cache: dict[str, Any] = {}
+        authority_cache_lock = threading.Lock()
 
         def cached_observatory_model() -> dict[str, Any]:
             model = observatory_cache.get("model")
@@ -20023,6 +20024,292 @@ class RuntimeShell:
             observatory_cache["html"] = body
             return body
 
+        def cached_authority_payload() -> dict[str, Any]:
+            payload = observatory_cache.get("authority_payload")
+            if isinstance(payload, dict):
+                return payload
+            with authority_cache_lock:
+                payload = observatory_cache.get("authority_payload")
+                if isinstance(payload, dict):
+                    return payload
+                payload = _read_json_if_exists(
+                    shell.runtime_receipt_dir / "public_authority_map.json"
+                )
+                if payload.get("schema_version") == "microcosm_public_authority_map_v2":
+                    observatory_cache["authority_payload"] = payload
+                    return payload
+                payload = shell.authority(persist_receipts=False)
+                observatory_cache["authority_payload"] = payload
+                return payload
+
+        def warm_authority_payload() -> None:
+            cached_authority_payload()
+
+        def cached_status_card() -> dict[str, Any]:
+            card = observatory_cache.get("status_card")
+            if isinstance(card, dict):
+                return card
+            card = shell.status_card(project_path)
+            observatory_cache["status_card"] = card
+            return card
+
+        def cached_first_screen_card() -> dict[str, Any]:
+            card = observatory_cache.get("first_screen_card")
+            if isinstance(card, dict):
+                return card
+            card = first_screen_composition.first_screen_composition_card(
+                shell.root,
+                project_label="<project>",
+            )
+            observatory_cache["first_screen_card"] = card
+            return card
+
+        def cached_landing_work_transaction(selected_route_id: Any) -> dict[str, Any]:
+            if project_path is None:
+                return {}
+            cached = observatory_cache.get("landing_work_transaction")
+            if isinstance(cached, dict):
+                return cached
+            work_rows = project_substrate._load_work_items(project_path)
+            selected_work = next(
+                (
+                    row
+                    for row in reversed(work_rows)
+                    if isinstance(row, dict)
+                    and (
+                        not isinstance(selected_route_id, str)
+                        or not selected_route_id
+                        or row.get("route_id") == selected_route_id
+                    )
+                ),
+                {},
+            )
+            if not isinstance(selected_work, dict):
+                selected_work = {}
+            summary = {
+                "work_id": selected_work.get("work_id"),
+                "status": selected_work.get("status"),
+                "route_id": selected_work.get("route_id") or selected_route_id,
+                "event_refs": selected_work.get("event_refs", []),
+                "evidence_refs": selected_work.get("evidence_refs", []),
+                "source_files_mutated": selected_work.get("source_files_mutated") is True,
+            }
+            observatory_cache["landing_work_transaction"] = summary
+            return summary
+
+        def cached_landing_model() -> dict[str, Any]:
+            model = observatory_cache.get("landing_model")
+            if isinstance(model, dict):
+                return model
+            status_card = cached_status_card()
+            first_screen_card = cached_first_screen_card()
+            front_door = (
+                status_card.get("front_door")
+                if isinstance(status_card.get("front_door"), dict)
+                else {}
+            )
+            front_door_status = (
+                status_card.get("front_door_status")
+                if isinstance(status_card.get("front_door_status"), dict)
+                else {}
+            )
+            selected_route_id = front_door.get("selected_route_id")
+            project_state = (
+                front_door.get("project_state")
+                if isinstance(front_door.get("project_state"), dict)
+                else {}
+            )
+            source_open_body_import_floor = (
+                front_door.get("source_open_body_import_floor")
+                if isinstance(front_door.get("source_open_body_import_floor"), dict)
+                else status_card.get("macro_body_import_floor")
+                if isinstance(status_card.get("macro_body_import_floor"), dict)
+                else {}
+            )
+            state_write_proof = (
+                front_door.get("state_write_proof")
+                if isinstance(front_door.get("state_write_proof"), dict)
+                else {}
+            )
+            route_explanation = (
+                front_door.get("route_explanation")
+                if isinstance(front_door.get("route_explanation"), dict)
+                else {}
+            )
+            route_selection_proof = (
+                front_door.get("route_selection_proof")
+                if isinstance(front_door.get("route_selection_proof"), dict)
+                else {}
+            )
+            route_explanation_endpoint = (
+                f"/project/explain/{selected_route_id}"
+                if isinstance(selected_route_id, str) and selected_route_id
+                else "/project/explain/<selected_route_id>"
+            )
+            work_transaction = cached_landing_work_transaction(selected_route_id)
+            model = {
+                "schema_version": "microcosm_project_observatory_landing_model_v1",
+                "status": status_card.get("status"),
+                "selected_route_id": selected_route_id,
+                "project_summary": {
+                    "project_id": project_state.get("project_ref")
+                    or front_door.get("project_ref")
+                    or (project_path.name if project_path is not None else None),
+                    "project_ref": front_door.get("project_ref")
+                    or (project_path.name if project_path is not None else None),
+                    "state_ref": project_substrate.STATE_DIR,
+                    "local_state_refs": project_state.get("existing_state_refs", []),
+                },
+                "front_door_status": front_door_status,
+                "source_open_body_import_floor": source_open_body_import_floor,
+                "first_screen_composition": first_screen_card,
+                "state_inspection": {
+                    "schema_version": "microcosm_project_state_inspection_card_v1",
+                    "status": project_state.get("status")
+                    or front_door.get("project_state_status"),
+                    "state_dir": project_substrate.STATE_DIR,
+                    "state_dir_exists": project_state.get("state_dir_exists"),
+                    "existing_state_refs": project_state.get("existing_state_refs", []),
+                    "inspect_command": "find <project>/.microcosm -maxdepth 2 -type f | sort",
+                    "route_inspection_command": (
+                        "python3 -m json.tool <project>/.microcosm/routes.json"
+                    ),
+                    "missing_first_screen_refs": [],
+                    "source_files_mutated": False,
+                },
+                "state_write_proof": state_write_proof,
+                "first_screen_route_proof": {
+                    "schema_version": "microcosm_observatory_first_screen_route_proof_v1",
+                    "status": route_selection_proof.get("status"),
+                    "selected_route_id": selected_route_id,
+                    "route_proof_ids_match": (
+                        route_selection_proof.get("route_id_available_in_state")
+                    ),
+                    "route_id_source": (
+                        "microcosm status --card <project>::front_door.selected_route_id"
+                    ),
+                    "route_explanation_endpoint": route_explanation_endpoint,
+                },
+                "local_first_screen_route": front_door.get("local_first_screen_route")
+                if isinstance(front_door.get("local_first_screen_route"), dict)
+                else _local_first_screen_route_ref(),
+                "causal_chain": {
+                    "route": {
+                        "route_id": selected_route_id,
+                        "status": route_selection_proof.get("status"),
+                        "explanation_status": route_explanation.get("status"),
+                    },
+                    "work_transaction": {
+                        "work_id": route_explanation.get("selected_work_id")
+                        or work_transaction.get("work_id"),
+                        "status": route_explanation.get("selected_work_status")
+                        or work_transaction.get("status"),
+                        "route_id": work_transaction.get("route_id") or selected_route_id,
+                        "event_refs": work_transaction.get("event_refs", []),
+                        "evidence_refs": work_transaction.get("evidence_refs", []),
+                        "source_files_mutated": work_transaction.get("source_files_mutated")
+                        is True,
+                    },
+                    "events": [],
+                    "evidence": [],
+                },
+                "graph_summary": {
+                    "graph_ref": front_door.get("graph_ref"),
+                    "status": front_door_status.get("surface_statuses", {}).get(
+                        "graph"
+                    )
+                    if isinstance(front_door_status.get("surface_statuses"), dict)
+                    else None,
+                },
+                "runtime_bridge": {},
+                "tour": {
+                    "schema_version": "microcosm_tour_server_landing_ref_v1",
+                    "status": status_card.get("status"),
+                    "command": "microcosm tour --card <project>",
+                    "full_payload_command": "microcosm tour <project>",
+                    "endpoint": "/tour",
+                },
+                "json_drilldowns": {
+                    "status": "/status",
+                    "status_card": "/project/status",
+                    "first_screen": "/project/first-screen",
+                    "observatory_card": "/project/observatory-card",
+                    "observatory": "/project/observatory",
+                    "tour": "/tour",
+                    "workingness": "/workingness",
+                    "proof_lab": "/proof-lab",
+                    "python_lens": "/project/python-lens",
+                },
+            }
+            model["observatory_card"] = _project_observatory_card(model)
+            observatory_cache["landing_model"] = model
+            return model
+
+        def cached_landing_html() -> str:
+            body = observatory_cache.get("landing_html")
+            if isinstance(body, str):
+                return body
+            model = cached_landing_model()
+            card = model.get("observatory_card") if isinstance(model.get("observatory_card"), dict) else {}
+            first_screen_card = cached_first_screen_card()
+            status_card = cached_status_card()
+            endpoints = model.get("json_drilldowns", {})
+            endpoint_items = "\n".join(
+                f'<li><a href="{html.escape(str(endpoint))}">{html.escape(str(label))}</a></li>'
+                for label, endpoint in endpoints.items()
+                if endpoint
+            )
+            selected_route_id = model.get("selected_route_id")
+            body = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Microcosm Observatory</title>
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; margin: 2rem; max-width: 980px; }}
+    code {{ background: #f3f4f6; padding: 0.1rem 0.25rem; border-radius: 4px; }}
+    .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }}
+    .panel {{ border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Microcosm Observatory</h1>
+    <p>Quick public entry is served from compact cards. Full observatory and tour drilldowns stay available behind explicit JSON endpoints.</p>
+    <section class="grid">
+      <div class="panel">
+        <h2>One-Screen Entry</h2>
+        <p>Status: <code>{html.escape(str(first_screen_card.get("status")))}</code></p>
+        <p>Shared first command: <code>{html.escape(str(first_screen_card.get("shared_first_command")))}</code></p>
+        <p>Selected route: <code>{html.escape(str(selected_route_id))}</code></p>
+      </div>
+      <div class="panel">
+        <h2>Front-door status</h2>
+        <p>Status: <code>{html.escape(str(status_card.get("status")))}</code></p>
+        <p>Route proof: <code>{html.escape(str(model.get("first_screen_route_proof", {}).get("status")))}</code></p>
+        <p>State write proof: <code>{html.escape(str(model.get("state_write_proof", {}).get("status")))}</code></p>
+      </div>
+      <div class="panel">
+        <h2>Observatory Card</h2>
+        <p>Status: <code>{html.escape(str(card.get("status")))}</code></p>
+        <p>Full model: <a href="/project/observatory">/project/observatory</a></p>
+      </div>
+    </section>
+    <section>
+      <h2>JSON Drilldowns</h2>
+      <ul>{endpoint_items}</ul>
+    </section>
+    <section>
+      <h2>Payload boundary</h2>
+      <p>Release remains unauthorized. Public cards do not certify proof correctness, provider safety, private macro availability, or whole-system quality.</p>
+    </section>
+  </main>
+</body>
+</html>
+"""
+            observatory_cache["landing_html"] = body
+            return body
+
         def cached_tour_payload() -> dict[str, Any]:
             if project_path is None:
                 return shell.tour(DEFAULT_PROJECT_REL)
@@ -20030,9 +20317,6 @@ class RuntimeShell:
             if isinstance(tour, dict):
                 return tour
             return shell.tour(project_path)
-
-        if project_path is not None:
-            cached_observatory_html()
 
         class Handler(BaseHTTPRequestHandler):
             def finish(self) -> None:
@@ -20083,7 +20367,12 @@ class RuntimeShell:
                 if path == "/favicon.ico":
                     self._send_empty(204)
                 elif path == "/":
-                    self._send_html(200, cached_observatory_html())
+                    self._send_html(
+                        200,
+                        cached_landing_html()
+                        if project_path is not None
+                        else cached_observatory_html(),
+                    )
                 elif path == "/status":
                     payload = shell.status()
                     if project_path is not None:
@@ -20098,7 +20387,7 @@ class RuntimeShell:
                 elif path == "/tour":
                     self._send(200, cached_tour_payload())
                 elif path == "/authority":
-                    self._send(200, shell.authority())
+                    self._send(200, cached_authority_payload())
                 elif path == "/authority-card":
                     self._send(200, shell.authority_card())
                 elif path == "/workingness":
@@ -20170,16 +20459,7 @@ class RuntimeShell:
                 elif path == "/project/status" and project_path is not None:
                     self._send(200, shell.status_card(project_path))
                 elif path == "/project/first-screen" and project_path is not None:
-                    card = cached_observatory_model().get("first_screen_composition")
-                    self._send(
-                        200,
-                        card
-                        if isinstance(card, dict)
-                        else first_screen_composition.first_screen_composition_card(
-                            shell.root,
-                            project_label="<project>",
-                        ),
-                    )
+                    self._send(200, cached_first_screen_card())
                 elif path == "/project/observe" and project_path is not None:
                     self._send(
                         200,
@@ -20194,12 +20474,7 @@ class RuntimeShell:
                 elif path == "/project/catalog" and project_path is not None:
                     self._send(200, project_substrate.catalog_project(project_path))
                 elif path == "/project/python-lens" and project_path is not None:
-                    self._send(
-                        200,
-                        _public_project_python_lens_payload(
-                            project_substrate.python_lens(project_path)
-                        ),
-                    )
+                    self._send(200, project_substrate.python_lens_card(project_path))
                 elif path == "/project/patterns" and project_path is not None:
                     self._send(200, project_substrate.discover_patterns(project_path))
                 elif path == "/project/routes" and project_path is not None:
@@ -20216,7 +20491,7 @@ class RuntimeShell:
                 elif path == "/project/evidence" and project_path is not None:
                     self._send(200, project_substrate.list_evidence(project_path))
                 elif path == "/project/observatory-card" and project_path is not None:
-                    model = cached_observatory_model()
+                    model = cached_landing_model()
                     card = model.get("observatory_card")
                     self._send(
                         200,
@@ -20260,6 +20535,7 @@ class RuntimeShell:
             setattr(server, "microcosm_max_requests", max_requests)
             setattr(server, "microcosm_request_count", 0)
             setattr(server, "microcosm_shutdown_started", False)
+        warm_authority_payload()
         return server
 
 

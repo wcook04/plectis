@@ -45,7 +45,7 @@ def test_first_screen_compile_defers_full_python_ast_scan(
     assert result["status"] == "pass"
     assert result["python_lens_scan_mode"] == "first_screen_summary"
     assert result["python_lens_deferred_full_scan"] is True
-    assert result["python_lens_full_command"] == "microcosm python-lens <project>"
+    assert result["python_lens_full_command"] == "microcosm python-lens --full <project>"
     assert lens["scan_mode"] == "first_screen_summary"
     assert lens["deferred_full_scan"] is True
     assert lens["python_file_count"] == 3
