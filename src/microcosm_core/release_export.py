@@ -313,23 +313,56 @@ def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], l
             else:
                 excluded.append({"path": include_ref, "status": "excluded", "reason": reason})
             continue
-        for path in sorted(source.rglob("*")):
-            rel = path.relative_to(root)
-            if path.is_symlink():
-                excluded.append(
-                    {
-                        "path": rel.as_posix(),
-                        "status": "excluded",
-                        "reason": "symlink_not_exported",
-                    }
-                )
-                continue
-            reason = _skip_reason(rel, is_dir=path.is_dir())
-            if reason is not None:
-                if path.is_dir() or path.is_file():
-                    excluded.append({"path": rel.as_posix(), "status": "excluded", "reason": reason})
-                continue
-            if path.is_file():
+        for current_dir, dirnames, filenames in os.walk(source):
+            current = Path(current_dir)
+            kept_dirnames: list[str] = []
+            for dirname in sorted(dirnames):
+                path = current / dirname
+                rel = path.relative_to(root)
+                if path.is_symlink():
+                    excluded.append(
+                        {
+                            "path": rel.as_posix(),
+                            "status": "excluded",
+                            "reason": "symlink_not_exported",
+                        }
+                    )
+                    continue
+                reason = _skip_reason(rel, is_dir=True)
+                if reason is not None:
+                    excluded.append(
+                        {
+                            "path": rel.as_posix(),
+                            "status": "excluded",
+                            "reason": reason,
+                        }
+                    )
+                    continue
+                kept_dirnames.append(dirname)
+            dirnames[:] = kept_dirnames
+
+            for filename in sorted(filenames):
+                path = current / filename
+                rel = path.relative_to(root)
+                if path.is_symlink():
+                    excluded.append(
+                        {
+                            "path": rel.as_posix(),
+                            "status": "excluded",
+                            "reason": "symlink_not_exported",
+                        }
+                    )
+                    continue
+                reason = _skip_reason(rel, is_dir=False)
+                if reason is not None:
+                    excluded.append(
+                        {
+                            "path": rel.as_posix(),
+                            "status": "excluded",
+                            "reason": reason,
+                        }
+                    )
+                    continue
                 content_reason = _source_receipt_private_path_exclusion(path, root)
                 if content_reason is not None:
                     excluded.append(

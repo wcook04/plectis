@@ -106,6 +106,8 @@ where = ["src"]
     _write(root / "standards/std_microcosm_authority_boundary.json", "{}\n")
     _write(root / "tests/test_example.py", "def test_example():\n    assert True\n")
     _write(root / "tests/__pycache__/test_example.pyc", "cache")
+    _write(root / "tests/.venv/should_not_be_walked.txt", "local venv residue\n")
+    _write(root / "tests/.pytest_cache/should_not_be_walked.txt", "cache residue\n")
     _write(root / ".DS_Store", "local")
     _write(root / ".microcosm/project_manifest.json", "{}\n")
     _write(root / ".pytest_cache/CACHEDIR.TAG", "cache")
@@ -394,6 +396,14 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         and row["reason"] == "package_build_metadata"
         for row in receipt["exclusion_receipt"]["source_residue_excluded"]
     )
+    residue_excluded = {
+        row["path"]: row["reason"]
+        for row in receipt["exclusion_receipt"]["source_residue_excluded"]
+    }
+    assert residue_excluded["tests/.venv"] == "cache_or_build_directory"
+    assert residue_excluded["tests/.pytest_cache"] == "cache_or_build_directory"
+    assert "tests/.venv/should_not_be_walked.txt" not in residue_excluded
+    assert "tests/.pytest_cache/should_not_be_walked.txt" not in residue_excluded
     assert not (target / ".DS_Store").exists()
     assert not (target / ".microcosm").exists()
     assert not (target / ".pytest_cache").exists()
