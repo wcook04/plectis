@@ -20500,10 +20500,13 @@ class RuntimeShell:
   <meta charset="utf-8">
   <title>Microcosm Observatory</title>
   <style>
-    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; margin: 2rem; max-width: 980px; }}
-    code {{ background: #f3f4f6; padding: 0.1rem 0.25rem; border-radius: 4px; }}
+    :root {{ color-scheme: light; }}
+    body {{ background: #f8fafc; color: #111827; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; margin: 2rem; max-width: 980px; }}
+    a {{ color: #1d4ed8; }}
+    a:visited {{ color: #6d28d9; }}
+    code {{ background: #eef2ff; color: #111827; padding: 0.1rem 0.25rem; border-radius: 4px; }}
     .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }}
-    .panel {{ border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }}
+    .panel {{ background: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }}
   </style>
 </head>
 <body>
