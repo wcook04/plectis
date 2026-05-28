@@ -169,12 +169,12 @@ Or run the same product CLI directly from the checkout without installing the
 entry point:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli hello .
-PYTHONPATH=src python3 -m microcosm_core.cli tour --card .
-PYTHONPATH=src python3 -m microcosm_core.cli first-screen .
-PYTHONPATH=src python3 -m microcosm_core.cli status --card .
-PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
-PYTHONPATH=src python3 -m microcosm_core.cli observe .
+PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+PYTHONPATH=src python3 -m microcosm_core first-screen .
+PYTHONPATH=src python3 -m microcosm_core status --card .
+PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core observe .
 ```
 
 After the console command is installed, the first-screen path is:
@@ -462,16 +462,17 @@ empty/non-README folders can select `missing_tests_route`.
 The same commands work without installing the console script:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour-card.json
+PYTHONPATH=src python3 -m microcosm_core tour --card /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour-card.json
 MICROCOSM_ROUTE_ID=$(python3 -c 'import json,sys; print(json.load(sys.stdin)["selected_route_id"])' < /tmp/microcosm-scratch-tour-card.json)
-PYTHONPATH=src python3 -m microcosm_core.cli status --card /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli workingness
-PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
-PYTHONPATH=src python3 -m microcosm_core.cli compile /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli python-lens /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
-PYTHONPATH=src python3 -m microcosm_core.cli evidence list /tmp/microcosm-scratch
-PYTHONPATH=src python3 -m microcosm_core.cli tour /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core status --card /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core workingness
+PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6
+PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core python-lens /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
+PYTHONPATH=src python3 -m microcosm_core evidence list /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core tour /tmp/microcosm-scratch
 ```
 
 The older organ-adapter demo still exists for internal evidence and regression:

@@ -841,7 +841,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
         in cold_start
     )
     assert (
-        "PYTHONPATH=src python3 -m microcosm_core.cli serve <project> --host "
+        "PYTHONPATH=src python3 -m microcosm_core serve <project> --host "
         "127.0.0.1 --port 8765 --max-requests 6"
     ) in cold_start
     assert (
@@ -878,6 +878,7 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     no_install_block = first_run.split(
         "The same commands work without installing the console script:", 1
     )[1].split("```", 2)[1]
+    assert "python3 -m microcosm_core.cli" not in no_install_block
     assert (
         "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 "
         "--port 8765 --max-requests 6"
@@ -887,22 +888,32 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         not in installed_block
     )
     tour_command = (
-        "PYTHONPATH=src python3 -m microcosm_core.cli tour --card /tmp/microcosm-scratch"
+        "PYTHONPATH=src python3 -m microcosm_core tour --card /tmp/microcosm-scratch"
     )
     status_command = (
-        "PYTHONPATH=src python3 -m microcosm_core.cli status --card "
+        "PYTHONPATH=src python3 -m microcosm_core status --card "
         "/tmp/microcosm-scratch"
     )
     proof_command = (
-        "PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out "
+        "PYTHONPATH=src python3 -m microcosm_core proof-lab --out "
         "/tmp/microcosm-proof-lab"
     )
+    serve_command = (
+        "PYTHONPATH=src python3 -m microcosm_core serve "
+        "/tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
     compile_command = (
-        "PYTHONPATH=src python3 -m microcosm_core.cli compile "
+        "PYTHONPATH=src python3 -m microcosm_core compile "
         "/tmp/microcosm-scratch"
     )
     assert no_install_block.index(tour_command) < no_install_block.index(
         status_command
+    )
+    assert no_install_block.index(proof_command) < no_install_block.index(
+        serve_command
+    )
+    assert no_install_block.index(serve_command) < no_install_block.index(
+        compile_command
     )
     assert no_install_block.index(proof_command) < no_install_block.index(
         compile_command
@@ -920,9 +931,9 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         "Run `microcosm compile <project>`"
     )
     assert cold_start.index(
-        "`PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>`"
+        "`PYTHONPATH=src python3 -m microcosm_core tour --card <project>`"
     ) < cold_start.index(
-        "`PYTHONPATH=src python3 -m microcosm_core.cli compile <project>`"
+        "`PYTHONPATH=src python3 -m microcosm_core compile <project>`"
     )
 
 

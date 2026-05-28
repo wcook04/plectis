@@ -129,7 +129,7 @@ instead of writing another prose summary.
 After install, the shortest proof-lab behavior check is:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
 ```
 
 This validates route `formal_prover_context_strategy_gate` through the
@@ -149,10 +149,10 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    `atlas/entry_packet.json::cold_clone_probe_route` are the validation suite
    after first-screen behavior is visible.
 3. Run `microcosm hello <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli hello <project>` to read the
+   `PYTHONPATH=src python3 -m microcosm_core hello <project>` to read the
    no-write first-screen text before building `.microcosm/`.
 4. Run `microcosm tour --card <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>` to
+   `PYTHONPATH=src python3 -m microcosm_core tour --card <project>` to
    build `.microcosm/` over a folder you bring and inspect the compact
    first-screen card. Start with `state_inspection.inspect_command` and
    `state_inspection.first_screen_refs` so the local state is visible before
@@ -165,33 +165,33 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    modes, proof-lab route refs, observatory route refs, source-open body
    imports, and bounded authority.
 6. Run `microcosm proof-lab --out /tmp/microcosm-proof-lab` or the equivalent
-   `PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out
+   `PYTHONPATH=src python3 -m microcosm_core proof-lab --out
    /tmp/microcosm-proof-lab` path to validate the first-screen proof-lab route
    card from `atlas/entry_packet.json::proof_lab_route`.
 7. Run `microcosm observe <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli observe <project>` to inspect
+   `PYTHONPATH=src python3 -m microcosm_core observe <project>` to inspect
    the compact route/work/event/evidence/graph causal-chain lens selected by
    the first-screen route id.
 8. Run
    `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`
    or
-   `PYTHONPATH=src python3 -m microcosm_core.cli serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`,
+   `PYTHONPATH=src python3 -m microcosm_core serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`,
    then open `/project/observatory-card` before `/project/observatory` when
    the question is how the local browser/read-model ties `.microcosm` state,
    route, work, evidence, graph, status, and proof surfaces together. Omit
    `--max-requests` only when you intentionally want an interactive server.
 9. Run `microcosm compile <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli compile <project>` when you
+   `PYTHONPATH=src python3 -m microcosm_core compile <project>` when you
    want an explicit `.microcosm/` rebuild after the first-screen proof surfaces
    are visible.
    The tour card covers compile state, status/workingness, the macro body
    import floor, proof-lab, observatory, route explanation, and boundary
    pointers without exporting the full route-card map.
    Run `microcosm tour <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli tour <project>` only when you
+   `PYTHONPATH=src python3 -m microcosm_core tour <project>` only when you
    need the full route-card, endpoint-path, and evidence-ref drilldown.
 10. Run `microcosm python-lens <project>` or
-   `PYTHONPATH=src python3 -m microcosm_core.cli python-lens <project>` to
+   `PYTHONPATH=src python3 -m microcosm_core python-lens <project>` to
    inspect Python path roles, package roots, route-readiness checks, the
    `std_python_microcosm_navigation_assay`, and
    `implementation_atlas.python_navigation_assay` source-span drilldowns, then

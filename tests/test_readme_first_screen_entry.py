@@ -152,10 +152,11 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
         1,
     )[1].split("Use `microcosm status --card <project>`", 1)[0]
 
-    direct_hello = "PYTHONPATH=src python3 -m microcosm_core.cli hello ."
-    direct_tour_card = "PYTHONPATH=src python3 -m microcosm_core.cli tour --card ."
+    direct_hello = "PYTHONPATH=src python3 -m microcosm_core hello ."
+    direct_tour_card = "PYTHONPATH=src python3 -m microcosm_core tour --card ."
     assert direct_hello in direct_path
     assert direct_path.index(direct_hello) < direct_path.index(direct_tour_card)
+    assert "python3 -m microcosm_core.cli" not in direct_path
     assert "microcosm hello ." in installed_path
     assert "microcosm first-screen ." in installed_path
     assert installed_path.index("microcosm hello .") < installed_path.index(
@@ -195,7 +196,8 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
     )
     assert "The compact behavioral path is:" in cold_start
     assert "3. Run `microcosm hello <project>`" in cold_start_steps
-    assert "python3 -m microcosm_core.cli hello <project>" in cold_start_steps
+    assert "python3 -m microcosm_core hello <project>" in cold_start_steps
+    assert "python3 -m microcosm_core.cli hello <project>" not in cold_start_steps
     assert "4. Run `microcosm tour --card <project>`" in cold_start_steps
     assert cold_start_steps.index("microcosm hello <project>") < cold_start_steps.index(
         "microcosm tour --card <project>"
