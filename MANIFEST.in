@@ -7,6 +7,7 @@ include CONTRIBUTING.md
 include LICENSE
 include Makefile
 include PRINCIPLES.md
+include QUICKSTART.md
 include README.md
 include SECURITY.md
 include bootstrap.sh

@@ -21,6 +21,7 @@ def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
         "include AGENTS.md",
         "include CONTRIBUTING.md",
         "include Makefile",
+        "include QUICKSTART.md",
         "include SECURITY.md",
         "include bootstrap.sh",
         "graft .github/workflows",
