@@ -18,6 +18,7 @@ RECEIPT_COVERAGE = PREFLIGHT_SUPPORT / "validator_receipt_coverage_map_v1.json"
 def _copy_public_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
     shutil.copytree(MICROCOSM_ROOT / "receipts", public_root / "receipts")
     return public_root
@@ -31,7 +32,7 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
     )
 
     assert acceptance["status"] == "accepted_runtime_spine_verifier_lab_kernel_bound"
-    assert len(acceptance["accepted_current_authority_organs"]) == 46
+    assert len(acceptance["accepted_current_authority_organs"]) == 47
     assert acceptance["deferred_organs"] == []
     assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
@@ -60,26 +61,26 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     )
 
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 46
-    assert summary["accepted_current_authority_count"] == 46
+    assert summary["accepted_count"] == 47
+    assert summary["accepted_current_authority_count"] == 47
     assert summary["accepted_count_is_product_progress"] is False
     assert summary["truth_accounting"]["accepted_count_is_product_progress"] is False
     assert (
         summary["truth_accounting"]["accepted_current_authority_is_evidence_strength"]
         is False
     )
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 43
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == 44
     assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
     assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
     assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
     assert summary["truth_accounting"]["source_faithful_refactor_count"] == 24
-    assert summary["truth_accounting"]["real_import_validation_count"] == 15
+    assert summary["truth_accounting"]["real_import_validation_count"] == 16
     assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
     assert summary["truth_accounting"]["evidence_class_counts"] == {
         "algorithmic_projection": 24,
         "external_subprocess_witness": 3,
         "fixture_echo_smoke": 3,
-        "semantic_validator": 15,
+        "semantic_validator": 16,
         "verified_macro_body_import": 1,
     }
     evidence_by_organ = {
@@ -113,6 +114,9 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         == "source_faithful_refactor"
     )
     assert evidence_by_organ["mission_transaction_work_spine"] == "source_faithful_refactor"
+    assert evidence_by_organ["bridge_phase_continuity_runtime"] == (
+        "real_import_validation"
+    )
     assert evidence_by_organ["macro_projection_import_protocol"] == (
         "copied_non_secret_macro_body"
     )
@@ -145,6 +149,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         "spatial_world_model_counterfactual_simulation_replay",
         "mechanistic_interpretability_circuit_attribution_replay",
         "agent_route_observability_runtime",
+        "bridge_phase_continuity_runtime",
         "pattern_assimilation_step",
         "public_reveal_walkthrough",
         "macro_projection_import_protocol",

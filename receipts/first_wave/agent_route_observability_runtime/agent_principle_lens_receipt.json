@@ -1,68 +1,9 @@
 {
-  "actor_axis_decisions": [
-    {
-      "actor_axis": "type_b_advisory",
-      "body_redacted": true,
-      "event_id": "trace_advisory_axis",
-      "mutation_authority_claim_rejected": true
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_missing_lease",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_route_miss",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_private_marker",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_duplicate",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_duplicate",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_route_overclaim",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_kernel_bloat",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_static_metadata",
-      "mutation_authority_claim_rejected": false
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "event_id": "trace_behavior_change",
-      "mutation_authority_claim_rejected": false
-    }
-  ],
-  "actor_axis_mismatch_count": 1,
-  "anti_claim": "Agent observability receipts validate public trace-feedback metadata plus regression fixtures; they do not inspect live operator state, certify runtime behavior, mutate Task Ledger, authorize pattern assimilation, or prove whole Wave 1.",
+  "agent_operating_packet_route": "./repo-python kernel.py --agent-operating-packet --band card",
+  "agent_principle_lens_status": "pass",
+  "all_agent_principles_route": "./repo-python kernel.py --agent-principles --band card",
+  "anti_claim": "Agent-principle lens receipt proves only selected ids and route handles survive compact admission; it does not mint principles, promote candidate axioms, or export full doctrine bodies.",
+  "artifact_role": "task_conditioned_agent_principle_lens",
   "authority_ceiling": {
     "authority_ceiling": "agent_observability_metadata_not_live_trace_authority",
     "behavior_change_claim_authorized_without_trace": false,
@@ -71,13 +12,25 @@
     "provider_payload_read": false,
     "status": "pass"
   },
-  "authority_rejection_count": 1,
   "bundle_id": null,
+  "candidate_axiom_promoted": false,
   "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
-  "created_at": "2026-05-28T02:12:09+00:00",
-  "duplicate_trace_event_ids": [
-    "trace_duplicate"
+  "compact_admission_receipt_count": 2,
+  "compact_admission_receipts": [
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "surface_id": "entry_hard_compact_agent_principle_lens"
+    },
+    {
+      "body_redacted": true,
+      "decision": "accepted",
+      "error_codes": [],
+      "surface_id": "context_pack_hard_compact_agent_principle_lens"
+    }
   ],
+  "created_at": "2026-05-28T02:12:09+00:00",
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
     "DUPLICATE_TRACE_EVENT_ID",
@@ -251,7 +204,9 @@
     }
   ],
   "fixture_id": "first_wave.agent_route_observability_runtime",
+  "full_principle_bodies_exported": false,
   "input_mode": null,
+  "lens_id": "fixture::agent_route_observability_runtime::agent_principle_lens_v1",
   "missing_negative_cases": [],
   "observed_negative_cases": {
     "agent_trace_missing_route_lease": [
@@ -296,6 +251,7 @@
     ]
   },
   "organ_id": "agent_route_observability_runtime",
+  "principles_minted": false,
   "private_state_scan": {
     "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
@@ -318,7 +274,7 @@
       "telemetry_private_transcript_body"
     ]
   },
-  "receipt_id": "agent_route_observability_runtime_route_compliance_audit_v1",
+  "receipt_id": "agent_route_observability_runtime_agent_principle_lens_v1",
   "receipt_paths": [
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
     "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
@@ -327,141 +283,21 @@
     "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
     "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
   ],
-  "route_compliance_decisions": [
-    {
-      "actor_axis": "type_b_advisory",
-      "body_redacted": true,
-      "decision": "rejected",
-      "error_codes": [
-        "ACTOR_AXIS_AUTHORITY_MISMATCH",
-        "NO_BEHAVIOR_CHANGE_EVIDENCE"
-      ],
-      "event_id": "trace_advisory_axis",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_advisory",
-      "trace_id": "trace_advisory_axis"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "rejected",
-      "error_codes": [
-        "MISSING_ROUTE_LEASE"
-      ],
-      "event_id": "trace_missing_lease",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": null,
-      "trace_id": "trace_missing_lease"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "rejected",
-      "error_codes": [
-        "ROUTE_MISS_REPLACED"
-      ],
-      "event_id": "trace_route_miss",
-      "expected_route": "kernel_entry",
-      "observed_route": "option_surface_before_entry",
-      "replacement_route": "./repo-python kernel.py --entry \"<task>\" --context-budget 12000",
-      "route_lease_id": "lease_route_miss",
-      "trace_id": "trace_route_miss"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "rejected",
-      "error_codes": [
-        "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
-      ],
-      "event_id": "trace_private_marker",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_private_marker",
-      "trace_id": "trace_private_marker"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "accepted",
-      "error_codes": [],
-      "event_id": "trace_duplicate",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_duplicate_a",
-      "trace_id": "trace_duplicate"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "accepted",
-      "error_codes": [],
-      "event_id": "trace_duplicate",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_duplicate_b",
-      "trace_id": "trace_duplicate"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "rejected",
-      "error_codes": [
-        "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE"
-      ],
-      "event_id": "trace_route_overclaim",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_overclaim",
-      "trace_id": "trace_route_overclaim"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "accepted",
-      "error_codes": [],
-      "event_id": "trace_kernel_bloat",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_bloat",
-      "trace_id": "trace_kernel_bloat"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "accepted",
-      "error_codes": [],
-      "event_id": "trace_static_metadata",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_static",
-      "trace_id": "trace_static_metadata"
-    },
-    {
-      "actor_axis": "type_a_substrate",
-      "body_redacted": true,
-      "decision": "accepted",
-      "error_codes": [],
-      "event_id": "trace_behavior_change",
-      "expected_route": null,
-      "observed_route": null,
-      "replacement_route": null,
-      "route_lease_id": "lease_trace_behavior_change",
-      "trace_id": "trace_behavior_change"
-    }
+  "required_selected_ids": [
+    "pri_136",
+    "pri_142",
+    "pri_143",
+    "pri_144"
   ],
-  "route_miss_replacement_count": 1,
-  "schema_version": "agent_route_observability_runtime_route_compliance_audit_v1",
+  "runtime_doctrine_type": "agent_principle",
+  "schema_version": "agent_route_observability_runtime_agent_principle_lens_v1",
+  "selected_agent_principle_ids": [
+    "pri_136",
+    "pri_142",
+    "pri_143",
+    "pri_144"
+  ],
+  "selected_principle_cards_route": "./repo-python kernel.py --agent-operating-packet --band card",
   "source_pattern_ids": [
     "agent_route_observability_runtime",
     "agent_route_compliance_audit",
@@ -477,7 +313,6 @@
     "runtime_hook_shadow_intervention_coverage"
   ],
   "status": "pass",
-  "trace_count": 10,
   "validator_asserted_feeds_patterns": [
     {
       "assertion_id": "route_lease_feedback_requires_consumed_trace",

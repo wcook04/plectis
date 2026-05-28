@@ -157,7 +157,7 @@ def test_public_entry_docs_validate_source_open_payload_boundary(tmp_path: Path)
     assert help_contract["required_command_order"] == [
         "microcosm tour --card <project>",
         "microcosm status --card <project>",
-        "microcosm workingness",
+        "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm serve <project>",
         "microcosm compile <project>",
@@ -427,7 +427,7 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
     assert help_contract["status"] == "blocked"
     assert help_contract["missing_help_commands"] == []
     assert help_contract["help_command_order_mismatch"] == [
-        "microcosm status --card <project> before microcosm workingness"
+        "microcosm status --card <project> before microcosm workingness --card"
     ]
     assert help_contract["blocking_reasons"] == ["help_command_order_mismatch"]
 
@@ -706,12 +706,12 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
         encoding="utf-8"
     )
     assert cold_start.index("3. Run `microcosm tour --card <project>`") < cold_start.index(
-        "7. Run `microcosm compile <project>`"
+        "8. Run `microcosm compile <project>`"
     )
     assert cold_start.index(
         "4. Open `atlas/entry_packet.json::status_and_workingness_route`"
     ) < cold_start.index(
-        "7. Run `microcosm compile <project>`"
+        "8. Run `microcosm compile <project>`"
     )
     assert cold_start.index(
         "`PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>`"
@@ -730,11 +730,12 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert route["surface_id"] == "microcosm_local_first_screen"
     assert route["primary_first_screen_command"] == "microcosm tour --card <project>"
     assert route["primary_first_screen_command"] == entry_packet["first_command"]
-    assert route["command_path"][:5] == [
+    assert route["command_path"][:6] == [
         "microcosm tour --card <project>",
         "microcosm status --card <project>",
-        "microcosm workingness",
+        "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm observe <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
     ]
     assert route["command_path"].index(
@@ -759,9 +760,18 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     ]
     assert "microcosm evidence list <project>" in route["command_path"]
     assert "microcosm status --card <project>" in route["command_path"]
-    assert "microcosm workingness" in route["command_path"]
+    assert "microcosm workingness --card" in route["command_path"]
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[
         "command_path"
+    ]
+    assert "microcosm observe <project>" in route["command_path"]
+    assert route["reader_routes_ref"] == (
+        "atlas/entry_packet.json::reader_first_screen_routes"
+    )
+    assert route["reader_route_ids"] == [
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
     ]
     assert ".microcosm/events.jsonl" in route["state_refs"]
     assert ".microcosm/evidence/" in route["state_refs"]
@@ -771,10 +781,12 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "/tour" in route["observatory_endpoints"]
     assert "/workingness" in route["observatory_endpoints"]
     assert "/proof-lab" in route["observatory_endpoints"]
+    assert "/project/observe" in route["observatory_endpoints"]
     assert "/project/observatory-card" in route["observatory_endpoints"]
     assert "/project/observatory" in route["observatory_endpoints"]
     assert "/project/explain/<selected_route_id>" in route["observatory_endpoints"]
     assert "tour_front_door_status_route" in route["drilldown_routes"]
+    assert "status_before_tour_recovery_route" in route["drilldown_routes"]
     assert "status_and_workingness_route" in route["drilldown_routes"]
     assert "proof_lab_route" in route["drilldown_routes"]
     assert (
@@ -804,6 +816,34 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "atlas/entry_packet.json::local_first_screen_route" in entry_packet[
         "allowed_drilldowns"
     ]
+    assert "atlas/entry_packet.json::reader_first_screen_routes" in entry_packet[
+        "allowed_drilldowns"
+    ]
+
+
+def test_public_entry_packet_exposes_reader_typed_routes() -> None:
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+
+    reader_routes = entry_packet["reader_first_screen_routes"]
+    assert reader_routes["shared_prerequisite_command"] == (
+        "microcosm tour --card <project>"
+    )
+    rows = {row["reader_id"]: row for row in reader_routes["routes"]}
+    assert set(rows) == {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    assert rows["safety_evals_engineer"]["first_screen_command"] == (
+        "microcosm status --card <project>"
+    )
+    assert rows["hiring_reviewer"]["first_screen_command"] == (
+        "microcosm legibility-scorecard"
+    )
+    assert rows["peer_developer"]["next_command"] == "microcosm observe <project>"
+    assert "maturity score" in rows["safety_evals_engineer"]["anti_misread"]
 
 
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
@@ -898,14 +938,30 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert "status" in front_door["expected_fields"]
     assert "blocking_surface_ids" in front_door["top_level_status_rule"]
 
+    recovery_route = entry_packet["status_before_tour_recovery_route"]
+    assert recovery_route["surface_id"] == "microcosm_status_before_tour_recovery"
+    assert recovery_route["command"] == "microcosm status --card <project>"
+    assert recovery_route["recovery_ref"] in entry_packet["allowed_drilldowns"]
+    assert recovery_route["blocking_detail_ref"] in entry_packet["allowed_drilldowns"]
+    assert recovery_route["expected_blocked_state"] == {
+        "status": "blocked",
+        "project_state_status": "missing_state",
+        "primary_recovery_command": "microcosm tour --card <project>",
+        "status_after_recovery_command": "microcosm status --card <project>",
+        "alternate_recovery_command": "microcosm compile <project>",
+    }
+    assert recovery_route["safe_to_show"]["recovery_command_visible"] is True
+    assert recovery_route["safe_to_show"]["source_files_mutated"] is False
+    assert recovery_route["safe_to_show"]["provider_calls_authorized"] is False
+
     workingness = entry_packet["status_and_workingness_route"]
     assert workingness["surface_id"] == "microcosm_status_and_workingness"
     assert (
         workingness["command"]
-        == "microcosm status --card <project> && microcosm workingness"
+        == "microcosm status --card <project> && microcosm workingness --card"
     )
     assert workingness["status_card_command"] == "microcosm status --card <project>"
-    assert workingness["workingness_command"] == "microcosm workingness"
+    assert workingness["workingness_command"] == "microcosm workingness --card"
     assert workingness["endpoint"] == "/workingness"
     assert (
         workingness["status_card_front_door_ref"]
@@ -939,6 +995,10 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     assert "front_door.route_explanation" in workingness["expected_fields"]
     assert (
         "front_door.route_explanation.reader_drilldowns"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.observatory.project_observe_command"
         in workingness["expected_fields"]
     )
     assert "front_door.source_open_body_import_floor" in workingness["expected_fields"]

@@ -347,7 +347,7 @@ REQUIRED_PHRASES_BY_DOC = {
         "route_cards_by_id.status_and_workingness",
         "microcosm status --card <project>",
         "front_door.route_explanation",
-        "microcosm workingness",
+        "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
         "/project/observatory-card",
@@ -380,7 +380,7 @@ CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
     "microcosm tour --card <project>",
     "microcosm status --card <project>",
-    "microcosm workingness",
+    "microcosm workingness --card",
     "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "microcosm serve <project>",
     "microcosm compile <project>",
@@ -593,8 +593,9 @@ def _entry_packet_route_contract(
         "microcosm explain <project> <selected_route_id>",
         "microcosm evidence list <project>",
         "microcosm status --card <project>",
-        "microcosm workingness",
+        "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm observe <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
     ]
     required_state_refs = [
@@ -613,12 +614,14 @@ def _entry_packet_route_contract(
         "/workingness",
         "/proof-lab",
         "/project/python-lens",
+        "/project/observe",
         "/project/observatory-card",
         "/project/observatory",
         "/project/explain/<selected_route_id>",
     ]
     required_drilldown_routes = [
         "tour_front_door_status_route",
+        "status_before_tour_recovery_route",
         "status_and_workingness_route",
         "python_navigation_route",
         "route_explanation_chain_route",
@@ -626,14 +629,22 @@ def _entry_packet_route_contract(
     ]
     required_allowed_refs = [
         "atlas/entry_packet.json::local_first_screen_route",
+        "atlas/entry_packet.json::reader_first_screen_routes",
         "atlas/entry_packet.json::cold_clone_probe_route",
         "microcosm tour --card <project>::state_refs",
         "microcosm tour --card <project>::status_card",
         "microcosm tour --card <project>::observatory",
         "microcosm tour --card <project>::proof_lab",
+        "atlas/entry_packet.json::status_before_tour_recovery_route",
+        "microcosm status --card <project>::front_door.project_state.recovery",
+        "microcosm status --card <project>::front_door.project_recovery",
+        "microcosm status --card <project>::front_door_status.blocking_surface_details.project_state",
         "microcosm status --card <project>::front_door.route_explanation",
         "microcosm status --card <project>::front_door.source_open_body_import_floor",
         "microcosm status --card <project>::macro_body_import_floor",
+        "microcosm observe <project>",
+        "microcosm legibility-scorecard",
+        "microcosm authority",
         "/workingness",
     ]
     if not path.is_file():
@@ -663,6 +674,10 @@ def _entry_packet_route_contract(
         payload = {}
     route = payload.get("local_first_screen_route")
     route = route if isinstance(route, dict) else {}
+    reader_routes = payload.get("reader_first_screen_routes")
+    reader_routes = reader_routes if isinstance(reader_routes, dict) else {}
+    reader_route_rows = reader_routes.get("routes")
+    reader_route_rows = reader_route_rows if isinstance(reader_route_rows, list) else []
     safe_to_show = route.get("safe_to_show")
     safe_to_show = safe_to_show if isinstance(safe_to_show, dict) else {}
     command_path = _string_list(route.get("command_path"))
@@ -695,8 +710,9 @@ def _entry_packet_route_contract(
     required_command_order = [
         "microcosm tour --card <project>",
         "microcosm status --card <project>",
-        "microcosm workingness",
+        "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm observe <project>",
         "microcosm serve <project> --host 127.0.0.1 --port 8765",
         "microcosm compile <project>",
         "microcosm python-lens <project>",
@@ -761,6 +777,43 @@ def _entry_packet_route_contract(
         ]
         if safe_to_show.get(key) is not False
     ]
+    required_reader_ids = {
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    }
+    reader_ids = {
+        str(row.get("reader_id"))
+        for row in reader_route_rows
+        if isinstance(row, dict) and row.get("reader_id")
+    }
+    reader_route_missing_ids = sorted(required_reader_ids - reader_ids)
+    reader_route_missing_fields = [
+        str(row.get("reader_id") or "<missing_reader_id>")
+        for row in reader_route_rows
+        if isinstance(row, dict)
+        and not all(
+            row.get(field)
+            for field in (
+                "reader_id",
+                "first_screen_command",
+                "next_command",
+                "evidence_focus",
+                "anti_misread",
+            )
+        )
+    ]
+    reader_route_contract_missing = []
+    if reader_routes.get("shared_prerequisite_command") != (
+        "microcosm tour --card <project>"
+    ):
+        reader_route_contract_missing.append("shared_prerequisite_command")
+    if reader_routes.get("route_ref") != (
+        "atlas/entry_packet.json::reader_first_screen_routes"
+    ):
+        reader_route_contract_missing.append("route_ref")
+    if set(_string_list(route.get("reader_route_ids"))) != required_reader_ids:
+        reader_route_contract_missing.append("local_first_screen_reader_route_ids")
     cold_start_text = _normalized_text(
         doc_text_by_rel.get("skills/cold_start_navigation.md", "")
     )
@@ -779,6 +832,8 @@ def _entry_packet_route_contract(
                 "front_door.source_open_body_import_floor",
                 "first-screen proof surfaces are visible",
                 "Receipts are evidence drilldowns after the behavior route is visible",
+                "Reader-Typed Branches",
+                "atlas/entry_packet.json::reader_first_screen_routes",
             ]
         )
         if phrase not in cold_start_text
@@ -816,6 +871,12 @@ def _entry_packet_route_contract(
         blocking_reasons.append("readme_route_selection_rule_missing")
     if unsafe_flags:
         blocking_reasons.append("unsafe_safe_to_show_flags")
+    if (
+        reader_route_missing_ids
+        or reader_route_missing_fields
+        or reader_route_contract_missing
+    ):
+        blocking_reasons.append("reader_first_screen_routes_missing")
     if cold_start_missing:
         blocking_reasons.append("cold_start_route_contract_missing")
     if cold_start_route_selection_missing_phrases:
@@ -838,6 +899,9 @@ def _entry_packet_route_contract(
             readme_route_selection_missing_phrases
         ),
         "unsafe_safe_to_show_flags": unsafe_flags,
+        "reader_route_missing_ids": reader_route_missing_ids,
+        "reader_route_missing_fields": reader_route_missing_fields,
+        "reader_route_contract_missing": reader_route_contract_missing,
         "cold_start_missing_phrases": cold_start_missing,
         "cold_start_route_selection_missing_phrases": (
             cold_start_route_selection_missing_phrases

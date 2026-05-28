@@ -76,6 +76,17 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _sha256_directory(path: Path) -> str:
+    hasher = hashlib.sha256()
+    for child in sorted(candidate for candidate in path.rglob("*") if candidate.is_file()):
+        relative = child.relative_to(path).as_posix()
+        hasher.update(relative.encode("utf-8"))
+        hasher.update(b"\0")
+        hasher.update(child.read_bytes())
+        hasher.update(b"\0")
+    return hasher.hexdigest()
+
+
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
@@ -319,6 +330,8 @@ def run_fixture_freshness(
             path = public_root / str(rel)
             if path.is_file():
                 input_fingerprints[organ_id][str(rel)] = _sha256(path)
+            elif path.is_dir():
+                input_fingerprints[organ_id][str(rel)] = _sha256_directory(path)
             else:
                 stale_codes.append(f"MISSING_FIXTURE_INPUT:{organ_id}:{rel}")
         for rel in organ.get("generated_receipts", []):

@@ -33,6 +33,7 @@ def _walk_keys(payload: Any) -> list[str]:
 def _copy_public_tree(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(MICROCOSM_ROOT / "examples", public_root / "examples")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
     shutil.copytree(MICROCOSM_ROOT / "receipts", public_root / "receipts")
     return public_root
@@ -62,17 +63,17 @@ def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -
     assert "private_state_scan" not in receipt
     assert "private_state_scan" not in summary
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 46
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 43
+    assert summary["accepted_count"] == 47
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == 44
     assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
     assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
-    assert summary["truth_accounting"]["real_import_validation_count"] == 15
+    assert summary["truth_accounting"]["real_import_validation_count"] == 16
     assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
     assert summary["truth_accounting"]["evidence_class_counts"] == {
         "algorithmic_projection": 24,
         "external_subprocess_witness": 3,
         "fixture_echo_smoke": 3,
-        "semantic_validator": 15,
+        "semantic_validator": 16,
         "verified_macro_body_import": 1,
     }
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"

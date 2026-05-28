@@ -10,9 +10,9 @@
   "banned_route_intervention_count": 1,
   "budget_status": "over_budget_denied",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input microcosm-substrate/fixtures/first_wave/agent_route_observability_runtime/input --out microcosm-substrate/receipts/first_wave/agent_route_observability_runtime",
+  "command": "python -m microcosm_core.organs.agent_route_observability_runtime run --input fixtures/first_wave/agent_route_observability_runtime/input --out receipts/first_wave/agent_route_observability_runtime",
   "command_displacement_count": 1,
-  "created_at": "2026-05-22T11:57:42+00:00",
+  "created_at": "2026-05-28T02:12:09+00:00",
   "error_codes": [
     "ACTOR_AXIS_AUTHORITY_MISMATCH",
     "DUPLICATE_TRACE_EVENT_ID",
@@ -26,6 +26,7 @@
     "NO_BEHAVIOR_CHANGE_EVIDENCE",
     "ROUTE_COMPLIANCE_PASS_OVERCLAIMS_BEHAVIOR_CHANGE",
     "ROUTE_LEASE_NOT_CONSUMED",
+    "ROUTE_MISS_REPLACED",
     "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
   ],
   "expected_negative_cases": {
@@ -58,6 +59,9 @@
     ],
     "route_lease_static_metadata_without_trace_feedback": [
       "ROUTE_LEASE_NOT_CONSUMED"
+    ],
+    "route_miss_replaced": [
+      "ROUTE_MISS_REPLACED"
     ],
     "telemetry_private_transcript_body": [
       "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
@@ -147,6 +151,14 @@
       "negative_case_id": "route_lease_static_metadata_without_trace_feedback",
       "subject_id": "trace_static_metadata",
       "subject_kind": "route_lease_feedback"
+    },
+    {
+      "body_redacted": true,
+      "error_code": "ROUTE_MISS_REPLACED",
+      "message": "Route miss must name the expected route, observed route, and public replacement route.",
+      "negative_case_id": "route_miss_replaced",
+      "subject_id": "trace_route_miss",
+      "subject_kind": "agent_trace_event"
     },
     {
       "body_redacted": true,
@@ -304,6 +316,9 @@
     "route_lease_static_metadata_without_trace_feedback": [
       "ROUTE_LEASE_NOT_CONSUMED"
     ],
+    "route_miss_replaced": [
+      "ROUTE_MISS_REPLACED"
+    ],
     "telemetry_private_transcript_body": [
       "TELEMETRY_PRIVATE_TRANSCRIPT_BODY"
     ],
@@ -315,12 +330,22 @@
   "organ_id": "agent_route_observability_runtime",
   "over_budget_denial_count": 1,
   "private_state_scan": {
+    "anti_claim": "Scanner terms are regression sentinels for tests and declared import rows. A pass is not a complete secret scan, credential audit, release clearance, or proof that no private material exists.",
     "blocking_hit_count": 0,
     "body_redacted": true,
     "hit_count": 0,
     "hits": [],
     "redacted_output_field_labels_omitted": true,
-    "scanned_path_count": 3,
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows before public body import.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_and_declared_import_policy"
+    },
+    "scanned_path_count": 5,
     "status": "pass",
     "synthetic_boundary_negative_cases_observed": [
       "telemetry_private_transcript_body"
@@ -332,11 +357,19 @@
     "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
     "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json",
     "receipts/first_wave/agent_route_observability_runtime/debt_retirement_receipt.json",
-    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json"
+    "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/agent_principle_lens_receipt.json",
+    "receipts/first_wave/agent_route_observability_runtime/egress_mirror_receipt.json"
   ],
   "schema_version": "agent_route_observability_runtime_hook_shadow_coverage_v1",
   "source_pattern_ids": [
     "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",
@@ -364,6 +397,21 @@
     {
       "assertion_id": "hook_shadow_intervention_requires_mapped_repair_and_ceiling",
       "source_pattern_id": "runtime_hook_shadow_intervention_coverage",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "agent_principle_lens_requires_compact_admission_receipts",
+      "source_pattern_id": "agent_principle_lens",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "entry_payload_admission_preserves_principle_lens_handles",
+      "source_pattern_id": "entry_payload_admission_nonnegotiable_floor",
+      "status": "pass"
+    },
+    {
+      "assertion_id": "egress_mirror_detects_final_response_tripwires_without_private_state",
+      "source_pattern_id": "egress_compliance_stop_hook_mirror",
       "status": "pass"
     }
   ],

@@ -609,6 +609,25 @@
     },
     {
       "build_dependencies": [
+        "mission_transaction_work_spine",
+        "agent_route_observability_runtime"
+      ],
+      "fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
+      "fixture_inputs": [
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
+        "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json"
+      ],
+      "fixture_manifest": "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+      "organ_id": "bridge_phase_continuity_runtime"
+    },
+    {
+      "build_dependencies": [
         "agent_route_observability_runtime",
         "mission_transaction_work_spine",
         "proof_diagnostic_evidence_spine"
