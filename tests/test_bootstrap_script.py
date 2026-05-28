@@ -77,6 +77,11 @@ def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:
 
     assert result.returncode == 0
     assert result.stderr == ""
+    assert result.stdout.splitlines() == [
+        "Microcosm cold-clone probe passed",
+        "suite: first-wave",
+        "receipt: receipts/cold_clone_probe_test.json",
+    ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
         "-m",
         "microcosm_core.cold_clone_probe",
@@ -105,6 +110,11 @@ def test_bootstrap_default_emit_uses_ignored_local_state(tmp_path: Path) -> None
 
     assert result.returncode == 0
     assert result.stderr == ""
+    assert result.stdout.splitlines() == [
+        "Microcosm cold-clone probe passed",
+        "suite: first-wave",
+        "receipt: .microcosm/cold_clone_probe.json",
+    ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
         "-m",
         "microcosm_core.cold_clone_probe",

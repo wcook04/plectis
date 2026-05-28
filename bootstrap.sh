@@ -73,3 +73,7 @@ else
 fi
 
 "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
+
+printf 'Microcosm cold-clone probe passed\n'
+printf 'suite: %s\n' "$suite"
+printf 'receipt: %s\n' "$emit"
