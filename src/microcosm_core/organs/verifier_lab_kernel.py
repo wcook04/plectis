@@ -431,8 +431,29 @@ def _public_root_for_path(path: str | Path) -> Path:
     return MODULE_PUBLIC_ROOT
 
 
-def _display(path: Path, *, public_root: Path) -> str:
-    return public_relative_path(path, display_root=public_root)
+def _public_local_ref(path_ref: str) -> str:
+    if path_ref == "/private/tmp":
+        return "/tmp"
+    if path_ref.startswith("/private/tmp/"):
+        return f"/tmp/{path_ref.removeprefix('/private/tmp/')}"
+    return path_ref
+
+
+def _display(path: str | Path, *, public_root: Path) -> str:
+    return _public_local_ref(public_relative_path(path, display_root=public_root))
+
+
+def _normalize_receipt_public_refs(value: object) -> object:
+    if isinstance(value, dict):
+        return {
+            key: _normalize_receipt_public_refs(child)
+            for key, child in value.items()
+        }
+    if isinstance(value, list):
+        return [_normalize_receipt_public_refs(item) for item in value]
+    if isinstance(value, str):
+        return _public_local_ref(value)
+    return value
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
@@ -1047,8 +1068,9 @@ def _without_legacy_redaction_receipt_fields(value: object) -> object:
 def _rewrite_json_receipt_without_legacy_redaction(path: Path) -> None:
     payload = read_json_strict(path)
     cleaned = _without_legacy_redaction_receipt_fields(payload)
-    if cleaned != payload:
-        write_json_atomic(path, cleaned)
+    normalized = _normalize_receipt_public_refs(cleaned)
+    if normalized != payload:
+        write_json_atomic(path, normalized)
 
 
 def _normalize_component_receipt_surface(target: Path) -> None:
@@ -1606,9 +1628,16 @@ def _run_component_stack(
         _normalize_component_receipt_surface(target)
         if "acceptance_out" in kwargs:
             _rewrite_json_receipt_without_legacy_redaction(kwargs["acceptance_out"])
-        results[organ_id] = _without_legacy_redaction_receipt_fields(result)
+        cleaned_result = _normalize_receipt_public_refs(
+            _without_legacy_redaction_receipt_fields(result)
+        )
+        results[organ_id] = cleaned_result if isinstance(cleaned_result, dict) else {}
         refs = result.get("receipt_paths", [])
-        receipt_refs[organ_id] = [str(ref) for ref in refs if isinstance(ref, str)]
+        receipt_refs[organ_id] = [
+            _display(ref, public_root=public_root)
+            for ref in refs
+            if isinstance(ref, str)
+        ]
     return {
         "status": PASS if results and all(row.get("status") == PASS for row in results.values()) else "blocked",
         "component_statuses": {
