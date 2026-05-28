@@ -110,13 +110,13 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
-      "target_sha256": "969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
+      "source_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "target_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
       "sha256_match": true,
-      "line_count": 16480,
-      "byte_count": 727181,
+      "line_count": 16457,
+      "byte_count": 725919,
       "anchor_count": 5,
-      "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96"
+      "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923"
     },
     {
       "module_id": "navigation_route_plane_navigation_contract_source_body_import",
