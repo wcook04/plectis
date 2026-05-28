@@ -4608,18 +4608,13 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert explanation["causal_chain_proof"]["source_files_mutated"] is False
     assert explanation["next_reversible_action"]["source_mutation"] is False
     assert spine["schema_version"] == "microcosm_public_runtime_spine_v1"
-    assert tour["schema_version"] == "microcosm_public_ten_minute_tour_v1"
+    assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
     assert tour["status"] == "pass"
     assert tour["front_door_status"]["status"] == "pass"
     assert tour["front_door_status"]["blocking_surface_ids"] == []
-    assert tour["front_door_status"]["drilldown_warning_surface_ids"] == [
-        "authority",
-        "intake",
-    ]
-    assert set(tour["front_door_status"]["drilldown_blocked_surface_ids"]).issubset(
-        {"authority", "intake"}
-    )
-    assert any(row["card_id"] == "front_door_status" for row in tour["route_cards"])
+    assert tour["drilldown_command"] == "microcosm tour <project>"
+    assert tour["output_economy"]["full_route_cards_exported"] is False
+    assert observatory["tour_payload_policy"]["embedded_tour_payload"] == "compact_card"
     assert authority["schema_version"] == "microcosm_public_authority_map_v2"
     assert authority["authority_ceiling"]["release_authorized"] is False
     assert authority["surface_counts"]["organ_authority_count"] == 43
@@ -4852,10 +4847,8 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert observatory["local_first_screen_route"]["route_ref"] == (
         LOCAL_FIRST_SCREEN_ROUTE_REF
     )
-    assert observatory["tour"]["schema_version"] == "microcosm_public_ten_minute_tour_v1"
-    assert observatory["tour"]["local_first_screen_route"]["route_ref"] == (
-        LOCAL_FIRST_SCREEN_ROUTE_REF
-    )
+    assert observatory["tour"]["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert observatory["tour_payload_policy"]["embedded_tour_payload"] == "compact_card"
     assert tour == observatory["tour"]
     assert observatory["front_door_status"]["status"] == "pass"
     assert observatory["front_door_status"]["blocking_surface_ids"] == []

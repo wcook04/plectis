@@ -17620,14 +17620,21 @@ class RuntimeShell:
         project: str | Path | None = None,
         *,
         persist_receipts: bool = True,
+        tour_payload_mode: str = "full",
     ) -> dict[str, Any]:
+        if tour_payload_mode not in {"full", "card"}:
+            raise ValueError("tour_payload_mode must be 'full' or 'card'")
         project_path = Path(project).expanduser().resolve(strict=False) if project is not None else None
         status = self.status()
-        tour = self.tour(
-            project_path if project_path is not None else DEFAULT_PROJECT_REL,
-            persist_receipt=persist_receipts,
-        )
-        front_door_status = (
+        tour_project = project_path if project_path is not None else DEFAULT_PROJECT_REL
+        if tour_payload_mode == "card":
+            tour = self.tour_card(tour_project)
+        else:
+            tour = self.tour(
+                tour_project,
+                persist_receipt=persist_receipts,
+            )
+        tour_front_door_status = (
             tour.get("front_door_status", {})
             if isinstance(tour.get("front_door_status"), dict)
             else {}
@@ -17637,6 +17644,25 @@ class RuntimeShell:
             if isinstance(status.get("status_card"), dict)
             else _runtime_status_card(status)
         )
+        status_card_front_door_status = (
+            status_card.get("front_door_status", {})
+            if isinstance(status_card.get("front_door_status"), dict)
+            else {}
+        )
+        if tour_payload_mode == "card" and status_card_front_door_status:
+            front_door_status = {
+                **tour_front_door_status,
+                **status_card_front_door_status,
+            }
+            if (
+                not isinstance(front_door_status.get("authority_ceiling"), dict)
+                and isinstance(tour_front_door_status.get("authority_ceiling"), dict)
+            ):
+                front_door_status["authority_ceiling"] = tour_front_door_status[
+                    "authority_ceiling"
+                ]
+        else:
+            front_door_status = tour_front_door_status
         status_card_front_door = (
             status_card.get("front_door", {})
             if isinstance(status_card.get("front_door"), dict)
@@ -17715,6 +17741,19 @@ class RuntimeShell:
                 ),
             ),
             "tour": tour,
+            "tour_payload_policy": {
+                "schema_version": "microcosm_observatory_tour_payload_policy_v1",
+                "embedded_tour_payload": (
+                    "compact_card" if tour_payload_mode == "card" else "full_tour"
+                ),
+                "full_tour_command": "microcosm tour <project>",
+                "compact_tour_command": "microcosm tour --card <project>",
+                "reason": (
+                    "The browser observatory can embed the compact tour card so "
+                    "entry stays fast; the full ten-minute tour remains the "
+                    "explicit drilldown command."
+                ),
+            },
             "front_door_status": front_door_status,
             "status_card_ref": "microcosm status --card <project>",
             "source_open_body_import_floor": source_open_body_import_floor,
@@ -20134,7 +20173,11 @@ class RuntimeShell:
             model = observatory_cache.get("model")
             if isinstance(model, dict):
                 return model
-            model = shell.project_observatory(project_path, persist_receipts=False)
+            model = shell.project_observatory(
+                project_path,
+                persist_receipts=False,
+                tour_payload_mode="card" if project_path is not None else "full",
+            )
             observatory_cache["model"] = model
             return model
 

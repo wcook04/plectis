@@ -84,6 +84,37 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
     assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
 
 
+def test_project_serve_full_observatory_embeds_compact_tour(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    project = _scratch_project(tmp_path)
+    shell = RuntimeShell(root=MICROCOSM_ROOT)
+
+    def fail_full_tour(*_args: object, **_kwargs: object) -> dict[str, object]:
+        raise AssertionError("served observatory should not rebuild the full tour")
+
+    monkeypatch.setattr(shell, "tour", fail_full_tour)
+    port = _free_loopback_port()
+    server = shell.serve("127.0.0.1", port, project)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+
+    try:
+        observatory = json.loads(
+            _get(f"http://127.0.0.1:{port}/project/observatory").decode("utf-8")
+        )
+        tour = json.loads(_get(f"http://127.0.0.1:{port}/tour").decode("utf-8"))
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+        server.server_close()
+
+    assert observatory["schema_version"] == "microcosm_project_observatory_v1"
+    assert observatory["tour"]["schema_version"] == "microcosm_tour_command_speed_card_v1"
+    assert observatory["tour_payload_policy"]["embedded_tour_payload"] == "compact_card"
+    assert tour["schema_version"] == "microcosm_tour_command_speed_card_v1"
+
+
 def test_project_deep_drilldowns_defer_full_python_lens(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
