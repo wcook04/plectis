@@ -56,6 +56,8 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     assert "Evidence counts are accounting, not maturity scores." in section
     assert "Most projects do not publish that boundary" in section
     assert "Read the evidence class counters as a claim-boundary legend:" in section
+    assert "microcosm authority --card && microcosm workingness --card" not in section
+    assert "then `microcosm authority --card`, then `microcosm workingness --card`" in section
     for evidence_class in (
         "verified_macro_body_import",
         "external_subprocess_witness",
@@ -103,6 +105,8 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
     assert installed_path.index("microcosm first-screen .") < installed_path.index(
         "microcosm status --card ."
     )
+    assert "microcosm workingness --card" in installed_path
+    assert "\nmicrocosm workingness\n" not in installed_path
     assert "http://127.0.0.1:8765/project/first-screen" in browser_path
     assert browser_path.index("/project/first-screen") < browser_path.index(
         "/project/observatory-card"
