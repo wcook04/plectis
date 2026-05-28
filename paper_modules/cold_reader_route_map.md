@@ -18,32 +18,44 @@ are represented by `body_in_receipt: false` plus public runtime refs.
 
 The accepted path is:
 
-1. `microcosm tour <project>`
-2. `microcosm status --card <project>`
-3. `microcosm proof-lab --out /tmp/microcosm-proof-lab`
-4. `microcosm compile <project>`
-5. Read `first_screen.selected_route_id` from tour or `selected_route_id` from compile.
-6. `microcosm explain <project> <selected_route_id>`
-7. `microcosm serve <project> --host 127.0.0.1 --port 8765`
-8. `microcosm spine`
-9. `microcosm intake`
-10. `microcosm reveal`
-11. `microcosm cold-reader-route-map run-route-map-bundle`
+1. `microcosm hello <project>`
+2. `microcosm tour --card <project>`
+3. `microcosm status --card <project>`
+4. `microcosm authority --card`
+5. `microcosm workingness --card`
+6. `microcosm legibility-scorecard`
+7. Read `selected_route_id` from the compact tour or status card.
+8. `microcosm explain <project> <selected_route_id>`
+9. `microcosm observe <project>`
+10. `microcosm cold-reader-route-map run-route-map-bundle`
+
+Full drilldowns stay available after the compact path is visible:
+
+- `microcosm tour <project>` for the full first-screen route tree.
+- `microcosm compile <project>` for project-state materialization details.
+- `microcosm proof-lab --out /tmp/microcosm-proof-lab` for proof-lab
+  component receipts.
+- `microcosm serve <project> --host 127.0.0.1 --port 8765` for the local
+  observatory.
+- `microcosm spine`, `microcosm intake`, and `microcosm reveal` for deeper
+  runtime-spine, intake, and reveal surfaces.
 
 ## Reader-Specific Evidence Routing
 
 The route map should make the evidence-count frame visible before the reader
 chooses a drilldown. Honest counters are not progress badges:
 
-- A safety/evals engineer follows `microcosm status --card`, authority, and
-  workingness first. The useful question is whether each claim names its
-  evidence class, validator, failure mode, and authority ceiling.
+- A safety/evals engineer follows `microcosm status --card`,
+  `microcosm authority --card`, and `microcosm workingness --card` first. The
+  useful question is whether each claim names its evidence class, validator,
+  failure mode, and authority ceiling.
 - A hiring reviewer follows the first-screen card and legibility scorecard
   first. The useful question is whether small verified counts are framed as
   honest proof boundaries instead of hidden or inflated.
-- A peer developer follows `microcosm tour --card`, `microcosm compile`, and
-  `microcosm explain` first. The useful question is whether a fresh clone can
-  reproduce the route/work/event/evidence chain locally.
+- A peer developer follows `microcosm tour --card`, `microcosm observe`, and
+  then `microcosm compile` or `microcosm explain` as drilldowns. The useful
+  question is whether a fresh clone can reproduce the route/work/event/evidence
+  chain locally.
 
 The route map must therefore preserve both the command order and the evidence
 interpretation order: command, receipt ref, evidence class, anti-claim,

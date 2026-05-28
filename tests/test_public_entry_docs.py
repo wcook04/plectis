@@ -862,6 +862,40 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
     assert "maturity score" in rows["safety_evals_engineer"]["anti_misread"]
 
 
+def test_cold_reader_route_map_names_compact_path_before_drilldowns() -> None:
+    route_map = (
+        MICROCOSM_ROOT / "paper_modules/cold_reader_route_map.md"
+    ).read_text(encoding="utf-8")
+    accepted_path = route_map.split("The accepted path is:", 1)[1].split(
+        "Full drilldowns stay available", 1
+    )[0]
+    compact_commands = [
+        "microcosm hello <project>",
+        "microcosm tour --card <project>",
+        "microcosm status --card <project>",
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "microcosm legibility-scorecard",
+    ]
+
+    command_positions = []
+    for command in compact_commands:
+        wrapped = f"`{command}`"
+        assert wrapped in accepted_path
+        command_positions.append(accepted_path.index(wrapped))
+    assert command_positions == sorted(command_positions)
+
+    drilldowns = route_map.split("Full drilldowns stay available", 1)[1].split(
+        "## Reader-Specific Evidence Routing", 1
+    )[0]
+    for command in [
+        "microcosm tour <project>",
+        "microcosm compile <project>",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    ]:
+        assert f"`{command}`" in drilldowns
+
+
 def test_public_entry_packet_routes_python_navigation_assay() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
