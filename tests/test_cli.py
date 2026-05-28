@@ -29,6 +29,7 @@ from microcosm_core.runtime_shell import (
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
+ROOT_HELP_COMMAND_FLOOR = 35
 
 
 def _copytree_fixture(source: Path, destination: Path) -> None:
@@ -99,6 +100,50 @@ def _free_loopback_port() -> int:
 def _read_local_json(port: int, path: str, *, timeout: float = 5.0) -> dict:
     with urlopen(f"http://127.0.0.1:{port}{path}", timeout=timeout) as response:
         return json.loads(response.read().decode("utf-8"))
+
+
+def _microcosm_cli_env() -> dict[str, str]:
+    env = os.environ.copy()
+    src_ref = str(MICROCOSM_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src_ref
+        if not env.get("PYTHONPATH")
+        else f"{src_ref}{os.pathsep}{env['PYTHONPATH']}"
+    )
+    return env
+
+
+def _run_microcosm_cli(*args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        [sys.executable, "-m", "microcosm_core.cli", *args],
+        cwd=MICROCOSM_ROOT,
+        env=_microcosm_cli_env(),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=20,
+    )
+
+
+def _root_help_command_names(help_output: str) -> list[str]:
+    commands: list[str] = []
+    in_positional_arguments = False
+    for line in help_output.splitlines():
+        if line == "positional arguments:":
+            in_positional_arguments = True
+            continue
+        if line == "options:":
+            break
+        if (
+            not in_positional_arguments
+            or not line.startswith("    ")
+            or line.startswith("      ")
+        ):
+            continue
+        command_name = line.split(maxsplit=1)[0]
+        if command_name != "<command>":
+            commands.append(command_name)
+    return commands
 
 
 def _assert_body_floor_blocking_details(details: dict) -> None:
@@ -287,6 +332,28 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_root_help_listed_commands_have_help_routes() -> None:
+    root_help = _run_microcosm_cli("--help")
+    assert root_help.returncode == 0, root_help.stderr
+    commands = _root_help_command_names(root_help.stdout)
+
+    assert len(commands) >= ROOT_HELP_COMMAND_FLOOR
+    assert len(commands) == len(set(commands))
+
+    failures: list[str] = []
+    for command in commands:
+        command_help = _run_microcosm_cli(command, "--help")
+        if command_help.returncode != 0:
+            failures.append(
+                f"{command}: rc={command_help.returncode} stderr={command_help.stderr[-500:]}"
+            )
+            continue
+        if f"usage: microcosm {command}" not in command_help.stdout:
+            failures.append(f"{command}: missing command-specific usage line")
+
+    assert not failures, "\n".join(failures)
 
 
 @pytest.mark.parametrize(
