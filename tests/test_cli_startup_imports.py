@@ -44,6 +44,33 @@ def test_cli_version_flag_reports_package_version() -> None:
     assert result.stderr == ""
 
 
+def test_package_module_entry_delegates_to_cli() -> None:
+    pyproject = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
+    package_version = pyproject["project"]["version"]
+
+    env = os.environ.copy()
+    src = str(MICROCOSM_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src
+        if not env.get("PYTHONPATH")
+        else src + os.pathsep + env["PYTHONPATH"]
+    )
+    result = subprocess.run(
+        [sys.executable, "-m", "microcosm_core", "--version"],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=10,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == f"microcosm {package_version}"
+    assert result.stderr == ""
+
+
 def test_evidence_list_startup_does_not_import_first_screen_composition() -> None:
     env = os.environ.copy()
     src = str(MICROCOSM_ROOT / "src")
