@@ -6323,10 +6323,81 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
     if current_mtime_ms is not None and latest_projected_mtime_ms is not None:
         lag_ms = max(0, current_mtime_ms - latest_projected_mtime_ms)
 
+    count_delta_reason_ids = {
+        "mission_index_goal_thread_count_delta",
+        "mission_index_active_goal_thread_count_delta",
+        "receipt_goal_thread_count_delta",
+        "receipt_active_goal_thread_count_delta",
+    }
+    availability_reason_ids = {
+        "mission_index_missing",
+        "refresh_receipt_missing",
+        "goal_authority_unavailable",
+        "goal_authority_not_projected",
+    }
+    reason_set = set(reasons)
+    count_delta_present = bool(reason_set & count_delta_reason_ids)
+    availability_issue_present = bool(reason_set & availability_reason_ids)
+    metadata_lag_only = reason_set == {"goal_authority_mtime_lag"}
+    if not reasons:
+        staleness_kind = "fresh"
+    elif count_delta_present:
+        staleness_kind = "roster_count_delta"
+    elif availability_issue_present:
+        staleness_kind = "source_unavailable"
+    elif metadata_lag_only:
+        staleness_kind = "metadata_lag"
+    else:
+        staleness_kind = "mixed"
+
+    counts_aligned = not count_delta_present and not availability_issue_present
+    projection_missing_present = bool(reason_set & {
+        "mission_index_missing",
+        "refresh_receipt_missing",
+        "goal_authority_not_projected",
+    })
+    goal_authority_unavailable = "goal_authority_unavailable" in reason_set
+    if not reasons:
+        refresh_priority = "none"
+        refresh_action = "none"
+        refresh_reason = "goal roster projection is current"
+    elif goal_authority_unavailable:
+        refresh_priority = "blocked"
+        refresh_action = "repair_goal_authority"
+        refresh_reason = "current Codex goal authority is unavailable"
+    elif count_delta_present or projection_missing_present:
+        refresh_priority = "high"
+        refresh_action = "refresh_now"
+        refresh_reason = "goal roster counts or projection anchors are stale"
+    elif metadata_lag_only:
+        refresh_priority = "low"
+        refresh_action = "refresh_when_metadata_freshness_matters"
+        refresh_reason = "goal roster counts are aligned; only authority metadata mtime lags"
+    else:
+        refresh_priority = "normal"
+        refresh_action = "inspect_then_refresh"
+        refresh_reason = "mixed goal roster staleness reasons require inspection"
+
     staleness: dict[str, Any] = {
         "status": "stale" if reasons else "fresh",
+        "kind": staleness_kind,
         "refresh_recommended": bool(reasons),
+        "refresh_action": refresh_action,
+        "refresh_priority": refresh_priority,
         "reasons": reasons,
+        "metadata_lag_only": metadata_lag_only,
+        "count_delta_present": count_delta_present,
+        "availability_issue_present": availability_issue_present,
+        "counts_aligned": counts_aligned,
+        "full_mission_index_rewrite_required_for_count_accuracy": count_delta_present,
+        "refresh_recommendation": {
+            "action": refresh_action,
+            "priority": refresh_priority,
+            "reason": refresh_reason,
+            "counts_aligned": counts_aligned,
+            "metadata_lag_only": metadata_lag_only,
+            "full_mission_index_rewrite_required_for_count_accuracy": count_delta_present,
+        },
         **counts,
         "goal_thread_count_delta": counts["current_goal_thread_count"] - counts["mission_index_goal_thread_count"],
         "active_goal_thread_count_delta": (

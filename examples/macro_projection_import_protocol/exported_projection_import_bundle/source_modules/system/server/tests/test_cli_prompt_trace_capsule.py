@@ -232,7 +232,22 @@ def test_goal_roster_status_reports_current_authority_lag(monkeypatch, tmp_path)
 
     assert status["schema"] == "prompt_trace_mission_index_goal_roster_status_v1"
     assert status["staleness"]["status"] == "stale"
+    assert status["staleness"]["kind"] == "roster_count_delta"
     assert status["staleness"]["refresh_recommended"] is True
+    assert status["staleness"]["refresh_action"] == "refresh_now"
+    assert status["staleness"]["refresh_priority"] == "high"
+    assert status["staleness"]["count_delta_present"] is True
+    assert status["staleness"]["metadata_lag_only"] is False
+    assert status["staleness"]["counts_aligned"] is False
+    assert status["staleness"]["full_mission_index_rewrite_required_for_count_accuracy"] is True
+    assert status["staleness"]["refresh_recommendation"] == {
+        "action": "refresh_now",
+        "priority": "high",
+        "reason": "goal roster counts or projection anchors are stale",
+        "counts_aligned": False,
+        "metadata_lag_only": False,
+        "full_mission_index_rewrite_required_for_count_accuracy": True,
+    }
     assert "goal_authority_mtime_lag" in status["staleness"]["reasons"]
     assert "mission_index_goal_thread_count_delta" in status["staleness"]["reasons"]
     assert status["staleness"]["goal_authority_lag_ms"] == 1000000
@@ -240,6 +255,81 @@ def test_goal_roster_status_reports_current_authority_lag(monkeypatch, tmp_path)
     assert status["current"]["goal_thread_count"] == 2
     assert status["mission_index"]["goal_thread_count"] == 1
     assert "rows" not in json.dumps(status)
+
+
+def test_goal_roster_status_marks_mtime_only_lag(monkeypatch, tmp_path) -> None:
+    goals_db = tmp_path / "goals.sqlite"
+    conn = sqlite3.connect(goals_db)
+    conn.execute(
+        """
+        create table thread_goals (
+            thread_id text primary key,
+            goal_id text not null,
+            objective text not null,
+            status text not null,
+            token_budget integer,
+            tokens_used integer not null,
+            time_used_seconds integer not null,
+            created_at_ms integer not null,
+            updated_at_ms integer not null
+        )
+        """
+    )
+    conn.execute(
+        "insert into thread_goals values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (
+            "codex-thread-1",
+            "goal-1",
+            "Keep refining goal infrastructure.",
+            "active",
+            None,
+            10,
+            1,
+            1779980000000,
+            1779983000000,
+        ),
+    )
+    conn.commit()
+    conn.close()
+    os.utime(goals_db, (1779983000.0, 1779983000.0))
+
+    mission_index = tmp_path / "mission_index.json"
+    receipt_path = tmp_path / "goal_roster_receipt.json"
+    cached = {
+        "goal_authority": {"mtime_ms": 1779982000000, "row_count": 1},
+        "goal_thread_count": 1,
+        "active_goal_thread_count": 1,
+    }
+    mission_index.write_text(json.dumps({"generated_at": "2026-05-28T15:33:46+00:00", **cached}))
+    receipt_path.write_text(json.dumps({"recorded_at": "2026-05-28T16:00:00+00:00", **cached}))
+
+    monkeypatch.setattr(trace, "CODEX_GOALS_DB", goals_db)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_MISSION_INDEX", mission_index)
+    monkeypatch.setattr(trace, "TRACE_STRUCTURER_GOAL_ROSTER_REFRESH_RECEIPT", receipt_path)
+
+    status = trace._goal_roster_status(cwd=tmp_path)
+
+    assert status["staleness"]["status"] == "stale"
+    assert status["staleness"]["kind"] == "metadata_lag"
+    assert status["staleness"]["refresh_recommended"] is True
+    assert status["staleness"]["refresh_action"] == "refresh_when_metadata_freshness_matters"
+    assert status["staleness"]["refresh_priority"] == "low"
+    assert status["staleness"]["metadata_lag_only"] is True
+    assert status["staleness"]["count_delta_present"] is False
+    assert status["staleness"]["availability_issue_present"] is False
+    assert status["staleness"]["counts_aligned"] is True
+    assert status["staleness"]["full_mission_index_rewrite_required_for_count_accuracy"] is False
+    assert status["staleness"]["refresh_recommendation"] == {
+        "action": "refresh_when_metadata_freshness_matters",
+        "priority": "low",
+        "reason": "goal roster counts are aligned; only authority metadata mtime lags",
+        "counts_aligned": True,
+        "metadata_lag_only": True,
+        "full_mission_index_rewrite_required_for_count_accuracy": False,
+    }
+    assert status["staleness"]["reasons"] == ["goal_authority_mtime_lag"]
+    assert status["staleness"]["goal_thread_count_delta"] == 0
+    assert status["staleness"]["goal_authority_lag_ms"] == 1000000
 
 
 def test_trace_capsule_final_validation_uses_terminal_validation_rows() -> None:

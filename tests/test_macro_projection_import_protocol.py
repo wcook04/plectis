@@ -38,6 +38,7 @@ from microcosm_core.organs.macro_projection_import_protocol import (
     preview_import_plan,
     run,
     run_projection_bundle,
+    refresh_exact_copy_source_modules,
     validate_import_plan,
     validate_projection_protocol,
 )
@@ -1948,6 +1949,136 @@ def test_macro_projection_plan_reports_source_module_parent_drift_without_block(
         == "live_source_drift_not_import_proof_failure"
     )
     assert result["live_source_drift_count"] >= 1
+
+
+def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protocol_mirrors(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    source_root = public_root.parent
+    material_targets = {
+        "trace_capsule_cli_prompt_trace_body_import": {
+            "source_ref": "tools/meta/observability/cli_prompt_trace.py",
+            "target_refs": [
+                (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/source_modules/tools/meta/"
+                    "observability/cli_prompt_trace.py"
+                )
+            ],
+            "manifest_ref": (
+                "examples/macro_projection_import_protocol/"
+                "exported_projection_import_bundle/"
+                "trace_capsule_source_module_manifest.json"
+            ),
+        },
+        "world_model_drift_aggregate_source_body_import": {
+            "source_ref": "system/server/world_model.py",
+            "target_refs": [
+                (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/source_modules/system/server/"
+                    "world_model.py"
+                ),
+                (
+                    "examples/world_model_projection_drift_control_room/"
+                    "exported_projection_drift_control_bundle/source_modules/system/"
+                    "server/world_model.py"
+                ),
+            ],
+            "manifest_ref": (
+                "examples/world_model_projection_drift_control_room/"
+                "exported_projection_drift_control_bundle/source_module_manifest.json"
+            ),
+        },
+    }
+    for material_id, spec in material_targets.items():
+        source = source_root / spec["source_ref"]
+        first_target = public_root / spec["target_refs"][0]
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text(
+            first_target.read_text(encoding="utf-8")
+            + f"\n# refreshed source drift for {material_id}\n",
+            encoding="utf-8",
+        )
+
+    dry_run = refresh_exact_copy_source_modules(
+        public_root,
+        source_root=source_root,
+        material_ids=list(material_targets),
+        all_examples=True,
+        write=False,
+        command="pytest",
+    )
+
+    assert dry_run["status"] == "drift_detected"
+    assert dry_run["write_applied"] is False
+    assert dry_run["target_copy_count"] == 3
+    assert dry_run["manifest_row_update_count"] == 3
+    assert dry_run["protocol_row_update_count"] == 4
+    assert dry_run["body_text_in_receipt"] is False
+
+    write_result = refresh_exact_copy_source_modules(
+        public_root,
+        source_root=source_root,
+        material_ids=list(material_targets),
+        all_examples=True,
+        write=True,
+        command="pytest",
+    )
+
+    assert write_result["status"] == "pass"
+    assert write_result["write_applied"] is True
+    assert write_result["target_copy_count"] == 3
+    for material_id, spec in material_targets.items():
+        source = source_root / spec["source_ref"]
+        source_bytes = source.read_bytes()
+        digest = hashlib.sha256(source_bytes).hexdigest()
+        line_count = source_bytes.count(b"\n")
+
+        for target_ref in spec["target_refs"]:
+            assert (public_root / target_ref).read_bytes() == source_bytes
+
+        manifest = json.loads((public_root / spec["manifest_ref"]).read_text())
+        manifest_row = next(
+            row for row in manifest["modules"] if row["module_id"] == material_id
+        )
+        assert manifest_row["source_sha256"] == digest
+        assert manifest_row["target_sha256"] == digest
+        assert manifest_row["line_count"] == line_count
+        assert manifest_row["byte_count"] == len(source_bytes)
+        assert manifest_row["sha256_match"] is True
+
+        for protocol_ref in (
+            "examples/macro_projection_import_protocol/"
+            "exported_projection_import_bundle/projection_protocol.json",
+            "fixtures/first_wave/macro_projection_import_protocol/input/"
+            "projection_protocol.json",
+        ):
+            protocol = json.loads((public_root / protocol_ref).read_text())
+            protocol_row = next(
+                row
+                for row in protocol["copied_material"]
+                if row["material_id"] == material_id
+            )
+            verification = protocol_row["body_import_verification"]
+            assert protocol_row["body_digest"] == f"sha256:{digest}"
+            assert protocol_row["body_line_count"] == line_count
+            assert verification["source_body_digest"] == f"sha256:{digest}"
+            assert verification["target_body_digest"] == f"sha256:{digest}"
+            assert verification["source_line_count"] == line_count
+            assert verification["target_line_count"] == line_count
+            assert verification["source_to_target_relation"] == "exact_copy"
+
+    validation = run_projection_bundle(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
+        command="pytest",
+    )
+
+    assert validation["status"] == "pass"
+    assert validation["public_safe_body_import_status"] == "pass"
+    assert validation["body_in_receipt"] is False
 
 
 def test_public_safe_macro_proof_body_is_importable_with_verification(

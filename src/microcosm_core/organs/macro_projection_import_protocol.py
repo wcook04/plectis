@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -98,6 +99,13 @@ PUBLIC_SAFE_BODY_COPY_POLICY = "verified_macro_body_with_claim_floor"
 METADATA_COPY_POLICY = "metadata_or_regression_wrapper_no_body_import"
 MACRO_ORIGIN_REF_POLICY = "macro_origin_refs_are_provenance_only_not_runtime_dependencies"
 STANDALONE_RUNTIME_ROOT_REF = "microcosm-substrate"
+DEFAULT_SOURCE_MODULE_PROTOCOL_REFS = (
+    Path(
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "projection_protocol.json"
+    ),
+    Path("fixtures/first_wave/macro_projection_import_protocol/input/projection_protocol.json"),
+)
 STANDALONE_RUNTIME_ALLOWED_PREFIXES = (
     "AGENTS.md",
     "README.md",
@@ -2803,6 +2811,483 @@ def _sha256_digest(path: Path) -> str:
     return f"{BODY_DIGEST_PREFIX}{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
+def _body_stats(path: Path) -> dict[str, Any]:
+    data = path.read_bytes()
+    digest = hashlib.sha256(data).hexdigest()
+    return {
+        "sha256": digest,
+        "body_digest": f"{BODY_DIGEST_PREFIX}{digest}",
+        "line_count": data.count(b"\n"),
+        "byte_count": len(data),
+        "text": data.decode("utf-8", errors="replace"),
+    }
+
+
+def _resolve_source_path(source_ref: str, *, source_root: Path) -> Path | None:
+    ref_path = Path(source_ref.split("::", 1)[0])
+    if ref_path.is_absolute() or ".." in ref_path.parts:
+        return None
+    return source_root / ref_path
+
+
+def _resolve_public_target_path(target_ref: str, *, public_root: Path) -> Path | None:
+    ref_path = Path(target_ref.split("::", 1)[0])
+    if ref_path.is_absolute() or ".." in ref_path.parts:
+        return None
+    if ref_path.parts[:1] == (STANDALONE_RUNTIME_ROOT_REF,):
+        return public_root.parent / ref_path
+    return public_root / ref_path
+
+
+def _source_module_manifest_paths(
+    input_path: Path,
+    *,
+    public_root: Path,
+    all_examples: bool,
+) -> list[Path]:
+    candidates: list[Path] = []
+    if input_path.is_file() and input_path.name.endswith("source_module_manifest.json"):
+        candidates.append(input_path)
+    if input_path.is_dir():
+        candidates.extend(sorted(input_path.glob("*source_module_manifest.json")))
+        direct_manifest = input_path / "source_module_manifest.json"
+        if direct_manifest.is_file():
+            candidates.append(direct_manifest)
+    if all_examples:
+        examples_root = public_root / "examples"
+        if examples_root.is_dir():
+            candidates.extend(sorted(examples_root.glob("**/*source_module_manifest.json")))
+            candidates.extend(sorted(examples_root.glob("**/source_module_manifest.json")))
+
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path.resolve(strict=False))
+        if key in seen or not path.is_file():
+            continue
+        seen.add(key)
+        unique.append(path)
+    return unique
+
+
+def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> list[Path]:
+    candidates: list[Path] = []
+    if input_path.is_file() and input_path.name == "projection_protocol.json":
+        candidates.append(input_path)
+    if input_path.is_dir():
+        candidates.append(input_path / "projection_protocol.json")
+    candidates.extend(public_root / ref for ref in DEFAULT_SOURCE_MODULE_PROTOCOL_REFS)
+
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path.resolve(strict=False))
+        if key in seen or not path.is_file():
+            continue
+        seen.add(key)
+        unique.append(path)
+    return unique
+
+
+def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
+    if row.get("body_copied") is not True or row.get("body_in_receipt") is True:
+        return False
+    if str(row.get("classification") or "") != "copied_non_secret_macro_body":
+        return False
+    if row.get("sha256_match") is True:
+        return True
+    return (
+        str(row.get("source_to_target_relation") or "") == "exact_copy"
+        or str(row.get("source_import_class") or "") == "copied_non_secret_macro_body"
+    )
+
+
+def _update_source_module_manifest_row(
+    row: dict[str, Any],
+    *,
+    manifest_path: Path,
+    public_root: Path,
+    source_root: Path,
+    target_copies: dict[str, tuple[Path, Path]],
+    defects: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    material_id = str(row.get("module_id") or "")
+    source_ref = str(row.get("source_ref") or "")
+    target_ref = str(row.get("target_ref") or row.get("path") or "")
+    source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
+    target_path = (
+        _resolve_public_target_path(target_ref, public_root=public_root)
+        if target_ref
+        else None
+    )
+    if not material_id or source_path is None or target_path is None:
+        defects.append(
+            {
+                "material_id": material_id or "unknown_source_module",
+                "manifest_ref": _display(manifest_path, public_root=public_root),
+                "defect_code": "source_module_refresh_unresolvable_ref",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    if not source_path.is_file():
+        defects.append(
+            {
+                "material_id": material_id,
+                "source_ref": source_ref,
+                "manifest_ref": _display(manifest_path, public_root=public_root),
+                "defect_code": "source_module_refresh_source_missing",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+
+    stats = _body_stats(source_path)
+    missing_anchors = [
+        anchor for anchor in _strings(row.get("required_anchors")) if anchor not in stats["text"]
+    ]
+    if missing_anchors:
+        defects.append(
+            {
+                "material_id": material_id,
+                "source_ref": source_ref,
+                "manifest_ref": _display(manifest_path, public_root=public_root),
+                "defect_code": "source_module_refresh_required_anchor_missing",
+                "missing_anchors": missing_anchors,
+                "body_in_receipt": False,
+            }
+        )
+        return None
+
+    current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
+    row_updates = {
+        "source_sha256": stats["sha256"],
+        "target_sha256": stats["sha256"],
+        "sha256_match": True,
+        "line_count": stats["line_count"],
+        "byte_count": stats["byte_count"],
+    }
+    if "sha256" in row:
+        row_updates["sha256"] = stats["sha256"]
+    if "anchor_count" in row:
+        row_updates["anchor_count"] = len(_strings(row.get("required_anchors")))
+
+    metadata_changed = any(row.get(key) != value for key, value in row_updates.items())
+    target_changed = current_target_digest != stats["body_digest"]
+    if not metadata_changed and not target_changed:
+        return None
+
+    target_key = str(target_path.resolve(strict=False))
+    previous = target_copies.get(target_key)
+    if previous is not None and previous[0].resolve(strict=False) != source_path.resolve(
+        strict=False
+    ):
+        defects.append(
+            {
+                "material_id": material_id,
+                "target_ref": target_ref,
+                "manifest_ref": _display(manifest_path, public_root=public_root),
+                "defect_code": "source_module_refresh_target_conflict",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    if target_changed:
+        target_copies[target_key] = (source_path, target_path)
+
+    row.update(row_updates)
+    return {
+        "material_id": material_id,
+        "source_ref": source_ref,
+        "target_ref": _display(target_path, public_root=public_root),
+        "manifest_ref": _display(manifest_path, public_root=public_root),
+        "target_refresh_required": target_changed,
+        "metadata_refresh_required": metadata_changed,
+        "line_count": stats["line_count"],
+        "byte_count": stats["byte_count"],
+        "body_in_receipt": False,
+    }
+
+
+def _update_protocol_exact_copy_row(
+    row: dict[str, Any],
+    *,
+    protocol_path: Path,
+    public_root: Path,
+    source_root: Path,
+    target_copies: dict[str, tuple[Path, Path]],
+    defects: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    verification = row.get("body_import_verification")
+    if not isinstance(verification, dict):
+        return None
+    if verification.get("verification_mode") != "exact_source_digest_match":
+        return None
+    if verification.get("source_to_target_relation") != "exact_copy":
+        return None
+
+    material_id = str(row.get("material_id") or "")
+    source_ref = str(
+        row.get("source_ref")
+        or verification.get("source_ref")
+        or (_strings(row.get("source_refs"))[0] if _strings(row.get("source_refs")) else "")
+    )
+    target_ref = str(row.get("target_ref") or verification.get("target_ref") or "")
+    source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
+    target_path = (
+        _resolve_public_target_path(target_ref, public_root=public_root)
+        if target_ref
+        else None
+    )
+    if not material_id or source_path is None or target_path is None:
+        defects.append(
+            {
+                "material_id": material_id or "unknown_protocol_material",
+                "protocol_ref": _display(protocol_path, public_root=public_root),
+                "defect_code": "source_module_refresh_protocol_unresolvable_ref",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    if not source_path.is_file():
+        defects.append(
+            {
+                "material_id": material_id,
+                "source_ref": source_ref,
+                "protocol_ref": _display(protocol_path, public_root=public_root),
+                "defect_code": "source_module_refresh_protocol_source_missing",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+
+    stats = _body_stats(source_path)
+    current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
+    target_changed = current_target_digest != stats["body_digest"]
+    row_updates = {
+        "body_digest": stats["body_digest"],
+        "body_line_count": stats["line_count"],
+    }
+    verification_updates = {
+        "verification_status": "verified",
+        "verification_mode": "exact_source_digest_match",
+        "source_body_digest": stats["body_digest"],
+        "target_body_digest": stats["body_digest"],
+        "source_line_count": stats["line_count"],
+        "target_line_count": stats["line_count"],
+        "source_ref": source_ref,
+        "target_ref": target_ref,
+        "source_to_target_relation": "exact_copy",
+    }
+    metadata_changed = any(row.get(key) != value for key, value in row_updates.items())
+    metadata_changed = metadata_changed or any(
+        verification.get(key) != value for key, value in verification_updates.items()
+    )
+    if not metadata_changed and not target_changed:
+        return None
+
+    target_key = str(target_path.resolve(strict=False))
+    previous = target_copies.get(target_key)
+    if previous is not None and previous[0].resolve(strict=False) != source_path.resolve(
+        strict=False
+    ):
+        defects.append(
+            {
+                "material_id": material_id,
+                "target_ref": target_ref,
+                "protocol_ref": _display(protocol_path, public_root=public_root),
+                "defect_code": "source_module_refresh_protocol_target_conflict",
+                "body_in_receipt": False,
+            }
+        )
+        return None
+    if target_changed:
+        target_copies[target_key] = (source_path, target_path)
+
+    row.update(row_updates)
+    verification.update(verification_updates)
+    return {
+        "material_id": material_id,
+        "source_ref": source_ref,
+        "target_ref": _display(target_path, public_root=public_root),
+        "protocol_ref": _display(protocol_path, public_root=public_root),
+        "target_refresh_required": target_changed,
+        "metadata_refresh_required": metadata_changed,
+        "line_count": stats["line_count"],
+        "body_in_receipt": False,
+    }
+
+
+def refresh_exact_copy_source_modules(
+    input_dir: str | Path,
+    *,
+    source_root: str | Path | None = None,
+    material_ids: list[str] | None = None,
+    write: bool = False,
+    all_examples: bool = False,
+    command: str | None = None,
+) -> dict[str, Any]:
+    input_path = Path(input_dir)
+    public_root = _public_root_for_path(input_path)
+    source_root_path = (
+        Path(source_root).resolve(strict=False)
+        if source_root is not None
+        else public_root.parent.resolve(strict=False)
+    )
+    material_filter = {str(item) for item in material_ids or [] if item}
+    manifest_paths = _source_module_manifest_paths(
+        input_path,
+        public_root=public_root,
+        all_examples=all_examples,
+    )
+    protocol_paths = _source_module_protocol_paths(input_path, public_root=public_root)
+    target_copies: dict[str, tuple[Path, Path]] = {}
+    defects: list[dict[str, Any]] = []
+    manifest_rows: list[dict[str, Any]] = []
+    protocol_rows: list[dict[str, Any]] = []
+    json_updates: dict[str, tuple[Path, dict[str, Any]]] = {}
+    matched_material_ids: set[str] = set()
+
+    for manifest_path in manifest_paths:
+        payload = read_json_strict(manifest_path)
+        if not isinstance(payload, dict):
+            defects.append(
+                {
+                    "manifest_ref": _display(manifest_path, public_root=public_root),
+                    "defect_code": "source_module_refresh_manifest_invalid",
+                    "body_in_receipt": False,
+                }
+            )
+            continue
+        updated = False
+        for row in _rows(payload, "modules"):
+            material_id = str(row.get("module_id") or "")
+            if material_filter and material_id not in material_filter:
+                continue
+            if not _source_module_row_is_exact_copy(row):
+                continue
+            matched_material_ids.add(material_id)
+            update = _update_source_module_manifest_row(
+                row,
+                manifest_path=manifest_path,
+                public_root=public_root,
+                source_root=source_root_path,
+                target_copies=target_copies,
+                defects=defects,
+            )
+            if update is not None:
+                updated = True
+                manifest_rows.append(update)
+        if updated:
+            json_updates[str(manifest_path.resolve(strict=False))] = (
+                manifest_path,
+                payload,
+            )
+
+    protocol_material_ids = material_filter or matched_material_ids
+    for protocol_path in protocol_paths:
+        payload = read_json_strict(protocol_path)
+        if not isinstance(payload, dict):
+            defects.append(
+                {
+                    "protocol_ref": _display(protocol_path, public_root=public_root),
+                    "defect_code": "source_module_refresh_protocol_invalid",
+                    "body_in_receipt": False,
+                }
+            )
+            continue
+        updated = False
+        for row in _rows(payload, "copied_material"):
+            material_id = str(row.get("material_id") or "")
+            if protocol_material_ids and material_id not in protocol_material_ids:
+                continue
+            update = _update_protocol_exact_copy_row(
+                row,
+                protocol_path=protocol_path,
+                public_root=public_root,
+                source_root=source_root_path,
+                target_copies=target_copies,
+                defects=defects,
+            )
+            if update is not None:
+                matched_material_ids.add(material_id)
+                updated = True
+                protocol_rows.append(update)
+        if updated:
+            json_updates[str(protocol_path.resolve(strict=False))] = (
+                protocol_path,
+                payload,
+            )
+
+    if material_filter and not matched_material_ids:
+        defects.append(
+            {
+                "material_ids": sorted(material_filter),
+                "defect_code": "source_module_refresh_material_ids_not_found",
+                "body_in_receipt": False,
+            }
+        )
+
+    if write and not defects:
+        for source_path, target_path in target_copies.values():
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_path, target_path)
+        for path, payload in json_updates.values():
+            write_json_atomic(path, payload)
+
+    pending_update_count = len(manifest_rows) + len(protocol_rows) + len(target_copies)
+    status = (
+        "blocked"
+        if defects
+        else PASS
+        if write or pending_update_count == 0
+        else "drift_detected"
+    )
+    return {
+        "schema_version": "macro_projection_exact_copy_source_module_refresh_v1",
+        "created_at": utc_now(),
+        "status": status,
+        "organ_id": ORGAN_ID,
+        "validator_id": VALIDATOR_ID,
+        "command": command
+        or (
+            "python -m microcosm_core.organs.macro_projection_import_protocol "
+            f"refresh-exact-copy-source-modules --input {input_dir}"
+        ),
+        "input_ref": _display(input_path, public_root=public_root),
+        "source_root_ref": str(source_root_path),
+        "write_requested": write,
+        "write_applied": bool(write and not defects),
+        "all_examples": all_examples,
+        "material_filter": sorted(material_filter),
+        "matched_material_ids": sorted(matched_material_ids),
+        "manifest_count": len(manifest_paths),
+        "protocol_count": len(protocol_paths),
+        "target_copy_count": len(target_copies),
+        "manifest_row_update_count": len(manifest_rows),
+        "protocol_row_update_count": len(protocol_rows),
+        "pending_update_count": pending_update_count,
+        "manifests_scanned": [
+            _display(path, public_root=public_root) for path in manifest_paths
+        ],
+        "protocols_scanned": [
+            _display(path, public_root=public_root) for path in protocol_paths
+        ],
+        "manifest_rows": manifest_rows,
+        "protocol_rows": protocol_rows,
+        "defect_count": len(defects),
+        "defects": defects,
+        "body_text_in_receipt": False,
+        "authority_ceiling": AUTHORITY_CEILING,
+        "anti_claim": (
+            "This refresh helper copies only already-declared exact-copy, "
+            "non-secret macro source-module bodies and digest metadata. It does "
+            "not validate release readiness, call providers, read live sessions, "
+            "or authorize new body-import classes."
+        ),
+    }
+
+
 def _body_digest_is_placeholder(value: str) -> bool:
     lowered = value.lower()
     if not value.startswith(BODY_DIGEST_PREFIX):
@@ -4759,6 +5244,20 @@ def _parser() -> argparse.ArgumentParser:
     )
     plan_parser = subparsers.add_parser("plan")
     plan_parser.add_argument("--input", required=True)
+    refresh_parser = subparsers.add_parser("refresh-exact-copy-source-modules")
+    refresh_parser.add_argument("--input", required=True)
+    refresh_parser.add_argument("--source-root")
+    refresh_parser.add_argument("--material-id", action="append", default=[])
+    refresh_parser.add_argument(
+        "--all-examples",
+        action="store_true",
+        help="scan every examples/**/source_module_manifest.json under the public root",
+    )
+    refresh_parser.add_argument(
+        "--write",
+        action="store_true",
+        help="apply target copies and JSON digest updates; omit for dry-run drift audit",
+    )
     return parser
 
 
@@ -4768,6 +5267,14 @@ def main(argv: list[str] | None = None) -> int:
         result = run(args.input, args.out, acceptance_out=args.acceptance_out)
     elif args.action == "plan":
         result = preview_import_plan(args.input)
+    elif args.action == "refresh-exact-copy-source-modules":
+        result = refresh_exact_copy_source_modules(
+            args.input,
+            source_root=args.source_root,
+            material_ids=args.material_id,
+            write=args.write,
+            all_examples=args.all_examples,
+        )
     elif args.card:
         result = projection_bundle_cached_card(args.input, args.out)
     else:

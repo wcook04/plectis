@@ -1745,9 +1745,29 @@ def main(argv: list[str] | None = None) -> int:
     macro_projection_parser = _add_bundle_parser(
         subparsers, "macro-projection-import-protocol"
     )
-    macro_projection_parser.add_argument("action", choices=["run", "run-projection-bundle", "plan"])
+    macro_projection_parser.add_argument(
+        "action",
+        choices=[
+            "run",
+            "run-projection-bundle",
+            "plan",
+            "refresh-exact-copy-source-modules",
+        ],
+    )
     macro_projection_parser.add_argument("--input", required=True)
     macro_projection_parser.add_argument("--out")
+    macro_projection_parser.add_argument("--source-root")
+    macro_projection_parser.add_argument("--material-id", action="append", default=[])
+    macro_projection_parser.add_argument(
+        "--all-examples",
+        action="store_true",
+        help="scan all public example source-module manifests during exact-copy refresh",
+    )
+    macro_projection_parser.add_argument(
+        "--write",
+        action="store_true",
+        help="apply exact-copy source-module refreshes instead of reporting drift only",
+    )
     macro_projection_parser.add_argument(
         "--card",
         action="store_true",
@@ -2331,6 +2351,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.command == "macro-projection-import-protocol":
         macro_args = [args.action, "--input", args.input]
+        if args.action == "refresh-exact-copy-source-modules":
+            if args.source_root:
+                macro_args.extend(["--source-root", args.source_root])
+            for material_id in args.material_id:
+                macro_args.extend(["--material-id", material_id])
+            if args.all_examples:
+                macro_args.append("--all-examples")
+            if args.write:
+                macro_args.append("--write")
+            return macro_projection_import_protocol.main(macro_args)
         if args.card:
             if args.action != "run-projection-bundle":
                 parser.error(
