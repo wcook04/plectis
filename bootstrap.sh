@@ -7,18 +7,48 @@ cd "$script_dir"
 suite="first-wave"
 emit="receipts/cold_clone_probe.json"
 
+usage() {
+  cat <<'USAGE'
+Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH]
+
+Run the Microcosm cold-clone probe from the repository root.
+
+Options:
+  --suite SUITE          Probe suite to run (default: first-wave)
+  --emit RECEIPT_PATH    Receipt path to write (default: receipts/cold_clone_probe.json)
+  -h, --help             Show this help message without running the probe
+USAGE
+}
+
+require_value() {
+  local flag="$1"
+  local value="${2:-}"
+  if [[ -z "$value" || "$value" == --* ]]; then
+    echo "missing value for $flag" >&2
+    usage >&2
+    exit 2
+  fi
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
     --suite)
+      require_value "$1" "${2:-}"
       suite="${2:-}"
       shift 2
       ;;
     --emit)
+      require_value "$1" "${2:-}"
       emit="${2:-}"
       shift 2
       ;;
     *)
       echo "unknown argument: $1" >&2
+      usage >&2
       exit 2
       ;;
   esac
