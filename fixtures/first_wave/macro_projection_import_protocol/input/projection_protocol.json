@@ -1386,21 +1386,21 @@
         "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
       ],
       "body_copied": true,
-      "body_digest": "sha256:273d7c6a187f2732d8a7ff7e39fc5fdeb2f6fea55e6bab7a6dbd56b106f82e85",
+      "body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
           "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
         ],
-        "source_body_digest": "sha256:273d7c6a187f2732d8a7ff7e39fc5fdeb2f6fea55e6bab7a6dbd56b106f82e85",
+        "source_body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:273d7c6a187f2732d8a7ff7e39fc5fdeb2f6fea55e6bab7a6dbd56b106f82e85",
+        "target_body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified",
-        "target_line_count": 1004,
+        "target_line_count": 1281,
         "source_ref": "tools/finance/build_eval_operating_picture.py",
-        "source_line_count": 1004
+        "source_line_count": 1281
       },
       "body_in_receipt": false,
       "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
@@ -1424,7 +1424,7 @@
         "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine"
       ],
-      "body_line_count": 1004
+      "body_line_count": 1281
     },
     {
       "applied_edits": [

@@ -71,9 +71,11 @@ and workingness route, not the first screen.
 reader branches after the shared `microcosm tour --card <project>` card:
 
 - Safety/evals engineer: run `microcosm status --card <project>`, then
-  `microcosm authority && microcosm workingness`; read evidence classes,
-  body-import counts, authority ceilings, anti-claims, missing standards, and
-  failure modes as honesty accounting rather than maturity scores.
+  `microcosm authority --card && microcosm workingness --card`; read evidence
+  classes, body-import counts, authority ceilings, anti-claims, missing
+  standards, and failure modes as honesty accounting rather than maturity
+  scores. Open full `microcosm authority` or `microcosm workingness` only as
+  drilldowns after the card path is clear.
 - Hiring reviewer: run `microcosm legibility-scorecard`, then
   `microcosm tour --card <project>`; read question-to-command mapping,
   endpoint parity, local behavior, and explicit no-release/no-reader-success

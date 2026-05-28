@@ -1829,7 +1829,7 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
         {
             "reader_id": "safety_evals_engineer",
             "first_screen_command": "microcosm status --card <project>",
-            "next_command": "microcosm authority && microcosm workingness",
+            "next_command": "microcosm authority --card && microcosm workingness --card",
             "evidence_focus": "evidence_class, body_import_floor, authority ceilings, failure gaps",
             "anti_misread": "body-import counts are accounting, not maturity scores",
         },
@@ -1941,7 +1941,7 @@ def _cold_reader_first_screen_card(
             {
                 "step_id": "inspect_status_and_workingness",
                 "command": (
-                    "microcosm status --card <project> && microcosm workingness"
+                    "microcosm status --card <project> && microcosm workingness --card"
                 ),
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
@@ -1952,7 +1952,7 @@ def _cold_reader_first_screen_card(
                 ],
                 "status_card_command": "microcosm status --card <project>",
                 "status_card_endpoint": "/project/status",
-                "workingness_command": "microcosm workingness",
+                "workingness_command": "microcosm workingness --card",
                 "workingness_endpoint": "/workingness",
             },
             {
@@ -6526,7 +6526,7 @@ class RuntimeShell:
                 "card_id": "status_and_workingness",
                 "minute_budget": 0.5,
                 "command": (
-                    "microcosm status --card <project> && microcosm workingness"
+                    "microcosm status --card <project> && microcosm workingness --card"
                 ),
                 "endpoint": "/workingness",
                 "shows": [
@@ -6548,7 +6548,7 @@ class RuntimeShell:
                 "status_card_command": "microcosm status --card",
                 "project_status_card_command": "microcosm status --card <project>",
                 "status_card_endpoint": "/project/status",
-                "workingness_command": "microcosm workingness",
+                "workingness_command": "microcosm workingness --card",
                 "workingness_endpoint": "/workingness",
                 "workingness_map_ref": workingness.get("workingness_map_ref"),
                 "workingness_summary": workingness_summary,

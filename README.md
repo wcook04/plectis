@@ -34,7 +34,7 @@ for the shortest validation route.
 
 | Reader | Open next | What to check |
 |---|---|---|
-| Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority && microcosm workingness` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes. |
+| Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority --card && microcosm workingness --card` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes; open full authority/workingness only as drilldowns. |
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
 | Peer developer | `microcosm tour --card <project>`, then `microcosm observe <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`. |
 
@@ -186,9 +186,10 @@ the evidence packet. The field `front_door_status.blocking_surface_ids` names
 the blocking first-screen surfaces; inspect those exact surfaces, and do not
 treat warning drilldowns as source, release, provider, or proof authority.
 
-Use `microcosm authority` before trusting any organ label. It shows each
-organ's explicit `evidence_class`, and `accepted_current_authority` is not an
-evidence-strength claim.
+Use `microcosm authority --card` before trusting any organ label. It gives the
+compact authority ceiling first; open `microcosm authority` only when you need
+the full map. Each organ still carries an explicit `evidence_class`, and
+`accepted_current_authority` is not an evidence-strength claim.
 
 The first proof-lab route is runnable from a clean clone:
 

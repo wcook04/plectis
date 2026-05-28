@@ -124,8 +124,8 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
             "first_question": "Does the evidence discipline survive contact with scale?",
             "next_commands": [
                 f"microcosm status --card {project_label}",
-                "microcosm authority",
-                "microcosm workingness",
+                "microcosm authority --card",
+                "microcosm workingness --card",
             ],
             "evidence_focus": [
                 "evidence classes and their authority ceilings",
@@ -182,7 +182,7 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
                 "reader_route_id": "safety_evals_engineer",
                 "first_action": f"Run `microcosm status --card {project_label}`.",
                 "proof_surface": (
-                    "`microcosm authority` plus `microcosm workingness`"
+                    "`microcosm authority --card` plus `microcosm workingness --card`"
                 ),
                 "success_criterion": (
                     "Can cite the evidence-class ceilings and the body-copy validator "
@@ -246,7 +246,7 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                 ),
                 "first_action": f"Run `microcosm status --card {project_label}`.",
                 "proof_surface": (
-                    "`microcosm authority` plus `microcosm workingness`"
+                    "`microcosm authority --card` plus `microcosm workingness --card`"
                 ),
                 "exit_check": "cite evidence-class ceilings and body-copy boundaries",
                 "not_a_claim": "safety_evaluation_complete",
@@ -851,7 +851,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
             {
                 "beat_id": "open_authority_boundary",
                 "timebox_seconds": 10,
-                "visible_surface": "microcosm authority && microcosm workingness",
+                "visible_surface": "microcosm authority --card && microcosm workingness --card",
                 "reader_takeaway": "authority ceilings and failure envelopes stay visible",
                 "proof_ref": WORKINGNESS_MAP_REF,
             },
@@ -3237,7 +3237,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             "-> /project/first-screen -> /project/observatory-card; artifact fit: "
             "terminal/README/browser/JSON/video project this card; problem map binds the gaps."
         ),
-        "  authority/workingness: microcosm authority / microcosm workingness",
+        "  authority/workingness: microcosm authority --card / microcosm workingness --card",
         f"  route/contract: paper_modules/cold_reader_route_map.md / {payload['source_standard_ref']}",
         "",
         "Authority ceiling: No release, hosted publication, provider-call, source-mutation, private-equivalence, score-progress, or whole-system-correctness authority.",

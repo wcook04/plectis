@@ -157,7 +157,8 @@ of those existing lanes can carry the pressure without distortion.
    proof-authority, secret-export, or financial-advice authority.
    Reader-typed branches live in
    `atlas/entry_packet.json::reader_first_screen_routes`: safety/evals
-   readers go from the shared local card to status/authority/workingness,
+   readers go from the shared local card to status, authority card, and
+   workingness card,
    hiring reviewers go to the legibility scorecard plus the local card, and
    peer developers go to the local card plus `microcosm observe <project>`.
    Those branches route attention; they do not create release, proof,
@@ -222,7 +223,9 @@ of those existing lanes can carry the pressure without distortion.
    `voice-to-doctrine-self-improvement-loop` when a Microcosm pass needs to
    prove it imported the macro system's learning loop instead of only adding
    pattern receipts.
-   The authority loop is `microcosm authority`; it should aggregate status,
+   Authority ceiling: start with `microcosm authority --card` for the compact
+   public ceiling, then open `microcosm authority` only when a claim needs the
+   full map. The authority loop should aggregate status,
    spine, intake, reveal, accepted organs, hard public boundaries, safe
    local-only exceptions, evidence refs, `evidence_class` rows, and anti-claims
    into one source-open authority map. `accepted_current_authority` is not an
