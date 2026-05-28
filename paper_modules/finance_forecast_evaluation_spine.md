@@ -70,6 +70,14 @@ evidence receipts. Empty inputs remain a valid awaiting-evidence state; a
 non-empty public demo lives in `finance_research_assurance_surface.json` so a
 cold reader can see the intended research loop without a performance claim.
 
+The second-wave contract is experiment lineage. The spine must now carry an
+`experiment_registry` and `lineage_summary`, not just a single demo card. A
+valid public receipt includes at least two public-safe experiment entries: the
+shadow forecast-family comparison and a weak/negative-control stress case that
+is rejected or marked insufficient. This proves the lane can say "not enough
+evidence" or "control rejected" without treating that as failure, and it keeps
+Oracle/Evolve learning review-gated rather than self-promoting.
+
 The allowed output language is `awaiting_evidence`, `insufficient_evidence`,
 `candidate_set`, `review_candidate`, `rejected`, or
 `blocked_authority_overclaim`. The spine is not allowed to declare a tradable

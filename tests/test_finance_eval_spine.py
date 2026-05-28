@@ -89,6 +89,14 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert quant["review_gated"] is True
     assert quant["auto_apply_allowed"] is False
     assert quant["no_advice_enabled"] is True
+    assert quant["registry_count"] == 2
+    assert quant["negative_control_count"] == 1
+    assert quant["negative_or_insufficient_count"] == 2
+    assert quant["lineage_status"] == "stress_validated_public_demo"
+    assert quant["output_state_counts"] == {
+        "insufficient_evidence": 1,
+        "rejected": 1,
+    }
     assert result["operating_picture_gate_summary"]["comparison_key_authority"] == (
         "tools/finance/event_keys.py"
     )
@@ -99,6 +107,14 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert operating_quant["review_gated"] is True
     assert operating_quant["auto_apply_allowed"] is False
     assert operating_quant["no_advice_enabled"] is True
+    assert operating_quant["registry_count"] == 2
+    assert operating_quant["negative_control_count"] == 1
+    assert operating_quant["negative_or_insufficient_count"] == 1
+    assert operating_quant["lineage_status"] == "stress_validated_public_demo"
+    assert operating_quant["output_state_counts"] == {
+        "awaiting_evidence": 1,
+        "rejected": 1,
+    }
     assert all(
         row["observed"] is False
         for row in result["operating_picture_gate_summary"]["false_gate_rows"]
@@ -183,6 +199,8 @@ def test_finance_eval_spine_rejects_quant_research_advice_or_auto_apply(tmp_path
     quant = assurance["quant_research_experiment_spine"]
     quant["model_comparison_discipline"]["winner_language_allowed"] = True
     quant["oracle_evolve_bridge"]["auto_apply_allowed"] = True
+    quant["experiment_registry"][0]["model_comparison"]["winner_language_allowed"] = True
+    quant["experiment_registry"][1]["oracle_evolve_implication"]["auto_apply_allowed"] = True
     assurance_path.write_text(
         json.dumps(assurance, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -192,6 +210,31 @@ def test_finance_eval_spine_rejects_quant_research_advice_or_auto_apply(tmp_path
 
     assert result["status"] == "blocked"
     assert "QUANT_RESEARCH_SPINE_INCOMPLETE" in result["error_codes"]
+    assert "QUANT_RESEARCH_LINEAGE_INCOMPLETE" in result["error_codes"]
+
+
+def test_finance_eval_spine_rejects_single_quant_demo_without_stress_case(
+    tmp_path: Path,
+) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    assurance_path = bundle / "finance_research_assurance_surface.json"
+    assurance = json.loads(assurance_path.read_text(encoding="utf-8"))
+    quant = assurance["quant_research_experiment_spine"]
+    quant["experiment_registry"] = quant["experiment_registry"][:1]
+    quant["lineage_summary"]["registry_count"] = 1
+    quant["lineage_summary"]["negative_control_count"] = 0
+    quant["lineage_summary"]["negative_or_insufficient_count"] = 1
+    quant["lineage_summary"]["lineage_status"] = "single_demo_only"
+    assurance_path.write_text(
+        json.dumps(assurance, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "QUANT_RESEARCH_LINEAGE_INCOMPLETE" in result["error_codes"]
 
 
 def test_cli_finance_eval_spine_smoke(

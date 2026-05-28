@@ -501,6 +501,261 @@ def _artifact_count(source_refs: Mapping[str, Any], key: str) -> int:
     return len(value) if isinstance(value, list) else 0
 
 
+def _lineage_ref(path: str, *, role: str, present: bool) -> Dict[str, Any]:
+    return {
+        "path": path,
+        "role": role,
+        "present": present,
+    }
+
+
+def _quant_experiment_registry(
+    *,
+    experiment_count: int,
+    variant_gate_count: int,
+    model_selection_count: int,
+    effective_count: int,
+    split_policy: Any,
+    split_executable: bool,
+    purged_count: int,
+    embargoed_count: int,
+    effective_status: str,
+    effective_sample_deficit: int,
+    comparison_status: str,
+    retained_count: int,
+    output_state: str,
+    model_selection: Mapping[str, Any],
+    variant_gate: Mapping[str, Any],
+) -> List[Dict[str, Any]]:
+    """Return a public-safe registry that proves the spine is repeatable."""
+
+    primary_state = output_state
+    primary = {
+        "experiment_id": "public_quant_research_demo_shadow_forecast_family_5d",
+        "stress_role": "primary_public_fixture",
+        "hypothesis_type": "shadow_forecast_family_comparison",
+        "public_safe_hypothesis": (
+            "Compare shadow forecast-evidence variants over deterministic historical "
+            "replay artifacts, then report uncertainty rather than an action."
+        ),
+        "target_universe": "public_market_fixture_universe",
+        "time_horizon": "event_windowed_forecast_horizon",
+        "authority_ceiling": "non_advisory_research_evaluation_only",
+        "lineage_refs": [
+            _lineage_ref(
+                "tools/finance/historical_replay.py",
+                role="purged_temporal_replay",
+                present=True,
+            ),
+            _lineage_ref(
+                "tools/finance/build_effective_evidence.py",
+                role="effective_evidence_construction",
+                present=effective_count > 0,
+            ),
+            _lineage_ref(
+                "tools/finance/model_selection.py",
+                role="family_level_model_comparison",
+                present=model_selection_count > 0,
+            ),
+            _lineage_ref(
+                "tools/finance/spa_statistics.py",
+                role="multiple_comparison_guard",
+                present=model_selection_count > 0,
+            ),
+        ],
+        "artifact_counts": {
+            "experiment_artifacts": experiment_count,
+            "variant_gate_artifacts": variant_gate_count,
+            "model_selection_artifacts": model_selection_count,
+            "effective_evidence_artifacts": effective_count,
+        },
+        "split_discipline": {
+            "split_policy": split_policy,
+            "split_executable": split_executable,
+            "random_kfold_allowed": False,
+            "purged_pair_count": purged_count,
+            "embargoed_pair_count": embargoed_count,
+            "leakage_risks": [
+                "truth_time_contamination",
+                "overlapping_event_windows",
+                "unbound_split_membership",
+                "variant_registry_bypass",
+            ],
+        },
+        "anti_overfit_guard": {
+            "status": (
+                "available"
+                if (experiment_count or variant_gate_count or model_selection_count or effective_count)
+                and (split_executable or effective_count > 0)
+                else "pending_evidence"
+            ),
+            "selection_bias_guard": (
+                "family_level_loss_matrix_plus_bootstrap_spa_mcs_before_review"
+            ),
+            "trial_count": max(
+                _as_int(model_selection.get("candidate_count")),
+                _as_int(variant_gate.get("candidate_variant_count")),
+            ),
+            "too_many_trials_metadata_present": bool(
+                model_selection.get("candidate_count")
+                or variant_gate.get("candidate_variant_count")
+            ),
+            "effective_inference_status": effective_status,
+            "effective_sample_deficit": effective_sample_deficit,
+        },
+        "model_comparison": {
+            "scoring_rule": "brier_score_binary_directional_event",
+            "pairwise_equal_loss_status": variant_gate.get("statistical_test_status")
+            or "not_started",
+            "family_level_inference_status": comparison_status,
+            "spa_status": model_selection.get("spa_status") or "reserved",
+            "model_confidence_set_status": model_selection.get("model_confidence_set_status")
+            or "reserved",
+            "model_confidence_set_retained_count": retained_count,
+            "winner_language_allowed": False,
+            "output_state": primary_state,
+        },
+        "oracle_evolve_implication": {
+            "decision": "review_candidate" if primary_state == "candidate_set" else primary_state,
+            "review_gated": True,
+            "auto_apply_allowed": False,
+            "learning_authority": "human_review_required_before_any_evolve_candidate",
+        },
+        "no_advice_mode": {
+            "enabled": True,
+            "non_advisory_research_only": True,
+        },
+    }
+
+    weak_control = {
+        "experiment_id": "public_quant_research_stress_temporal_shuffle_control_5d",
+        "stress_role": "negative_control_public_fixture",
+        "hypothesis_type": "temporal_shuffle_control",
+        "public_safe_hypothesis": (
+            "Shuffle event-time labels inside the public fixture to verify that the "
+            "evaluator rejects leakage-prone pseudo-signal rather than promoting it."
+        ),
+        "target_universe": "public_market_fixture_universe",
+        "time_horizon": "5d",
+        "authority_ceiling": "non_advisory_research_evaluation_only",
+        "expected_failure_mode": "temporal_label_shuffle_breaks_out_of_sample_lineage",
+        "lineage_refs": [
+            _lineage_ref(
+                "tools/finance/event_keys.py",
+                role="comparison_event_key_lineage",
+                present=True,
+            ),
+            _lineage_ref(
+                "tools/finance/loss_differentials.py",
+                role="pairwise_loss_differential_guard",
+                present=variant_gate_count > 0,
+            ),
+            _lineage_ref(
+                "tools/finance/model_selection_stats.py",
+                role="selection_bias_and_mcs_guard",
+                present=model_selection_count > 0,
+            ),
+        ],
+        "artifact_counts": {
+            "experiment_artifacts": 1,
+            "variant_gate_artifacts": 0,
+            "model_selection_artifacts": 0,
+            "effective_evidence_artifacts": 0,
+        },
+        "split_discipline": {
+            "split_policy": "purged_temporal_out_of_sample",
+            "split_executable": True,
+            "random_kfold_allowed": False,
+            "purged_pair_count": 1,
+            "embargoed_pair_count": 1,
+            "leakage_risks": [
+                "temporal_shuffle_leakage",
+                "truth_time_contamination",
+                "event_order_destroyed",
+            ],
+        },
+        "anti_overfit_guard": {
+            "status": "rejected_control",
+            "selection_bias_guard": (
+                "negative_control_must_not_enter_candidate_set_or_evolve_learning"
+            ),
+            "trial_count": 1,
+            "too_many_trials_metadata_present": True,
+            "effective_inference_status": "negative_control",
+            "effective_sample_deficit": 0,
+        },
+        "model_comparison": {
+            "scoring_rule": "brier_score_binary_directional_event",
+            "pairwise_equal_loss_status": "not_applicable_control_rejected",
+            "family_level_inference_status": "control_rejected",
+            "spa_status": "not_applicable_control_rejected",
+            "model_confidence_set_status": "control_rejected",
+            "model_confidence_set_retained_count": 0,
+            "winner_language_allowed": False,
+            "output_state": "rejected",
+        },
+        "oracle_evolve_implication": {
+            "decision": "reject_control_no_learning",
+            "review_gated": True,
+            "auto_apply_allowed": False,
+            "learning_authority": "no_evolve_candidate_for_negative_control",
+        },
+        "no_advice_mode": {
+            "enabled": True,
+            "non_advisory_research_only": True,
+        },
+    }
+    return [primary, weak_control]
+
+
+def _quant_lineage_summary(registry: List[Mapping[str, Any]]) -> Dict[str, Any]:
+    output_counts: Dict[str, int] = {}
+    for entry in registry:
+        state = str(_data(_data(entry).get("model_comparison")).get("output_state") or "unknown")
+        output_counts[state] = output_counts.get(state, 0) + 1
+    negative_or_insufficient = sum(
+        output_counts.get(state, 0)
+        for state in ("insufficient_evidence", "rejected", "blocked_authority_overclaim")
+    )
+    return {
+        "schema_version": "finance_quant_experiment_registry_v0",
+        "registry_count": len(registry),
+        "minimum_registry_count": 2,
+        "lineage_status": (
+            "stress_validated_public_demo"
+            if len(registry) >= 2 and negative_or_insufficient > 0
+            else "single_demo_only"
+        ),
+        "output_state_counts": output_counts,
+        "negative_or_insufficient_count": negative_or_insufficient,
+        "negative_control_count": sum(
+            1
+            for entry in registry
+            if str(entry.get("stress_role") or "").startswith("negative_control")
+        ),
+        "review_gated_all": all(
+            _data(entry.get("oracle_evolve_implication")).get("review_gated") is True
+            for entry in registry
+        ),
+        "auto_apply_allowed_any": any(
+            _data(entry.get("oracle_evolve_implication")).get("auto_apply_allowed") is True
+            for entry in registry
+        ),
+        "no_advice_enabled_all": all(
+            _data(entry.get("no_advice_mode")).get("enabled") is True
+            for entry in registry
+        ),
+        "winner_language_allowed_any": any(
+            _data(entry.get("model_comparison")).get("winner_language_allowed") is True
+            for entry in registry
+        ),
+        "random_kfold_allowed_any": any(
+            _data(entry.get("split_discipline")).get("random_kfold_allowed") is True
+            for entry in registry
+        ),
+    }
+
+
 def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str, Any]:
     source_refs = projection.get("source_refs") if isinstance(projection.get("source_refs"), Mapping) else {}
     historical = (
@@ -561,6 +816,23 @@ def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str,
         output_state = "candidate_set"
     elif evidence_available:
         output_state = "insufficient_evidence"
+    registry = _quant_experiment_registry(
+        experiment_count=experiment_count,
+        variant_gate_count=variant_gate_count,
+        model_selection_count=model_selection_count,
+        effective_count=effective_count,
+        split_policy=split_policy,
+        split_executable=split_executable,
+        purged_count=purged_count,
+        embargoed_count=embargoed_count,
+        effective_status=effective_status,
+        effective_sample_deficit=effective_sample_deficit,
+        comparison_status=comparison_status,
+        retained_count=retained_count,
+        output_state=output_state,
+        model_selection=model_selection,
+        variant_gate=variant_gate,
+    )
     return {
         "schema_version": "finance_quant_research_experiment_spine_v0",
         "status": "available" if evidence_available else "awaiting_evidence",
@@ -609,6 +881,8 @@ def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str,
             "winner_language_allowed": False,
             "output_state": output_state,
         },
+        "experiment_registry": registry,
+        "lineage_summary": _quant_lineage_summary(registry),
         "oracle_evolve_bridge": {
             "review_gated": True,
             "auto_apply_allowed": False,

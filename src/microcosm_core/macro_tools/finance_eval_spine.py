@@ -256,6 +256,74 @@ def _get_path(payload: Mapping[str, Any], keys: Iterable[str]) -> Any:
     return current
 
 
+def _quant_registry_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
+    registry = [
+        row for row in _as_list(quant.get("experiment_registry")) if isinstance(row, Mapping)
+    ]
+    output_counts: Counter[str] = Counter()
+    negative_control_count = 0
+    registry_problem_count = 0
+    for row in registry:
+        if str(row.get("stress_role") or "").startswith("negative_control"):
+            negative_control_count += 1
+        comparison = _as_dict(row.get("model_comparison"))
+        state = str(comparison.get("output_state") or "")
+        output_counts[state] += 1
+        split = _as_dict(row.get("split_discipline"))
+        bridge = _as_dict(row.get("oracle_evolve_implication"))
+        advice = _as_dict(row.get("no_advice_mode"))
+        if (
+            not row.get("experiment_id")
+            or not row.get("public_safe_hypothesis")
+            or state not in QUANT_RESEARCH_OUTPUT_STATES
+            or comparison.get("winner_language_allowed") is not False
+            or split.get("random_kfold_allowed") is not False
+            or not split.get("split_policy")
+            or bridge.get("review_gated") is not True
+            or bridge.get("auto_apply_allowed") is not False
+            or advice.get("enabled") is not True
+            or advice.get("non_advisory_research_only") is not True
+        ):
+            registry_problem_count += 1
+    negative_or_insufficient_count = sum(
+        output_counts.get(state, 0)
+        for state in ("insufficient_evidence", "rejected", "blocked_authority_overclaim")
+    )
+    lineage = _as_dict(quant.get("lineage_summary"))
+    lineage_status = str(lineage.get("lineage_status") or "")
+    lineage_problem_count = 0
+    if lineage.get("registry_count") != len(registry):
+        lineage_problem_count += 1
+    if lineage.get("minimum_registry_count") and int(lineage.get("minimum_registry_count") or 0) > len(registry):
+        lineage_problem_count += 1
+    if lineage.get("auto_apply_allowed_any") is True:
+        lineage_problem_count += 1
+    if lineage.get("winner_language_allowed_any") is True:
+        lineage_problem_count += 1
+    if lineage.get("random_kfold_allowed_any") is True:
+        lineage_problem_count += 1
+    if lineage.get("review_gated_all") is False or lineage.get("no_advice_enabled_all") is False:
+        lineage_problem_count += 1
+    return {
+        "registry_count": len(registry),
+        "minimum_registry_count": lineage.get("minimum_registry_count"),
+        "lineage_status": lineage_status,
+        "output_state_counts": dict(output_counts),
+        "negative_control_count": negative_control_count,
+        "negative_or_insufficient_count": negative_or_insufficient_count,
+        "registry_problem_count": registry_problem_count,
+        "lineage_problem_count": lineage_problem_count,
+        "stress_validated": (
+            len(registry) >= 2
+            and negative_control_count >= 1
+            and negative_or_insufficient_count >= 1
+            and registry_problem_count == 0
+            and lineage_problem_count == 0
+            and lineage_status == "stress_validated_public_demo"
+        ),
+    }
+
+
 def _finding(
     code: str,
     message: str,
@@ -855,6 +923,7 @@ def _validate_assurance_surface(
     quant_comparison = _as_dict(quant.get("model_comparison_discipline"))
     quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
+    quant_registry = _quant_registry_summary(quant)
     quant_output_state = str(quant_comparison.get("output_state") or "")
     required_quant_markers = {
         "hypothesis_ledger": bool(quant_hypothesis.get("experiment_id"))
@@ -888,6 +957,26 @@ def _validate_assurance_surface(
                 },
             )
         )
+    if not quant_registry["stress_validated"]:
+        findings.append(
+            _finding(
+                "QUANT_RESEARCH_LINEAGE_INCOMPLETE",
+                "Finance assurance must include a reusable experiment registry with at least one negative/insufficient public-safe stress case and closed authority gates.",
+                source=f"{ASSURANCE_SURFACE_NAME}::quant_research_experiment_spine.experiment_registry",
+                expected={
+                    "minimum_registry_count": 2,
+                    "negative_control_count": 1,
+                    "negative_or_insufficient_count": 1,
+                    "lineage_status": "stress_validated_public_demo",
+                    "review_gated_all": True,
+                    "auto_apply_allowed_any": False,
+                    "winner_language_allowed_any": False,
+                    "random_kfold_allowed_any": False,
+                    "no_advice_enabled_all": True,
+                },
+                observed=quant_registry,
+            )
+        )
     return {
         "schema_version": assurance_surface.get("schema_version"),
         "surface_id": assurance_surface.get("surface_id"),
@@ -911,6 +1000,13 @@ def _validate_assurance_surface(
             "review_gated": quant_bridge.get("review_gated"),
             "auto_apply_allowed": quant_bridge.get("auto_apply_allowed"),
             "no_advice_enabled": quant_no_advice.get("enabled"),
+            "registry_count": quant_registry["registry_count"],
+            "negative_control_count": quant_registry["negative_control_count"],
+            "negative_or_insufficient_count": quant_registry[
+                "negative_or_insufficient_count"
+            ],
+            "lineage_status": quant_registry["lineage_status"],
+            "output_state_counts": quant_registry["output_state_counts"],
         },
         "body_in_receipt": False,
     }
@@ -967,6 +1063,7 @@ def _validate_operating_picture(
     quant = _as_dict(operating_picture.get("quant_research_experiment_spine"))
     quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
+    quant_registry = _quant_registry_summary(quant)
     if quant.get("schema_version") != QUANT_RESEARCH_SPINE_SCHEMA:
         findings.append(
             _finding(
@@ -997,6 +1094,21 @@ def _validate_operating_picture(
                 observed=quant_no_advice,
             )
         )
+    if not quant_registry["stress_validated"]:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_LINEAGE_INCOMPLETE",
+                "Finance eval operating picture must expose repeatable quant experiment lineage with a negative/insufficient stress case.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine.experiment_registry",
+                expected={
+                    "minimum_registry_count": 2,
+                    "negative_control_count": 1,
+                    "negative_or_insufficient_count": 1,
+                    "lineage_status": "stress_validated_public_demo",
+                },
+                observed=quant_registry,
+            )
+        )
     return {
         "schema_version": operating_picture.get("schema_version"),
         "generated_at": operating_picture.get("generated_at"),
@@ -1020,6 +1132,13 @@ def _validate_operating_picture(
             "review_gated": quant_bridge.get("review_gated"),
             "auto_apply_allowed": quant_bridge.get("auto_apply_allowed"),
             "no_advice_enabled": quant_no_advice.get("enabled"),
+            "registry_count": quant_registry["registry_count"],
+            "negative_control_count": quant_registry["negative_control_count"],
+            "negative_or_insufficient_count": quant_registry[
+                "negative_or_insufficient_count"
+            ],
+            "lineage_status": quant_registry["lineage_status"],
+            "output_state_counts": quant_registry["output_state_counts"],
         },
         "body_in_receipt": False,
     }

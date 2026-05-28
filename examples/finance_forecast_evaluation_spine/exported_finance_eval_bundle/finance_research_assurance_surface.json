@@ -59,10 +59,10 @@
       "generated_at": "2026-05-13T00:34:27+00:00",
       "ready": true,
       "run_id": "RUN_2026-05-13_01-33-40_bfa67a",
+      "staleness_days": 14,
       "status_counts": {
         "success": 7
-      },
-      "staleness_days": 14
+      }
     },
     "scheduled_shells": [
       {
@@ -135,6 +135,159 @@
       "status": "available",
       "too_many_trials_metadata_present": true
     },
+    "experiment_registry": [
+      {
+        "anti_overfit_guard": {
+          "effective_inference_status": "sample_gated",
+          "effective_sample_deficit": 29,
+          "selection_bias_guard": "family_level_loss_matrix_plus_bootstrap_spa_mcs_before_review",
+          "status": "sample_gated",
+          "too_many_trials_metadata_present": true,
+          "trial_count": 3
+        },
+        "artifact_counts": {
+          "effective_evidence_artifacts": 1,
+          "experiment_artifacts": 1,
+          "model_selection_artifacts": 1,
+          "variant_gate_artifacts": 1
+        },
+        "authority_ceiling": "non_advisory_research_evaluation_only",
+        "experiment_id": "public_quant_research_demo_shadow_forecast_family_5d",
+        "hypothesis_type": "shadow_forecast_family_comparison",
+        "lineage_refs": [
+          {
+            "path": "tools/finance/historical_replay.py",
+            "present": true,
+            "role": "purged_temporal_replay"
+          },
+          {
+            "path": "tools/finance/build_effective_evidence.py",
+            "present": true,
+            "role": "effective_evidence_construction"
+          },
+          {
+            "path": "tools/finance/model_selection.py",
+            "present": true,
+            "role": "family_level_model_comparison"
+          },
+          {
+            "path": "tools/finance/spa_statistics.py",
+            "present": true,
+            "role": "multiple_comparison_guard"
+          }
+        ],
+        "model_comparison": {
+          "family_level_inference_status": "sample_gated",
+          "model_confidence_set_retained_count": 0,
+          "model_confidence_set_status": "sample_gated_demo",
+          "output_state": "insufficient_evidence",
+          "pairwise_equal_loss_status": "minimum_sample_not_met",
+          "scoring_rule": "brier_score_binary_directional_event",
+          "spa_status": "sample_gated_demo",
+          "winner_language_allowed": false
+        },
+        "no_advice_mode": {
+          "enabled": true,
+          "non_advisory_research_only": true
+        },
+        "oracle_evolve_implication": {
+          "auto_apply_allowed": false,
+          "decision": "hold_for_review_until_sufficient_evidence",
+          "learning_authority": "human_review_required_before_any_evolve_candidate",
+          "review_gated": true
+        },
+        "public_safe_hypothesis": "Compare baseline and shadow forecast-evidence variants on deterministic public fixtures, then report uncertainty and data deficits instead of an action.",
+        "split_discipline": {
+          "embargoed_pair_count": 4,
+          "leakage_risks": [
+            "truth_time_contamination",
+            "overlapping_event_windows",
+            "unbound_split_membership",
+            "variant_registry_bypass"
+          ],
+          "purged_pair_count": 4,
+          "random_kfold_allowed": false,
+          "split_executable": true,
+          "split_policy": "purged_temporal_out_of_sample"
+        },
+        "stress_role": "primary_public_fixture",
+        "target_universe": "public_fixture_us_large_cap_macro_cross_asset",
+        "time_horizon": "5d"
+      },
+      {
+        "anti_overfit_guard": {
+          "effective_inference_status": "negative_control",
+          "effective_sample_deficit": 0,
+          "selection_bias_guard": "negative_control_must_not_enter_candidate_set_or_evolve_learning",
+          "status": "rejected_control",
+          "too_many_trials_metadata_present": true,
+          "trial_count": 1
+        },
+        "artifact_counts": {
+          "effective_evidence_artifacts": 0,
+          "experiment_artifacts": 1,
+          "model_selection_artifacts": 0,
+          "variant_gate_artifacts": 0
+        },
+        "authority_ceiling": "non_advisory_research_evaluation_only",
+        "expected_failure_mode": "temporal_label_shuffle_breaks_out_of_sample_lineage",
+        "experiment_id": "public_quant_research_stress_temporal_shuffle_control_5d",
+        "hypothesis_type": "temporal_shuffle_control",
+        "lineage_refs": [
+          {
+            "path": "tools/finance/event_keys.py",
+            "present": true,
+            "role": "comparison_event_key_lineage"
+          },
+          {
+            "path": "tools/finance/loss_differentials.py",
+            "present": true,
+            "role": "pairwise_loss_differential_guard"
+          },
+          {
+            "path": "tools/finance/model_selection_stats.py",
+            "present": true,
+            "role": "selection_bias_and_mcs_guard"
+          }
+        ],
+        "model_comparison": {
+          "family_level_inference_status": "control_rejected",
+          "model_confidence_set_retained_count": 0,
+          "model_confidence_set_status": "control_rejected",
+          "output_state": "rejected",
+          "pairwise_equal_loss_status": "not_applicable_control_rejected",
+          "scoring_rule": "brier_score_binary_directional_event",
+          "spa_status": "not_applicable_control_rejected",
+          "winner_language_allowed": false
+        },
+        "no_advice_mode": {
+          "enabled": true,
+          "non_advisory_research_only": true
+        },
+        "oracle_evolve_implication": {
+          "auto_apply_allowed": false,
+          "decision": "reject_control_no_learning",
+          "learning_authority": "no_evolve_candidate_for_negative_control",
+          "review_gated": true
+        },
+        "public_safe_hypothesis": "Shuffle event-time labels inside the public fixture to verify that the evaluator rejects leakage-prone pseudo-signal rather than promoting it.",
+        "split_discipline": {
+          "embargoed_pair_count": 1,
+          "leakage_risks": [
+            "temporal_shuffle_leakage",
+            "truth_time_contamination",
+            "event_order_destroyed"
+          ],
+          "purged_pair_count": 1,
+          "random_kfold_allowed": false,
+          "split_executable": true,
+          "split_policy": "purged_temporal_out_of_sample"
+        },
+        "stress_role": "negative_control_public_fixture",
+        "target_universe": "public_fixture_us_large_cap_macro_cross_asset",
+        "time_horizon": "5d"
+      }
+    ],
     "hypothesis_ledger": {
       "authority_ceiling": "non_advisory_research_evaluation_only",
       "evidence_sources": [
@@ -169,6 +322,23 @@
       "public_safe_hypothesis": "Compare baseline and shadow forecast-evidence variants on deterministic public fixtures, then report uncertainty and data deficits instead of an action.",
       "target_universe": "public_fixture_us_large_cap_macro_cross_asset"
     },
+    "lineage_summary": {
+      "auto_apply_allowed_any": false,
+      "lineage_status": "stress_validated_public_demo",
+      "minimum_registry_count": 2,
+      "negative_control_count": 1,
+      "negative_or_insufficient_count": 2,
+      "no_advice_enabled_all": true,
+      "output_state_counts": {
+        "insufficient_evidence": 1,
+        "rejected": 1
+      },
+      "random_kfold_allowed_any": false,
+      "registry_count": 2,
+      "review_gated_all": true,
+      "schema_version": "finance_quant_experiment_registry_v0",
+      "winner_language_allowed_any": false
+    },
     "model_comparison_discipline": {
       "candidate_set_language": true,
       "model_confidence_set_status": "sample_gated_demo",
@@ -202,9 +372,13 @@
         "comparison_status",
         "uncertainty",
         "no_advice_mode",
-        "review_gated_evolve"
+        "review_gated_evolve",
+        "experiment_registry",
+        "lineage_refs",
+        "negative_control",
+        "rejection_or_insufficient_evidence_state"
       ],
-      "surface_state": "public_safe_demo_available"
+      "surface_state": "public_safe_registry_stress_validated"
     },
     "oracle_evolve_bridge": {
       "auto_apply_allowed": false,

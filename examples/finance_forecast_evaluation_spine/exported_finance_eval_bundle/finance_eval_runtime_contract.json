@@ -26,6 +26,7 @@
     "diagnostic_or_routing_refactor",
     "secret_exclusion"
   ],
+  "contract_id": "finance_forecast_evaluation_spine",
   "finance_research_assurance": {
     "contract_id": "finance_research_assurance_spine_v0",
     "coverage_policy": "no_silent_omissions",
@@ -78,7 +79,7 @@
         "authority_classification": "core_public_safe_evidence_body",
         "coverage_status": "imported_public_body",
         "decision": "copied_into_public_body_floor",
-        "line_count": 730,
+        "line_count": 1004,
         "public_safe": true,
         "reason": "Operating-picture builder is the current public receipt bridge.",
         "source_ref": "tools/finance/build_eval_operating_picture.py"
@@ -177,7 +178,7 @@
         "authority_classification": "operational_feed_runtime_dependency",
         "coverage_status": "operational_receipt_only",
         "decision": "represent_by_freshness_receipts_not_body_import",
-        "line_count": 417,
+        "line_count": 441,
         "public_safe": true,
         "reason": "Feed refresh touches the local server/runtime; Microcosm should expose freshness truth and receipts, not provider/runtime authority.",
         "source_ref": "tools/finance/refresh_feeds.py"
@@ -212,7 +213,6 @@
     ],
     "surface_ref": "finance_research_assurance_surface.json"
   },
-  "contract_id": "finance_forecast_evaluation_spine",
   "macro_receipt_source_ref": "state/finance_eval/views/finance_eval_operating_picture.json",
   "public_runtime_refs": [
     "source_modules/tools/finance/event_keys.py",
