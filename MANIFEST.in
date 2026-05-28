@@ -1,0 +1,36 @@
+include .gitignore
+include AGENTS.md
+include ANTI_PRINCIPLES.md
+include AXIOMS.md
+include CONSTITUTION.md
+include CONTRIBUTING.md
+include LICENSE
+include Makefile
+include PRINCIPLES.md
+include README.md
+include SECURITY.md
+include bootstrap.sh
+include pyproject.toml
+
+graft .github/workflows
+graft atlas
+graft core
+graft examples
+graft fixtures
+graft paper_modules
+graft receipts
+graft scripts
+graft skills
+graft standards
+graft tests
+
+prune .microcosm
+prune .pytest_cache
+prune .venv
+prune build
+prune dist
+prune examples/*/.microcosm
+prune examples/*/*/.microcosm
+prune microcosm-substrate
+
+global-exclude *.py[cod]

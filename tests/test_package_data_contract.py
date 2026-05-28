@@ -10,6 +10,40 @@ from microcosm_core import runtime_shell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+MANIFEST = MICROCOSM_ROOT / "MANIFEST.in"
+
+
+def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
+    lines = set(MANIFEST.read_text(encoding="utf-8").splitlines())
+
+    for required in (
+        "include AGENTS.md",
+        "include CONTRIBUTING.md",
+        "include Makefile",
+        "include SECURITY.md",
+        "include bootstrap.sh",
+        "graft .github/workflows",
+        "graft atlas",
+        "graft fixtures",
+        "graft paper_modules",
+        "graft scripts",
+        "graft skills",
+        "graft tests",
+    ):
+        assert required in lines
+
+    for forbidden in (
+        "prune .microcosm",
+        "prune .pytest_cache",
+        "prune .venv",
+        "prune build",
+        "prune dist",
+        "prune examples/*/.microcosm",
+        "prune examples/*/*/.microcosm",
+        "prune microcosm-substrate",
+        "global-exclude *.py[cod]",
+    ):
+        assert forbidden in lines
 
 
 def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
