@@ -20494,6 +20494,85 @@ class RuntimeShell:
                 if endpoint
             )
             selected_route_id = model.get("selected_route_id")
+            source_floor = (
+                model.get("source_open_body_import_floor")
+                if isinstance(model.get("source_open_body_import_floor"), dict)
+                else {}
+            )
+            state_inspection = (
+                model.get("state_inspection")
+                if isinstance(model.get("state_inspection"), dict)
+                else {}
+            )
+            authority_ceiling = (
+                status_card.get("authority_ceiling")
+                if isinstance(status_card.get("authority_ceiling"), dict)
+                else {}
+            )
+
+            def landing_value(value: Any, fallback: str = "not projected") -> str:
+                if value is None or value == "":
+                    return fallback
+                return str(value)
+
+            class_counts = source_floor.get("public_safe_body_material_counts_by_class")
+            if isinstance(class_counts, dict) and class_counts:
+                class_summary = ", ".join(
+                    f"{key}: {class_counts[key]}" for key in sorted(class_counts)
+                )
+            else:
+                class_summary = "class counts available in /project/status"
+            state_refs = state_inspection.get("existing_state_refs")
+            state_ref_count = len(state_refs) if isinstance(state_refs, list) else 0
+            authority_summary = (
+                "release="
+                f"{landing_value(authority_ceiling.get('release_authorized'), 'false')}; "
+                "providers="
+                f"{landing_value(authority_ceiling.get('provider_calls_authorized'), 'false')}; "
+                "source mutation="
+                f"{landing_value(authority_ceiling.get('source_mutation_authorized'), 'false')}"
+            )
+            scale_cards = [
+                {
+                    "title": "Local demo",
+                    "body": "Runs against your folder and exposes .microcosm state refs before receipt drilldowns.",
+                    "proof": (
+                        f"{landing_value(state_inspection.get('status'))}; "
+                        f"{state_ref_count} state refs"
+                    ),
+                    "endpoint": "/project/observatory-card",
+                },
+                {
+                    "title": "Structural scale",
+                    "body": "The same page points past the demo into route, graph, Python lens, and source-open body floor.",
+                    "proof": (
+                        f"{landing_value(source_floor.get('public_safe_body_material_count'), '0')} "
+                        "public-safe body materials"
+                    ),
+                    "endpoint": "/project/status",
+                },
+                {
+                    "title": "Evidence floor",
+                    "body": "Counts are accounting fields, not maturity scores or release claims.",
+                    "proof": class_summary,
+                    "endpoint": "/project/evidence",
+                },
+                {
+                    "title": "Authority boundary",
+                    "body": "The local run proves inspectability; it does not claim release or private-root equivalence.",
+                    "proof": authority_summary,
+                    "endpoint": "/authority",
+                },
+            ]
+            scale_card_items = "\n".join(
+                "<article class=\"scale-card\">"
+                f"<h3>{html.escape(item['title'])}</h3>"
+                f"<p>{html.escape(item['body'])}</p>"
+                f"<strong>{html.escape(item['proof'])}</strong>"
+                f"<code>{html.escape(item['endpoint'])}</code>"
+                "</article>"
+                for item in scale_cards
+            )
             body = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -20507,6 +20586,10 @@ class RuntimeShell:
     code {{ background: #eef2ff; color: #111827; padding: 0.1rem 0.25rem; border-radius: 4px; }}
     .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }}
     .panel {{ background: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }}
+    .scale-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0; }}
+    .scale-card {{ background: #ffffff; border: 1px solid #d1d5db; border-left: 4px solid #2563eb; border-radius: 8px; padding: 1rem; }}
+    .scale-card h3 {{ margin: 0 0 0.5rem; }}
+    .scale-card strong {{ display: block; margin: 0.65rem 0; overflow-wrap: anywhere; }}
   </style>
 </head>
 <body>
@@ -20531,6 +20614,10 @@ class RuntimeShell:
         <p>Status: <code>{html.escape(str(card.get("status")))}</code></p>
         <p>Full model: <a href="/project/observatory">/project/observatory</a></p>
       </div>
+    </section>
+    <section>
+      <h2>Demo To Scale</h2>
+      <div class="scale-grid">{scale_card_items}</div>
     </section>
     <section>
       <h2>JSON Drilldowns</h2>

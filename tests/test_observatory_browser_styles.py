@@ -41,4 +41,9 @@ def test_observatory_landing_declares_explicit_theme_contract(tmp_path: Path) ->
     assert "background: #f8fafc" in html
     assert "color: #111827" in html
     assert ".panel { background: #ffffff" in html
+    assert "Demo To Scale" in html
+    assert "Local demo" in html
+    assert "Structural scale" in html
+    assert "Evidence floor" in html
+    assert "Authority boundary" in html
     assert "a { color: #1d4ed8; }" in html
