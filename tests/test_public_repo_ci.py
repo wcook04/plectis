@@ -10,6 +10,14 @@ CI_WORKFLOW = MICROCOSM_ROOT / ".github/workflows/ci.yml"
 PYPROJECT = MICROCOSM_ROOT / "pyproject.toml"
 
 
+def _setuptools_floor(build_requires: list[str]) -> tuple[int, ...]:
+    for requirement in build_requires:
+        match = re.match(r"setuptools\s*>=\s*([0-9]+(?:\.[0-9]+)*)", requirement, re.I)
+        if match:
+            return tuple(int(part) for part in match.group(1).split("."))
+    raise AssertionError("build-system.requires must declare a setuptools lower bound")
+
+
 def _ci_python_versions(workflow: str) -> tuple[str, ...]:
     match = re.search(r"python-version:\s*\[([^\]]+)\]", workflow)
     assert match, "CI workflow must declare an inline python-version matrix"
@@ -65,6 +73,19 @@ def test_pyproject_python_classifiers_match_ci_matrix() -> None:
     assert python_classifiers == matrix_versions
     for version in matrix_versions:
         assert f"Programming Language :: Python :: {version}" in classifiers
+
+
+def test_pyproject_license_metadata_matches_declared_build_backend_floor() -> None:
+    pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+
+    assert pyproject["build-system"]["build-backend"] == "setuptools.build_meta"
+    assert _setuptools_floor(pyproject["build-system"]["requires"]) >= (77, 0, 3)
+    assert pyproject["project"]["license"] == "Apache-2.0"
+    assert pyproject["project"]["license-files"] == ["LICENSE"]
+    assert (
+        "License :: OSI Approved :: Apache Software License"
+        not in pyproject["project"]["classifiers"]
+    )
 
 
 def test_pyproject_urls_point_to_current_public_repository() -> None:
