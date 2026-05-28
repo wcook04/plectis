@@ -257,15 +257,15 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
                 continue
             rel = name if rel_dir == "." else f"{rel_dir}/{name}"
             rel = rel.replace(os.sep, "/")
-        rows.append(
-            {
-                "path": rel,
-                "name": name,
-                "suffix": Path(name).suffix,
-                "role": _classify_file(rel, Path(rel)),
-                "bytes": size,
-            }
-        )
+            rows.append(
+                {
+                    "path": rel,
+                    "name": name,
+                    "suffix": Path(name).suffix,
+                    "role": _classify_file(rel, Path(rel)),
+                    "bytes": size,
+                }
+            )
     return rows
 
 
