@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import shutil
 import shlex
 from pathlib import Path
 from typing import Any
@@ -24,6 +26,26 @@ PATTERN_RECEIPTS = [
     "receipts/first_wave/pattern_binding_contract/reference_capsule_resolver_receipt.json",
     "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json",
 ]
+
+
+def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
+    for receipt_ref in PATTERN_RECEIPTS:
+        destination = root_path / receipt_ref
+        if destination.exists():
+            continue
+        source = source_dir / Path(receipt_ref).name
+        if not source.is_file():
+            continue
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, destination)
+        if destination.name == "pattern_binding_validation_result.json":
+            payload = json.loads(destination.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                payload["receipt_paths"] = PATTERN_RECEIPTS
+                destination.write_text(
+                    json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
 
 
 def _bootstrap_command(suite: str, emit_ref: str) -> str:
@@ -79,11 +101,13 @@ def run_probe(
         )
         return receipt
 
+    pattern_out = root_path / ".microcosm/cold_clone_probe/pattern_binding_contract"
     pattern_result = validate_pattern_binding(
         root_path / "fixtures/first_wave/pattern_binding_contract/input",
-        root_path / "receipts/first_wave/pattern_binding_contract",
+        pattern_out,
         command="bootstrap pattern_binding_contract validate",
     )
+    _mirror_missing_pattern_receipts(root_path, pattern_out)
     missing_receipts = [path for path in PATTERN_RECEIPTS if not (root_path / path).is_file()]
     if pattern_result["status"] != "pass" or missing_receipts:
         receipt.update(
