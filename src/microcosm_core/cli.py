@@ -336,6 +336,46 @@ def _print_json(payload: dict) -> int:
     return 0 if payload.get("status") == "pass" else 1
 
 
+def _project_evidence_state_boundary(project_arg: str) -> dict | None:
+    project = Path(project_arg).expanduser()
+    if not project.exists():
+        return {
+            "schema_version": "microcosm_project_evidence_state_boundary_v1",
+            "status": "missing_project",
+            "project_id": project.name or project_arg,
+            "project_ref": project_arg,
+            "state_ref": ".microcosm",
+            "state_dir_exists": False,
+            "evidence_count": 0,
+            "evidence": [],
+            "release_authorized": False,
+            "receipts_are_drilldown_evidence": True,
+            "reader_action": (
+                "Pass an existing project path, then run microcosm tour --card "
+                "<project> before evidence drilldown."
+            ),
+        }
+    state_dir = project / ".microcosm"
+    if not state_dir.is_dir():
+        return {
+            "schema_version": "microcosm_project_evidence_state_boundary_v1",
+            "status": "missing_state",
+            "project_id": project.name or project_arg,
+            "project_ref": project_arg,
+            "state_ref": ".microcosm",
+            "state_dir_exists": False,
+            "evidence_count": 0,
+            "evidence": [],
+            "release_authorized": False,
+            "receipts_are_drilldown_evidence": True,
+            "reader_action": (
+                "Run microcosm tour --card <project> to create .microcosm "
+                "state before evidence drilldown."
+            ),
+        }
+    return None
+
+
 def _proof_lab_first_screen_boundary() -> dict:
     return {
         "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
@@ -1778,12 +1818,18 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "evidence":
         if args.evidence_command == "list":
             if args.project:
+                boundary = _project_evidence_state_boundary(args.project)
+                if boundary is not None:
+                    return _print_json(boundary)
                 return project_substrate.main(["evidence", "list", args.project])
             return _print_json(
                 runtime_evidence_index.list_runtime_evidence(MICROCOSM_ROOT)
             )
         if args.evidence_command == "inspect":
             if args.project:
+                boundary = _project_evidence_state_boundary(args.project)
+                if boundary is not None:
+                    return _print_json({**boundary, "evidence_ref": args.receipt_ref})
                 return project_substrate.main(["evidence", "inspect", args.project, args.receipt_ref])
             return runtime_shell.main(["evidence", "inspect", args.receipt_ref])
     if args.command == "private-state-scan":
