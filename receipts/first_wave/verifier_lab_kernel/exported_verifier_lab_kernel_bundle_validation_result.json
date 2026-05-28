@@ -124,13 +124,13 @@
       "receipts/first_wave/verifier_lab_kernel/components/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
     ],
     "lean_std_premise_index": [
-      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
+      "receipts/first_wave/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
     ],
     "proof_diagnostic_evidence_spine": [
       "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
     ],
     "ring2_premise_retrieval_precision_recall_harness": [
-      "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+      "receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
     ],
     "tactic_portfolio_availability_probe": [
       "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle_validation_result.json"
@@ -164,7 +164,7 @@
       "verifier_rerun_ref": "receipts/runtime_shell/demo_project/organs/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle_validation_result.json"
     }
   ],
-  "created_at": "2026-05-28T07:44:20+00:00",
+  "created_at": "2026-05-28T13:52:04+00:00",
   "error_codes": [],
   "evolve_candidates": [
     {
@@ -207,8 +207,8 @@
     "cache_policy": "same_command_and_receipt_newer_than_inputs_and_sources",
     "command": "microcosm proof-lab --out receipts/first_wave/verifier_lab_kernel",
     "input_mode": "exported_verifier_lab_kernel_bundle",
-    "latest_dependency_mtime_ns": 1779953588121827199,
-    "receipt_mtime_ns": 1779836346218578812,
+    "latest_dependency_mtime_ns": 1779959250490061814,
+    "receipt_mtime_ns": 1779954260239335626,
     "schema_version": "verifier_lab_kernel_fresh_receipt_basis_v1",
     "tracked_dependency_count": 128
   },
@@ -387,7 +387,7 @@
   ],
   "real_runtime_receipt": true,
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
+    "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json"
   ],
   "receipt_transparency_contract": {
     "body_in_receipt": false,
@@ -465,12 +465,12 @@
     "module_count": 10,
     "modules": [
       {
-        "actual_sha256": "sha256:2983e0c97d5bbaa57a799d5a6389e5ad29fc37b95165ec1b5d9176c507e71f03",
+        "actual_sha256": "sha256:43f96d0d0b913e8066b221d50e56bd7417a616396b0118bff4d225a92f0e39da",
         "body_in_receipt": false,
-        "line_count": 2148,
+        "line_count": 2177,
         "material_class": "public_macro_tool_body",
         "module_id": "verifier_lab_kernel_source_body_import",
-        "sha256": "sha256:2983e0c97d5bbaa57a799d5a6389e5ad29fc37b95165ec1b5d9176c507e71f03",
+        "sha256": "sha256:43f96d0d0b913e8066b221d50e56bd7417a616396b0118bff4d225a92f0e39da",
         "source_ref": "src/microcosm_core/organs/verifier_lab_kernel.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs/verifier_lab_kernel.py"
@@ -576,12 +576,12 @@
       }
     ],
     "observed_negative_cases": {},
-    "source_module_manifest_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
+    "source_module_manifest_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
     "status": "pass"
   },
-  "source_module_manifest_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
+  "source_module_manifest_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json",
   "source_open_body_imports": {
-    "aggregate_floor_ref": "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "body_text_in_receipt": false,
       "formal_proof_authority": false,
@@ -615,7 +615,7 @@
     "schema_version": "verifier_lab_kernel_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "microcosm-substrate/examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json"
+      "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/source_module_manifest.json"
     ],
     "status": "pass"
   },

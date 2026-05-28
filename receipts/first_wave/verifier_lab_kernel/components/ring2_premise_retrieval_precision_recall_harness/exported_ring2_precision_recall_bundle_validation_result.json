@@ -86,7 +86,7 @@
     }
   ],
   "copied_source_artifact_count": 4,
-  "created_at": "2026-05-28T07:44:14+00:00",
+  "created_at": "2026-05-28T13:52:04+00:00",
   "error_codes": [],
   "evaluations": [
     {
@@ -413,7 +413,7 @@
   "problem_count": 10,
   "receipt_id": "exported_ring2_precision_recall_bundle_validation_result_v1",
   "receipt_paths": [
-    "microcosm-substrate/receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
+    "receipts/first_wave/verifier_lab_kernel/components/ring2_premise_retrieval_precision_recall_harness/exported_ring2_precision_recall_bundle_validation_result.json"
   ],
   "receipt_reused": false,
   "schema_version": "exported_ring2_precision_recall_bundle_validation_result_v1",
