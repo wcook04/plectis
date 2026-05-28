@@ -14203,6 +14203,7 @@ class RuntimeShell:
                 "security, call providers, mutate source, publish, host, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 
@@ -14422,6 +14423,7 @@ class RuntimeShell:
                 "host, or authorize release."
             ),
         }
+        payload["created_at"] = _stable_created_at(lens_path, payload)
         write_json_atomic(lens_path, payload)
         return payload
 

@@ -15,7 +15,7 @@
   },
   "benchmark_lab_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
   "command": "microcosm benchmark-lab",
-  "created_at": "2026-05-28T13:42:07+00:00",
+  "created_at": "2026-05-28T13:59:25+00:00",
   "endpoint": "/benchmark-lab",
   "fixture_protocol": {
     "fail_to_pass_required": true,

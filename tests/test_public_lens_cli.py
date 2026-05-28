@@ -410,6 +410,10 @@ def test_cli_smoke_lenses_do_not_rewrite_tracked_receipt_timestamps(
 ) -> None:
     receipt_paths = [
         MICROCOSM_ROOT
+        / "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
+        MICROCOSM_ROOT
+        / "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
+        MICROCOSM_ROOT
         / "receipts/runtime_shell/public_stripping_guard_lens.json",
         MICROCOSM_ROOT
         / "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
@@ -418,7 +422,12 @@ def test_cli_smoke_lenses_do_not_rewrite_tracked_receipt_timestamps(
     after: dict[Path, str] = {}
 
     try:
-        for command in ("stripping-guard", "legibility-scorecard"):
+        for command in (
+            "replay-gauntlet",
+            "benchmark-lab",
+            "stripping-guard",
+            "legibility-scorecard",
+        ):
             status = cli.main([command])
             payload = json.loads(capsys.readouterr().out)
             assert status == 0
