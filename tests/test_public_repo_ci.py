@@ -65,3 +65,23 @@ def test_pyproject_python_classifiers_match_ci_matrix() -> None:
     assert python_classifiers == matrix_versions
     for version in matrix_versions:
         assert f"Programming Language :: Python :: {version}" in classifiers
+
+
+def test_pyproject_urls_point_to_current_public_repository() -> None:
+    pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+
+    assert pyproject["project"]["urls"] == {
+        "Homepage": "https://github.com/wcook04/zenith",
+        "Documentation": (
+            "https://github.com/wcook04/zenith/blob/main/"
+            "microcosm-substrate/README.md"
+        ),
+        "Source": "https://github.com/wcook04/zenith/tree/main/microcosm-substrate",
+        "Issues": "https://github.com/wcook04/zenith/issues",
+        "Repository": "https://github.com/wcook04/zenith",
+    }
+    assert "Macro-System" not in pyproject["project"]["urls"]
+    assert all(
+        "ai-workflow-proof" not in url
+        for url in pyproject["project"]["urls"].values()
+    )

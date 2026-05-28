@@ -26,11 +26,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/wcook04/ai-workflow-proof/tree/main/microcosm-substrate"
-Documentation = "https://github.com/wcook04/ai-workflow-proof/blob/main/microcosm-substrate/README.md"
-Source = "https://github.com/wcook04/ai-workflow-proof/tree/main/microcosm-substrate"
-Issues = "https://github.com/wcook04/ai-workflow-proof/issues"
-Macro-System = "https://github.com/wcook04/ai-workflow-proof"
+Homepage = "https://github.com/wcook04/zenith"
+Documentation = "https://github.com/wcook04/zenith/blob/main/microcosm-substrate/README.md"
+Source = "https://github.com/wcook04/zenith/tree/main/microcosm-substrate"
+Issues = "https://github.com/wcook04/zenith/issues"
+Repository = "https://github.com/wcook04/zenith"
 
 [project.optional-dependencies]
 test = [
