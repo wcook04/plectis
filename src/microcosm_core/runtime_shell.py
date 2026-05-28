@@ -14323,36 +14323,44 @@ class RuntimeShell:
             "public_agent_reliability_replay_gauntlet_lens",
             "public_view_quality_action_map_lens",
         ]
+        card_first_commands = [
+            "microcosm hello <project>",
+            "microcosm tour --card <project>",
+            "microcosm status --card <project>",
+            "microcosm authority --card",
+            "microcosm workingness --card",
+            "microcosm legibility-scorecard",
+        ]
         checkpoint_rows = [
             {
                 "checkpoint_id": "repo_to_local_substrate",
                 "reader_question": "What does this thing do?",
-                "command": "microcosm compile <project>",
-                "endpoint": "/project/observatory",
-                "expected_signal": ".microcosm catalog, routes, work transaction, events, and evidence exist",
-                "evidence_ref": ".microcosm/project_manifest.json",
+                "command": "microcosm hello <project>",
+                "endpoint": "/",
+                "expected_signal": "human first-screen card names the local substrate and points to behavior proofs",
+                "evidence_ref": "microcosm first-screen <project>",
                 "minute_budget": 2,
-                "pass_condition": "compile_status_pass_and_source_files_mutated_false",
+                "pass_condition": "hello_card_visible_before_behavior_drilldowns",
             },
             {
                 "checkpoint_id": "entry_path_visible",
                 "reader_question": "Where do I start?",
-                "command": "microcosm tour <project>",
+                "command": "microcosm tour --card <project>",
                 "endpoint": "/tour",
-                "expected_signal": "route cards fit in a 10-minute path before raw receipt drilldown",
-                "evidence_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
+                "expected_signal": "front-door status, state refs, and next commands are visible before full route cards",
+                "evidence_ref": "microcosm tour --card <project>::front_door_status",
                 "minute_budget": 2,
-                "pass_condition": "tour_status_pass_and_route_cards_present",
+                "pass_condition": "tour_card_status_pass_and_front_door_status_visible",
             },
             {
                 "checkpoint_id": "authority_ceiling_visible",
                 "reader_question": "What is not being claimed?",
-                "command": "microcosm authority",
-                "endpoint": "/authority",
-                "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false",
-                "evidence_ref": "receipts/runtime_shell/public_authority_map.json",
+                "command": "microcosm authority --card",
+                "endpoint": "/authority-card",
+                "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false in the compact card",
+                "evidence_ref": "microcosm authority --card",
                 "minute_budget": 1,
-                "pass_condition": "authority_surface_has_false_public_ceiling",
+                "pass_condition": "authority_card_has_false_public_ceiling",
             },
             {
                 "checkpoint_id": "weird_substrate_visible",
@@ -14393,25 +14401,25 @@ class RuntimeShell:
                 "question_id": "identity",
                 "question": "What is Microcosm?",
                 "answer_contract": "repo -> .microcosm local operating substrate",
-                "proof_command": "microcosm compile <project>",
+                "proof_command": "microcosm hello <project>",
             },
             {
                 "question_id": "first_run",
                 "question": "What should I run first?",
-                "answer_contract": "compile, tour, authority, observatory, then receipts",
-                "proof_command": "microcosm tour <project>",
+                "answer_contract": "hello, compact cards, authority ceiling, then drilldowns",
+                "proof_command": "microcosm hello <project> && microcosm tour --card <project>",
             },
             {
                 "question_id": "evidence",
                 "question": "What makes this more than prose?",
-                "answer_contract": "JSON outputs, receipts, validators, and endpoint parity",
-                "proof_command": "microcosm projection-safety",
+                "answer_contract": "compact JSON cards, receipts, validators, and endpoint parity",
+                "proof_command": "microcosm status --card <project>",
             },
             {
                 "question_id": "limits",
                 "question": "What claims are out of scope?",
                 "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
-                "proof_command": "microcosm authority",
+                "proof_command": "microcosm authority --card",
             },
             {
                 "question_id": "extension",
@@ -14421,25 +14429,42 @@ class RuntimeShell:
             },
         ]
         required_commands = [
-            "microcosm compile <project>",
-            "microcosm tour <project>",
-            "microcosm authority",
-            "microcosm projection-safety",
-            "microcosm replay-gauntlet",
-            "microcosm benchmark-lab",
-            "microcosm legibility-scorecard",
+            *card_first_commands,
+            PROOF_LAB_FIRST_SCREEN_COMMAND,
             "microcosm serve <project>",
         ]
         required_endpoints = [
             "/tour",
-            "/authority",
-            "/projection-safety",
-            "/replay-gauntlet",
-            "/benchmark-lab",
+            "/project/status",
+            "/authority-card",
+            "/workingness",
             "/legibility-scorecard",
-            "/project/observatory",
+            "/proof-lab",
+            "/project/observatory-card",
             "/evidence",
         ]
+        card_first_entry_path = {
+            "schema_version": "microcosm_legibility_card_first_entry_path_v1",
+            "status": PASS,
+            "role": "compact_first_run_before_full_drilldowns",
+            "commands": card_first_commands,
+            "drilldown_after": [
+                PROOF_LAB_FIRST_SCREEN_COMMAND,
+                "microcosm serve <project>",
+                "microcosm evidence inspect <receipt>",
+            ],
+            "reader_rule": (
+                "Run hello for the human first-screen card, then compact cards "
+                "for behavior, status, authority, and workingness before opening "
+                "full route maps or receipt drilldowns."
+            ),
+            "safe_to_show": {
+                "release_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "reader_success_guarantee": False,
+            },
+        }
         evidence_refs = [
             "receipts/runtime_shell/public_ten_minute_tour.json",
             "receipts/runtime_shell/public_authority_map.json",
@@ -14495,6 +14520,7 @@ class RuntimeShell:
             and scorecard["required_endpoint_count"] == 8
             and scorecard["evidence_ref_count"] == 8
             and scorecard["blocking_gap_count"] == 0
+            and card_first_entry_path["commands"] == card_first_commands
             and all(row.get("command") for row in checkpoint_rows)
             and all(row.get("pass_condition") for row in checkpoint_rows)
             and all(value is False for key, value in authority_ceiling.items() if key != "synthetic_public_read_model_only")
@@ -14513,11 +14539,7 @@ class RuntimeShell:
                 "private_root_equivalence_claim",
             ],
             "first_screen_commands": [
-                "microcosm hello <project>",
-                "microcosm tour --card <project>",
-                "microcosm status --card <project>",
-                "microcosm workingness --card",
-                "microcosm legibility-scorecard",
+                *card_first_commands,
                 PROOF_LAB_FIRST_SCREEN_COMMAND,
             ],
             "evidence_classes": [
@@ -14666,6 +14688,7 @@ class RuntimeShell:
                 "local path."
             ),
             "selected_pattern_ids": selected_pattern_ids,
+            "card_first_entry_path": card_first_entry_path,
             "checkpoint_rows": checkpoint_rows,
             "reader_question_rows": reader_question_rows,
             "required_commands": required_commands,

@@ -502,6 +502,33 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     assert payload["scorecard"]["reader_question_count"] == 5
     assert payload["scorecard"]["time_budget_minutes"] == 10
     assert payload["scorecard"]["not_score_based_progress"] is True
+    card_first_commands = [
+        "microcosm hello <project>",
+        "microcosm tour --card <project>",
+        "microcosm status --card <project>",
+        "microcosm authority --card",
+        "microcosm workingness --card",
+        "microcosm legibility-scorecard",
+    ]
+    assert payload["card_first_entry_path"]["commands"] == card_first_commands
+    assert payload["required_commands"][:6] == card_first_commands
+    assert "microcosm tour <project>" not in payload["required_commands"]
+    assert "microcosm authority" not in payload["required_commands"]
+    first_run = {
+        row["question_id"]: row for row in payload["reader_question_rows"]
+    }["first_run"]
+    assert first_run["proof_command"] == (
+        "microcosm hello <project> && microcosm tour --card <project>"
+    )
+    checkpoint_commands = {
+        row["checkpoint_id"]: row["command"] for row in payload["checkpoint_rows"]
+    }
+    assert checkpoint_commands["entry_path_visible"] == (
+        "microcosm tour --card <project>"
+    )
+    assert checkpoint_commands["authority_ceiling_visible"] == (
+        "microcosm authority --card"
+    )
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["authority_ceiling"]["score_based_progress_authority"] is False
     assert payload["authority_ceiling"]["reader_success_guarantee"] is False
