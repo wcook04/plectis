@@ -7,8 +7,6 @@ import shlex
 import sys
 from pathlib import Path
 
-from microcosm_core import first_screen_composition
-
 
 class _LazyModule:
     def __init__(self, module_name: str) -> None:
@@ -36,6 +34,13 @@ class _LazyModule:
         setattr(self._load(), name, value)
 
 
+TEXT_READER_CHOICES = (
+    "all",
+    "safety_evals_engineer",
+    "hiring_reviewer",
+    "peer_developer",
+)
+first_screen_composition = _LazyModule("microcosm_core.first_screen_composition")
 project_substrate = _LazyModule("microcosm_core.project_substrate")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
@@ -375,7 +380,7 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
         )
         parser.add_argument(
             "--reader",
-            choices=first_screen_composition.TEXT_READER_CHOICES,
+            choices=TEXT_READER_CHOICES,
             default="all",
             help="focus the terminal projection on one reader branch",
         )
@@ -401,7 +406,7 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
         )
         parser.add_argument(
             "--reader",
-            choices=first_screen_composition.TEXT_READER_CHOICES,
+            choices=TEXT_READER_CHOICES,
             default="all",
             help="focus the terminal projection on one reader branch",
         )
@@ -1114,7 +1119,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     hello_parser.add_argument(
         "--reader",
-        choices=first_screen_composition.TEXT_READER_CHOICES,
+        choices=TEXT_READER_CHOICES,
         default="all",
         help="focus the terminal projection on one reader branch",
     )
@@ -1136,7 +1141,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     first_screen_parser.add_argument(
         "--reader",
-        choices=first_screen_composition.TEXT_READER_CHOICES,
+        choices=TEXT_READER_CHOICES,
         default="all",
         help="focus the terminal projection on one reader branch",
     )
