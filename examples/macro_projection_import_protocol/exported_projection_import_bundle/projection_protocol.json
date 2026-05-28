@@ -256,7 +256,7 @@
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_trace_route_repair_body_import_is_unified_under_macro_projection_spine",
           "microcosm agent-route-observability-runtime validate-agent-trace-route-repair-bundle --input examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle"
         ],
-        "source_body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "source_body_digest": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
         "source_symbol_refs": [
           "system/lib/navigation_route_intervention.py::RouteRepairSuggestion",
           "system/lib/navigation_route_intervention.py::route_repair_for",
