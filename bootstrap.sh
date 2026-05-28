@@ -5,7 +5,7 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$script_dir"
 
 suite="first-wave"
-emit="receipts/cold_clone_probe.json"
+emit=".microcosm/cold_clone_probe.json"
 
 usage() {
   cat <<'USAGE'
@@ -15,7 +15,7 @@ Run the Microcosm cold-clone probe from the repository root.
 
 Options:
   --suite SUITE          Probe suite to run (default: first-wave)
-  --emit RECEIPT_PATH    Receipt path to write (default: receipts/cold_clone_probe.json)
+  --emit RECEIPT_PATH    Receipt path to write (default: .microcosm/cold_clone_probe.json)
   -h, --help             Show this help message without running the probe
 
 Environment:
