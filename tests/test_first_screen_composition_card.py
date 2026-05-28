@@ -1032,12 +1032,20 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert card["scale_frame"]["count_interpretation"] == (
         "receipt_backed_handles_not_scores"
     )
+    organ_registry = json.loads((MICROCOSM_ROOT / "core/organ_registry.json").read_text())
+    standards_registry = json.loads(
+        (MICROCOSM_ROOT / "core/standards_registry.json").read_text()
+    )
     assert scale_counts["implemented_organs"]["source_ref"] == "core/organ_registry.json"
-    assert scale_counts["implemented_organs"]["count"] > 0
+    assert scale_counts["implemented_organs"]["count"] == len(
+        organ_registry["implemented_organs"]
+    )
     assert scale_counts["public_standards"]["source_ref"] == (
         "core/standards_registry.json"
     )
-    assert scale_counts["public_standards"]["count"] > 0
+    assert scale_counts["public_standards"]["count"] == standards_registry[
+        "standard_count"
+    ]
     expected_materials, expected_rows = _fixture_manifest_source_open_counts()
     assert scale_counts["source_open_materials"]["source_ref"] == (
         "core/fixture_manifests/*.fixture_manifest.json"
@@ -1428,6 +1436,14 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
 
     text = module.first_screen_text_card(card)
+    scale_counts = card["scale_frame"]["public_scale_counts"]
+    expected_public_handles = (
+        f"  Public handles: {scale_counts['implemented_organs']['count']} "
+        f"organ-registry rows, {scale_counts['public_standards']['count']} "
+        f"standard-registry rows, "
+        f"{scale_counts['source_open_materials']['count']} source-open "
+        "material handles."
+    )
 
     text.encode("ascii")
     assert text.startswith("Microcosm first screen\n")
@@ -1441,7 +1457,7 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "doctrine prevents mistakes" in text
     assert "exit when you can choose a drilldown" in text
     assert "without the command inventory" in text
-    assert "Public handles:" in text
+    assert expected_public_handles in text
     assert "organ-registry rows" in text
     assert "standard-registry rows" in text
     assert "source-open material handles" in text
