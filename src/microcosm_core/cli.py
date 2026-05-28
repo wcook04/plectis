@@ -304,6 +304,59 @@ PUBLIC_LENS_COMMAND_HELP = (
     ("reveal", "show public reveal walkthrough board"),
 )
 
+PUBLIC_BUNDLE_COMMAND_HELP = {
+    "pattern-binding": "validate exported pattern/source-route bundles",
+    "pattern-route-readiness": "validate pattern route-readiness bundle",
+    "finance-eval-spine": "validate finance-evaluation fixture bundle",
+    "work-landing-control-spine": "validate work-landing control bundle",
+    "executable-doctrine-grammar": "validate executable doctrine bundles",
+    "proof-diagnostic-evidence-spine": "run proof diagnostic evidence bundle",
+    "formal-math-readiness-gate": "run formal math readiness bundle",
+    "corpus-readiness-mathlib-absence-gate": "run corpus readiness bundle",
+    "mathematical-strategy-atlas-hypothesis-scorer": "run strategy atlas bundle",
+    "tactic-portfolio-availability-probe": "run tactic availability bundle",
+    "target-shape-tactic-routing-gate": "run target-shape routing bundle",
+    "formal-math-lean-proof-witness": "run Lean proof witness bundle",
+    "formal-math-premise-retrieval": "run premise retrieval bundle",
+    "formal-math-verifier-trace-repair-loop": "run verifier trace repair bundle",
+    "verifier-lab-kernel": "run verifier lab kernel bundle",
+    "verifier-lab-execution-spine": "run verifier lab execution bundle",
+    "certificate-kernel-execution-lab": "run certificate kernel lab bundle",
+    "formal-evidence-cell-anchor-resolver": "run evidence-cell anchor bundle",
+    "undeclared-library-prior-symbol-classifier": "run symbol classifier bundle",
+    "agent-benchmark-integrity-anti-gaming-replay": "run benchmark integrity replay bundle",
+    "agent-monitor-redteam-falsification-replay": "run monitor red-team replay bundle",
+    "agent-sabotage-scheming-monitor-replay": "run sabotage monitor replay bundle",
+    "agent-sandbox-policy-escape-replay": "run sandbox policy replay bundle",
+    "indirect-prompt-injection-information-flow-policy-replay": "run prompt-injection replay bundle",
+    "agentic-vulnerability-discovery-patch-proof-replay": "run patch-proof replay bundle",
+    "agent-memory-temporal-conflict-replay": "run memory conflict replay bundle",
+    "sleeper-memory-poisoning-quarantine-replay": "run sleeper-memory quarantine bundle",
+    "mcp-tool-authority-replay": "run MCP tool-authority replay bundle",
+    "proof-derived-governed-mutation-authorization": "run governed mutation bundle",
+    "belief-state-process-reward-replay": "run belief-state reward replay bundle",
+    "lean-std-premise-index": "run Lean std premise index bundle",
+    "provider-context-recipe-budget-policy": "run provider context budget bundle",
+    "ring2-premise-retrieval-precision-recall-harness": "run Ring 2 precision/recall bundle",
+    "durable-agent-work-landing-replay": "run durable work-landing replay bundle",
+    "research-replication-rubric-artifact-replay": "run research replication bundle",
+    "world-model-projection-drift-control-room": "run projection drift-control bundle",
+    "spatial-world-model-counterfactual-simulation-replay": "run spatial simulation bundle",
+    "materials-chemistry-closed-loop-lab-safety-replay": "run materials lab-safety bundle",
+    "mechanistic-interpretability-circuit-attribution-replay": "run circuit attribution bundle",
+    "public-reveal-walkthrough": "run public reveal walkthrough bundle",
+    "macro-projection-import-protocol": "run macro projection import bundle",
+    "prediction-oracle-reconciliation": "run prediction reconciliation bundle",
+    "standards-meta-diagnostics": "run standards meta-diagnostics bundle",
+    "cold-reader-route-map": "run cold-reader route-map bundle",
+    "navigation-hologram-route-plane": "validate navigation route-plane bundle",
+    "mission-transaction-work-spine": "validate mission transaction bundle",
+    "agent-route-observability-runtime": "validate route observability bundles",
+    "bridge-phase-continuity-runtime": "run bridge continuity bundle",
+    "pattern-assimilation-step": "validate pattern assimilation bundle",
+    "voice-to-doctrine-self-improvement-loop": "run voice-to-doctrine bundle",
+}
+
 
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--root", required=True)
@@ -330,6 +383,10 @@ def _add_public_lens_parsers(subparsers) -> None:
                 action="store_true",
                 help=f"emit the compact first-screen {command} lens",
             )
+
+
+def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
+    return subparsers.add_parser(command, help=PUBLIC_BUNDLE_COMMAND_HELP[command])
 
 
 def _print_json(payload: dict) -> int:
@@ -1318,7 +1375,7 @@ def main(argv: list[str] | None = None) -> int:
     freshness_parser.add_argument("--mission-dag", required=True)
     freshness_parser.add_argument("--receipt-coverage", required=True)
 
-    organ_parser = subparsers.add_parser("pattern-binding")
+    organ_parser = _add_bundle_parser(subparsers, "pattern-binding")
     organ_parser.add_argument(
         "action",
         choices=[
@@ -1328,18 +1385,20 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
     _add_input_out(organ_parser)
-    route_readiness_parser = subparsers.add_parser("pattern-route-readiness")
+    route_readiness_parser = _add_bundle_parser(subparsers, "pattern-route-readiness")
     route_readiness_parser.add_argument("action", choices=["validate-bundle"])
     _add_input_out(route_readiness_parser)
 
-    finance_eval_parser = subparsers.add_parser("finance-eval-spine")
+    finance_eval_parser = _add_bundle_parser(subparsers, "finance-eval-spine")
     finance_eval_parser.add_argument("action", choices=["validate-finance-eval-bundle"])
     _add_input_out(finance_eval_parser)
-    work_landing_control_parser = subparsers.add_parser("work-landing-control-spine")
+    work_landing_control_parser = _add_bundle_parser(
+        subparsers, "work-landing-control-spine"
+    )
     work_landing_control_parser.add_argument("action", choices=["validate-control-bundle"])
     _add_input_out(work_landing_control_parser)
 
-    grammar_parser = subparsers.add_parser("executable-doctrine-grammar")
+    grammar_parser = _add_bundle_parser(subparsers, "executable-doctrine-grammar")
     grammar_parser.add_argument(
         "action",
         choices=[
@@ -1350,49 +1409,64 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(grammar_parser)
 
-    proof_parser = subparsers.add_parser("proof-diagnostic-evidence-spine")
+    proof_parser = _add_bundle_parser(subparsers, "proof-diagnostic-evidence-spine")
     proof_parser.add_argument("action", choices=["run", "run-evidence-bundle"])
     _add_input_out(proof_parser)
 
-    formal_math_parser = subparsers.add_parser("formal-math-readiness-gate")
+    formal_math_parser = _add_bundle_parser(subparsers, "formal-math-readiness-gate")
     formal_math_parser.add_argument("action", choices=["run", "run-readiness-bundle", "plan"])
     formal_math_parser.add_argument("--input", required=True)
     formal_math_parser.add_argument("--out")
 
-    corpus_readiness_parser = subparsers.add_parser("corpus-readiness-mathlib-absence-gate")
+    corpus_readiness_parser = _add_bundle_parser(
+        subparsers, "corpus-readiness-mathlib-absence-gate"
+    )
     corpus_readiness_parser.add_argument("action", choices=["run", "run-projection-bundle"])
     _add_input_out(corpus_readiness_parser)
 
-    strategy_atlas_parser = subparsers.add_parser("mathematical-strategy-atlas-hypothesis-scorer")
+    strategy_atlas_parser = _add_bundle_parser(
+        subparsers, "mathematical-strategy-atlas-hypothesis-scorer"
+    )
     strategy_atlas_parser.add_argument("action", choices=["run", "run-strategy-bundle"])
     _add_input_out(strategy_atlas_parser)
 
-    tactic_portfolio_parser = subparsers.add_parser("tactic-portfolio-availability-probe")
+    tactic_portfolio_parser = _add_bundle_parser(
+        subparsers, "tactic-portfolio-availability-probe"
+    )
     tactic_portfolio_parser.add_argument("action", choices=["run", "run-availability-bundle"])
     _add_input_out(tactic_portfolio_parser)
 
-    target_shape_parser = subparsers.add_parser("target-shape-tactic-routing-gate")
+    target_shape_parser = _add_bundle_parser(
+        subparsers, "target-shape-tactic-routing-gate"
+    )
     target_shape_parser.add_argument("action", choices=["run", "run-routing-bundle"])
     _add_input_out(target_shape_parser)
 
-    lean_witness_parser = subparsers.add_parser("formal-math-lean-proof-witness")
+    lean_witness_parser = _add_bundle_parser(
+        subparsers, "formal-math-lean-proof-witness"
+    )
     lean_witness_parser.add_argument("action", choices=["run", "run-witness-bundle"])
     _add_input_out(lean_witness_parser)
 
-    premise_retrieval_parser = subparsers.add_parser("formal-math-premise-retrieval")
+    premise_retrieval_parser = _add_bundle_parser(
+        subparsers, "formal-math-premise-retrieval"
+    )
     premise_retrieval_parser.add_argument("action", choices=["run", "run-retrieval-bundle"])
     _add_input_out(premise_retrieval_parser)
 
-    verifier_trace_parser = subparsers.add_parser("formal-math-verifier-trace-repair-loop")
+    verifier_trace_parser = _add_bundle_parser(
+        subparsers, "formal-math-verifier-trace-repair-loop"
+    )
     verifier_trace_parser.add_argument("action", choices=["run", "run-loop-bundle"])
     _add_input_out(verifier_trace_parser)
 
-    verifier_lab_parser = subparsers.add_parser("verifier-lab-kernel")
+    verifier_lab_parser = _add_bundle_parser(subparsers, "verifier-lab-kernel")
     verifier_lab_parser.add_argument("action", choices=["run", "run-kernel-bundle"])
     _add_input_out(verifier_lab_parser)
     verifier_lab_parser.add_argument("--acceptance-out")
 
-    verifier_lab_execution_parser = subparsers.add_parser(
+    verifier_lab_execution_parser = _add_bundle_parser(
+        subparsers,
         "verifier-lab-execution-spine"
     )
     verifier_lab_execution_parser.add_argument(
@@ -1401,23 +1475,30 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(verifier_lab_execution_parser)
     verifier_lab_execution_parser.add_argument("--acceptance-out")
 
-    certificate_kernel_parser = subparsers.add_parser("certificate-kernel-execution-lab")
+    certificate_kernel_parser = _add_bundle_parser(
+        subparsers, "certificate-kernel-execution-lab"
+    )
     certificate_kernel_parser.add_argument(
         "action", choices=["run", "run-certificate-bundle"]
     )
     _add_input_out(certificate_kernel_parser)
     certificate_kernel_parser.add_argument("--acceptance-out")
 
-    evidence_cell_parser = subparsers.add_parser("formal-evidence-cell-anchor-resolver")
+    evidence_cell_parser = _add_bundle_parser(
+        subparsers, "formal-evidence-cell-anchor-resolver"
+    )
     evidence_cell_parser.add_argument("action", choices=["run", "run-anchor-bundle"])
     _add_input_out(evidence_cell_parser)
 
-    symbol_classifier_parser = subparsers.add_parser("undeclared-library-prior-symbol-classifier")
+    symbol_classifier_parser = _add_bundle_parser(
+        subparsers, "undeclared-library-prior-symbol-classifier"
+    )
     symbol_classifier_parser.add_argument("action", choices=["run", "run-symbol-bundle"])
     _add_input_out(symbol_classifier_parser)
     symbol_classifier_parser.add_argument("--acceptance-out")
 
-    benchmark_integrity_parser = subparsers.add_parser(
+    benchmark_integrity_parser = _add_bundle_parser(
+        subparsers,
         "agent-benchmark-integrity-anti-gaming-replay"
     )
     benchmark_integrity_parser.add_argument(
@@ -1426,7 +1507,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(benchmark_integrity_parser)
     benchmark_integrity_parser.add_argument("--acceptance-out")
 
-    monitor_redteam_parser = subparsers.add_parser(
+    monitor_redteam_parser = _add_bundle_parser(
+        subparsers,
         "agent-monitor-redteam-falsification-replay"
     )
     monitor_redteam_parser.add_argument(
@@ -1435,7 +1517,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(monitor_redteam_parser)
     monitor_redteam_parser.add_argument("--acceptance-out")
 
-    sabotage_monitor_parser = subparsers.add_parser(
+    sabotage_monitor_parser = _add_bundle_parser(
+        subparsers,
         "agent-sabotage-scheming-monitor-replay"
     )
     sabotage_monitor_parser.add_argument(
@@ -1444,7 +1527,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(sabotage_monitor_parser)
     sabotage_monitor_parser.add_argument("--acceptance-out")
 
-    sandbox_policy_parser = subparsers.add_parser(
+    sandbox_policy_parser = _add_bundle_parser(
+        subparsers,
         "agent-sandbox-policy-escape-replay"
     )
     sandbox_policy_parser.add_argument(
@@ -1453,7 +1537,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(sandbox_policy_parser)
     sandbox_policy_parser.add_argument("--acceptance-out")
 
-    prompt_injection_parser = subparsers.add_parser(
+    prompt_injection_parser = _add_bundle_parser(
+        subparsers,
         "indirect-prompt-injection-information-flow-policy-replay"
     )
     prompt_injection_parser.add_argument(
@@ -1462,7 +1547,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(prompt_injection_parser)
     prompt_injection_parser.add_argument("--acceptance-out")
 
-    agentic_vuln_parser = subparsers.add_parser(
+    agentic_vuln_parser = _add_bundle_parser(
+        subparsers,
         "agentic-vulnerability-discovery-patch-proof-replay"
     )
     agentic_vuln_parser.add_argument(
@@ -1471,7 +1557,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(agentic_vuln_parser)
     agentic_vuln_parser.add_argument("--acceptance-out")
 
-    memory_conflict_parser = subparsers.add_parser(
+    memory_conflict_parser = _add_bundle_parser(
+        subparsers,
         "agent-memory-temporal-conflict-replay"
     )
     memory_conflict_parser.add_argument(
@@ -1480,7 +1567,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(memory_conflict_parser)
     memory_conflict_parser.add_argument("--acceptance-out")
 
-    sleeper_memory_parser = subparsers.add_parser(
+    sleeper_memory_parser = _add_bundle_parser(
+        subparsers,
         "sleeper-memory-poisoning-quarantine-replay"
     )
     sleeper_memory_parser.add_argument(
@@ -1489,14 +1577,15 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(sleeper_memory_parser)
     sleeper_memory_parser.add_argument("--acceptance-out")
 
-    mcp_tool_parser = subparsers.add_parser("mcp-tool-authority-replay")
+    mcp_tool_parser = _add_bundle_parser(subparsers, "mcp-tool-authority-replay")
     mcp_tool_parser.add_argument(
         "action", choices=["run", "run-tool-authority-bundle"]
     )
     _add_input_out(mcp_tool_parser)
     mcp_tool_parser.add_argument("--acceptance-out")
 
-    governed_mutation_parser = subparsers.add_parser(
+    governed_mutation_parser = _add_bundle_parser(
+        subparsers,
         "proof-derived-governed-mutation-authorization"
     )
     governed_mutation_parser.add_argument(
@@ -1505,31 +1594,39 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(governed_mutation_parser)
     governed_mutation_parser.add_argument("--acceptance-out")
 
-    belief_reward_parser = subparsers.add_parser(
+    belief_reward_parser = _add_bundle_parser(
+        subparsers,
         "belief-state-process-reward-replay"
     )
     belief_reward_parser.add_argument("action", choices=["run", "run-reward-bundle"])
     _add_input_out(belief_reward_parser)
     belief_reward_parser.add_argument("--acceptance-out")
 
-    lean_std_index_parser = subparsers.add_parser("lean-std-premise-index")
+    lean_std_index_parser = _add_bundle_parser(subparsers, "lean-std-premise-index")
     lean_std_index_parser.add_argument("action", choices=["run", "run-index-bundle"])
     _add_input_out(lean_std_index_parser)
 
-    provider_context_parser = subparsers.add_parser("provider-context-recipe-budget-policy")
+    provider_context_parser = _add_bundle_parser(
+        subparsers, "provider-context-recipe-budget-policy"
+    )
     provider_context_parser.add_argument("action", choices=["run", "run-budget-bundle"])
     _add_input_out(provider_context_parser)
 
-    ring2_parser = subparsers.add_parser("ring2-premise-retrieval-precision-recall-harness")
+    ring2_parser = _add_bundle_parser(
+        subparsers, "ring2-premise-retrieval-precision-recall-harness"
+    )
     ring2_parser.add_argument("action", choices=["run", "run-precision-recall-bundle"])
     _add_input_out(ring2_parser)
 
-    durable_landing_parser = subparsers.add_parser("durable-agent-work-landing-replay")
+    durable_landing_parser = _add_bundle_parser(
+        subparsers, "durable-agent-work-landing-replay"
+    )
     durable_landing_parser.add_argument("action", choices=["run", "run-work-landing-bundle"])
     _add_input_out(durable_landing_parser)
     durable_landing_parser.add_argument("--acceptance-out")
 
-    research_replication_parser = subparsers.add_parser(
+    research_replication_parser = _add_bundle_parser(
+        subparsers,
         "research-replication-rubric-artifact-replay"
     )
     research_replication_parser.add_argument(
@@ -1538,7 +1635,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(research_replication_parser)
     research_replication_parser.add_argument("--acceptance-out")
 
-    drift_control_room_parser = subparsers.add_parser(
+    drift_control_room_parser = _add_bundle_parser(
+        subparsers,
         "world-model-projection-drift-control-room"
     )
     drift_control_room_parser.add_argument(
@@ -1547,7 +1645,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(drift_control_room_parser)
     drift_control_room_parser.add_argument("--acceptance-out")
 
-    spatial_simulation_parser = subparsers.add_parser(
+    spatial_simulation_parser = _add_bundle_parser(
+        subparsers,
         "spatial-world-model-counterfactual-simulation-replay"
     )
     spatial_simulation_parser.add_argument(
@@ -1556,7 +1655,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(spatial_simulation_parser)
     spatial_simulation_parser.add_argument("--acceptance-out")
 
-    materials_lab_safety_parser = subparsers.add_parser(
+    materials_lab_safety_parser = _add_bundle_parser(
+        subparsers,
         "materials-chemistry-closed-loop-lab-safety-replay"
     )
     materials_lab_safety_parser.add_argument(
@@ -1565,7 +1665,8 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(materials_lab_safety_parser)
     materials_lab_safety_parser.add_argument("--acceptance-out")
 
-    circuit_attribution_parser = subparsers.add_parser(
+    circuit_attribution_parser = _add_bundle_parser(
+        subparsers,
         "mechanistic-interpretability-circuit-attribution-replay"
     )
     circuit_attribution_parser.add_argument(
@@ -1574,11 +1675,13 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(circuit_attribution_parser)
     circuit_attribution_parser.add_argument("--acceptance-out")
 
-    public_reveal_parser = subparsers.add_parser("public-reveal-walkthrough")
+    public_reveal_parser = _add_bundle_parser(subparsers, "public-reveal-walkthrough")
     public_reveal_parser.add_argument("action", choices=["run", "run-reveal-bundle"])
     _add_input_out(public_reveal_parser)
 
-    macro_projection_parser = subparsers.add_parser("macro-projection-import-protocol")
+    macro_projection_parser = _add_bundle_parser(
+        subparsers, "macro-projection-import-protocol"
+    )
     macro_projection_parser.add_argument("action", choices=["run", "run-projection-bundle", "plan"])
     macro_projection_parser.add_argument("--input", required=True)
     macro_projection_parser.add_argument("--out")
@@ -1588,28 +1691,34 @@ def main(argv: list[str] | None = None) -> int:
         help="read cached projection-bundle validation state without rerunning",
     )
 
-    prediction_parser = subparsers.add_parser("prediction-oracle-reconciliation")
+    prediction_parser = _add_bundle_parser(
+        subparsers, "prediction-oracle-reconciliation"
+    )
     prediction_parser.add_argument("action", choices=["run", "run-prediction-bundle"])
     _add_input_out(prediction_parser)
 
-    standards_meta_parser = subparsers.add_parser("standards-meta-diagnostics")
+    standards_meta_parser = _add_bundle_parser(subparsers, "standards-meta-diagnostics")
     standards_meta_parser.add_argument("action", choices=["run", "run-diagnostics-bundle"])
     _add_input_out(standards_meta_parser)
     standards_meta_parser.add_argument("--acceptance-out")
 
-    cold_reader_parser = subparsers.add_parser("cold-reader-route-map")
+    cold_reader_parser = _add_bundle_parser(subparsers, "cold-reader-route-map")
     cold_reader_parser.add_argument("action", choices=["run", "run-route-map-bundle"])
     _add_input_out(cold_reader_parser)
 
-    navigation_parser = subparsers.add_parser("navigation-hologram-route-plane")
+    navigation_parser = _add_bundle_parser(
+        subparsers, "navigation-hologram-route-plane"
+    )
     navigation_parser.add_argument("action", choices=["run", "validate-route-plane-bundle"])
     _add_input_out(navigation_parser)
 
-    mission_parser = subparsers.add_parser("mission-transaction-work-spine")
+    mission_parser = _add_bundle_parser(subparsers, "mission-transaction-work-spine")
     mission_parser.add_argument("action", choices=["run", "validate-mission-transaction-bundle"])
     _add_input_out(mission_parser)
 
-    observability_parser = subparsers.add_parser("agent-route-observability-runtime")
+    observability_parser = _add_bundle_parser(
+        subparsers, "agent-route-observability-runtime"
+    )
     observability_parser.add_argument(
         "action",
         choices=[
@@ -1626,15 +1735,18 @@ def main(argv: list[str] | None = None) -> int:
     )
     _add_input_out(observability_parser)
 
-    bridge_continuity_parser = subparsers.add_parser("bridge-phase-continuity-runtime")
+    bridge_continuity_parser = _add_bundle_parser(
+        subparsers, "bridge-phase-continuity-runtime"
+    )
     bridge_continuity_parser.add_argument("action", choices=["run"])
     _add_input_out(bridge_continuity_parser)
 
-    assimilation_parser = subparsers.add_parser("pattern-assimilation-step")
+    assimilation_parser = _add_bundle_parser(subparsers, "pattern-assimilation-step")
     assimilation_parser.add_argument("action", nargs="?", choices=["run", "validate-assimilation-bundle"], default="run")
     _add_input_out(assimilation_parser)
 
-    voice_to_doctrine_parser = subparsers.add_parser(
+    voice_to_doctrine_parser = _add_bundle_parser(
+        subparsers,
         "voice-to-doctrine-self-improvement-loop"
     )
     voice_to_doctrine_parser.add_argument("action", choices=["run", "run-bundle"])

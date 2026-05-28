@@ -32,6 +32,9 @@ def test_agent_entry_names_live_cli_registry_before_route_labels() -> None:
     assert "PYTHONPATH=src python3 -m microcosm_core --help" in agents
     assert "not guaranteed top-level commands unless they appear in" in agents
     assert "microcosm observe <project>" in help_output
+    assert "agent-monitor-redteam-falsification-replay" in help_output
+    assert "agent-route-observability-runtime" in help_output
+    assert "macro-projection-import-protocol" in help_output
     assert "microcosm evidence list <project>" in agents
 
 
@@ -46,3 +49,7 @@ def test_agent_entry_does_not_advertise_removed_expanded_loop_commands() -> None
         "microcosm work run <project>",
     ):
         assert removed not in agents
+
+    help_output = _help_output()
+    for removed in ("init", "index", "architecture", "route"):
+        assert f"    {removed} " not in help_output
