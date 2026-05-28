@@ -18,7 +18,7 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "workflow_dispatch:",
         "permissions:",
         "contents: read",
-        'python-version: ["3.11", "3.12"]',
+        'python-version: ["3.11", "3.12", "3.13"]',
         "actions/checkout@v4",
         "actions/setup-python@v5",
         "run: make ci",
