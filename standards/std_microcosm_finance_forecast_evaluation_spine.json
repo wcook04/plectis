@@ -2,7 +2,8 @@
   "anti_claims": [
     "The finance forecast evaluation spine is an evaluator and replay import, not trading, financial, or investment advice.",
     "The public bundle does not authorize live market data calls, provider payload export, account or portfolio state export, optimizer mutation, calculator-weight mutation, publication, hosting, or release.",
-    "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist."
+    "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist.",
+    "Quant research experiment receipts may compare hypotheses, evidence, split discipline, and uncertainty; they must not name an action, declare a winner, or auto-apply Evolve learning."
   ],
   "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
   "authority_ceiling": {
@@ -65,6 +66,7 @@
       "secret_exclusion_scan",
       "module_coverage_summary",
       "finance_research_assurance",
+      "quant_research_experiment_spine",
       "body_in_receipt",
       "synthetic_receipt_standin_allowed",
       "anti_claim"
@@ -88,6 +90,21 @@
       "scheduled_shell",
       "blocked_missing_artifact"
     ],
+    "quant_research_experiment_spine": {
+      "anti_overfit_required": true,
+      "auto_apply_allowed": false,
+      "hypothesis_ledger_required": true,
+      "no_advice_required": true,
+      "output_states": [
+        "awaiting_evidence",
+        "insufficient_evidence",
+        "candidate_set",
+        "review_candidate",
+        "rejected",
+        "blocked_authority_overclaim"
+      ],
+      "winner_language_allowed": false
+    },
     "evolve_auto_apply_allowed": false
   },
   "source_refs": [

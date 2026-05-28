@@ -5,7 +5,19 @@
     "live_probability_mutation_allowed": false,
     "shadow_calibrator_count": 0
   },
-  "generated_at": "2026-05-20T20:00:10+00:00",
+  "effective_evidence": {
+    "admission_status": "not_started",
+    "calculator_mutation_permission": false,
+    "calibration_prior_benchmark_variant_id": null,
+    "effective_inference_status": "not_started",
+    "horizons": {},
+    "live_calibrator_permission": false,
+    "optimizer_permission": false,
+    "raw_family_inference_status": "not_started",
+    "raw_model_confidence_set_status": "not_started",
+    "status": "not_started"
+  },
+  "generated_at": "2026-05-28T00:29:15+00:00",
   "generator_variants": [],
   "historical_replay": {
     "brier_skill_vs_base_rate": null,
@@ -50,6 +62,11 @@
     "family_loss_matrix_status": "not_started",
     "latest_selection_id": null,
     "method": null,
+    "model_confidence_set_alpha": null,
+    "model_confidence_set_confidence_level": null,
+    "model_confidence_set_eliminated_count": 0,
+    "model_confidence_set_retained_count": 0,
+    "model_confidence_set_retained_variants": [],
     "model_confidence_set_status": "reserved",
     "mutation_permission": false,
     "optimizer_permission": false,
@@ -71,6 +88,66 @@
     "count": 0,
     "maturing_next": []
   },
+  "quant_research_experiment_spine": {
+    "anti_overfit_evaluator": {
+      "effective_inference_status": "not_started",
+      "effective_sample_deficit": 0,
+      "embargoed_pair_count": 0,
+      "purged_pair_count": 0,
+      "random_kfold_allowed": false,
+      "split_executable": false,
+      "split_policy": "not_started",
+      "status": "pending_evidence",
+      "too_many_trials_metadata_present": false
+    },
+    "hypothesis_ledger": {
+      "authority_ceiling": "non_advisory_research_evaluation_only",
+      "effective_evidence_artifact_count": 0,
+      "experiment_artifact_count": 0,
+      "hypothesis_type": "shadow_forecast_family_comparison",
+      "model_selection_artifact_count": 0,
+      "public_safe_hypothesis": "Compare shadow forecast-evidence variants over deterministic historical replay artifacts, then report uncertainty rather than an action.",
+      "target_universe": "public_market_fixture_universe",
+      "time_horizon": "event_windowed_forecast_horizon",
+      "variant_gate_artifact_count": 0
+    },
+    "model_comparison": {
+      "family_level_inference_status": "not_started",
+      "model_confidence_set_retained_count": 0,
+      "model_confidence_set_status": "reserved",
+      "output_state": "awaiting_evidence",
+      "pairwise_equal_loss_status": "reserved",
+      "scoring_rule": "brier_score_binary_directional_event",
+      "spa_status": "reserved",
+      "winner_language_allowed": false
+    },
+    "no_advice_mode": {
+      "enabled": true,
+      "non_advisory_research_only": true,
+      "prohibited_output_classes": [
+        "trading_action_labels",
+        "personalized_account_action",
+        "portfolio_allocation",
+        "performance_guarantee",
+        "automatic_execution"
+      ]
+    },
+    "oracle_evolve_bridge": {
+      "auto_apply_allowed": false,
+      "bridge_path": [
+        "hypothesis_registered",
+        "evidence_constructed",
+        "comparison_scored",
+        "overfit_guard_checked",
+        "oracle_reconciled",
+        "evolve_review_gate"
+      ],
+      "decision": "awaiting_evidence",
+      "review_gated": true
+    },
+    "schema_version": "finance_quant_research_experiment_spine_v0",
+    "status": "awaiting_evidence"
+  },
   "residuals": {
     "all_tags": {},
     "data_quality_miss": 0,
@@ -91,6 +168,7 @@
     "bootstrap_reference_artifacts": [],
     "calculator_artifacts": [],
     "calibrator_artifacts": [],
+    "effective_evidence_artifacts": [],
     "experiment_artifacts": [],
     "model_selection_artifacts": [],
     "resolution_artifacts": [],

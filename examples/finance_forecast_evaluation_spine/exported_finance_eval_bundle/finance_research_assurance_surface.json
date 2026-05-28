@@ -123,6 +123,105 @@
       "missing_truth_is_data_gap_not_forecast_failure": true
     }
   },
+  "quant_research_experiment_spine": {
+    "anti_overfit_evaluator": {
+      "effective_sample_deficit": 29,
+      "embargo_days": 5,
+      "random_kfold_allowed": false,
+      "repeated_out_of_sample_paths": "required_before_learning_claim",
+      "sample_status": "sample_gated",
+      "selection_bias_guard": "family_level_loss_matrix_plus_bootstrap_spa_mcs_before_review",
+      "split_policy": "purged_temporal_out_of_sample",
+      "status": "available",
+      "too_many_trials_metadata_present": true
+    },
+    "hypothesis_ledger": {
+      "authority_ceiling": "non_advisory_research_evaluation_only",
+      "evidence_sources": [
+        "tools/finance/historical_replay.py",
+        "tools/finance/build_effective_evidence.py",
+        "tools/finance/model_selection.py",
+        "tools/finance/model_selection_stats.py",
+        "tools/finance/spa_statistics.py"
+      ],
+      "exclusions": [
+        "private_account_state",
+        "live_provider_calls",
+        "automatic_execution",
+        "personalized_action"
+      ],
+      "expected_failure_modes": [
+        "insufficient_effective_sample",
+        "event_window_dependence",
+        "mixed_split_policy",
+        "missing_truth_artifact",
+        "selection_bias_pressure"
+      ],
+      "experiment_id": "public_quant_research_demo_shadow_forecast_family_5d",
+      "horizon": "5d",
+      "hypothesis_type": "shadow_forecast_family_comparison",
+      "leakage_risks": [
+        "truth_time_contamination",
+        "overlapping_event_windows",
+        "unbound_split_membership",
+        "variant_registry_bypass"
+      ],
+      "public_safe_hypothesis": "Compare baseline and shadow forecast-evidence variants on deterministic public fixtures, then report uncertainty and data deficits instead of an action.",
+      "target_universe": "public_fixture_us_large_cap_macro_cross_asset"
+    },
+    "model_comparison_discipline": {
+      "candidate_set_language": true,
+      "model_confidence_set_status": "sample_gated_demo",
+      "multiple_comparison_guard": [
+        "stationary_bootstrap_reality_check",
+        "spa_readiness",
+        "model_confidence_set"
+      ],
+      "output_state": "insufficient_evidence",
+      "pairwise_equal_loss": "loss_differential_series",
+      "scoring_rule": "brier_score_binary_directional_event",
+      "winner_language_allowed": false
+    },
+    "no_advice_mode": {
+      "enabled": true,
+      "non_advisory_research_only": true,
+      "prohibited_output_classes": [
+        "trading_action_labels",
+        "personalized_account_action",
+        "portfolio_allocation",
+        "performance_guarantee",
+        "automatic_execution"
+      ]
+    },
+    "operator_research_receipt": {
+      "required_markers": [
+        "hypothesis",
+        "evidence_maturity",
+        "split_discipline",
+        "overfit_risk",
+        "comparison_status",
+        "uncertainty",
+        "no_advice_mode",
+        "review_gated_evolve"
+      ],
+      "surface_state": "public_safe_demo_available"
+    },
+    "oracle_evolve_bridge": {
+      "auto_apply_allowed": false,
+      "bridge_path": [
+        "hypothesis_registered",
+        "evidence_constructed",
+        "comparison_scored",
+        "overfit_guard_checked",
+        "oracle_reconciled",
+        "evolve_review_gate"
+      ],
+      "decision": "awaiting_review_after_sufficient_evidence",
+      "review_gated": true
+    },
+    "schema_version": "finance_quant_research_experiment_spine_v0",
+    "status": "public_safe_demo_available"
+  },
   "schema_version": "finance_research_assurance_surface_v0",
   "statistical_discipline": {
     "multiple_comparison_guard": {

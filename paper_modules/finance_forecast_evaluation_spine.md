@@ -54,6 +54,28 @@ that only as a rubric for development/use, validation/monitoring, governance,
 inventory, and documentation evidence. It does not claim regulated-bank
 compliance.
 
+## Quant Research Experiment Spine
+
+Closure of finance assurance is the floor, not the ceiling. The next public
+contract is a non-advisory quant research experiment spine: a public-safe
+hypothesis card, target universe, horizon, evidence sources, exclusions,
+leakage risks, expected failure modes, split discipline, overfit guard,
+comparison status, uncertainty state, Oracle reconciliation path, and
+review-gated Evolve implication.
+
+The macro composition root is `tools/finance/build_eval_operating_picture.py`.
+It now projects `quant_research_experiment_spine` from the existing historical
+replay, variant comparison, model-selection, SPA/bootstrap, and effective
+evidence receipts. Empty inputs remain a valid awaiting-evidence state; a
+non-empty public demo lives in `finance_research_assurance_surface.json` so a
+cold reader can see the intended research loop without a performance claim.
+
+The allowed output language is `awaiting_evidence`, `insufficient_evidence`,
+`candidate_set`, `review_candidate`, `rejected`, or
+`blocked_authority_overclaim`. The spine is not allowed to declare a tradable
+winner, produce personalized account actions, claim performance, or auto-apply
+Evolve learning.
+
 ## Governing Standard
 
 `standards/std_microcosm_finance_forecast_evaluation_spine.json` owns the

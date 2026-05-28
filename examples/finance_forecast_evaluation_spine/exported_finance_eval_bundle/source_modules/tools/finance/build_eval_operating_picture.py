@@ -496,6 +496,146 @@ def _effective_evidence_summary(payloads: List[Mapping[str, Any]]) -> Dict[str, 
     }
 
 
+def _artifact_count(source_refs: Mapping[str, Any], key: str) -> int:
+    value = source_refs.get(key)
+    return len(value) if isinstance(value, list) else 0
+
+
+def _quant_research_experiment_spine(projection: Mapping[str, Any]) -> Dict[str, Any]:
+    source_refs = projection.get("source_refs") if isinstance(projection.get("source_refs"), Mapping) else {}
+    historical = (
+        projection.get("historical_replay")
+        if isinstance(projection.get("historical_replay"), Mapping)
+        else {}
+    )
+    variant_gate = (
+        projection.get("variant_gate")
+        if isinstance(projection.get("variant_gate"), Mapping)
+        else {}
+    )
+    model_selection = (
+        projection.get("model_selection")
+        if isinstance(projection.get("model_selection"), Mapping)
+        else {}
+    )
+    effective = (
+        projection.get("effective_evidence")
+        if isinstance(projection.get("effective_evidence"), Mapping)
+        else {}
+    )
+    experiment_count = _artifact_count(source_refs, "experiment_artifacts")
+    variant_gate_count = _artifact_count(source_refs, "variant_gate_artifacts")
+    model_selection_count = _artifact_count(source_refs, "model_selection_artifacts")
+    effective_count = _artifact_count(source_refs, "effective_evidence_artifacts")
+    evidence_available = any(
+        [experiment_count, variant_gate_count, model_selection_count, effective_count]
+    )
+    mutation_requested = any(
+        bool(row.get(field))
+        for row in (variant_gate, model_selection, effective)
+        for field in (
+            "calculator_mutation_permission",
+            "optimizer_permission",
+            "mutation_permission",
+            "live_calibrator_permission",
+        )
+    )
+    split_policy = historical.get("split_policy") or "not_started"
+    split_executable = historical.get("split_executable") is True
+    purged_count = _as_int(variant_gate.get("purged_pair_count"))
+    embargoed_count = _as_int(variant_gate.get("embargoed_pair_count"))
+    effective_status = str(effective.get("effective_inference_status") or "not_started")
+    effective_sample_deficit = _as_int(effective.get("effective_sample_deficit"))
+    comparison_status = "not_started"
+    if model_selection_count:
+        comparison_status = str(
+            model_selection.get("family_level_inference_status") or "reserved"
+        )
+    elif variant_gate_count:
+        comparison_status = str(variant_gate.get("statistical_test_status") or "reserved")
+    retained_count = _as_int(model_selection.get("model_confidence_set_retained_count"))
+    output_state = "awaiting_evidence"
+    if mutation_requested:
+        output_state = "blocked_authority_overclaim"
+    elif retained_count > 0:
+        output_state = "candidate_set"
+    elif evidence_available:
+        output_state = "insufficient_evidence"
+    return {
+        "schema_version": "finance_quant_research_experiment_spine_v0",
+        "status": "available" if evidence_available else "awaiting_evidence",
+        "hypothesis_ledger": {
+            "hypothesis_type": "shadow_forecast_family_comparison",
+            "public_safe_hypothesis": (
+                "Compare shadow forecast-evidence variants over deterministic historical "
+                "replay artifacts, then report uncertainty rather than an action."
+            ),
+            "target_universe": "public_market_fixture_universe",
+            "time_horizon": "event_windowed_forecast_horizon",
+            "authority_ceiling": "non_advisory_research_evaluation_only",
+            "experiment_artifact_count": experiment_count,
+            "variant_gate_artifact_count": variant_gate_count,
+            "model_selection_artifact_count": model_selection_count,
+            "effective_evidence_artifact_count": effective_count,
+        },
+        "anti_overfit_evaluator": {
+            "split_policy": split_policy,
+            "split_executable": split_executable,
+            "random_kfold_allowed": False,
+            "purged_pair_count": purged_count,
+            "embargoed_pair_count": embargoed_count,
+            "effective_inference_status": effective_status,
+            "effective_sample_deficit": effective_sample_deficit,
+            "too_many_trials_metadata_present": bool(
+                model_selection.get("candidate_count")
+                or variant_gate.get("candidate_variant_count")
+            ),
+            "status": (
+                "available"
+                if evidence_available
+                and (split_executable or effective.get("status") == "available")
+                else "pending_evidence"
+            ),
+        },
+        "model_comparison": {
+            "scoring_rule": "brier_score_binary_directional_event",
+            "pairwise_equal_loss_status": variant_gate.get("statistical_test_status")
+            or "not_started",
+            "family_level_inference_status": comparison_status,
+            "spa_status": model_selection.get("spa_status") or "reserved",
+            "model_confidence_set_status": model_selection.get("model_confidence_set_status")
+            or "reserved",
+            "model_confidence_set_retained_count": retained_count,
+            "winner_language_allowed": False,
+            "output_state": output_state,
+        },
+        "oracle_evolve_bridge": {
+            "review_gated": True,
+            "auto_apply_allowed": False,
+            "decision": "review_candidate" if output_state == "candidate_set" else output_state,
+            "bridge_path": [
+                "hypothesis_registered",
+                "evidence_constructed",
+                "comparison_scored",
+                "overfit_guard_checked",
+                "oracle_reconciled",
+                "evolve_review_gate",
+            ],
+        },
+        "no_advice_mode": {
+            "enabled": True,
+            "non_advisory_research_only": True,
+            "prohibited_output_classes": [
+                "trading_action_labels",
+                "personalized_account_action",
+                "portfolio_allocation",
+                "performance_guarantee",
+                "automatic_execution",
+            ],
+        },
+    }
+
+
 def build_projection(
     scorecard_paths: List[Path],
     *,
@@ -545,6 +685,7 @@ def build_projection(
         _bootstrap_reference_summary(_load_payloads(bootstrap_reference_paths or []))
     )
     projection["effective_evidence"] = _effective_evidence_summary(_load_payloads(effective_evidence_paths or []))
+    projection["quant_research_experiment_spine"] = _quant_research_experiment_spine(projection)
     return projection
 
 

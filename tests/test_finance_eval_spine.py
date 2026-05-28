@@ -77,9 +77,28 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     ]
     assert result["finance_research_assurance"]["evolve_review_gated"] is True
     assert result["finance_research_assurance"]["evolve_auto_apply_allowed"] is False
+    quant = result["finance_research_assurance"]["quant_research_experiment_spine"]
+    assert quant["schema_version"] == "finance_quant_research_experiment_spine_v0"
+    assert quant["status"] == "public_safe_demo_available"
+    assert quant["experiment_id"] == "public_quant_research_demo_shadow_forecast_family_5d"
+    assert quant["anti_overfit_status"] == "available"
+    assert quant["selection_bias_guard"] == (
+        "family_level_loss_matrix_plus_bootstrap_spa_mcs_before_review"
+    )
+    assert quant["model_comparison_output_state"] == "insufficient_evidence"
+    assert quant["review_gated"] is True
+    assert quant["auto_apply_allowed"] is False
+    assert quant["no_advice_enabled"] is True
     assert result["operating_picture_gate_summary"]["comparison_key_authority"] == (
         "tools/finance/event_keys.py"
     )
+    operating_quant = result["operating_picture_gate_summary"]["quant_research_experiment_spine"]
+    assert operating_quant["schema_version"] == "finance_quant_research_experiment_spine_v0"
+    assert operating_quant["status"] == "awaiting_evidence"
+    assert operating_quant["model_comparison_output_state"] == "awaiting_evidence"
+    assert operating_quant["review_gated"] is True
+    assert operating_quant["auto_apply_allowed"] is False
+    assert operating_quant["no_advice_enabled"] is True
     assert all(
         row["observed"] is False
         for row in result["operating_picture_gate_summary"]["false_gate_rows"]
@@ -154,6 +173,25 @@ def test_finance_eval_spine_rejects_empty_assurance_demo(tmp_path: Path) -> None
 
     assert result["status"] == "blocked"
     assert "ASSURANCE_DEMO_EMPTY_OR_INCOMPLETE" in result["error_codes"]
+
+
+def test_finance_eval_spine_rejects_quant_research_advice_or_auto_apply(tmp_path: Path) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    assurance_path = bundle / "finance_research_assurance_surface.json"
+    assurance = json.loads(assurance_path.read_text(encoding="utf-8"))
+    quant = assurance["quant_research_experiment_spine"]
+    quant["model_comparison_discipline"]["winner_language_allowed"] = True
+    quant["oracle_evolve_bridge"]["auto_apply_allowed"] = True
+    assurance_path.write_text(
+        json.dumps(assurance, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "QUANT_RESEARCH_SPINE_INCOMPLETE" in result["error_codes"]
 
 
 def test_cli_finance_eval_spine_smoke(

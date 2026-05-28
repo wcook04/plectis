@@ -25,6 +25,7 @@ CONTRACT_NAME = "finance_eval_runtime_contract.json"
 OPERATING_PICTURE_NAME = "finance_eval_operating_picture.json"
 ASSURANCE_SURFACE_NAME = "finance_research_assurance_surface.json"
 ASSURANCE_SURFACE_SCHEMA = "finance_research_assurance_surface_v0"
+QUANT_RESEARCH_SPINE_SCHEMA = "finance_quant_research_experiment_spine_v0"
 SOURCE_MODULE_ROOT = Path("source_modules/tools/finance")
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
 SOURCE_OPEN_BODY_POLICY = "source_bodies_copied_into_bundle_not_receipt"
@@ -85,6 +86,14 @@ STATISTICAL_DISCIPLINE_SEQUENCE = (
     "multiple_comparison_guard",
     "review_gated_evolve_implication",
 )
+QUANT_RESEARCH_OUTPUT_STATES = {
+    "awaiting_evidence",
+    "insufficient_evidence",
+    "candidate_set",
+    "review_candidate",
+    "rejected",
+    "blocked_authority_overclaim",
+}
 REQUIRED_INPUTS = (
     *(SOURCE_MODULE_ROOT / name for name in REQUIRED_MODULES),
     Path(OPERATING_PICTURE_NAME),
@@ -840,6 +849,45 @@ def _validate_assurance_surface(
                 observed=value,
             )
         )
+    quant = _as_dict(assurance_surface.get("quant_research_experiment_spine"))
+    quant_hypothesis = _as_dict(quant.get("hypothesis_ledger"))
+    quant_anti_overfit = _as_dict(quant.get("anti_overfit_evaluator"))
+    quant_comparison = _as_dict(quant.get("model_comparison_discipline"))
+    quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
+    quant_no_advice = _as_dict(quant.get("no_advice_mode"))
+    quant_output_state = str(quant_comparison.get("output_state") or "")
+    required_quant_markers = {
+        "hypothesis_ledger": bool(quant_hypothesis.get("experiment_id"))
+        and bool(quant_hypothesis.get("public_safe_hypothesis")),
+        "anti_overfit_evaluator": quant_anti_overfit.get("random_kfold_allowed") is False
+        and bool(quant_anti_overfit.get("selection_bias_guard")),
+        "model_comparison_discipline": quant_comparison.get("winner_language_allowed") is False
+        and quant_output_state in QUANT_RESEARCH_OUTPUT_STATES,
+        "oracle_evolve_bridge": quant_bridge.get("review_gated") is True
+        and quant_bridge.get("auto_apply_allowed") is False,
+        "no_advice_mode": quant_no_advice.get("enabled") is True
+        and quant_no_advice.get("non_advisory_research_only") is True,
+    }
+    missing_quant_markers = [
+        key for key, present in sorted(required_quant_markers.items()) if not present
+    ]
+    if quant.get("schema_version") != QUANT_RESEARCH_SPINE_SCHEMA or missing_quant_markers:
+        findings.append(
+            _finding(
+                "QUANT_RESEARCH_SPINE_INCOMPLETE",
+                "Finance assurance must include a non-advisory quant research experiment spine with hypothesis, anti-overfit, comparison, review gate, and no-advice markers.",
+                source=f"{ASSURANCE_SURFACE_NAME}::quant_research_experiment_spine",
+                expected={
+                    "schema_version": QUANT_RESEARCH_SPINE_SCHEMA,
+                    "markers": sorted(required_quant_markers),
+                },
+                observed={
+                    "schema_version": quant.get("schema_version"),
+                    "missing": missing_quant_markers,
+                    "output_state": quant_output_state,
+                },
+            )
+        )
     return {
         "schema_version": assurance_surface.get("schema_version"),
         "surface_id": assurance_surface.get("surface_id"),
@@ -852,6 +900,18 @@ def _validate_assurance_surface(
         "evolve_review_gated": evolve.get("review_gated"),
         "evolve_auto_apply_allowed": evolve.get("auto_apply_allowed"),
         "authority_overclaim_count": len(overclaims),
+        "quant_research_experiment_spine": {
+            "schema_version": quant.get("schema_version"),
+            "status": quant.get("status"),
+            "experiment_id": quant_hypothesis.get("experiment_id"),
+            "hypothesis_type": quant_hypothesis.get("hypothesis_type"),
+            "anti_overfit_status": quant_anti_overfit.get("status"),
+            "selection_bias_guard": quant_anti_overfit.get("selection_bias_guard"),
+            "model_comparison_output_state": quant_output_state,
+            "review_gated": quant_bridge.get("review_gated"),
+            "auto_apply_allowed": quant_bridge.get("auto_apply_allowed"),
+            "no_advice_enabled": quant_no_advice.get("enabled"),
+        },
         "body_in_receipt": False,
     }
 
@@ -904,6 +964,39 @@ def _validate_operating_picture(
                 observed=comparison_authority,
             )
         )
+    quant = _as_dict(operating_picture.get("quant_research_experiment_spine"))
+    quant_bridge = _as_dict(quant.get("oracle_evolve_bridge"))
+    quant_no_advice = _as_dict(quant.get("no_advice_mode"))
+    if quant.get("schema_version") != QUANT_RESEARCH_SPINE_SCHEMA:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_RESEARCH_SPINE_MISSING",
+                "Finance eval operating picture must expose the quant research experiment spine projection.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine",
+                expected=QUANT_RESEARCH_SPINE_SCHEMA,
+                observed=quant.get("schema_version"),
+            )
+        )
+    if quant_bridge.get("review_gated") is not True or quant_bridge.get("auto_apply_allowed") is not False:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_EVOLVE_GATE_OPEN",
+                "Quant research experiment spine must remain review-gated and deny auto-apply.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine.oracle_evolve_bridge",
+                expected={"review_gated": True, "auto_apply_allowed": False},
+                observed=quant_bridge,
+            )
+        )
+    if quant_no_advice.get("enabled") is not True or quant_no_advice.get("non_advisory_research_only") is not True:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_NO_ADVICE_MISSING",
+                "Quant research experiment spine must remain non-advisory research only.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine.no_advice_mode",
+                expected={"enabled": True, "non_advisory_research_only": True},
+                observed=quant_no_advice,
+            )
+        )
     return {
         "schema_version": operating_picture.get("schema_version"),
         "generated_at": operating_picture.get("generated_at"),
@@ -918,6 +1011,16 @@ def _validate_operating_picture(
         "comparison_key_schema": _get_path(
             operating_picture, ("variant_gate", "comparison_key_schema")
         ),
+        "quant_research_experiment_spine": {
+            "schema_version": quant.get("schema_version"),
+            "status": quant.get("status"),
+            "model_comparison_output_state": _get_path(
+                quant, ("model_comparison", "output_state")
+            ),
+            "review_gated": quant_bridge.get("review_gated"),
+            "auto_apply_allowed": quant_bridge.get("auto_apply_allowed"),
+            "no_advice_enabled": quant_no_advice.get("enabled"),
+        },
         "body_in_receipt": False,
     }
 

@@ -78,7 +78,7 @@
         "authority_classification": "core_public_safe_evidence_body",
         "coverage_status": "imported_public_body",
         "decision": "copied_into_public_body_floor",
-        "line_count": 589,
+        "line_count": 730,
         "public_safe": true,
         "reason": "Operating-picture builder is the current public receipt bridge.",
         "source_ref": "tools/finance/build_eval_operating_picture.py"
