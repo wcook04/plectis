@@ -7,6 +7,8 @@ import shlex
 import sys
 from pathlib import Path
 
+from microcosm_core import __version__
+
 
 class _LazyModule:
     def __init__(self, module_name: str) -> None:
@@ -1037,6 +1039,11 @@ def main(argv: list[str] | None = None) -> int:
         ),
         epilog=FIRST_SCREEN_HELP,
         formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", metavar="<command>")
     init_parser = subparsers.add_parser("init")
