@@ -18,8 +18,17 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "VENV ?= .venv",
         "VENV_PYTHON ?= $(VENV)/bin/python",
         "EXPORT_OUT ?= ../microcosm-substrate-export",
+        ".DEFAULT_GOAL := help",
         "PUBLIC_TESTS ?=",
-        ".PHONY: install venv test test-all smoke ci standalone-export clean",
+        ".PHONY: help install venv test test-all smoke ci standalone-export clean",
+        "Microcosm public repo commands:",
+        "make install             create .venv and install test extras",
+        "make test                run public entry and safety tests",
+        "make test-all            run the full local test suite",
+        "make smoke               run the first-screen CLI smoke route",
+        "make ci                  run test plus smoke",
+        "make standalone-export   export a release-gated standalone tree",
+        "make clean               remove local build and cache files",
         "$(PYTHON) -m venv $(VENV)",
         "$(VENV_PYTHON) -m pip install --upgrade pip",
         '$(VENV_PYTHON) -m pip install -e ".[test]"',
@@ -38,6 +47,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         assert required in text
 
     for target in (
+        "help",
         "venv",
         "install",
         "test",

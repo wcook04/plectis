@@ -2,6 +2,7 @@ PYTHON ?= python3
 VENV ?= .venv
 VENV_PYTHON ?= $(VENV)/bin/python
 EXPORT_OUT ?= ../microcosm-substrate-export
+.DEFAULT_GOAL := help
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
 	tests/test_secret_exclusion_scan.py \
@@ -13,7 +14,18 @@ PUBLIC_TESTS ?= \
 	tests/test_proof_lab_cache_action_hint.py \
 	tests/test_release_export.py
 
-.PHONY: install venv test test-all smoke ci standalone-export clean
+.PHONY: help install venv test test-all smoke ci standalone-export clean
+
+help:
+	@printf '%s\n' \
+		"Microcosm public repo commands:" \
+		"  make install             create .venv and install test extras" \
+		"  make test                run public entry and safety tests" \
+		"  make test-all            run the full local test suite" \
+		"  make smoke               run the first-screen CLI smoke route" \
+		"  make ci                  run test plus smoke" \
+		"  make standalone-export   export a release-gated standalone tree" \
+		"  make clean               remove local build and cache files"
 
 $(VENV_PYTHON):
 	$(PYTHON) -m venv $(VENV)
