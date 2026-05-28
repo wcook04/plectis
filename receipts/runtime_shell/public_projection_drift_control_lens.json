@@ -16,7 +16,7 @@
     "source_open_drilldown_contract": true
   },
   "command": "microcosm drift-control",
-  "created_at": "2026-05-28T13:42:07+00:00",
+  "created_at": "2026-05-28T15:06:32+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,

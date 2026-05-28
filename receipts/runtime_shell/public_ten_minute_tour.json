@@ -55,7 +55,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 14,
+    "event_count": 10,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -66,7 +66,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-28T13:40:04+00:00",
+  "created_at": "2026-05-28T15:06:31+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -160,7 +160,8 @@
       "evidence_dir_ref": ".microcosm/evidence/",
       "graph_ref": ".microcosm/graph.json",
       "observatory_bounded_validation_command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
-      "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+      "observatory_command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
+      "observatory_interactive_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
       "project_observe_command": "microcosm observe <project>",
       "project_observe_endpoint": "/project/observe",
       "route_state_ref": ".microcosm/routes.json",
@@ -183,7 +184,8 @@
         "project_observe_command",
         "project_observe_endpoint",
         "observatory_command",
-        "observatory_bounded_validation_command"
+        "observatory_bounded_validation_command",
+        "observatory_interactive_command"
       ],
       "required_keys": [
         "route_state_ref",
@@ -194,7 +196,8 @@
         "project_observe_command",
         "project_observe_endpoint",
         "observatory_command",
-        "observatory_bounded_validation_command"
+        "observatory_bounded_validation_command",
+        "observatory_interactive_command"
       ],
       "schema_version": "microcosm_first_screen_behavior_surfaces_contract_v1"
     },
@@ -280,6 +283,7 @@
         "command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6",
         "endpoint": "/project/observatory-card",
         "expanded_endpoint": "/project/observatory",
+        "interactive_command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
         "shows": [
           "compact route/work/evidence/graph/proof card before raw JSON",
           "route -> work -> event -> evidence",
@@ -331,7 +335,7 @@
       }
     ],
     "primary_command": "microcosm tour --card <project>",
-    "project_ref": "scratch_project",
+    "project_ref": "scratch",
     "proof_surface": {
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "compiled_declaration_count": 8,
@@ -419,23 +423,21 @@
     },
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
     "cache_action": {
-      "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
-      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "status": "actionable"
+      "status": "not_needed"
     },
     "cache_freshness": {
       "input_refs_exported": false,
-      "input_status": "stale",
+      "input_status": "current",
       "latest_input_mtime_ns": 1779959250490061814,
-      "receipt_mtime_ns": 1779954260239335626,
+      "receipt_mtime_ns": 1779976324710842598,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-      "stale_input_count": 2,
-      "status": "stale",
+      "stale_input_count": 0,
+      "status": "current",
       "tracked_input_count": 14
     },
-    "cache_status": "stale_cached_receipt",
-    "cached_card_status": "stale_cached_receipt",
-    "cached_receipt_bytes": 34690,
+    "cache_status": "cached_receipt_read",
+    "cached_card_status": "pass",
+    "cached_receipt_bytes": 34550,
     "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -597,7 +599,7 @@
     "route_ref": "atlas/entry_packet.json::local_first_screen_route",
     "surface_id": "microcosm_local_first_screen"
   },
-  "project_ref": "scratch_project",
+  "project_ref": "scratch",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: tour, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
@@ -806,8 +808,8 @@
       "alias_endpoints": [
         "/verifier-lab-kernel"
       ],
-      "cache_status": "stale_cached_receipt",
-      "cached_card_status": "stale_cached_receipt",
+      "cache_status": "cached_receipt_read",
+      "cached_card_status": "pass",
       "card_id": "verifier_lab_kernel",
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "endpoint": "/proof-lab",
@@ -1119,8 +1121,8 @@
       "alias_endpoints": [
         "/verifier-lab-kernel"
       ],
-      "cache_status": "stale_cached_receipt",
-      "cached_card_status": "stale_cached_receipt",
+      "cache_status": "cached_receipt_read",
+      "cached_card_status": "pass",
       "card_id": "verifier_lab_kernel",
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "endpoint": "/proof-lab",
