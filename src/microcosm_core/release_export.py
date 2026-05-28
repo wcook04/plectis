@@ -24,6 +24,9 @@ PROJECTION_FRESHNESS_RECEIPT_REF = (
     "exported_projection_import_bundle_validation_result.json"
 )
 RELEASE_AUTHORIZATION_GATE_ID = "explicit_release_authorization_gate"
+RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION = (
+    "microcosm_release_candidate_invalidation_v1"
+)
 DEFAULT_INCLUDE_REFS = (
     ".gitignore",
     "AGENTS.md",
@@ -136,6 +139,18 @@ EXTERNAL_WARNING_CLASSIFICATION_ROWS = (
             "or authority ceiling."
         ),
     },
+)
+RELEASE_STATUS_PROJECTION_PREFIXES = (
+    "state/task_ledger/",
+    "tools/meta/observability/cli_prompt_trace.py",
+    "tools/agent_trace_structurer/",
+    "system/server/tests/test_cli_prompt_trace_capsule.py",
+    "tools/agent_trace_structurer/trace_size_smoke.py",
+)
+MACRO_ASSIMILATION_REL_PREFIXES = (
+    "examples/macro_projection_import_protocol/",
+    "receipts/first_wave/macro_projection_import_protocol/",
+    "src/microcosm_core/organs/macro_projection_import_protocol.py",
 )
 
 
@@ -564,6 +579,20 @@ def _git_output(root: Path, args: list[str]) -> str | None:
     return completed.stdout.strip()
 
 
+def _git_success(root: Path, args: list[str]) -> bool:
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(root), *args],
+            text=True,
+            capture_output=True,
+            timeout=10,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return completed.returncode == 0
+
+
 def _source_identity(root: Path) -> dict[str, Any]:
     head = _git_output(root, ["rev-parse", "HEAD"])
     git_root_text = _git_output(root, ["rev-parse", "--show-toplevel"])
@@ -607,6 +636,257 @@ def _source_identity(root: Path) -> dict[str, Any]:
         "dirty_source_path_sample": dirty_paths[:20],
         "dirty_source_path_overflow_count": max(0, len(dirty_paths) - 20),
         "body_in_receipt": False,
+    }
+
+
+def _release_material_path_cone(source_root_ref: str | None) -> dict[str, Any]:
+    source_root = (source_root_ref or ARTIFACT_DIR_NAME).strip("/")
+    release_material_prefixes = [f"{source_root}/"] if source_root else []
+    macro_assimilation_prefixes = [
+        f"{source_root}/{prefix}" for prefix in MACRO_ASSIMILATION_REL_PREFIXES
+    ]
+    return {
+        "schema_version": "microcosm_release_material_path_cone_v1",
+        "release_material_prefixes": release_material_prefixes,
+        "macro_assimilation_material_prefixes": macro_assimilation_prefixes,
+        "release_status_projection_only_prefixes": list(RELEASE_STATUS_PROJECTION_PREFIXES),
+        "release_material_rule": (
+            "A later commit invalidates the frozen candidate when it changes "
+            "included public artifact material or release-claim dependencies."
+        ),
+        "status_projection_rule": (
+            "A later trace, Task Ledger, or display-only projection change may "
+            "require status receipt refresh, but it does not force artifact "
+            "regeneration unless it changes the public artifact or gate logic."
+        ),
+    }
+
+
+def _path_has_prefix(path: str, prefixes: list[str] | tuple[str, ...]) -> bool:
+    normalized = path.strip("/")
+    return any(
+        normalized == prefix.rstrip("/") or normalized.startswith(prefix)
+        for prefix in prefixes
+    )
+
+
+def _classify_release_candidate_path(path: str, *, source_root_ref: str | None) -> str:
+    cone = _release_material_path_cone(source_root_ref)
+    if _path_has_prefix(path, cone["macro_assimilation_material_prefixes"]):
+        return "macro_assimilation_material_change"
+    if _path_has_prefix(path, cone["release_material_prefixes"]):
+        return "release_material_change"
+    if _path_has_prefix(path, cone["release_status_projection_only_prefixes"]):
+        return "release_status_projection_only_change"
+    return "unrelated_macro_mainline_change"
+
+
+def _git_commits_after(
+    root: Path,
+    *,
+    frozen_head: str,
+    compare_ref: str,
+) -> list[dict[str, Any]]:
+    raw = _git_output(
+        root,
+        [
+            "log",
+            "--reverse",
+            "--format=commit:%H%x1f%s",
+            "--name-only",
+            f"{frozen_head}..{compare_ref}",
+        ],
+    )
+    if raw is None:
+        return []
+    commits: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    for line in raw.splitlines():
+        if line.startswith("commit:"):
+            if current is not None:
+                current["changed_paths"] = sorted(set(current["changed_paths"]))
+                commits.append(current)
+            header = line[len("commit:") :]
+            if "\x1f" in header:
+                commit_hash, subject = header.split("\x1f", 1)
+            else:
+                commit_hash, subject = header, ""
+            current = {
+                "commit": commit_hash,
+                "subject": subject,
+                "changed_paths": [],
+            }
+            continue
+        stripped = line.strip()
+        if stripped and current is not None:
+            current["changed_paths"].append(stripped)
+    if current is not None:
+        current["changed_paths"] = sorted(set(current["changed_paths"]))
+        commits.append(current)
+    return commits
+
+
+def assess_candidate_invalidation(
+    release_candidate_packet: dict[str, Any],
+    source_root: str | Path,
+    *,
+    compare_ref: str = "HEAD",
+) -> dict[str, Any]:
+    source_root_path = Path(source_root).expanduser().resolve(strict=True)
+    identity = release_candidate_packet.get("candidate_identity") or {}
+    source = identity.get("source") or {}
+    artifact = identity.get("artifact") or {}
+    gate_decision = release_candidate_packet.get("release_authorization_gate_decision") or {}
+    authority = release_candidate_packet.get("authority_state") or {}
+    frozen_head = source.get("git_head")
+    source_root_ref = source.get("source_root_ref")
+    cone = _release_material_path_cone(
+        str(source_root_ref) if source_root_ref else ARTIFACT_DIR_NAME
+    )
+    base = {
+        "schema_version": RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION,
+        "frozen_candidate": {
+            "git_head": frozen_head,
+            "source_root_ref": source_root_ref,
+            "source_tree_state_kind": source.get("source_tree_state_kind"),
+            "artifact_hash": artifact.get("artifact_payload_hash_sha256"),
+            "file_count": artifact.get("file_count"),
+            "payload_bytes": artifact.get("payload_bytes"),
+            "release_receipt_ref": identity.get("release_receipt_ref"),
+        },
+        "materiality_policy": cone,
+        "gate_state": gate_decision.get("decision"),
+        "release_authorized": authority.get("release_authorized") is True,
+    }
+    compare_head = _git_output(source_root_path, ["rev-parse", compare_ref])
+    if not frozen_head or not compare_head:
+        return {
+            **base,
+            "assessment_status": "unavailable",
+            "candidate_validity_result": "historical_only",
+            "comparison": {
+                "compare_ref": compare_ref,
+                "compare_head": compare_head,
+                "commits_after_candidate_count": None,
+                "observed_commits": [],
+            },
+            "path_classification": {
+                "material_change_intersection": None,
+                "release_status_projection_only_intersection": None,
+                "changed_path_count": None,
+                "changed_paths_by_class": {},
+            },
+            "disclosure": "candidate_source_identity_or_compare_head_unavailable",
+        }
+    if not _git_success(source_root_path, ["merge-base", "--is-ancestor", frozen_head, compare_head]):
+        return {
+            **base,
+            "assessment_status": "not_ancestor",
+            "candidate_validity_result": "historical_only",
+            "comparison": {
+                "compare_ref": compare_ref,
+                "compare_head": compare_head,
+                "commits_after_candidate_count": None,
+                "observed_commits": [],
+            },
+            "path_classification": {
+                "material_change_intersection": None,
+                "release_status_projection_only_intersection": None,
+                "changed_path_count": None,
+                "changed_paths_by_class": {},
+            },
+            "disclosure": "frozen_candidate_commit_is_not_an_ancestor_of_compare_head",
+        }
+
+    commits = _git_commits_after(
+        source_root_path,
+        frozen_head=str(frozen_head),
+        compare_ref=str(compare_ref),
+    )
+    changed_paths_by_class: dict[str, list[str]] = {
+        "macro_assimilation_material_change": [],
+        "release_material_change": [],
+        "release_status_projection_only_change": [],
+        "unrelated_macro_mainline_change": [],
+    }
+    observed_commits: list[dict[str, Any]] = []
+    for commit in commits:
+        commit_classes: set[str] = set()
+        path_sample: list[str] = []
+        for path in commit.get("changed_paths", []):
+            classification = _classify_release_candidate_path(
+                str(path),
+                source_root_ref=str(source_root_ref) if source_root_ref else None,
+            )
+            commit_classes.add(classification)
+            changed_paths_by_class.setdefault(classification, []).append(str(path))
+            if len(path_sample) < 20:
+                path_sample.append(str(path))
+        observed_commits.append(
+            {
+                "commit": commit.get("commit"),
+                "subject": commit.get("subject"),
+                "changed_path_count": len(commit.get("changed_paths", [])),
+                "materiality_classes": sorted(commit_classes),
+                "changed_path_sample": path_sample,
+            }
+        )
+
+    changed_paths_by_class = {
+        key: sorted(set(paths)) for key, paths in changed_paths_by_class.items()
+    }
+    material_paths = (
+        changed_paths_by_class.get("macro_assimilation_material_change", [])
+        + changed_paths_by_class.get("release_material_change", [])
+    )
+    status_projection_paths = changed_paths_by_class.get(
+        "release_status_projection_only_change", []
+    )
+    material_intersection = bool(material_paths)
+    status_projection_intersection = bool(status_projection_paths)
+    gate_ready = gate_decision.get("decision") == "ready_pending_operator_authorization"
+    if material_intersection:
+        validity = "stale_requires_rehearsal"
+        disclosure = "release_material_commits_after_candidate"
+    elif gate_ready:
+        validity = "gate_eligible"
+        disclosure = (
+            "newer_non_material_commits_exist"
+            if commits
+            else "no_newer_commits_after_frozen_candidate"
+        )
+    else:
+        validity = "historical_only"
+        disclosure = "candidate_is_not_gate_ready"
+
+    return {
+        **base,
+        "assessment_status": "pass",
+        "candidate_validity_result": validity,
+        "comparison": {
+            "compare_ref": compare_ref,
+            "compare_head": compare_head,
+            "commits_after_candidate_count": len(commits),
+            "observed_commits": observed_commits,
+        },
+        "path_classification": {
+            "material_change_intersection": material_intersection,
+            "release_status_projection_only_intersection": status_projection_intersection,
+            "changed_path_count": sum(
+                len(paths) for paths in changed_paths_by_class.values()
+            ),
+            "changed_paths_by_class": {
+                key: paths[:50] for key, paths in changed_paths_by_class.items()
+            },
+            "changed_path_overflow_count_by_class": {
+                key: max(0, len(paths) - 50)
+                for key, paths in changed_paths_by_class.items()
+            },
+        },
+        "status_receipt_refresh_recommended": (
+            status_projection_intersection and not material_intersection
+        ),
+        "disclosure": disclosure,
     }
 
 
@@ -903,6 +1183,10 @@ def _release_candidate_packet(
     packet["release_authorization_gate_decision"] = (
         _release_authorization_gate_decision(packet)
     )
+    packet["candidate_invalidation_assessment"] = assess_candidate_invalidation(
+        packet,
+        source_root,
+    )
     return packet
 
 
@@ -1124,7 +1408,16 @@ def main(argv: list[str] | None = None) -> int:
         description="Generate a standalone public Microcosm folder with a bounded release-export receipt.",
     )
     parser.add_argument("--root", default=".", help="microcosm-substrate source root")
-    parser.add_argument("--out", required=True, help="output directory that will receive microcosm-substrate/")
+    parser.add_argument("--out", help="output directory that will receive microcosm-substrate/")
+    parser.add_argument(
+        "--assess-candidate",
+        help="read an existing release receipt and assess whether later commits invalidate it",
+    )
+    parser.add_argument(
+        "--compare-ref",
+        default="HEAD",
+        help="git ref used by --assess-candidate (default: HEAD)",
+    )
     parser.add_argument("--force", action="store_true", help="replace an existing generated artifact directory")
     parser.add_argument(
         "--skip-smoke",
@@ -1132,6 +1425,19 @@ def main(argv: list[str] | None = None) -> int:
         help="write the export and receipts without running the outside-root first-screen smoke",
     )
     args = parser.parse_args(argv)
+    if args.assess_candidate:
+        receipt_path = Path(args.assess_candidate).expanduser().resolve(strict=True)
+        payload = json.loads(receipt_path.read_text(encoding="utf-8"))
+        candidate_packet = payload.get("release_candidate_packet") or payload
+        assessment = assess_candidate_invalidation(
+            candidate_packet,
+            args.root,
+            compare_ref=args.compare_ref,
+        )
+        print(json.dumps(assessment, ensure_ascii=True, indent=2, sort_keys=True))
+        return 0 if assessment.get("candidate_validity_result") == "gate_eligible" else 1
+    if not args.out:
+        parser.error("--out is required unless --assess-candidate is supplied")
     command_parts = [
         "python",
         "-m",

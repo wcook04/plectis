@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -11,6 +12,26 @@ from microcosm_core import release_export
 def _write(path: Path, text: str = "stub\n") -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def _git(repo: Path, *args: str) -> None:
+    subprocess.run(
+        ["git", "-C", str(repo), *args],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+
+def _commit_all(repo: Path, message: str) -> str:
+    _git(repo, "add", ".")
+    _git(repo, "commit", "-m", message)
+    return subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "HEAD"],
+        text=True,
+        capture_output=True,
+        check=True,
+    ).stdout.strip()
 
 
 def _make_release_root(root: Path) -> Path:
@@ -336,3 +357,118 @@ def test_release_export_blocks_strong_secret_patterns_without_body_in_receipt(
         }
     ]
     assert "1234567890123456" not in serialized
+
+
+def test_candidate_invalidation_assessment_keeps_non_material_head_motion_gate_eligible(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git(repo, "init")
+    _git(repo, "config", "user.email", "microcosm@example.invalid")
+    _git(repo, "config", "user.name", "Microcosm Test")
+    root = _make_release_root(repo / release_export.ARTIFACT_DIR_NAME)
+    candidate_head = _commit_all(repo, "candidate")
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=True,
+        command="pytest release export",
+    )
+    candidate = receipt["release_candidate_packet"]
+    assert candidate["candidate_identity"]["source"]["git_head"] == candidate_head
+    assert (
+        candidate["candidate_invalidation_assessment"]["candidate_validity_result"]
+        == "gate_eligible"
+    )
+
+    _write(repo / "docs/unrelated.md", "# Unrelated\n")
+    _commit_all(repo, "unrelated mainline docs")
+
+    assessment = release_export.assess_candidate_invalidation(candidate, root)
+
+    assert assessment["candidate_validity_result"] == "gate_eligible"
+    assert assessment["comparison"]["commits_after_candidate_count"] == 1
+    assert assessment["path_classification"]["material_change_intersection"] is False
+    assert (
+        "docs/unrelated.md"
+        in assessment["path_classification"]["changed_paths_by_class"][
+            "unrelated_macro_mainline_change"
+        ]
+    )
+    assert assessment["disclosure"] == "newer_non_material_commits_exist"
+
+
+def test_candidate_invalidation_assessment_stales_on_release_material_change(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git(repo, "init")
+    _git(repo, "config", "user.email", "microcosm@example.invalid")
+    _git(repo, "config", "user.name", "Microcosm Test")
+    root = _make_release_root(repo / release_export.ARTIFACT_DIR_NAME)
+    _commit_all(repo, "candidate")
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=True,
+        command="pytest release export",
+    )
+    candidate = receipt["release_candidate_packet"]
+
+    _write(root / "README.md", "# Updated Microcosm\n")
+    _commit_all(repo, "microcosm release material")
+
+    assessment = release_export.assess_candidate_invalidation(candidate, root)
+
+    assert assessment["candidate_validity_result"] == "stale_requires_rehearsal"
+    assert assessment["path_classification"]["material_change_intersection"] is True
+    assert (
+        f"{release_export.ARTIFACT_DIR_NAME}/README.md"
+        in assessment["path_classification"]["changed_paths_by_class"][
+            "release_material_change"
+        ]
+    )
+    assert assessment["disclosure"] == "release_material_commits_after_candidate"
+
+
+def test_candidate_invalidation_assessment_marks_status_projection_refresh_only(
+    tmp_path: Path,
+) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git(repo, "init")
+    _git(repo, "config", "user.email", "microcosm@example.invalid")
+    _git(repo, "config", "user.name", "Microcosm Test")
+    root = _make_release_root(repo / release_export.ARTIFACT_DIR_NAME)
+    _commit_all(repo, "candidate")
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=True,
+        command="pytest release export",
+    )
+    candidate = receipt["release_candidate_packet"]
+
+    _write(
+        repo / "tools/meta/observability/cli_prompt_trace.py",
+        "STATUS = 'projection only'\n",
+    )
+    _commit_all(repo, "trace projection semantics")
+
+    assessment = release_export.assess_candidate_invalidation(candidate, root)
+
+    assert assessment["candidate_validity_result"] == "gate_eligible"
+    assert assessment["status_receipt_refresh_recommended"] is True
+    assert assessment["path_classification"]["material_change_intersection"] is False
+    assert (
+        "tools/meta/observability/cli_prompt_trace.py"
+        in assessment["path_classification"]["changed_paths_by_class"][
+            "release_status_projection_only_change"
+        ]
+    )
