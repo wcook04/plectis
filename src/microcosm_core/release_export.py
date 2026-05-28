@@ -37,6 +37,7 @@ DEFAULT_INCLUDE_REFS = (
     "CONSTITUTION.md",
     "CONTRIBUTING.md",
     "LICENSE",
+    "MANIFEST.in",
     "Makefile",
     "PRINCIPLES.md",
     "QUICKSTART.md",
@@ -59,6 +60,7 @@ DEFAULT_INCLUDE_REFS = (
 STANDALONE_REQUIRED_PUBLIC_REFS = (
     "README.md",
     "AGENTS.md",
+    "MANIFEST.in",
     "pyproject.toml",
     "src",
     "tests",
@@ -201,6 +203,8 @@ def _public_role(rel: str) -> str:
         return "ci_workflow"
     if rel == "Makefile":
         return "command_surface"
+    if rel == "MANIFEST.in":
+        return "package_manifest"
     if rel.endswith("pyproject.toml"):
         return "package_metadata"
     if rel in {

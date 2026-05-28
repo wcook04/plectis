@@ -44,6 +44,7 @@ def _make_release_root(root: Path) -> Path:
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
         "LICENSE",
+        "MANIFEST.in",
         "Makefile",
         "PRINCIPLES.md",
         "QUICKSTART.md",
@@ -333,6 +334,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         {
             "README.md",
             "AGENTS.md",
+            "MANIFEST.in",
             "pyproject.toml",
             "src",
             "tests",
