@@ -1,12 +1,17 @@
 # Microcosm Substrate
 
-`repo -> .microcosm`: turn any folder into an inspectable work substrate.
+Microcosm is the public, source-open cross-section of a larger private
+AI-native workflow system. It exists to make the system's architecture,
+evidence habits, component families, and claim limits inspectable without
+publishing the full working system.
 
-Microcosm compiles your project folder into local state: catalog, patterns,
-routes, a governed work transaction, events, evidence, and a tiny observatory.
-It does not mutate your source files or call providers.
+The package in this folder is one concrete witness for that public slice. When
+run locally, it writes `.microcosm/` beside a project so a reader can inspect
+routes, events, evidence handles, and source links without changing source
+files or making external model calls.
 
-Start with one compact local command: try it on your repo.
+Start with the map, then run one compact local command when you want a behavior
+witness:
 
 ```bash
 microcosm hello .
@@ -361,8 +366,8 @@ Microcosm is an executable research prototype of a local project operating
 substrate. It is small on purpose: a dense public reorganization of the larger
 architecture, not a downgraded claim about what the architecture can do.
 
-1. Bring a folder.
-2. Watch Microcosm build a local project substrate.
+1. Start with the public system map.
+2. Run one command as a local witness.
 3. Inspect the architecture behind each route, work transaction, event, and
    evidence object.
 
