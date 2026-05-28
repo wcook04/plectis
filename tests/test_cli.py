@@ -149,7 +149,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "route/state/proof refs"
     ) in output
     assert (
-        "microcosm first-screen <project> emit the JSON one-screen reader branch map"
+        "microcosm first-screen <project> emit the compact JSON first-screen map"
         in output
     )
     assert (
@@ -237,6 +237,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "evidence",
     ]:
         assert command in output
+
     for command in [
         "workingness",
         "prediction-lens",
@@ -281,6 +282,48 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "agentic-vulnerability-discovery-patch-proof-replay",
     ]:
         assert drilldown_command not in output
+
+
+def test_cli_root_evidence_list_uses_compact_rows(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    receipt_path = public_root / "receipts/runtime_shell/demo/result.json"
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "demo_receipt_v1",
+                "status": "pass",
+                "organ_id": "demo_organ",
+                "command": "microcosm demo",
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(cli, "MICROCOSM_ROOT", public_root)
+
+    assert cli.main(["evidence", "list"]) == 0
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "pass"
+    assert payload["evidence_list_mode"] == "compact_runtime_evidence_index_v1"
+    assert payload["receipt_count"] == 1
+    evidence_row = payload["evidence"][0]
+    assert "evidence_contract" not in evidence_row
+    assert "inspect_command" not in evidence_row
+    assert "evidence_contract_ref" not in evidence_row
+    assert (
+        evidence_row["evidence_contract_summary"]["payload_boundary"]
+        == "inspect_drilldown"
+    )
+    assert payload["full_contract_drilldown"] == {
+        "command_template": "microcosm evidence inspect <receipt_ref>",
+        "row_key": "receipt_ref",
+        "field": "evidence_contract",
+    }
 
 
 def test_cli_first_screen_text_projection_is_package_backed(

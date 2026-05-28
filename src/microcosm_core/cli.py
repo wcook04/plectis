@@ -38,6 +38,7 @@ class _LazyModule:
 
 project_substrate = _LazyModule("microcosm_core.project_substrate")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
+runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
 finance_eval_spine = _LazyModule("microcosm_core.macro_tools.finance_eval_spine")
 work_landing_control_spine = _LazyModule(
     "microcosm_core.macro_tools.work_landing_control_spine"
@@ -1747,7 +1748,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.evidence_command == "list":
             if args.project:
                 return project_substrate.main(["evidence", "list", args.project])
-            return runtime_shell.main(["evidence", "list"])
+            return _print_json(
+                runtime_evidence_index.list_runtime_evidence(MICROCOSM_ROOT)
+            )
         if args.evidence_command == "inspect":
             if args.project:
                 return project_substrate.main(["evidence", "inspect", args.project, args.receipt_ref])

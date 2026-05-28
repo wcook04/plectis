@@ -18,6 +18,14 @@
     },
     {
       "actor_axis": "type_a_substrate",
+      "event_id": "trace_route_miss",
+      "mutation_authority_claim_rejected": false,
+      "payload_boundary_ref": "microcosm hook-coverage::actor_axis_decisions",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
+    },
+    {
+      "actor_axis": "type_a_substrate",
       "event_id": "trace_private_marker",
       "mutation_authority_claim_rejected": false,
       "payload_boundary_ref": "microcosm hook-coverage::actor_axis_decisions",
@@ -88,7 +96,7 @@
   },
   "command": "microcosm hook-coverage",
   "coverage_summary": {
-    "actor_axis_decision_count": 9,
+    "actor_axis_decision_count": 10,
     "authority_rejection_count": 1,
     "banned_route_intervention_count": 1,
     "command_displacement_count": 1,
@@ -98,12 +106,12 @@
     "intervention_row_count": 5,
     "live_state_read_denial_count": 1,
     "missing_authority_count": 1,
-    "observed_negative_case_count": 12,
+    "observed_negative_case_count": 13,
     "over_budget_denial_count": 1,
-    "route_compliance_decision_count": 9,
+    "route_compliance_decision_count": 10,
     "route_lease_warning_session_count": 2
   },
-  "created_at": "2026-05-28T02:06:06+00:00",
+  "created_at": "2026-05-28T02:50:50+00:00",
   "debt_decisions": [
     {
       "behavior_change_evidence_trace_ids": [],
@@ -251,7 +259,7 @@
       ],
       "intervention_id": "route_compliance_trace_feedback_gate",
       "payload_boundary_ref": "microcosm hook-coverage::intervention_rows",
-      "rejected_count": 4,
+      "rejected_count": 5,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json",
       "unsafe_payload_bodies_exported": false
@@ -286,7 +294,7 @@
       "intervention_id": "route_lease_mode_control_gate",
       "kernel_bloat_before_direct_action_count": 1,
       "payload_boundary_ref": "microcosm hook-coverage::intervention_rows",
-      "route_lease_session_count": 8,
+      "route_lease_session_count": 9,
       "route_lease_warning_session_count": 2,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "source_receipt_ref": "receipts/first_wave/agent_route_observability_runtime/route_lease_mode_control_receipt.json",
@@ -317,6 +325,7 @@
     "route_compliance_overclaims_behavior_change",
     "route_lease_broad_kernel_bloat_before_direct_action",
     "route_lease_static_metadata_without_trace_feedback",
+    "route_miss_replaced",
     "telemetry_private_transcript_body",
     "wrong_actor_axis_and_evidence_only_telemetry"
   ],
@@ -379,6 +388,16 @@
         "MISSING_ROUTE_LEASE"
       ],
       "event_id": "trace_missing_lease",
+      "payload_boundary_ref": "microcosm hook-coverage::route_compliance_decisions",
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
+    },
+    {
+      "decision": "rejected",
+      "error_codes": [
+        "ROUTE_MISS_REPLACED"
+      ],
+      "event_id": "trace_route_miss",
       "payload_boundary_ref": "microcosm hook-coverage::route_compliance_decisions",
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "unsafe_payload_bodies_exported": false
@@ -462,6 +481,16 @@
       "lease_consumed": false,
       "payload_boundary_ref": "microcosm hook-coverage::route_lease_decisions",
       "route_lease_id": null,
+      "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
+      "unsafe_payload_bodies_exported": false
+    },
+    {
+      "decision": "retained_for_feedback",
+      "error_codes": [],
+      "event_id": "trace_route_miss",
+      "lease_consumed": false,
+      "payload_boundary_ref": "microcosm hook-coverage::route_lease_decisions",
+      "route_lease_id": "lease_route_miss",
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "unsafe_payload_bodies_exported": false
     },
@@ -556,6 +585,12 @@
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_pattern_ids": [
     "agent_route_observability_runtime",
+    "agent_route_compliance_audit",
+    "agent_session_attribution",
+    "agent_trace_to_route_repair_observability_compound",
+    "agent_principle_lens",
+    "entry_payload_admission_nonnegotiable_floor",
+    "egress_compliance_stop_hook_mirror",
     "route_lease_mode_control",
     "actor_axis_authority_boundary",
     "anti_pattern_debt_retirement",

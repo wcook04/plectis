@@ -55,7 +55,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 14,
+    "event_count": 10,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -66,7 +66,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-28T01:55:47+00:00",
+  "created_at": "2026-05-28T02:50:36+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -240,7 +240,7 @@
         "step_id": "inspect_first_screen"
       },
       {
-        "command": "microcosm status --card <project> && microcosm workingness",
+        "command": "microcosm status --card <project> && microcosm workingness --card",
         "route_ref": "atlas/entry_packet.json::local_first_screen_route",
         "shows": [
           "compressed project/runtime first-screen status",
@@ -251,7 +251,7 @@
         "status_card_command": "microcosm status --card <project>",
         "status_card_endpoint": "/project/status",
         "step_id": "inspect_status_and_workingness",
-        "workingness_command": "microcosm workingness",
+        "workingness_command": "microcosm workingness --card",
         "workingness_endpoint": "/workingness"
       },
       {
@@ -331,7 +331,7 @@
       }
     ],
     "primary_command": "microcosm tour --card <project>",
-    "project_ref": "scratch_project",
+    "project_ref": "scratch",
     "proof_surface": {
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "compiled_declaration_count": 8,
@@ -347,7 +347,7 @@
         "anti_misread": "body-import counts are accounting, not maturity scores",
         "evidence_focus": "evidence_class, body_import_floor, authority ceilings, failure gaps",
         "first_screen_command": "microcosm status --card <project>",
-        "next_command": "microcosm authority && microcosm workingness",
+        "next_command": "microcosm authority --card && microcosm workingness --card",
         "reader_id": "safety_evals_engineer"
       },
       {
@@ -585,7 +585,7 @@
     "route_ref": "atlas/entry_packet.json::local_first_screen_route",
     "surface_id": "microcosm_local_first_screen"
   },
-  "project_ref": "scratch_project",
+  "project_ref": "scratch",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: tour, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
@@ -650,7 +650,7 @@
         "source_mutation_authorized": false
       },
       "card_id": "status_and_workingness",
-      "command": "microcosm status --card <project> && microcosm workingness",
+      "command": "microcosm status --card <project> && microcosm workingness --card",
       "endpoint": "/workingness",
       "failure_envelope_status": "clear",
       "map_generation_status": "pass",
@@ -695,7 +695,7 @@
       "status_card_command": "microcosm status --card",
       "status_card_endpoint": "/project/status",
       "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
-      "workingness_command": "microcosm workingness",
+      "workingness_command": "microcosm workingness --card",
       "workingness_endpoint": "/workingness",
       "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
       "workingness_summary": {
@@ -998,7 +998,7 @@
         "source_mutation_authorized": false
       },
       "card_id": "status_and_workingness",
-      "command": "microcosm status --card <project> && microcosm workingness",
+      "command": "microcosm status --card <project> && microcosm workingness --card",
       "endpoint": "/workingness",
       "failure_envelope_status": "clear",
       "map_generation_status": "pass",
@@ -1043,7 +1043,7 @@
       "status_card_command": "microcosm status --card",
       "status_card_endpoint": "/project/status",
       "top_level_status_rule": "status describes bounded failure-envelope debt; map_generation_status describes whether the workingness map ran",
-      "workingness_command": "microcosm workingness",
+      "workingness_command": "microcosm workingness --card",
       "workingness_endpoint": "/workingness",
       "workingness_map_ref": "receipts/runtime_shell/workingness_failure_map.json",
       "workingness_summary": {
