@@ -56,6 +56,22 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
     ]
+    for receipt_dir in (
+        "corpus_readiness_mathlib_absence_gate",
+        "formal_evidence_cell_anchor_resolver",
+        "formal_math_lean_proof_witness",
+        "formal_math_premise_retrieval",
+        "formal_math_readiness_gate",
+        "formal_math_verifier_trace_repair_loop",
+        "lean_std_premise_index",
+        "ring2_premise_retrieval_precision_recall_harness",
+        "tactic_portfolio_availability_probe",
+        "target_shape_tactic_routing_gate",
+        "verifier_lab_execution_spine",
+    ):
+        assert data_files[f"share/microcosm-substrate/receipts/first_wave/{receipt_dir}"] == [
+            f"receipts/first_wave/{receipt_dir}/*.json"
+        ]
     assert data_files[
         "share/microcosm-substrate/receipts/first_wave/verifier_lab_kernel"
     ] == ["receipts/first_wave/verifier_lab_kernel/*.json"]
@@ -69,6 +85,38 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     ] == [
         "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/"
         "source_modules/microcosm_core/organs/*.py"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle"
+    ] == [
+        "examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/*.json"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/lake_project"
+    ] == [
+        "examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/lake_project/*.lean"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/lake_project/"
+        "MicrocosmProofWitness"
+    ] == [
+        "examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/lake_project/"
+        "MicrocosmProofWitness/*.lean"
+    ]
+    assert data_files[
+        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/source_modules/"
+        "microcosm_core/organs"
+    ] == [
+        "examples/verifier_lab_execution_spine/"
+        "exported_verifier_lab_execution_spine_bundle/source_modules/"
+        "microcosm_core/organs/*.py"
     ]
     assert data_files[
         "share/microcosm-substrate/examples/public_reveal_walkthrough/"
