@@ -42,10 +42,12 @@ def _make_release_root(root: Path) -> Path:
         "ANTI_PRINCIPLES.md",
         "AXIOMS.md",
         "CONSTITUTION.md",
+        "CONTRIBUTING.md",
         "LICENSE",
         "Makefile",
         "PRINCIPLES.md",
         "README.md",
+        "SECURITY.md",
         "bootstrap.sh",
     ):
         _write(root / file_name, f"{file_name}\n")
@@ -84,10 +86,13 @@ where = ["src"]
     _write(root / "examples/basic/README.md", "# Example\n")
     _write(
         root / "Makefile",
-        "test:\n\tpython -m pytest\n"
+        "PUBLIC_TESTS ?= tests/test_public_entry_docs.py\n"
+        "test: install\n\tpython -m pytest $(PUBLIC_TESTS)\n"
+        "test-all: install\n\tpython -m pytest\n"
         "smoke:\n\tpython -m microcosm_core --version\n"
         "ci: test smoke\n",
     )
+    _write(root / ".github/workflows/ci.yml", "run: make ci\n")
     _write(
         root / "examples/runtime_shell/demo_project/.microcosm/project_manifest.json",
         '{"intentional": true}\n',
@@ -177,6 +182,9 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
     assert (target / "Makefile").is_file()
+    assert (target / ".github/workflows/ci.yml").is_file()
+    assert (target / "CONTRIBUTING.md").is_file()
+    assert (target / "SECURITY.md").is_file()
     assert receipt["authority_receipt"]["release_authorized"] is False
     candidate = receipt["release_candidate_packet"]
     assert candidate["status"] == "pass_with_external_warnings"
@@ -198,7 +206,11 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert candidate["validation_summary"]["install_smoke_status"] == "pass"
     assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
     assert candidate["validation_summary"]["wheel_install_supported"] is True
+    assert ".github" in receipt["inventory_receipt"]["include_refs"]
+    assert "CONTRIBUTING.md" in receipt["inventory_receipt"]["include_refs"]
     assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
+    assert "SECURITY.md" in receipt["inventory_receipt"]["include_refs"]
+    assert receipt["inventory_receipt"]["role_counts"]["ci_workflow"] == 1
     assert receipt["inventory_receipt"]["role_counts"]["command_surface"] == 1
     assert candidate["authority_state"]["release_authorized"] is False
     assert (

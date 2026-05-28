@@ -28,15 +28,18 @@ RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION = (
     "microcosm_release_candidate_invalidation_v1"
 )
 DEFAULT_INCLUDE_REFS = (
+    ".github",
     ".gitignore",
     "AGENTS.md",
     "ANTI_PRINCIPLES.md",
     "AXIOMS.md",
     "CONSTITUTION.md",
+    "CONTRIBUTING.md",
     "LICENSE",
     "Makefile",
     "PRINCIPLES.md",
     "README.md",
+    "SECURITY.md",
     "atlas",
     "bootstrap.sh",
     "core",
@@ -177,11 +180,23 @@ def _is_relative_to(path: Path, possible_parent: Path) -> bool:
 
 def _public_role(rel: str) -> str:
     top = rel.split("/", 1)[0]
+    if top == ".github":
+        return "ci_workflow"
     if rel == "Makefile":
         return "command_surface"
     if rel.endswith("pyproject.toml"):
         return "package_metadata"
-    if rel in {"README.md", "AGENTS.md", "ANTI_PRINCIPLES.md", "AXIOMS.md", "CONSTITUTION.md", "PRINCIPLES.md", "LICENSE"}:
+    if rel in {
+        "README.md",
+        "AGENTS.md",
+        "ANTI_PRINCIPLES.md",
+        "AXIOMS.md",
+        "CONSTITUTION.md",
+        "CONTRIBUTING.md",
+        "PRINCIPLES.md",
+        "SECURITY.md",
+        "LICENSE",
+    }:
         return "public_entry_document"
     if top == "atlas":
         return "entry_packet"

@@ -3,11 +3,28 @@
 Start by proving the public entry path from `microcosm-substrate/`:
 
 ```bash
-make install
 make smoke
+make test
+make ci
 ```
 
-The smoke target runs the same first-screen checks directly:
+The smoke target is the no-install public sanity check:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core --version
+PYTHONPATH=src python3 -m microcosm_core stripping-guard
+```
+
+The test target installs the test extra and then runs pytest, so a clean clone
+does not need pytest preinstalled. If you want to install once up front, use
+`make install`.
+
+For the full macro-root development suite, use `make test-all` from a checkout
+where the sibling macro source paths are present. The default `make test` path
+is the standalone public verification floor.
+
+After install, the fuller first-screen route is:
 
 ```bash
 microcosm hello .
