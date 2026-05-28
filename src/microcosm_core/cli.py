@@ -213,7 +213,7 @@ def _public_root_for_project(project: str | None) -> Path | None:
     return resource_root.project_public_root(project)
 
 
-MICROCOSM_ROOT = Path(__file__).resolve().parents[2]
+MICROCOSM_ROOT = resource_root.microcosm_root()
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 PROOF_LAB_BUNDLE_REF = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
 PROOF_LAB_ROUTE_REF = f"{PROOF_LAB_BUNDLE_REF}/proof_lab_route.json"
@@ -621,10 +621,29 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
             "input_refs_exported": False,
         }
 
+    input_files = _proof_lab_input_files(input_path)
+    if (
+        input_files
+        and input_ref.resolve(strict=False)
+        == (
+            resource_root.installed_microcosm_root() / PROOF_LAB_BUNDLE_REF
+        ).resolve(strict=False)
+    ):
+        return {
+            "schema_version": "microcosm_proof_lab_cache_freshness_v1",
+            "status": "current",
+            "input_status": "packaged_public_data",
+            "receipt_mtime_ns": receipt_mtime_ns,
+            "tracked_input_count": len(input_files),
+            "stale_input_count": 0,
+            "latest_input_mtime_ns": None,
+            "input_refs_exported": False,
+        }
+
     latest_input_mtime_ns: int | None = None
     stale_input_count = 0
     tracked_input_count = 0
-    for input_file in _proof_lab_input_files(input_path):
+    for input_file in input_files:
         input_mtime_ns = input_file.stat().st_mtime_ns
         latest_input_mtime_ns = (
             input_mtime_ns

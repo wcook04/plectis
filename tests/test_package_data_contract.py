@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 from pathlib import Path
@@ -124,3 +125,60 @@ def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(
     assert freshness["input_status"] == "packaged_public_data"
     assert freshness["tracked_input_count"] == 1
     assert freshness["stale_input_count"] == 0
+
+
+def test_cli_proof_lab_defaults_follow_installed_data_root(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    venv = tmp_path / "venv"
+    installed_root = venv / "share/microcosm-substrate"
+    receipt_path = installed_root / runtime_shell.PROOF_LAB_RECEIPT_REF
+    input_root = installed_root / runtime_shell.PROOF_LAB_BUNDLE_REF
+
+    for rel in (
+        "standards/std_microcosm_first_screen_composition_root.json",
+        "core/organ_evidence_classes.json",
+        "core/organ_registry.json",
+    ):
+        target = installed_root / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps({"schema_version": "fixture"}), encoding="utf-8")
+    receipt_path.parent.mkdir(parents=True, exist_ok=True)
+    input_root.mkdir(parents=True, exist_ok=True)
+    receipt_path.write_text(json.dumps({"status": "pass"}), encoding="utf-8")
+    (input_root / "proof_lab_route.json").write_text(
+        json.dumps({"route_id": "fixture"}),
+        encoding="utf-8",
+    )
+
+    real_has_public_data = resource_root._has_public_data
+    installed_root_resolved = installed_root.resolve(strict=False)
+
+    def fake_has_public_data(root: Path) -> bool:
+        root_resolved = Path(root).resolve(strict=False)
+        if root_resolved == installed_root_resolved:
+            return real_has_public_data(root)
+        return False
+
+    cli_module = importlib.import_module("microcosm_core.cli")
+
+    try:
+        with monkeypatch.context() as patch:
+            patch.setattr(resource_root.sys, "prefix", str(venv))
+            patch.setattr(resource_root, "_has_public_data", fake_has_public_data)
+
+            reloaded = importlib.reload(cli_module)
+
+            assert reloaded.MICROCOSM_ROOT == installed_root
+            assert reloaded.DEFAULT_PROOF_LAB_INPUT == input_root
+            assert reloaded._canonical_proof_lab_receipt_path() == receipt_path
+            freshness = reloaded._proof_lab_cache_freshness(
+                str(input_root),
+                receipt_path,
+            )
+            assert freshness["status"] == "current"
+            assert freshness["input_status"] == "packaged_public_data"
+            assert freshness["stale_input_count"] == 0
+    finally:
+        importlib.reload(cli_module)
