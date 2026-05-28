@@ -3,10 +3,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html
+import importlib
 import json
 import threading
 from dataclasses import dataclass
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import unquote, urlparse
@@ -15,56 +15,6 @@ from microcosm_core import architecture_kernel
 from microcosm_core import first_screen_composition
 from microcosm_core import project_substrate
 from microcosm_core import runtime_evidence_index
-from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
-from microcosm_core.organs import agent_memory_temporal_conflict_replay
-from microcosm_core.organs import agent_monitor_redteam_falsification_replay
-from microcosm_core.organs import agent_route_observability_runtime
-from microcosm_core.organs import agent_sabotage_scheming_monitor_replay
-from microcosm_core.organs import agent_sandbox_policy_escape_replay
-from microcosm_core.organs import (
-    agentic_vulnerability_discovery_patch_proof_replay,
-)
-from microcosm_core.organs import belief_state_process_reward_replay
-from microcosm_core.organs import bridge_phase_continuity_runtime
-from microcosm_core.organs import certificate_kernel_execution_lab
-from microcosm_core.organs import cold_reader_route_map
-from microcosm_core.organs import corpus_readiness_mathlib_absence_gate
-from microcosm_core.organs import executable_doctrine_grammar
-from microcosm_core.organs import formal_evidence_cell_anchor_resolver
-from microcosm_core.organs import formal_math_lean_proof_witness
-from microcosm_core.organs import formal_math_premise_retrieval
-from microcosm_core.organs import formal_math_readiness_gate
-from microcosm_core.organs import formal_math_verifier_trace_repair_loop
-from microcosm_core.organs import (
-    indirect_prompt_injection_information_flow_policy_replay,
-)
-from microcosm_core.organs import lean_std_premise_index
-from microcosm_core.organs import macro_projection_import_protocol
-from microcosm_core.organs import materials_chemistry_closed_loop_lab_safety_replay
-from microcosm_core.organs import mathematical_strategy_atlas_hypothesis_scorer
-from microcosm_core.organs import mcp_tool_authority_replay
-from microcosm_core.organs import mechanistic_interpretability_circuit_attribution_replay
-from microcosm_core.organs import durable_agent_work_landing_replay
-from microcosm_core.organs import mission_transaction_work_spine
-from microcosm_core.organs import navigation_hologram_route_plane
-from microcosm_core.organs import pattern_binding_contract
-from microcosm_core.organs import prediction_oracle_reconciliation
-from microcosm_core.organs import proof_diagnostic_evidence_spine
-from microcosm_core.organs import proof_derived_governed_mutation_authorization
-from microcosm_core.organs import provider_context_recipe_budget_policy
-from microcosm_core.organs import public_reveal_walkthrough
-from microcosm_core.organs import research_replication_rubric_artifact_replay
-from microcosm_core.organs import ring2_premise_retrieval_precision_recall_harness
-from microcosm_core.organs import sleeper_memory_poisoning_quarantine_replay
-from microcosm_core.organs import spatial_world_model_counterfactual_simulation_replay
-from microcosm_core.organs import standards_meta_diagnostics
-from microcosm_core.organs import tactic_portfolio_availability_probe
-from microcosm_core.organs import target_shape_tactic_routing_gate
-from microcosm_core.organs import undeclared_library_prior_symbol_classifier
-from microcosm_core.organs import verifier_lab_execution_spine
-from microcosm_core.organs import verifier_lab_kernel
-from microcosm_core.organs import voice_to_doctrine_self_improvement_loop
-from microcosm_core.organs import world_model_projection_drift_control_room
 from microcosm_core.public_payload_boundary import (
     SOURCE_OPEN_BODY_POLICY,
     omitted_payload_schema_term_hits,
@@ -72,7 +22,186 @@ from microcosm_core.public_payload_boundary import (
 )
 from microcosm_core.receipts import utc_now, write_json_atomic
 from microcosm_core.schemas import read_json_strict
-from microcosm_core.validators import acceptance
+
+
+class _LazyAttr:
+    def __init__(self, module_name: str, attr_name: str) -> None:
+        self._module_name = module_name
+        self._attr_name = attr_name
+
+    def _resolve(self) -> Any:
+        module = importlib.import_module(self._module_name)
+        return getattr(module, self._attr_name)
+
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        return self._resolve()(*args, **kwargs)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._resolve(), name)
+
+    def __fspath__(self) -> str:
+        return str(self._resolve())
+
+    def __str__(self) -> str:
+        return str(self._resolve())
+
+    def __repr__(self) -> str:
+        return repr(self._resolve())
+
+    def __bool__(self) -> bool:
+        return bool(self._resolve())
+
+    def __eq__(self, other: object) -> bool:
+        return self._resolve() == other
+
+
+class _LazyModule:
+    def __init__(self, module_name: str) -> None:
+        self._module_name = module_name
+        self._module: Any | None = None
+
+    def _load(self) -> Any:
+        if self._module is None:
+            self._module = importlib.import_module(self._module_name)
+        return self._module
+
+    def __getattr__(self, name: str) -> _LazyAttr:
+        return _LazyAttr(self._module_name, name)
+
+
+agent_benchmark_integrity_anti_gaming_replay = _LazyModule(
+    "microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay"
+)
+agent_memory_temporal_conflict_replay = _LazyModule(
+    "microcosm_core.organs.agent_memory_temporal_conflict_replay"
+)
+agent_monitor_redteam_falsification_replay = _LazyModule(
+    "microcosm_core.organs.agent_monitor_redteam_falsification_replay"
+)
+agent_route_observability_runtime = _LazyModule(
+    "microcosm_core.organs.agent_route_observability_runtime"
+)
+agent_sabotage_scheming_monitor_replay = _LazyModule(
+    "microcosm_core.organs.agent_sabotage_scheming_monitor_replay"
+)
+agent_sandbox_policy_escape_replay = _LazyModule(
+    "microcosm_core.organs.agent_sandbox_policy_escape_replay"
+)
+agentic_vulnerability_discovery_patch_proof_replay = _LazyModule(
+    "microcosm_core.organs.agentic_vulnerability_discovery_patch_proof_replay"
+)
+belief_state_process_reward_replay = _LazyModule(
+    "microcosm_core.organs.belief_state_process_reward_replay"
+)
+bridge_phase_continuity_runtime = _LazyModule(
+    "microcosm_core.organs.bridge_phase_continuity_runtime"
+)
+certificate_kernel_execution_lab = _LazyModule(
+    "microcosm_core.organs.certificate_kernel_execution_lab"
+)
+cold_reader_route_map = _LazyModule("microcosm_core.organs.cold_reader_route_map")
+corpus_readiness_mathlib_absence_gate = _LazyModule(
+    "microcosm_core.organs.corpus_readiness_mathlib_absence_gate"
+)
+executable_doctrine_grammar = _LazyModule(
+    "microcosm_core.organs.executable_doctrine_grammar"
+)
+formal_evidence_cell_anchor_resolver = _LazyModule(
+    "microcosm_core.organs.formal_evidence_cell_anchor_resolver"
+)
+formal_math_lean_proof_witness = _LazyModule(
+    "microcosm_core.organs.formal_math_lean_proof_witness"
+)
+formal_math_premise_retrieval = _LazyModule(
+    "microcosm_core.organs.formal_math_premise_retrieval"
+)
+formal_math_readiness_gate = _LazyModule(
+    "microcosm_core.organs.formal_math_readiness_gate"
+)
+formal_math_verifier_trace_repair_loop = _LazyModule(
+    "microcosm_core.organs.formal_math_verifier_trace_repair_loop"
+)
+indirect_prompt_injection_information_flow_policy_replay = _LazyModule(
+    "microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay"
+)
+lean_std_premise_index = _LazyModule("microcosm_core.organs.lean_std_premise_index")
+macro_projection_import_protocol = _LazyModule(
+    "microcosm_core.organs.macro_projection_import_protocol"
+)
+materials_chemistry_closed_loop_lab_safety_replay = _LazyModule(
+    "microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay"
+)
+mathematical_strategy_atlas_hypothesis_scorer = _LazyModule(
+    "microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer"
+)
+mcp_tool_authority_replay = _LazyModule(
+    "microcosm_core.organs.mcp_tool_authority_replay"
+)
+mechanistic_interpretability_circuit_attribution_replay = _LazyModule(
+    "microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay"
+)
+durable_agent_work_landing_replay = _LazyModule(
+    "microcosm_core.organs.durable_agent_work_landing_replay"
+)
+mission_transaction_work_spine = _LazyModule(
+    "microcosm_core.organs.mission_transaction_work_spine"
+)
+navigation_hologram_route_plane = _LazyModule(
+    "microcosm_core.organs.navigation_hologram_route_plane"
+)
+pattern_binding_contract = _LazyModule(
+    "microcosm_core.organs.pattern_binding_contract"
+)
+prediction_oracle_reconciliation = _LazyModule(
+    "microcosm_core.organs.prediction_oracle_reconciliation"
+)
+proof_diagnostic_evidence_spine = _LazyModule(
+    "microcosm_core.organs.proof_diagnostic_evidence_spine"
+)
+proof_derived_governed_mutation_authorization = _LazyModule(
+    "microcosm_core.organs.proof_derived_governed_mutation_authorization"
+)
+provider_context_recipe_budget_policy = _LazyModule(
+    "microcosm_core.organs.provider_context_recipe_budget_policy"
+)
+public_reveal_walkthrough = _LazyModule(
+    "microcosm_core.organs.public_reveal_walkthrough"
+)
+research_replication_rubric_artifact_replay = _LazyModule(
+    "microcosm_core.organs.research_replication_rubric_artifact_replay"
+)
+ring2_premise_retrieval_precision_recall_harness = _LazyModule(
+    "microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness"
+)
+sleeper_memory_poisoning_quarantine_replay = _LazyModule(
+    "microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay"
+)
+spatial_world_model_counterfactual_simulation_replay = _LazyModule(
+    "microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay"
+)
+standards_meta_diagnostics = _LazyModule(
+    "microcosm_core.organs.standards_meta_diagnostics"
+)
+tactic_portfolio_availability_probe = _LazyModule(
+    "microcosm_core.organs.tactic_portfolio_availability_probe"
+)
+target_shape_tactic_routing_gate = _LazyModule(
+    "microcosm_core.organs.target_shape_tactic_routing_gate"
+)
+undeclared_library_prior_symbol_classifier = _LazyModule(
+    "microcosm_core.organs.undeclared_library_prior_symbol_classifier"
+)
+verifier_lab_execution_spine = _LazyModule(
+    "microcosm_core.organs.verifier_lab_execution_spine"
+)
+verifier_lab_kernel = _LazyModule("microcosm_core.organs.verifier_lab_kernel")
+voice_to_doctrine_self_improvement_loop = _LazyModule(
+    "microcosm_core.organs.voice_to_doctrine_self_improvement_loop"
+)
+world_model_projection_drift_control_room = _LazyModule(
+    "microcosm_core.organs.world_model_projection_drift_control_room"
+)
+acceptance = _LazyModule("microcosm_core.validators.acceptance")
 
 
 PASS = "pass"
@@ -92,6 +221,7 @@ MACRO_PROJECTION_FIXTURE_INPUT_REF = Path(
 MACRO_PROJECTION_RUNTIME_RECEIPT_REF = Path(
     "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol"
 )
+PUBLIC_AUTHORITY_MAP_REF = Path("receipts/runtime_shell/public_authority_map.json")
 MACRO_PROJECTION_BODY_FLOOR_PATTERN_BINDING_REF = (
     "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json::"
     "macro_projection_import_protocol_public_membrane"
@@ -2807,6 +2937,30 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     }
 
 
+def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
+    authority_path = root / PUBLIC_AUTHORITY_MAP_REF
+    authority = _read_json_if_exists(authority_path)
+    body_floor = authority.get("macro_body_import_floor")
+    if not isinstance(body_floor, dict):
+        return {}
+    if body_floor.get("schema_version") != "microcosm_macro_body_import_floor_v1":
+        return {}
+
+    cached = dict(body_floor)
+    cached["cache_status"] = "public_authority_map_receipt"
+    cached["cache_source_ref"] = PUBLIC_AUTHORITY_MAP_REF.as_posix()
+    cached["live_digest_verification_status"] = "deferred_to_full_status_or_authority"
+    cached["full_verification_command"] = "microcosm status"
+    return cached
+
+
+def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
+    cached = _cached_macro_projection_body_import_floor(root)
+    if cached:
+        return cached
+    return _macro_projection_body_import_floor(root)
+
+
 def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
     path = project / project_substrate.STATE_DIR / filename
     try:
@@ -3193,11 +3347,11 @@ def _compact_project_card_body_import_floor(
         "body_text_exported_in_receipts": source_body_imports.get(
             "body_text_exported_in_receipts"
         ),
+        "cache_status": body_floor.get("cache_status"),
+        "full_verification_command": body_floor.get("full_verification_command"),
         "project_mode_compacted": True,
         "reader_action": (
-            "Use front_door.source_open_body_import_floor for first-screen "
-            "counts; open microcosm status for validators, source-body family "
-            "drilldowns, and full defects."
+            "Use counts here; open microcosm status for validators and defects."
         ),
     }
     if body_floor.get("defect_count") or body_floor_defect_preview:
@@ -3260,6 +3414,12 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
         "body_text_exported_in_receipts": source_body_imports.get(
             "body_text_exported_in_receipts"
         ),
+        "cache_status": body_floor.get("cache_status"),
+        "cache_source_ref": body_floor.get("cache_source_ref"),
+        "live_digest_verification_status": body_floor.get(
+            "live_digest_verification_status"
+        ),
+        "full_verification_command": body_floor.get("full_verification_command"),
         "authority_boundary": (
             "verified_non_secret_body_floor_not_release_provider_source_mutation_"
             "or_private_equivalence_authority"
@@ -5327,11 +5487,56 @@ class RuntimeShell:
                 "open evidence only when drilldown is needed",
             ],
         }
-        payload["status_card"] = _runtime_status_card(payload)
+        payload["status_card"] = _runtime_status_card(
+            self._status_card_source_payload()
+        )
         return payload
 
+    def _status_card_source_payload(self) -> dict[str, Any]:
+        organs = self.organs()
+        adapter_backed_rows = [
+            row for row in organs if row.get("runtime_mode") == "adapter_backed"
+        ]
+        truth_accounting = _truth_accounting(adapter_backed_rows)
+        product_steps = _product_runtime_steps()
+        proof_lab = _proof_lab_first_screen_card(self.root)
+        body_import_floor = _macro_projection_body_import_floor_card(self.root)
+        workingness_summary = _workingness_status_summary(self.workingness_map())
+        front_door = _cold_reader_first_screen_card(
+            project_ref="<project>",
+            proof_lab=proof_lab,
+        )
+        return {
+            "schema_version": "microcosm_runtime_status_card_source_v1",
+            "status": PASS
+            if len(adapter_backed_rows) == len(product_steps)
+            and body_import_floor.get("status") == PASS
+            else "blocked",
+            "posture": "executable_research_prototype",
+            "front_door": front_door,
+            "first_screen_proof_lab": proof_lab,
+            "macro_body_import_floor": body_import_floor,
+            "workingness_summary": workingness_summary,
+            "adapter_backed_organ_count": len(adapter_backed_rows),
+            "adapter_backed_count_is_product_progress": False,
+            "real_substrate_progress_count": truth_accounting[
+                "real_substrate_progress_count"
+            ],
+            "non_progress_organ_count": truth_accounting["non_progress_organ_count"],
+            "truth_accounting": truth_accounting,
+            "copied_non_secret_macro_body_material_count": body_import_floor.get(
+                "copied_non_secret_macro_body_material_count"
+            ),
+            "route_count": len(self.routes()),
+            "workitem_count": len(self.workitems()),
+            "evidence_count": self.evidence_count(),
+        }
+
     def status_card(self, project_path: str | Path | None = None) -> dict[str, Any]:
-        return _runtime_status_card(self.status(), project_path=project_path)
+        return _runtime_status_card(
+            self._status_card_source_payload(),
+            project_path=project_path,
+        )
 
     def spine(self) -> dict[str, Any]:
         organs = self.organs()
@@ -6086,7 +6291,7 @@ class RuntimeShell:
         ]
         evidence_class_counts = _evidence_class_counts(adapter_backed)
         proof_lab = _proof_lab_first_screen_card(self.root)
-        body_import_floor = _macro_projection_body_import_floor(self.root)
+        body_import_floor = _macro_projection_body_import_floor_card(self.root)
         status = (
             PASS
             if len(adapter_backed) == product_step_count
@@ -7098,16 +7303,23 @@ class RuntimeShell:
             project_path = self.root / project_path
         project_path = project_path.resolve(strict=False)
 
-        compiled = project_substrate.compile_project(
-            project_path,
-            python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
-        )
+        compile_cache = project_substrate.compile_project_card(project_path)
+        compile_cache_status = compile_cache.get("cache_status")
+        project_compile_state_written = False
+        if compile_cache.get("status") == PASS:
+            compiled = compile_cache
+        else:
+            compiled = project_substrate.compile_project(
+                project_path,
+                python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
+            )
+            project_compile_state_written = True
         project_ref = _public_relative(project_path, self.root)
         if project_ref.startswith("/") or project_ref.startswith(".."):
             project_ref = project_path.name
 
         proof_lab = _proof_lab_first_screen_card(self.root)
-        body_import_floor = _macro_projection_body_import_floor(self.root)
+        body_import_floor = _macro_projection_body_import_floor_card(self.root)
         workingness = self.workingness_card()
         first_screen = _cold_reader_first_screen_card(
             project_ref=project_ref,
@@ -7212,7 +7424,10 @@ class RuntimeShell:
             "status": PASS if state_root.is_dir() and not source_files_mutated else "blocked",
             "status_scope": "project_local_state_write_only",
             "command": "microcosm tour --card <project>",
-            "writes_microcosm_state": True,
+            "writes_microcosm_state": project_compile_state_written,
+            "project_compile_state_written": project_compile_state_written,
+            "compile_cache_status": compile_cache_status,
+            "compile_cache_source_ref": compile_cache.get("cache_source_ref"),
             "state_dir": state_dir,
             "state_dir_exists": state_root.is_dir(),
             "state_file_count": state_file_count,
@@ -7226,9 +7441,10 @@ class RuntimeShell:
                 state_inspection["route_state_json_check_command"]
             ),
             "reader_action": (
-                "Treat this as the state-writing proof for the first-screen path; "
-                "inspect the named .microcosm files before opening doctrine or "
-                "receipt drilldowns."
+                "Treat this as the state availability proof for the first-screen "
+                "path; inspect the named .microcosm files before opening doctrine "
+                "or receipt drilldowns. Cached pass cards reuse current state; "
+                "missing or stale cache falls back to a rebuild."
             ),
             "safe_to_show": {
                 "project_local_state_refs_visible": True,
@@ -7447,6 +7663,14 @@ class RuntimeShell:
                 "body_text_exported_in_receipts": body_floor_summary.get(
                     "body_text_exported_in_receipts"
                 ),
+                "cache_status": body_floor_summary.get("cache_status"),
+                "cache_source_ref": body_floor_summary.get("cache_source_ref"),
+                "live_digest_verification_status": body_floor_summary.get(
+                    "live_digest_verification_status"
+                ),
+                "full_verification_command": body_floor_summary.get(
+                    "full_verification_command"
+                ),
             },
             "proof_lab": {
                 "status": proof_lab.get("status"),
@@ -7480,7 +7704,8 @@ class RuntimeShell:
                 "receipt_persisted": False,
                 "receipt_write_policy_exported": True,
                 "first_contact_surface_refs_exported": True,
-                "project_compile_state_written": True,
+                "project_compile_state_written": project_compile_state_written,
+                "compile_cache_status": compile_cache_status,
                 "compact_route_for_first_screen": True,
                 "state_inspection_exported": True,
                 "state_write_result_exported": True,
@@ -16238,7 +16463,7 @@ class RuntimeShell:
         ]
         evidence_class_counts = _evidence_class_counts(adapter_backed)
         truth_accounting = _truth_accounting(adapter_backed)
-        body_import_floor = _macro_projection_body_import_floor(self.root)
+        body_import_floor = _macro_projection_body_import_floor_card(self.root)
         product_step_count = len(_product_runtime_steps())
         authority_path = self.runtime_receipt_dir / "public_authority_map.json"
         prior_authority = _read_json_if_exists(authority_path)
@@ -19772,6 +19997,8 @@ class RuntimeShell:
         project: str | Path | None = None,
         max_requests: int | None = None,
     ) -> ThreadingHTTPServer:
+        from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
         if max_requests is not None and max_requests < 1:
             raise ValueError("max_requests must be >= 1")
 
