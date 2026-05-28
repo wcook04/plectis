@@ -28,8 +28,8 @@ The compact behavioral path is:
    `front_door.route_explanation`, `front_door.proof_lab`,
    `front_door.observatory`, and
    `front_door.source_open_body_import_floor` lenses.
-   If you run it before `.microcosm/` exists, keep the non-zero JSON as an
-   honest recovery card: `front_door.project_state.recovery`,
+   If you run it before `.microcosm/` exists, it should exit zero while the
+   JSON remains an honest recovery card: `front_door.project_state.recovery`,
    `front_door.project_recovery`, and
    `front_door_status.blocking_surface_details.project_state` should point back
    to `microcosm tour --card <project>` and then

@@ -618,7 +618,7 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
 ) -> None:
     project = _make_scratch_project(tmp_path)
 
-    assert cli.main(["status", "--card", str(project)]) == 1
+    assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
 
     assert payload["status"] == "blocked"

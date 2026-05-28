@@ -646,7 +646,7 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "Any `body_copied=true` claim must name the source file" in text
     assert "Any `body_copied=true` claim must point at a real target file" in agents
     assert "front_door_status.blocking_surface_ids" in text
-    assert "If `microcosm status --card <project>` exits non-zero" in text
+    assert "exits zero for the expected first-run missing-state recovery card" in normalized_text
     assert "not benchmark scores" in text
     assert "not benchmark scores" in agents
     assert "not score-based progress, maturity" in text

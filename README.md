@@ -244,11 +244,13 @@ means the required first-screen path is green.
 surfaces remain visible bounded warnings to inspect; if one is non-pass, it is
 reported under `drilldown_blocked_surface_ids`, not hidden as release
 authority.
-If `microcosm status --card <project>` exits non-zero, keep the JSON output as
-the evidence packet. The field `front_door_status.blocking_surface_ids` names
-the blocking first-screen surfaces; inspect those exact surfaces, and do not
-treat warning drilldowns as source, release, provider, or proof authority.
-If the blocker is `project_state=missing_state`, the same card now includes
+`microcosm status --card <project>` exits zero for the expected first-run
+missing-state recovery card so strict shell probes can read the next command.
+If it exits non-zero, keep the JSON output as the evidence packet. The field
+`front_door_status.blocking_surface_ids` names the blocking first-screen
+surfaces; inspect those exact surfaces, and do not treat warning drilldowns as
+source, release, provider, or proof authority.
+If the blocker is `project_state=missing_state`, the same card includes
 `front_door.project_state.recovery`,
 `front_door.project_recovery`, top-level `next_commands`, and
 `front_door_status.blocking_surface_details.project_state` with

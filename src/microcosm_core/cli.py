@@ -396,9 +396,36 @@ def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
     return subparsers.add_parser(command, **kwargs)
 
 
-def _print_json(payload: dict) -> int:
+def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
+    if exit_code is not None:
+        return exit_code
     return 0 if payload.get("status") == "pass" else 1
+
+
+def _status_card_exit_code(payload: dict) -> int:
+    if payload.get("status") == "pass":
+        return 0
+    front_door_status = payload.get("front_door_status")
+    front_door = payload.get("front_door")
+    if not isinstance(front_door_status, dict) or not isinstance(front_door, dict):
+        return 1
+    blocking_surface_ids = set(front_door_status.get("blocking_surface_ids") or [])
+    if not blocking_surface_ids:
+        return 1
+    if not blocking_surface_ids.issubset({"project_state", "state_write_proof"}):
+        return 1
+    project_state = front_door.get("project_state")
+    project_recovery = front_door.get("project_recovery")
+    if not isinstance(project_state, dict) or not isinstance(project_recovery, dict):
+        return 1
+    if project_state.get("status") != "missing_state":
+        return 1
+    if project_recovery.get("status") != "actionable":
+        return 1
+    if project_recovery.get("primary_command") != "microcosm tour --card <project>":
+        return 1
+    return 0
 
 
 def _project_evidence_state_boundary(project_arg: str) -> dict | None:
@@ -1825,7 +1852,7 @@ def main(argv: list[str] | None = None) -> int:
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
                 payload = _compact_project_status_card_for_cli(payload)
-            return _print_json(payload)
+            return _print_json(payload, exit_code=_status_card_exit_code(payload))
         if args.project:
             command_args.append(args.project)
         return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
