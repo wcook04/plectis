@@ -69,6 +69,15 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "pyproject.toml",
     ]
     assert data_files["share/microcosm-substrate/core"] == ["core/*.json"]
+    assert data_files["share/microcosm-substrate/.github/workflows"] == [
+        ".github/workflows/*.yml"
+    ]
+    assert data_files["share/microcosm-substrate/atlas"] == ["atlas/*.json"]
+    assert data_files["share/microcosm-substrate/paper_modules"] == [
+        "paper_modules/*.md"
+    ]
+    assert data_files["share/microcosm-substrate/scripts"] == ["scripts/*.py"]
+    assert data_files["share/microcosm-substrate/skills"] == ["skills/*.md"]
     assert data_files["share/microcosm-substrate/standards"] == ["standards/*.json"]
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
