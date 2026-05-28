@@ -12,6 +12,39 @@ should make the macro architecture legible through real, runnable substrate:
 project, catalog, pattern, standard, route, work, event, evidence, explanation,
 assimilation, imported macro bodies, and exported macro-shaped bundles.
 
+## Fast Entry For Cold Agents
+
+If this is your first touch in a standalone clone, do not start by absorbing the
+organ inventory. First prove the local entry path and the public authority
+membrane:
+
+1. Read `README.md` for the human map and install mode.
+2. From `microcosm-substrate/`, make the console command available with
+   `python3 -m pip install -e '.[test]'`. If you cannot install, use the source
+   form `PYTHONPATH=src python3 -m microcosm_core.cli <command>`.
+3. Run the compact route before opening raw receipts:
+
+```bash
+microcosm hello .
+microcosm tour --card .
+microcosm status --card .
+microcosm authority --card
+microcosm workingness --card
+microcosm legibility-scorecard
+```
+
+Read those outputs as the first contract: `hello` is the no-write human card,
+`tour --card` is the shared state-writing behavior proof, `status --card` is
+the compressed public evidence map, `authority --card` is the claim ceiling,
+`workingness --card` is the failure envelope, and `legibility-scorecard` is the
+cold-reader comprehension check. These commands do not create release,
+hosting, proof, production, provider-call, source-mutation, or financial-advice
+authority.
+
+After the compact route is green, use `skills/cold_start_navigation.md` for the
+shortest validation ladder. Use the inventory below only as a public runtime
+index, not as a substitute for running the commands.
+
 ## Real Substrate Posture
 
 Microcosm is the public repo form of the macro system, reorganized so a cold
