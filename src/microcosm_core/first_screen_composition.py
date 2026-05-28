@@ -27,6 +27,12 @@ DENIED_AUTHORITY_KEYS = (
     "score_based_progress_authority",
     "whole_system_correctness_authority",
 )
+STANDARD_SURFACE_ALIASES = {
+    "concept_mechanism_entry_route": ("doctrine_effect_frame",),
+    "reader_focus_mode": ("reader_route_menu", "text_projection"),
+    "reader_route_ids": ("reader_routes",),
+    "terminal_text_projection": ("text_projection",),
+}
 TEXT_CARD_MAX_LINES = 32
 COMPACT_JSON_CARD_MAX_CHARS = 16000
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS
@@ -70,6 +76,218 @@ def _bounded_observatory_serve_command(project_label: str) -> str:
 
 def _load_standard(root: Path) -> dict[str, Any]:
     return json.loads((root / STANDARD_REF).read_text(encoding="utf-8"))
+
+
+def _string_set(rows: Any) -> set[str]:
+    if not isinstance(rows, list):
+        return set()
+    return {str(row) for row in rows if isinstance(row, str)}
+
+
+def _reader_route_ids(rows: Any) -> set[str]:
+    if not isinstance(rows, list):
+        return set()
+    return {
+        str(row.get("reader_route_id"))
+        for row in rows
+        if isinstance(row, dict) and row.get("reader_route_id")
+    }
+
+
+def _ordered_reader_route_ids(route_ids: set[str]) -> list[str]:
+    known_ids = [route_id for route_id in READER_ROUTE_IDS if route_id in route_ids]
+    return known_ids + sorted(route_ids - REQUIRED_ROUTE_IDS)
+
+
+def _surface_list(payload: dict[str, Any], surface_id: str, list_key: str) -> list[Any]:
+    surface = payload.get(surface_id, {})
+    if not isinstance(surface, dict):
+        return []
+    rows = surface.get(list_key, [])
+    return rows if isinstance(rows, list) else []
+
+
+def _standard_surface_present(
+    surface_id: str,
+    payload: dict[str, Any],
+    validation_check_ids: set[str],
+) -> bool:
+    aliases = {surface_id, *STANDARD_SURFACE_ALIASES.get(surface_id, ())}
+    return any(alias in payload for alias in aliases) or any(
+        alias in validation_check_ids for alias in aliases
+    )
+
+
+def _standard_backed_first_screen_scan(
+    payload: dict[str, Any],
+    standard: dict[str, Any],
+    validation_check_ids: set[str],
+) -> dict[str, Any]:
+    validator_contract = standard.get("validator_contract", {})
+    receipt_contract = standard.get("receipt_contract", {})
+    required_fields = _string_set(standard.get("required_fields", []))
+    minimum_checks = (
+        _string_set(validator_contract.get("minimum_checks", []))
+        if isinstance(validator_contract, dict)
+        else set()
+    )
+    receipt_must_record = (
+        _string_set(receipt_contract.get("must_record", []))
+        if isinstance(receipt_contract, dict)
+        else set()
+    )
+
+    route_surfaces = {
+        "reader_routes": payload.get("reader_routes", []),
+        "reader_route_menu.routes": _surface_list(payload, "reader_route_menu", "routes"),
+        "reader_landing_packets.packets": _surface_list(
+            payload,
+            "reader_landing_packets",
+            "packets",
+        ),
+        "reader_exit_criteria.criteria": _surface_list(
+            payload,
+            "reader_exit_criteria",
+            "criteria",
+        ),
+    }
+    route_parity_rows = []
+    for surface_id, rows in route_surfaces.items():
+        actual_ids = _reader_route_ids(rows)
+        route_parity_rows.append(
+            {
+                "surface": surface_id,
+                "reader_route_ids": _ordered_reader_route_ids(actual_ids),
+                "missing_reader_route_ids": [
+                    route_id for route_id in READER_ROUTE_IDS if route_id not in actual_ids
+                ],
+                "extra_reader_route_ids": sorted(actual_ids - REQUIRED_ROUTE_IDS),
+                "status": "pass" if actual_ids == REQUIRED_ROUTE_IDS else "blocked",
+            }
+        )
+
+    project_label = str(payload.get("project_label", ""))
+    menu_rows = _surface_list(payload, "reader_route_menu", "routes")
+    command_rows = []
+    for row in menu_rows:
+        if not isinstance(row, dict):
+            continue
+        route_id = str(row.get("reader_route_id", ""))
+        terminal_command = (
+            f"microcosm hello --reader {route_id} {project_label}"
+        )
+        text_projection_command = (
+            "microcosm first-screen --format text --reader "
+            f"{route_id} {project_label}"
+        )
+        terminal_ok = row.get("terminal_command") == terminal_command
+        text_projection_ok = row.get("text_projection_command") == text_projection_command
+        command_rows.append(
+            {
+                "reader_route_id": route_id,
+                "terminal_command_ok": terminal_ok,
+                "text_projection_command_ok": text_projection_ok,
+                "status": (
+                    "pass"
+                    if route_id in REQUIRED_ROUTE_IDS
+                    and terminal_ok
+                    and text_projection_ok
+                    else "blocked"
+                ),
+            }
+        )
+
+    standard_authority_ceiling = standard.get("authority_ceiling", {})
+    payload_authority_ceiling = payload.get("authority_ceiling", {})
+    denied_authority_rows = [
+        {
+            "authority_key": key,
+            "standard_value": standard_authority_ceiling.get(key)
+            if isinstance(standard_authority_ceiling, dict)
+            else None,
+            "payload_value": payload_authority_ceiling.get(key)
+            if isinstance(payload_authority_ceiling, dict)
+            else None,
+            "status": (
+                "pass"
+                if isinstance(standard_authority_ceiling, dict)
+                and isinstance(payload_authority_ceiling, dict)
+                and standard_authority_ceiling.get(key) is False
+                and payload_authority_ceiling.get(key) is False
+                else "blocked"
+            ),
+        }
+        for key in DENIED_AUTHORITY_KEYS
+    ]
+
+    missing = {
+        "required_fields": sorted(
+            field for field in required_fields if field not in payload
+        ),
+        "validator_minimum_checks": sorted(minimum_checks - validation_check_ids),
+        "receipt_must_record": sorted(
+            item
+            for item in receipt_must_record
+            if not _standard_surface_present(item, payload, validation_check_ids)
+        ),
+    }
+    public_private_boundary = payload.get("public_private_boundary", {})
+    standard_public_private_boundary = standard.get("public_private_boundary", {})
+    checks = {
+        "standard_ref_matches": payload.get("source_standard_ref") == str(STANDARD_REF),
+        "standard_kind_matches": payload.get("composition_root_id")
+        == standard.get("kind_id"),
+        "validator_id_matches": payload.get("validator_id")
+        == (
+            validator_contract.get("validator_id")
+            if isinstance(validator_contract, dict)
+            else None
+        ),
+        "required_fields_present": not missing["required_fields"],
+        "validator_minimum_checks_executable": not missing[
+            "validator_minimum_checks"
+        ],
+        "receipt_contract_surfaces_present": not missing["receipt_must_record"],
+        "reader_route_parity": all(
+            row["status"] == "pass" for row in route_parity_rows
+        ),
+        "copyable_reader_commands": (
+            len(command_rows) == len(READER_ROUTE_IDS)
+            and all(row["status"] == "pass" for row in command_rows)
+        ),
+        "authority_ceiling_mirrored": payload_authority_ceiling
+        == standard_authority_ceiling,
+        "denied_authority_flags_false": all(
+            row["status"] == "pass" for row in denied_authority_rows
+        ),
+        "public_private_boundary_mirrored": public_private_boundary
+        == {
+            "allowed_public_inputs": standard_public_private_boundary.get(
+                "allowed_public_inputs"
+            )
+            if isinstance(standard_public_private_boundary, dict)
+            else None,
+            "forbidden_public_inputs": standard_public_private_boundary.get(
+                "forbidden_public_inputs"
+            )
+            if isinstance(standard_public_private_boundary, dict)
+            else None,
+        },
+    }
+    return {
+        "schema_version": "microcosm_standard_backed_first_screen_scan_v1",
+        "status": "pass" if all(checks.values()) else "blocked",
+        "standard_id": standard.get("standard_id"),
+        "standard_ref": str(STANDARD_REF),
+        "validator_id": payload.get("validator_id"),
+        "expected_reader_route_ids": list(READER_ROUTE_IDS),
+        "checks": checks,
+        "missing": missing,
+        "route_parity": route_parity_rows,
+        "reader_command_parity": command_rows,
+        "denied_authority_flags": denied_authority_rows,
+        "authority": "scanner_contract_only_not_release_or_reader_success_authority",
+    }
 
 
 def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
@@ -2936,6 +3154,13 @@ def first_screen_composition_card(
         "validator_id": standard["validator_contract"]["validator_id"],
     }
     checks = _validation_checks(payload)
+    standard_scan = _standard_backed_first_screen_scan(
+        payload,
+        standard,
+        set(checks),
+    )
+    payload["standard_backed_first_screen_scan"] = standard_scan
+    checks["standard_backed_first_screen_scan"] = standard_scan["status"] == "pass"
     payload["validation"] = {
         "status": "pass" if all(checks.values()) else "blocked",
         "checks": checks,

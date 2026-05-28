@@ -1184,6 +1184,46 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     )
 
 
+def test_first_screen_standard_scan_binds_card_to_standard_contract() -> None:
+    module = _load_module()
+
+    card = module.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
+    scan = card["standard_backed_first_screen_scan"]
+
+    assert card["validation"]["checks"]["standard_backed_first_screen_scan"] is True
+    assert scan["status"] == "pass"
+    assert scan["schema_version"] == "microcosm_standard_backed_first_screen_scan_v1"
+    assert scan["standard_id"] == "std_microcosm_first_screen_composition_root"
+    assert (
+        scan["standard_ref"]
+        == "standards/std_microcosm_first_screen_composition_root.json"
+    )
+    assert scan["expected_reader_route_ids"] == [
+        "safety_evals_engineer",
+        "hiring_reviewer",
+        "peer_developer",
+    ]
+    assert scan["missing"] == {
+        "required_fields": [],
+        "validator_minimum_checks": [],
+        "receipt_must_record": [],
+    }
+    assert all(scan["checks"].values())
+    assert {row["surface"] for row in scan["route_parity"]} == {
+        "reader_routes",
+        "reader_route_menu.routes",
+        "reader_landing_packets.packets",
+        "reader_exit_criteria.criteria",
+    }
+    assert all(row["status"] == "pass" for row in scan["route_parity"])
+    assert all(row["status"] == "pass" for row in scan["reader_command_parity"])
+    assert all(row["status"] == "pass" for row in scan["denied_authority_flags"])
+    assert (
+        scan["authority"]
+        == "scanner_contract_only_not_release_or_reader_success_authority"
+    )
+
+
 def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
     result = subprocess.run(
         [
