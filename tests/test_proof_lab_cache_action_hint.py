@@ -33,6 +33,7 @@ def _assert_public_safe_cache_action(action: dict) -> None:
 
 
 def test_status_card_explains_actionable_proof_lab_cache() -> None:
+    _run_json("tour", "--card", ".")
     payload = _run_json("status", "--card", ".")
     proof_lab = payload["front_door"]["proof_lab"]
     assert "cache_action" in proof_lab

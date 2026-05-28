@@ -857,13 +857,13 @@ def test_public_entry_docs_keep_tour_before_compile() -> None:
     cold_start = (MICROCOSM_ROOT / "skills/cold_start_navigation.md").read_text(
         encoding="utf-8"
     )
-    assert cold_start.index("3. Run `microcosm tour --card <project>`") < cold_start.index(
-        "8. Run `microcosm compile <project>`"
+    assert cold_start.index("Run `microcosm tour --card <project>`") < cold_start.index(
+        "Run `microcosm compile <project>`"
     )
     assert cold_start.index(
-        "4. Open `atlas/entry_packet.json::status_and_workingness_route`"
+        "Open `atlas/entry_packet.json::status_and_workingness_route`"
     ) < cold_start.index(
-        "8. Run `microcosm compile <project>`"
+        "Run `microcosm compile <project>`"
     )
     assert cold_start.index(
         "`PYTHONPATH=src python3 -m microcosm_core.cli tour --card <project>`"
