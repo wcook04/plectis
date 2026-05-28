@@ -17,8 +17,9 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PYTHON ?= python3",
         "VENV ?= .venv",
         "VENV_PYTHON ?= $(VENV)/bin/python",
+        "EXPORT_OUT ?= ../microcosm-substrate-export",
         "PUBLIC_TESTS ?=",
-        ".PHONY: install venv test test-all smoke ci clean",
+        ".PHONY: install venv test test-all smoke ci standalone-export clean",
         "$(PYTHON) -m venv $(VENV)",
         "$(VENV_PYTHON) -m pip install --upgrade pip",
         '$(VENV_PYTHON) -m pip install -e ".[test]"',
@@ -32,10 +33,20 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
+        "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force",
     ):
         assert required in text
 
-    for target in ("venv", "install", "test", "test-all", "smoke", "ci", "clean"):
+    for target in (
+        "venv",
+        "install",
+        "test",
+        "test-all",
+        "smoke",
+        "ci",
+        "standalone-export",
+        "clean",
+    ):
         assert re.search(rf"^{target}:", text, flags=re.MULTILINE)
 
     assert "--break-system-packages" not in text
@@ -46,4 +57,5 @@ def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:
 
     assert re.search(r"^ci:\s+test\s+smoke$", text, flags=re.MULTILINE)
     assert "test-all: install" in text
+    assert not re.search(r"^ci:.*standalone-export", text, flags=re.MULTILINE)
     assert "microcosm_core.cli" not in text

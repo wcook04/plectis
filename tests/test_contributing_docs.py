@@ -34,3 +34,7 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
         "\npython3 -m pytest tests/test_public_entry_docs.py "
         "tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py"
     ) not in text
+    assert "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export" in text
+    assert "receipts/release/release_export_receipt.json" in text
+    assert "release_authorized=false" in text
+    assert "intentionally not part of `make ci`" in text

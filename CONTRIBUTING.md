@@ -49,6 +49,21 @@ If editable install is not available, use the source form:
 PYTHONPATH=src python3 -m microcosm_core hello .
 ```
 
+## Standalone Candidate Export
+
+To generate a bounded standalone folder and release-export receipt for review,
+run the explicit export target:
+
+```bash
+make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
+```
+
+This writes `/tmp/microcosm-substrate-export/microcosm-substrate/` and records
+`receipts/release/release_export_receipt.json` inside that artifact. The target
+is intentionally not part of `make ci`; it performs heavier outside-root smoke
+checks and still keeps `release_authorized=false` until a separate human release
+decision exists.
+
 ## Good Contributions
 
 - Improve runnable public substrate: CLI behavior, validators, standards,

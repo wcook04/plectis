@@ -1,6 +1,7 @@
 PYTHON ?= python3
 VENV ?= .venv
 VENV_PYTHON ?= $(VENV)/bin/python
+EXPORT_OUT ?= ../microcosm-substrate-export
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
 	tests/test_secret_exclusion_scan.py \
@@ -12,7 +13,7 @@ PUBLIC_TESTS ?= \
 	tests/test_proof_lab_cache_action_hint.py \
 	tests/test_release_export.py
 
-.PHONY: install venv test test-all smoke ci clean
+.PHONY: install venv test test-all smoke ci standalone-export clean
 
 $(VENV_PYTHON):
 	$(PYTHON) -m venv $(VENV)
@@ -40,6 +41,9 @@ smoke:
 	PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard
 
 ci: test smoke
+
+standalone-export: install
+	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force
 
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
