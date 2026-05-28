@@ -52,6 +52,8 @@ def test_cold_clone_probe_reports_secret_exclusion_scan(monkeypatch, tmp_path: P
         receipt["command"]
         == "./bootstrap.sh --suite first-wave --emit receipts/custom_cold_clone.json"
     )
+    assert receipt["suite"] == "first-wave"
+    assert receipt["fixture_id"] == "first-wave"
     assert receipt["emit_ref"] == "receipts/custom_cold_clone.json"
     assert receipt["receipt_paths"][0] == "receipts/custom_cold_clone.json"
     assert receipt["secret_exclusion_scan"]["status"] == "pass"
@@ -75,6 +77,8 @@ def test_cold_clone_probe_blocks_unknown_suite_before_validation(
     receipt = cold_clone_probe.run_probe(tmp_path, suite="missing-suite")
 
     assert receipt["status"] == "blocked_invalid_input"
+    assert receipt["suite"] == "missing-suite"
+    assert receipt["fixture_id"] == "missing-suite"
     assert receipt["blocked_dependency_codes"] == ["UNKNOWN_COLD_CLONE_SUITE"]
     assert receipt["supported_suites"] == ["first-wave"]
 

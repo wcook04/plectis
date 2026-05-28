@@ -66,7 +66,13 @@ def run_probe(
         suite,
         command=_bootstrap_command(suite, emit_ref_text),
     )
-    receipt.update({"emit_ref": emit_ref_text, "receipt_paths": [emit_ref_text]})
+    receipt.update(
+        {
+            "suite": suite,
+            "emit_ref": emit_ref_text,
+            "receipt_paths": [emit_ref_text],
+        }
+    )
     if suite not in SUPPORTED_SUITES:
         receipt.update(
             {
