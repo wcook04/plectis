@@ -3901,69 +3901,27 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
         "no_release_authority": True,
         "authority_boundary": (
             "first-screen pass plus named residual hygiene can support a "
-            "recording companion card, not release, hosting, proof correctness, "
+            "bounded recording rehearsal, not release, hosting, proof correctness, "
             "or private-root equivalence."
         ),
     }
-    companion = lens["recording_companion_card"]
-    assert companion["schema_version"] == "microcosm_recording_companion_card_v1"
-    assert companion["role"] == (
-        "local_runnable_evidence_bounded_substrate_for_recording_authority"
-    )
-    assert companion["not_roles"] == [
-        "separate_frontend",
-        "hosted_product",
-        "proof_system",
-        "private_root_equivalence_claim",
-    ]
-    assert "microcosm tour --card <project>" in companion["first_screen_commands"]
-    assert "source_open_body_import_manifests" in companion["evidence_classes"]
-    assert companion["fixed_residuals"] == [
-        "runtime_shell_behavior_surfaces_contract_registered",
-        "macro_projection_exact_source_digest_floor_checked",
-        "package_root_generated_state_ignored",
-        "trace_readiness_verdict_axes_named",
-    ]
-    scriptlet = companion["operator_recording_scriptlet"]
-    assert scriptlet["schema_version"] == "microcosm_operator_recording_scriptlet_v1"
-    assert scriptlet["run_command"] == "microcosm status --card <project>"
-    assert "recording authority only" in scriptlet["authority_boundary"]
-    assert "private_root_equivalence_claim" in scriptlet["do_not_say"]
-    diff_capsule = companion["convergence_diff_capsule"]
-    assert diff_capsule["schema_version"] == (
-        "microcosm_recording_convergence_diff_capsule_v1"
-    )
+    assert "recording_companion_card" not in lens
+    recording_boundary = lens["recording_companion_boundary"]
     assert (
-        "runtime_shell_behavior_surface_contract_drift"
-        in diff_capsule["before_state"]
+        recording_boundary["schema_version"]
+        == "microcosm_recording_companion_boundary_v1"
     )
-    assert diff_capsule["landed_commits"] == [
-        {
-            "commit": "e1f8bcef0",
-            "claim": "package_root_generated_state_ignored",
-        },
-        {
-            "commit": "47dab635c",
-            "claim": (
-                "runtime_behavior_macro_provenance_and_readiness_"
-                "contracts_aligned"
-            ),
-        },
+    assert recording_boundary["status"] == "demoted_from_default_public_scorecard"
+    assert "default installed output" in recording_boundary["why"]
+    assert recording_boundary["default_scorecard_excludes"] == [
+        "recording_scriptlet_body",
+        "recording_freeze_guidance",
+        "historical_commit_capsule",
+        "private_macro_equivalence_claim",
     ]
-    assert diff_capsule["current_head_check_command"] == "git log --oneline -5"
-    assert "proof_correctness" in diff_capsule["still_not_authorized"]
-    rehearsal = companion["cold_reader_rehearsal"]
-    assert rehearsal["schema_version"] == "microcosm_recording_cold_reader_rehearsal_v1"
-    assert rehearsal["sequence"] == [
-        "microcosm hello <project>",
-        "microcosm legibility-scorecard",
-        "microcosm status --card <project>",
-        PROOF_LAB_FIRST_SCREEN_COMMAND,
-        "git status --short -- 'microcosm-substrate/**/.microcosm/**'",
-    ]
-    assert "without operator improvisation" in rehearsal["pass_condition"]
-    assert companion["freeze_decision_rule"].startswith(
-        "If the companion card and rehearsal pass"
+    assert "current HEAD" in recording_boundary["reentry_condition"]
+    assert all(
+        value is False for value in recording_boundary["safe_to_show"].values()
     )
     assert set(lens["negative_case_ids"]) >= {
         "architecture_legible_without_running_commands_rejected",
@@ -3994,6 +3952,10 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert OMITTED_PAYLOAD_BODY_KEY not in lens
     assert (public_root / lens["legibility_scorecard_ref"]).is_file()
     encoded = json.dumps(lens, sort_keys=True)
+    assert "operator_recording_scriptlet" not in encoded
+    assert "landed_commits" not in encoded
+    assert "e1f8bcef0" not in encoded
+    assert "47dab635c" not in encoded
     assert OMITTED_PAYLOAD_BODY_KEY not in encoded
     assert PUBLIC_REPLACEMENT_REF_KEY not in encoded
     assert "/Users/" not in encoded

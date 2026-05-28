@@ -13,35 +13,60 @@
     "source_mutation_authorized": false,
     "synthetic_public_read_model_only": true
   },
+  "card_first_entry_path": {
+    "commands": [
+      "microcosm hello <project>",
+      "microcosm tour --card <project>",
+      "microcosm status --card <project>",
+      "microcosm authority --card",
+      "microcosm workingness --card",
+      "microcosm legibility-scorecard"
+    ],
+    "drilldown_after": [
+      "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "microcosm serve <project>",
+      "microcosm evidence inspect <receipt>"
+    ],
+    "reader_rule": "Run hello for the human first-screen card, then compact cards for behavior, status, authority, and workingness before opening full route maps or receipt drilldowns.",
+    "role": "compact_first_run_before_full_drilldowns",
+    "safe_to_show": {
+      "provider_calls_authorized": false,
+      "reader_success_guarantee": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
+    },
+    "schema_version": "microcosm_legibility_card_first_entry_path_v1",
+    "status": "pass"
+  },
   "checkpoint_rows": [
     {
       "checkpoint_id": "repo_to_local_substrate",
-      "command": "microcosm compile <project>",
-      "endpoint": "/project/observatory",
-      "evidence_ref": ".microcosm/project_manifest.json",
-      "expected_signal": ".microcosm catalog, routes, work transaction, events, and evidence exist",
+      "command": "microcosm hello <project>",
+      "endpoint": "/",
+      "evidence_ref": "microcosm first-screen <project>",
+      "expected_signal": "human first-screen card names the local substrate and points to behavior proofs",
       "minute_budget": 2,
-      "pass_condition": "compile_status_pass_and_source_files_mutated_false",
+      "pass_condition": "hello_card_visible_before_behavior_drilldowns",
       "reader_question": "What does this thing do?"
     },
     {
       "checkpoint_id": "entry_path_visible",
-      "command": "microcosm tour <project>",
+      "command": "microcosm tour --card <project>",
       "endpoint": "/tour",
-      "evidence_ref": "receipts/runtime_shell/public_ten_minute_tour.json",
-      "expected_signal": "route cards fit in a 10-minute path before raw receipt drilldown",
+      "evidence_ref": "microcosm tour --card <project>::front_door_status",
+      "expected_signal": "front-door status, state refs, and next commands are visible before full route cards",
       "minute_budget": 2,
-      "pass_condition": "tour_status_pass_and_route_cards_present",
+      "pass_condition": "tour_card_status_pass_and_front_door_status_visible",
       "reader_question": "Where do I start?"
     },
     {
       "checkpoint_id": "authority_ceiling_visible",
-      "command": "microcosm authority",
-      "endpoint": "/authority",
-      "evidence_ref": "receipts/runtime_shell/public_authority_map.json",
-      "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false",
+      "command": "microcosm authority --card",
+      "endpoint": "/authority-card",
+      "evidence_ref": "microcosm authority --card",
+      "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false in the compact card",
       "minute_budget": 1,
-      "pass_condition": "authority_surface_has_false_public_ceiling",
+      "pass_condition": "authority_card_has_false_public_ceiling",
       "reader_question": "What is not being claimed?"
     },
     {
@@ -76,7 +101,7 @@
     }
   ],
   "command": "microcosm legibility-scorecard",
-  "created_at": "2026-05-28T02:50:50+00:00",
+  "created_at": "2026-05-28T12:42:03+00:00",
   "endpoint": "/legibility-scorecard",
   "evidence_refs": [
     "receipts/runtime_shell/public_ten_minute_tour.json",
@@ -145,25 +170,25 @@
   "reader_question_rows": [
     {
       "answer_contract": "repo -> .microcosm local operating substrate",
-      "proof_command": "microcosm compile <project>",
+      "proof_command": "microcosm hello <project>",
       "question": "What is Microcosm?",
       "question_id": "identity"
     },
     {
-      "answer_contract": "compile, tour, authority, observatory, then receipts",
-      "proof_command": "microcosm tour <project>",
+      "answer_contract": "hello, compact cards, authority ceiling, then drilldowns",
+      "proof_command": "microcosm hello <project> && microcosm tour --card <project>",
       "question": "What should I run first?",
       "question_id": "first_run"
     },
     {
-      "answer_contract": "JSON outputs, receipts, validators, and endpoint parity",
-      "proof_command": "microcosm projection-safety",
+      "answer_contract": "compact JSON cards, receipts, validators, and endpoint parity",
+      "proof_command": "microcosm status --card <project>",
       "question": "What makes this more than prose?",
       "question_id": "evidence"
     },
     {
       "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
-      "proof_command": "microcosm authority",
+      "proof_command": "microcosm authority --card",
       "question": "What claims are out of scope?",
       "question_id": "limits"
     },
@@ -174,111 +199,29 @@
       "question_id": "extension"
     }
   ],
-  "recording_companion_card": {
-    "card_id": "microcosm_recording_companion",
-    "cold_reader_rehearsal": {
-      "pass_condition": "A cold reader can move command -> evidence -> authority ceiling -> front-end transition without operator improvisation.",
-      "regression_route": "Patch only this companion card or scriptlet unless a real provenance, test, or generated-state regression reappears.",
-      "schema_version": "microcosm_recording_cold_reader_rehearsal_v1",
-      "sequence": [
-        "microcosm hello <project>",
-        "microcosm legibility-scorecard",
-        "microcosm status --card <project>",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "git status --short -- 'microcosm-substrate/**/.microcosm/**'"
-      ]
+  "recording_companion_boundary": {
+    "default_scorecard_excludes": [
+      "recording_scriptlet_body",
+      "recording_freeze_guidance",
+      "historical_commit_capsule",
+      "private_macro_equivalence_claim"
+    ],
+    "reentry_condition": "Build an explicit recording companion artifact only when preparing a recording-specific run, with fresh evidence from the current HEAD.",
+    "safe_to_show": {
+      "hosted_public_authorized": false,
+      "private_root_equivalence_claim": false,
+      "provider_calls_authorized": false,
+      "publication_authorized": false,
+      "release_authorized": false,
+      "source_mutation_authorized": false
     },
-    "convergence_diff_capsule": {
-      "after_state": [
-        "behavior_surfaces_contract_registered",
-        "macro_projection_exact_source_digest_floor_checked",
-        "tracked_generated_microcosm_state_clean",
-        "release_readiness_verdict_separates_recording_authority_from_release_authority"
-      ],
-      "before_state": [
-        "runtime_shell_behavior_surface_contract_drift",
-        "macro_projection_exact_copy_provenance_floor_unbound",
-        "generated_microcosm_state_tracked_at_package_root",
-        "trace_readiness_verdict_axes_too_ambiguous_for_recording"
-      ],
-      "current_head_check_command": "git log --oneline -5",
-      "landed_commits": [
-        {
-          "claim": "package_root_generated_state_ignored",
-          "commit": "e1f8bcef0"
-        },
-        {
-          "claim": "runtime_behavior_macro_provenance_and_readiness_contracts_aligned",
-          "commit": "47dab635c"
-        }
-      ],
-      "proof_refs": [
-        "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
-        "microcosm legibility-scorecard",
-        "microcosm status --card <project>",
-        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-        "git status --short -- 'microcosm-substrate/**/.microcosm/**'"
-      ],
-      "schema_version": "microcosm_recording_convergence_diff_capsule_v1",
-      "still_not_authorized": [
-        "release",
-        "hosting",
-        "publication",
-        "proof_correctness",
-        "provider_execution",
-        "source_mutation",
-        "private_root_equivalence"
-      ]
-    },
-    "evidence_classes": [
-      "local_generated_state_refs",
-      "runtime_cards",
-      "receipt_refs",
-      "source_open_body_import_manifests",
-      "proof_lab_execution_receipt"
-    ],
-    "first_screen_commands": [
-      "microcosm hello <project>",
-      "microcosm tour --card <project>",
-      "microcosm status --card <project>",
-      "microcosm workingness --card",
-      "microcosm legibility-scorecard",
-      "microcosm proof-lab --out /tmp/microcosm-proof-lab"
-    ],
-    "fixed_residuals": [
-      "runtime_shell_behavior_surfaces_contract_registered",
-      "macro_projection_exact_source_digest_floor_checked",
-      "package_root_generated_state_ignored",
-      "trace_readiness_verdict_axes_named"
-    ],
-    "freeze_decision_rule": "If the companion card and rehearsal pass, freeze Microcosm for recording and avoid further substrate mutation until rehearsal evidence falsifies the card.",
-    "not_roles": [
-      "separate_frontend",
-      "hosted_product",
-      "proof_system",
-      "private_root_equivalence_claim"
-    ],
-    "operator_recording_scriptlet": {
-      "authority_boundary": "This supports recording authority only; it does not authorize release, hosting, proof correctness, provider execution, source mutation, or private-root equivalence.",
-      "do_not_say": [
-        "released_or_hosted_product",
-        "proof_system_correctness_claim",
-        "private_root_equivalence_claim",
-        "provider_execution_or_source_mutation_required"
-      ],
-      "evidence_interpretation": "The card points at local generated state, runtime cards, receipt refs, source-open macro projection provenance, and the proof-lab receipt path.",
-      "front_end_transition": "The front-end can stay separate because Microcosm carries the evidence path and the authority ceiling.",
-      "opening_claim": "Microcosm is the local runnable substrate behind this recording, not the separate front-end.",
-      "run_command": "microcosm status --card <project>",
-      "schema_version": "microcosm_operator_recording_scriptlet_v1"
-    },
-    "residual_policy": "Recording-adjacent residuals must be fixed or named as release gate blockers; passing first-screen behavior never authorizes release.",
-    "role": "local_runnable_evidence_bounded_substrate_for_recording_authority",
-    "schema_version": "microcosm_recording_companion_card_v1"
+    "schema_version": "microcosm_recording_companion_boundary_v1",
+    "status": "demoted_from_default_public_scorecard",
+    "why": "The public cold-reader scorecard is a standalone entry contract; recording-specific scriptlets, rehearsal freezes, and historical commit capsules do not belong in the default installed output."
   },
   "release_authorized": false,
   "release_readiness_verdict": {
-    "authority_boundary": "first-screen pass plus named residual hygiene can support a recording companion card, not release, hosting, proof correctness, or private-root equivalence.",
+    "authority_boundary": "first-screen pass plus named residual hygiene can support a bounded recording rehearsal, not release, hosting, proof correctness, or private-root equivalence.",
     "governance_valid_with_warnings": "trace_semantic_bucket_not_release_authority",
     "no_release_authority": true,
     "public_first_screen_pass": true,
@@ -286,23 +229,23 @@
     "schema_version": "microcosm_release_readiness_verdict_v1"
   },
   "required_commands": [
-    "microcosm compile <project>",
-    "microcosm tour <project>",
-    "microcosm authority",
-    "microcosm projection-safety",
-    "microcosm replay-gauntlet",
-    "microcosm benchmark-lab",
+    "microcosm hello <project>",
+    "microcosm tour --card <project>",
+    "microcosm status --card <project>",
+    "microcosm authority --card",
+    "microcosm workingness --card",
     "microcosm legibility-scorecard",
+    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
     "microcosm serve <project>"
   ],
   "required_endpoints": [
     "/tour",
-    "/authority",
-    "/projection-safety",
-    "/replay-gauntlet",
-    "/benchmark-lab",
+    "/project/status",
+    "/authority-card",
+    "/workingness",
     "/legibility-scorecard",
-    "/project/observatory",
+    "/proof-lab",
+    "/project/observatory-card",
     "/evidence"
   ],
   "safe_to_show": {

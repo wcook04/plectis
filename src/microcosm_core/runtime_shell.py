@@ -14561,137 +14561,32 @@ class RuntimeShell:
             and all(value is False for key, value in authority_ceiling.items() if key != "synthetic_public_read_model_only")
             else "blocked"
         )
-        recording_companion_card = {
-            "schema_version": "microcosm_recording_companion_card_v1",
-            "card_id": "microcosm_recording_companion",
-            "role": (
-                "local_runnable_evidence_bounded_substrate_for_recording_authority"
+        recording_companion_boundary = {
+            "schema_version": "microcosm_recording_companion_boundary_v1",
+            "status": "demoted_from_default_public_scorecard",
+            "why": (
+                "The public cold-reader scorecard is a standalone entry contract; "
+                "recording-specific scriptlets, rehearsal freezes, and historical "
+                "commit capsules do not belong in the default installed output."
             ),
-            "not_roles": [
-                "separate_frontend",
-                "hosted_product",
-                "proof_system",
-                "private_root_equivalence_claim",
+            "default_scorecard_excludes": [
+                "recording_scriptlet_body",
+                "recording_freeze_guidance",
+                "historical_commit_capsule",
+                "private_macro_equivalence_claim",
             ],
-            "first_screen_commands": [
-                *card_first_commands,
-                PROOF_LAB_FIRST_SCREEN_COMMAND,
-            ],
-            "evidence_classes": [
-                "local_generated_state_refs",
-                "runtime_cards",
-                "receipt_refs",
-                "source_open_body_import_manifests",
-                "proof_lab_execution_receipt",
-            ],
-            "fixed_residuals": [
-                "runtime_shell_behavior_surfaces_contract_registered",
-                "macro_projection_exact_source_digest_floor_checked",
-                "package_root_generated_state_ignored",
-                "trace_readiness_verdict_axes_named",
-            ],
-            "residual_policy": (
-                "Recording-adjacent residuals must be fixed or named as release "
-                "gate blockers; passing first-screen behavior never authorizes release."
+            "reentry_condition": (
+                "Build an explicit recording companion artifact only when preparing "
+                "a recording-specific run, with fresh evidence from the current HEAD."
             ),
-            "operator_recording_scriptlet": {
-                "schema_version": "microcosm_operator_recording_scriptlet_v1",
-                "opening_claim": (
-                    "Microcosm is the local runnable substrate behind this "
-                    "recording, not the separate front-end."
-                ),
-                "run_command": "microcosm status --card <project>",
-                "evidence_interpretation": (
-                    "The card points at local generated state, runtime cards, "
-                    "receipt refs, source-open macro projection provenance, and "
-                    "the proof-lab receipt path."
-                ),
-                "authority_boundary": (
-                    "This supports recording authority only; it does not "
-                    "authorize release, hosting, proof correctness, provider "
-                    "execution, source mutation, or private-root equivalence."
-                ),
-                "front_end_transition": (
-                    "The front-end can stay separate because Microcosm carries "
-                    "the evidence path and the authority ceiling."
-                ),
-                "do_not_say": [
-                    "released_or_hosted_product",
-                    "proof_system_correctness_claim",
-                    "private_root_equivalence_claim",
-                    "provider_execution_or_source_mutation_required",
-                ],
+            "safe_to_show": {
+                "release_authorized": False,
+                "hosted_public_authorized": False,
+                "publication_authorized": False,
+                "provider_calls_authorized": False,
+                "source_mutation_authorized": False,
+                "private_root_equivalence_claim": False,
             },
-            "convergence_diff_capsule": {
-                "schema_version": (
-                    "microcosm_recording_convergence_diff_capsule_v1"
-                ),
-                "before_state": [
-                    "runtime_shell_behavior_surface_contract_drift",
-                    "macro_projection_exact_copy_provenance_floor_unbound",
-                    "generated_microcosm_state_tracked_at_package_root",
-                    "trace_readiness_verdict_axes_too_ambiguous_for_recording",
-                ],
-                "landed_commits": [
-                    {
-                        "commit": "e1f8bcef0",
-                        "claim": "package_root_generated_state_ignored",
-                    },
-                    {
-                        "commit": "47dab635c",
-                        "claim": (
-                            "runtime_behavior_macro_provenance_and_readiness_"
-                            "contracts_aligned"
-                        ),
-                    },
-                ],
-                "current_head_check_command": "git log --oneline -5",
-                "after_state": [
-                    "behavior_surfaces_contract_registered",
-                    "macro_projection_exact_source_digest_floor_checked",
-                    "tracked_generated_microcosm_state_clean",
-                    "release_readiness_verdict_separates_recording_authority_from_release_authority",
-                ],
-                "proof_refs": [
-                    "tests/test_runtime_shell.py::test_runtime_shell_legibility_scorecard_lens_is_public_safe",
-                    "microcosm legibility-scorecard",
-                    "microcosm status --card <project>",
-                    PROOF_LAB_FIRST_SCREEN_COMMAND,
-                    "git status --short -- 'microcosm-substrate/**/.microcosm/**'",
-                ],
-                "still_not_authorized": [
-                    "release",
-                    "hosting",
-                    "publication",
-                    "proof_correctness",
-                    "provider_execution",
-                    "source_mutation",
-                    "private_root_equivalence",
-                ],
-            },
-            "cold_reader_rehearsal": {
-                "schema_version": "microcosm_recording_cold_reader_rehearsal_v1",
-                "sequence": [
-                    "microcosm hello <project>",
-                    "microcosm legibility-scorecard",
-                    "microcosm status --card <project>",
-                    PROOF_LAB_FIRST_SCREEN_COMMAND,
-                    "git status --short -- 'microcosm-substrate/**/.microcosm/**'",
-                ],
-                "pass_condition": (
-                    "A cold reader can move command -> evidence -> authority "
-                    "ceiling -> front-end transition without operator improvisation."
-                ),
-                "regression_route": (
-                    "Patch only this companion card or scriptlet unless a real "
-                    "provenance, test, or generated-state regression reappears."
-                ),
-            },
-            "freeze_decision_rule": (
-                "If the companion card and rehearsal pass, freeze Microcosm for "
-                "recording and avoid further substrate mutation until rehearsal "
-                "evidence falsifies the card."
-            ),
         }
         release_readiness_verdict = {
             "schema_version": "microcosm_release_readiness_verdict_v1",
@@ -14703,7 +14598,7 @@ class RuntimeShell:
             "no_release_authority": True,
             "authority_boundary": (
                 "first-screen pass plus named residual hygiene can support a "
-                "recording companion card, not release, hosting, proof correctness, "
+                "bounded recording rehearsal, not release, hosting, proof correctness, "
                 "or private-root equivalence."
             ),
         }
@@ -14730,7 +14625,7 @@ class RuntimeShell:
             "required_endpoints": required_endpoints,
             "scorecard": scorecard,
             "release_readiness_verdict": release_readiness_verdict,
-            "recording_companion_card": recording_companion_card,
+            "recording_companion_boundary": recording_companion_boundary,
             "evidence_refs": evidence_refs,
             "negative_case_ids": negative_case_ids,
             "fixture_protocol": {
