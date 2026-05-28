@@ -4596,6 +4596,78 @@ def _workingness_gap_preview(
     }
 
 
+def _workingness_source_body_import_exception_preview(
+    workingness: dict[str, Any],
+    *,
+    limit: int = 4,
+) -> dict[str, Any]:
+    rows = workingness.get("thing_failure_map", [])
+    if not isinstance(rows, list):
+        rows = []
+
+    preview_rows = []
+    total_count = 0
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        source_imports = row.get("source_open_body_imports", {})
+        if not isinstance(source_imports, dict):
+            source_imports = {}
+        body_material_count = source_imports.get("body_material_count", 0)
+        if not isinstance(body_material_count, int):
+            body_material_count = 0
+        if body_material_count > 0:
+            continue
+
+        total_count += 1
+        if len(preview_rows) >= limit:
+            continue
+
+        evaluation_comparison = row.get("evaluation_comparison", {})
+        if not isinstance(evaluation_comparison, dict):
+            evaluation_comparison = {}
+        future_targets = row.get("future_work_targets", [])
+        if not isinstance(future_targets, list):
+            future_targets = []
+        target_refs = []
+        target_ids = []
+        for target in future_targets:
+            if not isinstance(target, dict):
+                continue
+            target_id = target.get("target_id")
+            if isinstance(target_id, str) and target_id not in target_ids:
+                target_ids.append(target_id)
+            target_ref = target.get("target_ref")
+            if isinstance(target_ref, str) and target_ref not in target_refs:
+                target_refs.append(target_ref)
+            if len(target_refs) >= 2 and len(target_ids) >= 2:
+                break
+
+        preview_rows.append(
+            {
+                "thing_id": row.get("thing_id"),
+                "runtime_mode": row.get("runtime_mode"),
+                "workingness_state": row.get("workingness_state"),
+                "evidence_gap_class": evaluation_comparison.get("gap_class"),
+                "future_work_target_ids": target_ids,
+                "future_work_target_refs": target_refs,
+            }
+        )
+
+    return {
+        "status": "exceptions_visible" if total_count else "clear",
+        "count": total_count,
+        "limit": limit,
+        "truncated": total_count > limit,
+        "drilldown_command": "microcosm workingness",
+        "rows": preview_rows,
+        "reader_action": (
+            "Use these IDs to distinguish honest drilldown-only exceptions from "
+            "hidden source-body import debt; open microcosm workingness for full rows."
+        ),
+    }
+
+
 def _workingness_failure_envelope_status(
     *,
     map_generation_status: Any,
@@ -4724,10 +4796,14 @@ def _workingness_command_speed_card(
         ),
         "surface_counts": surface_counts,
         "gap_preview": summary.get("gap_preview"),
+        "source_body_import_exception_preview": (
+            _workingness_source_body_import_exception_preview(workingness)
+        ),
         "output_economy": {
             "default_full_command_preserved": True,
             "thing_failure_map_exported": False,
             "known_failure_mode_rows_exported": False,
+            "source_body_import_exception_rows_exported": True,
             "receipt_persisted": False,
             "compact_route_for_first_screen": True,
         },

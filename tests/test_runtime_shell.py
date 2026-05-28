@@ -1728,8 +1728,30 @@ def test_runtime_shell_workingness_card_omits_full_failure_map() -> None:
     assert card["surface_counts"]["rows_with_failure_modes"] == 47
     assert card["surface_counts"]["missing_standard_count"] == 0
     assert card["surface_counts"]["missing_failure_modes_count"] == 0
+    exception_preview = card["source_body_import_exception_preview"]
+    assert exception_preview["status"] == "exceptions_visible"
+    assert exception_preview["count"] == 2
+    assert exception_preview["limit"] == 4
+    assert exception_preview["truncated"] is False
+    assert {
+        row["thing_id"] for row in exception_preview["rows"]
+    } == {
+        "agent_monitor_redteam_falsification_replay",
+        "agent_sabotage_scheming_monitor_replay",
+    }
+    assert {
+        row["runtime_mode"] for row in exception_preview["rows"]
+    } == {"drilldown_only"}
+    assert {
+        row["evidence_gap_class"] for row in exception_preview["rows"]
+    } == {"kept_out_of_product_path_until_evidence_strengthens"}
+    assert all(
+        "upgrade_or_keep_demoted" in row["future_work_target_ids"]
+        for row in exception_preview["rows"]
+    )
     assert card["output_economy"]["thing_failure_map_exported"] is False
     assert card["output_economy"]["known_failure_mode_rows_exported"] is False
+    assert card["output_economy"]["source_body_import_exception_rows_exported"] is True
     assert card["output_economy"]["receipt_persisted"] is False
     assert "thing_failure_map" not in card
     assert "known_failure_modes" not in encoded
