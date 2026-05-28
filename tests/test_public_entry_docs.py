@@ -103,9 +103,18 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "real non-secret macro bodies",
         "fake progress",
         "tests/test_public_entry_docs.py",
-        "./bootstrap.sh --suite first-wave",
+        "./bootstrap.sh",
+        "ignored `.microcosm/cold_clone_probe.json` evidence",
     ):
         assert phrase in contributing
+
+    for forbidden in (
+        "--emit receipts/cold_clone_probe.json",
+        "--emit receipts/cold_clone_probe_local.json",
+    ):
+        assert forbidden not in security
+        assert forbidden not in contributing
+        assert forbidden not in agents
 
     for phrase in (
         "make install",

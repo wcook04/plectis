@@ -106,5 +106,9 @@ make ci
 For a broad cold-clone smoke, use:
 
 ```bash
-./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe_local.json
+./bootstrap.sh
 ```
+
+The default writes ignored `.microcosm/cold_clone_probe.json` evidence so a
+routine cold-clone smoke does not dirty tracked receipt files. Use `--emit` only
+when you intentionally own a tracked receipt refresh.

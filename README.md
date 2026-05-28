@@ -1284,13 +1284,15 @@ PYTHONPATH=src python3 -m microcosm_core.validators.research_kernel_density --ro
 PYTHONPATH=src python3 -m microcosm_core.validators.transaction_evidence_stability --root . --project /tmp/microcosm-scratch --out receipts/first_wave/transaction_evidence_stability.json
 PYTHONPATH=src python3 -m microcosm_core.validators.observatory_legibility --root . --project /tmp/microcosm-scratch --out receipts/first_wave/observatory_legibility.json
 PYTHONPATH=src python3 -m microcosm_core.validators.launch_compression --root . --project /tmp/microcosm-scratch --out receipts/first_wave/launch_compression.json
-./bootstrap.sh --suite first-wave --emit receipts/cold_clone_probe.json
+./bootstrap.sh
 python -m pytest -q
 ```
 
 Use the organ commands in `core/organ_registry.json` for individual validation
 runs. Receipts under `receipts/**` are generated evidence from commands. They
-should not be edited by hand.
+should not be edited by hand. `bootstrap.sh` writes ignored local
+`.microcosm/cold_clone_probe.json` evidence by default; pass `--emit` only when
+refreshing an owned tracked receipt on purpose.
 
 ## Public Entry Map
 

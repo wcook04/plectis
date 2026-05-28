@@ -711,7 +711,9 @@ of those existing lanes can carry the pressure without distortion.
    bootstrap data, and negative cases. Do not treat fixture-only behavior as
    product-complete runtime behavior.
 4. Receipts Are Evidence: generate receipts by running validators or
-   `bootstrap.sh`; do not edit receipts by hand.
+   `bootstrap.sh`; do not edit receipts by hand. `bootstrap.sh` writes ignored
+   local `.microcosm/cold_clone_probe.json` evidence by default; pass `--emit`
+   only when refreshing an owned tracked receipt on purpose.
 5. Treat `core/organ_registry.json`, `core/acceptance/first_wave_acceptance.json`,
    generated receipts, and public paper modules as public-root navigation
    surfaces.
