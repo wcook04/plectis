@@ -5994,6 +5994,45 @@ def _goal_authority_sources(goals: dict[str, dict]) -> dict:
     return payload
 
 
+def _coerce_epoch_ms(value: Any) -> int | None:
+    try:
+        if value is None:
+            return None
+        return int(float(value))
+    except Exception:
+        return None
+
+
+def _goal_authority_refresh_lag(index: dict, current_authority: dict) -> dict:
+    cached_authority = (
+        index.get("goal_authority")
+        if isinstance(index.get("goal_authority"), dict)
+        else {}
+    )
+    previous_mtime_ms = _coerce_epoch_ms(cached_authority.get("mtime_ms")) if cached_authority else None
+    current_mtime_ms = _coerce_epoch_ms(current_authority.get("mtime_ms"))
+    stale_before_refresh = False
+    lag_ms: int | None = None
+    if current_mtime_ms is not None and previous_mtime_ms is None:
+        stale_before_refresh = True
+    elif current_mtime_ms is not None and previous_mtime_ms is not None:
+        lag_ms = max(0, current_mtime_ms - previous_mtime_ms)
+        stale_before_refresh = lag_ms > 0
+
+    receipt: dict[str, Any] = {
+        "goal_authority_stale_before_refresh": stale_before_refresh,
+    }
+    if previous_mtime_ms is not None:
+        receipt["previous_goal_authority_mtime_ms"] = previous_mtime_ms
+        receipt["previous_goal_authority_mtime"] = _iso_from_epoch_ms(previous_mtime_ms)
+    if current_mtime_ms is not None:
+        receipt["current_goal_authority_mtime_ms"] = current_mtime_ms
+        receipt["current_goal_authority_mtime"] = _iso_from_epoch_ms(current_mtime_ms)
+    if lag_ms is not None:
+        receipt["goal_authority_lag_ms"] = lag_ms
+    return receipt
+
+
 _GOAL_TITLE_PLACEHOLDERS = {
     "",
     "<goal_context>",
@@ -6144,7 +6183,9 @@ def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) 
         if (r.get("goal") or {}).get("status") == "active"
     )
 
-    index["goal_authority"] = _goal_authority_sources(codex_thread_goals)
+    goal_authority = _goal_authority_sources(codex_thread_goals)
+    goal_authority_lag = _goal_authority_refresh_lag(index, goal_authority)
+    index["goal_authority"] = goal_authority
     index["goal_threads"] = goal_threads
     index["goal_thread_count"] = len(goal_threads)
     index["active_goal_thread_count"] = active_goal_thread_count
@@ -6161,6 +6202,7 @@ def _refresh_mission_index_goal_roster(index: dict, *, cwd: Path | None = None) 
         "goal_row_count": len(codex_thread_goals),
         "codex_session_title_count": len(codex_thread_records),
         "preserved_generated_at": index.get("generated_at") or "",
+        **goal_authority_lag,
     }
     return index
 

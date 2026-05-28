@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 from tools.meta.observability import cli_prompt_trace as trace
@@ -89,6 +90,7 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     )
     conn.commit()
     conn.close()
+    os.utime(goals_db, (1779982000.0, 1779982000.0))
 
     session_index = tmp_path / "session_index.jsonl"
     session_index.write_text(
@@ -108,6 +110,14 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     index = {
         "schema": "prompt_trace_mission_index_v3",
         "generated_at": "2026-05-28T15:33:46+00:00",
+        "goal_authority": {
+            "schema": "codex_thread_goal_authority_v1",
+            "path": str(goals_db),
+            "available": True,
+            "row_count": 1,
+            "status_counts": {"active": 1},
+            "mtime_ms": 1779981000000,
+        },
         "active_rows": [cached_active],
         "inactive_rows": [],
         "rows": cached_rows,
@@ -122,6 +132,10 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     assert refreshed["goal_authority"]["row_count"] == 1
     assert refreshed["goal_roster_refresh"]["mode"] == "cached_mission_index_overlay"
     assert refreshed["goal_roster_refresh"]["preserved_generated_at"] == "2026-05-28T15:33:46+00:00"
+    assert refreshed["goal_roster_refresh"]["goal_authority_stale_before_refresh"] is True
+    assert refreshed["goal_roster_refresh"]["previous_goal_authority_mtime_ms"] == 1779981000000
+    assert refreshed["goal_roster_refresh"]["current_goal_authority_mtime_ms"] == 1779982000000
+    assert refreshed["goal_roster_refresh"]["goal_authority_lag_ms"] == 1000000
     assert refreshed["active_rows"][0]["has_goal"] is True
     assert refreshed["active_rows"][0]["goal_status"] == "active"
     assert refreshed["active_rows"][0]["goal_sort_priority"] == 40
