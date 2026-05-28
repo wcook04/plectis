@@ -24,6 +24,56 @@ def _agents_text() -> str:
 def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
     opening = _readme_text().split("## Choose Your First Screen", 1)[0]
 
+    assert (
+        "For a one-page cold-clone path, start with "
+        "[QUICKSTART.md](QUICKSTART.md)."
+    ) in opening
+    assert "## Public Repo Map" in opening
+    assert (
+        "Use this map before opening the longer reference body or raw receipt trees:"
+        in opening
+    )
+    for row in (
+        "| [QUICKSTART.md](QUICKSTART.md) | "
+        "One-page cold-clone run path and boundary check. |",
+        "| [AGENTS.md](AGENTS.md) | "
+        "Agent entry contract and public authority membrane. |",
+        "| [CONTRIBUTING.md](CONTRIBUTING.md) | "
+        "Public verification floor, standalone export path, and contribution "
+        "boundaries. |",
+        "| [SECURITY.md](SECURITY.md) | "
+        "Secret-exclusion and vulnerability-reporting boundary. |",
+        "| [.github/workflows/ci.yml](.github/workflows/ci.yml) / "
+        "[Makefile](Makefile) | GitHub Actions and local command surface; "
+        "both route through `make ci`. |",
+        "| [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | "
+        "Package metadata, console entry point, and source distribution inventory. |",
+        "| [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | "
+        "Runnable substrate and regression contracts. |",
+        "| [core/](core/) / [standards/](standards/) / "
+        "[paper_modules/](paper_modules/) | Public registries, standards, and "
+        "bounded organ summaries. |",
+        "| [examples/](examples/) / [fixtures/](fixtures/) / "
+        "[receipts/](receipts/) | Input bundles, negative cases, and "
+        "drilldown evidence. |",
+    ):
+        assert row in opening
+    assert "This map is navigation only." in opening
+    for anti_claim in (
+        "release",
+        "hosting",
+        "provider calls",
+        "source\nmutation",
+        "private-root equivalence",
+        "proof authority",
+    ):
+        assert anti_claim in opening
+    assert opening.index("[QUICKSTART.md](QUICKSTART.md)") < opening.index(
+        "## Public Repo Map"
+    )
+    assert opening.index("## Public Repo Map") < opening.index(
+        "Start with one compact local command:"
+    )
     assert "Start with one compact local command:" in opening
     assert "microcosm hello ." in opening
     assert "microcosm compile ." in opening

@@ -12,6 +12,26 @@ source files or making external model calls.
 
 For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
 
+## Public Repo Map
+
+Use this map before opening the longer reference body or raw receipt trees:
+
+| Surface | Use it for |
+|---|---|
+| [QUICKSTART.md](QUICKSTART.md) | One-page cold-clone run path and boundary check. |
+| [AGENTS.md](AGENTS.md) | Agent entry contract and public authority membrane. |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Public verification floor, standalone export path, and contribution boundaries. |
+| [SECURITY.md](SECURITY.md) | Secret-exclusion and vulnerability-reporting boundary. |
+| [.github/workflows/ci.yml](.github/workflows/ci.yml) / [Makefile](Makefile) | GitHub Actions and local command surface; both route through `make ci`. |
+| [pyproject.toml](pyproject.toml) / [MANIFEST.in](MANIFEST.in) | Package metadata, console entry point, and source distribution inventory. |
+| [src/microcosm_core/](src/microcosm_core/) / [tests/](tests/) | Runnable substrate and regression contracts. |
+| [core/](core/) / [standards/](standards/) / [paper_modules/](paper_modules/) | Public registries, standards, and bounded organ summaries. |
+| [examples/](examples/) / [fixtures/](fixtures/) / [receipts/](receipts/) | Input bundles, negative cases, and drilldown evidence. |
+
+This map is navigation only. Receipts and counts remain drilldown evidence, and
+none of these links authorize release, hosting, provider calls, source
+mutation, private-root equivalence, or proof authority.
+
 Start with one compact local command:
 
 ```bash
