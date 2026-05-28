@@ -66,6 +66,7 @@ README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
 PYTHON_LENS_STATE = "python_lens.json"
+TRUTH_READINESS_STATE = "truth_readiness.json"
 PYTHON_LENS_SCAN_FULL = "full"
 PYTHON_LENS_SCAN_FIRST_SCREEN = "first_screen_summary"
 PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES = 4096
@@ -79,6 +80,7 @@ COMPILE_STATE_REFS = (
     f"{STATE_DIR}/patterns.json",
     f"{STATE_DIR}/routes.json",
     f"{STATE_DIR}/work_items.json",
+    f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
     f"{STATE_DIR}/{EVENT_STREAM}",
     f"{STATE_DIR}/evidence/",
     f"{STATE_DIR}/graph.json",
@@ -302,6 +304,7 @@ def _write_manifest(project: Path) -> dict[str, Any]:
                 f"{STATE_DIR}/patterns.json",
                 f"{STATE_DIR}/routes.json",
                 f"{STATE_DIR}/work_items.json",
+                f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
                 f"{STATE_DIR}/{EVENT_STREAM}",
                 f"{STATE_DIR}/{EVIDENCE_DIR}/",
                 f"{STATE_DIR}/explanations/",
@@ -2616,6 +2619,138 @@ def _selected_route_from_rows(route_rows: list[dict[str, Any]]) -> dict[str, Any
     )
 
 
+def _truth_readiness_surface(
+    project: Path,
+    *,
+    route_id: str | None,
+    route_explanation_status: str | None,
+    selected_work_id: str | None,
+    selected_work_status: str | None,
+    event_count: int,
+    evidence_count: int,
+    graph_summary: dict[str, Any],
+    source_files_mutated: bool,
+    state_ref_status_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    state_summary = state_ref_status_summary or {}
+    missing_state_count = int(state_summary.get("missing_state_ref_count") or 0)
+    checks = {
+        "project_local_state_refs_complete": missing_state_count == 0,
+        "route_selected": bool(route_id),
+        "route_explanation_available": route_explanation_status == PASS,
+        "work_transaction_closed": selected_work_status == "closed",
+        "event_stream_present": event_count > 0,
+        "evidence_refs_present": evidence_count > 0,
+        "graph_present": int(graph_summary.get("node_count") or 0) > 0
+        and int(graph_summary.get("edge_count") or 0) > 0,
+        "observatory_surface_available": True,
+        "source_files_mutated": source_files_mutated is True,
+        "release_authorized": False,
+    }
+    status = (
+        PASS
+        if all(
+            checks[key] is True
+            for key in [
+                "project_local_state_refs_complete",
+                "route_selected",
+                "route_explanation_available",
+                "work_transaction_closed",
+                "event_stream_present",
+                "evidence_refs_present",
+                "graph_present",
+                "observatory_surface_available",
+            ]
+        )
+        and checks["source_files_mutated"] is False
+        and checks["release_authorized"] is False
+        else "partial"
+    )
+    return {
+        **_base_payload("microcosm_truth_readiness_surface_v1", project),
+        "surface_id": "public_microcosm_truth_readiness",
+        "status": status,
+        "readiness_posture": (
+            "local_first_executable_research_prototype_ready_for_human_inspection"
+            if status == PASS
+            else "partial_local_state_needs_compile_refresh"
+        ),
+        "state_ref": f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
+        "selected_route_id": route_id,
+        "selected_work_id": selected_work_id,
+        "selected_work_status": selected_work_status,
+        "route_explanation_status": route_explanation_status,
+        "truth_accounting": checks,
+        "observatory_surface": {
+            "project_observe_command": "microcosm observe <project>",
+            "command": OBSERVATORY_SERVE_COMMAND,
+            "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+            "bounded_validation_request_count": OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT,
+            "compact_endpoint": "/project/observatory-card",
+            "expanded_endpoint": "/project/observatory",
+        },
+        "reader_drilldowns": [
+            f"{STATE_DIR}/architecture.json",
+            f"{STATE_DIR}/state_index.json",
+            f"{STATE_DIR}/graph.json",
+            f"{STATE_DIR}/routes.json",
+            f"{STATE_DIR}/work_items.json",
+            f"{STATE_DIR}/events.jsonl",
+            f"{STATE_DIR}/evidence/",
+        ],
+        "safe_to_show": {
+            "project_local_state_refs_visible": True,
+            "route_metadata_visible": True,
+            "receipt_refs_visible": True,
+            "source_files_mutated": source_files_mutated,
+            "provider_calls_authorized": False,
+            "release_authorized": False,
+            "proof_correctness_claim": False,
+        },
+        "authority_ceiling": {
+            "release_authorized": False,
+            "hosting_authorized": False,
+            "provider_calls_authorized": False,
+            "source_mutation_authorized": False,
+            "private_data_equivalence_authorized": False,
+        },
+        "anti_claim": (
+            "This truth/readiness surface is a project-local inspection gate. "
+            "It does not authorize release, hosting, provider calls, source "
+            "mutation, private-data equivalence, or proof correctness."
+        ),
+    }
+
+
+def _write_truth_readiness_surface(
+    project: Path,
+    *,
+    route_id: str | None,
+    route_explanation_status: str | None,
+    selected_work_id: str | None,
+    selected_work_status: str | None,
+    event_count: int,
+    evidence_count: int,
+    graph_summary: dict[str, Any],
+    source_files_mutated: bool,
+    state_ref_status_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    payload = _truth_readiness_surface(
+        project,
+        route_id=route_id,
+        route_explanation_status=route_explanation_status,
+        selected_work_id=selected_work_id,
+        selected_work_status=selected_work_status,
+        event_count=event_count,
+        evidence_count=evidence_count,
+        graph_summary=graph_summary,
+        source_files_mutated=source_files_mutated,
+        state_ref_status_summary=state_ref_status_summary,
+    )
+    write_json_atomic(_state_dir(project) / TRUTH_READINESS_STATE, payload)
+    return payload
+
+
 def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     """Read cached compile state without rebuilding project-local substrate."""
     project = Path(project_path).expanduser().resolve(strict=False)
@@ -2641,8 +2776,14 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     )
     events = _read_jsonl(_state_dir(project) / EVENT_STREAM)
     state_ref_status = [_state_ref_status(project, ref) for ref in COMPILE_STATE_REFS]
-    missing_state_refs = [
+    missing_state_refs_all = [
         str(row.get("ref")) for row in state_ref_status if row.get("exists") is not True
+    ]
+    optional_missing_state_refs = [
+        ref for ref in missing_state_refs_all if ref == f"{STATE_DIR}/{TRUTH_READINESS_STATE}"
+    ]
+    missing_state_refs = [
+        ref for ref in missing_state_refs_all if ref not in optional_missing_state_refs
     ]
     cache_freshness = _compile_source_freshness(project, catalog)
     route_explanation_status = explanation.get("status") if route_id else "missing_route"
@@ -2666,6 +2807,35 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         else "missing_cached_state"
     )
     last_event = events[-1] if events else {}
+    graph_summary = {
+        "node_count": graph.get("node_count", 0),
+        "edge_count": graph.get("edge_count", 0),
+        "graph_ref": f"{STATE_DIR}/graph.json",
+    }
+    state_ref_status_summary = {
+        "checked_state_ref_count": len(state_ref_status),
+        "missing_state_ref_count": len(missing_state_refs),
+        "missing_state_refs": missing_state_refs,
+        "optional_missing_state_refs": optional_missing_state_refs,
+    }
+    truth_readiness = _read_project_json(project, TRUTH_READINESS_STATE)
+    if not truth_readiness:
+        truth_readiness = _truth_readiness_surface(
+            project,
+            route_id=route_id or None,
+            route_explanation_status=route_explanation_status,
+            selected_work_id=selected_work.get("work_id") if selected_work else None,
+            selected_work_status=selected_work.get("status") if selected_work else None,
+            event_count=len(events),
+            evidence_count=(
+                len(list(_evidence_dir(project).glob("*.json")))
+                if _evidence_dir(project).is_dir()
+                else 0
+            ),
+            graph_summary=graph_summary,
+            source_files_mutated=False,
+            state_ref_status_summary=state_ref_status_summary,
+        )
     return {
         **_base_payload("microcosm_project_compile_cached_card_v1", project),
         "status": status,
@@ -2677,11 +2847,7 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "cache_freshness": cache_freshness,
         "project_ref": ".",
         "state_ref": STATE_DIR,
-        "state_ref_status_summary": {
-            "checked_state_ref_count": len(state_ref_status),
-            "missing_state_ref_count": len(missing_state_refs),
-            "missing_state_refs": missing_state_refs,
-        },
+        "state_ref_status_summary": state_ref_status_summary,
         "state_ref_status": state_ref_status,
         "file_count": catalog.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
@@ -2709,11 +2875,9 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
         "evidence_count": len(list(_evidence_dir(project).glob("*.json")))
         if _evidence_dir(project).is_dir()
         else 0,
-        "graph_summary": {
-            "node_count": graph.get("node_count", 0),
-            "edge_count": graph.get("edge_count", 0),
-            "graph_ref": f"{STATE_DIR}/graph.json",
-        },
+        "graph_summary": graph_summary,
+        "truth_readiness_ref": f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
+        "truth_readiness_surface": truth_readiness,
         "reader_action": (
             "Use this cached card for repeat compile-state inspection; run "
             "`microcosm compile <project>` when cache_status is missing_cached_state "
@@ -2792,6 +2956,11 @@ def compile_project(
     architecture = architecture_kernel.write_project_architecture(project)
     graph = _read_project_json(project, "graph.json")
     work_id = work_result.get("work_id")
+    graph_summary = {
+        "node_count": graph.get("node_count", 0),
+        "edge_count": graph.get("edge_count", 0),
+        "graph_ref": f"{STATE_DIR}/graph.json",
+    }
     reader_causal_chain = _reader_causal_chain_card(
         project,
         route_id=route_id,
@@ -2801,6 +2970,37 @@ def compile_project(
         graph=graph,
         evidence=evidence,
     )
+    pre_truth_state_refs = [
+        ref
+        for ref in COMPILE_STATE_REFS
+        if ref != f"{STATE_DIR}/{TRUTH_READINESS_STATE}"
+    ]
+    pre_truth_status = [_state_ref_status(project, ref) for ref in pre_truth_state_refs]
+    missing_pre_truth_refs = [
+        str(row.get("ref")) for row in pre_truth_status if row.get("exists") is not True
+    ]
+    state_ref_status_summary = {
+        "checked_state_ref_count": len(pre_truth_status),
+        "missing_state_ref_count": len(missing_pre_truth_refs),
+        "missing_state_refs": missing_pre_truth_refs,
+    }
+    truth_readiness = _write_truth_readiness_surface(
+        project,
+        route_id=route_id or None,
+        route_explanation_status=explanation.get("status") if route_id else None,
+        selected_work_id=str(work_id) if work_id else None,
+        selected_work_status=work_result.get("selected_work_status")
+        or work_result.get("work_status")
+        or "closed"
+        if work_id
+        else None,
+        event_count=int(observed.get("event_count", 0) or 0),
+        evidence_count=int(evidence.get("evidence_count", 0) or 0),
+        graph_summary=graph_summary,
+        source_files_mutated=work_result.get("source_files_mutated") is True,
+        state_ref_status_summary=state_ref_status_summary,
+    )
+    architecture_kernel.build_state_index(project)
     return {
         **_base_payload("microcosm_project_compile_result_v1", project),
         "headline": "repo -> .microcosm",
@@ -2896,11 +3096,9 @@ def compile_project(
         "idempotent_replay": work_result.get("idempotent_replay", False),
         "event_count": observed.get("event_count", 0),
         "evidence_count": evidence.get("evidence_count", 0),
-        "graph_summary": {
-            "node_count": graph.get("node_count", 0),
-            "edge_count": graph.get("edge_count", 0),
-            "graph_ref": f"{STATE_DIR}/graph.json",
-        },
+        "graph_summary": graph_summary,
+        "truth_readiness_ref": f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
+        "truth_readiness_surface": truth_readiness,
         "open_observatory": OBSERVATORY_SERVE_COMMAND,
         "bounded_observatory_validation": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
         "source_files_mutated": False,

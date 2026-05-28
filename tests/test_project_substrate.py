@@ -344,6 +344,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         "standard:std_microcosm_pattern_binding_contract",
         "standard_pressure_surface",
         "standard_pressure:reversible_work_transaction",
+        "truth_readiness_surface",
     }
     assert any(edge["relation"] == "resolves_pattern_refs_against" for edge in graph["edges"])
     assert any(edge["relation"] == "resolves_standard_pressure_against" for edge in graph["edges"])
@@ -379,6 +380,29 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["bounded_observatory_validation"] == (
         "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
     )
+    truth_surface = compiled["truth_readiness_surface"]
+    assert compiled["truth_readiness_ref"] == ".microcosm/truth_readiness.json"
+    assert truth_surface["surface_id"] == "public_microcosm_truth_readiness"
+    assert truth_surface["status"] == "pass"
+    assert truth_surface["readiness_posture"] == (
+        "local_first_executable_research_prototype_ready_for_human_inspection"
+    )
+    assert truth_surface["truth_accounting"] == {
+        "project_local_state_refs_complete": True,
+        "route_selected": True,
+        "route_explanation_available": True,
+        "work_transaction_closed": True,
+        "event_stream_present": True,
+        "evidence_refs_present": True,
+        "graph_present": True,
+        "observatory_surface_available": True,
+        "source_files_mutated": False,
+        "release_authorized": False,
+    }
+    assert truth_surface["observatory_surface"]["compact_endpoint"] == (
+        "/project/observatory-card"
+    )
+    assert truth_surface["authority_ceiling"]["release_authorized"] is False
     reader_chain = compiled["reader_causal_chain"]
     assert reader_chain["status"] == "pass"
     assert reader_chain["selected_route_id"] == "readme_onboarding_route"
@@ -415,6 +439,7 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
         ".microcosm/patterns.json",
         ".microcosm/routes.json",
         ".microcosm/work_items.json",
+        ".microcosm/truth_readiness.json",
         ".microcosm/events.jsonl",
         ".microcosm/explanations/readme_onboarding_route.json",
     }

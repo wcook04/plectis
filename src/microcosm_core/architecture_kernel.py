@@ -13,6 +13,7 @@ STATE_DIR = ".microcosm"
 EVIDENCE_DIR = "evidence"
 EVENT_STREAM = "events.jsonl"
 EXPLANATION_DIR = "explanations"
+TRUTH_READINESS_STATE = "truth_readiness.json"
 
 _PATTERN_BY_ROUTE = {
     "readme_onboarding_route": "repo_has_readme",
@@ -597,6 +598,7 @@ def build_state_index(project_path: str | Path) -> dict[str, Any]:
         ("pattern", "patterns.json", "repo-shape pattern observations"),
         ("route", "routes.json", "route candidates"),
         ("work", "work_items.json", "work transaction records"),
+        ("truth_readiness", TRUTH_READINESS_STATE, "truth/readiness surface"),
         ("event", EVENT_STREAM, "runtime event stream"),
         ("evidence", EVIDENCE_DIR, "receipt drilldown directory"),
         ("explanation", EXPLANATION_DIR, "route explanation directory"),
@@ -668,6 +670,12 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
         },
         {"node_id": "route", "kind": "primitive", "label": "Route"},
         {"node_id": "work", "kind": "primitive", "label": "Work"},
+        {
+            "node_id": "truth_readiness_surface",
+            "kind": "surface",
+            "label": "Truth/Readiness Surface",
+            "state_ref": f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
+        },
         {"node_id": "event", "kind": "primitive", "label": "Event"},
         {"node_id": "evidence", "kind": "primitive", "label": "Evidence"},
         {"node_id": "explanation", "kind": "primitive", "label": "Explanation"},
@@ -721,6 +729,8 @@ def build_graph(project_path: str | Path) -> dict[str, Any]:
         {"from": "route", "to": "standard_pressure_surface", "relation": "resolves_standard_pressure_against"},
         {"from": "pattern", "to": "route", "relation": "opens"},
         {"from": "route", "to": "work", "relation": "selects"},
+        {"from": "work", "to": "truth_readiness_surface", "relation": "summarizes"},
+        {"from": "explanation", "to": "truth_readiness_surface", "relation": "supports"},
         {"from": "work", "to": "event", "relation": "emits"},
         {"from": "event", "to": "evidence", "relation": "references"},
         {"from": "route", "to": "explanation", "relation": "explains"},
@@ -815,6 +825,7 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
             f"{STATE_DIR}/patterns.json",
             f"{STATE_DIR}/routes.json",
             f"{STATE_DIR}/work_items.json",
+            f"{STATE_DIR}/{TRUTH_READINESS_STATE}",
             f"{STATE_DIR}/{EVENT_STREAM}",
             f"{STATE_DIR}/{EVIDENCE_DIR}/",
             f"{STATE_DIR}/{EXPLANATION_DIR}/",

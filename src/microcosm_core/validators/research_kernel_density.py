@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 from typing import Any
 
+from microcosm_core import project_substrate
 from microcosm_core.architecture_kernel import load_kernel_manifest, read_json_if_exists
 from microcosm_core.private_state_scan import PASS, load_forbidden_classes, scan_paths
 from microcosm_core.receipts import write_json_atomic
@@ -120,6 +121,7 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
         "graph.json",
         "routes.json",
         "work_items.json",
+        "truth_readiness.json",
         "events.jsonl",
     ]
     for rel in required_state:
@@ -277,6 +279,77 @@ def _project_findings(project: Path) -> tuple[list[dict[str, Any]], list[str]]:
                 "work_items": work_contract_gaps,
             }
         )
+    compile_card = project_substrate.compile_project_card(project)
+    truth_surface = compile_card.get("truth_readiness_surface")
+    if not isinstance(truth_surface, dict) or not truth_surface:
+        blocking_codes.append("PROJECT_TRUTH_READINESS_SURFACE_MISSING")
+    else:
+        truth_accounting = truth_surface.get("truth_accounting")
+        observatory = truth_surface.get("observatory_surface")
+        authority = truth_surface.get("authority_ceiling")
+        if truth_surface.get("surface_id") != "public_microcosm_truth_readiness":
+            blocking_codes.append("PROJECT_TRUTH_READINESS_SURFACE_INVALID")
+        if truth_surface.get("status") != PASS:
+            blocking_codes.append("PROJECT_TRUTH_READINESS_SURFACE_NOT_PASSING")
+        if not isinstance(truth_accounting, dict):
+            blocking_codes.append("PROJECT_TRUTH_ACCOUNTING_MISSING")
+        else:
+            required_truth_checks = [
+                "project_local_state_refs_complete",
+                "route_selected",
+                "route_explanation_available",
+                "work_transaction_closed",
+                "event_stream_present",
+                "evidence_refs_present",
+                "graph_present",
+                "observatory_surface_available",
+            ]
+            failed_truth_checks = [
+                key for key in required_truth_checks if truth_accounting.get(key) is not True
+            ]
+            if truth_accounting.get("source_files_mutated") is not False:
+                failed_truth_checks.append("source_files_mutated")
+            if truth_accounting.get("release_authorized") is not False:
+                failed_truth_checks.append("release_authorized")
+            if failed_truth_checks:
+                blocking_codes.append("PROJECT_TRUTH_ACCOUNTING_INCOMPLETE")
+                findings.append(
+                    {
+                        "finding_id": "project_truth_accounting_incomplete",
+                        "failed_checks": failed_truth_checks,
+                    }
+                )
+        if not isinstance(observatory, dict):
+            blocking_codes.append("PROJECT_OBSERVATORY_SURFACE_MISSING")
+        else:
+            if observatory.get("compact_endpoint") != "/project/observatory-card":
+                blocking_codes.append("PROJECT_OBSERVATORY_CARD_ENDPOINT_MISSING")
+            if observatory.get("expanded_endpoint") != "/project/observatory":
+                blocking_codes.append("PROJECT_OBSERVATORY_ENDPOINT_MISSING")
+            if "microcosm serve <project>" not in str(observatory.get("command") or ""):
+                blocking_codes.append("PROJECT_OBSERVATORY_COMMAND_MISSING")
+        if not isinstance(authority, dict) or authority.get("release_authorized") is not False:
+            blocking_codes.append("PROJECT_TRUTH_READINESS_RELEASE_CEILING_MISSING")
+    state_files = [
+        *sorted(state.rglob("*.json")),
+        state / "events.jsonl",
+    ]
+    leaked_refs: list[str] = []
+    project_abs = project.resolve(strict=False).as_posix()
+    for path in state_files:
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if project_abs in text or "/Users/" in text:
+            leaked_refs.append(path.relative_to(state).as_posix())
+    if leaked_refs:
+        blocking_codes.append("PROJECT_STATE_HOST_PATH_LEAK")
+        findings.append(
+            {
+                "finding_id": "project_state_host_path_leak",
+                "state_refs": leaked_refs,
+            }
+        )
     return findings, blocking_codes
 
 
@@ -354,6 +427,16 @@ def validate_density(
             "work_transaction_contract_present": "PROJECT_WORK_TRANSACTION_CONTRACT_INCOMPLETE"
             not in blocking_codes
             and "PROJECT_WORK_TRANSACTION_MISSING" not in blocking_codes,
+            "truth_readiness_surface_available": "PROJECT_TRUTH_READINESS_SURFACE_MISSING"
+            not in blocking_codes
+            and "PROJECT_TRUTH_READINESS_SURFACE_INVALID" not in blocking_codes
+            and "PROJECT_TRUTH_READINESS_SURFACE_NOT_PASSING" not in blocking_codes,
+            "observatory_surface_available": "PROJECT_OBSERVATORY_SURFACE_MISSING"
+            not in blocking_codes
+            and "PROJECT_OBSERVATORY_CARD_ENDPOINT_MISSING" not in blocking_codes
+            and "PROJECT_OBSERVATORY_ENDPOINT_MISSING" not in blocking_codes
+            and "PROJECT_OBSERVATORY_COMMAND_MISSING" not in blocking_codes,
+            "desktop_sandbox_relative_refs": "PROJECT_STATE_HOST_PATH_LEAK" not in blocking_codes,
             "evidence_is_drilldown": True,
             "release_authorized": False,
         },
