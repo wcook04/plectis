@@ -75,6 +75,8 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "not a production security product",
         "microcosm authority --card",
         "microcosm stripping-guard",
+        "PYTHONPATH=src python3 -m microcosm_core authority --card",
+        "PYTHONPATH=src python3 -m microcosm_core stripping-guard",
         "tests/test_secret_exclusion_scan.py",
         "Do not paste the suspected secret",
     ):

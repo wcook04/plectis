@@ -34,6 +34,14 @@ microcosm stripping-guard
 python3 -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
 ```
 
+If the `microcosm` console command is not installed yet, use the source form
+without changing the check boundary:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core authority --card
+PYTHONPATH=src python3 -m microcosm_core stripping-guard
+```
+
 When reporting a suspected leak, include the path, command, receipt id, and a
 short redacted description. Do not paste the suspected secret, private payload,
 raw prompt body, or credential-equivalent value into the report.
