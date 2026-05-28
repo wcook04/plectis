@@ -79,6 +79,17 @@ is intentionally not part of `make ci`; it performs heavier outside-root smoke
 checks and still keeps `release_authorized=false` until a separate human release
 decision exists.
 
+Before handing off that folder, validate it from inside the exported artifact:
+
+```bash
+cd /tmp/microcosm-substrate-export/microcosm-substrate
+make ci
+```
+
+That fake-clone check proves the severed package can install, test, and smoke
+from its own root. It does not authorize release; the release receipt remains
+the authority boundary until a separate operator decision exists.
+
 ## Good Contributions
 
 - Improve runnable public substrate: CLI behavior, validators, standards,

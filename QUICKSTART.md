@@ -90,6 +90,16 @@ That export writes a candidate standalone folder and a
 `receipts/release/release_export_receipt.json` inside the artifact. It still
 keeps `release_authorized=false`.
 
+Before sharing that folder, validate the exported artifact as its own clone:
+
+```bash
+cd /tmp/microcosm-substrate-export/microcosm-substrate
+make ci
+```
+
+This checks standalone install, tests, and smoke after severance. It does not
+authorize release.
+
 ## Boundaries
 
 Microcosm is a local source-open research runtime. These commands do not

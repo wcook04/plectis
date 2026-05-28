@@ -18,3 +18,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         "--port 8765 --max-requests 6"
     ) in quickstart
     assert "If you are staying source-only" in quickstart
+    assert "validate the exported artifact as its own clone" in quickstart
+    assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in quickstart
+    assert "This checks standalone install, tests, and smoke after severance" in quickstart
+    assert "It does not\nauthorize release" in quickstart
