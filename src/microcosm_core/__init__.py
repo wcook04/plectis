@@ -1,3 +1,3 @@
-"""Public-safe first-slice runtime for the microcosm substrate."""
+"""Public-safe runtime substrate for the Microcosm."""
 
 __all__: list[str] = []
