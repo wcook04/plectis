@@ -52,6 +52,22 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
     data_files = payload["tool"]["setuptools"]["data-files"]
 
+    assert data_files["share/microcosm-substrate"] == [
+        "AGENTS.md",
+        "ANTI_PRINCIPLES.md",
+        "AXIOMS.md",
+        "CONSTITUTION.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "MANIFEST.in",
+        "Makefile",
+        "PRINCIPLES.md",
+        "QUICKSTART.md",
+        "README.md",
+        "SECURITY.md",
+        "bootstrap.sh",
+        "pyproject.toml",
+    ]
     assert data_files["share/microcosm-substrate/core"] == ["core/*.json"]
     assert data_files["share/microcosm-substrate/standards"] == ["standards/*.json"]
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [

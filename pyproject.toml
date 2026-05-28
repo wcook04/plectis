@@ -45,6 +45,22 @@ microcosm = "microcosm_core.cli:main"
 where = ["src"]
 
 [tool.setuptools.data-files]
+"share/microcosm-substrate" = [
+  "AGENTS.md",
+  "ANTI_PRINCIPLES.md",
+  "AXIOMS.md",
+  "CONSTITUTION.md",
+  "CONTRIBUTING.md",
+  "LICENSE",
+  "MANIFEST.in",
+  "Makefile",
+  "PRINCIPLES.md",
+  "QUICKSTART.md",
+  "README.md",
+  "SECURITY.md",
+  "bootstrap.sh",
+  "pyproject.toml"
+]
 "share/microcosm-substrate/core" = ["core/*.json"]
 "share/microcosm-substrate/core/acceptance" = ["core/acceptance/*.json"]
 "share/microcosm-substrate/core/fixture_manifests" = ["core/fixture_manifests/*.json"]
