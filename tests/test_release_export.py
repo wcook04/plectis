@@ -43,6 +43,7 @@ def _make_release_root(root: Path) -> Path:
         "AXIOMS.md",
         "CONSTITUTION.md",
         "LICENSE",
+        "Makefile",
         "PRINCIPLES.md",
         "README.md",
         "bootstrap.sh",
@@ -81,6 +82,12 @@ where = ["src"]
     )
     _write(root / "core/organ_registry.json", '{"organs": []}\n')
     _write(root / "examples/basic/README.md", "# Example\n")
+    _write(
+        root / "Makefile",
+        "test:\n\tpython -m pytest\n"
+        "smoke:\n\tpython -m microcosm_core --version\n"
+        "ci: test smoke\n",
+    )
     _write(
         root / "examples/runtime_shell/demo_project/.microcosm/project_manifest.json",
         '{"intentional": true}\n',
@@ -169,6 +176,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["blocking_codes"] == []
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
+    assert (target / "Makefile").is_file()
     assert receipt["authority_receipt"]["release_authorized"] is False
     candidate = receipt["release_candidate_packet"]
     assert candidate["status"] == "pass_with_external_warnings"
@@ -190,6 +198,8 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert candidate["validation_summary"]["install_smoke_status"] == "pass"
     assert candidate["validation_summary"]["projection_freshness_status"] == "pass"
     assert candidate["validation_summary"]["wheel_install_supported"] is True
+    assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
+    assert receipt["inventory_receipt"]["role_counts"]["command_surface"] == 1
     assert candidate["authority_state"]["release_authorized"] is False
     assert (
         candidate["authority_state"]["release_authorization_gate"]["gate_id"]

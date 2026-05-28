@@ -34,6 +34,7 @@ DEFAULT_INCLUDE_REFS = (
     "AXIOMS.md",
     "CONSTITUTION.md",
     "LICENSE",
+    "Makefile",
     "PRINCIPLES.md",
     "README.md",
     "atlas",
@@ -176,6 +177,8 @@ def _is_relative_to(path: Path, possible_parent: Path) -> bool:
 
 def _public_role(rel: str) -> str:
     top = rel.split("/", 1)[0]
+    if rel == "Makefile":
+        return "command_surface"
     if rel.endswith("pyproject.toml"):
         return "package_metadata"
     if rel in {"README.md", "AGENTS.md", "ANTI_PRINCIPLES.md", "AXIOMS.md", "CONSTITUTION.md", "PRINCIPLES.md", "LICENSE"}:
