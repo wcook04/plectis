@@ -157,6 +157,20 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     return public_root
 
 
+def test_runtime_receipt_write_gate_keeps_smoke_read_only(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    receipt_path = public_root / "receipts/runtime_shell/public_stripping_guard_lens.json"
+    before = receipt_path.read_bytes()
+    monkeypatch.setenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", "0")
+
+    payload = RuntimeShell(public_root).stripping_guard()
+
+    assert payload["status"] == "pass"
+    assert receipt_path.read_bytes() == before
+
+
 def test_runtime_shell_status_is_product_centered() -> None:
     shell = RuntimeShell(MICROCOSM_ROOT)
 

@@ -5,6 +5,7 @@ import hashlib
 import html
 import importlib
 import json
+import os
 import threading
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,12 +21,22 @@ from microcosm_core.public_payload_boundary import (
     omitted_payload_schema_term_hits,
     public_payload_boundary,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import utc_now, write_json_atomic as _write_json_atomic
 from microcosm_core.resource_root import (
     is_installed_microcosm_root,
     microcosm_root,
 )
 from microcosm_core.schemas import read_json_strict
+
+
+def _runtime_receipt_writes_enabled() -> bool:
+    value = os.environ.get("MICROCOSM_RUNTIME_RECEIPT_WRITES", "1")
+    return value.lower() not in {"0", "false", "no", "off"}
+
+
+def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
+    if _runtime_receipt_writes_enabled():
+        _write_json_atomic(path, payload)
 
 
 class _LazyAttr:
