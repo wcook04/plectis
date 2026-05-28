@@ -1248,6 +1248,12 @@ secret-export authority, trading advice, or whole-system correctness.
 
 ## Validation Commands
 
+The commands below are owner refresh lanes, not the cold-clone sanity path.
+Many intentionally write tracked `receipts/**` evidence. Use `make smoke` or
+`make ci` when you want no-surprise public verification; when experimenting,
+redirect `--out` paths to `/tmp/...` unless you are intentionally refreshing an
+owned receipt snapshot.
+
 ```bash
 PYTHONPATH=src python3 -m microcosm_core.validators.secret_exclusion_scan --root . --out receipts/first_wave/secret_exclusion_scan.json
 PYTHONPATH=src python3 -m microcosm_core.validators.dependency_preflight --readiness core/preflight_support/organ_fixture_validator_readiness_v1.json --negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json --out receipts/preflight/dependency_preflight.json
