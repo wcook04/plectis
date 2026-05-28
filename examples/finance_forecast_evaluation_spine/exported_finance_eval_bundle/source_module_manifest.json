@@ -77,10 +77,10 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 1281,
+      "line_count": 1598,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/finance/build_eval_operating_picture.py",
-      "sha256": "fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
+      "sha256": "c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/finance/build_eval_operating_picture.py"
     }

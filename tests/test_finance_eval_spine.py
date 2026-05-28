@@ -89,19 +89,35 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert quant["review_gated"] is True
     assert quant["auto_apply_allowed"] is False
     assert quant["no_advice_enabled"] is True
-    assert quant["registry_count"] == 2
+    assert quant["registry_count"] == 3
     assert quant["negative_control_count"] == 1
-    assert quant["negative_or_insufficient_count"] == 2
+    assert quant["negative_or_insufficient_count"] == 3
     assert quant["lineage_status"] == "stress_validated_public_demo"
     assert quant["agenda_status"] == "compiled_public_safe"
-    assert quant["agenda_candidate_count"] == 4
-    assert quant["agenda_family_count"] == 4
+    assert quant["agenda_candidate_count"] == 5
+    assert quant["agenda_family_count"] == 5
     assert quant["agenda_selected_for_next_test_count"] == 1
     assert quant["agenda_deferred_data_snooping_count"] == 1
     assert quant["agenda_negative_or_control_candidate_count"] == 1
     assert quant["agenda_needs_more_evidence_count"] == 1
+    assert quant["agenda_completed_insufficient_evidence_count"] == 1
+    assert quant["cycle_status"] == "executed_public_safe_evaluator"
+    assert (
+        quant["cycle_selected_candidate_id"]
+        == "public_quant_agenda_calibration_drift_cross_family_5d"
+    )
+    assert (
+        quant["cycle_pre_analysis_plan_id"]
+        == "public_quant_preanalysis_calibration_drift_cross_family_5d_v1"
+    )
+    assert quant["cycle_result_state"] == "insufficient_evidence"
+    assert quant["cycle_registry_new_count"] == 3
+    assert (
+        quant["cycle_next_selected_candidate_id"]
+        == "public_quant_agenda_public_base_rate_calibration_control_5d"
+    )
     assert quant["output_state_counts"] == {
-        "insufficient_evidence": 1,
+        "insufficient_evidence": 2,
         "rejected": 1,
     }
     assert result["operating_picture_gate_summary"]["comparison_key_authority"] == (
@@ -114,19 +130,36 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert operating_quant["review_gated"] is True
     assert operating_quant["auto_apply_allowed"] is False
     assert operating_quant["no_advice_enabled"] is True
-    assert operating_quant["registry_count"] == 2
+    assert operating_quant["registry_count"] == 3
     assert operating_quant["negative_control_count"] == 1
-    assert operating_quant["negative_or_insufficient_count"] == 1
+    assert operating_quant["negative_or_insufficient_count"] == 2
     assert operating_quant["lineage_status"] == "stress_validated_public_demo"
     assert operating_quant["agenda_status"] == "compiled_public_safe"
-    assert operating_quant["agenda_candidate_count"] == 4
-    assert operating_quant["agenda_family_count"] == 4
+    assert operating_quant["agenda_candidate_count"] == 5
+    assert operating_quant["agenda_family_count"] == 5
     assert operating_quant["agenda_selected_for_next_test_count"] == 1
     assert operating_quant["agenda_deferred_data_snooping_count"] == 1
     assert operating_quant["agenda_negative_or_control_candidate_count"] == 1
     assert operating_quant["agenda_needs_more_evidence_count"] == 1
+    assert operating_quant["agenda_completed_insufficient_evidence_count"] == 1
+    assert operating_quant["cycle_status"] == "executed_public_safe_evaluator"
+    assert (
+        operating_quant["cycle_selected_candidate_id"]
+        == "public_quant_agenda_calibration_drift_cross_family_5d"
+    )
+    assert (
+        operating_quant["cycle_pre_analysis_plan_id"]
+        == "public_quant_preanalysis_calibration_drift_cross_family_5d_v1"
+    )
+    assert operating_quant["cycle_result_state"] == "insufficient_evidence"
+    assert operating_quant["cycle_registry_new_count"] == 3
+    assert (
+        operating_quant["cycle_next_selected_candidate_id"]
+        == "public_quant_agenda_public_base_rate_calibration_control_5d"
+    )
     assert operating_quant["output_state_counts"] == {
         "awaiting_evidence": 1,
+        "insufficient_evidence": 1,
         "rejected": 1,
     }
     assert all(

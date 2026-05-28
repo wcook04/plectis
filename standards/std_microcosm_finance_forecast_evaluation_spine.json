@@ -5,7 +5,8 @@
     "A stale green feed run is historical proof, not live market capability; scheduled shell runs must remain visible as scheduled_shell or blocked_missing_artifact until artifacts exist.",
     "Quant research experiment receipts may compare hypotheses, evidence, split discipline, and uncertainty; they must not name an action, declare a winner, or auto-apply Evolve learning.",
     "A single quant experiment receipt is not sufficient proof of research discipline; the public spine must carry experiment lineage plus at least one negative or insufficient-evidence stress case.",
-    "A quant research agenda may rank what to test next, but it must preserve deferred data-snooping risk, control candidates, needs-evidence candidates, and review-gated/no-advice authority."
+    "A quant research agenda may rank what to test next, but it must preserve deferred data-snooping risk, control candidates, needs-evidence candidates, and review-gated/no-advice authority.",
+    "An agenda execution cycle must consume the selected candidate through a locked pre-analysis plan before evaluation, update the registry and family memory after execution, and recompile the agenda without advice, winner language, or auto-apply authority."
   ],
   "authority_boundary": "public_copied_macro_finance_evaluator_body_with_no_advice_no_mutation_ceiling",
   "authority_ceiling": {
@@ -117,15 +118,30 @@
         "selected_for_next_test",
         "deferred_data_snooping_risk",
         "control_candidate",
-        "needs_more_evidence"
+        "needs_more_evidence",
+        "completed_insufficient_evidence"
       ],
       "data_snooping_guard_required": true,
       "experiment_selection_policy_required": true,
       "family_diversity_required": true,
-      "minimum_candidate_count": 4,
+      "minimum_candidate_count": 5,
       "no_advice_required": true,
       "performance_metric_optimization_allowed": false,
       "search_budget_metadata_required": true,
+      "winner_language_allowed": false
+    },
+    "quant_agenda_execution_cycle": {
+      "analysis_plan_locked_required": true,
+      "auto_apply_allowed": false,
+      "family_memory_update_required": true,
+      "no_advice_required": true,
+      "post_hoc_plan_mutation_allowed": false,
+      "pre_analysis_plan_required": true,
+      "registered_before_execution_required": true,
+      "registry_update_required": true,
+      "recompile_after_cycle_required": true,
+      "selected_candidate_consumed_required": true,
+      "used_existing_evaluator_required": true,
       "winner_language_allowed": false
     },
     "evolve_auto_apply_allowed": false

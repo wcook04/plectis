@@ -99,6 +99,7 @@ QUANT_RESEARCH_AGENDA_STATES = {
     "deferred_data_snooping_risk",
     "control_candidate",
     "needs_more_evidence",
+    "completed_insufficient_evidence",
 }
 REQUIRED_INPUTS = (
     *(SOURCE_MODULE_ROOT / name for name in REQUIRED_MODULES),
@@ -404,6 +405,9 @@ def _quant_agenda_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
         "deferred_data_snooping_count": state_counts.get("deferred_data_snooping_risk", 0),
         "negative_or_control_candidate_count": state_counts.get("control_candidate", 0),
         "needs_more_evidence_count": state_counts.get("needs_more_evidence", 0),
+        "completed_insufficient_evidence_count": state_counts.get(
+            "completed_insufficient_evidence", 0
+        ),
         "candidate_problem_count": candidate_problem_count,
         "policy_problem_count": policy_problem_count,
         "budget_problem_count": budget_problem_count,
@@ -422,6 +426,79 @@ def _quant_agenda_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
             and budget_problem_count == 0
             and gate_problem_count == 0
         ),
+    }
+
+
+def _quant_execution_cycle_summary(quant: Mapping[str, Any]) -> dict[str, Any]:
+    cycle = _as_dict(quant.get("agenda_execution_cycle"))
+    plan = _as_dict(cycle.get("pre_analysis_plan"))
+    execution = _as_dict(cycle.get("execution"))
+    registry_update = _as_dict(cycle.get("registry_update"))
+    family_update = _as_dict(cycle.get("family_memory_update"))
+    agenda_recompile = _as_dict(cycle.get("agenda_recompile"))
+    bridge = _as_dict(cycle.get("oracle_evolve_implication"))
+    advice = _as_dict(cycle.get("no_advice_mode"))
+    registry = [
+        row for row in _as_list(quant.get("experiment_registry")) if isinstance(row, Mapping)
+    ]
+    experiment_ids = {str(row.get("experiment_id") or "") for row in registry}
+    result_state = str(execution.get("result_state") or registry_update.get("result_state") or "")
+    problem_count = 0
+    if cycle.get("schema_version") != "finance_quant_agenda_execution_cycle_v0":
+        problem_count += 1
+    if not cycle.get("cycle_id") or not cycle.get("selected_candidate_id"):
+        problem_count += 1
+    if plan.get("registered_before_execution") is not True:
+        problem_count += 1
+    if plan.get("analysis_plan_locked") is not True:
+        problem_count += 1
+    if plan.get("post_hoc_plan_mutation_allowed") is not False:
+        problem_count += 1
+    if execution.get("used_existing_evaluator") is not True:
+        problem_count += 1
+    if execution.get("winner_language_allowed") is not False:
+        problem_count += 1
+    if result_state not in QUANT_RESEARCH_OUTPUT_STATES:
+        problem_count += 1
+    appended_id = str(registry_update.get("appended_experiment_id") or "")
+    previous_count = int(registry_update.get("previous_registry_count") or 0)
+    new_count = int(registry_update.get("new_registry_count") or 0)
+    if not appended_id or appended_id not in experiment_ids:
+        problem_count += 1
+    if new_count <= previous_count or new_count != len(registry):
+        problem_count += 1
+    if not family_update.get("family_id") or not family_update.get("new_memory_state"):
+        problem_count += 1
+    if agenda_recompile.get("status") != "recompiled_after_cycle":
+        problem_count += 1
+    if not agenda_recompile.get("next_selected_candidate_id"):
+        problem_count += 1
+    if bridge.get("review_gated") is not True or bridge.get("auto_apply_allowed") is not False:
+        problem_count += 1
+    if advice.get("enabled") is not True or advice.get("non_advisory_research_only") is not True:
+        problem_count += 1
+    return {
+        "schema_version": cycle.get("schema_version"),
+        "cycle_id": cycle.get("cycle_id"),
+        "selected_candidate_id": cycle.get("selected_candidate_id"),
+        "pre_analysis_plan_id": plan.get("plan_id"),
+        "registered_before_execution": plan.get("registered_before_execution"),
+        "analysis_plan_locked": plan.get("analysis_plan_locked"),
+        "post_hoc_plan_mutation_allowed": plan.get("post_hoc_plan_mutation_allowed"),
+        "execution_status": execution.get("status"),
+        "used_existing_evaluator": execution.get("used_existing_evaluator"),
+        "result_state": result_state,
+        "appended_experiment_id": appended_id,
+        "previous_registry_count": previous_count,
+        "new_registry_count": new_count,
+        "family_memory_state": family_update.get("new_memory_state"),
+        "agenda_recompile_status": agenda_recompile.get("status"),
+        "next_selected_candidate_id": agenda_recompile.get("next_selected_candidate_id"),
+        "review_gated": bridge.get("review_gated"),
+        "auto_apply_allowed": bridge.get("auto_apply_allowed"),
+        "no_advice_enabled": advice.get("enabled"),
+        "problem_count": problem_count,
+        "closed_loop": problem_count == 0,
     }
 
 
@@ -1026,6 +1103,7 @@ def _validate_assurance_surface(
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
     quant_registry = _quant_registry_summary(quant)
     quant_agenda = _quant_agenda_summary(quant)
+    quant_cycle = _quant_execution_cycle_summary(quant)
     quant_output_state = str(quant_comparison.get("output_state") or "")
     required_quant_markers = {
         "hypothesis_ledger": bool(quant_hypothesis.get("experiment_id"))
@@ -1100,6 +1178,27 @@ def _validate_assurance_surface(
                 observed=quant_agenda,
             )
         )
+    if not quant_cycle["closed_loop"]:
+        findings.append(
+            _finding(
+                "QUANT_RESEARCH_EXECUTION_CYCLE_INCOMPLETE",
+                "Finance assurance must consume the selected agenda candidate through a locked pre-analysis plan, existing evaluator execution, registry update, family-memory update, agenda recompilation, and closed authority gates.",
+                source=f"{ASSURANCE_SURFACE_NAME}::quant_research_experiment_spine.agenda_execution_cycle",
+                expected={
+                    "schema_version": "finance_quant_agenda_execution_cycle_v0",
+                    "registered_before_execution": True,
+                    "analysis_plan_locked": True,
+                    "post_hoc_plan_mutation_allowed": False,
+                    "used_existing_evaluator": True,
+                    "registry_count_increases": True,
+                    "agenda_recompile_status": "recompiled_after_cycle",
+                    "review_gated": True,
+                    "auto_apply_allowed": False,
+                    "no_advice_enabled": True,
+                },
+                observed=quant_cycle,
+            )
+        )
     return {
         "schema_version": assurance_surface.get("schema_version"),
         "surface_id": assurance_surface.get("surface_id"),
@@ -1143,6 +1242,15 @@ def _validate_assurance_surface(
                 "negative_or_control_candidate_count"
             ],
             "agenda_needs_more_evidence_count": quant_agenda["needs_more_evidence_count"],
+            "agenda_completed_insufficient_evidence_count": quant_agenda[
+                "completed_insufficient_evidence_count"
+            ],
+            "cycle_status": quant_cycle["execution_status"],
+            "cycle_selected_candidate_id": quant_cycle["selected_candidate_id"],
+            "cycle_pre_analysis_plan_id": quant_cycle["pre_analysis_plan_id"],
+            "cycle_result_state": quant_cycle["result_state"],
+            "cycle_registry_new_count": quant_cycle["new_registry_count"],
+            "cycle_next_selected_candidate_id": quant_cycle["next_selected_candidate_id"],
         },
         "body_in_receipt": False,
     }
@@ -1201,6 +1309,7 @@ def _validate_operating_picture(
     quant_no_advice = _as_dict(quant.get("no_advice_mode"))
     quant_registry = _quant_registry_summary(quant)
     quant_agenda = _quant_agenda_summary(quant)
+    quant_cycle = _quant_execution_cycle_summary(quant)
     if quant.get("schema_version") != QUANT_RESEARCH_SPINE_SCHEMA:
         findings.append(
             _finding(
@@ -1262,6 +1371,25 @@ def _validate_operating_picture(
                 observed=quant_agenda,
             )
         )
+    if not quant_cycle["closed_loop"]:
+        findings.append(
+            _finding(
+                "OPERATING_PICTURE_QUANT_EXECUTION_CYCLE_INCOMPLETE",
+                "Finance eval operating picture must expose the selected-agenda-to-experiment cycle with pre-analysis registration, evaluator execution, registry update, family-memory update, and agenda recompilation.",
+                source=f"{OPERATING_PICTURE_NAME}::quant_research_experiment_spine.agenda_execution_cycle",
+                expected={
+                    "schema_version": "finance_quant_agenda_execution_cycle_v0",
+                    "registered_before_execution": True,
+                    "analysis_plan_locked": True,
+                    "used_existing_evaluator": True,
+                    "agenda_recompile_status": "recompiled_after_cycle",
+                    "review_gated": True,
+                    "auto_apply_allowed": False,
+                    "no_advice_enabled": True,
+                },
+                observed=quant_cycle,
+            )
+        )
     return {
         "schema_version": operating_picture.get("schema_version"),
         "generated_at": operating_picture.get("generated_at"),
@@ -1305,6 +1433,15 @@ def _validate_operating_picture(
                 "negative_or_control_candidate_count"
             ],
             "agenda_needs_more_evidence_count": quant_agenda["needs_more_evidence_count"],
+            "agenda_completed_insufficient_evidence_count": quant_agenda[
+                "completed_insufficient_evidence_count"
+            ],
+            "cycle_status": quant_cycle["execution_status"],
+            "cycle_selected_candidate_id": quant_cycle["selected_candidate_id"],
+            "cycle_pre_analysis_plan_id": quant_cycle["pre_analysis_plan_id"],
+            "cycle_result_state": quant_cycle["result_state"],
+            "cycle_registry_new_count": quant_cycle["new_registry_count"],
+            "cycle_next_selected_candidate_id": quant_cycle["next_selected_candidate_id"],
         },
         "body_in_receipt": False,
     }

@@ -104,28 +104,28 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 1281,
+      "line_count": 1598,
       "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/finance/build_eval_operating_picture.py",
-      "sha256": "fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
+      "sha256": "c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/finance/build_eval_operating_picture.py"
     },
     {
       "body_in_receipt": false,
-      "line_count": 578,
+      "line_count": 790,
       "material_class": "public_macro_receipt_body",
       "path": "finance_eval_operating_picture.json",
-      "sha256": "9c1d2dda447117bd980c7d7d1d7b9289ebb78519e9acda2df812caa73e6ac616",
+      "sha256": "082952e06279dc43c2862ebbd07a50a5b22978e72dc243e7a7a376d358da6f4d",
       "source_import_class": "real_generated_macro_receipt",
       "source_ref": "state/finance_eval/views/finance_eval_operating_picture.json"
     },
     {
       "body_in_receipt": false,
-      "line_count": 651,
+      "line_count": 867,
       "material_class": "public_microcosm_assurance_surface",
       "path": "finance_research_assurance_surface.json",
-      "sha256": "1d788da67045f24225bacdfffc83bb4f2e5667f8d536f67a6acaddbdab54fad5",
+      "sha256": "e8483038b26abe62d0230ba9890781fa1a9b906fe9669cd8404173c7124eedbf",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_research_assurance_surface.json"
     },
@@ -143,7 +143,7 @@
       "line_count": 90,
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
-      "sha256": "fd73a7948ff369e1e4ab1aff9d42e107ff88c1ed46fc8f4b86608ab2129245dd",
+      "sha256": "b78d945c1244a585f7262431e054fcdf65053f83f3d1c6cd9c17732d56b0fc2a",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
     }

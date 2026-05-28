@@ -92,6 +92,16 @@ control, and needs-more-evidence states; search-budget metadata; family
 diversity pressure; and review-gated Oracle/Evolve implications. This makes
 closed finance assurance a floor for a research program, not a ceiling.
 
+The fourth-wave contract is agenda-to-experiment cycle closure. The selected
+agenda candidate must be consumed into a locked pre-analysis plan before the
+public-safe evaluator runs; the result then updates the experiment registry,
+family memory, and recompiled agenda. A valid cycle records the selected
+candidate id, plan id, evaluator chain, result state, registry delta,
+family-memory delta, and next selected candidate while keeping no-advice,
+winner-language, and auto-apply gates closed. Negative or insufficient evidence
+is a valid research result and must reduce future search pressure instead of
+being rewritten into a post-hoc success story.
+
 ## Governing Standard
 
 `standards/std_microcosm_finance_forecast_evaluation_spine.json` owns the
