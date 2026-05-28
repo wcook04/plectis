@@ -34,7 +34,7 @@ REQUIRED_PATTERN_SURFACE_FIELDS = [
 ]
 REQUIRED_README_PHRASES = [
     "executable research prototype",
-    "Bring a folder",
+    "Run one command as a local witness",
     "Inspect the architecture",
     "small on purpose",
     "Evidence receipts are the black-box recorder",
