@@ -1,31 +1,34 @@
 # Constitution
 
-The public substrate is a projection target. JSON contracts, validators,
-synthetic fixtures, and receipts are the runnable spine. Markdown explains the
-spine but does not replace it.
+The Microcosm is a public runtime substrate: a standalone, public-safe miniature
+of the macro system that can be entered, run, inspected, and evaluated without
+private material.
 
-The first slice exists to test a narrow invariant: pattern bindings can be
-validated against redacted source-capsule metadata without copying forbidden
-content bodies or claiming source authority.
+JSON contracts, registries, standards, validators, receipts, and CLI cards are
+the authority spine. Markdown explains and routes the spine, but it does not
+replace executable contracts or generated evidence.
 
-Public-safe outputs may contain:
+Public-safe runtime material may contain:
 
-- schema fields,
-- route or organ identifiers,
-- synthetic fixture rows,
-- redacted path-level lineage,
-- hashes of synthetic fixture records,
-- omission receipts,
-- stable error codes.
+- source-available Microcosm code,
+- public-safe copied macro bodies with provenance and bounded claims,
+- standards, registries, route or organ identifiers, and schema fields,
+- synthetic negative fixtures for forbidden or private material,
+- redacted lineage, hashes, omission receipts, and stable error codes,
+- command receipts and validation summaries.
 
-Public-safe outputs must not contain:
+Public-safe runtime material must not contain:
 
-- raw operator text,
+- secrets, credentials, tokens, sessions, or local account state,
+- raw operator voice or private personal material,
 - prompt or provider payload bodies,
-- live operator state,
 - non-public evidence bodies,
-- publication or recipient surfaces,
-- old scratch implementation as authority.
+- publication, recipient, hosted-release, or production authority surfaces,
+- source-mutation, provider-call, or financial-advice authority.
 
-Any passing receipt proves only the command and contract named in that receipt.
-It does not prove whole-system correctness or later-organ completion.
+Any passing receipt proves only the command, input boundary, and contract named
+in that receipt. Counts are handle and evidence accounting, not product
+completeness. A cold reader should start with `microcosm hello .`, then
+`microcosm tour --card .`, `microcosm status --card .`,
+`microcosm authority --card`, `microcosm workingness --card`, and
+`microcosm legibility-scorecard` before drilling into raw receipt trees.

@@ -1,10 +1,15 @@
 # Principles
 
-- Preserve public substrate boundaries before adding behavior.
+- Preserve the public authority membrane before adding behavior.
+- Prefer real public-safe substrate over metadata-only stand-ins when source can
+  be copied, classified, and bounded honestly.
+- Use synthetic fixtures for negative cases, regression tests, and blocked
+  private material; do not use them as a substitute for public-safe source.
+- Keep cold entry card-first: compact commands should answer before raw receipt
+  trees or generated ledgers.
+- Treat scanner results, handle counts, and organ counts as claim boundaries,
+  not maturity scores.
 - Prefer small validators with explicit receipts over broad narrative claims.
-- Treat scanner results as class/path evidence only; never echo matched bodies.
-- Use synthetic replacement fixtures to exercise mechanics safely.
-- Fail closed when a row implies source authority or public readiness beyond the
-  receipt.
-- Stop at the first-slice boundary until later organs receive explicit
-  authorization.
+- Fail closed when a route implies source authority, release authority, provider
+  execution, secret access, source mutation, financial advice, or product
+  readiness beyond the named receipt.
