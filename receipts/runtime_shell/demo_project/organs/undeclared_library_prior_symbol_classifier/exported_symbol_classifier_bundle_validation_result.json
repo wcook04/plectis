@@ -105,13 +105,13 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:28+00:00",
+  "created_at": "2026-05-28T09:19:20+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.undeclared_library_prior_symbol_classifier",
   "freshness_basis": {
-    "basis_digest": "sha256:fa37fd08369531c6d9a50fa03ad4cabb9d32ce839650f275467dafe57e59cb68",
+    "basis_digest": "sha256:8ca047d04ebb7adcb4a3428991ebe4ec33a72366ef75021781a1029a38d21774",
     "card_schema_version": "undeclared_library_prior_symbol_classifier_command_card_v1",
     "include_negative": false,
     "input_count": 13,
@@ -143,8 +143,8 @@
       },
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
-        "sha256": "sha256:39510535dcfbc63fa284d392e087628f61a2527cd3a6c4601b4a7494867eb68a",
-        "size_bytes": 12585
+        "sha256": "sha256:94dfd40e6b6f4e482b992fa6cb05a589d83b9c586232d52f943882f43717edd5",
+        "size_bytes": 12697
       },
       {
         "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
@@ -423,7 +423,7 @@
       "missing_required_anchors": [],
       "module_id": "provider_receipt_reducer_source_body_import",
       "required_anchor_count": 5,
-      "source_digest": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+      "source_digest": "sha256:sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/factory/reduce_prover_provider_receipts.py",
       "source_to_target_relation": "source_faithful_public_safe_exact_copy",
@@ -443,7 +443,7 @@
       "missing_required_anchors": [],
       "module_id": "provider_batch_context_calibration_report_builder_source_body_import",
       "required_anchor_count": 5,
-      "source_digest": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+      "source_digest": "sha256:sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
       "source_to_target_relation": "source_faithful_public_safe_exact_copy",
@@ -503,7 +503,7 @@
       "missing_required_anchors": [],
       "module_id": "provider_batch_context_recipe_policy_metrics_body_import",
       "required_anchor_count": 4,
-      "source_digest": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+      "source_digest": "sha256:sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
       "source_to_target_relation": "source_faithful_public_safe_exact_copy",
@@ -523,7 +523,7 @@
       "missing_required_anchors": [],
       "module_id": "provider_batch_receipt_reduction_matrix_body_import",
       "required_anchor_count": 4,
-      "source_digest": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
+      "source_digest": "sha256:sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "state/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
       "source_to_target_relation": "source_faithful_public_safe_exact_copy",

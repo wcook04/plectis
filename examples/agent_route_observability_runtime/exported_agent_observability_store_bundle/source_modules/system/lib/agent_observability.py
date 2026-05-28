@@ -31,6 +31,7 @@ from typing import Any, Mapping, Optional
 SCHEMA_VERSION = "1.0.0"
 API_REVISION = "agent_observability_backend_v2"
 DEFAULT_TRACE_RELATIVE_PATH = Path("state/observability/agent_trace/events.jsonl")
+BACKGROUND_DOWNSHIFT_RELATIVE_PATH = Path("state/performance/background_loop_downshift.json")
 DEFAULT_JSONL_TAIL_READ_BYTES = 8 * 1024 * 1024
 DEFAULT_MAX_EVENT_LINE_BYTES = 64 * 1024
 DEFAULT_MAX_PAYLOAD_VALUE_BYTES = 16 * 1024
@@ -1223,6 +1224,9 @@ class AgentObservabilitySampler:
         self.process_probe_interval_s = max(float(process_probe_interval_s), self.poll_interval_s)
         self.host_pressure_interval_s = max(float(host_pressure_interval_s), self.poll_interval_s)
         self.operator_bridge_interval_s = max(float(operator_bridge_interval_s), self.poll_interval_s)
+        self._base_poll_interval_s = self.poll_interval_s
+        self._base_process_probe_interval_s = self.process_probe_interval_s
+        self._base_host_pressure_interval_s = self.host_pressure_interval_s
         self.operator_bridge_limit = max(int(operator_bridge_limit), 1)
         self.file_limit = max(int(file_limit), 1)
         self.live_tail_lines = max(int(live_tail_lines), 10)
@@ -1242,6 +1246,7 @@ class AgentObservabilitySampler:
         self._poll_count = 0
 
     def poll_once(self) -> None:
+        downshift_state = self._apply_background_downshift()
         now = time.monotonic()
         self._poll_count += 1
         self.store.set_sampler_state(
@@ -1250,6 +1255,7 @@ class AgentObservabilitySampler:
             last_poll_at=_now_iso(),
             last_error=None,
             poll_interval_s=self.poll_interval_s,
+            background_downshift=downshift_state,
         )
         if now - self._last_heartbeat_s >= self.heartbeat_interval_s:
             self._last_heartbeat_s = now
@@ -1272,6 +1278,64 @@ class AgentObservabilitySampler:
         if now - self._last_operator_bridge_s >= self.operator_bridge_interval_s:
             self._last_operator_bridge_s = now
             self._emit_operator_bridge_actions()
+
+    def _apply_background_downshift(self) -> dict[str, Any] | None:
+        path = self.repo_root / BACKGROUND_DOWNSHIFT_RELATIVE_PATH
+        if not path.is_file():
+            self._restore_background_downshift()
+            return None
+        try:
+            receipt = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            self._restore_background_downshift()
+            return {
+                "schema": "background_loop_downshift_runtime_v1",
+                "status": "invalid_state_file",
+                "path": str(BACKGROUND_DOWNSHIFT_RELATIVE_PATH),
+            }
+        if (
+            receipt.get("schema") != "background_loop_downshift_receipt_v1"
+            or receipt.get("loop_kind") != "agent_observability_sampler"
+            or receipt.get("result") != "applied"
+        ):
+            self._restore_background_downshift()
+            return {
+                "schema": "background_loop_downshift_runtime_v1",
+                "status": "not_applicable",
+                "path": str(BACKGROUND_DOWNSHIFT_RELATIVE_PATH),
+            }
+        duration_s = max(float(receipt.get("duration_s") or 0), 0.0)
+        age_s = max(time.time() - path.stat().st_mtime, 0.0)
+        if duration_s and age_s > duration_s:
+            self._restore_background_downshift()
+            return {
+                "schema": "background_loop_downshift_runtime_v1",
+                "status": "expired",
+                "age_s": round(age_s, 3),
+                "duration_s": duration_s,
+                "path": str(BACKGROUND_DOWNSHIFT_RELATIVE_PATH),
+            }
+        effective_interval = max(
+            float(receipt.get("effective_interval_s") or 15.0),
+            self._base_poll_interval_s,
+        )
+        self.poll_interval_s = effective_interval
+        self.process_probe_interval_s = max(self._base_process_probe_interval_s, effective_interval * 4)
+        self.host_pressure_interval_s = max(self._base_host_pressure_interval_s, effective_interval * 4)
+        return {
+            "schema": "background_loop_downshift_runtime_v1",
+            "status": "applied",
+            "loop_kind": "agent_observability_sampler",
+            "effective_interval_s": self.poll_interval_s,
+            "age_s": round(age_s, 3),
+            "duration_s": duration_s,
+            "path": str(BACKGROUND_DOWNSHIFT_RELATIVE_PATH),
+        }
+
+    def _restore_background_downshift(self) -> None:
+        self.poll_interval_s = self._base_poll_interval_s
+        self.process_probe_interval_s = self._base_process_probe_interval_s
+        self.host_pressure_interval_s = self._base_host_pressure_interval_s
 
     def mark_stopped(self) -> None:
         self.store.set_sampler_state(running=False, stopped_at=_now_iso())

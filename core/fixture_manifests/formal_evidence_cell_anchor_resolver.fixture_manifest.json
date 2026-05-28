@@ -47,7 +47,9 @@
     {
       "path": "fixtures/first_wave/formal_evidence_cell_anchor_resolver/input/human_approval_as_evidence_cell.json",
       "role": "negative case: human approval is treated as proof authority"
-    },
+    }
+  ],
+  "imported_body_inputs": [
     {
       "path": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_module_manifest.json",
       "role": "source-open body manifest for copied macro auditor, registry builder, registry state, standard, tests, and formal evidence cell manifest"

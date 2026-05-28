@@ -38,7 +38,7 @@
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:41+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,

@@ -17,7 +17,10 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PYTHON ?= python3",
         "VENV ?= .venv",
         "VENV_PYTHON ?= $(VENV)/bin/python",
+        "PIP_CACHE_DIR ?= $(VENV)/.pip-cache",
+        "PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)",
         "EXPORT_OUT ?= ../microcosm-substrate-export",
+        "SMOKE_OUT ?= .microcosm/smoke",
         ".DEFAULT_GOAL := help",
         "PUBLIC_TESTS ?=",
         ".PHONY: help install venv test test-all smoke ci standalone-export clean",
@@ -30,8 +33,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "make standalone-export   export a release-gated standalone tree",
         "make clean               remove local build and cache files",
         "$(PYTHON) -m venv $(VENV)",
-        "$(VENV_PYTHON) -m pip install --upgrade pip",
-        '$(VENV_PYTHON) -m pip install -e ".[test]"',
+        "$(PIP_ENV) $(VENV_PYTHON) -m pip install --upgrade pip",
+        '$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"',
         "PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)",
         "PYTHONPATH=src $(VENV_PYTHON) -m pytest",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
@@ -42,7 +45,12 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
+        "> $(SMOKE_OUT)/tour-card.json",
+        "> $(SMOKE_OUT)/status-card.json",
+        "> $(SMOKE_OUT)/stripping-guard.json",
+        "Microcosm smoke receipts written to %s",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force",
+        "rm -rf $(SMOKE_OUT)",
     ):
         assert required in text
 
@@ -60,6 +68,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         assert re.search(rf"^{target}:", text, flags=re.MULTILINE)
 
     assert "--break-system-packages" not in text
+    assert "PIP_DISABLE_PIP_VERSION_CHECK=1" in text
+    assert "/Library/Caches/pip" not in text
 
 
 def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:

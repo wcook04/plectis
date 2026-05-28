@@ -6,7 +6,7 @@
     "provider_calls_authorized": false,
     "release_authorized": false
   },
-  "created_at": "2026-05-27T16:54:11+00:00",
+  "created_at": "2026-05-28T09:20:07+00:00",
   "events": [
     {
       "event_id": "evt_01_pattern_binding_contract",
@@ -306,7 +306,7 @@
       "organ_id": "macro_projection_import_protocol",
       "outputs": "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol",
       "span": "macro_projection_import.validate",
-      "status": "blocked"
+      "status": "pass"
     },
     {
       "event_id": "evt_31_prediction_oracle_reconciliation",
@@ -491,7 +491,7 @@
   ],
   "project_id": "demo_project",
   "schema_version": "microcosm_runtime_demo_result_v1",
-  "status": "blocked",
+  "status": "pass",
   "trace_ref": "receipts/runtime_shell/demo_project/demo_project_trace.json",
   "what_happened": [
     "pattern_binding_contract: pass via exported_substrate_bundle",
@@ -523,7 +523,7 @@
     "bridge_phase_continuity_runtime: pass via synthetic_bridge_continuity_fixture",
     "pattern_assimilation_step: pass via exported_assimilation_bundle",
     "public_reveal_walkthrough: pass via exported_public_reveal_bundle",
-    "macro_projection_import_protocol: blocked via exported_projection_import_bundle",
+    "macro_projection_import_protocol: pass via exported_projection_import_bundle",
     "prediction_oracle_reconciliation: pass via exported_prediction_oracle_bundle",
     "standards_meta_diagnostics: pass via exported_standards_meta_diagnostics_bundle",
     "cold_reader_route_map: pass via exported_cold_reader_route_map_bundle",

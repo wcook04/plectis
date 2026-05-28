@@ -90,10 +90,6 @@
       "role": "synthetic local lesson rows that route into owner mutations, residual capture, and typed nothing_to_refine"
     },
     {
-      "path": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
-      "role": "exported bundle source-body manifest with hashes and public-safe boundaries"
-    },
-    {
       "path": "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/raw_operator_voice_export.json",
       "role": "negative case: raw_operator_voice_export"
     },
@@ -116,6 +112,12 @@
     {
       "path": "fixtures/first_wave/voice_to_doctrine_self_improvement_loop/input/private_thread_body_export.json",
       "role": "negative case: private_thread_body_export"
+    }
+  ],
+  "imported_body_inputs": [
+    {
+      "path": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_module_manifest.json",
+      "role": "exported bundle source-body manifest with hashes and public-safe boundaries"
     }
   ],
   "organ_id": "voice_to_doctrine_self_improvement_loop",

@@ -230,7 +230,7 @@
     ]
   },
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,
@@ -308,9 +308,9 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779890743597424283,
+      "mtime_ns": 1779950831881182465,
       "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_module_manifest.json",
-      "size_bytes": 8212
+      "size_bytes": 8308
     },
     {
       "exists": true,
@@ -326,9 +326,9 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779890743590784230,
+      "mtime_ns": 1779931643209461665,
       "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py",
-      "size_bytes": 322812
+      "size_bytes": 325096
     },
     {
       "exists": true,
@@ -338,12 +338,12 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779890743593085428,
+      "mtime_ns": 1779950807697094543,
       "path": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py",
-      "size_bytes": 720445
+      "size_bytes": 727181
     }
   ],
-  "freshness_digest": "a315122aa6f367def8f3353c4834ce3d867bec6f7b43d51365968b3bf4255b21",
+  "freshness_digest": "add47bcf6e25e150ec4228359ec4f4cbdbb083810e979c9c991568ed02b48baa",
   "freshness_status": "current",
   "input_mode": "exported_route_plane_bundle",
   "missing_negative_cases": [],
@@ -456,7 +456,7 @@
       "material_class": "public_macro_tool_body",
       "missing_anchor_count": 0,
       "module_id": "navigation_route_plane_context_pack_source_body_import",
-      "observed_sha256": "9c5840d3d904df0d8d833a95b3a0daf5b587f45c82c25219423eacd189a21192",
+      "observed_sha256": "d4d6f687fc46f625bac1c23d59e03028197d0aa5fd4c6e27779def427a3c4bb4",
       "sha256_match": true,
       "source_ref": "system/lib/navigation_context_pack.py",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/navigation_context_pack.py"
@@ -480,7 +480,7 @@
       "material_class": "public_macro_tool_body",
       "missing_anchor_count": 0,
       "module_id": "navigation_route_plane_option_surface_source_body_import",
-      "observed_sha256": "a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+      "observed_sha256": "969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
       "sha256_match": true,
       "source_ref": "system/lib/standard_option_surface.py",
       "target_ref": "examples/navigation_hologram_route_plane/exported_route_plane_bundle/source_modules/system/lib/standard_option_surface.py"

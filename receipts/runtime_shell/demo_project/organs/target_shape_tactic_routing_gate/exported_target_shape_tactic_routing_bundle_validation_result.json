@@ -22,7 +22,7 @@
   "bundle_id": "target_shape_tactic_routing_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_source_artifact_count": 4,
-  "created_at": "2026-05-27T16:52:28+00:00",
+  "created_at": "2026-05-28T09:19:20+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],

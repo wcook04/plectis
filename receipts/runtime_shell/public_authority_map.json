@@ -139,19 +139,24 @@
       "source_mutation_authorized": false
     },
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    "cache_action": {
+      "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "status": "actionable"
+    },
     "cache_freshness": {
       "input_refs_exported": false,
-      "input_status": "current",
-      "latest_input_mtime_ns": 1779836214902719178,
-      "receipt_mtime_ns": 1779836346218578812,
+      "input_status": "stale",
+      "latest_input_mtime_ns": 1779959250490061814,
+      "receipt_mtime_ns": 1779954260239335626,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-      "stale_input_count": 0,
-      "status": "current",
+      "stale_input_count": 2,
+      "status": "stale",
       "tracked_input_count": 14
     },
-    "cache_status": "cached_receipt_read",
-    "cached_card_status": "pass",
-    "cached_receipt_bytes": 34613,
+    "cache_status": "stale_cached_receipt",
+    "cached_card_status": "stale_cached_receipt",
+    "cached_receipt_bytes": 34690,
     "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -195,7 +200,7 @@
     "route_component_count": 9,
     "route_id": "formal_prover_context_strategy_gate",
     "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
-    "route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "route_source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
     "safe_to_show": {
       "body_in_receipt": false,
       "credential_equivalent_payloads_omitted": true,
@@ -470,7 +475,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6277d87d0023d99b17f638e536486a27afd1397d09ff32f8e80cf6088edb7c7b",
+        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -491,7 +496,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
+        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -985,7 +990,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1ebb7506c8e2410afcace62767e33137abedc90b7c7f0ce9cd677751b5d07a69",
+        "body_digest": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1157,7 +1162,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:10875d35cef115c568176a62a92a06edfb521e9445d101c9adc4b553a8c9c0c8",
+        "body_digest": "sha256:c0ff9da0c40ba67c26926faa04943e556f0c925188d4f13ebca687fea4a7e938",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1276,7 +1281,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6277d87d0023d99b17f638e536486a27afd1397d09ff32f8e80cf6088edb7c7b",
+        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1297,7 +1302,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
+        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1612,7 +1617,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:208409489ea2bfaad512ee4d32c50c29b84a36157fe7ec59e902db05815fde0f",
+        "body_digest": "sha256:2f21b73aea041b63425ddbdd6c6778d49ca0e69a4ae473f6b37bdab14662313b",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -2788,7 +2793,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:bad71d78c2309f9ad12431b9b94afba1515ce2b2e0f591ca2d9dd13066de8194",
+        "body_digest": "sha256:796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2809,7 +2814,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f3c1fa259b5b9d6c86ce7f772e0078521ae4f2035f13268208527fc275995a9c",
+        "body_digest": "sha256:ecb1138277a33e5174b3337ab3dddbef67924b686924a359ec2da12943957cfa",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3312,7 +3317,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0d62cbe48c09d0e80610a810aeb085156e9c23afa99f23ce1db81983c9316cc9",
+        "body_digest": "sha256:34cd98c97608997beb404036218fdb466c6e044859a3cfebe9ed9457bd231d78",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3675,7 +3680,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:29cdb8c45bcfd5c32ac691cd0f6a792241d8110bb5be9270bb372076f4a5276d",
+        "body_digest": "sha256:6b1a3bfd54d8a1721aaf5eaa2afdc8fbbeac0a30c5262bd3f559c1927314ca6d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3717,7 +3722,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a4413441f63d8f44fdc199afbc6919e313578068cedaaaee8309ee76df8c512e",
+        "body_digest": "sha256:9b455323dc410e09aa706cade153f3bd2c167d039cfb5cecdb6dc6a0f4955455",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3738,7 +3743,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2520c3b9accc719da4790b53373a6b4d601e6f2f72c16c376eae430c7f68a819",
+        "body_digest": "sha256:72f681e8c6b447916124344635b95a708f7e1eb02b90b873a3ceed1d9b4bae78",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4093,7 +4098,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
+        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4114,7 +4119,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:398437ca3efb1f08aeca46d5daf92a0e91fd9cfac58dc85eee9c8b3a92a415d5",
+        "body_digest": "sha256:ffb063a0c0a8ea395b9b81857940455151c2f3216d1c20ffbd65a4e0f4c6515d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4506,7 +4511,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:8ede5578024c87bc64172128e82b4dbe5898cfff7d1671fc8c33fe8291d670a2",
+        "body_digest": "sha256:34db45127ac9f9f53a9eae427a8ec1befc488fb6fa3e08441dc04cb8b24a5f62",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4611,7 +4616,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6a8a2033310ada29b2aa62f7e1ade2d6f7a910f8ab9cae99502f7b2a01ddd2a8",
+        "body_digest": "sha256:f168afab63d7e67805b3fe038e6131a6cbcaa8ddfcb62f6291e3a289a9145b2e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4632,7 +4637,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3c1473adb530eea3e01c7d3011297a724f0398cd41815f9c2871a2e3c1a763a7",
+        "body_digest": "sha256:78556357ebb149574319d128e9faa56e3edc9b4cc9274299e31426ab08702fdd",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5271,7 +5276,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:bad71d78c2309f9ad12431b9b94afba1515ce2b2e0f591ca2d9dd13066de8194",
+        "body_digest": "sha256:796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6038,7 +6043,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:10b7354b7d09aaf8db5381124532173ba8f95f2fdfb44deb44e11098bd1446dc",
+        "body_digest": "sha256:6b799e8c09962aab43af22b5853ead439c048ec12c5f35f3f80543eae29c8212",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -6122,7 +6127,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6277d87d0023d99b17f638e536486a27afd1397d09ff32f8e80cf6088edb7c7b",
+        "body_digest": "sha256:f4e2da16991dc985343b459857b67e25b9c1a7f218185cdf5eb9d9b4a7455562",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6314,7 +6319,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
+        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8156,7 +8161,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
+        "body_digest": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -8173,7 +8178,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "body_digest": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -8224,7 +8229,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
+        "body_digest": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8324,7 +8329,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2983e0c97d5bbaa57a799d5a6389e5ad29fc37b95165ec1b5d9176c507e71f03",
+        "body_digest": "sha256:43f96d0d0b913e8066b221d50e56bd7417a616396b0118bff4d225a92f0e39da",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8344,7 +8349,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:837b3f4c0284b7e3c2f62da493d84bd62cf331123de1265440ea0299a0885ce0",
+        "body_digest": "sha256:bb5ff4737c45a8625c46af242f055ec58820fd9ddff6719a3cc02140f2eec41b",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8364,7 +8369,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:919f8a7251d6e2f225feae0fc1a9809b9d9851a981c9d052cf2aa4129fc2d542",
+        "body_digest": "sha256:0393760edb21e8c56faa9d388ec5ca6f0f6c34180b6ac303232779ee799d108d",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8384,7 +8389,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:33326c10d9d29f6347f72299c8d1e9ddddb5eda79844ca791b73e97e0ad315f2",
+        "body_digest": "sha256:af6129eca56d2a3b69daaa63b572bf914379747059b9aa94917f0b4e6b5f5cd5",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8404,7 +8409,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a88acda847d72ac2fb5cbe81773aff9f3d803cbc4e6ead691d75e8a620b88973",
+        "body_digest": "sha256:6c9a8a255e7f1c112db9ed7d7e11f4d0cc95d1e185c0633713ad7739724ea592",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8424,7 +8429,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:61558e3eb4d7b4b1f78d85de7c5d9cfcf8fc8d6bd68bb2bfa3bc841dbdbffe05",
+        "body_digest": "sha256:ba3f05f00588e41df697161a9b5672d1d55c7fe48adaccbe6a7376ee68d2a390",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8444,7 +8449,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:660cba2fed85d956f0367bf49ffc2f4ea4301b5c260163ac6541dd24e01eaef7",
+        "body_digest": "sha256:ac819a00f86e0b45a793824ba0feaf258cc55fb2519592630e9b2f650e845516",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8464,7 +8469,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b6d03ddde3cbc672c8c53177f29b5588e528ec2eda1e0348e7f36b55234388bb",
+        "body_digest": "sha256:fb1c3a0322f2271d63a6e920af446af1588d0ae3d89adabc74722938ca7675bb",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8484,7 +8489,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ec27851699e1e981531f5971a32145a53329dd8c542d84eed7897b426842c46d",
+        "body_digest": "sha256:547a95bf7b22eaf46d5898d4986653469781688d50f31c62b48b20c3334f4134",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8504,7 +8509,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:957d1fc15a5fe5734411a89dbadf94f640827e6c6ef698f099dbcf1af82ef6d3",
+        "body_digest": "sha256:318ba487256b359f5cec7d1fbee8e2bb0742f759d7a97823717413b740a5db1a",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",

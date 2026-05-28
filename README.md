@@ -6,7 +6,7 @@ Microcosm compiles your project folder into local state: catalog, patterns,
 routes, a governed work transaction, events, evidence, and a tiny observatory.
 It does not mutate your source files or call providers.
 
-Start with one compact local command:
+Start with one compact local command: try it on your repo.
 
 ```bash
 microcosm hello .

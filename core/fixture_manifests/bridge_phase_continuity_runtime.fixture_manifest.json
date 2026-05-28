@@ -45,6 +45,42 @@
       "release_authorized": false
     }
   },
+  "inputs": [
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
+      "role": "synthetic observe-apply session fixture for fake-transport continuity replay"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
+      "role": "synthetic bridge-continuity fixture input"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/continuation_packet.json",
+      "role": "synthetic bridge-continuity fixture input"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/heartbeat_rows.jsonl",
+      "role": "synthetic bridge-continuity fixture input"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/resource_pressure.json",
+      "role": "synthetic bridge-continuity fixture input"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/worker_skip_receipt.json",
+      "role": "synthetic bridge-continuity fixture input"
+    },
+    {
+      "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/private_state_forbidden_terms.json",
+      "role": "synthetic bridge-continuity fixture input"
+    }
+  ],
+  "imported_body_inputs": [
+    {
+      "path": "examples/macro_projection_import_protocol/exported_projection_import_bundle/observe_runtime_source_module_manifest.json",
+      "role": "source-open body manifest for copied non-secret observe-runtime macro bodies"
+    }
+  ],
   "source_ledger": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
   "source_ledger_row_count_verified": 309,
   "source_pattern_ids": [

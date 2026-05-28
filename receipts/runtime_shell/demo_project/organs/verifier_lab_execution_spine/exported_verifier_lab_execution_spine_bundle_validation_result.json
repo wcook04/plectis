@@ -295,7 +295,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-27T16:51:34+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "error_codes": [],
   "evolve_mutation_trace": [
     {
@@ -419,12 +419,12 @@
     "module_count": 5,
     "modules": [
       {
-        "actual_sha256": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
+        "actual_sha256": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
         "body_in_receipt": false,
-        "line_count": 1719,
+        "line_count": 1723,
         "material_class": "public_macro_tool_body",
         "module_id": "verifier_lab_execution_spine_source_body_import",
-        "sha256": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
+        "sha256": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
         "source_ref": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py"

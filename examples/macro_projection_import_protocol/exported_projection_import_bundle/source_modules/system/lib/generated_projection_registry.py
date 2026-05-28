@@ -1058,6 +1058,7 @@ PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (
             "docs/dissemination/github_repo_ontology_v0.md",
             "docs/dissemination/workitem_ordered_build_plan.md",
             "codex/standards/std_standard_type_plane.json",
+            "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/phase_family.json",
             "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/raw_seed_principles.json",
             "obsidian/okay lets do this/09 - Raw-Seed Preservation, Semantic Reset, and Fresh Execution Spine/raw_seed/system_axiom_candidates.json",
         ),

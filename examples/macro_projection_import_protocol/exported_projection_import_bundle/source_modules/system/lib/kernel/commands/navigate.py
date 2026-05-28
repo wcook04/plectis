@@ -405,7 +405,14 @@ def _skill_search_text(skill: Mapping[str, Any]) -> str:
 
 
 def build_skill_find_payload(query: str, *, limit: int = 8) -> dict[str, Any]:
-    """Return explicit-debug skill-registry matches without forcing raw JSON reads."""
+    """
+    [ACTION]
+    - Teleology: Return explicit-debug skill-registry matches without forcing raw JSON reads.
+    - Reads: Input arguments plus repository registries or generated state needed for the skill find payload packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     raw = str(query or "").strip()
     if not raw:
         raise ValueError("skill-find requires a query")
@@ -557,6 +564,14 @@ def _command_card_score(card: Mapping[str, Any], raw: str) -> tuple[int, list[st
 
 
 def build_command_card_payload(query: str | None, *, limit: int = 6, debug: bool = True) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Build the command card payload payload for the kernel navigation surface.
+    - Reads: Input arguments plus repository registries or generated state needed for the command card payload packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     raw = str(query or "all").strip() or "all"
     if not debug:
         return debug_trace_block(
@@ -7695,6 +7710,14 @@ def _preflight_build_card(snapshot: Mapping[str, Any], active_phase: Mapping[str
 
 
 def cmd_preflight() -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the preflight kernel command surface.
+    - Reads: Command arguments plus the repository state required by the preflight surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         card = _preflight_card()
     except Exception as exc:
@@ -8946,6 +8969,14 @@ def cmd_sync_raw_seed(family_token: str | None = None, *, live: bool = False) ->
 
 
 def cmd_sync_agent_seed(family_token: str | None = None, *, live: bool = False) -> int:
+    """
+    [ACTION]
+    - Teleology: Synchronize the generated agent-seed substrate for the selected family.
+    - Reads: Family seed artifacts and existing agent-seed state.
+    - Writes: Agent-seed projection files only when `live=True`; otherwise emits the dry-run packet.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     return _sync_seed_substrate(family_token, substrate="agent_seed", live=live)
 
 
@@ -9282,6 +9313,14 @@ def cmd_append_agent_seed(
     gesture: str | None = None,
     live: bool = False,
 ) -> int:
+    """
+    [ACTION]
+    - Teleology: Validate an agent author and append agent-authored synthesis into the governed agent-seed lane.
+    - Reads: Family seed metadata, supported-author policy, and supplied text.
+    - Writes: Agent-seed substrate through `_append_seed_substrate` when live.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     literals, regex = _supported_agent_seed_authors()
     author_token = str(author or "").strip()
     if not author_token:
@@ -9302,6 +9341,14 @@ def cmd_append_agent_seed(
 
 
 def cmd_migrate_agent_section(paragraph_id: str, *, live: bool = False) -> int:
+    """
+    [ACTION]
+    - Teleology: Move one agent-authored raw-seed paragraph into agent seed through the governed migration ledger.
+    - Reads: Raw seed markdown/JSON, family payload, migration ledger, and paragraph metadata.
+    - Writes: Migration ledger and agent-seed substrate only when live.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     try:
         family_entry = _resolve_family_entry_for_raw_seed(None)
         marker_path = state.REPO_ROOT / str(family_entry.get("marker_path") or "")
@@ -10320,7 +10367,14 @@ def cmd_docs_route(request: str, *, debug: bool = False) -> int:
 
 
 def cmd_skill_find(query: str, *, limit: int = 8, debug: bool = False) -> int:
-    """Emit bounded matches from the repo skill registry."""
+    """
+    [ACTION]
+    - Teleology: Emit bounded matches from the repo skill registry.
+    - Reads: Command arguments plus the repository state required by the skill find surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     if not debug:
         return emit_json(
             debug_trace_block(
@@ -10349,14 +10403,14 @@ def build_skill_list_payload(
     fmt: str = "names",
     limit: int | None = None,
 ) -> dict[str, Any]:
-    """Token-efficient enumeration of skills, grouped by surface.
-
-    surface: agent-skills | doctrine | all
-    fmt: names | table | json
-
-    Backed by system.lib.skill_surfaces.published_agent_skill_rows so the AGENTS.md
-    skill_catalog router header, the CLAUDE.md skill_router block, and this command
-    are all driven by the same helper.
+    """
+    [ACTION]
+    - Teleology: Token-efficient enumeration of skills, grouped by surface.
+    - Details: surface: agent-skills | doctrine | all fmt: names | table | json Backed by system.lib.skill_surfaces.published_agent_skill_rows so the AGENTS.md skill_catalog router header, the CLAUDE.md skill_router block, and this command are all driven by the same helper.
+    - Reads: Input arguments plus repository registries or generated state needed for the skill list payload packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
     """
     from system.lib import skill_surfaces  # local import keeps cold-path startup quiet
 
@@ -10418,7 +10472,14 @@ def build_skill_list_payload(
 
 
 def cmd_skill_list(*, surface: str = "all", fmt: str = "names", limit: int | None = None) -> int:
-    """Emit registry-derived skill listing (no JSON read by callers)."""
+    """
+    [ACTION]
+    - Teleology: Emit registry-derived skill listing (no JSON read by callers).
+    - Reads: Command arguments plus the repository state required by the skill list surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_skill_list_payload(surface=surface, fmt=fmt, limit=limit)
     if fmt == "names":
         # Token-efficient text output: one line per group.
@@ -10467,20 +10528,39 @@ def cmd_skill_list(*, surface: str = "all", fmt: str = "names", limit: int | Non
 
 
 def cmd_terms(*, band: str = "card") -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the terms kernel command surface.
+    - Reads: Command arguments plus the repository state required by the terms surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(list_system_terms(_repo_root_for_static_registry(), band=band))
 
 
 def cmd_term(query: str, *, band: str = "card") -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the term kernel command surface.
+    - Reads: Command arguments plus the repository state required by the term surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = render_system_term(_repo_root_for_static_registry(), query=query, band=band)
     return emit_json_with_code(payload, 1 if payload.get("error") else 0)
 
 
 def cmd_relational_context(node_ref: str, *, band: str = "card", radius: int = 1) -> int:
-    """Emit a deterministic relational_context_v0 node-plus-edge packet.
-
-    Wave 026 extractor + Wave 037 kernel re-wiring. Rebuilt after WIP-stash
-    loss; the Python module under system/lib/relational_context.py carries
-    the real logic, this is the kernel-layer command wrapper.
+    """
+    [ACTION]
+    - Teleology: Emit a deterministic relational_context_v0 node-plus-edge packet.
+    - Details: Wave 026 extractor + Wave 037 kernel re-wiring. Rebuilt after WIP-stash loss; the Python module under system/lib/relational_context.py carries the real logic, this is the kernel-layer command wrapper.
+    - Reads: Command arguments plus the repository state required by the relational context surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     from system.lib.relational_context import extract_relational_context
 
@@ -10494,7 +10574,14 @@ def cmd_relational_context(node_ref: str, *, band: str = "card", radius: int = 1
 
 
 def cmd_kernel_surface_currentness(*, waves: str = "025-037") -> int:
-    """Emit a living-system-posture audit of kernel command claims."""
+    """
+    [ACTION]
+    - Teleology: Emit a living-system-posture audit of kernel command claims.
+    - Reads: Command arguments plus the repository state required by the kernel surface currentness surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.kernel_surface_currentness import build_kernel_surface_currentness_audit
 
     payload = build_kernel_surface_currentness_audit(
@@ -10505,7 +10592,14 @@ def cmd_kernel_surface_currentness(*, waves: str = "025-037") -> int:
 
 
 def cmd_command_card(query: str | None = None, *, limit: int = 6, debug: bool = False) -> int:
-    """Emit typed command memory for repeated agent-movement command choices."""
+    """
+    [ACTION]
+    - Teleology: Emit typed command memory for repeated agent-movement command choices.
+    - Reads: Command arguments plus the repository state required by the command card surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_command_card_payload(query, limit=limit, debug=debug)
     if payload.get("kind") == "kernel.route_policy":
         return emit_json(payload)
@@ -10519,7 +10613,14 @@ def cmd_validate_seed_heartbeat(
     command_name: str = "validate-seed-heartbeat",
     flag_name: str = "--validate-seed-heartbeat",
 ) -> int:
-    """Emit a seed-continuity check; the heartbeat command name is legacy compatibility."""
+    """
+    [ACTION]
+    - Teleology: Emit a seed-continuity check; the heartbeat command name is legacy compatibility.
+    - Reads: Command arguments plus the repository state required by the validate seed heartbeat surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     neutral_continuity = command_name == "validate-seed-continuity"
     kind = "kernel.validate.seed_continuity" if neutral_continuity else "kernel.validate.seed_heartbeat"
     schema_version = "seed_continuity_validation_v1" if neutral_continuity else "seed_heartbeat_validation_v1"
@@ -10551,7 +10652,14 @@ def cmd_validate_seed_heartbeat(
 
 
 def cmd_validate_seed_continuity(path: str) -> int:
-    """Compatibility-neutral alias for the Type A autonomous-seed continuity validator."""
+    """
+    [ACTION]
+    - Teleology: Compatibility-neutral alias for the Type A autonomous-seed continuity validator.
+    - Reads: Command arguments plus the repository state required by the validate seed continuity surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return cmd_validate_seed_heartbeat(
         path,
         command_name="validate-seed-continuity",
@@ -10572,7 +10680,14 @@ def cmd_session_diagnostics(
     write_route_miss_candidates_path: str | None = None,
     diagnostics_summary: bool = False,
 ) -> int:
-    """Run the out-of-repo agent-session analyzer through the kernel ladder."""
+    """
+    [ACTION]
+    - Teleology: Run the out-of-repo agent-session analyzer through the kernel ladder.
+    - Reads: Command arguments plus the repository state required by the session diagnostics surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from tools.meta.observability.session_analyzer import (
             build_summary_report,
@@ -10666,7 +10781,14 @@ def cmd_trace_friction_board(
     force_live: bool = False,
     write_path: str | None = None,
 ) -> int:
-    """Emit the generated Trace Friction Board over live and finished traces."""
+    """
+    [ACTION]
+    - Teleology: Emit the generated Trace Friction Board over live and finished traces.
+    - Reads: Command arguments plus the repository state required by the trace friction board surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from system.lib.agent_execution_trace import build_process_summary_route_packet
         from tools.meta.observability.session_analyzer import (
@@ -10744,7 +10866,14 @@ def cmd_lean_diagnostics(
     write_path: str | None = None,
     timeout_seconds: int = 180,
 ) -> int:
-    """Run Lean timing diagnostics through the kernel ladder."""
+    """
+    [ACTION]
+    - Teleology: Run Lean timing diagnostics through the kernel ladder.
+    - Reads: Command arguments plus the repository state required by the lean diagnostics surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from tools.meta.observability.lean_analyzer import (
             build_report,
@@ -10811,7 +10940,14 @@ def cmd_lean_bottlenecks(
     limit: int = 20,
     write_path: str | None = None,
 ) -> int:
-    """Emit the compact Lean long-tail phase/event packet."""
+    """
+    [ACTION]
+    - Teleology: Emit the compact Lean long-tail phase/event packet.
+    - Reads: Command arguments plus the repository state required by the lean bottlenecks surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from tools.meta.observability.lean_analyzer import (
             build_bottlenecks,
@@ -10851,7 +10987,14 @@ def cmd_lean_pipeline_profile(
     record_pipeline: bool = False,
     timeout_seconds: int = 360,
 ) -> int:
-    """Emit or record the formal-math refresh-chain timing packet."""
+    """
+    [ACTION]
+    - Teleology: Emit or record the formal-math refresh-chain timing packet.
+    - Reads: Command arguments plus the repository state required by the lean pipeline profile surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from tools.meta.observability.lean_analyzer import (
             build_pipeline_profile,
@@ -10906,7 +11049,14 @@ def cmd_lean_parallelism_plan(
     parallel_dry_run: bool = False,
     timeout_seconds: int = 180,
 ) -> int:
-    """Emit or execute the Lean timing/validation parallelism plan."""
+    """
+    [ACTION]
+    - Teleology: Emit or execute the Lean timing/validation parallelism plan.
+    - Reads: Command arguments plus the repository state required by the lean parallelism plan surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from tools.meta.observability.lean_analyzer import (
             build_parallelism_plan,
@@ -11708,7 +11858,14 @@ def _agent_wake_fast_workitem_entrypoint(
 
 
 def cmd_agent_wake_packet(phase_token: str | None = None, *, limit: int = 6) -> int:
-    """Emit one bounded wake packet for Type A agent reentry and movement efficiency."""
+    """
+    [ACTION]
+    - Teleology: Emit one bounded wake packet for Type A agent reentry and movement efficiency.
+    - Reads: Command arguments plus the repository state required by the agent wake packet surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     warnings: list[str] = []
     try:
         pulse_snapshot = _pulse_snapshot()
@@ -11960,7 +12117,14 @@ def cmd_agent_recent_activity(
     session_id: str | None = None,
     source_runtime: str | None = None,
 ) -> int:
-    """Emit a bounded live-agent self-read from recent AgentEvent rows."""
+    """
+    [ACTION]
+    - Teleology: Emit a bounded live-agent self-read from recent AgentEvent rows.
+    - Reads: Command arguments plus the repository state required by the agent recent activity surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.agent_recent_activity import build_agent_recent_activity
 
     return emit_json(
@@ -11982,7 +12146,14 @@ def cmd_host_pressure(
     write_path: str | None = None,
     activation_url: str | None = None,
 ) -> int:
-    """Emit the host-aware progress-pressure packet for parallel agents."""
+    """
+    [ACTION]
+    - Teleology: Emit the host-aware progress-pressure packet for parallel agents.
+    - Reads: Command arguments plus the repository state required by the host pressure surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         from system.lib.agent_observability import AgentTraceStore
         from system.lib.host_pressure import build_progress_pressure_packet_from_store
@@ -12026,7 +12197,14 @@ def cmd_agent_experience_diagnostics(
     since_ts: str | None = None,
     grand_rounds: bool = False,
 ) -> int:
-    """Emit read-only Grand Rounds diagnostics over agent experience evidence."""
+    """
+    [ACTION]
+    - Teleology: Emit read-only Grand Rounds diagnostics over agent experience evidence.
+    - Reads: Command arguments plus the repository state required by the agent experience diagnostics surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.agent_experience_diagnostics import build_agent_experience_diagnostics
 
     return emit_json(
@@ -12050,7 +12228,14 @@ def cmd_workitem_entrypoint(
     require_exclusive: bool = False,
     limit: int = 6,
 ) -> int:
-    """Emit the WorkItem runtime entrypoint with forward-integration policy."""
+    """
+    [ACTION]
+    - Teleology: Emit the WorkItem runtime entrypoint with forward-integration policy.
+    - Reads: Command arguments plus the repository state required by the workitem entrypoint surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.workitem_runtime_entrypoint import build_workitem_runtime_entrypoint
 
     payload = build_workitem_runtime_entrypoint(
@@ -12269,7 +12454,14 @@ def cmd_option_surface(
     ids: str | None = None,
     attention_frame: str | None = None,
 ) -> int:
-    """Emit a standard-owned option surface by artifact kind and band."""
+    """
+    [ACTION]
+    - Teleology: Emit a standard-owned option surface by artifact kind and band.
+    - Reads: Command arguments plus the repository state required by the option surface surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     normalized_kind = str(artifact_kind or "").strip().lower().replace("-", "_").replace(" ", "_")
 
     def _option_surface_exit_code(payload: dict[str, Any]) -> int:
@@ -12562,15 +12754,27 @@ def cmd_option_surface(
 
 
 def cmd_imagination_list() -> int:
-    """Convenience alias for `--option-surface imaginations --band flag`."""
+    """
+    [ACTION]
+    - Teleology: Convenience alias for `--option-surface imaginations --band flag`.
+    - Reads: Command arguments plus the repository state required by the imagination list surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_option_surface(state.REPO_ROOT, "imaginations", band="flag", ids=None)
     return emit_json_with_code(payload, 0 if payload.get("profile_status") == "supported" else 2)
 
 
 def cmd_imagination(request: str) -> int:
-    """Open one imagination by id or slug. Convenience alias for
-    `--option-surface imaginations --band card --ids <id>` with id-or-slug
-    resolution and migration lineage rendered inline.
+    """
+    [ACTION]
+    - Teleology: Open one imagination by id or slug. Convenience alias for.
+    - Details: `--option-surface imaginations --band card --ids <id>` with id-or-slug resolution and migration lineage rendered inline.
+    - Reads: Command arguments plus the repository state required by the imagination surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     if not isinstance(request, str) or not request.strip():
         print("ERROR: --imagination requires an imagination_id or slug.", file=__import__("sys").stderr)
@@ -12605,10 +12809,14 @@ def cmd_imagination(request: str) -> int:
 
 
 def cmd_imagination_find(query: str, *, debug: bool = False) -> int:
-    """Search the imagination index for matches across id, slug, title,
-    voice_anchor_summary, primary_substrate_seam, migrated_from_axiom_candidate_ids,
-    and migrated_from_deliverable_ids. Returns a ranked compact list with
-    drilldown commands.
+    """
+    [ACTION]
+    - Teleology: Search the imagination index for matches across id, slug, title,.
+    - Details: voice_anchor_summary, primary_substrate_seam, migrated_from_axiom_candidate_ids, and migrated_from_deliverable_ids. Returns a ranked compact list with drilldown commands.
+    - Reads: Command arguments plus the repository state required by the imagination find surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     import sys as _sys
     if not isinstance(query, str) or not query.strip():
@@ -12719,7 +12927,14 @@ def cmd_imagination_find(query: str, *, debug: bool = False) -> int:
 
 
 def cmd_kind_atlas(*, band: str = "flag", query: str | None = None, ids: str | None = None) -> int:
-    """Emit the rung-0 atlas of artifact kinds before keyword routing."""
+    """
+    [ACTION]
+    - Teleology: Emit the rung-0 atlas of artifact kinds before keyword routing.
+    - Reads: Command arguments plus the repository state required by the kind atlas surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_kind_atlas(state.REPO_ROOT, band=band, query=query, ids=ids)
     payload.setdefault("surface_role", ATLAS_PROJECTION)
     payload.setdefault("first_contact_allowed", False)
@@ -12735,7 +12950,14 @@ def cmd_kind_atlas(*, band: str = "flag", query: str | None = None, ids: str | N
 
 
 def cmd_kind_band_contract_audit() -> int:
-    """Emit a read-only audit of per-kind native navigation contracts."""
+    """
+    [ACTION]
+    - Teleology: Emit a read-only audit of per-kind native navigation contracts.
+    - Reads: Command arguments plus the repository state required by the kind band contract audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_kind_band_contract_audit(state.REPO_ROOT)
     return emit_json(payload)
 
@@ -12785,11 +13007,14 @@ def build_phase_projection_envelope(
     band: str = "card",
     phase_token: str | None = None,
 ) -> dict[str, Any]:
-    """Wrap --phase output in the canonical Rosetta-Stone projection envelope.
-
-    Default --phase emission is unchanged; this builder is invoked only when
-    --output-band <band> opts in. Promotes the legacy nested ``omitted_sections``
-    (inside payload) to the peer-level ``omission_receipt``.
+    """
+    [ACTION]
+    - Teleology: Wrap --phase output in the canonical Rosetta-Stone projection envelope.
+    - Details: Default --phase emission is unchanged; this builder is invoked only when --output-band <band> opts in. Promotes the legacy nested ``omitted_sections`` (inside payload) to the peer-level ``omission_receipt``.
+    - Reads: Input arguments plus repository registries or generated state needed for the phase projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
     """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["phase"]
     if band not in supported:
@@ -13086,12 +13311,14 @@ def build_paper_module_projection_envelope(
     band: str = "card",
     slug: str | None = None,
 ) -> dict[str, Any]:
-    """Wrap paper-module output in the canonical projection envelope (opt-in).
-
-    Default --paper-module emission (full evidence markdown via
-    ``KernelNavigation.build_paper_module_lookup``) remains unchanged. This
-    builder delegates to the existing option-surface adapter so kind-native band
-    semantics (declared in std_paper_module.json) are preserved.
+    """
+    [ACTION]
+    - Teleology: Wrap paper-module output in the canonical projection envelope (opt-in).
+    - Details: Default --paper-module emission (full evidence markdown via ``KernelNavigation.build_paper_module_lookup``) remains unchanged. This builder delegates to the existing option-surface adapter so kind-native band semantics (declared in std_paper_module.json) are preserved.
+    - Reads: Input arguments plus repository registries or generated state needed for the paper module projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
     """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["paper-module"]
     if band not in supported:
@@ -13239,7 +13466,14 @@ def build_paper_module_projection_envelope(
 
 
 def build_info_projection_envelope(*, band: str = "flag") -> dict[str, Any]:
-    """Wrap --info output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --info output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the info projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["info"]
     if band not in supported:
         return _project_unsupported_band(command="--info", band=band, supported=supported)
@@ -13339,7 +13573,14 @@ def build_frontier_projection_envelope(
     band: str = "flag",
     limit: int | None = None,
 ) -> dict[str, Any]:
-    """Wrap --frontier output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --frontier output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the frontier projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["frontier"]
     if band not in supported:
         return _project_unsupported_band(command="--frontier", band=band, supported=supported)
@@ -13425,7 +13666,14 @@ def build_docs_route_projection_envelope(
     band: str = "card",
     request: str = "documentation",
 ) -> dict[str, Any]:
-    """Wrap --docs-route output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --docs-route output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the docs route projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["docs-route"]
     if band not in supported:
         return _project_unsupported_band(command="--docs-route", band=band, supported=supported)
@@ -13699,7 +13947,14 @@ def build_docs_route_projection_envelope(
 # ---------------------------------------------------------------------------
 
 def build_pulse_projection_envelope(*, band: str = "flag") -> dict[str, Any]:
-    """Wrap --pulse output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --pulse output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the pulse projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["pulse"]
     if band not in supported:
         return _project_unsupported_band(command="--pulse", band=band, supported=supported)
@@ -13866,7 +14121,14 @@ def build_working_set_projection_envelope(
     limit: int | None = None,
     anchor: str | None = None,
 ) -> dict[str, Any]:
-    """Wrap --working-set output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --working-set output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the working set projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["working-set"]
     if band not in supported:
         return _project_unsupported_band(command="--working-set", band=band, supported=supported)
@@ -13987,10 +14249,14 @@ def build_working_set_projection_envelope(
 
 
 def build_system_map_projection_envelope(*, band: str = "flag") -> dict[str, Any]:
-    """Wrap --system-map output in the canonical projection envelope (opt-in).
-
-    Reads codex/doctrine/system_map.json directly (the same source cmd_system_map
-    inspects when not delegating to the generator). Does not call the generator.
+    """
+    [ACTION]
+    - Teleology: Wrap --system-map output in the canonical projection envelope (opt-in).
+    - Details: Reads codex/doctrine/system_map.json directly (the same source cmd_system_map inspects when not delegating to the generator). Does not call the generator.
+    - Reads: Input arguments plus repository registries or generated state needed for the system map projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
     """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["system-map"]
     if band not in supported:
@@ -14106,7 +14372,14 @@ def build_session_diagnostics_projection_envelope(
     lens: str = "all",
     last: int = 20,
 ) -> dict[str, Any]:
-    """Wrap --session-diagnostics output in the canonical projection envelope (opt-in)."""
+    """
+    [ACTION]
+    - Teleology: Wrap --session-diagnostics output in the canonical projection envelope (opt-in).
+    - Reads: Input arguments plus repository registries or generated state needed for the session diagnostics projection envelope packet.
+    - Writes: None; builds an in-memory payload.
+    - Guarantee: Returns a deterministic dictionary payload suitable for `emit_json` or a projection wrapper.
+    - Fails: Raises or returns a structured error when required inputs are missing or source payloads cannot be loaded.
+    """
     supported = _COMMAND_OUTPUT_PROJECTION_BANDS["session-diagnostics"]
     if band not in supported:
         return _project_unsupported_band(command="--session-diagnostics", band=band, supported=supported)
@@ -14427,15 +14700,14 @@ def _row_kind_band_summary(kind_id: str) -> dict[str, Any]:
 
 
 def cmd_row(spec: str, *, band: str = "flag") -> int:
-    """Generic --row KIND:ID --band BAND adapter over the option-surface machinery.
-
-    Delegates to ``build_option_surface`` for the requested kind. Refuses
-    requests for bands the option-surface adapter does not actually populate.
-    Does not synthesize context/deep bands. Honors the Phase 09.45 routing-
-    first reversal at the v0 safety level: if the band is not actually emitted
-    by the existing adapter, refuse honestly with kind-native legal_bands and
-    adapter-populated populated_bands sourced from the kind-band contract audit
-    plus the kind atlas — not from the option-surface payload alone.
+    """
+    [ACTION]
+    - Teleology: Generic --row KIND:ID --band BAND adapter over the option-surface machinery.
+    - Details: Delegates to ``build_option_surface`` for the requested kind. Refuses requests for bands the option-surface adapter does not actually populate. Does not synthesize context/deep bands. Honors the Phase 09.45 routing- first reversal at the v0 safety level: if the band is not act...
+    - Reads: Command arguments plus the repository state required by the row surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     raw = str(spec or "").strip()
     if not raw or ":" not in raw:
@@ -14597,13 +14869,27 @@ def cmd_row(spec: str, *, band: str = "flag") -> int:
 
 
 def cmd_command_output_projection_audit() -> int:
-    """Emit the command-output projection audit per std_command_output_projection.json."""
+    """
+    [ACTION]
+    - Teleology: Emit the command-output projection audit per std_command_output_projection.json.
+    - Reads: Command arguments plus the repository state required by the command output projection audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_command_output_projection_audit()
     return emit_json(payload)
 
 
 def cmd_command_output_duplication_audit() -> int:
-    """Emit the report-only semantic duplication audit for projected packets."""
+    """
+    [ACTION]
+    - Teleology: Emit the report-only semantic duplication audit for projected packets.
+    - Reads: Command arguments plus the repository state required by the command output duplication audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_command_output_duplication_audit()
     return emit_json(payload)
 
@@ -14613,49 +14899,135 @@ def cmd_command_output_duplication_audit() -> int:
 # invoked from kernel.py dispatch when args.output_band is set.
 
 def cmd_phase_projection(*, band: str, phase_token: str | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the phase projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the phase projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_phase_projection_envelope(band=band, phase_token=phase_token))
 
 
 def cmd_paper_module_projection(*, band: str, slug: str | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the paper module projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the paper module projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_paper_module_projection_envelope(band=band, slug=slug))
 
 
 def cmd_info_projection(*, band: str) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the info projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the info projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_info_projection_envelope(band=band))
 
 
 def cmd_frontier_projection(*, band: str, limit: int | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the frontier projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the frontier projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_frontier_projection_envelope(band=band, limit=limit))
 
 
 def cmd_docs_route_projection(*, band: str, request: str) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the docs route projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the docs route projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_docs_route_projection_envelope(band=band, request=request))
 
 
 def cmd_pulse_projection(*, band: str) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the pulse projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the pulse projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_pulse_projection_envelope(band=band))
 
 
 def cmd_working_set_projection(*, band: str, limit: int | None = None, anchor: str | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the working set projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the working set projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_working_set_projection_envelope(band=band, limit=limit, anchor=anchor))
 
 
 def cmd_system_map_projection(*, band: str) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the system map projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the system map projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_system_map_projection_envelope(band=band))
 
 
 def cmd_session_diagnostics_projection(*, band: str, lens: str = "all", last: int = 20) -> int:
+    """
+    [ACTION]
+    - Teleology: Emit the session diagnostics projection kernel command surface.
+    - Reads: Command arguments plus the repository state required by the session diagnostics projection surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     return emit_json(build_session_diagnostics_projection_envelope(band=band, lens=lens, last=last))
 
 
 def cmd_navigation_context_rosetta(*, context_budget: int = 1400) -> int:
-    """Emit a read-only Rosetta packet for budgeted context compression."""
+    """
+    [ACTION]
+    - Teleology: Emit a read-only Rosetta packet for budgeted context compression.
+    - Reads: Command arguments plus the repository state required by the navigation context rosetta surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_navigation_context_rosetta(state.REPO_ROOT, context_budget=context_budget)
     return emit_json(payload)
 
 
 def cmd_agent_operating_packet(*, band: str = "summary") -> int:
-    """Emit the generated principle/axiom operating packet in a bounded band."""
+    """
+    [ACTION]
+    - Teleology: Emit the generated principle/axiom operating packet in a bounded band.
+    - Reads: Command arguments plus the repository state required by the agent operating packet surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.agent_operating_packet import (
         build_agent_operating_packet_strip,
         build_agent_principle_lens,
@@ -14725,7 +15097,14 @@ def cmd_agent_principle_authoring(
     *,
     context_budget: int = 12000,
 ) -> int:
-    """Emit the governed authoring packet for Type A agent principles."""
+    """
+    [ACTION]
+    - Teleology: Emit the governed authoring packet for Type A agent principles.
+    - Reads: Command arguments plus the repository state required by the agent principle authoring surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.agent_operating_packet import (
         build_agent_principle_authoring_packet,
         load_agent_operating_packet,
@@ -14742,7 +15121,14 @@ def cmd_navigation_context_pack(
     context_budget: int = 12000,
     include_transaction_control_plane: bool = False,
 ) -> int:
-    """Emit a task-conditioned, mixed-band navigation context pack."""
+    """
+    [ACTION]
+    - Teleology: Emit a task-conditioned, mixed-band navigation context pack.
+    - Reads: Command arguments plus the repository state required by the navigation context pack surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.navigation_context_pack import build_navigation_context_pack
 
     payload = build_navigation_context_pack(
@@ -14755,7 +15141,14 @@ def cmd_navigation_context_pack(
 
 
 def cmd_navigation_surface_audit(query: str | None = None, *, context_budget: int = 12000) -> int:
-    """Emit read-only diagnostics for navigation route size and contract fit."""
+    """
+    [ACTION]
+    - Teleology: Emit read-only diagnostics for navigation route size and contract fit.
+    - Reads: Command arguments plus the repository state required by the navigation surface audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.navigation_surface_audit import build_navigation_surface_audit
 
     payload = build_navigation_surface_audit(
@@ -14767,7 +15160,14 @@ def cmd_navigation_surface_audit(query: str | None = None, *, context_budget: in
 
 
 def cmd_clusterability_audit(*, context_budget: int = 12000) -> int:
-    """Emit high-cardinality clusterability classification for option surfaces."""
+    """
+    [ACTION]
+    - Teleology: Emit high-cardinality clusterability classification for option surfaces.
+    - Reads: Command arguments plus the repository state required by the clusterability audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.navigation_clusterability import build_navigation_clusterability_audit
 
     payload = build_navigation_clusterability_audit(
@@ -14778,7 +15178,14 @@ def cmd_clusterability_audit(*, context_budget: int = 12000) -> int:
 
 
 def cmd_annex_routing_coverage(*, context_budget: int = 12000) -> int:
-    """Emit annex pattern cluster-key routing coverage diagnostics."""
+    """
+    [ACTION]
+    - Teleology: Emit annex pattern cluster-key routing coverage diagnostics.
+    - Reads: Command arguments plus the repository state required by the annex routing coverage surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.annex_routing_coverage import build_annex_routing_coverage
 
     payload = build_annex_routing_coverage(
@@ -14789,7 +15196,14 @@ def cmd_annex_routing_coverage(*, context_budget: int = 12000) -> int:
 
 
 def cmd_annex_currentness(*, context_budget: int = 12000) -> int:
-    """Emit annex sync-digest currentness and upstream-movement diagnostics."""
+    """
+    [ACTION]
+    - Teleology: Emit annex sync-digest currentness and upstream-movement diagnostics.
+    - Reads: Command arguments plus the repository state required by the annex currentness surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.annex_currentness import build_annex_currentness
 
     payload = build_annex_currentness(
@@ -14800,7 +15214,14 @@ def cmd_annex_currentness(*, context_budget: int = 12000) -> int:
 
 
 def cmd_annex_movement_pressure_map(query: str | None = None, *, context_budget: int = 12000) -> int:
-    """Emit read-only movement-pressure rows for mine_upstream_delta annex jobs."""
+    """
+    [ACTION]
+    - Teleology: Emit read-only movement-pressure rows for mine_upstream_delta annex jobs.
+    - Reads: Command arguments plus the repository state required by the annex movement pressure map surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.annex_movement_pressure_map import build_annex_movement_pressure_map
 
     payload = build_annex_movement_pressure_map(
@@ -14812,7 +15233,14 @@ def cmd_annex_movement_pressure_map(query: str | None = None, *, context_budget:
 
 
 def cmd_annex_navigation_dogfood(query: str | None = None, *, context_budget: int = 12000) -> int:
-    """Emit annex navigation self-use diagnostics over compressed annex surfaces."""
+    """
+    [ACTION]
+    - Teleology: Emit annex navigation self-use diagnostics over compressed annex surfaces.
+    - Reads: Command arguments plus the repository state required by the annex navigation dogfood surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.annex_navigation_dogfood import build_annex_navigation_dogfood
 
     payload = build_annex_navigation_dogfood(
@@ -14824,7 +15252,14 @@ def cmd_annex_navigation_dogfood(query: str | None = None, *, context_budget: in
 
 
 def cmd_surface_authoring_audit(*, context_budget: int = 12000) -> int:
-    """Emit read-only authoring debt for compressed navigation rungs."""
+    """
+    [ACTION]
+    - Teleology: Emit read-only authoring debt for compressed navigation rungs.
+    - Reads: Command arguments plus the repository state required by the surface authoring audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.surface_authoring_audit import build_surface_authoring_audit
 
     payload = build_surface_authoring_audit(
@@ -14840,7 +15275,14 @@ def cmd_latency_seed_digest(
     include_git: bool = True,
     output_format: str = "json",
 ) -> int:
-    """Emit the compact first-contact packet for latency seed coordination."""
+    """
+    [ACTION]
+    - Teleology: Emit the compact first-contact packet for latency seed coordination.
+    - Reads: Command arguments plus the repository state required by the latency seed digest surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.latency_seed_digest import build_latency_seed_digest, render_markdown
 
     payload = build_latency_seed_digest(
@@ -14989,7 +15431,14 @@ def cmd_command_profile(
     phase_token: str | None = None,
     context_pack_query: str | None = None,
 ) -> int:
-    """Emit a compact timing packet for first-contact command surfaces."""
+    """
+    [ACTION]
+    - Teleology: Emit a compact timing packet for first-contact command surfaces.
+    - Reads: Command arguments plus the repository state required by the command profile surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     surface = _infer_command_profile_surface(
         requested_surface,
         entry_task=entry_task,
@@ -15659,11 +16108,14 @@ def cmd_entry_ladder(
     context_budget: int = 12000,
     metabolism_profile: str = "quick",
 ) -> int:
-    """Profile the actual entry ladder: --entry plus the first follow-up command it routes to.
-
-    A cheap entry packet that routes immediately to an expensive follow-up still
-    reproduces the original command-substrate stampede. This surface measures
-    both steps in one in-process run.
+    """
+    [ACTION]
+    - Teleology: Profile the actual entry ladder: --entry plus the first follow-up command it routes to.
+    - Details: A cheap entry packet that routes immediately to an expensive follow-up still reproduces the original command-substrate stampede. This surface measures both steps in one in-process run.
+    - Reads: Command arguments plus the repository state required by the entry ladder surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     from system.lib.kernel.commands.comprehension_snapshot import build_entry_packet
 
@@ -15761,11 +16213,14 @@ def cmd_entry_ladder(
 
 
 def cmd_command_output_read(rel_path: str, *, band: str = "summary") -> int:
-    """Read a sidecar payload from `state/command_outputs/` bounded to a band.
-
-    The sidecar receipt advertises this surface so concurrent agents can drill
-    in without dumping the full payload through their tool host buffer. Path
-    is restricted to `state/command_outputs/` to keep the read surface small.
+    """
+    [ACTION]
+    - Teleology: Read a sidecar payload from `state/command_outputs/` bounded to a band.
+    - Details: The sidecar receipt advertises this surface so concurrent agents can drill in without dumping the full payload through their tool host buffer. Path is restricted to `state/command_outputs/` to keep the read surface small.
+    - Reads: Command arguments plus the repository state required by the command output read surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     if not rel_path:
         return emit_json_with_code(
@@ -15957,13 +16412,14 @@ def cmd_navigation_metabolism(
     context_budget: int = 12000,
     metabolism_profile: str = "quick",
 ) -> int:
-    """Emit the unified navigation/compression ratchet ledger.
-
-    The command-surface default is `quick` to keep concurrent agents off the
-    expensive full ledger. Callers that explicitly want the rich audit shape
-    must pass `metabolism_profile="full"`. The library builder
-    `build_navigation_metabolism_ledger` keeps its own legacy default for
-    direct internal callers.
+    """
+    [ACTION]
+    - Teleology: Emit the unified navigation/compression ratchet ledger.
+    - Details: The command-surface default is `quick` to keep concurrent agents off the expensive full ledger. Callers that explicitly want the rich audit shape must pass `metabolism_profile="full"`. The library builder `build_navigation_metabolism_ledger` keeps its own legacy default for di...
+    - Reads: Command arguments plus the repository state required by the navigation metabolism surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
     """
     profile = str(metabolism_profile or "quick").strip().lower() or "quick"
     timeout_ms = _navigation_metabolism_timeout_ms(profile)
@@ -16024,7 +16480,14 @@ def cmd_coverage_enforcement_matrix(
     *,
     context_budget: int = 12000,
 ) -> int:
-    """Emit per-kind coverage-first enforcement status and process pressure."""
+    """
+    [ACTION]
+    - Teleology: Emit per-kind coverage-first enforcement status and process pressure.
+    - Reads: Command arguments plus the repository state required by the coverage enforcement matrix surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.navigation_coverage_matrix import build_coverage_enforcement_matrix
 
     payload = build_coverage_enforcement_matrix(
@@ -16041,7 +16504,14 @@ def cmd_organisation_control_plane(
     next_slice: int = 5,
     band: str = "full",
 ) -> int:
-    """Emit lane-level organisation state and ranked next actions."""
+    """
+    [ACTION]
+    - Teleology: Emit lane-level organisation state and ranked next actions.
+    - Reads: Command arguments plus the repository state required by the organisation control plane surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.organisation_control_plane import (
         build_organisation_control_plane,
         build_organisation_control_plane_card,
@@ -16067,7 +16537,14 @@ def cmd_organisation_control_plane(
 
 
 def cmd_entrypoint_health() -> int:
-    """Emit the compact entrypoint budget and first-contact health scanner."""
+    """
+    [ACTION]
+    - Teleology: Emit the compact entrypoint budget and first-contact health scanner.
+    - Reads: Command arguments plus the repository state required by the entrypoint health surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.entrypoint_health import build_entrypoint_health
 
     return emit_json(build_entrypoint_health(state.REPO_ROOT))
@@ -16079,7 +16556,14 @@ def cmd_navigation_fitness(
     context_budget: int = 12000,
     fitness_mode: str = "library",
 ) -> int:
-    """Emit cold-task navigation sufficiency and latency fitness metrics."""
+    """
+    [ACTION]
+    - Teleology: Emit cold-task navigation sufficiency and latency fitness metrics.
+    - Reads: Command arguments plus the repository state required by the navigation fitness surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.navigation_fitness import build_navigation_fitness
 
     payload = build_navigation_fitness(
@@ -16100,7 +16584,14 @@ def cmd_dynamic_paper_lattice(
     edge_neighborhood: int = 1,
     context_budget: int = 12000,
 ) -> int:
-    """Emit a live source-derived dynamic paper lattice exemplar."""
+    """
+    [ACTION]
+    - Teleology: Emit a live source-derived dynamic paper lattice exemplar.
+    - Reads: Command arguments plus the repository state required by the dynamic paper lattice surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     from system.lib.dynamic_paper_lattice import DEFAULT_SLUG, build_dynamic_paper_lattice
 
     payload = build_dynamic_paper_lattice(
@@ -16177,7 +16668,14 @@ def cmd_facts(
     band: str = "flag",
     ambiguous_tag: str | None = None,
 ) -> int:
-    """Emit derived facts through the generated state-axis artifact."""
+    """
+    [ACTION]
+    - Teleology: Emit derived facts through the generated state-axis artifact.
+    - Reads: Command arguments plus the repository state required by the facts surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     if ambiguous_tag:
         return emit_json_with_code(
             {
@@ -16289,7 +16787,14 @@ def cmd_facts(
 
 
 def cmd_fact(fact_id: str) -> int:
-    """Emit one derived fact by id."""
+    """
+    [ACTION]
+    - Teleology: Emit one derived fact by id.
+    - Reads: Command arguments plus the repository state required by the fact surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_fact_hologram(repo_root=state.REPO_ROOT)
     ledger = payload["ledger"]
     facts = fact_by_id(ledger)
@@ -16329,7 +16834,14 @@ def cmd_fact(fact_id: str) -> int:
 
 
 def cmd_fact_audit() -> int:
-    """Emit provider audit plus paper-module assertion summary."""
+    """
+    [ACTION]
+    - Teleology: Emit provider audit plus paper-module assertion summary.
+    - Reads: Command arguments plus the repository state required by the fact audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload = build_fact_hologram(repo_root=state.REPO_ROOT)
     navigator = KernelNavigation(state.REPO_ROOT)
     report = navigator.paper_module_validation_report
@@ -16389,7 +16901,14 @@ def cmd_fact_audit() -> int:
 
 
 def cmd_paper_module_facts(slug: str) -> int:
-    """Emit fact assertions and fact findings for one paper module."""
+    """
+    [ACTION]
+    - Teleology: Emit fact assertions and fact findings for one paper module.
+    - Reads: Command arguments plus the repository state required by the paper module facts surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     raw = str(slug or "").strip()
     navigator = KernelNavigation(state.REPO_ROOT)
     report = navigator.paper_module_validation_report
@@ -18129,7 +18648,14 @@ def _compact_raw_seed_projection_theme(row: Mapping[str, Any]) -> dict[str, Any]
 
 
 def cmd_raw_seed_projection_theme(query: str) -> int:
-    """Emit one raw-seed-first projection coverage theme packet."""
+    """
+    [ACTION]
+    - Teleology: Emit one raw-seed-first projection coverage theme packet.
+    - Reads: Command arguments plus the repository state required by the raw seed projection theme surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     raw = str(query or "").strip()
     if not raw:
         return emit_json_with_code(
@@ -18193,7 +18719,14 @@ def cmd_raw_seed_projection_theme(query: str) -> int:
 
 
 def cmd_raw_seed_projection_coverage() -> int:
-    """Emit compact raw-seed projection coverage summary and top theme rows."""
+    """
+    [ACTION]
+    - Teleology: Emit compact raw-seed projection coverage summary and top theme rows.
+    - Reads: Command arguments plus the repository state required by the raw seed projection coverage surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload, source_path, parse_errors = _load_raw_seed_projection_generated(("summary.json", "ledger.json"))
     if payload is None:
         return emit_json(
@@ -18251,7 +18784,14 @@ def cmd_raw_seed_projection_coverage() -> int:
 
 
 def cmd_raw_seed_projection_gap_audit() -> int:
-    """Emit sorted raw-seed projection coverage gaps."""
+    """
+    [ACTION]
+    - Teleology: Emit sorted raw-seed projection coverage gaps.
+    - Reads: Command arguments plus the repository state required by the raw seed projection gap audit surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     payload, source_path, parse_errors = _load_raw_seed_projection_generated(("audit.json", "summary.json", "ledger.json"))
     if payload is None:
         return emit_json(
@@ -19126,7 +19666,14 @@ def cmd_campaign(
     *,
     task_query: str | None = None,
 ) -> int:
-    """Emit the read-only integration campaign packet above phase/lane routing."""
+    """
+    [ACTION]
+    - Teleology: Emit the read-only integration campaign packet above phase/lane routing.
+    - Reads: Command arguments plus the repository state required by the campaign surface.
+    - Writes: JSON or text to stdout; optional sidecar files only when the command exposes an explicit write argument.
+    - Guarantee: Returns a process-style status code after emitting the command payload or structured error.
+    - Fails: Returns non-zero or emits a structured error when required inputs are missing or the delegated builder fails.
+    """
     try:
         packet = build_campaign_packet(
             state.REPO_ROOT,
@@ -19141,7 +19688,14 @@ def cmd_campaign(
 
 
 def cmd_campaign_state_sync(campaign_id: str, *, receipt_id: str | None = None) -> int:
-    """Assimilate one Work Ledger receipt into persisted campaign state."""
+    """
+    [ACTION]
+    - Teleology: Assimilate one Work Ledger receipt into persisted campaign state.
+    - Reads: Campaign state and the referenced Work Ledger receipt.
+    - Writes: Campaign state transition log through `sync_campaign_state_from_receipt`.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     if not receipt_id:
         print("ERROR: --campaign-state-sync requires --receipt td_<id>", file=sys.stderr)
         return 1
@@ -19166,7 +19720,14 @@ def cmd_campaign_dispatch_register(
     source_refs: Sequence[str] | None = None,
     write_scope: Sequence[str] | None = None,
 ) -> int:
-    """Register a candidate campaign dispatch through the transition event log."""
+    """
+    [ACTION]
+    - Teleology: Register a candidate campaign dispatch through the campaign transition event log.
+    - Reads: Campaign id, mission/lane/objective arguments, and campaign state.
+    - Writes: Campaign dispatch registration state.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     if not mission_id:
         print("ERROR: --campaign-dispatch-register requires --mission <mission_id>", file=sys.stderr)
         return 1
@@ -19193,7 +19754,14 @@ def cmd_campaign_dispatch_register(
 
 
 def cmd_hidden_substrate_reconciliation(*, live: bool = False) -> int:
-    """Emit or write the hidden-substrate local-affordance reconciliation report."""
+    """
+    [ACTION]
+    - Teleology: Build or write the hidden-substrate local-affordance reconciliation report.
+    - Reads: Repository affordance state used by the hidden-substrate reconciliation builder.
+    - Writes: Reconciliation report when `live=True`; otherwise stdout only.
+    - Guarantee: Returns the delegated payload or non-zero error code while preserving the governed lane boundary.
+    - Fails: Returns or emits an error when required ids, authors, receipts, or source artifacts are missing.
+    """
     try:
         payload = (
             write_hidden_substrate_affordance_reconciliation(state.REPO_ROOT)

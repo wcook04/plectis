@@ -18,7 +18,7 @@
     "tool_return_code_as_general_proof_claim": false
   },
   "command": "microcosm proof-loop-depth",
-  "created_at": "2026-05-27T00:32:17+00:00",
+  "created_at": "2026-05-28T09:56:57+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -57,19 +57,24 @@
       "source_mutation_authorized": false
     },
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    "cache_action": {
+      "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "status": "actionable"
+    },
     "cache_freshness": {
       "input_refs_exported": false,
-      "input_status": "current",
-      "latest_input_mtime_ns": 1779836214902719178,
-      "receipt_mtime_ns": 1779836346218578812,
+      "input_status": "stale",
+      "latest_input_mtime_ns": 1779959250490061814,
+      "receipt_mtime_ns": 1779954260239335626,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-      "stale_input_count": 0,
-      "status": "current",
+      "stale_input_count": 2,
+      "status": "stale",
       "tracked_input_count": 14
     },
-    "cache_status": "cached_receipt_read",
-    "cached_card_status": "pass",
-    "cached_receipt_bytes": 34613,
+    "cache_status": "stale_cached_receipt",
+    "cached_card_status": "stale_cached_receipt",
+    "cached_receipt_bytes": 34690,
     "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -113,7 +118,7 @@
     "route_component_count": 9,
     "route_id": "formal_prover_context_strategy_gate",
     "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
-    "route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "route_source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
     "safe_to_show": {
       "body_in_receipt": false,
       "credential_equivalent_payloads_omitted": true,

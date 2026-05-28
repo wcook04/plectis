@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 282094,
+      "byte_count": 298118,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 6710,
+      "line_count": 7108,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_body_import",
       "required_anchors": [
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/meta/observability/cli_prompt_trace.py",
       "source_role": "Trace Capsule renderer and provider-session trace projection tool for command/output/edit/test timelines, closeout reports, prompt-cycle windows, and local-only variant artifacts",
-      "source_sha256": "10875d35cef115c568176a62a92a06edfb521e9445d101c9adc4b553a8c9c0c8",
+      "source_sha256": "c0ff9da0c40ba67c26926faa04943e556f0c925188d4f13ebca687fea4a7e938",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
-      "target_sha256": "10875d35cef115c568176a62a92a06edfb521e9445d101c9adc4b553a8c9c0c8"
+      "target_sha256": "c0ff9da0c40ba67c26926faa04943e556f0c925188d4f13ebca687fea4a7e938"
     },
     {
       "anchor_count": 5,

@@ -23,14 +23,14 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "tactic_portfolio_availability_runtime_example",
-  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component tactic_portfolio_availability_probe",
+  "command": "microcosm proof-lab --out receipts/first_wave/verifier_lab_kernel :: component tactic_portfolio_availability_probe",
   "compile_status_counts": {
     "compile_pass": 7,
     "environment_fail": 1
   },
   "copied_source_artifact_count": 13,
   "copied_source_body_artifact_count": 3,
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-05-28T07:44:14+00:00",
   "environment_id": "lean_std_toolchain_20260511_mathlib_absent_probe_v0",
   "error_codes": [],
   "expected_negative_cases": {},

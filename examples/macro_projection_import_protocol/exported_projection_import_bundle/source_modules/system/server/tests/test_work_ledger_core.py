@@ -3235,6 +3235,341 @@ def test_cli_helper_lease_admission_blocks_new_helper_under_host_pressure(
     assert payload["safety"]["no_unknown_owner_killed"] is True
 
 
+def test_cli_resident_pressure_relief_requires_resident_actuator(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "_current_host_pressure_packet",
+        lambda *_args, **_kwargs: {
+            "summary": {
+                "active_agents": 8,
+                "pressure_index": 1.0,
+                "progress_per_pressure": 40.0,
+                "bottleneck_class": "memory_pressure_swap_churn",
+            }
+        },
+    )
+
+    rc = work_ledger_cli.cmd_resident_pressure_relief(
+        SimpleNamespace(
+            process_kind=work_admission.PLAYWRIGHT_MCP,
+            owner_status="active_session",
+            rss_mb_total=512.0,
+            target_owner="codex_session",
+            pressure_mode="degraded",
+            owner_release_result="unsupported",
+            result_note=None,
+            background_loop_kind=None,
+            owner_surface=None,
+            background_loop_result="unsupported",
+            duration_s=600,
+            effective_interval_s=15.0,
+            apply_background_downshift=False,
+            blocked_work_starts=1,
+            blocked_helper_leases=1,
+            workload_mix_changed=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["schema"] == "resident_pressure_relief_command_v1"
+    assert payload["resident_pressure_relief_window"]["verdict"] == "no_resident_actuator"
+    assert payload["safety"]["no_active_session_terminated"] is True
+
+
+def test_cli_resident_pressure_relief_accepts_applied_downshift(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "_current_host_pressure_packet",
+        lambda *_args, **_kwargs: {
+            "summary": {
+                "active_agents": 8,
+                "pressure_index": 1.0,
+                "progress_per_pressure": 40.0,
+                "bottleneck_class": "memory_pressure_swap_churn",
+            }
+        },
+    )
+
+    rc = work_ledger_cli.cmd_resident_pressure_relief(
+        SimpleNamespace(
+            process_kind=work_admission.PLAYWRIGHT_MCP,
+            owner_status="active_session",
+            rss_mb_total=512.0,
+            target_owner="codex_session",
+            pressure_mode="degraded",
+            owner_release_result="accepted",
+            result_note=None,
+            background_loop_kind=work_admission.AGENT_OBSERVABILITY_SAMPLER,
+            owner_surface="system/server/main.py::agent_observability_sampler_loop",
+            background_loop_result="applied",
+            duration_s=600,
+            effective_interval_s=15.0,
+            apply_background_downshift=False,
+            blocked_work_starts=1,
+            blocked_helper_leases=1,
+            workload_mix_changed=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert payload["owner_release_result"]["release_confirmed"] is True
+    assert payload["background_loop_downshift"]["applied"] is True
+    assert payload["resident_pressure_relief_window"]["verdict"] == "pending_recheck"
+
+
+def test_cli_resident_pressure_relief_can_write_downshift_state(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    state_path = tmp_path / "state/performance/background_loop_downshift.json"
+    monkeypatch.setattr(work_ledger_cli, "BACKGROUND_DOWNSHIFT_STATE", state_path)
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "_current_host_pressure_packet",
+        lambda *_args, **_kwargs: {
+            "summary": {
+                "active_agents": 8,
+                "pressure_index": 1.0,
+                "progress_per_pressure": 40.0,
+                "bottleneck_class": "memory_pressure_swap_churn",
+            }
+        },
+    )
+
+    rc = work_ledger_cli.cmd_resident_pressure_relief(
+        SimpleNamespace(
+            process_kind=work_admission.PLAYWRIGHT_MCP,
+            owner_status="active_session",
+            rss_mb_total=512.0,
+            target_owner="codex_session",
+            pressure_mode="degraded",
+            owner_release_result="unsupported",
+            result_note=None,
+            background_loop_kind=work_admission.AGENT_OBSERVABILITY_SAMPLER,
+            owner_surface="system/server/main.py::agent_observability_sampler_loop",
+            background_loop_result="unsupported",
+            duration_s=600,
+            effective_interval_s=15.0,
+            apply_background_downshift=True,
+            blocked_work_starts=1,
+            blocked_helper_leases=1,
+            workload_mix_changed=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+
+    assert rc == 0
+    assert payload["background_downshift_state_path"] == "state/performance/background_loop_downshift.json"
+    assert state["loop_kind"] == work_admission.AGENT_OBSERVABILITY_SAMPLER
+    assert state["result"] == "applied"
+    assert state["effective_interval_s"] == 15.0
+
+
+def test_cli_session_yield_request_appends_owner_visible_bus(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    request_path = tmp_path / "state/performance/session_yield_requests.jsonl"
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_REQUESTS", request_path)
+
+    rc = work_ledger_cli.cmd_session_yield_request(
+        SimpleNamespace(
+            target_session_id="codex-session",
+            request_id=None,
+            target_class="high_helper_footprint_session",
+            requested_action="release_tool_lease",
+            owner_status="active_session",
+            pressure_mode="degraded",
+            result="requested",
+            helper_rss_mb=768.0,
+            recent_progress_units=0.0,
+            idle_age_s=900.0,
+            last_heartbeat_age_s=1200.0,
+            active_claim_count=0,
+            operator_priority_hint=None,
+            result_note=None,
+            dry_run=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+    rows = [json.loads(line) for line in request_path.read_text(encoding="utf-8").splitlines()]
+
+    assert rc == 0
+    assert payload["schema"] == "session_yield_request_command_v1"
+    assert payload["written"] is True
+    assert payload["request_id"].startswith("syr_")
+    assert payload["session_yield_request"]["schema"] == work_admission.SESSION_YIELD_REQUEST_SCHEMA
+    assert payload["session_yield_request"]["request_id"] == payload["request_id"]
+    assert payload["session_pressure_rank"]["rows"][0]["candidate_action"] == "ask_release_tool_lease"
+    assert rows[0]["session_yield_request"]["target_id"] == "codex-session"
+    assert rows[0]["safety"]["no_active_session_terminated"] is True
+
+
+def test_cli_session_yield_request_dry_run_does_not_write_unknown_owner(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    request_path = tmp_path / "state/performance/session_yield_requests.jsonl"
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_REQUESTS", request_path)
+
+    rc = work_ledger_cli.cmd_session_yield_request(
+        SimpleNamespace(
+            target_session_id="unknown-session",
+            request_id=None,
+            target_class="high_helper_footprint_session",
+            requested_action="release_tool_lease",
+            owner_status="unknown_parent",
+            pressure_mode="degraded",
+            result="accepted",
+            helper_rss_mb=768.0,
+            recent_progress_units=0.0,
+            idle_age_s=900.0,
+            last_heartbeat_age_s=1200.0,
+            active_claim_count=0,
+            operator_priority_hint=None,
+            result_note=None,
+            dry_run=True,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["written"] is False
+    assert payload["session_yield_request"]["result"] == "owner_unresolved"
+    assert not request_path.exists()
+
+
+def test_cli_session_yield_result_appends_accepted_applied_result(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    request_path = tmp_path / "state/performance/session_yield_requests.jsonl"
+    result_path = tmp_path / "state/performance/session_yield_results.jsonl"
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_REQUESTS", request_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_RESULTS", result_path)
+
+    rc = work_ledger_cli.cmd_session_yield_request(
+        SimpleNamespace(
+            target_session_id="station",
+            request_id="syr-test",
+            target_class="background_loop_owner",
+            requested_action="lower_poll_rate",
+            owner_status="active_session",
+            pressure_mode="degraded",
+            result="requested",
+            helper_rss_mb=0.0,
+            recent_progress_units=0.0,
+            idle_age_s=0.0,
+            last_heartbeat_age_s=0.0,
+            active_claim_count=0,
+            operator_priority_hint=None,
+            result_note=None,
+            dry_run=False,
+        )
+    )
+    assert rc == 0
+    capsys.readouterr()
+
+    rc = work_ledger_cli.cmd_session_yield_result(
+        SimpleNamespace(
+            request_id="syr-test",
+            target_session_id=None,
+            result="accepted",
+            applied_action="lowered_poll_rate",
+            delivery="visible_to_owner",
+            result_note="Station downshift accepted",
+            dry_run=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+    rows = [json.loads(line) for line in result_path.read_text(encoding="utf-8").splitlines()]
+
+    assert rc == 0
+    assert payload["schema"] == "owner_yield_result_command_v1"
+    assert payload["owner_yield_result"]["accepted"] is True
+    assert payload["owner_yield_result"]["applied"] is True
+    assert rows[0]["owner_yield_result"]["applied_action"] == "lowered_poll_rate"
+    assert rows[0]["safety"]["no_process_signal_sent"] is True
+
+
+def test_cli_session_yield_control_summarizes_pending_and_applied(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    request_path = tmp_path / "state/performance/session_yield_requests.jsonl"
+    result_path = tmp_path / "state/performance/session_yield_results.jsonl"
+    downshift_path = tmp_path / "state/performance/background_loop_downshift.json"
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_REQUESTS", request_path)
+    monkeypatch.setattr(work_ledger_cli, "SESSION_YIELD_RESULTS", result_path)
+    monkeypatch.setattr(work_ledger_cli, "BACKGROUND_DOWNSHIFT_STATE", downshift_path)
+    request_path.parent.mkdir(parents=True, exist_ok=True)
+    pending = work_admission.build_session_yield_request_receipt(
+        target_id="codex-session",
+        request_id="syr-pending",
+        owner_status="active_session",
+    )
+    applied_request = work_admission.build_session_yield_request_receipt(
+        target_id="station",
+        request_id="syr-applied",
+        target_class="background_loop_owner",
+        requested_action="lower_poll_rate",
+        owner_status="active_session",
+    )
+    result = work_admission.build_owner_yield_result_receipt(
+        yield_request=applied_request,
+        result="accepted",
+        applied_action="lowered_poll_rate",
+    )
+    work_ledger_cli._append_jsonl(request_path, {"session_yield_request": pending})
+    work_ledger_cli._append_jsonl(request_path, {"session_yield_request": applied_request})
+    work_ledger_cli._append_jsonl(result_path, {"owner_yield_result": result})
+    downshift_path.write_text(
+        json.dumps(
+            {
+                "schema": "background_loop_downshift_receipt_v1",
+                "loop_kind": "station_polling",
+                "result": "applied",
+                "applied": True,
+                "effective_interval_s": 60.0,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    rc = work_ledger_cli.cmd_session_yield_control(SimpleNamespace(limit=20))
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert payload["schema"] == work_admission.SESSION_YIELD_CONTROL_SURFACE_SCHEMA
+    assert payload["counts"]["pending_request_count"] == 1
+    assert payload["counts"]["applied_result_count"] == 1
+    assert payload["station_downshift_active"] is True
+    assert payload["accepted_actuator_count"] == 2
+
+
 def test_cli_session_preflight_workitem_profiles_expand_shared_spine_claims(
     tmp_path: Path,
     monkeypatch,

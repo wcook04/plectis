@@ -57,7 +57,7 @@
     "verification_mode": "exact_source_digest_line_byte_and_anchor_match"
   },
   "body_in_receipt": false,
-  "bundle_fingerprint": "f59425bc33f5337473f740c381fc83c50dab0ca5959e0b2110b6e94d62b19dd5",
+  "bundle_fingerprint": "3cb52e69ddf20e82b8aaf991ce078701fcde440a73c0464bfafa32a767311267",
   "bundle_id": "public_agent_route_observability_runtime_example",
   "bundle_manifest_schema_version": "agent_route_observability_runtime_exported_observability_bundle_v1",
   "command": "microcosm run examples/runtime_shell/demo_project",
@@ -66,7 +66,7 @@
     "lease_public_observability_runtime"
   ],
   "copied_macro_source_count": 7,
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "debt_retirement": {
     "anti_pattern_debt_decisions": [
       {
@@ -95,7 +95,7 @@
       "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-      "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+      "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
       "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
@@ -114,7 +114,7 @@
       "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
       "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
-      "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+      "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
       "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
       "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54"
@@ -136,7 +136,7 @@
   "fixture_id": "first_wave.agent_route_observability_runtime.exported_observability_bundle",
   "fixture_regression_required_elsewhere": true,
   "freshness_basis": {
-    "basis_digest": "sha256:6efeb4267d6f69fc2c0f12ada64c88b5472ceba91d84df9d75eb76694f1b2d57",
+    "basis_digest": "sha256:90212ad76501c8a28612a754972bfb45a7d7aa197ae5d65c000d4a2b32ca7951",
     "card_schema_version": "agent_route_observability_runtime_observability_bundle_card_v1",
     "input_count": 18,
     "inputs": [
@@ -147,7 +147,7 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
-        "sha256": "sha256:4ea5492406f5df9819a547e131d7c9efe1dc7ffd5c4235fabada1ece2c6d2dfd",
+        "sha256": "sha256:e00e17c8862788e51e4e92c7762cb6e3c7dd759934a39f2f095a145ca25f45d8",
         "size_bytes": 8289
       },
       {
@@ -202,8 +202,8 @@
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
-        "sha256": "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
-        "size_bytes": 11376
+        "sha256": "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
+        "size_bytes": 13229
       },
       {
         "path": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
@@ -435,11 +435,11 @@
       },
       {
         "body_in_receipt": false,
-        "byte_count": 11376,
-        "line_count": 238,
+        "byte_count": 13229,
+        "line_count": 266,
         "material_class": "public_standard_body",
         "path": "source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
-        "sha256": "98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+        "sha256": "752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
         "source_ref": "codex/standards/std_navigation_mechanism_acceptance.json",
         "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json"
       },

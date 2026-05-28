@@ -125,6 +125,9 @@ logger = logging.getLogger("server.world_model")
 
 _READONLY_SNAPSHOT_CACHE_TTL_S = 10.0
 _OPERATIONS_LENS_CACHE_TTL_S = 45.0
+_CODE_MAP_PACKET_CACHE_TTL_S = 60.0
+_BLAST_RADIUS_PACKET_CACHE_TTL_S = 60.0
+_CODE_MAP_PACKET_WAIT_TIMEOUT_S = 90.0
 _OPERATIONS_LENS_COLD_WAIT_S = 0.75
 _OPERATIONS_LENS_SLOW_SOURCE_MS = 750.0
 _OPERATIONS_LENS_CACHE_REL = "state/world_model/operations_lens_snapshot.json"
@@ -10706,11 +10709,7 @@ def _meta_capability_trust(
             }
         )
     nav_counts = navigation.get("counts") if isinstance(navigation.get("counts"), Mapping) else {}
-    nav_status = (
-        navigation.get("projection_status")
-        if isinstance(navigation.get("projection_status"), Mapping)
-        else {}
-    )
+    nav_status = _meta_mapping_or_status(navigation.get("projection_status"))
     return {
         "capability_lanes": {
             "source_path": META_DIAGNOSTICS_CAPABILITY_LANES_PATH,
@@ -10729,7 +10728,7 @@ def _meta_capability_trust(
             "source_path": FRONTEND_NAV_GRAPH_PATH,
             "generated_at": navigation.get("generated_at"),
             "counts": dict(nav_counts),
-            "projection_status": _meta_mapping_or_status(nav_status),
+            "projection_status": nav_status,
             "route_ready": (
                 nav_status.get("status") in {None, "", "populated"}
                 and int(nav_counts.get("pages") or 0) > 0
@@ -17200,7 +17199,8 @@ def launch_operation(
 
 # --- Code Architecture Projection Plane transport (per codeflow_assimilation.md) ---
 
-CODE_MAP_MAX_FILES_CAP = 1000
+CODE_MAP_DEFAULT_MAX_FILES = 2000
+CODE_MAP_MAX_FILES_CAP = 2500
 BLAST_RADIUS_MAX_DEPTH_CAP = 12
 SYSTEM_ATLAS_MAX_ENTITIES_CAP = 1000
 SYSTEM_ATLAS_MAX_DEPTH_CAP = 4
@@ -17234,7 +17234,7 @@ def load_code_map_snapshot(
     repo_root: Path,
     *,
     focus: str | None = None,
-    max_files: int = 300,
+    max_files: int = CODE_MAP_DEFAULT_MAX_FILES,
 ) -> Dict[str, Any]:
     """
     [ACTION]
@@ -17245,12 +17245,53 @@ def load_code_map_snapshot(
     - Fails: Raises ValueError on bad path syntax (NUL/absolute/traversal); all other absences degrade gracefully through the packet's `omission_receipt`.
     """
     normalized_focus = _normalize_projection_path(focus)
-    clamped_max_files = max(1, min(int(max_files or 300), CODE_MAP_MAX_FILES_CAP))
+    clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
+    key = (
+        str(repo_root.resolve()),
+        normalized_focus or "",
+        clamped_max_files,
+        True,
+    )
+    return swr_get(
+        "code_map_packet",
+        key,
+        lambda: _build_code_map_snapshot_uncached(
+            repo_root,
+            focus=normalized_focus,
+            max_files=clamped_max_files,
+        ),
+        ttl_s=_CODE_MAP_PACKET_CACHE_TTL_S,
+        wait_timeout_s=_CODE_MAP_PACKET_WAIT_TIMEOUT_S,
+    )
+
+
+def _build_code_map_snapshot_uncached(
+    repo_root: Path,
+    *,
+    focus: str | None,
+    max_files: int,
+) -> Dict[str, Any]:
+    """Build the CodeMap packet for the SWR cache owner."""
     return build_code_map_packet(
         root=repo_root,
-        focus_path=normalized_focus,
-        max_files=clamped_max_files,
+        focus_path=focus,
+        max_files=max_files,
         include_overlays=True,
+    )
+
+
+def prewarm_code_map_snapshot(repo_root: Path, *, max_files: int = CODE_MAP_DEFAULT_MAX_FILES) -> None:
+    """Start a background warm of the global CodeMap packet."""
+    clamped_max_files = max(1, min(int(max_files or CODE_MAP_DEFAULT_MAX_FILES), CODE_MAP_MAX_FILES_CAP))
+    key = (str(repo_root.resolve()), "", clamped_max_files, True)
+    swr_prewarm(
+        "code_map_packet",
+        key,
+        lambda: _build_code_map_snapshot_uncached(
+            repo_root,
+            focus=None,
+            max_files=clamped_max_files,
+        ),
     )
 
 
@@ -17272,10 +17313,36 @@ def load_blast_radius_snapshot(
     if not normalized_path:
         raise ValueError("path is required")
     clamped_max_depth = max(1, min(int(max_depth or 4), BLAST_RADIUS_MAX_DEPTH_CAP))
+    key = (
+        str(repo_root.resolve()),
+        normalized_path,
+        clamped_max_depth,
+        True,
+    )
+    return swr_get(
+        "blast_radius_packet",
+        key,
+        lambda: _build_blast_radius_snapshot_uncached(
+            repo_root,
+            path=normalized_path,
+            max_depth=clamped_max_depth,
+        ),
+        ttl_s=_BLAST_RADIUS_PACKET_CACHE_TTL_S,
+        wait_timeout_s=_CODE_MAP_PACKET_WAIT_TIMEOUT_S,
+    )
+
+
+def _build_blast_radius_snapshot_uncached(
+    repo_root: Path,
+    *,
+    path: str,
+    max_depth: int,
+) -> Dict[str, Any]:
+    """Build the blast-radius packet for the SWR cache owner."""
     return build_blast_radius_packet(
         root=repo_root,
-        target_path=normalized_path,
-        max_depth=clamped_max_depth,
+        target_path=path,
+        max_depth=max_depth,
         include_system_impact=True,
     )
 

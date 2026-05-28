@@ -11,7 +11,9 @@
     "fixtures/first_wave/verifier_lab_execution_spine/input/transition_leaks_candidate_body.json",
     "fixtures/first_wave/verifier_lab_execution_spine/input/provider_oracle_visible_transition.json",
     "fixtures/first_wave/verifier_lab_execution_spine/input/cp2_candidate_contains_proof_body.json",
-    "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json",
+    "fixtures/first_wave/verifier_lab_execution_spine/input/evolve_mutates_unbounded_source.json"
+  ],
+  "imported_body_inputs": [
     "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json",
     "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py"
   ],

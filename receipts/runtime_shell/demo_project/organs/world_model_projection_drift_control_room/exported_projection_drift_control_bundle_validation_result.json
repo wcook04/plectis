@@ -43,7 +43,7 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "drift_rows": [
     {
       "automatic_doctrine_promotion_authorized": false,
@@ -166,7 +166,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.world_model_projection_drift_control_room",
   "freshness_basis": {
-    "basis_digest": "sha256:fe4b1d8d709d725c099e54cc13eadd319c641297c39671f5bc311f46f2e2e190",
+    "basis_digest": "sha256:3ff8b332d29a67c1a1da183c9baf65262acd00db8ea6738555c62ac96b648f44",
     "card_schema_version": "world_model_projection_drift_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -193,18 +193,18 @@
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_module_manifest.json",
-        "sha256": "sha256:7fc64e4f0b43c9a52b9848298a6a52aa0984f2046775d2e2171b8b71d61e4d28",
+        "sha256": "sha256:860769ad4d64d3a2e1e5bbcc6794c9f99222a40e3f95eaff9d9cfe9125c0513b",
         "size_bytes": 7061
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/world_model.py",
-        "sha256": "sha256:b92629bc80e64edd961fa4d2b8247bf9d75d3868db028c460e8c438c0d4bef6d",
-        "size_bytes": 747225
+        "sha256": "sha256:8c9cbe8e76a93087ec5177393e2381b075c99df03932b2eb6232272eec109ff4",
+        "size_bytes": 749511
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
-        "sha256": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
-        "size_bytes": 353243
+        "sha256": "sha256:21fbf5036b2af69b8bb16ac1b1c966a181e8983d5fda2d62e2b5f72535944858",
+        "size_bytes": 359862
       },
       {
         "path": "examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/tools/meta/observability/view_quality_census.py",
@@ -218,8 +218,8 @@
       },
       {
         "path": "src/microcosm_core/organs/world_model_projection_drift_control_room.py",
-        "sha256": "sha256:f1ebd344ae0bd6f42859619ab8886d93e2746e5d2623bf9876134aecb2f28aab",
-        "size_bytes": 47559
+        "sha256": "sha256:1b2e3c60c4270c785b71bb6adbd383bab1fceedd671474cd6bd85795f453dcea",
+        "size_bytes": 47771
       },
       {
         "path": "core/private_state_forbidden_classes.json",

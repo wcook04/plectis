@@ -47,7 +47,9 @@
     {
       "path": "fixtures/first_wave/undeclared_library_prior_symbol_classifier/input/theorem_correctness_overclaim.json",
       "role": "negative case: classifier claims theorem correctness authority"
-    },
+    }
+  ],
+  "imported_body_inputs": [
     {
       "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
       "role": "source-open body manifest for copied macro reducer code, calibration builder, path-normalized Ring2 run bodies, recipe metrics, and receipt reduction matrix"

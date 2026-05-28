@@ -33,7 +33,7 @@
     "status": "pass",
     "target_job_id": "APPLY_SYNTHETIC_BRIDGE_CONTINUITY_001"
   },
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "dependency_preflight_receipt_ref": "not_required_for_observe_apply_fixture_consumption_only",
   "duplicate_resume_rejection": {
     "duplicate_resume_authorized": false,

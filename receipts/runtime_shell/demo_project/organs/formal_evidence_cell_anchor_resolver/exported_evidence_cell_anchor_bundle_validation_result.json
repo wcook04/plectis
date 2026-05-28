@@ -86,7 +86,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:28+00:00",
+  "created_at": "2026-05-28T09:19:20+00:00",
   "error_codes": [],
   "evidence_anchor_status": "real_ring2_verifier_trace_repair_receipt_refs",
   "evidence_cell_count": 3,
@@ -330,14 +330,14 @@
       "target_ref": "examples/formal_evidence_cell_anchor_resolver/exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/formal_math_research_operations/pilots/erdos257_issue217/formal_evidence_cells.json"
     },
     {
-      "actual_digest": "sha256:566de9b00c32e92adc2786a238056a50056b6003ee99c748704b617124414547",
+      "actual_digest": "sha256:e62cd49e11152cb8ddad20fb262b338a5d91f767a08faf17ff77e578438b1d22",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 89407,
+      "byte_count": 103970,
       "byte_count_matches": true,
       "digest_matches": true,
-      "expected_digest": "sha256:566de9b00c32e92adc2786a238056a50056b6003ee99c748704b617124414547",
-      "line_count": 1337,
+      "expected_digest": "sha256:e62cd49e11152cb8ddad20fb262b338a5d91f767a08faf17ff77e578438b1d22",
+      "line_count": 1590,
       "line_count_matches": true,
       "material_class": "public_macro_pattern_body",
       "missing_required_anchors": [],

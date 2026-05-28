@@ -642,6 +642,8 @@
     "surface_id": "project_route_explanation_causal_chain",
     "compact_observe_command": "microcosm observe <project>",
     "compact_observe_endpoint": "/project/observe",
+    "full_proof_prerequisite_command": "microcosm tour --card <project>",
+    "full_proof_status_rule": "Treat explain as a full first-screen causal-chain proof only after the shared tour card has materialized .microcosm state and the selected-route work transaction; direct explain before project state/work exists can be a partial drilldown.",
     "command": "microcosm explain <project> <selected_route_id>",
     "endpoint": "/project/explain/<route_id>",
     "route_id_source": "microcosm tour --card/tour/compile selected_route_id",
@@ -661,6 +663,7 @@
       "work_transaction_shape",
       "event_refs",
       "evidence_refs",
+      "causal_chain_proof",
       "next_reversible_action",
       "authority_boundary",
       "anti_claim"

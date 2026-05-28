@@ -391,7 +391,7 @@
   "card_schema_version": "pattern_binding_contract_card_v1",
   "command": "microcosm run examples/runtime_shell/demo_project",
   "counts_as_real_substrate_progress": true,
-  "created_at": "2026-05-27T16:52:28+00:00",
+  "created_at": "2026-05-28T09:19:20+00:00",
   "duplicate_pattern_ids": [],
   "error_codes": [],
   "expected_negative_cases": {},
@@ -544,7 +544,7 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779832194904354934,
+      "mtime_ns": 1779931405450974613,
       "path": "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/standards_manifest_v1.std_microcosm_pattern_binding_contract.json",
       "size_bytes": 8940
     },
@@ -562,7 +562,7 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779832336071944704,
+      "mtime_ns": 1779944397149267927,
       "path": "examples/pattern_binding_contract/exported_substrate_bundle/source_module_manifest.json",
       "size_bytes": 9647
     },
@@ -579,7 +579,7 @@
       "size_bytes": 81618
     }
   ],
-  "freshness_digest": "sha256:79d1d049b3f91f0b356ba0465c8a9589263a661143d7b54821dbaefc7622aa33",
+  "freshness_digest": "sha256:845ad6167585392b203f1e720eeee4452ca956ecc3f50f7e1537dac151482ced",
   "freshness_status": "current",
   "input_mode": "exported_substrate_bundle",
   "legacy_runtime_metadata_only_row_count": 2,

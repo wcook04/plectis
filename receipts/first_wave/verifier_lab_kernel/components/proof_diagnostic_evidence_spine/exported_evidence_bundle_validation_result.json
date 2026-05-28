@@ -24,8 +24,9 @@
     "status": "pass"
   },
   "bundle_id": "ring2_proof_diagnostic_evidence_runtime_example",
+  "card_schema_version": "proof_diagnostic_evidence_spine_card_v1",
   "claim_ceiling": "proof_diagnostic_evidence_spine_real_ring2_diagnostic_receipts_not_formal_proof_authority_or_runtime_correctness",
-  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component proof_diagnostic_evidence_spine",
+  "command": "microcosm proof-lab --out receipts/first_wave/verifier_lab_kernel :: component proof_diagnostic_evidence_spine",
   "copied_macro_body_artifact_count": 13,
   "copied_macro_body_artifacts": [
     {
@@ -177,7 +178,7 @@
   "copied_macro_body_missing_files": [],
   "copied_macro_body_missing_target_refs": [],
   "copied_macro_body_unexpected_target_refs": [],
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-05-28T07:44:14+00:00",
   "diagnostic_board_path": null,
   "diagnostic_board_source_authority_rejected": true,
   "diagnostic_row_count": 1,
@@ -192,6 +193,118 @@
   "fixture_id": "first_wave.proof_diagnostic_evidence_spine.exported_evidence_bundle",
   "fixture_regression_required_elsewhere": true,
   "formal_policy_packet_status": "ring2_diagnostic_policy_packet_consumed_without_provider_call",
+  "freshness_basis": [
+    {
+      "exists": true,
+      "mtime_ns": 1779747304213837436,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json",
+      "size_bytes": 13381
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779515324998173555,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/checks.json",
+      "size_bytes": 1763
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779515330250853793,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/diagnostic_rows.json",
+      "size_bytes": 802
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779515341546295034,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/formal_prover_policy_reducer_packet.json",
+      "size_bytes": 913
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779515336417504579,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/provider_advisory_payloads.json",
+      "size_bytes": 1018
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983265857283,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "size_bytes": 371
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983319356166,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/aggregate_report.json",
+      "size_bytes": 2921
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983331714312,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/cost_metrics.json",
+      "size_bytes": 5868
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983358415377,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/failure_taxonomy_report.json",
+      "size_bytes": 496
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983367002896,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_update_candidates.json",
+      "size_bytes": 1104
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983371989621,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/graph_variant.json",
+      "size_bytes": 956
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779717034874181402,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "size_bytes": 37147
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983275844068,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "size_bytes": 3275
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983286039313,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "size_bytes": 5895
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779717034864149194,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "size_bytes": 2144
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779717034869995777,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "size_bytes": 2210
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779746983305994966,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "size_bytes": 908
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779717034857423278,
+      "path": "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/source_artifacts/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "size_bytes": 51229
+    }
+  ],
+  "freshness_digest": "3025b2ff56569fea712418c0571e2d783d25a6f73988ade3ee13af6b9670edea",
+  "freshness_status": "current",
   "input_mode": "exported_evidence_bundle",
   "missing_negative_cases": [],
   "observed_negative_cases": {},
@@ -267,6 +380,7 @@
   "receipt_paths": [
     "receipts/first_wave/verifier_lab_kernel/components/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "rejected_check_ids": [],
   "rejected_count": 0,
   "runtime_correctness_claim_rejected": true,

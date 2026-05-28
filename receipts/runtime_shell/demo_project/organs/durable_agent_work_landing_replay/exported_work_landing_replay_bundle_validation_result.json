@@ -14,13 +14,13 @@
   "body_copied_material_count": 6,
   "bundle_id": "durable_agent_work_landing_replay_runtime_example",
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.durable_agent_work_landing_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:4593763f3616161a189f3c97991eb50ecddc5ed47caa6cf19d9f886124bc0659",
+    "basis_digest": "sha256:907dda8bf120d35ff60f8eda91526fe46b43f63137146f95854b88be4a27c331",
     "card_schema_version": "durable_agent_work_landing_replay_command_card_v1",
     "include_negative": false,
     "input_count": 11,
@@ -47,7 +47,7 @@
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
-        "sha256": "c0d7b743a34dd1507aab5bf7730128d4bb388cb9a3052f0663b7144bf1af043a",
+        "sha256": "fe26b017aee228b286d534b0b7815d1a2a44af36248674d5a7841af8feaeffb1",
         "size_bytes": 10660
       },
       {
@@ -77,8 +77,8 @@
       },
       {
         "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py",
-        "sha256": "68a1398471bb945e8cc833727a9c774a981e6e8882892b72af997173b502a50d",
-        "size_bytes": 153127
+        "sha256": "497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+        "size_bytes": 175121
       }
     ],
     "missing_inputs": [],
@@ -252,12 +252,12 @@
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/control/scoped_commit.py"
       },
       {
-        "actual_sha256": "sha256:68a1398471bb945e8cc833727a9c774a981e6e8882892b72af997173b502a50d",
+        "actual_sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
         "body_in_receipt": false,
-        "line_count": 3832,
+        "line_count": 4345,
         "material_class": "public_macro_ledger_body",
         "module_id": "work_ledger_runtime_claims_source_body_import",
-        "sha256": "sha256:68a1398471bb945e8cc833727a9c774a981e6e8882892b72af997173b502a50d",
+        "sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
         "source_ref": "tools/meta/factory/work_ledger.py",
         "source_to_target_relation": "exact_copy",
         "target_ref": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_modules/tools/meta/factory/work_ledger.py"

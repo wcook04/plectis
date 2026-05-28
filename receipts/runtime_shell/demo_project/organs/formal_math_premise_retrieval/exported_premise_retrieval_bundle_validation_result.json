@@ -139,7 +139,7 @@
     }
   ],
   "copied_material_count": 6,
-  "created_at": "2026-05-27T16:52:28+00:00",
+  "created_at": "2026-05-28T09:19:20+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -183,7 +183,7 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779812707574268167,
+      "mtime_ns": 1779930743549895279,
       "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
       "size_bytes": 9215
     },
@@ -219,18 +219,18 @@
     },
     {
       "exists": true,
-      "mtime_ns": 1779892613598837144,
+      "mtime_ns": 1779949258096337083,
       "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
-      "size_bytes": 44364
+      "size_bytes": 44576
     },
     {
       "exists": true,
-      "mtime_ns": 1779834945899927091,
+      "mtime_ns": 1779947502314961510,
       "path": "src/microcosm_core/private_state_scan.py",
-      "size_bytes": 14975
+      "size_bytes": 15253
     }
   ],
-  "freshness_digest": "sha256:660641b1f6c1cf4b6acbe6edf482bb65ec688da3de0dd18e44c6a3152f70ee45",
+  "freshness_digest": "sha256:cea32e1b097882760c51df3b388d529536e72f2751c85d9113021bba1ba4e0f9",
   "freshness_status": "current",
   "input_mode": "exported_premise_retrieval_bundle",
   "mean_public_retrieval_recall": 1.0,

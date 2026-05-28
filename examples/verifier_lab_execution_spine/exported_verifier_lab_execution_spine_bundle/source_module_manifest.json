@@ -22,9 +22,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:ae31c7d7a5050b5b1a09d40a623f754dde9f4e995523a03829172c48a0b73151",
-      "line_count": 1719,
-      "byte_count": 64163,
+      "sha256": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
+      "line_count": 1723,
+      "byte_count": 64375,
       "required_anchors": [
         "ORGAN_ID = \"verifier_lab_execution_spine\"",
         "def run_execution_bundle",
@@ -33,7 +33,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "execution_spine_packet_body_import",
@@ -59,7 +60,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "execution_spine_lakefile_body_import",
@@ -84,7 +86,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "execution_spine_root_lean_body_import",
@@ -107,7 +110,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "execution_spine_basic_lean_body_import",
@@ -133,7 +137,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
         "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     }
   ],
   "validation_contract_ref": "standards/std_microcosm_verifier_lab_execution_spine.json",

@@ -255,8 +255,8 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
             if os.path.islink(full_path):
                 continue
             try:
-                size = os.path.getsize(full_path)
-            except FileNotFoundError:
+                size = Path(full_path).stat().st_size
+            except (FileNotFoundError, OSError):
                 continue
             rel = name if rel_dir == "." else f"{rel_dir}/{name}"
             rel = rel.replace(os.sep, "/")
@@ -1749,6 +1749,12 @@ def python_lens_card(
             "depth_band_coverage": navigation_assay.get("depth_band_coverage", {}),
             "probe_disposition_counts": navigation_assay.get(
                 "probe_disposition_counts", {}
+            ),
+            "route_utility_curriculum_ref": navigation_assay.get(
+                "route_utility_curriculum_ref"
+            ),
+            "route_utility_ratchet_ref": navigation_assay.get(
+                "route_utility_ratchet_ref"
             ),
             "route_utility_task_count": navigation_assay.get(
                 "route_utility_task_count", 0

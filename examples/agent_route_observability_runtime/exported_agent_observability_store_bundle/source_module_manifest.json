@@ -22,9 +22,9 @@
         "class AgentObservabilitySampler",
         "def ingest_recent_codex_rollouts("
       ],
-      "line_count": 1748,
-      "sha256": "bad71d78c2309f9ad12431b9b94afba1515ce2b2e0f591ca2d9dd13066de8194",
-      "byte_count": 72327,
+      "line_count": 1812,
+      "sha256": "796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
+      "byte_count": 75412,
       "body_in_receipt": false
     },
     {

@@ -68,7 +68,9 @@
     {
       "path": "fixtures/first_wave/durable_agent_work_landing_replay/input/validation_after_commit_attempt.json",
       "role": "negative case: validation recorded after commit attempt"
-    },
+    }
+  ],
+  "imported_body_inputs": [
     {
       "path": "examples/durable_agent_work_landing_replay/exported_work_landing_replay_bundle/source_module_manifest.json",
       "role": "source-open body manifest for copied work-landing/control-plane macro bodies"

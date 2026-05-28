@@ -62,13 +62,13 @@
     "verifier_lab_execution_spine",
     "world_model_projection_drift_control_room"
   ],
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:41+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.standards_meta_diagnostics",
   "freshness_basis": {
-    "basis_digest": "sha256:3686e7d5d1e430457ae713fb3565658e8b05cab29cc56f38f55182cdd2168218",
+    "basis_digest": "sha256:5b47f6d0dc2c308354f44fcc642face7ba1dc9efbfc7d57f126129c99c12f23c",
     "card_schema_version": "standards_meta_diagnostics_command_card_v1",
     "include_negative": false,
     "input_count": 9,
@@ -115,8 +115,8 @@
       },
       {
         "path": "src/microcosm_core/organs/standards_meta_diagnostics.py",
-        "sha256": "957b7cc848974e3972be93c060e6e7d498eb18644f4a9c34047df8de79e261f4",
-        "size_bytes": 46779
+        "sha256": "0ed3c0e61def0e792060632fbe643255a78286c6fbd20804ed9b2e6f28c39c53",
+        "size_bytes": 46991
       }
     ],
     "missing_inputs": [],

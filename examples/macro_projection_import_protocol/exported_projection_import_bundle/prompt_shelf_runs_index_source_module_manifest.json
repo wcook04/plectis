@@ -16,7 +16,7 @@
       "module_id": "prompt_shelf_runs_index_body_import",
       "required_anchors": [
         "Prompt-shelf runs index",
-        "SCHEMA_VERSION = \"1.1.0\"",
+        "SCHEMA_VERSION = \"1.2.0\"",
         "SLOT_DIR_BY_SLOT = {",
         "DEFAULT_REQUIRED_COVERAGE_SLOTS = [\"A0\", \"B1\", \"B2\", \"B3\"]",
         "class RunIndexEntry",

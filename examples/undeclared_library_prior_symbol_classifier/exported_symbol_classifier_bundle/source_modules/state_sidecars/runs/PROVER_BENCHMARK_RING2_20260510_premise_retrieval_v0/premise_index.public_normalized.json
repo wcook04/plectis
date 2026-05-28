@@ -4,7 +4,7 @@
     "oracle_needed_premise_ids_visible_to_lab": false,
     "proof_bodies_in_index": false
   },
-  "local_or_annex_path": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean",
+  "local_or_annex_path": "<lean-toolchain-root>/src/lean",
   "premise_count": 11,
   "premises": [
     {
@@ -22,7 +22,7 @@
         "injective",
         "equality"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Prelude.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Prelude.lean",
       "statement_excerpt": "Nat.succ m = Nat.succ n implies m = n.",
       "theorem_or_def_name": "Nat.succ.inj"
     },
@@ -41,7 +41,7 @@
         "commutative",
         "comm"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
       "statement_excerpt": "m + n = n + m for natural numbers.",
       "theorem_or_def_name": "Nat.add_comm"
     },
@@ -60,7 +60,7 @@
         "associative",
         "assoc"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
       "statement_excerpt": "a + b + c = a + (b + c) for natural numbers.",
       "theorem_or_def_name": "Nat.add_assoc"
     },
@@ -79,7 +79,7 @@
         "recursive",
         "induction"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/Nat/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Nat/Lemmas.lean",
       "statement_excerpt": "n + 0 = n for natural numbers.",
       "theorem_or_def_name": "Nat.add_zero"
     },
@@ -98,7 +98,7 @@
         "negation",
         "double"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/Bool.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/Bool.lean",
       "statement_excerpt": "Double Boolean negation returns the original Boolean.",
       "theorem_or_def_name": "Bool.not_not"
     },
@@ -116,7 +116,7 @@
         "implication",
         "intro"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Prelude.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Prelude.lean",
       "statement_excerpt": "Two implications assemble an iff proof.",
       "theorem_or_def_name": "Iff.intro"
     },
@@ -135,7 +135,7 @@
         "head",
         "tail"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
       "statement_excerpt": "The length of a cons is one more than the tail length.",
       "theorem_or_def_name": "List.length_cons"
     },
@@ -153,7 +153,7 @@
         "append",
         "sum"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
       "statement_excerpt": "The length of appended lists is the sum of their lengths.",
       "theorem_or_def_name": "List.length_append"
     },
@@ -172,7 +172,7 @@
         "compose",
         "function"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
       "statement_excerpt": "Mapping twice is mapping the composed function.",
       "theorem_or_def_name": "List.map_map"
     },
@@ -191,7 +191,7 @@
         "append",
         "or"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
       "statement_excerpt": "Membership in an appended list is membership in either side.",
       "theorem_or_def_name": "List.mem_append"
     },
@@ -209,7 +209,7 @@
         "involution",
         "twice"
       ],
-      "source_ref": "/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/src/lean/Init/Data/List/Lemmas.lean",
+      "source_ref": "<lean-toolchain-root>/src/lean/Init/Data/List/Lemmas.lean",
       "statement_excerpt": "Reversing a list twice returns the original list.",
       "theorem_or_def_name": "List.reverse_reverse"
     }

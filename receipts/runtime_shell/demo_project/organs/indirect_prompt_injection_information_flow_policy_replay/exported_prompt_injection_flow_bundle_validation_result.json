@@ -126,7 +126,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:42+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
@@ -216,7 +216,7 @@
     }
   ],
   "freshness_basis": {
-    "basis_digest": "sha256:9cc36ee888e2708e274642e7a429adc77a640f51c515d3c0a8477910caa9596f",
+    "basis_digest": "sha256:db630451dadd5da604f3253e22e43838d19712c2f9bc4e1741a168a43b638c90",
     "card_schema_version": "indirect_prompt_injection_information_flow_command_card_v1",
     "include_negative": false,
     "input_count": 15,
@@ -263,8 +263,8 @@
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_module_manifest.json",
-        "sha256": "sha256:3509f3ffce530dd0d05b78dfa7cc593b95d8192696d265e37bff303ec02b91af",
-        "size_bytes": 11711
+        "sha256": "sha256:5a75f51a410d3686537a2b4e4a5705afce8078208a6c0e118b0c27b262f38c41",
+        "size_bytes": 11683
       },
       {
         "path": "examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle/source_modules/ai_workflow/state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
@@ -288,8 +288,8 @@
       },
       {
         "path": "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py",
-        "sha256": "sha256:09dca7c1fe0bf203158b7ec5fff4eaa58bdf173bf3a5c442a06d05cddc19c809",
-        "size_bytes": 75729
+        "sha256": "sha256:b7895f94c953dede6f5e30227e6da7b1f9ab96cb6acbce3659f7e499425f4192",
+        "size_bytes": 75941
       },
       {
         "path": "core/private_state_forbidden_classes.json",

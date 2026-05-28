@@ -3013,7 +3013,7 @@ def test_prompt_shelf_runs_index_sources_compile_and_preserve_metadata_boundary_
     compile(source_text, str(source_path), "exec")
     compile(dependency_text, str(dependency_path), "exec")
     compile(test_text, str(test_path), "exec")
-    assert "SCHEMA_VERSION = \"1.1.0\"" in source_text
+    assert "SCHEMA_VERSION = \"1.2.0\"" in source_text
     assert "DEFAULT_REQUIRED_COVERAGE_SLOTS = [\"A0\", \"B1\", \"B2\", \"B3\"]" in source_text
     assert "def _b3_lint_from_raw_event(" in source_text
     assert "def render_coverage(" in source_text

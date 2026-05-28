@@ -22,9 +22,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:2983e0c97d5bbaa57a799d5a6389e5ad29fc37b95165ec1b5d9176c507e71f03",
-      "line_count": 2148,
-      "byte_count": 81149,
+      "sha256": "sha256:43f96d0d0b913e8066b221d50e56bd7417a616396b0118bff4d225a92f0e39da",
+      "line_count": 2177,
+      "byte_count": 82097,
       "required_anchors": [
         "ORGAN_ID = \"verifier_lab_kernel\"",
         "def run"
@@ -32,7 +32,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "corpus_readiness_mathlib_absence_gate_source_body_import",
@@ -46,9 +47,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:837b3f4c0284b7e3c2f62da493d84bd62cf331123de1265440ea0299a0885ce0",
-      "line_count": 1238,
-      "byte_count": 49753,
+      "sha256": "sha256:bb5ff4737c45a8625c46af242f055ec58820fd9ddff6719a3cc02140f2eec41b",
+      "line_count": 1242,
+      "byte_count": 49965,
       "required_anchors": [
         "ORGAN_ID = \"corpus_readiness_mathlib_absence_gate\"",
         "def run"
@@ -56,7 +57,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "lean_std_premise_index_source_body_import",
@@ -70,9 +72,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:919f8a7251d6e2f225feae0fc1a9809b9d9851a981c9d052cf2aa4129fc2d542",
-      "line_count": 935,
-      "byte_count": 35738,
+      "sha256": "sha256:0393760edb21e8c56faa9d388ec5ca6f0f6c34180b6ac303232779ee799d108d",
+      "line_count": 1231,
+      "byte_count": 47702,
       "required_anchors": [
         "ORGAN_ID = \"lean_std_premise_index\"",
         "def run"
@@ -80,7 +82,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "formal_math_premise_retrieval_source_body_import",
@@ -94,9 +97,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:33326c10d9d29f6347f72299c8d1e9ddddb5eda79844ca791b73e97e0ad315f2",
-      "line_count": 1009,
-      "byte_count": 39472,
+      "sha256": "sha256:af6129eca56d2a3b69daaa63b572bf914379747059b9aa94917f0b4e6b5f5cd5",
+      "line_count": 1174,
+      "byte_count": 44576,
       "required_anchors": [
         "ORGAN_ID = \"formal_math_premise_retrieval\"",
         "def run"
@@ -104,7 +107,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "tactic_portfolio_availability_probe_source_body_import",
@@ -118,9 +122,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:a88acda847d72ac2fb5cbe81773aff9f3d803cbc4e6ead691d75e8a620b88973",
-      "line_count": 1271,
-      "byte_count": 51627,
+      "sha256": "sha256:6c9a8a255e7f1c112db9ed7d7e11f4d0cc95d1e185c0633713ad7739724ea592",
+      "line_count": 1275,
+      "byte_count": 51839,
       "required_anchors": [
         "ORGAN_ID = \"tactic_portfolio_availability_probe\"",
         "def run"
@@ -128,7 +132,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "target_shape_tactic_routing_gate_source_body_import",
@@ -142,9 +147,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:61558e3eb4d7b4b1f78d85de7c5d9cfcf8fc8d6bd68bb2bfa3bc841dbdbffe05",
-      "line_count": 1214,
-      "byte_count": 46534,
+      "sha256": "sha256:ba3f05f00588e41df697161a9b5672d1d55c7fe48adaccbe6a7376ee68d2a390",
+      "line_count": 1218,
+      "byte_count": 46746,
       "required_anchors": [
         "ORGAN_ID = \"target_shape_tactic_routing_gate\"",
         "def run"
@@ -152,7 +157,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "formal_math_verifier_trace_repair_loop_source_body_import",
@@ -166,9 +172,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:660cba2fed85d956f0367bf49ffc2f4ea4301b5c260163ac6541dd24e01eaef7",
-      "line_count": 1286,
-      "byte_count": 52442,
+      "sha256": "sha256:ac819a00f86e0b45a793824ba0feaf258cc55fb2519592630e9b2f650e845516",
+      "line_count": 1440,
+      "byte_count": 57222,
       "required_anchors": [
         "ORGAN_ID = \"formal_math_verifier_trace_repair_loop\"",
         "def run"
@@ -176,7 +182,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "ring2_premise_retrieval_precision_recall_harness_source_body_import",
@@ -190,9 +197,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:b6d03ddde3cbc672c8c53177f29b5588e528ec2eda1e0348e7f36b55234388bb",
-      "line_count": 1059,
-      "byte_count": 39782,
+      "sha256": "sha256:fb1c3a0322f2271d63a6e920af446af1588d0ae3d89adabc74722938ca7675bb",
+      "line_count": 1326,
+      "byte_count": 50013,
       "required_anchors": [
         "ORGAN_ID = \"ring2_premise_retrieval_precision_recall_harness\"",
         "def run"
@@ -200,7 +207,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "proof_diagnostic_evidence_spine_source_body_import",
@@ -214,9 +222,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:ec27851699e1e981531f5971a32145a53329dd8c542d84eed7897b426842c46d",
-      "line_count": 1484,
-      "byte_count": 64857,
+      "sha256": "sha256:547a95bf7b22eaf46d5898d4986653469781688d50f31c62b48b20c3334f4134",
+      "line_count": 1716,
+      "byte_count": 73657,
       "required_anchors": [
         "ORGAN_ID = \"proof_diagnostic_evidence_spine\"",
         "def run"
@@ -224,7 +232,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     },
     {
       "module_id": "formal_math_lean_proof_witness_source_body_import",
@@ -238,9 +247,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:957d1fc15a5fe5734411a89dbadf94f640827e6c6ef698f099dbcf1af82ef6d3",
-      "line_count": 1436,
-      "byte_count": 52710,
+      "sha256": "sha256:318ba487256b359f5cec7d1fbee8e2bb0742f759d7a97823717413b740a5db1a",
+      "line_count": 1440,
+      "byte_count": 52922,
       "required_anchors": [
         "ORGAN_ID = \"formal_math_lean_proof_witness\"",
         "def run"
@@ -248,7 +257,8 @@
       "validation_refs": [
         "microcosm_core.organs.verifier_lab_kernel.validate_source_module_imports",
         "tests/test_verifier_lab_kernel.py::test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor"
-      ]
+      ],
+      "required_anchors_present": true
     }
   ],
   "validation_contract_ref": "standards/std_microcosm_verifier_lab_kernel.json",

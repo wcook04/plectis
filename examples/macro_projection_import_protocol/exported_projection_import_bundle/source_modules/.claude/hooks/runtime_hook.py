@@ -2570,6 +2570,7 @@ def main(argv: List[str]) -> int:
 
             from system.lib.egress_compliance import (
                 detect_capture_reflex_tripwire_without_capture,
+                detect_no_op_closeout_without_next_action,
                 detect_permission_gate_without_blocker,
                 detect_residual_deliverable_without_workitem,
                 detect_stale_dirty_snapshot_commit_blocker,
@@ -2600,6 +2601,37 @@ def main(argv: List[str]) -> int:
                         "session-claims --refresh` or `mutation-check --path`; "
                         "if clean/already landed, retire the blocker and proceed "
                         "with scoped landing. If still real, cite the fresh proof."
+                    )
+                    try:
+                        print(
+                            json.dumps(
+                                {"decision": "block", "reason": reason},
+                                ensure_ascii=False,
+                            )
+                        )
+                    except Exception:
+                        pass
+                    return stop_signal_exit
+                no_op_rows = detect_no_op_closeout_without_next_action(last_msg)
+                no_op_violation = next(
+                    (row for row in no_op_rows if row.get("violation")),
+                    None,
+                )
+                if no_op_violation:
+                    tripwire_phrases = list(
+                        no_op_violation.get("matched_tripwire_phrases", [])
+                    )[:3]
+                    reason = (
+                        "No-op closeout egress check (per "
+                        "std_agent_entry_surface.json::common_sense_helpfulness_floor::"
+                        "non_null_pass_yield and std_uppropagation_intake.json::"
+                        "pass_closeout_contract): final response uses null/verify/"
+                        f"settlement language {tripwire_phrases} without durable "
+                        "action, rejected-lane proof, exact claim/policy blocker, "
+                        "capture, or residual-free proof. Continue to patch, capture, "
+                        "sign off, or run the next bounded substrate-care lane; field "
+                        "names like stewardship_checked or next_best_lane_checked do "
+                        "not clear the gate by themselves."
                     )
                     try:
                         print(

@@ -3840,8 +3840,14 @@ def _work_spine_current_next(repo_root: Path, snapshot: dict[str, Any]) -> dict[
         return None
     row = _find_phase_queue_row(queue, work_item_id) or {}
     ledger_item = _task_ledger_work_item_by_id(repo_root, work_item_id)
-    contract_status = _task_ledger_contract_status(ledger_item) if ledger_item else {}
+    source_item = ledger_item or row
+    compact = _compact_task_ledger_work_item(
+        source_item,
+        source_view="frontend_demo_readiness_queue",
+    )
+    contract_status = compact.get("contract_status") if isinstance(compact.get("contract_status"), dict) else {}
     return {
+        **compact,
         "id": work_item_id,
         "title": row.get("title") or ledger_item.get("title"),
         "state": ledger_item.get("state") or row.get("state"),

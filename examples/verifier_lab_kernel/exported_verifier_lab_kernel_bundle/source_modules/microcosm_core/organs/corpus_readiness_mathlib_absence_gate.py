@@ -137,7 +137,11 @@ def _public_root_for_path(path: str | Path) -> Path:
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     for candidate in (start, *start.parents):
-        if candidate.name == "microcosm-substrate":
+        if candidate.name == "microcosm-substrate" or (
+            (candidate / "pyproject.toml").is_file()
+            and (candidate / "src/microcosm_core").is_dir()
+            and (candidate / "core/private_state_forbidden_classes.json").is_file()
+        ):
             return candidate
     return Path.cwd().resolve(strict=False)
 

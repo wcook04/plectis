@@ -642,6 +642,19 @@
       }
     ],
     "review_boundaries": {
+      "standing_private_internal_authorization": {
+        "schema_version": "operator_authorization_policy_v1",
+        "status": "authorized",
+        "source": "operator_standing_private_internal_authorization_2026_05_28",
+        "rule": "Safe scoped private/local/internal work is authorized by default and must not be blocked solely because an organizer row or gate says operator review is required.",
+        "projection_rule": "Task Ledger reports and operator-needed views should expose authorization_blocks_execution=false for private/internal review rows, and reserve authorization_blocks_execution=true for public release, external disclosure, destructive, irreversible, secret, or otherwise task-specific safety boundaries.",
+        "public_release_boundary": "Public push, public deploy, publication, external dissemination, social posting, public demo upload, or recipient send remains not authorized until a fresh explicit public-release instruction is present.",
+        "guardrails": [
+          "Review can still mean priority judgment, duplicate/supersession ambiguity, or signoff evidence; it is not automatically a permission blocker.",
+          "Repo ownership claims, scoped commits, validation, dirty-tree isolation, generated-region builders, and safety checks still apply.",
+          "Public/external/destructive/secret boundaries stay fail-closed."
+        ]
+      },
       "operator_review_required": [
         "promotion into execution priority when priority is contested",
         "rank/rerank commits",

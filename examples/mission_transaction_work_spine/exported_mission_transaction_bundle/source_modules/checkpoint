@@ -6,7 +6,8 @@
 #   ./checkpoint "my note"    custom message
 #   ./checkpoint --dry-run    preview what would be saved
 #   ./checkpoint --status     compact pending summary
-#   ./checkpoint --force      skip safety warnings
+#   ./checkpoint --force      skip safety warnings; with concurrent live sessions,
+#                              message must name dirty paths
 #   ./checkpoint --rescue-ref --message "rescue: dirty-tree bankruptcy snapshot"
 #                              preserve dirt to refs/aiw/rescue/dirty-tree/<run_id>
 #   ./checkpoint --backup-status
@@ -147,7 +148,7 @@ while [[ $# -gt 0 ]]; do
             echo "  ./checkpoint --message \"my note\""
             echo "  ./checkpoint --dry-run    preview what would be saved"
             echo "  ./checkpoint --status     compact pending summary"
-            echo "  ./checkpoint --force      skip safety warnings"
+            echo "  ./checkpoint --force      skip safety warnings; with concurrent live sessions, message must name dirty paths"
             echo "  ./checkpoint --arbiter    allow broad main checkpoint despite active claims/resources"
             echo "  ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\""
             echo "                           write refs/aiw/rescue/dirty-tree/<run_id>; do not update main; do not push"
@@ -168,14 +169,14 @@ while [[ $# -gt 0 ]]; do
 done
 
 checkpoint_guard_main_landing() {
-    if [[ "$DRY_RUN" == "true" || "$ARBITER" == "true" ]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
         return 0
     fi
     if [[ ! -x "./repo-python" || ! -f "tools/meta/control/mission_transaction_preflight.py" ]]; then
         return 0
     fi
     local summary
-    summary="$(./repo-python tools/meta/control/mission_transaction_preflight.py --landing-bankruptcy-summary 2>/dev/null || true)"
+    summary="$(./repo-python tools/meta/control/mission_transaction_preflight.py --repo-root "$REPO_ROOT" --landing-bankruptcy-summary 2>/dev/null || true)"
     if [[ -z "$summary" ]]; then
         return 0
     fi
@@ -205,14 +206,81 @@ print(f"ORPHANED_SESSIONS={orphaned}")
     local ORPHANED_SESSIONS=0
     eval "$decision"
     if [[ "$ACTIVE_CLAIMS" -gt 0 || "$ACTIVE_RESOURCE_LEASES" -gt 0 ]]; then
-        echo -e "${RED}ERROR: broad checkpoint to main refused while active claims/resources exist.${RESET}"
-        echo -e "${YELLOW}Use ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\" or rerun as --arbiter.${RESET}"
-        echo -e "${DIM}active_claims=${ACTIVE_CLAIMS} active_resource_leases=${ACTIVE_RESOURCE_LEASES}${RESET}"
-        exit 1
+        if [[ "$ARBITER" == "true" ]]; then
+            echo -e "${YELLOW}WARNING: --arbiter is overriding active claims/resources for a broad checkpoint.${RESET}"
+            echo -e "${DIM}active_claims=${ACTIVE_CLAIMS} active_resource_leases=${ACTIVE_RESOURCE_LEASES}${RESET}"
+        else
+            echo -e "${RED}ERROR: broad checkpoint to main refused while active claims/resources exist.${RESET}"
+            echo -e "${YELLOW}Use ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\" or rerun as --arbiter.${RESET}"
+            echo -e "${DIM}active_claims=${ACTIVE_CLAIMS} active_resource_leases=${ACTIVE_RESOURCE_LEASES}${RESET}"
+            exit 1
+        fi
     fi
-    if [[ "$EFFECTIVE_ACTIVE_SESSIONS" -gt 0 || "$ORPHANED_SESSIONS" -gt 0 ]]; then
+    if [[ "$EFFECTIVE_ACTIVE_SESSIONS" -gt 1 ]]; then
+        local dirty_paths
+        dirty_paths="$(checkpoint_guard_dirty_paths)"
+        if [[ -n "$dirty_paths" ]]; then
+            if [[ "$FORCE" != "true" ]]; then
+                echo -e "${RED}ERROR: broad checkpoint to main refused while multiple live agent sessions exist.${RESET}"
+                echo -e "${YELLOW}Use ./checkpoint --rescue-ref --message \"rescue: dirty-tree bankruptcy snapshot\", or rerun with --force and a --message that names every dirty path being swept.${RESET}"
+                echo -e "${DIM}effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}${RESET}"
+                echo -e "${DIM}dirty_paths:${RESET}"
+                checkpoint_guard_print_preview "$dirty_paths"
+                exit 1
+            fi
+            local missing_paths
+            missing_paths="$(checkpoint_guard_missing_message_paths "$dirty_paths")"
+            if [[ -n "$missing_paths" ]]; then
+                echo -e "${RED}ERROR: --force broad checkpoint with live agent sessions must enumerate every dirty path in the commit message.${RESET}"
+                echo -e "${YELLOW}Add the missing path(s) to --message, or use rescue-ref instead.${RESET}"
+                echo -e "${DIM}missing from message:${RESET}"
+                checkpoint_guard_print_preview "$missing_paths"
+                exit 1
+            fi
+            echo -e "${YELLOW}WARNING: --force broad checkpoint is sweeping dirty paths while multiple live agent sessions exist.${RESET}"
+            echo -e "${DIM}The commit message enumerates the dirty path manifest.${RESET}"
+        fi
+    elif [[ "$EFFECTIVE_ACTIVE_SESSIONS" -gt 0 || "$ORPHANED_SESSIONS" -gt 0 ]]; then
         echo -e "${YELLOW}WARNING: effective_active_sessions=${EFFECTIVE_ACTIVE_SESSIONS}; orphaned_sessions=${ORPHANED_SESSIONS}.${RESET}"
         echo -e "${DIM}Continuing because no active claims or measurable resource leases are blocking.${RESET}"
+    fi
+}
+
+checkpoint_guard_dirty_paths() {
+    git status --porcelain=v1 --untracked-files=normal | while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        local path="${line:3}"
+        if [[ "$path" == *" -> "* ]]; then
+            path="${path##* -> }"
+        fi
+        path="${path%\"}"
+        path="${path#\"}"
+        [[ -n "$path" ]] && printf '%s\n' "$path"
+    done
+}
+
+checkpoint_guard_missing_message_paths() {
+    local dirty_paths="$1"
+    while IFS= read -r path; do
+        [[ -z "$path" ]] && continue
+        if [[ "$MSG" != *"$path"* ]]; then
+            printf '%s\n' "$path"
+        fi
+    done <<< "$dirty_paths"
+}
+
+checkpoint_guard_print_preview() {
+    local paths="$1"
+    local count=0
+    while IFS= read -r path; do
+        [[ -z "$path" ]] && continue
+        count=$((count + 1))
+        if [[ "$count" -le 20 ]]; then
+            echo -e "${DIM}  ${path}${RESET}"
+        fi
+    done <<< "$paths"
+    if [[ "$count" -gt 20 ]]; then
+        echo -e "${DIM}  ... and $((count - 20)) more${RESET}"
     fi
 }
 
@@ -251,6 +319,15 @@ if [[ "$BACKUP_STATUS" == "true" || "$PRIVATE_BACKUP" == "true" ]]; then
     fi
     "${BACKUP_CMD[@]}"
     exit $?
+fi
+
+# ── Build message before landing guards that may require an explicit path manifest ──
+if [[ -z "$MSG" ]]; then
+    PHASE_PREFIX="$(detect_phase_prefix)"
+    MSG="checkpoint: $(date +"%Y-%m-%d %H:%M")"
+    if [[ -n "$PHASE_PREFIX" ]]; then
+        MSG="${PHASE_PREFIX} ${MSG}"
+    fi
 fi
 
 if [[ "$RESCUE_REF" == "true" ]]; then
@@ -341,15 +418,6 @@ if [[ -n "$LARGE_WARNING" && "$FORCE" != "true" ]]; then
     echo -e "${YELLOW}Use --force to proceed.${RESET}"
     echo -e "${DIM}(no staged changes were left in the shared index — re-run with --force when ready)${RESET}"
     exit 1
-fi
-
-# ── Build message ──
-if [[ -z "$MSG" ]]; then
-    PHASE_PREFIX="$(detect_phase_prefix)"
-    MSG="checkpoint: $(date +"%Y-%m-%d %H:%M")"
-    if [[ -n "$PHASE_PREFIX" ]]; then
-        MSG="${PHASE_PREFIX} ${MSG}"
-    fi
 fi
 
 # ── Summary line ──

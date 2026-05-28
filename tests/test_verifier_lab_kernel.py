@@ -25,7 +25,7 @@ SUBSTRATE_BINDINGS = (
     / "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
 )
 SUBSTRATE_BINDINGS_SHA256 = (
-    "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45"
+    "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee"
 )
 EXPECTED_COMPONENTS = {
     "corpus_readiness_mathlib_absence_gate",

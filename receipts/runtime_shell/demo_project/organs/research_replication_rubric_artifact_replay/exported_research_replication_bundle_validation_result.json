@@ -33,7 +33,7 @@
   "cold_rerun_count": 2,
   "command": "microcosm run examples/runtime_shell/demo_project",
   "copied_source_artifact_count": 3,
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "declared_artifact_hash_ref_count": 2,
   "declared_artifact_hash_refs": [
     "artifacts/model_trace.sha256",

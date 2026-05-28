@@ -85,6 +85,13 @@ SESSION_AMBIGUITY_WINDOW_SECONDS = 120
 SHORT_PROMPT_CHAIN_WORD_THRESHOLD = 25
 TRACE_CAPSULE_CLOSEOUT_CHARS = 2400
 TRACE_CLOSEOUT_COMMAND_LIMIT = 25
+TRACE_CAPSULE_VISIBLE_NOTE_MAX_CHARS = 4000
+TRACE_CAPSULE_COMMAND_RETURN_INLINE_LINES = 36
+TRACE_CAPSULE_COMMAND_RETURN_INLINE_BYTES = 6000
+TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_LINES = 96
+TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_BYTES = 16000
+TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_HEAD = 10
+TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_TAIL = 6
 
 CLAUDE_COMPLETE_STOP_REASONS = {"end_turn", "max_tokens", "stop_sequence", "refusal"}
 CODEX_EXIT_CODE_RE = re.compile(r"Process exited with code\s+(-?\d+)")
@@ -2476,7 +2483,7 @@ def _capsule_diff_preview(old: str, new: str, *, path: str, max_lines: int = 48)
     for line in diff:
         if line.startswith(("---", "+++")):
             continue
-        if line.startswith(("@@", "+", "-")):
+        if line.startswith(("@@", "+", "-", " ")):
             lines.append(_capsule_clean_text(line[:500]))
         if len(lines) >= max_lines:
             diff_sha16 = _sha16("\n".join(diff))
@@ -2547,6 +2554,99 @@ def _capsule_tool_edit_deltas(ev: ToolEvent) -> list[dict[str, Any]]:
             "deletions": 0,
         }]
     return []
+
+
+TRACE_CAPSULE_DIFF_MAX_TOTAL_LINES = 2400
+TRACE_CAPSULE_DIFF_MAX_FILE_LINES = 1200
+
+
+def _capsule_polarity_diff_line(raw_line: Any) -> str:
+    line = _capsule_clean_text(str(raw_line)[:500])
+    if line.startswith("@@"):
+        return line
+    if line.startswith("+") and not line.startswith("+++"):
+        return f"+ | {line[1:]}"
+    if line.startswith("-") and not line.startswith("---"):
+        return f"- | {line[1:]}"
+    if line.startswith(" "):
+        return f"  | {line[1:]}"
+    return line
+
+
+def _capsule_diff_body_lines(
+    raw_lines: list[Any],
+    *,
+    max_file_lines: int = TRACE_CAPSULE_DIFF_MAX_FILE_LINES,
+) -> tuple[list[str], int, str]:
+    clean_lines = [
+        _capsule_polarity_diff_line(line)
+        for line in (raw_lines or [])
+        if str(line or "").strip()
+    ]
+    if len(clean_lines) <= max_file_lines:
+        return clean_lines, 0, ""
+    kept = clean_lines[:max_file_lines]
+    omitted = len(clean_lines) - len(kept)
+    sha16 = _sha16("\n".join(clean_lines))
+    kept.append(f"[diff body truncated; omitted_lines={omitted}; sha16={sha16}]")
+    return kept, omitted, sha16
+
+
+def _capsule_diff_section_lines(
+    edit_rows: list[dict[str, Any]],
+    *,
+    max_total_lines: int = TRACE_CAPSULE_DIFF_MAX_TOTAL_LINES,
+    max_file_lines: int = TRACE_CAPSULE_DIFF_MAX_FILE_LINES,
+) -> list[str]:
+    lines = ["DIFFS"]
+    if not edit_rows:
+        lines.append("none captured")
+        return lines
+
+    path_count = len({str(row.get("path") or "") for row in edit_rows if row.get("path")})
+    additions = sum(int(row.get("additions") or 0) for row in edit_rows)
+    deletions = sum(int(row.get("deletions") or 0) for row in edit_rows)
+    lines.append(
+        f"edited_files_summary: files={path_count} additions=+{additions} deletions=-{deletions} source=edit_delta"
+    )
+    lines.append(
+        f"diff_summary: files={path_count} rows={len(edit_rows)} additions=+{additions} deletions=-{deletions}"
+    )
+
+    emitted_body_lines = 0
+    omitted_file_count = 0
+    omitted_body_lines = 0
+    truncated_sha16s: list[str] = []
+    for index, row in enumerate(edit_rows, start=1):
+        raw_body = row.get("lines") if isinstance(row.get("lines"), list) else []
+        body_lines, file_omitted, file_sha16 = _capsule_diff_body_lines(
+            raw_body,
+            max_file_lines=max_file_lines,
+        )
+        next_header = (
+            f"D{index:03d} {_capsule_clean_text(str(row.get('path') or ''))} "
+            f"+{int(row.get('additions') or 0)} -{int(row.get('deletions') or 0)}"
+        )
+        next_block_cost = 1 + len(body_lines)
+        if emitted_body_lines + next_block_cost > max_total_lines:
+            omitted_file_count = len(edit_rows) - index + 1
+            omitted_body_lines += len(raw_body)
+            if raw_body:
+                truncated_sha16s.append(_sha16("\n".join(str(line) for line in raw_body)))
+            break
+        lines.append(next_header)
+        lines.extend(body_lines or ["[no diff body captured]"])
+        emitted_body_lines += next_block_cost
+        omitted_body_lines += file_omitted
+        if file_sha16:
+            truncated_sha16s.append(file_sha16)
+
+    if omitted_file_count or omitted_body_lines:
+        sha_part = f" sha16={_sha16('|'.join(truncated_sha16s))}" if truncated_sha16s else ""
+        lines.append(
+            f"diff_omission: omitted_files={omitted_file_count} omitted_lines={omitted_body_lines}{sha_part}"
+        )
+    return lines
 
 
 def _trace_paste_body(ev: ToolEvent) -> str:
@@ -3126,7 +3226,8 @@ def _capsule_status(exit_code: int | None, is_error: bool) -> str:
 def _capsule_output_lines(output: str, *, role: str, status: str) -> tuple[list[str], bool]:
     if not output or output.startswith("[no "):
         return (["no captured output"], False)
-    raw_lines = output.strip("\n").splitlines()
+    redacted_output, redaction_hits = _redact_secrets(output)
+    raw_lines = redacted_output.strip("\n").splitlines()
     filtered: list[str] = []
     truncated_line = False
     codex_event_json_run: list[str] = []
@@ -3185,6 +3286,8 @@ def _capsule_output_lines(output: str, *, role: str, status: str) -> tuple[list[
             continue
         filtered.append(_capsule_clean_text(line.rstrip()))
     flush_codex_event_json_run()
+    if redaction_hits:
+        filtered.insert(0, f"[redaction applied: {_capsule_redaction_hit_summary(redaction_hits)}]")
     if not filtered:
         return (["no captured output"], False)
     joined = "\n".join(filtered)
@@ -3235,6 +3338,267 @@ def _capsule_output_lines(output: str, *, role: str, status: str) -> tuple[list[
     omitted = max(0, line_count - head - tail)
     compacted = filtered[:head] + [f"[captured output omitted {omitted} lines; sha16={_sha16(joined)}]"] + filtered[-tail:]
     return (compacted, True)
+
+
+def _capsule_output_is_nested_trace(output: str) -> bool:
+    return bool(output and "TRACE CAPSULE v" in output and "\nSUMMARY\n" in output and "\nTIMELINE\n" in output)
+
+
+def _capsule_command_return_text(output: str) -> tuple[list[str], list[str]]:
+    redacted, hits = _redact_secrets((output or "").strip("\n"))
+    if not redacted:
+        return [], hits
+    lines: list[str] = []
+    codex_event_json_run: list[str] = []
+    transport_re = re.compile(
+        r"^(?:"
+        r"Process exited with code -?\d+|"
+        r"Process running with session ID \d+|"
+        r"with session ID \d+|"
+        r"with code -?\d+|"
+        r"\d+(?:\.\d+)? seconds|"
+        r"Chunk ID: .+|"
+        r"Wall time: .+|"
+        r"Original token count: .+"
+        r")$"
+    )
+
+    def flush_codex_event_json_run() -> None:
+        nonlocal codex_event_json_run
+        if not codex_event_json_run:
+            return
+        if len(codex_event_json_run) == 1:
+            line = codex_event_json_run[0]
+            lines.append(f"[codex event JSON line omitted; chars={len(line)}; sha16={_sha16(line)}]")
+        else:
+            total_chars = sum(len(line) for line in codex_event_json_run)
+            lines.append(
+                "[codex event JSON lines omitted; "
+                f"count={len(codex_event_json_run)} chars={total_chars} "
+                f"first_sha16={_sha16(codex_event_json_run[0])} "
+                f"last_sha16={_sha16(codex_event_json_run[-1])}]"
+            )
+        codex_event_json_run = []
+
+    for line in redacted.splitlines():
+        stripped = line.strip()
+        if transport_re.match(stripped):
+            continue
+        if stripped.startswith('{"id":"agent-event-') or (
+            '"source_runtime":"codex_app"' in stripped and '"payload":' in stripped
+        ):
+            codex_event_json_run.append(line)
+            continue
+        flush_codex_event_json_run()
+        if "data:image/" in line and ";base64," in line:
+            lines.append(f"[image data URI omitted; chars={len(line)}; sha16={_sha16(line)}]")
+            continue
+        if "[reasoning note omitted" in line:
+            lines.append(f"[legacy reasoning omission marker output omitted; chars={len(line)}; sha16={_sha16(line)}]")
+            continue
+        if len(line) > 1400:
+            lines.append(
+                _capsule_clean_text(line[:1100].rstrip())
+                + f" [line truncated {len(line) - 1100} chars; sha16={_sha16(line)}]"
+            )
+        else:
+            lines.append(_capsule_clean_text(line.rstrip()))
+    flush_codex_event_json_run()
+    structural_re = re.compile(
+        r"^(?:TRACE CAPSULE v\d+|SUMMARY|TIMELINE|OMISSIONS|K\d{3}\s+|"
+        r"coverage:|status:|result:|changed:|final_validation:|checks:|terminal_checks:|"
+        r"governance_receipts:|terminal_governance:|diagnostics:|visible_progress:|"
+        r"thinking:|reasoning_digest:|episodes:|validation_progress:|commit:|open:)"
+    )
+    lines = [
+        f"> {line}" if structural_re.match(line.strip()) else line
+        for line in lines
+    ]
+    return lines, hits
+
+
+def _capsule_redaction_hit_summary(hits: list[str]) -> str:
+    if not hits:
+        return "none"
+    counts: dict[str, int] = {}
+    for hit in hits:
+        counts[hit] = counts.get(hit, 0) + 1
+    return ",".join(f"{key}={value}" for key, value in sorted(counts.items()))
+
+
+def _capsule_command_return_reason(
+    *,
+    role: str,
+    status: str,
+    line_count: int,
+    byte_count: int,
+    redacted: bool,
+    nested_trace: bool = False,
+) -> str:
+    if nested_trace:
+        return "duplicate_generated_state"
+    if redacted:
+        return "secret_redaction"
+    if status == "fail":
+        return "failing_output" if (
+            line_count <= TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_LINES
+            and byte_count <= TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_BYTES
+        ) else "large_failing_output"
+    if role in {"test", "gov"}:
+        return "validation_output" if (
+            line_count <= TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_LINES
+            and byte_count <= TRACE_CAPSULE_COMMAND_RETURN_DECISIVE_BYTES
+        ) else "large_validation_output"
+    if line_count <= TRACE_CAPSULE_COMMAND_RETURN_INLINE_LINES and byte_count <= TRACE_CAPSULE_COMMAND_RETURN_INLINE_BYTES:
+        return "small_output"
+    if role in {"boot", "diag", "srch"}:
+        return "size_budget"
+    return "large_output"
+
+
+def _capsule_command_return_disposition(reason: str) -> str:
+    if reason == "secret_redaction":
+        return "redacted"
+    if reason in {"failing_output", "validation_output", "small_output"}:
+        return "inline"
+    return "sidecar"
+
+
+def _capsule_output_payload_block(label: str, body_lines: list[str]) -> list[str]:
+    lines = [f"{label}:"]
+    if not body_lines:
+        lines.append("|")
+        return lines
+    for line in body_lines:
+        lines.append(f"| {line}" if line else "|")
+    return lines
+
+
+def _capsule_command_return_excerpt(lines: list[str]) -> list[str]:
+    head = TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_HEAD
+    tail = TRACE_CAPSULE_COMMAND_RETURN_EXCERPT_TAIL
+    if len(lines) <= head + tail + 1:
+        return lines
+    omitted = len(lines) - head - tail
+    joined = "\n".join(lines)
+    return [
+        *lines[:head],
+        f"[output sidecar excerpt omitted {omitted} lines; sha16={_sha16(joined)}]",
+        *lines[-tail:],
+    ]
+
+
+def _capsule_command_return_sections(
+    renderable: list[tuple[ToolEvent, str, int | None, bool]],
+    *,
+    source_sha16: str,
+    raw_sidecar_available: bool = True,
+) -> tuple[list[str], list[str], dict[str, int]]:
+    rows: list[str] = ["COMMAND_RETURNS"]
+    manifest: list[str] = ["SIDECAR_MANIFEST"]
+    stats = {
+        "commands": len(renderable),
+        "outputs": 0,
+        "inline": 0,
+        "sidecar": 0,
+        "redacted": 0,
+        "no_output": 0,
+        "lost": 0,
+        "accounted": 0,
+    }
+    manifest.append(
+        f"raw_sidecar_source: {'inline_trace_paste' if raw_sidecar_available else 'not_materialized'} "
+        f"sha16={source_sha16}"
+    )
+    manifest.append("server_hidden_reasoning: not_included")
+
+    for idx, wrapped in enumerate(renderable, start=1):
+        ev, output_text, exit_code, is_error = wrapped
+        command_id = f"C{idx:03d}"
+        output = output_text or ""
+        has_output = bool(output and not output.startswith("[no "))
+        status = _capsule_status(exit_code, is_error)
+        role = _capsule_role(ev, _capsule_clean_text(_capsule_command(ev)))
+        exit_part = f" exit={exit_code}" if exit_code is not None else ""
+        handle = (
+            f"raw://trace/{source_sha16}/{command_id}.output"
+            if raw_sidecar_available
+            else f"raw-unavailable://trace/{source_sha16}/{command_id}.output"
+        )
+        if not has_output:
+            stats["no_output"] += 1
+            if ev.output_char_count:
+                stats["lost"] += 1
+            rows.append(
+                f"O{idx:03d} {command_id} {role}{exit_part} no_output lines=0 bytes=0 sha16=none"
+            )
+            rows.extend(_capsule_command_display_lines(_capsule_command(ev)))
+            rows.append("output: none captured")
+            manifest.append(f"{command_id}.output no_output")
+            continue
+
+        stats["outputs"] += 1
+        output_bytes = len(output.encode("utf-8"))
+        output_lines = max(1, len(output.strip("\n").splitlines()))
+        output_sha = _sha16(output)
+        nested_trace = _capsule_output_is_nested_trace(output)
+        if nested_trace:
+            display_lines: list[str] = ["[nested trace capsule output omitted; raw_sidecar=available]"]
+            redaction_hits: list[str] = []
+        else:
+            display_lines, redaction_hits = _capsule_command_return_text(output)
+        reason = _capsule_command_return_reason(
+            role=role,
+            status=status,
+            line_count=output_lines,
+            byte_count=output_bytes,
+            redacted=bool(redaction_hits),
+            nested_trace=nested_trace,
+        )
+        disposition = _capsule_command_return_disposition(reason)
+        stats[disposition] += 1
+        stats["accounted"] += 1
+        if disposition in {"sidecar", "redacted"} and not raw_sidecar_available:
+            stats["lost"] += 1
+        rows.append(
+            f"O{idx:03d} {command_id} {role}{exit_part} {disposition} "
+            f"lines={output_lines} bytes={output_bytes} sha16={output_sha} omission_reason={reason}"
+        )
+        rows.extend(_capsule_command_display_lines(_capsule_command(ev)))
+        if disposition == "inline":
+            rows.extend(_capsule_output_payload_block("output", display_lines))
+        elif disposition == "redacted":
+            rows.append(f"output_sidecar: {handle}")
+            rows.append(f"redaction_hits: {_capsule_redaction_hit_summary(redaction_hits)}")
+            rows.extend(_capsule_output_payload_block("redacted_output", _capsule_command_return_excerpt(display_lines)))
+        else:
+            rows.append(f"output_sidecar: {handle}")
+            rows.extend(_capsule_output_payload_block("excerpt", _capsule_command_return_excerpt(display_lines)))
+        manifest.append(
+            f"{command_id}.output handle={handle} disposition={disposition} "
+            f"lines={output_lines} bytes={output_bytes} sha16={output_sha}"
+        )
+
+    rows.insert(
+        1,
+        "command_return_summary: "
+        f"commands={stats['commands']} outputs={stats['outputs']} inline={stats['inline']} "
+        f"sidecar={stats['sidecar']} redacted={stats['redacted']} "
+        f"no_output={stats['no_output']} lost={stats['lost']}"
+    )
+    rows.insert(
+        2,
+        "no_loss: "
+        f"outputs_total={stats['outputs']} accounted={stats['accounted']} "
+        f"lost_outputs={stats['lost']} status={'pass' if stats['lost'] == 0 else 'fail'}"
+    )
+    manifest.insert(
+        1,
+        "raw_sidecar_coverage: "
+        f"{'complete' if stats['lost'] == 0 else 'partial'} "
+        f"outputs_total={stats['outputs']} accounted={stats['accounted']} lost={stats['lost']}"
+    )
+    return rows, manifest, stats
 
 
 def _capsule_command_surface_lines(command: str) -> list[str]:
@@ -4177,6 +4541,20 @@ def _capsule_reasoning_digest_lines(events: list[CapsuleReasoningEvent]) -> list
     return lines
 
 
+def _capsule_visible_progress_section_lines(events: list[CapsuleReasoningEvent]) -> list[str]:
+    lines = [
+        "VISIBLE_PROGRESS",
+        f"source=app_visible_assistant_messages notes={len(events)}",
+        "server_hidden_reasoning: not_included",
+    ]
+    if not events:
+        lines.append("none captured")
+        return lines
+    for event in events:
+        lines.append(f"{event.note_id} {event.category} {event.text}")
+    return lines
+
+
 def _capsule_compact_id_list(ids: list[str], *, max_items: int = 7) -> str:
     ordered = list(dict.fromkeys([value for value in ids if value]))
     if not ordered:
@@ -4446,8 +4824,11 @@ def render_trace_capsule_text(
             if not text or text in emitted_notes:
                 continue
             emitted_notes.add(text)
-            if len(text) > 700:
-                text = text[:700].rstrip() + f" [note truncated; sha16={_sha16(text)}]"
+            if len(text) > TRACE_CAPSULE_VISIBLE_NOTE_MAX_CHARS:
+                text = (
+                    text[:TRACE_CAPSULE_VISIBLE_NOTE_MAX_CHARS].rstrip()
+                    + f" [visible note truncated; sha16={_sha16(text)}]"
+                )
             note_id = f"N{note_index:03d}"
             category = _capsule_reasoning_category(text)
             reasoning_events.append(CapsuleReasoningEvent(
@@ -4745,10 +5126,15 @@ def render_trace_capsule_text(
         episode_evidence,
         evidence_summary.terminal_check_by_identity,
     )
+    command_return_lines, sidecar_manifest_lines, command_return_stats = _capsule_command_return_sections(
+        renderable,
+        source_sha16=source_sha16,
+        raw_sidecar_available=include_raw_sidecar,
+    )
     header.extend([
         f"prompt: {turn.prompt_sha256_16}",
         f"source: {source_sha16}",
-        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} truncated_outputs={truncated_outputs} raw_sidecar=available",
+        f"coverage: commands={len(renderable)} outputs={commands_with_outputs} edits={len(edit_rows)} checks={len(check_rows)} governance={len(governance_rows)} diagnostics={len(diagnostic_rows)} notes={visible_note_count} truncated_outputs={truncated_outputs} raw_sidecar={'available' if include_raw_sidecar else 'not_materialized'}",
         "",
         "SUMMARY",
         f"status: {status_text}",
@@ -4786,6 +5172,10 @@ def render_trace_capsule_text(
     if commit_summary:
         header.append(f"commit: {commit_summary}")
     header.append("open: none captured" if turn.is_complete else (turn.partial_reason or "trace still in progress"))
+    header.extend(["", *_capsule_diff_section_lines(edit_rows)])
+    header.extend(["", *command_return_lines])
+    header.extend(["", *sidecar_manifest_lines])
+    header.extend(["", *_capsule_visible_progress_section_lines(reasoning_events)])
     prompt_body_included = include_prompt_body and bool((turn.prompt_text or "").strip())
     if prompt_body_included:
         header.extend(["", "PROMPT"])
@@ -4805,7 +5195,9 @@ def render_trace_capsule_text(
     lines.extend([
         "",
         "OMISSIONS",
-        "raw_sidecar: inline_trace_paste",
+        f"raw_sidecar: {'inline_trace_paste' if include_raw_sidecar else 'not_materialized'}",
+        f"raw_sidecar_coverage: {'complete' if command_return_stats['lost'] == 0 else 'partial'}",
+        f"command_output_loss: outputs_total={command_return_stats['outputs']} accounted={command_return_stats['accounted']} lost_outputs={command_return_stats['lost']}",
         f"truncated_outputs: {truncated_outputs}",
         "not_included: server_hidden_reasoning, omitted_provider_bytes_without_sidecar",
         "included: app_visible_thinking_progress",
@@ -4871,6 +5263,12 @@ def render_trace_capsule_text(
         "commit_count": commit_count,
         "closeout_present": closeout_present,
         "truncated_outputs": truncated_outputs,
+        "command_return_count": command_return_stats["outputs"],
+        "command_return_inline_count": command_return_stats["inline"],
+        "command_return_sidecar_count": command_return_stats["sidecar"],
+        "command_return_redacted_count": command_return_stats["redacted"],
+        "command_return_no_output_count": command_return_stats["no_output"],
+        "command_return_lost_count": command_return_stats["lost"],
         "raw_sidecar_text": raw_sidecar_text,
         "raw_sidecar_materialized": include_raw_sidecar,
         "prompt_body_included": prompt_body_included,

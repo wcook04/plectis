@@ -70,6 +70,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     security = security_path.read_text(encoding="utf-8")
     contributing = contributing_path.read_text(encoding="utf-8")
     agents = agents_path.read_text(encoding="utf-8")
+    normalized_contributing = " ".join(contributing.split())
 
     for phrase in (
         "not a production security product",
@@ -90,6 +91,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "make install",
         "make smoke",
         "make ci",
+        ".microcosm/smoke/",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
         "receipts/release/release_export_receipt.json",
         "release_authorized=false",
@@ -107,6 +109,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "ignored `.microcosm/cold_clone_probe.json` evidence",
     ):
         assert phrase in contributing
+    assert "without dumping the full cards into CI logs" in normalized_contributing
 
     for forbidden in (
         "--emit receipts/cold_clone_probe.json",

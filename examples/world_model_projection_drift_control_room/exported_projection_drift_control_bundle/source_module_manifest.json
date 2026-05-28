@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 747503,
+      "byte_count": 749411,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 17328,
+      "line_count": 17395,
       "material_class": "public_macro_tool_body",
       "module_id": "world_model_drift_aggregate_source_body_import",
       "required_anchors": [
@@ -26,17 +26,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/world_model.py",
       "source_role": "Station world-model reducer that composes host-agent dotfile drift, navigation graph drift, and paper-module freshness into the drift_aggregate_v1 attention surface.",
-      "source_sha256": "a4413441f63d8f44fdc199afbc6919e313578068cedaaaee8309ee76df8c512e",
+      "source_sha256": "9b455323dc410e09aa706cade153f3bd2c167d039cfb5cecdb6dc6a0f4955455",
       "target_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/world_model.py",
-      "target_sha256": "a4413441f63d8f44fdc199afbc6919e313578068cedaaaee8309ee76df8c512e"
+      "target_sha256": "9b455323dc410e09aa706cade153f3bd2c167d039cfb5cecdb6dc6a0f4955455"
     },
     {
       "anchor_count": 4,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 354361,
+      "byte_count": 359910,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 8411,
+      "line_count": 8531,
       "material_class": "public_macro_tool_body",
       "module_id": "world_model_drift_endpoint_source_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/main.py",
       "source_role": "FastAPI route that exposes the shared world-model drift_aggregate_v1 payload through /api/drift without making the browser recompute sparse lens counts.",
-      "source_sha256": "2520c3b9accc719da4790b53373a6b4d601e6f2f72c16c376eae430c7f68a819",
+      "source_sha256": "72f681e8c6b447916124344635b95a708f7e1eb02b90b873a3ceed1d9b4bae78",
       "target_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
-      "target_sha256": "2520c3b9accc719da4790b53373a6b4d601e6f2f72c16c376eae430c7f68a819"
+      "target_sha256": "72f681e8c6b447916124344635b95a708f7e1eb02b90b873a3ceed1d9b4bae78"
     },
     {
       "anchor_count": 6,

@@ -1681,6 +1681,60 @@ def test_macro_projection_exported_bundle_validates_runtime_shape(tmp_path: Path
     assert result["public_safe_body_digest_count"] == 239
 
 
+def test_macro_projection_plan_exposes_source_digest_drift(tmp_path: Path) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    source_path = public_root / "src/microcosm_core/macro_tools/agent_execution_trace.py"
+    source_path.write_text(
+        source_path.read_text(encoding="utf-8") + "\n# local digest drift\n",
+        encoding="utf-8",
+    )
+
+    result = preview_import_plan(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        command="pytest",
+    )
+
+    assert result["status"] == "blocked"
+    assert result["finding_count"] >= 1
+    assert result["blocking_surface_ids"] == ["public_safe_body_import_floor"]
+    details = result["blocking_surface_details"]["public_safe_body_import_floor"]
+    assert "MACRO_PROJECTION_PUBLIC_SAFE_BODY_DIGEST_MISMATCH" in details["error_codes"]
+    assert result["status_surfaces"]["public_safe_body_target_status"] == "blocked"
+    assert result["finding_preview"][0]["body_in_receipt"] is False
+
+
+def test_macro_projection_run_routes_exported_bundle_without_traceback(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    result = run(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        tmp_path / "macro_projection_run_compat",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["input_mode"] == "exported_projection_import_bundle"
+    assert result["expected_negative_cases"] == []
+    assert result["compatibility_route"] == {
+        "requested_action": "run",
+        "resolved_action": "run-projection-bundle",
+        "reason": "exported projection bundles do not carry fixture negative-case inputs",
+        "fixture_action": "run",
+        "exported_bundle_action": "run-projection-bundle",
+    }
+    assert result["receipt_paths"] == [
+        str(
+            tmp_path
+            / "macro_projection_run_compat"
+            / "exported_projection_import_bundle_validation_result.json"
+        )
+    ]
+    receipt = json.loads(Path(result["receipt_paths"][0]).read_text(encoding="utf-8"))
+    assert receipt["compatibility_route"] == result["compatibility_route"]
+    assert receipt["receipt_paths"] == result["receipt_paths"]
+
+
 def test_projection_protocol_rejects_claimed_body_without_target_or_real_digest(
     tmp_path: Path,
 ) -> None:

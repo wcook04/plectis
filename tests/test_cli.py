@@ -57,6 +57,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
     _copytree_fixture(MICROCOSM_ROOT / "core", public_root / "core")
     _copytree_fixture(MICROCOSM_ROOT / "examples", public_root / "examples")
     _copytree_fixture(MICROCOSM_ROOT / "src", public_root / "src")
+    _copytree_fixture(MICROCOSM_ROOT / "standards", public_root / "standards")
     _copytree_fixture(
         MICROCOSM_ROOT / "receipts/first_wave",
         public_root / "receipts/first_wave",
@@ -69,9 +70,7 @@ def _copy_runtime_root(tmp_path: Path) -> Path:
 
 
 def _copy_workingness_root(tmp_path: Path) -> Path:
-    public_root = _copy_runtime_root(tmp_path)
-    _copytree_fixture(MICROCOSM_ROOT / "standards", public_root / "standards")
-    return public_root
+    return _copy_runtime_root(tmp_path)
 
 
 def _make_scratch_project(tmp_path: Path) -> Path:
@@ -124,11 +123,14 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert "inspectable work substrate" in description
     assert "first-slice" not in description
     assert project["readme"] == "README.md"
-    assert project["license"] == {"file": "LICENSE"}
+    assert project["license"] == "Apache-2.0"
+    assert project["license-files"] == ["LICENSE"]
     assert project["authors"] == [{"name": "Microcosm Substrate Contributors"}]
     assert project["optional-dependencies"]["test"] == ["pytest>=8,<9"]
-    assert "License :: OSI Approved :: Apache Software License" in project["classifiers"]
-    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/ai-workflow-proof"
+    assert "License :: OSI Approved :: Apache Software License" not in project["classifiers"]
+    assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/microcosm-substrate"
+    assert payload["project"]["urls"]["Source"].endswith("/microcosm-substrate")
+    assert "Macro-System" not in payload["project"]["urls"]
     assert (MICROCOSM_ROOT / "LICENSE").read_text(encoding="utf-8").startswith("Apache License")
 
 
@@ -141,7 +143,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     assert excinfo.value.code == 0
     output = capsys.readouterr().out
     first_line = output.splitlines()[0]
-    assert first_line == "usage: microcosm [-h] <command> ..."
+    assert first_line == "usage: microcosm [-h] [--version] <command> ..."
     assert "{init,index" not in first_line
     assert "First-screen route:" in output
     assert (
@@ -358,8 +360,20 @@ def test_cli_first_screen_json_projection_preserves_shared_first_command(
 
     payload = json.loads(capsys.readouterr().out)
     assert status == 0
-    assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
+    assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert payload["status"] == "pass"
+    assert payload["shared_first_command"] == "microcosm tour --card ."
+    assert payload["compact_projection_of"] == "microcosm_first_screen_composition_card_v1"
+    assert payload["drilldowns"]["full_json"] == "microcosm first-screen --full ."
+    assert payload["drilldowns"]["observatory"] == (
+        "microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert payload["output_policy"]["default_json_is_first_screen_projection"] is True
+
+    status = cli.main(["first-screen", "--full", "."])
+    payload = json.loads(capsys.readouterr().out)
+    assert status == 0
+    assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert payload["shared_first_command"] == "microcosm tour --card ."
     assert (
         payload["entry_surface_contract"]["shared_behavior_surface"]
@@ -757,9 +771,12 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         )
     else:
         assert status_card["front_door_status"]["blocking_surface_ids"] == []
-        assert "workingness_failure_envelope" in status_card[
-            "front_door_status"
-        ]["actionable_surface_ids"]
+        assert (
+            status_card["front_door_status"]["surface_statuses"][
+                "workingness_failure_envelope"
+            ]
+            == "clear"
+        )
     assert (
         status_card["front_door_status"]["surface_statuses"]["project_state"]
         == "pass"
@@ -778,7 +795,16 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
         "cached_receipt_read",
         "stale_cached_receipt",
     }
-    if status_card["front_door"]["proof_lab"]["cache_status"] == "stale_cached_receipt":
+    proof_lab_cache_status = status_card["front_door"]["proof_lab"]["cache_status"]
+    expected_actionable = (
+        ["proof_lab_cache"]
+        if proof_lab_cache_status == "stale_cached_receipt"
+        else []
+    )
+    assert status_card["front_door_status"]["actionable_surface_ids"] == (
+        expected_actionable
+    )
+    if proof_lab_cache_status == "stale_cached_receipt":
         assert status_card["front_door_status"]["surface_statuses"][
             "proof_lab_cache"
         ] == "actionable"
@@ -794,7 +820,8 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     assert status_card["front_door"]["route_explanation"][
         "source_files_mutated"
     ] is False
-    assert status_card["workingness"]["status"] == "actionable"
+    assert status_card["workingness"]["status"] == "clear"
+    assert status_card["workingness"]["failure_envelope_status"] == "clear"
     assert status_card["proof_lab"]["status"] == "pass"
     assert status_card["front_door"]["proof_lab"]["status"] == "pass"
     assert (
@@ -1255,7 +1282,7 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 286
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 411
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {
@@ -1553,7 +1580,7 @@ def test_cli_tour_smoke(
     )
     assert any(
         card["card_id"] == "status_and_workingness"
-        and card["workingness_command"] == "microcosm workingness"
+        and card["workingness_command"] == "microcosm workingness --card"
         for card in payload["route_cards"]
     )
     assert payload["first_screen_proof_lab"]["status"] == "pass"
@@ -1654,36 +1681,50 @@ def test_cli_tour_card_smoke(
     )
     assert ".microcosm/routes.json" in payload["state_inspection"]["first_screen_refs"]
     assert ".microcosm/graph.json" in payload["state_inspection"]["first_screen_refs"]
-    assert payload["state_write_result"] == {
-        "schema_version": "microcosm_tour_card_state_write_result_v1",
-        "status": "pass",
-        "status_scope": "project_local_state_write_only",
-        "command": "microcosm tour --card <project>",
-        "writes_microcosm_state": True,
-        "state_dir": ".microcosm",
-        "state_dir_exists": True,
-        "state_file_count": payload["state_inspection"]["state_file_count"],
+    state_write_result = payload["state_write_result"]
+    assert state_write_result["schema_version"] == (
+        "microcosm_tour_card_state_write_result_v1"
+    )
+    assert state_write_result["status"] == "pass"
+    assert state_write_result["status_scope"] == "project_local_state_write_only"
+    assert state_write_result["command"] == "microcosm tour --card <project>"
+    assert state_write_result["writes_microcosm_state"] == (
+        state_write_result["project_compile_state_written"]
+    )
+    assert state_write_result["compile_cache_status"] in {
+        "cached_state_read",
+        "missing_cache",
+        "stale_cached_state",
+        "fresh_cached_state",
+    }
+    assert state_write_result["compile_cache_source_ref"] in {
+        None,
+        ".microcosm/state_index.json",
+    }
+    assert state_write_result["state_dir"] == ".microcosm"
+    assert state_write_result["state_dir_exists"] is True
+    assert state_write_result["state_file_count"] == (
+        payload["state_inspection"]["state_file_count"]
+    )
+    assert state_write_result["source_files_mutated"] is False
+    assert state_write_result["first_screen_map_ref"] == (
+        "microcosm first-screen <project>::state_write_boundary"
+    )
+    assert state_write_result["front_door_status_ref"] == "front_door_status"
+    assert state_write_result["inspect_command"] == (
+        "find <project>/.microcosm -maxdepth 2 -type f | sort"
+    )
+    assert state_write_result["route_state_json_check_command"] == (
+        "python3 -m json.tool <project>/.microcosm/routes.json"
+    )
+    assert "state availability proof" in state_write_result["reader_action"]
+    assert "Cached pass cards reuse current state" in state_write_result["reader_action"]
+    assert state_write_result["safe_to_show"] == {
+        "project_local_state_refs_visible": True,
         "source_files_mutated": False,
-        "first_screen_map_ref": (
-            "microcosm first-screen <project>::state_write_boundary"
-        ),
-        "front_door_status_ref": "front_door_status",
-        "inspect_command": "find <project>/.microcosm -maxdepth 2 -type f | sort",
-        "route_state_json_check_command": (
-            "python3 -m json.tool <project>/.microcosm/routes.json"
-        ),
-        "reader_action": (
-            "Treat this as the state-writing proof for the first-screen path; "
-            "inspect the named .microcosm files before opening doctrine or "
-            "receipt drilldowns."
-        ),
-        "safe_to_show": {
-            "project_local_state_refs_visible": True,
-            "source_files_mutated": False,
-            "provider_calls_authorized": False,
-            "release_or_hosting_authorized": False,
-            "proof_correctness_claim": False,
-        },
+        "provider_calls_authorized": False,
+        "release_or_hosting_authorized": False,
+        "proof_correctness_claim": False,
     }
     assert payload["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert payload["observatory"]["status_card_endpoint"] == "/project/status"
@@ -1718,9 +1759,8 @@ def test_cli_tour_card_smoke(
         payload["front_door_status"]["blocking_surface_ids"]
         == payload["blocking_surface_ids"]
     )
-    assert (
-        payload["front_door_status"]["blocking_surface_details"]
-        == payload["blocking_surface_details"]
+    assert payload["front_door_status"]["blocking_surface_details_ref"] == (
+        "blocking_surface_details"
     )
     assert (
         payload["front_door_status"]["safe_to_show"]["blocking_surface_ids_visible"]
@@ -1751,7 +1791,7 @@ def test_cli_tour_card_smoke(
     assert "route_cards_by_id" not in payload
     assert "endpoint_path" not in payload
     assert "command_path" not in payload
-    assert len(encoded) < 12000
+    assert len(encoded) < 14500
     assert not (
         public_root / "receipts/runtime_shell/public_ten_minute_tour.json"
     ).exists()

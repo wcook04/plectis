@@ -5220,9 +5220,13 @@ def _standard_compact_mechanisms(data: Mapping[str, Any]) -> list[dict[str, Any]
                     "id": "non_null_pass_yield",
                     "purpose": str(non_null.get("rule") or non_null.get("test") or ""),
                     "forbidden_closeout": str(non_null.get("no_repeated_null_pass_rule") or ""),
+                    "pro_forma_clearance_invalid_rule": str(
+                        non_null.get("pro_forma_clearance_invalid_rule") or ""
+                    ),
                     "resolved_blocker_acceleration_rule": str(
                         non_null.get("resolved_blocker_acceleration_rule") or ""
                     ),
+                    "egress_detector": str(non_null.get("egress_detector") or ""),
                 }
             )
 
@@ -5949,6 +5953,37 @@ def _frontend_view_id(view: dict[str, Any]) -> str:
     return str(view.get("id") or view.get("slug") or view.get("route") or "").strip()
 
 
+def _frontend_view_selector_variants(selector: str) -> list[str]:
+    raw = str(selector or "").strip()
+    if not raw:
+        return []
+    aliases: list[str] = [raw]
+    lowered = raw.lower()
+    aliases.append(lowered)
+
+    compact = re.sub(r"[^a-z0-9]+", "", lowered)
+    if compact:
+        aliases.append(compact)
+
+    words = [
+        part
+        for part in re.split(r"[^A-Za-z0-9]+", raw)
+        if part
+    ]
+    if len(words) > 1:
+        aliases.append(words[0].lower() + "".join(word[:1].upper() + word[1:] for word in words[1:]))
+        aliases.append("_".join(word.lower() for word in words))
+        aliases.append("-".join(word.lower() for word in words))
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for alias in aliases:
+        if alias and alias not in seen:
+            seen.add(alias)
+            deduped.append(alias)
+    return deduped
+
+
 def _frontend_view_title(view: dict[str, Any]) -> str:
     view_id = _frontend_view_id(view)
     return str(view.get("label") or view.get("name") or view.get("title") or view_id).strip()
@@ -5962,6 +5997,34 @@ def _frontend_view_evidence(view: dict[str, Any]) -> dict[str, Any]:
 def _frontend_view_capture(view: dict[str, Any]) -> dict[str, Any]:
     capture = view.get("capture")
     return dict(capture) if isinstance(capture, dict) else {}
+
+
+def _frontend_view_validation_contract(view: dict[str, Any]) -> dict[str, Any]:
+    validation_contract = view.get("validation_contract")
+    return dict(validation_contract) if isinstance(validation_contract, dict) else {}
+
+
+def _frontend_view_validation_summary(view: dict[str, Any]) -> dict[str, Any] | None:
+    validation_contract = _frontend_view_validation_contract(view)
+    if not validation_contract:
+        return None
+    browser_requirement = validation_contract.get("browser_visual_requirement")
+    browser_requirement = browser_requirement if isinstance(browser_requirement, Mapping) else {}
+    return {
+        "schema": validation_contract.get("schema"),
+        "route_class": validation_contract.get("route_class"),
+        "required_lanes": list(validation_contract.get("required_lanes") or []),
+        "browser_visual_requirement": {
+            "status": browser_requirement.get("status"),
+            "lane": browser_requirement.get("lane"),
+            "capture_slug": browser_requirement.get("capture_slug"),
+            "target_view_id": browser_requirement.get("target_view_id"),
+            "direct_route_capture_authoritative": browser_requirement.get(
+                "direct_route_capture_authoritative"
+            ),
+        },
+        "acceptance_command_refs": list(validation_contract.get("acceptance_command_refs") or []),
+    }
 
 
 def _frontend_view_observation_index(repo_root: Path) -> dict[str, Any]:
@@ -6202,6 +6265,25 @@ def _frontend_view_cluster_rows(
             str((ref or {}).get("visual_delta_status") or "missing_packet")
             for ref in observation_refs
         )
+        validation_route_class_counts = Counter(
+            str(
+                (_frontend_view_validation_contract(view).get("route_class"))
+                or "missing_validation_contract"
+            )
+            for view in group_views
+        )
+        validation_browser_status_counts = Counter(
+            str(
+                (
+                    _frontend_view_validation_contract(view).get(
+                        "browser_visual_requirement"
+                    )
+                    or {}
+                ).get("status")
+                or "missing_requirement"
+            )
+            for view in group_views
+        )
         settlement_refs = [
             _frontend_visual_settlement_ref(_frontend_view_id(view), settlement_rows)
             for view in group_views
@@ -6231,6 +6313,12 @@ def _frontend_view_cluster_rows(
                 "capture_group_counts": dict(sorted(capture_group_counts.items())),
                 "screenshot_status_counts": dict(sorted(screenshot_status_counts.items())),
                 "visual_delta_status_counts": dict(sorted(visual_delta_status_counts.items())),
+                "validation_route_class_counts": dict(
+                    sorted(validation_route_class_counts.items())
+                ),
+                "validation_browser_requirement_status_counts": dict(
+                    sorted(validation_browser_status_counts.items())
+                ),
                 "visual_settlement_status_counts": dict(sorted(settlement_status_counts.items())),
                 "semantic_health_counts": dict(sorted(semantic_health_counts.items())),
                 "capture_bound_count": sum(1 for view in group_views if bool(_frontend_view_capture(view))),
@@ -6304,6 +6392,7 @@ def _frontend_view_flag_row(
         "source_ref": (source_component_ref or {}).get("file"),
         "source_line": (source_component_ref or {}).get("line"),
         "source_component_ref": source_component_ref,
+        "validation_contract": _frontend_view_validation_summary(view),
         "view_observation": observation_ref,
         "visual_settlement": settlement_ref,
         "visual_memory": {
@@ -6352,6 +6441,10 @@ def _frontend_view_card_row(
     )
     view_id = row["view_id"]
     capture = _frontend_view_capture(view)
+    validation_contract = _frontend_view_validation_contract(view)
+    validation_matrix = (
+        graph.get("validation_matrix") if isinstance(graph.get("validation_matrix"), Mapping) else {}
+    )
     graph_counts = graph.get("counts") if isinstance(graph.get("counts"), dict) else {}
     source_evidence = graph.get("source_evidence") if isinstance(graph.get("source_evidence"), dict) else {}
     row.update(
@@ -6381,6 +6474,22 @@ def _frontend_view_card_row(
                 "fanout": view.get("fanout_count"),
                 "fanin": view.get("fanin_count"),
             },
+            "validation_contract": validation_contract or None,
+            "validation_matrix": {
+                "schema": validation_matrix.get("schema"),
+                "route_class_counts": dict(
+                    validation_matrix.get("route_class_counts") or {}
+                ),
+                "browser_visual_requirement_status_counts": dict(
+                    validation_matrix.get("browser_visual_requirement_status_counts")
+                    or {}
+                ),
+                "acceptance_commands": list(
+                    validation_matrix.get("acceptance_commands") or []
+                ),
+            }
+            if validation_matrix
+            else None,
             "graph_counts": graph_counts,
             "source_evidence": source_evidence,
             "source_refs": [
@@ -6390,7 +6499,13 @@ def _frontend_view_card_row(
                 *[str(value) for value in source_evidence.values() if value],
             ],
             "adapter_supported_bands": ["cluster_flag", "flag", "card"],
-            "native_graph_facets": ["route", "purpose", "component_tree", "source_capture"],
+            "native_graph_facets": [
+                "route",
+                "purpose",
+                "component_tree",
+                "source_capture",
+                "validation_contract",
+            ],
             "nearest_doctrine": {
                 "ref": str(FRONTEND_NAV_DOCTRINE),
                 "why": "The frontend navigation plane owns the graph semantics; the row card is a browse adapter over state/frontend_navigation/navigation_graph.json.",
@@ -6445,17 +6560,22 @@ def build_frontend_views_option_surface(
     for entry in entries:
         selectors = [
             _frontend_view_id(entry),
+            str(entry.get("slug") or ""),
+            str(entry.get("label") or ""),
+            str(entry.get("name") or ""),
+            str(entry.get("title") or ""),
             str(entry.get("route") or ""),
             str(entry.get("entry_route") or ""),
             *[str(item) for item in list(entry.get("route_aliases") or [])],
         ]
         for selector in selectors:
-            if selector:
-                by_selector.setdefault(selector, entry)
+            for alias in _frontend_view_selector_variants(selector):
+                by_selector.setdefault(alias, entry)
 
     if ids:
         rows_source: list[dict[str, Any]] = []
         missing_ids: list[str] = []
+        resolved_ids: dict[str, str] = {}
         seen: set[str] = set()
         for item in ids:
             entry = by_selector.get(item)
@@ -6463,6 +6583,7 @@ def build_frontend_views_option_surface(
                 missing_ids.append(item)
                 continue
             view_id = _frontend_view_id(entry)
+            resolved_ids[item] = view_id
             if view_id in seen:
                 continue
             seen.add(view_id)
@@ -6470,6 +6591,7 @@ def build_frontend_views_option_surface(
     else:
         rows_source = entries
         missing_ids = []
+        resolved_ids = {}
 
     if band == "cluster_flag":
         rows = _frontend_view_cluster_rows(
@@ -6502,6 +6624,9 @@ def build_frontend_views_option_surface(
             for entry in rows_source
         ]
     graph_counts = graph.get("counts") if isinstance(graph.get("counts"), dict) else {}
+    validation_matrix = (
+        graph.get("validation_matrix") if isinstance(graph.get("validation_matrix"), Mapping) else {}
+    )
     settlement_summary = (
         settlement_index.get("summary") if isinstance(settlement_index.get("summary"), Mapping) else {}
     )
@@ -6516,6 +6641,7 @@ def build_frontend_views_option_surface(
             "mode": "ids" if ids else "all",
             "ids": ids,
             "missing_ids": missing_ids,
+            "resolved_ids": resolved_ids,
         },
         "profile_status": "supported",
         "authority_posture": "standard_owned_projection_not_source_authority",
@@ -6545,6 +6671,19 @@ def build_frontend_views_option_surface(
             "drilldown_by": "shell_group" if band == "cluster_flag" else "view_id",
             "grouping_keys": ["shell_group", "station_group", "kind"] if band == "cluster_flag" else [],
             "graph_counts": graph_counts,
+            "validation_matrix": {
+                "schema": validation_matrix.get("schema"),
+                "route_class_counts": dict(validation_matrix.get("route_class_counts") or {}),
+                "browser_visual_requirement_status_counts": dict(
+                    validation_matrix.get("browser_visual_requirement_status_counts")
+                    or {}
+                ),
+                "acceptance_commands": list(
+                    validation_matrix.get("acceptance_commands") or []
+                ),
+            }
+            if validation_matrix
+            else None,
             "view_observation_index": {
                 "ref": str(FRONTEND_VIEW_OBSERVATION_INDEX),
                 "row_count": len(observation_rows),
@@ -6576,7 +6715,13 @@ def build_frontend_views_option_surface(
             "artifact_kind_first": True,
             "standard_owned_band_rules": True,
             "adapter_supported_bands": ["cluster_flag", "flag", "card"],
-            "native_graph_facets": ["route", "purpose", "component_tree", "source_capture"],
+            "native_graph_facets": [
+                "route",
+                "purpose",
+                "component_tree",
+                "source_capture",
+                "validation_contract",
+            ],
             "native_graph_facets_are_data_not_adapter_support": True,
             "source_graph_reused": str(FRONTEND_NAV_GRAPH),
             "visual_memory_source": str(FRONTEND_VIEW_OBSERVATION_INDEX),

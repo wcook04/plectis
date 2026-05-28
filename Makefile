@@ -1,7 +1,10 @@
 PYTHON ?= python3
 VENV ?= .venv
 VENV_PYTHON ?= $(VENV)/bin/python
+PIP_CACHE_DIR ?= $(VENV)/.pip-cache
+PIP_ENV ?= PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_CACHE_DIR=$(PIP_CACHE_DIR)
 EXPORT_OUT ?= ../microcosm-substrate-export
+SMOKE_OUT ?= .microcosm/smoke
 .DEFAULT_GOAL := help
 PUBLIC_TESTS ?= \
 	tests/test_public_entry_docs.py \
@@ -33,8 +36,8 @@ $(VENV_PYTHON):
 venv: $(VENV_PYTHON)
 
 install: $(VENV_PYTHON)
-	$(VENV_PYTHON) -m pip install --upgrade pip
-	$(VENV_PYTHON) -m pip install -e ".[test]"
+	$(PIP_ENV) $(VENV_PYTHON) -m pip install --upgrade pip
+	$(PIP_ENV) $(VENV_PYTHON) -m pip install -e ".[test]"
 
 test: install
 	PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)
@@ -43,14 +46,16 @@ test-all: install
 	PYTHONPATH=src $(VENV_PYTHON) -m pytest
 
 smoke:
-	PYTHONPATH=src $(PYTHON) -m microcosm_core hello .
-	PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .
-	PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .
-	PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card
-	PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card
-	PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard
-	PYTHONPATH=src $(PYTHON) -m microcosm_core --version
-	PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard
+	@mkdir -p $(SMOKE_OUT)
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core hello . > $(SMOKE_OUT)/hello.txt
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card . > $(SMOKE_OUT)/tour-card.json
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core status --card . > $(SMOKE_OUT)/status-card.json
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card > $(SMOKE_OUT)/authority-card.json
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card > $(SMOKE_OUT)/workingness-card.json
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard > $(SMOKE_OUT)/legibility-scorecard.json
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core --version > $(SMOKE_OUT)/version.txt
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard > $(SMOKE_OUT)/stripping-guard.json
+	@printf 'Microcosm smoke receipts written to %s\n' "$(SMOKE_OUT)"
 
 ci: test smoke
 
@@ -58,5 +63,5 @@ standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force
 
 clean:
-	rm -rf .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
+	rm -rf $(SMOKE_OUT) .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +

@@ -15,7 +15,7 @@
     "trading_authorized": false
   },
   "command": "microcosm prediction-lens",
-  "created_at": "2026-05-28T02:50:50+00:00",
+  "created_at": "2026-05-28T13:42:07+00:00",
   "endpoint": "/prediction",
   "input_refs": {
     "acceptance_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",

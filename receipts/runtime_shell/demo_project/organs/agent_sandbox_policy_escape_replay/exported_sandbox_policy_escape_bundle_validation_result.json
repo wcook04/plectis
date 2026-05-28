@@ -133,14 +133,14 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:42+00:00",
   "error_codes": [],
   "executed_action_count": 2,
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.agent_sandbox_policy_escape_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:e2c85ecb646c5106311cc005bc523a599da83b3caf9aec82dca153fcbede8360",
+    "basis_digest": "sha256:9fc1a21c6ffb81750e5332a4a643796c7f9ca710c7cfc968e975a3b86300054f",
     "card_schema_version": "agent_sandbox_policy_escape_replay_command_card_v1",
     "include_negative": false,
     "input_count": 17,
@@ -222,8 +222,8 @@
       },
       {
         "path": "src/microcosm_core/organs/agent_sandbox_policy_escape_replay.py",
-        "sha256": "sha256:da6a9005dbc54a6d10598567d568683003ea13f41943e9a6fdb8b6d4a84de836",
-        "size_bytes": 70431
+        "sha256": "sha256:6e4f6742315e7a07d630aedd2382d4c5dadd60c9223782e294d03496859519c3",
+        "size_bytes": 70643
       },
       {
         "path": "core/private_state_forbidden_classes.json",

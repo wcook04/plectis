@@ -2462,6 +2462,20 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     return [input_dir / name for name in names]
 
 
+def _has_negative_input_set(input_dir: Path) -> bool:
+    return all((input_dir / name).is_file() for name in NEGATIVE_INPUT_NAMES)
+
+
+def _exported_bundle_run_compatibility_route() -> dict[str, str]:
+    return {
+        "requested_action": "run",
+        "resolved_action": "run-projection-bundle",
+        "reason": "exported projection bundles do not carry fixture negative-case inputs",
+        "fixture_action": "run",
+        "exported_bundle_action": "run-projection-bundle",
+    }
+
+
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     return {
         path.stem: read_json_strict(path)
@@ -2808,8 +2822,7 @@ def _source_ref_file_candidates(source_ref: str, *, public_root: Path | None) ->
     candidates: list[Path] = []
     if public_root is not None:
         candidates.extend([public_root / ref_path, public_root.parent / ref_path])
-    else:
-        candidates.append(Path.cwd() / ref_path)
+    candidates.append(Path.cwd() / ref_path)
     unique: list[Path] = []
     seen: set[str] = set()
     for candidate in candidates:
@@ -4271,6 +4284,13 @@ def run(
         "python -m microcosm_core.organs.macro_projection_import_protocol run "
         f"--input {input_dir} --out {out_dir}"
     )
+    if not _has_negative_input_set(input_path):
+        return run_projection_bundle(
+            input_path,
+            out_dir,
+            command=command_text,
+            compatibility_route=_exported_bundle_run_compatibility_route(),
+        )
     result = _build_result(
         input_path,
         command=command_text,
@@ -4292,6 +4312,8 @@ def run_projection_bundle(
     input_dir: str | Path,
     out_dir: str | Path,
     command: str | None = None,
+    *,
+    compatibility_route: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     input_path = Path(input_dir)
     command_text = command or (
@@ -4304,6 +4326,8 @@ def run_projection_bundle(
         input_mode="exported_projection_import_bundle",
         include_negative=False,
     )
+    if compatibility_route is not None:
+        result["compatibility_route"] = compatibility_route
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -4585,7 +4609,7 @@ def projection_bundle_cached_card(
 
 def preview_import_plan(input_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     input_path = Path(input_dir)
-    include_negative = all((input_path / name).is_file() for name in NEGATIVE_INPUT_NAMES)
+    include_negative = _has_negative_input_set(input_path)
     command_text = command or (
         "python -m microcosm_core.organs.macro_projection_import_protocol "
         f"plan --input {input_dir}"
@@ -4596,6 +4620,54 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         input_mode="first_wave_fixture" if include_negative else "exported_projection_import_bundle",
         include_negative=include_negative,
     )
+    findings = result.get("findings", [])
+    finding_preview = [
+        {
+            "error_code": row.get("error_code"),
+            "negative_case_id": row.get("negative_case_id"),
+            "subject_id": row.get("subject_id"),
+            "subject_kind": row.get("subject_kind"),
+            "body_in_receipt": row.get("body_in_receipt", False),
+        }
+        for row in findings[:8]
+        if isinstance(row, dict)
+    ]
+    blocking_surface_ids = sorted(
+        {
+            str(row.get("negative_case_id") or "runtime_severance")
+            for row in findings
+            if isinstance(row, dict)
+        }
+    )
+    blocking_surface_details = {
+        surface_id: {
+            "status": "blocked",
+            "finding_count": sum(
+                1
+                for row in findings
+                if isinstance(row, dict)
+                and str(row.get("negative_case_id") or "runtime_severance") == surface_id
+            ),
+            "error_codes": sorted(
+                {
+                    str(row.get("error_code"))
+                    for row in findings
+                    if isinstance(row, dict)
+                    and str(row.get("negative_case_id") or "runtime_severance")
+                    == surface_id
+                    and row.get("error_code")
+                }
+            ),
+            "subject_ids_preview": [
+                str(row.get("subject_id"))
+                for row in findings
+                if isinstance(row, dict)
+                and str(row.get("negative_case_id") or "runtime_severance") == surface_id
+                and row.get("subject_id")
+            ][:8],
+        }
+        for surface_id in blocking_surface_ids
+    }
     return {
         "schema_version": "macro_projection_import_intake_preview_v1",
         "created_at": result["created_at"],
@@ -4606,6 +4678,23 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         "input_mode": result["input_mode"],
         "projection_intake_board": result["projection_intake_board"],
         "runtime_severance_board": result["runtime_severance_board"],
+        "blocking_surface_ids": blocking_surface_ids,
+        "blocking_surface_details": blocking_surface_details,
+        "finding_count": len(findings),
+        "finding_preview": finding_preview,
+        "error_codes": result["error_codes"],
+        "status_surfaces": {
+            "public_safe_body_import_status": result["public_safe_body_import_status"],
+            "public_safe_body_target_status": result["public_safe_body_target_status"],
+            "runtime_severance_status": result["runtime_severance_status"],
+            "runtime_dependency_status": result["runtime_dependency_status"],
+            "dependency_preflight_gate_status": result["dependency_preflight_gate_status"],
+            "organ_lifecycle_coverage_status": result["organ_lifecycle_coverage_status"],
+        },
+        "next_commands": [
+            "microcosm macro-projection-import-protocol plan --input <bundle>",
+            "microcosm macro-projection-import-protocol run-projection-bundle --input <bundle> --out /tmp/microcosm-macro-projection",
+        ],
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "release_authorized": False,

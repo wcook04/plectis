@@ -165,7 +165,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:29+00:00",
+  "created_at": "2026-05-28T09:19:40+00:00",
   "experiments": [
     {
       "action_class": "screen_candidate",
@@ -251,7 +251,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.materials_chemistry_closed_loop_lab_safety_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:4ca0bac25a98afa6b1e6cdc8cbc4d4f13525686261762c33486ed2496afbc1f8",
+    "basis_digest": "sha256:5bcb666d68293ead665bff86430bc606da00633dfd02143e605b48c79e82736e",
     "card_schema_version": "materials_lab_safety_command_card_v1",
     "include_negative": false,
     "input_count": 15,
@@ -318,8 +318,8 @@
       },
       {
         "path": "src/microcosm_core/organs/materials_chemistry_closed_loop_lab_safety_replay.py",
-        "sha256": "sha256:f287402f3ff6a15eedc80d200aa77d285b208d677932367d4ac9c8f328d4e773",
-        "size_bytes": 72425
+        "sha256": "sha256:7f1aac1becf6d191cf045f431336f4d2885401222139f49ddda06a58b542da1a",
+        "size_bytes": 72637
       },
       {
         "path": "src/microcosm_core/macro_tools/lab_evolve_replay.py",

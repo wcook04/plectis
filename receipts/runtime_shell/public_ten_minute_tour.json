@@ -55,7 +55,7 @@
     "microcosm evidence inspect <receipt>"
   ],
   "compile_summary": {
-    "event_count": 10,
+    "event_count": 14,
     "evidence_count": 8,
     "file_count": 4,
     "headline": "repo -> .microcosm",
@@ -66,7 +66,7 @@
     "state_ref": ".microcosm",
     "work_id": "work_0001"
   },
-  "created_at": "2026-05-28T02:50:36+00:00",
+  "created_at": "2026-05-28T13:40:04+00:00",
   "endpoint": "/tour",
   "endpoint_path": [
     "/tour",
@@ -331,7 +331,7 @@
       }
     ],
     "primary_command": "microcosm tour --card <project>",
-    "project_ref": "scratch",
+    "project_ref": "scratch_project",
     "proof_surface": {
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "compiled_declaration_count": 8,
@@ -343,6 +343,13 @@
       "status": "pass"
     },
     "reader_routes": [
+      {
+        "anti_misread": "first-screen legibility is not publication readiness or release approval",
+        "evidence_focus": "copyable first command, shared behavior proof, authority ceiling",
+        "first_screen_command": "microcosm hello <project>",
+        "next_command": "microcosm tour --card <project>",
+        "reader_id": "public_github_visitor"
+      },
       {
         "anti_misread": "body-import counts are accounting, not maturity scores",
         "evidence_focus": "evidence_class, body_import_floor, authority ceilings, failure gaps",
@@ -411,19 +418,24 @@
       "source_mutation_authorized": false
     },
     "bundle_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    "cache_action": {
+      "boundary": "fresh_tmp_receipt_not_canonical_or_proof_authority",
+      "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+      "status": "actionable"
+    },
     "cache_freshness": {
       "input_refs_exported": false,
-      "input_status": "current",
-      "latest_input_mtime_ns": 1779836214902719178,
-      "receipt_mtime_ns": 1779836346218578812,
+      "input_status": "stale",
+      "latest_input_mtime_ns": 1779959250490061814,
+      "receipt_mtime_ns": 1779954260239335626,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
-      "stale_input_count": 0,
-      "status": "current",
+      "stale_input_count": 2,
+      "status": "stale",
       "tracked_input_count": 14
     },
-    "cache_status": "cached_receipt_read",
-    "cached_card_status": "pass",
-    "cached_receipt_bytes": 34613,
+    "cache_status": "stale_cached_receipt",
+    "cached_card_status": "stale_cached_receipt",
+    "cached_receipt_bytes": 34690,
     "cached_receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
@@ -467,7 +479,7 @@
     "route_component_count": 9,
     "route_id": "formal_prover_context_strategy_gate",
     "route_ref": "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/proof_lab_route.json",
-    "route_source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45",
+    "route_source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
     "safe_to_show": {
       "body_in_receipt": false,
       "credential_equivalent_payloads_omitted": true,
@@ -585,7 +597,7 @@
     "route_ref": "atlas/entry_packet.json::local_first_screen_route",
     "surface_id": "microcosm_local_first_screen"
   },
-  "project_ref": "scratch",
+  "project_ref": "scratch_project",
   "public_claim": "Microcosm turns a repo into a local operating substrate and exposes the whole first-run path as a ten-minute source-open tour: tour, inspect, bound authority, inspect prediction/corpus/formal repair lenses, inspect the proof-lab route, reveal real-substrate receipt states, then drill receipts.",
   "release_authorized": false,
   "route_cards": [
@@ -666,7 +678,10 @@
         "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_status": false,
+        "cache_source_ref": null,
+        "cache_status": null,
         "full_status_ref": "microcosm status::macro_body_import_floor",
+        "full_verification_command": null,
         "latest_source_refs": [
           "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
           "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
@@ -677,6 +692,7 @@
           "exported_verifier_lab_execution_spine_bundle",
           "exported_verifier_lab_kernel_bundle"
         ],
+        "live_digest_verification_status": null,
         "public_safe_body_material_count": 411,
         "public_safe_body_material_counts_by_class": {
           "public_macro_pattern_body": 36,
@@ -790,8 +806,8 @@
       "alias_endpoints": [
         "/verifier-lab-kernel"
       ],
-      "cache_status": "cached_receipt_read",
-      "cached_card_status": "pass",
+      "cache_status": "stale_cached_receipt",
+      "cached_card_status": "stale_cached_receipt",
       "card_id": "verifier_lab_kernel",
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "endpoint": "/proof-lab",
@@ -1014,7 +1030,10 @@
         "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
         "body_text_exported_in_receipts": false,
         "body_text_exported_in_status": false,
+        "cache_source_ref": null,
+        "cache_status": null,
         "full_status_ref": "microcosm status::macro_body_import_floor",
+        "full_verification_command": null,
         "latest_source_refs": [
           "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
           "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
@@ -1025,6 +1044,7 @@
           "exported_verifier_lab_execution_spine_bundle",
           "exported_verifier_lab_kernel_bundle"
         ],
+        "live_digest_verification_status": null,
         "public_safe_body_material_count": 411,
         "public_safe_body_material_counts_by_class": {
           "public_macro_pattern_body": 36,
@@ -1099,8 +1119,8 @@
       "alias_endpoints": [
         "/verifier-lab-kernel"
       ],
-      "cache_status": "cached_receipt_read",
-      "cached_card_status": "pass",
+      "cache_status": "stale_cached_receipt",
+      "cached_card_status": "stale_cached_receipt",
       "card_id": "verifier_lab_kernel",
       "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
       "endpoint": "/proof-lab",
@@ -1210,7 +1230,10 @@
     "authority_boundary": "verified_non_secret_body_floor_not_release_provider_source_mutation_or_private_equivalence_authority",
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_status": false,
+    "cache_source_ref": null,
+    "cache_status": null,
     "full_status_ref": "microcosm status::macro_body_import_floor",
+    "full_verification_command": null,
     "latest_source_refs": [
       "src/microcosm_core/organs/ring2_premise_retrieval_precision_recall_harness.py",
       "src/microcosm_core/organs/proof_diagnostic_evidence_spine.py",
@@ -1221,6 +1244,7 @@
       "exported_verifier_lab_execution_spine_bundle",
       "exported_verifier_lab_kernel_bundle"
     ],
+    "live_digest_verification_status": null,
     "public_safe_body_material_count": 411,
     "public_safe_body_material_counts_by_class": {
       "public_macro_pattern_body": 36,

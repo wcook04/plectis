@@ -9,8 +9,10 @@ make ci
 ```
 
 The smoke target is the no-install public sanity check. It writes ignored
-`.microcosm/` route state through `tour --card`, then checks the compact public
-authority, workingness, legibility, version, and stripping-boundary surfaces:
+`.microcosm/` route state through `tour --card`, stores command outputs under
+`.microcosm/smoke/`, then checks the compact public authority, workingness,
+legibility, version, and stripping-boundary surfaces without dumping the full
+cards into CI logs:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
@@ -22,6 +24,9 @@ PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
+
+`make clean` removes the smoke receipt directory while leaving the rest of
+project-local `.microcosm/` state alone.
 
 The test target creates a repository-local `.venv`, installs the test extra
 there, and then runs pytest, so a clean clone does not need pytest preinstalled

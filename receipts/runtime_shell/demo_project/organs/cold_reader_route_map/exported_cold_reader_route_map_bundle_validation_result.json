@@ -36,7 +36,7 @@
     "status_card",
     "tour_project"
   ],
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:41+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "finding_count": 0,
@@ -56,7 +56,7 @@
   "freshness_basis": {
     "checked_path_count": 11,
     "existing_path_count": 11,
-    "latest_input_mtime": 1779865946.8567028,
+    "latest_input_mtime": 1779951003.9748862,
     "missing_path_count": 0,
     "mode": "input_file_mtime_guard"
   },
@@ -147,13 +147,13 @@
       "material_class": "public_macro_pattern_body",
       "missing_anchor_count": 0,
       "module_id": "agent_instruction_router_body_import",
-      "source_line_count": 124,
+      "source_line_count": 125,
       "source_ref": "docs/agent_instruction_router.md",
-      "source_sha256": "10b7354b7d09aaf8db5381124532173ba8f95f2fdfb44deb44e11098bd1446dc",
+      "source_sha256": "6b799e8c09962aab43af22b5853ead439c048ec12c5f35f3f80543eae29c8212",
       "source_to_target_relation": "exact_copy",
-      "target_line_count": 124,
+      "target_line_count": 125,
       "target_ref": "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_instruction_router.md",
-      "target_sha256": "10b7354b7d09aaf8db5381124532173ba8f95f2fdfb44deb44e11098bd1446dc"
+      "target_sha256": "6b799e8c09962aab43af22b5853ead439c048ec12c5f35f3f80543eae29c8212"
     },
     {
       "anchor_status": "pass",

@@ -8,6 +8,10 @@ from typing import Any
 from microcosm_core import project_substrate
 from microcosm_core import cli
 from microcosm_core.public_payload_boundary import SOURCE_OPEN_BODY_POLICY
+from microcosm_core.runtime_shell import RuntimeShell
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _scratch_project(tmp_path: Path) -> Path:
@@ -59,6 +63,34 @@ def test_project_index_skips_file_that_disappears_during_walk(
         "receipts/runtime_shell/workingness_failure_map.json.disappearing"
         not in catalog_paths
     )
+
+
+def test_route_explanation_entry_packet_matches_tour_card_causal_proof(
+    tmp_path: Path,
+) -> None:
+    project = _scratch_project(tmp_path)
+    entry_packet = json.loads(
+        (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
+    )
+    route = entry_packet["route_explanation_chain_route"]
+
+    tour_card = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
+    selected_route_id = str(tour_card["selected_route_id"])
+    explanation = project_substrate.explain_route(project, selected_route_id)
+    proof = explanation["causal_chain_proof"]
+
+    assert route["full_proof_prerequisite_command"] == "microcosm tour --card <project>"
+    assert "causal_chain_proof" in route["expected_fields"]
+    assert "selected-route work transaction" in route["full_proof_status_rule"]
+    assert tour_card["state_write_result"]["status"] == "pass"
+    assert tour_card["state_write_result"]["source_files_mutated"] is False
+    assert selected_route_id == "readme_onboarding_route"
+    assert proof["status"] == "pass"
+    assert proof["selected_work_id"] == "work_0001"
+    assert proof["selected_work_status"] == "closed"
+    assert proof["event_ref_count"] >= 4
+    assert proof["evidence_ref_count"] >= 4
+    assert proof["source_files_mutated"] is False
 
 
 def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) -> None:

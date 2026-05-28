@@ -297,6 +297,54 @@ def test_sampler_emits_backend_heartbeat_without_provider_activity(tmp_path: Pat
     assert store.status()["sampler"]["running"] is True
 
 
+def test_sampler_applies_background_downshift_state(tmp_path: Path, monkeypatch) -> None:
+    state_path = tmp_path / "state/performance/background_loop_downshift.json"
+    state_path.parent.mkdir(parents=True)
+    state_path.write_text(
+        json.dumps(
+            {
+                "schema": "background_loop_downshift_receipt_v1",
+                "loop_kind": "agent_observability_sampler",
+                "result": "applied",
+                "effective_interval_s": 15.0,
+                "duration_s": 600,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    store = AgentTraceStore(tmp_path, trace_path=tmp_path / "events.jsonl")
+    sampler = AgentObservabilitySampler(
+        store,
+        tmp_path,
+        poll_interval_s=2,
+        heartbeat_interval_s=1_000_000,
+        codex_probe_interval_s=1_000_000,
+        file_scan_interval_s=1_000_000,
+        process_probe_interval_s=3,
+        host_pressure_interval_s=4,
+    )
+    monkeypatch.setattr(sampler, "_emit_backend_heartbeat", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_active_claude_session", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_claude_code_app_sessions", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_metabolism_ticks", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_codex_probe", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_process_snapshot", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_host_pressure_snapshot", lambda: None)
+    monkeypatch.setattr(sampler, "_tail_recent_files", lambda: None)
+    monkeypatch.setattr(sampler, "_emit_operator_bridge_actions", lambda: None)
+
+    sampler.poll_once()
+
+    sampler_state = store.status()["sampler"]
+    assert sampler.poll_interval_s == 15.0
+    assert sampler.process_probe_interval_s == 60.0
+    assert sampler.host_pressure_interval_s == 60.0
+    assert sampler_state["background_downshift"]["status"] == "applied"
+    assert sampler_state["background_downshift"]["loop_kind"] == "agent_observability_sampler"
+    assert sampler_state["poll_interval_s"] == 15.0
+
+
 def test_sampler_tails_only_new_codex_rollout_lines(tmp_path: Path) -> None:
     sessions = tmp_path / ".codex/sessions/2026/04/25"
     sessions.mkdir(parents=True)

@@ -280,7 +280,7 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
         step["command"] for step in first_screen["minimal_command_path"]
     ]
     assert "microcosm tour --card <project>" in first_screen_commands
-    assert "microcosm status --card <project> && microcosm workingness" in (
+    assert "microcosm status --card <project> && microcosm workingness --card" in (
         first_screen_commands
     )
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in (

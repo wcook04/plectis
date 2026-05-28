@@ -52,6 +52,7 @@
   "foundation_route": {
     "anti_claim_floor": "This route demonstrates the proof-lab control plane and evidence spine; it must not claim general theorem-proving capability or expose oracle material.",
     "available_pattern_ids": [
+      "formal_math_readiness_gate_public_boundary",
       "corpus_readiness_mathlib_absence_gate",
       "lean_std_toolchain_premise_index",
       "provider_context_recipe_budget_policy",
@@ -75,6 +76,7 @@
       "support_affordance_mathlib_declaration_match_terms"
     ],
     "detailed_binding_pattern_ids": [
+      "formal_math_readiness_gate_public_boundary",
       "corpus_readiness_mathlib_absence_gate",
       "lean_std_toolchain_premise_index",
       "provider_context_recipe_budget_policy",
@@ -86,23 +88,24 @@
       "support_affordance_mathlib_declaration_match_terms"
     ],
     "ledger_slice": {
-      "available_pattern_count": 9,
+      "available_pattern_count": 10,
       "novelty_band_counts": {
-        "high": 8,
+        "high": 9,
         "medium": 1
       },
       "organ_family_counts": {
-        "formal_math": 9
+        "formal_math": 10
       },
       "private_state_risk_counts": {
-        "low": 1,
+        "low": 2,
         "none": 8
       },
-      "public_projection_candidate_count": 9,
+      "public_projection_candidate_count": 10,
       "status_counts": {
-        "absent": 9
+        "absent": 9,
+        "present": 1
       },
-      "strong_high_authority_count": 9
+      "strong_high_authority_count": 10
     },
     "missing_detailed_binding_pattern_ids": [],
     "missing_pattern_ids": [],
@@ -131,7 +134,7 @@
       "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/graph_variant_comparison.json",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
     ],
-    "substrate_refs_omitted_count": 15,
+    "substrate_refs_omitted_count": 28,
     "target_existing_organs": [
       "proof_diagnostic_evidence_spine",
       "formal_prover_lab_evaluation_suborgan"
@@ -154,5 +157,5 @@
   "source_ref": "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
   "source_row_count": 373,
   "source_schema_version": "extracted_pattern_substrate_bindings_v1",
-  "source_sha256": "sha256:4d980e40faf0a565ff8374370ed8a4c50a147f815f422fb925ad07f9b37b5a45"
+  "source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee"
 }

@@ -251,12 +251,12 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-05-28T02:50:42+00:00",
+  "created_at": "2026-05-28T13:42:06+00:00",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "freshness_basis": {
     "command": "microcosm spatial-simulation",
-    "digest": "sha256:fd5ca7673884c32180d1247dddd48fff4dfe6b67a6e0020b91ae2b5bef4a9d30",
+    "digest": "sha256:f43de81b67ecc163cab43ff14a3afd17f71f9473a249f8f486d5dd48ad956dc4",
     "input_count": 11,
     "input_mode": "exported_spatial_world_model_simulation_bundle",
     "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
@@ -307,9 +307,9 @@
         "sha256": "sha256:28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36"
       },
       {
-        "bytes": 49939,
+        "bytes": 50151,
         "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
-        "sha256": "sha256:dd4232319c36a363edb4429d50b117ad4d892b269f27429cfff03393ced83c43"
+        "sha256": "sha256:70629c4d1231b31217f0047bb6bf2e28eee57d4d4aed945758874be73a6a45ba"
       },
       {
         "bytes": 4362,

@@ -3106,6 +3106,9 @@ def test_frontend_views_flag_surface_enumerates_view_graph_rows() -> None:
     assert row["path"] == "/station"
     assert row["source_ref"] == "system/server/ui/src/navigation/surfaces.ts"
     assert row["source_component_ref"]["line"] > 0
+    assert row["validation_contract"]["schema"] == "frontend_validation_matrix_v1"
+    assert row["validation_contract"]["route_class"] == "captured_page"
+    assert row["validation_contract"]["browser_visual_requirement"]["status"] == "required"
     assert row["view_observation"]["packet_path"].endswith("views/station.json")
     assert row["view_observation"]["visual_delta_status"] is not None
     assert row["graph_ref"] == "state/frontend_navigation/navigation_graph.json"
@@ -3142,6 +3145,8 @@ def test_frontend_views_cluster_flag_groups_by_shell_group() -> None:
     assert cluster["count"] >= 1
     assert "rootNavigator" in cluster["top_ids"]
     assert cluster["visual_delta_status_counts"]
+    assert cluster["validation_route_class_counts"]
+    assert cluster["validation_browser_requirement_status_counts"]
     assert "--band flag --ids" in cluster["drilldown_command"]
     assert "full UI source bodies" in cluster["omission_receipt"]["omitted"]
     assert cluster["currentness"]["status"] == "frontend_navigation_graph_available"
@@ -3161,13 +3166,29 @@ def test_frontend_views_card_surface_drills_stable_view_id() -> None:
     assert row["capture_contract"]["slug"] == "home"
     assert row["edge_counts"]["fanout"] >= 1
     assert row["graph_counts"]["routes_declared"] >= 30
+    assert row["validation_contract"]["schema"] == "frontend_validation_matrix_v1"
+    assert row["validation_contract"]["route_class"] == "captured_page"
+    assert "browser_visual_smoke" in row["validation_contract"]["required_lanes"]
+    assert row["validation_contract"]["browser_visual_requirement"]["status"] == "required"
+    assert row["validation_matrix"]["schema"] == "frontend_validation_matrix_v1"
+    assert row["validation_matrix"]["route_class_counts"]["captured_page"] >= 30
     assert row["view_observation"]["packet_path"].endswith("views/station.json")
     assert row["view_observation"]["screenshot_status"] is not None
     assert row["visual_memory"]["docs_route"] == './repo-python kernel.py --docs-route "screenshot ledger"'
     assert row["visual_memory"]["packet_path"].endswith("views/station.json")
     assert "screenshot ledger" in row["visual_memory"]["alias_terms"]
     assert row["adapter_supported_bands"] == ["cluster_flag", "flag", "card"]
-    assert row["native_graph_facets"] == ["route", "purpose", "component_tree", "source_capture"]
+    assert row["native_graph_facets"] == [
+        "route",
+        "purpose",
+        "component_tree",
+        "source_capture",
+        "validation_contract",
+    ]
+    assert (
+        payload["navigation_boundary"]["native_graph_facets"]
+        == row["native_graph_facets"]
+    )
     assert payload["summary"]["visual_memory_discovery"]["packet_index_ref"].endswith(
         "frontend_view_observation_index_v0.json"
     )
@@ -3177,6 +3198,18 @@ def test_frontend_views_card_surface_drills_stable_view_id() -> None:
     )
     assert "system/server/ui/src/App.tsx" in row["source_refs"]
     assert row["omission_receipt"]["drilldown"].endswith("--view station")
+
+
+def test_frontend_views_card_surface_accepts_code_map_alias() -> None:
+    payload = build_option_surface(REPO_ROOT, "frontend_views", band="card", ids=["codeMap"])
+
+    assert payload["selection"]["missing_ids"] == []
+    assert payload["selection"]["resolved_ids"] == {"codeMap": "codemap"}
+    assert payload["summary"]["row_count"] == 1
+    row = payload["rows"][0]
+    assert row["view_id"] == "codemap"
+    assert row["route"] == "/station/codemap"
+    assert row["row_id"] == "frontend_view:codemap::card"
 
 
 def test_frontend_views_option_surface_exposes_visual_settlement_refs(tmp_path: Path) -> None:

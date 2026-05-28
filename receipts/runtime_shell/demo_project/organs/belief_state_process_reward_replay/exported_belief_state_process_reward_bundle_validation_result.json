@@ -151,7 +151,7 @@
     }
   ],
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-27T16:52:31+00:00",
+  "created_at": "2026-05-28T09:19:42+00:00",
   "episode_count": 3,
   "episode_rows": [
     {
@@ -256,7 +256,7 @@
   "findings": [],
   "fixture_id": "first_wave.belief_state_process_reward_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:a0d3d3f52d2c8bec56973635963ccfc69b9224ce8ababa7746edd924b0918e68",
+    "basis_digest": "sha256:dcc31d1470758b1f4eda416a97e1939976d74d1e7b145227b003e38b759d9cd8",
     "card_schema_version": "belief_state_process_reward_replay_command_card_v1",
     "include_negative": false,
     "input_count": 18,
@@ -343,8 +343,8 @@
       },
       {
         "path": "src/microcosm_core/organs/belief_state_process_reward_replay.py",
-        "sha256": "sha256:0973760f024f3fc44cb7bd92cf86fc040a29454bc0d0737506c446df9132e5e7",
-        "size_bytes": 73135
+        "sha256": "sha256:323d90dcebe38aaefc0c01764f8ba4010e85f23d2759b0c3ce209dcd79d88732",
+        "size_bytes": 73347
       },
       {
         "path": "core/private_state_forbidden_classes.json",

@@ -36,7 +36,8 @@
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "formal_math_premise_retrieval_runtime_example",
-  "command": "python -m microcosm_core.organs.verifier_lab_kernel run-kernel-bundle :: component formal_math_premise_retrieval",
+  "card_schema_version": "formal_math_premise_retrieval_card_v1",
+  "command": "microcosm proof-lab --out receipts/first_wave/verifier_lab_kernel :: component formal_math_premise_retrieval",
   "copied_material": [
     {
       "body_copied": true,
@@ -138,11 +139,99 @@
     }
   ],
   "copied_material_count": 6,
-  "created_at": "2026-05-26T22:59:03+00:00",
+  "created_at": "2026-05-28T07:44:14+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.formal_math_premise_retrieval",
+  "freshness_basis": [
+    {
+      "exists": true,
+      "mtime_ns": 1779865946856702819,
+      "path": "core/private_state_forbidden_classes.json",
+      "size_bytes": 4362
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812707574872628,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/bundle_manifest.json",
+      "size_bytes": 5968
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779350542454504550,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/context_recipes.json",
+      "size_bytes": 1048
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779509857948859804,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/premise_index.json",
+      "size_bytes": 6899
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812707575283296,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/projection_protocol.json",
+      "size_bytes": 10367
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812276885612280,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/retrieval_queries.json",
+      "size_bytes": 1829
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779930743549895279,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_module_manifest.json",
+      "size_bytes": 9215
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812699558108287,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "size_bytes": 3275
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812699559500376,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "size_bytes": 5895
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812699560800172,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "size_bytes": 2210
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779812699562493721,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "size_bytes": 908
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779509768075787232,
+      "path": "examples/formal_math_premise_retrieval/exported_premise_retrieval_bundle/strategy_cases.json",
+      "size_bytes": 835
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779949258096337083,
+      "path": "src/microcosm_core/organs/formal_math_premise_retrieval.py",
+      "size_bytes": 44576
+    },
+    {
+      "exists": true,
+      "mtime_ns": 1779947502314961510,
+      "path": "src/microcosm_core/private_state_scan.py",
+      "size_bytes": 15253
+    }
+  ],
+  "freshness_digest": "sha256:cea32e1b097882760c51df3b388d529536e72f2751c85d9113021bba1ba4e0f9",
+  "freshness_status": "current",
   "input_mode": "exported_premise_retrieval_bundle",
   "mean_public_retrieval_recall": 1.0,
   "missing_negative_cases": [],
@@ -164,6 +253,7 @@
   "receipt_paths": [
     "receipts/first_wave/verifier_lab_kernel/components/formal_math_premise_retrieval/exported_premise_retrieval_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "recipe_count": 3,
   "retrievals": [
     {

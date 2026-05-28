@@ -692,13 +692,15 @@ def _proof_lab_canonical_receipt_result(
     }
     _write_json_atomic(target, receipt)
     cache_freshness = _proof_lab_cache_freshness(input_path, canonical_path)
+    status = receipt.get("status")
+    if (
+        cache_freshness.get("status") != "current"
+        and cache_status != "canonical_receipt_fallback_toolchain_missing"
+    ):
+        status = "stale_cached_receipt"
     return {
         **receipt,
-        "status": (
-            receipt.get("status")
-            if cache_freshness.get("status") == "current"
-            else "stale_cached_receipt"
-        ),
+        "status": status,
         "cache_freshness": cache_freshness,
     }
 
@@ -848,12 +850,19 @@ def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
     proof_lab = payload.get("proof_lab")
     if not isinstance(proof_lab, dict):
         return None
+    safe_to_show = proof_lab.get("safe_to_show")
+    if not isinstance(safe_to_show, dict):
+        safe_to_show = {}
     return {
         "schema_version": "microcosm_status_card_proof_lab_ref_v1",
         "status": proof_lab.get("status"),
         "endpoint": proof_lab.get("endpoint") or "/proof-lab",
         "route_id": proof_lab.get("route_id"),
         "receipt_ref": proof_lab.get("receipt_ref"),
+        "route_component_count": proof_lab.get("route_component_count")
+        or proof_lab.get("proof_lab_route_component_count"),
+        "proof_bodies_exported": safe_to_show.get("proof_bodies_exported", False),
+        "proof_correctness_claim": safe_to_show.get("proof_correctness_claim", False),
         "cache_status": proof_lab.get("cache_status"),
         "cache_action": proof_lab.get("cache_action")
         if isinstance(proof_lab.get("cache_action"), dict)
@@ -1071,6 +1080,8 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "route_id",
                 "receipt_ref",
                 "route_component_count",
+                "proof_bodies_exported",
+                "proof_correctness_claim",
                 "cache_status",
                 "cache_action",
             ],

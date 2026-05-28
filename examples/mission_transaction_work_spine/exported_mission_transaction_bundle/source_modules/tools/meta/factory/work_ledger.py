@@ -30,6 +30,9 @@ from system.lib.work_ledger_commands import (
 CODEX_STATE_DB = Path.home() / ".codex" / "state_5.sqlite"
 CLAUDE_IDE_DIR = Path.home() / ".claude" / "ide"
 CLAUDE_TODOS_DIR = Path.home() / ".claude" / "todos"
+BACKGROUND_DOWNSHIFT_STATE = REPO_ROOT / "state" / "performance" / "background_loop_downshift.json"
+SESSION_YIELD_REQUESTS = REPO_ROOT / "state" / "performance" / "session_yield_requests.jsonl"
+SESSION_YIELD_RESULTS = REPO_ROOT / "state" / "performance" / "session_yield_results.jsonl"
 CODEX_ROLLOUT_TAIL_EVENTS = 400
 CODEX_ROLLOUT_COMMAND_LIMIT = 12
 CODEX_ROLLOUT_PATH_LIMIT = 40
@@ -128,6 +131,64 @@ _CODEX_PATCH_FILE_RE = re.compile(r"^\*\*\* (?:Add|Delete|Update) File: (?P<path
 def _print(payload: Dict[str, Any]) -> int:
     print(json.dumps(payload, indent=2, ensure_ascii=False))
     return 0
+
+
+def _append_jsonl(path: Path, payload: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def _read_jsonl_tail(path: Path, *, limit: int = 20) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    rows: deque[str] = deque(maxlen=max(1, int(limit or 1)))
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if line.strip():
+                rows.append(line)
+    records: list[dict[str, Any]] = []
+    for line in rows:
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            records.append(payload)
+    return records
+
+
+def _mint_session_yield_request_id(target_session_id: str | None, requested_action: str | None) -> str:
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    seed = f"{stamp}:{target_session_id or 'unknown'}:{requested_action or 'yield'}:{os.getpid()}"
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()[:8]
+    return f"syr_{stamp}_{digest}"
+
+
+def _session_yield_request_receipt_from_event(row: Mapping[str, Any]) -> dict[str, Any]:
+    nested = row.get("session_yield_request")
+    if isinstance(nested, dict):
+        return nested
+    if row.get("schema") == work_admission.SESSION_YIELD_REQUEST_SCHEMA:
+        return dict(row)
+    return {}
+
+
+def _find_session_yield_request(
+    *,
+    request_id: str | None = None,
+    target_session_id: str | None = None,
+    limit: int = 400,
+) -> dict[str, Any] | None:
+    for row in reversed(_read_jsonl_tail(SESSION_YIELD_REQUESTS, limit=limit)):
+        receipt = _session_yield_request_receipt_from_event(row)
+        if not receipt:
+            continue
+        if request_id and receipt.get("request_id") == request_id:
+            return receipt
+        if target_session_id and receipt.get("target_id") == target_session_id:
+            return receipt
+    return None
 
 
 def _heartbeat_participation_contract(session_id: str | None = None) -> Dict[str, Any]:
@@ -2623,6 +2684,210 @@ def cmd_helper_lease_admission(args: argparse.Namespace) -> int:
     return work_admission.ADMISSION_TEMPFAIL if not bool(decision.get("allow", True)) else 0
 
 
+def _current_host_pressure_packet(*, workload_class: str = "mixed_realistic") -> Dict[str, Any]:
+    try:
+        from system.lib.agent_observability import AgentTraceStore
+        from system.lib.host_pressure import build_progress_pressure_packet_from_store
+
+        store = AgentTraceStore(REPO_ROOT, max_history=500)
+        return build_progress_pressure_packet_from_store(
+            store,
+            REPO_ROOT,
+            event_limit=500,
+            include_processes=False,
+            requested_workload_class=workload_class,
+        )
+    except Exception as exc:  # pragma: no cover - host adapters must degrade.
+        return {
+            "summary": {
+                "bottleneck_class": "unknown",
+                "pressure_index": 0,
+                "progress_per_pressure": 0,
+            },
+            "source_error": {
+                "error_class": type(exc).__name__,
+                "message": str(exc),
+            },
+        }
+
+
+def cmd_resident_pressure_relief(args: argparse.Namespace) -> int:
+    before_packet = _current_host_pressure_packet()
+    release_request = work_admission.build_helper_owner_release_request(
+        process_kind=args.process_kind,
+        owner_status=args.owner_status,
+        rss_mb_total=args.rss_mb_total,
+        target_owner=args.target_owner,
+        pressure_mode=args.pressure_mode,
+    )
+    release_result = work_admission.build_owner_release_result_receipt(
+        release_request=release_request,
+        result=args.owner_release_result,
+        result_note=args.result_note,
+    )
+    downshift = None
+    if args.background_loop_kind:
+        downshift_result = "applied" if args.apply_background_downshift else args.background_loop_result
+        downshift = work_admission.build_background_loop_downshift_receipt(
+            loop_kind=args.background_loop_kind,
+            owner_surface=args.owner_surface or "unknown",
+            pressure_mode=args.pressure_mode,
+            result=downshift_result,
+            duration_s=args.duration_s,
+            effective_interval_s=args.effective_interval_s,
+        )
+        if args.apply_background_downshift:
+            BACKGROUND_DOWNSHIFT_STATE.parent.mkdir(parents=True, exist_ok=True)
+            BACKGROUND_DOWNSHIFT_STATE.write_text(
+                json.dumps(downshift, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+    window = work_admission.build_resident_pressure_relief_window(
+        before_packet=before_packet,
+        owner_release_results=[release_result],
+        background_downshifts=[downshift] if downshift else [],
+        blocked_work_starts=args.blocked_work_starts,
+        blocked_helper_leases=args.blocked_helper_leases,
+        workload_mix_changed=bool(args.workload_mix_changed),
+    )
+    payload = {
+        "schema": "resident_pressure_relief_command_v1",
+        "status": window.get("verdict"),
+        "pressure_mode": args.pressure_mode,
+        "helper_owner_release_request": release_request,
+        "owner_release_result": release_result,
+        "background_loop_downshift": downshift,
+        "background_downshift_state_path": str(BACKGROUND_DOWNSHIFT_STATE.relative_to(REPO_ROOT))
+        if args.apply_background_downshift and downshift
+        else None,
+        "resident_pressure_relief_window": window,
+        "safety": {
+            "no_process_signal_sent": True,
+            "no_unknown_owner_killed": True,
+            "no_active_session_terminated": True,
+        },
+    }
+    _print(payload)
+    return 0 if window.get("verdict") != "no_resident_actuator" else work_admission.ADMISSION_TEMPFAIL
+
+
+def cmd_session_yield_request(args: argparse.Namespace) -> int:
+    request_id = getattr(args, "request_id", None) or _mint_session_yield_request_id(
+        args.target_session_id,
+        args.requested_action,
+    )
+    receipt = work_admission.build_session_yield_request_receipt(
+        target_id=args.target_session_id,
+        request_id=request_id,
+        target_class=args.target_class,
+        requested_action=args.requested_action,
+        owner_status=args.owner_status,
+        pressure_mode=args.pressure_mode,
+        result=args.result,
+        helper_rss_mb=args.helper_rss_mb,
+        recent_progress_units=args.recent_progress_units,
+        result_note=args.result_note,
+    )
+    rank = work_admission.build_session_pressure_rank(
+        [
+            {
+                "session_id": args.target_session_id,
+                "owner_status": args.owner_status,
+                "helper_rss_mb": args.helper_rss_mb,
+                "recent_progress_units": args.recent_progress_units,
+                "idle_age_s": args.idle_age_s,
+                "last_heartbeat_age_s": args.last_heartbeat_age_s,
+                "active_claim_count": args.active_claim_count,
+                "operator_priority_hint": args.operator_priority_hint,
+            }
+        ],
+        limit=1,
+    )
+    payload = {
+        "schema": "session_yield_request_command_v1",
+        "status": receipt.get("result"),
+        "written": not bool(args.dry_run),
+        "request_id": request_id,
+        "request_log_path": str(SESSION_YIELD_REQUESTS.relative_to(REPO_ROOT)),
+        "session_yield_request": receipt,
+        "session_pressure_rank": rank,
+        "safety": {
+            "no_process_signal_sent": True,
+            "no_unknown_owner_killed": True,
+            "no_active_session_terminated": True,
+        },
+    }
+    if not args.dry_run:
+        _append_jsonl(SESSION_YIELD_REQUESTS, payload)
+    _print(payload)
+    return 0 if receipt.get("result") != "owner_unresolved" else work_admission.ADMISSION_TEMPFAIL
+
+
+def cmd_session_yield_result(args: argparse.Namespace) -> int:
+    yield_request = _find_session_yield_request(
+        request_id=getattr(args, "request_id", None),
+        target_session_id=getattr(args, "target_session_id", None),
+    )
+    if not yield_request:
+        payload = {
+            "schema": "owner_yield_result_command_v1",
+            "status": "request_not_found",
+            "written": False,
+            "request_id": getattr(args, "request_id", None),
+            "target_session_id": getattr(args, "target_session_id", None),
+            "request_log_path": str(SESSION_YIELD_REQUESTS.relative_to(REPO_ROOT)),
+            "result_log_path": str(SESSION_YIELD_RESULTS.relative_to(REPO_ROOT)),
+            "safety": {
+                "no_process_signal_sent": True,
+                "no_unknown_owner_killed": True,
+                "no_active_session_terminated": True,
+            },
+        }
+        _print(payload)
+        return work_admission.ADMISSION_TEMPFAIL
+    result = work_admission.build_owner_yield_result_receipt(
+        yield_request=yield_request,
+        result=args.result,
+        applied_action=args.applied_action,
+        delivery=args.delivery,
+        result_note=args.result_note,
+    )
+    payload = {
+        "schema": "owner_yield_result_command_v1",
+        "status": result.get("status"),
+        "written": not bool(args.dry_run),
+        "request_id": result.get("request_id"),
+        "request_log_path": str(SESSION_YIELD_REQUESTS.relative_to(REPO_ROOT)),
+        "result_log_path": str(SESSION_YIELD_RESULTS.relative_to(REPO_ROOT)),
+        "matched_request": yield_request,
+        "owner_yield_result": result,
+        "safety": result.get("safety"),
+    }
+    if not args.dry_run:
+        _append_jsonl(SESSION_YIELD_RESULTS, payload)
+    _print(payload)
+    return 0 if result.get("result") != "owner_unresolved" else work_admission.ADMISSION_TEMPFAIL
+
+
+def cmd_session_yield_control(args: argparse.Namespace) -> int:
+    background_loop_downshift: dict[str, Any] | None = None
+    if BACKGROUND_DOWNSHIFT_STATE.exists():
+        try:
+            decoded = json.loads(BACKGROUND_DOWNSHIFT_STATE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            decoded = None
+        if isinstance(decoded, dict):
+            background_loop_downshift = decoded
+    payload = work_admission.build_session_yield_control_surface(
+        request_events=_read_jsonl_tail(SESSION_YIELD_REQUESTS, limit=args.limit),
+        result_events=_read_jsonl_tail(SESSION_YIELD_RESULTS, limit=args.limit),
+        background_loop_downshift=background_loop_downshift,
+        limit=args.limit,
+    )
+    _print(payload)
+    return 0
+
+
 def cmd_session_preflight(args: argparse.Namespace) -> int:
     session_id = args.session_id or _mint_preflight_session_id(args.actor, args.session_slug)
     write_profiles = _preflight_write_profiles(list(getattr(args, "write_profile", []) or []))
@@ -3682,6 +3947,133 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     helper_lease_admission.set_defaults(func=cmd_helper_lease_admission)
+
+    resident_pressure_relief = subparsers.add_parser(
+        "resident-pressure-relief",
+        help=(
+            "Record a resident-pressure relief attempt: owner-release result, "
+            "optional background-loop downshift, and recovery-window verdict."
+        ),
+    )
+    resident_pressure_relief.add_argument(
+        "--process-kind",
+        required=True,
+        choices=work_admission.HELPER_LEASE_KINDS,
+    )
+    resident_pressure_relief.add_argument("--owner-status", default="unknown")
+    resident_pressure_relief.add_argument("--target-owner", default=None)
+    resident_pressure_relief.add_argument("--rss-mb-total", type=float, default=None)
+    resident_pressure_relief.add_argument(
+        "--pressure-mode",
+        choices=("normal", "degraded", "relief_window", "recovery_monitoring", "unknown"),
+        default="degraded",
+    )
+    resident_pressure_relief.add_argument(
+        "--owner-release-result",
+        choices=work_admission.OWNER_RELEASE_RESULT_VALUES,
+        default="unsupported",
+    )
+    resident_pressure_relief.add_argument("--result-note", default=None)
+    resident_pressure_relief.add_argument(
+        "--background-loop-kind",
+        choices=work_admission.BACKGROUND_LOOP_KINDS,
+        default=None,
+    )
+    resident_pressure_relief.add_argument("--owner-surface", default=None)
+    resident_pressure_relief.add_argument(
+        "--background-loop-result",
+        choices=work_admission.BACKGROUND_DOWNSHIFT_RESULTS,
+        default="unsupported",
+    )
+    resident_pressure_relief.add_argument("--duration-s", type=int, default=600)
+    resident_pressure_relief.add_argument("--effective-interval-s", type=float, default=15.0)
+    resident_pressure_relief.add_argument(
+        "--apply-background-downshift",
+        action="store_true",
+        help=(
+            "Write the background-loop downshift receipt to the resident state file. "
+            "Current consumers only downshift known loops such as agent_observability_sampler."
+        ),
+    )
+    resident_pressure_relief.add_argument("--blocked-work-starts", type=int, default=0)
+    resident_pressure_relief.add_argument("--blocked-helper-leases", type=int, default=0)
+    resident_pressure_relief.add_argument("--workload-mix-changed", action="store_true")
+    resident_pressure_relief.set_defaults(func=cmd_resident_pressure_relief)
+
+    session_yield_request = subparsers.add_parser(
+        "session-yield-request",
+        help=(
+            "Append a non-destructive owner-visible yield/release request for "
+            "already-resident pressure. This is a request bus, not a kill lane."
+        ),
+    )
+    session_yield_request.add_argument("--target-session-id", required=True)
+    session_yield_request.add_argument("--request-id", default=None)
+    session_yield_request.add_argument(
+        "--target-class",
+        choices=("idle_session", "low_progress_session", "high_helper_footprint_session", "background_loop_owner"),
+        default="high_helper_footprint_session",
+    )
+    session_yield_request.add_argument(
+        "--requested-action",
+        choices=work_admission.SESSION_YIELD_ACTIONS,
+        default="release_tool_lease",
+    )
+    session_yield_request.add_argument("--owner-status", default="active_session")
+    session_yield_request.add_argument(
+        "--pressure-mode",
+        choices=("normal", "degraded", "relief_window", "recovery_monitoring", "unknown"),
+        default="degraded",
+    )
+    session_yield_request.add_argument(
+        "--result",
+        choices=work_admission.SESSION_YIELD_RESULTS,
+        default="requested",
+    )
+    session_yield_request.add_argument("--helper-rss-mb", type=float, default=0.0)
+    session_yield_request.add_argument("--recent-progress-units", type=float, default=0.0)
+    session_yield_request.add_argument("--idle-age-s", type=float, default=0.0)
+    session_yield_request.add_argument("--last-heartbeat-age-s", type=float, default=0.0)
+    session_yield_request.add_argument("--active-claim-count", type=int, default=0)
+    session_yield_request.add_argument("--operator-priority-hint", default=None)
+    session_yield_request.add_argument("--result-note", default=None)
+    session_yield_request.add_argument("--dry-run", action="store_true")
+    session_yield_request.set_defaults(func=cmd_session_yield_request)
+
+    session_yield_result = subparsers.add_parser(
+        "session-yield-result",
+        help=(
+            "Close a resident pressure yield request with the owning session's "
+            "visible result. Accepted still requires an applied action to count as relief."
+        ),
+    )
+    session_yield_result.add_argument("--request-id", default=None)
+    session_yield_result.add_argument("--target-session-id", default=None)
+    session_yield_result.add_argument(
+        "--result",
+        choices=work_admission.OWNER_YIELD_RESULT_VALUES,
+        required=True,
+    )
+    session_yield_result.add_argument(
+        "--applied-action",
+        choices=work_admission.OWNER_YIELD_APPLIED_ACTIONS,
+        default="none",
+    )
+    session_yield_result.add_argument(
+        "--delivery",
+        choices=work_admission.OWNER_YIELD_DELIVERY_VALUES,
+        default="visible_to_owner",
+    )
+    session_yield_result.add_argument("--result-note", default=None)
+    session_yield_result.add_argument("--dry-run", action="store_true")
+    session_yield_result.set_defaults(func=cmd_session_yield_result)
+
+    session_yield_control = subparsers.add_parser(
+        "session-yield-control",
+        help="Summarize pending, accepted, and applied resident pressure relief requests.",
+    )
+    session_yield_control.add_argument("--limit", type=int, default=20)
+    session_yield_control.set_defaults(func=cmd_session_yield_control)
 
     session_preflight = subparsers.add_parser(
         "session-preflight",

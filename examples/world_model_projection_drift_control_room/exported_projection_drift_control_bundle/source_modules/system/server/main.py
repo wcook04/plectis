@@ -75,6 +75,7 @@ from system.lib.utils import resolve_value as _rv, deep_merge as _deep_merge, re
 from system.lib.feed_quality import collect_artifact_qualities, quality_grade_override
 from system.lib.hashing import hash_node
 from system.lib import library_catalog as library_catalog_loader
+from system.lib import work_admission
 from system.lib import frontend_surface_contracts
 from system.lib.swr_cache import swr_get, swr_prewarm
 from system.lib.observe_runtime import (
@@ -287,6 +288,9 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 STATE_DIR = REPO_ROOT / "state"
 STATE_DIR.mkdir(parents=True, exist_ok=True)
 LOG_PATH = STATE_DIR / "server_debug.log"
+SESSION_YIELD_REQUESTS_PATH = STATE_DIR / "performance" / "session_yield_requests.jsonl"
+SESSION_YIELD_RESULTS_PATH = STATE_DIR / "performance" / "session_yield_results.jsonl"
+BACKGROUND_DOWNSHIFT_STATE_PATH = STATE_DIR / "performance" / "background_loop_downshift.json"
 
 _FILE_HANDLER = logging.FileHandler(str(LOG_PATH), encoding="utf-8")
 _STREAM_HANDLER = logging.StreamHandler(sys.stdout)
@@ -775,6 +779,17 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning("root navigator handoff prewarm failed to schedule: %s", exc)
 
+    # CodeMap is demo-visible and the cold global packet can take tens of
+    # seconds. Start the SWR warmup early so `/station/codemap` does not sit on
+    # a minute-long skeleton while the projection packet is rebuilt.
+    try:
+        world_model_loader.prewarm_code_map_snapshot(
+            REPO_ROOT,
+            max_files=world_model_loader.CODE_MAP_DEFAULT_MAX_FILES,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("code map packet prewarm failed to schedule: %s", exc)
+
     # Prewarm the rest of the hot read-only surfaces sequentially on a single
     # daemon thread. Spawning one-thread-per-surface thrashes the GIL against
     # any inbound request that arrives during prewarm (uvicorn runs workers=1
@@ -1054,6 +1069,25 @@ def _read_json_if_exists(path: Path) -> Dict[str, Any]:
     except Exception:
         return {}
     return payload if isinstance(payload, dict) else {}
+
+
+def _read_jsonl_tail_if_exists(path: Path, *, limit: int = 20) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+    rows = [
+        line
+        for line in path.read_text(encoding="utf-8").splitlines()[-max(1, int(limit or 1)) :]
+        if line.strip()
+    ]
+    records: List[Dict[str, Any]] = []
+    for line in rows:
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            records.append(payload)
+    return records
 
 
 def _string(value: Any) -> str:
@@ -3019,6 +3053,28 @@ def get_agent_observability_host_pressure(
         raise HTTPException(status_code=500, detail=str(exc))
 
 
+@app.get("/api/agent-observability/session-yield-control")
+def get_agent_observability_session_yield_control(
+    limit: int = Query(default=20, ge=1, le=100),
+):
+    """
+    [ACTION]
+    - Teleology: Surface resident-pressure yield requests as a closeable control loop:
+      pending request, owner result, applied actuator, and recovery readiness.
+    - Guarantee: Read-only. This endpoint never signals processes or terminates sessions.
+    """
+    try:
+        return work_admission.build_session_yield_control_surface(
+            request_events=_read_jsonl_tail_if_exists(SESSION_YIELD_REQUESTS_PATH, limit=limit),
+            result_events=_read_jsonl_tail_if_exists(SESSION_YIELD_RESULTS_PATH, limit=limit),
+            background_loop_downshift=_read_json_if_exists(BACKGROUND_DOWNSHIFT_STATE_PATH),
+            limit=limit,
+        )
+    except Exception as exc:
+        logger.exception("Agent observability session-yield-control failed")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @app.get("/api/agent-observability/animation")
 def get_agent_observability_animation(
     since_seq: int = Query(default=0, ge=0),
@@ -4532,6 +4588,7 @@ _NAVIGATION_SURFACE_ALLOWLIST: dict[str, set[str]] = {
     "mechanisms": {"flag", "card"},
     "paper_modules": {"cluster_flag", "flag", "card"},
     "python_files": {"cluster_flag", "flag", "card"},
+    "skills": {"cluster_flag", "flag", "card"},
     "task_ledger": {"cluster_flag", "flag", "card"},
 }
 
@@ -6536,7 +6593,7 @@ def market_intelligence_validation_debt():
 @app.get("/api/code-map")
 def code_map_endpoint(
     focus: str | None = Query(default=None, description="Repo-relative focus path; narrows the packet to the focus file plus its direct neighbors. Optional."),
-    max_files: int = Query(default=300, ge=1, description="Maximum file rows in the packet; clamped to the world_model code-map cap."),
+    max_files: int = Query(default=2000, ge=1, description="Maximum file rows in the packet; clamped to the world_model code-map cap."),
 ):
     """
     [ACTION]
@@ -7931,6 +7988,11 @@ def _recording_replay_current_surface_to_take(
     return _recording_event_with_session_time(event, active)
 
 
+def _recording_clean_take_title(value: Any) -> Optional[str]:
+    text = re.sub(r"\s+", " ", str(value or "").strip())[:120]
+    return text or None
+
+
 @app.put("/api/recording/active-take")
 def recording_set_active_take(payload: Dict[str, Any] = Body(...)) -> Dict[str, Any]:
     """Register a demo-take-console take as the active recording target.
@@ -7940,6 +8002,7 @@ def recording_set_active_take(payload: Dict[str, Any] = Body(...)) -> Dict[str, 
     """
     take_id = (payload or {}).get("take_id")
     take_root = (payload or {}).get("take_root")
+    take_title = _recording_clean_take_title((payload or {}).get("title") or (payload or {}).get("take_title"))
     resolved_take_root: Optional[Path] = None
     if take_root:
         resolved_take_root = _recording_take_root_from_payload(str(take_root))
@@ -7954,6 +8017,7 @@ def recording_set_active_take(payload: Dict[str, Any] = Body(...)) -> Dict[str, 
         record = {
             "take_id": take_id,
             "take_root": str(resolved_take_root),
+            "title": take_title,
             "registered_at": datetime.now(timezone.utc).isoformat(),
         }
         _recording_state["active_take"] = record
@@ -8076,6 +8140,7 @@ def _demo_take_bind_active_from_receipt(receipt: Mapping[str, Any]) -> None:
     support_result = result.get("support_result") if isinstance(result.get("support_result"), Mapping) else {}
     take_id = take_id or support_result.get("takeID")
     take_root = take_root or support_result.get("rootPath")
+    take_title = _recording_clean_take_title(result.get("title") or support_result.get("title"))
     if not take_id or not take_root:
         return
     with _recording_lock:
@@ -8094,6 +8159,7 @@ def _demo_take_bind_active_from_receipt(receipt: Mapping[str, Any]) -> None:
         _recording_state["active_take"] = {
             "take_id": str(take_id),
             "take_root": str(resolved),
+            "title": take_title,
             "registered_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -8188,6 +8254,16 @@ def demo_takes_action_start(payload: Optional[Dict[str, Any]] = Body(default=Non
     return receipt
 
 
+@app.post("/api/demo-takes/actions/import-video")
+def demo_takes_action_import_video(payload: Dict[str, Any] = Body(...), mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    recording_state = _demo_take_recording_state_snapshot()
+    try:
+        return projection.import_video_operation(payload=payload or {}, mode=mode, repo_root=REPO_ROOT, active_take=recording_state.get("active_take"))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.post("/api/demo-takes/actions/fake-lifecycle")
 def demo_takes_action_fake_lifecycle(payload: Optional[Dict[str, Any]] = Body(default=None), mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
@@ -8268,6 +8344,16 @@ def demo_take_action_mark(take_id: str, payload: Optional[Dict[str, Any]] = Body
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@app.post("/api/demo-takes/{take_id}/actions/set-title")
+def demo_take_action_set_title(take_id: str, payload: Dict[str, Any] = Body(...), mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    recording_state = _demo_take_recording_state_snapshot()
+    try:
+        return projection.set_take_title_operation(take_id, payload=payload or {}, mode=mode, repo_root=REPO_ROOT, active_take=recording_state.get("active_take"))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.post("/api/demo-takes/{take_id}/actions/audit")
 def demo_take_action_audit(take_id: str, mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
@@ -8297,10 +8383,44 @@ def demo_take_action_rebuild_intent_events(take_id: str, mode: str = Query("cali
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@app.post("/api/demo-takes/{take_id}/actions/export-video")
+def demo_take_action_export_video(take_id: str, mode: str = Query("calibration", pattern="^(calibration|production)$")) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    recording_state = _demo_take_recording_state_snapshot()
+    try:
+        return projection.export_video_operation(take_id, mode=mode, repo_root=REPO_ROOT, active_take=recording_state.get("active_take"))
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @app.get("/api/demo-takes")
 def demo_takes_list(mode: str = Query("calibration", pattern="^(calibration|production)$"), limit: int = Query(50, ge=1, le=200)) -> Dict[str, Any]:
     projection = _demo_take_projection_module()
     return projection.build_take_cards(repo_root=REPO_ROOT, mode=mode, limit=limit)
+
+
+@app.get("/api/demo-takes/exports")
+def demo_take_exports(limit: int = Query(50, ge=1, le=200)) -> Dict[str, Any]:
+    projection = _demo_take_projection_module()
+    return projection.build_export_index(repo_root=REPO_ROOT, limit=limit)
+
+
+@app.get("/api/demo-takes/exports/asset/{relative_path:path}")
+def demo_take_export_asset(relative_path: str):
+    projection = _demo_take_projection_module()
+    try:
+        target = projection.resolve_export_asset(relative_path, repo_root=REPO_ROOT)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if not target.exists() or not target.is_file():
+        raise HTTPException(status_code=404, detail="export asset not found")
+    return FileResponse(
+        target,
+        media_type=None,
+        stat_result=target.stat(),
+        content_disposition_type="inline",
+        headers={"Accept-Ranges": "bytes"},
+    )
 
 
 @app.get("/api/demo-takes/{take_id}/asset/{relative_path:path}")

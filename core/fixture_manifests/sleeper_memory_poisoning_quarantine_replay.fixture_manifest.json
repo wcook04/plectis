@@ -79,7 +79,9 @@
     {
       "path": "fixtures/first_wave/sleeper_memory_poisoning_quarantine_replay/input/unmetered_poison_influence.json",
       "role": "negative case: unmetered_poison_influence"
-    },
+    }
+  ],
+  "imported_body_inputs": [
     {
       "path": "examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle/source_module_manifest.json",
       "role": "source-open body import manifest for copied non-secret macro memory-plane source bodies"
