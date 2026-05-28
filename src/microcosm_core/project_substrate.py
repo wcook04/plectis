@@ -69,6 +69,7 @@ PYTHON_LENS_STATE = "python_lens.json"
 PYTHON_LENS_SCAN_FULL = "full"
 PYTHON_LENS_SCAN_FIRST_SCREEN = "first_screen_summary"
 PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES = 4096
+PYTHON_LENS_CARD_PREVIEW_LIMIT = 12
 COMPILE_STATE_REFS = (
     f"{STATE_DIR}/project_manifest.json",
     f"{STATE_DIR}/architecture.json",
@@ -1575,7 +1576,8 @@ def python_lens(
         "lens_id": "project_python_route_lens",
         "command": "microcosm python-lens <project>",
         "scan_mode": scan_mode,
-        "full_lens_command": "microcosm python-lens <project>",
+        "full_lens_command": "microcosm python-lens --full <project>",
+        "compact_lens_command": "microcosm python-lens <project>",
         "first_screen_summary": first_screen_summary,
         "deferred_full_scan": first_screen_summary,
         "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
@@ -1658,6 +1660,131 @@ def python_lens(
         {**payload, "event_id": event["event_id"]},
     )
     write_json_atomic(_state_dir(project) / PYTHON_LENS_STATE, payload)
+    return payload
+
+
+def python_lens_card(
+    project_path: str | Path,
+    *,
+    write_state: bool = True,
+    refresh_architecture: bool = True,
+) -> dict[str, Any]:
+    """Emit a compact public first-contact Python lens card."""
+    project = Path(project_path).expanduser().resolve(strict=False)
+    lens = python_lens(
+        project,
+        write_state=write_state,
+        refresh_architecture=refresh_architecture,
+        scan_mode=PYTHON_LENS_SCAN_FIRST_SCREEN,
+    )
+    path_rows = lens.get("path_rows", [])
+    if not isinstance(path_rows, list):
+        path_rows = []
+    route_rows = lens.get("route_rows", [])
+    if not isinstance(route_rows, list):
+        route_rows = []
+    checks = lens.get("readiness_checks", [])
+    if not isinstance(checks, list):
+        checks = []
+    navigation_assay = lens.get("navigation_assay", {})
+    if not isinstance(navigation_assay, dict):
+        navigation_assay = {}
+    route_curriculum = lens.get("route_utility_curriculum", {})
+    if not isinstance(route_curriculum, dict):
+        route_curriculum = {}
+    ratchet = route_curriculum.get("ratchet", {})
+    if not isinstance(ratchet, dict):
+        ratchet = {}
+    route_metrics = route_curriculum.get("route_utility_metrics", {})
+    if not isinstance(route_metrics, dict):
+        route_metrics = {}
+
+    payload = {
+        **_base_payload("microcosm_project_python_lens_card_v1", project),
+        "card_id": "project_python_lens_card",
+        "lens_id": lens.get("lens_id"),
+        "command": "microcosm python-lens <project>",
+        "full_lens_command": "microcosm python-lens --full <project>",
+        "scan_mode": lens.get("scan_mode"),
+        "deferred_full_scan": True,
+        "state_file_ref": lens.get("state_file_ref"),
+        "state_written": lens.get("state_written"),
+        "evidence_ref": lens.get("evidence_ref"),
+        "event_id": lens.get("event_id"),
+        "public_claim": lens.get("public_claim"),
+        "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
+        "unsafe_payload_bodies_in_receipt": False,
+        "payload_boundary": _project_python_lens_payload_boundary(
+            "microcosm python-lens <project>"
+        ),
+        "safe_to_show": {
+            "project_source_bodies_omitted": True,
+            "python_lens_rows_are_public_payload_boundary_rows": True,
+            "public_refs_are_drilldowns_not_replacements": True,
+            "full_source_span_graph_deferred": True,
+        },
+        "python_file_count": lens.get("python_file_count", 0),
+        "package_roots": lens.get("package_roots", []),
+        "path_preview_limit": PYTHON_LENS_CARD_PREVIEW_LIMIT,
+        "path_preview": path_rows[:PYTHON_LENS_CARD_PREVIEW_LIMIT],
+        "omitted_path_row_count": max(
+            0, len(path_rows) - PYTHON_LENS_CARD_PREVIEW_LIMIT
+        ),
+        "source_span_count": lens.get("source_span_count", 0),
+        "symbol_capsule_count": lens.get("symbol_capsule_count", 0),
+        "graph_edge_count": lens.get("graph_edge_count", 0),
+        "readiness_checks": checks,
+        "passing_check_count": lens.get("passing_check_count", 0),
+        "missing_check_count": lens.get("missing_check_count", 0),
+        "route_rows": route_rows,
+        "ready_route_count": lens.get("ready_route_count", 0),
+        "navigation_assay": {
+            "assay_id": navigation_assay.get("assay_id"),
+            "canonical_depth_ladder": navigation_assay.get(
+                "canonical_depth_ladder", []
+            ),
+            "depth_band_coverage": navigation_assay.get("depth_band_coverage", {}),
+            "probe_disposition_counts": navigation_assay.get(
+                "probe_disposition_counts", {}
+            ),
+            "route_utility_task_count": navigation_assay.get(
+                "route_utility_task_count", 0
+            ),
+            "route_utility_ratchet_status": navigation_assay.get(
+                "route_utility_ratchet_status"
+            ),
+            "route_utility_stale_task_count": navigation_assay.get(
+                "route_utility_stale_task_count", 0
+            ),
+            "authority": navigation_assay.get("authority"),
+            "reentry_condition": navigation_assay.get("reentry_condition"),
+        },
+        "python_navigation_route": lens.get("python_navigation_route", {}),
+        "route_utility_curriculum": {
+            "curriculum_id": route_curriculum.get("curriculum_id"),
+            "task_count": route_curriculum.get("task_count", 0),
+            "disposition_counts": route_curriculum.get("disposition_counts", {}),
+            "route_utility_metrics": {
+                "failed_task_count": route_metrics.get("failed_task_count", 0),
+                "not_applicable_count": route_metrics.get("not_applicable_count", 0),
+                "stale_task_count": route_metrics.get("stale_task_count", 0),
+            },
+            "ratchet": {
+                "last_run_result": ratchet.get("last_run_result"),
+                "stale_task_ids": ratchet.get("stale_task_ids", []),
+            },
+            "payload_boundary_ok": route_curriculum.get("payload_boundary_ok"),
+            "source_bodies_exported": route_curriculum.get("source_bodies_exported"),
+        },
+        "standard_refs": lens.get("standard_refs", []),
+        "authority_ceiling": lens.get("authority_ceiling", {}),
+        "anti_claim": lens.get("anti_claim"),
+        "reader_action": (
+            "Use this compact lens for first contact. Run "
+            "`microcosm python-lens --full <project>` only when exact source-span, "
+            "symbol, import, or graph rows are needed."
+        ),
+    }
     return payload
 
 
@@ -2841,6 +2968,11 @@ def build_parser() -> argparse.ArgumentParser:
     architecture_parser = subparsers.add_parser("architecture")
     architecture_parser.add_argument("project")
     python_lens_parser = subparsers.add_parser("python-lens")
+    python_lens_parser.add_argument(
+        "--full",
+        action="store_true",
+        help="emit full source-span, symbol, import, and graph rows",
+    )
     python_lens_parser.add_argument("project")
     patterns_parser = subparsers.add_parser("patterns")
     patterns_parser.add_argument("project")
@@ -2890,7 +3022,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "architecture":
         return _print_json(architecture_project(args.project))
     if args.command == "python-lens":
-        return _print_json(python_lens(args.project))
+        if args.full:
+            return _print_json(python_lens(args.project))
+        return _print_json(python_lens_card(args.project))
     if args.command == "patterns":
         return _print_json(discover_patterns(args.project))
     if args.command == "route":

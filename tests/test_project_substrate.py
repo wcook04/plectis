@@ -567,6 +567,41 @@ def test_python_lens_route_utility_ratchet_ignores_unwatched_surface(
     assert (project / ".microcosm/python_lens.json").is_file()
 
 
+def test_cli_python_lens_defaults_to_compact_card_and_full_keeps_rows(
+    capsys, tmp_path: Path
+) -> None:
+    project = _scratch_project(tmp_path)
+
+    assert cli.main(["python-lens", project.as_posix()]) == 0
+    card = json.loads(capsys.readouterr().out)
+
+    assert card["schema_version"] == "microcosm_project_python_lens_card_v1"
+    assert card["command"] == "microcosm python-lens <project>"
+    assert card["full_lens_command"] == "microcosm python-lens --full <project>"
+    assert card["deferred_full_scan"] is True
+    assert card["python_file_count"] == 2
+    assert card["path_preview_limit"] == project_substrate.PYTHON_LENS_CARD_PREVIEW_LIMIT
+    assert card["payload_boundary"]["boundary_id"] == "project_python_lens_read_model"
+    assert card["source_open_body_policy"] == SOURCE_OPEN_BODY_POLICY
+    assert card["safe_to_show"]["full_source_span_graph_deferred"] is True
+    assert "source_span_rows" not in card
+    assert "symbol_capsule_rows" not in card
+    assert "graph_context_edges" not in card
+    assert len(json.dumps(card, sort_keys=True)) < 16000
+
+    assert cli.main(["python-lens", "--full", project.as_posix()]) == 0
+    full = json.loads(capsys.readouterr().out)
+
+    assert full["schema_version"] == "microcosm_project_python_lens_v1"
+    assert full["full_lens_command"] == "microcosm python-lens --full <project>"
+    assert full["source_span_count"] == 3
+    assert full["symbol_capsule_count"] == 1
+    assert full["graph_edge_count"] == 1
+    assert full["source_span_rows"]
+    assert full["symbol_capsule_rows"]
+    assert full["graph_context_edges"]
+
+
 def test_cli_project_first_run_commands(capsys, tmp_path: Path) -> None:
     project = _scratch_project(tmp_path)
 

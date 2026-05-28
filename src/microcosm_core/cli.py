@@ -1056,6 +1056,11 @@ def main(argv: list[str] | None = None) -> int:
         "python-lens",
         help="inspect public Python route/readiness metadata",
     )
+    python_lens_parser.add_argument(
+        "--full",
+        action="store_true",
+        help="emit full source-span, symbol, import, and graph rows",
+    )
     python_lens_parser.add_argument("project")
     graph_parser = subparsers.add_parser("graph")
     graph_parser.add_argument("project")
@@ -1574,7 +1579,11 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(project_substrate.compile_project_card(args.project))
         return project_substrate.main(["compile", args.project])
     if args.command == "python-lens":
-        return project_substrate.main(["python-lens", args.project])
+        command_args = ["python-lens"]
+        if args.full:
+            command_args.append("--full")
+        command_args.append(args.project)
+        return project_substrate.main(command_args)
     if args.command == "graph":
         return project_substrate.main(["graph", args.project])
     if args.command == "explain":
