@@ -57,6 +57,13 @@ ceilings before sending you into full receipt drilldowns.
 microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6
 ```
 
+If you are staying source-only, run the same bounded server through the module
+entry point:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 --port 8765 --max-requests 6
+```
+
 Open `http://127.0.0.1:8765` while the server is running. The compact JSON
 drilldowns are:
 
