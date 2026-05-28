@@ -15,6 +15,8 @@ ANTI_CLAIM = (
     "not product progress or substitutes for available real substrate."
 )
 FALSE_ENV_VALUES = {"0", "false", "no", "off"}
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
+TRACKED_RECEIPTS_ROOT = (PACKAGE_ROOT / "receipts").resolve(strict=False)
 
 
 def utc_now() -> str:
@@ -28,10 +30,20 @@ def receipt_writes_enabled() -> bool:
     return value.lower() not in FALSE_ENV_VALUES
 
 
+def tracked_receipt_write_blocked_under_pytest(path: str | Path) -> bool:
+    if "PYTEST_CURRENT_TEST" not in os.environ:
+        return False
+    try:
+        Path(path).resolve(strict=False).relative_to(TRACKED_RECEIPTS_ROOT)
+    except ValueError:
+        return False
+    return True
+
+
 def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
-    if not receipt_writes_enabled():
-        return
     target = Path(path)
+    if not receipt_writes_enabled() or tracked_receipt_write_blocked_under_pytest(target):
+        return
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{target.name}.", dir=str(target.parent))
     try:

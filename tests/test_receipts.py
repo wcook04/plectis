@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 from microcosm_core.receipts import write_json_atomic
+
+
+MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_receipt_writer_honors_runtime_read_only_gate(tmp_path, monkeypatch) -> None:
@@ -24,3 +28,12 @@ def test_receipt_writer_still_writes_by_default(tmp_path, monkeypatch) -> None:
     write_json_atomic(receipt_path, {"status": "pass"})
 
     assert json.loads(receipt_path.read_text(encoding="utf-8")) == {"status": "pass"}
+
+
+def test_receipt_writer_keeps_source_tree_receipts_read_only_under_pytest() -> None:
+    receipt_path = MICROCOSM_ROOT / "receipts/runtime_shell/public_stripping_guard_lens.json"
+    before = receipt_path.read_text(encoding="utf-8")
+
+    write_json_atomic(receipt_path, {"status": "would_dirty_source_tree"})
+
+    assert receipt_path.read_text(encoding="utf-8") == before
