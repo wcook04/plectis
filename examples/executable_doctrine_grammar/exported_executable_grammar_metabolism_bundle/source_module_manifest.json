@@ -237,14 +237,17 @@
       "body_copied": true,
       "body_in_receipt": false,
       "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
-      "line_count": 16480,
-      "byte_count": 727181,
+      "sha256": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "line_count": 16457,
+      "byte_count": 725919,
       "required_anchors": [
         "def build_standards_option_surface(",
         "def build_option_surface(",
         "def _standard_index("
-      ]
+      ],
+      "source_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "target_sha256": "0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
+      "sha256_match": true
     },
     {
       "module_id": "kind_atlas_tool_body_import",

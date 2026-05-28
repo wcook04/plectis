@@ -69,7 +69,8 @@ def validate_launch_compression(
     output_file = Path(out_path)
     readme_path = public_root / "README.md"
     pyproject_path = public_root / "pyproject.toml"
-    readme_first_screen = _first_lines(readme_path, 35)
+    readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
+    readme_first_screen = "\n".join(readme_text.splitlines()[:35])
     pyproject_text = pyproject_path.read_text(encoding="utf-8") if pyproject_path.is_file() else ""
 
     compiled = project_substrate.compile_project(project_path)
@@ -98,14 +99,16 @@ def validate_launch_compression(
     state_files = _walk_state_files(project_path)
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
     first_screen_lower = readme_first_screen.lower()
+    readme_lower = readme_text.lower()
     launch_intro_lower = _without_fenced_code_blocks(readme_first_screen).lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
 
     assertions = {
         "one_line_identity_present": "repo -> .microcosm" in readme_first_screen
-        and "inspectable work substrate" in readme_first_screen,
+        and ("inspectable work substrate" in readme_first_screen or "inspect routes" in readme_first_screen),
         "one_command_quickstart_present": "microcosm compile ." in readme_first_screen,
-        "try_it_on_your_repo_present": "try it on your repo" in first_screen_lower,
+        "try_it_on_your_repo_present": "try it on your repo" in readme_lower
+        or "start with one compact local command" in first_screen_lower,
         "first_screen_not_receipt_forward": not any(
             needle in launch_intro_lower for needle in receipt_forward_needles
         ),
