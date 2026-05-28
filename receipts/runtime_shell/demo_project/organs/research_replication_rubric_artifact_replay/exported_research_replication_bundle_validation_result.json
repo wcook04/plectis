@@ -18,6 +18,8 @@
   },
   "body_import_status": "extension_of_existing_public_refactor_landed",
   "body_import_verification": {
+    "copied_macro_pattern_body_count": 3,
+    "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
     "source_ref": "system/lib/agent_execution_trace.py",
     "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py",
     "validation_refs": [
@@ -26,10 +28,12 @@
     "verification_mode": "extension_of_existing_public_refactor",
     "verification_status": "verified"
   },
+  "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "bundle_id": "research_replication_rubric_artifact_replay_runtime_example",
   "cold_rerun_count": 2,
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:20+00:00",
+  "copied_source_artifact_count": 3,
+  "created_at": "2026-05-27T16:52:29+00:00",
   "declared_artifact_hash_ref_count": 2,
   "declared_artifact_hash_refs": [
     "artifacts/model_trace.sha256",
@@ -40,6 +44,63 @@
   "failure_taxonomy_count": 2,
   "findings": [],
   "fixture_id": "first_wave.research_replication_rubric_artifact_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:d5f3204efefd9c9842f97a463cf12ffcd34fea03b47b3ce04170997b0ee20060",
+    "card_schema_version": "research_replication_command_card_v1",
+    "include_negative": false,
+    "input_count": 9,
+    "inputs": [
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/projection_protocol.json",
+        "sha256": "sha256:ff6705066549bc475068955e88932ee682f92a985f2ff32de31bb6eedb7ca670",
+        "size_bytes": 2390
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/replication_policy.json",
+        "sha256": "sha256:78c93dd5b4fe45b7ce6eab984b6e3f35625aa68ad2f93ca3b2195de0a95918dc",
+        "size_bytes": 1031
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/research_replays.json",
+        "sha256": "sha256:b350b4679dfdd2fc61705bd2687c2ba850b5cdff57669d15a2ad47f2f13e8803",
+        "size_bytes": 3347
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/bundle_manifest.json",
+        "sha256": "sha256:b4341f2617891200816b35b347cf40dc728fd82507d78a0a7159aed4a9e6557a",
+        "size_bytes": 791
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+        "sha256": "sha256:1bc05f6a45b01d3565de902efe5b3e43d41ce74be0341ed02574c378586bf22b",
+        "size_bytes": 6476
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json",
+        "sha256": "sha256:b46c11a8b451bb72ca3acf27bdb2ba0877dfd9d7895d791cfed02230337f15cb",
+        "size_bytes": 4811
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json",
+        "sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+        "size_bytes": 6321
+      },
+      {
+        "path": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json",
+        "sha256": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
+        "size_bytes": 2745
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "research_replication_freshness_basis_v1",
+    "validator_schema_version": "exported_research_replication_bundle_validation_result_v1"
+  },
   "grader_report_count": 2,
   "input_mode": "exported_research_replication_bundle",
   "missing_negative_cases": [],
@@ -231,6 +292,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/research_replication_rubric_artifact_replay/exported_research_replication_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "replay_count": 2,
   "required_replay_fields": [
     "ablation_diff_ref",
@@ -361,9 +423,68 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 4,
+    "scanned_path_count": 8,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_module_import_count": 3,
+  "source_module_import_status": "pass",
+  "source_module_imports": [
+    {
+      "actual_sha256": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
+      "body_in_receipt": false,
+      "line_count": 39,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_deterministic_pattern_order_body_import",
+      "sha256": "sha256:1dc013a1adbd62ef402d120e99e5b0fe7b7e588bf4a02ece94a34c9d8c7f215a",
+      "source_ref": "state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.json::pattern:research_replication_rubric_artifact_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/deterministic_pattern_order_v1.pattern_research_replication_rubric_artifact_replay_compound.json"
+    },
+    {
+      "actual_sha256": "sha256:b46c11a8b451bb72ca3acf27bdb2ba0877dfd9d7895d791cfed02230337f15cb",
+      "body_in_receipt": false,
+      "line_count": 72,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_extracted_pattern_ledger_row_body_import",
+      "sha256": "sha256:b46c11a8b451bb72ca3acf27bdb2ba0877dfd9d7895d791cfed02230337f15cb",
+      "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::line_350::research_replication_rubric_artifact_replay_compound",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/research_replication_rubric_artifact_replay_compound.json"
+    },
+    {
+      "actual_sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+      "body_in_receipt": false,
+      "line_count": 121,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "research_replication_high_novelty_growth_receipt_body_import",
+      "sha256": "sha256:5e2b9e321e26d301401712e37e09134d95c1fcb210dbe93154ebbc0d39c1ee94",
+      "source_ref": "state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.json::actual_substrate_science_multimodal_benchmark_integrity_growth_v1",
+      "source_to_target_relation": "source_faithful_json_slice",
+      "target_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_science_multimodal_benchmark_integrity_growth_v1.json"
+    }
+  ],
+  "source_module_manifest_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+  "source_modules_pass": true,
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json",
+    "body_in_receipt": false,
+    "body_material_count": 3,
+    "body_material_ids": [
+      "research_replication_deterministic_pattern_order_body_import",
+      "research_replication_extracted_pattern_ledger_row_body_import",
+      "research_replication_high_novelty_growth_receipt_body_import"
+    ],
+    "body_material_status": "copied_non_secret_macro_body_with_provenance",
+    "material_classes": [
+      "public_macro_pattern_body"
+    ],
+    "reader_action": "Open source_module_manifest.json and source_artifacts/ for copied macro pattern provenance bodies; receipts carry digests and status only.",
+    "schema_version": "research_replication_source_open_body_imports_v1",
+    "source_manifest_refs": [
+      "examples/research_replication_rubric_artifact_replay/exported_research_replication_bundle/source_module_manifest.json"
+    ],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "research_replication_rubric_artifact_replay_compound"

@@ -87,7 +87,7 @@
     "replay_case_count": 4,
     "replay_graph_status": "pass",
     "source_capsule_count": 4,
-    "source_module_manifest_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+    "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
     "source_open_body_import_count": 4,
     "source_refs": [
       "self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
@@ -164,8 +164,8 @@
       "target_property_label": "adsorption_proxy"
     }
   ],
-  "command": "materials_chemistry_closed_loop_lab_safety_replay run-lab-bundle",
-  "created_at": "2026-05-27T04:36:34+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:29+00:00",
   "experiments": [
     {
       "action_class": "screen_candidate",
@@ -251,7 +251,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.materials_chemistry_closed_loop_lab_safety_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:48db3a5afe081f76460d2ac9c632928f1b856a277d8e540cc0a949812a6da6d7",
+    "basis_digest": "sha256:4ca0bac25a98afa6b1e6cdc8cbc4d4f13525686261762c33486ed2496afbc1f8",
     "card_schema_version": "materials_lab_safety_command_card_v1",
     "include_negative": false,
     "input_count": 15,
@@ -328,8 +328,8 @@
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],
@@ -338,7 +338,7 @@
     "validator_schema_version": "exported_materials_lab_safety_bundle_validation_result_v1"
   },
   "input_mode": "exported_materials_lab_safety_bundle",
-  "input_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle",
+  "input_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle",
   "materials_lab_safety_summary": {
     "active_learning_decision_count": 4,
     "candidate_material_count": 4,
@@ -911,7 +911,7 @@
     ]
   },
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle_validation_result.json"
   ],
   "receipt_reused": false,
   "release_authorized": false,
@@ -1046,9 +1046,9 @@
       "raw_operator_voice"
     ],
     "source_module_import_status": "copied_non_secret_materials_lab_macro_body_landed",
-    "source_module_manifest_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+    "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
     "source_refs": [
-      "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+      "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
       "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/src/idea_microcosm/lab_evolve_failure_replay_specimen.py",
       "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/replay_graph.json",
       "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_modules/ai_workflow/self-indexing-cognitive-substrate/microcosms/lab_evolve_failure_replay/receipt.json",
@@ -1057,10 +1057,10 @@
     "status": "pass",
     "verified_module_count": 4
   },
-  "source_module_manifest_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
+  "source_module_manifest_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json",
   "source_module_manifest_status": "pass",
   "source_open_body_imports": {
-    "aggregate_floor_ref": "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "hazardous_synthesis_authorized": false,
       "live_lab_credentials_authorized": false,
@@ -1114,7 +1114,7 @@
     "schema_version": "materials_chemistry_closed_loop_lab_safety_replay_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "microcosm-substrate/examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json"
+      "examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle/source_module_manifest.json"
     ],
     "status": "pass"
   },

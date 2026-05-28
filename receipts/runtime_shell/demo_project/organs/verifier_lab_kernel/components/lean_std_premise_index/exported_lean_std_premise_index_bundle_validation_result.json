@@ -13,7 +13,7 @@
     "status": "pass",
     "test_split_tuning_authorized": false
   },
-  "body_copied_material_count": 1,
+  "body_copied_material_count": 6,
   "body_material_contract": {
     "body_material_status": "copied_non_secret_macro_body_with_provenance",
     "copied_material_required": true,
@@ -48,10 +48,90 @@
         "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_imports_real_macro_premise_index",
         "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
       ]
+    },
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "lean_std_ring2_top_aggregate_report_body_import",
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "source_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "lean_std_premise_retrieval_aggregate_report_body_import",
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "source_sha256": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_receipt_body",
+      "material_id": "lean_std_premise_retrieval_cost_metrics_body_import",
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "source_sha256": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_pattern_body",
+      "material_id": "lean_std_premise_retrieval_graph_update_candidates_body_import",
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
+    },
+    {
+      "body_copied": true,
+      "classification": "copied_non_secret_macro_body_with_provenance",
+      "material_class": "public_macro_pattern_body",
+      "material_id": "lean_std_premise_retrieval_graph_variant_body_import",
+      "normalization": "exact public-safe macro copy; selected files carry no host-local paths, proof bodies, oracle-needed ids, provider payload bodies, or credential-equivalent material",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "source_sha256": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f",
+      "target_refs": [
+        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
+      ],
+      "validation_refs": [
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_source_open_manifest_counts_body_floor",
+        "microcosm-substrate/tests/test_lean_std_premise_index.py::test_lean_std_premise_index_bundle_validates_runtime_shape"
+      ]
     }
   ],
-  "copied_material_count": 1,
-  "created_at": "2026-05-26T12:09:11+00:00",
+  "copied_material_count": 6,
+  "created_at": "2026-05-27T16:50:57+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
@@ -77,7 +157,13 @@
     "fixtures/first_wave/lean_std_premise_index/input/premise_index.json",
     "fixtures/first_wave/lean_std_premise_index/input/index_policy.json",
     "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
-    "standards/std_microcosm_lean_std_premise_index.json"
+    "standards/std_microcosm_lean_std_premise_index.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
   ],
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/verifier_lab_kernel/components/lean_std_premise_index/exported_lean_std_premise_index_bundle_validation_result.json"
@@ -100,9 +186,86 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 3,
+    "scanned_path_count": 10,
     "status": "pass"
   },
+  "source_module_count": 6,
+  "source_module_imports": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_lean_std_premise_descriptor_index",
+      "module_id": "lean_std_toolchain_premise_index_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
+      "source_to_target_relation": "source_faithful_normalized_copy",
+      "target_byte_count": 8918,
+      "target_line_count": 280,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/premise_index.json",
+      "target_sha256": "sha256:0be36ba5b75b40d2ede2d90cefa5181829420df7abbae216d18282b92a30f869"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "lean_std_ring2_top_aggregate_report_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "source_to_target_relation": "exact_public_safe_macro_copy",
+      "target_byte_count": 371,
+      "target_line_count": 13,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+      "target_sha256": "sha256:0a5024ce5f24e0e04f4e98fb561c8bcb38ce700a5ab7e1a284f05756607334d0"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "lean_std_premise_retrieval_aggregate_report_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "source_to_target_relation": "exact_public_safe_macro_copy",
+      "target_byte_count": 3275,
+      "target_line_count": 122,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+      "target_sha256": "sha256:624d4333dc4edeb82daf401b0c12ea5e942b43a518a993ff1c91f5815d2c9b7a"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "lean_std_premise_retrieval_cost_metrics_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "source_to_target_relation": "exact_public_safe_macro_copy",
+      "target_byte_count": 5895,
+      "target_line_count": 203,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+      "target_sha256": "sha256:37f5fe2ee55db8ac41ef9b3c5b71362ad6bf042a469eefb47a4686649ba44497"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "lean_std_premise_retrieval_graph_update_candidates_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_to_target_relation": "exact_public_safe_macro_copy",
+      "target_byte_count": 2210,
+      "target_line_count": 61,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "target_sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "material_class": "public_macro_pattern_body",
+      "module_id": "lean_std_premise_retrieval_graph_variant_body_import",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "source_to_target_relation": "exact_public_safe_macro_copy",
+      "target_byte_count": 908,
+      "target_line_count": 28,
+      "target_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json",
+      "target_sha256": "sha256:1baff2806247471bd8f60a98fb3397cb4c8d38dc5d618e72914b6450cf029d6f"
+    }
+  ],
+  "source_module_manifest_ref": "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_module_manifest.json",
+  "source_module_manifest_status": "pass",
   "source_pattern_ids": [
     "lean_std_toolchain_premise_index",
     "closed_premise_admission_boundary",
@@ -111,7 +274,12 @@
   "source_refs": [
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.json",
     "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/problem_source_manifest.json",
-    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py"
+    "microcosm-substrate/src/microcosm_core/organs/formal_math_premise_retrieval.py",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/aggregate_report.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/cost_metrics.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+    "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_variant.json"
   ],
   "split_counts": {
     "dev": 11,
@@ -119,5 +287,6 @@
     "train": 11
   },
   "status": "pass",
-  "validator_id": "validator.microcosm.organs.lean_std_premise_index"
+  "validator_id": "validator.microcosm.organs.lean_std_premise_index",
+  "verified_source_module_count": 6
 }

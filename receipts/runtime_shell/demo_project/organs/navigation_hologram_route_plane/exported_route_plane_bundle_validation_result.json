@@ -229,8 +229,8 @@
       "fixture-regression-negative-cases"
     ]
   },
-  "command": "python -m microcosm_core.organs.navigation_hologram_route_plane run-route-plane-bundle --input microcosm-substrate/examples/navigation_hologram_route_plane/exported_route_plane_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/navigation_hologram_route_plane",
-  "created_at": "2026-05-27T14:06:47+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:29+00:00",
   "entry_payload_admission": {
     "after_bytes": 11200,
     "before_bytes": 14500,

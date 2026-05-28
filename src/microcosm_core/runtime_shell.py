@@ -7105,7 +7105,10 @@ class RuntimeShell:
             project_path = self.root / project_path
         project_path = project_path.resolve(strict=False)
 
-        compiled = project_substrate.compile_project(project_path)
+        compiled = project_substrate.compile_project(
+            project_path,
+            python_lens_scan_mode=project_substrate.PYTHON_LENS_SCAN_FIRST_SCREEN,
+        )
         project_ref = _public_relative(project_path, self.root)
         if project_ref.startswith("/") or project_ref.startswith(".."):
             project_ref = project_path.name

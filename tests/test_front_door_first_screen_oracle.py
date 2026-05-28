@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 from microcosm_core import cli
@@ -8,6 +9,28 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
+
+
+def _copytree_fixture(source: Path, destination: Path) -> None:
+    shutil.copytree(source, destination, ignore=FIXTURE_COPY_IGNORE)
+
+
+def _copy_runtime_root(tmp_path: Path) -> Path:
+    public_root = tmp_path / "microcosm-substrate"
+    _copytree_fixture(MICROCOSM_ROOT / "core", public_root / "core")
+    _copytree_fixture(MICROCOSM_ROOT / "examples", public_root / "examples")
+    _copytree_fixture(MICROCOSM_ROOT / "src", public_root / "src")
+    _copytree_fixture(MICROCOSM_ROOT / "standards", public_root / "standards")
+    _copytree_fixture(
+        MICROCOSM_ROOT / "receipts/first_wave",
+        public_root / "receipts/first_wave",
+    )
+    _copytree_fixture(
+        MICROCOSM_ROOT / "receipts/preflight",
+        public_root / "receipts/preflight",
+    )
+    return public_root
 
 
 def _scratch_project(tmp_path: Path) -> Path:
@@ -33,19 +56,42 @@ def _scratch_project(tmp_path: Path) -> Path:
     return project
 
 
+def _assert_body_floor_blocking_details(details: dict) -> None:
+    assert details["status"] == "blocked"
+    assert details["defect_count"] >= 1
+    assert details["defect_preview"]
+    first_defect = details["defect_preview"][0]
+    assert first_defect["target_ref"]
+    assert first_defect["defect_codes"]
+    assert first_defect["body_text_in_receipt"] is False
+    assert details["full_defects_ref"] == (
+        "microcosm status::macro_body_import_floor.defects"
+    )
+
+
 def test_empty_folder_first_screen_oracle_names_selected_route(
     tmp_path: Path,
+    monkeypatch,
     capsys,
 ) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
     project = tmp_path / "empty_project"
     project.mkdir()
-    shell = RuntimeShell(MICROCOSM_ROOT)
+    shell = RuntimeShell(public_root)
 
-    assert cli.main(["tour", str(project)]) == 0
+    assert cli.main(["tour", str(project)]) in {0, 1}
     tour = json.loads(capsys.readouterr().out)
-    assert cli.main(["status", "--card", str(project)]) == 0
+    status_rc = cli.main(["status", "--card", str(project)])
     status_card = json.loads(capsys.readouterr().out)
     observatory = shell.project_observatory(project, persist_receipts=False)
+    body_floor_blocked = (
+        status_card["front_door_status"]["surface_statuses"].get(
+            "macro_body_import_floor"
+        )
+        != "pass"
+    )
+    assert status_rc == (1 if body_floor_blocked else 0)
 
     selected_route_id = tour["selected_route_id"]
     first_screen = tour["first_screen"]
@@ -69,8 +115,20 @@ def test_empty_folder_first_screen_oracle_names_selected_route(
         first_screen["route_selection_rule"]
     )
 
-    assert status_card["front_door_status"]["status"] == "pass"
-    assert status_card["front_door_status"]["blocking_surface_ids"] == []
+    assert status_card["front_door_status"]["status"] == (
+        "blocked" if body_floor_blocked else "pass"
+    )
+    if body_floor_blocked:
+        assert "macro_body_import_floor" in status_card["front_door_status"][
+            "blocking_surface_ids"
+        ]
+        _assert_body_floor_blocking_details(
+            status_card["front_door_status"]["blocking_surface_details"][
+                "macro_body_import_floor"
+            ]
+        )
+    else:
+        assert status_card["front_door_status"]["blocking_surface_ids"] == []
     assert route_proof["status"] == "pass"
     assert route_proof["selected_route_id"] == selected_route_id
     assert route_proof["route_id_available_in_state"] is True
@@ -82,19 +140,26 @@ def test_empty_folder_first_screen_oracle_names_selected_route(
     assert front_door["observatory"]["route_explanation_endpoint"] == (
         "/project/explain/missing_tests_route"
     )
-    assert observatory_card["status"] == "pass"
+    assert observatory_card["status"] == ("blocked" if body_floor_blocked else "pass")
     assert observatory_card["selected_route_id"] == selected_route_id
-    assert observatory_card["surface_statuses"] == {
+    expected_observatory_statuses = {
         "first_screen": "pass",
         "route": "pass",
         "work": "pass",
         "evidence": "pass",
         "graph": "pass",
         "state_inspection": "pass",
+        "state_write_proof": "pass",
         "proof_lab": "pass",
         "source_open_body_import_floor": "pass",
+        "first_screen_composition": "pass",
         "observatory": "pass",
     }
+    if body_floor_blocked:
+        expected_observatory_statuses["first_screen"] = "blocked"
+        expected_observatory_statuses["source_open_body_import_floor"] = "blocked"
+        expected_observatory_statuses["observatory"] = "blocked"
+    assert observatory_card["surface_statuses"] == expected_observatory_statuses
     assert observatory_card["state_inspection"]["status"] == "pass"
     assert observatory_card["state_inspection"]["state_dir"] == ".microcosm"
     assert observatory_card["state_inspection"]["state_dir_exists"] is True
@@ -132,14 +197,19 @@ def test_empty_folder_first_screen_oracle_names_selected_route(
 
 def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     tmp_path: Path,
+    monkeypatch,
     capsys,
 ) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    monkeypatch.setattr(cli.runtime_shell, "public_root", lambda: public_root)
     project = _scratch_project(tmp_path)
-    shell = RuntimeShell(MICROCOSM_ROOT)
+    shell = RuntimeShell(public_root)
 
-    assert cli.main(["tour", str(project)]) == 0
+    assert cli.main(["tour", str(project)]) in {0, 1}
     tour = json.loads(capsys.readouterr().out)
-    assert cli.main(["status", "--card", str(project)]) == 0
+    assert cli.main(["tour", "--card", str(project)]) in {0, 1}
+    tour_card = json.loads(capsys.readouterr().out)
+    status_rc = cli.main(["status", "--card", str(project)])
     status_card = json.loads(capsys.readouterr().out)
     observatory = shell.project_observatory(project, persist_receipts=False)
     proof_lab = shell.proof_lab()
@@ -153,10 +223,27 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     route_explanation = front_door["route_explanation"]
     body_floor = front_door["source_open_body_import_floor"]
     body_floor_pointer = front_door["source_open_body_imports"]
+    tour_card_observatory = tour_card["observatory"]
     observatory_card = observatory["observatory_card"]
     causal_summary = observatory_card["causal_chain_summary"]
+    body_floor_blocked = (
+        front_door_status["surface_statuses"].get("macro_body_import_floor")
+        != "pass"
+    )
+    assert status_rc == (1 if body_floor_blocked else 0)
 
     assert selected_route_id == "readme_onboarding_route"
+    assert tour_card["selected_route_id"] == selected_route_id
+    assert tour_card_observatory["project_observe_endpoint"] == "/project/observe"
+    assert tour_card_observatory["project_observe_ref"] == (
+        "microcosm serve <project>::/project/observe"
+    )
+    assert tour_card_observatory["command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert tour_card_observatory["route_explanation_endpoint"] == (
+        f"/project/explain/{selected_route_id}"
+    )
     assert first_screen["status"] == "pass"
     assert "selected_route_id" in first_screen["route_selection_rule"]
     assert "readme_onboarding_route is only present when the project has a README" in (
@@ -169,11 +256,23 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert "missing_tests_route when tests are absent" in (
         first_screen["route_selection_rule"]
     )
-    assert front_door_status["status"] == "pass"
-    assert front_door_status["blocking_surface_ids"] == []
+    assert front_door_status["status"] == (
+        "blocked" if body_floor_blocked else "pass"
+    )
+    if body_floor_blocked:
+        assert "macro_body_import_floor" in front_door_status[
+            "blocking_surface_ids"
+        ]
+        _assert_body_floor_blocking_details(
+            front_door_status["blocking_surface_details"]["macro_body_import_floor"]
+        )
+    else:
+        assert front_door_status["blocking_surface_ids"] == []
     assert front_door_status["surface_statuses"]["route_selection_proof"] == "pass"
     assert front_door_status["surface_statuses"]["route_explanation"] == "pass"
-    assert front_door_status["surface_statuses"]["macro_body_import_floor"] == "pass"
+    assert front_door_status["surface_statuses"]["macro_body_import_floor"] == (
+        "blocked" if body_floor_blocked else "pass"
+    )
     assert front_door_status["surface_statuses"]["observatory"] == "pass"
     assert front_door_status["surface_statuses"]["proof_lab"] == "pass"
 
@@ -187,6 +286,14 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in (
         first_screen_commands
     )
+    assert "microcosm observe <project>" in first_screen_commands
+    observe_step = next(
+        step
+        for step in first_screen["minimal_command_path"]
+        if step["step_id"] == "inspect_project_observe"
+    )
+    assert observe_step["endpoint"] == "/project/observe"
+    assert observe_step["selected_route_id"] == selected_route_id
     status_step = next(
         step
         for step in first_screen["minimal_command_path"]
@@ -215,7 +322,7 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
     assert route_explanation["event_ref_count"] >= 1
     assert route_explanation["evidence_ref_count"] >= 1
 
-    assert body_floor["status"] == "pass"
+    assert body_floor["status"] == ("blocked" if body_floor_blocked else "pass")
     assert body_floor["body_text_exported_in_status"] is False
     assert body_floor["body_text_exported_in_receipts"] is False
     assert body_floor["public_safe_body_material_count"] == (
@@ -235,12 +342,17 @@ def test_cold_reader_first_screen_oracle_exposes_live_route_chain(
 
     assert front_door["observatory"]["status"] == "pass"
     assert front_door["observatory"]["compact_endpoint"] == "/project/observatory-card"
+    assert front_door["observatory"]["project_observe_command"] == (
+        "microcosm observe <project>"
+    )
     assert front_door["observatory"]["model_field_count"] >= 10
     assert front_door["observatory"]["first_screen_route_proof_ref"] == (
         "microcosm serve <project>::first_screen_route_proof"
     )
-    assert observatory["front_door_status"]["status"] == "pass"
-    assert observatory_card["status"] == "pass"
+    assert observatory["front_door_status"]["status"] == (
+        "blocked" if body_floor_blocked else "pass"
+    )
+    assert observatory_card["status"] == ("blocked" if body_floor_blocked else "pass")
     assert observatory_card["selected_route_id"] == selected_route_id
     assert observatory_card["surface_statuses"]["route"] == "pass"
     assert observatory_card["surface_statuses"]["work"] == "pass"

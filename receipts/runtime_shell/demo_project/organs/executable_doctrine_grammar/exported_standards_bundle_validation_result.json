@@ -10,13 +10,17 @@
     "status": "pass"
   },
   "bundle_id": "public_executable_doctrine_grammar_runtime_example",
+  "card_schema_version": null,
   "command": "microcosm run examples/runtime_shell/demo_project",
-  "created_at": "2026-05-26T12:09:09+00:00",
+  "created_at": "2026-05-27T16:52:28+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],
   "fixture_id": "first_wave.executable_doctrine_grammar.exported_standards_bundle",
   "fixture_regression_required_elsewhere": true,
+  "freshness_basis": null,
+  "freshness_digest": null,
+  "freshness_status": null,
   "input_mode": "exported_standards_bundle",
   "invalid_module_slugs": [],
   "missing_negative_cases": [],
@@ -48,6 +52,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/executable_doctrine_grammar/exported_standards_bundle_validation_result.json"
   ],
+  "receipt_reused": null,
   "rejected_module_ids": [],
   "rejected_standard_ids": [],
   "schema_version": "executable_doctrine_grammar_exported_standards_bundle_validation_v1",

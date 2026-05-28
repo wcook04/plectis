@@ -36,9 +36,9 @@
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_agent_memory_body_with_provenance",
   "bundle_id": "agent_memory_temporal_conflict_replay_trace_refactor",
-  "command": "python -m microcosm_core.organs.agent_memory_temporal_conflict_replay run-memory-bundle",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "conflict_edge_count": 2,
-  "created_at": "2026-05-26T21:39:26+00:00",
+  "created_at": "2026-05-27T16:52:31+00:00",
   "decision_counts": {
     "ADD": 2,
     "DELETE": 1,
@@ -51,6 +51,73 @@
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.agent_memory_temporal_conflict_replay",
+  "freshness_basis": {
+    "basis_digest": "sha256:6d8aa64040784db29ac2ad0e36533a5fc2396dd1a35fe6cb70ff5c7f7d3b5259",
+    "card_schema_version": "agent_memory_temporal_conflict_replay_command_card_v1",
+    "include_negative": false,
+    "input_count": 11,
+    "inputs": [
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/projection_protocol.json",
+        "sha256": "sha256:66f0f56fa5cf10d6f9311fd2c3795eb99887a60b8c425152c6b04e006a606172",
+        "size_bytes": 6418
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/memory_policy.json",
+        "sha256": "sha256:d25a1bb953e94691a889433f0d0178f291c21fe6bcf40bc61a323aeed190b007",
+        "size_bytes": 998
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/memory_episodes.json",
+        "sha256": "sha256:bff59452e7ef7dff9974d94b91b5d33e59cbad054452b85edbc61476db7e341b",
+        "size_bytes": 3557
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/replay_observations.json",
+        "sha256": "sha256:f84095eab43cccab450854bd1eb1f4508c2ab6298abf3b3a71595fc994e67684",
+        "size_bytes": 1561
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/bundle_manifest.json",
+        "sha256": "sha256:69adeb24108773d7dfc76e0190f276e07e0a063d115b5dbf76e4c8e159c70267",
+        "size_bytes": 2931
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
+        "sha256": "sha256:42a5bf3712836afe6cd7f0212a6d54b3a2036cc67d5381f191f1824f2d75acfc",
+        "size_bytes": 9940
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_source/system/lib/agent_execution_trace.py",
+        "sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+        "size_bytes": 224689
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_doctrine/codex/doctrine/paper_modules/memory_injection_tiers.md",
+        "sha256": "sha256:9cdf92072216fe05cb9bd3d56050a36dea326967093ad48c7a6bac3976453214",
+        "size_bytes": 14191
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_standard/codex/standards/std_agent_execution_trace.public_memory_trace_slice.json",
+        "sha256": "sha256:f561233ef38614bfc46c11730abdaa6228daaa34190bf67e92656323c3cb24a6",
+        "size_bytes": 12324
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger/agent_memory_temporal_conflict_replay_rows.json",
+        "sha256": "sha256:42530c87e1d44c0f1849f92a22c673a0e8ce9f4a0910a22cd2176f1722134a48",
+        "size_bytes": 5953
+      },
+      {
+        "path": "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/high_novelty_substrate_gap_scout_v1.actual_substrate_agent_memory_temporal_conflict_replay_growth_v1.json",
+        "sha256": "sha256:bf4378c4c60cd33a6175033be479c3dbd2be2f85789b604d204b027403956e8f",
+        "size_bytes": 3637
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "agent_memory_temporal_conflict_replay_freshness_basis_v1",
+    "validator_schema_version": "exported_memory_temporal_conflict_bundle_validation_result_v1"
+  },
   "input_mode": "exported_memory_temporal_conflict_bundle",
   "memory_disabled_replay_count": 1,
   "memory_enabled_replay_count": 1,
@@ -454,6 +521,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "replay_observation_count": 2,
   "replay_rows": [
     {

@@ -79,10 +79,15 @@ structural evidence do not live in separate places.
    evidence refs without mutating source or calling providers.
 2. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the same
    first-screen card plus four bridge cards: `Local demo`, `Structural scale`,
-   `Evidence floor`, and `Authority boundary`.
+   `Evidence floor`, and `Authority boundary`. For a bounded route smoke, use
+   `microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6`.
 3. `/project/observatory-card` is the JSON card for that bridge;
    `/project/status` is the compact body-import and authority lens; the full
    `/project/observatory` model stays a drilldown.
+
+For a bounded validation run, add `--max-requests N`; the local server exits
+cleanly after serving that many HTTP requests, so route smokes do not need an
+external interrupt.
 
 If the first run only shows `.microcosm/`, you have not seen the scale claim
 yet. If the status card only shows body-import counts, you have not seen the
@@ -106,6 +111,7 @@ PYTHONPATH=src python3 -m microcosm_core.cli tour --card .
 PYTHONPATH=src python3 -m microcosm_core.cli first-screen .
 PYTHONPATH=src python3 -m microcosm_core.cli status --card .
 PYTHONPATH=src python3 -m microcosm_core.cli proof-lab --out /tmp/microcosm-proof-lab
+PYTHONPATH=src python3 -m microcosm_core.cli observe .
 ```
 
 After the console command is installed, the first-screen path is:
@@ -117,7 +123,8 @@ microcosm first-screen .
 microcosm status --card .
 microcosm workingness
 microcosm proof-lab --out /tmp/microcosm-proof-lab
-microcosm serve . --host 127.0.0.1 --port 8765
+microcosm observe .
+microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6
 microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
@@ -126,12 +133,15 @@ microcosm tour .
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
 
-The quickest human first screen is `microcosm hello .`. The local behavior
+The quickest human first screen is `microcosm hello .`. Its observatory line
+uses the bounded serve validation command so a first-screen route smoke can
+exit by itself. The local behavior
 proof is the compact `microcosm tour --card .` JSON: it writes the local
 `.microcosm/` state, names the selected project route id, exposes
 `state_inspection` plus route/work/event/evidence/graph refs, points to the
-status card, workingness map, observatory command, proof-lab command, and
-authority ceiling, and keeps route cards plus receipt refs out of the cockpit.
+status card, workingness map, `microcosm observe <project>` causal-chain
+command, observatory command, proof-lab command, and authority ceiling, and
+keeps route cards plus receipt refs out of the cockpit.
 Run `microcosm tour .` only when you want the full route-card, endpoint-path,
 and evidence-ref drilldown.
 In that full packet, `route_cards_by_id.status_and_workingness` remains the
@@ -159,6 +169,7 @@ runtime status. It includes the selected project route id,
 route-explanation status, and observatory proof ref, `front_door.route_explanation`
 with the compact route/work/event/evidence chain,
 `front_door.observatory.compact_endpoint=/project/observatory-card`,
+`front_door.observatory.project_observe_command=microcosm observe <project>`,
 `front_door.source_open_body_import_floor` with verified source-open body-import
 counts and body-text exclusion flags, the shorter
 `front_door.source_open_body_imports` pointer for count-first scanning,
@@ -185,6 +196,14 @@ If `microcosm status --card <project>` exits non-zero, keep the JSON output as
 the evidence packet. The field `front_door_status.blocking_surface_ids` names
 the blocking first-screen surfaces; inspect those exact surfaces, and do not
 treat warning drilldowns as source, release, provider, or proof authority.
+If the blocker is `project_state=missing_state`, the same card now includes
+`front_door.project_state.recovery`,
+`front_door.project_recovery`, top-level `next_commands`, and
+`front_door_status.blocking_surface_details.project_state` with
+`microcosm tour --card <project>` as the primary recovery command and
+`microcosm status --card <project>` as the verification command. This keeps a
+status-before-tour mistake on the product route instead of sending readers into
+raw receipts or doctrine.
 
 Use `microcosm authority --card` before trusting any organ label. It gives the
 compact authority ceiling first; open `microcosm authority` only when you need

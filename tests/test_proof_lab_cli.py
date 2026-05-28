@@ -90,6 +90,7 @@ def test_cli_proof_lab_alias_prints_first_screen_card(
     assert payload["lean_compiled_declaration_count"] == 8
     assert payload["safe_to_show"]["body_in_receipt"] is False
     assert payload["safe_to_show"]["proof_bodies_exported"] is False
+    assert payload["safe_to_show"]["proof_correctness_claim"] is False
     assert payload["safe_to_show"]["provider_payloads_exported"] is False
     assert payload["safe_to_show"]["host_private_paths_exported"] is False
     assert payload["safe_to_show"]["route_metadata_visible"] is True

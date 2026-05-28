@@ -5964,7 +5964,7 @@
           "preserve navigation control source without claiming live macro kernel execution in Microcosm"
         ],
         "body_copied": true,
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:30b33491e306f6557939c3e9f8bd0cc366df1edf63e6b09f36fa7f125ff48e87",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_navigation_hologram_route_plane.py::test_navigation_hologram_route_plane_source_manifest_matches_exact_macro_sources",
@@ -6693,19 +6693,19 @@
           "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
         ],
         "body_copied": true,
-        "body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+        "body_digest": "sha256:1ae8de54f8ef2605c341de67539c1cf260ee17ff6e80d8dcc6c666132ebb885b",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
             "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
           ],
-          "source_body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
-          "source_line_count": 589,
+          "source_body_digest": "sha256:1ae8de54f8ef2605c341de67539c1cf260ee17ff6e80d8dcc6c666132ebb885b",
+          "source_line_count": 730,
           "source_ref": "tools/finance/build_eval_operating_picture.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
-          "target_line_count": 589,
+          "target_body_digest": "sha256:1ae8de54f8ef2605c341de67539c1cf260ee17ff6e80d8dcc6c666132ebb885b",
+          "target_line_count": 730,
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
         },
@@ -7001,7 +7001,7 @@
           "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
         ],
         "body_copied": true,
-        "body_digest": "sha256:169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+        "body_digest": "sha256:c019f7a16b32e4c35323e12d8bbd14f74e5214495f5df08f830c2e52e3a07807",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
@@ -7054,7 +7054,7 @@
           "preserve_no_live_task_ledger_work_ledger_git_private_index_release_publication_or_provider_authority_ceiling"
         ],
         "body_copied": true,
-        "body_digest": "sha256:5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+        "body_digest": "sha256:221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
@@ -7650,18 +7650,18 @@
           "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
         ],
         "body_copied": true,
-        "body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
+        "body_digest": "sha256:dbc519d879dfbef926923cd70baace20f40b466ed2835c565fbc6cd1196b0fc1",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_cli_prompt_trace_source_module_renders_public_fixture",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
           ],
-          "source_body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
-          "source_line_count": 5930,
+          "source_body_digest": "sha256:dbc519d879dfbef926923cd70baace20f40b466ed2835c565fbc6cd1196b0fc1",
+          "source_line_count": 6657,
           "source_ref": "tools/meta/observability/cli_prompt_trace.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:6c458c065ccc59c03e365a156df563a04785351c30b135e084e846e3b890a58a",
-          "target_line_count": 5930,
+          "target_body_digest": "sha256:dbc519d879dfbef926923cd70baace20f40b466ed2835c565fbc6cd1196b0fc1",
+          "target_line_count": 6657,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
@@ -7701,7 +7701,7 @@
           "bind_copied_body_to_macro_projection_import_protocol_trace_capsule_cell"
         ],
         "body_copied": true,
-        "body_digest": "sha256:9c900e66a697228b0cd82f4bf49eaf45bc018f6192d7b77d9871a12d0c0d361d",
+        "body_digest": "sha256:c639f152818253d55c623b1da60e58c5c75076d7889f15f98837e9e43e4b7be1",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_trace_capsule_source_manifest_matches_exact_macro_sources"
@@ -8016,7 +8016,7 @@
           "preserve_route_selection_source_without_claiming_live_macro_kernel_execution_in_microcosm"
         ],
         "body_copied": true,
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:30b33491e306f6557939c3e9f8bd0cc366df1edf63e6b09f36fa7f125ff48e87",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_route_selection_control_source_manifest_matches_exact_macro_sources",
@@ -11160,18 +11160,18 @@
           "preserve_kernel_config_source_without_exporting_provider_payloads_account_session_state_browser_hud_live_access_generated_state_or_credential_equivalent_material"
         ],
         "body_copied": true,
-        "body_digest": "sha256:cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+        "body_digest": "sha256:1e5e9fa7801cdd153237f402239f31269c9feb50c5e4b4290586d467d549397c",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_bridge_config_source_manifest_matches_exact_macro_sources",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_kernel_bridge_config_sources_compile_and_preserve_master_config_runtime_contract",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_kernel_bridge_config_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+          "source_body_digest": "sha256:1e5e9fa7801cdd153237f402239f31269c9feb50c5e4b4290586d467d549397c",
           "source_line_count": 337,
           "source_ref": "system/lib/kernel/state.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+          "target_body_digest": "sha256:1e5e9fa7801cdd153237f402239f31269c9feb50c5e4b4290586d467d549397c",
           "target_line_count": 337,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/state.py",
           "verification_mode": "exact_source_digest_match",
@@ -11861,11 +11861,11 @@
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_observability_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
           "source_body_digest": "sha256:f3c1fa259b5b9d6c86ce7f772e0078521ae4f2035f13268208527fc275995a9c",
-          "source_line_count": 589,
+          "source_line_count": 730,
           "source_ref": "system/server/tests/test_agent_observability.py",
           "source_to_target_relation": "exact_copy",
           "target_body_digest": "sha256:f3c1fa259b5b9d6c86ce7f772e0078521ae4f2035f13268208527fc275995a9c",
-          "target_line_count": 589,
+          "target_line_count": 730,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
@@ -13165,18 +13165,18 @@
           "preserve_live_task_ledger_work_ledger_kernel_authority_boundaries_while_importing_non_secret_source"
         ],
         "body_copied": true,
-        "body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
+        "body_digest": "sha256:0d62cbe48c09d0e80610a810aeb085156e9c23afa99f23ce1db81983c9316cc9",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_task_ledger_startup_pressure_source_manifest_matches_exact_macro_sources",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_startup_pressure_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
-          "source_line_count": 20489,
+          "source_body_digest": "sha256:0d62cbe48c09d0e80610a810aeb085156e9c23afa99f23ce1db81983c9316cc9",
+          "source_line_count": 20681,
           "source_ref": "system/lib/kernel/commands/navigate.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:a75c56a85b76d0506eabbfd43f1a80324c9379525d186556b304ea8ee737cd9d",
-          "target_line_count": 20489,
+          "target_body_digest": "sha256:0d62cbe48c09d0e80610a810aeb085156e9c23afa99f23ce1db81983c9316cc9",
+          "target_line_count": 20681,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/kernel/commands/navigate.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
@@ -14492,7 +14492,7 @@
           "preserve_no_live_route_repair_source_mutation_provider_payload_browser_hud_live_access_or_release_authority"
         ],
         "body_copied": true,
-        "body_digest": "sha256:de9df005a2617368786e5975a3a25f772efa211afa5e18575d8a10bf198b33ac",
+        "body_digest": "sha256:2520c3b9accc719da4790b53373a6b4d601e6f2f72c16c376eae430c7f68a819",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
@@ -15411,19 +15411,19 @@
           "preserve_option_surface_sources_without_exporting_generated_outputs_prompt_provider_payloads_raw_seed_bodies_account_session_state_browser_hud_live_access_or_credential_equivalent_material"
         ],
         "body_copied": true,
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:30b33491e306f6557939c3e9f8bd0cc366df1edf63e6b09f36fa7f125ff48e87",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
-          "source_line_count": 16321,
+          "source_body_digest": "sha256:30b33491e306f6557939c3e9f8bd0cc366df1edf63e6b09f36fa7f125ff48e87",
+          "source_line_count": 16326,
           "source_ref": "system/lib/standard_option_surface.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
-          "target_line_count": 16321,
+          "target_body_digest": "sha256:30b33491e306f6557939c3e9f8bd0cc366df1edf63e6b09f36fa7f125ff48e87",
+          "target_line_count": 16326,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/standard_option_surface.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"
@@ -15467,19 +15467,19 @@
           "preserve_option_surface_sources_without_exporting_generated_outputs_prompt_provider_payloads_raw_seed_bodies_account_session_state_browser_hud_live_access_or_credential_equivalent_material"
         ],
         "body_copied": true,
-        "body_digest": "sha256:47a47eb26796cea5dcaf926378e63beb15b95a2e1eb094553af1d990569ac1f1",
+        "body_digest": "sha256:398437ca3efb1f08aeca46d5daf92a0e91fd9cfac58dc85eee9c8b3a92a415d5",
         "body_import_verification": {
           "runtime_consumed_by": [
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_source_manifest_matches_exact_macro_sources",
             "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_standard_option_surface_sources_compile_and_preserve_option_surface_boundary_contract",
             "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_standard_option_surface_source_modules_body_import_is_unified_under_macro_projection_spine"
           ],
-          "source_body_digest": "sha256:47a47eb26796cea5dcaf926378e63beb15b95a2e1eb094553af1d990569ac1f1",
-          "source_line_count": 5727,
+          "source_body_digest": "sha256:398437ca3efb1f08aeca46d5daf92a0e91fd9cfac58dc85eee9c8b3a92a415d5",
+          "source_line_count": 5732,
           "source_ref": "system/server/tests/test_standard_option_surface.py",
           "source_to_target_relation": "exact_copy",
-          "target_body_digest": "sha256:47a47eb26796cea5dcaf926378e63beb15b95a2e1eb094553af1d990569ac1f1",
-          "target_line_count": 5727,
+          "target_body_digest": "sha256:398437ca3efb1f08aeca46d5daf92a0e91fd9cfac58dc85eee9c8b3a92a415d5",
+          "target_line_count": 5732,
           "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_standard_option_surface.py",
           "verification_mode": "exact_source_digest_match",
           "verification_status": "verified"

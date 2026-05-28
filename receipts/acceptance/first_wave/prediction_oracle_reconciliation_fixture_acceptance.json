@@ -17,7 +17,9 @@
     "status": "pass",
     "trading_authorized": false
   },
+  "body_copied_material_count": 0,
   "body_in_receipt": false,
+  "body_material_status": "",
   "bundle_id": null,
   "command": "pytest",
   "cp1_branch_count": 2,
@@ -26,7 +28,7 @@
     "cp1_beta_down_over_up"
   ],
   "cp2_prediction_count": 2,
-  "created_at": "2026-05-26T19:54:37+00:00",
+  "created_at": "2026-05-28T01:55:52+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -135,9 +137,9 @@
   "real_runtime_receipt": true,
   "receipt_id": "prediction_oracle_reconciliation_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-5233/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-6050/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_reconciliation_result.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-6050/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json",
+    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/pytest-of-willcook/pytest-6050/test_prediction_oracle_reconci0/receipts/first_wave/prediction_oracle_reconciliation/prediction_oracle_validation_receipt.json",
     "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json"
   ],
   "reconciliation_rows": [
@@ -194,6 +196,19 @@
     "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "prediction_oracle_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "synthetic_science_oracle_dossier_reconciliation_compound",

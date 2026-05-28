@@ -447,8 +447,8 @@
   },
   "body_in_receipt": false,
   "body_material_status": "copied_non_secret_macro_body_landed",
-  "command": "python -m microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay run-attribution-bundle --input microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out microcosm-substrate/receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
-  "created_at": "2026-05-27T06:22:06+00:00",
+  "command": "microcosm circuit-attribution",
+  "created_at": "2026-05-28T01:55:50+00:00",
   "features": [
     {
       "body_in_receipt": false,
@@ -508,7 +508,7 @@
   "finding_count": 0,
   "fixture_id": "first_wave.mechanistic_interpretability_circuit_attribution_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:846d9725417a078897ca4dbb455dc4b34abb2ae424ed1e5e899b62bc67a59ef7",
+    "basis_digest": "sha256:a0b2644c766790cef4f0e3863c35158f96e8f625916020d272364f079e44b261",
     "card_schema_version": "mechanistic_interpretability_circuit_attribution_replay_command_card_v1",
     "include_negative": false,
     "input_count": 17,
@@ -595,8 +595,8 @@
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],
@@ -605,7 +605,7 @@
     "validator_schema_version": "exported_circuit_attribution_bundle_validation_result_v1"
   },
   "input_mode": "exported_circuit_attribution_bundle",
-  "input_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
+  "input_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle",
   "negative_case_findings": [],
   "negative_case_summary": {
     "expected_missing": {},
@@ -616,7 +616,7 @@
   "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
   "positive_findings": [],
   "receipt_paths": [
-    "microcosm-substrate/receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
+    "receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle_validation_result.json"
   ],
   "receipt_reused": false,
   "release_authorized": false,
@@ -666,7 +666,7 @@
   ],
   "selected_route_id": "mechanistic_interpretability_circuit_attribution_replay",
   "source_module_import_status": "copied_non_secret_macro_body_landed",
-  "source_module_manifest_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
+  "source_module_manifest_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json",
   "source_module_summary": {
     "body_import_status": "copied_non_secret_macro_body_landed",
     "body_in_receipt": false,
@@ -930,7 +930,7 @@
     "verified_module_count": 10
   },
   "source_open_body_imports": {
-    "aggregate_floor_ref": "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
+    "aggregate_floor_ref": "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
       "benchmark_score_claim_authorized": false,
       "body_text_in_receipt": false,
@@ -969,7 +969,7 @@
     "schema_version": "mechanistic_interpretability_circuit_attribution_replay_source_open_body_imports_v1",
     "source_import_class": "copied_non_secret_macro_body",
     "source_manifest_refs": [
-      "microcosm-substrate/examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
+      "examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle/source_module_manifest.json"
     ],
     "status": "pass"
   },

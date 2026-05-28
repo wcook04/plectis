@@ -325,6 +325,18 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert work_row["evidence_refs"]
     assert observed["event_count"] >= 6
     assert observed["architecture_ref"] == ".microcosm/architecture.json"
+    assert observed["selected_route_id"] == "readme_onboarding_route"
+    assert observed["causal_chain"]["status"] == "pass"
+    assert observed["causal_chain"]["selected_route_id"] == "readme_onboarding_route"
+    assert observed["causal_chain"]["selected_work_id"] == "work_0001"
+    assert observed["causal_chain"]["work_state_ref"] == (
+        ".microcosm/work_items.json::work_0001"
+    )
+    assert observed["causal_chain"]["event_log_ref"] == ".microcosm/events.jsonl"
+    assert observed["causal_chain"]["graph"]["graph_ref"] == ".microcosm/graph.json"
+    assert ".microcosm/evidence/" in observed["reader_drilldowns"]
+    assert observed["safe_to_show"]["provider_calls_authorized"] is False
+    assert observed["safe_to_show"]["source_files_mutated"] is False
     assert graph["edge_count"] >= 7
     assert {node["node_id"] for node in graph["nodes"]} >= {
         "pattern_surface",
@@ -364,6 +376,9 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert compiled["idempotent_replay"] is True
     assert compiled["source_files_mutated"] is False
     assert "microcosm serve <project>" in compiled["open_observatory"]
+    assert compiled["bounded_observatory_validation"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
     reader_chain = compiled["reader_causal_chain"]
     assert reader_chain["status"] == "pass"
     assert reader_chain["selected_route_id"] == "readme_onboarding_route"
@@ -377,6 +392,10 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert reader_chain["graph"]["graph_ref"] == ".microcosm/graph.json"
     assert reader_chain["observatory"]["compact_endpoint"] == "/project/observatory-card"
     assert reader_chain["observatory"]["expanded_endpoint"] == "/project/observatory"
+    assert reader_chain["observatory"]["bounded_validation_command"] == (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+    )
+    assert reader_chain["observatory"]["bounded_validation_request_count"] == 6
     assert reader_chain["proof_lab"]["endpoint"] == "/proof-lab"
     assert ".microcosm/evidence/work_create_work_0001.json" in reader_chain["evidence_refs"]
     assert ".microcosm/evidence/work_run_work_0001.json" in reader_chain["evidence_refs"]

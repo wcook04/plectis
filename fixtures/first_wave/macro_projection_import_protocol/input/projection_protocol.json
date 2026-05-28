@@ -1386,24 +1386,24 @@
         "preserve_no_advice_no_live_provider_no_account_or_portfolio_control_authority_ceiling"
       ],
       "body_copied": true,
-      "body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
+      "body_digest": "sha256:c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_finance_eval_source_modules_body_import_is_unified_under_macro_projection_spine",
           "microcosm finance-eval-spine validate-finance-eval-bundle --input examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle"
         ],
-        "source_body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
-        "source_line_count": 1281,
+        "source_body_digest": "sha256:c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
+        "source_line_count": 1598,
         "source_ref": "tools/finance/build_eval_operating_picture.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:fcb592c472d878b997e43b4f2f4d79fd943579172b0ad05acd4fda629e9c1dbe",
-        "target_line_count": 1281,
+        "target_body_digest": "sha256:c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
+        "target_line_count": 1598,
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1281,
+      "body_line_count": 1598,
       "claim_ceiling": "public finance forecast evaluation source-module body import only; not trading, financial advice, live provider calls, account/private portfolio state, optimizer or calculator mutation, recipient send, source mutation, release, publication, or hosted authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",

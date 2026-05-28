@@ -104,12 +104,89 @@
       ]
     }
   ],
-  "command": "python -m microcosm_core.organs.undeclared_library_prior_symbol_classifier run-symbol-bundle",
-  "created_at": "2026-05-26T17:39:14+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:28+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.undeclared_library_prior_symbol_classifier",
+  "freshness_basis": {
+    "basis_digest": "sha256:fa37fd08369531c6d9a50fa03ad4cabb9d32ce839650f275467dafe57e59cb68",
+    "card_schema_version": "undeclared_library_prior_symbol_classifier_command_card_v1",
+    "include_negative": false,
+    "input_count": 13,
+    "inputs": [
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/projection_protocol.json",
+        "sha256": "sha256:332245774a7a38c5b73c0dcf2d6d26a4fa0589810867e614b3adc22a298cbba1",
+        "size_bytes": 7385
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/premise_index.json",
+        "sha256": "sha256:5e1c25507372b713c0cfac30e045b616bacfc3034b33df2bfe19f61cfd66d734",
+        "size_bytes": 6713
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/symbol_observations.json",
+        "sha256": "sha256:3284341cf5411bc9c3ca42c85ab7b7e0d79de15a47e11a538fe1131f6c99a23d",
+        "size_bytes": 3909
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/classifier_policy.json",
+        "sha256": "sha256:028cc2a188b3203b37432d33e0a8f1116fad812f59b471d86ae779a670a79331",
+        "size_bytes": 564
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/bundle_manifest.json",
+        "sha256": "sha256:7cac8e0d565267b0bb7c50fdfef59a7ce5b04c308c1c8dbcd99b5048b42065dd",
+        "size_bytes": 5147
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_module_manifest.json",
+        "sha256": "sha256:39510535dcfbc63fa284d392e087628f61a2527cd3a6c4601b4a7494867eb68a",
+        "size_bytes": 12585
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "sha256": "sha256:1302a9b92b971371bdc3f6264140205f6111490d4140a30be076c2994a7576c6",
+        "size_bytes": 39193
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "sha256": "sha256:076b27360b623dd27e7e391a0d2e3c52aa2c9df9fc5db01aaf93418d30bc473a",
+        "size_bytes": 16038
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_index.public_normalized.json",
+        "sha256": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624",
+        "size_bytes": 5808
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.public_normalized.json",
+        "sha256": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20",
+        "size_bytes": 48889
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/recipe_policy_metrics.json",
+        "sha256": "sha256:9c221eb32eeba32a1a1c9814f6c4091b6d791835152be7e76bb6778ab869659f",
+        "size_bytes": 1941
+      },
+      {
+        "path": "examples/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle/source_modules/state_sidecars/runs/PROVER_PROVIDER_BATCH_CONTEXT_CALIBRATION_20260511_v0/provider_receipt_reduction_matrix.json",
+        "sha256": "sha256:bc6aa128fcb98e29cc7b3f6ac594c9aaf022dc45059a5e1101695bd20660817a",
+        "size_bytes": 16330
+      },
+      {
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
+      }
+    ],
+    "missing_inputs": [],
+    "missing_path_count": 0,
+    "schema_version": "undeclared_library_prior_symbol_classifier_freshness_basis_v1",
+    "validator_schema_version": "exported_symbol_classifier_bundle_validation_result_v1"
+  },
   "input_mode": "exported_symbol_classifier_bundle",
   "missing_negative_cases": [],
   "namespace_count": 4,
@@ -288,6 +365,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/undeclared_library_prior_symbol_classifier/exported_symbol_classifier_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "retry_count": 1,
   "schema_version": "exported_symbol_classifier_bundle_validation_result_v1",
   "secret_exclusion_scan": {

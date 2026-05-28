@@ -50,7 +50,7 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-05-26T01:10:13+00:00",
+  "created_at": "2026-05-26T23:34:44+00:00",
   "endpoint": "/verifier-lab-execution-spine",
   "evolve_rows": [
     {
@@ -164,6 +164,9 @@
       "action_class",
       "candidate_kind",
       "allowed_premise_refs",
+      "source_module_imports",
+      "source_open_body_imports",
+      "body_copied_material_count",
       "lean_lake_command_identity",
       "lean_return_code",
       "accepted",
@@ -197,7 +200,7 @@
   "secret_exclusion": {
     "blocking_hit_count": 0,
     "real_substrate_default": true,
-    "scanned_path_count": 2,
+    "scanned_path_count": 7,
     "status": "pass"
   },
   "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",

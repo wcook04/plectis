@@ -449,7 +449,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9c5840d3d904df0d8d833a95b3a0daf5b587f45c82c25219423eacd189a21192",
+        "body_digest": "sha256:d4d6f687fc46f625bac1c23d59e03028197d0aa5fd4c6e27779def427a3c4bb4",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -491,7 +491,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -775,7 +775,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:544926bb626afbc5fdea187a6bc5d71eb743dfdfafb182d4982e310ad2c6fa8b",
+        "body_digest": "sha256:273d7c6a187f2732d8a7ff7e39fc5fdeb2f6fea55e6bab7a6dbd56b106f82e85",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -786,8 +786,8 @@
           "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json"
         ],
         "source_to_target_relation": "exact_copy",
-        "status": "pass",
-        "target_digest_matches": true,
+        "status": "blocked",
+        "target_digest_matches": false,
         "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
         "validation_refs": [
           "microcosm-substrate/tests/test_finance_eval_spine.py::test_finance_eval_spine_accepts_copied_real_macro_bundle",
@@ -901,7 +901,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:169fc098154ebd1c58a39713ac502897e66290a10e1cbeee4c1b11c6fc0294a7",
+        "body_digest": "sha256:c019f7a16b32e4c35323e12d8bbd14f74e5214495f5df08f830c2e52e3a07807",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -922,7 +922,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:5d9de8f00c8fd0f8b9f7d2decbf4636fd63c9b809543329b9b27657ec197ae18",
+        "body_digest": "sha256:221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1027,7 +1027,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:f80cbbe8a000f15f0e02c14422cbd11798c1921a23a435864511250b3e9d997b",
+        "body_digest": "sha256:82cb24bc1ea60990ca505789c27a01270841c2f68e564deee2eed572922e9b25",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1157,7 +1157,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:47fa0caedad581169455f7d7aa8ee2342a3a3d36f1122df4429d67bbf0f4e33a",
+        "body_digest": "sha256:dbc519d879dfbef926923cd70baace20f40b466ed2835c565fbc6cd1196b0fc1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1176,7 +1176,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d7489d69b990cc124ffbe674e97c07f7cfec4a46cfbe4222dd3695b16370c8f1",
+        "body_digest": "sha256:c639f152818253d55c623b1da60e58c5c75076d7889f15f98837e9e43e4b7be1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1255,7 +1255,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9c5840d3d904df0d8d833a95b3a0daf5b587f45c82c25219423eacd189a21192",
+        "body_digest": "sha256:d4d6f687fc46f625bac1c23d59e03028197d0aa5fd4c6e27779def427a3c4bb4",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1297,7 +1297,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1591,7 +1591,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e622f3d8e11ede67ce4cc60d4f329147f750fb9e342f1d1318e428be04ae95fe",
+        "body_digest": "sha256:664f70026892f8a60c3f08bfbc8fb40662c51a443cbe2d9207a98826953c5ad7",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1675,7 +1675,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:1e3d499ea5da0b42649edfbdd54a3981450a24b6c1c9dd52c7eb80db09927e36",
+        "body_digest": "sha256:83761816d883e3380edeec1221ba20483a88e474bb502b950294cecf273fedeb",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_receipt_body",
@@ -1948,7 +1948,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:36a4587b22485544a7728fef490d3fc2589049284c0cdb7d6773508dab093797",
+        "body_digest": "sha256:02a34f8dc2bd51df349638e23ca6a7102a8c50e858705cdd2ef31e4f7c8ba1a1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2242,7 +2242,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0f81c2b9ac858eb7b1baf3337e2f4558f169c5e3e3770c461c447fd4a68b0e65",
+        "body_digest": "sha256:4c9d9ce32703ad377beb3d4dacd02637af725ecec346bf5d8b5cf83f2f937ae9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2536,7 +2536,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:cd824f3fe81a1ae16271b260d9d94d26f0757e27c7d596b3fc893fc70b9264d4",
+        "body_digest": "sha256:1e5e9fa7801cdd153237f402239f31269c9feb50c5e4b4290586d467d549397c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2746,7 +2746,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:24ea1b7e430301df24e0d793a7bdd410ca82954e6dfee10fe6ff8763375c133d",
+        "body_digest": "sha256:1337f67b985a2f9da8787d2f71681e4aaa27ddeddb509f7ba62b60792a4d430e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2788,7 +2788,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+        "body_digest": "sha256:bad71d78c2309f9ad12431b9b94afba1515ce2b2e0f591ca2d9dd13066de8194",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3312,7 +3312,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:51f708cc87ec070ad8eb8f29e7812a0e6c5fe706a537903d6b25778e3909e83a",
+        "body_digest": "sha256:0d62cbe48c09d0e80610a810aeb085156e9c23afa99f23ce1db81983c9316cc9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3717,7 +3717,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b92629bc80e64edd961fa4d2b8247bf9d75d3868db028c460e8c438c0d4bef6d",
+        "body_digest": "sha256:a4413441f63d8f44fdc199afbc6919e313578068cedaaaee8309ee76df8c512e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3738,7 +3738,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:16b981aac62ed0a9661279f63c65a4df3972e2d136d0509a868cd71d484d0c4e",
+        "body_digest": "sha256:2520c3b9accc719da4790b53373a6b4d601e6f2f72c16c376eae430c7f68a819",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3843,7 +3843,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c",
+        "body_digest": "sha256:28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4030,7 +4030,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d3fee5dfba117ce47f4e823d7952be18c2a3bfd42e62832cb0c809218e7aa354",
+        "body_digest": "sha256:c90109d3248be3e266cac4390e201f9b41b6fc18d500f2d5cc48bdfd75d2a592",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4072,7 +4072,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6facc0b96e8cc927e8df3f4210ecd7356ca2a3ba33a6eaba0fd814502c140eb5",
+        "body_digest": "sha256:33efbd5d93f27eea7e64f6b3b620f3504541c20680b5283c4495171908495497",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4093,7 +4093,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4114,7 +4114,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:89c228ee5d1f87c7e20d87b1c34f304d52544bbf0c23313c5b832117e5c9f4b6",
+        "body_digest": "sha256:398437ca3efb1f08aeca46d5daf92a0e91fd9cfac58dc85eee9c8b3a92a415d5",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4506,7 +4506,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9bb3a20921aee93bd7c4e3059e9ba7197b4b4847399bbdcf6025929729a29ab7",
+        "body_digest": "sha256:8ede5578024c87bc64172128e82b4dbe5898cfff7d1671fc8c33fe8291d670a2",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5271,7 +5271,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:e404607eaac55a2375bce24636a138bb3ec8d1e557feb3d298194a9a97eb85c3",
+        "body_digest": "sha256:bad71d78c2309f9ad12431b9b94afba1515ce2b2e0f591ca2d9dd13066de8194",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5441,7 +5441,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:98a4efe7dd00760a845fbd9b8a603c9ef51fab063cf0ec3d9a14a8c735bc96f6",
+        "body_digest": "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_standard_body",
@@ -5611,7 +5611,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b014f0dd302110011b0fcb77524e4512561b7b048f6a4f5a285d216f1f0b89f1",
+        "body_digest": "sha256:b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -5628,7 +5628,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0c54711c5b34cd133776c1252d528db2aa4e82f5438d05d653c8c5f87c14a919",
+        "body_digest": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -6314,7 +6314,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a66857efdaa9289e56f1cecf29b665b7ccc4e8cbf020c560c3dc87201bd2c0b5",
+        "body_digest": "sha256:a312f7b501559999696f90cadeb92645c4774ce41a5b6adf9348e9808e327a54",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6331,7 +6331,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:0f81c2b9ac858eb7b1baf3337e2f4558f169c5e3e3770c461c447fd4a68b0e65",
+        "body_digest": "sha256:4c9d9ce32703ad377beb3d4dacd02637af725ecec346bf5d8b5cf83f2f937ae9",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -6433,7 +6433,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:566de9b00c32e92adc2786a238056a50056b6003ee99c748704b617124414547",
+        "body_digest": "sha256:e62cd49e11152cb8ddad20fb262b338a5d91f767a08faf17ff77e578438b1d22",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_pattern_body",
@@ -7402,7 +7402,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:150dda712099972ef327f28347b2cc12bfa079133593546dc595ed1f7d91e770",
+        "body_digest": "sha256:b3097b44cab244a9d388b138a25af677ce02a360e75e29094d5f90a6462a2093",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8156,7 +8156,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ec78c6f8a0f863c2e74d2ea006e6f3d3b9a1ed5cb0ca78a5e0969cee98446624",
+        "body_digest": "sha256:c78b176388a5e81bd8a785950e7db0c9a65fd38e556515134146163b48604df1",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -8173,7 +8173,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:eec5fca236ad7112fcc81ea979bfad042b3f498332de0e95f89bb756b0428a20",
+        "body_digest": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_receipt_body",
@@ -8525,9 +8525,20 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 411,
-    "defect_count": 0,
-    "defects": [],
+    "copied_non_secret_macro_body_material_count": 410,
+    "defect_count": 1,
+    "defects": [
+      {
+        "body_in_receipt": false,
+        "defect_codes": [
+          "body_digest_mismatch",
+          "target_digest_mismatch"
+        ],
+        "material_class": "public_macro_tool_body",
+        "material_id": "finance_build_eval_operating_picture_body_import",
+        "target_ref": "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py"
+      }
+    ],
     "direct_source_module_manifest_count": 35,
     "direct_source_module_manifest_material_count": 176,
     "direct_source_module_manifest_refs": [
@@ -8592,7 +8603,6 @@
         "finance_calibrate_forecast_probabilities_body_import",
         "finance_variant_registry_body_import",
         "finance_compare_variants_body_import",
-        "finance_build_eval_operating_picture_body_import",
         "work_landing_status_body_import",
         "mission_transaction_landing_preflight_body_import",
         "work_landing_control_tool_body_import",
@@ -8883,9 +8893,9 @@
       ],
       "release_authorized": false,
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
-      "status": "pass"
+      "status": "blocked"
     },
-    "non_lean_tool_body_material_count": 298,
+    "non_lean_tool_body_material_count": 297,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -8893,12 +8903,12 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 411,
+    "public_safe_body_material_count": 410,
     "public_safe_body_material_counts_by_class": {
       "public_macro_pattern_body": 36,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 63,
-      "public_macro_tool_body": 298,
+      "public_macro_tool_body": 297,
       "public_standard_body": 6
     },
     "route_readiness": {
@@ -9108,10 +9118,9 @@
             "finance_historical_replay_body_import",
             "finance_calibrate_forecast_probabilities_body_import",
             "finance_variant_registry_body_import",
-            "finance_compare_variants_body_import",
-            "finance_build_eval_operating_picture_body_import"
+            "finance_compare_variants_body_import"
           ],
-          "module_count": 9,
+          "module_count": 8,
           "source_refs": [
             "tools/finance/event_keys.py",
             "examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/finance_eval_runtime_contract.json",
@@ -9121,8 +9130,7 @@
             "tools/finance/historical_replay.py",
             "tools/finance/calibrate_forecast_probabilities.py",
             "tools/finance/variant_registry.py",
-            "tools/finance/compare_variants.py",
-            "tools/finance/build_eval_operating_picture.py"
+            "tools/finance/compare_variants.py"
           ],
           "status": "pass",
           "validation_refs": [
@@ -11227,7 +11235,7 @@
       "verified_source_module_family_count": 97
     },
     "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
-    "status": "pass",
+    "status": "blocked",
     "validation_hooks": [
       {
         "asserts": [
@@ -12839,7 +12847,7 @@
     "microcosm benchmark-lab",
     "microcosm legibility-scorecard"
   ],
-  "status": "pass",
+  "status": "blocked",
   "surface_authority": [
     {
       "authority_role": "runtime health projection",
@@ -13500,9 +13508,9 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 1,
-    "copied_non_secret_macro_body_material_count": 411,
+    "copied_non_secret_macro_body_material_count": 410,
     "hard_boundary_count": 6,
-    "mixed_public_safe_macro_import_assay_status": "pass",
+    "mixed_public_safe_macro_import_assay_status": "blocked",
     "non_progress_organ_count": 0,
     "organ_authority_count": 43,
     "organ_evidence_class_count": 4,

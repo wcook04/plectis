@@ -229,6 +229,70 @@
     },
     {
       "action_required": false,
+      "cell_id": "route_worker_packet_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_worker_packet_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_node_card_builder.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_candidate_builder.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_worker_packet.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "route_operator_court_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_operator_court_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/route_operator_court.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/routing_pilot_harness.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_route_operator_court.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "route_discovery_confirmation_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/route_discovery_confirmation_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/route_discovery_confirmation.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "projection_loss_audit_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_loss_audit_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/projection_loss_audit.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "semantic_route_quality_audit_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/semantic_route_quality_audit_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/semantic_route_quality_audit.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
       "cell_id": "navigation_context_rosetta_source_modules_import",
       "cell_state": "consumed_verified_import",
       "landed_evidence_refs": [
@@ -689,6 +753,11 @@
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
         "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json",
         "standards/std_microcosm_provider_context_recipe_budget_policy.json"
       ],
@@ -862,6 +931,25 @@
     },
     {
       "action_required": false,
+      "cell_id": "seed_distillation_dependency_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/seed_distillation_dependency_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_atomization.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_registry.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_distillation_validator.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_paragraph_ledger.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/seed_attempt_recovery.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_seed_attempt_recovery.py",
+        "tests/test_command_output_projection_runtime.py",
+        "tests/test_macro_projection_import_protocol.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py::test_seed_distillation_dependency_sources_compile_and_preserve_source_boundary microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_seed_distillation_dependency_source_modules_body_import_is_unified_under_macro_projection_spine",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
       "cell_id": "artifact_projection_debt_source_modules_import",
       "cell_state": "consumed_verified_import",
       "landed_evidence_refs": [
@@ -927,10 +1015,49 @@
       ],
       "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py microcosm-substrate/tests/test_macro_projection_import_protocol.py",
       "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "reaction_wiring_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/reaction_wiring_source_module_manifest.json",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/reactions.yaml",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reactions_engine.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/control/reaction_proof.py",
+        "tests/test_command_output_projection_runtime.py"
+      ],
+      "next_runtime_surface": "pytest microcosm-substrate/tests/test_command_output_projection_runtime.py",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_route_fanin_continuation_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_module_manifest.json",
+        "examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle/source_modules/system/lib/continuation_packet.py",
+        "tests/test_macro_projection_import_protocol.py::test_agent_route_fanin_continuation_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-multi-agent-fanin-bundle --input examples/agent_route_observability_runtime/exported_multi_agent_fanin_replay_bundle",
+      "projection_status": "public_runtime_import_landed"
+    },
+    {
+      "action_required": false,
+      "cell_id": "agent_route_session_attribution_source_modules_import",
+      "cell_state": "consumed_verified_import",
+      "landed_evidence_refs": [
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle/source_module_manifest.json",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle/source_modules/system/lib/agent_session_attribution.py",
+        "tests/test_macro_projection_import_protocol.py::test_agent_route_session_attribution_source_modules_body_import_is_unified_under_macro_projection_spine"
+      ],
+      "next_runtime_surface": "microcosm agent-route-observability-runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle",
+      "projection_status": "public_runtime_import_landed"
     }
   ],
-  "closed_cell_count": 69,
+  "closed_cell_count": 78,
   "commands": [
+    "microcosm tour --card <project>",
     "microcosm tour <project>",
     "microcosm spine",
     "microcosm authority",
@@ -959,7 +1086,7 @@
     "microcosm reveal",
     "microcosm evidence inspect <receipt>"
   ],
-  "consumed_cell_count": 69,
+  "consumed_cell_count": 78,
   "endpoints": {
     "authority": "/authority",
     "benchmark_lab": "/benchmark-lab",
@@ -1016,7 +1143,7 @@
     "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
     "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json"
   ],
-  "landed_cell_count": 69,
+  "landed_cell_count": 78,
   "open_actionable_cell_count": 0,
   "payload_boundary": {
     "account_session_state_exported": false,
@@ -1051,7 +1178,7 @@
     "unsafe_payload_bodies_in_receipt": false
   },
   "projection_status_counts": {
-    "public_runtime_import_landed": 67,
+    "public_runtime_import_landed": 76,
     "runtime_bridge_landed": 1,
     "self_hosted_status_protocol_landed": 1
   },

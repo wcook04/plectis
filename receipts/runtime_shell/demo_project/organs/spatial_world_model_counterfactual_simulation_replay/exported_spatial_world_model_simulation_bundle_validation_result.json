@@ -20,7 +20,7 @@
   },
   "body_copied_material_count": 3,
   "body_material_status": "copied_non_secret_macro_body_landed",
-  "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run-simulation-bundle",
+  "command": "microcosm spatial-simulation",
   "counterfactual_replays": [
     {
       "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
@@ -251,9 +251,77 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-05-27T00:13:03+00:00",
+  "created_at": "2026-05-28T02:06:06+00:00",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
+  "freshness_basis": {
+    "command": "microcosm spatial-simulation",
+    "digest": "sha256:fd5ca7673884c32180d1247dddd48fff4dfe6b67a6e0020b91ae2b5bef4a9d30",
+    "input_count": 11,
+    "input_mode": "exported_spatial_world_model_simulation_bundle",
+    "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
+    "inputs": [
+      {
+        "bytes": 1746,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/simulation_protocol.json",
+        "sha256": "sha256:4e32480b53522962f9a5828c01a931c22305aa55f371c9c977cf9502be0bfc04"
+      },
+      {
+        "bytes": 1566,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/replay_policy.json",
+        "sha256": "sha256:170af4f9c0ffd366754003ab6a14ac6ccd2f3611a529295c30874268967379c6"
+      },
+      {
+        "bytes": 3684,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/scene_states.json",
+        "sha256": "sha256:a1c6feff2facb9c329521199422458c76d9e8f214513daf2e5f0378279f892ca"
+      },
+      {
+        "bytes": 11354,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/counterfactual_replays.json",
+        "sha256": "sha256:f249fd3572acf9f783f0e89b91b5b36faf7fe1e545308102360e9d5319841c83"
+      },
+      {
+        "bytes": 5404,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
+        "sha256": "sha256:5d5ff321d79d622c7f74145f189d835974bbe575d4dc759d8d33106686186466"
+      },
+      {
+        "bytes": 2768,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/bundle_manifest.json",
+        "sha256": "sha256:1788c078f06cb2ac8dd95a17baf0aa5eb256af60b3e78856497ddf2cc2cfcca8"
+      },
+      {
+        "bytes": 6008,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
+        "sha256": "sha256:f105f18f4e9f2d14ed570a9606d174cb96ba7c7ddaf6db3f37ee6b14c19ba1ac"
+      },
+      {
+        "bytes": 1524,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
+        "sha256": "sha256:9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3"
+      },
+      {
+        "bytes": 2889,
+        "path": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
+        "sha256": "sha256:28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36"
+      },
+      {
+        "bytes": 49939,
+        "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
+        "sha256": "sha256:dd4232319c36a363edb4429d50b117ad4d892b269f27429cfff03393ced83c43"
+      },
+      {
+        "bytes": 4362,
+        "path": "core/private_state_forbidden_classes.json",
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b"
+      }
+    ],
+    "missing_input_count": 0,
+    "missing_paths": [],
+    "organ_id": "spatial_world_model_counterfactual_simulation_replay",
+    "schema_version": "spatial_world_model_simulation_freshness_basis_v1"
+  },
   "input_mode": "exported_spatial_world_model_simulation_bundle",
   "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
   "negative_case_findings": [],
@@ -269,7 +337,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "spatial_world_model_counterfactual_simulation_replay_payload_boundary",
     "browser_or_hud_live_access_exported": false,
-    "command": "python -m microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay run-simulation-bundle",
+    "command": "microcosm spatial-simulation",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -300,6 +368,7 @@
   "receipt_paths": [
     "receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle_validation_result.json"
   ],
+  "receipt_reused": false,
   "release_authorized": false,
   "safe_to_show": {
     "counterfactual_replays_are_public_payload_boundary_rows": true,
@@ -506,11 +575,11 @@
           "\"check:station-geometry\": \"cd ../../.. && ./repo-python tools/meta/factory/check_station_geometry.py --check\""
         ],
         "source_ref": "system/server/ui/package.json",
-        "source_sha256": "333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c",
+        "source_sha256": "28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36",
         "status": "pass",
-        "target_body_digest": "sha256:333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c",
+        "target_body_digest": "sha256:28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36",
         "target_ref": "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_modules/system/server/ui/package.json",
-        "target_sha256": "333e866d3f19fb258708c9548f5d74a5beb06af53badfcaaef2ceabade09c73c"
+        "target_sha256": "28d8f07afa8db29b00552f724e8e5be2bf8eefa3ea3b80af32a6607ca7c9ce36"
       }
     ],
     "public_safe_body_material_ids": [

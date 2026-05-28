@@ -66,14 +66,14 @@
       "status": "pass"
     }
   ],
-  "command": "proof_derived_governed_mutation_authorization run-authorization-bundle",
-  "created_at": "2026-05-27T02:53:57+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:31+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.proof_derived_governed_mutation_authorization",
   "freshness_basis": {
-    "basis_digest": "sha256:2be40bd49d10aa93b21f75f5086b154035583bfc24d9b8f0624eee5ce0daa6e9",
+    "basis_digest": "sha256:1802d27a0aa85dcaabeb485914c03f9d8114319c0849c14021fa6c95fc13f205",
     "card_schema_version": "governed_mutation_authorization_command_card_v1",
     "include_negative": false,
     "input_count": 18,
@@ -165,8 +165,8 @@
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],

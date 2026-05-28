@@ -36,14 +36,14 @@
   "body_text_exported_in_receipts": false,
   "body_text_in_receipt": false,
   "bundle_id": "sleeper_memory_poisoning_quarantine_policy_refactor",
-  "command": "python -m microcosm_core.organs.sleeper_memory_poisoning_quarantine_replay run-quarantine-bundle --input examples/sleeper_memory_poisoning_quarantine_replay/exported_sleeper_memory_poisoning_bundle --out receipts/runtime_shell/demo_project/organs/sleeper_memory_poisoning_quarantine_replay",
-  "created_at": "2026-05-27T02:09:29+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:31+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.sleeper_memory_poisoning_quarantine_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:9ab42ac42c57a7066b137be6199b67568b6f4b12a661309beec2d44301e8f77b",
+    "basis_digest": "sha256:f02b2e838782d17b99c918b7526ac2e37c76bd0489d8ada8b1fb81c7ecf7310c",
     "card_schema_version": "sleeper_memory_poisoning_quarantine_command_card_v1",
     "include_negative": false,
     "input_count": 15,
@@ -120,8 +120,8 @@
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],

@@ -53,6 +53,7 @@ def test_proof_lab_cli_uses_canonical_receipt_when_toolchain_missing(
     assert payload["lean_lake_return_code"] == 0
     assert payload["proof_lab_route_component_count"] == 9
     assert payload["safe_to_show"]["proof_bodies_exported"] is False
+    assert payload["safe_to_show"]["proof_correctness_claim"] is False
     assert "first-screen proof-lab route" in payload["authority"]
     assert payload["anti_claims"]["proof_correctness_claim"] is False
     assert payload["anti_claims"]["provider_calls_authorized"] is False

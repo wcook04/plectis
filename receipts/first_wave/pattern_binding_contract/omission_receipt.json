@@ -15,6 +15,7 @@
   "reason": "Pattern-binding receipts carry public runtime/source refs and regression-harness refs; they do not inline body payloads.",
   "schema_version": "pattern_binding_secret_exclusion_receipt_v1",
   "secret_exclusion_scan": {
+    "anti_claim": "These are synthetic scanner sentinels for negative cases, not non-public bodies or evidence that ordinary macro substrate should be redacted.",
     "blocking_hit_count": 0,
     "body_in_receipt": false,
     "exclusion_policy": "Open-source macro substrate by default; exclude only secrets, credentials, operator conversation bodies, provider payloads, account/session state, and credential-equivalent live-access material.",
@@ -59,6 +60,15 @@
     ],
     "real_substrate_default": true,
     "scan_purpose": "credential_account_bound_and_operator_payload_exclusion",
+    "scan_scope": {
+      "body_text_exported_in_findings": false,
+      "does_not_authorize_source_mutation": true,
+      "does_not_certify_absence_of_secrets": true,
+      "does_not_read_binary_or_live_account_state": true,
+      "intended_use": "Detect declared synthetic sentinel tokens and classify explicit macro-import material rows.",
+      "not_a_complete_secret_scan": true,
+      "scope_id": "synthetic_sentinel_policy_default"
+    },
     "scanned_path_count": 9,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."

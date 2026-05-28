@@ -4,6 +4,7 @@ import argparse
 import ast
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +21,18 @@ PASS = "pass"
 STATE_DIR = ".microcosm"
 EVIDENCE_DIR = "evidence"
 EVENT_STREAM = "events.jsonl"
+OBSERVATORY_SERVE_COMMAND = (
+    "microcosm serve <project> --host 127.0.0.1 --port 8765"
+)
+OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT = 6
+OBSERVATORY_BOUNDED_VALIDATION_COMMAND = (
+    f"{OBSERVATORY_SERVE_COMMAND} "
+    f"--max-requests {OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT}"
+)
+OBSERVATORY_BOUNDED_VALIDATION_RULE = (
+    "Use bounded_validation_command for first-screen route smokes; use command "
+    "for an interactive browser session."
+)
 
 IGNORE_DIRS = {
     ".git",
@@ -53,6 +66,9 @@ README_NAMES = {"README.md", "README.rst", "README.txt", "README"}
 SOURCE_SUFFIXES = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".swift"}
 DOC_SUFFIXES = {".md", ".rst", ".txt"}
 PYTHON_LENS_STATE = "python_lens.json"
+PYTHON_LENS_SCAN_FULL = "full"
+PYTHON_LENS_SCAN_FIRST_SCREEN = "first_screen_summary"
+PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES = 4096
 COMPILE_STATE_REFS = (
     f"{STATE_DIR}/project_manifest.json",
     f"{STATE_DIR}/architecture.json",
@@ -224,23 +240,28 @@ def _classify_file(rel: str, path: Path) -> str:
 
 def _walk_project(project: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for path in sorted(project.rglob("*")):
-        rel = _project_relative(project, path)
-        if any(part in IGNORE_DIRS for part in Path(rel).parts):
-            continue
-        try:
-            if path.is_dir():
+    project_root = project.resolve(strict=False)
+    root_str = os.fspath(project_root)
+    for current_root, dirnames, filenames in os.walk(root_str, topdown=True):
+        dirnames[:] = sorted(
+            dirname for dirname in dirnames if dirname not in IGNORE_DIRS
+        )
+        rel_dir = os.path.relpath(current_root, root_str)
+        for name in sorted(filenames):
+            full_path = os.path.join(current_root, name)
+            if os.path.islink(full_path):
                 continue
-            if path.is_symlink():
+            try:
+                size = os.path.getsize(full_path)
+            except FileNotFoundError:
                 continue
-            size = path.stat().st_size
-        except FileNotFoundError:
-            continue
+            rel = name if rel_dir == "." else f"{rel_dir}/{name}"
+            rel = rel.replace(os.sep, "/")
         rows.append(
             {
                 "path": rel,
-                "name": path.name,
-                "suffix": path.suffix,
+                "name": name,
+                "suffix": Path(name).suffix,
                 "role": _classify_file(rel, Path(rel)),
                 "bytes": size,
             }
@@ -1245,8 +1266,12 @@ def python_lens(
     *,
     write_state: bool = True,
     refresh_architecture: bool = True,
+    scan_mode: str = PYTHON_LENS_SCAN_FULL,
 ) -> dict[str, Any]:
     """Project Python route/readiness signals without exposing source bodies."""
+    if scan_mode not in {PYTHON_LENS_SCAN_FULL, PYTHON_LENS_SCAN_FIRST_SCREEN}:
+        raise ValueError(f"unsupported Python lens scan mode: {scan_mode}")
+    first_screen_summary = scan_mode == PYTHON_LENS_SCAN_FIRST_SCREEN
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project) if write_state else _project_catalog_payload(project)
     roles = catalog.get("roles", {}) if isinstance(catalog.get("roles"), dict) else {}
@@ -1264,8 +1289,18 @@ def python_lens(
     module_docstring_refs: list[str] = []
     for row in python_files:
         rel = str(row.get("path") or "")
-        text = _read_text_prefix(project / rel, limit=None)
-        span_projection = _python_span_projection(rel, text)
+        text = ""
+        if first_screen_summary:
+            span_projection = {
+                "parse_status": "deferred_first_screen_summary",
+                "module_has_docstring": False,
+                "source_span_rows": [],
+                "symbol_capsule_rows": [],
+                "import_edges": [],
+            }
+        else:
+            text = _read_text_prefix(project / rel, limit=None)
+            span_projection = _python_span_projection(rel, text)
         source_span_rows.extend(span_projection["source_span_rows"])
         symbol_capsule_rows.extend(span_projection["symbol_capsule_rows"])
         import_edges.extend(span_projection["import_edges"])
@@ -1539,6 +1574,10 @@ def python_lens(
         **_base_payload("microcosm_project_python_lens_v1", project),
         "lens_id": "project_python_route_lens",
         "command": "microcosm python-lens <project>",
+        "scan_mode": scan_mode,
+        "full_lens_command": "microcosm python-lens <project>",
+        "first_screen_summary": first_screen_summary,
+        "deferred_full_scan": first_screen_summary,
         "state_file_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
         "public_claim": (
             "Microcosm exposes Python project route readiness as path-level metadata "
@@ -2065,7 +2104,12 @@ def _reader_causal_chain_card(
             "edge_count": graph.get("edge_count", 0),
         },
         "observatory": {
-            "command": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+            "command": OBSERVATORY_SERVE_COMMAND,
+            "bounded_validation_command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+            "bounded_validation_request_count": (
+                OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT
+            ),
+            "bounded_validation_rule": OBSERVATORY_BOUNDED_VALIDATION_RULE,
             "compact_endpoint": "/project/observatory-card",
             "expanded_endpoint": "/project/observatory",
             "route_explanation_endpoint": f"/project/explain/{route_id}"
@@ -2097,6 +2141,43 @@ def _reader_causal_chain_card(
             "proof_correctness_claim": False,
         },
     }
+
+
+def _selected_route_id_from_state(project: Path) -> str:
+    routes = _read_project_json(project, "routes.json")
+    route_rows = [
+        row for row in routes.get("routes", []) if isinstance(row, dict)
+    ]
+    selected_route = next(
+        (row for row in route_rows if row.get("route_id") == "readme_onboarding_route"),
+        route_rows[0] if route_rows else {},
+    )
+    return str(selected_route.get("route_id") or "")
+
+
+def _observed_reader_causal_chain_card(
+    project: Path,
+    *,
+    observed: dict[str, Any],
+) -> dict[str, Any]:
+    route_id = _selected_route_id_from_state(project)
+    work_row = _work_row_for_chain(project, route_id=route_id, work_id=None)
+    explanation = (
+        _read_project_json(project, f"explanations/{route_id}.json")
+        if route_id
+        else {}
+    )
+    graph = _read_project_json(project, "graph.json")
+    evidence = list_evidence(project)
+    return _reader_causal_chain_card(
+        project,
+        route_id=route_id,
+        work_result=work_row,
+        explanation=explanation,
+        observed=observed,
+        graph=graph,
+        evidence=evidence,
+    )
 
 
 def _project_observe_state_write_proof_card(project: Path) -> dict[str, Any]:
@@ -2177,8 +2258,7 @@ def observe_project(
     for row in events:
         span = str(row.get("span") or "unknown")
         spans[span] = spans.get(span, 0) + 1
-    return {
-        **_base_payload("microcosm_project_observe_result_v1", project),
+    observed = {
         "event_count": len(events),
         "spans": spans,
         "events": events[-20:],
@@ -2186,6 +2266,21 @@ def observe_project(
         "architecture_ref": f"{STATE_DIR}/architecture.json",
         "state_index_ref": f"{STATE_DIR}/state_index.json",
         "graph_ref": f"{STATE_DIR}/graph.json",
+    }
+    causal_chain = _observed_reader_causal_chain_card(project, observed=observed)
+    state_write_proof = _project_observe_state_write_proof_card(project)
+    return {
+        **_base_payload("microcosm_project_observe_result_v1", project),
+        **observed,
+        "selected_route_id": causal_chain.get("selected_route_id"),
+        "state_write_proof": state_write_proof,
+        "causal_chain": causal_chain,
+        "reader_drilldowns": causal_chain.get("reader_drilldowns", []),
+        "work_state_ref": causal_chain.get("work_state_ref"),
+        "route_explanation_ref": causal_chain.get("route_explanation_ref"),
+        "evidence_ref_count": causal_chain.get("evidence_ref_count", 0),
+        "authority_boundary": causal_chain.get("authority_boundary"),
+        "safe_to_show": causal_chain.get("safe_to_show", {}),
     }
 
 
@@ -2504,7 +2599,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
                 if route_id
                 else "microcosm explain <project> <selected_route_id>"
             ),
-            "microcosm serve <project> --host 127.0.0.1 --port 8765",
+            OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+            OBSERVATORY_SERVE_COMMAND,
         ],
         "source_files_mutated": False,
         "safe_to_show": {
@@ -2530,14 +2626,22 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     }
 
 
-def compile_project(project_path: str | Path) -> dict[str, Any]:
+def compile_project(
+    project_path: str | Path,
+    *,
+    python_lens_scan_mode: str = PYTHON_LENS_SCAN_FULL,
+) -> dict[str, Any]:
     """Run the safe public substrate loop over a user-owned project."""
     project = Path(project_path).expanduser().resolve(strict=False)
     if not (_state_dir(project) / "project_manifest.json").is_file():
         init_project(project)
     index_result = index_project(project, refresh_architecture=False)
     catalog = catalog_project(project)
-    python_projection = python_lens(project, refresh_architecture=False)
+    python_projection = python_lens(
+        project,
+        refresh_architecture=False,
+        scan_mode=python_lens_scan_mode,
+    )
     routes = propose_routes(project, refresh_architecture=False)
     patterns = _read_project_json(project, "patterns.json")
     route_rows = [
@@ -2590,6 +2694,18 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
         "file_count": index_result.get("file_count", 0),
         "role_counts": catalog.get("role_counts", {}),
         "python_lens_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}",
+        "python_lens_scan_mode": python_projection.get(
+            "scan_mode",
+            python_lens_scan_mode,
+        ),
+        "python_lens_deferred_full_scan": python_projection.get(
+            "deferred_full_scan",
+            False,
+        ),
+        "python_lens_full_command": python_projection.get(
+            "full_lens_command",
+            "microcosm python-lens <project>",
+        ),
         "python_navigation_assay_ref": f"{STATE_DIR}/{PYTHON_LENS_STATE}::navigation_assay",
         "python_file_count": python_projection.get("python_file_count", 0),
         "python_ready_route_count": python_projection.get("ready_route_count", 0),
@@ -2658,7 +2774,8 @@ def compile_project(project_path: str | Path) -> dict[str, Any]:
             "edge_count": graph.get("edge_count", 0),
             "graph_ref": f"{STATE_DIR}/graph.json",
         },
-        "open_observatory": "microcosm serve <project> --host 127.0.0.1 --port 8765",
+        "open_observatory": OBSERVATORY_SERVE_COMMAND,
+        "bounded_observatory_validation": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
         "source_files_mutated": False,
         "authority_ceiling": {
             "release_authorized": False,
@@ -2792,7 +2909,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.work_command == "run":
             return _print_json(run_work(args.project, args.work_id))
     if args.command == "observe":
-        return _print_json(observe_project(args.project))
+        return _print_json(observe_project(args.project, refresh_architecture=False))
     if args.command == "evidence":
         if args.evidence_command == "list":
             return _print_json(list_evidence(args.project))

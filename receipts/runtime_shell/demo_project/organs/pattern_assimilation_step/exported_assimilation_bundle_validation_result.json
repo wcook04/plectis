@@ -115,8 +115,8 @@
     "verifier_lab_kernel": "validator_contract_refined",
     "world_model_projection_drift_control_room": "validator_contract_refined"
   },
-  "command": "python -m microcosm_core.validators.acceptance validate-assimilation-bundle --input examples/pattern_assimilation_step/exported_assimilation_bundle --out receipts/runtime_shell/demo_project/organs/pattern_assimilation_step",
-  "created_at": "2026-05-27T00:58:33+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:29+00:00",
   "error_codes": [],
   "expected_negative_cases": {},
   "findings": [],

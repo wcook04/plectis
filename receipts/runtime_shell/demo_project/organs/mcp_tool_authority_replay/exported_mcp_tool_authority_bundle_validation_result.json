@@ -130,14 +130,14 @@
       "status": "pass"
     }
   ],
-  "command": "python -m microcosm_core.organs.mcp_tool_authority_replay run-tool-authority-bundle --input examples/mcp_tool_authority_replay/exported_mcp_tool_authority_bundle --out receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
-  "created_at": "2026-05-27T02:26:22+00:00",
+  "command": "microcosm run examples/runtime_shell/demo_project",
+  "created_at": "2026-05-27T16:52:31+00:00",
   "error_codes": [],
   "expected_negative_cases": [],
   "findings": [],
   "fixture_id": "first_wave.mcp_tool_authority_replay",
   "freshness_basis": {
-    "basis_digest": "sha256:abd58bb0ea528101e3f70ad9f2cec242454b9060e36a71fed067cdfa5a000104",
+    "basis_digest": "sha256:60be6f1d545d07afac70ec5415dd8be9863a71987a502cafa0020ff379f62132",
     "card_schema_version": "mcp_tool_authority_replay_command_card_v1",
     "include_negative": false,
     "input_count": 16,
@@ -219,8 +219,8 @@
       },
       {
         "path": "core/private_state_forbidden_classes.json",
-        "sha256": "sha256:df93dd3d7dd41cdc4a53b5fb6b337567f43c0ced250c170d7b3c603beb557e54",
-        "size_bytes": 4316
+        "sha256": "sha256:61046b4a08825917b36e65723213da93aecea1a861a1747e3bb6e4a0e741a02b",
+        "size_bytes": 4362
       }
     ],
     "missing_inputs": [],

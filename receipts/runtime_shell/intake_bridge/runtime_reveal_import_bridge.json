@@ -1963,6 +1963,11 @@
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
         "receipts/runtime_shell/demo_project/organs/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle_validation_result.json",
         "standards/std_microcosm_provider_context_recipe_budget_policy.json"
       ],
@@ -1971,13 +1976,21 @@
       "runtime_bridge_status": "public_runtime_import_landed",
       "selected_pattern_ids": [
         "provider_context_recipe_budget_policy",
-        "formal_problem_ladder_provider_context_eval"
+        "formal_problem_ladder_provider_context_eval",
+        "provider_receipt_truth_side_leakage_detector",
+        "provider_metabolism_ledger"
       ],
-      "status_reason": "The provider-context recipe budget policy carries exact copied non-secret graph-benchmark and formal-ladder evaluator source bodies inside its public bundle. The import is validated by digest and anchor checks while excluding provider payload bodies, proof bodies, live access state, credentials, and release authority.",
+      "status_reason": "The provider-context recipe budget policy carries exact copied non-secret graph-benchmark, formal-ladder evaluator, provider receipt reducer, batch calibration report, and provider boundary standard bodies inside its public bundle. The import is validated by digest and anchor checks while excluding provider payload bodies, proof bodies, live access state, credentials, and release authority.",
       "target_refs": [
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_module_manifest.json",
-        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/build_prover_provider_batch_context_calibration_report.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
         "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_formal_problem_ladder_eval.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/run_prover_graph_benchmark.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_adapter.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_provider_navigation_transform_receipt.json",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/tools/meta/factory/reduce_prover_provider_receipts.py",
+        "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_transform_job.json",
         "standards/std_microcosm_provider_context_recipe_budget_policy.json"
       ],
       "validation_refs": [
@@ -2755,7 +2768,7 @@
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
   "command": "microcosm intake",
   "consumed_cell_count": 78,
-  "created_at": "2026-05-26T17:57:21+00:00",
+  "created_at": "2026-05-28T02:06:06+00:00",
   "first_run_bridge": [
     {
       "command": "microcosm compile <project>",

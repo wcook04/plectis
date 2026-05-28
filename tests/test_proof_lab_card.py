@@ -69,13 +69,18 @@ def test_cli_proof_lab_card_reads_cached_receipt_without_rerun(
     assert payload["cached_receipt_bytes"] == receipt.stat().st_size
     assert payload["cache_freshness"]["status"] == "current"
     assert payload["cache_freshness"]["input_status"] == "current"
-    assert payload["cache_freshness"]["tracked_input_count"] == 3
+    expected_input_count = len(
+        cli._proof_lab_input_files(str(cli.DEFAULT_PROOF_LAB_INPUT))
+    )
+    assert payload["cache_freshness"]["tracked_input_count"] == expected_input_count
+    assert expected_input_count >= 1
     assert payload["cache_freshness"]["input_refs_exported"] is False
     assert payload["receipt_ref"] == display_receipt
     assert payload["receipt_refs"] == [display_receipt]
     assert payload["lean_lake_return_code"] == 0
     assert payload["component_metrics"]["corpus_count"] == 7
     assert payload["safe_to_show"]["body_in_receipt"] is False
+    assert payload["safe_to_show"]["proof_correctness_claim"] is False
     assert payload["safe_to_show"]["input_refs_exported"] is False
     assert payload["safe_to_show"]["host_private_paths_exported"] is False
     assert "first-screen proof-lab route" in payload["authority"]

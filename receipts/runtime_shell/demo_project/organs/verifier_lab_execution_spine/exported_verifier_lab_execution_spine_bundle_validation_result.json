@@ -256,7 +256,7 @@
       }
     ]
   },
-  "command": "python -m microcosm_core.organs.verifier_lab_execution_spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+  "command": "microcosm run examples/runtime_shell/demo_project",
   "cp2_translation_trace": [
     {
       "candidate_action_class": "premise_exact",
@@ -295,7 +295,7 @@
       "residual_id": "residual_add_comm_missing_premise"
     }
   ],
-  "created_at": "2026-05-26T23:22:12+00:00",
+  "created_at": "2026-05-27T16:51:34+00:00",
   "error_codes": [],
   "evolve_mutation_trace": [
     {
@@ -523,7 +523,7 @@
         "lake",
         "--version"
       ],
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,
@@ -536,7 +536,7 @@
         "lean",
         "--version"
       ],
-      "cwd_name": "microcosm-substrate",
+      "cwd_name": "ai_workflow",
       "return_code": 0,
       "stderr_line_count": 0,
       "stdout_line_count": 1,

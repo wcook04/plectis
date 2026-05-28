@@ -13,7 +13,7 @@
     "standards_registry_source_authority": false
   },
   "command": "microcosm standards-control",
-  "created_at": "2026-05-26T17:57:21+00:00",
+  "created_at": "2026-05-28T02:06:06+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -99,7 +99,7 @@
   "standards_rows": [
     {
       "control_row_id": "standards_registry_contract",
-      "observed_count": 92,
+      "observed_count": 93,
       "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
@@ -118,7 +118,7 @@
     },
     {
       "control_row_id": "public_standard_pressure_contract",
-      "observed_count": 41,
+      "observed_count": 46,
       "payload_boundary_ref": "microcosm standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
@@ -259,8 +259,8 @@
     "provider_payload_export_count": 0,
     "release_authorized": false,
     "source_authority_claim_count": 0,
-    "standard_count": 92,
-    "standard_pressure_row_count": 41,
+    "standard_count": 93,
+    "standard_pressure_row_count": 46,
     "standards_control_row_count": 8,
     "validation_ref_count": 16,
     "validator_receipt_ref_count": 246
