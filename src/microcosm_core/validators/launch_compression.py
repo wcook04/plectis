@@ -71,7 +71,8 @@ def validate_launch_compression(
     readme_path = public_root / "README.md"
     pyproject_path = public_root / "pyproject.toml"
     readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
-    readme_first_screen = "\n".join(readme_text.splitlines()[:35])
+    readme_first_screen = "\n".join(readme_text.splitlines()[:45])
+    launch_intro = readme_text.split("## Public Repo Map", 1)[0]
     pyproject_text = pyproject_path.read_text(encoding="utf-8") if pyproject_path.is_file() else ""
 
     compiled = project_substrate.compile_project(project_path)
@@ -109,13 +110,13 @@ def validate_launch_compression(
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
     first_screen_lower = readme_first_screen.lower()
     readme_lower = readme_text.lower()
-    launch_intro_lower = _without_fenced_code_blocks(readme_first_screen).lower()
+    launch_intro_lower = _without_fenced_code_blocks(launch_intro).lower()
     receipt_forward_needles = ["receipt", "adapter", "truth index", "organ registry", "reconstruction"]
 
     assertions = {
         "one_line_identity_present": "repo -> .microcosm" in readme_first_screen
         and ("inspectable work substrate" in readme_first_screen or "inspect routes" in readme_first_screen),
-        "one_command_quickstart_present": "microcosm compile ." in readme_first_screen,
+        "one_command_quickstart_present": "microcosm hello ." in readme_first_screen,
         "try_it_on_your_repo_present": "try it on your repo" in readme_lower
         or "start with one compact local command" in first_screen_lower,
         "first_screen_not_receipt_forward": not any(
@@ -524,7 +525,8 @@ def validate_launch_compression(
         "command": command,
         "project_ref": project_path.name,
         "one_line_identity": "repo -> .microcosm: turn any folder into an inspectable work substrate.",
-        "quickstart_command": "microcosm compile .",
+        "quickstart_command": "microcosm hello .",
+        "full_rebuild_command": "microcosm compile .",
         "compiled_summary": {
             "headline": compiled.get("headline"),
             "file_count": compiled.get("file_count"),

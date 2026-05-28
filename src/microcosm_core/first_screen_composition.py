@@ -1122,7 +1122,9 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
             {
                 "beat_id": "open_authority_boundary",
                 "timebox_seconds": 10,
-                "visible_surface": "microcosm authority --card && microcosm workingness --card",
+                "visible_surface": (
+                    "microcosm authority --card, then microcosm workingness --card"
+                ),
                 "reader_takeaway": "authority ceilings and failure envelopes stay visible",
                 "proof_ref": WORKINGNESS_MAP_REF,
             },

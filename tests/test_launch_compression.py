@@ -41,7 +41,8 @@ def test_launch_compression_validator_proves_one_command_aha(tmp_path: Path) -> 
     assert receipt["blocking_codes"] == []
     assert all(receipt["assertions"].values())
     assert receipt["one_line_identity"] == "repo -> .microcosm: turn any folder into an inspectable work substrate."
-    assert receipt["quickstart_command"] == "microcosm compile ."
+    assert receipt["quickstart_command"] == "microcosm hello ."
+    assert receipt["full_rebuild_command"] == "microcosm compile ."
     assert receipt["compiled_summary"]["selected_route_id"] == "readme_onboarding_route"
     assert receipt["compiled_summary"]["work_id"] == "work_0001"
     assert receipt["compiled_summary"]["event_count"] > 0

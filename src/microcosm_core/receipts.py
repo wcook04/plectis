@@ -14,13 +14,23 @@ ANTI_CLAIM = (
     "source-faithful fixtures, or explicit negative cases; synthetic receipts are "
     "not product progress or substitutes for available real substrate."
 )
+FALSE_ENV_VALUES = {"0", "false", "no", "off"}
 
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
+def receipt_writes_enabled() -> bool:
+    value = os.environ.get("MICROCOSM_RECEIPT_WRITES")
+    if value is None:
+        value = os.environ.get("MICROCOSM_RUNTIME_RECEIPT_WRITES", "1")
+    return value.lower() not in FALSE_ENV_VALUES
+
+
 def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
+    if not receipt_writes_enabled():
+        return
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=f"{target.name}.", dir=str(target.parent))

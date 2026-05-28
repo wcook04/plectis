@@ -2034,7 +2034,8 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
         {
             "reader_id": "safety_evals_engineer",
             "first_screen_command": "microcosm status --card <project>",
-            "next_command": "microcosm authority --card && microcosm workingness --card",
+            "next_command": "microcosm authority --card",
+            "followup_command": "microcosm workingness --card",
             "evidence_focus": "evidence_class, body_import_floor, authority ceilings, failure gaps",
             "anti_misread": "body-import counts are accounting, not maturity scores",
         },
@@ -2243,19 +2244,27 @@ def _cold_reader_first_screen_card(
                 "status": compile_status,
             },
             {
-                "step_id": "inspect_status_and_workingness",
-                "command": (
-                    "microcosm status --card <project> && microcosm workingness --card"
-                ),
+                "step_id": "inspect_status_card",
+                "command": "microcosm status --card <project>",
                 "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
                 "shows": [
                     "compressed project/runtime first-screen status",
+                    "selected route explanation",
+                    "body-import floor",
+                    "release/provider/source/proof authority ceiling",
+                ],
+                "status_card_command": "microcosm status --card <project>",
+                "status_card_endpoint": "/project/status",
+            },
+            {
+                "step_id": "inspect_workingness",
+                "command": "microcosm workingness --card",
+                "route_ref": LOCAL_FIRST_SCREEN_ROUTE_REF,
+                "shows": [
                     "workingness failure-envelope counts",
                     "missing standards and failure-mode gaps",
                     "not a score, maturity board, release gate, or proof authority",
                 ],
-                "status_card_command": "microcosm status --card <project>",
-                "status_card_endpoint": "/project/status",
                 "workingness_command": "microcosm workingness --card",
                 "workingness_endpoint": "/workingness",
             },
@@ -6993,9 +7002,8 @@ class RuntimeShell:
             {
                 "card_id": "status_and_workingness",
                 "minute_budget": 0.5,
-                "command": (
-                    "microcosm status --card <project> && microcosm workingness --card"
-                ),
+                "command": "microcosm status --card <project>",
+                "next_command": "microcosm workingness --card",
                 "endpoint": "/workingness",
                 "shows": [
                     "compressed project/runtime status card",
