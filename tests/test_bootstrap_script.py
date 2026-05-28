@@ -31,6 +31,8 @@ def test_bootstrap_help_is_no_side_effect_public_entry() -> None:
     assert "--suite SUITE" in result.stdout
     assert "first-wave" in result.stdout
     assert ".microcosm/cold_clone_probe.json" in result.stdout
+    assert "Microcosm cold-clone probe passed" in result.stdout
+    assert "receipt: <receipt path>" in result.stdout
     assert result.stderr == ""
 
 

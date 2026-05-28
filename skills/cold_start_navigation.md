@@ -70,6 +70,13 @@ Empty/non-README folders can select `missing_tests_route`, including
 `route_cards_by_id.status_and_workingness` row is a drilldown for the status
 and workingness route, not the first screen.
 
+For the standalone cold-clone health probe, run `./bootstrap.sh` from the
+repository root after the first-screen behavior is visible. A passing run prints
+`Microcosm cold-clone probe passed`, `suite: <suite>`, and
+`receipt: <receipt path>`. Treat that terminal summary as the receipt locator;
+open the JSON receipt only after the local route card and authority ceiling are
+readable.
+
 ## Reader-Typed Branches
 
 `atlas/entry_packet.json::reader_first_screen_routes` names the four cold

@@ -21,6 +21,11 @@ Options:
 Environment:
   MICROCOSM_PYTHON       Python executable override for public bootstrap runs
   PYTHON                 Fallback Python executable override
+
+Success output:
+  Microcosm cold-clone probe passed
+  suite: <suite>
+  receipt: <receipt path>
 USAGE
 }
 
