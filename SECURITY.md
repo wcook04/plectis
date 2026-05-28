@@ -26,16 +26,26 @@ output.
 ## Useful Local Checks
 
 Run these from `microcosm-substrate/` before reporting or accepting a boundary
-change:
+change. Install the repository-local test extra first so the pytest route uses
+the same standalone environment as the public repo:
 
 ```bash
-microcosm authority --card
-microcosm stripping-guard
-python3 -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
+make install
+.venv/bin/microcosm authority --card
+.venv/bin/microcosm stripping-guard
+PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
 ```
 
-If the `microcosm` console command is not installed yet, use the source form
-without changing the check boundary:
+If you are not using the Makefile wrapper, create the same local test
+environment explicitly:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -e '.[test]'
+```
+
+If the `microcosm` console command is not available yet and you only need the
+card checks, use the source form without changing the check boundary:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core authority --card
