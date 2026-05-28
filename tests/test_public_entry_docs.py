@@ -868,6 +868,11 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "atlas/entry_packet.json::cold_clone_probe_route" in cold_start
     assert "atlas/entry_packet.json::proof_lab_route" in cold_start
     assert "atlas/entry_packet.json::status_and_workingness_route" in cold_start
+    assert "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export" in cold_start
+    assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in cold_start
+    assert "fake-clone check proves the exported artifact can install" in cold_start
+    assert "receipts/release/release_export_receipt.json" in cold_start
+    assert "release_authorized=false" in cold_start
 
 
 def test_public_entry_docs_keep_tour_before_compile() -> None:

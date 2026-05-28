@@ -79,6 +79,19 @@ repository root after the first-screen behavior is visible. A passing run prints
 open the JSON receipt only after the local route card and authority ceiling are
 readable.
 
+If you need a standalone review artifact, run:
+
+```bash
+make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export
+cd /tmp/microcosm-substrate-export/microcosm-substrate
+make ci
+```
+
+That fake-clone check proves the exported artifact can install, test, and smoke
+from its own root. It does not authorize release; inspect
+`receipts/release/release_export_receipt.json` for the release boundary and
+expect `release_authorized=false` until a separate operator decision exists.
+
 ## Reader-Typed Branches
 
 `atlas/entry_packet.json::reader_first_screen_routes` names the four cold

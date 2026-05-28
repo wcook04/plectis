@@ -367,6 +367,11 @@ REQUIRED_PHRASES_BY_DOC = {
         "`accepted_current_authority` is not an evidence-strength claim",
         "std_python_microcosm_navigation_assay",
         "implementation_atlas.python_navigation_assay",
+        "make standalone-export EXPORT_OUT=/tmp/microcosm-substrate-export",
+        "cd /tmp/microcosm-substrate-export/microcosm-substrate",
+        "fake-clone check proves the exported artifact can install",
+        "receipts/release/release_export_receipt.json",
+        "release_authorized=false",
     ],
 }
 FORBIDDEN_PHRASES_BY_DOC = {
