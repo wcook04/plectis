@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -74,28 +75,36 @@ def validate_launch_compression(
     pyproject_text = pyproject_path.read_text(encoding="utf-8") if pyproject_path.is_file() else ""
 
     compiled = project_substrate.compile_project(project_path)
-    shell = RuntimeShell(public_root)
-    tour = shell.tour(project_path, persist_receipt=False)
-    market_boundary = shell.market_boundary()
-    trace_lens = shell.trace_lens()
-    repair_loop = shell.repair_loop()
-    evidence_cells = shell.evidence_cells()
-    proof_loop_depth = shell.proof_loop_depth()
-    landing_replay = shell.landing_replay()
-    view_quality = shell.view_quality()
-    projection_safety = shell.projection_safety()
-    projection_drift = shell.projection_drift()
-    route_cleanup = shell.route_cleanup()
-    projection_import_map = shell.projection_import_map()
-    import_projector = shell.import_projector()
-    option_surface = shell.option_surface_lens()
-    stripping_guard = shell.stripping_guard()
-    standards_control = shell.standards_control()
-    hook_coverage = shell.hook_coverage()
-    replay_gauntlet = shell.replay_gauntlet()
-    benchmark_lab = shell.benchmark_lab()
-    legibility_scorecard = shell.legibility_scorecard()
-    observatory_html = shell._observatory_html(project_path)
+    prior_receipt_write_gate = os.environ.get("MICROCOSM_RUNTIME_RECEIPT_WRITES")
+    os.environ["MICROCOSM_RUNTIME_RECEIPT_WRITES"] = "0"
+    try:
+        shell = RuntimeShell(public_root)
+        tour = shell.tour(project_path, persist_receipt=False)
+        market_boundary = shell.market_boundary()
+        trace_lens = shell.trace_lens()
+        repair_loop = shell.repair_loop()
+        evidence_cells = shell.evidence_cells()
+        proof_loop_depth = shell.proof_loop_depth()
+        landing_replay = shell.landing_replay()
+        view_quality = shell.view_quality()
+        projection_safety = shell.projection_safety()
+        projection_drift = shell.projection_drift()
+        route_cleanup = shell.route_cleanup()
+        projection_import_map = shell.projection_import_map()
+        import_projector = shell.import_projector()
+        option_surface = shell.option_surface_lens()
+        stripping_guard = shell.stripping_guard()
+        standards_control = shell.standards_control()
+        hook_coverage = shell.hook_coverage()
+        replay_gauntlet = shell.replay_gauntlet()
+        benchmark_lab = shell.benchmark_lab()
+        legibility_scorecard = shell.legibility_scorecard()
+        observatory_html = shell._observatory_html(project_path)
+    finally:
+        if prior_receipt_write_gate is None:
+            os.environ.pop("MICROCOSM_RUNTIME_RECEIPT_WRITES", None)
+        else:
+            os.environ["MICROCOSM_RUNTIME_RECEIPT_WRITES"] = prior_receipt_write_gate
     state_files = _walk_state_files(project_path)
     state_text = "\n".join(path.read_text(encoding="utf-8") for path in state_files if path.suffix in {".json", ".jsonl"})
     first_screen_lower = readme_first_screen.lower()
