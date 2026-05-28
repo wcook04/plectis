@@ -25,6 +25,11 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "PYTHONPATH=src $(VENV_PYTHON) -m pytest $(PUBLIC_TESTS)",
         "PYTHONPATH=src $(VENV_PYTHON) -m pytest",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
+        "PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
+        "PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
+        "PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card",
+        "PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card",
+        "PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
         "PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
     ):

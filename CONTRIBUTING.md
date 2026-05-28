@@ -8,10 +8,17 @@ make test
 make ci
 ```
 
-The smoke target is the no-install public sanity check:
+The smoke target is the no-install public sanity check. It writes ignored
+`.microcosm/` route state through `tour --card`, then checks the compact public
+authority, workingness, legibility, version, and stripping-boundary surfaces:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+PYTHONPATH=src python3 -m microcosm_core status --card .
+PYTHONPATH=src python3 -m microcosm_core authority --card
+PYTHONPATH=src python3 -m microcosm_core workingness --card
+PYTHONPATH=src python3 -m microcosm_core legibility-scorecard
 PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
