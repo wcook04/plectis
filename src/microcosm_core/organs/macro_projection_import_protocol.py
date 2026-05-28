@@ -2839,6 +2839,31 @@ def _resolve_public_target_path(target_ref: str, *, public_root: Path) -> Path |
     return public_root / ref_path
 
 
+def _resolve_manifest_target_path(
+    target_ref: str,
+    *,
+    manifest_path: Path,
+    public_root: Path,
+) -> Path | None:
+    ref_path = Path(target_ref.split("::", 1)[0])
+    if ref_path.is_absolute() or ".." in ref_path.parts:
+        return None
+    if ref_path.parts[:1] == (STANDALONE_RUNTIME_ROOT_REF,):
+        return public_root.parent / ref_path
+    public_root_prefixes = {
+        "core",
+        "examples",
+        "fixtures",
+        "paper_modules",
+        "receipts",
+        "src",
+        "standards",
+    }
+    if ref_path.parts[:1] and ref_path.parts[0] in public_root_prefixes:
+        return public_root / ref_path
+    return manifest_path.parent / ref_path
+
+
 def _source_module_manifest_paths(
     input_path: Path,
     *,
@@ -2892,14 +2917,16 @@ def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> lis
 def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
     if row.get("body_copied") is not True or row.get("body_in_receipt") is True:
         return False
-    if str(row.get("classification") or "") != "copied_non_secret_macro_body":
-        return False
-    if row.get("sha256_match") is True:
+    classification = str(row.get("classification") or "")
+    source_relation = str(row.get("source_to_target_relation") or "")
+    source_import_class = str(row.get("source_import_class") or "")
+    if classification.startswith("copied_non_secret_macro_"):
         return True
-    return (
-        str(row.get("source_to_target_relation") or "") == "exact_copy"
-        or str(row.get("source_import_class") or "") == "copied_non_secret_macro_body"
-    )
+    if source_relation == "exact_copy":
+        return True
+    if source_import_class == "copied_non_secret_macro_body":
+        return True
+    return row.get("sha256_match") is True
 
 
 def _update_source_module_manifest_row(
@@ -2916,7 +2943,11 @@ def _update_source_module_manifest_row(
     target_ref = str(row.get("target_ref") or row.get("path") or "")
     source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
     target_path = (
-        _resolve_public_target_path(target_ref, public_root=public_root)
+        _resolve_manifest_target_path(
+            target_ref,
+            manifest_path=manifest_path,
+            public_root=public_root,
+        )
         if target_ref
         else None
     )
@@ -2968,7 +2999,12 @@ def _update_source_module_manifest_row(
         "byte_count": stats["byte_count"],
     }
     if "sha256" in row:
-        row_updates["sha256"] = stats["sha256"]
+        existing_sha256 = str(row.get("sha256") or "")
+        row_updates["sha256"] = (
+            stats["body_digest"]
+            if existing_sha256.startswith(BODY_DIGEST_PREFIX)
+            else stats["sha256"]
+        )
     if "anchor_count" in row:
         row_updates["anchor_count"] = len(_strings(row.get("required_anchors")))
 

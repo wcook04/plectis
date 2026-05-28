@@ -625,6 +625,63 @@
         "source_writes"
       ]
     },
+    "skill_compression_passport_candidate": {
+      "label": "Skill compression-passport candidate",
+      "low_authority_allowed": true,
+      "required_authority_tier": "provider_endpoint",
+      "input_packet": [
+        "source_row",
+        "existing_skill_context",
+        "compression_authoring_contract",
+        "connector_neighborhood",
+        "output_schema"
+      ],
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "compression_passport",
+          "evidence_refs",
+          "omissions",
+          "confidence"
+        ],
+        "properties": {
+          "compression_passport": {
+            "type": "object",
+            "required": [
+              "cluster_keys",
+              "atom",
+              "flag",
+              "card",
+              "when_to_open",
+              "when_not_to_open",
+              "safe_drilldown"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array"
+          },
+          "omissions": {
+            "type": "array"
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "worker_dissent_or_uncertainty": {
+            "type": "string"
+          }
+        }
+      },
+      "validation_command": "./repo-pytest system/server/tests/test_metabolism_row_jobs.py -k skill_compression_debt",
+      "forbidden_surfaces": [
+        "codex/doctrine/skills/skill_registry.json",
+        "codex/doctrine/skills/",
+        "codex/standards/std_skill.json",
+        "raw_seed.md",
+        "private_payloads",
+        "source_writes"
+      ],
+      "authority_note": "Provider endpoints may draft skill compression_passport row patches only from bounded skill/debt projections. Type A review owns any skill registry or skill markdown mutation."
+    },
     "raw_seed_candidate_io": {
       "label": "Raw-seed candidate I/O",
       "low_authority_allowed": true,

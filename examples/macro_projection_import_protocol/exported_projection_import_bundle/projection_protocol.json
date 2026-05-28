@@ -8884,24 +8884,24 @@
         "preserve_provider_context_policy_source_without_exporting_provider_payload_bodies_proof_bodies_or_live_access_state"
       ],
       "body_copied": true,
-      "body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
+      "body_digest": "sha256:5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_provider_context_recipe_budget_policy.py::test_provider_context_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_provider_context_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
-        "source_line_count": 1043,
+        "source_body_digest": "sha256:5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
+        "source_line_count": 1100,
         "source_ref": "codex/standards/std_compute_provider.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:97c0ca5bd04c87e940d07cfc4050bcb7abae10e02aca6726bae33d9c103bb01d",
-        "target_line_count": 1043,
+        "target_body_digest": "sha256:5e2c903a8e4ab8155dcac08cbc639cc50d29d491d5c31e135d4bc21d7e6e48bb",
+        "target_line_count": 1100,
         "target_ref": "examples/provider_context_recipe_budget_policy/exported_provider_context_budget_bundle/source_modules/codex/standards/std_compute_provider.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1043,
+      "body_line_count": 1100,
       "body_text_in_receipt": false,
       "claim_ceiling": "public provider-context source module body import only; not provider dispatch, live provider receipt access, proof-body export, Lean/Lake execution, benchmark correctness, private-root equivalence, release, publication, or recipient work authority",
       "classification": [

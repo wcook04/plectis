@@ -2081,6 +2081,76 @@ def test_refresh_exact_copy_source_modules_updates_targets_manifests_and_protoco
     assert validation["body_in_receipt"] is False
 
 
+def test_refresh_exact_copy_source_modules_accepts_source_import_class_rows(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    source_root = public_root.parent
+    material_id = "source_import_class_only_body_import"
+    source_ref = "local_source/source_import_class_only.py"
+    source = source_root / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("VALUE = 'refreshed exact copy'\n", encoding="utf-8")
+
+    manifest_refs = [
+        (
+            "examples/source_import_class_shape/exported_bundle/"
+            "source_module_manifest.json"
+        ),
+        (
+            "fixtures/first_wave/source_import_class_shape/input/"
+            "source_module_manifest.json"
+        ),
+    ]
+    target_refs = [f"source_artifacts/{source_ref}"] * len(manifest_refs)
+    for manifest_ref, target_ref in zip(manifest_refs, target_refs, strict=True):
+        manifest_path = public_root / manifest_ref
+        target = manifest_path.parent / target_ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("VALUE = 'stale copy'\n", encoding="utf-8")
+        manifest = {
+            "schema_version": "test_source_module_manifest_v1",
+            "modules": [
+                {
+                    "module_id": material_id,
+                    "source_ref": source_ref,
+                    "target_ref": target_ref,
+                    "source_to_target_relation": "exact_copy",
+                    "source_import_class": "copied_non_secret_macro_body",
+                    "required_anchors": ["refreshed exact copy"],
+                    "body_copied": True,
+                    "body_in_receipt": False,
+                    "sha256": "sha256:stale",
+                    "line_count": 1,
+                    "byte_count": len("VALUE = 'stale copy'\n"),
+                }
+            ],
+        }
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+    result = refresh_exact_copy_source_modules(
+        public_root / manifest_refs[1],
+        source_root=source_root,
+        material_ids=[material_id],
+        all_examples=True,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 2
+    assert result["manifest_row_update_count"] == 2
+    for manifest_ref, target_ref in zip(manifest_refs, target_refs, strict=True):
+        target = (public_root / manifest_ref).parent / target_ref
+        assert target.read_bytes() == source.read_bytes()
+        manifest = json.loads((public_root / manifest_ref).read_text(encoding="utf-8"))
+        row = manifest["modules"][0]
+        assert row["source_sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()
+        assert row["sha256"].startswith("sha256:")
+        assert row["sha256_match"] is True
+
+
 def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
