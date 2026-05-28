@@ -9,7 +9,8 @@ SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
 PYTEST_TMP ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
-PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
+PYTEST_RUN_ID ?= $(shell $(PYTHON) -c 'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))')
+PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest-$(PYTEST_RUN_ID)
 PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
 PYTEST_ARGS ?=
 .DEFAULT_GOAL := help

@@ -126,7 +126,10 @@ def test_package_metadata_describes_runtime_spine() -> None:
     assert project["license"] == "Apache-2.0"
     assert project["license-files"] == ["LICENSE"]
     assert project["authors"] == [{"name": "Microcosm Substrate Contributors"}]
-    assert project["optional-dependencies"]["test"] == ["pytest>=8,<9"]
+    assert project["optional-dependencies"]["test"] == [
+        "pytest>=8,<9",
+        "requests>=2,<3",
+    ]
     assert "License :: OSI Approved :: Apache Software License" not in project["classifiers"]
     assert payload["project"]["urls"]["Homepage"] == "https://github.com/wcook04/microcosm-substrate"
     assert payload["project"]["urls"]["Source"].endswith("/microcosm-substrate")

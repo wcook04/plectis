@@ -5,6 +5,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import types
 from pathlib import Path
 
 from microcosm_core.macro_tools.command_output_projection import (
@@ -1006,6 +1007,23 @@ def test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and
 
     source_modules = BUNDLE_INPUT / "source_modules"
     monkeypatch.syspath_prepend(str(source_modules))
+
+    nvidia_nim_stub = types.ModuleType("system.lib.nvidia_nim")
+    nvidia_nim_stub.DEFAULT_ROUTING_AUDIT_MODEL = "moonshotai/kimi-k2-thinking"
+
+    def unexpected_provider_call(*args: object, **kwargs: object) -> str:
+        raise AssertionError("dry-run must not call NVIDIA NIM")
+
+    def unexpected_route_write(*args: object, **kwargs: object) -> None:
+        raise AssertionError("dry-run must not write route evidence")
+
+    nvidia_nim_stub.chat_completion = unexpected_provider_call
+    semantic_routing_stub = types.ModuleType("system.lib.semantic_routing")
+    semantic_routing_stub.route_drift_snapshot_digest = lambda drift: "dry_run_digest"
+    semantic_routing_stub.confirm_route = unexpected_route_write
+    monkeypatch.setitem(sys.modules, "system.lib.nvidia_nim", nvidia_nim_stub)
+    monkeypatch.setitem(sys.modules, "system.lib.semantic_routing", semantic_routing_stub)
+
     spec = importlib.util.spec_from_file_location(
         "microcosm_semantic_route_quality_audit",
         audit_path,
@@ -1015,10 +1033,6 @@ def test_semantic_route_quality_audit_source_compiles_and_preserves_provider_and
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
-    def forbidden_provider_call(*args: object, **kwargs: object) -> str:
-        raise AssertionError("dry-run must not call NVIDIA NIM")
-
-    monkeypatch.setattr(module.nvidia_nim, "chat_completion", forbidden_provider_call)
     decision = module.audit_node_with_k2(
         {"candidate_neighbors": []},
         model=module.DEFAULT_MODEL,

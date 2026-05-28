@@ -34,7 +34,8 @@ Repository = "https://github.com/wcook04/microcosm-substrate"
 
 [project.optional-dependencies]
 test = [
-  "pytest>=8,<9"
+  "pytest>=8,<9",
+  "requests>=2,<3"
 ]
 
 [project.scripts]
