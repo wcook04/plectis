@@ -5,6 +5,7 @@ import argparse
 from collections import Counter, deque
 import hashlib
 import json
+import os
 import re
 import shlex
 import sqlite3
@@ -18,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from system.lib import agent_seed_handoffs, shared_worktree_guard, work_ledger, work_ledger_runtime
+from system.lib import agent_seed_handoffs, shared_worktree_guard, work_admission, work_ledger, work_ledger_runtime
 from system.lib.work_ledger_commands import (
     WORK_LEDGER_CLAIM_CARDS_REFRESH_COMMAND,
     WORK_LEDGER_REFRESH_CLAIMS_COMMAND,
@@ -2525,6 +2526,9 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     claims = payload.get("claims") if isinstance(payload.get("claims"), list) else []
     claim_rows = [_compact_preflight_claim(row) for row in claims if isinstance(row, dict)]
     status_counts = Counter(str(row.get("status") or "unknown") for row in claim_rows)
+    payload_claim_summary = (
+        payload.get("claim_summary") if isinstance(payload.get("claim_summary"), Mapping) else None
+    )
     overview = payload.get("overview") if isinstance(payload.get("overview"), dict) else {}
     overlap_rows = [
         row for row in list(payload.get("observed_path_overlaps") or []) if isinstance(row, Mapping)
@@ -2542,6 +2546,7 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "schema": payload.get("schema"),
         "mode": "compact",
+        "status": payload.get("status"),
         "session_id": payload.get("session_id"),
         "actor": payload.get("actor"),
         "phase_id": payload.get("phase_id"),
@@ -2549,7 +2554,9 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         "read_receipt_id": payload.get("read_receipt_id"),
         "codex_import_summary": import_summary,
         "claude_ide_import_summary": claude_summary,
-        "claim_summary": {
+        "claim_summary": dict(payload_claim_summary)
+        if payload_claim_summary
+        else {
             "requested": len(claim_rows),
             "claimed": status_counts.get("claimed", 0),
             "claimed_with_collision": status_counts.get("claimed_with_collision", 0),
@@ -2557,6 +2564,8 @@ def _compact_preflight_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
         },
         "claims": claim_rows,
         "write_profiles": payload.get("write_profiles") or [],
+        "work_creation_classification": payload.get("work_creation_classification") or {},
+        "work_admission": payload.get("work_admission") or {},
         "observed_path_overlaps": compact_overlap_rows,
         "observed_path_overlap_summary": overlap_summary,
         "shared_worktree_git_risks": payload.get("shared_worktree_git_risks") or [],
@@ -2600,10 +2609,78 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
     return 2 if status == "blocked" else 0
 
 
+def cmd_helper_lease_admission(args: argparse.Namespace) -> int:
+    decision = work_admission.build_helper_lease_admission_decision(
+        REPO_ROOT,
+        lease_kind=args.lease_kind,
+        policy=getattr(args, "host_pressure_policy", None) or "auto",
+        request_id=getattr(args, "request_id", None),
+        requested_by=getattr(args, "requested_by", None),
+        owner_status=getattr(args, "owner_status", None),
+        current_lease_count=getattr(args, "current_lease_count", None),
+    )
+    _print(decision)
+    return work_admission.ADMISSION_TEMPFAIL if not bool(decision.get("allow", True)) else 0
+
+
 def cmd_session_preflight(args: argparse.Namespace) -> int:
     session_id = args.session_id or _mint_preflight_session_id(args.actor, args.session_slug)
     write_profiles = _preflight_write_profiles(list(getattr(args, "write_profile", []) or []))
     claim_paths = _preflight_claim_paths(list(args.path or []), write_profiles)
+    work_creation_classification = work_admission.classify_work_creation_request(
+        paths=claim_paths,
+        write_profiles=write_profiles,
+        requested_class=getattr(args, "work_admission_class", None),
+    )
+    work_admission_decision = work_admission.build_work_admission_decision(
+        REPO_ROOT,
+        work_class=str(work_creation_classification.get("work_class") or work_admission.CHEAP_READ),
+        policy=getattr(args, "host_pressure_policy", None) or "auto",
+        request_id=session_id,
+    )
+    if not bool(work_admission_decision.get("allow", True)):
+        blocked_payload = {
+            "schema": "work_ledger_session_preflight_v1",
+            "mode": "full",
+            "status": "blocked_by_work_admission",
+            "session_id": session_id,
+            "actor": args.actor,
+            "phase_id": args.phase_id,
+            "family_id": args.family_id,
+            "read_receipt_id": None,
+            "codex_import": None,
+            "claude_ide_import": None,
+            "bootstrap": {},
+            "write_profiles": write_profiles,
+            "work_creation_classification": work_creation_classification,
+            "work_admission": work_admission_decision,
+            "claim_summary": {
+                "requested": len(claim_paths) + len(args.td_id or []),
+                "claimed": 0,
+                "claimed_with_collision": 0,
+                "refused": len(claim_paths) + len(args.td_id or []),
+            },
+            "claims": [],
+            "observed_path_overlaps": [],
+            "shared_worktree_git_risks": [],
+            "overview": {},
+            "closeout_rule": {
+                "schema": "work_ledger_preflight_closeout_rule_v1",
+                "status": "not_started_blocked_by_work_admission",
+                "rule": "No Work Ledger claims were written because pressure admission refused this work start.",
+            },
+            "heartbeat_participation_contract": _heartbeat_participation_contract(session_id),
+            "closeout_plan": {
+                "schema": "work_ledger_closeout_plan_v1",
+                "recommended_sequence": [],
+            },
+            "closeout_commands": [],
+        }
+        if getattr(args, "full", False):
+            _print(blocked_payload)
+        else:
+            _print(_compact_preflight_payload(blocked_payload))
+        return work_admission.ADMISSION_TEMPFAIL
     codex_import = None
     if not getattr(args, "skip_import_codex", False):
         db_path = Path(args.db_path).expanduser() if args.db_path else CODEX_STATE_DB
@@ -2692,6 +2769,8 @@ def cmd_session_preflight(args: argparse.Namespace) -> int:
         "claude_ide_import": claude_import,
         "bootstrap": bootstrap,
         "write_profiles": write_profiles,
+        "work_creation_classification": work_creation_classification,
+        "work_admission": work_admission_decision,
         "claims": claims,
         "observed_path_overlaps": observed_path_overlaps,
         "shared_worktree_git_risks": shared_worktree_git_risks,
@@ -3577,6 +3656,33 @@ def build_parser() -> argparse.ArgumentParser:
     mutation_check.add_argument("--require-exclusive", action="store_true")
     mutation_check.set_defaults(func=cmd_mutation_check)
 
+    helper_lease_admission = subparsers.add_parser(
+        "helper-lease-admission",
+        help=(
+            "Gate a proposed persistent helper/tool lease through the host-pressure "
+            "budget before starting another MCP/Codex helper process."
+        ),
+    )
+    helper_lease_admission.add_argument(
+        "--lease-kind",
+        required=True,
+        choices=work_admission.HELPER_LEASE_KINDS,
+    )
+    helper_lease_admission.add_argument("--request-id", default=None)
+    helper_lease_admission.add_argument("--requested-by", default=None)
+    helper_lease_admission.add_argument("--owner-status", default="unknown")
+    helper_lease_admission.add_argument("--current-lease-count", type=int, default=None)
+    helper_lease_admission.add_argument(
+        "--host-pressure-policy",
+        choices=work_admission.ADMISSION_POLICY_VALUES,
+        default=os.environ.get("AIW_HELPER_LEASE_HOST_PRESSURE_POLICY", "auto"),
+        help=(
+            "Admission policy before allocating a persistent helper lease: auto queues "
+            "under degraded pressure, warn reports but admits, off disables the gate."
+        ),
+    )
+    helper_lease_admission.set_defaults(func=cmd_helper_lease_admission)
+
     session_preflight = subparsers.add_parser(
         "session-preflight",
         help=(
@@ -3607,6 +3713,21 @@ def build_parser() -> argparse.ArgumentParser:
     )
     session_preflight.add_argument("--lease-minutes", type=float, default=30.0)
     session_preflight.add_argument("--note", default=None)
+    session_preflight.add_argument(
+        "--host-pressure-policy",
+        choices=work_admission.ADMISSION_POLICY_VALUES,
+        default=os.environ.get("AIW_WORK_LEDGER_HOST_PRESSURE_POLICY", "auto"),
+        help=(
+            "Admission policy before creating session claims: auto queues heavy work "
+            "under host-pressure load-shed, warn reports but admits, off disables the gate."
+        ),
+    )
+    session_preflight.add_argument(
+        "--work-admission-class",
+        default=None,
+        choices=sorted(work_admission.HOST_PRESSURE_WORKLOAD_BY_CLASS),
+        help="Override the inferred work-creation class for this session preflight.",
+    )
     session_preflight.add_argument(
         "--require-exclusive",
         action="store_true",

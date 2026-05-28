@@ -1,11 +1,107 @@
 {
-  "schema_version": "mission_transaction_work_spine_task_ledger_source_module_manifest_v1",
-  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
-  "manifest_id": "task_ledger_control_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
   "body_storage_policy": "exact_non_secret_macro_bodies_copied_into_bundle_source_modules",
+  "bundle_id": "public_mission_transaction_work_spine_runtime_bundle",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "task_ledger_control_source_modules_import",
+  "module_count": 4,
+  "modules": [
+    {
+      "anchor_count": 6,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 509578,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 11904,
+      "module_id": "task_ledger_events_body_import",
+      "required_anchors": [
+        "def append_event(",
+        "def append_event_and_rebuild(",
+        "def build_projection(",
+        "def rebuild_projections(",
+        "def validate_event_log(",
+        "closeout_assurance"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "system/lib/task_ledger_events.py",
+      "source_role": "Task Ledger authority event log and projection builder",
+      "source_sha256": "c733ed8217c7df40b6973ff565d833149ff0fa2c919c3d0ecd8e7ae89b2ca71c",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
+      "target_sha256": "c733ed8217c7df40b6973ff565d833149ff0fa2c919c3d0ecd8e7ae89b2ca71c"
+    },
+    {
+      "anchor_count": 6,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 98109,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 2388,
+      "module_id": "task_ledger_apply_tool_body_import",
+      "required_anchors": [
+        "quick-capture",
+        "sign-off",
+        "authority-health",
+        "_apply_mission_closeout_report",
+        "TaskLedgerArgumentParser",
+        "closeout_assurance"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "tools/meta/factory/task_ledger_apply.py",
+      "source_role": "Task Ledger mutation CLI for capture, execution receipts, sign-off, health, and projection rebuilds",
+      "source_sha256": "221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
+      "target_sha256": "221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 22688,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 596,
+      "module_id": "task_ledger_priority_body_import",
+      "required_anchors": [
+        "def priority_constellation(",
+        "_EXECUTION_MENU_SCHEDULABLE",
+        "mutation_rule",
+        "def top_schedulable_workitem(",
+        "def find_workitem_by_id("
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "system/lib/task_ledger_priority.py",
+      "source_role": "read-only first-contact priority and blocker constellation compiler",
+      "source_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
+      "target_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 2484,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 77,
+      "module_id": "task_ledger_project_tool_body_import",
+      "required_anchors": [
+        "Rebuild and validate Task Ledger projections",
+        "task_ledger_events.rebuild_projections",
+        "task_ledger_events.build_projection",
+        "validate_event_log",
+        "views"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_not_receipt",
+      "source_ref": "tools/meta/factory/task_ledger_project.py",
+      "source_role": "Task Ledger projection rebuild, validation, and view listing CLI",
+      "source_sha256": "05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
+      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
+      "target_sha256": "05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc"
+    }
+  ],
   "receipt_body_policy": "receipts_may_report_paths_hashes_counts_and_anchor_results_but_not_duplicate_full_source_bodies",
+  "schema_version": "mission_transaction_work_spine_task_ledger_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -17,102 +113,6 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "module_count": 4,
-  "modules": [
-    {
-      "module_id": "task_ledger_events_body_import",
-      "source_ref": "system/lib/task_ledger_events.py",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
-      "source_role": "Task Ledger authority event log and projection builder",
-      "required_anchors": [
-        "def append_event(",
-        "def append_event_and_rebuild(",
-        "def build_projection(",
-        "def rebuild_projections(",
-        "def validate_event_log(",
-        "closeout_assurance"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_sha256": "c019f7a16b32e4c35323e12d8bbd14f74e5214495f5df08f830c2e52e3a07807",
-      "target_sha256": "c019f7a16b32e4c35323e12d8bbd14f74e5214495f5df08f830c2e52e3a07807",
-      "sha256_match": true,
-      "line_count": 11773,
-      "byte_count": 503851,
-      "anchor_count": 6
-    },
-    {
-      "module_id": "task_ledger_apply_tool_body_import",
-      "source_ref": "tools/meta/factory/task_ledger_apply.py",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_apply.py",
-      "source_role": "Task Ledger mutation CLI for capture, execution receipts, sign-off, health, and projection rebuilds",
-      "required_anchors": [
-        "quick-capture",
-        "sign-off",
-        "authority-health",
-        "_apply_mission_closeout_report",
-        "TaskLedgerArgumentParser",
-        "closeout_assurance"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_sha256": "221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
-      "target_sha256": "221f7f8a3f85c0262caf4f038d56d792e14ae91fbdf3970905ef6984d0043cfb",
-      "sha256_match": true,
-      "line_count": 2388,
-      "byte_count": 98109,
-      "anchor_count": 6
-    },
-    {
-      "module_id": "task_ledger_priority_body_import",
-      "source_ref": "system/lib/task_ledger_priority.py",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
-      "source_role": "read-only first-contact priority and blocker constellation compiler",
-      "required_anchors": [
-        "def priority_constellation(",
-        "_EXECUTION_MENU_SCHEDULABLE",
-        "mutation_rule",
-        "def top_schedulable_workitem(",
-        "def find_workitem_by_id("
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
-      "target_sha256": "0df3770890feaebb4149001c32b83ea5af27885afdf03dba29d677b89d7cacff",
-      "sha256_match": true,
-      "line_count": 596,
-      "byte_count": 22688,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "task_ledger_project_tool_body_import",
-      "source_ref": "tools/meta/factory/task_ledger_project.py",
-      "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
-      "source_role": "Task Ledger projection rebuild, validation, and view listing CLI",
-      "required_anchors": [
-        "Rebuild and validate Task Ledger projections",
-        "task_ledger_events.rebuild_projections",
-        "task_ledger_events.build_projection",
-        "validate_event_log",
-        "views"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_not_receipt",
-      "source_sha256": "05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
-      "target_sha256": "05f0d83d47bccdab8619d6fb6fdf8eeccefcad182b9c35540e2bd8eafe30c5dc",
-      "sha256_match": true,
-      "line_count": 77,
-      "byte_count": 2484,
-      "anchor_count": 5
-    }
-  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_ref": "task_ledger_control_runtime_contract.json"
 }

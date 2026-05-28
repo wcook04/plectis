@@ -322,11 +322,82 @@ def test_trace_capsule_release_candidate_gate_ready_supersedes_historical_failur
 
     assert "final_validation: ready_pending_operator_authorization" in text
     assert "owner_scope_validation: pass" in text
+    assert "internal_authorization: pending_operator_authorization" in text
+    assert "public_release_authorization: pending_operator_authorization" in text
     assert "release_candidate_gate: ready_pending_operator_authorization" in text
     assert "historical_terminal_failures_superseded: 1" in text
     assert meta["final_validation"] == "ready_pending_operator_authorization"
     assert meta["owner_scope_validation"] == "pass"
+    assert meta["internal_authorization"] == "pending_operator_authorization"
+    assert meta["public_release_authorization"] == "pending_operator_authorization"
     assert meta["release_candidate_gate_decision"] == "ready_pending_operator_authorization"
+    assert meta["blocking_terminal_failure_count"] == 0
+    assert meta["raw_blocking_terminal_failure_count"] == 1
+
+
+def test_trace_capsule_private_authorization_public_blocked_splits_gate_semantics() -> None:
+    release_receipt = """
+    {
+      "status": "pass",
+      "authority_receipt": {
+        "release_authorized": false,
+        "wheel_install_supported": false
+      },
+      "projection_freshness_receipt": {"status": "pass"},
+      "source_tree_state_kind": "git_head_clean",
+      "dirty_source_path_count": 0,
+      "projection_freshness_status": "pass",
+      "closeout_state": "systembar_slice_internal_authorization_satisfied_public_blocked",
+      "release_authorization_gate_decision": {
+        "decision": "ready_pending_operator_authorization",
+        "release_authorization_allowed_now": false
+      }
+    }
+    """
+    text, meta = render_trace_capsule_text(
+        _turn(
+            [
+                _event(
+                    1,
+                    "./repo-pytest system/server/tests/test_example.py",
+                    1,
+                    "AssertionError: historical pre-settlement failure",
+                ),
+                _event(
+                    2,
+                    "./repo-python tools/agent_trace_structurer/systembar_contract_test.py",
+                    0,
+                    "ok\nProcess exited with code 0",
+                ),
+                _event(
+                    3,
+                    "./repo-python tools/meta/factory/task_ledger_apply.py execution-receipt --work-item cap",
+                    0,
+                    release_receipt,
+                ),
+            ],
+            assistant_text=(
+                "Internal authorization satisfied for private/local/internal settlement; "
+                "release gate text still says ready_pending_operator_authorization from an old projection. "
+                "Public release remains blocked and no public push, deploy, release toggle, or external action was taken."
+            ),
+        ),
+        title="private authorization public release blocked semantics test",
+    )
+
+    assert "final_validation: pass_with_public_release_blocked" in text
+    assert "final_validation: ready_pending_operator_authorization" not in text
+    assert "owner_scope_validation: pass" in text
+    assert "internal_authorization: satisfied" in text
+    assert "public_release_authorization: not_authorized_by_operator" in text
+    assert "release_candidate_gate: public_release_blocked" in text
+    assert "historical_terminal_failures_superseded: 1" in text
+    assert "no public push" in text
+    assert meta["final_validation"] == "pass_with_public_release_blocked"
+    assert meta["owner_scope_validation"] == "pass"
+    assert meta["internal_authorization"] == "satisfied"
+    assert meta["public_release_authorization"] == "not_authorized_by_operator"
+    assert meta["release_candidate_gate_decision"] == "public_release_blocked"
     assert meta["blocking_terminal_failure_count"] == 0
     assert meta["raw_blocking_terminal_failure_count"] == 1
 

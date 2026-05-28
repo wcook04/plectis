@@ -33,7 +33,8 @@ CLI
     prompt_shelf_runs_index.py --review --slot B2 --limit 12
                                            # bounded private excerpt review:
                                            # prompt sent, operator addendum,
-                                           # assistant closeout, and metadata
+                                           # assistant closeout, failed-capture
+                                           # diagnostics, and metadata
     prompt_shelf_runs_index.py --review --run-id <prompt_run_id>
                                            # inspect an older selected run
 
@@ -67,6 +68,9 @@ scan obsidian/prompt_shelf/usage/runs or raw_events wholesale; open one
 source run/raw file only after this metadata projection selects the row.
 Use --review as the next private-root drilldown when the task needs the
 prompt-sent -> agent-closeout trace shape before proposing prompt refinements.
+Recent capture diagnostics are included in review output by default so failed
+or incomplete captures remain visible in the same evidence surface as landed
+runs.
 """
 from __future__ import annotations
 
@@ -85,6 +89,7 @@ RUNS_ROOT = USAGE_ROOT / "runs"
 RAW_EVENTS_ROOT = USAGE_ROOT / "raw_events"
 LEDGERS_ROOT = REPO_ROOT / "obsidian" / "prompt_shelf"
 PROJECTION_PATH = REPO_ROOT / "state" / "prompt_shelf" / "prompt_shelf_runs_index.json"
+CAPTURE_DIAGNOSTICS_ROOT = REPO_ROOT / "state" / "prompt_shelf" / "capture_diagnostics"
 
 # Sibling fingerprint module (stdlib import is enough — same parent package)
 _TOOLS_DIR = Path(__file__).resolve().parent
@@ -93,7 +98,7 @@ if str(_TOOLS_DIR) not in sys.path:
 import prompt_shelf_fingerprints as _fp  # noqa: E402
 import b3_packet_lint as _b3_lint  # noqa: E402
 
-SCHEMA_VERSION = "1.1.0"
+SCHEMA_VERSION = "1.2.0"
 
 SLOT_DIR_BY_SLOT = {
     "A0": "A0_explore",
@@ -142,6 +147,44 @@ REVIEW_SIGNAL_NEEDLES = (
     "type b should",
     "what changed",
     "anti-goals",
+)
+
+STOP_FRAME_OVERRIDE_SCENARIO_ID = (
+    "type_b_no_op_after_deciding_evidence_operator_asks_action"
+)
+STOP_FRAME_RE = re.compile(
+    r"\b("
+    r"wait|no[- ]?op|no edits?|make no edits|do not mutate|"
+    r"nothing (?:to do|changed)|status[- ]?only|stop at status"
+    r")\b",
+    re.IGNORECASE,
+)
+DECIDING_EVIDENCE_RE = re.compile(
+    r"\b("
+    r"deciding evidence|already supplied|reported(?:ly)? landed|"
+    r"committed|validated|receipted|closed|workitem|cap(?:_| )quick|"
+    r"execution receipt|trace capsule"
+    r")\b",
+    re.IGNORECASE,
+)
+OPERATOR_STATUS_ONLY_RE = re.compile(
+    r"\b(status only|only status|just status|recap only|no edits?)\b",
+    re.IGNORECASE,
+)
+OPERATOR_HIGH_AGENCY_RE = re.compile(
+    r"\b(always something to do|have agency|go make edits?|make edits?|"
+    r"stop wasting|do something|do the work)\b",
+    re.IGNORECASE,
+)
+OPERATOR_CORRECTION_RE = re.compile(
+    r"\b(fix(?: this)?|correct(?:ion)?|failure mode|self[- ]?error|"
+    r"failed instruction|failed frame|patch)\b",
+    re.IGNORECASE,
+)
+OPERATOR_ACTION_RE = re.compile(
+    r"\b(act|action|mutate|edit|ship|bind|close|record|capture|"
+    r"update|repair|validate)\b",
+    re.IGNORECASE,
 )
 
 
@@ -668,7 +711,32 @@ def write_projection(payload: dict[str, Any], path: Path = PROJECTION_PATH) -> N
     path.write_text(json.dumps(payload, indent=2) + "\n")
 
 
-def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None) -> str:
+def _capture_diagnostic_summary(root: Path | None = None,
+                                slots: list[str] | None = None) -> dict[str, Any]:
+    wanted = {slot.strip().upper() for slot in slots or [] if slot.strip()}
+    by_reason: dict[str, int] = {}
+    newest: tuple[_dt.datetime, str] | None = None
+    total = 0
+    for path, diagnostic in _load_capture_diagnostics(root):
+        slot = _diagnostic_slot(diagnostic) or "unknown"
+        if wanted and slot not in wanted:
+            continue
+        reason = str(diagnostic.get("skipped_reason") or "unknown")
+        total += 1
+        by_reason[reason] = by_reason.get(reason, 0) + 1
+        created = _parse_captured_at(str(diagnostic.get("created_at") or ""))
+        diag_id = _diagnostic_id(path, diagnostic)
+        if newest is None or (created, diag_id) > newest:
+            newest = (created, diag_id)
+    return {
+        "total": total,
+        "by_reason": by_reason,
+        "newest_id": newest[1] if newest else None,
+    }
+
+
+def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None,
+                   diagnostics_root: Path | None = None) -> str:
     """Compact human-readable summary. Always includes every current cockpit
     slot, even ones with zero runs, so missing slots are visible."""
     meta = payload["__meta"]
@@ -688,9 +756,21 @@ def render_summary(payload: dict[str, Any], *, slots: list[str] | None = None) -
         "",
         f"  largest run:  {meta['largest_run']['prompt_run_id'] or '(none)'} "
         f"({meta['largest_run']['bytes']:,} bytes)",
-        "",
-        "  by slot:",
     ]
+    if diagnostics_root is not None:
+        diagnostics = _capture_diagnostic_summary(diagnostics_root, slots=slots)
+        lines.append(
+            f"  diagnostics:  {diagnostics['total']} capture diagnostics"
+            + (f" · newest {diagnostics['newest_id']}" if diagnostics["newest_id"] else "")
+        )
+        lines.append("                included by default in --review; use --no-diagnostics to hide them")
+        if diagnostics["by_reason"]:
+            reason_counts = ", ".join(
+                f"{reason}={count}"
+                for reason, count in sorted(diagnostics["by_reason"].items())
+            )
+            lines.append(f"                reasons: {reason_counts}")
+    lines.extend(["", "  by slot:"])
     by_slot = meta["by_slot"]
     # Always render every current cockpit slot; render variant slots too when
     # the index contains captures for them. Variant slots stay non-required for
@@ -854,6 +934,87 @@ def _entry_matches_review_contains(entry: RunIndexEntry, needle: str, *,
     return query in body_blob
 
 
+def _diagnostic_id(path: Path, diagnostic: dict[str, Any]) -> str:
+    value = diagnostic.get("diagnostic_id") or diagnostic.get("prompt_run_id")
+    return str(value or path.stem)
+
+
+def _diagnostic_slot(diagnostic: dict[str, Any]) -> str:
+    return str(diagnostic.get("slot") or diagnostic.get("prompt_slot") or "").upper()
+
+
+def _diagnostic_text_blob(diagnostic: dict[str, Any]) -> str:
+    parts: list[str] = []
+    for key in (
+        "skipped_reason",
+        "conversation_id",
+        "conversation_url",
+        "tab_title",
+        "assistant_text",
+        "user_text_tail",
+    ):
+        parts.append(str(diagnostic.get(key) or ""))
+    for shape_key in ("user_shape", "assistant_shape"):
+        shape = diagnostic.get(shape_key)
+        if isinstance(shape, dict):
+            parts.extend(str(shape.get(k) or "") for k in ("head", "tail", "sha16"))
+    return "\n".join(parts)
+
+
+def _load_capture_diagnostics(root: Path | None = None) -> list[tuple[Path, dict[str, Any]]]:
+    diag_root = root if root is not None else CAPTURE_DIAGNOSTICS_ROOT
+    if not diag_root.is_dir():
+        return []
+    rows: list[tuple[Path, dict[str, Any]]] = []
+    for path in sorted(diag_root.glob("*.json")):
+        try:
+            diagnostic = json.loads(path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(diagnostic, dict):
+            rows.append((path, diagnostic))
+    return rows
+
+
+def select_diagnostic_review_rows(*,
+                                  diagnostics_root: Path | None = None,
+                                  slot: str | None = None,
+                                  run_ids: list[str] | None = None,
+                                  contains: str | None = None,
+                                  limit: int = DEFAULT_REVIEW_LIMIT,
+                                  max_snippet_chars: int = DEFAULT_REVIEW_SNIPPET_CHARS) -> list[dict[str, Any]]:
+    wanted_slot = slot.strip().upper() if slot else None
+    wanted_ids = {
+        item.strip()
+        for item in (run_ids or [])
+        for item in item.split(",")
+        if item.strip()
+    }
+    query = contains.strip().lower() if contains else ""
+    bounded_limit = _bounded_int(limit, default=DEFAULT_REVIEW_LIMIT, low=1, high=MAX_REVIEW_LIMIT)
+    candidates: list[tuple[_dt.datetime, str, dict[str, Any]]] = []
+    for path, diagnostic in _load_capture_diagnostics(diagnostics_root):
+        diag_id = _diagnostic_id(path, diagnostic)
+        diag_slot = _diagnostic_slot(diagnostic)
+        if wanted_slot and diag_slot != wanted_slot:
+            continue
+        if wanted_ids and diag_id not in wanted_ids and path.name not in wanted_ids:
+            continue
+        if query and query not in _diagnostic_text_blob(diagnostic).lower():
+            continue
+        row = _diagnostic_review_row(
+            path,
+            diagnostic,
+            max_snippet_chars=max_snippet_chars,
+        )
+        captured_at = _parse_captured_at(str(diagnostic.get("created_at") or ""))
+        candidates.append((captured_at, diag_id, row))
+    candidates.sort(key=lambda item: (item[0], item[1]), reverse=True)
+    if wanted_ids:
+        return [row for _captured, _diag_id, row in candidates]
+    return [row for _captured, _diag_id, row in candidates[:bounded_limit]]
+
+
 def select_review_entries(entries: list[RunIndexEntry], *,
                           run_ids: list[str] | None = None,
                           contains: str | None = None,
@@ -939,6 +1100,7 @@ def _review_row(entry: RunIndexEntry, *,
         "refs": {
             "run_note_path": entry.run_note_path,
             "raw_event_path": entry.raw_event_path,
+            "diagnostic_path": None,
             "raw_event_resolved": raw_path.relative_to(REPO_ROOT).as_posix()
                 if raw_path is not None and REPO_ROOT in raw_path.parents
                 else (raw_path.as_posix() if raw_path is not None else None),
@@ -957,8 +1119,89 @@ def _review_row(entry: RunIndexEntry, *,
     }
 
 
+def _diagnostic_shape(diagnostic: dict[str, Any], key: str) -> dict[str, Any]:
+    shape = diagnostic.get(key)
+    return shape if isinstance(shape, dict) else {}
+
+
+def _diagnostic_review_row(path: Path,
+                           diagnostic: dict[str, Any], *,
+                           max_snippet_chars: int = DEFAULT_REVIEW_SNIPPET_CHARS) -> dict[str, Any]:
+    max_chars = _bounded_int(
+        max_snippet_chars,
+        default=DEFAULT_REVIEW_SNIPPET_CHARS,
+        low=120,
+        high=MAX_REVIEW_SNIPPET_CHARS,
+    )
+    user_shape = _diagnostic_shape(diagnostic, "user_shape")
+    assistant_shape = _diagnostic_shape(diagnostic, "assistant_shape")
+    assistant_text = str(diagnostic.get("assistant_text") or "")
+    user_tail = str(diagnostic.get("user_text_tail") or user_shape.get("tail") or "")
+    user_head = str(user_shape.get("head") or "")
+    assistant_head = assistant_text or str(assistant_shape.get("head") or "")
+    assistant_tail = str(assistant_shape.get("tail") or assistant_text)
+    diagnostic_path = (
+        path.relative_to(REPO_ROOT).as_posix()
+        if REPO_ROOT in path.parents
+        else path.as_posix()
+    )
+    reason = str(diagnostic.get("skipped_reason") or "capture_diagnostic")
+    return {
+        "prompt_run_id": _diagnostic_id(path, diagnostic),
+        "prompt_slot": _diagnostic_slot(diagnostic),
+        "prompt_slug": "",
+        "captured_at": str(diagnostic.get("created_at") or ""),
+        "source": "capture_diagnostic",
+        "conversation_id": diagnostic.get("conversation_id"),
+        "user_turn_index": diagnostic.get("user_turn_index"),
+        "assistant_turn_index": diagnostic.get("assistant_turn_index"),
+        "match": {
+            "method": diagnostic.get("match_method") or "diagnostic",
+            "confidence": float(diagnostic.get("match_confidence") or 0.0),
+            "segmented": False,
+        },
+        "char_counts": {
+            "user_message": user_shape.get("char_count"),
+            "assistant_message": assistant_shape.get("char_count"),
+            "pre_prompt": 0,
+            "matched_prompt": 0,
+            "post_prompt": 0,
+            "inferred_addendum": 0,
+        },
+        "hashes": {
+            "user_sha256_prefix": str(user_shape.get("sha16") or "")[:12] or None,
+            "assistant_sha256_prefix": str(assistant_shape.get("sha16") or "")[:12] or None,
+        },
+        "refs": {
+            "run_note_path": None,
+            "raw_event_path": None,
+            "diagnostic_path": diagnostic_path,
+            "raw_event_resolved": None,
+        },
+        "receipt": {
+            "ledger_receipt_present": False,
+            "raw_event_present": False,
+            "read_issues": [reason],
+        },
+        "capture_status": {
+            "status": "diagnostic",
+            "skipped_reason": reason,
+            "tab_title": diagnostic.get("tab_title"),
+        },
+        "prompt_sent_excerpt": _clean_excerpt(user_head or user_tail, max_chars=max_chars),
+        "operator_addendum_excerpt": _clean_excerpt(user_tail, max_chars=max_chars),
+        "assistant_opening_excerpt": _first_lines_excerpt(assistant_head, max_lines=8, max_chars=max_chars),
+        "assistant_closeout_excerpt": _clean_excerpt(assistant_tail, max_chars=max_chars),
+        "prompt_contract_signals": _extract_contract_signals(user_head + "\n" + user_tail, max_signals=10),
+        "assistant_contract_signals": _extract_contract_signals(assistant_text or assistant_tail, max_signals=10),
+    }
+
+
 def review_payload(entries: list[RunIndexEntry], *,
                    raw_events_root: Path | None = None,
+                   diagnostics_root: Path | None = None,
+                   include_diagnostics: bool = True,
+                   slot: str | None = None,
                    run_ids: list[str] | None = None,
                    contains: str | None = None,
                    limit: int = DEFAULT_REVIEW_LIMIT,
@@ -983,32 +1226,54 @@ def review_payload(entries: list[RunIndexEntry], *,
         for item in item.split(",")
         if item.strip()
     ]
+    run_rows = [
+        _review_row(
+            entry,
+            raw_events_root=raw_events_root,
+            max_snippet_chars=bounded_snippet,
+        )
+        for entry in selected
+    ]
+    diagnostic_rows = (
+        select_diagnostic_review_rows(
+            diagnostics_root=diagnostics_root,
+            slot=slot,
+            run_ids=run_ids,
+            contains=contains,
+            limit=bounded_limit,
+            max_snippet_chars=bounded_snippet,
+        )
+        if include_diagnostics else []
+    )
+    combined = sorted(
+        run_rows + diagnostic_rows,
+        key=lambda row: (_parse_captured_at(str(row.get("captured_at") or "")),
+                         str(row.get("prompt_run_id") or "")),
+        reverse=True,
+    )
+    if not wanted_ids:
+        combined = combined[:bounded_limit]
     return {
         "__meta": {
             "schema_version": SCHEMA_VERSION,
             "artifact_kind": "prompt_shelf_run_review",
             "generated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
             "selection_order": "recent_first_unless_run_id_selected",
-            "selected_count": len(selected),
+            "selected_count": len(combined),
             "input_count": len(entries),
             "limit": bounded_limit,
             "max_snippet_chars": bounded_snippet,
             "slot_filtered_before_review": sorted({entry.prompt_slot for entry in entries}),
             "run_ids": wanted_ids,
             "contains": contains or None,
+            "include_diagnostics": include_diagnostics,
+            "diagnostic_selected_count": len(diagnostic_rows),
             "privacy_boundary": (
                 "private-root bounded excerpts only; raw prompt/provider bodies stay in "
-                "run_note_path/raw_event_path refs"
+                "run_note_path/raw_event_path/diagnostic_path refs"
             ),
         },
-        "runs": [
-            _review_row(
-                entry,
-                raw_events_root=raw_events_root,
-                max_snippet_chars=bounded_snippet,
-            )
-            for entry in selected
-        ],
+        "runs": combined,
     }
 
 
@@ -1046,11 +1311,20 @@ def render_review(payload: dict[str, Any]) -> str:
         )
         lines.append(
             "   refs: "
-            f"run_note={refs['run_note_path']} raw_event={refs['raw_event_path']} "
+            f"run_note={refs.get('run_note_path') or 'none'} "
+            f"raw_event={refs.get('raw_event_path') or 'none'} "
+            f"diagnostic={refs.get('diagnostic_path') or 'none'} "
             f"receipt={receipt['ledger_receipt_present']} raw_ok={receipt['raw_event_present']}"
         )
         if receipt["read_issues"]:
             lines.append(f"   read_issues: {receipt['read_issues']}")
+        if row.get("capture_status"):
+            status = row["capture_status"]
+            lines.append(
+                "   capture_status: "
+                f"{status.get('status')} reason={status.get('skipped_reason')} "
+                f"tab={status.get('tab_title') or 'none'}"
+            )
         if row["prompt_contract_signals"]:
             lines.append("   prompt signals:")
             for signal in row["prompt_contract_signals"]:
@@ -1067,6 +1341,150 @@ def render_review(payload: dict[str, Any]) -> str:
         lines.append(f"     {row['assistant_closeout_excerpt'] or '(empty)'}")
         lines.append("")
     return "\n".join(lines).rstrip()
+
+
+def operator_intent_pressure(operator_text: str) -> str:
+    """Classify whether the latest operator turn asks Type A to act.
+
+    This is deliberately a small regression guard, not a general sentiment
+    analyzer. It exists to prevent a Type B advisory stop-frame from becoming
+    a substrate stop-command when the operator is explicitly asking for agency.
+    """
+    text = str(operator_text or "")
+    if OPERATOR_STATUS_ONLY_RE.search(text):
+        return "STATUS_ONLY"
+    if OPERATOR_HIGH_AGENCY_RE.search(text):
+        return "HIGH_AGENCY_REQUESTED"
+    if OPERATOR_CORRECTION_RE.search(text):
+        return "CORRECTION_REQUESTED"
+    if OPERATOR_ACTION_RE.search(text):
+        return "ACTION_REQUESTED"
+    return "STATUS_ONLY"
+
+
+def classify_stop_frame_override(
+    *,
+    operator_text: str,
+    type_b_text: str,
+    deciding_evidence_present: bool | None = None,
+) -> dict[str, Any]:
+    """Classify the A/B shuttle failure where Type B says to stop too early.
+
+    The classifier is intentionally conservative: override is required only
+    when all three signals are present:
+      1. Type B emitted a wait/no-op/no-edits stop frame.
+      2. The latest operator turn asks for action, correction, or agency.
+      3. Deciding evidence is present, either passed explicitly by the caller
+         or visible in the texts.
+    """
+    operator = str(operator_text or "")
+    type_b = str(type_b_text or "")
+    combined = f"{operator}\n{type_b}"
+    stop_frame_detected = bool(STOP_FRAME_RE.search(type_b))
+    intent_pressure = operator_intent_pressure(operator)
+    action_requested = intent_pressure in {
+        "ACTION_REQUESTED",
+        "CORRECTION_REQUESTED",
+        "HIGH_AGENCY_REQUESTED",
+    }
+    evidence_present = (
+        bool(DECIDING_EVIDENCE_RE.search(combined))
+        if deciding_evidence_present is None
+        else bool(deciding_evidence_present)
+    )
+    override_required = stop_frame_detected and action_requested and evidence_present
+    if override_required:
+        classification = "failed_type_b_stop_frame"
+        frame_authority = "FAILED_STOP_FRAME"
+        required_response = "EXECUTE_SCOPED_PATCH_OR_RECORD_TYPED_BLOCK"
+        override_status = "OVERRIDE_REQUIRED"
+        instruction = (
+            "Cite failed_type_b_stop_frame, inspect mission trace and "
+            "prompt-shelf evidence, then patch the nearest safe owner surface "
+            "or record a typed blocked receipt with an exact re-entry condition."
+        )
+    else:
+        classification = "not_applicable"
+        frame_authority = "ADVISORY"
+        required_response = "STATUS_ONLY_ALLOWED"
+        override_status = "NOT_APPLICABLE"
+        instruction = (
+            "No stop-frame override is required unless operator action intent, "
+            "a Type B stop-frame, and deciding evidence are all present."
+        )
+    return {
+        "schema_version": "stop_frame_override_classifier_v0",
+        "scenario_id": STOP_FRAME_OVERRIDE_SCENARIO_ID,
+        "classification": classification,
+        "type_b_frame_authority": frame_authority,
+        "operator_intent_pressure": intent_pressure,
+        "type_a_required_response": required_response,
+        "stop_frame_override_status": override_status,
+        "proof_boundary": "prompt_run_regression_guard_not_substrate_authority",
+        "signals": {
+            "type_b_stop_frame_detected": stop_frame_detected,
+            "operator_action_requested": action_requested,
+            "deciding_evidence_present": evidence_present,
+        },
+        "emitted_type_a_instruction": instruction,
+    }
+
+
+def stop_frame_override_regression_payload() -> dict[str, Any]:
+    """Executable red-team fixture for the failed Type B stop-frame class."""
+    operator_text = (
+        "Fix this failure mode. Type B gave a failed instruction that means "
+        "you do not make edits, but I am asking for agency: go make edits, "
+        "inspect mission trace and prompt shelf, and patch the owner surface."
+    )
+    type_b_text = (
+        "The trace capsule shows the deciding evidence was already supplied "
+        "and the WorkItem is closed. No concrete recipient row exists, so "
+        "wait, make no edits, and return no-op/status only."
+    )
+    receipt = classify_stop_frame_override(
+        operator_text=operator_text,
+        type_b_text=type_b_text,
+        deciding_evidence_present=True,
+    )
+    required_instruction_fragments = [
+        "Cite failed_type_b_stop_frame",
+        "inspect mission trace",
+        "prompt-shelf evidence",
+        "patch the nearest safe owner surface",
+        "typed blocked receipt",
+    ]
+    instruction = receipt["emitted_type_a_instruction"]
+    contains = {
+        fragment: fragment in instruction
+        for fragment in required_instruction_fragments
+    }
+    expected = {
+        "classification": "failed_type_b_stop_frame",
+        "type_b_frame_authority": "FAILED_STOP_FRAME",
+        "stop_frame_override_status": "OVERRIDE_REQUIRED",
+        "type_a_required_response": "EXECUTE_SCOPED_PATCH_OR_RECORD_TYPED_BLOCK",
+    }
+    expected_matched = all(receipt.get(key) == value for key, value in expected.items())
+    payload = {
+        "__meta": {
+            "artifact_kind": "prompt_shelf_stop_frame_override_regression",
+            "schema_version": "stop_frame_override_regression_v0",
+            "generated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(),
+            "scenario_id": STOP_FRAME_OVERRIDE_SCENARIO_ID,
+            "fixture_status": (
+                "pass" if expected_matched and all(contains.values()) else "fail"
+            ),
+            "authority_boundary": (
+                "regression fixture over prompt-run governance; Type A still "
+                "verifies live substrate before mutation"
+            ),
+        },
+        "expected": expected,
+        "required_instruction_fragments_present": contains,
+        "receipt": receipt,
+    }
+    return payload
 
 
 @dataclass
@@ -1176,6 +1594,9 @@ def main() -> int:
                       help="audit captured B3 PACKET v=3.2 outputs with "
                            "b3_packet_lint.py; exits nonzero when any "
                            "captured packet has lint issues")
+    mode.add_argument("--stop-frame-regression", action="store_true",
+                      help="run the Type B no-op/wait stop-frame override "
+                           "red-team regression fixture")
     parser.add_argument("--require-slots",
                         default="A0,B1,B2,B3",
                         help="comma-separated cockpit slots that must have "
@@ -1192,12 +1613,20 @@ def main() -> int:
     parser.add_argument("--contains",
                         help="explicit private-root search over selected raw "
                              "prompt/provider bodies before bounded review output")
+    parser.add_argument("--no-diagnostics", action="store_true",
+                        help="exclude recent capture diagnostics from --review output")
     parser.add_argument("--max-snippet-chars", type=int,
                         default=DEFAULT_REVIEW_SNIPPET_CHARS,
                         help=f"maximum chars per review excerpt "
                              f"(default: {DEFAULT_REVIEW_SNIPPET_CHARS}; "
                              f"cap: {MAX_REVIEW_SNIPPET_CHARS})")
     args = parser.parse_args()
+
+    if args.stop_frame_regression:
+        payload = stop_frame_override_regression_payload()
+        json.dump(payload, sys.stdout, indent=2)
+        sys.stdout.write("\n")
+        return 0 if payload["__meta"]["fixture_status"] == "pass" else 1
 
     fast_metadata_mode = bool(args.summary or args.coverage or args.check or args.review or args.review_json)
     entries = build_index(include_raw_details=not fast_metadata_mode)
@@ -1230,7 +1659,8 @@ def main() -> int:
 
     if args.summary:
         summary_slots = [args.slot.strip().upper()] if args.slot else None
-        print(render_summary(payload, slots=summary_slots))
+        print(render_summary(payload, slots=summary_slots,
+                             diagnostics_root=CAPTURE_DIAGNOSTICS_ROOT))
         return 0
 
     if args.coverage:
@@ -1247,6 +1677,9 @@ def main() -> int:
         review = review_payload(
             entries,
             raw_events_root=RAW_EVENTS_ROOT,
+            diagnostics_root=CAPTURE_DIAGNOSTICS_ROOT,
+            include_diagnostics=not args.no_diagnostics,
+            slot=args.slot,
             run_ids=args.run_id,
             contains=args.contains,
             limit=args.limit,

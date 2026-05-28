@@ -77,6 +77,14 @@ def _seed_ledger_with_receipts(tmp_path, slot_filename, run_ids):
     return ledger_path
 
 
+def _seed_capture_diagnostic(tmp_path, filename, payload):
+    diag_dir = tmp_path / "state" / "prompt_shelf" / "capture_diagnostics"
+    diag_dir.mkdir(parents=True, exist_ok=True)
+    path = diag_dir / filename
+    path.write_text(json.dumps(payload))
+    return path
+
+
 def _basic_raw_event(slot, run_id, *, with_segmentation=True):
     payload = {
         "schema_version": "1.0.0",
@@ -340,6 +348,36 @@ def test_summary_exposes_private_root_metadata_boundary(tmp_path):
     assert "safe route:   use --summary/--coverage first" in summary_text
 
 
+def test_summary_can_surface_capture_diagnostic_counts(tmp_path):
+    _seed_run(tmp_path, "B2_continue",
+               "20260427T010000000000--B2--boundary",
+               _basic_raw_event("B2", "20260427T010000000000--B2--boundary"))
+    _seed_capture_diagnostic(
+        tmp_path,
+        "20260528T021149646989--B2--thread7--assistant_missing_complete_uppropagation_block.json",
+        {
+            "created_at": "2026-05-28T02:11:49+00:00",
+            "skipped_reason": "assistant_missing_complete_uppropagation_block",
+            "slot": "B2",
+        },
+    )
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+    )
+
+    summary_text = idx_mod.render_summary(
+        idx_mod.projection_payload(entries),
+        slots=["B2"],
+        diagnostics_root=tmp_path / "state" / "prompt_shelf" / "capture_diagnostics",
+    )
+
+    assert "diagnostics:  1 capture diagnostics" in summary_text
+    assert "included by default in --review" in summary_text
+    assert "assistant_missing_complete_uppropagation_block=1" in summary_text
+
+
 def test_review_payload_extracts_prompt_addendum_closeout_and_signals(tmp_path):
     run_id = "20260528T011000000000--B2--review01"
     raw = _basic_raw_event("B2", run_id)
@@ -386,6 +424,7 @@ def test_review_payload_extracts_prompt_addendum_closeout_and_signals(tmp_path):
     payload = idx_mod.review_payload(
         entries,
         raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        include_diagnostics=False,
         limit=1,
         max_snippet_chars=300,
     )
@@ -405,6 +444,80 @@ def test_review_payload_extracts_prompt_addendum_closeout_and_signals(tmp_path):
     assert run_id in rendered
     assert "assistant closeout excerpt" in rendered
     assert "depth_floor" in rendered
+
+
+def test_review_payload_includes_recent_capture_diagnostics(tmp_path):
+    older_id = "20260501T010000000000--B2--older001"
+    older = _basic_raw_event("B2", older_id)
+    older["captured_at"] = "2026-05-01T01:00:00+00:00"
+    _seed_run(tmp_path, "B2_continue", older_id, older)
+    diagnostic_payload = {
+        "kind": "prompt_shelf_capture_diagnostic",
+        "created_at": "2026-05-28T02:11:49+00:00",
+        "skipped_reason": "assistant_missing_complete_uppropagation_block",
+        "conversation_id": "conv-thread-7",
+        "tab_title": "7 · ChatGPT",
+        "slot": "B2",
+        "match_method": "anchor",
+        "match_confidence": 1.0,
+        "user_turn_index": 12,
+        "assistant_turn_index": 13,
+        "user_shape": {
+            "sha16": "userhashuserhash",
+            "char_count": 35485,
+            "head": "B2 prompt body plus attached trace evidence",
+            "tail": "Non-null yield invariant: capture is transport, not closure.",
+        },
+        "assistant_shape": {
+            "sha16": "assisthash",
+            "char_count": 9273,
+            "head": "deliverable_type: continuation delta",
+            "tail": "The active next move is cap signoff only, then stop.",
+        },
+        "assistant_text": (
+            "deliverable_type: continuation delta\n"
+            "authority_boundary: Type A must verify live HEAD.\n"
+            "The active next move is cap signoff only, then stop."
+        ),
+    }
+    diagnostic_path = _seed_capture_diagnostic(
+        tmp_path,
+        "20260528T021149646989--B2--thread7--assistant_missing_complete_uppropagation_block.json",
+        diagnostic_payload,
+    )
+    entries = idx_mod.build_index(
+        runs_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "runs",
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        ledgers_root=tmp_path / "obsidian" / "prompt_shelf",
+        include_raw_details=False,
+    )
+
+    payload = idx_mod.review_payload(
+        entries,
+        raw_events_root=tmp_path / "obsidian" / "prompt_shelf" / "usage" / "raw_events",
+        diagnostics_root=tmp_path / "state" / "prompt_shelf" / "capture_diagnostics",
+        slot="B2",
+        limit=1,
+        max_snippet_chars=300,
+    )
+
+    row = payload["runs"][0]
+    assert payload["__meta"]["diagnostic_selected_count"] == 1
+    assert row["source"] == "capture_diagnostic"
+    assert row["conversation_id"] == "conv-thread-7"
+    assert row["capture_status"]["skipped_reason"] == (
+        "assistant_missing_complete_uppropagation_block"
+    )
+    assert row["capture_status"]["tab_title"] == "7 · ChatGPT"
+    assert row["refs"]["diagnostic_path"].endswith(diagnostic_path.name)
+    assert "B2 prompt body" in row["prompt_sent_excerpt"]
+    assert "capture is transport, not closure" in row["operator_addendum_excerpt"]
+    assert "signoff only, then stop" in row["assistant_closeout_excerpt"]
+
+    rendered = idx_mod.render_review(payload)
+    assert "capture_status: diagnostic" in rendered
+    assert "assistant_missing_complete_uppropagation_block" in rendered
+    assert "7 · ChatGPT" in rendered
 
 
 def test_review_selection_can_target_old_run_by_id(tmp_path):
@@ -428,6 +541,61 @@ def test_review_selection_can_target_old_run_by_id(tmp_path):
 
     assert [entry.prompt_run_id for entry in recent] == [newer_id]
     assert [entry.prompt_run_id for entry in explicit] == [older_id]
+
+
+def test_stop_frame_override_regression_classifies_failed_type_b_no_op():
+    payload = idx_mod.stop_frame_override_regression_payload()
+    receipt = payload["receipt"]
+
+    assert payload["__meta"]["fixture_status"] == "pass"
+    assert payload["__meta"]["scenario_id"] == (
+        "type_b_no_op_after_deciding_evidence_operator_asks_action"
+    )
+    assert receipt["classification"] == "failed_type_b_stop_frame"
+    assert receipt["type_b_frame_authority"] == "FAILED_STOP_FRAME"
+    assert receipt["operator_intent_pressure"] == "HIGH_AGENCY_REQUESTED"
+    assert receipt["type_a_required_response"] == (
+        "EXECUTE_SCOPED_PATCH_OR_RECORD_TYPED_BLOCK"
+    )
+    assert receipt["stop_frame_override_status"] == "OVERRIDE_REQUIRED"
+    assert receipt["signals"] == {
+        "type_b_stop_frame_detected": True,
+        "operator_action_requested": True,
+        "deciding_evidence_present": True,
+    }
+    instruction = receipt["emitted_type_a_instruction"]
+    assert "failed_type_b_stop_frame" in instruction
+    assert "inspect mission trace" in instruction
+    assert "prompt-shelf evidence" in instruction
+    assert "patch the nearest safe owner surface" in instruction
+    assert "typed blocked receipt" in instruction
+
+
+def test_stop_frame_override_not_triggered_without_operator_action():
+    receipt = idx_mod.classify_stop_frame_override(
+        operator_text="Please give me status only; do not edit anything.",
+        type_b_text="The evidence exists, so wait and make no edits.",
+        deciding_evidence_present=True,
+    )
+
+    assert receipt["classification"] == "not_applicable"
+    assert receipt["operator_intent_pressure"] == "STATUS_ONLY"
+    assert receipt["type_b_frame_authority"] == "ADVISORY"
+    assert receipt["stop_frame_override_status"] == "NOT_APPLICABLE"
+    assert receipt["signals"]["type_b_stop_frame_detected"] is True
+    assert receipt["signals"]["operator_action_requested"] is False
+
+
+def test_stop_frame_regression_cli_emits_pass_receipt(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", [
+        "prompt_shelf_runs_index.py",
+        "--stop-frame-regression",
+    ])
+
+    assert idx_mod.main() == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["__meta"]["fixture_status"] == "pass"
+    assert payload["receipt"]["classification"] == "failed_type_b_stop_frame"
 
 
 def test_summary_surfaces_b2_2_variant_runs(tmp_path):

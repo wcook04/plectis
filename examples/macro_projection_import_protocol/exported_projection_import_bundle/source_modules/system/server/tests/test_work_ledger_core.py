@@ -10,7 +10,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from system.lib import agent_seed_handoffs, shared_worktree_guard, work_ledger, work_ledger_runtime
+from system.lib import agent_seed_handoffs, shared_worktree_guard, work_admission, work_ledger, work_ledger_runtime
 from tools.meta.factory import work_ledger as work_ledger_cli
 
 
@@ -3120,6 +3120,119 @@ def test_cli_session_preflight_write_profile_expands_generated_write_claims(
         if not claim["released_at"] and not claim["expired_at"]
     }
     assert claimed_paths == active_claim_paths
+
+
+def test_cli_session_preflight_blocks_heavy_work_before_claims_under_host_pressure(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    _seed_phase_family(tmp_path)
+    work_ledger.bootstrap_phase_bucket(tmp_path, phase_id="09_35", family_id="09")
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    def blocked_admission(*_args, **_kwargs):
+        return {
+            "schema": "work_creation_host_pressure_admission_v0",
+            "status": "available",
+            "decision": "queue_until_pressure_clears",
+            "should_block_run": True,
+            "recommendation_effect": "defer_or_use_cheaper_summary",
+            "admission": {
+                "decision": "queue_until_pressure_clears",
+                "reason": "synthetic swap churn",
+            },
+        }
+
+    def fail_bootstrap(*_args, **_kwargs):
+        raise AssertionError("blocked session-preflight must not create Work Ledger claims")
+
+    monkeypatch.setattr(work_ledger_cli.work_admission, "build_host_pressure_admission", blocked_admission)
+    monkeypatch.setattr(work_ledger_runtime, "bootstrap_session", fail_bootstrap)
+
+    rc = work_ledger_cli.cmd_session_preflight(
+        SimpleNamespace(
+            session_id="codex_blocked_heavy",
+            session_slug="projection",
+            actor="codex",
+            phase_id="09_35",
+            family_id="09",
+            td_id=[],
+            path=["codex/doctrine/paper_modules/README.md"],
+            write_profile=["paper_module_index"],
+            lease_minutes=30,
+            note=None,
+            host_pressure_policy="auto",
+            work_admission_class=None,
+            require_exclusive=False,
+            skip_import_codex=True,
+            skip_import_claude=True,
+            since_minutes=60,
+            import_limit=20,
+            bootstrap_limit=8,
+            overview_limit=5,
+            db_path=None,
+            include_all_cwds=False,
+            include_all_workspaces=False,
+            full=False,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["status"] == "blocked_by_work_admission"
+    assert payload["claim_summary"] == {
+        "requested": 5,
+        "claimed": 0,
+        "claimed_with_collision": 0,
+        "refused": 5,
+    }
+    assert payload["work_admission"]["result"] == "queue_until_pressure_clears"
+    assert payload["work_admission"]["new_heavy_work_launched"] is False
+
+
+def test_cli_helper_lease_admission_blocks_new_helper_under_host_pressure(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    def blocked_admission(*_args, **_kwargs):
+        return {
+            "schema": "work_creation_host_pressure_admission_v0",
+            "status": "available",
+            "decision": "queue_until_pressure_clears",
+            "should_block_run": True,
+            "summary": {
+                "bottleneck_class": "memory_pressure_swap_churn",
+                "load_shed_recommended": True,
+            },
+            "admission": {
+                "decision": "queue_until_pressure_clears",
+                "reason": "synthetic swap churn",
+            },
+        }
+
+    monkeypatch.setattr(work_ledger_cli.work_admission, "build_host_pressure_admission", blocked_admission)
+
+    rc = work_ledger_cli.cmd_helper_lease_admission(
+        SimpleNamespace(
+            lease_kind=work_admission.PLAYWRIGHT_MCP,
+            host_pressure_policy="auto",
+            request_id="playwright_tool_start",
+            requested_by="codex_session",
+            owner_status="active_session",
+            current_lease_count=2,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["schema"] == work_admission.HELPER_LEASE_ADMISSION_SCHEMA
+    assert payload["result"] == "queue_until_pressure_clears"
+    assert payload["new_helper_lease_started"] is False
+    assert payload["safety"]["no_unknown_owner_killed"] is True
 
 
 def test_cli_session_preflight_workitem_profiles_expand_shared_spine_claims(

@@ -3796,6 +3796,10 @@ _CAPSULE_RELEASE_AUTHORIZED_TRUE_RE = re.compile(
 )
 
 
+def _capsule_has_any_marker(text: str, markers: tuple[str, ...]) -> bool:
+    return any(marker in text for marker in markers)
+
+
 def _capsule_release_candidate_gate_decision(text: str) -> str:
     lowered = (text or "").lower()
     if "ready_pending_operator_authorization" not in lowered:
@@ -3846,6 +3850,39 @@ def _capsule_release_candidate_gate_decision(text: str) -> str:
         )
     )
     if release_authority_false and clean_source and dirty_count_zero and projection_pass:
+        internal_authorization_satisfied = _capsule_has_any_marker(
+            lowered,
+            (
+                "internal authorization satisfied",
+                "internal authorization settlement",
+                "standing internal authorization",
+                "standing private/internal authorization",
+                "private/internal authorization",
+                "private/internal default yes",
+                "default yes for private/internal",
+                "private/local/internal",
+                "internal/private work",
+                "private lane",
+                "systembar_slice_internal_authorization_satisfied_public_blocked",
+            ),
+        )
+        public_release_blocked = _capsule_has_any_marker(
+            lowered,
+            (
+                "public release remains blocked",
+                "public release blocked",
+                "public release still explicitly not authorized",
+                "public release remains explicitly not authorized",
+                "public_release_authorization: not_authorized_by_operator",
+                "not_authorized_by_operator",
+                "no public push",
+                "no public deploy",
+                "no public release toggle",
+                "no public action was taken",
+            ),
+        )
+        if internal_authorization_satisfied and public_release_blocked:
+            return "public_release_blocked"
         return "ready_pending_operator_authorization"
     return ""
 
@@ -4595,14 +4632,24 @@ def render_trace_capsule_text(
         "\n".join(part for part in (product_state_text, final_assistant_text) if part)
     )
     release_candidate_gate_ready = release_candidate_gate_decision == "ready_pending_operator_authorization"
-    historical_terminal_failures_superseded = (
-        len(blocking_terminal_failures) if release_candidate_gate_ready else 0
+    public_release_blocked = release_candidate_gate_decision == "public_release_blocked"
+    release_candidate_gate_nonblocking = release_candidate_gate_ready or public_release_blocked
+    internal_authorization = "satisfied" if public_release_blocked else (
+        "pending_operator_authorization" if release_candidate_gate_ready else "none"
     )
-    effective_blocking_terminal_failures = [] if release_candidate_gate_ready else blocking_terminal_failures
+    public_release_authorization = "not_authorized_by_operator" if public_release_blocked else (
+        "pending_operator_authorization" if release_candidate_gate_ready else "none"
+    )
+    historical_terminal_failures_superseded = (
+        len(blocking_terminal_failures) if release_candidate_gate_nonblocking else 0
+    )
+    effective_blocking_terminal_failures = (
+        [] if release_candidate_gate_nonblocking else blocking_terminal_failures
+    )
     owner_scope_validation = "unknown"
     if effective_blocking_terminal_failures:
         owner_scope_validation = "needs_review"
-    elif release_candidate_gate_ready:
+    elif release_candidate_gate_nonblocking:
         owner_scope_validation = "pass"
     elif owner_terminal_pass_count > 0:
         owner_scope_validation = "pass"
@@ -4618,7 +4665,9 @@ def render_trace_capsule_text(
     )
     has_validation_process_warning = validation_process != "none"
     final_validation = "unknown"
-    if release_candidate_gate_ready:
+    if public_release_blocked:
+        final_validation = "pass_with_public_release_blocked"
+    elif release_candidate_gate_ready:
         final_validation = release_candidate_gate_decision
     elif effective_blocking_terminal_failures:
         final_validation = "needs_review"
@@ -4707,6 +4756,8 @@ def render_trace_capsule_text(
         f"changed: {changed}",
         f"final_validation: {final_validation}",
         f"owner_scope_validation: {owner_scope_validation}",
+        f"internal_authorization: {internal_authorization}",
+        f"public_release_authorization: {public_release_authorization}",
         f"ambient_validation: {ambient_validation}",
         f"ambient_warning_class: {ambient_warning_class_summary}",
         f"open_product_residuals: {residual_summary}",
@@ -4723,7 +4774,7 @@ def render_trace_capsule_text(
         f"terminal_checks: pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}",
         f"owner_scope_terminal_checks: pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}",
         f"validation_progress: iterative_checks(pass={check_pass_count} fail={check_fail_count} other={check_other_count} total={len(check_rows)}) terminal_checks(pass={terminal_check_pass_count} fail={terminal_check_fail_count} other={terminal_check_other_count} total={len(terminal_check_rows)}) owner_scope_terminal_checks(pass={owner_terminal_pass_count} fail={owner_terminal_fail_count} other={owner_terminal_other_count} total={len(owner_terminal_check_rows)}) recovered_failures={recovered_failures} final_validation_basis={final_validation_basis}",
-        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
+        f"validation_semantics: owner_scope_validation={owner_scope_validation} validation_process={validation_process} ambient_validation={ambient_validation} internal_authorization={internal_authorization} public_release_authorization={public_release_authorization} release_candidate_gate={release_candidate_gate_decision or 'none'} scoped_failures={len(effective_blocking_terminal_failures)} historical_terminal_failures_superseded={historical_terminal_failures_superseded} nonblocking_terminal_failures={len(nonblocking_terminal_failures)} external_terminal_warnings={len(ambient_terminal_warning_rows)} open_product_residuals={residual_summary} blocked_external_observation_residuals={blocked_external_observation_residuals_summary} captured_residuals={captured_residual_summary} classes={validation_class_summary}",
         f"governance_receipts: pass={governance_pass_count} fail={governance_fail_count} other={governance_other_count} total={len(governance_rows)}",
         f"terminal_governance: pass={terminal_governance_pass_count} fail={terminal_governance_fail_count} other={terminal_governance_other_count} total={len(terminal_governance_rows)}",
         f"diagnostics: total={len(diagnostic_rows)} fail={diagnostic_fail_count}",
@@ -4792,6 +4843,8 @@ def render_trace_capsule_text(
         "final_validation_basis": final_validation_basis,
         "final_validation": final_validation,
         "owner_scope_validation": owner_scope_validation,
+        "internal_authorization": internal_authorization,
+        "public_release_authorization": public_release_authorization,
         "ambient_validation": ambient_validation,
         "ambient_warning_classes": ambient_warning_classes,
         "ambient_validation_warnings": ambient_warning_classes,

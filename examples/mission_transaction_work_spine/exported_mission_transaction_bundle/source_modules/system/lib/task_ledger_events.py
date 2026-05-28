@@ -55,6 +55,7 @@ TASK_LEDGER_EVENT_SCHEMA = "task_ledger_event_v1"
 TASK_LEDGER_PROJECTION_SCHEMA = "task_ledger_v2"
 TASK_SIGNOFF_PROJECTION_SCHEMA = "task_sign_off_ledger_v2"
 TASK_LEDGER_INTAKE_REQUEST_SCHEMA = "task_ledger_intake_request_v0"
+OPERATOR_AUTHORIZATION_POLICY_SCHEMA = "operator_authorization_policy_v1"
 TaskLedgerProgressCallback = Callable[[Mapping[str, Any]], None]
 
 
@@ -127,6 +128,96 @@ PROPAGATION_NEEDED_RECOMMENDED_ACTION = (
     "inspect the owner surface, patch or verify the reusable lesson, then append "
     "work_item.propagation_recorded; use explicit nothing_to_refine only after owner inspection"
 )
+
+STANDING_PRIVATE_INTERNAL_AUTHORIZATION_REF = (
+    "operator_standing_private_internal_authorization_2026_05_28"
+)
+PUBLIC_RELEASE_FRESH_AUTHORIZATION_REQUIRED = (
+    "fresh_explicit_public_release_authorization_required"
+)
+PUBLIC_RELEASE_BOUNDARY_MARKERS = (
+    "public release",
+    "publication",
+    "publish",
+    "public github",
+    "github push",
+    "push to github",
+    "pull request",
+    "remote sync",
+    "deploy",
+    "github pages",
+    "external dissemination",
+    "social posting",
+    "twitter",
+    "recipient send",
+    "send externally",
+    "public demo",
+    "public upload",
+)
+NON_STANDING_SAFETY_BOUNDARY_MARKERS = (
+    "destructive",
+    "irreversible",
+    "secret",
+    "credential",
+    "private disclosure",
+    "reset --hard",
+    "delete production",
+)
+
+
+def _operator_authorization_boundary_kind(value: str) -> str:
+    lowered = value.lower()
+    if any(marker in lowered for marker in PUBLIC_RELEASE_BOUNDARY_MARKERS):
+        return "public_release"
+    if any(marker in lowered for marker in NON_STANDING_SAFETY_BOUNDARY_MARKERS):
+        return "safety_or_irreversible"
+    return "private_internal"
+
+
+def _standing_operator_authorization_policy(
+    *,
+    boundary_kind: str = "private_internal",
+    requires_operator_review: bool = False,
+) -> Dict[str, Any]:
+    authorization_blocks_execution = boundary_kind != "private_internal"
+    if boundary_kind == "public_release":
+        status = "public_release_requires_explicit_operator_authorization"
+        reason = PUBLIC_RELEASE_FRESH_AUTHORIZATION_REQUIRED
+    elif boundary_kind == "safety_or_irreversible":
+        status = "specific_safety_authorization_required"
+        reason = "destructive_irreversible_secret_or_disclosure_boundary"
+    else:
+        status = "standing_private_internal_authorization_satisfied"
+        reason = STANDING_PRIVATE_INTERNAL_AUTHORIZATION_REF
+    review_semantics = (
+        "operator_attention_or_priority_review_not_permission_gate"
+        if requires_operator_review and not authorization_blocks_execution
+        else "not_a_review_row"
+        if not requires_operator_review
+        else "specific_authorization_boundary"
+    )
+    return {
+        "schema_version": OPERATOR_AUTHORIZATION_POLICY_SCHEMA,
+        "standing_private_internal_authorization": "authorized",
+        "standing_private_internal_authorization_ref": STANDING_PRIVATE_INTERNAL_AUTHORIZATION_REF,
+        "private_internal_default": "yes_when_safe_scoped_and_reversible",
+        "internal_authorization": (
+            "satisfied" if boundary_kind == "private_internal" else "not_sufficient_for_boundary"
+        ),
+        "public_release_authorization": "not_authorized_by_operator",
+        "public_release_boundary": PUBLIC_RELEASE_FRESH_AUTHORIZATION_REQUIRED,
+        "boundary_kind": boundary_kind,
+        "operator_authorization_status": status,
+        "authorization_blocks_execution": authorization_blocks_execution,
+        "authorization_block_reason": reason if authorization_blocks_execution else None,
+        "requires_operator_review": requires_operator_review,
+        "operator_review_semantics": review_semantics,
+        "standing_authorization_limits": [
+            "no public push, deploy, release toggle, social post, external send, or public upload",
+            "no destructive, irreversible, secret, or disclosure boundary without task-specific authority",
+            "repo gates, scoped ownership, validation, dirty-tree isolation, and safety checks still apply",
+        ],
+    }
 
 WORK_ITEM_STATE_FLOW = [
     "captured",
@@ -8536,7 +8627,7 @@ def build_views(
         by_state[str(item.get("state") or item.get("status") or "")].append(item)
 
     def view(name: str, items: List[Mapping[str, Any]]) -> Dict[str, Any]:
-        return {
+        payload: Dict[str, Any] = {
             "kind": "task_ledger_view",
             "schema_version": "task_ledger_view_v1",
             "view_id": name,
@@ -8544,6 +8635,16 @@ def build_views(
             "items": list(items),
             "count": len(items),
         }
+        if name == "operator_needed":
+            payload["operator_authorization_policy"] = _standing_operator_authorization_policy(
+                requires_operator_review=True
+            )
+            payload["operator_needed_semantics"] = (
+                "operator-needed rows are attention, signoff, or priority-review boundaries; "
+                "standing private/internal authorization means safe scoped local work is not blocked "
+                "solely for permission, while public release and safety boundaries remain fail-closed."
+            )
+        return payload
 
     captures = [item for item in work_items if str(item.get("work_item_type") or "") == "capture"]
     ready = [item for item in work_items if str(item.get("state") or item.get("status")) in {"ready", "accepted"}]
@@ -10350,6 +10451,23 @@ def _actuation_recommendation(
     subject_id = row_id
     if row_id.startswith("task_ledger:"):
         subject_id = row_id.split(":", 2)[1]
+    boundary_text = " ".join(
+        str(part or "")
+        for part in (
+            recommended_action,
+            why,
+            mutation_verb,
+            blast_radius,
+            safe_command_template or "",
+            json.dumps(payload or {}, ensure_ascii=False, sort_keys=True),
+            json.dumps(extra or {}, ensure_ascii=False, sort_keys=True),
+        )
+    )
+    boundary_kind = _operator_authorization_boundary_kind(boundary_text)
+    authorization_policy = _standing_operator_authorization_policy(
+        boundary_kind=boundary_kind,
+        requires_operator_review=requires_operator_review,
+    )
     recommendation = {
         "row_id": row_id,
         "current_status": current_status,
@@ -10360,6 +10478,10 @@ def _actuation_recommendation(
         "mutation_verb": mutation_verb,
         "requires_operator_review": requires_operator_review,
         "blast_radius": blast_radius,
+        "authorization_policy": authorization_policy,
+        "operator_authorization_status": authorization_policy["operator_authorization_status"],
+        "authorization_blocks_execution": authorization_policy["authorization_blocks_execution"],
+        "public_release_authorization": authorization_policy["public_release_authorization"],
     }
     if extra:
         recommendation.update(dict(extra))
@@ -11225,6 +11347,7 @@ def build_organizer_report(
                 for name in sorted(views)
             },
         },
+        "operator_authorization_policy": _standing_operator_authorization_policy(),
         "priority_rubric": WORKITEM_PRIORITY_RUBRIC,
         "priority_cluster_summary": priority_cluster_summary,
         "unconverted_substrate_debt": _build_unconverted_substrate_debt_report(
@@ -11343,7 +11466,15 @@ def build_organizer_report(
             "contract": {
                 "mode": "read_only_command_templates",
                 "auto_mutation_allowed": False,
-                "review_rule": "operator review is required for duplicate retirement, promotion/ranking, and possible adapter leaks",
+                "review_rule": (
+                    "operator review marks attention or priority judgment; standing private/internal "
+                    "authorization means safe scoped local action is not blocked solely for permission, "
+                    "while public release, external disclosure, destructive, irreversible, or secret "
+                    "boundaries still require task-specific authority"
+                ),
+                "operator_authorization_policy": _standing_operator_authorization_policy(
+                    requires_operator_review=True
+                ),
             },
             "propagation_needed": [
                 _propagation_action(row)
