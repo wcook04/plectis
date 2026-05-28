@@ -213,6 +213,16 @@ def _public_root_for_project(project: str | None) -> Path | None:
     return resource_root.project_public_root(project)
 
 
+def _runtime_project_arg(project: str | None) -> str | None:
+    if project is None:
+        return None
+
+    path = Path(project).expanduser()
+    if not path.is_absolute():
+        path = Path.cwd() / path
+    return str(path.resolve(strict=False))
+
+
 MICROCOSM_ROOT = resource_root.microcosm_root()
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 PROOF_LAB_BUNDLE_REF = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
@@ -1860,6 +1870,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "explain":
         return project_substrate.main(["explain", args.project, args.route_id])
     if args.command == "status":
+        runtime_project = _runtime_project_arg(args.project)
         command_args = ["status"]
         if args.card:
             project_public_root = _public_root_for_project(args.project)
@@ -1868,13 +1879,13 @@ def main(argv: list[str] | None = None) -> int:
                 if project_public_root is not None
                 else runtime_shell.RuntimeShell()
             )
-            payload = shell.status_card(args.project)
+            payload = shell.status_card(runtime_project)
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
                 payload = _compact_project_status_card_for_cli(payload)
             return _print_json(payload, exit_code=_status_card_exit_code(payload))
         if args.project:
-            command_args.append(args.project)
+            command_args.append(runtime_project or args.project)
         return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
     if args.command == "proof-lab":
         if args.card:
@@ -1921,7 +1932,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.card:
             command_args.append("--card")
         if args.project:
-            command_args.append(args.project)
+            command_args.append(_runtime_project_arg(args.project) or args.project)
         return runtime_shell.main(command_args, root=_public_root_for_project(args.project))
     if args.command == "hello":
         return _emit_hello(args.project, args.reader)
@@ -2004,7 +2015,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.max_requests is not None:
             serve_args.extend(["--max-requests", str(args.max_requests)])
         if args.project:
-            serve_args.append(args.project)
+            serve_args.append(_runtime_project_arg(args.project) or args.project)
         return runtime_shell.main(serve_args, root=_public_root_for_project(args.project))
     if args.command == "patterns":
         if args.project:

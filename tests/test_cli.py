@@ -731,6 +731,40 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     ] == "microcosm status --card <project>"
 
 
+def test_cli_tour_card_relative_external_project_writes_caller_project_state(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    project = _make_scratch_project(tmp_path)
+    monkeypatch.chdir(project)
+
+    tour_rc = cli.main(["tour", "--card", "."])
+    tour_card = json.loads(capsys.readouterr().out)
+    status_rc = cli.main(["status", "--card", "."])
+    status_card = json.loads(capsys.readouterr().out)
+
+    body_floor_blocked = (
+        status_card["front_door_status"]["surface_statuses"].get(
+            "macro_body_import_floor"
+        )
+        != "pass"
+    )
+    assert tour_rc == (1 if body_floor_blocked else 0)
+    assert status_rc == (1 if body_floor_blocked else 0)
+    assert (project / ".microcosm/routes.json").is_file()
+    assert tour_card["compile_summary"]["selected_route_id"] == (
+        status_card["front_door"]["selected_route_id"]
+    )
+    assert status_card["front_door"]["project_state"]["state_dir_exists"] is True
+    assert status_card["front_door_status"]["surface_statuses"]["project_state"] == (
+        "pass"
+    )
+    assert status_card["front_door_status"]["surface_statuses"][
+        "state_write_proof"
+    ] == "pass"
+
+
 def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
