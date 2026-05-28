@@ -46,6 +46,7 @@ def _make_release_root(root: Path) -> Path:
         "LICENSE",
         "Makefile",
         "PRINCIPLES.md",
+        "QUICKSTART.md",
         "README.md",
         "SECURITY.md",
         "bootstrap.sh",
@@ -190,6 +191,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert (target / "Makefile").is_file()
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()
+    assert (target / "QUICKSTART.md").is_file()
     assert (target / "SECURITY.md").is_file()
     assert receipt["authority_receipt"]["release_authorized"] is False
     candidate = receipt["release_candidate_packet"]
@@ -227,6 +229,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert ".github" in receipt["inventory_receipt"]["include_refs"]
     assert "CONTRIBUTING.md" in receipt["inventory_receipt"]["include_refs"]
     assert "Makefile" in receipt["inventory_receipt"]["include_refs"]
+    assert "QUICKSTART.md" in receipt["inventory_receipt"]["include_refs"]
     assert "SECURITY.md" in receipt["inventory_receipt"]["include_refs"]
     assert receipt["inventory_receipt"]["role_counts"]["ci_workflow"] == 1
     assert receipt["inventory_receipt"]["role_counts"]["command_surface"] == 1
@@ -320,6 +323,7 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
             "bootstrap.sh",
             ".github",
             "CONTRIBUTING.md",
+            "QUICKSTART.md",
             "SECURITY.md",
         }
     )

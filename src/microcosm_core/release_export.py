@@ -39,6 +39,7 @@ DEFAULT_INCLUDE_REFS = (
     "LICENSE",
     "Makefile",
     "PRINCIPLES.md",
+    "QUICKSTART.md",
     "README.md",
     "SECURITY.md",
     "atlas",
@@ -65,6 +66,7 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     "bootstrap.sh",
     ".github",
     "CONTRIBUTING.md",
+    "QUICKSTART.md",
     "SECURITY.md",
 )
 SKIPPED_DIR_NAMES = {
@@ -209,6 +211,7 @@ def _public_role(rel: str) -> str:
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
         "PRINCIPLES.md",
+        "QUICKSTART.md",
         "SECURITY.md",
         "LICENSE",
     }:
