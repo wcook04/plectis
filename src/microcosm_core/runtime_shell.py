@@ -13739,7 +13739,16 @@ class RuntimeShell:
         return payload
 
     def replay_gauntlet(self) -> dict[str, Any]:
-        lens_path = self.runtime_receipt_dir / "public_agent_reliability_replay_gauntlet_lens.json"
+        lens_path = (
+            self.runtime_receipt_dir
+            / "public_agent_reliability_replay_gauntlet_lens.json"
+        )
+
+        def cold_reader_bundle_command(
+            command: str, input_ref: str, out_ref: str
+        ) -> str:
+            return f"{command} --input {input_ref} --out {out_ref}"
+
         source_pattern_ids = [
             "agent_benchmark_integrity_anti_gaming_replay_compound",
             "agent_monitor_redteam_falsification_replay_compound",
@@ -13786,9 +13795,13 @@ class RuntimeShell:
                     "receipts/first_wave/agent_monitor_redteam_falsification_replay/"
                     "agent_monitor_redteam_falsification_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm agent-monitor-redteam-falsification-replay "
-                    "run-monitor-bundle"
+                    "run-monitor-bundle",
+                    "examples/agent_monitor_redteam_falsification_replay/"
+                    "exported_monitor_redteam_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_monitor_redteam_falsification_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": "require_monitor_verdict_receipt_before_pass_label",
@@ -13814,9 +13827,13 @@ class RuntimeShell:
                     "receipts/first_wave/agent_sabotage_scheming_monitor_replay/"
                     "agent_sabotage_scheming_monitor_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm agent-sabotage-scheming-monitor-replay "
-                    "run-sabotage-bundle"
+                    "run-sabotage-bundle",
+                    "examples/agent_sabotage_scheming_monitor_replay/"
+                    "exported_sabotage_monitor_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_sabotage_scheming_monitor_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": "route_to_disagreement_receipt_and_fail_closed",
@@ -13839,9 +13856,13 @@ class RuntimeShell:
                     "receipts/first_wave/agent_sandbox_policy_escape_replay/"
                     "agent_sandbox_policy_escape_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm agent-sandbox-policy-escape-replay "
-                    "run-sandbox-bundle"
+                    "run-sandbox-bundle",
+                    "examples/agent_sandbox_policy_escape_replay/"
+                    "exported_sandbox_policy_escape_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_sandbox_policy_escape_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": "capability_manifest_denies_host_escape",
@@ -13867,9 +13888,12 @@ class RuntimeShell:
                     "receipts/first_wave/mcp_tool_authority_replay/"
                     "mcp_tool_authority_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm mcp-tool-authority-replay "
-                    "run-tool-authority-bundle"
+                    "run-tool-authority-bundle",
+                    "examples/mcp_tool_authority_replay/"
+                    "exported_mcp_tool_authority_bundle",
+                    "receipts/runtime_shell/demo_project/organs/mcp_tool_authority_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": "deny_unlisted_tool_scope_and_log_authority_diff",
@@ -13901,9 +13925,13 @@ class RuntimeShell:
                     "proof_derived_governed_mutation_authorization/"
                     "proof_derived_governed_mutation_authorization_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm proof-derived-governed-mutation-authorization "
-                    "run-authorization-bundle"
+                    "run-authorization-bundle",
+                    "examples/proof_derived_governed_mutation_authorization/"
+                    "exported_governed_mutation_authorization_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "proof_derived_governed_mutation_authorization",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": (
@@ -13934,9 +13962,13 @@ class RuntimeShell:
                     "receipts/first_wave/belief_state_process_reward_replay/"
                     "belief_state_process_reward_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm belief-state-process-reward-replay "
-                    "run-reward-bundle"
+                    "run-reward-bundle",
+                    "examples/belief_state_process_reward_replay/"
+                    "exported_belief_state_process_reward_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "belief_state_process_reward_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": (
@@ -13965,9 +13997,13 @@ class RuntimeShell:
                     "indirect_prompt_injection_information_flow_policy_replay/"
                     "indirect_prompt_injection_information_flow_policy_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm indirect-prompt-injection-information-flow-policy-replay "
-                    "run-prompt-injection-bundle"
+                    "run-prompt-injection-bundle",
+                    "examples/indirect_prompt_injection_information_flow_policy_replay/"
+                    "exported_prompt_injection_flow_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "indirect_prompt_injection_information_flow_policy_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": "separate_untrusted_text_from_instruction_channel",
@@ -13997,9 +14033,13 @@ class RuntimeShell:
                     "agentic_vulnerability_discovery_patch_proof_replay/"
                     "agentic_vulnerability_discovery_patch_proof_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm agentic-vulnerability-discovery-patch-proof-replay "
-                    "run-patch-proof-bundle"
+                    "run-patch-proof-bundle",
+                    "examples/agentic_vulnerability_discovery_patch_proof_replay/"
+                    "exported_patch_proof_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agentic_vulnerability_discovery_patch_proof_replay",
                 ),
                 "monitor_verdict": "blocked",
                 "containment_action": (
@@ -14024,9 +14064,13 @@ class RuntimeShell:
                     "receipts/first_wave/agent_memory_temporal_conflict_replay/"
                     "agent_memory_temporal_conflict_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm agent-memory-temporal-conflict-replay "
-                    "run-memory-bundle"
+                    "run-memory-bundle",
+                    "examples/agent_memory_temporal_conflict_replay/"
+                    "exported_memory_temporal_conflict_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "agent_memory_temporal_conflict_replay",
                 ),
                 "monitor_verdict": "quarantined",
                 "containment_action": "hold_memory_write_for_temporal_conflict_review",
@@ -14051,9 +14095,13 @@ class RuntimeShell:
                     "receipts/first_wave/sleeper_memory_poisoning_quarantine_replay/"
                     "sleeper_memory_poisoning_quarantine_replay_validation_receipt.json"
                 ),
-                "cold_reader_command": (
+                "cold_reader_command": cold_reader_bundle_command(
                     "microcosm sleeper-memory-poisoning-quarantine-replay "
-                    "run-quarantine-bundle"
+                    "run-quarantine-bundle",
+                    "examples/sleeper_memory_poisoning_quarantine_replay/"
+                    "exported_sleeper_memory_poisoning_bundle",
+                    "receipts/runtime_shell/demo_project/organs/"
+                    "sleeper_memory_poisoning_quarantine_replay",
                 ),
                 "monitor_verdict": "quarantined",
                 "containment_action": "quarantine_memory_write_and_require_explicit_owner_review",

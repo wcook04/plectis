@@ -3838,6 +3838,25 @@ def test_runtime_shell_replay_gauntlet_lens_uses_payload_boundary(tmp_path: Path
     assert lens["unsafe_payload_bodies_in_receipt"] is False
     assert lens["payload_boundary"]["boundary_id"] == "public_agent_reliability_replay_gauntlet_lens"
     assert OMITTED_PAYLOAD_BODY_KEY not in lens
+    generated_receipt_commands = [
+        row["cold_reader_command"]
+        for row in lens["episode_rows"]
+        if row.get("generated_receipt_ref")
+    ]
+    assert len(generated_receipt_commands) == 10
+    assert all(" --input examples/" in command for command in generated_receipt_commands)
+    assert all(
+        " --out receipts/runtime_shell/demo_project/organs/" in command
+        for command in generated_receipt_commands
+    )
+    assert (
+        "microcosm agent-monitor-redteam-falsification-replay "
+        "run-monitor-bundle --input "
+        "examples/agent_monitor_redteam_falsification_replay/"
+        "exported_monitor_redteam_bundle --out "
+        "receipts/runtime_shell/demo_project/organs/"
+        "agent_monitor_redteam_falsification_replay"
+    ) in generated_receipt_commands
     assert all(row["real_secret_material_exported"] is False for row in lens["episode_rows"])
     assert all(row["live_tool_call_authorized"] is False for row in lens["episode_rows"])
     assert all(
