@@ -66,10 +66,12 @@ authority is rejected.
 ## Validation Floor
 
 Run the focused tests for the surface you touched. For public-entry and
-boundary docs, use:
+boundary docs, first run `make install` or
+`python3 -m pip install -e '.[test]'` if your environment does not already
+have the test extra installed, then use the source-tree form:
 
 ```bash
-python3 -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
+PYTHONPATH=src python3 -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
 ```
 
 For the repository verification path used by GitHub Actions, use:
