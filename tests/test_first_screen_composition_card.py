@@ -161,6 +161,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert menu_by_id["public_github_visitor"]["not_a_claim"] == (
         "publication_or_reader_success_ready"
     )
+    assert menu_by_id["public_github_visitor"]["first_action"] == (
+        "Run `microcosm hello <project>`."
+    )
     assert reader_route_menu["safe_to_show"] == {
         "uses_existing_reader_packets": True,
         "creates_new_entry_artifact": False,
@@ -201,6 +204,12 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert packet_by_id["public_github_visitor"]["next_drilldown"] == (
         "README.md#first-run"
     )
+    assert packet_by_id["public_github_visitor"]["first_action"] == (
+        "Run `microcosm hello <project>`."
+    )
+    assert "from the repo root" not in packet_by_id["public_github_visitor"][
+        "first_action"
+    ]
     assert "release, hosting, and private-data claims" in packet_by_id[
         "public_github_visitor"
     ]["success_criterion"]
@@ -1489,7 +1498,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
     expected = {
         "public_github_visitor": {
             "label": "GitHub visitor",
-            "first_action": "Run `microcosm hello .` from the repo root.",
+            "first_action": "Run `microcosm hello .`.",
             "proof": "`microcosm tour --card .`",
             "success": "release, hosting, and private-data claims",
             "absent": [

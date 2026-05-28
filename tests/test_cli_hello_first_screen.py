@@ -88,7 +88,8 @@ def test_cli_hello_can_focus_public_github_visitor_branch(
 
     assert "Reader branch: GitHub visitor" in output
     assert "Command: microcosm hello --reader public_github_visitor ." in output
-    assert "First action: Run `microcosm hello .` from the repo root." in output
+    assert "First action: Run `microcosm hello .`." in output
+    assert "from the repo root" not in output
     assert "Proof: `microcosm tour --card .`" in output
     assert "release, hosting, and private-data claims this repo refuses" in output
     assert "Reader branch: Safety/evals" not in output
@@ -110,6 +111,13 @@ def test_cli_first_screen_json_is_compact_by_default(
     assert payload["output_policy"]["full_contract_preserved"] is True
     assert payload["reader_route_menu"]["machine_card_command"] == (
         "microcosm first-screen ."
+    )
+    route_by_id = {
+        route["reader_route_id"]: route
+        for route in payload["reader_route_menu"]["routes"]
+    }
+    assert route_by_id["public_github_visitor"]["first_action"] == (
+        "Run `microcosm hello .`."
     )
     assert "video_storyboard_packet" not in payload
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False

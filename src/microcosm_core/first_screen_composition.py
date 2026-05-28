@@ -415,9 +415,7 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
         "packets": [
             {
                 "reader_route_id": "public_github_visitor",
-                "first_action": (
-                    f"Run `microcosm hello {project_label}` from the repo root."
-                ),
+                "first_action": f"Run `microcosm hello {project_label}`.",
                 "proof_surface": f"`microcosm tour --card {project_label}`",
                 "success_criterion": (
                     "Can find the first runnable local command and name the "
@@ -492,9 +490,7 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
                     "microcosm first-screen --format text "
                     f"--reader public_github_visitor {project_label}"
                 ),
-                "first_action": (
-                    f"Run `microcosm hello {project_label}` from the repo root."
-                ),
+                "first_action": f"Run `microcosm hello {project_label}`.",
                 "proof_surface": f"`microcosm tour --card {project_label}`",
                 "exit_check": "find the first runnable local command and anti-claims",
                 "not_a_claim": "publication_or_reader_success_ready",
