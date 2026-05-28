@@ -14,6 +14,7 @@ from urllib.parse import unquote, urlparse
 from microcosm_core import architecture_kernel
 from microcosm_core import first_screen_composition
 from microcosm_core import project_substrate
+from microcosm_core import runtime_evidence_index
 from microcosm_core.organs import agent_benchmark_integrity_anti_gaming_replay
 from microcosm_core.organs import agent_memory_temporal_conflict_replay
 from microcosm_core.organs import agent_monitor_redteam_falsification_replay
@@ -1592,17 +1593,7 @@ def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
 
 
 def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
-    payload = _read_json_if_exists(path)
-    return {
-        "receipt_ref": _public_relative(path, root),
-        "status": payload.get("status", "unknown"),
-        "schema_version": payload.get("schema_version"),
-        "organ_id": payload.get("organ_id"),
-        "input_mode": payload.get("input_mode"),
-        "created_at": payload.get("created_at"),
-        "body_in_receipt": False,
-        "evidence_contract": _receipt_evidence_contract(payload),
-    }
+    return runtime_evidence_index.compact_receipt_summary(path, root)
 
 
 def proof_lab_first_screen_boundary() -> dict[str, Any]:
@@ -4773,8 +4764,10 @@ class RuntimeShell:
         ]
 
     def evidence(self) -> list[dict[str, Any]]:
-        receipts = sorted((self.root / "receipts").rglob("*.json"))
-        return [_safe_receipt_summary(path, self.root) for path in receipts]
+        return list(self.evidence_index().get("evidence", []))
+
+    def evidence_index(self) -> dict[str, Any]:
+        return runtime_evidence_index.list_runtime_evidence(self.root)
 
     def evidence_count(self) -> int:
         receipts_dir = self.root / "receipts"
@@ -20017,7 +20010,7 @@ class RuntimeShell:
                 elif path == "/workitems":
                     self._send(200, {"schema_version": "microcosm_runtime_workitems_v1", "workitems": shell.workitems()})
                 elif path == "/evidence":
-                    self._send(200, {"schema_version": "microcosm_runtime_evidence_v1", "evidence": shell.evidence()})
+                    self._send(200, shell.evidence_index())
                 elif path.startswith("/route/"):
                     self._send(200, shell.inspect_route(unquote(path.removeprefix("/route/"))))
                 else:
@@ -20248,7 +20241,7 @@ def main(argv: list[str] | None = None) -> int:
             return _print_json(shell.run_work_demo())
     if args.command == "evidence":
         if args.evidence_command == "list":
-            return _print_json({"schema_version": "microcosm_runtime_evidence_v1", "evidence": shell.evidence()})
+            return _print_json(shell.evidence_index())
         if args.evidence_command == "inspect":
             return _print_json(shell.inspect_evidence(args.receipt_ref))
     if args.command == "serve":
