@@ -6,6 +6,15 @@ Microcosm compiles your project folder into local state: catalog, patterns,
 routes, a governed work transaction, events, evidence, and a tiny observatory.
 It does not mutate your source files or call providers.
 
+Start with one compact local command:
+
+```bash
+microcosm hello .
+```
+
+Run `microcosm compile .` when you want the full `.microcosm/` rebuild JSON
+after the first-screen card is legible.
+
 ## Choose Your First Screen
 
 If you only read one terminal screen, ask the package-backed card for the map:

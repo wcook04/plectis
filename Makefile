@@ -7,6 +7,7 @@ PUBLIC_TESTS ?= \
 	tests/test_private_state_scan.py \
 	tests/test_public_repo_ci.py \
 	tests/test_public_repo_makefile.py \
+	tests/test_readme_first_screen_entry.py \
 	tests/test_observatory_browser_styles.py \
 	tests/test_proof_lab_cache_action_hint.py \
 	tests/test_release_export.py

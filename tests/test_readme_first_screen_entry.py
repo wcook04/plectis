@@ -21,6 +21,17 @@ def _agents_text() -> str:
     return (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
 
+def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
+    opening = _readme_text().split("## Choose Your First Screen", 1)[0]
+
+    assert "Start with one compact local command:" in opening
+    assert "microcosm hello ." in opening
+    assert "microcosm compile ." in opening
+    assert "full `.microcosm/` rebuild JSON" in opening
+    assert opening.index("microcosm hello .") < opening.index("microcosm compile .")
+    assert "Try it on your repo with one local command: `microcosm compile .`" not in opening
+
+
 def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
     section = _readme_text().split("## Choose Your First Screen", 1)[1].split(
         "## Try It On Your Repo",
