@@ -34,26 +34,31 @@ The compact behavioral path is:
    `front_door_status.blocking_surface_details.project_state` should point back
    to `microcosm tour --card <project>` and then
    `microcosm status --card <project>`.
-3. `microcosm workingness` opens the bounded behavior/failure map.
-4. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
+3. `microcosm authority --card` opens the compact public claim ceiling before
+   any impressive organ label is trusted.
+4. `microcosm workingness --card` opens the bounded behavior/failure map
+   without forcing the full organ-by-organ drilldown.
+5. `microcosm legibility-scorecard` maps cold-reader questions to runnable
+   checks and explicit no-release/no-reader-guarantee boundaries.
+6. `microcosm proof-lab --out /tmp/microcosm-proof-lab` runs the first proof
    lab route.
-5. `microcosm observe <project>` opens the selected route's compact causal
+7. `microcosm observe <project>` opens the selected route's compact causal
    chain over route, work, event, evidence, graph, status, proof, and
    observatory refs.
-6. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
+8. `microcosm serve <project> --host 127.0.0.1 --port 8765` opens the local
    observatory; check `/project/observatory-card` before the expanded
    `/project/observatory`. The compact card must carry `state_inspection`
    over `.microcosm/` plus route/work/evidence/graph/proof/status refs before
    you check `/`, `/status`, `/tour`, `/workingness`, `/proof-lab`,
    `/project/python-lens`, `/project/observe`, and
    `/project/explain/<selected_route_id>`.
-7. `microcosm compile <project>` rebuilds local state when you need an explicit
+9. `microcosm compile <project>` rebuilds local state when you need an explicit
    refresh after the first-screen proof surfaces are visible.
-8. `microcosm python-lens <project>` opens the project navigation assay.
-9. `microcosm explain <project> <selected_route_id>` opens the route/work/event
+10. `microcosm python-lens <project>` opens the project navigation assay.
+11. `microcosm explain <project> <selected_route_id>` opens the route/work/event
    and evidence chain selected by `tour --card`, `tour`, or `compile`.
-10. `microcosm evidence list <project>` lists project-local evidence refs.
-11. `microcosm tour <project>` is the full route-card, endpoint-path, and
+12. `microcosm evidence list <project>` lists project-local evidence refs.
+13. `microcosm tour <project>` is the full route-card, endpoint-path, and
    evidence-ref drilldown after the first screen is already readable.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the
@@ -137,8 +142,9 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
    `state_inspection.first_screen_refs` so the local state is visible before
    doctrine or receipt drilldowns.
 4. Open `atlas/entry_packet.json::status_and_workingness_route` and run
-   `microcosm status --card <project>` plus `microcosm workingness` before raw
-   receipts. This is the compressed honesty lens for
+   `microcosm status --card <project>`, `microcosm authority --card`, and
+   `microcosm workingness --card` before raw receipts. This is the compressed
+   honesty lens for
    `route_cards_by_id.status_and_workingness`, missing standards, failure
    modes, proof-lab route refs, observatory route refs, source-open body
    imports, and bounded authority.
@@ -176,7 +182,8 @@ trees. The expanded implementation command is `microcosm verifier-lab-kernel run
 
 ## Authority And Evidence Drilldowns
 
-- Run `microcosm authority` or
+- Run `microcosm authority --card` first for the compact ceiling; open
+   `microcosm authority` or
    `PYTHONPATH=src python3 -m microcosm_core.cli authority` to inspect the
    public authority ceiling, hard boundaries, safe local-only exceptions,
    explicit organ `evidence_class` rows, and organ authority refs before
