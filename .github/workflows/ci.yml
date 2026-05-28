@@ -26,16 +26,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install package and test dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e ".[test]"
-
-      - name: Run test suite
-        run: python -m pytest
-
-      - name: Smoke CLI entry points
-        run: |
-          microcosm hello .
-          python -m microcosm_core --version
-          microcosm stripping-guard
+      - name: Run repository verification target
+        run: make ci

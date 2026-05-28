@@ -21,10 +21,15 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         'python-version: ["3.11", "3.12"]',
         "actions/checkout@v4",
         "actions/setup-python@v5",
-        'python -m pip install -e \".[test]\"',
+        "run: make ci",
+    ):
+        assert required in workflow
+
+    for duplicated_command in (
+        'python -m pip install -e ".[test]"',
         "python -m pytest",
         "microcosm hello .",
         "python -m microcosm_core --version",
         "microcosm stripping-guard",
     ):
-        assert required in workflow
+        assert duplicated_command not in workflow
