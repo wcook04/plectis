@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import tomllib
 from pathlib import Path
 
 
@@ -27,8 +28,14 @@ def test_bootstrap_help_is_no_side_effect_public_entry() -> None:
     result = _run_bootstrap("--help")
 
     assert result.returncode == 0
-    assert "Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH]" in result.stdout
+    assert (
+        "Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH] "
+        "[--dry-run] [--version]"
+        in result.stdout
+    )
     assert "--suite SUITE" in result.stdout
+    assert "--dry-run" in result.stdout
+    assert "--version" in result.stdout
     assert "first-wave" in result.stdout
     assert ".microcosm/cold_clone_probe.json" in result.stdout
     assert "Microcosm cold-clone probe passed" in result.stdout
@@ -52,6 +59,56 @@ def test_bootstrap_argument_errors_preserve_usage_boundary() -> None:
     assert missing_emit.returncode == 2
     assert "missing value for --emit" in missing_emit.stderr
     assert "Usage: ./bootstrap.sh" in missing_emit.stderr
+
+
+def test_bootstrap_version_is_no_side_effect_public_entry() -> None:
+    pyproject = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
+
+    result = _run_bootstrap("--version")
+
+    assert result.returncode == 0
+    assert result.stdout.strip() == f"microcosm {pyproject['project']['version']}"
+    assert result.stderr == ""
+
+
+def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path) -> None:
+    argv_log = tmp_path / "fake_python_argv.txt"
+    receipt = tmp_path / "dry_run_cold_clone_probe.json"
+    fake_python = tmp_path / "fake-python"
+    fake_python.write_text(
+        "#!/usr/bin/env sh\n"
+        "printf '%s\\n' \"$@\" > \"$MICROCOSM_FAKE_PYTHON_ARGS\"\n",
+        encoding="utf-8",
+    )
+    fake_python.chmod(0o755)
+
+    env = os.environ.copy()
+    env["MICROCOSM_PYTHON"] = str(fake_python)
+    env["MICROCOSM_FAKE_PYTHON_ARGS"] = str(argv_log)
+
+    result = _run_bootstrap(
+        "--suite",
+        "public",
+        "--emit",
+        str(receipt),
+        "--dry-run",
+        env=env,
+    )
+
+    assert result.returncode == 0
+    assert result.stderr == ""
+    assert result.stdout.splitlines() == [
+        "Microcosm cold-clone probe dry run",
+        "suite: public",
+        f"receipt: {receipt}",
+        f"python: {fake_python}",
+        (
+            f"command: {fake_python} -m microcosm_core.cold_clone_probe "
+            f"--suite public --emit {receipt}"
+        ),
+    ]
+    assert not argv_log.exists()
+    assert not receipt.exists()
 
 
 def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:

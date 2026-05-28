@@ -6,16 +6,20 @@ cd "$script_dir"
 
 suite="first-wave"
 emit=".microcosm/cold_clone_probe.json"
+dry_run=0
+show_version=0
 
 usage() {
   cat <<'USAGE'
-Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH]
+Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH] [--dry-run] [--version]
 
 Run the Microcosm cold-clone probe from the repository root.
 
 Options:
   --suite SUITE          Probe suite to run (default: first-wave)
   --emit RECEIPT_PATH    Receipt path to write (default: .microcosm/cold_clone_probe.json)
+  --dry-run              Show the probe command without running or writing receipts
+  --version              Show the Microcosm package version without running the probe
   -h, --help             Show this help message without running the probe
 
 Environment:
@@ -27,6 +31,10 @@ Success output:
   suite: <suite>
   receipt: <receipt path>
 USAGE
+}
+
+package_version() {
+  awk -F'"' '/^version = / { print $2; exit }' pyproject.toml
 }
 
 require_value() {
@@ -55,6 +63,14 @@ while [[ $# -gt 0 ]]; do
       emit="${2:-}"
       shift 2
       ;;
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    --version)
+      show_version=1
+      shift
+      ;;
     *)
       echo "unknown argument: $1" >&2
       usage >&2
@@ -62,6 +78,16 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ "$show_version" == "1" ]]; then
+  version="$(package_version)"
+  if [[ -z "$version" ]]; then
+    echo "could not read version from pyproject.toml" >&2
+    exit 1
+  fi
+  printf 'microcosm %s\n' "$version"
+  exit 0
+fi
 
 export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}src"
 if [[ -n "${MICROCOSM_PYTHON:-}" ]]; then
@@ -75,6 +101,17 @@ elif command -v python >/dev/null 2>&1; then
 else
   echo "python3 or python is required" >&2
   exit 127
+fi
+
+if [[ "$dry_run" == "1" ]]; then
+  printf 'Microcosm cold-clone probe dry run\n'
+  printf 'suite: %s\n' "$suite"
+  printf 'receipt: %s\n' "$emit"
+  printf 'python: %s\n' "$python_bin"
+  printf 'command:'
+  printf ' %q' "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
+  printf '\n'
+  exit 0
 fi
 
 "$python_bin" -m microcosm_core.cold_clone_probe --suite "$suite" --emit "$emit"
