@@ -5,11 +5,27 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.validators.public_entry_docs import validate_public_entry_docs
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = MICROCOSM_ROOT.parent
+
+
+def _macro_std_microcosm_path() -> Path:
+    path = REPO_ROOT / "codex/standards/std_microcosm.json"
+    if not path.is_file():
+        pytest.skip("macro std_microcosm parity check requires ai_workflow parent root")
+    return path
+
+
+def _macro_entry_lattice_path() -> Path:
+    path = REPO_ROOT / "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
+    if not path.is_file():
+        pytest.skip("macro entry lattice parity check requires ai_workflow parent root")
+    return path
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -1088,9 +1104,7 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
     entry_packet = json.loads(
         (MICROCOSM_ROOT / "atlas/entry_packet.json").read_text(encoding="utf-8")
     )
-    standard = json.loads(
-        (REPO_ROOT / "codex/standards/std_microcosm.json").read_text(encoding="utf-8")
-    )
+    standard = json.loads(_macro_std_microcosm_path().read_text(encoding="utf-8"))
 
     lattice = entry_packet["doctrine_lattice_route"]
     standard_lattice = standard["doctrine_lattice"]
@@ -1144,12 +1158,8 @@ def test_public_entry_packet_routes_doctrine_lattice() -> None:
 
 
 def test_public_entry_standard_names_degraded_kernel_fallback() -> None:
-    standard = json.loads(
-        (REPO_ROOT / "codex/standards/std_microcosm.json").read_text(encoding="utf-8")
-    )
-    module_text = (
-        REPO_ROOT / "codex/doctrine/paper_modules/microcosm_entry_lattice.md"
-    ).read_text(encoding="utf-8")
+    standard = json.loads(_macro_std_microcosm_path().read_text(encoding="utf-8"))
+    module_text = _macro_entry_lattice_path().read_text(encoding="utf-8")
 
     fallback = standard["first_screen_navigation_contract"][
         "degraded_kernel_fallback"
