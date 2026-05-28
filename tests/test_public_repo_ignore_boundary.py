@@ -14,6 +14,7 @@ def test_public_repo_gitignore_excludes_local_runtime_residue() -> None:
         ".DS_Store",
         ".microcosm/state.json",
         ".pytest_cache/README.md",
+        ".venv/pyvenv.cfg",
         "build/lib.txt",
         "dist/microcosm.whl",
         "microcosm-substrate/.microcosm/events.jsonl",
