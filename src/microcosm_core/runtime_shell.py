@@ -4776,6 +4776,12 @@ class RuntimeShell:
         receipts = sorted((self.root / "receipts").rglob("*.json"))
         return [_safe_receipt_summary(path, self.root) for path in receipts]
 
+    def evidence_count(self) -> int:
+        receipts_dir = self.root / "receipts"
+        if not receipts_dir.is_dir():
+            return 0
+        return sum(1 for _ in receipts_dir.rglob("*.json"))
+
     def workingness_map(self, *, persist_receipt: bool = False) -> dict[str, Any]:
         organs = self.organs()
         rows: list[dict[str, Any]] = []
@@ -5037,7 +5043,7 @@ class RuntimeShell:
         ]
         routes = self.routes()
         workitems = self.workitems()
-        evidence = self.evidence()
+        evidence_count = self.evidence_count()
         pattern_surface = architecture_kernel.pattern_surface_contract(self.root)
         standard_pressure = architecture_kernel.standard_pressure_contract(self.root)
         proof_lab = _proof_lab_first_screen_card(self.root)
@@ -5275,7 +5281,7 @@ class RuntimeShell:
             "pattern_surface": pattern_surface,
             "standard_pressure_surface": standard_pressure,
             "workitem_count": len(workitems),
-            "evidence_count": len(evidence),
+            "evidence_count": evidence_count,
             "kernel_primitive_count": architecture_kernel.load_kernel_manifest(self.root).get("primitive_count"),
             "release_authorized": False,
             "next_actions": [
