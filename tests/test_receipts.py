@@ -31,9 +31,15 @@ def test_receipt_writer_still_writes_by_default(tmp_path, monkeypatch) -> None:
 
 
 def test_receipt_writer_keeps_source_tree_receipts_read_only_under_pytest() -> None:
-    receipt_path = MICROCOSM_ROOT / "receipts/runtime_shell/public_stripping_guard_lens.json"
-    before = receipt_path.read_text(encoding="utf-8")
+    receipt_paths = [
+        MICROCOSM_ROOT / "receipts/runtime_shell/public_stripping_guard_lens.json",
+        MICROCOSM_ROOT
+        / "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+    ]
+    before = {path: path.read_text(encoding="utf-8") for path in receipt_paths}
 
-    write_json_atomic(receipt_path, {"status": "would_dirty_source_tree"})
+    for receipt_path in receipt_paths:
+        write_json_atomic(receipt_path, {"status": "would_dirty_source_tree"})
 
-    assert receipt_path.read_text(encoding="utf-8") == before
+    after = {path: path.read_text(encoding="utf-8") for path in receipt_paths}
+    assert after == before
