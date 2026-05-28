@@ -5994,6 +5994,36 @@ def _goal_authority_sources(goals: dict[str, dict]) -> dict:
     return payload
 
 
+_GOAL_TITLE_PLACEHOLDERS = {
+    "",
+    "<goal_context>",
+    "goal_context",
+    "goal context",
+    "<goal>",
+    "goal",
+}
+
+
+def _goal_roster_title_candidate(value: Any) -> str:
+    title = str(value or "").strip()
+    if title.lower() in _GOAL_TITLE_PLACEHOLDERS:
+        return ""
+    return title
+
+
+def _goal_roster_mission_title(row: dict, title_record: dict, goal: dict) -> str:
+    for candidate in (
+        row.get("display_title"),
+        row.get("title"),
+        title_record.get("thread_name"),
+        goal.get("objective_preview"),
+    ):
+        title = _goal_roster_title_candidate(candidate)
+        if title:
+            return title
+    return ""
+
+
 def _goal_thread_roster(
     goals: dict[str, dict],
     rows: list[dict],
@@ -6034,12 +6064,7 @@ def _goal_thread_roster(
                 "provider": row.get("provider") or "codex",
                 "session_id": thread_id,
                 "mission_key": f"codex:{thread_id}",
-                "title": (
-                    row.get("display_title")
-                    or row.get("title")
-                    or title_record.get("thread_name")
-                    or ""
-                ),
+                "title": _goal_roster_mission_title(row, title_record, goal),
                 "short_label": row.get("short_label") or "",
                 "inactive_reason": row.get("inactive_reason") or "",
                 "row_present": bool(row),

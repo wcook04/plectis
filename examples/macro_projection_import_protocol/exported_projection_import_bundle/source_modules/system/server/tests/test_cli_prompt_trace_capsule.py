@@ -92,7 +92,7 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
 
     session_index = tmp_path / "session_index.jsonl"
     session_index.write_text(
-        '{"id":"codex-thread-1","thread_name":"Goal Infra Thread","updated_at":"2026-05-28T16:00:00Z"}\n',
+        '{"id":"codex-thread-1","thread_name":"<goal_context>","updated_at":"2026-05-28T16:00:00Z"}\n',
         encoding="utf-8",
     )
     monkeypatch.setattr(trace, "CODEX_GOALS_DB", goals_db)
@@ -101,7 +101,8 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     cached_active = {
         "provider": "codex",
         "session_id": "codex-thread-1",
-        "display_title": "Cached Mission",
+        "display_title": "<goal_context>",
+        "title": "<goal_context>",
     }
     cached_rows = [dict(cached_active)]
     index = {
@@ -128,7 +129,7 @@ def test_mission_index_goal_roster_refresh_overlays_cached_rows(monkeypatch, tmp
     roster_row = refreshed["goal_threads"][0]
     assert roster_row["thread_id"] == "codex-thread-1"
     assert roster_row["mission_index"]["state"] == "active_row"
-    assert roster_row["mission_index"]["title"] == "Cached Mission"
+    assert roster_row["mission_index"]["title"].startswith("Keep refining the goal infrastructure")
 
 
 def test_trace_capsule_final_validation_uses_terminal_validation_rows() -> None:
