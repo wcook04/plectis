@@ -6,6 +6,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from microcosm_core.organs.public_reveal_walkthrough import (
     CARD_SCHEMA_VERSION,
     EXPECTED_NEGATIVE_CASES,
@@ -25,6 +27,13 @@ PUBLIC_REVEAL_SOURCE_MODULE_IDS = {
     "public_reveal_clean_clone_state_fixture_receipt_body_import",
     "public_reveal_public_substrate_boundary_policy_body_import",
 }
+
+
+def _macro_source_path(ref: str) -> Path:
+    path = MICROCOSM_ROOT.parent / ref
+    if not path.is_file():
+        pytest.skip("macro source-module parity check requires ai_workflow parent root")
+    return path
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -68,7 +77,10 @@ def test_public_reveal_walkthrough_observes_negative_cases(tmp_path: Path) -> No
 
 
 def test_public_reveal_walkthrough_receipts_are_public_relative_and_secret_excluded(tmp_path: Path) -> None:
-    public_root = tmp_path / "microcosm-substrate"
+    public_root = tmp_path / "standalone-public-root"
+    public_root.mkdir()
+    shutil.copy2(MICROCOSM_ROOT / "pyproject.toml", public_root / "pyproject.toml")
+    (public_root / "src/microcosm_core").mkdir(parents=True)
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(
         MICROCOSM_ROOT / "fixtures/first_wave/public_reveal_walkthrough",
@@ -200,7 +212,7 @@ def test_public_reveal_source_modules_are_exact_macro_body_imports() -> None:
     assert {row["module_id"] for row in modules} == PUBLIC_REVEAL_SOURCE_MODULE_IDS
 
     for row in modules:
-        source_path = MICROCOSM_ROOT.parent / row["source_ref"]
+        source_path = _macro_source_path(row["source_ref"])
         target_path = MICROCOSM_ROOT.parent / row["target_ref"]
         source_bytes = source_path.read_bytes()
         target_bytes = target_path.read_bytes()
