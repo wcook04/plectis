@@ -494,7 +494,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
+        "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1237,7 +1237,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "body_digest": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1258,7 +1258,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d4d6f687fc46f625bac1c23d59e03028197d0aa5fd4c6e27779def427a3c4bb4",
+        "body_digest": "sha256:36919ae6d006e01369a320f100a942af3015ee48bbec42799768be31a8ae19f8",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1300,7 +1300,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
+        "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1804,7 +1804,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+        "body_digest": "sha256:7c2a45c3ec2b156e6420150b29e526785e35780dfc5f886fd7777868693b82bb",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1825,7 +1825,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9ce79d56cd3e2b3ae11a525a382b2ea7f55eab22200f0f34215d7a593e796704",
+        "body_digest": "sha256:c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1888,7 +1888,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:7a1bf71aa80310624fa0196edb4c5e64043c060536afbcadec10ba617157c454",
+        "body_digest": "sha256:b499617b198442cc8d93ed1148b739a321f0fd62e7e39f717124e2e7d3c7dd0d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2161,7 +2161,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9c03e9e0918d9908ae0eb556912a0773dfd4d7d7915c5dd6568fc6cbc749b9d8",
+        "body_digest": "sha256:aeff6529d8aaaaf7a4263887160f1434b1469c386cde516fa39fc7b2ea8fb507",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2182,7 +2182,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a2f7bccda818a8dd81eada41bb9c1a70ffb61e3b3246a05e30b5302448ae3fc2",
+        "body_digest": "sha256:c7c4b17657615356e124219b524a4f30ba1d025b507c75a54adacfe3f53c5ccd",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2203,7 +2203,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:b3c257061605635a2b1efc4efa42ec6b70016cc34bc617d2667b3de463bc699b",
+        "body_digest": "sha256:c4064125b772a9569305614cc6051668608c6dd59284dadd5b9e796d61da8b21",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -2224,7 +2224,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:3128ffa798255fc251b04c22dd589bad45ec3f589451c1591fdb141d66131e6d",
+        "body_digest": "sha256:a0259b516cbfafb6aed4f412f232916179747b5c0732ba73bcb398cf8ebe44a7",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4096,7 +4096,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
+        "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4117,7 +4117,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:ffb063a0c0a8ea395b9b81857940455151c2f3216d1c20ffbd65a4e0f4c6515d",
+        "body_digest": "sha256:c1e8ca3f00bfa8d9bbc580941334204005cd9f3eaace9ca4f8c6171c6e88363a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -4635,7 +4635,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:78556357ebb149574319d128e9faa56e3edc9b4cc9274299e31426ab08702fdd",
+        "body_digest": "sha256:7955b43ab842a37d6d65a47b83fa49883b79cd446e79084b5f10a33f085b89ec",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",

@@ -12,7 +12,7 @@
     "whole_system_correctness_claim": false
   },
   "command": "microcosm projection-safety",
-  "created_at": "2026-05-28T15:24:31+00:00",
+  "created_at": "2026-05-28T15:37:52+00:00",
   "endpoint": "/projection-safety",
   "lens_id": "public_projection_safety_audit_lens",
   "negative_case_ids": [

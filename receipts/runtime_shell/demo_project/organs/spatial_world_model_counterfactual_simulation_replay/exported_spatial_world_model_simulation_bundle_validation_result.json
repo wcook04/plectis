@@ -251,7 +251,7 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-05-28T15:24:30+00:00",
+  "created_at": "2026-05-28T15:37:50+00:00",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "freshness_basis": {

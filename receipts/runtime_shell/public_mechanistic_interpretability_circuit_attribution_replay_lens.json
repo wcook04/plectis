@@ -449,7 +449,7 @@
   "body_material_status": "copied_non_secret_macro_body_landed",
   "circuit_attribution_lens_ref": "receipts/runtime_shell/public_mechanistic_interpretability_circuit_attribution_replay_lens.json",
   "command": "microcosm circuit-attribution",
-  "created_at": "2026-05-28T15:24:30+00:00",
+  "created_at": "2026-05-28T15:37:50+00:00",
   "endpoint": "/circuit-attribution",
   "features": [
     {
