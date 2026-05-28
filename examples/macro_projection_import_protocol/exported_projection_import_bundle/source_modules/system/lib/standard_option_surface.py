@@ -85,6 +85,7 @@ except ImportError:  # pragma: no cover - option surface should still import in 
 PAPER_MODULE_INDEX = Path("codex/doctrine/paper_modules/_index.json")
 PAPER_MODULE_ROUTE_COVERAGE = Path("codex/doctrine/paper_modules/_route_coverage.json")
 PAPER_MODULE_STANDARD = Path("codex/standards/std_paper_module.json")
+PAPER_MODULE_CLUSTER_TOP_ID_LIMIT = 2
 IMAGINATION_INDEX = Path("codex/doctrine/imaginations/_index.json")
 IMAGINATION_VALIDATION = Path("codex/doctrine/imaginations/_validation_report.json")
 IMAGINATION_DIR = Path("codex/doctrine/imaginations")
@@ -1223,8 +1224,6 @@ def _paper_module_cluster_rows(
         bucket = grouped.setdefault(
             cluster_id,
             {
-                "row_id": f"paper_module_cluster:{cluster_id}::cluster_flag",
-                "artifact_kind": "paper_module_cluster",
                 "band": "cluster_flag",
                 "cluster_id": cluster_id,
                 "label": label,
@@ -1239,13 +1238,8 @@ def _paper_module_cluster_rows(
                     "heuristic_fallback_count": 0,
                     "unclassified_count": 0,
                 },
-                "_governing_principle_counter": Counter(),
-                "_governing_concept_counter": Counter(),
-                "_modules_with_principles": 0,
-                "_modules_with_concepts": 0,
             },
         )
-        title = str(module.get("title") or slug)
         bucket["count"] += 1
         route_metadata = bucket["route_metadata"]
         if source_axis == "primary_subdomain":
@@ -1258,20 +1252,8 @@ def _paper_module_cluster_rows(
             route_metadata["heuristic_fallback_count"] += 1
         else:
             route_metadata["unclassified_count"] += 1
-        if slug and len(bucket["top_ids"]) < 8:
+        if slug and len(bucket["top_ids"]) < PAPER_MODULE_CLUSTER_TOP_ID_LIMIT:
             bucket["top_ids"].append(slug)
-        module_governing_principles = [
-            str(item) for item in list(module.get("governing_principles") or [])
-        ]
-        module_governing_concepts = [
-            str(item) for item in list(module.get("governing_concepts") or [])
-        ]
-        if module_governing_principles:
-            bucket["_modules_with_principles"] += 1
-            bucket["_governing_principle_counter"].update(module_governing_principles)
-        if module_governing_concepts:
-            bucket["_modules_with_concepts"] += 1
-            bucket["_governing_concept_counter"].update(module_governing_concepts)
 
     index_freshness = index.get("freshness") if isinstance(index.get("freshness"), dict) else {}
     # Resolve final cluster_source_axis per bucket from accumulated route_metadata.
@@ -1337,40 +1319,21 @@ def _paper_module_cluster_rows(
             "hierarchy_fallback": hierarchy,
             "heuristic_fallback": heuristic,
             "unclassified": unclassified,
-            "authored_share": round(authored / total, 3),
-            "suggested_share": round(suggested / total, 3),
-            "chip": ", ".join(chip_parts) if chip_parts else "no contributors",
         }
-        principle_counter = row.pop("_governing_principle_counter", Counter())
-        concept_counter = row.pop("_governing_concept_counter", Counter())
-        modules_with_principles = row.pop("_modules_with_principles", 0)
-        modules_with_concepts = row.pop("_modules_with_concepts", 0)
-        # governing_counts: distinct cross-kind refs at cluster level lets a cold
-        # agent decide whether this cluster has dense governance signal worth
-        # drilling into without opening any module row. top_governing_refs emits
-        # the three most-cited principles/concepts across the cluster's modules
-        # (Counter.most_common); per-module flag and card bands keep the wider
-        # cuts so this is additive, not duplicative.
-        row["governing_counts"] = {
-            "distinct_principles": len(principle_counter),
-            "distinct_concepts": len(concept_counter),
-            "modules_with_principles": modules_with_principles,
-            "modules_with_concepts": modules_with_concepts,
-        }
-        row["top_governing_refs"] = {
-            "principles": [pid for pid, _ in principle_counter.most_common(3)],
-            "concepts": [cid for cid, _ in concept_counter.most_common(3)],
-        }
+        chip = ", ".join(chip_parts) if chip_parts else "no contributors"
         row["claim"] = _truncate_words(
-            f"{label}: {row.get('count')} paper modules ({row['authority_distribution']['chip']}).",
+            f"{label}: {row.get('count')} paper modules ({chip}).",
             max_chars=160,
         )
+        if int(row.get("count") or 0) > len(row["top_ids"]):
+            row["top_ids_omitted"] = int(row.get("count") or 0) - len(row["top_ids"])
         row["drilldown_command"] = (
             f"./repo-python kernel.py --option-surface paper_modules --band flag --ids {ids}"
             if ids
             else "./repo-python kernel.py --option-surface paper_modules --band flag --ids <slug>"
         )
-        row["omission_policy"] = "row/card/dependency detail via drilldown"
+        row["omission_policy"] = "details via drilldown"
+        row.pop("route_metadata", None)
     for row in rows:
         row.pop("sample_titles", None)
     return rows
@@ -1392,6 +1355,14 @@ def _paper_module_cluster_authority_summary(rows: list[dict[str, Any]]) -> dict[
         "unclassified": 0,
     }
     for row in rows or []:
+        distribution = row.get("authority_distribution")
+        if isinstance(distribution, Mapping) and distribution:
+            totals["authored_primary"] += int(distribution.get("authored_primary") or 0)
+            totals["suggested_primary"] += int(distribution.get("suggested_primary") or 0)
+            totals["hierarchy_fallback"] += int(distribution.get("hierarchy_fallback") or 0)
+            totals["heuristic_fallback"] += int(distribution.get("heuristic_fallback") or 0)
+            totals["unclassified"] += int(distribution.get("unclassified") or 0)
+            continue
         rm = row.get("route_metadata") or {}
         totals["authored_primary"] += int(rm.get("authored_primary_count") or 0)
         totals["suggested_primary"] += int(rm.get("suggested_primary_count") or 0)
@@ -15726,6 +15697,11 @@ def build_option_surface(
                 if normalized_band == "cluster_flag"
                 else None
             ),
+            "cluster_row_output_policy": (
+                f"compact_clusters_top_{PAPER_MODULE_CLUSTER_TOP_ID_LIMIT}_ids_governance_by_drilldown"
+                if normalized_band == "cluster_flag"
+                else None
+            ),
             "cluster_authority_distribution": (
                 _paper_module_cluster_authority_summary(rows)
                 if normalized_band == "cluster_flag"
@@ -15743,6 +15719,7 @@ def build_option_surface(
                 "all row-level flag rows",
                 "card/context module bodies",
                 "transitive dependency closures",
+                "per-cluster route metadata and governing refs",
             ],
             "reason": "cluster_flag is the global overview rung for high-cardinality paper modules; row-level flags require an explicit cluster/id drilldown.",
             "authority_collapse_rule": "Authored primary_subdomain and heuristic suggested_primary_subdomain collapse into one canonical subdomain cluster; per-row cluster_source_axis and per-cluster authority_distribution carry the trust posture without splitting the contents page.",

@@ -81,7 +81,7 @@ def test_navigation_fitness_smoke_proves_expected_ids_without_legacy_first_route
     assert "drilldown:paper_lattice:navigation_hologram_theory" in lattice["selected_artifacts"]
 
     unsupported = by_id["unsupported_lattice_structured"]
-    assert unsupported["selected_artifacts"] == ["error:unsupported_exemplar"]
+    assert unsupported["selected_artifacts"] == ["error:unknown_paper_module_slug"]
     assert unsupported["sufficiency_status"] == "pass"
 
 

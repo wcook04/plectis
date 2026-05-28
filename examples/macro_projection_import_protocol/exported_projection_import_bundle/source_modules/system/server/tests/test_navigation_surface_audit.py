@@ -133,6 +133,8 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
             f"cluster_flag {route_id} is reporting bounded_entry violation; "
             f"only known_unsafe_reference routes may violate contract"
         )
+    assert routes["paper_modules.cluster_flag"]["contract_status"] == "valid"
+    assert routes["paper_modules.cluster_flag"]["budget_relation"] != "exceeds_context_budget"
 
     assert routes["phase.summary_default"]["contract_expectation"] == "bounded_entry"
 
@@ -149,7 +151,7 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
     assert high_card["annex_distillation_patterns"]["cluster_adapter_status"] == "implemented"
     assert high_card["transform_job_receipts"]["cluster_adapter_status"] == "implemented"
     assert high_card["row_patches"]["cluster_adapter_status"] == "implemented"
-    assert high_card["compliance_ledger"]["cluster_adapter_status"] == "implemented"
+    assert routes["compliance_ledger.cluster_flag"]["contract_status"] == "valid"
     missing_cluster = {
         row["kind_id"]
         for row in payload["high_cardinality_kinds"]
@@ -179,9 +181,6 @@ def test_navigation_surface_audit_separates_size_measurement_from_contract_statu
         finding["finding_id"] for finding in payload["findings"]
     }
     assert "transform_job_receipts_cluster_flag_compresses_global_overview" in {
-        finding["finding_id"] for finding in payload["findings"]
-    }
-    assert "compliance_ledger_cluster_flag_compresses_global_overview" in {
         finding["finding_id"] for finding in payload["findings"]
     }
 

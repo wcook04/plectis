@@ -188,7 +188,7 @@ FITNESS_TASKS: tuple[FitnessTask, ...] = (
         "unsupported_lattice",
         "Open a guessed navigation query through paper-lattice.",
         "paper_lattice",
-        ("error:unsupported_exemplar",),
+        ("error:unknown_paper_module_slug",),
         ('--paper-module "<query>"',),
         {"slug": "guessed_navigation_query"},
         DEFAULT_LATENCY_BUDGETS_MS["paper_lattice"],
@@ -418,7 +418,7 @@ HELDOUT_TASKS: tuple[FitnessTask, ...] = (
         "heldout_nonliteral",
         "Try the row-edge paper view for an unknown routing essay.",
         "paper_lattice",
-        ("error:unsupported_exemplar",),
+        ("error:unknown_paper_module_slug",),
         ("--paper-module",),
         {"slug": "unknown_routing_essay"},
     ),
@@ -596,7 +596,7 @@ ADVERSARIAL_TASKS: tuple[FitnessTask, ...] = (
         "adversarial_forbidden_route",
         "Open paper-lattice guessed_navigation_query now.",
         "paper_lattice",
-        ("error:unsupported_exemplar",),
+        ("error:unknown_paper_module_slug",),
         ("--paper-module",),
         {"slug": "guessed_navigation_query"},
     ),
@@ -891,8 +891,8 @@ def _paper_lattice_artifacts(packet: Mapping[str, Any]) -> set[str]:
     artifacts: set[str] = set()
     root_row = packet.get("root_row") if isinstance(packet.get("root_row"), Mapping) else {}
     row_id = str(root_row.get("row_id") or "")
-    if row_id == "paper_module:navigation_hologram_theory":
-        artifacts.add("paper_module:navigation_hologram_theory")
+    if row_id:
+        artifacts.add(row_id)
     for row in packet.get("rows") or []:
         if not isinstance(row, Mapping):
             continue
@@ -1362,7 +1362,7 @@ def _next_drilldown_available(route_type: str, payload: Mapping[str, Any]) -> bo
             for row in payload.get("rows") or []
         )
     if route_type == "paper_lattice":
-        return bool(payload.get("next_commands") or payload.get("error") == "unsupported_exemplar")
+        return bool(payload.get("next_commands") or payload.get("error"))
     if route_type == "phase_summary":
         return bool((payload.get("payload") or {}).get("full_payload_hint") or payload.get("next"))
     return False

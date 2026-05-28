@@ -1330,9 +1330,9 @@ def test_navigation_metabolism_ledger_unifies_debt_classes() -> None:
     assert annex_distillation["superseded_by"] == "annex_distillation_patterns.cluster_flag"
 
     paper_lattice = next(row for row in payload["route_lifecycle"] if row["route_id"] == "paper_lattice")
-    assert paper_lattice["status"] == "active_exemplar"
-    assert paper_lattice["supported_slugs"] == ["navigation_hologram_theory"]
-    assert paper_lattice["not_yet_generic"] is True
+    assert paper_lattice["status"] == "active_stable_slug_drilldown"
+    assert paper_lattice["generic_existing_slug_support"] is True
+    assert "paper_modules/<slug>.md" in paper_lattice["supported_slug_source"]
     assert "stable paper-module slug" in paper_lattice["entry_condition"]
 
     model_instructions = next(

@@ -2959,16 +2959,31 @@ def _body_import_verification_findings(
             )
         else:
             existing_source = _first_existing_source_ref(source_refs, public_root=public_root)
-            if existing_source is not None and _sha256_digest(existing_source[1]) != source_digest:
-                findings.append(
-                    _finding(
-                        "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-                        "exact body imports must match the actual local source file digest when the source is available.",
-                        case_id="public_safe_body_import_floor",
-                        subject_id=existing_source[0],
-                        subject_kind="copied_material",
+            if existing_source is not None:
+                actual_source_digest = _sha256_digest(existing_source[1])
+                if actual_source_digest != source_digest:
+                    target_ref = verification.get("target_ref") or row.get("target_ref")
+                    if _target_ref_carries_source_ref(target_ref, existing_source[0]):
+                        row["_live_source_drift"] = {
+                            "material_id": material_id,
+                            "source_ref": existing_source[0],
+                            "target_ref": target_ref,
+                            "recorded_source_body_digest": source_digest,
+                            "current_source_body_digest": actual_source_digest,
+                            "target_body_digest": target_digest,
+                            "status": "live_source_drift_not_import_proof_failure",
+                            "body_in_receipt": False,
+                        }
+                    else:
+                        findings.append(
+                            _finding(
+                                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
+                                "exact body imports must match the actual local source file digest when the source is available.",
+                                case_id="public_safe_body_import_floor",
+                                subject_id=existing_source[0],
+                                subject_kind="copied_material",
+                            )
                     )
-                )
     elif mode == "verified_light_edit_recipe":
         if not isinstance(verification.get("rewrite_recipe_ref"), str):
             findings.append(
@@ -3142,6 +3157,7 @@ def validate_projection_protocol(
     steps = _rows(protocol, "steps")
 
     findings: list[dict[str, Any]] = []
+    live_source_drift_rows: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     if len(source_refs) < 2 or len(public_runtime_refs) < 2 or len(validation_refs) < 2:
         findings.append(
@@ -3158,6 +3174,7 @@ def validate_projection_protocol(
         material_class = str(row.get("material_class") or "")
         public_safe_status = _public_safe_import_status(row, import_policy=policy)
         if public_safe_status is not None:
+            row.pop("_live_source_drift", None)
             for finding in public_safe_status["findings"]:
                 findings.append(
                     _finding(
@@ -3169,6 +3186,9 @@ def validate_projection_protocol(
                     )
                 )
             findings.extend(_public_safe_body_target_findings(row, public_root=public_root))
+            drift = row.pop("_live_source_drift", None)
+            if isinstance(drift, dict):
+                live_source_drift_rows.append(drift)
             continue
         if material_class in TRUE_FORBIDDEN_MATERIAL_CLASSES or row.get("body_copied") is True:
             findings.append(
@@ -3295,6 +3315,8 @@ def validate_projection_protocol(
         else "blocked",
         "public_safe_body_target_refs": sorted(public_safe_body_target_refs),
         "public_safe_body_digest_count": public_safe_body_digest_count,
+        "live_source_drift_count": len(live_source_drift_rows),
+        "live_source_drift_rows": live_source_drift_rows,
         "blocking_finding_count": len(blocking_findings),
         "cleaned_material_count": len(cleaned_material),
         "omitted_material_count": len(omitted_material),
@@ -3446,6 +3468,16 @@ def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
     if isinstance(source_ref, str) and source_ref and source_ref not in source_refs:
         source_refs.insert(0, source_ref)
     return source_refs
+
+
+def _target_ref_carries_source_ref(target_ref: object, source_ref: str) -> bool:
+    if not isinstance(target_ref, str) or not source_ref:
+        return False
+    normalized_target = _normalize_runtime_root_ref(target_ref.split("::", 1)[0])
+    normalized_source = source_ref.split("::", 1)[0]
+    return normalized_target == normalized_source or normalized_target.endswith(
+        f"source_modules/{normalized_source}"
+    )
 
 
 def _classification_values(value: object) -> list[str]:
@@ -4039,6 +4071,8 @@ def _build_result(
         "public_safe_body_target_status": protocol["public_safe_body_target_status"],
         "public_safe_body_target_refs": protocol["public_safe_body_target_refs"],
         "public_safe_body_digest_count": protocol["public_safe_body_digest_count"],
+        "live_source_drift_count": protocol["live_source_drift_count"],
+        "live_source_drift_rows": protocol["live_source_drift_rows"],
         "public_safe_body_import_count": projection_intake_board["public_safe_body_import_count"],
         "public_safe_body_import_routes": projection_intake_board["public_safe_body_import_routes"],
         "runtime_severance_status": runtime_severance_board["runtime_severance_status"],
@@ -4139,6 +4173,8 @@ def _common_receipt(
         "public_safe_body_import_status",
         "public_safe_body_import_count",
         "public_safe_body_import_routes",
+        "live_source_drift_count",
+        "live_source_drift_rows",
         "runtime_severance_status",
         "runtime_dependency_status",
         "dependency_preflight_gate_status",
@@ -4683,6 +4719,8 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
         "finding_count": len(findings),
         "finding_preview": finding_preview,
         "error_codes": result["error_codes"],
+        "live_source_drift_count": result["live_source_drift_count"],
+        "live_source_drift_preview": result["live_source_drift_rows"][:8],
         "status_surfaces": {
             "public_safe_body_import_status": result["public_safe_body_import_status"],
             "public_safe_body_target_status": result["public_safe_body_target_status"],

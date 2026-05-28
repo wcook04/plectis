@@ -151,6 +151,9 @@ def test_paper_modules_cluster_flag_clusters_before_row_expansion() -> None:
     assert payload["band"] == "cluster_flag"
     assert payload["summary"]["selection_method"] == "artifact_kind_cluster_overview"
     assert payload["summary"]["row_count"] < payload["summary"]["total_available"]
+    pretty_bytes = len(json.dumps(payload, indent=2, sort_keys=True))
+    assert pretty_bytes <= 48_000
+    assert payload["summary"]["cluster_row_output_policy"].startswith("compact_clusters_top_")
     assert payload["navigation_boundary"]["cluster_first_for_high_cardinality"] is True
 
     rows = {row["cluster_id"]: row for row in payload["rows"]}
@@ -163,10 +166,11 @@ def test_paper_modules_cluster_flag_clusters_before_row_expansion() -> None:
     # represented in this cluster (the family is what the
     # subdomain_authority_projection cluster names). Avoid asserting on a
     # specific slug being in the truncated `top_ids` preview — `top_ids` is an
-    # alphabetical truncated list (the first 8 of N), so as new
+    # alphabetical truncated list (the first compact preview of N), so as new
     # `system_self_comprehension_*` siblings land they can push older ones
     # out of the preview without changing the invariant. Family membership in
     # the cluster is the durable contract.
+    assert len(cluster["top_ids"]) <= standard_option_surface.PAPER_MODULE_CLUSTER_TOP_ID_LIMIT
     family_top = [tid for tid in cluster["top_ids"] if tid.startswith("system_self_comprehension")]
     if not family_top:
         # The whole family fell off the alphabetical preview; verify the
@@ -187,11 +191,15 @@ def test_paper_modules_cluster_flag_clusters_before_row_expansion() -> None:
             f"system_self_comprehension family missing from top_ids preview "
             f"and from disk: top_ids={cluster['top_ids']!r}"
         )
-    assert cluster["route_metadata"]["authored_primary_count"] >= 1
+    assert cluster["authority_distribution"]["authored_primary"] >= 1
+    assert cluster["top_ids_omitted"] >= 1
+    assert "route_metadata" not in cluster
+    assert "top_governing_refs" not in cluster
     assert cluster["top_ids"]
     assert "--band flag --ids" in cluster["drilldown_command"]
-    assert cluster["omission_policy"].startswith("row/card/dependency")
+    assert cluster["omission_policy"] == "details via drilldown"
     assert "all row-level flag rows" in payload["cluster_omission_receipt"]["omitted"]
+    assert "per-cluster route metadata and governing refs" in payload["cluster_omission_receipt"]["omitted"]
 
 
 def test_paper_modules_card_surface_drills_selected_ids_only() -> None:

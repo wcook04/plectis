@@ -1384,7 +1384,7 @@ CONTROL_PLANE_ANCHORS: tuple[tuple[str, str, float, str], ...] = (
         "Context-window pressure protocol related to budget enforcement and resumability.",
     ),
 )
-PAPER_LATTICE_SUPPORTED_SLUGS = {"navigation_hologram_theory"}
+PAPER_LATTICE_STABLE_SLUG_SOURCE = "paper_modules option surface row id"
 CONTEXT_ANCHOR_STOPWORDS = {
     "and",
     "are",
@@ -3400,7 +3400,7 @@ def _compact_option_row(
             "frontend_view_card_command": "./repo-python kernel.py --option-surface frontend_views --band card --ids rootNavigator",
             "authority_boundary": "Use the view-agent packet and Constitutional Atlas as navigation/handoff context; do not infer ontology from screenshots or TSX.",
         }
-    if kind_id == "paper_modules" and row_id in PAPER_LATTICE_SUPPORTED_SLUGS:
+    if kind_id == "paper_modules" and row_id:
         lattice_command = f"./repo-python kernel.py --paper-lattice {row_id} --band card --context-budget 12000"
         result["drilldowns"] = {
             "card": card_drilldown,
@@ -3408,10 +3408,11 @@ def _compact_option_row(
             "evidence": f"./repo-python kernel.py --paper-module {row_id}",
         }
         result["paper_lattice"] = {
-            "status": "supported_exemplar",
+            "status": "supported_stable_slug",
             "command": lattice_command,
             "entry_condition": "stable paper-module slug selected by context-pack or paper_modules cluster/card surface",
-            "not_yet_generic": True,
+            "stable_slug_source": PAPER_LATTICE_STABLE_SLUG_SOURCE,
+            "free_text_policy": "not_search",
         }
     return result
 

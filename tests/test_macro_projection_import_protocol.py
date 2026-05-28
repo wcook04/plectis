@@ -621,6 +621,33 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _assert_source_digest_matches_import_contract(
+    *,
+    row: dict[str, Any],
+    result: dict[str, Any],
+    source: Path,
+    target: Path,
+) -> None:
+    target_digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
+    source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
+    recorded_source_digest = row["body_import_verification"]["source_body_digest"]
+
+    assert row["body_digest"] == target_digest
+    assert row["body_import_verification"]["target_body_digest"] == target_digest
+    if recorded_source_digest == source_digest:
+        return
+
+    drift_rows = {
+        drift_row["material_id"]: drift_row
+        for drift_row in result.get("live_source_drift_rows", [])
+    }
+    drift = drift_rows[row["material_id"]]
+    assert drift["status"] == "live_source_drift_not_import_proof_failure"
+    assert drift["recorded_source_body_digest"] == recorded_source_digest
+    assert drift["current_source_body_digest"] == source_digest
+    assert recorded_source_digest == target_digest
+
+
 def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor() -> None:
     manifest = json.loads(
         (
@@ -1873,6 +1900,41 @@ def test_macro_projection_import_plan_preview_is_non_writing(tmp_path: Path) -> 
     assert "receipt_paths" not in result
 
 
+def test_macro_projection_plan_reports_source_module_parent_drift_without_block(
+    tmp_path: Path,
+) -> None:
+    public_root = _copy_macro_projection_public_tree(tmp_path)
+    source_ref = "tools/meta/observability/cli_prompt_trace.py"
+    parent_source = public_root.parent / source_ref
+    parent_source.parent.mkdir(parents=True, exist_ok=True)
+    target = (
+        public_root
+        / "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
+        "source_modules/tools/meta/observability/cli_prompt_trace.py"
+    )
+    parent_source.write_text(
+        target.read_text(encoding="utf-8") + "\n# parent source drift\n",
+        encoding="utf-8",
+    )
+
+    result = preview_import_plan(
+        public_root / "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["blocking_surface_ids"] == []
+    drift_rows = {
+        row["material_id"]: row
+        for row in result["live_source_drift_preview"]
+    }
+    assert (
+        drift_rows["trace_capsule_cli_prompt_trace_body_import"]["status"]
+        == "live_source_drift_not_import_proof_failure"
+    )
+    assert result["live_source_drift_count"] >= 1
+
+
 def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
@@ -2502,15 +2564,16 @@ def test_task_ledger_control_source_modules_body_import_is_unified_under_macro_p
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )
@@ -2553,15 +2616,16 @@ def test_work_ledger_control_source_modules_body_import_is_unified_under_macro_p
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )
@@ -2604,15 +2668,16 @@ def test_checkpoint_lane_source_modules_body_import_is_unified_under_macro_proje
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )
@@ -2655,15 +2720,16 @@ def test_command_output_projection_source_modules_body_import_is_unified_under_m
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )
@@ -2709,15 +2775,16 @@ def test_trace_capsule_source_modules_body_import_is_unified_under_macro_project
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )
@@ -2760,15 +2827,16 @@ def test_route_selection_control_source_modules_body_import_is_unified_under_mac
         target_ref = row["target_ref"].removeprefix("microcosm-substrate/")
         target = public_root / target_ref
         source = MICROCOSM_ROOT.parent / row["source_refs"][0]
-        digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
-        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
 
         assert target.is_file()
         assert row["material_class"] == "public_macro_tool_body"
         assert row["classification"] == ["copied_non_secret_macro_body"]
-        assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
+        _assert_source_digest_matches_import_contract(
+            row=row,
+            result=result,
+            source=source,
+            target=target,
+        )
         assert row["body_import_verification"]["verification_mode"] == (
             "exact_source_digest_match"
         )

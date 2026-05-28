@@ -1,10 +1,9 @@
 """
-Dynamic paper-as-navigation-lattice exemplar.
+Dynamic paper-as-navigation-lattice view.
 
-This is a narrow live-computed proof for navigation_hologram_theory.md. It
-reads authored source and standards directly, emits source-anchored affordance
-rows, and keeps paper prose as one view over the row lattice rather than the
-canonical machine container.
+This live-computed route reads an already-selected paper-module slug from
+authored source, emits source-anchored affordance rows, and keeps paper prose as
+one view over the row lattice rather than the canonical machine container.
 """
 from __future__ import annotations
 
@@ -24,6 +23,7 @@ RAW_SEED_PATH = Path("obsidian/okay lets do this/09 - Raw-Seed Preservation, Sem
 
 SECTION_FACET_HINTS = {
     "tldr_compressed_view": "claim",
+    "intent": "intent",
     "self_application_header_this_module_as_affordance_row": "identity",
     "refinement_option_surface_not_trigger_zoo": "mechanism",
     "deeper_refinement_field_level_dolls_and_connector_vocabulary": "connector",
@@ -33,6 +33,7 @@ SECTION_FACET_HINTS = {
     "code_loci": "evidence",
     "current_state": "currentness",
     "deliverables_what_this_subsystem_lets_a_cold_agent_do": "triggers",
+    "gap": "gap",
     "gap_what_will_is_signaling": "voice",
     "refresh_contract": "currentness",
 }
@@ -166,6 +167,42 @@ def _find_section(sections: Sequence[Mapping[str, Any]], slug: str) -> Mapping[s
     return None
 
 
+def _selected_section_slugs(sections: Sequence[Mapping[str, Any]], *, slug: str) -> list[str]:
+    if slug == DEFAULT_SLUG:
+        return [
+            "tldr_compressed_view",
+            "self_application_header_this_module_as_affordance_row",
+            "refinement_option_surface_not_trigger_zoo",
+            "deeper_refinement_field_level_dolls_and_connector_vocabulary",
+            "deeper_refinement_bands_are_schemas_not_lengths",
+            "deeper_refinement_same_grammar_across_artifact_kinds",
+            "shape",
+            "code_loci",
+            "current_state",
+            "deliverables_what_this_subsystem_lets_a_cold_agent_do",
+            "gap_what_will_is_signaling",
+            "refresh_contract",
+        ]
+
+    priority = [
+        "tldr_compressed_view",
+        "intent",
+        "current_state",
+        "code_loci",
+        "gap",
+        "gap_what_will_is_signaling",
+        "refresh_contract",
+    ]
+    existing = [str(section.get("slug") or "") for section in sections if section.get("slug")]
+    selected: list[str] = []
+    for section_slug in [*priority, *existing]:
+        if section_slug and section_slug not in selected and section_slug in existing:
+            selected.append(section_slug)
+        if len(selected) >= 12:
+            break
+    return selected
+
+
 def _parse_self_rows(text: str, *, source_path: str, fingerprint: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line_number, line in enumerate(text.splitlines(), start=1):
@@ -233,20 +270,7 @@ def _section_rows(
     title: str,
     fingerprint: str,
 ) -> list[dict[str, Any]]:
-    selected = [
-        "tldr_compressed_view",
-        "self_application_header_this_module_as_affordance_row",
-        "refinement_option_surface_not_trigger_zoo",
-        "deeper_refinement_field_level_dolls_and_connector_vocabulary",
-        "deeper_refinement_bands_are_schemas_not_lengths",
-        "deeper_refinement_same_grammar_across_artifact_kinds",
-        "shape",
-        "code_loci",
-        "current_state",
-        "deliverables_what_this_subsystem_lets_a_cold_agent_do",
-        "gap_what_will_is_signaling",
-        "refresh_contract",
-    ]
+    selected = _selected_section_slugs(sections, slug=slug)
     rows: list[dict[str, Any]] = []
     for section_slug in selected:
         section = _find_section(sections, section_slug)
@@ -483,9 +507,12 @@ def _budget_trim(packet: dict[str, Any], *, context_budget: int) -> dict[str, An
         packet["budget"]["estimated_tokens"] = _estimated_tokens(packet)
         return packet
 
+    query = packet.get("query") if isinstance(packet.get("query"), Mapping) else {}
+    slug = str(query.get("slug") or DEFAULT_SLUG)
+
     def row_priority(row: Mapping[str, Any]) -> tuple[int, str]:
         row_id = str(row.get("row_id") or "")
-        if row_id == "paper_module:navigation_hologram_theory":
+        if row_id == f"paper_module:{slug}":
             return (0, row_id)
         if row_id.startswith("nav_hologram."):
             return (10, row_id)
@@ -563,18 +590,34 @@ def build_dynamic_paper_lattice(
     normalized_slug = _compact(slug or DEFAULT_SLUG)
     if normalized_slug in {"", "root", "__root__"}:
         normalized_slug = DEFAULT_SLUG
-    if normalized_slug != DEFAULT_SLUG:
+    if not re.fullmatch(r"[a-z0-9_]+", normalized_slug):
         return {
             "kind": "dynamic_paper_lattice",
             "schema_version": "dynamic_paper_lattice_v0",
-            "error": "unsupported_exemplar",
+            "error": "invalid_paper_module_slug",
             "requested_slug": normalized_slug,
-            "supported_slugs": [DEFAULT_SLUG],
-            "reason": "This first live-computed lattice proof is intentionally narrowed to navigation_hologram_theory.",
+            "slug_format": "stable paper-module slug: lowercase letters, digits, and underscores",
+            "selection_routes": [
+                "./repo-python kernel.py --context-pack \"<paper or doctrine task>\" --context-budget 12000",
+                "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+            ],
+            "reason": "Paper lattice is a drilldown for a stable selected paper-module slug, not a free-text search route.",
         }
 
     rel_path = PAPER_ROOT / f"{normalized_slug}.md"
     path = root / rel_path
+    if not path.exists():
+        return {
+            "kind": "dynamic_paper_lattice",
+            "schema_version": "dynamic_paper_lattice_v0",
+            "error": "unknown_paper_module_slug",
+            "requested_slug": normalized_slug,
+            "selection_routes": [
+                "./repo-python kernel.py --context-pack \"<paper or doctrine task>\" --context-budget 12000",
+                "./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
+            ],
+            "reason": "No authored paper module exists for this stable slug; select a row before opening the lattice.",
+        }
     text = path.read_text(encoding="utf-8")
     fingerprint = _sha(path)
     title = _first_h1(text, normalized_slug)
@@ -673,6 +716,7 @@ def build_dynamic_paper_lattice(
             "source_fingerprint": fingerprint,
             "authority_state": "authored_source",
             "generated_sidecar_posture": "not_used_for_authority",
+            "stable_slug_support": "generic_existing_paper_module_slug",
         },
         "summary": {
             "row_count": len(all_rows),
@@ -715,8 +759,8 @@ def build_dynamic_paper_lattice(
         },
         "omission_receipt": {
             "omitted": [
-                "full 3000+ line paper body",
-                "full generated navigation_hologram sidecar",
+                "full paper-module body",
+                "full generated paper-module sidecars",
                 "full principle registry prose",
                 "second-order dependency neighborhoods",
             ],

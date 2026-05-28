@@ -43,7 +43,7 @@ def test_dynamic_paper_lattice_projects_source_anchored_affordance_rows() -> Non
     paper_view = payload["paper_view"]
     assert paper_view["view_kind"] == "human_readable_dynamic_paper"
     assert any(section["slot"] == "governing_principles" for section in paper_view["sections"])
-    assert "full 3000+ line paper body" in payload["omission_receipt"]["omitted"]
+    assert "full paper-module body" in payload["omission_receipt"]["omitted"]
 
 
 def test_dynamic_paper_lattice_filters_scope_and_facet() -> None:
@@ -61,6 +61,26 @@ def test_dynamic_paper_lattice_filters_scope_and_facet() -> None:
     assert payload["rows"]
     assert {row["scope"] for row in payload["rows"]} == {"section"}
     assert {row["facet"] for row in payload["rows"]} == {"mechanism"}
+
+
+def test_dynamic_paper_lattice_supports_existing_non_exemplar_slug() -> None:
+    payload = build_dynamic_paper_lattice(
+        REPO_ROOT,
+        slug="raw_seed_theory",
+        band="card",
+        context_budget=12000,
+    )
+
+    assert "error" not in payload
+    assert payload["root_row"]["row_id"] == "paper_module:raw_seed_theory"
+    assert payload["source"]["path"] == "codex/doctrine/paper_modules/raw_seed_theory.md"
+    assert payload["source"]["stable_slug_support"] == "generic_existing_paper_module_slug"
+    rows = {row["row_id"]: row for row in payload["rows"]}
+    assert "paper_section:raw_seed_theory:tldr_compressed_view" in rows
+    assert "paper_section:raw_seed_theory:intent" in rows
+    assert payload["summary"]["self_application_row_count"] == 0
+    assert any(edge["target_ref"] == "paper_module:navigation_hologram_theory" for edge in payload["edge_rows"])
+    assert payload["budget"]["estimated_tokens"] <= payload["budget"]["context_budget_tokens"]
 
 
 def test_dynamic_paper_lattice_cli_emits_budgeted_json() -> None:
@@ -88,7 +108,7 @@ def test_dynamic_paper_lattice_cli_emits_budgeted_json() -> None:
     assert len(result.stdout.encode("utf-8")) <= 12000 * 4
 
 
-def test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error() -> None:
+def test_dynamic_paper_lattice_unknown_slug_is_structured_selection_error() -> None:
     result = subprocess.run(
         [
             sys.executable,
@@ -109,5 +129,5 @@ def test_dynamic_paper_lattice_unsupported_slug_is_structured_exemplar_error() -
     assert result.returncode == 2
     payload = json.loads(result.stdout)
     assert payload["kind"] == "dynamic_paper_lattice"
-    assert payload["error"] == "unsupported_exemplar"
-    assert payload["supported_slugs"] == ["navigation_hologram_theory"]
+    assert payload["error"] == "unknown_paper_module_slug"
+    assert "--option-surface paper_modules --band cluster_flag" in " ".join(payload["selection_routes"])

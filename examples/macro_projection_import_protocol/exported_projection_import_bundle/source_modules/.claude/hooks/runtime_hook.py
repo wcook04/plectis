@@ -277,7 +277,7 @@ HIGH_VOLUME_READ_FILES = {
         "Start with `--context-pack \"<task>\"` or `--option-surface paper_modules --band cluster_flag`."
     ),
 }
-SUPPORTED_PAPER_LATTICE_SLUGS = {"navigation_hologram_theory"}
+PAPER_LATTICE_SLUG_RE = re.compile(r"^[a-z0-9_]+$")
 GUESSY_KERNEL_FLAGS = {
     "--task-context",
     "--task_context",
@@ -1654,6 +1654,12 @@ def _token_after(tokens: List[str], flag: str) -> str:
     return tokens[idx + 1]
 
 
+def _paper_lattice_slug_exists(slug: str) -> bool:
+    if not slug or not PAPER_LATTICE_SLUG_RE.fullmatch(slug):
+        return False
+    return (REPO_ROOT / "codex/doctrine/paper_modules" / f"{slug}.md").exists()
+
+
 def _kernel_navigation_fallthrough_counterinject(payload: Dict[str, Any]) -> str:
     tool_name = str(payload.get("tool_name") or payload.get("tool") or "")
     if tool_name != "Bash":
@@ -1702,15 +1708,14 @@ def _kernel_navigation_fallthrough_counterinject(payload: Dict[str, Any]) -> str
     lattice_flag = "--paper-lattice" if "--paper-lattice" in tokens else "--dynamic-paper" if "--dynamic-paper" in tokens else ""
     if lattice_flag:
         slug = _token_after(tokens, lattice_flag)
-        if not slug or slug not in SUPPORTED_PAPER_LATTICE_SLUGS:
+        if not _paper_lattice_slug_exists(slug):
             requested = slug or "<missing>"
             route_message = _navigation_hint_message("paper_lattice_before_slug_selection")
             blocks.append(
                 f"`{lattice_flag} {requested}` is not a first-contact paper/doctrine search route. "
-                "The lattice is an exemplar drilldown after stable slug selection; supported slug: "
-                "`navigation_hologram_theory`. Start with `--context-pack \"<task>\"` or "
+                "The lattice is a stable-slug drilldown, not free-text search. Start with `--context-pack \"<task>\"` or "
                 "`--option-surface paper_modules --band cluster_flag`, then open the lattice only "
-                "for a supported selected slug."
+                "for an existing selected paper-module slug."
                 + (f" {route_message}" if route_message else "")
             )
 
