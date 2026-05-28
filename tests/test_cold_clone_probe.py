@@ -60,6 +60,25 @@ def test_cold_clone_probe_reports_secret_exclusion_scan(monkeypatch, tmp_path: P
     assert receipt["private_state_scan"]["status"] == "pass"
 
 
+def test_cold_clone_probe_blocks_unknown_suite_before_validation(
+    monkeypatch, tmp_path: Path
+) -> None:
+    def unexpected_secret_scan(root: Path) -> dict:
+        raise AssertionError("secret scan must not run for an unknown suite")
+
+    def unexpected_pattern_binding(input_path: Path, out_path: Path, command: str) -> dict:
+        raise AssertionError("pattern binding must not run for an unknown suite")
+
+    monkeypatch.setattr(cold_clone_probe, "validate_secret_exclusion_scan", unexpected_secret_scan)
+    monkeypatch.setattr(cold_clone_probe, "validate_pattern_binding", unexpected_pattern_binding)
+
+    receipt = cold_clone_probe.run_probe(tmp_path, suite="missing-suite")
+
+    assert receipt["status"] == "blocked_invalid_input"
+    assert receipt["blocked_dependency_codes"] == ["UNKNOWN_COLD_CLONE_SUITE"]
+    assert receipt["supported_suites"] == ["first-wave"]
+
+
 def test_cold_clone_probe_mirrors_generated_pattern_receipts(
     monkeypatch, tmp_path: Path
 ) -> None:

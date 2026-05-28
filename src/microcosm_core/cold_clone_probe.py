@@ -27,6 +27,8 @@ PATTERN_RECEIPTS = [
     "receipts/first_wave/pattern_binding_contract/authority_chain_handle_resolver_receipt.json",
 ]
 
+SUPPORTED_SUITES = ("first-wave",)
+
 
 def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
     for receipt_ref in PATTERN_RECEIPTS:
@@ -65,6 +67,15 @@ def run_probe(
         command=_bootstrap_command(suite, emit_ref_text),
     )
     receipt.update({"emit_ref": emit_ref_text, "receipt_paths": [emit_ref_text]})
+    if suite not in SUPPORTED_SUITES:
+        receipt.update(
+            {
+                "status": "blocked_invalid_input",
+                "blocked_dependency_codes": ["UNKNOWN_COLD_CLONE_SUITE"],
+                "supported_suites": list(SUPPORTED_SUITES),
+            }
+        )
+        return receipt
     missing_inputs = [path for path in REQUIRED_INPUTS if not (root_path / path).is_file()]
     if missing_inputs:
         receipt.update(
@@ -137,7 +148,7 @@ def run_probe(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--suite", default="first-wave")
+    parser.add_argument("--suite", default="first-wave", choices=SUPPORTED_SUITES)
     parser.add_argument("--emit", required=True)
     args = parser.parse_args(argv)
     receipt = run_probe(Path.cwd(), suite=args.suite, emit_ref=args.emit)

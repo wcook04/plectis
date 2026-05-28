@@ -8,6 +8,7 @@ suite="first-wave"
 emit=".microcosm/cold_clone_probe.json"
 dry_run=0
 show_version=0
+supported_suites="first-wave"
 
 usage() {
   cat <<'USAGE'
@@ -16,7 +17,7 @@ Usage: ./bootstrap.sh [--suite SUITE] [--emit RECEIPT_PATH] [--dry-run] [--versi
 Run the Microcosm cold-clone probe from the repository root.
 
 Options:
-  --suite SUITE          Probe suite to run (default: first-wave)
+  --suite SUITE          Probe suite to run (default: first-wave; supported: first-wave)
   --emit RECEIPT_PATH    Receipt path to write (default: .microcosm/cold_clone_probe.json)
   --dry-run              Show the probe command without running or writing receipts
   --version              Show the Microcosm package version without running the probe
@@ -45,6 +46,19 @@ require_value() {
     usage >&2
     exit 2
   fi
+}
+
+validate_suite() {
+  case "$suite" in
+    first-wave)
+      ;;
+    *)
+      echo "unknown suite: $suite" >&2
+      echo "supported suites: $supported_suites" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
 }
 
 while [[ $# -gt 0 ]]; do
@@ -78,6 +92,8 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+validate_suite
 
 if [[ "$show_version" == "1" ]]; then
   version="$(package_version)"

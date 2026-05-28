@@ -47,6 +47,7 @@ def test_bootstrap_argument_errors_preserve_usage_boundary() -> None:
     unknown = _run_bootstrap("--bogus")
     missing_suite = _run_bootstrap("--suite")
     missing_emit = _run_bootstrap("--emit", "--suite")
+    unknown_suite = _run_bootstrap("--suite", "missing-suite")
 
     assert unknown.returncode == 2
     assert "unknown argument: --bogus" in unknown.stderr
@@ -59,6 +60,11 @@ def test_bootstrap_argument_errors_preserve_usage_boundary() -> None:
     assert missing_emit.returncode == 2
     assert "missing value for --emit" in missing_emit.stderr
     assert "Usage: ./bootstrap.sh" in missing_emit.stderr
+
+    assert unknown_suite.returncode == 2
+    assert "unknown suite: missing-suite" in unknown_suite.stderr
+    assert "supported suites: first-wave" in unknown_suite.stderr
+    assert "Microcosm cold-clone probe passed" not in unknown_suite.stdout
 
 
 def test_bootstrap_version_is_no_side_effect_public_entry() -> None:
@@ -88,7 +94,7 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
 
     result = _run_bootstrap(
         "--suite",
-        "public",
+        "first-wave",
         "--emit",
         str(receipt),
         "--dry-run",
@@ -99,12 +105,12 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
     assert result.stderr == ""
     assert result.stdout.splitlines() == [
         "Microcosm cold-clone probe dry run",
-        "suite: public",
+        "suite: first-wave",
         f"receipt: {receipt}",
         f"python: {fake_python}",
         (
             f"command: {fake_python} -m microcosm_core.cold_clone_probe "
-            f"--suite public --emit {receipt}"
+            f"--suite first-wave --emit {receipt}"
         ),
     ]
     assert not argv_log.exists()
