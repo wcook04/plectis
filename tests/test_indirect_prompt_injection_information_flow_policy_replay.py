@@ -48,6 +48,10 @@ def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _digest_value(value: str) -> str:
+    return value.removeprefix("sha256:")
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -251,7 +255,11 @@ def test_indirect_prompt_injection_source_modules_are_exact_macro_body_imports()
         assert row["body_in_receipt"] is False
         assert row["body_text_in_receipt"] is False
         assert row["source_import_class"] == "copied_non_secret_macro_body"
-        assert _sha256(source) == _sha256(target) == row["sha256"]
+        source_digest = _sha256(source)
+        target_digest = _sha256(target)
+        assert source_digest == target_digest == row["sha256"]
+        assert _digest_value(row["source_sha256"]) == _digest_value(source_digest)
+        assert _digest_value(row["target_sha256"]) == _digest_value(target_digest)
         text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in text
