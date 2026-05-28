@@ -72,12 +72,17 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "## Public Repo Map"
     )
     assert opening.index("## Public Repo Map") < opening.index(
-        "Start with one compact local command:"
+        "From an uninstalled source checkout"
     )
-    assert "Start with one compact local command:" in opening
+    assert "From an uninstalled source checkout" in opening
+    assert "PYTHONPATH=src python3 -m microcosm_core hello ." in opening
+    assert "After `python3 -m pip install -e '.[test]'` or `make install`" in opening
     assert "microcosm hello ." in opening
     assert "microcosm compile ." in opening
     assert "full `.microcosm/` rebuild JSON" in opening
+    assert opening.index("PYTHONPATH=src python3 -m microcosm_core hello .") < (
+        opening.index("microcosm hello .")
+    )
     assert opening.index("microcosm hello .") < opening.index("microcosm compile .")
     assert "Try it on your repo with one local command: `microcosm compile .`" not in opening
 

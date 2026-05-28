@@ -32,7 +32,14 @@ This map is navigation only. Receipts and counts remain drilldown evidence, and
 none of these links authorize release, hosting, provider calls, source
 mutation, private-root equivalence, or proof authority.
 
-Start with one compact local command:
+From an uninstalled source checkout, the immediately runnable first screen is:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core hello .
+```
+
+After `python3 -m pip install -e '.[test]'` or `make install`, the same card
+is available as the console command:
 
 ```bash
 microcosm hello .
