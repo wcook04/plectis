@@ -82,6 +82,22 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
     assert "/Library/Caches/pip" not in text
 
 
+def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
+    text = MAKEFILE.read_text(encoding="utf-8")
+
+    for smoke_artifact in (
+        "hello.txt",
+        "tour-card.json",
+        "status-card.json",
+        "authority-card.json",
+        "workingness-card.json",
+        "legibility-scorecard.json",
+        "version.txt",
+        "stripping-guard.json",
+    ):
+        assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
+
+
 def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:
     text = MAKEFILE.read_text(encoding="utf-8")
 
