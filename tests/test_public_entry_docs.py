@@ -862,6 +862,7 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "atlas/entry_packet.json::reader_first_screen_routes"
     )
     assert route["reader_route_ids"] == [
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
@@ -925,10 +926,17 @@ def test_public_entry_packet_exposes_reader_typed_routes() -> None:
     )
     rows = {row["reader_id"]: row for row in reader_routes["routes"]}
     assert set(rows) == {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
     }
+    assert rows["public_github_visitor"]["first_screen_command"] == (
+        "microcosm hello <project>"
+    )
+    assert rows["public_github_visitor"]["next_command"] == (
+        "microcosm tour --card <project>"
+    )
     assert rows["safety_evals_engineer"]["first_screen_command"] == (
         "microcosm status --card <project>"
     )

@@ -2613,10 +2613,14 @@ def test_runtime_shell_first_screen_uses_selected_route_for_no_readme_project(
     )
     reader_routes = {row["reader_id"]: row for row in first_screen["reader_routes"]}
     assert set(reader_routes) == {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
     }
+    assert reader_routes["public_github_visitor"]["next_command"] == (
+        "microcosm tour --card <project>"
+    )
     assert reader_routes["peer_developer"]["next_command"] == (
         "microcosm observe <project>"
     )
@@ -4445,6 +4449,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "accounting_not_maturity_score"
     )
     assert {route["reader_route_id"] for route in first_screen["reader_routes"]} == {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",
@@ -4771,6 +4776,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "/project/first-screen"
     )
     assert observatory_card["first_screen_composition"]["reader_route_ids"] == [
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",

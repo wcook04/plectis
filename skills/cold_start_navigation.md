@@ -72,9 +72,13 @@ and workingness route, not the first screen.
 
 ## Reader-Typed Branches
 
-`atlas/entry_packet.json::reader_first_screen_routes` names the three cold
+`atlas/entry_packet.json::reader_first_screen_routes` names the four cold
 reader branches after the shared `microcosm tour --card <project>` card:
 
+- Public GitHub visitor: run `microcosm hello <project>`, then
+  `microcosm tour --card <project>`; read the copyable first command, shared
+  local behavior proof, authority ceiling, and release/publication anti-claims
+  before opening receipts or treating the repo as ready.
 - Safety/evals engineer: run `microcosm status --card <project>`, then
   `microcosm authority --card && microcosm workingness --card`; read evidence
   classes, body-import counts, authority ceilings, anti-claims, missing

@@ -279,7 +279,7 @@
     "require first-contact surface refs that compress route, work, events, evidence, graph, observatory, proof-lab, and status handles without exporting body text or granting source, release, provider, mutation, or proof authority",
     "require an overclaim tripwire matrix that translates common cold-reader overclaims into valid bounded reads before drilldown",
     "require reader exit criteria that tell each reader when the first screen is complete and which drilldown to open if it is not",
-    "require reader routes for safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
+    "require reader routes for public GitHub visitor, safety or evals engineer, hiring reviewer, and peer developer when reader branching is present",
     "require a reader route menu with copyable focused `microcosm hello --reader <route> <project>` and `microcosm first-screen --format text --reader <route> <project>` commands for each route",
     "require reader landing packets to carry one first action, one proof surface, one success criterion, one next drilldown, and no reader-specific authority ceiling",
     "require evidence counts to be framed as accounting, not maturity, readiness, completeness, or progress scores",

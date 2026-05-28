@@ -441,6 +441,7 @@ def test_observatory_legibility_validator_exposes_causal_chain(tmp_path: Path) -
         == "microcosm_core.first_screen_composition.first_screen_text_card"
     )
     assert set(first_screen_landing["reader_route_ids"]) == {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",

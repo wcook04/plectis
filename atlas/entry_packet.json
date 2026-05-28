@@ -14,6 +14,14 @@
       "shared_rule": "Run the shared behavior card first; branch only after .microcosm state, selected_route_id, and the authority ceiling are visible.",
       "selection_rows": [
         {
+          "reader_id": "public_github_visitor",
+          "cold_question": "Can I trust and run this public repo quickly?",
+          "route_command": "microcosm hello <project>",
+          "trust_signal": "copyable first command, shared behavior proof, and authority ceiling stay visible before receipt drilldown.",
+          "stop_when": "You can run hello/tour --card and name the release, hosting, and reader-success claims this repo refuses.",
+          "anti_overread": "A first-screen map is not release readiness, publication approval, or proof of reader success."
+        },
+        {
           "reader_id": "safety_evals_engineer",
           "cold_question": "Can I audit the evidence discipline without trusting product claims?",
           "route_command": "microcosm status --card <project>",
@@ -41,6 +49,19 @@
       "authority": "reader branch selection only; not release, proof-correctness, production, hiring, or safety-evaluation authority"
     },
     "routes": [
+      {
+        "reader_id": "public_github_visitor",
+        "reader_question": "Can I trust and run this public repo quickly?",
+        "first_screen_command": "microcosm hello <project>",
+        "next_command": "microcosm tour --card <project>",
+        "evidence_focus": [
+          "copyable first command",
+          "shared local behavior proof",
+          "authority ceiling and anti-claims",
+          "receipt drilldown boundary"
+        ],
+        "anti_misread": "Do not infer release readiness, hosted publication, or reader-success proof from first-screen legibility."
+      },
       {
         "reader_id": "safety_evals_engineer",
         "reader_question": "Does the evidence discipline survive scale and boundary pressure?",
@@ -198,6 +219,7 @@
     "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
     "reader_selection_ref": "atlas/entry_packet.json::reader_first_screen_routes.reader_selection_card",
     "reader_route_ids": [
+      "public_github_visitor",
       "safety_evals_engineer",
       "hiring_reviewer",
       "peer_developer"

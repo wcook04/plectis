@@ -208,9 +208,10 @@ of those existing lanes can carry the pressure without distortion.
    credentialed provider-call, unsafe source-mutation,
    proof-authority, secret-export, or financial-advice authority.
    Reader-typed branches live in
-   `atlas/entry_packet.json::reader_first_screen_routes`: safety/evals
-   readers go from the shared local card to status, authority card, and
-   workingness card,
+   `atlas/entry_packet.json::reader_first_screen_routes`: public GitHub
+   visitors go from the shared entry map to the local behavior proof and
+   authority ceiling, safety/evals readers go from the shared local card to
+   status, authority card, and workingness card,
    hiring reviewers go to the legibility scorecard plus the local card, and
    peer developers go to the local card plus `microcosm observe <project>`.
    Those branches route attention; they do not create release, proof,

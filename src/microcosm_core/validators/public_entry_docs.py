@@ -778,6 +778,7 @@ def _entry_packet_route_contract(
         if safe_to_show.get(key) is not False
     ]
     required_reader_ids = {
+        "public_github_visitor",
         "safety_evals_engineer",
         "hiring_reviewer",
         "peer_developer",

@@ -43,6 +43,7 @@ for the shortest validation route.
 
 | Reader | Open next | What to check |
 |---|---|---|
+| Public GitHub visitor | `microcosm hello <project>`, then `microcosm tour --card <project>` | The copyable first command, shared local behavior proof, authority ceiling, and anti-claims before opening receipts or treating the repo as release-ready. |
 | Safety/evals engineer | `microcosm status --card <project>`, then `microcosm authority --card && microcosm workingness --card` | Evidence classes, source-open body imports, authority ceilings, anti-claims, missing standards, and failure modes; open full authority/workingness only as drilldowns. |
 | Hiring reviewer | `microcosm legibility-scorecard`, then `microcosm tour --card <project>` | The question-to-command scorecard, endpoint parity, local behavior, and the explicit rejection of reader-success, release, benchmark, and production claims. |
 | Peer developer | `microcosm tour --card <project>`, then `microcosm observe <project>` | The generated `.microcosm/` files, selected route id, route/work/event/evidence graph chain, and `source_files_mutated=false`. |

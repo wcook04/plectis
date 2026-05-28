@@ -2006,6 +2006,13 @@ def _local_first_screen_route_ref() -> dict[str, str]:
 def _reader_first_screen_routes() -> list[dict[str, Any]]:
     return [
         {
+            "reader_id": "public_github_visitor",
+            "first_screen_command": "microcosm hello <project>",
+            "next_command": "microcosm tour --card <project>",
+            "evidence_focus": "copyable first command, shared behavior proof, authority ceiling",
+            "anti_misread": "first-screen legibility is not publication readiness or release approval",
+        },
+        {
             "reader_id": "safety_evals_engineer",
             "first_screen_command": "microcosm status --card <project>",
             "next_command": "microcosm authority --card && microcosm workingness --card",
