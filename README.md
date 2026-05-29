@@ -32,6 +32,23 @@ This map is navigation only. Receipts and counts remain drilldown evidence, and
 none of these links authorize release, hosting, provider calls, source
 mutation, private-root equivalence, or proof authority.
 
+## Component Map
+
+Read the tree as cooperating component families before treating any receipt
+count, organ count, or route label as a claim:
+
+| Component family | Local surface | What to inspect |
+|---|---|---|
+| Runtime package | [src/microcosm_core/](src/microcosm_core/) | CLI-backed local behavior: first-screen cards, project scan, route selection, validators, server, and release export. |
+| Command cards | `hello`, `tour --card`, `status --card`, `authority --card`, `workingness --card` | The copyable first screen, behavior proof, evidence classes, authority ceiling, and failure envelope. |
+| Public doctrine | [core/](core/), [standards/](standards/), [paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, standards, bounded explanations, and the first-screen entry packet. |
+| Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), [receipts/](receipts/) | Public-safe input bundles, negative cases, drilldown receipts, and copied artifact bodies. |
+| Source capsules | `source_modules/` plus `source_module_manifest.json` inside bundles | Non-secret macro source bodies with target paths, digests, anchors, omissions, and light-edit receipts. |
+| Validation shell | [tests/](tests/), [Makefile](Makefile), [.github/workflows/ci.yml](.github/workflows/ci.yml) | The public verification floor that keeps docs, CLI cards, fixtures, packaging, and standalone export honest. |
+
+This component map is still navigation, not authority. The command cards,
+validators, manifests, and receipts remain the evidence-bearing surfaces.
+
 From an uninstalled source checkout, the immediately runnable first screen is:
 
 ```bash

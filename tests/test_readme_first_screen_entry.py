@@ -72,8 +72,37 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "## Public Repo Map"
     )
     assert opening.index("## Public Repo Map") < opening.index(
+        "## Component Map"
+    )
+    assert opening.index("## Component Map") < opening.index(
         "From an uninstalled source checkout"
     )
+    assert "Read the tree as cooperating component families" in opening
+    for component_row in (
+        "| Runtime package | [src/microcosm_core/](src/microcosm_core/) | "
+        "CLI-backed local behavior: first-screen cards, project scan, route "
+        "selection, validators, server, and release export. |",
+        "| Command cards | `hello`, `tour --card`, `status --card`, "
+        "`authority --card`, `workingness --card` | The copyable first "
+        "screen, behavior proof, evidence classes, authority ceiling, and "
+        "failure envelope. |",
+        "| Public doctrine | [core/](core/), [standards/](standards/), "
+        "[paper_modules/](paper_modules/), [atlas/](atlas/) | Organ registry, "
+        "standards, bounded explanations, and the first-screen entry packet. |",
+        "| Evidence fixtures | [examples/](examples/), [fixtures/](fixtures/), "
+        "[receipts/](receipts/) | Public-safe input bundles, negative cases, "
+        "drilldown receipts, and copied artifact bodies. |",
+        "| Source capsules | `source_modules/` plus "
+        "`source_module_manifest.json` inside bundles | Non-secret macro "
+        "source bodies with target paths, digests, anchors, omissions, and "
+        "light-edit receipts. |",
+        "| Validation shell | [tests/](tests/), [Makefile](Makefile), "
+        "[.github/workflows/ci.yml](.github/workflows/ci.yml) | The public "
+        "verification floor that keeps docs, CLI cards, fixtures, packaging, "
+        "and standalone export honest. |",
+    ):
+        assert component_row in opening
+    assert "This component map is still navigation, not authority." in opening
     assert "From an uninstalled source checkout" in opening
     assert "PYTHONPATH=src python3 -m microcosm_core hello ." in opening
     assert "After `python3 -m pip install -e '.[test]'` or `make install`" in opening
