@@ -247,7 +247,7 @@ absent. Open
 `http://127.0.0.1:8765/project/status` for the same compact status-card lens as
 `microcosm status --card <project>`, then
 `http://127.0.0.1:8765/project/first-screen` for the same compact one-screen
-reader map as `microcosm first-screen <project>`, then
+reader map as `microcosm first-screen --card <project>`, then
 `http://127.0.0.1:8765/project/observatory-card` for the compact JSON card that
 ties `state_inspection`, status, route, work, evidence, graph, proof, and
 safe-to-show boundaries together before opening `http://127.0.0.1:8765` or the full
