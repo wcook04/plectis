@@ -12,6 +12,31 @@ from microcosm_core import runtime_shell
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = MICROCOSM_ROOT / "MANIFEST.in"
+PUBLIC_FIXTURE_SUFFIXES = {".json", ".jsonl", ".lean", ".md", ".py"}
+
+
+def _source_relative(path: Path) -> str:
+    return path.relative_to(MICROCOSM_ROOT).as_posix()
+
+
+def _expected_fixture_data_files() -> dict[str, list[str]]:
+    fixture_root = MICROCOSM_ROOT / "fixtures"
+    fixture_dirs = sorted({path.parent for path in fixture_root.rglob("*") if path.is_file()})
+    expected: dict[str, list[str]] = {}
+    for fixture_dir in fixture_dirs:
+        rel_dir = _source_relative(fixture_dir)
+        suffixes = sorted(
+            {
+                path.suffix
+                for path in fixture_dir.iterdir()
+                if path.is_file() and path.suffix in PUBLIC_FIXTURE_SUFFIXES
+            }
+        )
+        if suffixes:
+            expected[f"share/microcosm-substrate/{rel_dir}"] = [
+                f"{rel_dir}/*{suffix}" for suffix in suffixes
+            ]
+    return expected
 
 
 def test_source_distribution_manifest_keeps_public_repo_entry_surface() -> None:
@@ -517,6 +542,21 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
         "source_modules/tools/meta/observability/*.py"
     ]
+
+
+def test_package_data_contract_includes_all_public_fixture_directories() -> None:
+    payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
+    data_files = payload["tool"]["setuptools"]["data-files"]
+
+    expected = _expected_fixture_data_files()
+    observed = {
+        key: data_files.get(key)
+        for key in expected
+        if key.startswith("share/microcosm-substrate/fixtures/")
+    }
+
+    assert observed == expected
+    assert "share/microcosm-substrate/fixtures" not in data_files
 
 
 def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(
