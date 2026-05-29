@@ -4367,7 +4367,7 @@ def test_runtime_shell_run_demo_card_is_compact(
     assert card["next_actions"] == [
         "microcosm status --card examples/runtime_shell/demo_project",
         "microcosm observe examples/runtime_shell/demo_project",
-        "microcosm evidence list",
+        "microcosm evidence list --limit 8",
         (
             "microcosm serve examples/runtime_shell/demo_project "
             "--host 127.0.0.1 --port 8765 --max-requests 6"
@@ -4402,7 +4402,7 @@ def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Pat
     assert result["next_actions"] == [
         "microcosm status --card examples/runtime_shell/demo_project",
         "microcosm observe examples/runtime_shell/demo_project",
-        "microcosm evidence list",
+        "microcosm evidence list --limit 8",
         (
             "microcosm serve examples/runtime_shell/demo_project "
             "--host 127.0.0.1 --port 8765 --max-requests 6"

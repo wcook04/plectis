@@ -17680,7 +17680,7 @@ class RuntimeShell:
         return [
             f"microcosm status --card {project_ref}",
             f"microcosm observe {project_ref}",
-            "microcosm evidence list",
+            "microcosm evidence list --limit 8",
             (
                 f"microcosm serve {project_ref} --host 127.0.0.1 "
                 "--port 8765 --max-requests 6"
