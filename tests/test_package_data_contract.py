@@ -12,30 +12,61 @@ from microcosm_core import runtime_shell
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = MICROCOSM_ROOT / "MANIFEST.in"
-PUBLIC_FIXTURE_SUFFIXES = {".json", ".jsonl", ".lean", ".md", ".py"}
+PUBLIC_DATA_SUFFIXES = {
+    ".json",
+    ".jsonl",
+    ".lean",
+    ".md",
+    ".mjs",
+    ".olean",
+    ".py",
+    ".toml",
+    ".trace",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
+PUBLIC_DATA_FILENAMES = {
+    "checkpoint",
+    "lean-toolchain",
+    "pre-commit",
+    "prepare-commit-msg",
+}
 
 
 def _source_relative(path: Path) -> str:
     return path.relative_to(MICROCOSM_ROOT).as_posix()
 
 
-def _expected_fixture_data_files() -> dict[str, list[str]]:
-    fixture_root = MICROCOSM_ROOT / "fixtures"
-    fixture_dirs = sorted({path.parent for path in fixture_root.rglob("*") if path.is_file()})
+def _expected_public_data_files(top_level: str) -> dict[str, list[str]]:
+    public_root = MICROCOSM_ROOT / top_level
+    public_dirs = sorted(
+        {
+            path.parent
+            for path in public_root.rglob("*")
+            if path.is_file()
+            and "__pycache__" not in path.parts
+            and not path.name.endswith(".pyc")
+        }
+    )
     expected: dict[str, list[str]] = {}
-    for fixture_dir in fixture_dirs:
-        rel_dir = _source_relative(fixture_dir)
+    for public_dir in public_dirs:
+        rel_dir = _source_relative(public_dir)
         suffixes = sorted(
             {
                 path.suffix
-                for path in fixture_dir.iterdir()
-                if path.is_file() and path.suffix in PUBLIC_FIXTURE_SUFFIXES
+                for path in public_dir.iterdir()
+                if path.is_file() and path.suffix in PUBLIC_DATA_SUFFIXES
             }
         )
-        if suffixes:
-            expected[f"share/microcosm-substrate/{rel_dir}"] = [
-                f"{rel_dir}/*{suffix}" for suffix in suffixes
-            ]
+        patterns = [f"{rel_dir}/*{suffix}" for suffix in suffixes]
+        patterns.extend(
+            f"{rel_dir}/{path.name}"
+            for path in sorted(public_dir.iterdir(), key=lambda item: item.name)
+            if path.is_file() and path.name in PUBLIC_DATA_FILENAMES
+        )
+        if patterns:
+            expected[f"share/microcosm-substrate/{rel_dir}"] = patterns
     return expected
 
 
@@ -162,427 +193,20 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
             f"receipts/first_wave/{receipt_dir}/*.json"
         ]
 
-    pattern_binding_example_data = {
-        "examples/pattern_binding_contract/exported_route_readiness_bundle": [
-            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.json",
-            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.jsonl",
-            "examples/pattern_binding_contract/exported_route_readiness_bundle/*.md",
-        ],
-        "examples/pattern_binding_contract/exported_substrate_bundle": [
-            "examples/pattern_binding_contract/exported_substrate_bundle/*.json",
-            "examples/pattern_binding_contract/exported_substrate_bundle/*.jsonl",
-        ],
-        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-        "macro_standard/codex/standards": [
-            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-            "macro_standard/codex/standards/*.json"
-        ],
-        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-        "macro_state/microcosm_portfolio": [
-            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-            "macro_state/microcosm_portfolio/*.jsonl"
-        ],
-        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-        "macro_state/microcosm_portfolio/reconstruction": [
-            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-            "macro_state/microcosm_portfolio/reconstruction/*.json"
-        ],
-        "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-        "macro_tool/tools/meta/factory": [
-            "examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/"
-            "macro_tool/tools/meta/factory/*.py"
-        ],
-    }
-    for rel, patterns in pattern_binding_example_data.items():
-        assert data_files[f"share/microcosm-substrate/{rel}"] == patterns
-
-    proof_loop_example_data = {
-        "examples/corpus_readiness_mathlib_absence_gate/"
-        "exported_corpus_readiness_bundle": [
-            "examples/corpus_readiness_mathlib_absence_gate/"
-            "exported_corpus_readiness_bundle/*.json"
-        ],
-        "examples/formal_math_readiness_gate/"
-        "exported_formal_math_readiness_bundle": [
-            "examples/formal_math_readiness_gate/"
-            "exported_formal_math_readiness_bundle/*.json"
-        ],
-        "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle": [
-            "examples/lean_std_premise_index/"
-            "exported_lean_std_premise_index_bundle/*.json"
-        ],
-        "examples/lean_std_premise_index/"
-        "exported_lean_std_premise_index_bundle/source_modules/ring2_runs/"
-        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0": [
-            "examples/lean_std_premise_index/"
-            "exported_lean_std_premise_index_bundle/source_modules/ring2_runs/"
-            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/*.json"
-        ],
-        "examples/formal_math_premise_retrieval/"
-        "exported_premise_retrieval_bundle": [
-            "examples/formal_math_premise_retrieval/"
-            "exported_premise_retrieval_bundle/*.json"
-        ],
-        "examples/ring2_premise_retrieval_precision_recall_harness/"
-        "exported_ring2_precision_recall_bundle": [
-            "examples/ring2_premise_retrieval_precision_recall_harness/"
-            "exported_ring2_precision_recall_bundle/*.json"
-        ],
-        "examples/tactic_portfolio_availability_probe/"
-        "exported_tactic_portfolio_availability_bundle": [
-            "examples/tactic_portfolio_availability_probe/"
-            "exported_tactic_portfolio_availability_bundle/*.json"
-        ],
-        "examples/tactic_portfolio_availability_probe/"
-        "exported_tactic_portfolio_availability_bundle/source_artifacts/"
-        "tactic_affordance_probe": [
-            "examples/tactic_portfolio_availability_probe/"
-            "exported_tactic_portfolio_availability_bundle/source_artifacts/"
-            "tactic_affordance_probe/*.lean"
-        ],
-        "examples/tactic_portfolio_availability_probe/"
-        "exported_tactic_portfolio_availability_bundle/source_artifacts/"
-        "tactic_affordance_probe/portfolio_core_v0": [
-            "examples/tactic_portfolio_availability_probe/"
-            "exported_tactic_portfolio_availability_bundle/source_artifacts/"
-            "tactic_affordance_probe/portfolio_core_v0/*.lean"
-        ],
-        "examples/target_shape_tactic_routing_gate/"
-        "exported_target_shape_tactic_routing_bundle": [
-            "examples/target_shape_tactic_routing_gate/"
-            "exported_target_shape_tactic_routing_bundle/*.json"
-        ],
-        "examples/formal_math_verifier_trace_repair_loop/"
-        "exported_verifier_trace_repair_bundle": [
-            "examples/formal_math_verifier_trace_repair_loop/"
-            "exported_verifier_trace_repair_bundle/*.json"
-        ],
-        "examples/formal_math_verifier_trace_repair_loop/"
-        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0": [
-            "examples/formal_math_verifier_trace_repair_loop/"
-            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/*.json"
-        ],
-        "examples/formal_math_verifier_trace_repair_loop/"
-        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
-        "premise_retrieval_graph_v0": [
-            "examples/formal_math_verifier_trace_repair_loop/"
-            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
-            "premise_retrieval_graph_v0/*.json"
-        ],
-        "examples/formal_math_verifier_trace_repair_loop/"
-        "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-        "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
-        "oracle_repair_graph_v0": [
-            "examples/formal_math_verifier_trace_repair_loop/"
-            "exported_verifier_trace_repair_bundle/source_modules/ring2_runs/"
-            "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/"
-            "oracle_repair_graph_v0/*.json"
-        ],
-        "examples/formal_evidence_cell_anchor_resolver/"
-        "exported_evidence_cell_anchor_bundle": [
-            "examples/formal_evidence_cell_anchor_resolver/"
-            "exported_evidence_cell_anchor_bundle/*.json"
-        ],
-        "examples/formal_evidence_cell_anchor_resolver/"
-        "exported_evidence_cell_anchor_bundle/source_modules/codex/standards": [
-            "examples/formal_evidence_cell_anchor_resolver/"
-            "exported_evidence_cell_anchor_bundle/source_modules/codex/standards/*.json"
-        ],
-        "examples/formal_evidence_cell_anchor_resolver/"
-        "exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/"
-        "formal_math_research_operations": [
-            "examples/formal_evidence_cell_anchor_resolver/"
-            "exported_evidence_cell_anchor_bundle/source_modules/state_sidecars/"
-            "formal_math_research_operations/*.json"
-        ],
-        "examples/formal_evidence_cell_anchor_resolver/"
-        "exported_evidence_cell_anchor_bundle/source_modules/system/lib": [
-            "examples/formal_evidence_cell_anchor_resolver/"
-            "exported_evidence_cell_anchor_bundle/source_modules/system/lib/*.py"
-        ],
-        "examples/formal_math_lean_proof_witness/"
-        "exported_lean_proof_witness_bundle": [
-            "examples/formal_math_lean_proof_witness/"
-            "exported_lean_proof_witness_bundle/*.json"
-        ],
-        "examples/formal_math_lean_proof_witness/"
-        "exported_lean_proof_witness_bundle/lake_project": [
-            "examples/formal_math_lean_proof_witness/"
-            "exported_lean_proof_witness_bundle/lake_project/*.lean"
-        ],
-        "examples/formal_math_lean_proof_witness/"
-        "exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness": [
-            "examples/formal_math_lean_proof_witness/"
-            "exported_lean_proof_witness_bundle/lake_project/"
-            "MicrocosmProofWitness/*.lean"
-        ],
-    }
-    for rel, patterns in proof_loop_example_data.items():
-        assert data_files[f"share/microcosm-substrate/{rel}"] == patterns
-
-    public_registry_lens_example_data = {
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/*.json"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-        "codex/substrate/contracts": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-            "codex/substrate/contracts/*.json"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-        "codex/substrate/nodes/lab": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-            "codex/substrate/nodes/lab/*.json"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-        "codex/substrate/nodes/oracle": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-            "codex/substrate/nodes/oracle/*.json"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-        "tools/oracle": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_source/"
-            "tools/oracle/*.py"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_state/"
-        "microcosm_portfolio": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_state/"
-            "microcosm_portfolio/*.json"
-        ],
-        "examples/prediction_oracle_reconciliation/"
-        "exported_prediction_oracle_bundle/source_artifacts/macro_state/"
-        "microcosm_portfolio/extracted_patterns_ledger": [
-            "examples/prediction_oracle_reconciliation/"
-            "exported_prediction_oracle_bundle/source_artifacts/macro_state/"
-            "microcosm_portfolio/extracted_patterns_ledger/*.json"
-        ],
-        "examples/agent_monitor_redteam_falsification_replay/"
-        "exported_monitor_redteam_bundle": [
-            "examples/agent_monitor_redteam_falsification_replay/"
-            "exported_monitor_redteam_bundle/*.json"
-        ],
-        "examples/agent_monitor_redteam_falsification_replay/"
-        "exported_monitor_redteam_bundle/source_artifacts/macro_state/"
-        "microcosm_portfolio/extracted_patterns_ledger": [
-            "examples/agent_monitor_redteam_falsification_replay/"
-            "exported_monitor_redteam_bundle/source_artifacts/macro_state/"
-            "microcosm_portfolio/extracted_patterns_ledger/*.json"
-        ],
-        "examples/agent_sabotage_scheming_monitor_replay/"
-        "exported_sabotage_monitor_bundle": [
-            "examples/agent_sabotage_scheming_monitor_replay/"
-            "exported_sabotage_monitor_bundle/*.json"
-        ],
-        "examples/agent_sabotage_scheming_monitor_replay/"
-        "exported_sabotage_monitor_bundle/source_artifacts/macro_state/"
-        "microcosm_portfolio/extracted_patterns_ledger": [
-            "examples/agent_sabotage_scheming_monitor_replay/"
-            "exported_sabotage_monitor_bundle/source_artifacts/macro_state/"
-            "microcosm_portfolio/extracted_patterns_ledger/*.json"
-        ],
-        "examples/spatial_world_model_counterfactual_simulation_replay/"
-        "exported_spatial_world_model_simulation_bundle": [
-            "examples/spatial_world_model_counterfactual_simulation_replay/"
-            "exported_spatial_world_model_simulation_bundle/*.json"
-        ],
-        "examples/spatial_world_model_counterfactual_simulation_replay/"
-        "exported_spatial_world_model_simulation_bundle/source_modules/system/"
-        "server/tests": [
-            "examples/spatial_world_model_counterfactual_simulation_replay/"
-            "exported_spatial_world_model_simulation_bundle/source_modules/system/"
-            "server/tests/*.py"
-        ],
-        "examples/spatial_world_model_counterfactual_simulation_replay/"
-        "exported_spatial_world_model_simulation_bundle/source_modules/system/"
-        "server/ui": [
-            "examples/spatial_world_model_counterfactual_simulation_replay/"
-            "exported_spatial_world_model_simulation_bundle/source_modules/system/"
-            "server/ui/*.json"
-        ],
-        "examples/spatial_world_model_counterfactual_simulation_replay/"
-        "exported_spatial_world_model_simulation_bundle/source_modules/tools/meta/"
-        "factory": [
-            "examples/spatial_world_model_counterfactual_simulation_replay/"
-            "exported_spatial_world_model_simulation_bundle/source_modules/tools/meta/"
-            "factory/*.py"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/*.json"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/codex/nodes/oracle": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/codex/nodes/oracle/"
-            "*.json"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/codex/standards": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/codex/standards/*.json"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/codex/substrate/nodes/"
-        "oracle": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/codex/substrate/nodes/"
-            "oracle/*.json"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/macro_state/"
-        "microcosm_portfolio": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/macro_state/"
-            "microcosm_portfolio/*.jsonl"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/macro_state/"
-        "microcosm_portfolio/reconstruction": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/macro_state/"
-            "microcosm_portfolio/reconstruction/*.json",
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/macro_state/"
-            "microcosm_portfolio/reconstruction/*.py",
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/system/lib": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/system/lib/*.py"
-        ],
-        "examples/mechanistic_interpretability_circuit_attribution_replay/"
-        "exported_circuit_attribution_bundle/source_modules/tools/meta/control": [
-            "examples/mechanistic_interpretability_circuit_attribution_replay/"
-            "exported_circuit_attribution_bundle/source_modules/tools/meta/control/*.py"
-        ],
-        "examples/standards_meta_diagnostics/"
-        "exported_standards_meta_diagnostics_bundle": [
-            "examples/standards_meta_diagnostics/"
-            "exported_standards_meta_diagnostics_bundle/*.json"
-        ],
-        "examples/standards_meta_diagnostics/"
-        "exported_standards_meta_diagnostics_bundle/source_modules/"
-        "self-indexing-cognitive-substrate/microcosms/"
-        "meta_diagnostics_workbench": [
-            "examples/standards_meta_diagnostics/"
-            "exported_standards_meta_diagnostics_bundle/source_modules/"
-            "self-indexing-cognitive-substrate/microcosms/"
-            "meta_diagnostics_workbench/*.json"
-        ],
-        "examples/standards_meta_diagnostics/"
-        "exported_standards_meta_diagnostics_bundle/source_modules/"
-        "self-indexing-cognitive-substrate/src/idea_microcosm": [
-            "examples/standards_meta_diagnostics/"
-            "exported_standards_meta_diagnostics_bundle/source_modules/"
-            "self-indexing-cognitive-substrate/src/idea_microcosm/*.py"
-        ],
-        "examples/standards_meta_diagnostics/"
-        "exported_standards_meta_diagnostics_bundle/source_modules/"
-        "self-indexing-cognitive-substrate/tests": [
-            "examples/standards_meta_diagnostics/"
-            "exported_standards_meta_diagnostics_bundle/source_modules/"
-            "self-indexing-cognitive-substrate/tests/*.py"
-        ],
-    }
-    for rel, patterns in public_registry_lens_example_data.items():
-        assert data_files[f"share/microcosm-substrate/{rel}"] == patterns
-
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_kernel/"
-        "exported_verifier_lab_kernel_bundle"
-    ] == ["examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/*.json"]
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_kernel/"
-        "exported_verifier_lab_kernel_bundle/source_modules/microcosm_core/organs"
-    ] == [
-        "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/"
-        "source_modules/microcosm_core/organs/*.py"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle"
-    ] == [
-        "examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/*.json"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/lake_project"
-    ] == [
-        "examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/lake_project/*.lean"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/lake_project/"
-        "MicrocosmProofWitness"
-    ] == [
-        "examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/lake_project/"
-        "MicrocosmProofWitness/*.lean"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/source_modules/"
-        "microcosm_core/organs"
-    ] == [
-        "examples/verifier_lab_execution_spine/"
-        "exported_verifier_lab_execution_spine_bundle/source_modules/"
-        "microcosm_core/organs/*.py"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/public_reveal_walkthrough/"
-        "exported_public_reveal_bundle"
-    ] == [
-        "examples/public_reveal_walkthrough/exported_public_reveal_bundle/*.json"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
-        "exported_projection_import_bundle"
-    ] == [
-        "examples/macro_projection_import_protocol/"
-        "exported_projection_import_bundle/*.json",
-        "examples/macro_projection_import_protocol/"
-        "exported_projection_import_bundle/*.jsonl",
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
-        "exported_projection_import_bundle/source_modules/system/lib"
-    ] == [
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
-        "source_modules/system/lib/*.py"
-    ]
-    assert data_files[
-        "share/microcosm-substrate/examples/macro_projection_import_protocol/"
-        "exported_projection_import_bundle/source_modules/tools/meta/observability"
-    ] == [
-        "examples/macro_projection_import_protocol/exported_projection_import_bundle/"
-        "source_modules/tools/meta/observability/*.py"
-    ]
+    for rel in (
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle",
+        "examples/navigation_hologram_route_plane/exported_route_plane_bundle",
+        "examples/pattern_binding_contract/exported_substrate_bundle",
+        "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle",
+    ):
+        assert f"share/microcosm-substrate/{rel}" in data_files
 
 
 def test_package_data_contract_includes_all_public_fixture_directories() -> None:
     payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
     data_files = payload["tool"]["setuptools"]["data-files"]
 
-    expected = _expected_fixture_data_files()
+    expected = _expected_public_data_files("fixtures")
     observed = {
         key: data_files.get(key)
         for key in expected
@@ -591,6 +215,21 @@ def test_package_data_contract_includes_all_public_fixture_directories() -> None
 
     assert observed == expected
     assert "share/microcosm-substrate/fixtures" not in data_files
+
+
+def test_package_data_contract_includes_all_public_example_directories() -> None:
+    payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
+    data_files = payload["tool"]["setuptools"]["data-files"]
+
+    expected = _expected_public_data_files("examples")
+    observed = {
+        key: data_files.get(key)
+        for key in expected
+        if key.startswith("share/microcosm-substrate/examples/")
+    }
+
+    assert observed == expected
+    assert "share/microcosm-substrate/examples" not in data_files
 
 
 def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(
