@@ -21,6 +21,8 @@ PUBLIC_DATA_SUFFIXES = {
     ".mjs",
     ".olean",
     ".py",
+    ".ts",
+    ".tsx",
     ".toml",
     ".trace",
     ".txt",
