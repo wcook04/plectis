@@ -179,7 +179,7 @@ When a Microcosm task asks to read, populate, or refine concepts and
 mechanisms, use the entry surface instead of starting from the extracted
 pattern inventory. First open `microcosm first-screen <project>` and read
 `doctrine_effect_frame`; it now exposes `CONCEPTS` and `MECHANISMS` as
-mistake-prevention handles, not ceremonial doctrine labels.
+authority-boundary handles, not ceremonial doctrine labels.
 
 The concept floor is `standards/std_microcosm_concept.json`; it governs typed
 vocabulary boundaries with source refs, relationships, payload shape, omission
