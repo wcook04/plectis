@@ -262,6 +262,17 @@ def test_microcosm_entry_instructions_separate_hello_from_behavior_proof() -> No
     assert agents.index("`Public Repo Map` and `Component Map`") < agents.index(
         "## Accepted Public Runtime Spine"
     )
+    agent_smoke = agents.split(
+        "The smoke target runs the compact route directly.",
+        1,
+    )[1].split("Before publishing", 1)[0]
+    assert "microcosm first-screen --card ." in agent_smoke
+    assert (
+        agent_smoke.index("microcosm hello .")
+        < agent_smoke.index("microcosm first-screen --card .")
+        < agent_smoke.index("microcosm tour --card .")
+    )
+    assert "`first-screen --card` is the compact JSON reader map" in agent_smoke
     assert "The shared\n   state-writing behavior proof is" in agents
     assert agents.index("microcosm hello <project>") < agents.index(
         "microcosm tour --card <project>"

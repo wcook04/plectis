@@ -36,6 +36,7 @@ output, use the same commands by hand:
 
 ```bash
 microcosm hello .
+microcosm first-screen --card .
 microcosm tour --card .
 microcosm status --card .
 microcosm authority --card
@@ -44,12 +45,12 @@ microcosm legibility-scorecard
 ```
 
 Read those outputs as the first contract: `hello` is the no-write human card,
-`tour --card` is the shared state-writing behavior proof, `status --card` is
-the compressed public evidence map, `authority --card` is the claim ceiling,
-`workingness --card` is the failure envelope, and `legibility-scorecard` is the
-cold-reader comprehension check. These commands do not create release,
-hosting, proof, production, provider-call, source-mutation, or financial-advice
-authority.
+`first-screen --card` is the compact JSON reader map, `tour --card` is the
+shared state-writing behavior proof, `status --card` is the compressed public
+evidence map, `authority --card` is the claim ceiling, `workingness --card` is
+the failure envelope, and `legibility-scorecard` is the cold-reader
+comprehension check. These commands do not create release, hosting, proof,
+production, provider-call, source-mutation, or financial-advice authority.
 
 Before publishing, handing off, or treating the standalone clone as verified,
 run `make ci`. It is the public GitHub Actions entry and expands to install,
