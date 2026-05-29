@@ -574,7 +574,7 @@ def test_cli_status_card_can_overlay_project_route_state(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
-    project_ref = str(project)
+    project_ref = "<project>"
 
     assert len(json.dumps(payload, sort_keys=True)) < 11000
     assert payload["card_command"] == f"microcosm status --card {project_ref}"
@@ -740,7 +740,7 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
-    project_ref = str(project)
+    project_ref = "<project>"
 
     assert payload["status"] == "blocked"
     assert payload["card_command"] == f"microcosm status --card {project_ref}"

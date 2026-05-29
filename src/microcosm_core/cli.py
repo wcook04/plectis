@@ -1201,6 +1201,18 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
             ],
         )
 
+    payload_boundary_audit = payload.get("payload_boundary_audit")
+    if isinstance(payload_boundary_audit, dict):
+        payload["payload_boundary_audit"] = _pick(
+            payload_boundary_audit,
+            [
+                "schema_version",
+                "status",
+                "omitted_payload_schema_terms_exported",
+                "omitted_payload_schema_hit_count",
+            ],
+        )
+
     body_floor = front_door.get("source_open_body_import_floor")
     if isinstance(body_floor, dict):
         front_door["source_open_body_import_floor"] = _pick(
@@ -1967,7 +1979,10 @@ def main(argv: list[str] | None = None) -> int:
                 if project_public_root is not None
                 else runtime_shell.RuntimeShell()
             )
-            payload = shell.status_card(args.project or runtime_project)
+            payload = shell.status_card(
+                args.project or runtime_project,
+                project_ref="<project>" if args.project else None,
+            )
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
                 payload = _compact_project_status_card_for_cli(payload)
