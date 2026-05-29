@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import cli
+from microcosm_core import runtime_shell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -149,12 +150,16 @@ def test_cli_proof_lab_card_marks_input_bundle_stale_without_rerun(
 
     output = capsys.readouterr().out
     payload = json.loads(output)
-    assert status == 1
+    assert status == 0
     assert payload["status"] == "stale_cached_receipt"
     assert payload["command"] == (
         f"microcosm proof-lab --card --input {display_input} --out {display_out}"
     )
     assert payload["cache_status"] == "stale_cached_receipt"
+    assert payload["cache_action"]["status"] == "actionable"
+    assert payload["cache_action"]["command"] == (
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+    )
     assert payload["cache_freshness"]["status"] == "stale"
     assert payload["cache_freshness"]["input_status"] == "stale"
     assert payload["cache_freshness"]["tracked_input_count"] == 1
@@ -216,3 +221,41 @@ def test_proof_lab_card_display_refs_do_not_export_host_private_temp_roots() -> 
     assert card["safe_to_show"]["host_private_paths_exported"] is False
     assert card["anti_claims"]["release_or_publication_authorized"] is False
     assert card["anti_claims"]["credential_equivalent_live_access_exported"] is False
+
+
+def test_runtime_shell_proof_lab_card_preserves_receipt_anti_claim(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / runtime_shell.PROOF_LAB_RECEIPT_REF
+    receipt_path.parent.mkdir(parents=True)
+    input_file = (
+        tmp_path / runtime_shell.PROOF_LAB_BUNDLE_REF / "proof_lab_route.json"
+    )
+    input_file.parent.mkdir(parents=True)
+    input_file.write_text("{}", encoding="utf-8")
+    anti_claim = "receipt-only proof-lab browser card"
+    receipt_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "exported_verifier_lab_kernel_bundle_validation_result_v1",
+                "status": "pass",
+                "proof_lab_route_id": "formal_prover_context_strategy_gate",
+                "proof_lab_route_component_count": 9,
+                "lean_lake_return_code": 0,
+                "lean_compiled_declaration_count": 8,
+                "proof_lab_component_metrics": {"corpus_count": 1},
+                "body_in_receipt": False,
+                "authority_ceiling": {"status": "pass"},
+                "anti_claim": anti_claim,
+                "receipt_paths": [str(receipt_path)],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    card = runtime_shell._proof_lab_first_screen_card(tmp_path)
+
+    assert card["anti_claim"] == anti_claim
+    assert card["anti_claims"]["proof_correctness_claim"] is False
+    assert card["anti_claims"]["provider_calls_authorized"] is False
+    assert card["safe_to_show"]["proof_bodies_omitted"] is True

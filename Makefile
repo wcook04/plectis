@@ -27,6 +27,7 @@ PUBLIC_TESTS ?= \
 	tests/test_readme_first_screen_entry.py \
 	tests/test_observatory_browser_styles.py \
 	tests/test_proof_lab_cache_action_hint.py \
+	tests/test_proof_lab_card.py \
 	tests/test_release_export.py
 
 .PHONY: help install venv test test-all smoke ci standalone-export clean

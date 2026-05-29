@@ -298,6 +298,12 @@ PROOF_LAB_FIRST_SCREEN_AUTHORITY = (
     "correctness, provider execution, source mutation, release, publication, "
     "or credential-equivalent live-access authority"
 )
+PROOF_LAB_FIRST_SCREEN_ANTI_CLAIM = (
+    "The proof-lab browser card is a first-screen route and receipt-status "
+    "surface only; it does not prove theorem correctness, authorize provider "
+    "calls, mutate source, export proof/provider payload bodies, publish, host, "
+    "or authorize release."
+)
 PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
     "proof_correctness_claim": False,
     "provider_calls_authorized": False,
@@ -1863,6 +1869,12 @@ def proof_lab_first_screen_boundary() -> dict[str, Any]:
     }
 
 
+def _proof_lab_anti_claim(value: object) -> str:
+    if isinstance(value, str) and value.strip():
+        return value
+    return PROOF_LAB_FIRST_SCREEN_ANTI_CLAIM
+
+
 def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
     if cache_status == "stale_cached_receipt":
         return {
@@ -2090,7 +2102,7 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
             "blocking_hit_count": secret_scan.get("blocking_hit_count"),
             "scanned_ref_count": secret_scan.get("scanned_ref_count"),
         },
-        "anti_claim": anti_claim if isinstance(anti_claim, dict) else {},
+        "anti_claim": _proof_lab_anti_claim(anti_claim),
         "reader_action": (
             "If cache_status is stale_cached_receipt, run "
             f"{PROOF_LAB_FIRST_SCREEN_COMMAND} before treating the cached "
