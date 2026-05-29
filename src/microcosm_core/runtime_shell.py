@@ -2943,6 +2943,22 @@ def _strip_microcosm_prefix(ref: str) -> str:
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
+def _macro_body_target_path(root: Path, target_ref: str) -> Path:
+    target_path = root / target_ref if target_ref else root
+    if target_path.is_file():
+        return target_path
+
+    package_prefix = "src/microcosm_core/"
+    if target_ref.startswith(package_prefix):
+        package_target = (
+            Path(__file__).resolve().parent / target_ref[len(package_prefix) :]
+        )
+        if package_target.is_file():
+            return package_target
+
+    return target_path
+
+
 def _source_module_manifest_body_rows(
     root: Path,
     *,
@@ -2975,14 +2991,14 @@ def _source_module_manifest_body_rows(
                 continue
             row_path = str(row.get("path") or "")
             target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
-            target_path = root / target_ref if target_ref else root
+            target_path = _macro_body_target_path(root, target_ref)
             if (
                 row_path
                 and not target_path.is_file()
                 and (manifest_path.parent / row_path).is_file()
             ):
                 target_ref = _public_relative(manifest_path.parent / row_path, root)
-                target_path = root / target_ref
+                target_path = _macro_body_target_path(root, target_ref)
             if not target_ref or target_ref in existing_target_refs:
                 continue
             existing_target_refs.add(target_ref)
@@ -3061,7 +3077,7 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
         material_id = str(row.get("material_id") or "")
         material_class = str(row.get("material_class") or "")
         target_ref = str(row.get("target_ref") or "")
-        target_path = root / target_ref if target_ref else root
+        target_path = _macro_body_target_path(root, target_ref)
         verification = row.get("body_import_verification")
         verification = verification if isinstance(verification, dict) else {}
         target_exists = bool(target_ref) and target_path.is_file()
