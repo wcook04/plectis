@@ -194,14 +194,14 @@ ROUTE_REPAIR_SUGGESTIONS: dict[str, RouteRepairSuggestion] = {
     "paper_lattice_before_slug_selection": RouteRepairSuggestion(
         anti_pattern_id="paper_lattice_before_slug_selection",
         repair_class="paper_module_lookup_skill_or_router_repair",
-        bad_first_contact_shape="paper lattice opened before a supported stable slug is selected",
+        bad_first_contact_shape="paper lattice opened before an existing stable paper-module slug is selected",
         preferred_first_surface=ENTRY_REPLACEMENT_ROUTE,
         fallback_surface="./repo-python kernel.py --option-surface paper_modules --band cluster_flag",
         why=(
             "Paper lattice is a drilldown after slug selection; the repair class routes to the "
-            "canonical entry control packet so the kernel can name the slug first."
+            "canonical entry control packet so the kernel can name an existing paper-module slug first."
         ),
-        expected_artifacts=("paper_modules:navigation_hologram_theory",),
+        expected_artifacts=("paper_modules:*",),
         evidence_command="./repo-python kernel.py --navigation-fitness adversarial_20 --context-budget 12000 --full",
     ),
     "anti_pattern_phase_residual_exception_narration": RouteRepairSuggestion(
