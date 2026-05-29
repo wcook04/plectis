@@ -27,7 +27,8 @@ The compact behavioral path is:
 2. `microcosm status --card <project>` reads the compressed status,
    `front_door.route_explanation`, `front_door.proof_lab`,
    `front_door.observatory`, and
-   `front_door.source_open_body_import_floor` lenses.
+   `front_door.source_open_body_import_floor` lenses, including direct
+   source-module-manifest counts and compact source-module family spotlights.
    If you run it before `.microcosm/` exists, it should exit zero while the
    JSON remains an honest recovery card: `front_door.project_state.recovery`,
    `front_door.project_recovery`, and

@@ -306,7 +306,20 @@ def test_runtime_shell_status_is_product_centered() -> None:
             "route_repair_suggestion_source_body_import",
             "agent_execution_trace_source_body_import",
         ],
-        "validation_refs": [],
+        "validation_refs": [
+            (
+                "tests/test_agent_route_observability_runtime.py::"
+                "test_agent_trace_route_repair_bundle_validates_runtime_shape"
+            ),
+            (
+                "tests/test_agent_route_observability_runtime.py::"
+                "test_agent_trace_route_repair_receipt_is_public_safe"
+            ),
+            (
+                "tests/test_agent_route_observability_runtime.py::"
+                "test_agent_trace_route_repair_imports_public_macro_body_refactor"
+            ),
+        ],
         "body_text_in_receipt": False,
         "verification_mode": "exact_source_digest_match",
     }
@@ -669,6 +682,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
             "public_safe_body_material_counts_by_class"
         ]
     )
+    assert body_floor_front_door["direct_source_module_manifest_count"] >= 30
+    assert body_floor_front_door["direct_source_module_manifest_material_count"] >= 170
     assert body_floor_front_door["verified_source_module_family_count"] >= 20
     assert body_floor_front_door["latest_source_refs"]
     latest_family_ids = body_floor_front_door[
@@ -679,6 +694,25 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     ]["latest_verified_source_module_family_ids"]
     assert latest_family_ids == expected_latest_family_ids
     assert latest_family_ids
+    source_module_spotlights = body_floor_front_door[
+        "source_module_family_spotlights"
+    ]
+    route_observability_spotlight = next(
+        spotlight
+        for spotlight in source_module_spotlights
+        if spotlight["spotlight_id"] == "agent_route_observability_runtime"
+    )
+    assert route_observability_spotlight["family_count"] >= 9
+    assert route_observability_spotlight["module_count"] >= 16
+    assert "exported_agent_observability_store_bundle" in (
+        route_observability_spotlight["notable_family_ids"]
+    )
+    assert "exported_route_compliance_audit_bundle" in (
+        route_observability_spotlight["notable_family_ids"]
+    )
+    assert "validation_refs" not in json.dumps(
+        route_observability_spotlight, sort_keys=True
+    )
     assert body_floor_front_door["body_text_exported_in_status"] is False
     assert body_floor_front_door["body_text_exported_in_receipts"] is False
     assert "release" in body_floor_front_door["authority_boundary"]
@@ -740,6 +774,9 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert latest_family_ids == body_floor_front_door[
         "latest_verified_source_module_family_ids"
     ]
+    assert source_body_card["source_module_family_spotlight_count"] == len(
+        source_module_spotlights
+    )
     assert "latest_verified_source_module_families" not in source_body_card
     assert "validation_refs" not in json.dumps(source_body_card, sort_keys=True)
     assert card["workingness"]["status"] == "clear"

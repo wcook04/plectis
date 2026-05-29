@@ -431,7 +431,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+        "body_digest": "sha256:27adde1769fdbd88642e554da9c6a66101b92cec52e0fa38f69484a2bb8f4ebc",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -452,7 +452,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:d4d6f687fc46f625bac1c23d59e03028197d0aa5fd4c6e27779def427a3c4bb4",
+        "body_digest": "sha256:1a9756fed526fc4e37890cb093846a62f8549881ceb50b9c2a474c43ab988204",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -883,7 +883,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:8e82373c2119cdc94faa366ccde3b11ef29711eade21ead983f018d90fd13e96",
+        "body_digest": "sha256:85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -904,7 +904,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:c733ed8217c7df40b6973ff565d833149ff0fa2c919c3d0ecd8e7ae89b2ca71c",
+        "body_digest": "sha256:8cd120d3a39280a608aaa4cc46bf86b096bc080748117823a37ba19ca74f5554",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -988,7 +988,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+        "body_digest": "sha256:907ad358c4cad10c2fe74473ddf3c2dbb7227a26f3a054c4c4c36816f755e43e",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1030,7 +1030,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:82cb24bc1ea60990ca505789c27a01270841c2f68e564deee2eed572922e9b25",
+        "body_digest": "sha256:1565f4b24d353e9fafd45eaf02b7ccb19c95fae12c84963969984b057107419c",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1160,7 +1160,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:10a27bae3cdefc34b95ebbab5c6ae77c610c9a841cd1f9b4fdde2f2d5f38fb08",
+        "body_digest": "sha256:8e9afa6067f36c8db6baac63da75a73ac95928bf41d9a8ed1cfb2e3e62c27652",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1179,7 +1179,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:6161d4df2b0817c6359be53c77245676bcb6d0b73ce3ad0a96cef499d5178652",
+        "body_digest": "sha256:88555d4a74ee1504d1428814f4ee9a76c438b54f04208913bf909ac54b368cf9",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3720,7 +3720,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:9b455323dc410e09aa706cade153f3bd2c167d039cfb5cecdb6dc6a0f4955455",
+        "body_digest": "sha256:7bb0aeb7edf738313f87b614de1399e9e99b6dfc5823372f0c46d818618faf5d",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -3741,7 +3741,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:72f681e8c6b447916124344635b95a708f7e1eb02b90b873a3ceed1d9b4bae78",
+        "body_digest": "sha256:bef3ce9432f97cd0646447720dcfa29d03042ce2a2e7aff0b44e0c75de7c18d8",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -5287,7 +5287,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5304,7 +5308,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_modules/system/lib/agent_observability_classification.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5321,7 +5329,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/navigation_route_intervention.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5338,7 +5350,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5355,7 +5371,32 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+        ],
+        "verification_mode": "exact_source_digest_match"
+      },
+      {
+        "body_digest": "sha256:9e395bf9c71b31e70061cb510bb01ec39a8ece4acfc5aa6d72a155e39a56f0e3",
+        "body_text_in_receipt": false,
+        "import_accounting_source": "bundle_source_module_manifest",
+        "material_class": "public_macro_tool_body",
+        "material_id": "bridge_resume",
+        "source_refs": [
+          "tools/meta/bridge/bridge_resume.py",
+          "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json"
+        ],
+        "source_to_target_relation": "exact_copy",
+        "status": "pass",
+        "target_digest_matches": true,
+        "target_ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_modules/tools/meta/bridge/bridge_resume.py",
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5372,7 +5413,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5389,7 +5434,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5406,7 +5455,11 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_modules/system/lib/controller_heartbeat.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_receipt_is_public_safe",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5423,7 +5476,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/process/trace_rules.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5440,7 +5496,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5457,7 +5516,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/standards/std_navigation_mechanism_acceptance.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5474,7 +5536,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/codex/doctrine/concepts/con_016_intelligence_delegation_cascade.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5491,7 +5556,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5508,7 +5576,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_route_intervention.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5525,7 +5596,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_observability_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5542,7 +5616,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/doctrine/process/trace_rules.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5559,7 +5636,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5576,7 +5656,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/agent_execution_trace.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5593,7 +5676,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/system/lib/navigation_coverage_matrix.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5610,7 +5696,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5627,7 +5716,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_extracted_pattern_substrate_bindings.py",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -5644,7 +5736,10 @@
         "status": "pass",
         "target_digest_matches": true,
         "target_ref": "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/state_sidecars/microcosm_portfolio/extracted_pattern_substrate_bindings.json",
-        "validation_refs": [],
+        "validation_refs": [
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+          "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+        ],
         "verification_mode": "exact_source_digest_match"
       },
       {
@@ -6317,7 +6412,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:969c93ce2b103f251a66ad433e038e464a70b9787638293a5c23037476a85f96",
+        "body_digest": "sha256:0be57deddf298795f144acf26ab87f5de5536adc28d20c4f5b569402a50dc923",
         "body_text_in_receipt": false,
         "import_accounting_source": "bundle_source_module_manifest",
         "material_class": "public_macro_tool_body",
@@ -8528,16 +8623,17 @@
       }
     ],
     "classification": "copied_non_secret_macro_body_material_floor",
-    "copied_non_secret_macro_body_material_count": 411,
+    "copied_non_secret_macro_body_material_count": 412,
     "defect_count": 0,
     "defects": [],
-    "direct_source_module_manifest_count": 35,
-    "direct_source_module_manifest_material_count": 176,
+    "direct_source_module_manifest_count": 36,
+    "direct_source_module_manifest_material_count": 177,
     "direct_source_module_manifest_refs": [
       "examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle/source_module_manifest.json",
       "examples/agent_memory_temporal_conflict_replay/exported_memory_temporal_conflict_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_agent_observability_store_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_agent_trace_route_repair_bundle/source_module_manifest.json",
+      "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_controller_heartbeat_bundle/source_module_manifest.json",
       "examples/agent_route_observability_runtime/exported_observability_bundle/source_module_manifest.json",
@@ -8784,6 +8880,7 @@
         "agent_observability_classification",
         "route_repair_suggestion_source_body_import",
         "agent_execution_trace_source_body_import",
+        "bridge_resume",
         "agent_execution_trace",
         "controller_heartbeat",
         "agent_execution_trace_source_body_import",
@@ -8888,7 +8985,7 @@
       "schema_version": "microcosm_mixed_public_safe_macro_import_assay_v1",
       "status": "pass"
     },
-    "non_lean_tool_body_material_count": 298,
+    "non_lean_tool_body_material_count": 299,
     "owner_refs": {
       "cli_ref": "src/microcosm_core/cli.py::macro-projection-import-protocol",
       "organ_ref": "src/microcosm_core/organs/macro_projection_import_protocol.py",
@@ -8896,12 +8993,12 @@
       "standard_ref": "standards/std_microcosm_macro_projection_import_protocol.json"
     },
     "proof_body_material_count": 8,
-    "public_safe_body_material_count": 411,
+    "public_safe_body_material_count": 412,
     "public_safe_body_material_counts_by_class": {
       "public_macro_pattern_body": 36,
       "public_macro_proof_body": 8,
       "public_macro_receipt_body": 63,
-      "public_macro_tool_body": 298,
+      "public_macro_tool_body": 299,
       "public_standard_body": 6
     },
     "route_readiness": {
@@ -9069,6 +9166,19 @@
       ],
       "reader_use": "Use this as a compact first-screen proof of which exact source-open macro modules are in the bundle; drill into the manifest refs for hashes, anchors, and copied source bodies.",
       "schema_version": "microcosm_macro_source_body_import_lens_v1",
+      "source_module_family_spotlight_count": 1,
+      "source_module_family_spotlights": [
+        {
+          "family_count": 9,
+          "module_count": 16,
+          "notable_family_ids": [
+            "exported_agent_observability_store_bundle",
+            "exported_agent_trace_route_repair_bundle",
+            "exported_route_compliance_audit_bundle"
+          ],
+          "spotlight_id": "agent_route_observability_runtime"
+        }
+      ],
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
       "status": "pass",
       "verified_source_module_families": [
@@ -10605,7 +10715,11 @@
             "system/lib/agent_observability_classification.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+            "tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -10622,7 +10736,30 @@
             "system/lib/agent_execution_trace.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_receipt_is_public_safe",
+            "tests/test_agent_route_observability_runtime.py::test_agent_trace_route_repair_imports_public_macro_body_refactor"
+          ],
+          "verification_mode": "exact_source_digest_match"
+        },
+        {
+          "body_text_in_receipt": false,
+          "family_id": "exported_bridge_dispatch_yield_resume_bundle",
+          "manifest_ref": "examples/agent_route_observability_runtime/exported_bridge_dispatch_yield_resume_bundle/source_module_manifest.json",
+          "material_ids": [
+            "bridge_resume"
+          ],
+          "module_count": 1,
+          "source_refs": [
+            "tools/meta/bridge/bridge_resume.py"
+          ],
+          "status": "pass",
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_bridge_dispatch_yield_resume_receipt_is_public_safe",
+            "tests/test_agent_route_observability_runtime.py::test_bridge_resume_imports_public_macro_body_refactor"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -10637,7 +10774,11 @@
             "system/lib/agent_execution_trace.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+            "tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -10652,7 +10793,11 @@
             "system/lib/controller_heartbeat.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_receipt_is_public_safe",
+            "tests/test_agent_route_observability_runtime.py::test_controller_heartbeat_imports_public_macro_body_refactor"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -10671,7 +10816,10 @@
             "system/lib/navigation_metabolism_ledger.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -10692,7 +10840,10 @@
             "tools/meta/factory/build_extracted_pattern_substrate_bindings.py"
           ],
           "status": "pass",
-          "validation_refs": [],
+          "validation_refs": [
+            "tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+            "tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+          ],
           "verification_mode": "exact_source_digest_match"
         },
         {
@@ -11227,7 +11378,7 @@
           "verification_mode": "exact_source_digest_match"
         }
       ],
-      "verified_source_module_family_count": 97
+      "verified_source_module_family_count": 98
     },
     "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json",
     "status": "pass",
@@ -11263,7 +11414,8 @@
   "map_id": "public_authority_map",
   "organ_authority": [
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/pattern_binding_contract/exported_substrate_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived public contract checks over substrate bundle structure, real pattern-ledger rows, generated substrate-binding sidecar refs, authority handles, and negative cases",
       "counts_as_real_substrate_progress": true,
@@ -11280,12 +11432,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/executable_doctrine_grammar/exported_executable_grammar_metabolism_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived public standard grammar and cross-reference validation",
       "counts_as_real_substrate_progress": true,
@@ -11302,12 +11456,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/executable_doctrine_grammar_current_authority_adoption_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/proof_diagnostic_evidence_spine/exported_evidence_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "computes hashes and policy diagnostics, but proof verdict rows are fixture-shaped expected-result metadata",
       "counts_as_real_substrate_progress": true,
@@ -11324,12 +11480,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_readiness_gate_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded readiness and policy projection over synthetic formal-math fixture rows",
       "counts_as_real_substrate_progress": true,
@@ -11352,6 +11510,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/corpus_readiness_mathlib_absence_gate_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded corpus/toolchain availability projection over public fixture state",
       "counts_as_real_substrate_progress": true,
@@ -11374,6 +11533,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/tactic_portfolio_availability_probe_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded tactic availability projection over declared fixture rows",
       "counts_as_real_substrate_progress": true,
@@ -11396,6 +11556,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/target_shape_tactic_routing_gate_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded routing policy projection over target-shape fixture rows",
       "counts_as_real_substrate_progress": true,
@@ -11418,6 +11579,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/lean_std_premise_index_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded premise-index projection over closed public Lean/Std fixture rows",
       "counts_as_real_substrate_progress": true,
@@ -11440,6 +11602,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_premise_retrieval_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded retrieval metric projection over public fixture rows",
       "counts_as_real_substrate_progress": true,
@@ -11462,6 +11625,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_verifier_trace_repair_loop_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded verifier-trace repair projection over redacted fixture traces",
       "counts_as_real_substrate_progress": true,
@@ -11484,6 +11648,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_evidence_cell_anchor_resolver_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded evidence-cell resolution and claim-strength projection, not theorem correctness",
       "counts_as_real_substrate_progress": true,
@@ -11506,6 +11671,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/undeclared_library_prior_symbol_classifier_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded symbol-classification projection over declared public prior rows",
       "counts_as_real_substrate_progress": true,
@@ -11528,6 +11694,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/ring2_premise_retrieval_precision_recall_harness_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded precision/recall projection over synthetic premise-retrieval fixtures",
       "counts_as_real_substrate_progress": true,
@@ -11550,6 +11717,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/provider_context_recipe_budget_policy_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded context-budget packing and section omission computation",
       "counts_as_real_substrate_progress": true,
@@ -11572,6 +11740,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/formal_math_lean_proof_witness_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "bounded Lean/Lake subprocess witness over declared toy project",
       "counts_as_real_substrate_progress": true,
@@ -11594,6 +11763,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/verifier_lab_kernel_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "composes the real formal_prover_context_strategy_gate route slice across corpus readiness, Lean/Std premise indexing, premise retrieval, tactic availability, target-shape routing, Ring2 retrieval metrics, verifier-trace repair, proof-diagnostic evidence, and a bounded Lean/Lake witness without upgrading them into general proof authority",
       "counts_as_real_substrate_progress": true,
@@ -11616,6 +11786,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/verifier_lab_execution_spine_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "runs bounded public Lean transition candidates through lake env lean, then records CP2 rerun effect and bounded Evolve policy rerun receipts",
       "counts_as_real_substrate_progress": true,
@@ -11637,7 +11808,8 @@
       "verdict_source": "subprocess_or_tool_witness"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/navigation_hologram_route_plane/exported_route_plane_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived route-plane checks, source-coupling freshness, and public routing contract validation",
       "counts_as_real_substrate_progress": true,
@@ -11654,12 +11826,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/navigation_hologram_route_plane_current_authority_build_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/mission_transaction_work_spine/exported_mission_transaction_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "public source-faithful refactors of work_landing and mission_transaction_preflight macro control bodies drive WorkItem, claim, checkpoint-lane, receipt-drain, and regression-negative fixture checks",
       "counts_as_real_substrate_progress": true,
@@ -11676,12 +11850,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/mission_transaction_work_spine_current_authority_build_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "source_faithful_refactor",
       "verdict_source": "derived_projection_metric"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/durable_agent_work_landing_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived landing-lane checks for validation order, HEAD-advance claims, blockers, and scoped closeout evidence",
       "counts_as_real_substrate_progress": true,
@@ -11704,6 +11880,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/research_replication_rubric_artifact_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "public agent-execution trace refactor builds replay spans, digests, and coverage checks from declared artifact, rubric, budget, failure-taxonomy, and cold-rerun refs",
       "counts_as_real_substrate_progress": true,
@@ -11726,6 +11903,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/world_model_projection_drift_control_room_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived validation over body-free public runtime receipt rows, source refs, repair routes, validation refs, target refs, body-import verification, and negative-case authority denials",
       "counts_as_real_substrate_progress": true,
@@ -11748,6 +11926,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/spatial_world_model_counterfactual_simulation_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived validation over public spatial replay rows, authority ceilings, redaction policy, source refs, runtime receipt refs, and negative-case denials",
       "counts_as_real_substrate_progress": true,
@@ -11770,6 +11949,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/mechanistic_interpretability_circuit_attribution_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived validation over body-free circuit-attribution runtime receipt rows, causal intervention refs, authority ceilings, source refs, target refs, secret-exclusion scans, and negative-case denials",
       "counts_as_real_substrate_progress": true,
@@ -11791,7 +11971,8 @@
       "verdict_source": "validator_computation"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/agent_route_observability_runtime/exported_computer_use_action_trace_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived observability and action-trace checks over public replay inputs",
       "counts_as_real_substrate_progress": true,
@@ -11808,12 +11989,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/agent_route_observability_runtime_current_authority_build_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/second_wave/bridge_phase_continuity_runtime/closeout_transition.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived fake-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
       "counts_as_real_substrate_progress": true,
@@ -11835,7 +12018,8 @@
       "verdict_source": "validator_computation"
     },
     {
-      "authority_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
+      "authority_ref": "receipts/first_wave/pattern_assimilation_step/exported_assimilation_bundle_validation_result.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived acceptance-layer checks for organ landing summaries and assimilation refs",
       "counts_as_real_substrate_progress": true,
@@ -11852,12 +12036,14 @@
       "provider_calls_authorized": false,
       "release_authorized": false,
       "runtime_mode": "adapter_backed",
+      "source_authority_ref": "state/microcosm_portfolio/reconstruction/pattern_assimilation_step_current_authority_build_receipt_v1.json",
       "source_mutation_authorized": false,
       "truth_accounting_bucket": "real_import_validation",
       "verdict_source": "validator_computation"
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived entry-legibility checks over reveal steps, commands, evidence refs, and negative cases",
       "counts_as_real_substrate_progress": true,
@@ -11880,6 +12066,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
       "classification_basis": "verified mixed public-safe macro body import floor: public pattern, non-Lean tool, route receipt, and Lean/proof body rows have target refs, digest verification, validation refs, body-free receipts, and secret-only omission ceilings",
       "counts_as_real_substrate_progress": true,
@@ -11902,6 +12089,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/prediction_oracle_reconciliation_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded prediction/oracle reconciliation projection over synthetic rows",
       "counts_as_real_substrate_progress": true,
@@ -11924,6 +12112,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/standards_meta_diagnostics_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived standards coverage and runtime-contract diagnostics",
       "counts_as_real_substrate_progress": true,
@@ -11946,6 +12135,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/cold_reader_route_map_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived cold-reader route ordering, command ref, docs ref, and receipt ref validation",
       "counts_as_real_substrate_progress": true,
@@ -11968,6 +12158,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_memory_temporal_conflict_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "public agent-execution trace refactor builds memory-event and cold-replay spans, digests, and coverage checks from declared memory/conflict refs while keeping private bodies out",
       "counts_as_real_substrate_progress": true,
@@ -11990,6 +12181,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/sleeper_memory_poisoning_quarantine_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "bounded public memory-security policy refactor derives quarantine, retrieval-gating, rollback, cold-rerun, and negative-case findings from body-free rows while keeping private memory bodies out",
       "counts_as_real_substrate_progress": true,
@@ -12012,6 +12204,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/mcp_tool_authority_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "public agent-execution trace refactor builds body-free MCP tool-authority spans, digests, capability-scope coverage, approval/side-effect ledger refs, rollback and cold-replay coverage, untrusted-output boundary checks, and negative-case denials without live MCP accounts or provider payload bodies",
       "counts_as_real_substrate_progress": true,
@@ -12034,6 +12227,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived authorization checks for proof cells, visible policy verdicts, side effects, rollbacks, cold replay, and negative cases",
       "counts_as_real_substrate_progress": true,
@@ -12056,6 +12250,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/belief_state_process_reward_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "source-faithful public agent-execution trace refactor checks belief summaries, verifier feedback, process rewards, outcome rewards, reward-hacking traps, and cold replay",
       "counts_as_real_substrate_progress": true,
@@ -12078,6 +12273,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agent_sandbox_policy_escape_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "source-faithful public agent-execution trace refactor computes sandbox-policy spans, pre-execution verdict coverage, side-effect and rollback refs, cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
       "counts_as_real_substrate_progress": true,
@@ -12100,6 +12296,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "source-faithful public agent-execution trace refactor computes prompt-injection source-trust and taint-flow spans, pre-action policy-verdict coverage, sanitized-output and cold-replay coverage, authority ceilings, secret-exclusion scans, and negative-case denials from body-free public rows",
       "counts_as_real_substrate_progress": true,
@@ -12122,6 +12319,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/agentic_vulnerability_discovery_patch_proof_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "source-faithful public refactor over the macro agent-execution-trace substrate computes body-free patch-proof spans, authority ceilings, cold replay coverage, verifier refs, sandbox verdict refs, source/target refs, secret-exclusion scans, and negative-case denials",
       "counts_as_real_substrate_progress": true,
@@ -12144,6 +12342,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/materials_chemistry_closed_loop_lab_safety_replay_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "projection mechanics only, not domain correctness",
       "classification_basis": "body-free simulator rows are consumed by a source-faithful public Lab/Evolve failure-replay graph with restart points, source capsules, and teaching carryforward; no wetlab or discovery authority is claimed",
       "counts_as_real_substrate_progress": true,
@@ -12166,6 +12365,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/certificate_kernel_execution_lab_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "tool witness only, not general proof authority",
       "classification_basis": "builds and runs a public Lean/Lake certificate-kernel fixture, emits analyzer metadata, CP2 rerun evidence, Evolve rerun evidence, and leak-proof authority counters",
       "counts_as_real_substrate_progress": true,
@@ -12188,6 +12388,7 @@
     },
     {
       "authority_ref": "receipts/acceptance/first_wave/voice_to_doctrine_self_improvement_loop_fixture_acceptance.json",
+      "authority_ref_resolves_in_public_tree": true,
       "claim_ceiling": "validates declared public contract only",
       "classification_basis": "derived self-improvement checks over owner surfaces, local lesson deposits, expected negative-case rejection, public receipt shape, and secret-exclusion policy",
       "counts_as_real_substrate_progress": true,
@@ -13503,7 +13704,7 @@
   "surface_counts": {
     "adapter_backed_count_is_product_progress": false,
     "copied_non_secret_macro_body_count": 1,
-    "copied_non_secret_macro_body_material_count": 411,
+    "copied_non_secret_macro_body_material_count": 412,
     "hard_boundary_count": 6,
     "mixed_public_safe_macro_import_assay_status": "pass",
     "non_progress_organ_count": 0,

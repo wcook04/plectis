@@ -1770,24 +1770,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:8cd120d3a39280a608aaa4cc46bf86b096bc080748117823a37ba19ca74f5554",
+      "body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:8cd120d3a39280a608aaa4cc46bf86b096bc080748117823a37ba19ca74f5554",
-        "source_line_count": 12197,
+        "source_body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
+        "source_line_count": 12270,
         "source_ref": "system/lib/task_ledger_events.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:8cd120d3a39280a608aaa4cc46bf86b096bc080748117823a37ba19ca74f5554",
-        "target_line_count": 12197,
+        "target_body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
+        "target_line_count": 12270,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 12197,
+      "body_line_count": 12270,
       "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2039,6 +2039,7 @@
         "source_to_target_relation": "exact_copy",
         "target_body_digest": "sha256:907ad358c4cad10c2fe74473ddf3c2dbb7227a26f3a054c4c4c36816f755e43e",
         "target_line_count": 4353,
+        "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },

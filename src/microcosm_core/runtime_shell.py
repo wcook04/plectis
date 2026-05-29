@@ -257,8 +257,20 @@ PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
 STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT = 3
 STATUS_CARD_FAMILY_REF_PREVIEW_LIMIT = 2
 STATUS_CARD_MATERIAL_ID_PREVIEW_LIMIT = 2
-STATUS_CARD_LATEST_SOURCE_REF_LIMIT = 3
+STATUS_CARD_LATEST_SOURCE_REF_LIMIT = 1
 STATUS_CARD_DEFECT_PREVIEW_LIMIT = 3
+STATUS_CARD_SOURCE_MODULE_SPOTLIGHT_FAMILY_LIMIT = 9
+SOURCE_MODULE_FAMILY_SPOTLIGHT_PREFIXES = (
+    {
+        "spotlight_id": "agent_route_observability_runtime",
+        "manifest_prefix": "examples/agent_route_observability_runtime/",
+        "notable_family_ids": (
+            "exported_agent_observability_store_bundle",
+            "exported_agent_trace_route_repair_bundle",
+            "exported_route_compliance_audit_bundle",
+        ),
+    },
+)
 STATUS_CARD_PROJECT_ROUTE_ID_PREVIEW_LIMIT = 3
 STATUS_CARD_PROJECT_STATE_REF_PREVIEW_LIMIT = 4
 PROOF_LAB_BUNDLE_REF = (
@@ -1606,6 +1618,14 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                     "public_safe_body_material_counts_by_class", {}
                 )
             ),
+            "direct_source_module_manifest_count": source_open_body_import_floor.get(
+                "direct_source_module_manifest_count"
+            ),
+            "direct_source_module_manifest_material_count": (
+                source_open_body_import_floor.get(
+                    "direct_source_module_manifest_material_count"
+                )
+            ),
             "verified_source_module_family_count": source_open_body_import_floor.get(
                 "verified_source_module_family_count"
             ),
@@ -1617,6 +1637,18 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
                 if isinstance(
                     source_open_body_import_floor.get(
                         "latest_verified_source_module_family_ids"
+                    ),
+                    list,
+                )
+                else []
+            ),
+            "source_module_family_spotlights": (
+                source_open_body_import_floor.get(
+                    "source_module_family_spotlights", []
+                )
+                if isinstance(
+                    source_open_body_import_floor.get(
+                        "source_module_family_spotlights"
                     ),
                     list,
                 )
@@ -2754,6 +2786,47 @@ def _sha256_file_digest(path: Path) -> str:
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
+def _source_module_family_spotlights(
+    families: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    spotlights: list[dict[str, Any]] = []
+    for spec in SOURCE_MODULE_FAMILY_SPOTLIGHT_PREFIXES:
+        prefix = spec["manifest_prefix"]
+        matching = [
+            family
+            for family in families
+            if isinstance(family.get("manifest_ref"), str)
+            and str(family["manifest_ref"]).startswith(prefix)
+        ]
+        if not matching:
+            continue
+
+        family_ids = [
+            family["family_id"]
+            for family in matching
+            if isinstance(family.get("family_id"), str)
+        ]
+        notable_family_ids = [
+            family_id
+            for family_id in spec.get("notable_family_ids", ())
+            if family_id in family_ids
+        ]
+        module_count = sum(
+            int(family.get("module_count") or 0)
+            for family in matching
+            if isinstance(family.get("module_count"), int)
+        )
+        spotlights.append(
+            {
+                "spotlight_id": spec["spotlight_id"],
+                "family_count": len(matching),
+                "module_count": module_count,
+                "notable_family_ids": notable_family_ids,
+            }
+        )
+    return spotlights
+
+
 def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, Any]:
     family_order: list[str] = []
     families: dict[str, dict[str, Any]] = {}
@@ -2840,12 +2913,19 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
     verified_families = [families[family_id] for family_id in family_order]
     latest_families = verified_families[-5:]
+    source_module_family_spotlights = _source_module_family_spotlights(
+        verified_families
+    )
     return {
         "schema_version": "microcosm_macro_source_body_import_lens_v1",
         "status": PASS if families else "blocked",
         "verified_source_module_family_count": len(families),
         "verified_source_module_families": verified_families,
         "latest_verified_source_module_families": latest_families,
+        "source_module_family_spotlights": source_module_family_spotlights,
+        "source_module_family_spotlight_count": len(
+            source_module_family_spotlights
+        ),
         "latest_source_refs": latest_source_refs[-10:],
         "body_text_exported_in_status": False,
         "body_text_exported_in_receipts": False,
@@ -3577,15 +3657,23 @@ def _compact_project_card_body_import_floor(
         "status": body_floor.get("status"),
         "ref": "front_door.source_open_body_import_floor",
         "full_status_ref": "microcosm status::macro_body_import_floor",
-        "source_ref": body_floor.get("source_ref"),
         "public_safe_body_material_count": body_floor.get(
             "public_safe_body_material_count"
         ),
         "public_safe_body_material_counts_by_class": body_floor.get(
             "public_safe_body_material_counts_by_class", {}
         ),
+        "direct_source_module_manifest_count": body_floor.get(
+            "direct_source_module_manifest_count"
+        ),
+        "direct_source_module_manifest_material_count": body_floor.get(
+            "direct_source_module_manifest_material_count"
+        ),
         "verified_source_module_family_count": source_body_imports.get(
             "verified_source_module_family_count"
+        ),
+        "source_module_family_spotlight_count": source_body_imports.get(
+            "source_module_family_spotlight_count"
         ),
         "body_text_exported_in_status": source_body_imports.get(
             "body_text_exported_in_status"
@@ -3596,9 +3684,6 @@ def _compact_project_card_body_import_floor(
         "cache_status": body_floor.get("cache_status"),
         "full_verification_command": body_floor.get("full_verification_command"),
         "project_mode_compacted": True,
-        "reader_action": (
-            "Use counts here; open microcosm status for validators and defects."
-        ),
     }
     if body_floor.get("defect_count") or body_floor_defect_preview:
         compact.update(
@@ -3649,11 +3734,20 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
         "public_safe_body_material_counts_by_class": body_floor.get(
             "public_safe_body_material_counts_by_class", {}
         ),
+        "direct_source_module_manifest_count": body_floor.get(
+            "direct_source_module_manifest_count"
+        ),
+        "direct_source_module_manifest_material_count": body_floor.get(
+            "direct_source_module_manifest_material_count"
+        ),
         "verified_source_module_family_count": source_body_imports.get(
             "verified_source_module_family_count"
         ),
         "latest_source_refs": latest_source_refs[-STATUS_CARD_LATEST_SOURCE_REF_LIMIT:],
         "latest_verified_source_module_family_ids": latest_family_ids,
+        "source_module_family_spotlights": source_body_imports.get(
+            "source_module_family_spotlights", []
+        ),
         "body_text_exported_in_status": source_body_imports.get(
             "body_text_exported_in_status"
         ),
@@ -4152,6 +4246,7 @@ def _runtime_status_card(
     )
     latest_source_refs: list[str] = []
     latest_verified_source_module_family_ids: list[str] = []
+    source_module_family_spotlights: list[dict[str, Any]] = []
     if source_body_imports:
         latest_source_refs = [
             ref
@@ -4166,11 +4261,27 @@ def _runtime_status_card(
             family_id = family.get("family_id")
             if isinstance(family_id, str):
                 latest_verified_source_module_family_ids.append(family_id)
+        source_module_family_spotlights = [
+            spotlight
+            for spotlight in source_body_imports.get(
+                "source_module_family_spotlights", []
+            )
+            if isinstance(spotlight, dict)
+        ]
+        if not source_module_family_spotlights and isinstance(
+            source_body_imports.get("verified_source_module_families"), list
+        ):
+            source_module_family_spotlights = _source_module_family_spotlights(
+                [
+                    family
+                    for family in source_body_imports[
+                        "verified_source_module_families"
+                    ]
+                    if isinstance(family, dict)
+                ]
+            )
         source_body_imports = {
             "status": source_body_imports.get("status"),
-            "source_open_body_policy": source_body_imports.get(
-                "source_open_body_policy"
-            ),
             "body_text_exported_in_status": source_body_imports.get(
                 "body_text_exported_in_status"
             ),
@@ -4182,6 +4293,9 @@ def _runtime_status_card(
             ),
             "latest_verified_source_module_family_ids": (
                 latest_verified_source_module_family_ids
+            ),
+            "source_module_family_spotlight_count": len(
+                source_module_family_spotlights
             ),
             "latest_family_preview_limit": STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT,
         }
@@ -4229,12 +4343,17 @@ def _runtime_status_card(
                     "microcosm status --card::macro_body_import_floor"
                 ),
                 "full_status_ref": "microcosm status::macro_body_import_floor",
-                "source_ref": body_floor.get("source_ref"),
                 "public_safe_body_material_count": body_floor.get(
                     "public_safe_body_material_count"
                 ),
                 "public_safe_body_material_counts_by_class": body_floor.get(
                     "public_safe_body_material_counts_by_class", {}
+                ),
+                "direct_source_module_manifest_count": body_floor.get(
+                    "direct_source_module_manifest_count"
+                ),
+                "direct_source_module_manifest_material_count": body_floor.get(
+                    "direct_source_module_manifest_material_count"
                 ),
                 "verified_source_module_family_count": (
                     source_body_imports.get(
@@ -4247,6 +4366,7 @@ def _runtime_status_card(
                 "latest_verified_source_module_family_ids": (
                     latest_verified_source_module_family_ids
                 ),
+                "source_module_family_spotlights": source_module_family_spotlights,
                 "body_text_exported_in_status": (
                     source_body_imports.get("body_text_exported_in_status")
                     if isinstance(source_body_imports, dict)
@@ -4260,9 +4380,6 @@ def _runtime_status_card(
                 "authority_boundary": (
                     "verified_non_secret_body_floor_not_release_provider_"
                     "source_mutation_or_private_equivalence_authority"
-                ),
-                "reader_action": (
-                    "Scan counts here; open macro_body_import_floor for validators."
                 ),
             },
             "source_open_body_imports": {
@@ -4354,6 +4471,12 @@ def _runtime_status_card(
             ),
             "public_safe_body_material_counts_by_class": body_floor.get(
                 "public_safe_body_material_counts_by_class", {}
+            ),
+            "direct_source_module_manifest_count": body_floor.get(
+                "direct_source_module_manifest_count"
+            ),
+            "direct_source_module_manifest_material_count": body_floor.get(
+                "direct_source_module_manifest_material_count"
             ),
             "source_body_imports": source_body_imports,
             "mixed_public_safe_macro_import_assay_status": (

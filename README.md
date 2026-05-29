@@ -236,7 +236,8 @@ with the compact route/work/event/evidence chain,
 `front_door.observatory.compact_endpoint=/project/observatory-card`,
 `front_door.observatory.project_observe_command=microcosm observe <project>`,
 `front_door.source_open_body_import_floor` with verified source-open body-import
-counts and body-text exclusion flags, the shorter
+counts, direct source-module-manifest counts, spotlighted source-module families,
+and body-text exclusion flags, the shorter
 `front_door.source_open_body_imports` pointer for count-first scanning,
 `source_files_mutated=false`, the `microcosm workingness` counts, and a small
 `gap_preview` of the first missing-standard or failure-mode rows and their

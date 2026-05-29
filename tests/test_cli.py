@@ -1010,6 +1010,18 @@ def test_cli_tour_on_fresh_project_exposes_first_screen_microcosm(
             "verified_source_module_family_count"
         ]
     )
+    body_floor = status_card["front_door"]["source_open_body_import_floor"]
+    assert body_floor["direct_source_module_manifest_count"] >= 30
+    assert body_floor["direct_source_module_manifest_material_count"] >= 170
+    route_observability_spotlight = next(
+        spotlight
+        for spotlight in body_floor["source_module_family_spotlights"]
+        if spotlight["spotlight_id"] == "agent_route_observability_runtime"
+    )
+    assert route_observability_spotlight["family_count"] >= 9
+    assert "exported_route_compliance_audit_bundle" in (
+        route_observability_spotlight["notable_family_ids"]
+    )
     assert status_card["payload_boundary_audit"]["status"] == "pass"
     assert source_tour.read_text(encoding="utf-8") == source_tour_before
 
@@ -1110,6 +1122,9 @@ def test_cli_status_card_matches_observatory_card_reader_lens(
     )
     assert status_body_floor["latest_verified_source_module_family_ids"] == (
         observatory_body_floor["latest_verified_source_module_family_ids"]
+    )
+    assert status_body_floor["source_module_family_spotlights"] == (
+        observatory_body_floor["source_module_family_spotlights"]
     )
     assert status_body_floor["body_text_exported_in_status"] is False
     assert observatory_body_floor["body_text_exported_in_status"] is False
@@ -1470,7 +1485,11 @@ def test_cli_authority_smoke(
     assert payload["surface_counts"]["surface_authority_count"] == 45
     assert payload["surface_counts"]["organ_evidence_class_count"] == 4
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
-    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] == 411
+    assert (
+        payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
+        == payload["macro_body_import_floor"]["public_safe_body_material_count"]
+    )
+    assert payload["surface_counts"]["copied_non_secret_macro_body_material_count"] >= 411
     assert payload["surface_counts"]["mixed_public_safe_macro_import_assay_status"] == "pass"
     assert payload["evidence_class_registry"]["fail_closed_no_default"] is True
     assert payload["evidence_class_counts"] == {

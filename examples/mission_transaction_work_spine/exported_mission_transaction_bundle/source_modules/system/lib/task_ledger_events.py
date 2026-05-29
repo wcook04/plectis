@@ -9932,6 +9932,68 @@ def _family_action_visibility(
     }
 
 
+def _family_target_dependency_status(
+    target_ids: Sequence[str],
+    *,
+    work_items_by_id: Mapping[str, Mapping[str, Any]],
+    sample_limit: int,
+) -> Dict[str, Any]:
+    schedulable_ids: List[str] = []
+    blocked_ids: List[str] = []
+    closed_ids: List[str] = []
+    unknown_ids: List[str] = []
+    unsatisfied_edges: List[Dict[str, Any]] = []
+
+    for target_id in target_ids:
+        item = work_items_by_id.get(target_id)
+        if not isinstance(item, Mapping):
+            unknown_ids.append(target_id)
+            continue
+
+        state = _item_state(item)
+        if state in CLOSED_WORK_ITEM_STATES or item.get("sign_off_id"):
+            closed_ids.append(target_id)
+            continue
+
+        unsatisfied_dep_ids: List[str] = []
+        dangling_dep_ids: List[str] = []
+        for dep_id in sorted(_hard_dependency_ids(item)):
+            dependency = work_items_by_id.get(dep_id)
+            if not isinstance(dependency, Mapping):
+                dangling_dep_ids.append(dep_id)
+                continue
+            satisfied, _reason = _dependency_is_satisfied(item, dependency, dep_id)
+            if not satisfied:
+                unsatisfied_dep_ids.append(dep_id)
+
+        if unsatisfied_dep_ids or dangling_dep_ids:
+            blocked_ids.append(target_id)
+            unsatisfied_edges.append(
+                {
+                    "id": target_id,
+                    "unsatisfied_dep_ids": unsatisfied_dep_ids,
+                    "dangling_dep_ids": dangling_dep_ids,
+                }
+            )
+            continue
+
+        schedulable_ids.append(target_id)
+
+    return {
+        "schema_version": "task_ledger_family_next_action_dependency_status_v0",
+        "target_count": len(target_ids),
+        "schedulable_target_ids": schedulable_ids[:sample_limit],
+        "dependency_blocked_target_ids": blocked_ids[:sample_limit],
+        "closed_or_satisfied_target_ids": closed_ids[:sample_limit],
+        "unknown_target_ids": unknown_ids[:sample_limit],
+        "unsatisfied_dependency_edges": unsatisfied_edges[:sample_limit],
+        "dependency_decision_rule": (
+            "Prefer schedulable_target_ids for execution, source_patch, or family-action receipt; "
+            "dependency_blocked_target_ids must resolve dependency_status before row mutation."
+        ),
+    }
+
+
 def _family_next_action(
     *,
     family_id: str,
@@ -9939,6 +10001,8 @@ def _family_next_action(
     fallback_ids: Sequence[str],
     owner_surface_hint: Any,
     suggested_action: Any,
+    work_items_by_id: Mapping[str, Mapping[str, Any]],
+    sample_limit: int,
 ) -> Dict[str, Any]:
     recommended = str(visibility.get("recommended_next_family_action") or "inspect_owner_surface")
     top_actionable_ids = [
@@ -9977,6 +10041,11 @@ def _family_next_action(
         "recommended_next_family_action": recommended,
         "target_ids": target_ids,
         "primary_command": primary_command,
+        "target_dependency_status": _family_target_dependency_status(
+            target_ids,
+            work_items_by_id=work_items_by_id,
+            sample_limit=sample_limit,
+        ),
         "owner_surface_hint": owner_surface_hint,
         "suggested_action": suggested_action,
         "review_boundary": (
@@ -10270,6 +10339,8 @@ def _family_summaries(
                     fallback_ids=top_ids,
                     owner_surface_hint=spec.get("owner_surface_hint"),
                     suggested_action=spec.get("suggested_action"),
+                    work_items_by_id=work_items_by_id,
+                    sample_limit=sample_limit,
                 ),
             }
         )
@@ -10300,6 +10371,8 @@ def _family_summaries(
                     fallback_ids=top_ids,
                     owner_surface_hint=other_owner_surface_hint,
                     suggested_action=other_suggested_action,
+                    work_items_by_id=work_items_by_id,
+                    sample_limit=sample_limit,
                 ),
             }
         )

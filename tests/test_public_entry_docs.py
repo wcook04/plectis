@@ -1295,7 +1295,19 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
         in workingness["expected_fields"]
     )
     assert (
+        "front_door.source_open_body_import_floor.direct_source_module_manifest_count"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.source_open_body_import_floor.direct_source_module_manifest_material_count"
+        in workingness["expected_fields"]
+    )
+    assert (
         "front_door.source_open_body_import_floor.latest_verified_source_module_family_ids"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "front_door.source_open_body_import_floor.source_module_family_spotlights"
         in workingness["expected_fields"]
     )
     assert (
@@ -1312,6 +1324,10 @@ def test_public_entry_packet_routes_proof_lab_first_screen() -> None:
     )
     assert (
         "route_cards_by_id.status_and_workingness.source_open_body_import_floor.latest_verified_source_module_family_ids"
+        in workingness["expected_fields"]
+    )
+    assert (
+        "route_cards_by_id.status_and_workingness.source_open_body_import_floor.source_module_family_spotlights"
         in workingness["expected_fields"]
     )
     assert "macro_body_import_floor.source_body_imports" in workingness["expected_fields"]
