@@ -2675,6 +2675,13 @@ def test_runtime_shell_tour_card_is_compact_public_safe(tmp_path: Path) -> None:
         "full_tour_writes_public_tour_receipt": True,
         "preexisting_public_tour_receipt_is_drilldown_only": True,
     }
+    assert card["next_commands"] == [
+        "microcosm status --card examples/runtime_shell/demo_project",
+        "microcosm workingness --card",
+        "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+        "microcosm observe examples/runtime_shell/demo_project",
+        "microcosm tour examples/runtime_shell/demo_project",
+    ]
     assert card["output_economy"]["full_route_cards_exported"] is False
     assert card["output_economy"]["route_cards_by_id_exported"] is False
     assert card["output_economy"]["full_command_path_exported"] is False

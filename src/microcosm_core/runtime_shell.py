@@ -8267,11 +8267,11 @@ class RuntimeShell:
                 "state_write_result_exported": True,
             },
             "next_commands": [
-                "microcosm status --card <project>",
+                f"microcosm status --card {project_ref}",
                 "microcosm workingness --card",
                 "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-                "microcosm observe <project>",
-                "microcosm tour <project>",
+                f"microcosm observe {project_ref}",
+                f"microcosm tour {project_ref}",
             ],
             "safe_to_show": {
                 "project_local_state_refs_visible": True,
