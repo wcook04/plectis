@@ -278,19 +278,19 @@ def test_find_session_by_title_searches_current_activity_too():
 
 def test_find_session_by_cwd_handles_path_prefix():
     sessions = [
-        _ats("uuid-A", cwd="/Users/willcook/src/ai_workflow"),
-        _ats("uuid-B", cwd="/Users/willcook/Desktop/ai_workflow",
+        _ats("uuid-A", cwd="/Users/example/src/ai_workflow"),
+        _ats("uuid-B", cwd="/Users/example/Desktop/ai_workflow",
              last_observed_at=_ts(30)),
     ]
 
     match = find_session_by_cwd(
-        sessions, cwd="/Users/willcook/src/ai_workflow",
+        sessions, cwd="/Users/example/src/ai_workflow",
     )
     assert match is not None
     assert match["session_id"] == "uuid-A"
 
     deeper = find_session_by_cwd(
-        sessions, cwd="/Users/willcook/src/ai_workflow/system/lib",
+        sessions, cwd="/Users/example/src/ai_workflow/system/lib",
     )
     assert deeper is not None
     assert deeper["session_id"] == "uuid-A"
@@ -298,12 +298,12 @@ def test_find_session_by_cwd_handles_path_prefix():
 
 def test_identify_self_session_falls_back_from_title_to_cwd():
     sessions = [
-        _ats("uuid-A", cwd="/Users/willcook/src/ai_workflow"),
+        _ats("uuid-A", cwd="/Users/example/src/ai_workflow"),
     ]
     match = identify_self_session(
         sessions,
         title_fragment="this never appears",
-        cwd="/Users/willcook/src/ai_workflow",
+        cwd="/Users/example/src/ai_workflow",
     )
     assert match is not None
     assert match["session_id"] == "uuid-A"

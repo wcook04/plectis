@@ -1,114 +1,123 @@
 {
-  "schema_version": "formal_math_lean_proof_witness_source_module_manifest_v1",
-  "manifest_id": "formal_math_lean_proof_witness_public_lake_body_imports",
-  "bundle_id": "formal_math_lean_proof_witness_runtime_example",
-  "source_import_class": "copied_non_secret_formal_math_witness_body",
-  "classification": "copied_non_secret_formal_math_witness_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
-  "body_storage_policy": "public Lean/Lake witness bodies live as files in this exported bundle; receipts expose refs, hashes, counts, and verdicts only",
-  "receipt_body_policy": "receipts may report paths, hashes, declaration counts, and status but must not duplicate full Lean proof bodies, provider payloads, private prover runs, or oracle proofs",
-  "body_in_receipt": false,
-  "module_count": 4,
-  "modules": [
-    {
-      "module_id": "formal_math_lean_witness_manifest_body_import",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
-      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/witness_manifest.json",
-      "path": "witness_manifest.json",
-      "source_role": "Public witness manifest with source pattern ids, projection receipt refs, public replacement refs, positive witness metadata, omitted private prover run boundary, and authority ceiling",
-      "source_import_class": "copied_non_secret_formal_math_witness_body",
-      "classification": "copied_non_secret_formal_math_witness_body",
-      "material_class": "public_lean_witness_manifest_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "public_replacement_source_body",
-      "sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
-      "line_count": 52,
-      "byte_count": 2364,
-      "required_anchors": [
-        "\"schema_version\": \"formal_math_lean_proof_witness_manifest_v1\"",
-        "\"positive_witnesses\"",
-        "\"public_replacement_refs\"",
-        "\"omitted_material\"",
-        "\"bounded_public_lean_lake_witness_only\""
-      ]
-    },
-    {
-      "module_id": "formal_math_lean_lakefile_body_import",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/lakefile.lean",
-      "path": "lake_project/lakefile.lean",
-      "source_role": "Public Lake project file that constrains the witness build to MicrocosmProofWitness.Basic",
-      "source_import_class": "copied_non_secret_formal_math_witness_body",
-      "classification": "copied_non_secret_formal_math_witness_body",
-      "material_class": "public_lean_lake_project_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73",
-      "line_count": 7,
-      "byte_count": 146,
-      "required_anchors": [
-        "package microcosm_proof_witness where",
-        "lean_lib MicrocosmProofWitness where",
-        "roots := #[`MicrocosmProofWitness.Basic]"
-      ]
-    },
-    {
-      "module_id": "formal_math_lean_root_module_body_import",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness.lean",
-      "path": "lake_project/MicrocosmProofWitness.lean",
-      "source_role": "Public Lean root module that imports the declared Basic witness module",
-      "source_import_class": "copied_non_secret_formal_math_witness_body",
-      "classification": "copied_non_secret_formal_math_witness_body",
-      "material_class": "public_lean_source_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
-      "line_count": 1,
-      "byte_count": 35,
-      "required_anchors": [
-        "import MicrocosmProofWitness.Basic"
-      ]
-    },
-    {
-      "module_id": "formal_math_lean_basic_witness_body_import",
-      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
-      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean",
-      "path": "lake_project/MicrocosmProofWitness/Basic.lean",
-      "source_role": "Public Lean theorem body file with arithmetic, boolean, connective, equality, and induction-shaped witnesses",
-      "source_import_class": "copied_non_secret_formal_math_witness_body",
-      "classification": "copied_non_secret_formal_math_witness_body",
-      "material_class": "public_lean_source_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
-      "line_count": 42,
-      "byte_count": 1018,
-      "required_anchors": [
-        "theorem nat_add_zero_public",
-        "theorem bool_and_true_public",
-        "theorem and_comm_public",
-        "theorem list_append_nil_public",
-        "#check nat_add_zero_public"
-      ]
-    }
-  ],
   "blocked_import_debt": [
     {
       "material_id": "certificate_kernel_mathlib_body_blocked",
-      "source_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean",
       "reason": "This non-secret Lean body uses Mathlib imports and is outside the bounded no-Mathlib authority ceiling for formal_math_lean_proof_witness.",
       "replacement_criteria": [
         "introduce a Mathlib-specific authority ceiling and dependency manifest",
         "make lakefile.lean declare the required dependency explicitly",
         "run and receipt a local Lake build that compiles CertificateKernel.lean",
         "keep proof/provider/oracle bodies out of JSON receipts and workingness"
-      ]
+      ],
+      "source_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/CertificateKernel.lean"
     }
   ],
+  "body_in_receipt": false,
+  "body_storage_policy": "public Lean/Lake witness bodies live as files in this exported bundle; receipts expose refs, hashes, counts, and verdicts only",
+  "bundle_id": "formal_math_lean_proof_witness_runtime_example",
+  "classification": "copied_non_secret_formal_math_witness_body",
+  "manifest_id": "formal_math_lean_proof_witness_public_lake_body_imports",
+  "module_count": 4,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 2364,
+      "classification": "copied_non_secret_formal_math_witness_body",
+      "line_count": 52,
+      "material_class": "public_lean_witness_manifest_body",
+      "module_id": "formal_math_lean_witness_manifest_body_import",
+      "path": "witness_manifest.json",
+      "required_anchors": [
+        "\"schema_version\": \"formal_math_lean_proof_witness_manifest_v1\"",
+        "\"positive_witnesses\"",
+        "\"public_replacement_refs\"",
+        "\"omitted_material\"",
+        "\"bounded_public_lean_lake_witness_only\""
+      ],
+      "sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
+      "source_import_class": "copied_non_secret_formal_math_witness_body",
+      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
+      "source_role": "Public witness manifest with source pattern ids, projection receipt refs, public replacement refs, positive witness metadata, omitted private prover run boundary, and authority ceiling",
+      "source_to_target_relation": "public_replacement_source_body",
+      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/witness_manifest.json"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 146,
+      "classification": "copied_non_secret_formal_math_witness_body",
+      "line_count": 7,
+      "material_class": "public_lean_lake_project_body",
+      "module_id": "formal_math_lean_lakefile_body_import",
+      "path": "lake_project/lakefile.lean",
+      "required_anchors": [
+        "package microcosm_proof_witness where",
+        "lean_lib MicrocosmProofWitness where",
+        "roots := #[`MicrocosmProofWitness.Basic]"
+      ],
+      "sha256": "sha256:ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_formal_math_witness_body",
+      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/lakefile.lean",
+      "source_role": "Public Lake project file that constrains the witness build to MicrocosmProofWitness.Basic",
+      "source_sha256": "ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/lakefile.lean",
+      "target_sha256": "ddbca4eed356751d7a356c3d57e9f7c971e0230c40607e0b7961b5fa18c52b73"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 35,
+      "classification": "copied_non_secret_formal_math_witness_body",
+      "line_count": 1,
+      "material_class": "public_lean_source_body",
+      "module_id": "formal_math_lean_root_module_body_import",
+      "path": "lake_project/MicrocosmProofWitness.lean",
+      "required_anchors": [
+        "import MicrocosmProofWitness.Basic"
+      ],
+      "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_formal_math_witness_body",
+      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean",
+      "source_role": "Public Lean root module that imports the declared Basic witness module",
+      "source_sha256": "3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness.lean",
+      "target_sha256": "3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 1018,
+      "classification": "copied_non_secret_formal_math_witness_body",
+      "line_count": 42,
+      "material_class": "public_lean_source_body",
+      "module_id": "formal_math_lean_basic_witness_body_import",
+      "path": "lake_project/MicrocosmProofWitness/Basic.lean",
+      "required_anchors": [
+        "theorem nat_add_zero_public",
+        "theorem bool_and_true_public",
+        "theorem and_comm_public",
+        "theorem list_append_nil_public",
+        "#check nat_add_zero_public"
+      ],
+      "sha256": "sha256:a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_formal_math_witness_body",
+      "source_ref": "fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness/Basic.lean",
+      "source_role": "Public Lean theorem body file with arithmetic, boolean, connective, equality, and induction-shaped witnesses",
+      "source_sha256": "a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean",
+      "target_sha256": "a8ccd887dab03fcca7d73c27f31c57376ea6c6405b6d8bb0f12515d4b1493da1"
+    }
+  ],
+  "receipt_body_policy": "receipts may report paths, hashes, declaration counts, and status but must not duplicate full Lean proof bodies, provider payloads, private prover runs, or oracle proofs",
+  "schema_version": "formal_math_lean_proof_witness_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_formal_math_witness_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
   "validation_contract_ref": "standards/std_microcosm_formal_math_lean_proof_witness.json"
 }

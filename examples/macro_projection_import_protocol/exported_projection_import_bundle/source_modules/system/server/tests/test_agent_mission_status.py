@@ -31,7 +31,7 @@ def _event(
     session_id: str,
     source_runtime: str = "claude_code",
     canonical_type: str = "tool.completed",
-    cwd: str | None = "/Users/willcook/src/ai_workflow",
+    cwd: str | None = "/Users/example/src/ai_workflow",
     summary: str | None = None,
     payload: Mapping[str, Any] | None = None,
     minute: int = 45,
@@ -59,7 +59,7 @@ def _auth_failure_event(seq: int, *, session_id: str) -> dict[str, Any]:
         seq,
         session_id=session_id,
         canonical_type="message.assistant",
-        cwd=f"/Users/willcook/.claude-mem/observer-sessions/{session_id}.jsonl",
+        cwd=f"/Users/example/.claude-mem/observer-sessions/{session_id}.jsonl",
         summary='Failed to authenticate. API Error: 401 {"error":{"type":"authentication_error"}}',
         payload={
             "role": "assistant",
@@ -130,7 +130,7 @@ def test_classify_auth_failure_loop_skips_singletons_and_non_observer_cwd():
             2,
             session_id="real-1",
             canonical_type="message.assistant",
-            cwd="/Users/willcook/src/ai_workflow",
+            cwd="/Users/example/src/ai_workflow",
             summary="Failed to authenticate. API Error: 401",
             payload={"content": "Failed to authenticate. API Error: 401 — but this is a real session, not observer-cwd"},
         ),
@@ -148,7 +148,7 @@ def test_noisy_session_ids_from_classes_extracts_session_ids():
 
 def test_classify_auth_failure_loop_honors_configurable_cwd_fragment():
     """Caller-provided cwd_fragment must propagate to the matcher."""
-    custom_cwd = "/Users/willcook/.alt-observer-rig/sessions/obs-yyyy.jsonl"
+    custom_cwd = "/Users/example/.alt-observer-rig/sessions/obs-yyyy.jsonl"
     events = [
         _event(
             seq,
@@ -247,7 +247,7 @@ def _make_acceptance_store() -> _FakeStore:
             "source_runtime": "claude_code",
             "last_observed_at": NOW.isoformat(),
             "last_canonical_type": "message.assistant",
-            "cwd": f"/Users/willcook/.claude-mem/observer-sessions/{sid}.jsonl",
+            "cwd": f"/Users/example/.claude-mem/observer-sessions/{sid}.jsonl",
             "title": "Failed to authenticate. API Error: 401",
             "activity_count": 3,
             "touched_files": [],
@@ -259,7 +259,7 @@ def _make_acceptance_store() -> _FakeStore:
             "source_runtime": "claude_code",
             "last_observed_at": NOW.isoformat(),
             "last_canonical_type": "tool.completed",
-            "cwd": "/Users/willcook/src/ai_workflow",
+            "cwd": "/Users/example/src/ai_workflow",
             "title": "real claude session",
             "activity_count": 3,
             "touched_files": ["system/lib/agent_mission_status.py"],

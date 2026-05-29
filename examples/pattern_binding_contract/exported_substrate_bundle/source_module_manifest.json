@@ -8,6 +8,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 936934,
       "credential_exposure_risk": "low",
       "line_count": 373,
       "material_class": "public_macro_pattern_body",
@@ -15,11 +16,14 @@
       "path": "source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "source_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
+      "target_sha256": "ffbaece43238ff9dc970c25e3f92527be2d97d50308da9d54fe23db79ab4feb8",
       "validation_refs": [
         "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
         "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
@@ -28,6 +32,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 46117,
       "credential_exposure_risk": "low",
       "line_count": 1180,
       "material_class": "public_macro_tool_body",
@@ -35,11 +40,14 @@
       "path": "source_artifacts/macro_tool/tools/meta/factory/check_extracted_pattern_route_readiness.py",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "source_sha256": "9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_tool/tools/meta/factory/check_extracted_pattern_route_readiness.py",
+      "target_sha256": "9cff4fdf1893d52e92e6a528b8ca047a3eac92b9f6368642f430cdbe0e4f5242",
       "validation_refs": [
         "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
         "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
@@ -48,6 +56,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 7644,
       "credential_exposure_risk": "low",
       "line_count": 127,
       "material_class": "public_macro_standard_body",
@@ -55,11 +64,14 @@
       "path": "source_artifacts/macro_standard/codex/standards/std_extracted_pattern_route_readiness.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "codex/standards/std_extracted_pattern_route_readiness.json",
+      "source_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_standard/codex/standards/std_extracted_pattern_route_readiness.json",
+      "target_sha256": "b40238b1fbe1bac7fce7dc98fca3c4d12c9a8e7b289425a6329900349e12d0b4",
       "validation_refs": [
         "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
         "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"
@@ -68,6 +80,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 5065,
       "credential_exposure_risk": "low",
       "line_count": 114,
       "material_class": "public_macro_receipt_body",
@@ -75,11 +88,14 @@
       "path": "source_artifacts/macro_state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:c2049547de548eb415a15bc4577f1d1c585432102a2d73454aa0de6539f20cc0",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_private_thread_body_or_credentials",
       "source_ref": "state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "source_sha256": "c2049547de548eb415a15bc4577f1d1c585432102a2d73454aa0de6539f20cc0",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/pattern_binding_contract/exported_substrate_bundle/source_artifacts/macro_state/microcosm_portfolio/reconstruction/public_first_slice_build_execution_receipt_v1.json",
+      "target_sha256": "c2049547de548eb415a15bc4577f1d1c585432102a2d73454aa0de6539f20cc0",
       "validation_refs": [
         "tests/test_pattern_binding_contract.py::test_pattern_binding_accepts_exported_substrate_bundle",
         "tests/test_pattern_binding_contract.py::test_pattern_binding_source_module_digest_tamper_blocks_bundle"

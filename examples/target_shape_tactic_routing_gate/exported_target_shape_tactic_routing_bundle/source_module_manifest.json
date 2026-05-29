@@ -1,11 +1,122 @@
 {
-  "schema_version": "microcosm_source_module_manifest_v1",
-  "manifest_id": "target_shape_tactic_routing_macro_source_module_manifest",
-  "organ_id": "target_shape_tactic_routing_gate",
-  "source_import_class": "copied_non_secret_macro_body",
   "body_in_receipt": false,
-  "body_storage_policy": "exact_non_secret_RING2_target_shape_route_run_bodies_copied_into_public_target_shape_bundle",
-  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "body_storage_policy": "non_secret_RING2_target_shape_route_run_bodies_copied_or_verified_public_safe_private_path_rewritten_into_public_target_shape_bundle",
+  "manifest_id": "target_shape_tactic_routing_macro_source_module_manifest",
+  "module_count": 4,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 801,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_target_shape_premise_retrieval_run_summary_body_import",
+      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "public_safe_transform": {
+        "body_text_in_receipt": false,
+        "source_digest_preserved": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+        "target_digest_verified": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+        "transform_id": "operator_specific_path_to_synthetic_example_path"
+      },
+      "sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "source_sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
+      "target_sha256": "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+      "validation_refs": [
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_digest_verified"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 45,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_target_shape_premise_retrieval_failure_taxonomy_body_import",
+      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "public_safe_transform": {
+        "body_text_in_receipt": false,
+        "source_digest_preserved": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+        "target_digest_verified": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
+        "transform_id": "operator_specific_path_to_synthetic_example_path"
+      },
+      "sha256": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "source_sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
+      "target_sha256": "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
+      "validation_refs": [
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_digest_verified"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 2210,
+      "line_count": 61,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_target_shape_premise_retrieval_graph_update_candidates_body_import",
+      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "source_sha256": "6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
+      "target_sha256": "6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
+      "validation_refs": [
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_digest_verified"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 530,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "ring2_target_shape_oracle_repair_run_summary_body_import",
+      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "public_safe_mode": "verified_public_macro_body_light_edit",
+      "public_safe_transform": {
+        "body_text_in_receipt": false,
+        "source_digest_preserved": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+        "target_digest_verified": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
+        "transform_id": "operator_specific_path_to_synthetic_example_path"
+      },
+      "sha256": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "source_sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
+      "target_sha256": "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
+      "validation_refs": [
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
+        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_digest_verified"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    }
+  ],
+  "organ_id": "target_shape_tactic_routing_gate",
+  "schema_version": "microcosm_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "no keys or credentials",
     "no account/session/cookie material",
@@ -14,85 +125,8 @@
     "no recipient-send state",
     "no private theorem proof bodies or oracle proof text"
   ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
   "source_run_id": "PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
-  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0",
-  "module_count": 4,
-  "modules": [
-    {
-      "module_id": "ring2_target_shape_premise_retrieval_run_summary_body_import",
-      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/run_summary.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:93304410f32d40f5cad1c161c1d01a5d6f353ee10b7cf3fecbaaf7b068b43008",
-      "line_count": 801,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_exact_copies"
-      ]
-    },
-    {
-      "module_id": "ring2_target_shape_premise_retrieval_failure_taxonomy_body_import",
-      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/failure_taxonomy_report.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:8b054c57001c432942a7ed97cbd4dca2a2e2b174d9cd31d9121c38c5ecc933af",
-      "line_count": 45,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_exact_copies"
-      ]
-    },
-    {
-      "module_id": "ring2_target_shape_premise_retrieval_graph_update_candidates_body_import",
-      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/graph_update_candidates.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
-      "line_count": 61,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_exact_copies"
-      ]
-    },
-    {
-      "module_id": "ring2_target_shape_oracle_repair_run_summary_body_import",
-      "source_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
-      "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
-      "path": "source_artifacts/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/oracle_repair_graph_v0/run_summary.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
-      "line_count": 530,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_observes_negative_cases",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_gate_accepts_exported_bundle",
-        "tests/test_target_shape_tactic_routing_gate.py::test_target_shape_tactic_routing_exported_source_modules_are_exact_copies"
-      ]
-    }
-  ]
+  "source_run_ref": "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
 }

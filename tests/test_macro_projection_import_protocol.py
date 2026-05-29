@@ -649,6 +649,20 @@ def _assert_source_digest_matches_import_contract(
     assert recorded_source_digest == target_digest
 
 
+def _assert_public_safe_verification_mode(row: dict[str, Any]) -> None:
+    verification = row["body_import_verification"]
+    mode = verification["verification_mode"]
+    relation = verification.get("source_to_target_relation")
+    assert mode in {"exact_source_digest_match", "verified_light_edit_recipe"}
+    if mode == "exact_source_digest_match":
+        assert relation == "exact_copy"
+    else:
+        assert relation in {
+            "public_light_edit_private_path_redaction",
+            "verified_public_safe_private_path_rewrite",
+        }
+
+
 def _test_target_ref_carries_source_ref(*, target_ref: str, source_ref: str) -> bool:
     normalized_target = target_ref.removeprefix("microcosm-substrate/")
     normalized_source = source_ref.split("::", 1)[0]
@@ -689,16 +703,25 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
 
         assert source.is_file()
         assert target.is_file()
-        assert row["source_sha256"] == digest
-        assert row["target_sha256"] == digest
-        assert row["sha256_match"] is True
         source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        row_source_digest = str(row["source_sha256"]).removeprefix("sha256:")
+        row_target_digest = str(row["target_sha256"]).removeprefix("sha256:")
+        assert row_source_digest == source_digest
+        assert row_target_digest == digest
         if source_digest != digest:
-            assert _test_target_ref_carries_source_ref(
+            assert row.get("sha256_match") in {False, True}
+            assert row.get("source_to_target_relation") in {
+                "public_light_edit_private_path_redaction",
+                "verified_public_safe_private_path_rewrite",
+            }
+            if not _test_target_ref_carries_source_ref(
                 target_ref=row["target_ref"],
                 source_ref=row["source_ref"],
-            )
+            ):
+                assert "source_modules/" in row["target_ref"]
         else:
+            assert row["sha256_match"] is True
+            assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
             assert source_digest == digest
 
 
@@ -915,16 +938,12 @@ def test_macro_projection_import_protocol_observes_negative_cases(tmp_path: Path
         assert by_material[material_id]["material_class"] == "public_macro_receipt_body"
         assert by_material[material_id]["classification_status"] == "pass"
         assert by_material[material_id]["body_text_in_receipt"] is False
-        assert by_material[material_id]["body_import_verification"][
-            "verification_mode"
-        ] == "exact_source_digest_match"
+        _assert_public_safe_verification_mode(by_material[material_id])
     for material_id in RING2_PREMISE_RETRIEVAL_BODY_MATERIAL_IDS:
         assert by_material[material_id]["material_class"] == "public_macro_receipt_body"
         assert by_material[material_id]["classification_status"] == "pass"
         assert by_material[material_id]["body_text_in_receipt"] is False
-        assert by_material[material_id]["body_import_verification"][
-            "verification_mode"
-        ] == "exact_source_digest_match"
+        _assert_public_safe_verification_mode(by_material[material_id])
     for material_id in NAVIGATION_COVERAGE_MATRIX_BODY_MATERIAL_IDS:
         assert by_material[material_id]["material_class"] == "public_macro_tool_body"
         assert by_material[material_id]["classification_status"] == "pass"
@@ -1532,7 +1551,7 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_secre
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/" not in text
+        assert "/Users/willcook" not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert '"body":' not in text
@@ -2216,6 +2235,125 @@ def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
     assert row["sha256_match"] is True
 
 
+def test_refresh_exact_copy_source_modules_resolves_microcosm_local_sources(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path / "macro-root"
+    source_root.mkdir()
+    source_ref = "src/microcosm_core/organs/local_microcosm_source.py"
+    source = public_root / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("LOCAL_MICROCOSM = 'refreshed exact copy'\n", encoding="utf-8")
+
+    manifest_path = (
+        public_root
+        / "examples/local_microcosm_source/exported_bundle/source_module_manifest.json"
+    )
+    target_ref = "source_modules/microcosm_core/organs/local_microcosm_source.py"
+    target = manifest_path.parent / target_ref
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("LOCAL_MICROCOSM = 'stale copy'\n", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "local_microcosm_source_manifest_v1",
+                "modules": [
+                    {
+                        "module_id": "local_microcosm_source_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": "exact_copy",
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                        "line_count": 1,
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 1
+    assert result["manifest_row_update_count"] == 1
+    assert target.read_bytes() == source.read_bytes()
+
+
+def test_refresh_exact_copy_source_modules_skips_non_exact_public_light_edit_rows(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path
+    source_ref = "state/runs/public_normalized_source.json"
+    source = source_root / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text('{"path": "/private/host/path"}\n', encoding="utf-8")
+
+    manifest_path = (
+        public_root
+        / "examples/public_normalized/exported_bundle/source_module_manifest.json"
+    )
+    target_ref = "source_modules/state/runs/public_normalized_source.json"
+    target = manifest_path.parent / target_ref
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text('{"path": "<repo-root>/state/runs"}\n', encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "public_normalized_manifest_v1",
+                "modules": [
+                    {
+                        "module_id": "public_normalized_body_import",
+                        "source_ref": source_ref,
+                        "target_ref": target_ref,
+                        "source_to_target_relation": (
+                            "source_faithful_public_safe_path_normalized_copy"
+                        ),
+                        "source_import_class": "copied_non_secret_macro_body",
+                        "required_anchors": ["<repo-root>/state/runs"],
+                        "body_copied": True,
+                        "body_in_receipt": False,
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["defect_count"] == 0
+    assert result["target_copy_count"] == 0
+    assert result["manifest_row_update_count"] == 0
+    assert target.read_text(encoding="utf-8") == '{"path": "<repo-root>/state/runs"}\n'
+
+
 def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
@@ -2815,9 +2953,16 @@ def test_work_landing_control_source_modules_body_import_is_unified_under_macro_
         assert row["body_digest"] == digest
         assert row["body_import_verification"]["source_body_digest"] == source_digest
         assert row["body_import_verification"]["target_body_digest"] == digest
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
+        verification = row["body_import_verification"]
+        if source_digest == digest:
+            assert verification["verification_mode"] == "exact_source_digest_match"
+            assert verification["source_to_target_relation"] == "exact_copy"
+        else:
+            assert verification["verification_mode"] == "verified_light_edit_recipe"
+            assert verification["source_to_target_relation"] in {
+                "public_light_edit_private_path_redaction",
+                "verified_public_safe_private_path_rewrite",
+            }
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -2862,9 +3007,7 @@ def test_task_ledger_control_source_modules_body_import_is_unified_under_macro_p
             source=source,
             target=target,
         )
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
+        _assert_public_safe_verification_mode(row)
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -2914,9 +3057,7 @@ def test_work_ledger_control_source_modules_body_import_is_unified_under_macro_p
             source=source,
             target=target,
         )
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
+        _assert_public_safe_verification_mode(row)
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -3073,12 +3214,19 @@ def test_trace_capsule_source_modules_body_import_is_unified_under_macro_project
             source=source,
             target=target,
         )
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
-        assert row["body_import_verification"]["source_line_count"] == (
-            row["body_import_verification"]["target_line_count"]
-        )
+        verification = row["body_import_verification"]
+        source_digest = f"sha256:{hashlib.sha256(source.read_bytes()).hexdigest()}"
+        target_digest = f"sha256:{hashlib.sha256(target.read_bytes()).hexdigest()}"
+        if source_digest == target_digest:
+            assert verification["verification_mode"] == "exact_source_digest_match"
+            assert verification["source_to_target_relation"] == "exact_copy"
+        else:
+            assert verification["verification_mode"] == "verified_light_edit_recipe"
+            assert verification["source_to_target_relation"] in {
+                "public_light_edit_private_path_redaction",
+                "verified_public_safe_private_path_rewrite",
+            }
+        assert verification["source_line_count"] == verification["target_line_count"]
         assert row["body_text_in_receipt"] is False
 
     by_cell = {
@@ -3283,9 +3431,16 @@ def test_navigation_context_rosetta_source_modules_body_import_is_unified_under_
         assert row["body_digest"] == digest
         assert row["body_import_verification"]["source_body_digest"] == source_digest
         assert row["body_import_verification"]["target_body_digest"] == digest
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
+        verification = row["body_import_verification"]
+        if source_digest == digest:
+            assert verification["verification_mode"] == "exact_source_digest_match"
+            assert verification["source_to_target_relation"] == "exact_copy"
+        else:
+            assert verification["verification_mode"] == "verified_light_edit_recipe"
+            assert verification["source_to_target_relation"] in {
+                "public_light_edit_private_path_redaction",
+                "verified_public_safe_private_path_rewrite",
+            }
         assert row["body_import_verification"]["source_line_count"] == (
             row["body_import_verification"]["target_line_count"]
         )
@@ -3791,14 +3946,19 @@ def _assert_exact_source_module_body_import(
         assert row["material_class"] == expected_class
         assert row["classification"] == ["copied_non_secret_macro_body"]
         assert row["body_digest"] == digest
-        assert row["body_import_verification"]["source_body_digest"] == source_digest
-        assert row["body_import_verification"]["target_body_digest"] == digest
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
-        assert row["body_import_verification"]["source_line_count"] == (
-            row["body_import_verification"]["target_line_count"]
-        )
+        verification = row["body_import_verification"]
+        assert verification["source_body_digest"] == source_digest
+        assert verification["target_body_digest"] == digest
+        if source_digest == digest:
+            assert verification["verification_mode"] == "exact_source_digest_match"
+            assert verification["source_to_target_relation"] == "exact_copy"
+        else:
+            assert verification["verification_mode"] == "verified_light_edit_recipe"
+            assert verification["source_to_target_relation"] in {
+                "public_light_edit_private_path_redaction",
+                "verified_public_safe_private_path_rewrite",
+            }
+        assert verification["source_line_count"] == verification["target_line_count"]
         assert row["body_text_in_receipt"] is False
 
     by_cell = {

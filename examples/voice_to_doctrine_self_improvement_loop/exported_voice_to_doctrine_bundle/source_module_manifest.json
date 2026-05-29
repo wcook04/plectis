@@ -3,6 +3,7 @@
   "module_count": 8,
   "modules": [
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 52072,
       "copy_mode": "exact_file_copy",
@@ -14,12 +15,14 @@
         "## TLDR (compressed view)"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "source_sha256": "b575acca764e87aa46f82dd94ee22ed58c6f8d2d1c9ecbcdff8bd158e0d04926",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/recursive_self_improvement_operating_loop.md",
       "target_sha256": "b575acca764e87aa46f82dd94ee22ed58c6f8d2d1c9ecbcdff8bd158e0d04926"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 20930,
       "copy_mode": "exact_file_copy",
@@ -31,12 +34,14 @@
         "## TLDR (compressed view)"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/paper_modules/doctrine_population_loop.md",
       "source_sha256": "0f3f7cfd31abf2861db1b70c345c487ef2ea96dcb0dbb8ea184898c625bbb0e5",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/doctrine_population_loop.md",
       "target_sha256": "0f3f7cfd31abf2861db1b70c345c487ef2ea96dcb0dbb8ea184898c625bbb0e5"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 30523,
       "copy_mode": "exact_file_copy",
@@ -48,12 +53,14 @@
         "## TLDR (compressed view)"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/paper_modules/local_to_general_propagation.md",
       "source_sha256": "b0abf2dfa48fad4f8838d61469870e10e252093700b36c6caab0cde1938785f6",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/paper_modules/local_to_general_propagation.md",
       "target_sha256": "b0abf2dfa48fad4f8838d61469870e10e252093700b36c6caab0cde1938785f6"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 12765,
       "copy_mode": "exact_file_copy",
@@ -66,12 +73,14 @@
         "## Mission Propagation Verbs"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation.md",
       "source_sha256": "5212dffa2506122c0af49fd33c653374008c6aaa0e94a761655644b54cd50832",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation.md",
       "target_sha256": "5212dffa2506122c0af49fd33c653374008c6aaa0e94a761655644b54cd50832"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 31119,
       "copy_mode": "exact_file_copy",
@@ -83,16 +92,18 @@
         "## Plane-home decision table"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
       "source_sha256": "2038a4d2b38100f09b9e7cdb9a79cf1a69f80aa0b7ce50bf41396ca0b62ad759",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/doctrine/local_to_general_propagation_plane_home_decision_table.md",
       "target_sha256": "2038a4d2b38100f09b9e7cdb9a79cf1a69f80aa0b7ce50bf41396ca0b62ad759"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 20035,
+      "byte_count": 21352,
       "copy_mode": "exact_file_copy",
-      "line_count": 155,
+      "line_count": 163,
       "material_class": "public_macro_skill_body",
       "module_id": "task_ledger_metacontrol_uppropagation_skill_body",
       "required_anchors": [
@@ -101,12 +112,14 @@
         "## Entry"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
-      "source_sha256": "91da8889925be6e87ad858c6906d614726abf075bf538c1627cef7442922727a",
+      "source_sha256": "03c8acb5f213756cf2a81d4fa5d7779e7bb44baf1a279256f7d454fce137acc8",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger_metacontrol_uppropagation.md",
-      "target_sha256": "91da8889925be6e87ad858c6906d614726abf075bf538c1627cef7442922727a"
+      "target_sha256": "03c8acb5f213756cf2a81d4fa5d7779e7bb44baf1a279256f7d454fce137acc8"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
       "byte_count": 33479,
       "copy_mode": "exact_file_copy",
@@ -118,6 +131,7 @@
         "## Why this skill exists"
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/skills/task_ledger/task_ledger.md",
       "source_sha256": "252aa6f6468f642b38c877f8a7bc20c6ab5ac5a027f64d9a5c5cfadcc05f363f",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md",

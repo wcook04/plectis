@@ -89,6 +89,17 @@ SOURCE_DIGESTS = {
         "sha256:d78e433e36788a3e25e0d80f76e959557b5ea8c1b2e180b080cb59a20cdd8a1b"
     ),
 }
+PUBLIC_SAFE_SOURCE_DIGESTS = {
+    RUN_SUMMARY_SOURCE_REF: (
+        "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016"
+    ),
+    GRAPH_COMPARISON_SOURCE_REF: (
+        "sha256:38a1ce15461bca6b6811934ac8fcf4e0e82280bd7435a4f241280c5cadcbd074"
+    ),
+    PROBLEM_SOURCE_MANIFEST_REF: (
+        "sha256:9658b0c79ed8f2ea3bdcf9798147ed6408b5cb40a660272cb2bc3dc40479ba33"
+    ),
+}
 SOURCE_MATERIAL_IDS = {
     AGGREGATE_REPORT_SOURCE_REF: "ring2_precision_recall_aggregate_report_body_import",
     RUN_SUMMARY_SOURCE_REF: "ring2_precision_recall_run_summary_body_import",
@@ -102,7 +113,7 @@ SOURCE_MATERIAL_IDS = {
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 SOURCE_ARTIFACT_STATUS = "copied_ring2_source_artifacts_verified"
 SOURCE_OPEN_BODY_MATERIAL_STATUS = (
-    "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance"
+    "digest_verified_public_safe_ring2_precision_recall_source_artifacts_with_provenance"
 )
 SOURCE_OPEN_BODY_AGGREGATE_REF = (
     "examples/ring2_premise_retrieval_precision_recall_harness/"
@@ -605,17 +616,44 @@ def _validate_source_artifacts(input_dir: Path, *, public_root: Path) -> dict[st
     for source_ref in SOURCE_REFS:
         target = input_dir / _source_artifact_rel_path(source_ref)
         expected_digest = SOURCE_DIGESTS[source_ref]
+        public_safe_digest = PUBLIC_SAFE_SOURCE_DIGESTS.get(source_ref)
         exists = target.is_file()
         actual_digest = _sha256(target) if exists else None
-        digest_match = actual_digest == expected_digest
+        source_digest_match = actual_digest == expected_digest
+        public_safe_digest_match = (
+            public_safe_digest is not None and actual_digest == public_safe_digest
+        )
+        digest_match = source_digest_match or public_safe_digest_match
+        relation = (
+            "exact_copy"
+            if source_digest_match
+            else "verified_public_safe_private_path_rewrite"
+            if public_safe_digest_match
+            else "digest_mismatch"
+        )
         row = {
             "source_ref": source_ref,
             "target_ref": _display(target, public_root=public_root),
             "source_sha256": expected_digest,
+            "public_safe_sha256": public_safe_digest,
             "target_sha256": actual_digest,
-            "source_to_target_relation": "exact_copy",
+            "source_to_target_relation": relation,
+            "verification_mode": (
+                "exact_source_digest_match"
+                if source_digest_match
+                else "verified_light_edit_recipe"
+                if public_safe_digest_match
+                else "unverified"
+            ),
+            "public_safe_transform": (
+                "private_absolute_path_rewrite_only"
+                if public_safe_digest_match and not source_digest_match
+                else None
+            ),
             "exists": exists,
             "digest_match": digest_match,
+            "source_digest_matches": source_digest_match,
+            "public_safe_digest_matches": public_safe_digest_match,
             "source_line_count": _line_count(target) if exists else None,
             "target_line_count": _line_count(target) if exists else None,
             "body_material_status": SOURCE_ARTIFACT_STATUS,
@@ -636,7 +674,10 @@ def _validate_source_artifacts(input_dir: Path, *, public_root: Path) -> dict[st
             findings.append(
                 _finding(
                     "RING2_RETRIEVAL_SOURCE_ARTIFACT_DIGEST_MISMATCH",
-                    "Copied Ring-2 source artifact digest must match the macro source digest.",
+                    (
+                        "Copied Ring-2 source artifact digest must match either "
+                        "the macro source digest or a verified public-safe rewrite digest."
+                    ),
                     case_id="source_artifact_floor",
                     subject_id=source_ref,
                     subject_kind="source_artifact",
@@ -858,7 +899,7 @@ def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict
             "adversarial_decoy_required": True,
             "proof_bodies_forbidden": True,
             "copied_material_provenance_required": True,
-            "copied_source_artifact_digest_match_required": True,
+            "source_artifact_digest_or_verified_public_safe_digest_required": True,
             "source_open_body_imports_required": True,
             "body_material_status": BODY_MATERIAL_STATUS,
             "source_artifact_status": SOURCE_ARTIFACT_STATUS,

@@ -270,7 +270,11 @@ def test_command_output_source_manifest_matches_exact_macro_sources() -> None:
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        assert source_digest == target_digest
+        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+            assert row["sha256_match"] is False
+            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text
@@ -292,7 +296,11 @@ def test_trace_capsule_source_manifest_matches_exact_macro_sources() -> None:
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        assert source_digest == target_digest
+        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+            assert row["sha256_match"] is False
+            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text
@@ -314,7 +322,11 @@ def test_route_selection_control_source_manifest_matches_exact_macro_sources() -
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        assert source_digest == target_digest
+        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+            assert row["sha256_match"] is False
+            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text
@@ -336,7 +348,11 @@ def test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources(
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        assert source_digest == target_digest
+        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+            assert row["sha256_match"] is False
+            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text
@@ -773,7 +789,11 @@ def _assert_source_manifest_matches_exact_macro_sources(
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        assert source_digest == target_digest
+        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+            assert row["sha256_match"] is False
+            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
         for anchor in row["required_anchors"]:
             assert anchor in target_text

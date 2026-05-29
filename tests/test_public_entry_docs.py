@@ -583,6 +583,8 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
         "  microcosm spine --card          read the compact runtime spine lens\n"
+        "  microcosm run --card examples/runtime_shell/demo_project "
+        "replay the public runtime demo\n"
         "  microcosm authority --card      read the compact authority ceiling lens\n"
         "  microcosm intake --card         read the compact intake/projection bridge lens\n"
         "  microcosm workingness --card    read the compact behavior/failure "
@@ -599,6 +601,8 @@ def test_public_entry_docs_block_cli_first_screen_help_drift(
         "  microcosm status --card <project> read the compressed "
         "project/runtime status lens\n"
         "  microcosm spine --card          read the compact runtime spine lens\n"
+        "  microcosm run --card examples/runtime_shell/demo_project "
+        "replay the public runtime demo\n"
         "  microcosm authority --card      read the compact authority ceiling lens\n"
         "  microcosm intake --card         read the compact intake/projection bridge lens\n"
     )

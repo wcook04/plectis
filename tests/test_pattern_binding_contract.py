@@ -383,7 +383,7 @@ def test_cold_clone_receipts_use_public_relative_paths(tmp_path: Path) -> None:
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
         assert "/Users/" not in text
-        assert "/Users/willcook" not in text
+        assert "/Users/example" not in text
         assert "src/ai_workflow" not in text
 
 

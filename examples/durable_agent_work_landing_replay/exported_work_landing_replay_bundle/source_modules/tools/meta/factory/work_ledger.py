@@ -208,8 +208,9 @@ def _heartbeat_participation_contract(session_id: str | None = None) -> Dict[str
         ],
         "command_template": (
             "./repo-python tools/meta/factory/work_ledger.py session-heartbeat "
-            f"--session-id {session_token} --state <state> "
-            "--now '<public current pass>' --done '<public previous result>' "
+            f"--session-id {session_token} --state inspecting "
+            "--current-pass-line '<public current pass>' "
+            "--last-pass-result-line '<public previous result>' "
             "--scope-ref <path-or-claim>"
         ),
         "boundary": (
@@ -667,7 +668,8 @@ def cmd_session_heartbeat(args: argparse.Namespace) -> int:
     if not args.current_pass_line and not args.last_pass_result_line:
         raise SystemExit(
             "session-heartbeat requires --current-pass-line/--now or "
-            "--last-pass-result-line/--done"
+            "--last-pass-result-line/--done; use a valid --state such as "
+            "inspecting, editing, validating, closing, blocked, done, or idle"
         )
     pass_state = SESSION_HEARTBEAT_STATE_ALIASES.get(str(args.state or ""), args.state)
     payload = work_ledger_runtime.mark_session_pass_heartbeat(
@@ -1184,8 +1186,9 @@ def _cohort_speed_summary(
         ),
         "heartbeat_fast_path": (
             "./repo-python tools/meta/factory/work_ledger.py "
-            "session-heartbeat --session-id <id> --state <state> "
-            "--now '<public current pass>' --done '<public previous result>' "
+            "session-heartbeat --session-id <id> --state inspecting "
+            "--current-pass-line '<public current pass>' "
+            "--last-pass-result-line '<public previous result>' "
             "--scope-ref <path-or-claim>"
         ),
     }
@@ -1219,8 +1222,9 @@ def _seed_speed_heartbeat_gap_row(card: Mapping[str, Any]) -> Dict[str, Any]:
         "scope_ref": scope_ref,
         "heartbeat_command": (
             "./repo-python tools/meta/factory/work_ledger.py "
-            f"session-heartbeat --session-id {shlex.quote(session_id)} --state <state> "
-            "--now '<public current pass>' --done '<public previous result>' "
+            f"session-heartbeat --session-id {shlex.quote(session_id)} --state inspecting "
+            "--current-pass-line '<public current pass>' "
+            "--last-pass-result-line '<public previous result>' "
             f"--scope-ref {shlex.quote(scope_ref)}"
         ),
     }

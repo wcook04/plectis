@@ -238,7 +238,7 @@ def test_navigation_hologram_route_plane_receipts_are_public_relative_and_redact
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
         assert "/Users/" not in text
-        assert "/Users/willcook" not in text
+        assert "/Users/example" not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert '"body":' not in text
@@ -408,7 +408,7 @@ def test_navigation_hologram_route_plane_exported_bundle_receipt_is_public_safe(
     text = receipt_file.read_text(encoding="utf-8")
     assert str(public_root) not in text
     assert "/Users/" not in text
-    assert "/Users/willcook" not in text
+    assert "/Users/example" not in text
     assert "src/ai_workflow" not in text
     assert "matched_excerpt" not in text
     assert '"body":' not in text

@@ -1,11 +1,105 @@
 {
-  "schema_version": "microcosm_source_module_manifest_v1",
-  "manifest_id": "corpus_readiness_mathlib_absence_gate_prover_smoke_run_source_module_manifest",
-  "organ_id": "corpus_readiness_mathlib_absence_gate",
-  "source_import_class": "copied_non_secret_macro_body",
+  "anti_claim": "This source-module manifest proves exact copied non-secret corpus-readiness and Mathlib-absence boundary artifacts; it does not export proof bodies, provider payloads, account/session state, browser/HUD live access, credentials, or release authority.",
   "body_in_receipt": false,
   "body_storage_policy": "exact_non_secret_PROVER_smoke_run_corpus_readiness_and_mathlib_absence_boundary_artifacts_copied_into_public_corpus_readiness_bundle",
-  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
+  "manifest_id": "corpus_readiness_mathlib_absence_gate_prover_smoke_run_source_module_manifest",
+  "module_count": 4,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 2551,
+      "line_count": 75,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "source_sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
+      "target_sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 128,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "public_safe_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "source_sha256": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
+      "target_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 61,
+      "line_count": 4,
+      "material_class": "public_macro_tool_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "source_sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
+      "target_sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "line_count": 93,
+      "material_class": "public_macro_receipt_body",
+      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
+      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "public_safe_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "public_safe_transform": "private_absolute_path_rewrite_only",
+      "sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
+      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "source_sha256": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+      "source_to_target_relation": "verified_public_safe_private_path_rewrite",
+      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
+      "target_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "validation_refs": [
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_digest_verified",
+        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
+      ],
+      "verification_mode": "verified_light_edit_recipe"
+    }
+  ],
+  "organ_id": "corpus_readiness_mathlib_absence_gate",
+  "schema_version": "microcosm_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "no keys or credentials",
     "no account/session/cookie material",
@@ -14,82 +108,8 @@
     "no recipient-send state",
     "no private theorem proof bodies or oracle proof text"
   ],
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "source_open_everything_except_keys_credentials_account_session_cookies_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalent_material",
   "source_run_id": "PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0",
-  "source_run_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke",
-  "module_count": 4,
-  "modules": [
-    {
-      "module_id": "prover_proof_state_curriculum_corpus_readiness_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
-      "line_count": 75,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
-      "line_count": 128,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_mathlib_probe_lean_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "sha256": "8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
-      "line_count": 4,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
-      ]
-    },
-    {
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_availability_json_body_import",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "target_ref": "microcosm-substrate/examples/corpus_readiness_mathlib_absence_gate/exported_corpus_readiness_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "source_import_class": "copied_non_secret_macro_body",
-      "material_class": "public_macro_receipt_body",
-      "sha256": "405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
-      "line_count": 93,
-      "body_in_receipt": false,
-      "body_copied": true,
-      "source_to_target_relation": "exact_copy",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "validation_refs": [
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_exported_source_modules_are_exact_copies",
-        "tests/test_corpus_readiness_mathlib_absence_gate.py::test_corpus_readiness_mathlib_absence_gate_accepts_exported_bundle"
-      ]
-    }
-  ],
-  "anti_claim": "This source-module manifest proves exact copied non-secret corpus-readiness and Mathlib-absence boundary artifacts; it does not export proof bodies, provider payloads, account/session state, browser/HUD live access, credentials, or release authority."
+  "source_run_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke"
 }

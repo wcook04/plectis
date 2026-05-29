@@ -170,7 +170,7 @@ def test_symbol_classifier_exported_bundle_validates_runtime_shape(
     for path in BUNDLE_INPUT.rglob("*"):
         if path.is_file() and path.suffix in {".json", ".md", ".py"}:
             text = path.read_text(encoding="utf-8")
-            assert "/Users/willcook" not in text
+            assert "/Users/example" not in text
             assert "SYNTHETIC_PROVIDER_PAYLOAD_BODY_SENTINEL" not in text
 
 

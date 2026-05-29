@@ -2829,11 +2829,32 @@ def _digest_for_existing_format(existing: Any, stats: dict[str, Any]) -> str:
     return str(stats["sha256"])
 
 
-def _resolve_source_path(source_ref: str, *, source_root: Path) -> Path | None:
+def _resolve_source_path(
+    source_ref: str,
+    *,
+    source_root: Path,
+    public_root: Path | None = None,
+) -> Path | None:
     ref_path = Path(source_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
-    return source_root / ref_path
+    candidates = [source_root / ref_path]
+    if public_root is not None:
+        candidates.extend([public_root / ref_path, public_root.parent / ref_path])
+    candidates.append(Path.cwd() / ref_path)
+
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate.resolve(strict=False))
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(candidate)
+    for candidate in unique:
+        if candidate.is_file():
+            return candidate
+    return unique[0]
 
 
 def _resolve_public_target_path(target_ref: str, *, public_root: Path) -> Path | None:
@@ -2929,15 +2950,16 @@ def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
     source_relation = str(row.get("source_to_target_relation") or "")
     source_import_class = str(row.get("source_import_class") or "")
     copy_mode = str(row.get("copy_mode") or "")
-    if classification.startswith("copied_non_secret_macro_"):
-        return True
+    if source_relation:
+        return source_relation == "exact_copy" or source_relation.endswith("_exact_copy")
     if copy_mode == "exact_file_copy":
         return True
-    if source_relation == "exact_copy":
+    if row.get("sha256_match") is True:
         return True
-    if source_import_class == "copied_non_secret_macro_body":
-        return True
-    return row.get("sha256_match") is True
+    return (
+        classification.startswith("copied_non_secret_macro_")
+        or source_import_class == "copied_non_secret_macro_body"
+    )
 
 
 def _update_source_module_manifest_row(
@@ -2958,7 +2980,15 @@ def _update_source_module_manifest_row(
     )
     source_ref = str(row.get("source_ref") or "")
     target_ref = str(row.get("target_ref") or row.get("path") or "")
-    source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
+    source_path = (
+        _resolve_source_path(
+            source_ref,
+            source_root=source_root,
+            public_root=public_root,
+        )
+        if source_ref
+        else None
+    )
     target_path = (
         _resolve_manifest_target_path(
             target_ref,
@@ -3082,7 +3112,15 @@ def _update_protocol_exact_copy_row(
         or (_strings(row.get("source_refs"))[0] if _strings(row.get("source_refs")) else "")
     )
     target_ref = str(row.get("target_ref") or verification.get("target_ref") or "")
-    source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
+    source_path = (
+        _resolve_source_path(
+            source_ref,
+            source_root=source_root,
+            public_root=public_root,
+        )
+        if source_ref
+        else None
+    )
     target_path = (
         _resolve_public_target_path(target_ref, public_root=public_root)
         if target_ref

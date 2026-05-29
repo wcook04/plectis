@@ -91,7 +91,7 @@
   ],
   "source_open_body_imports": {
     "status": "pass",
-    "body_material_status": "exact_copied_public_safe_ring2_precision_recall_source_artifacts_with_digest_provenance",
+    "body_material_status": "digest_verified_public_safe_ring2_precision_recall_source_artifacts_with_provenance",
     "body_material_count": 4,
     "body_material_ids": [
       "ring2_precision_recall_aggregate_report_body_import",

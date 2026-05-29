@@ -6,7 +6,7 @@
   "source_open_payload_boundary": "open_source_everything_but_keys_provider_payloads_account_sessions_prompt_bodies_hidden_reasoning_and_credential_equivalent_live_access",
   "body_storage_policy": "exact_non_secret_agent_observability_source_and_test_modules_copied_into_public_projection_bundle",
   "receipt_body_policy": "receipts report paths hashes counts anchor results and synthetic trace-shape checks but never duplicate full source bodies, prompt bodies, hidden reasoning, provider request/response payload bodies, account/session material, browser/HUD live access, recipient-send state, generated state output, or credential-equivalent payloads",
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic payload-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority.",
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and synthetic payload-boundary trace-shape checks; copied source modules are body evidence, not authority to scan live ~/.claude or ~/.codex sessions, dispatch bridges, call providers, execute local CLIs, access browser/HUD state, emit prompt/provider/tool-output bodies, write generated state, mutate private state, or claim release authority. Declared public light-edit redactions may rewrite operator-specific absolute path literals without importing credential, session, provider, or raw operator bodies.",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -68,11 +68,16 @@
       "body_in_receipt": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_generated_state_account_session_prompt_body_or_hidden_reasoning",
       "source_sha256": "ecb1138277a33e5174b3337ab3dddbef67924b686924a359ec2da12943957cfa",
-      "target_sha256": "ecb1138277a33e5174b3337ab3dddbef67924b686924a359ec2da12943957cfa",
-      "sha256_match": true,
+      "target_sha256": "d062f9b435740c1ce032e60fe27527f58b2ab422607a2b405c515c46ad6e04e3",
+      "sha256_match": false,
       "line_count": 637,
-      "byte_count": 25541,
-      "anchor_count": 5
+      "byte_count": 25539,
+      "anchor_count": 5,
+      "source_to_target_relation": "public_light_edit_private_path_redaction",
+      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
+      "applied_edits": [
+        "operator_absolute_path_prefixes_redacted_to_/Users/example"
+      ]
     }
   ]
 }

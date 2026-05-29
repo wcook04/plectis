@@ -277,6 +277,30 @@ PUBLIC_RING2_ARTIFACT_IMPORTS = [
         "copy_policy": "exact_public_safe_runtime_artifact",
     },
 ]
+PUBLIC_RING2_PUBLIC_LIGHT_EDIT_DIGESTS = {
+    REAL_SUBSTRATE_REFS[4]: "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+    REAL_SUBSTRATE_REFS[5]: "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
+    REAL_SUBSTRATE_REFS[12]: "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
+}
+for _artifact in PUBLIC_RING2_ARTIFACT_IMPORTS:
+    _light_edit_digest = PUBLIC_RING2_PUBLIC_LIGHT_EDIT_DIGESTS.get(_artifact["source_ref"])
+    if _light_edit_digest:
+        _artifact.update(
+            {
+                "sha256": _light_edit_digest,
+                "target_sha256": _light_edit_digest,
+                "source_sha256": SOURCE_DIGESTS[_artifact["source_ref"]],
+                "copy_policy": "source_faithful_public_light_edit",
+                "source_to_target_relation": "public_light_edit_private_path_redaction",
+                "rewrite_recipe_ref": (
+                    "microcosm-substrate/src/microcosm_core/release_export.py::"
+                    "_strong_private_path_hits"
+                ),
+                "applied_edits": [
+                    "operator_absolute_path_prefixes_redacted_to_/Users/example"
+                ],
+            }
+        )
 PUBLIC_REPLACEMENT_REFS = [
     *PUBLIC_RING2_ARTIFACT_TARGET_REFS,
     *REAL_SUBSTRATE_REFS,
@@ -596,15 +620,29 @@ def validate_copied_macro_body_artifacts(
         file_present = target_path.is_file()
         actual_sha256 = _sha256_file(target_path) if file_present else ""
         source_digest = SOURCE_DIGESTS.get(source_ref, "")
-        digest_status = (
-            PASS
-            if file_present
-            and actual_sha256 == expected_sha256
-            and actual_sha256 == source_digest
-            and row.get("body_copied") is True
-            and row.get("copy_policy") == "exact_public_safe_runtime_artifact"
-            else "blocked"
-        )
+        copy_policy = str(row.get("copy_policy") or "")
+        if copy_policy == "exact_public_safe_runtime_artifact":
+            digest_status = (
+                PASS
+                if file_present
+                and actual_sha256 == expected_sha256
+                and actual_sha256 == source_digest
+                and row.get("body_copied") is True
+                else "blocked"
+            )
+        elif copy_policy == "source_faithful_public_light_edit":
+            digest_status = (
+                PASS
+                if file_present
+                and actual_sha256 == expected_sha256
+                and row.get("target_sha256") == actual_sha256
+                and row.get("source_sha256") == source_digest
+                and isinstance(row.get("rewrite_recipe_ref"), str)
+                and row.get("body_copied") is True
+                else "blocked"
+            )
+        else:
+            digest_status = "blocked"
         if not file_present:
             missing_files.append(target_ref)
         if file_present and digest_status != PASS:
@@ -626,7 +664,7 @@ def validate_copied_macro_body_artifacts(
                 "sha256": expected_sha256,
                 "actual_sha256": actual_sha256,
                 "body_copied": row.get("body_copied") is True,
-                "copy_policy": str(row.get("copy_policy") or ""),
+                "copy_policy": copy_policy,
                 "file_present": file_present,
                 "digest_status": digest_status,
             }

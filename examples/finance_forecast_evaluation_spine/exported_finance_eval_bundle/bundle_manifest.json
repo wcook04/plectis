@@ -185,10 +185,10 @@
     },
     {
       "body_in_receipt": false,
-      "line_count": 135,
+      "line_count": 153,
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
-      "sha256": "3bec202831261124bc9305141149a32c0d8fa3e3bcf0b86477ba0b39c7787dbd",
+      "sha256": "524a89f678d7e6a3b35e6a4ba5bcbfbe0015c3afd146c54615f260903c04fa36",
       "source_import_class": "source_faithful_refactor",
       "source_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json"
     }

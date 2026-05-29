@@ -1,158 +1,173 @@
 {
-  "schema_version": "verifier_lab_execution_spine_source_module_manifest_v1",
-  "manifest_id": "verifier_lab_execution_spine_public_runtime_source_body_imports",
-  "bundle_id": "public_verifier_lab_execution_spine_runtime_example",
-  "source_import_class": "copied_non_secret_macro_body",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
-  "body_storage_policy": "public execution-spine Python, packet, Lake, and Lean bodies live as files in this exported bundle; receipts expose refs, hashes, counts, and verdicts only",
-  "receipt_body_policy": "receipts may report paths, hashes, transition counts, and validation status but must not duplicate proof bodies, provider payloads, oracle answers, private source, stdout, or stderr bodies",
-  "body_in_receipt": false,
-  "module_count": 5,
-  "modules": [
-    {
-      "module_id": "verifier_lab_execution_spine_source_body_import",
-      "source_ref": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
-      "path": "source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
-      "source_role": "Execution-spine organ that builds public Lean transition candidates, validates CP2/Evolve boundaries, writes receipts, and enforces source-open body import accounting",
-      "source_import_class": "copied_non_secret_macro_body",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
-      "line_count": 1723,
-      "byte_count": 64375,
-      "required_anchors": [
-        "ORGAN_ID = \"verifier_lab_execution_spine\"",
-        "def run_execution_bundle",
-        "def validate_source_module_imports"
-      ],
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
-        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ],
-      "required_anchors_present": true
-    },
-    {
-      "module_id": "execution_spine_packet_body_import",
-      "source_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json",
-      "path": "execution_spine_packet.json",
-      "source_role": "Public execution-spine packet with transition rows, oracle/provider separation metadata, CP2 translation request, and bounded Evolve policy rerun row",
-      "source_import_class": "copied_non_secret_macro_body",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
-      "line_count": 148,
-      "byte_count": 5525,
-      "required_anchors": [
-        "\"schema_version\": \"verifier_lab_execution_spine_packet_v1\"",
-        "\"transition_candidates\"",
-        "\"cp2_translation_requests\"",
-        "\"evolve_mutations\""
-      ],
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
-        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ],
-      "required_anchors_present": true
-    },
-    {
-      "module_id": "execution_spine_lakefile_body_import",
-      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/lakefile.lean",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/lakefile.lean",
-      "path": "lake_project/lakefile.lean",
-      "source_role": "Public Lake project file that constrains the execution-spine build to MicrocosmProofWitness.Basic",
-      "source_import_class": "copied_non_secret_macro_body",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_tool_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
-      "line_count": 6,
-      "byte_count": 103,
-      "required_anchors": [
-        "import Lake",
-        "package microcosm_proof_witness where",
-        "lean_lib MicrocosmProofWitness where"
-      ],
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
-        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ],
-      "required_anchors_present": true
-    },
-    {
-      "module_id": "execution_spine_root_lean_body_import",
-      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness.lean",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness.lean",
-      "path": "lake_project/MicrocosmProofWitness.lean",
-      "source_role": "Public Lean root module that imports the declared Basic execution-spine witness module",
-      "source_import_class": "copied_non_secret_macro_body",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_proof_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
-      "line_count": 1,
-      "byte_count": 35,
-      "required_anchors": [
-        "import MicrocosmProofWitness.Basic"
-      ],
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
-        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ],
-      "required_anchors_present": true
-    },
-    {
-      "module_id": "execution_spine_basic_lean_body_import",
-      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean",
-      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean",
-      "path": "lake_project/MicrocosmProofWitness/Basic.lean",
-      "source_role": "Public Lean theorem and helper body used by the execution-spine transition reruns",
-      "source_import_class": "copied_non_secret_macro_body",
-      "classification": "copied_non_secret_macro_body",
-      "material_class": "public_macro_proof_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_to_target_relation": "exact_copy",
-      "sha256": "sha256:f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
-      "line_count": 33,
-      "byte_count": 814,
-      "required_anchors": [
-        "theorem nat_add_zero_public",
-        "theorem closed_nat_mod_public",
-        "theorem or_comm_public",
-        "theorem list_append_nil_public"
-      ],
-      "validation_refs": [
-        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
-        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
-      ],
-      "required_anchors_present": true
-    }
-  ],
-  "validation_contract_ref": "standards/std_microcosm_verifier_lab_execution_spine.json",
   "blocked_import_debt": [
     {
       "material_id": "private_or_provider_execution_payload_bodies_blocked",
-      "source_ref": "provider/oracle/private proof payload bodies",
       "reason": "Provider payloads, oracle answers, private proof bodies, browser/HUD live-access, account/session state, and credential-equivalent material remain excluded by the source-open boundary.",
       "replacement_criteria": [
         "publish only public replacement source or digest receipts",
         "prove no provider/oracle/private proof bodies are embedded in JSON receipts",
         "keep source_module_manifest rows body_copied=true and body_in_receipt=false",
         "run verifier_lab_execution_spine exported-bundle validator and secret-exclusion scan"
+      ],
+      "source_ref": "provider/oracle/private proof payload bodies"
+    }
+  ],
+  "body_in_receipt": false,
+  "body_storage_policy": "public execution-spine Python, packet, Lake, and Lean bodies live as files in this exported bundle; receipts expose refs, hashes, counts, and verdicts only",
+  "bundle_id": "public_verifier_lab_execution_spine_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "verifier_lab_execution_spine_public_runtime_source_body_imports",
+  "module_count": 5,
+  "modules": [
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 64375,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1723,
+      "material_class": "public_macro_tool_body",
+      "module_id": "verifier_lab_execution_spine_source_body_import",
+      "path": "source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
+      "required_anchors": [
+        "ORGAN_ID = \"verifier_lab_execution_spine\"",
+        "def run_execution_bundle",
+        "def validate_source_module_imports"
+      ],
+      "required_anchors_present": true,
+      "sha256": "sha256:ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "src/microcosm_core/organs/verifier_lab_execution_spine.py",
+      "source_role": "Execution-spine organ that builds public Lean transition candidates, validates CP2/Evolve boundaries, writes receipts, and enforces source-open body import accounting",
+      "source_sha256": "ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_modules/microcosm_core/organs/verifier_lab_execution_spine.py",
+      "target_sha256": "ced4e537ce76b0acb7cfa187753752ee5700f54b555a7b1250b15821943f4673",
+      "validation_refs": [
+        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
+        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 5525,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 148,
+      "material_class": "public_macro_tool_body",
+      "module_id": "execution_spine_packet_body_import",
+      "path": "execution_spine_packet.json",
+      "required_anchors": [
+        "\"schema_version\": \"verifier_lab_execution_spine_packet_v1\"",
+        "\"transition_candidates\"",
+        "\"cp2_translation_requests\"",
+        "\"evolve_mutations\""
+      ],
+      "required_anchors_present": true,
+      "sha256": "sha256:47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json",
+      "source_role": "Public execution-spine packet with transition rows, oracle/provider separation metadata, CP2 translation request, and bounded Evolve policy rerun row",
+      "source_sha256": "47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/execution_spine_packet.json",
+      "target_sha256": "47c2f596342156797435b06b20a8171c54c9b8a4dbcc2abbc60fcc893bbf5380",
+      "validation_refs": [
+        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
+        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 103,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 6,
+      "material_class": "public_macro_tool_body",
+      "module_id": "execution_spine_lakefile_body_import",
+      "path": "lake_project/lakefile.lean",
+      "required_anchors": [
+        "import Lake",
+        "package microcosm_proof_witness where",
+        "lean_lib MicrocosmProofWitness where"
+      ],
+      "required_anchors_present": true,
+      "sha256": "sha256:019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/lakefile.lean",
+      "source_role": "Public Lake project file that constrains the execution-spine build to MicrocosmProofWitness.Basic",
+      "source_sha256": "019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/lakefile.lean",
+      "target_sha256": "019002f8e3e70d6d0f543ec92ff2f3fb99087b1c469778f09d12d10151eec638",
+      "validation_refs": [
+        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
+        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 35,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1,
+      "material_class": "public_macro_proof_body",
+      "module_id": "execution_spine_root_lean_body_import",
+      "path": "lake_project/MicrocosmProofWitness.lean",
+      "required_anchors": [
+        "import MicrocosmProofWitness.Basic"
+      ],
+      "required_anchors_present": true,
+      "sha256": "sha256:3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness.lean",
+      "source_role": "Public Lean root module that imports the declared Basic execution-spine witness module",
+      "source_sha256": "3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness.lean",
+      "target_sha256": "3ec6004338fd4a7113d9b5fd613b24e7ed5d753851048f47fb046a986c2c3867",
+      "validation_refs": [
+        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
+        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
+      ]
+    },
+    {
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 814,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 33,
+      "material_class": "public_macro_proof_body",
+      "module_id": "execution_spine_basic_lean_body_import",
+      "path": "lake_project/MicrocosmProofWitness/Basic.lean",
+      "required_anchors": [
+        "theorem nat_add_zero_public",
+        "theorem closed_nat_mod_public",
+        "theorem or_comm_public",
+        "theorem list_append_nil_public"
+      ],
+      "required_anchors_present": true,
+      "sha256": "sha256:f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "fixtures/first_wave/verifier_lab_execution_spine/input/lake_project/MicrocosmProofWitness/Basic.lean",
+      "source_role": "Public Lean theorem and helper body used by the execution-spine transition reruns",
+      "source_sha256": "f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean",
+      "target_sha256": "f0bf0da3b9dacf7f4518a4bd24ff68d1159f292c25456b11ca0694b9aba5e92e",
+      "validation_refs": [
+        "microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports",
+        "tests/test_verifier_lab_execution_spine.py::test_verifier_lab_execution_spine_source_module_manifest_is_exact_public_body_floor"
       ]
     }
-  ]
+  ],
+  "receipt_body_policy": "receipts may report paths, hashes, transition counts, and validation status but must not duplicate proof bodies, provider payloads, oracle answers, private source, stdout, or stderr bodies",
+  "schema_version": "verifier_lab_execution_spine_source_module_manifest_v1",
+  "source_import_class": "copied_non_secret_macro_body",
+  "source_open_payload_boundary": "open_source_everything_but_keys_credentials_cookies_account_session_state_provider_payload_bodies_browser_hud_live_access_recipient_send_state_and_credential_equivalents",
+  "validation_contract_ref": "standards/std_microcosm_verifier_lab_execution_spine.json"
 }

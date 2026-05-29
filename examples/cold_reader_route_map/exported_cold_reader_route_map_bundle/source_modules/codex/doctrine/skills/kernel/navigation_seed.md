@@ -52,6 +52,10 @@ doctrine_edges:
   concepts: [con_001, con_024, con_028]
   mechanisms: [mech_019]
   principles: [pri_049, pri_111, pri_003, pri_080, pri_117]
+governing_standard_ids:
+  - std_navigation_contract
+  - std_navigation_rosetta_grammar
+  - std_semantic_naming
 composes_with: [bootstrap, navigate, paper_module_lookup, raw_seed_contextualize, local_to_general_propagation, nav_driven_wiring_repair, agent_session_diagnostics, annex_pattern_transfer]
 name: "navigation-seed"
 description: "The cold-boot navigation ladder. Broad development first contact is control-first: --entry or --workitem-entrypoint, then Kind Atlas when the relevant artifact kind is not stable, then option-surface cluster/card rows. Context-pack is a cross-kind subcompiler after the atlas hop; navigation-metabolism is an audit/repair surface after a typed failure, command id, or anti-pattern is known. --skill-find is DEBUG_TRACE only and requires --debug."

@@ -95,6 +95,10 @@ SOURCE_DIGESTS = {
     SOURCE_REFS[1]: "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
     SOURCE_REFS[2]: "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
 }
+PUBLIC_SAFE_SOURCE_DIGESTS = {
+    SOURCE_REFS[0]: "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+    SOURCE_REFS[1]: "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+}
 SOURCE_BODY_REL_BY_SOURCE_REF = {
     source_ref: f"source_artifacts/{source_ref}" for source_ref in SOURCE_REFS
 }
@@ -394,15 +398,33 @@ def _source_body_imports(
             )
             continue
         actual = _sha256(target)
-        body_copied = actual == expected
+        public_safe_expected = PUBLIC_SAFE_SOURCE_DIGESTS.get(source_ref)
+        source_digest_matches = actual == expected
+        public_safe_digest_matches = actual == public_safe_expected
+        body_copied = source_digest_matches or public_safe_digest_matches
+        relation = (
+            "exact_copy"
+            if source_digest_matches
+            else "verified_public_safe_private_path_rewrite"
+            if public_safe_digest_matches
+            else "digest_mismatch"
+        )
         imports.append(
             {
                 "source_ref": source_ref,
                 "target_ref": target_ref,
                 "sha256": expected,
+                "source_sha256": expected,
+                "public_safe_sha256": public_safe_expected,
                 "actual_sha256": actual,
                 "body_copied": body_copied,
-                "copy_policy": "exact_public_safe_macro_run_json_body",
+                "digest_matches": body_copied,
+                "source_digest_matches": source_digest_matches,
+                "public_safe_digest_matches": public_safe_digest_matches,
+                "source_to_target_relation": relation,
+                "copy_policy": (
+                    "exact_or_verified_public_safe_private_path_rewrite_macro_run_json_body"
+                ),
                 "body_material_status": SOURCE_BODY_STATUS,
             }
         )

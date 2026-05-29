@@ -8,6 +8,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 3926,
       "credential_exposure_risk": "low",
       "line_count": 69,
       "material_class": "public_macro_tool_body",
@@ -15,11 +16,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v1.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:20a9adbed7cf5ebb10390263302f2c66180aea27dc2e4615a26883d8b18661f4",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/cross_corr_v1.json",
+      "source_sha256": "20a9adbed7cf5ebb10390263302f2c66180aea27dc2e4615a26883d8b18661f4",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v1.json",
+      "target_sha256": "20a9adbed7cf5ebb10390263302f2c66180aea27dc2e4615a26883d8b18661f4",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -28,6 +32,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 4358,
       "credential_exposure_risk": "low",
       "line_count": 79,
       "material_class": "public_macro_tool_body",
@@ -35,11 +40,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v2.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:17d7f30b74b2becf3dc636d309a44b653d63c0dcdc8d1a27710d0acf3cf1de9a",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/cross_corr_v2.json",
+      "source_sha256": "17d7f30b74b2becf3dc636d309a44b653d63c0dcdc8d1a27710d0acf3cf1de9a",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/cross_corr_v2.json",
+      "target_sha256": "17d7f30b74b2becf3dc636d309a44b653d63c0dcdc8d1a27710d0acf3cf1de9a",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -48,6 +56,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 8199,
       "credential_exposure_risk": "low",
       "line_count": 167,
       "material_class": "public_macro_tool_body",
@@ -55,11 +64,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_cp1.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:2b2a96dfd68e72ff4fb4d656b646a87ee133bec1641624a342f981d86a3b8cd9",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/schema_cp1.json",
+      "source_sha256": "2b2a96dfd68e72ff4fb4d656b646a87ee133bec1641624a342f981d86a3b8cd9",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_cp1.json",
+      "target_sha256": "2b2a96dfd68e72ff4fb4d656b646a87ee133bec1641624a342f981d86a3b8cd9",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -68,6 +80,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 17661,
       "credential_exposure_risk": "low",
       "line_count": 295,
       "material_class": "public_macro_tool_body",
@@ -75,11 +88,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_cp2.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:b6db678bae8ad86b194b95060df8b2dfb17b4ca557d458f0012c84890fe23400",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/schema_cp2.json",
+      "source_sha256": "b6db678bae8ad86b194b95060df8b2dfb17b4ca557d458f0012c84890fe23400",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_cp2.json",
+      "target_sha256": "b6db678bae8ad86b194b95060df8b2dfb17b4ca557d458f0012c84890fe23400",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -88,6 +104,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 7038,
       "credential_exposure_risk": "low",
       "line_count": 196,
       "material_class": "public_macro_tool_body",
@@ -95,11 +112,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_evolve_delta.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:180c70b28d65e0f9c13e2eeb872870042a090efb93febc231520c39e040aae10",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/schema_evolve_delta.json",
+      "source_sha256": "180c70b28d65e0f9c13e2eeb872870042a090efb93febc231520c39e040aae10",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_evolve_delta.json",
+      "target_sha256": "180c70b28d65e0f9c13e2eeb872870042a090efb93febc231520c39e040aae10",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -108,6 +128,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 10497,
       "credential_exposure_risk": "low",
       "line_count": 328,
       "material_class": "public_macro_tool_body",
@@ -115,11 +136,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/contracts/schema_prediction_reconciliation.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:1a33aca7b9134f9faf4b3455a1bf77654df07cac3fe719be0b97113425ab5cb7",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/contracts/schema_prediction_reconciliation.json",
+      "source_sha256": "1a33aca7b9134f9faf4b3455a1bf77654df07cac3fe719be0b97113425ab5cb7",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/contracts/schema_prediction_reconciliation.json",
+      "target_sha256": "1a33aca7b9134f9faf4b3455a1bf77654df07cac3fe719be0b97113425ab5cb7",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -168,6 +192,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 3358,
       "credential_exposure_risk": "low",
       "line_count": 30,
       "material_class": "public_macro_tool_body",
@@ -175,11 +200,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/cross_corr_v2.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:c8c312696ff52080c3cf773747f279c735ff9bd0547ec8ebffa04ac266f6383f",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/nodes/lab/cross_corr_v2.json",
+      "source_sha256": "c8c312696ff52080c3cf773747f279c735ff9bd0547ec8ebffa04ac266f6383f",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/lab/cross_corr_v2.json",
+      "target_sha256": "c8c312696ff52080c3cf773747f279c735ff9bd0547ec8ebffa04ac266f6383f",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -188,18 +216,22 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 4357,
       "credential_exposure_risk": "low",
-      "line_count": 32,
+      "line_count": 31,
       "material_class": "public_macro_tool_body",
       "module_id": "prediction_oracle_node_lab_decide_body_import",
       "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:b3097b44cab244a9d388b138a25af677ce02a360e75e29094d5f90a6462a2093",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/nodes/lab/decide.json",
+      "source_sha256": "b3097b44cab244a9d388b138a25af677ce02a360e75e29094d5f90a6462a2093",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
+      "target_sha256": "b3097b44cab244a9d388b138a25af677ce02a360e75e29094d5f90a6462a2093",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -208,6 +240,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 7958,
       "credential_exposure_risk": "low",
       "line_count": 142,
       "material_class": "public_macro_tool_body",
@@ -215,11 +248,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:f73d0013388fd56bd1f3efcf6140429e50748d50cb953657fbfa9f609237b02a",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
+      "source_sha256": "f73d0013388fd56bd1f3efcf6140429e50748d50cb953657fbfa9f609237b02a",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_cp2_emitter.json",
+      "target_sha256": "f73d0013388fd56bd1f3efcf6140429e50748d50cb953657fbfa9f609237b02a",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -228,6 +264,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 1362,
       "credential_exposure_risk": "low",
       "line_count": 31,
       "material_class": "public_macro_tool_body",
@@ -235,11 +272,14 @@
       "path": "source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:384b2230af3ec9d2e28f0acd67d19caaf13ea5d12eaf809e328b2b3c4ef7bbde",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
+      "source_sha256": "384b2230af3ec9d2e28f0acd67d19caaf13ea5d12eaf809e328b2b3c4ef7bbde",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/codex/substrate/nodes/oracle/oracle_truth_diff_equity.json",
+      "target_sha256": "384b2230af3ec9d2e28f0acd67d19caaf13ea5d12eaf809e328b2b3c4ef7bbde",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"
@@ -268,6 +308,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 8599,
       "credential_exposure_risk": "low",
       "line_count": 197,
       "material_class": "public_macro_tool_body",
@@ -275,11 +316,14 @@
       "path": "source_artifacts/macro_source/tools/oracle/truth_diff_equity.py",
       "public_safe_mode": "direct_verified_macro_body",
       "sha256": "sha256:64f76e0527c099fe225c28b60b5b242e5ec1858d07e3c874bd746e055307f242",
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "tools/oracle/truth_diff_equity.py",
+      "source_sha256": "64f76e0527c099fe225c28b60b5b242e5ec1858d07e3c874bd746e055307f242",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/source_artifacts/macro_source/tools/oracle/truth_diff_equity.py",
+      "target_sha256": "64f76e0527c099fe225c28b60b5b242e5ec1858d07e3c874bd746e055307f242",
       "validation_refs": [
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_source_modules_are_digest_verified",
         "tests/test_prediction_oracle_reconciliation.py::test_prediction_oracle_exported_bundle_validates_runtime_shape"

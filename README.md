@@ -11,6 +11,9 @@ inspect routes, events, evidence handles, and source links without changing
 source files or making external model calls.
 
 For a one-page cold-clone path, start with [QUICKSTART.md](QUICKSTART.md).
+For the first local card from a source checkout, run
+`PYTHONPATH=src python3 -m microcosm_core hello .`; after install, run
+`microcosm hello .`.
 
 ## Public Repo Map
 

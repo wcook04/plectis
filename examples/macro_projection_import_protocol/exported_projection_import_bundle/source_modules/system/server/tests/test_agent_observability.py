@@ -424,7 +424,7 @@ def test_discovers_running_claude_code_app_sessions(tmp_path: Path, monkeypatch)
     sessions_root = tmp_path / ".claude/sessions"
     projects_root = tmp_path / ".claude/projects"
     sessions_root.mkdir(parents=True)
-    cwd = "/Users/willcook/src/ai_workflow"
+    cwd = "/Users/example/src/ai_workflow"
     session_id = "live-session"
     (sessions_root / "123.json").write_text(
         json.dumps(
@@ -602,7 +602,7 @@ def test_ingest_codex_rollout_record_session_meta_uses_payload_id(tmp_path: Path
         "payload": {
             "type": "session_meta",
             "id": "019e0eee-1c35-71a0-9e79-33bbf740fa33",
-            "cwd": "/Users/willcook/src/ai_workflow",
+            "cwd": "/Users/example/src/ai_workflow",
         },
     }
     rollout = tmp_path / "rollout-with-no-uuid-in-name.jsonl"

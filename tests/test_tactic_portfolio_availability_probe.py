@@ -31,6 +31,10 @@ def _sha256(path: Path) -> str:
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
+def _sha256_prefixed(value: str) -> str:
+    return value if value.startswith("sha256:") else f"sha256:{value}"
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -243,7 +247,7 @@ def test_tactic_portfolio_availability_bundle_card_reuses_fresh_receipt(
     )
 
 
-def test_tactic_portfolio_availability_exported_source_modules_are_exact_copies() -> None:
+def test_tactic_portfolio_availability_exported_source_modules_are_digest_verified() -> None:
     manifest = json.loads((EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text())
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
@@ -255,9 +259,21 @@ def test_tactic_portfolio_availability_exported_source_modules_are_exact_copies(
     for module in manifest["modules"]:
         source = repo_root / module["source_ref"]
         target = repo_root / module["target_ref"]
+        source_digest = _sha256_prefixed(module.get("source_sha256") or module["sha256"])
+        target_digest = _sha256_prefixed(module.get("target_sha256") or module["sha256"])
         assert source.is_file()
         assert target.is_file()
-        assert _sha256(source) == module["sha256"]
-        assert _sha256(target) == module["sha256"]
+        assert _sha256(source) == source_digest
+        assert _sha256(target) == target_digest
+        if module["source_to_target_relation"] == "exact_copy":
+            assert source_digest == target_digest
+        else:
+            assert module["source_to_target_relation"] == (
+                "verified_public_safe_private_path_rewrite"
+            )
+            assert source_digest != target_digest
+            assert module["verification_mode"] == "verified_light_edit_recipe"
+            assert module["public_safe_transform"]["body_text_in_receipt"] is False
+            assert Path.home().as_posix() not in target.read_text(encoding="utf-8")
         assert module["body_copied"] is True
         assert module["body_in_receipt"] is False

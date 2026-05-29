@@ -27,7 +27,7 @@ test('indexes Claude-style embedded file artifacts without dropping source lines
     'NavigationFreshnessGateScene.tsx',
     '+266',
     '-0',
-    '/Users/willcook/src/ai_workflow/system/server/ui/src/components/station/NavigationFreshnessGateScene.tsx',
+    '/Users/example/src/ai_workflow/system/server/ui/src/components/station/NavigationFreshnessGateScene.tsx',
     '// [PURPOSE] Navigation freshness gate scene wrapper for /station/routes.',
     'import React from "react";',
     'type Props = { phaseRef: string | null };',
@@ -38,7 +38,7 @@ test('indexes Claude-style embedded file artifacts without dropping source lines
     'StationLens.tsx',
     '+1',
     '-0',
-    '/Users/willcook/src/ai_workflow/system/',
+    '/Users/example/src/ai_workflow/system/',
     'server/ui/src/pages/StationLens.tsx',
     "import NavigationFreshnessGateScene from '../components/station/NavigationFreshnessGateScene';",
     'Updated todos',
@@ -64,7 +64,7 @@ test('indexes Claude-style embedded file artifacts without dropping source lines
   assert.equal(packet.artifacts[0].change_stats.additions, 266);
   assert.equal(
     packet.artifacts[1].path,
-    '/Users/willcook/src/ai_workflow/system/server/ui/src/pages/StationLens.tsx',
+    '/Users/example/src/ai_workflow/system/server/ui/src/pages/StationLens.tsx',
   );
   assert.equal(packet.query_index.top_artifacts.length, 2);
 });
@@ -175,7 +175,7 @@ test('extracts Codex final assistant message before trailing edit review cards',
 test('keeps generated trace-paste sessions as tool traces without file artifacts', () => {
   const text = [
     '# codex session fixture turn 3',
-    'cwd: /Users/willcook/src/ai_workflow',
+    'cwd: /Users/example/src/ai_workflow',
     'started: 2026-05-18T01:41:11.525Z',
     'completed: 2026-05-18T01:48:47.700Z',
     'status: complete',
@@ -636,7 +636,7 @@ test('adds provider-aware continuation cues without overfitting a Claude trace s
     'RootNavigator.tsx',
     '+10',
     '-0',
-    '/Users/willcook/src/ai_workflow/system/server/ui/src/pages/RootNavigator.tsx',
+    '/Users/example/src/ai_workflow/system/server/ui/src/pages/RootNavigator.tsx',
     'export default function RootNavigator() {',
     '  return null;',
     '}',

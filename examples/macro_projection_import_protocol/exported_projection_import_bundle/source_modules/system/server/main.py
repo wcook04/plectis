@@ -1101,7 +1101,11 @@ def _write_json_pretty(path: Path, payload: Mapping[str, Any]) -> None:
 
 def _raw_seed_assimilation_counts(family: str) -> Dict[str, Any]:
     try:
-        projection = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)
+        projection = build_raw_seed_assimilation_projection(
+            family=family,
+            repo_root=REPO_ROOT,
+            include_graph=False,
+        )
     except Exception:
         return {}
     counts = projection.get("counts")
@@ -1114,7 +1118,11 @@ def _load_alchemy_review_bundle(
 ) -> tuple[str, Path, Dict[str, Any], Dict[str, Any] | None]:
     family_dir = _resolve_raw_seed_family_entry(family).get("family_dir") or ""
     if not family_dir:
-        family_dir = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)["family"]["family_dir"]
+        family_dir = build_raw_seed_assimilation_projection(
+            family=family,
+            repo_root=REPO_ROOT,
+            include_graph=False,
+        )["family"]["family_dir"]
     review_path = REPO_ROOT / _family_raw_seed_alchemy_review_path(family_dir)
     review_payload = _read_json_if_exists(review_path)
     bundle = next(
@@ -5425,9 +5433,17 @@ def raw_seed_families():
 def raw_seed_assimilation_projection(
     family: str,
     focus: Optional[str] = Query(None, max_length=240),
+    include_graph: bool = Query(
+        True,
+        description="When false, return projection metadata with an empty graph so route-critical renders can fetch focused graph slices separately.",
+    ),
 ):
     try:
-        projection = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)
+        projection = build_raw_seed_assimilation_projection(
+            family=family,
+            repo_root=REPO_ROOT,
+            include_graph=include_graph or bool(focus),
+        )
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
     except Exception as exc:
@@ -5443,7 +5459,11 @@ def raw_seed_assimilation_projection(
     response_model=List[RawSeedAssimilationClusterCard],
 )
 def raw_seed_assimilation_clusters(family: str):
-    projection = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)
+    projection = build_raw_seed_assimilation_projection(
+        family=family,
+        repo_root=REPO_ROOT,
+        include_graph=False,
+    )
     return projection.get("clusters") or []
 
 
@@ -5467,7 +5487,11 @@ def raw_seed_assimilation_cluster_detail(family: str, group_id: str):
     response_model=List[RawSeedAssimilationBundleCard],
 )
 def raw_seed_assimilation_bundles(family: str):
-    projection = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)
+    projection = build_raw_seed_assimilation_projection(
+        family=family,
+        repo_root=REPO_ROOT,
+        include_graph=False,
+    )
     return projection.get("bundles") or []
 
 
@@ -5491,7 +5515,11 @@ def raw_seed_assimilation_bundle_detail_route(family: str, bundle_id: str):
     response_model=List[RawSeedImplementationGap],
 )
 def raw_seed_assimilation_implementation_gaps(family: str):
-    projection = build_raw_seed_assimilation_projection(family=family, repo_root=REPO_ROOT)
+    projection = build_raw_seed_assimilation_projection(
+        family=family,
+        repo_root=REPO_ROOT,
+        include_graph=False,
+    )
     return projection.get("implementation_gaps") or []
 
 

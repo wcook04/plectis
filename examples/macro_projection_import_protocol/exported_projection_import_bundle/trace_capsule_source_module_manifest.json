@@ -9,9 +9,9 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 324885,
+      "byte_count": 328721,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 7743,
+      "line_count": 7829,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_body_import",
       "required_anchors": [
@@ -25,17 +25,17 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/meta/observability/cli_prompt_trace.py",
       "source_role": "Trace Capsule renderer and provider-session trace projection tool for command/output/edit/test timelines, closeout reports, prompt-cycle windows, and local-only variant artifacts",
-      "source_sha256": "8e9afa6067f36c8db6baac63da75a73ac95928bf41d9a8ed1cfb2e3e62c27652",
+      "source_sha256": "370cdf9c15757141f5c477a5342155104c5743d75fce5ec851a11e54be04983b",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/observability/cli_prompt_trace.py",
-      "target_sha256": "8e9afa6067f36c8db6baac63da75a73ac95928bf41d9a8ed1cfb2e3e62c27652"
+      "target_sha256": "370cdf9c15757141f5c477a5342155104c5743d75fce5ec851a11e54be04983b"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 29934,
+      "byte_count": 32412,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 705,
+      "line_count": 771,
       "material_class": "public_macro_tool_body",
       "module_id": "trace_capsule_cli_prompt_trace_test_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "system/server/tests/test_cli_prompt_trace_capsule.py",
       "source_role": "Macro regression tests for terminal validation semantics, thread closeout reports, and repeated prompt interning around cli_prompt_trace Trace Capsule output",
-      "source_sha256": "88555d4a74ee1504d1428814f4ee9a76c438b54f04208913bf909ac54b368cf9",
+      "source_sha256": "2d51918ff66aa58e9f328322214e12b4acf418f69ecbce4031468e6c4d4384de",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_cli_prompt_trace_capsule.py",
-      "target_sha256": "88555d4a74ee1504d1428814f4ee9a76c438b54f04208913bf909ac54b368cf9"
+      "target_sha256": "2d51918ff66aa58e9f328322214e12b4acf418f69ecbce4031468e6c4d4384de"
     },
     {
       "anchor_count": 5,
@@ -79,13 +79,17 @@
     },
     {
       "anchor_count": 5,
+      "applied_edits": [
+        "operator_absolute_path_prefixes_redacted_to_/Users/example"
+      ],
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 46212,
+      "byte_count": 46207,
       "classification": "copied_non_secret_macro_body",
       "line_count": 989,
       "material_class": "public_macro_tool_body",
       "module_id": "agent_trace_structurer_parser_test_body_import",
+      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/release_export.py::_strong_private_path_hits",
       "required_anchors": [
         "test('indexes Claude-style embedded file artifacts without dropping source lines'",
         "test('keeps Codex-style traces timeline-oriented'",
@@ -93,16 +97,17 @@
         "test('classifies AIW thread exports before incidental code or ledger text'",
         "buildAttachmentClip"
       ],
-      "sha256_match": true,
+      "sha256_match": false,
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_session_export",
       "source_ref": "tools/agent_trace_structurer/parser.test.mjs",
       "source_role": "Node fixture tests for the Agent Trace Structurer parser: file artifact indexing, Codex trace shape, closeout extraction, prompt classification, and bounded export behavior",
       "source_sha256": "a78784fa7052a398c642c5acb988ce1eb14e2193255f471409e57c3c29ea780b",
+      "source_to_target_relation": "public_light_edit_private_path_redaction",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
-      "target_sha256": "a78784fa7052a398c642c5acb988ce1eb14e2193255f471409e57c3c29ea780b"
+      "target_sha256": "bce87209d898836b6104036c9ac5b87702a279a019963da0c1cda522c9fb46a9"
     }
   ],
-  "public_runtime_policy": "public validation uses fixture Turn objects and deterministic parser fixture strings only; copied source modules are body evidence, not authority to read live home session logs or provider stores",
+  "public_runtime_policy": "public validation uses fixture Turn objects and deterministic parser fixture strings only; copied source modules are body evidence, not authority to read live home session logs or provider stores Declared public light-edit redactions may rewrite operator-specific absolute path literals without importing credential, session, provider, or raw operator bodies.",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live provider payload/session bodies",
   "schema_version": "macro_projection_trace_capsule_source_module_manifest_v1",
   "secret_exclusion_boundary": [

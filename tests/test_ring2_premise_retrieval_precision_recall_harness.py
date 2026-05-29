@@ -122,8 +122,18 @@ def test_ring2_precision_recall_observes_required_negative_cases(
     for row in result["source_artifact_imports"]:
         assert row["exists"] is True
         assert row["digest_match"] is True
-        assert row["source_to_target_relation"] == "exact_copy"
-        assert row["source_sha256"] == row["target_sha256"]
+        assert row["source_to_target_relation"] in {
+            "exact_copy",
+            "verified_public_safe_private_path_rewrite",
+        }
+        if row["source_to_target_relation"] == "exact_copy":
+            assert row["source_sha256"] == row["target_sha256"]
+            assert row["verification_mode"] == "exact_source_digest_match"
+        else:
+            assert row["public_safe_sha256"] == row["target_sha256"]
+            assert row["source_sha256"] != row["target_sha256"]
+            assert row["verification_mode"] == "verified_light_edit_recipe"
+            assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
 
 
 def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
@@ -290,13 +300,34 @@ def test_ring2_precision_recall_bundle_card_reuses_fresh_receipt(
     assert cached_card["receipt_paths"] == first_card["receipt_paths"]
 
 
-def test_ring2_precision_recall_source_artifacts_are_exact_copies() -> None:
+def test_ring2_precision_recall_source_artifacts_are_digest_verified(
+    tmp_path: Path,
+) -> None:
     for input_root in (FIXTURE_INPUT, EXPORTED_BUNDLE_INPUT):
+        out_dir = tmp_path / input_root.name
+        if input_root == FIXTURE_INPUT:
+            result = run(input_root, out_dir, command="pytest")
+        else:
+            result = run_precision_recall_bundle(input_root, out_dir, command="pytest")
+        imports_by_ref = {
+            row["source_ref"]: row for row in result["source_artifact_imports"]
+        }
         for source_ref in SOURCE_ARTIFACT_REFS:
             source = MICROCOSM_ROOT.parent / source_ref
             target = input_root / "source_artifacts" / source_ref
             assert target.is_file()
             source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
             target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
-            assert source_digest == target_digest
-            assert source.read_bytes() == target.read_bytes()
+            row = imports_by_ref[source_ref]
+            assert row["digest_match"] is True
+            assert row["source_sha256"] == f"sha256:{source_digest}"
+            assert row["target_sha256"] == f"sha256:{target_digest}"
+            if row["source_to_target_relation"] == "exact_copy":
+                assert source_digest == target_digest
+                assert source.read_bytes() == target.read_bytes()
+            else:
+                assert row["source_to_target_relation"] == (
+                    "verified_public_safe_private_path_rewrite"
+                )
+                assert row["public_safe_sha256"] == f"sha256:{target_digest}"
+                assert "/Users/willcook" not in target.read_text(encoding="utf-8")

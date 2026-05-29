@@ -44,6 +44,10 @@ SOURCE_ARTIFACT_REFS = [
 ]
 
 
+def _sha256_prefixed(value: str) -> str:
+    return value if value.startswith("sha256:") else f"sha256:{value}"
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -189,7 +193,7 @@ def test_formal_math_readiness_exported_bundle_card_bounds_stdout(
     assert receipt.is_file()
 
 
-def test_formal_math_readiness_exported_source_modules_are_exact_copies() -> None:
+def test_formal_math_readiness_exported_source_modules_are_digest_verified() -> None:
     manifest = json.loads(
         (EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text(
             encoding="utf-8"
@@ -214,9 +218,22 @@ def test_formal_math_readiness_exported_source_modules_are_exact_copies() -> Non
         assert target.is_file()
         source_bytes = source.read_bytes()
         target_bytes = target.read_bytes()
-        digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
-        assert source_bytes == target_bytes
-        assert modules[source_ref]["sha256"] == digest
+        source_digest = "sha256:" + hashlib.sha256(source_bytes).hexdigest()
+        target_digest = "sha256:" + hashlib.sha256(target_bytes).hexdigest()
+        row = modules[source_ref]
+        row_source_digest = _sha256_prefixed(row.get("source_sha256", row["sha256"]))
+        row_target_digest = _sha256_prefixed(row.get("target_sha256", row["sha256"]))
+        assert row_source_digest == source_digest
+        assert row_target_digest == target_digest
+        assert _sha256_prefixed(row["sha256"]) == target_digest
+        if row.get("source_to_target_relation") == "verified_public_safe_private_path_rewrite":
+            assert source_digest != target_digest
+            assert row["verification_mode"] == "verified_light_edit_recipe"
+            assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
+            assert "/Users/willcook" not in target.read_text(encoding="utf-8")
+        else:
+            assert source_bytes == target_bytes
+            assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
         assert modules[source_ref]["body_in_receipt"] is False
 
 

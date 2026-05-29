@@ -381,7 +381,7 @@ def test_soft_and_curated_dedupe_by_assistant_sha(tmp_path: Path, monkeypatch: p
 
 
 def test_claude_project_slug_for_repo_cwd() -> None:
-    slug = ohl._claude_project_slug_for_cwd(Path("/Users/willcook/src/ai_workflow"))
+    slug = ohl._claude_project_slug_for_cwd(Path("/Users/example/src/ai_workflow"))
     assert slug == "-Users-willcook-src-ai-workflow"
 
 

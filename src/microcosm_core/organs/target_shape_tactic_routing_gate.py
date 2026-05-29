@@ -56,6 +56,11 @@ SOURCE_DIGESTS = {
     REAL_SUBSTRATE_REFS[2]: "sha256:6c7eb0bc4ebf1c9a2689720ea8cfe9aa72298c136fdfebd6e1a4aae78986890f",
     REAL_SUBSTRATE_REFS[3]: "sha256:7669c8d91ddf7de75b6a7c7e688e70e4ba211ff3c00ceb9bca32d3202c5739b4",
 }
+PUBLIC_SAFE_SOURCE_DIGESTS = {
+    REAL_SUBSTRATE_REFS[0]: "sha256:be17ba7aacb24d1a554873c84c2559c8f4b326ba4ff49a7cc73f8753efb3c016",
+    REAL_SUBSTRATE_REFS[1]: "sha256:fd59902165ae1174e57bab94cae459fa4f70d76b9a9060d78a2050b71b3265b6",
+    REAL_SUBSTRATE_REFS[3]: "sha256:f357cf19a4816901d23cbdd085831e164baf8948070bd4288ed924e880b02f43",
+}
 SOURCE_MODULE_MANIFEST_REF = (
     "examples/target_shape_tactic_routing_gate/"
     "exported_target_shape_tactic_routing_bundle/source_module_manifest.json"
@@ -184,6 +189,17 @@ def _source_artifact_imports(
         body_copied = target.is_file()
         actual_digest = _sha256(target) if body_copied else None
         expected_digest = SOURCE_DIGESTS[source_ref]
+        public_safe_expected_digest = PUBLIC_SAFE_SOURCE_DIGESTS.get(source_ref)
+        source_digest_matches = actual_digest == expected_digest
+        public_safe_digest_matches = actual_digest == public_safe_expected_digest
+        digest_matches = source_digest_matches or public_safe_digest_matches
+        relation = (
+            "exact_copy"
+            if source_digest_matches
+            else "verified_public_safe_private_path_rewrite"
+            if public_safe_digest_matches
+            else "digest_mismatch"
+        )
         imports.append(
             {
                 "source_ref": source_ref,
@@ -191,8 +207,12 @@ def _source_artifact_imports(
                 "body_copied": body_copied,
                 "body_in_receipt": BODY_IN_RECEIPT,
                 "expected_digest": expected_digest,
+                "public_safe_expected_digest": public_safe_expected_digest,
                 "actual_digest": actual_digest,
-                "digest_matches": actual_digest == expected_digest,
+                "digest_matches": digest_matches,
+                "source_digest_matches": source_digest_matches,
+                "public_safe_digest_matches": public_safe_digest_matches,
+                "source_to_target_relation": relation,
                 "source_artifact_status": SOURCE_ARTIFACT_STATUS,
             }
         )

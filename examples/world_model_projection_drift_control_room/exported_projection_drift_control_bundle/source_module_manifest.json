@@ -34,9 +34,9 @@
       "anchor_count": 4,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 359951,
+      "byte_count": 360539,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 8531,
+      "line_count": 8559,
       "material_class": "public_macro_tool_body",
       "module_id": "world_model_drift_endpoint_source_body_import",
       "required_anchors": [
@@ -49,9 +49,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/main.py",
       "source_role": "FastAPI route that exposes the shared world-model drift_aggregate_v1 payload through /api/drift without making the browser recompute sparse lens counts.",
-      "source_sha256": "bef3ce9432f97cd0646447720dcfa29d03042ce2a2e7aff0b44e0c75de7c18d8",
+      "source_sha256": "f8aa9f67373819ff5039ed72e6c92d30c0612f04789061054442e96539ecbffa",
       "target_ref": "microcosm-substrate/examples/world_model_projection_drift_control_room/exported_projection_drift_control_bundle/source_modules/system/server/main.py",
-      "target_sha256": "bef3ce9432f97cd0646447720dcfa29d03042ce2a2e7aff0b44e0c75de7c18d8"
+      "target_sha256": "f8aa9f67373819ff5039ed72e6c92d30c0612f04789061054442e96539ecbffa"
     },
     {
       "anchor_count": 6,

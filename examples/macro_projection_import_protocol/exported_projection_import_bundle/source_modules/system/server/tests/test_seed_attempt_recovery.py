@@ -3,7 +3,7 @@ Tests for PR 3 — attempt-aware stale recovery.
 
 Each test runs against an isolated tmp_path family so it never touches the
 real obsidian/, codex/, or state/ trees. The tests guard the controlling
-invariants from /Users/willcook/.claude/plans/can-you-explore-a-valiant-moon.md
+invariants from /Users/example/.claude/plans/can-you-explore-a-valiant-moon.md
 and codex/standards/observe_apply/std_raw_seed_attempt_recovery.json:
 
 - attempt-aware fencing: claim_epoch is monotonic per paragraph; late writes

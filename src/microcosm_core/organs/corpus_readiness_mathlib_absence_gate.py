@@ -578,25 +578,35 @@ def validate_source_module_imports(
     for row in rows:
         module_id = str(row.get("module_id") or "source_module")
         target = _source_module_target_path(input_dir, row)
-        expected_digest = _normalize_sha256(row.get("sha256"))
+        source_digest = _normalize_sha256(row.get("source_sha256")) or _normalize_sha256(
+            row.get("sha256")
+        )
+        target_digest = _normalize_sha256(row.get("target_sha256")) or _normalize_sha256(
+            row.get("sha256")
+        )
         exists = target.is_file()
         actual_digest = _sha256(target) if exists else None
         material_class = str(row.get("material_class") or "")
         source_ref = str(row.get("source_ref") or "")
         target_ref = _display(target, public_root=public_root)
-        digest_match = actual_digest == expected_digest
+        digest_match = actual_digest == target_digest
         import_row = {
             "module_id": module_id,
             "source_ref": source_ref,
             "target_ref": target_ref,
             "material_class": material_class,
-            "source_sha256": expected_digest,
+            "source_sha256": source_digest,
+            "expected_target_sha256": target_digest,
             "target_sha256": actual_digest,
             "exists": exists,
             "digest_match": digest_match,
             "source_to_target_relation": str(
                 row.get("source_to_target_relation") or "exact_copy"
             ),
+            "verification_mode": str(
+                row.get("verification_mode") or "exact_source_digest_match"
+            ),
+            "public_safe_transform": row.get("public_safe_transform"),
             "source_line_count": _line_count(target) if exists else None,
             "target_line_count": _line_count(target) if exists else None,
             "body_in_receipt": BODY_IN_RECEIPT,
@@ -650,7 +660,7 @@ def validate_source_module_imports(
             findings.append(
                 _finding(
                     "CORPUS_READINESS_SOURCE_MODULE_DIGEST_MISMATCH",
-                    "Copied source module digest must match the source_module_manifest row.",
+                    "Copied source module digest must match the manifest target digest.",
                     case_id="source_module_floor",
                     subject_id=module_id,
                     subject_kind="source_module",

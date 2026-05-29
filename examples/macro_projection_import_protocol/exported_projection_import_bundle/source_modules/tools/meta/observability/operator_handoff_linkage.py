@@ -562,7 +562,7 @@ def _claude_project_slug_for_cwd(cwd: Path) -> str:
 
     Encoding parity with system/lib/agent_execution_trace.py::_claude_project_slug:
     slashes and underscores both become hyphens, with a single leading hyphen.
-    Example: /Users/willcook/src/ai_workflow → -Users-willcook-src-ai-workflow.
+    Example: /Users/example/src/ai_workflow → -Users-willcook-src-ai-workflow.
     """
     return "-" + str(cwd).replace("/", "-").lstrip("-").replace("_", "-")
 

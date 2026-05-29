@@ -196,9 +196,17 @@ def test_proof_diagnostic_evidence_spine_exported_bundle_copies_ring2_artifacts(
         assert target_ref in PUBLIC_RING2_ARTIFACT_TARGET_REFS
         assert target_path.is_file()
         assert artifact["body_copied"] is True
-        assert artifact["copy_policy"] == "exact_public_safe_runtime_artifact"
+        assert artifact["copy_policy"] in {
+            "exact_public_safe_runtime_artifact",
+            "source_faithful_public_light_edit",
+        }
         assert _sha256_file(target_path) == artifact["sha256"]
-        assert _sha256_file(target_path) == SOURCE_DIGESTS[source_ref]
+        if artifact["copy_policy"] == "source_faithful_public_light_edit":
+            assert artifact["target_sha256"] == artifact["sha256"]
+            assert artifact["source_sha256"] == SOURCE_DIGESTS[source_ref]
+            assert artifact["rewrite_recipe_ref"].endswith("::_strong_private_path_hits")
+        else:
+            assert _sha256_file(target_path) == SOURCE_DIGESTS[source_ref]
 
     result = run_evidence_bundle(
         PROOF_EXPORTED_BUNDLE_INPUT,
@@ -329,7 +337,7 @@ def test_proof_diagnostic_evidence_spine_receipts_are_public_relative_and_body_f
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
         assert "/Users/" not in text
-        assert "/Users/willcook" not in text
+        assert "/Users/example" not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         payload = json.loads(text)

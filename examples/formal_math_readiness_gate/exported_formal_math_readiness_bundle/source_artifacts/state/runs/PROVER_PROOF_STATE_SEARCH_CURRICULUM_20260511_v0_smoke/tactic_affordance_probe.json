@@ -18,7 +18,7 @@
     "mathlib_available": false,
     "probe_path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
     "stderr_excerpt": "",
-    "stdout_excerpt": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean:1:0: error: unknown module prefix 'Mathlib'\n\nNo directory 'Mathlib' or file 'Mathlib.olean' in the search path entries:\n/Users/willcook/.elan/toolchains/leanprover--lean4---v4.29.1/lib/lean\n"
+    "stdout_excerpt": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean:1:0: error: unknown module prefix 'Mathlib'\n\nNo directory 'Mathlib' or file 'Mathlib.olean' in the search path entries:\n/Users/example/.elan/toolchains/leanprover--lean4---v4.29.1/lib/lean\n"
   },
   "mathlib_lake_project": null,
   "portfolio_core_v0": {
@@ -41,7 +41,7 @@
         "compile_status": "PASS",
         "duration_ms": 8852,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
         "stderr_excerpt": "",
         "tactic_id": "rfl"
       },
@@ -50,7 +50,7 @@
         "compile_status": "PASS",
         "duration_ms": 1971,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
         "stderr_excerpt": "",
         "tactic_id": "decide"
       },
@@ -59,7 +59,7 @@
         "compile_status": "PASS",
         "duration_ms": 1994,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
         "stderr_excerpt": "",
         "tactic_id": "native_decide"
       },
@@ -68,7 +68,7 @@
         "compile_status": "PASS",
         "duration_ms": 2567,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
         "stderr_excerpt": "",
         "tactic_id": "omega"
       },
@@ -77,7 +77,7 @@
         "compile_status": "PASS",
         "duration_ms": 2081,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
         "stderr_excerpt": "",
         "tactic_id": "simp"
       },
@@ -86,7 +86,7 @@
         "compile_status": "PASS",
         "duration_ms": 3685,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean",
         "stderr_excerpt": "",
         "tactic_id": "simp_all"
       },
@@ -95,7 +95,7 @@
         "compile_status": "FAIL",
         "duration_ms": 5968,
         "error_class": "TACTIC_SEARCH_FAIL",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
         "stderr_excerpt": "",
         "tactic_id": "aesop"
       },
@@ -104,7 +104,7 @@
         "compile_status": "PASS",
         "duration_ms": 3797,
         "error_class": "NONE",
-        "probe_path": "/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
+        "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
         "stderr_excerpt": "",
         "tactic_id": "grind"
       }
@@ -123,6 +123,6 @@
     "lean_status": "PASS",
     "probe_path": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
     "stderr_excerpt": "",
-    "stdout_excerpt": "p q : Prop\nhp : p\n\u22a2 q \u2192 p \u2227 q\n/Users/willcook/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean:3:0: warning: declaration uses `sorry`\n"
+    "stdout_excerpt": "p q : Prop\nhp : p\n\u22a2 q \u2192 p \u2227 q\n/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean:3:0: warning: declaration uses `sorry`\n"
   }
 }

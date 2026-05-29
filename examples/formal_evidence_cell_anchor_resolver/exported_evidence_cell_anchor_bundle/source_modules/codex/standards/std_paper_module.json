@@ -853,12 +853,12 @@
       "band:card": {"populated_by": "compiled", "emitter": "system/lib/standard_option_surface.py::_card_row", "source": "codex/doctrine/paper_modules/_index.json plus authored markdown sections", "freshness": "paper-module index source_fingerprint"},
       "band:context": {"populated_by": "unpopulated", "reason": "No generic paper-module context-band telescope adapter exists yet."},
       "band:evidence": {"populated_by": "live_computed", "emitter": "./repo-python kernel.py --paper-module <slug>", "source": "authored paper-module markdown and generated validation report"},
-      "view:dynamic_paper_lattice_exemplar": {
+      "view:dynamic_paper_lattice": {
         "populated_by": "live_computed",
         "emitter": "system/lib/dynamic_paper_lattice.py::build_dynamic_paper_lattice",
         "source": "authored paper-module markdown plus std_navigation_contract and this navigation_contract",
         "freshness": "source_fingerprint",
-        "scope": "first exemplar is navigation_hologram_theory; this does not claim a generic context-band adapter for every paper module"
+        "scope": "stable selected paper-module slugs with authored markdown; this does not claim a generic context-band adapter for every paper module"
       },
       "facet:gap": {"populated_by": "authored", "source": "## Gap / What Will is signaling"},
       "facet:dependency_neighborhood": {"populated_by": "compiled", "source": "frontmatter depends_on plus paper-module index depended_on_by"}

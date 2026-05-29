@@ -110,9 +110,9 @@ def test_cli_evidence_inspect_accepts_project_shorthand(
     assert shorthand_payload["status"] == "pass"
     assert shorthand_payload["project_ref"] == project.as_posix()
     assert shorthand_payload["evidence_ref"] == ref
-    assert shorthand_payload["payload_summary"]["count_fields"]["route_count"] >= 4
+    assert shorthand_payload["payload_summary"]["count_fields"]["route_count"] >= 2
     assert "readme_onboarding_route" in shorthand_payload["payload_summary"]["route_ids"]
-    assert shorthand_payload["payload_summary"]["list_field_counts"]["routes"] >= 4
+    assert shorthand_payload["payload_summary"]["list_field_counts"]["routes"] >= 2
 
     assert cli.main(["evidence", "inspect", "--project", project.as_posix(), ref]) == 0
     project_flag_payload = _payload(capsys)

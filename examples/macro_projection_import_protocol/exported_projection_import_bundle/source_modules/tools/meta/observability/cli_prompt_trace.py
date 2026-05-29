@@ -5978,6 +5978,28 @@ def _goal_sort_priority(goal: dict | None) -> int:
     }.get(str(goal.get("status") or "").lower(), 0)
 
 
+_GOAL_AUTHORITY_CONTENT_SIGNATURE_VERSION = "codex_thread_goal_roster_v1"
+_GOAL_AUTHORITY_CONTENT_SIGNATURE_FIELDS = (
+    "thread_id",
+    "goal_id",
+    "status",
+    "objective_sha16",
+    "token_budget",
+    "created_at_ms",
+)
+
+
+def _goal_authority_content_sha16(goals: dict[str, dict]) -> str:
+    rows: list[dict[str, Any]] = []
+    for thread_id in sorted(goals):
+        goal = goals.get(thread_id) if isinstance(goals.get(thread_id), dict) else {}
+        rows.append({
+            field: (thread_id if field == "thread_id" else goal.get(field))
+            for field in _GOAL_AUTHORITY_CONTENT_SIGNATURE_FIELDS
+        })
+    return _sha16(json.dumps(rows, sort_keys=True, separators=(",", ":"), ensure_ascii=True))
+
+
 def _goal_authority_sources(goals: dict[str, dict]) -> dict:
     mtime_ms = _path_mtime_ms(CODEX_GOALS_DB)
     status_counts: dict[str, int] = {}
@@ -5990,6 +6012,8 @@ def _goal_authority_sources(goals: dict[str, dict]) -> dict:
         "available": CODEX_GOALS_DB.is_file(),
         "row_count": len(goals),
         "status_counts": status_counts,
+        "content_signature_version": _GOAL_AUTHORITY_CONTENT_SIGNATURE_VERSION,
+        "content_sha16": _goal_authority_content_sha16(goals),
     }
     if mtime_ms is not None:
         payload["mtime_ms"] = mtime_ms
@@ -6288,12 +6312,53 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
     current_mtime_ms = _coerce_epoch_ms(current_authority.get("mtime_ms"))
     index_authority_mtime_ms = _coerce_epoch_ms(index_authority.get("mtime_ms"))
     receipt_authority_mtime_ms = _coerce_epoch_ms(receipt_authority.get("mtime_ms"))
+    projected_authorities = [
+        authority
+        for authority in (index_authority, receipt_authority)
+        if isinstance(authority, dict) and authority
+    ]
     projected_mtimes = [
         value
         for value in (index_authority_mtime_ms, receipt_authority_mtime_ms)
         if value is not None
     ]
     latest_projected_mtime_ms = max(projected_mtimes) if projected_mtimes else None
+    latest_projected_authority = max(
+        projected_authorities,
+        key=lambda authority: _coerce_epoch_ms(authority.get("mtime_ms")) or 0,
+        default={},
+    )
+    current_content_sha16 = str(current_authority.get("content_sha16") or "")
+    latest_projected_content_sha16 = str(latest_projected_authority.get("content_sha16") or "")
+    content_signature_version = str(
+        current_authority.get("content_signature_version")
+        or _GOAL_AUTHORITY_CONTENT_SIGNATURE_VERSION
+    )
+    projected_content_signature_version = str(
+        latest_projected_authority.get("content_signature_version") or ""
+    )
+    content_signature_comparable = bool(
+        current_content_sha16
+        and latest_projected_content_sha16
+        and projected_content_signature_version == content_signature_version
+    )
+    content_signature_version_lag = bool(
+        current_content_sha16
+        and latest_projected_content_sha16
+        and projected_content_signature_version
+        and projected_content_signature_version != content_signature_version
+    )
+    content_delta_present = bool(
+        content_signature_comparable
+        and current_content_sha16 != latest_projected_content_sha16
+    )
+    mtime_lag_without_content_delta = bool(
+        content_signature_comparable
+        and not content_delta_present
+        and current_mtime_ms is not None
+        and latest_projected_mtime_ms is not None
+        and current_mtime_ms > latest_projected_mtime_ms
+    )
 
     reasons: list[str] = []
     if not TRACE_STRUCTURER_MISSION_INDEX.is_file():
@@ -6308,8 +6373,13 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
         current_mtime_ms is not None
         and latest_projected_mtime_ms is not None
         and current_mtime_ms > latest_projected_mtime_ms
+        and not mtime_lag_without_content_delta
     ):
         reasons.append("goal_authority_mtime_lag")
+    if content_signature_version_lag:
+        reasons.append("goal_authority_content_signature_version_lag")
+    if content_delta_present:
+        reasons.append("goal_authority_content_lag")
     if counts["current_goal_thread_count"] != counts["mission_index_goal_thread_count"]:
         reasons.append("mission_index_goal_thread_count_delta")
     if counts["current_active_goal_thread_count"] != counts["mission_index_active_goal_thread_count"]:
@@ -6329,6 +6399,10 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
         "receipt_goal_thread_count_delta",
         "receipt_active_goal_thread_count_delta",
     }
+    content_delta_reason_ids = {
+        "goal_authority_content_lag",
+        "goal_authority_content_signature_version_lag",
+    }
     availability_reason_ids = {
         "mission_index_missing",
         "refresh_receipt_missing",
@@ -6337,12 +6411,15 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
     }
     reason_set = set(reasons)
     count_delta_present = bool(reason_set & count_delta_reason_ids)
+    roster_content_delta_present = bool(reason_set & content_delta_reason_ids)
     availability_issue_present = bool(reason_set & availability_reason_ids)
     metadata_lag_only = reason_set == {"goal_authority_mtime_lag"}
     if not reasons:
         staleness_kind = "fresh"
     elif count_delta_present:
         staleness_kind = "roster_count_delta"
+    elif roster_content_delta_present:
+        staleness_kind = "roster_content_delta"
     elif availability_issue_present:
         staleness_kind = "source_unavailable"
     elif metadata_lag_only:
@@ -6365,10 +6442,10 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
         refresh_priority = "blocked"
         refresh_action = "repair_goal_authority"
         refresh_reason = "current Codex goal authority is unavailable"
-    elif count_delta_present or projection_missing_present:
+    elif count_delta_present or roster_content_delta_present or projection_missing_present:
         refresh_priority = "high"
         refresh_action = "refresh_now"
-        refresh_reason = "goal roster counts or projection anchors are stale"
+        refresh_reason = "goal roster counts, content, or projection anchors are stale"
     elif metadata_lag_only:
         refresh_priority = "low"
         refresh_action = "refresh_when_metadata_freshness_matters"
@@ -6387,6 +6464,8 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
         "reasons": reasons,
         "metadata_lag_only": metadata_lag_only,
         "count_delta_present": count_delta_present,
+        "content_delta_present": roster_content_delta_present,
+        "mtime_lag_without_content_delta": mtime_lag_without_content_delta,
         "availability_issue_present": availability_issue_present,
         "counts_aligned": counts_aligned,
         "full_mission_index_rewrite_required_for_count_accuracy": count_delta_present,
@@ -6396,6 +6475,7 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
             "reason": refresh_reason,
             "counts_aligned": counts_aligned,
             "metadata_lag_only": metadata_lag_only,
+            "content_delta_present": roster_content_delta_present,
             "full_mission_index_rewrite_required_for_count_accuracy": count_delta_present,
         },
         **counts,
@@ -6415,6 +6495,12 @@ def _goal_roster_status(cwd: Path | None = None) -> dict:
         "mission_index_goal_authority_mtime_ms": index_authority_mtime_ms,
         "receipt_goal_authority_mtime_ms": receipt_authority_mtime_ms,
         "latest_projected_goal_authority_mtime_ms": latest_projected_mtime_ms,
+        "goal_authority_content_signature_version": content_signature_version,
+        "latest_projected_goal_authority_content_signature_version": projected_content_signature_version,
+        "current_goal_authority_content_sha16": current_content_sha16,
+        "latest_projected_goal_authority_content_sha16": latest_projected_content_sha16,
+        "goal_authority_content_signature_comparable": content_signature_comparable,
+        "goal_authority_content_signature_version_lag": content_signature_version_lag,
     }
     if lag_ms is not None:
         staleness["goal_authority_lag_ms"] = lag_ms

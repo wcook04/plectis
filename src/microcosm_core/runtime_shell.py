@@ -2861,9 +2861,16 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
             continue
         if row.get("material_class") != "public_macro_tool_body":
             continue
-        if row.get("verification_mode") != "exact_source_digest_match":
+        if row.get("verification_mode") not in {
+            "exact_source_digest_match",
+            "verified_light_edit_recipe",
+        }:
             continue
-        if row.get("source_to_target_relation") != "exact_copy":
+        if row.get("source_to_target_relation") not in {
+            "exact_copy",
+            "verified_public_safe_private_path_rewrite",
+            "public_light_edit_private_path_redaction",
+        }:
             continue
         if row.get("target_digest_matches") is not True:
             continue
@@ -2893,11 +2900,21 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
                 "material_ids": [],
                 "validation_refs": [],
                 "body_text_in_receipt": False,
-                "verification_mode": "exact_source_digest_match",
+                "verification_modes": [],
+                "source_to_target_relations": [],
             }
 
         family = families[family_id]
         family["module_count"] += 1
+        verification_mode = str(row.get("verification_mode") or "")
+        if (
+            verification_mode
+            and verification_mode not in family["verification_modes"]
+        ):
+            family["verification_modes"].append(verification_mode)
+        relation = str(row.get("source_to_target_relation") or "")
+        if relation and relation not in family["source_to_target_relations"]:
+            family["source_to_target_relations"].append(relation)
         material_id = str(row.get("material_id") or "")
         if material_id:
             family["material_ids"].append(material_id)
@@ -2912,6 +2929,14 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
                 family["validation_refs"].append(validation_ref)
 
     verified_families = [families[family_id] for family_id in family_order]
+    for family in verified_families:
+        modes = family.get("verification_modes", [])
+        if isinstance(modes, list) and len(modes) == 1:
+            family["verification_mode"] = modes[0]
+            family.pop("verification_modes", None)
+        relations = family.get("source_to_target_relations", [])
+        if isinstance(relations, list) and relations == ["exact_copy"]:
+            family.pop("source_to_target_relations", None)
     latest_families = verified_families[-5:]
     source_module_family_spotlights = _source_module_family_spotlights(
         verified_families
@@ -2931,9 +2956,9 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
         "body_text_exported_in_receipts": False,
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
         "reader_use": (
-            "Use this as a compact first-screen proof of which exact "
-            "source-open macro modules are in the bundle; drill into the "
-            "manifest refs for hashes, anchors, and copied source bodies."
+            "Use this as a compact first-screen proof of which source-open "
+            "macro modules are in the bundle; drill into the manifest refs "
+            "for hashes, anchors, and copied or light-edited public bodies."
         ),
     }
 
@@ -3003,16 +3028,43 @@ def _source_module_manifest_body_rows(
                 continue
             existing_target_refs.add(target_ref)
 
-            digest = str(row.get("sha256") or "")
+            digest = str(
+                row.get("source_sha256")
+                or row.get("source_digest")
+                or row.get("sha256")
+                or ""
+            )
             body_digest = (
                 f"sha256:{digest}"
                 if digest and not digest.startswith("sha256:")
                 else digest
             )
+            target_digest = str(row.get("target_sha256") or row.get("target_digest") or "")
+            target_digest = (
+                f"sha256:{target_digest}"
+                if target_digest and not target_digest.startswith("sha256:")
+                else target_digest
+            )
+            target_digest = target_digest or body_digest
             line_count = row.get("line_count")
             source_ref = str(row.get("source_ref") or "")
             material_id = str(row.get("module_id") or Path(target_ref).stem)
             body_in_receipt = False
+            relation = str(row.get("source_to_target_relation") or "exact_copy")
+            verification_mode = str(row.get("verification_mode") or "")
+            if not verification_mode:
+                verification_mode = (
+                    "exact_source_digest_match"
+                    if relation == "exact_copy"
+                    else "verified_light_edit_recipe"
+                )
+            public_safe_mode = str(row.get("public_safe_mode") or "")
+            if not public_safe_mode:
+                public_safe_mode = (
+                    "direct_verified_macro_body"
+                    if relation == "exact_copy"
+                    else "verified_public_macro_body_light_edit"
+                )
 
             rows.append(
                 {
@@ -3023,26 +3075,27 @@ def _source_module_manifest_body_rows(
                     else [manifest_rel],
                     "target_ref": target_ref,
                     "body_copied": True,
-                    "body_digest": body_digest,
+                    "body_digest": target_digest,
                     "body_line_count": line_count,
                     "body_in_receipt": body_in_receipt,
                     "body_text_in_receipt": body_in_receipt,
                     "classification": ["copied_non_secret_macro_body"],
                     "body_import_verification": {
                         "verification_status": "verified",
-                        "verification_mode": "exact_source_digest_match",
+                        "verification_mode": verification_mode,
                         "source_ref": source_ref,
                         "target_ref": target_ref,
                         "source_body_digest": body_digest,
-                        "target_body_digest": body_digest,
+                        "target_body_digest": target_digest,
                         "source_line_count": line_count,
                         "target_line_count": line_count,
-                        "source_to_target_relation": "exact_copy",
+                        "source_to_target_relation": relation,
+                        "public_safe_transform": row.get("public_safe_transform", {}),
                         "runtime_consumed_by": _strings(row.get("validation_refs")),
                     },
                     "validation_refs": _strings(row.get("validation_refs")),
                     "provenance_refs": [manifest_rel],
-                    "public_safe_mode": "direct_verified_macro_body",
+                    "public_safe_mode": public_safe_mode,
                     "credential_exposure_risk": "low",
                     "source_ref": source_ref,
                     "import_accounting_source": "bundle_source_module_manifest",
@@ -3298,9 +3351,25 @@ def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
 
 def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
     cached = _cached_macro_projection_body_import_floor(root)
+    live = _macro_projection_body_import_floor(root)
     if cached:
-        return cached
-    return _macro_projection_body_import_floor(root)
+        cache_matches_live = all(
+            cached.get(key) == live.get(key)
+            for key in (
+                "status",
+                "public_safe_body_material_count",
+                "direct_source_module_manifest_count",
+                "direct_source_module_manifest_material_count",
+            )
+        )
+        if cache_matches_live:
+            return cached
+        live["cache_status"] = "live_recomputed_after_stale_authority_map_receipt"
+        live["cache_source_ref"] = PUBLIC_AUTHORITY_MAP_REF.as_posix()
+        live["live_digest_verification_status"] = "performed_for_compact_card"
+        live["full_verification_command"] = "microcosm status"
+        return live
+    return live
 
 
 def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
@@ -3777,8 +3846,7 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
         ),
         "full_verification_command": body_floor.get("full_verification_command"),
         "authority_boundary": (
-            "verified_non_secret_body_floor_not_release_provider_source_mutation_"
-            "or_private_equivalence_authority"
+            "not_release_provider_source_mutation_or_private_equivalence_authority"
         ),
         "reader_action": (
             "Use this tour card to confirm the source-open body floor, then "
@@ -4394,8 +4462,7 @@ def _runtime_status_card(
                     else None
                 ),
                 "authority_boundary": (
-                    "verified_non_secret_body_floor_not_release_provider_"
-                    "source_mutation_or_private_equivalence_authority"
+                    "not_release_provider_source_mutation_or_private_equivalence_authority"
                 ),
             },
             "source_open_body_imports": {
@@ -4570,19 +4637,12 @@ def _runtime_status_card(
         },
         "next_commands": [
             "microcosm tour --card <project>",
-            "microcosm tour <project>",
             "microcosm compile <project>",
-            "microcosm python-lens <project>",
-            "microcosm explain <project> <route_id>",
-            OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
-            OBSERVATORY_SERVE_COMMAND,
-            PROOF_LAB_FIRST_SCREEN_COMMAND,
             "microcosm workingness --card",
-            "microcosm status",
         ],
         "anti_claim": (
-            "Compressed status only: no release, hosting, provider, source "
-            "mutation, proof-correctness, or live-access authority."
+            "Compact status only: no release/hosting/provider/source mutation/"
+            "proof/live-access authority."
         ),
     }
     if body_floor.get("defect_count") or body_floor_defect_preview:
@@ -4609,6 +4669,9 @@ def _runtime_status_card(
         card["front_door"]["project_state_status"] = project_overlay.get("status")
         card["front_door"]["state_dir_exists"] = project_overlay.get(
             "state_dir_exists"
+        )
+        project_front_body_floor = card["front_door"].get(
+            "source_open_body_import_floor"
         )
         project_route_ids = project_overlay.get("available_project_route_ids")
         if not isinstance(project_route_ids, list):
@@ -4657,6 +4720,8 @@ def _runtime_status_card(
             card.pop("next_commands", None)
         card.pop("anti_claim", None)
         card.pop("safe_to_show", None)
+        card["front_door"].pop("tour_front_door_status_ref", None)
+        card["front_door"].pop("tour_warning_drilldowns", None)
         card["front_door"].pop("warning_rule", None)
         card["front_door"].pop("route_selection_rule", None)
     proof_lab_ref = (
@@ -8227,11 +8292,8 @@ class RuntimeShell:
                 "whole_system_correctness_claim": False,
             },
             "reader_action": (
-                "Use this card for first-screen route selection and inspect "
-                "state_inspection before doctrine or receipt drilldowns; run "
-                "microcosm observe <project> for the compact route/work/event/"
-                "evidence chain, and microcosm tour <project> only when full "
-                "route cards, endpoint paths, and evidence refs are needed."
+                "Use this card for first-screen route selection; drill into "
+                "observe or full tour only when the compact refs are not enough."
             ),
         }
 

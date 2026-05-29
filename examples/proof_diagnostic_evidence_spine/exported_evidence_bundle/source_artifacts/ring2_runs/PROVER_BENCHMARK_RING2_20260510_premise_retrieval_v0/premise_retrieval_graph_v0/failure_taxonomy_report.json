@@ -16,27 +16,27 @@
   },
   "representative_failures": [
     {
-      "artifact_ref": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
+      "artifact_ref": "/Users/example/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_nat_add_assoc/artifacts/proof_attempt_critique.json",
       "error_class": "PROOF_CORE_GAP",
       "problem_id": "ring2_nat_add_assoc"
     },
     {
-      "artifact_ref": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/proof_attempt_critique.json",
+      "artifact_ref": "/Users/example/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_reverse_reverse/artifacts/proof_attempt_critique.json",
       "error_class": "PROOF_CORE_GAP",
       "problem_id": "ring2_list_reverse_reverse"
     },
     {
-      "artifact_ref": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/proof_attempt_critique.json",
+      "artifact_ref": "/Users/example/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append/artifacts/proof_attempt_critique.json",
       "error_class": "PROOF_CORE_GAP",
       "problem_id": "ring2_list_length_append"
     },
     {
-      "artifact_ref": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/proof_attempt_critique.json",
+      "artifact_ref": "/Users/example/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_length_append_symmetry_hit_fail/artifacts/proof_attempt_critique.json",
       "error_class": "TACTIC_SEARCH_FAIL",
       "problem_id": "ring2_list_length_append_symmetry_hit_fail"
     },
     {
-      "artifact_ref": "/Users/willcook/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
+      "artifact_ref": "/Users/example/src/ai_workflow/state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/premise_retrieval_graph_v0/problems/ring2_list_map_map_index_miss/artifacts/proof_attempt_critique.json",
       "error_class": "PREMISE_RETRIEVAL_MISS",
       "problem_id": "ring2_list_map_map_index_miss"
     }
