@@ -11,6 +11,10 @@ def test_security_docs_name_release_authority_receipt_boundary() -> None:
     normalized = " ".join(security.split())
 
     for phrase in (
+        "[Public Repo Map](README.md#public-repo-map)",
+        "[Component Map](README.md#component-map)",
+        "Security reports should name paths through those public surfaces",
+        "command cards, evidence fixtures, source capsules, validation shell, and release receipts",
         "## Release-Authority Reports",
         "make standalone-export EXPORT_OUT=/tmp/microcosm-security-boundary-export",
         "receipts/release/release_export_receipt.json",
@@ -24,3 +28,7 @@ def test_security_docs_name_release_authority_receipt_boundary() -> None:
         "The release receipt path is the evidence handle",
     ):
         assert phrase in normalized
+
+    assert security.index("[Public Repo Map](README.md#public-repo-map)") < security.index(
+        "## Reportable Boundary Failures"
+    )

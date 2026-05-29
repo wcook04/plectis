@@ -6,6 +6,12 @@ contract named in that receipt. It does not grant release, hosting, provider
 execution, private-root equivalence, proof-correctness, or production security
 authority.
 
+Before opening receipt trees or release-boundary fields, use the README
+[Public Repo Map](README.md#public-repo-map) and
+[Component Map](README.md#component-map). Security reports should name paths
+through those public surfaces, especially the command cards, evidence
+fixtures, source capsules, validation shell, and release receipts.
+
 ## Reportable Boundary Failures
 
 Report an issue if public Microcosm material appears to expose or authorize:

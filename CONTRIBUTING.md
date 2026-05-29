@@ -8,6 +8,14 @@ make test
 make ci
 ```
 
+Before choosing a file to edit, use the README
+[Public Repo Map](README.md#public-repo-map) and
+[Component Map](README.md#component-map). Treat those sections as the
+contributor routing layer: they identify the runtime package, command cards,
+public doctrine, evidence fixtures, source capsules, and validation shell.
+The commands below are validation lanes after that route, not a replacement
+for it.
+
 The smoke target is the no-install public sanity check. It writes ignored
 `.microcosm/` route state through `tour --card`, stores command outputs under
 `.microcosm/smoke/`, then checks the compact public authority, workingness,
