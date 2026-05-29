@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -59,6 +60,24 @@ def test_work_landing_control_spine_accepts_copied_macro_sources(
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["source_manifest"]["all_expected_digests_matched"] is True
     assert result["source_manifest"]["all_expected_line_counts_matched"] is True
+    source_manifest = json.loads(
+        (WORK_LANDING_CONTROL_BUNDLE / "source_module_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    source_rows = {row["source_ref"]: row for row in source_manifest["modules"]}
+    assert set(source_rows) == set(REQUIRED_SOURCE_REFS)
+    for source_ref, row in source_rows.items():
+        assert row["source_to_target_relation"] == "exact_copy"
+        assert row["target_ref"].startswith(
+            "microcosm-substrate/examples/work_landing_control_spine/"
+        )
+        source_path = MICROCOSM_ROOT.parent / source_ref
+        target_path = MICROCOSM_ROOT.parent / row["target_ref"]
+        assert source_path.read_bytes() == target_path.read_bytes()
+        digest = hashlib.sha256(target_path.read_bytes()).hexdigest()
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
     assert result["anchor_summary"]["missing_anchor_count"] == 0
     assert result["contract_summary"]["authority_overclaim_count"] == 0
     assert result["authority_ceiling"]["live_git_mutation_authorized"] is False

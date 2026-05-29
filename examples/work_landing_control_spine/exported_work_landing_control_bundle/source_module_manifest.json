@@ -16,6 +16,8 @@
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/work_landing.py",
       "source_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/work_landing.py",
       "target_sha256": "cf275b16319c796f7ee124e35cef93c4bca015d8910d9551ac4504e11b9937b3"
     },
     {
@@ -31,6 +33,8 @@
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/work_landing_status.py",
       "source_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/work_landing_status.py",
       "target_sha256": "ca9e68bba423731f1eac12185a972a234586766ece2317314086060326de53e5"
     },
     {
@@ -46,6 +50,8 @@
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/mission_transaction_preflight.py",
       "source_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
       "target_sha256": "f0991bd13bf48a386885b6bca0c8b51b7e5cead15281fb6958807c7d565cd7b9"
     },
     {
@@ -61,6 +67,8 @@
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/mission_transaction_landing_preflight.py",
       "source_sha256": "323a3fa9867e2de9aad083f2d07f47608dfd4b1cac19567a71091bf74937c380",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/system/lib/mission_transaction_landing_preflight.py",
       "target_sha256": "323a3fa9867e2de9aad083f2d07f47608dfd4b1cac19567a71091bf74937c380"
     },
     {
@@ -76,6 +84,8 @@
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "tools/meta/control/scoped_commit.py",
       "source_sha256": "85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/work_landing_control_spine/exported_work_landing_control_bundle/source_modules/tools/meta/control/scoped_commit.py",
       "target_sha256": "85a5ddc57c2fa45f12d80a90a932650f7e71ed0a68e497dd87ccd17cab5dd002"
     }
   ],

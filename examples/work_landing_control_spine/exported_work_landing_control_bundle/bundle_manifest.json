@@ -123,8 +123,8 @@
     {
       "body_in_receipt": false,
       "credential_exposure_risk": "low",
-      "expected_line_count": 85,
-      "expected_sha256": "6ff774807fe5f60eec2a402ff8347e467a4944ffa3e12e729c99260c7b7fd2f0",
+      "expected_line_count": 95,
+      "expected_sha256": "8b035f2876a7268d9efcac5cbe1b2f0bf3e423fd0088c5f1638bcf4f80940e20",
       "material_class": "public_microcosm_bundle_manifest",
       "path": "source_module_manifest.json",
       "required_anchors": [],
