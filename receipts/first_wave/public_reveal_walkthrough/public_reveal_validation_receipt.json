@@ -17,16 +17,16 @@
   "command": "python -m microcosm_core.organs.public_reveal_walkthrough run --input fixtures/first_wave/public_reveal_walkthrough/input --out receipts/first_wave/public_reveal_walkthrough --acceptance-out receipts/acceptance/first_wave/public_reveal_walkthrough_fixture_acceptance.json",
   "command_count": 8,
   "commands": [
+    "microcosm authority --card",
     "microcosm compile /tmp/microcosm-scratch",
     "microcosm evidence list",
     "microcosm explain /tmp/microcosm-scratch readme_onboarding_route",
-    "microcosm intake",
+    "microcosm intake --card",
     "microcosm run --card examples/runtime_shell/demo_project",
     "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765",
-    "microcosm status",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-05-29T09:02:36+00:00",
+  "created_at": "2026-05-29T09:11:51+00:00",
   "error_codes": [
     "PUBLIC_REVEAL_PRIVATE_EQUIVALENCE_OVERCLAIM",
     "PUBLIC_REVEAL_RELEASE_OVERCLAIM",

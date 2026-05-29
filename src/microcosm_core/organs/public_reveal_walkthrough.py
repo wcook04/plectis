@@ -555,6 +555,14 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
     command_count = len(set(command_refs))
     evidence_count = len(set(evidence_refs))
     status = PASS if len(normalized_steps) >= 5 and command_count >= 4 and evidence_count >= 4 else "blocked"
+    first_command = next(
+        (
+            command
+            for step in normalized_steps
+            for command in step.get("commands", [])
+        ),
+        None,
+    )
     if status != PASS:
         findings.append(
             _finding(
@@ -577,6 +585,7 @@ def validate_walkthrough(payload: object, negative_payload: object | None = None
         "substrate_ref_count": len(set(substrate_refs)),
         "steps": normalized_steps,
         "commands": sorted(set(command_refs)),
+        "first_command": first_command,
         "evidence_refs": sorted(set(evidence_refs)),
         "substrate_refs": sorted(set(substrate_refs)),
         "findings": findings,
@@ -800,7 +809,7 @@ def _build_result(
             "headline": "Microcosm turns a repo into a local operating substrate.",
             "time_budget_minutes": walkthrough["time_budget_minutes"],
             "step_count": walkthrough["step_count"],
-            "first_command": walkthrough["commands"][0] if walkthrough["commands"] else None,
+            "first_command": walkthrough["first_command"],
             "primary_loop": "repo -> .microcosm -> catalog/patterns/routes/work/events/evidence/explanations",
             "evidence_is_drilldown": True,
             "release_authorized": False,

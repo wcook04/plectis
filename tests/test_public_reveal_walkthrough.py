@@ -65,9 +65,14 @@ def test_public_reveal_walkthrough_observes_negative_cases(tmp_path: Path) -> No
     assert result["step_count"] == 5
     assert result["command_count"] >= 4
     assert "microcosm run --card examples/runtime_shell/demo_project" in result["commands"]
+    assert "microcosm intake --card" in result["commands"]
+    assert "microcosm authority --card" in result["commands"]
+    assert "microcosm intake" not in result["commands"]
+    assert "microcosm status" not in result["commands"]
     assert result["evidence_ref_count"] >= 4
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["reveal_board"]["primary_loop"].startswith("repo -> .microcosm")
+    assert result["reveal_board"]["first_command"] == "python -m pip install -e '.[test]'"
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["body_in_receipt"] is False
     assert result["real_runtime_receipt"] is True
@@ -130,7 +135,12 @@ def test_public_reveal_exported_bundle_validates_runtime_shape(tmp_path: Path) -
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
+    assert "microcosm intake --card" in result["commands"]
+    assert "microcosm authority --card" in result["commands"]
+    assert "microcosm intake" not in result["commands"]
+    assert "microcosm status" not in result["commands"]
     assert result["reveal_board"]["release_authorized"] is False
+    assert result["reveal_board"]["first_command"] == "python -m pip install -e '.[test]'"
     assert result["public_claim"].startswith("Microcosm turns a repo")
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert result["source_module_manifest_status"] == "pass"

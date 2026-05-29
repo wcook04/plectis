@@ -60,7 +60,7 @@
       "minute_range": "6-8",
       "commands": [
         "microcosm run --card examples/runtime_shell/demo_project",
-        "microcosm intake"
+        "microcosm intake --card"
       ],
       "inspect_refs": [
         "receipts/runtime_shell/demo_project/demo_project_trace.json",
@@ -79,7 +79,7 @@
       "minute_range": "8-10",
       "commands": [
         "microcosm evidence list",
-        "microcosm status"
+        "microcosm authority --card"
       ],
       "inspect_refs": [
         "receipts/",
