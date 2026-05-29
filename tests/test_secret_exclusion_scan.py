@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +17,40 @@ from microcosm_core.validators.secret_exclusion_scan import validate_scan
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 POLICY_PATH = MICROCOSM_ROOT / "core/private_state_forbidden_classes.json"
+AUTHORITY_TRUE_FIELD_NAMES = (
+    "release_authorized",
+    "provider_calls_authorized",
+    "source_mutation_authorized",
+    "whole_system_correctness_claim",
+    "proof_correctness_claim",
+    "publication_authorized",
+    "hosted_public_authorized",
+    "credential_equivalent_payloads_exported",
+    "provider_payload_bodies_exported",
+    "unsafe_payload_bodies_in_receipt",
+)
+PUBLIC_SCAN_TEXT_SUFFIXES = {
+    ".cfg",
+    ".ini",
+    ".json",
+    ".md",
+    ".py",
+    ".rst",
+    ".toml",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
+PUBLIC_SCAN_SKIPPED_PARTS = {
+    ".microcosm",
+    ".pytest_cache",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "htmlcov",
+    "node_modules",
+}
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -30,6 +65,15 @@ def _walk_keys(payload: Any) -> list[str]:
             keys.extend(_walk_keys(item))
         return keys
     return []
+
+
+def _public_text_scan_candidate(path: Path) -> bool:
+    if not path.is_file() or path.suffix not in PUBLIC_SCAN_TEXT_SUFFIXES:
+        return False
+    relative = path.relative_to(MICROCOSM_ROOT)
+    if relative.parts[:2] == ("fixtures", "first_wave"):
+        return False
+    return not any(part in PUBLIC_SCAN_SKIPPED_PARTS for part in relative.parts)
 
 
 def test_secret_exclusion_scan_is_receipt_owner_not_redaction_contract(
@@ -48,6 +92,26 @@ def test_secret_exclusion_scan_is_receipt_owner_not_redaction_contract(
     assert "body_redacted" not in _walk_keys(result)
     assert "matched_excerpt" not in _walk_keys(result)
     assert "body" not in _walk_keys(result)
+
+
+def test_public_surfaces_do_not_emit_true_authority_fields_outside_negative_fixtures() -> None:
+    field_patterns = [
+        (field, re.compile(r'"' + re.escape(field) + r'"\s*:\s*true'))
+        for field in AUTHORITY_TRUE_FIELD_NAMES
+    ]
+
+    violations: list[str] = []
+    for path in sorted(MICROCOSM_ROOT.rglob("*")):
+        if not _public_text_scan_candidate(path):
+            continue
+        relative = path.relative_to(MICROCOSM_ROOT)
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            for field, pattern in field_patterns:
+                if pattern.search(line):
+                    violations.append(f"{relative}:{line_number}:{field}")
+
+    assert violations == []
 
 
 def test_secret_exclusion_expected_negative_fixture_does_not_block() -> None:
