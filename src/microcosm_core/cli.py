@@ -269,7 +269,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm first-screen <project> emit the compact JSON first-screen map
   microcosm status --card <project> read the compressed project/runtime status lens
   microcosm spine --card          read the compact runtime spine lens
-  microcosm run examples/runtime_shell/demo_project replay the public runtime demo
+  microcosm run --card examples/runtime_shell/demo_project replay the public runtime demo
   microcosm authority --card      read the compact authority ceiling lens
   microcosm intake --card         read the compact intake/projection bridge lens
   microcosm workingness --card    read the compact behavior/failure lens
@@ -1386,6 +1386,11 @@ def main(argv: list[str] | None = None) -> int:
         help="replay the local public runtime demo",
     )
     run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact runtime demo card",
+    )
+    run_parser.add_argument(
         "project",
         nargs="?",
         default=DEFAULT_PROJECT_REL,
@@ -2058,7 +2063,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "reveal":
         return runtime_shell.main(["reveal"])
     if args.command == "run":
-        return runtime_shell.main(["run", args.project])
+        command_args = ["run"]
+        if args.card:
+            command_args.append("--card")
+        command_args.append(args.project)
+        return runtime_shell.main(command_args)
     if args.command == "serve":
         serve_args = ["serve", "--host", args.host, "--port", str(args.port)]
         if args.max_requests is not None:

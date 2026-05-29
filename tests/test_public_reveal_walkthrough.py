@@ -64,6 +64,7 @@ def test_public_reveal_walkthrough_observes_negative_cases(tmp_path: Path) -> No
     assert result["missing_negative_cases"] == []
     assert result["step_count"] == 5
     assert result["command_count"] >= 4
+    assert "microcosm run --card examples/runtime_shell/demo_project" in result["commands"]
     assert result["evidence_ref_count"] >= 4
     assert result["authority_ceiling"]["release_authorized"] is False
     assert result["reveal_board"]["primary_loop"].startswith("repo -> .microcosm")

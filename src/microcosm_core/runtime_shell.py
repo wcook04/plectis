@@ -5734,7 +5734,7 @@ class RuntimeShell:
                     "microcosm benchmark-lab",
                     "microcosm legibility-scorecard",
                     "microcosm intake",
-                    "microcosm run examples/runtime_shell/demo_project",
+                    "microcosm run --card examples/runtime_shell/demo_project",
                     "microcosm reveal",
                     "microcosm formal-math-lean-proof-witness run-witness-bundle",
                     "microcosm formal-math-premise-retrieval run-retrieval-bundle",
@@ -17530,10 +17530,17 @@ class RuntimeShell:
             "evidence_contract": _receipt_evidence_contract(payload),
         }
 
-    def run_demo(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
+    def run_demo(
+        self,
+        project: str | Path = DEFAULT_PROJECT_REL,
+        *,
+        command: str | None = None,
+    ) -> dict[str, Any]:
         project_path = Path(project)
         if not project_path.is_absolute():
             project_path = self.root / project_path
+        project_ref = _public_relative(project_path, self.root)
+        runtime_command = command or f"microcosm run {project_ref}"
         manifest = _read_json_if_exists(project_path / "project_manifest.json")
         project_id = str(manifest.get("project_id") or "demo_project")
         run_root = self.runtime_receipt_dir / project_id
@@ -17544,8 +17551,7 @@ class RuntimeShell:
         for index, step in enumerate(_product_runtime_steps(), start=1):
             input_dir = self.root / step.example_rel
             out_dir = run_root / "organs" / step.organ_id
-            command = f"microcosm run {_public_relative(project_path, self.root)}"
-            result = step.runner(input_dir, out_dir, command)
+            result = step.runner(input_dir, out_dir, runtime_command)
             receipt_ref = _public_relative(out_dir / step.receipt_name, self.root)
             evidence_refs.append(receipt_ref)
             status = str(result.get("status") or "unknown")
@@ -17584,6 +17590,7 @@ class RuntimeShell:
             "schema_version": "microcosm_runtime_demo_result_v1",
             "project_id": project_id,
             "created_at": trace["created_at"],
+            "command": runtime_command,
             "status": status,
             "what_happened": summaries,
             "next_actions": [
@@ -17609,6 +17616,54 @@ class RuntimeShell:
         write_json_atomic(run_root / "demo_project_trace.json", trace)
         write_json_atomic(run_root / "demo_project_result.json", result)
         return result
+
+    def run_demo_card(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
+        project_path = Path(project)
+        if not project_path.is_absolute():
+            project_path = self.root / project_path
+        project_ref = _public_relative(project_path, self.root)
+        card_command = f"microcosm run --card {project_ref}"
+        result = self.run_demo(project, command=card_command)
+        events = [event for event in result.get("events", []) if isinstance(event, dict)]
+        passed_count = sum(1 for event in events if event.get("status") == PASS)
+        failed_organs = [
+            str(event.get("organ_id"))
+            for event in events
+            if event.get("status") != PASS and event.get("organ_id")
+        ]
+        evidence_refs = [
+            str(ref)
+            for ref in result.get("evidence_refs", [])
+            if isinstance(ref, str) and ref
+        ]
+        result_ref = (
+            f"receipts/runtime_shell/{result.get('project_id', 'demo_project')}/"
+            "demo_project_result.json"
+        )
+        return {
+            "schema_version": "microcosm_runtime_demo_card_v1",
+            "command": card_command,
+            "status": result.get("status", "unknown"),
+            "project_id": result.get("project_id"),
+            "event_count": len(events),
+            "passed_event_count": passed_count,
+            "failed_organs": failed_organs,
+            "trace_ref": result.get("trace_ref"),
+            "result_ref": result_ref,
+            "evidence_ref_samples": evidence_refs[:5],
+            "evidence_ref_count": len(evidence_refs),
+            "next_actions": result.get("next_actions", []),
+            "authority_ceiling": result.get("authority_ceiling", {}),
+            "anti_claim": result.get("anti_claim"),
+            "body_in_receipt": False,
+            "output_economy": {
+                "full_payload_drilldown": f"microcosm run {project_ref}",
+                "full_result_ref": result_ref,
+                "events_exported": False,
+                "what_happened_exported": False,
+                "all_evidence_refs_exported": False,
+            },
+        }
 
     def run_work_demo(self) -> dict[str, Any]:
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "mission_transaction_work_spine")
@@ -21322,6 +21377,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="emit the compact first-screen intake lens",
     )
     run_parser = subparsers.add_parser("run")
+    run_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="emit the compact runtime demo card",
+    )
     run_parser.add_argument("project", nargs="?", default=DEFAULT_PROJECT_REL)
     subparsers.add_parser("reveal")
     serve_parser = subparsers.add_parser("serve")
@@ -21434,6 +21494,8 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
             return _print_json(shell.intake_card())
         return _print_json(shell.intake())
     if args.command == "run":
+        if args.card:
+            return _print_json(shell.run_demo_card(args.project))
         return _print_json(shell.run_demo(args.project))
     if args.command == "reveal":
         return _print_json(shell.reveal())

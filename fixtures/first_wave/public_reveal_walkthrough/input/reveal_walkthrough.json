@@ -59,7 +59,7 @@
       "step_id": "run_adapter_spine",
       "minute_range": "6-8",
       "commands": [
-        "microcosm run examples/runtime_shell/demo_project",
+        "microcosm run --card examples/runtime_shell/demo_project",
         "microcosm intake"
       ],
       "inspect_refs": [

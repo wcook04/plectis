@@ -4320,6 +4320,65 @@ def test_runtime_shell_market_prediction_boundary_lens_uses_payload_boundary(
     assert "src/ai_workflow" not in encoded
 
 
+def test_runtime_shell_run_demo_card_is_compact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    public_root = _copy_runtime_root(tmp_path)
+    shell = RuntimeShell(public_root)
+
+    def fake_run_demo(project: str, *, command: str | None = None) -> dict[str, object]:
+        assert project == "examples/runtime_shell/demo_project"
+        assert command == "microcosm run --card examples/runtime_shell/demo_project"
+        return {
+            "schema_version": "microcosm_runtime_demo_result_v1",
+            "project_id": "demo_project",
+            "status": "pass",
+            "events": [
+                {"organ_id": "pattern_binding_contract", "status": "pass"},
+                {"organ_id": "public_reveal_walkthrough", "status": "pass"},
+            ],
+            "evidence_refs": [
+                "receipts/runtime_shell/demo_project/organs/pattern_binding_contract/result.json",
+                "receipts/runtime_shell/demo_project/organs/public_reveal_walkthrough/result.json",
+            ],
+            "trace_ref": "receipts/runtime_shell/demo_project/demo_project_trace.json",
+            "next_actions": ["microcosm evidence list"],
+            "authority_ceiling": {"release_authorized": False},
+            "anti_claim": "public runtime demo only",
+        }
+
+    monkeypatch.setattr(shell, "run_demo", fake_run_demo)
+
+    card = shell.run_demo_card("examples/runtime_shell/demo_project")
+    encoded = json.dumps(card, sort_keys=True)
+
+    assert card["schema_version"] == "microcosm_runtime_demo_card_v1"
+    assert card["command"] == "microcosm run --card examples/runtime_shell/demo_project"
+    assert card["status"] == "pass"
+    assert card["event_count"] == 2
+    assert card["passed_event_count"] == 2
+    assert card["failed_organs"] == []
+    assert card["trace_ref"] == "receipts/runtime_shell/demo_project/demo_project_trace.json"
+    assert card["result_ref"] == (
+        "receipts/runtime_shell/demo_project/demo_project_result.json"
+    )
+    assert card["evidence_ref_count"] == 2
+    assert card["body_in_receipt"] is False
+    assert card["output_economy"] == {
+        "full_payload_drilldown": "microcosm run examples/runtime_shell/demo_project",
+        "full_result_ref": "receipts/runtime_shell/demo_project/demo_project_result.json",
+        "events_exported": False,
+        "what_happened_exported": False,
+        "all_evidence_refs_exported": False,
+    }
+    assert "events" not in card
+    assert "what_happened" not in card
+    assert "evidence_refs" not in card
+    assert "/Users/" not in encoded
+    assert "src/ai_workflow" not in encoded
+
+
 def test_runtime_shell_runs_demo_workflow_against_exported_bundles(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)

@@ -208,7 +208,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     ) in output
     assert "microcosm spine --card          read the compact runtime spine lens" in output
     assert (
-        "microcosm run examples/runtime_shell/demo_project replay the public "
+        "microcosm run --card examples/runtime_shell/demo_project replay the public "
         "runtime demo"
     ) in output
     assert "microcosm authority --card      read the compact authority ceiling lens" in output
@@ -246,10 +246,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "microcosm spine --card"
     )
     assert output.index("microcosm spine --card") < output.index(
-        "microcosm run examples/runtime_shell/demo_project"
+        "microcosm run --card examples/runtime_shell/demo_project"
     )
     assert output.index(
-        "microcosm run examples/runtime_shell/demo_project"
+        "microcosm run --card examples/runtime_shell/demo_project"
     ) < output.index("microcosm authority --card")
     assert output.index("microcosm authority --card") < output.index(
         "microcosm intake --card"
