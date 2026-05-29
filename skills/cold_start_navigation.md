@@ -61,7 +61,9 @@ The compact behavioral path is:
 11. `microcosm explain <project> <selected_route_id>` opens the route/work/event
    and evidence chain selected by `tour --card`, `tour`, or `compile`.
 12. `microcosm evidence list <project> --limit 25` lists project-local evidence refs.
-13. `microcosm tour <project>` is the full route-card, endpoint-path, and
+13. `microcosm evidence inspect <project> <ref>` opens one listed project
+   evidence ref without switching to raw runtime receipts.
+14. `microcosm tour <project>` is the full route-card, endpoint-path, and
    evidence-ref drilldown after the first screen is already readable.
 
 Receipts are evidence drilldowns after the behavior route is visible, not the

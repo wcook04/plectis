@@ -110,4 +110,7 @@ private-root equivalence, or credential/session export.
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are
 checking. Use `microcosm evidence list . --limit 25` for a bounded receipt
-index; use `--limit 0` only when you intentionally want the full list.
+index, then inspect a listed project ref with
+`microcosm evidence inspect . .microcosm/evidence/routes.json` or
+`microcosm evidence inspect --project . .microcosm/evidence/routes.json`.
+Use `--limit 0` only when you intentionally want the full list.

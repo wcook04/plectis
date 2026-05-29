@@ -192,6 +192,7 @@ microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
 microcosm evidence list . --limit 25
+microcosm evidence inspect . .microcosm/evidence/routes.json
 microcosm tour .
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
@@ -451,6 +452,7 @@ microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
 microcosm evidence list /tmp/microcosm-scratch --limit 25
+microcosm evidence inspect /tmp/microcosm-scratch .microcosm/evidence/routes.json
 microcosm tour /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour.json
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
@@ -473,6 +475,7 @@ PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
 PYTHONPATH=src python3 -m microcosm_core evidence list /tmp/microcosm-scratch --limit 25
+PYTHONPATH=src python3 -m microcosm_core evidence inspect /tmp/microcosm-scratch .microcosm/evidence/routes.json
 PYTHONPATH=src python3 -m microcosm_core tour /tmp/microcosm-scratch
 ```
 
@@ -486,8 +489,10 @@ microcosm evidence list --limit 25
 ```
 
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
-project loop; open receipts only when you need a drilldown. Use `--limit 0`
-only when you intentionally want the full receipt index.
+project loop; open receipts only when you need a drilldown. Inspect a listed
+project ref with `microcosm evidence inspect <project> <ref>` or
+`microcosm evidence inspect --project <project> <ref>`. Use `--limit 0` only
+when you intentionally want the full receipt index.
 
 `microcosm tour --card <project>` is the compressed cold-reader route. It
 compiles the project into `.microcosm/`, then emits a compact first-screen

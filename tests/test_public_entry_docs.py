@@ -95,6 +95,8 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "private-root equivalence",
         "Receipts are drilldown evidence",
         "microcosm evidence list . --limit 25",
+        "microcosm evidence inspect . .microcosm/evidence/routes.json",
+        "microcosm evidence inspect --project . .microcosm/evidence/routes.json",
         "--limit 0",
     ):
         assert phrase in quickstart
@@ -838,6 +840,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "Bring a folder first" in cold_start
     assert "route_cards_by_id.status_and_workingness" in cold_start
     assert "microcosm evidence list <project> --limit 25" in cold_start
+    assert "microcosm evidence inspect <project> <ref>" in cold_start
     assert "microcosm status --card <project>" in cold_start
     assert "front_door.route_explanation" in cold_start
     assert "microcosm workingness" in cold_start
@@ -993,6 +996,7 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
         "route_selection_rule"
     ]
     assert "microcosm evidence list <project> --limit 25" in route["command_path"]
+    assert "microcosm evidence inspect <project> <ref>" in route["command_path"]
     assert "microcosm status --card <project>" in route["command_path"]
     assert "microcosm workingness --card" in route["command_path"]
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[

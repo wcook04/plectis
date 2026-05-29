@@ -133,6 +133,7 @@
     "microcosm tour <project>",
     "microcosm compile <project>",
     "microcosm evidence list <project> --limit 25",
+    "microcosm evidence inspect <project> <ref>",
     "microcosm observe <project>",
     "microcosm observe <project>::causal_chain",
     "microcosm serve <project> --host 127.0.0.1 --port 8765",
@@ -215,6 +216,7 @@
       "microcosm python-lens <project>",
       "microcosm explain <project> <selected_route_id>",
       "microcosm evidence list <project> --limit 25",
+      "microcosm evidence inspect <project> <ref>",
       "microcosm tour <project>"
     ],
     "reader_routes_ref": "atlas/entry_packet.json::reader_first_screen_routes",
