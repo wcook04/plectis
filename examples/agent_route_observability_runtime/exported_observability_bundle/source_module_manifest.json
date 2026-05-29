@@ -22,7 +22,18 @@
       "line_count": 156,
       "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "byte_count": 7252,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "target_sha256": "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "agent_execution_trace_standard_body_import",
@@ -42,7 +53,18 @@
       "line_count": 664,
       "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "byte_count": 47570,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "navigation_mechanism_acceptance_standard_body_import",
@@ -61,7 +83,18 @@
       "line_count": 266,
       "sha256": "752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
       "byte_count": 13229,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
+      "target_sha256": "sha256:752db2e02407a3afdffac0610a1e102bb86cfbd33b8ce37d813e3ce1167d060b",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "actor_axes_concept_body_import",
@@ -80,7 +113,18 @@
       "line_count": 424,
       "sha256": "e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
       "byte_count": 29828,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "target_sha256": "sha256:e54dbd47877dacc6d3e597757431112db8105e87eb6858372ff0e3d2ad659133",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "agent_execution_trace_source_body_import",
@@ -99,7 +143,18 @@
       "line_count": 5158,
       "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "byte_count": 224689,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "navigation_route_intervention_source_body_import",
@@ -119,7 +174,18 @@
       "line_count": 348,
       "sha256": "80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
       "byte_count": 17443,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "target_sha256": "sha256:80e4427abf2fbfbfea868df6054bb74150d644f0860de9932556589f2ea7af54",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "navigation_metabolism_ledger_source_body_import",
@@ -139,7 +205,18 @@
       "line_count": 5240,
       "sha256": "05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
       "byte_count": 243510,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+      "target_sha256": "sha256:05b0426331a7ec502c8002164b3e117292b4da233b30f5cbe20d43d849e791d2",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_route_observability_exported_bundle_receipt_is_public_safe"
+      ]
     }
   ],
   "omitted_material": [
@@ -152,5 +229,7 @@
     "raw private transcript bodies",
     "live process-audit bodies",
     "live hook state"
-  ]
+  ],
+  "body_copied_material_count": 7,
+  "validation_ref_count": 2
 }

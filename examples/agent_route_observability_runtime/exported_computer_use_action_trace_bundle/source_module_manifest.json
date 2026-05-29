@@ -22,7 +22,19 @@
       "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "codex/standards/std_agent_execution_trace.json",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json"
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/codex/standards/std_agent_execution_trace.json",
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256_match": true,
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+      ]
     },
     {
       "body_in_receipt": false,
@@ -39,7 +51,21 @@
       "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "system/lib/agent_execution_trace.py",
-      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py"
+      "target_ref": "microcosm-substrate/examples/agent_route_observability_runtime/exported_computer_use_action_trace_bundle/source_modules/system/lib/agent_execution_trace.py",
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_exported_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_receipt_is_public_relative_and_redacted",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor"
+      ]
     }
-  ]
+  ],
+  "body_copied_material_count": 2,
+  "validation_ref_count": 3
 }

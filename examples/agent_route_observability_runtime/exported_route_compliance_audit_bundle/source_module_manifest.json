@@ -22,7 +22,18 @@
       "line_count": 156,
       "sha256": "a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
       "byte_count": 7252,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "target_sha256": "sha256:a696cb8222156d4f9082e15e802133febd2a025e2e1cfae765299857ccfcbe7c",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "agent_execution_trace_standard_body_import",
@@ -42,7 +53,18 @@
       "line_count": 664,
       "sha256": "4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
       "byte_count": 47570,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "target_sha256": "sha256:4d71341eeeb86910274eb1bd9dece60c5fb270031d8993663469d28c7135b053",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "agent_execution_trace_source_body_import",
@@ -63,7 +85,18 @@
       "line_count": 5158,
       "sha256": "127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
       "byte_count": 224689,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "target_sha256": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
+      "sha256_match": true,
+      "anchor_count": 6,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "navigation_coverage_matrix_source_body_import",
@@ -83,7 +116,18 @@
       "line_count": 1220,
       "sha256": "9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
       "byte_count": 52459,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "target_sha256": "sha256:9d6d0f88475aceded1d3a82e74fa6c605296dec3878c010806550033f066bae1",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "agent_execution_trace_builder_source_body_import",
@@ -102,7 +146,18 @@
       "line_count": 170,
       "sha256": "46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
       "byte_count": 5814,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "target_sha256": "sha256:46eb0dfde2e9bfd8f5f7c353454869582d0d2bb04058446e9a31d205e1076a70",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "extracted_pattern_substrate_bindings_builder_source_body_import",
@@ -122,7 +177,18 @@
       "line_count": 5307,
       "sha256": "b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce",
       "byte_count": 281575,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce",
+      "target_sha256": "sha256:b840726c1c2e110013739235ea89cc7a9e9e43494a05cb935ba7c2964fdc49ce",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     },
     {
       "module_id": "route_compliance_pattern_binding_source_body_import",
@@ -141,7 +207,18 @@
       "line_count": 18813,
       "sha256": "89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
       "byte_count": 1376531,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
+      "target_sha256": "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee",
+      "sha256_match": true,
+      "anchor_count": 4,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_route_compliance_audit_bundle_receipt_is_public_safe"
+      ]
     }
   ],
   "omitted_material": [
@@ -153,5 +230,7 @@
     "credential-equivalent material",
     "raw private transcript bodies",
     "live process-audit bodies"
-  ]
+  ],
+  "body_copied_material_count": 7,
+  "validation_ref_count": 2
 }

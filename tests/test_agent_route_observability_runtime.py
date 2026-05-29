@@ -122,6 +122,12 @@ AGENT_OBSERVABILITY_STORE_BUNDLE_INPUT = (
     / "examples/agent_route_observability_runtime/"
     "exported_agent_observability_store_bundle"
 )
+AGENT_ROUTE_OBSERVABILITY_EXAMPLES_ROOT = (
+    MICROCOSM_ROOT / "examples/agent_route_observability_runtime"
+)
+SOURCE_MODULE_VALIDATION_REF_PREFIX = (
+    "microcosm-substrate/tests/test_agent_route_observability_runtime.py::"
+)
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -146,6 +152,47 @@ def _field_floor() -> dict[str, list[str]]:
         ).read_text(encoding="utf-8")
     )
     return manifest["validator_contract_ratchet_v1"]["per_output_receipt_field_floor"]
+
+
+def test_agent_route_observability_source_module_manifests_make_body_copy_contract_explicit() -> None:
+    manifests = sorted(
+        AGENT_ROUTE_OBSERVABILITY_EXAMPLES_ROOT.glob("*/source_module_manifest.json")
+    )
+
+    assert len(manifests) == 9
+    module_count = 0
+    for manifest_path in manifests:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["source_import_class"] == "copied_non_secret_macro_body"
+        assert manifest["body_in_receipt"] is False
+        assert manifest["body_copied_material_count"] == len(manifest["modules"])
+        for row in manifest["modules"]:
+            module_count += 1
+            digest = str(row["sha256"]).removeprefix("sha256:")
+            expected_digest = f"sha256:{digest}"
+            target_ref = str(row["target_ref"]).removeprefix("microcosm-substrate/")
+            target_path = MICROCOSM_ROOT / target_ref
+            actual_digest = f"sha256:{hashlib.sha256(target_path.read_bytes()).hexdigest()}"
+
+            assert row["source_import_class"] == "copied_non_secret_macro_body"
+            assert row["body_copied"] is True
+            assert row["body_in_receipt"] is False
+            assert row["body_text_in_receipt"] is False
+            assert row["source_open_payload_boundary"].startswith(
+                "body_in_bundle_source_modules_not_receipt"
+            )
+            assert row["source_sha256"] == expected_digest
+            assert row["target_sha256"] == expected_digest
+            assert row["sha256_match"] is True
+            assert actual_digest == expected_digest
+            assert row["anchor_count"] == len(row.get("required_anchors", []))
+            assert row["validation_refs"]
+            assert all(
+                str(ref).startswith(SOURCE_MODULE_VALIDATION_REF_PREFIX)
+                for ref in row["validation_refs"]
+            )
+
+    assert module_count == 25
 
 
 def test_agent_route_observability_runtime_observes_required_negative_cases(

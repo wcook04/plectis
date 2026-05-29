@@ -22,7 +22,20 @@
       "line_count": 837,
       "sha256": "a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
       "byte_count": 40185,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+      "target_sha256": "sha256:a8a5af6268259f2e7ed2d7a1945a4a6ffb407a863e718c9c989bb4f24e41b10c",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_multi_agent_fanin_replay_receipt_is_public_safe"
+      ]
     }
-  ]
+  ],
+  "body_copied_material_count": 1,
+  "validation_ref_count": 2
 }

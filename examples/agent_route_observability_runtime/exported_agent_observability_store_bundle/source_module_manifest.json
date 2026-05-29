@@ -25,7 +25,19 @@
       "line_count": 1812,
       "sha256": "796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
       "byte_count": 75412,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
+      "target_sha256": "sha256:796a3952bb4433fedd28d494c9c737aa57c914169be7232a7b0ac885ed52b81f",
+      "sha256_match": true,
+      "anchor_count": 8,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
+      ]
     },
     {
       "source_ref": "system/lib/agent_observability_classification.py",
@@ -44,7 +56,19 @@
       "line_count": 358,
       "sha256": "837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
       "byte_count": 13537,
-      "body_in_receipt": false
+      "body_in_receipt": false,
+      "body_copied": true,
+      "body_text_in_receipt": false,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_provider_payload_browser_hud_live_access_account_session_credentials_live_hook_state_or_recipient_send_state",
+      "source_sha256": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "target_sha256": "sha256:837079c3c9e995821010abc484b85cbff4a2f1aada7eb9e6ddc162b3e175fc1c",
+      "sha256_match": true,
+      "anchor_count": 5,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_bundle_validates_runtime_shape",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_receipt_is_public_safe",
+        "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_agent_observability_store_imports_public_macro_body_refactor"
+      ]
     }
   ],
   "omitted_material": [
@@ -56,5 +80,7 @@
     "credential-equivalent material",
     "raw private transcript bodies",
     "live home session logs"
-  ]
+  ],
+  "body_copied_material_count": 2,
+  "validation_ref_count": 3
 }
