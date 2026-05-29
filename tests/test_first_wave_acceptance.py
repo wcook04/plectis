@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 import json
 import shutil
 from pathlib import Path
@@ -13,6 +14,19 @@ READINESS = PREFLIGHT_SUPPORT / "organ_fixture_validator_readiness_v1.json"
 NEGATIVE_MATRIX = PREFLIGHT_SUPPORT / "fixture_negative_case_matrix_v1.json"
 MISSION_DAG = PREFLIGHT_SUPPORT / "microcosm_rebuild_mission_graph_v1.json"
 RECEIPT_COVERAGE = PREFLIGHT_SUPPORT / "validator_receipt_coverage_map_v1.json"
+
+
+def _accepted_registry_rows(root: Path = MICROCOSM_ROOT) -> list[dict[str, object]]:
+    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
+
+
+def _accepted_organs_from_registry(root: Path = MICROCOSM_ROOT) -> list[str]:
+    return [str(row["organ_id"]) for row in _accepted_registry_rows(root)]
 
 
 def _copy_public_tree(tmp_path: Path) -> Path:
@@ -30,9 +44,13 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
             encoding="utf-8"
         )
     )
+    expected_organs = _accepted_organs_from_registry()
 
     assert acceptance["status"] == "accepted_runtime_spine_verifier_lab_kernel_bound"
-    assert len(acceptance["accepted_current_authority_organs"]) == 47
+    assert len(acceptance["accepted_current_authority_organs"]) == len(expected_organs)
+    assert [
+        row["organ_id"] for row in acceptance["accepted_current_authority_organs"]
+    ] == expected_organs
     assert acceptance["deferred_organs"] == []
     assert acceptance["lean_lake_authorized"] == "bounded_public_witness_only"
     assert acceptance["release_authorized"] is False
@@ -46,6 +64,17 @@ def test_first_wave_acceptance_plan_records_bounded_lean_and_prediction_witnesse
 
 def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tmp_path: Path) -> None:
     public_root = _copy_public_tree(tmp_path)
+    accepted_rows = _accepted_registry_rows(public_root)
+    expected_organs = [str(row["organ_id"]) for row in accepted_rows]
+    expected_evidence_counts = dict(
+        Counter(str(row["evidence_class"]) for row in accepted_rows)
+    )
+    expected_truth_counts = Counter(
+        str(row["truth_accounting_bucket"]) for row in accepted_rows
+    )
+    expected_progress_count = sum(
+        1 for row in accepted_rows if row.get("counts_as_real_substrate_progress")
+    )
     run_fixture_freshness(
         READINESS,
         NEGATIVE_MATRIX,
@@ -61,28 +90,38 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
     )
 
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 47
-    assert summary["accepted_current_authority_count"] == 47
+    assert summary["accepted_count"] == len(expected_organs)
+    assert summary["accepted_current_authority_count"] == len(expected_organs)
     assert summary["accepted_count_is_product_progress"] is False
     assert summary["truth_accounting"]["accepted_count_is_product_progress"] is False
     assert (
         summary["truth_accounting"]["accepted_current_authority_is_evidence_strength"]
         is False
     )
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 44
-    assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
-    assert summary["truth_accounting"]["real_runtime_receipt_count"] == 3
-    assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
-    assert summary["truth_accounting"]["source_faithful_refactor_count"] == 24
-    assert summary["truth_accounting"]["real_import_validation_count"] == 16
-    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
-    assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 24,
-        "external_subprocess_witness": 3,
-        "fixture_echo_smoke": 3,
-        "semantic_validator": 16,
-        "verified_macro_body_import": 1,
-    }
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == (
+        expected_progress_count
+    )
+    assert summary["truth_accounting"]["non_progress_accepted_count"] == (
+        len(expected_organs) - expected_progress_count
+    )
+    assert summary["truth_accounting"]["real_runtime_receipt_count"] == (
+        expected_truth_counts.get("real_runtime_receipt", 0)
+    )
+    assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_counts.get("copied_non_secret_macro_body", 0)
+    )
+    assert summary["truth_accounting"]["source_faithful_refactor_count"] == (
+        expected_truth_counts.get("source_faithful_refactor", 0)
+    )
+    assert summary["truth_accounting"]["real_import_validation_count"] == (
+        expected_truth_counts.get("real_import_validation", 0)
+    )
+    assert summary["truth_accounting"]["regression_negative_fixture_count"] == (
+        expected_truth_counts.get("regression_negative_fixture", 0)
+    )
+    assert summary["truth_accounting"]["evidence_class_counts"] == (
+        expected_evidence_counts
+    )
     evidence_by_organ = {
         row["organ_id"]: row["truth_accounting_bucket"]
         for row in summary["truth_accounting"]["accepted_current_authority_evidence"]
@@ -121,55 +160,7 @@ def test_acceptance_summary_records_runtime_spine_with_bounded_lean_authority(tm
         "copied_non_secret_macro_body"
     )
     assert evidence_by_organ["formal_math_lean_proof_witness"] == "real_runtime_receipt"
-    assert summary["accepted_current_authority_organs"] == [
-        "pattern_binding_contract",
-        "executable_doctrine_grammar",
-        "proof_diagnostic_evidence_spine",
-        "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "provider_context_recipe_budget_policy",
-        "formal_math_lean_proof_witness",
-        "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "navigation_hologram_route_plane",
-        "mission_transaction_work_spine",
-        "durable_agent_work_landing_replay",
-        "research_replication_rubric_artifact_replay",
-        "world_model_projection_drift_control_room",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "agent_route_observability_runtime",
-        "bridge_phase_continuity_runtime",
-        "pattern_assimilation_step",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "prediction_oracle_reconciliation",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "certificate_kernel_execution_lab",
-        "voice_to_doctrine_self_improvement_loop",
-    ]
+    assert summary["accepted_current_authority_organs"] == expected_organs
     assert summary["deferred_organs"] == []
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"
     assert summary["release_authorized"] is False

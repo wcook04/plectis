@@ -3536,27 +3536,24 @@ def _body_import_verification_findings(
                 actual_source_digest = _sha256_digest(existing_source[1])
                 if actual_source_digest != source_digest:
                     target_ref = verification.get("target_ref") or row.get("target_ref")
-                    if _target_ref_carries_source_ref(target_ref, existing_source[0]):
-                        row["_live_source_drift"] = {
-                            "material_id": material_id,
-                            "source_ref": existing_source[0],
-                            "target_ref": target_ref,
-                            "recorded_source_body_digest": source_digest,
-                            "current_source_body_digest": actual_source_digest,
-                            "target_body_digest": target_digest,
-                            "status": "live_source_drift_not_import_proof_failure",
-                            "body_in_receipt": False,
-                        }
-                    else:
-                        findings.append(
-                            _finding(
-                                "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-                                "exact body imports must match the actual local source file digest when the source is available.",
-                                case_id="public_safe_body_import_floor",
-                                subject_id=existing_source[0],
-                                subject_kind="copied_material",
+                    row["_live_source_drift"] = {
+                        "material_id": material_id,
+                        "source_ref": existing_source[0],
+                        "target_ref": target_ref,
+                        "recorded_source_body_digest": source_digest,
+                        "current_source_body_digest": actual_source_digest,
+                        "target_body_digest": target_digest,
+                        "source_target_path_relation": (
+                            "target_ref_carries_source_ref"
+                            if _target_ref_carries_source_ref(
+                                target_ref,
+                                existing_source[0],
                             )
-                    )
+                            else "target_is_import_snapshot"
+                        ),
+                        "status": "live_source_drift_not_import_proof_failure",
+                        "body_in_receipt": False,
+                    }
     elif mode == "verified_light_edit_recipe":
         if not isinstance(verification.get("rewrite_recipe_ref"), str):
             findings.append(

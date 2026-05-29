@@ -29,6 +29,17 @@ STANDARDS_META_SOURCE_MODULE_IDS = {
 }
 
 
+def _fixture_accepted_organ_count(input_dir: Path = FIXTURE_INPUT) -> int:
+    payload = json.loads((input_dir / "diagnostic_policy.json").read_text(encoding="utf-8"))
+    return len(
+        [
+            organ_id
+            for organ_id in payload.get("accepted_organ_ids", [])
+            if isinstance(organ_id, str)
+        ]
+    )
+
+
 def _walk_keys(payload: Any) -> list[str]:
     if isinstance(payload, dict):
         keys = list(payload)
@@ -55,9 +66,10 @@ def test_standards_meta_diagnostics_observes_negative_cases(tmp_path: Path) -> N
     assert result["status"] == "pass"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
-    assert result["accepted_organ_count"] == 44
-    assert result["standard_mapping_count"] == 44
-    assert result["runtime_contract_count"] == 44
+    expected_count = _fixture_accepted_organ_count()
+    assert result["accepted_organ_count"] == expected_count
+    assert result["standard_mapping_count"] == expected_count
+    assert result["runtime_contract_count"] == expected_count
     assert "certificate_kernel_execution_lab" in result["covered_organ_ids"]
     assert "materials_chemistry_closed_loop_lab_safety_replay" in result["covered_organ_ids"]
     assert result["authority_ceiling"]["release_authorized"] is False
@@ -92,7 +104,7 @@ def test_standards_meta_diagnostics_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["accepted_organ_count"] == 44
+    assert result["accepted_organ_count"] == _fixture_accepted_organ_count(EXPORTED_BUNDLE)
     assert "lean_std_premise_index" in result["covered_organ_ids"]
     assert "formal_math_verifier_trace_repair_loop" in result["covered_organ_ids"]
     assert "verifier_lab_execution_spine" in result["covered_organ_ids"]
@@ -155,7 +167,9 @@ def test_standards_meta_diagnostics_bundle_card_reuses_fresh_receipt(
     assert first_card["status"] == "pass"
     assert first_card["command_speed"]["receipt_reused"] is False
     assert first_card["command_speed"]["freshness_missing_path_count"] == 0
-    assert first_card["diagnostic_projection"]["accepted_organ_count"] == 44
+    assert first_card["diagnostic_projection"]["accepted_organ_count"] == (
+        _fixture_accepted_organ_count(EXPORTED_BUNDLE)
+    )
     assert first_card["source_open_body_imports"]["status"] == "pass"
     assert first_card["source_open_body_imports"]["body_material_count"] == 3
     assert "covered_organ_ids" not in _walk_keys(first_card)

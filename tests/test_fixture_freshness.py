@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 import json
 import shutil
 from pathlib import Path
@@ -39,9 +40,28 @@ def _copy_public_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def _accepted_registry_rows(public_root: Path) -> list[dict[str, object]]:
+    registry = json.loads((public_root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return [
+        row
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
+
+
 def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -> None:
     public_root = _copy_public_tree(tmp_path)
     out = public_root / "receipts/preflight/fixture_runner_freshness.json"
+    accepted_rows = _accepted_registry_rows(public_root)
+    expected_truth_counts = Counter(
+        str(row["truth_accounting_bucket"]) for row in accepted_rows
+    )
+    expected_evidence_counts = Counter(
+        str(row["evidence_class"]) for row in accepted_rows
+    )
+    expected_progress_count = sum(
+        1 for row in accepted_rows if row.get("counts_as_real_substrate_progress")
+    )
 
     receipt = run_fixture_freshness(
         READINESS,
@@ -63,19 +83,25 @@ def test_fixture_freshness_passes_and_emits_acceptance_summary(tmp_path: Path) -
     assert "private_state_scan" not in receipt
     assert "private_state_scan" not in summary
     assert summary["status"] == "pass"
-    assert summary["accepted_count"] == 47
-    assert summary["truth_accounting"]["real_substrate_progress_count"] == 44
-    assert summary["truth_accounting"]["non_progress_accepted_count"] == 3
-    assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == 1
-    assert summary["truth_accounting"]["real_import_validation_count"] == 16
-    assert summary["truth_accounting"]["regression_negative_fixture_count"] == 3
-    assert summary["truth_accounting"]["evidence_class_counts"] == {
-        "algorithmic_projection": 24,
-        "external_subprocess_witness": 3,
-        "fixture_echo_smoke": 3,
-        "semantic_validator": 16,
-        "verified_macro_body_import": 1,
-    }
+    assert summary["accepted_count"] == len(accepted_rows)
+    assert summary["truth_accounting"]["real_substrate_progress_count"] == (
+        expected_progress_count
+    )
+    assert summary["truth_accounting"]["non_progress_accepted_count"] == (
+        len(accepted_rows) - expected_progress_count
+    )
+    assert summary["truth_accounting"]["copied_non_secret_macro_body_count"] == (
+        expected_truth_counts.get("copied_non_secret_macro_body", 0)
+    )
+    assert summary["truth_accounting"]["real_import_validation_count"] == (
+        expected_truth_counts.get("real_import_validation", 0)
+    )
+    assert summary["truth_accounting"]["regression_negative_fixture_count"] == (
+        expected_truth_counts.get("regression_negative_fixture", 0)
+    )
+    assert summary["truth_accounting"]["evidence_class_counts"] == dict(
+        expected_evidence_counts
+    )
     assert summary["lean_lake_authorized"] == "bounded_public_witness_only"
     assert summary["release_authorized"] is False
     assert summary["provider_calls_authorized"] is False

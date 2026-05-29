@@ -40,9 +40,25 @@ def _copy_public_tree(tmp_path: Path) -> Path:
     return public_root
 
 
+def _accepted_organs_from_registry(public_root: Path) -> list[str]:
+    registry = json.loads((public_root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return [
+        str(row["organ_id"])
+        for row in registry["implemented_organs"]
+        if row.get("status") == "accepted_current_authority"
+    ]
+
+
 def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path) -> None:
     public_root = _copy_public_tree(tmp_path)
     out = public_root / "receipts/preflight/dependency_preflight.json"
+    expected_organs = _accepted_organs_from_registry(public_root)
+    demoted_organs = list(dependency_preflight.PRODUCT_PATH_DEMOTED_ORGAN_IDS)
+    public_authority = json.loads(
+        (public_root / "receipts/runtime_shell/public_authority_map.json").read_text(
+            encoding="utf-8"
+        )
+    )
 
     receipt = run_dependency_preflight(
         READINESS,
@@ -52,70 +68,22 @@ def test_dependency_preflight_passes_with_public_manifest_inputs(tmp_path: Path)
     )
 
     assert receipt["status"] == "pass"
-    assert receipt["checked_organs"] == [
-        "pattern_binding_contract",
-        "executable_doctrine_grammar",
-        "proof_diagnostic_evidence_spine",
-        "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
-        "mathematical_strategy_atlas_hypothesis_scorer",
-        "tactic_portfolio_availability_probe",
-        "target_shape_tactic_routing_gate",
-        "lean_std_premise_index",
-        "formal_math_premise_retrieval",
-        "formal_math_verifier_trace_repair_loop",
-        "formal_evidence_cell_anchor_resolver",
-        "undeclared_library_prior_symbol_classifier",
-        "ring2_premise_retrieval_precision_recall_harness",
-        "agent_benchmark_integrity_anti_gaming_replay",
-        "provider_context_recipe_budget_policy",
-        "formal_math_lean_proof_witness",
-        "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "navigation_hologram_route_plane",
-        "mission_transaction_work_spine",
-        "durable_agent_work_landing_replay",
-        "research_replication_rubric_artifact_replay",
-        "world_model_projection_drift_control_room",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "agent_route_observability_runtime",
-        "bridge_phase_continuity_runtime",
-        "pattern_assimilation_step",
-        "public_reveal_walkthrough",
-        "macro_projection_import_protocol",
-        "prediction_oracle_reconciliation",
-        "standards_meta_diagnostics",
-        "cold_reader_route_map",
-        "agent_monitor_redteam_falsification_replay",
-        "agent_sabotage_scheming_monitor_replay",
-        "agent_memory_temporal_conflict_replay",
-        "sleeper_memory_poisoning_quarantine_replay",
-        "mcp_tool_authority_replay",
-        "proof_derived_governed_mutation_authorization",
-        "belief_state_process_reward_replay",
-        "agent_sandbox_policy_escape_replay",
-        "indirect_prompt_injection_information_flow_policy_replay",
-        "agentic_vulnerability_discovery_patch_proof_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "certificate_kernel_execution_lab",
-        "voice_to_doctrine_self_improvement_loop",
-    ]
+    assert receipt["checked_organs"] == expected_organs
     assert receipt["blocked_dependency_count"] == 0
     assert receipt["blocked_dependency_codes"] == []
     coverage = receipt["organ_lifecycle_coverage"]
     assert coverage["status"] == "pass"
     assert coverage["defect_count"] == 0
     assert coverage["coverage_counts"] == {
-        "accepted_organ_count": 47,
-        "runtime_step_count": 47,
-        "acceptance_plan_organ_count": 47,
-        "evidence_class_row_count": 47,
-        "public_authority_expected_organ_count": 43,
-        "demoted_drilldown_organ_count": 4,
-        "organ_authority_row_count": 43,
-        "surface_authority_row_count": 45,
-        "fixture_check_count": 47,
+        "accepted_organ_count": len(expected_organs),
+        "runtime_step_count": len(expected_organs),
+        "acceptance_plan_organ_count": len(expected_organs),
+        "evidence_class_row_count": len(expected_organs),
+        "public_authority_expected_organ_count": len(expected_organs) - len(demoted_organs),
+        "demoted_drilldown_organ_count": len(demoted_organs),
+        "organ_authority_row_count": len(public_authority["organ_authority"]),
+        "surface_authority_row_count": len(public_authority["surface_authority"]),
+        "fixture_check_count": len(expected_organs),
     }
     convergence = coverage["organ_lifecycle_convergence"]
     assert convergence["schema_version"] == "organ_lifecycle_convergence_v1"

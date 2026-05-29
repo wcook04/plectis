@@ -11,6 +11,19 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = MICROCOSM_ROOT / "scripts/workingness_card.py"
 
 
+def _accepted_organ_count() -> int:
+    registry = json.loads(
+        (MICROCOSM_ROOT / "core/organ_registry.json").read_text(encoding="utf-8")
+    )
+    return len(
+        [
+            row
+            for row in registry["implemented_organs"]
+            if row.get("status") == "accepted_current_authority"
+        ]
+    )
+
+
 @pytest.fixture()
 def workingness_card_module():
     spec = importlib.util.spec_from_file_location(
@@ -34,8 +47,8 @@ def test_workingness_card_omits_full_failure_map(workingness_card_module) -> Non
     assert card["command"] == "microcosm workingness --card"
     assert card["source_command"] == "microcosm workingness"
     assert card["drilldown_command"] == "microcosm workingness"
-    assert card["surface_counts"]["mapped_organ_count"] == 47
-    assert card["surface_counts"]["rows_with_failure_modes"] == 47
+    assert card["surface_counts"]["mapped_organ_count"] == _accepted_organ_count()
+    assert card["surface_counts"]["rows_with_failure_modes"] == _accepted_organ_count()
     assert card["surface_counts"]["missing_standard_count"] == 0
     assert card["surface_counts"]["missing_failure_modes_count"] == 0
     assert card["output_economy"]["thing_failure_map_exported"] is False

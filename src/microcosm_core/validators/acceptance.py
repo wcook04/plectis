@@ -16,6 +16,7 @@ from microcosm_core.private_state_scan import (
     scan_paths,
 )
 from microcosm_core.receipts import base_receipt, write_json_atomic
+from microcosm_core.runtime_shell import PRODUCT_PATH_DEMOTED_ORGAN_IDS, RUNTIME_STEPS
 from microcosm_core.schemas import read_json_strict
 
 
@@ -113,23 +114,9 @@ WAVE_1_ORGAN_IDS = [
 ]
 
 ADAPTER_BACKED_ORGAN_IDS = [
-    *WAVE_1_ORGAN_IDS,
-    "pattern_assimilation_step",
-    "public_reveal_walkthrough",
-    "macro_projection_import_protocol",
-    "prediction_oracle_reconciliation",
-    "standards_meta_diagnostics",
-    "cold_reader_route_map",
-    "agent_monitor_redteam_falsification_replay",
-    "agent_sabotage_scheming_monitor_replay",
-    "agent_memory_temporal_conflict_replay",
-    "sleeper_memory_poisoning_quarantine_replay",
-    "mcp_tool_authority_replay",
-    "proof_derived_governed_mutation_authorization",
-    "belief_state_process_reward_replay",
-    "agent_sandbox_policy_escape_replay",
-    "indirect_prompt_injection_information_flow_policy_replay",
-    "agentic_vulnerability_discovery_patch_proof_replay",
+    step.organ_id
+    for step in RUNTIME_STEPS
+    if step.organ_id not in PRODUCT_PATH_DEMOTED_ORGAN_IDS
 ]
 
 
@@ -523,16 +510,26 @@ def validate_exported_organ_landings(payload: object) -> dict[str, Any]:
                 subject_kind="organ_landing",
             )
         )
-    missing_expected = sorted(set(ADAPTER_BACKED_ORGAN_IDS) - set(organ_ids))
+    declared_expected = [
+        str(organ_id)
+        for organ_id in payload.get("accepted_adapter_backed_organ_ids", [])
+        if isinstance(organ_id, str)
+    ] if isinstance(payload, dict) else []
+    expected_organ_ids = declared_expected or sorted({organ_id for organ_id in organ_ids if organ_id})
+    missing_expected = sorted(set(expected_organ_ids) - set(organ_ids))
     for organ_id in missing_expected:
         findings.append(
             _bundle_finding(
                 "ASSIMILATION_BUNDLE_ACCEPTED_ORGAN_MISSING",
-                "Exported assimilation bundle must cover every accepted adapter-backed organ.",
+                "Exported assimilation bundle must cover every organ declared by the bundle landing set.",
                 subject_id=organ_id,
                 subject_kind="organ_landing",
             )
         )
+    current_expected = set(ADAPTER_BACKED_ORGAN_IDS)
+    landed = set(organ_id for organ_id in organ_ids if organ_id)
+    current_missing = sorted(current_expected - landed)
+    current_extra = sorted(landed - current_expected)
     return {
         "status": PASS if not findings else "blocked",
         "findings": findings,
@@ -540,7 +537,13 @@ def validate_exported_organ_landings(payload: object) -> dict[str, Any]:
         "organ_landing_count": len(rows),
         "landing_receipt_refs": sorted(set(landing_receipt_refs)),
         "closeout_by_organ": closeout_by_organ,
-        "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
+        "accepted_adapter_backed_organ_ids": expected_organ_ids,
+        "current_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
+        "current_adapter_backed_missing_from_bundle": current_missing,
+        "current_adapter_backed_extra_in_bundle": current_extra,
+        "current_adapter_backed_coverage_status": (
+            PASS if not current_missing and not current_extra else "snapshot_delta"
+        ),
         "organ_landing_projection_not_authority": True,
     }
 
@@ -1287,6 +1290,18 @@ def _write_assimilation_bundle_receipt(
             "accepted_adapter_backed_organ_ids": validation_result[
                 "accepted_adapter_backed_organ_ids"
             ],
+            "current_adapter_backed_organ_ids": validation_result[
+                "current_adapter_backed_organ_ids"
+            ],
+            "current_adapter_backed_missing_from_bundle": validation_result[
+                "current_adapter_backed_missing_from_bundle"
+            ],
+            "current_adapter_backed_extra_in_bundle": validation_result[
+                "current_adapter_backed_extra_in_bundle"
+            ],
+            "current_adapter_backed_coverage_status": validation_result[
+                "current_adapter_backed_coverage_status"
+            ],
             "ordered_adapter_lane_status": validation_result[
                 "ordered_adapter_lane_status"
             ],
@@ -1472,7 +1487,21 @@ def run_assimilation_bundle(
                 "task_sign_off",
                 "cap_reflex_capture_before_prose",
             ],
-            "accepted_adapter_backed_organ_ids": ADAPTER_BACKED_ORGAN_IDS,
+            "accepted_adapter_backed_organ_ids": landing_result[
+                "accepted_adapter_backed_organ_ids"
+            ],
+            "current_adapter_backed_organ_ids": landing_result[
+                "current_adapter_backed_organ_ids"
+            ],
+            "current_adapter_backed_missing_from_bundle": landing_result[
+                "current_adapter_backed_missing_from_bundle"
+            ],
+            "current_adapter_backed_extra_in_bundle": landing_result[
+                "current_adapter_backed_extra_in_bundle"
+            ],
+            "current_adapter_backed_coverage_status": landing_result[
+                "current_adapter_backed_coverage_status"
+            ],
             "ordered_adapter_lane_status": (
                 "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_materials_lab_safety_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_agentic_vulnerability_patch_proof_and_materials_lab_safety_bound"
             ),

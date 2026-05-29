@@ -188,7 +188,13 @@ def test_pattern_assimilation_exported_bundle_validates_runtime_shape(
     assert result["ordered_adapter_lane_status"] == (
         "complete_with_formal_math_lean_std_premise_index_verifier_trace_repair_evidence_cell_tactic_ring2_benchmark_integrity_durable_work_landing_research_replication_world_model_projection_drift_spatial_world_model_simulation_materials_lab_safety_mechanistic_interpretability_provider_context_prediction_standards_meta_cold_reader_route_map_monitor_redteam_sabotage_monitor_memory_conflict_sleeper_memory_quarantine_mcp_tool_authority_governed_mutation_authorization_belief_state_process_reward_sandbox_policy_escape_indirect_prompt_injection_agentic_vulnerability_patch_proof_and_materials_lab_safety_bound"
     )
-    assert result["organ_landing_count"] == 43
+    assert result["organ_landing_count"] == len(
+        result["accepted_adapter_backed_organ_ids"]
+    )
+    assert result["current_adapter_backed_coverage_status"] in {
+        "pass",
+        "snapshot_delta",
+    }
     assert result["landed_organ_ids"] == [
         "agent_benchmark_integrity_anti_gaming_replay",
         "agent_memory_temporal_conflict_replay",

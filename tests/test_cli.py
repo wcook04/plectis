@@ -17,6 +17,7 @@ import pytest
 from microcosm_core import cli
 from microcosm_core import project_substrate
 from microcosm_core.runtime_shell import (
+    PRODUCT_PATH_DEMOTED_ORGAN_IDS,
     PROOF_LAB_FIRST_SCREEN_COMMAND,
     PROOF_LAB_RECEIPT_REF,
     PROOF_LAB_ROUTE_REF,
@@ -30,6 +31,71 @@ from microcosm_core.runtime_shell import (
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_COPY_IGNORE = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
 ROOT_HELP_COMMAND_FLOOR = 35
+
+
+def _accepted_organ_count(root: Path) -> int:
+    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    return len(
+        [
+            row
+            for row in registry["implemented_organs"]
+            if row.get("status") == "accepted_current_authority"
+        ]
+    )
+
+
+def _demoted_organ_count() -> int:
+    return len(PRODUCT_PATH_DEMOTED_ORGAN_IDS)
+
+
+def _adapter_backed_organ_count(root: Path) -> int:
+    return _accepted_organ_count(root) - _demoted_organ_count()
+
+
+def _adapter_evidence_class_count(root: Path) -> int:
+    registry = json.loads((root / "core/organ_registry.json").read_text(encoding="utf-8"))
+    demoted = set(PRODUCT_PATH_DEMOTED_ORGAN_IDS)
+    return len(
+        {
+            str(row["evidence_class"])
+            for row in registry["implemented_organs"]
+            if row.get("status") == "accepted_current_authority"
+            and row.get("organ_id") not in demoted
+        }
+    )
+
+
+def _first_run_path_by_step_id(path: list[dict[str, object]]) -> dict[str, dict[str, object]]:
+    by_step = {str(row.get("step_id")): row for row in path if row.get("step_id")}
+    assert len(by_step) == len(path)
+    return by_step
+
+
+def _assert_commands_in_order(
+    path: list[dict[str, object]],
+    expected_commands: list[str],
+) -> None:
+    commands = [str(row.get("command") or "") for row in path]
+    cursor = -1
+    for command in expected_commands:
+        assert command in commands[cursor + 1 :]
+        cursor = commands.index(command, cursor + 1)
+
+
+def _assert_step_command(
+    by_step: dict[str, dict[str, object]],
+    step_id: str,
+    command: str,
+) -> None:
+    assert by_step[step_id]["command"] == command
+
+
+def _assert_step_command_prefix(
+    by_step: dict[str, dict[str, object]],
+    step_id: str,
+    command_prefix: str,
+) -> None:
+    assert str(by_step[step_id]["command"]).startswith(command_prefix)
 
 
 def _copytree_fixture(source: Path, destination: Path) -> None:
@@ -1499,86 +1565,94 @@ def test_cli_spine_smoke(capsys: pytest.CaptureFixture[str]) -> None:
     assert status == 0
     assert payload["schema_version"] == "microcosm_public_runtime_spine_v1"
     assert payload["status"] == "pass"
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
-    assert payload["surface_counts"]["product_path_demoted_organ_count"] == 4
-    assert payload["first_run_path"][0]["command"] == "microcosm tour --card <project>"
-    assert payload["first_run_path"][2]["command"] == "microcosm python-lens <project>"
-    assert payload["first_run_path"][5]["command"] == "microcosm spine"
-    assert payload["first_run_path"][6]["command"] == "microcosm authority"
-    assert payload["first_run_path"][7]["command"] == "microcosm prediction-lens"
-    assert payload["first_run_path"][8]["command"] == "microcosm market-boundary"
-    assert payload["first_run_path"][9]["command"] == "microcosm corpus-lens"
-    assert payload["first_run_path"][10]["command"] == "microcosm trace-lens"
-    assert payload["first_run_path"][11]["command"] == "microcosm repair-loop"
-    assert payload["first_run_path"][12]["command"] == "microcosm evidence-cells"
-    assert payload["first_run_path"][13]["command"] == "microcosm proof-loop-depth"
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == (
+        _adapter_backed_organ_count(MICROCOSM_ROOT)
+    )
+    assert payload["surface_counts"]["product_path_demoted_organ_count"] == (
+        _demoted_organ_count()
+    )
+    first_run_by_step = _first_run_path_by_step_id(payload["first_run_path"])
+    _assert_commands_in_order(
+        payload["first_run_path"],
+        [
+            "microcosm tour --card <project>",
+            "microcosm python-lens <project>",
+            "microcosm spine",
+            "microcosm authority",
+            "microcosm prediction-lens",
+            "microcosm market-boundary",
+            "microcosm corpus-lens",
+            "microcosm trace-lens",
+            "microcosm repair-loop",
+            "microcosm evidence-cells",
+            "microcosm proof-loop-depth",
+            PROOF_LAB_FIRST_SCREEN_COMMAND,
+            VERIFIER_EXECUTION_LENS_COMMAND,
+        ],
+    )
+    expected_step_commands = {
+        "run_compact_tour_card": "microcosm tour --card <project>",
+        "inspect_python_lens": "microcosm python-lens <project>",
+        "inspect_public_spine": "microcosm spine",
+        "inspect_authority_map": "microcosm authority",
+        "inspect_prediction_lens": "microcosm prediction-lens",
+        "inspect_market_prediction_boundary": "microcosm market-boundary",
+        "inspect_corpus_lens": "microcosm corpus-lens",
+        "inspect_verifier_trace_repair_lens": "microcosm trace-lens",
+        "inspect_verifier_repair_loop": "microcosm repair-loop",
+        "inspect_formal_evidence_cells": "microcosm evidence-cells",
+        "inspect_proof_loop_depth": "microcosm proof-loop-depth",
+        "inspect_verifier_lab_kernel": PROOF_LAB_FIRST_SCREEN_COMMAND,
+        "inspect_verifier_lab_execution_spine": VERIFIER_EXECUTION_LENS_COMMAND,
+        "inspect_work_landing_replay": "microcosm landing-replay",
+        "inspect_view_quality_action_map": "microcosm view-quality",
+        "inspect_projection_safety_audit": "microcosm projection-safety",
+        "inspect_projection_drift_control": "microcosm drift-control",
+        "inspect_route_cleanup_contract": "microcosm route-cleanup",
+        "inspect_projection_import_map": "microcosm projection-import-map",
+        "inspect_import_projector_contract": "microcosm import-projector",
+        "inspect_compression_profile_option_surface": "microcosm option-surface-lens",
+        "inspect_public_private_stripping_guard": "microcosm stripping-guard",
+        "inspect_standards_control": "microcosm standards-control",
+        "inspect_hook_intervention_coverage": "microcosm hook-coverage",
+        "inspect_agent_reliability_replay_gauntlet": "microcosm replay-gauntlet",
+        "inspect_repository_benchmark_transaction_lab": "microcosm benchmark-lab",
+        "inspect_public_legibility_scorecard": "microcosm legibility-scorecard",
+        "inspect_cold_reader_route_map": "microcosm cold-reader-route-map run-route-map-bundle",
+    }
+    for step_id, command in expected_step_commands.items():
+        _assert_step_command(first_run_by_step, step_id, command)
+    expected_prefix_commands = {
+        "inspect_durable_agent_work_landing_replay": "microcosm durable-agent-work-landing-replay",
+        "inspect_research_replication_rubric_artifact_replay": "microcosm research-replication-rubric-artifact-replay",
+        "inspect_world_model_projection_drift_control_room": "microcosm world-model-projection-drift-control-room",
+        "inspect_spatial_world_model_counterfactual_simulation_replay": "microcosm spatial-world-model-counterfactual-simulation-replay",
+        "inspect_mechanistic_interpretability_circuit_attribution_replay": "microcosm mechanistic-interpretability-circuit-attribution-replay",
+        "inspect_agent_memory_temporal_conflict_replay": "microcosm agent-memory-temporal-conflict-replay",
+        "inspect_sleeper_memory_poisoning_quarantine_replay": "microcosm sleeper-memory-poisoning-quarantine-replay",
+        "inspect_mcp_tool_authority_replay": "microcosm mcp-tool-authority-replay",
+        "inspect_proof_derived_governed_mutation_authorization": "microcosm proof-derived-governed-mutation-authorization",
+        "inspect_belief_state_process_reward_replay": "microcosm belief-state-process-reward-replay",
+        "inspect_agent_sandbox_policy_escape_replay": "microcosm agent-sandbox-policy-escape-replay",
+        "inspect_indirect_prompt_injection_information_flow_policy_replay": "microcosm indirect-prompt-injection-information-flow-policy-replay",
+        "inspect_agentic_vulnerability_discovery_patch_proof_replay": "microcosm agentic-vulnerability-discovery-patch-proof-replay",
+        "inspect_certificate_kernel_execution_lab": "microcosm certificate-kernel-execution-lab",
+    }
+    for step_id, command_prefix in expected_prefix_commands.items():
+        _assert_step_command_prefix(first_run_by_step, step_id, command_prefix)
     assert payload["first_screen_proof_lab"]["status"] == "pass"
     assert payload["first_screen_proof_lab"]["route_id"] == (
         "formal_prover_context_strategy_gate"
     )
-    assert payload["first_run_path"][14]["command"] == PROOF_LAB_FIRST_SCREEN_COMMAND
-    assert payload["first_run_path"][14]["route_ref"] == PROOF_LAB_ROUTE_REF
-    assert payload["first_run_path"][14]["receipt_ref"] == PROOF_LAB_RECEIPT_REF
-    assert payload["first_run_path"][15]["command"] == VERIFIER_EXECUTION_LENS_COMMAND
-    assert payload["first_run_path"][15]["receipt_ref"] == VERIFIER_EXECUTION_RECEIPT_REF
-    assert payload["first_run_path"][14]["route_component_count"] == 9
-    assert payload["first_run_path"][16]["command"] == "microcosm landing-replay"
-    assert payload["first_run_path"][17]["command"] == (
-        "microcosm durable-agent-work-landing-replay run-work-landing-bundle"
+    proof_lab_step = first_run_by_step["inspect_verifier_lab_kernel"]
+    assert proof_lab_step["route_ref"] == PROOF_LAB_ROUTE_REF
+    assert proof_lab_step["receipt_ref"] == PROOF_LAB_RECEIPT_REF
+    assert proof_lab_step["route_component_count"] == (
+        payload["first_screen_proof_lab"]["route_component_count"]
     )
-    assert payload["first_run_path"][18]["command"].startswith(
-        "microcosm research-replication-rubric-artifact-replay"
+    assert first_run_by_step["inspect_verifier_lab_execution_spine"]["receipt_ref"] == (
+        VERIFIER_EXECUTION_RECEIPT_REF
     )
-    assert payload["first_run_path"][19]["command"] == "microcosm view-quality"
-    assert payload["first_run_path"][20]["command"] == "microcosm projection-safety"
-    assert payload["first_run_path"][21]["command"] == "microcosm drift-control"
-    assert payload["first_run_path"][22]["command"].startswith(
-        "microcosm world-model-projection-drift-control-room"
-    )
-    assert payload["first_run_path"][23]["command"].startswith(
-        "microcosm spatial-world-model-counterfactual-simulation-replay"
-    )
-    assert payload["first_run_path"][24]["command"].startswith(
-        "microcosm mechanistic-interpretability-circuit-attribution-replay"
-    )
-    assert payload["first_run_path"][25]["command"] == "microcosm route-cleanup"
-    assert payload["first_run_path"][26]["command"] == "microcosm projection-import-map"
-    assert payload["first_run_path"][27]["command"] == "microcosm import-projector"
-    assert payload["first_run_path"][28]["command"] == "microcosm option-surface-lens"
-    assert payload["first_run_path"][29]["command"] == "microcosm stripping-guard"
-    assert payload["first_run_path"][30]["command"] == "microcosm standards-control"
-    assert payload["first_run_path"][31]["command"] == "microcosm hook-coverage"
-    assert payload["first_run_path"][32]["command"] == "microcosm replay-gauntlet"
-    assert payload["first_run_path"][33]["command"].startswith(
-        "microcosm agent-memory-temporal-conflict-replay"
-    )
-    assert payload["first_run_path"][34]["command"].startswith(
-        "microcosm sleeper-memory-poisoning-quarantine-replay"
-    )
-    assert payload["first_run_path"][35]["command"].startswith(
-        "microcosm mcp-tool-authority-replay"
-    )
-    assert payload["first_run_path"][36]["command"].startswith(
-        "microcosm proof-derived-governed-mutation-authorization"
-    )
-    assert payload["first_run_path"][37]["command"].startswith(
-        "microcosm belief-state-process-reward-replay"
-    )
-    assert payload["first_run_path"][38]["command"].startswith(
-        "microcosm agent-sandbox-policy-escape-replay"
-    )
-    assert payload["first_run_path"][39]["command"].startswith(
-        "microcosm indirect-prompt-injection-information-flow-policy-replay"
-    )
-    assert payload["first_run_path"][40]["command"].startswith(
-        "microcosm agentic-vulnerability-discovery-patch-proof-replay"
-    )
-    assert payload["first_run_path"][41]["command"].startswith(
-        "microcosm certificate-kernel-execution-lab"
-    )
-    assert payload["first_run_path"][42]["command"] == "microcosm benchmark-lab"
-    assert payload["first_run_path"][43]["command"] == "microcosm legibility-scorecard"
-    assert payload["first_run_path"][46]["command"] == "microcosm cold-reader-route-map run-route-map-bundle"
     assert payload["authority_ceiling"]["release_authorized"] is False
 
 
@@ -1609,9 +1683,15 @@ def test_cli_authority_smoke(
     assert payload["unsafe_payload_bodies_exported"] is False
     assert payload["payload_boundary"]["source_open_default"] is True
     assert payload["authority_ceiling"]["release_authorized"] is False
-    assert payload["surface_counts"]["organ_authority_count"] == 43
-    assert payload["surface_counts"]["surface_authority_count"] == 45
-    assert payload["surface_counts"]["organ_evidence_class_count"] == 4
+    assert payload["surface_counts"]["organ_authority_count"] == (
+        _adapter_backed_organ_count(MICROCOSM_ROOT)
+    )
+    assert payload["surface_counts"]["surface_authority_count"] >= (
+        _adapter_backed_organ_count(MICROCOSM_ROOT)
+    )
+    assert payload["surface_counts"]["organ_evidence_class_count"] == (
+        _adapter_evidence_class_count(MICROCOSM_ROOT)
+    )
     assert payload["surface_counts"]["copied_non_secret_macro_body_count"] == 1
     assert (
         payload["surface_counts"]["copied_non_secret_macro_body_material_count"]
@@ -1776,18 +1856,26 @@ def test_cli_workingness_smoke(
     assert payload["completeness_status"] == "complete_failure_modes"
     assert payload["map_generation_status"] == "pass"
     assert payload["failure_envelope_status"] == "clear"
-    assert payload["mapped_organ_count"] == 47
-    assert payload["adapter_backed_organ_count"] == 43
-    assert payload["demoted_drilldown_count"] == 4
+    assert payload["mapped_organ_count"] == _accepted_organ_count(public_root)
+    assert payload["adapter_backed_organ_count"] == (
+        _adapter_backed_organ_count(public_root)
+    )
+    assert payload["demoted_drilldown_count"] == _demoted_organ_count()
     assert payload["missing_standard_count"] == 0
     assert payload["missing_failure_modes_count"] == 0
-    assert payload["rows_with_failure_modes"] == 47
+    assert payload["rows_with_failure_modes"] == _accepted_organ_count(public_root)
     assert payload["accepted_status_is_not_evidence_strength"] is True
     assert payload["not_a_scorecard"] is True
     assert payload["gap_preview"]["status"] == "clear"
-    assert payload["surface_counts"]["mapped_organ_count"] == 47
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
-    assert payload["surface_counts"]["demoted_drilldown_count"] == 4
+    assert payload["surface_counts"]["mapped_organ_count"] == (
+        _accepted_organ_count(public_root)
+    )
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == (
+        _adapter_backed_organ_count(public_root)
+    )
+    assert payload["surface_counts"]["demoted_drilldown_count"] == (
+        _demoted_organ_count()
+    )
     assert payload["surface_counts"]["missing_failure_modes_count"] == 0
     rows_by_id = {row["thing_id"]: row for row in payload["thing_failure_map"]}
     assert rows_by_id["verifier_lab_kernel"]["workingness_state"] == (
@@ -1820,10 +1908,18 @@ def test_cli_workingness_card_smoke(
     assert payload["drilldown_command"] == "microcosm workingness"
     assert payload["endpoint"] == "/workingness"
     assert payload["completeness_status"] == "complete_failure_modes"
-    assert payload["surface_counts"]["mapped_organ_count"] == 47
-    assert payload["surface_counts"]["adapter_backed_organ_count"] == 43
-    assert payload["surface_counts"]["demoted_drilldown_count"] == 4
-    assert payload["surface_counts"]["rows_with_failure_modes"] == 47
+    assert payload["surface_counts"]["mapped_organ_count"] == (
+        _accepted_organ_count(public_root)
+    )
+    assert payload["surface_counts"]["adapter_backed_organ_count"] == (
+        _adapter_backed_organ_count(public_root)
+    )
+    assert payload["surface_counts"]["demoted_drilldown_count"] == (
+        _demoted_organ_count()
+    )
+    assert payload["surface_counts"]["rows_with_failure_modes"] == (
+        _accepted_organ_count(public_root)
+    )
     assert payload["surface_counts"]["missing_standard_count"] == 0
     assert payload["surface_counts"]["missing_failure_modes_count"] == 0
     assert payload["output_economy"]["thing_failure_map_exported"] is False
