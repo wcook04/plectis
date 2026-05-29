@@ -3506,7 +3506,7 @@ def _compaction_governance_packet() -> Dict[str, Any]:
         "proof_signals": [
             "candidate group carries item_ids and evidence",
             "organizer-report exposes counts_by_kind and semantic_conflict_detector",
-            "semantic duplicate detection suppresses explicit hard dependency pairs before grouping",
+            "semantic duplicate detection suppresses explicit hard dependency and shared downstream co-prerequisite pairs before grouping",
             "chosen disposition appends an event and preserves source histories",
         ],
         "operator_review_required_for": [
@@ -3587,6 +3587,58 @@ def _has_hard_dependency_edge(left: Mapping[str, Any], right: Mapping[str, Any])
     return right_id in _hard_dependency_ids(left) or left_id in _hard_dependency_ids(right)
 
 
+def _downstream_coprerequisite_ids(item: Mapping[str, Any]) -> Dict[str, set[str]]:
+    item_id = str(item.get("id") or "").strip()
+    dependency_status = item.get("dependency_status")
+    if not isinstance(dependency_status, Mapping):
+        return {}
+
+    by_downstream: Dict[str, set[str]] = defaultdict(set)
+    for edge in dependency_status.get("downstream_unlock_edges") or []:
+        if not isinstance(edge, Mapping):
+            continue
+        downstream_id = str(edge.get("id") or edge.get("work_item_id") or "").strip()
+        if not downstream_id:
+            continue
+        sibling_ids = set(_iter_id_values(edge.get("downstream_unsatisfied_dep_ids")))
+        if item_id:
+            sibling_ids.add(item_id)
+        by_downstream[downstream_id].update(sibling_ids)
+    return by_downstream
+
+
+def _share_downstream_coprerequisite_edge(left: Mapping[str, Any], right: Mapping[str, Any]) -> bool:
+    left_id = str(left.get("id") or "").strip()
+    right_id = str(right.get("id") or "").strip()
+    if not left_id or not right_id:
+        return False
+
+    left_downstream = _downstream_coprerequisite_ids(left)
+    right_downstream = _downstream_coprerequisite_ids(right)
+    for downstream_id in set(left_downstream) & set(right_downstream):
+        sibling_ids = left_downstream[downstream_id] | right_downstream[downstream_id]
+        if left_id in sibling_ids and right_id in sibling_ids:
+            return True
+    return False
+
+
+def _downstream_coprerequisite_pairs(items: Sequence[Mapping[str, Any]]) -> set[tuple[str, str]]:
+    pairs: set[tuple[str, str]] = set()
+    known_ids = {
+        str(item.get("id") or "").strip()
+        for item in items
+        if str(item.get("id") or "").strip()
+    }
+    for item in items:
+        dependency_ids = sorted(dep_id for dep_id in _hard_dependency_ids(item) if dep_id in known_ids)
+        if len(dependency_ids) < 2:
+            continue
+        for left_index, left_id in enumerate(dependency_ids):
+            for right_id in dependency_ids[left_index + 1:]:
+                pairs.add((left_id, right_id))
+    return pairs
+
+
 def _semantic_duplicate_groups(items: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
     exact_keys: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
     buckets: Dict[str, List[Mapping[str, Any]]] = defaultdict(list)
@@ -3610,6 +3662,7 @@ def _semantic_duplicate_groups(items: Sequence[Mapping[str, Any]]) -> List[Dict[
     }
     groups: List[Dict[str, Any]] = []
     seen_group_keys: set[tuple[str, ...]] = set()
+    coprerequisite_pairs = _downstream_coprerequisite_pairs(items)
     for candidate_type, bucket in buckets.items():
         token_rows = []
         for item in sorted(bucket, key=lambda row: str(row.get("id") or "")):
@@ -3662,11 +3715,16 @@ def _semantic_duplicate_groups(items: Sequence[Mapping[str, Any]]) -> List[Dict[
             jaccard = len(shared) / max(1, len(union))
             if overlap < SEMANTIC_DUPLICATE_MIN_OVERLAP or jaccard < SEMANTIC_DUPLICATE_MIN_JACCARD:
                 continue
-            if _has_hard_dependency_edge(left, right):
+            pair_key = tuple(sorted([left_id, right_id]))
+            if (
+                _has_hard_dependency_edge(left, right)
+                or pair_key in coprerequisite_pairs
+                or _share_downstream_coprerequisite_edge(left, right)
+            ):
                 continue
             edges[left_id].add(right_id)
             edges[right_id].add(left_id)
-            evidence_by_pair[tuple(sorted([left_id, right_id]))] = {
+            evidence_by_pair[pair_key] = {
                 "item_ids": [left_id, right_id],
                 "shared_tokens": sorted(shared)[:12],
                 "overlap_coefficient": round(overlap, 3),

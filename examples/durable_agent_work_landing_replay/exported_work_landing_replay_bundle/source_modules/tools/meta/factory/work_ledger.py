@@ -16,6 +16,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+SESSION_HEARTBEAT_STATE_ALIASES = {
+    "validate": "validating",
+    "validation": "validating",
+}
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -665,10 +669,11 @@ def cmd_session_heartbeat(args: argparse.Namespace) -> int:
             "session-heartbeat requires --current-pass-line/--now or "
             "--last-pass-result-line/--done"
         )
+    pass_state = SESSION_HEARTBEAT_STATE_ALIASES.get(str(args.state or ""), args.state)
     payload = work_ledger_runtime.mark_session_pass_heartbeat(
         REPO_ROOT,
         session_id=args.session_id,
-        pass_state=args.state,
+        pass_state=pass_state,
         current_pass_line=args.current_pass_line,
         last_pass_result_line=args.last_pass_result_line,
         td_id=args.td_id,
@@ -684,7 +689,7 @@ def cmd_session_heartbeat(args: argparse.Namespace) -> int:
             schema="work_ledger_session_heartbeat_result_v1",
             command="session-heartbeat",
             session_id=args.session_id,
-            action=args.state,
+            action=pass_state,
             limit=getattr(args, "limit", work_ledger_runtime.SESSION_COHORT_OVERVIEW_LIMIT),
         )
     )
@@ -3666,7 +3671,10 @@ def build_parser() -> argparse.ArgumentParser:
     session_heartbeat.add_argument(
         "--state",
         default="inspecting",
-        choices=sorted(work_ledger_runtime.PASS_HEARTBEAT_STATES),
+        choices=sorted(
+            set(work_ledger_runtime.PASS_HEARTBEAT_STATES)
+            | set(SESSION_HEARTBEAT_STATE_ALIASES)
+        ),
     )
     session_heartbeat.add_argument(
         "--current-pass-line",

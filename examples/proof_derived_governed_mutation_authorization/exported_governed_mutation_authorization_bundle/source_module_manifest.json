@@ -135,9 +135,9 @@
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 175121,
+      "byte_count": 175387,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4345,
+      "line_count": 4353,
       "material_class": "public_macro_ledger_body",
       "module_id": "work_ledger_claim_runtime_body_import",
       "path": "source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
@@ -153,9 +153,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipts_provider_payload_browser_hud_live_access_account_session_private_proof_body_or_credentials",
       "source_ref": "tools/meta/factory/work_ledger.py",
       "source_role": "Macro Work Ledger runtime CLI body that issues session preflights, active claims, heartbeats, append/exempt closeouts, and finalizers for concurrent Type A mutation lanes.",
-      "source_sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+      "source_sha256": "sha256:907ad358c4cad10c2fe74473ddf3c2dbb7227a26f3a054c4c4c36816f755e43e",
       "target_ref": "microcosm-substrate/examples/proof_derived_governed_mutation_authorization/exported_governed_mutation_authorization_bundle/source_modules/ai_workflow/tools/meta/factory/work_ledger.py",
-      "target_sha256": "sha256:497d6591a6a3a6d30c54428557dfd16d29a647f83626a8bb4adc62cda89a95c9",
+      "target_sha256": "sha256:907ad358c4cad10c2fe74473ddf3c2dbb7227a26f3a054c4c4c36816f755e43e",
       "validation_refs": [
         "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_source_modules_are_exact_macro_body_imports",
         "microcosm-substrate/tests/test_proof_derived_governed_mutation_authorization.py::test_governed_mutation_authorization_exported_bundle_validates_runtime_shape"

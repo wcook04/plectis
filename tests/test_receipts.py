@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from microcosm_core import receipts
 from microcosm_core.receipts import write_json_atomic
 
 
@@ -75,3 +76,47 @@ def test_receipt_writer_keeps_source_tree_receipts_read_only_under_pytest() -> N
 
     after = {path: path.read_text(encoding="utf-8") for path in receipt_paths}
     assert after == before
+
+
+def test_receipt_writer_blocks_tracked_receipts_by_default_outside_pytest(
+    tmp_path: Path, monkeypatch
+) -> None:
+    tracked_root = tmp_path / "receipts"
+    receipt_path = tracked_root / "runtime_shell/public_status_card.json"
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text('{"before": true}\n', encoding="utf-8")
+    before = receipt_path.read_text(encoding="utf-8")
+
+    monkeypatch.setattr(
+        receipts, "TRACKED_RECEIPTS_ROOT", tracked_root.resolve(strict=False)
+    )
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_TRACKED_RECEIPT_WRITES", raising=False)
+
+    write_json_atomic(receipt_path, {"after": True})
+
+    assert receipt_path.read_text(encoding="utf-8") == before
+
+
+def test_receipt_writer_allows_explicit_tracked_receipt_refresh(
+    tmp_path: Path, monkeypatch
+) -> None:
+    tracked_root = tmp_path / "receipts"
+    receipt_path = tracked_root / "acceptance/first_wave/example.json"
+    receipt_path.parent.mkdir(parents=True)
+
+    monkeypatch.setattr(
+        receipts, "TRACKED_RECEIPTS_ROOT", tracked_root.resolve(strict=False)
+    )
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.setenv("MICROCOSM_TRACKED_RECEIPT_WRITES", "1")
+
+    write_json_atomic(receipt_path, {"status": "refreshed"})
+
+    assert json.loads(receipt_path.read_text(encoding="utf-8")) == {
+        "status": "refreshed"
+    }

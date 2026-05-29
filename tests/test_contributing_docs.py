@@ -55,6 +55,8 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "broad drift-detection lane" in text
     assert "tracked source-tree receipts read-only" in text
     assert "explicitly opts into receipt writes" in text
+    assert "MICROCOSM_TRACKED_RECEIPT_WRITES=1" in text
+    assert "tracked `receipts/**` snapshots are the" in text
     assert "same outside-checkout pytest" in text
     assert "scratch parent as `make test`" in text
     assert "any generated output that needs to change still" in text

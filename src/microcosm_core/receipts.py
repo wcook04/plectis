@@ -15,6 +15,7 @@ ANTI_CLAIM = (
     "not product progress or substitutes for available real substrate."
 )
 FALSE_ENV_VALUES = {"0", "false", "no", "off"}
+TRUE_ENV_VALUES = {"1", "true", "yes", "on"}
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 TRACKED_RECEIPTS_ROOT = (PACKAGE_ROOT / "receipts").resolve(strict=False)
 
@@ -30,14 +31,29 @@ def receipt_writes_enabled() -> bool:
     return value.lower() not in FALSE_ENV_VALUES
 
 
-def tracked_receipt_write_blocked_under_pytest(path: str | Path) -> bool:
-    if "PYTEST_CURRENT_TEST" not in os.environ:
-        return False
+def _env_flag_true(name: str) -> bool:
+    value = os.environ.get(name)
+    return value is not None and value.lower() in TRUE_ENV_VALUES
+
+
+def tracked_receipt_writes_enabled() -> bool:
+    return _env_flag_true("MICROCOSM_TRACKED_RECEIPT_WRITES")
+
+
+def is_tracked_receipt_path(path: str | Path) -> bool:
     try:
         Path(path).resolve(strict=False).relative_to(TRACKED_RECEIPTS_ROOT)
     except ValueError:
         return False
     return True
+
+
+def tracked_receipt_write_blocked_under_pytest(path: str | Path) -> bool:
+    return "PYTEST_CURRENT_TEST" in os.environ and is_tracked_receipt_path(path)
+
+
+def tracked_receipt_write_blocked(path: str | Path) -> bool:
+    return is_tracked_receipt_path(path) and not tracked_receipt_writes_enabled()
 
 
 def _read_json_object_if_exists(path: Path) -> dict[str, Any]:
@@ -74,7 +90,7 @@ def _payload_with_stable_created_at(
 
 def write_json_atomic(path: str | Path, payload: dict[str, Any]) -> None:
     target = Path(path)
-    if not receipt_writes_enabled() or tracked_receipt_write_blocked_under_pytest(target):
+    if not receipt_writes_enabled() or tracked_receipt_write_blocked(target):
         return
     payload_to_write = _payload_with_stable_created_at(target, payload)
     target.parent.mkdir(parents=True, exist_ok=True)

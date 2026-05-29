@@ -45,7 +45,10 @@ where the sibling macro source paths are present.
 This is a broad drift-detection lane rather than the public release floor: it
 can surface exact-copy or source-freshness failures when macro source changes,
 while pytest keeps tracked source-tree receipts read-only unless a caller
-explicitly opts into receipt writes. It uses the same outside-checkout pytest
+explicitly opts into receipt writes with
+`MICROCOSM_TRACKED_RECEIPT_WRITES=1`. Temp receipts and caller-owned output
+directories still write by default; tracked `receipts/**` snapshots are the
+opt-in refresh surface. It uses the same outside-checkout pytest
 scratch parent as `make test`; any generated output that needs to change still
 belongs in its owner lane, not disposable temp state.
 The default `make test` path and `make ci` are the standalone public verification floor.

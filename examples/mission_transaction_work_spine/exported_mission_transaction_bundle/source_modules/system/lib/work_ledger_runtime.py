@@ -3165,11 +3165,12 @@ def _seed_speed_dirty_pressure_focus(
     def _agent_decision_summary(
         scoped_work: Mapping[str, Any],
         ladder: Mapping[str, Any],
-        blocking_claim_summary: Mapping[str, Any],
+        blocking_claim_summary: Mapping[str, Any] | None,
         post_claim_summary: Mapping[str, Any],
         lease_summary: Mapping[str, Any] | None,
         coordination_summary: Mapping[str, Any] | None,
     ) -> Dict[str, Any]:
+        blocking_claim_summary = blocking_claim_summary or {}
         lease_summary = lease_summary or {}
         coordination_summary = coordination_summary or {}
         checkpoint_available = checkpoint_status == "available"
