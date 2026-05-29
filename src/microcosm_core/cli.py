@@ -466,6 +466,19 @@ def _status_card_exit_code(payload: dict) -> int:
     return 0
 
 
+def _proof_lab_card_exit_code(payload: dict) -> int:
+    if payload.get("status") == "pass":
+        return 0
+    cache_action = payload.get("cache_action")
+    if (
+        payload.get("status") == "stale_cached_receipt"
+        and isinstance(cache_action, dict)
+        and cache_action.get("status") == "actionable"
+    ):
+        return 0
+    return 1
+
+
 def _project_evidence_state_boundary(project_arg: str) -> dict | None:
     project = Path(project_arg).expanduser()
     if not project.exists():
@@ -924,6 +937,13 @@ def _proof_lab_first_screen_card(
     command: str,
 ) -> dict:
     metrics = result.get("proof_lab_component_metrics") or {}
+    status = result.get("status")
+    cache_status = result.get("cache_status", "live_receipt_rebuild")
+    cache_action_status = (
+        status
+        if status in {"stale_cached_receipt", "missing_cached_receipt"}
+        else cache_status
+    )
     receipt_refs = _receipt_refs_for_out(result, out_dir)
     if receipt_refs:
         evidence_drilldown = _evidence_inspect_command(receipt_refs[0])
@@ -934,7 +954,7 @@ def _proof_lab_first_screen_card(
     return {
         "schema_version": "microcosm_proof_lab_first_screen_card_v1",
         "card_id": "first_screen_verifier_lab_kernel",
-        "status": result.get("status"),
+        "status": status,
         "command": command,
         "expanded_command": (
             "microcosm verifier-lab-kernel run-kernel-bundle "
@@ -943,7 +963,8 @@ def _proof_lab_first_screen_card(
         "endpoint": "/proof-lab",
         "alias_endpoints": ["/verifier-lab-kernel"],
         "source_lens_endpoint": "/proof-loop-depth",
-        "cache_status": result.get("cache_status", "live_receipt_rebuild"),
+        "cache_status": cache_status,
+        "cache_action": _proof_lab_cache_action_hint(cache_action_status),
         "cached_receipt_ref": _cached_receipt_ref_for_card(result, out_dir),
         "cached_receipt_bytes": result.get("cached_receipt_bytes"),
         "cache_freshness": result.get("cache_freshness"),
@@ -2064,13 +2085,15 @@ def main(argv: list[str] | None = None) -> int:
                         args.out,
                         command=command,
                     )
+        proof_lab_card = _proof_lab_first_screen_card(
+            result,
+            input_path=args.input,
+            out_dir=args.out,
+            command=command,
+        )
         return _print_json(
-            _proof_lab_first_screen_card(
-                result,
-                input_path=args.input,
-                out_dir=args.out,
-                command=command,
-            )
+            proof_lab_card,
+            exit_code=_proof_lab_card_exit_code(proof_lab_card),
         )
     if args.command == "spine":
         command_args = ["spine"]

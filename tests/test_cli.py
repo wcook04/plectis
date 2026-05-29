@@ -405,6 +405,42 @@ def test_cli_work_help_exposes_route_explanation_actions() -> None:
     assert "work id to run" in run_help.stdout
 
 
+def test_cli_proof_lab_card_exits_zero_for_actionable_cache_status() -> None:
+    result = _run_microcosm_cli("proof-lab", "--card")
+    assert result.returncode == 0, result.stderr
+
+    payload = json.loads(result.stdout)
+    assert payload["schema_version"] == "microcosm_proof_lab_first_screen_card_v1"
+    assert payload["status"] in {"pass", "stale_cached_receipt"}
+    assert payload["safe_to_show"]["proof_correctness_claim"] is False
+    if payload["status"] == "stale_cached_receipt":
+        assert payload["cache_action"]["status"] == "actionable"
+        assert payload["cache_action"]["command"] == (
+            "microcosm proof-lab --out /tmp/microcosm-proof-lab"
+        )
+
+
+def test_cli_proof_lab_card_exit_code_keeps_missing_cache_nonzero() -> None:
+    assert (
+        cli._proof_lab_card_exit_code(
+            {
+                "status": "stale_cached_receipt",
+                "cache_action": {"status": "actionable"},
+            }
+        )
+        == 0
+    )
+    assert (
+        cli._proof_lab_card_exit_code(
+            {
+                "status": "missing_cached_receipt",
+                "cache_action": {"status": "missing"},
+            }
+        )
+        == 1
+    )
+
+
 @pytest.mark.parametrize(
     ("command", "expected"),
     [
