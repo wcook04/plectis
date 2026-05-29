@@ -28,6 +28,7 @@ ASSURANCE_SURFACE_SCHEMA = "finance_research_assurance_surface_v0"
 QUANT_RESEARCH_SPINE_SCHEMA = "finance_quant_research_experiment_spine_v0"
 SOURCE_MODULE_ROOT = Path("source_modules/tools/finance")
 SOURCE_IMPORT_CLASS = "copied_non_secret_macro_body"
+SOURCE_TO_TARGET_RELATION = "exact_copy"
 SOURCE_OPEN_BODY_POLICY = "source_bodies_copied_into_bundle_not_receipt"
 REQUIRED_MODULES = (
     "event_keys.py",
@@ -580,6 +581,11 @@ def _source_manifest(input_dir: Path, manifest: Mapping[str, Any], *, public_roo
                 "path": rel.as_posix(),
                 "display_ref": _display(path, public_root=public_root),
                 "source_ref": declared_row.get("source_ref"),
+                "target_ref": declared_row.get("target_ref"),
+                "source_to_target_relation": declared_row.get("source_to_target_relation"),
+                "sha256_match": declared_row.get("sha256_match"),
+                "source_sha256": declared_row.get("source_sha256"),
+                "target_sha256": declared_row.get("target_sha256"),
                 "material_class": declared_row.get("material_class"),
                 "source_import_class": declared_row.get("source_import_class"),
                 "exists": path.is_file(),
@@ -604,6 +610,76 @@ def _source_manifest(input_dir: Path, manifest: Mapping[str, Any], *, public_roo
         ),
         "body_in_receipt": False,
     }
+
+
+def _expected_public_target_ref(path: str) -> str:
+    return (
+        "microcosm-substrate/examples/finance_forecast_evaluation_spine/"
+        f"exported_finance_eval_bundle/{path}"
+    )
+
+
+def _validate_copied_body_import_row(
+    row: Mapping[str, Any],
+    findings: list[dict[str, Any]],
+    *,
+    source: str,
+) -> None:
+    path = str(row.get("path") or "")
+    expected_target_ref = _expected_public_target_ref(path) if path else None
+    sha256 = row.get("sha256")
+    if not path:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_PATH_MISSING",
+                "Copied finance evaluator body row must name its bundle target path.",
+                source=source,
+            )
+        )
+        return
+    if row.get("target_ref") != expected_target_ref:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_TARGET_REF_MISMATCH",
+                "Copied finance evaluator body row must point at its public bundle target.",
+                source=source,
+                expected=expected_target_ref,
+                observed=row.get("target_ref"),
+            )
+        )
+    if row.get("source_to_target_relation") != SOURCE_TO_TARGET_RELATION:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_RELATION_MISMATCH",
+                "Copied finance evaluator body row must declare an exact source-to-target relation.",
+                source=source,
+                expected=SOURCE_TO_TARGET_RELATION,
+                observed=row.get("source_to_target_relation"),
+            )
+        )
+    if row.get("sha256_match") is not True:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_SHA256_MATCH_MISMATCH",
+                "Copied finance evaluator body row must declare matching source and target digests.",
+                source=source,
+                expected=True,
+                observed=row.get("sha256_match"),
+            )
+        )
+    if row.get("source_sha256") != sha256 or row.get("target_sha256") != sha256:
+        findings.append(
+            _finding(
+                "SOURCE_MANIFEST_SOURCE_TARGET_DIGEST_MISMATCH",
+                "Copied finance evaluator body row must bind source and target digests to the declared body digest.",
+                source=source,
+                expected=sha256,
+                observed={
+                    "source_sha256": row.get("source_sha256"),
+                    "target_sha256": row.get("target_sha256"),
+                },
+            )
+        )
 
 
 def _validate_manifest(
@@ -698,6 +774,12 @@ def _validate_manifest(
                     source=path or MANIFEST_NAME,
                 )
             )
+        if row.get("source_import_class") == SOURCE_IMPORT_CLASS:
+            _validate_copied_body_import_row(
+                row,
+                findings,
+                source=f"{MANIFEST_NAME}::{path or '<missing_path>'}",
+            )
     if source_manifest_payload.get("schema_version") != "microcosm_finance_eval_source_module_manifest_v1":
         findings.append(
             _finding(
@@ -718,6 +800,22 @@ def _validate_manifest(
                 observed=source_manifest_payload.get("module_count"),
             )
         )
+    for row in _as_list(source_manifest_payload.get("modules")):
+        if not isinstance(row, Mapping):
+            findings.append(
+                _finding(
+                    "INVALID_SOURCE_MANIFEST_MODULE_ROW",
+                    "Source module manifest modules must be object rows.",
+                    source=SOURCE_MANIFEST_NAME,
+                )
+            )
+            continue
+        if row.get("source_import_class") == SOURCE_IMPORT_CLASS:
+            _validate_copied_body_import_row(
+                row,
+                findings,
+                source=f"{SOURCE_MANIFEST_NAME}::{row.get('path') or '<missing_path>'}",
+            )
 
 
 def _validate_digests(

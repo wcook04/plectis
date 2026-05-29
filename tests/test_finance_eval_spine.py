@@ -8,7 +8,9 @@ from microcosm_core import cli
 from microcosm_core.macro_tools.finance_eval_spine import (
     BUNDLE_RESULT_NAME,
     REQUIRED_MODULES,
+    SOURCE_IMPORT_CLASS,
     SOURCE_OPEN_BODY_POLICY,
+    SOURCE_TO_TARGET_RELATION,
     validate_finance_eval_bundle,
 )
 
@@ -54,6 +56,21 @@ def test_finance_eval_spine_accepts_copied_real_macro_bundle(tmp_path: Path) -> 
     assert result["secret_exclusion_scan"]["body_in_receipt"] is False
     assert result["source_manifest"]["all_expected_digests_matched"] is True
     assert result["source_manifest"]["all_expected_line_counts_matched"] is True
+    copied_rows = [
+        row
+        for row in result["source_manifest"]["inputs"]
+        if row["source_import_class"] == SOURCE_IMPORT_CLASS
+    ]
+    assert len(copied_rows) == len(REQUIRED_MODULES)
+    for row in copied_rows:
+        assert row["target_ref"] == (
+            "microcosm-substrate/examples/finance_forecast_evaluation_spine/"
+            f"exported_finance_eval_bundle/{row['path']}"
+        )
+        assert row["source_to_target_relation"] == SOURCE_TO_TARGET_RELATION
+        assert row["sha256_match"] is True
+        assert row["source_sha256"] == row["expected_sha256"]
+        assert row["target_sha256"] == row["expected_sha256"]
     assert result["anchor_summary"]["missing_anchor_count"] == 0
     assert result["contract_summary"]["authority_overclaim_count"] == 0
     assert result["module_coverage_summary"]["total_macro_finance_module_count"] == 19
@@ -218,6 +235,25 @@ def test_finance_eval_spine_rejects_silent_module_coverage_gap(tmp_path: Path) -
     assert result["status"] == "blocked"
     assert "MODULE_COVERAGE_GAP" in result["error_codes"]
     assert result["module_coverage_summary"]["silent_omission_count"] == 1
+
+
+def test_finance_eval_spine_rejects_copied_body_without_target_ref(
+    tmp_path: Path,
+) -> None:
+    bundle = tmp_path / "bundle"
+    shutil.copytree(FINANCE_EVAL_BUNDLE, bundle)
+    manifest_path = bundle / "source_module_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["modules"][0].pop("target_ref", None)
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = validate_finance_eval_bundle(bundle, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "SOURCE_MANIFEST_TARGET_REF_MISMATCH" in result["error_codes"]
 
 
 def test_finance_eval_spine_rejects_empty_assurance_demo(tmp_path: Path) -> None:

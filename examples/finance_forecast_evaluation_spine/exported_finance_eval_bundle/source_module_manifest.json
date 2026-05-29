@@ -10,7 +10,12 @@
       "path": "source_modules/tools/finance/event_keys.py",
       "sha256": "d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/event_keys.py"
+      "source_ref": "tools/finance/event_keys.py",
+      "sha256_match": true,
+      "source_sha256": "d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/event_keys.py",
+      "target_sha256": "d8e5835d865fae40bceb44f22bee94362f90d8a5727d42a9a4380c74d2403608"
     },
     {
       "body_in_receipt": false,
@@ -19,7 +24,12 @@
       "path": "source_modules/tools/finance/admit_forecasts.py",
       "sha256": "eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/admit_forecasts.py"
+      "source_ref": "tools/finance/admit_forecasts.py",
+      "sha256_match": true,
+      "source_sha256": "eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/admit_forecasts.py",
+      "target_sha256": "eeb3d08d32173a17f2a886c8c12b6185f51485deaa288a0df0ba0538cb9ac69d"
     },
     {
       "body_in_receipt": false,
@@ -28,7 +38,12 @@
       "path": "source_modules/tools/finance/resolve_forecasts.py",
       "sha256": "e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/resolve_forecasts.py"
+      "source_ref": "tools/finance/resolve_forecasts.py",
+      "sha256_match": true,
+      "source_sha256": "e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/resolve_forecasts.py",
+      "target_sha256": "e51d6dc3c33b9e0ed30b425d40c917bd73ba1a8b9c6640bf7ddf2db3224b57ba"
     },
     {
       "body_in_receipt": false,
@@ -37,7 +52,12 @@
       "path": "source_modules/tools/finance/eval_replay.py",
       "sha256": "380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/eval_replay.py"
+      "source_ref": "tools/finance/eval_replay.py",
+      "sha256_match": true,
+      "source_sha256": "380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/eval_replay.py",
+      "target_sha256": "380b4ba7c2c65d8d1f87e1343d06e4bfb43e27a3128ece5d4b432f4965453915"
     },
     {
       "body_in_receipt": false,
@@ -46,7 +66,12 @@
       "path": "source_modules/tools/finance/historical_replay.py",
       "sha256": "b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/historical_replay.py"
+      "source_ref": "tools/finance/historical_replay.py",
+      "sha256_match": true,
+      "source_sha256": "b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/historical_replay.py",
+      "target_sha256": "b4da2e2397d2bccfdad05b1c91175d5f4d6231eb6969a5b77b591e5213d80805"
     },
     {
       "body_in_receipt": false,
@@ -55,7 +80,12 @@
       "path": "source_modules/tools/finance/calibrate_forecast_probabilities.py",
       "sha256": "834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/calibrate_forecast_probabilities.py"
+      "source_ref": "tools/finance/calibrate_forecast_probabilities.py",
+      "sha256_match": true,
+      "source_sha256": "834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/calibrate_forecast_probabilities.py",
+      "target_sha256": "834fd3fa47cb41570411791e89cab6bbfff927630bcd7b81617bc81e1e30742c"
     },
     {
       "body_in_receipt": false,
@@ -64,7 +94,12 @@
       "path": "source_modules/tools/finance/variant_registry.py",
       "sha256": "ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/variant_registry.py"
+      "source_ref": "tools/finance/variant_registry.py",
+      "sha256_match": true,
+      "source_sha256": "ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/variant_registry.py",
+      "target_sha256": "ea26cd1872cb3a1140a74388c6ede219b4debe60fc3ea790f949cf8c8f81d288"
     },
     {
       "body_in_receipt": false,
@@ -73,7 +108,12 @@
       "path": "source_modules/tools/finance/compare_variants.py",
       "sha256": "c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/compare_variants.py"
+      "source_ref": "tools/finance/compare_variants.py",
+      "sha256_match": true,
+      "source_sha256": "c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/compare_variants.py",
+      "target_sha256": "c1682ed95af640ccfc66e93fb72e39e5ba85f5129eb07cd1f541ccfee139ee24"
     },
     {
       "body_in_receipt": false,
@@ -82,7 +122,12 @@
       "path": "source_modules/tools/finance/build_eval_operating_picture.py",
       "sha256": "c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/finance/build_eval_operating_picture.py"
+      "source_ref": "tools/finance/build_eval_operating_picture.py",
+      "sha256_match": true,
+      "source_sha256": "c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_modules/tools/finance/build_eval_operating_picture.py",
+      "target_sha256": "c5542d87eae1fa27fdf19115b26d886cdc5c985194f0598d6180f578293cf6ca"
     }
   ],
   "schema_version": "microcosm_finance_eval_source_module_manifest_v1",
