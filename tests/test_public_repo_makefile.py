@@ -55,6 +55,8 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
+        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py "
+        "--root . --project . --out $(SMOKE_OUT)/served-status-card.json",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core authority --card",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core workingness --card",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
@@ -62,6 +64,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
         "> $(SMOKE_OUT)/tour-card.json",
         "> $(SMOKE_OUT)/status-card.json",
+        "$(SMOKE_OUT)/served-status-card.json",
         "> $(SMOKE_OUT)/stripping-guard.json",
         "Microcosm smoke receipts written to %s",
         "PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary",
@@ -101,6 +104,7 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
         "stripping-guard.json",
     ):
         assert text.count(f"> $(SMOKE_OUT)/{smoke_artifact}") == 1
+    assert text.count("--out $(SMOKE_OUT)/served-status-card.json") == 1
 
 
 def test_public_repo_makefile_ci_target_is_test_plus_smoke() -> None:
