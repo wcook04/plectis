@@ -1788,6 +1788,9 @@ def cmd_closeout_slice(args: argparse.Namespace) -> int:
             "lessons_propagated": args.lesson_propagated,
             "propagation_targets": args.propagation_target,
             "followup_captures_filed": args.followup_capture,
+            "raw_seed_effects": getattr(args, "raw_seed_effect", []),
+            "synth_seed_effects": getattr(args, "synth_seed_effect", []),
+            "principle_axiom_effects": getattr(args, "principle_axiom_effect", []),
             "surfaces_updated": args.surface_updated,
             "concurrency_closure": {
                 "work_ledger_session_id": args.work_ledger_session_id,
@@ -2284,6 +2287,16 @@ def build_parser() -> argparse.ArgumentParser:
     closeout.add_argument("--lesson-propagated", action="append", default=[])
     closeout.add_argument("--propagation-target", action="append", default=[])
     closeout.add_argument("--followup-capture", action="append", default=[])
+    closeout.add_argument("--raw-seed-effect", action="append", default=[])
+    closeout.add_argument("--synth-seed-effect", action="append", default=[])
+    closeout.add_argument(
+        "--synth-seed-delta-ref",
+        action="append",
+        dest="synth_seed_effect",
+        default=[],
+        help="Alias for --synth-seed-effect when the sign-off captured or applied a typed synth_seed_delta receipt.",
+    )
+    closeout.add_argument("--principle-axiom-effect", action="append", default=[])
     closeout.add_argument("--surface-updated", action="append", default=[])
     closeout.add_argument("--work-ledger-session-id", default=None)
     closeout.add_argument("--work-ledger-td-id", default=None)

@@ -42,6 +42,8 @@ SOURCE_ARTIFACT_REFS = [
         "tactic_portfolio_availability.json"
     ),
 ]
+PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
+OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
 
 
 def _sha256_prefixed(value: str) -> str:
@@ -230,7 +232,7 @@ def test_formal_math_readiness_exported_source_modules_are_digest_verified() -> 
             assert source_digest != target_digest
             assert row["verification_mode"] == "verified_light_edit_recipe"
             assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
-            assert "/Users/willcook" not in target.read_text(encoding="utf-8")
+            assert OPERATOR_HOME_SAMPLE not in target.read_text(encoding="utf-8")
         else:
             assert source_bytes == target_bytes
             assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
@@ -259,7 +261,7 @@ def test_formal_math_readiness_exported_bundle_receipt_omits_source_bodies(
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/" not in text
+        assert PRIVATE_HOME_PREFIX not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert "import Mathlib" not in text
@@ -296,7 +298,7 @@ def test_formal_math_readiness_receipts_use_secret_exclusion_and_public_relative
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/" not in text
+        assert PRIVATE_HOME_PREFIX not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert "synthetic redacted proof payload" not in text

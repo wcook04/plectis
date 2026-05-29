@@ -2679,7 +2679,19 @@ def cmd_mutation_check(args: argparse.Namespace) -> int:
     return 2 if status == "blocked" else 0
 
 
+def _current_tool_server_pressure_inventory_summary() -> Dict[str, Any] | None:
+    try:
+        from tools.meta.control import orphan_reaper
+
+        inventory = orphan_reaper.build_tool_server_pressure_inventory()
+    except Exception:
+        return None
+    summary = inventory.get("summary")
+    return dict(summary) if isinstance(summary, dict) else None
+
+
 def cmd_helper_lease_admission(args: argparse.Namespace) -> int:
+    inventory_summary = _current_tool_server_pressure_inventory_summary()
     decision = work_admission.build_helper_lease_admission_decision(
         REPO_ROOT,
         lease_kind=args.lease_kind,
@@ -2688,6 +2700,7 @@ def cmd_helper_lease_admission(args: argparse.Namespace) -> int:
         requested_by=getattr(args, "requested_by", None),
         owner_status=getattr(args, "owner_status", None),
         current_lease_count=getattr(args, "current_lease_count", None),
+        inventory_summary=inventory_summary,
     )
     _print(decision)
     return work_admission.ADMISSION_TEMPFAIL if not bool(decision.get("allow", True)) else 0

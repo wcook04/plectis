@@ -1,11 +1,62 @@
 {
-  "schema_version": "macro_projection_navigation_metabolism_ledger_source_module_manifest_v1",
-  "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "manifest_id": "navigation_metabolism_ledger_source_modules_import",
-  "classification": "copied_non_secret_macro_body",
-  "source_open_payload_boundary": "open_source_everything_but_keys",
   "body_storage_policy": "exact_non_secret_navigation_metabolism_ledger_source_modules_copied_into_public_projection_bundle",
+  "bundle_id": "macro_projection_import_protocol_runtime_example",
+  "classification": "copied_non_secret_macro_body",
+  "manifest_id": "navigation_metabolism_ledger_source_modules_import",
+  "module_count": 2,
+  "modules": [
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 244911,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 5275,
+      "material_class": "public_macro_tool_body",
+      "module_id": "navigation_metabolism_ledger_projection_body_import",
+      "required_anchors": [
+        "def build_navigation_metabolism_ledger(",
+        "\"schema_version\": \"navigation_metabolism_ledger_v0\"",
+        "behavior_debt",
+        "actor_delivery_debt",
+        "route_lifecycle"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/lib/navigation_metabolism_ledger.py",
+      "source_role": "Unified navigation/compression ratchet ledger that joins route lifecycle, process-audit behavior debt, actor-delivery debt, projection debt, latency debt, and top-repair prioritization into one control-plane packet.",
+      "source_sha256": "912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
+      "target_sha256": "912c1758d6a60853f60452d10ad95ebc634504aff362ce92c3d40f787a7f9b24"
+    },
+    {
+      "anchor_count": 5,
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 87455,
+      "classification": "copied_non_secret_macro_body",
+      "line_count": 1945,
+      "material_class": "public_macro_tool_body",
+      "module_id": "navigation_metabolism_ledger_test_body_import",
+      "required_anchors": [
+        "test_navigation_metabolism_ledger_unifies_debt_classes",
+        "test_actor_delivery_debt_rows_include_decision_coverage_gaps",
+        "test_quick_cli_compaction_keeps_control_packet_under_smaller_budget",
+        "test_budget_trim_preserves_named_bottleneck_drilldown",
+        "test_quick_navigation_metabolism_refresh_env_rebuilds_process_nodes"
+      ],
+      "sha256_match": true,
+      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
+      "source_ref": "system/server/tests/test_navigation_metabolism_ledger.py",
+      "source_role": "Focused regression suite for the navigation metabolism debt taxonomy, actor-delivery coverage rows, quick-profile cache boundaries, budget compaction, and route-lifecycle control packet shape.",
+      "source_sha256": "c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031",
+      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_metabolism_ledger.py",
+      "target_sha256": "c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031"
+    }
+  ],
+  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing navigation-metabolism regression contract; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",
   "receipt_body_policy": "receipts report paths hashes counts and anchor results but never duplicate full source bodies or live private/kernel/provider/session payloads",
+  "schema_version": "macro_projection_navigation_metabolism_ledger_source_module_manifest_v1",
   "secret_exclusion_boundary": [
     "api keys",
     "credentials",
@@ -18,58 +69,7 @@
     "private account control",
     "credential-equivalent payloads"
   ],
-  "public_runtime_policy": "public validation uses exact source digests, anchor checks, syntax compilation, and the existing navigation-metabolism regression contract; copied source modules are body evidence, not authority to run the live macro kernel or inspect private state",
-  "module_count": 2,
-  "modules": [
-    {
-      "module_id": "navigation_metabolism_ledger_projection_body_import",
-      "source_ref": "system/lib/navigation_metabolism_ledger.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/navigation_metabolism_ledger.py",
-      "material_class": "public_macro_tool_body",
-      "source_role": "Unified navigation/compression ratchet ledger that joins route lifecycle, process-audit behavior debt, actor-delivery debt, projection debt, latency debt, and top-repair prioritization into one control-plane packet.",
-      "required_anchors": [
-        "def build_navigation_metabolism_ledger(",
-        "\"schema_version\": \"navigation_metabolism_ledger_v0\"",
-        "behavior_debt",
-        "actor_delivery_debt",
-        "route_lifecycle"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "7c2a45c3ec2b156e6420150b29e526785e35780dfc5f886fd7777868693b82bb",
-      "target_sha256": "7c2a45c3ec2b156e6420150b29e526785e35780dfc5f886fd7777868693b82bb",
-      "sha256_match": true,
-      "line_count": 5242,
-      "byte_count": 243751,
-      "anchor_count": 5
-    },
-    {
-      "module_id": "navigation_metabolism_ledger_test_body_import",
-      "source_ref": "system/server/tests/test_navigation_metabolism_ledger.py",
-      "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_navigation_metabolism_ledger.py",
-      "material_class": "public_macro_tool_body",
-      "source_role": "Focused regression suite for the navigation metabolism debt taxonomy, actor-delivery coverage rows, quick-profile cache boundaries, budget compaction, and route-lifecycle control packet shape.",
-      "required_anchors": [
-        "test_navigation_metabolism_ledger_unifies_debt_classes",
-        "test_actor_delivery_debt_rows_include_decision_coverage_gaps",
-        "test_quick_cli_compaction_keeps_control_packet_under_smaller_budget",
-        "test_budget_trim_preserves_named_bottleneck_drilldown",
-        "test_quick_navigation_metabolism_refresh_env_rebuilds_process_nodes"
-      ],
-      "classification": "copied_non_secret_macro_body",
-      "body_copied": true,
-      "body_in_receipt": false,
-      "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_kernel_export",
-      "source_sha256": "c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031",
-      "target_sha256": "c14b37952fc6f94b26830dc2174d87c8eefcd44013d0219ec7350997b4cfd031",
-      "sha256_match": true,
-      "line_count": 1945,
-      "byte_count": 87455,
-      "anchor_count": 5
-    }
-  ],
+  "source_open_payload_boundary": "open_source_everything_but_keys",
   "validation_contract_refs": [
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_metabolism_ledger_source_manifest_matches_exact_macro_sources",
     "microcosm-substrate/tests/test_command_output_projection_runtime.py::test_navigation_metabolism_ledger_sources_compile_and_carry_metabolism_contract",

@@ -309,6 +309,7 @@ LEAN_MATH_RECEIPT_PATH = "state/system_atlas/lean_mathematics_microcosm_receipt.
 LEAN_MATH_MARKDOWN_PATH = "docs/system_atlas/lean_mathematics_microcosm.generated.md"
 LEAN_MATH_VISUAL_SURFACE_KEYS = (
     "overview",
+    "theorem_observatory",
     "declaration_catalog",
     "declaration_graph",
     "obligation_graph",
@@ -4380,6 +4381,7 @@ def load_lean_mathematics_microcosm_snapshot(repo_root: Path) -> Dict[str, Any]:
         "formal_math_threads": projection_list("formal_math_threads"),
         "capability_snapshot": capability_snapshot,
         "graph_views": graph_views,
+        "theorem_observatory": projection_mapping("theorem_observatory"),
         "validation_surfaces": projection_mapping("validation_surfaces"),
         "route_cards": projection_list("route_cards"),
         "anti_claims": [str(item) for item in projection_list("anti_claims")],

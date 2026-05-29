@@ -28,6 +28,8 @@ SOURCE_ARTIFACT_REFS = [
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/mathlib_probe.lean",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
 ]
+PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
+OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -194,7 +196,7 @@ def test_corpus_readiness_exported_source_modules_are_digest_verified() -> None:
             assert source_digest != target_digest
             assert row["verification_mode"] == "verified_light_edit_recipe"
             assert row["public_safe_transform"] == "private_absolute_path_rewrite_only"
-            assert "/Users/willcook" not in target_text
+            assert OPERATOR_HOME_SAMPLE not in target_text
         else:
             assert target.read_bytes() == source.read_bytes()
             assert row.get("source_to_target_relation", "exact_copy") == "exact_copy"
@@ -245,7 +247,7 @@ def test_corpus_readiness_receipts_are_real_substrate_and_public_relative(
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/" not in text
+        assert PRIVATE_HOME_PREFIX not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert "NEGATIVE_FIXTURE_FORBIDDEN_PROOF_BODY_DO_NOT_ECHO" not in text

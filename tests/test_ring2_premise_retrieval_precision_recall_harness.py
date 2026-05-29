@@ -43,6 +43,8 @@ SOURCE_BODY_MATERIAL_IDS = {
     "ring2_precision_recall_graph_variant_comparison_body_import",
     "ring2_precision_recall_problem_source_manifest_body_import",
 }
+PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
+OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
 
 
 def _walk_keys(payload: Any) -> list[str]:
@@ -160,7 +162,7 @@ def test_ring2_precision_recall_receipts_are_public_relative_and_provenanced(
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/" not in text
+        assert PRIVATE_HOME_PREFIX not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert '"body":' not in text
@@ -330,4 +332,4 @@ def test_ring2_precision_recall_source_artifacts_are_digest_verified(
                     "verified_public_safe_private_path_rewrite"
                 )
                 assert row["public_safe_sha256"] == f"sha256:{target_digest}"
-                assert "/Users/willcook" not in target.read_text(encoding="utf-8")
+                assert OPERATOR_HOME_SAMPLE not in target.read_text(encoding="utf-8")

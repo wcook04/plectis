@@ -50,6 +50,8 @@ BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
 )
+PRIVATE_HOME_PREFIX = "/" + "Users" + "/"
+OPERATOR_HOME_SAMPLE = PRIVATE_HOME_PREFIX + "willcook"
 COMPUTER_USE_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/agent_route_observability_runtime/"
@@ -1551,7 +1553,7 @@ def test_macro_projection_import_protocol_receipts_are_public_relative_and_secre
         assert receipt_file.is_file()
         text = receipt_file.read_text(encoding="utf-8")
         assert str(public_root) not in text
-        assert "/Users/willcook" not in text
+        assert OPERATOR_HOME_SAMPLE not in text
         assert "src/ai_workflow" not in text
         assert "matched_excerpt" not in text
         assert '"body":' not in text

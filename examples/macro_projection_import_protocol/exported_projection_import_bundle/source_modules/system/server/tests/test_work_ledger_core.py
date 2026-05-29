@@ -3215,6 +3215,16 @@ def test_cli_helper_lease_admission_blocks_new_helper_under_host_pressure(
         }
 
     monkeypatch.setattr(work_ledger_cli.work_admission, "build_host_pressure_admission", blocked_admission)
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "_current_tool_server_pressure_inventory_summary",
+        lambda: {
+            "candidate_safe_close_count": 0,
+            "requires_owner_check_count": 5,
+            "requires_owner_check_rss_mb": 640.0,
+            "kind_counts": {"playwright_mcp": 5},
+        },
+    )
 
     rc = work_ledger_cli.cmd_helper_lease_admission(
         SimpleNamespace(
@@ -3233,6 +3243,59 @@ def test_cli_helper_lease_admission_blocks_new_helper_under_host_pressure(
     assert payload["result"] == "queue_until_pressure_clears"
     assert payload["new_helper_lease_started"] is False
     assert payload["safety"]["no_unknown_owner_killed"] is True
+
+
+def test_cli_helper_lease_admission_uses_live_inventory_summary(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(work_ledger_cli, "REPO_ROOT", tmp_path)
+
+    def blocked_admission(*_args, **_kwargs):
+        return {
+            "schema": "work_creation_host_pressure_admission_v0",
+            "status": "available",
+            "decision": "queue_until_pressure_clears",
+            "should_block_run": True,
+            "summary": {
+                "bottleneck_class": "memory_pressure_swap_churn",
+                "load_shed_recommended": True,
+            },
+            "admission": {
+                "decision": "queue_until_pressure_clears",
+                "reason": "synthetic swap churn",
+            },
+        }
+
+    monkeypatch.setattr(work_ledger_cli.work_admission, "build_host_pressure_admission", blocked_admission)
+    monkeypatch.setattr(
+        work_ledger_cli,
+        "_current_tool_server_pressure_inventory_summary",
+        lambda: {
+            "candidate_safe_close_count": 1,
+            "requires_owner_check_count": 9,
+            "requires_owner_check_rss_mb": 1536.0,
+            "kind_counts": {"playwright_mcp": 7},
+        },
+    )
+
+    rc = work_ledger_cli.cmd_helper_lease_admission(
+        SimpleNamespace(
+            lease_kind=work_admission.PLAYWRIGHT_MCP,
+            host_pressure_policy="auto",
+            request_id="playwright_tool_start",
+            requested_by="codex_session",
+            owner_status="active_session",
+            current_lease_count=None,
+        )
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == work_admission.ADMISSION_TEMPFAIL
+    assert payload["helper_lease_budget"]["current_count"] == 7
+    assert payload["hygiene_summary"]["safe_close_candidate_count"] == 1
+    assert payload["hygiene_summary"]["requires_owner_check_count"] == 9
 
 
 def test_cli_resident_pressure_relief_requires_resident_actuator(

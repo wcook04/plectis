@@ -15493,9 +15493,16 @@ def cmd_command_profile(
             }
         )
     elif surface in {"navigation-metabolism", "surface-ratchet"}:
+        import_started = perf_counter()
         from system.lib.navigation_metabolism_ledger import (
             build_navigation_metabolism_ledger,
             compact_quick_navigation_metabolism_packet_for_cli,
+        )
+        phases.append(
+            {
+                "phase": "navigation_metabolism_module_import",
+                "ms": round((perf_counter() - import_started) * 1000, 3),
+            }
         )
 
         payload = build_navigation_metabolism_ledger(
@@ -15506,10 +15513,25 @@ def cmd_command_profile(
             profile_sink=phases,
         )
         if str(metabolism_profile or "").strip().lower() == "quick":
+            compaction_started = perf_counter()
             payload = compact_quick_navigation_metabolism_packet_for_cli(
                 payload,
                 context_budget=context_budget,
             )
+            phases.append(
+                {
+                    "phase": "navigation_metabolism_cli_compaction",
+                    "ms": round((perf_counter() - compaction_started) * 1000, 3),
+                    "output_bytes": _command_profile_payload_bytes(payload),
+                }
+            )
+        phases.append(
+            {
+                "phase": "navigation_metabolism_output_shape",
+                "ms": 0.0,
+                **_command_profile_output_shape(payload),
+            }
+        )
         surface = "navigation-metabolism"
     elif surface == "entrypoint-health":
         from system.lib.entrypoint_health import build_entrypoint_health

@@ -21,18 +21,13 @@ from system.lib.annex_movement_pressure_map import (
     SOURCE_JOB_BLOCKER_STATUS,
     build_annex_movement_pressure_map,
 )
-from system.lib.annex_navigation_dogfood import build_annex_navigation_dogfood
-from system.lib.annex_routing_coverage import build_annex_routing_coverage
 from system.lib.command_node_cache import REFRESH_ENV_VAR, cached_command_node, peek_cached_command_node
 from system.lib.entrypoint_health import build_entrypoint_health
 from system.lib.navigation_clusterability import build_navigation_clusterability_audit
-from system.lib.path_reference_reading_yield import build_path_reference_reading_yield_audit
 from system.lib.navigation_route_intervention import build_hook_shadow_coverage
-from system.lib.navigation_surface_audit import build_navigation_surface_audit
 from system.lib.navigation_surface_contracts import DEBUG_TRACE, debug_trace_contract
 from system.lib.phase_task_alignment import navigation_enforcement_residual_lane
 from system.lib.routing_projection import routing_status
-from system.lib.surface_authoring_audit import build_surface_authoring_audit
 
 
 TACO_ANNEX = "arxiv-2604-19572"
@@ -4519,6 +4514,7 @@ def _build_quick_navigation_metabolism_ledger(
     )
 
     debt_rows: list[dict[str, Any]] = []
+    debt_started = perf_counter()
     debt_rows.extend(_entrypoint_debt_rows(entrypoint_health))
     debt_rows.extend(_actor_delivery_debt_rows(actor_delivery_receipt))
     debt_rows.extend(_quick_authoring_debt_rows(root))
@@ -4582,6 +4578,16 @@ def _build_quick_navigation_metabolism_ledger(
     quality_signal["source_freshness"]["process_audit_cache"] = _process_audit_cache_authority(
         command_node_cache.get("process_audit")
     )
+    if phase_profile is not None:
+        phase_profile.append(
+            {
+                "phase": "quick_debt_row_synthesis",
+                "ms": round((perf_counter() - debt_started) * 1000, 3),
+                "debt_row_count": len(debt_rows),
+                "active_debt_row_count": len(active_debt_rows),
+            }
+        )
+    packet_started = perf_counter()
     packet: dict[str, Any] = {
         "kind": "navigation_metabolism_ledger",
         "schema_version": "navigation_metabolism_ledger_v0",
@@ -4831,7 +4837,28 @@ def _build_quick_navigation_metabolism_ledger(
             f"annexes/{TACO_ANNEX}/distillation.json",
         ],
     }
-    return _budget_trim(packet, context_budget=budget)
+    if phase_profile is not None:
+        phase_profile.append(
+            {
+                "phase": "quick_packet_assembly",
+                "ms": round((perf_counter() - packet_started) * 1000, 3),
+            }
+        )
+    trim_started = perf_counter()
+    trimmed_packet = _budget_trim(packet, context_budget=budget)
+    if phase_profile is not None:
+        try:
+            output_bytes = len(json.dumps(trimmed_packet, ensure_ascii=False).encode("utf-8"))
+        except TypeError:
+            output_bytes = None
+        phase_profile.append(
+            {
+                "phase": "quick_budget_trim",
+                "ms": round((perf_counter() - trim_started) * 1000, 3),
+                "output_bytes": output_bytes,
+            }
+        )
+    return trimmed_packet
 
 
 def build_navigation_metabolism_ledger(
@@ -4863,6 +4890,12 @@ def build_navigation_metabolism_ledger(
             fitness_payload=fitness_payload,
             profile_sink=profile_sink,
         )
+
+    from system.lib.annex_navigation_dogfood import build_annex_navigation_dogfood
+    from system.lib.annex_routing_coverage import build_annex_routing_coverage
+    from system.lib.navigation_surface_audit import build_navigation_surface_audit
+    from system.lib.path_reference_reading_yield import build_path_reference_reading_yield_audit
+    from system.lib.surface_authoring_audit import build_surface_authoring_audit
 
     surface_audit = build_surface_authoring_audit(root, context_budget=budget)
     route_audit = build_navigation_surface_audit(root, query=task_query, context_budget=budget)

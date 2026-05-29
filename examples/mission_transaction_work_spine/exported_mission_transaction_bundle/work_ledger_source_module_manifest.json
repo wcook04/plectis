@@ -9,9 +9,9 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 175643,
+      "byte_count": 176125,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 4357,
+      "line_count": 4370,
       "module_id": "work_ledger_tool_body_import",
       "required_anchors": [
         "session-preflight",
@@ -25,9 +25,9 @@
       "source_open_payload_boundary": "body_in_bundle_not_receipt",
       "source_ref": "tools/meta/factory/work_ledger.py",
       "source_role": "Work Ledger runtime and durable-thread CLI for session preflight, claims, heartbeats, finalization, mutation checks, progress, and projection commands",
-      "source_sha256": "fe7c5557969042c4440f06944a7368807c30f6201ddd63502aea8455ff56d94e",
+      "source_sha256": "408a4887a6f502df00ed0558125ad35dc58b2638ed36d4c4b1c7c13b6c5a7c5a",
       "target_ref": "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/work_ledger.py",
-      "target_sha256": "fe7c5557969042c4440f06944a7368807c30f6201ddd63502aea8455ff56d94e"
+      "target_sha256": "408a4887a6f502df00ed0558125ad35dc58b2638ed36d4c4b1c7c13b6c5a7c5a"
     },
     {
       "anchor_count": 6,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import fnmatch
 import importlib
 import json
 import os
@@ -36,6 +37,14 @@ PUBLIC_DATA_FILENAMES = {
 
 def _source_relative(path: Path) -> str:
     return path.relative_to(MICROCOSM_ROOT).as_posix()
+
+
+def _is_packaged_by_data_files(data_files: dict[str, list[str]], rel_path: str) -> bool:
+    return any(
+        fnmatch.fnmatchcase(rel_path, pattern)
+        for patterns in data_files.values()
+        for pattern in patterns
+    )
 
 
 def _expected_public_data_files(top_level: str) -> dict[str, list[str]]:
@@ -134,6 +143,9 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     assert data_files["share/microcosm-substrate/core/preflight_support"] == [
         "core/preflight_support/*.json"
     ]
+    assert data_files["share/microcosm-substrate/src/microcosm_core/macro_tools"] == [
+        "src/microcosm_core/macro_tools/*.py"
+    ]
     assert data_files["share/microcosm-substrate/paper_modules"] == [
         "paper_modules/*.md"
     ]
@@ -146,6 +158,9 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
     ]
     assert data_files["share/microcosm-substrate/receipts/acceptance/first_wave"] == [
         "receipts/acceptance/first_wave/*.json"
+    ]
+    assert data_files["share/microcosm-substrate/receipts/preflight"] == [
+        "receipts/preflight/*.json"
     ]
     assert data_files["share/microcosm-substrate/receipts/runtime_shell"] == [
         "receipts/runtime_shell/*.json"
@@ -230,6 +245,37 @@ def test_package_data_contract_includes_all_public_example_directories() -> None
 
     assert observed == expected
     assert "share/microcosm-substrate/examples" not in data_files
+
+
+def test_package_data_contract_covers_runtime_demo_projection_dependencies() -> None:
+    payload = tomllib.loads((MICROCOSM_ROOT / "pyproject.toml").read_text())
+    data_files = payload["tool"]["setuptools"]["data-files"]
+    protocol = json.loads(
+        (
+            MICROCOSM_ROOT
+            / "examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json"
+        ).read_text()
+    )
+    target_refs = sorted(
+        {
+            str(row.get("target_ref") or "")
+            for row in protocol.get("copied_material", [])
+            if isinstance(row, dict) and row.get("target_ref")
+        }
+    )
+
+    missing_targets = [
+        ref
+        for ref in target_refs
+        if not (MICROCOSM_ROOT / ref).is_file()
+        or not _is_packaged_by_data_files(data_files, ref)
+    ]
+
+    assert missing_targets == []
+    assert _is_packaged_by_data_files(
+        data_files,
+        "receipts/preflight/dependency_preflight.json",
+    )
 
 
 def test_installed_proof_lab_cache_freshness_ignores_install_mtimes(

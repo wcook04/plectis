@@ -59,5 +59,7 @@ def test_agent_entry_does_not_advertise_removed_expanded_loop_commands() -> None
         assert removed not in agents
 
     help_output = _help_output()
-    for removed in ("init", "index", "architecture", "route"):
+    for removed in ("init", "index", "architecture"):
         assert f"    {removed} " not in help_output
+    assert "microcosm route <project>" not in help_output
+    assert "    route " in help_output

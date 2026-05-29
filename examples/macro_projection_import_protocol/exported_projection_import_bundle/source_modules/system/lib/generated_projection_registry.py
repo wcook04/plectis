@@ -612,7 +612,7 @@ PROJECTION_REGISTRY: tuple[GeneratedProjectionOwner, ...] = (
             "formal_math/**/lean-toolchain",
             "formal_math/**/lake-manifest.json",
             "state/formal_math_research_operations/**/*.json",
-            "state/lean_diagnostics/**/*.json",
+            "state/lean_diagnostics/**/*.json (projection-relevant rows only; ENVIRONMENT_BLOCKED review rows are observation-only)",
             "state/lean_diagnostics/**/*.jsonl",
             "docs/formal_math/*.md",
             "docs/dissemination/*release*.json",

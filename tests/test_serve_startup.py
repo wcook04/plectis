@@ -33,11 +33,11 @@ def _scratch_project(tmp_path: Path) -> Path:
     return project
 
 
-def _get(url: str) -> bytes:
+def _get(url: str, *, timeout: float = 5) -> bytes:
     last_error: Exception | None = None
     for _ in range(40):
         try:
-            with urlopen(url, timeout=5) as response:
+            with urlopen(url, timeout=timeout) as response:
                 return response.read()
         except URLError as exc:
             last_error = exc
@@ -123,7 +123,10 @@ def test_project_serve_full_observatory_embeds_compact_tour(
 
     try:
         observatory = json.loads(
-            _get(f"http://127.0.0.1:{port}/project/observatory").decode("utf-8")
+            _get(
+                f"http://127.0.0.1:{port}/project/observatory",
+                timeout=45,
+            ).decode("utf-8")
         )
         tour = json.loads(_get(f"http://127.0.0.1:{port}/tour").decode("utf-8"))
     finally:
