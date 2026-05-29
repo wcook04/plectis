@@ -450,6 +450,7 @@ def test_cli_proof_lab_card_exit_code_keeps_missing_cache_nonzero() -> None:
             "agentic-vulnerability-discovery-patch-proof-replay",
             "run-patch-proof-bundle",
         ),
+        ("mcp-tool-authority-replay", "run-tool-authority-bundle"),
     ],
 )
 def test_cli_hidden_drilldown_commands_remain_callable(
