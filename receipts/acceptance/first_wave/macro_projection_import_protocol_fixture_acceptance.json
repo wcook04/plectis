@@ -1,5 +1,5 @@
 {
-  "acceptance_status": "blocked",
+  "acceptance_status": "accepted_current_authority",
   "accepted_organ_id": "macro_projection_import_protocol",
   "anti_claim": "The macro projection import protocol validates verified non-secret macro body imports and honest demotions. Metadata, provenance, and public runtime refs are not body imports. The only hard omissions are secrets, credentials, operator conversation bodies, provider payloads, and account-bound material; hosted publication remains a separate action.",
   "authority_ceiling": {
@@ -21,15 +21,14 @@
   "blocked_projection_cell_count": 0,
   "body_in_receipt": false,
   "bundle_id": "macro_projection_import_protocol_runtime_example",
-  "command": "inspect",
-  "created_at": "2026-05-28T01:15:29+00:00",
+  "command": "python -m microcosm_core.organs.macro_projection_import_protocol run --input fixtures/first_wave/macro_projection_import_protocol/input --out receipts/first_wave/macro_projection_import_protocol",
+  "created_at": "2026-05-29T05:45:25+00:00",
   "dependency_preflight_gate_status": "pass",
   "dependency_preflight_receipt_ref": "receipts/preflight/dependency_preflight.json",
   "error_codes": [
     "MACRO_PROJECTION_AUTHORITY_UPGRADE",
     "MACRO_PROJECTION_FORBIDDEN_BODY_IMPORT",
     "MACRO_PROJECTION_OMISSION_RECEIPT_MISSING",
-    "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
     "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
     "MACRO_PROJECTION_STANDALONE_DEPENDENCY_LEAK",
     "MACRO_PROJECTION_VALIDATION_REF_MISSING"
@@ -77,22 +76,6 @@
     },
     {
       "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "system/server/tests/test_prompt_shelf_runs_index.py",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
-      "error_code": "MACRO_PROJECTION_PUBLIC_SAFE_BODY_SOURCE_DIGEST_MISMATCH",
-      "message": "exact body imports must match the actual local source file digest when the source is available.",
-      "negative_case_id": "public_safe_body_import_floor",
-      "subject_id": "system/server/ui/package.json",
-      "subject_kind": "copied_material"
-    },
-    {
-      "body_in_receipt": false,
       "error_code": "MACRO_PROJECTION_RELEASE_OR_EQUIVALENCE_OVERCLAIM",
       "message": "Projection import rejects release, publication, recipient, and private-equivalence claims.",
       "negative_case_id": "release_or_private_equivalence_overclaim",
@@ -121,6 +104,8 @@
     "secret"
   ],
   "input_mode": "first_wave_fixture",
+  "live_source_drift_count": 0,
+  "live_source_drift_rows": [],
   "macro_origin_ref_count": 292,
   "macro_runtime_dependency_count": 0,
   "missing_negative_cases": [],
@@ -526,15 +511,15 @@
     "direct_verified_public": 3,
     "verified_light_edit": 187
   },
-  "public_safe_body_import_status": "blocked",
+  "public_safe_body_import_status": "pass",
   "public_safe_body_material_count": 190,
   "ready_projection_cell_count": 64,
   "receipt_id": "macro_projection_import_protocol_fixture_acceptance_v1",
   "receipt_paths": [
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/tmplbcervg1/out/macro_projection_import_protocol_result.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/tmplbcervg1/out/projection_import_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/tmplbcervg1/out/projection_import_intake_board.json",
-    "/private/var/folders/wn/zcy8rh2j3jx267rds78mlwy80000gn/T/tmplbcervg1/out/projection_import_validation_receipt.json",
+    "receipts/first_wave/macro_projection_import_protocol/macro_projection_import_protocol_result.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
+    "receipts/first_wave/macro_projection_import_protocol/projection_import_validation_receipt.json",
     "receipts/acceptance/first_wave/macro_projection_import_protocol_fixture_acceptance.json"
   ],
   "runtime_dependency_status": "pass",
@@ -9271,7 +9256,7 @@
     "codex/standards/std_transform_job.json",
     "microcosm-substrate/standards/std_microcosm_provider_context_recipe_budget_policy.json"
   ],
-  "status": "blocked",
+  "status": "pass",
   "validation_ref_count": 195,
   "validation_refs": [
     "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",

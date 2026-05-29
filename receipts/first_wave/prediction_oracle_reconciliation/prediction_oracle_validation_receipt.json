@@ -14,9 +14,11 @@
     "status": "pass",
     "trading_authorized": false
   },
+  "body_copied_material_count": 0,
   "body_in_receipt": false,
+  "body_material_status": "",
   "bundle_id": null,
-  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input microcosm-substrate/fixtures/first_wave/prediction_oracle_reconciliation/input --out microcosm-substrate/receipts/first_wave/prediction_oracle_reconciliation --card",
+  "command": "python -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
   "cp1_branch_count": 2,
   "cp1_selected_branch_ids": [
     "cp1_alpha_up_over_flat",
@@ -25,7 +27,7 @@
   "cp1_unresolved_bifurcation_rejected": true,
   "cp2_prediction_count": 2,
   "cp2_target_universe_gate_rejected": true,
-  "created_at": "2026-05-26T19:54:14+00:00",
+  "created_at": "2026-05-29T05:46:50+00:00",
   "dossier_mutation_count": 1,
   "dossier_mutation_ids": [
     "mutation_beta_confidence_revision"
@@ -199,6 +201,19 @@
     "scanned_path_count": 7,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
+  },
+  "source_open_body_imports": {
+    "aggregate_floor_ref": "",
+    "body_in_receipt": false,
+    "body_material_count": 0,
+    "body_material_ids": [],
+    "body_material_status": "",
+    "material_classes": [],
+    "reader_action": "",
+    "schema_version": "prediction_oracle_source_open_body_imports_v1",
+    "source_import_class": "",
+    "source_manifest_refs": [],
+    "status": "pass"
   },
   "source_pattern_ids": [
     "synthetic_science_oracle_dossier_reconciliation_compound",
