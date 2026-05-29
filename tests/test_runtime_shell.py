@@ -5146,6 +5146,7 @@ def test_runtime_shell_reveal_projects_ten_minute_board(tmp_path: Path) -> None:
     assert reveal["command_count"] >= 4
     assert reveal["evidence_ref_count"] >= 4
     assert reveal["reveal_board"]["release_authorized"] is False
+    assert reveal["evidence_strength_policy"]["next_command"] == "microcosm authority --card"
     assert reveal["evidence_strength_policy"]["source_ref"] == "core/organ_evidence_classes.json"
     assert (
         reveal["evidence_strength_policy"]["accepted_status_is_not_evidence_strength"]

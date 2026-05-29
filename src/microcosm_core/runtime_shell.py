@@ -17708,7 +17708,7 @@ class RuntimeShell:
             "reveal_board": result.get("reveal_board"),
             "evidence_ref": receipt_ref,
             "evidence_strength_policy": {
-                "next_command": "microcosm authority",
+                "next_command": "microcosm authority --card",
                 "source_ref": spine.get("evidence_class_registry", {}).get("source_ref"),
                 "accepted_status_is_not_evidence_strength": True,
                 "unclassified_organs_block_authority_projection": True,
