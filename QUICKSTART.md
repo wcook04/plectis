@@ -31,6 +31,7 @@ uses compact cards first:
 
 ```bash
 microcosm hello .
+microcosm first-screen --card .
 microcosm tour --card .
 microcosm status --card .
 microcosm authority --card
@@ -43,6 +44,7 @@ module entry point:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
+PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card

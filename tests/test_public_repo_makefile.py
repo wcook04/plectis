@@ -53,6 +53,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "Note: make test-all is a broad macro-root drift-detection suite with tracked receipt writes blocked under pytest. Use make ci for the clean public verification floor.",
         "PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS)",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core hello .",
+        "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core first-screen --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core tour --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core status --card .",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) scripts/served_status_smoke.py "
@@ -62,6 +63,7 @@ def test_public_repo_makefile_exposes_standard_command_surface() -> None:
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core legibility-scorecard",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core --version",
         "$(SMOKE_ENV) PYTHONPATH=src $(PYTHON) -m microcosm_core stripping-guard",
+        "> $(SMOKE_OUT)/first-screen-card.json",
         "> $(SMOKE_OUT)/tour-card.json",
         "> $(SMOKE_OUT)/status-card.json",
         "$(SMOKE_OUT)/served-status-card.json",
@@ -95,6 +97,7 @@ def test_public_repo_makefile_smoke_target_writes_expected_artifacts() -> None:
 
     for smoke_artifact in (
         "hello.txt",
+        "first-screen-card.json",
         "tour-card.json",
         "status-card.json",
         "authority-card.json",

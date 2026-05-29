@@ -8,6 +8,14 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 def test_quickstart_names_source_only_browser_serve_path() -> None:
     quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+    compact_smoke = quickstart.split(
+        "If you are staying source-only, use the exact same hand smoke through the",
+        maxsplit=1,
+    )[0]
+    source_only_smoke = quickstart.split(
+        "If you are staying source-only, use the exact same hand smoke through the",
+        maxsplit=1,
+    )[1].split("Read those as a first-screen contract", maxsplit=1)[0]
 
     assert "[README Component Map](README.md#component-map)" in quickstart
     assert "runtime package, command cards, public" in quickstart
@@ -23,6 +31,25 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         "--port 8765 --max-requests 6"
     ) in quickstart
     assert "If you are staying source-only" in quickstart
+    assert "microcosm first-screen --card ." in compact_smoke
+    assert (
+        compact_smoke.index("microcosm hello .")
+        < compact_smoke.index("microcosm first-screen --card .")
+        < compact_smoke.index("microcosm tour --card .")
+    )
+    assert (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
+        in source_only_smoke
+    )
+    assert (
+        source_only_smoke.index("PYTHONPATH=src python3 -m microcosm_core hello .")
+        < source_only_smoke.index(
+            "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
+        )
+        < source_only_smoke.index(
+            "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+        )
+    )
     assert "validate the exported artifact as its own clone" in quickstart
     assert "cd /tmp/microcosm-substrate-export/microcosm-substrate" in quickstart
     assert (
