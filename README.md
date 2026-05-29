@@ -145,11 +145,16 @@ breadth, honest evidence accounting, and authority limits on one first screen.
 
 ## Try It On Your Repo
 
-From `microcosm-substrate/`, install the console command:
+From `microcosm-substrate/` in a local checkout or generated standalone export,
+install the console command from this source tree:
 
 ```bash
 python3 -m pip install .
 ```
+
+That is a local-source smoke path, not a PyPI, wheel, hosted-release, or
+operator-release claim. Use the standalone export section below when you need a
+reviewable candidate artifact.
 
 For development, install the same command in editable mode with the test extras:
 
@@ -430,7 +435,7 @@ and must be backed by real Microcosm commands or explicit omissions.
 
 ## First Run
 
-From this directory:
+From this directory, install from the local source tree:
 
 ```bash
 python3 -m venv .venv
@@ -456,6 +461,9 @@ microcosm evidence inspect /tmp/microcosm-scratch .microcosm/evidence/routes.jso
 microcosm tour /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour.json
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
+
+This first run proves local install and local project inspection only. It does
+not promote the checkout into a release artifact or a hosted service.
 
 This scratch project deliberately creates a README, so its selected route is
 `readme_onboarding_route`. For your own folder, use the `selected_route_id`
