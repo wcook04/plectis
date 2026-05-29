@@ -284,6 +284,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     for command in [
         "compile",
         "python-lens",
+        "graph",
         "explain",
         "status",
         "proof-lab",
@@ -294,6 +295,9 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "run",
         "pattern-route-readiness",
         "serve",
+        "patterns",
+        "route",
+        "work",
         "evidence",
     ]:
         assert command in output
@@ -334,6 +338,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "show runtime projection intake board",
         "show public reveal walkthrough board",
         "replay the local public runtime demo",
+        "show project route/work/event/evidence graph",
+        "inspect project pattern observations",
+        "list runtime routes or project route candidates",
+        "create or run project-local reversible work",
         "validate pattern route-readiness bundle",
     ]:
         assert help_text in output
@@ -366,6 +374,35 @@ def test_cli_root_help_listed_commands_have_help_routes() -> None:
             failures.append(f"{command}: missing command-specific usage line")
 
     assert not failures, "\n".join(failures)
+
+
+def test_cli_work_help_exposes_route_explanation_actions() -> None:
+    root_help = _run_microcosm_cli("--help")
+    assert root_help.returncode == 0, root_help.stderr
+    assert "work" in _root_help_command_names(root_help.stdout)
+    assert "create or run project-local reversible work" in root_help.stdout
+    assert "transactions" in root_help.stdout
+
+    work_help = _run_microcosm_cli("work", "--help")
+    assert work_help.returncode == 0, work_help.stderr
+    assert "usage: microcosm work" in work_help.stdout
+    assert "create" in work_help.stdout
+    assert "run" in work_help.stdout
+    assert "record a project-local work transaction from a selected" in work_help.stdout
+    assert "route" in work_help.stdout
+    assert "execute the project-local work transaction simulation" in work_help.stdout
+
+    create_help = _run_microcosm_cli("work", "create", "--help")
+    assert create_help.returncode == 0, create_help.stderr
+    assert "usage: microcosm work create" in create_help.stdout
+    assert "--route" in create_help.stdout
+    assert "route id to snapshot" in create_help.stdout
+
+    run_help = _run_microcosm_cli("work", "run", "--help")
+    assert run_help.returncode == 0, run_help.stderr
+    assert "usage: microcosm work run" in run_help.stdout
+    assert "--work-id" in run_help.stdout
+    assert "work id to run" in run_help.stdout
 
 
 @pytest.mark.parametrize(

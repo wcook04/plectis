@@ -1338,7 +1338,10 @@ def main(argv: list[str] | None = None) -> int:
         help="emit full source-span, symbol, import, and graph rows",
     )
     python_lens_parser.add_argument("project")
-    graph_parser = subparsers.add_parser("graph")
+    graph_parser = subparsers.add_parser(
+        "graph",
+        help="show project route/work/event/evidence graph",
+    )
     graph_parser.add_argument("project")
     explain_parser = subparsers.add_parser(
         "explain",
@@ -1474,19 +1477,43 @@ def main(argv: list[str] | None = None) -> int:
         type=int,
         help="serve at most N HTTP requests, then exit cleanly",
     )
-    patterns_parser = subparsers.add_parser("patterns")
+    patterns_parser = subparsers.add_parser(
+        "patterns",
+        help="inspect project pattern observations",
+    )
     patterns_parser.add_argument("project", nargs="?")
-    route_parser = subparsers.add_parser("route")
+    route_parser = subparsers.add_parser(
+        "route",
+        help="list runtime routes or project route candidates",
+    )
     route_parser.add_argument("route_args", nargs="*")
-    work_parser = subparsers.add_parser("work")
+    work_parser = subparsers.add_parser(
+        "work",
+        help="create or run project-local reversible work transactions",
+    )
     work_subparsers = work_parser.add_subparsers(dest="work_command")
-    work_subparsers.add_parser("demo")
-    work_create_parser = work_subparsers.add_parser("create")
+    work_subparsers.add_parser(
+        "demo",
+        help="show the runtime work transaction demo",
+    )
+    work_create_parser = work_subparsers.add_parser(
+        "create",
+        help="record a project-local work transaction from a selected route",
+    )
     work_create_parser.add_argument("project")
-    work_create_parser.add_argument("--route")
-    work_run_parser = work_subparsers.add_parser("run")
+    work_create_parser.add_argument(
+        "--route",
+        help="route id to snapshot; defaults to the first selected project route",
+    )
+    work_run_parser = work_subparsers.add_parser(
+        "run",
+        help="execute the project-local work transaction simulation",
+    )
     work_run_parser.add_argument("project")
-    work_run_parser.add_argument("--work-id")
+    work_run_parser.add_argument(
+        "--work-id",
+        help="work id to run; defaults to the latest project-local work item",
+    )
     observe_parser = subparsers.add_parser(
         "observe",
         help="inspect compact route/work/event/evidence chain",
