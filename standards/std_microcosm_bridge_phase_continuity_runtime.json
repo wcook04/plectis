@@ -5,7 +5,7 @@
   "kind_name": "Bridge phase continuity runtime",
   "status": "draft",
   "first_wave_required": false,
-  "authority_boundary": "public_fake_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
+  "authority_boundary": "public_synthetic_transport_bridge_continuity_fixture_not_live_bridge_provider_hud_browser_or_phase_runtime_authority",
   "body_import_status": "public_runtime_fixture_and_receipts_landed",
   "body_in_receipt": false,
   "source_refs": [
@@ -17,7 +17,7 @@
     {
       "field": "fixture_input",
       "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
-      "role": "public_fake_transport_fixture"
+      "role": "public_synthetic_transport_fixture"
     },
     {
       "field": "organ_runtime",
@@ -114,7 +114,7 @@
     ]
   },
   "public_private_boundary": {
-    "default_posture": "public_safe_fake_transport_continuity_metadata_only",
+    "default_posture": "public_safe_synthetic_transport_continuity_metadata_only",
     "allowed_public_inputs": [
       "synthetic detached job ids",
       "synthetic continuation packet ids",
@@ -144,7 +144,7 @@
   },
   "authority_ceiling": {
     "status": "pass",
-    "standard_authority": "public_fake_transport_bridge_continuity_runtime_schema_and_failure_envelope",
+    "standard_authority": "public_synthetic_transport_bridge_continuity_runtime_schema_and_failure_envelope",
     "live_bridge_transport_authority": false,
     "provider_authority": false,
     "browser_hud_authority": false,
@@ -155,7 +155,7 @@
     "work_landing_authority": false,
     "release_authority": false
   },
-  "anti_claim": "This standard governs public fake-transport bridge-continuity fixtures and receipts only; it does not run live bridge transport, call providers, read operator HUD/browser/phase runtime state, prove provider or UI uptime, land work, mutate source, or authorize release.",
+  "anti_claim": "This standard governs public synthetic transport bridge-continuity fixtures and receipts only; it does not run live bridge transport, call providers, read operator HUD/browser/phase runtime state, prove provider or UI uptime, land work, mutate source, or authorize release.",
   "anti_claim_contract": {
     "required": true,
     "rule": "Bridge-continuity language must state that synthetic heartbeat, resume, and closeout receipts are not live bridge health, provider/UI uptime, work-landing, source-mutation, or release authority."
@@ -188,10 +188,10 @@
       "website surface bodies",
       "release packet bodies"
     ],
-    "reason": "public slice carries synthetic fake-transport continuity rows, source refs, digests, body-free receipts, authority ceilings, and negative-case evidence only"
+    "reason": "public slice carries synthetic transport continuity rows, source refs, digests, body-free receipts, authority ceilings, and negative-case evidence only"
   },
   "standard_payload": {
-    "ontology": "A public fake-transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
+    "ontology": "A public synthetic transport continuity runtime that validates disk-first continuation packets, heartbeat/resource-pressure gating, resume-once semantics, worker-skip dedupe, closeout transition receipts, and private-state boundaries.",
     "teleology": "Make bridge and subagent continuity reusable by future agents without requiring them to rediscover the observe/apply fixture, continuation packet contract, receipt boundary, or live-authority ceiling.",
     "anti_purpose": "A bridge-runtime health claim, provider/UI uptime claim, or work-landing story inferred from synthetic heartbeat or continuation metadata.",
     "compression_bands": [

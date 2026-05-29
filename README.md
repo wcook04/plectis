@@ -664,7 +664,7 @@ budget negative-case metadata without reading live operator state, provider
 payloads, browser/HUD/cockpit state, mutating Task Ledger, authorizing pattern
 assimilation, certifying runtime behavior, or claiming release.
 
-`bridge_phase_continuity_runtime` is the fake-transport bridge-continuity
+`bridge_phase_continuity_runtime` is the synthetic transport bridge-continuity
 membrane. Run `microcosm bridge-phase-continuity-runtime run --input
 fixtures/second_wave/bridge_phase_continuity_runtime/input --out
 /tmp/microcosm-bridge-continuity` to validate continuation packets, heartbeat
@@ -1382,7 +1382,7 @@ refreshing an owned tracked receipt on purpose.
   proof-symbol classifier and premise-budget precedence boundary.
 - `paper_modules/lean_std_premise_index.md` explains the closed Lean/Std
   premise metadata index and its proof/Mathlib authority ceiling.
-- `paper_modules/bridge_phase_continuity_runtime.md` explains the fake-transport
+- `paper_modules/bridge_phase_continuity_runtime.md` explains the synthetic transport
   bridge-continuity runtime and its live-authority ceiling.
 - `paper_modules/provider_context_recipe_budget.md` explains the provider
   context recipe budget boundary.

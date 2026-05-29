@@ -1492,3 +1492,23 @@ def test_public_entry_standard_names_degraded_kernel_fallback() -> None:
         "authority_ceiling",
     ]
     assert "first_screen_navigation_contract.degraded_kernel_fallback" in module_text
+
+
+def test_public_bridge_continuity_copy_uses_synthetic_transport_language() -> None:
+    surfaces = {
+        "README": MICROCOSM_ROOT / "README.md",
+        "AGENTS": MICROCOSM_ROOT / "AGENTS.md",
+        "paper module": MICROCOSM_ROOT / "paper_modules/bridge_phase_continuity_runtime.md",
+        "standard": MICROCOSM_ROOT
+        / "standards/std_microcosm_bridge_phase_continuity_runtime.json",
+        "fixture manifest": MICROCOSM_ROOT
+        / "core/fixture_manifests/bridge_phase_continuity_runtime.fixture_manifest.json",
+        "organ registry": MICROCOSM_ROOT / "core/organ_registry.json",
+        "evidence classes": MICROCOSM_ROOT / "core/organ_evidence_classes.json",
+    }
+
+    for label, path in surfaces.items():
+        text = path.read_text(encoding="utf-8")
+        assert "synthetic transport" in text or "synthetic-transport" in text, label
+        assert "fake-transport" not in text, label
+        assert "fake transport" not in text, label

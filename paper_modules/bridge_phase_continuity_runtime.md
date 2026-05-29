@@ -1,6 +1,6 @@
 # Bridge Phase Continuity Runtime
 
-This public slice validates disk-first bridge continuity over fake transport fixtures.
+This public slice validates disk-first bridge continuity over synthetic transport fixtures.
 
 It checks that a yielded synthetic job has a continuation packet, heartbeat rows stay liveness evidence only, resource pressure can block dispatch, a packet resumes exactly once, duplicate resume attempts fail, worker-skip rows do not close claims silently, and closeout transition receipts remain the boundary for landed-work claims.
 

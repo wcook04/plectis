@@ -7,10 +7,10 @@
   "public_runtime_spine_admission": {
     "status": "accepted_current_authority",
     "organ_id": "bridge_phase_continuity_runtime",
-    "scope": "fake_transport_continuity_fixture_only",
+    "scope": "synthetic_transport_continuity_fixture_only",
     "standard_ref": "standards/std_microcosm_bridge_phase_continuity_runtime.json",
     "paper_module_ref": "paper_modules/bridge_phase_continuity_runtime.md",
-    "anti_claim": "Public admission keeps the fake-transport fixture executable; it does not promote live bridge transport, provider/UI uptime, work landing, source mutation, or release authority."
+    "anti_claim": "Public admission keeps the synthetic transport fixture executable; it does not promote live bridge transport, provider/UI uptime, work landing, source mutation, or release authority."
   },
   "body_material_status": "copied_non_secret_macro_body_with_provenance",
   "body_copied_material_count": 5,
@@ -48,7 +48,7 @@
   "inputs": [
     {
       "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/observe_apply_session_fixture.json",
-      "role": "synthetic observe-apply session fixture for fake-transport continuity replay"
+      "role": "synthetic observe-apply session fixture for synthetic transport continuity replay"
     },
     {
       "path": "fixtures/second_wave/bridge_phase_continuity_runtime/input/detached_job.json",
@@ -284,7 +284,7 @@
   },
   "validator_contract_ratchet_v1": {
     "contract_id": "bridge_phase_continuity_runtime_receipt_field_floor_v1",
-    "status": "public_runtime_spine_admitted_with_fake_transport_only",
+    "status": "public_runtime_spine_admitted_with_synthetic_transport_only",
     "validator_id": "validator.microcosm.organs.bridge_phase_continuity_runtime",
     "stable_fixture_id": "fixture::bridge_phase_continuity_runtime::second_wave_contract_v1",
     "expected_receipt_paths": [
@@ -427,7 +427,7 @@
     "synthetic_fixture_payload_count": 6,
     "synthetic_fixture_payload_checker_invariant": "synthetic_fixture_payload_contract_ready"
   },
-  "anti_claim": "This fixture proves disk-first continuity mechanics over fake transport; it does not prove real provider uptime, UI uptime, live bridge correctness, operator availability, or phase runtime health.",
+  "anti_claim": "This fixture proves disk-first continuity mechanics over synthetic transport; it does not prove real provider uptime, UI uptime, live bridge correctness, operator availability, or phase runtime health.",
   "private_state_exclusion_rules": [
     "Use synthetic detached jobs, packets, heartbeats, resource-pressure rows, and worker skip receipts only.",
     "Do not include real bridge transport payloads, provider payload bodies, operator thread bodies, browser/HUD/cockpit state, live phase runtime state, prompt shelf bodies, or private memory bodies.",
@@ -445,7 +445,7 @@
   ],
   "implementation_notes": [
     "Implement only after Wave 1 acceptance and external-boundary fixture readiness, because bridge continuity depends on work claims and external transport boundaries.",
-    "This organ is public-safe only with fake transport packets and synthetic runtime state.",
+    "This organ is public-safe only with synthetic transport packets and synthetic runtime state.",
     "Do not import live orchestration, HUD, browser, provider, prompt shelf, or operator-thread state."
   ],
   "modal_contract_bindings_v1": {
@@ -484,7 +484,7 @@
     "negative_case_contract_ref": "state/microcosm_portfolio/reconstruction/fixture_negative_case_matrix_v1.json::future_organ_wave_1_intrusion_negative_case_contract_v1.negative_cases[organ_id=bridge_phase_continuity_runtime]",
     "error_taxonomy_ref": "state/microcosm_portfolio/reconstruction/error_code_taxonomy_v1.json::future_organ_wave_1_intrusion_error_code_contract_v1",
     "deterministic_order_ref": "state/microcosm_portfolio/reconstruction/deterministic_organ_build_order_v1.json::future_organ_readiness_ratchet_v1",
-    "acceptance_scope": "fake_transport_continuation_fixture_acceptance_only",
+    "acceptance_scope": "synthetic_transport_continuation_fixture_acceptance_only",
     "public_build_scope": "wave_2_public_runtime_spine_only_not_live_bridge_transport",
     "requires_synthetic_inputs_only": true,
     "required_manifest_sections": [
@@ -566,6 +566,6 @@
       "website_surface"
     ],
     "authority_ceiling": "synthetic_bridge_continuity_fixture_acceptance_not_live_bridge_runtime_health",
-    "anti_claim": "Synthetic bridge-continuity fixture acceptance blocks public build candidacy unless fake transport, resume-once, closeout-transition, external-boundary, and dependency receipts pass; it proves no provider uptime, UI uptime, HUD state, live bridge health, or work landing."
+    "anti_claim": "Synthetic bridge-continuity fixture acceptance blocks public build candidacy unless synthetic transport, resume-once, closeout-transition, external-boundary, and dependency receipts pass; it proves no provider uptime, UI uptime, HUD state, live bridge health, or work landing."
   }
 }

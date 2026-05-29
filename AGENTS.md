@@ -595,7 +595,7 @@ of those existing lanes can carry the pressure without distortion.
    live browser control, accounts, credentials, external network mutation, raw
    screenshots, benchmark claims, source mutation, or release authority.
    The bridge-continuity loop is `microcosm bridge-phase-continuity-runtime`;
-   it should validate fake-transport continuation packets, heartbeat boundaries,
+   it should validate synthetic transport continuation packets, heartbeat boundaries,
    resource-pressure blocking, resume-once semantics, duplicate-resume rejection,
    worker-skip dedupe, closeout transition receipts, and private-state scans.
    It must not claim live bridge transport health, provider or UI uptime,

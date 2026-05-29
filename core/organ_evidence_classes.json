@@ -222,7 +222,7 @@
       "organ_id": "agent_route_observability_runtime"
     },
     {
-      "classification_basis": "derived fake-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
+      "classification_basis": "derived synthetic-transport bridge-continuity checks over continuation packets, heartbeats, resource pressure, resume-once semantics, duplicate-resume rejection, closeout receipts, and private-state scan boundaries",
       "evidence_class": "semantic_validator",
       "organ_id": "bridge_phase_continuity_runtime"
     },
