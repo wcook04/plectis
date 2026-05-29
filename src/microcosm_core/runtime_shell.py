@@ -19812,7 +19812,8 @@ class RuntimeShell:
         <h3>Demo To Scale</h3>
         {first_screen_demo_to_scale_cards()}
         <div class="chain">
-          <div class="node"><strong>First Run</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
+          <div class="node"><strong>Human First Command</strong><span><code>{html.escape(_safe_text(first_screen_card.get("human_first_command") or "microcosm hello <project>"))}</code></span></div>
+          <div class="node"><strong>Behavior Proof</strong><span><code>{html.escape(_safe_text(first_screen_card.get("shared_first_command") or "microcosm tour --card <project>"))}</code></span></div>
           <div class="node"><strong>Endpoint</strong><span><code>/project/first-screen</code></span></div>
           <div class="node"><strong>Reader Routes</strong><span>{_badge_list(first_screen_reader_ids)}</span></div>
           <div class="node"><strong>Evidence Counts</strong><span>{html.escape(_safe_text(first_screen_evidence_frame.get("interpretation") or "accounting_not_maturity_score"))}</span></div>
@@ -19820,6 +19821,7 @@ class RuntimeShell:
         <table>
           {row("Status", first_screen_card.get("status"))}
           {row("Schema", first_screen_card.get("schema_version"))}
+          {row("Human first command", first_screen_card.get("human_first_command"))}
           {row("Shared behavior surface", first_screen_card.get("shared_first_command"))}
           {row("Reader routes", ", ".join(first_screen_reader_ids))}
           {row("Counts mean", first_screen_evidence_frame.get("interpretation"))}
@@ -21183,7 +21185,8 @@ class RuntimeShell:
       <div class="panel">
         <h2>One-Screen Entry</h2>
         <p>Status: <code>{html.escape(str(first_screen_card.get("status")))}</code></p>
-        <p>Shared first command: <code>{html.escape(str(first_screen_card.get("shared_first_command")))}</code></p>
+        <p>Human first command: <code>{html.escape(str(first_screen_card.get("human_first_command") or "microcosm hello <project>"))}</code></p>
+        <p>Behavior proof: <code>{html.escape(str(first_screen_card.get("shared_first_command")))}</code></p>
         <p>Selected route: <code>{html.escape(str(selected_route_id))}</code></p>
       </div>
       <div class="panel">

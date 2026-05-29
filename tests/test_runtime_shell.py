@@ -4645,6 +4645,11 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert "Microcosm Observatory" in html
     assert "Quick public entry is served from compact cards" in html
     assert "One-Screen Entry" in html
+    assert "Human first command" in html
+    assert "microcosm hello &lt;project&gt;" in html
+    assert "Behavior proof" in html
+    assert "microcosm tour --card &lt;project&gt;" in html
+    assert "Shared first command" not in html
     assert "readme_onboarding_route" in html
     assert "Front-door status" in html
     assert "Observatory Card" in html
@@ -4666,7 +4671,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         "microcosm first-screen --full <project>"
     )
     assert first_screen["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen <project>"
+        "microcosm first-screen --card <project>"
     )
     assert "video_storyboard_packet" not in first_screen
     assert first_screen["status"] == "pass"
