@@ -54,7 +54,9 @@ def test_cli_hello_and_first_screen_do_not_create_project_state(
     assert not state_dir.exists()
 
     assert cli.main(["hello", str(project)]) == 0
-    capsys.readouterr()
+    hello_output = capsys.readouterr().out
+    assert "Behavior proof after tour --card: front_door_status=pass" in hello_output
+    assert "Behavior proof: front_door_status=pass" not in hello_output
     assert not state_dir.exists()
 
     assert cli.main(["first-screen", str(project)]) == 0

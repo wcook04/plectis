@@ -1470,8 +1470,8 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     assert "Evidence classes: body import, subprocess witness" in text
     assert "fixture smoke/schema" in text
     assert (
-        "Behavior proof: front_door_status=pass, selected_route_id, state refs, "
-        "source_files_mutated=false"
+        "Behavior proof after tour --card: front_door_status=pass, "
+        "selected_route_id, state refs, source_files_mutated=false"
     ) in text
     assert (
         "GitHub visitor: microcosm hello --reader public_github_visitor . | Proof: "
@@ -1588,7 +1588,7 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "registries and fixture manifests" in text
         assert "status --card shows the stricter body-import floor" in text
         assert "Evidence classes: body import, subprocess witness" in text
-        assert "Behavior proof: front_door_status=pass" in text
+        assert "Behavior proof after tour --card: front_door_status=pass" in text
         assert "problem map binds the gaps" in text
         assert "doctrine names boundaries" in text
         assert "exit when you can choose a drilldown" in text
@@ -1626,7 +1626,7 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert "registries and fixture manifests" in result.stdout
     assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
-    assert "Behavior proof: front_door_status=pass" in result.stdout
+    assert "Behavior proof after tour --card: front_door_status=pass" in result.stdout
     assert "reader_routes" not in result.stdout
     assert "/Users/" not in result.stdout
     assert "src/ai_workflow" not in result.stdout
@@ -1660,7 +1660,7 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert "registries and fixture manifests" in result.stdout
     assert "status --card shows the stricter body-import floor" in result.stdout
     assert "Evidence classes: body import, subprocess witness" in result.stdout
-    assert "Behavior proof: front_door_status=pass" in result.stdout
+    assert "Behavior proof after tour --card: front_door_status=pass" in result.stdout
     assert "Reader branch: Safety/evals" in result.stdout
     assert (
         "  Command: microcosm hello --reader safety_evals_engineer ."

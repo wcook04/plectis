@@ -3503,7 +3503,7 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         _scale_summary_line(payload),
         "  Counts are receipt-backed handles from registries and fixture manifests; status --card shows the stricter body-import floor.",
         _evidence_class_summary_line(payload),
-        "  Behavior proof: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
+        "  Behavior proof after tour --card: front_door_status=pass, selected_route_id, state refs, source_files_mutated=false.",
         "",
         *_reader_branch_lines(route_by_id, packet_by_id, menu_by_id, reader_id),
         "",
