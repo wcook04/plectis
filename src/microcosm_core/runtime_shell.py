@@ -4561,7 +4561,7 @@ def _runtime_status_card(
             OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
             OBSERVATORY_SERVE_COMMAND,
             PROOF_LAB_FIRST_SCREEN_COMMAND,
-            "microcosm workingness",
+            "microcosm workingness --card",
             "microcosm status",
         ],
         "anti_claim": (
@@ -4938,7 +4938,9 @@ def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
             "status describes bounded failure-envelope debt; "
             "map_generation_status describes whether the workingness map ran"
         ),
-        "command": workingness.get("command"),
+        "command": "microcosm workingness --card",
+        "source_command": workingness.get("command"),
+        "drilldown_command": "microcosm workingness",
         "endpoint": workingness.get("endpoint"),
         "workingness_map_ref": workingness.get("workingness_map_ref"),
         "completeness_status": completeness_status,
@@ -5001,8 +5003,10 @@ def _workingness_command_speed_card(
         "status": summary.get("map_generation_status"),
         "card_status": summary.get("failure_envelope_status"),
         "command": "microcosm workingness --card",
-        "source_command": summary.get("command"),
-        "drilldown_command": "microcosm workingness",
+        "source_command": summary.get("source_command") or summary.get("command"),
+        "drilldown_command": (
+            summary.get("drilldown_command") or "microcosm workingness"
+        ),
         "endpoint": summary.get("endpoint"),
         "workingness_map_ref": summary.get("workingness_map_ref"),
         "completeness_status": summary.get("completeness_status"),

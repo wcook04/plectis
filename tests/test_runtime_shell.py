@@ -787,7 +787,7 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
         == "status describes bounded failure-envelope debt; "
         "map_generation_status describes whether the workingness map ran"
     )
-    assert card["workingness"]["command"] == "microcosm workingness"
+    assert card["workingness"]["command"] == "microcosm workingness --card"
     assert card["workingness"]["endpoint"] == "/workingness"
     assert card["workingness"]["completeness_status"] == "complete_failure_modes"
     assert card["workingness"]["mapped_organ_count"] == 47
@@ -806,7 +806,8 @@ def test_runtime_shell_status_card_is_compact_first_screen_lens(
     assert card["workingness"]["not_a_scorecard"] is True
     assert card["next_commands"][0] == card["front_door"]["primary_command"]
     assert "microcosm compile <project>" in card["next_commands"]
-    assert "microcosm workingness" in card["next_commands"]
+    assert "microcosm workingness --card" in card["next_commands"]
+    assert "microcosm workingness" not in card["next_commands"]
     assert card["authority_ceiling"]["release_authorized"] is False
     assert card["authority_ceiling"]["provider_calls_authorized"] is False
     assert card["authority_ceiling"]["source_mutation_authorized"] is False
