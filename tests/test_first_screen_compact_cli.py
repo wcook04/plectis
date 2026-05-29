@@ -18,7 +18,16 @@ def test_first_screen_cli_defaults_to_compact_json(
     assert payload["output_policy"]["full_contract_command"] == (
         "microcosm first-screen --full ."
     )
+    assert payload["output_policy"]["compact_card_command"] == (
+        "microcosm first-screen --card ."
+    )
+    assert payload["output_policy"]["default_json_command"] == (
+        "microcosm first-screen ."
+    )
     assert payload["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen --card ."
+    )
+    assert payload["reader_route_menu"]["default_json_command"] == (
         "microcosm first-screen ."
     )
     assert "video_storyboard_packet" not in payload
@@ -32,6 +41,9 @@ def test_first_screen_cli_full_flag_preserves_full_contract(
 
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert payload["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen --card ."
+    )
+    assert payload["reader_route_menu"]["default_json_command"] == (
         "microcosm first-screen ."
     )
     assert "video_storyboard_packet" in payload

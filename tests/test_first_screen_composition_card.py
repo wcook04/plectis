@@ -140,6 +140,9 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert reader_route_menu["machine_card_command"] == (
+        "microcosm first-screen --card <project>"
+    )
+    assert reader_route_menu["default_json_command"] == (
         "microcosm first-screen <project>"
     )
     assert set(menu_by_id) == route_ids
@@ -370,7 +373,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
             "microcosm serve <project> --host 127.0.0.1 --port 8765 "
             "--max-requests 6 -> /"
         ),
-        "json": "microcosm first-screen <project>",
+        "json": "microcosm first-screen --card <project>",
         "video": "video_storyboard_packet",
     }
     assert first_viewport_manifest["safe_to_show"] == {
@@ -666,7 +669,13 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         card["shared_first_command"]
     )
     assert artifact_fit_by_id["machine_json_card"]["consumer_surface"] == (
-        "microcosm first-screen <project>"
+        "microcosm first-screen --card <project>"
+    )
+    assert artifact_fit_by_id["machine_json_card"]["source_projection"] == (
+        "microcosm_core.first_screen_composition.first_screen_compact_card"
+    )
+    assert artifact_fit_by_id["machine_json_card"]["first_job"] == (
+        "give_consumers_the_compact_public_card_with_full_drilldown"
     )
     assert artifact_fit_by_id["readme_first_screen"]["consumer_surface"] == (
         "README.md::Choose Your First Screen"
@@ -950,7 +959,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     ) in readme_order_pairs
     assert (
         card["shared_first_command"],
-        "microcosm first-screen <project>",
+        "microcosm first-screen --card <project>",
     ) in readme_order_pairs
     assert ("reader_route_menu", "quickstart_command_inventory") in readme_order_pairs
     assert ("reader_routes", "quickstart_command_inventory") in readme_order_pairs
@@ -1308,7 +1317,7 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm hello ."
     )
     assert card["first_viewport_manifest"]["consumer_surfaces"]["json"] == (
-        "microcosm first-screen ."
+        "microcosm first-screen --card ."
     )
     assert card["first_viewport_manifest"]["authority"] == (
         "viewport_manifest_not_new_claim_or_renderer_authority"
@@ -1351,6 +1360,9 @@ def test_first_screen_composition_card_cli_emits_ascii_public_json() -> None:
         "microcosm tour --card ."
     )
     assert card["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen --card ."
+    )
+    assert card["reader_route_menu"]["default_json_command"] == (
         "microcosm first-screen ."
     )
     assert {
@@ -1417,12 +1429,17 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
     )
     assert compact["output_policy"] == {
         "default_json_is_first_screen_projection": True,
+        "default_json_command": "microcosm first-screen .",
+        "compact_card_command": "microcosm first-screen --card .",
         "stdout_budget_chars": module.COMPACT_JSON_CARD_MAX_CHARS,
         "full_contract_command": "microcosm first-screen --full .",
         "text_projection_command": "microcosm first-screen --format text .",
         "full_contract_preserved": True,
     }
     assert compact["reader_route_menu"]["machine_card_command"] == (
+        "microcosm first-screen --card ."
+    )
+    assert compact["reader_route_menu"]["default_json_command"] == (
         "microcosm first-screen ."
     )
     assert {

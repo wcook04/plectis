@@ -478,7 +478,8 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
         ),
         "default_command": f"microcosm hello {project_label}",
         "shared_behavior_command": f"microcosm tour --card {project_label}",
-        "machine_card_command": f"microcosm first-screen {project_label}",
+        "machine_card_command": f"microcosm first-screen --card {project_label}",
+        "default_json_command": f"microcosm first-screen {project_label}",
         "routes": [
             {
                 "reader_route_id": "public_github_visitor",
@@ -787,7 +788,7 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
             "terminal": human_first_command,
             "readme": "README.md::Choose Your First Screen",
             "browser": f"{bounded_serve_command} -> /",
-            "json": f"microcosm first-screen {project_label}",
+            "json": f"microcosm first-screen --card {project_label}",
             "video": "video_storyboard_packet",
         },
         "safe_to_show": {
@@ -1157,7 +1158,7 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
 def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
-    first_screen_json_command = f"microcosm first-screen {project_label}"
+    first_screen_json_command = f"microcosm first-screen --card {project_label}"
     bounded_observatory_command = _bounded_observatory_serve_command(project_label)
     shared_must_preserve = [
         "human_first_command",
@@ -1220,9 +1221,9 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
                 "artifact_form": "public_json",
                 "consumer_surface": first_screen_json_command,
                 "source_projection": (
-                    "microcosm_core.first_screen_composition.first_screen_composition_card"
+                    "microcosm_core.first_screen_composition.first_screen_compact_card"
                 ),
-                "first_job": "give_consumers_the_complete_public_contract",
+                "first_job": "give_consumers_the_compact_public_card_with_full_drilldown",
                 "must_preserve": [
                     *shared_must_preserve,
                     "validation.checks",
@@ -1847,7 +1848,7 @@ def _doctrine_effect_frame() -> dict[str, Any]:
 def _readme_entry_contract(project_label: str) -> dict[str, Any]:
     human_first_command = f"microcosm hello {project_label}"
     shared_first_command = f"microcosm tour --card {project_label}"
-    first_screen_json_command = f"microcosm first-screen {project_label}"
+    first_screen_json_command = f"microcosm first-screen --card {project_label}"
     return {
         "schema_version": "microcosm_readme_entry_contract_v1",
         "purpose": "make_package_backed_first_screen_card_the_readme_entry_surface",
@@ -2394,6 +2395,8 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and reader_route_menu.get("shared_behavior_command")
             == shared_first_command
             and reader_route_menu.get("machine_card_command")
+            == f"microcosm first-screen --card {payload.get('project_label')}"
+            and reader_route_menu.get("default_json_command")
             == f"microcosm first-screen {payload.get('project_label')}"
             and reader_route_menu_ids == REQUIRED_ROUTE_IDS
             and all(
@@ -2568,7 +2571,7 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
                 f"{_bounded_observatory_serve_command(str(payload.get('project_label')))} -> /"
             )
             and first_viewport_consumer_surfaces.get("json")
-            == f"microcosm first-screen {payload.get('project_label')}"
+            == f"microcosm first-screen --card {payload.get('project_label')}"
             and first_viewport_consumer_surfaces.get("video")
             == "video_storyboard_packet"
             and first_viewport_safe_to_show.get("uses_existing_first_screen_packets")
@@ -3008,7 +3011,8 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
             and (human_first_command, shared_first_command) in readme_order_pairs
             and (
                 shared_first_command,
-                f"microcosm first-screen {payload.get('project_label', '<project>')}",
+                "microcosm first-screen --card "
+                f"{payload.get('project_label', '<project>')}",
             )
             in readme_order_pairs
             and ("reader_route_menu", "quickstart_command_inventory")
@@ -3314,6 +3318,8 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     state_boundary = payload.get("state_write_boundary", {})
     full_json_command = f"microcosm first-screen --full {project_label}"
     text_projection_command = f"microcosm first-screen --format text {project_label}"
+    compact_card_command = f"microcosm first-screen --card {project_label}"
+    default_json_command = f"microcosm first-screen {project_label}"
     return {
         "schema_version": "microcosm_first_screen_compact_card_v1",
         "compact_projection_of": payload.get("schema_version"),
@@ -3323,6 +3329,8 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
         "shared_first_command": payload.get("shared_first_command"),
         "output_policy": {
             "default_json_is_first_screen_projection": True,
+            "default_json_command": default_json_command,
+            "compact_card_command": compact_card_command,
             "stdout_budget_chars": COMPACT_JSON_CARD_MAX_CHARS,
             "full_contract_command": full_json_command,
             "text_projection_command": text_projection_command,
@@ -3335,7 +3343,8 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
             "shared_behavior_command": route_menu.get("shared_behavior_command")
             if isinstance(route_menu, dict)
             else None,
-            "machine_card_command": f"microcosm first-screen {project_label}",
+            "machine_card_command": compact_card_command,
+            "default_json_command": default_json_command,
             "routes": _compact_reader_routes(payload),
         },
         "first_run_ladder": {
