@@ -5681,7 +5681,7 @@ class RuntimeShell:
                     "microcosm work create <project>",
                     "microcosm work run <project>",
                     "microcosm observe <project>",
-                    "microcosm evidence list <project>",
+                    "microcosm evidence list <project> --limit 25",
                     "microcosm tour --card <project>",
                     "microcosm tour <project>",
                     "microcosm status",

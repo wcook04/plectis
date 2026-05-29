@@ -275,7 +275,7 @@ of those existing lanes can carry the pressure without distortion.
    The expanded local loop is `microcosm tour --card <project>`,
    `microcosm status --card <project>`, `microcosm observe <project>`,
    `microcosm explain <project> <route_id>`, and
-   `microcosm evidence list <project>`. Older macro stage labels such as
+   `microcosm evidence list <project> --limit 25`. Older macro stage labels such as
    init, index, architecture, route selection, and work-run are conceptual
    stages inside the current commands, not separate live top-level commands.
    Public input bundles and organ demos are compatibility/regression surfaces,

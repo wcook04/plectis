@@ -60,7 +60,7 @@ The compact behavioral path is:
 10. `microcosm python-lens <project>` opens the project navigation assay.
 11. `microcosm explain <project> <selected_route_id>` opens the route/work/event
    and evidence chain selected by `tour --card`, `tour`, or `compile`.
-12. `microcosm evidence list <project>` lists project-local evidence refs.
+12. `microcosm evidence list <project> --limit 25` lists project-local evidence refs.
 13. `microcosm tour <project>` is the full route-card, endpoint-path, and
    evidence-ref drilldown after the first screen is already readable.
 

@@ -837,7 +837,7 @@ def test_public_entry_commands_do_not_depend_on_parent_state() -> None:
     assert "First-Screen Route Contract" in cold_start
     assert "Bring a folder first" in cold_start
     assert "route_cards_by_id.status_and_workingness" in cold_start
-    assert "microcosm evidence list <project>" in cold_start
+    assert "microcosm evidence list <project> --limit 25" in cold_start
     assert "microcosm status --card <project>" in cold_start
     assert "front_door.route_explanation" in cold_start
     assert "microcosm workingness" in cold_start
@@ -992,7 +992,7 @@ def test_public_entry_packet_routes_local_first_screen_before_probe() -> None:
     assert "readme_onboarding_route is a generated route only" in route[
         "route_selection_rule"
     ]
-    assert "microcosm evidence list <project>" in route["command_path"]
+    assert "microcosm evidence list <project> --limit 25" in route["command_path"]
     assert "microcosm status --card <project>" in route["command_path"]
     assert "microcosm workingness --card" in route["command_path"]
     assert "microcosm proof-lab --out /tmp/microcosm-proof-lab" in route[

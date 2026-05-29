@@ -43,7 +43,7 @@ def test_agent_entry_names_first_screen_cli_registry_before_route_labels() -> No
     ):
         assert drilldown_command in agents
         assert drilldown_command not in help_output
-    assert "microcosm evidence list <project>" in agents
+    assert "microcosm evidence list <project> --limit 25" in agents
 
 
 def test_agent_entry_does_not_advertise_removed_expanded_loop_commands() -> None:

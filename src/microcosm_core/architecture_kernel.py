@@ -273,7 +273,7 @@ _DEFAULT_KERNEL = {
             "input": "runtime operations",
             "output": ".microcosm/evidence/*.json",
             "state_ref": ".microcosm/evidence/",
-            "runtime_commands": ["microcosm evidence list <project>", "microcosm evidence inspect <project> <ref>"],
+            "runtime_commands": ["microcosm evidence list <project> --limit 25", "microcosm evidence inspect <project> <ref>"],
             "endpoint_refs": ["/project/evidence"],
             "event_span": "evidence.drilldown",
             "evidence_relation": ".microcosm/evidence/*.json",

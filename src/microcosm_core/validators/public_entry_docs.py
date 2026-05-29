@@ -607,7 +607,7 @@ def _entry_packet_route_contract(
         "microcosm compile <project>",
         "microcosm python-lens <project>",
         "microcosm explain <project> <selected_route_id>",
-        "microcosm evidence list <project>",
+        "microcosm evidence list <project> --limit 25",
         "microcosm status --card <project>",
         "microcosm workingness --card",
         "microcosm proof-lab --out /tmp/microcosm-proof-lab",
@@ -735,7 +735,7 @@ def _entry_packet_route_contract(
         "microcosm compile <project>",
         "microcosm python-lens <project>",
         "microcosm explain <project> <selected_route_id>",
-        "microcosm evidence list <project>",
+        "microcosm evidence list <project> --limit 25",
     ]
     command_positions = {
         command: command_path.index(command)

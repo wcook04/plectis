@@ -414,7 +414,7 @@ def test_runtime_shell_status_is_product_centered() -> None:
     assert "microcosm python-lens <project>" in status["runtime_surface"]["commands"]
     assert "microcosm route <project>" in status["runtime_surface"]["commands"]
     assert "microcosm explain <project> <route_id>" in status["runtime_surface"]["commands"]
-    assert "microcosm evidence list <project>" in status["runtime_surface"]["commands"]
+    assert "microcosm evidence list <project> --limit 25" in status["runtime_surface"]["commands"]
     assert "microcosm tour --card <project>" in status["runtime_surface"]["commands"]
     assert "microcosm tour <project>" in status["runtime_surface"]["commands"]
     assert "microcosm status --card" in status["runtime_surface"]["commands"]
