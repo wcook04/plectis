@@ -8733,24 +8733,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:e6b23675763efb9a58bf0f020f73c3a7e193b6adf592313d24048ea3cc9859c7",
+      "body_digest": "sha256:83d7eaecabca30cae1c7e2ba7e199053450b8825f2eda3cc4c4f2c1efb0b667d",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:e6b23675763efb9a58bf0f020f73c3a7e193b6adf592313d24048ea3cc9859c7",
-        "source_line_count": 18470,
+        "source_body_digest": "sha256:83d7eaecabca30cae1c7e2ba7e199053450b8825f2eda3cc4c4f2c1efb0b667d",
+        "source_line_count": 18579,
         "source_ref": "system/server/world_model.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:e6b23675763efb9a58bf0f020f73c3a7e193b6adf592313d24048ea3cc9859c7",
-        "target_line_count": 18470,
+        "target_body_digest": "sha256:83d7eaecabca30cae1c7e2ba7e199053450b8825f2eda3cc4c4f2c1efb0b667d",
+        "target_line_count": 18579,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 18470,
+      "body_line_count": 18579,
       "body_text_in_receipt": false,
       "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
@@ -8800,24 +8800,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:73a1d2d20ab653ee8bc9e110e0e84c19df2ed41db8bd05e7b67a6e2d9297ca9a",
+      "body_digest": "sha256:2f4a6ba27b471f6201813b4148b43efd8c73ebbb0bd98380a55dfafca5a2aa74",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_world_model_projection_drift_control_room.py::test_world_model_projection_drift_source_modules_are_exact_macro_body_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_world_model_projection_drift_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:73a1d2d20ab653ee8bc9e110e0e84c19df2ed41db8bd05e7b67a6e2d9297ca9a",
-        "source_line_count": 8646,
+        "source_body_digest": "sha256:2f4a6ba27b471f6201813b4148b43efd8c73ebbb0bd98380a55dfafca5a2aa74",
+        "source_line_count": 8675,
         "source_ref": "system/server/main.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:73a1d2d20ab653ee8bc9e110e0e84c19df2ed41db8bd05e7b67a6e2d9297ca9a",
-        "target_line_count": 8646,
+        "target_body_digest": "sha256:2f4a6ba27b471f6201813b4148b43efd8c73ebbb0bd98380a55dfafca5a2aa74",
+        "target_line_count": 8675,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/main.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 8646,
+      "body_line_count": 8675,
       "body_text_in_receipt": false,
       "claim_ceiling": "public world-model projection-drift source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [

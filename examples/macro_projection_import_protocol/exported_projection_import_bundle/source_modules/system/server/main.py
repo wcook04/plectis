@@ -754,19 +754,10 @@ async def lifespan(app: FastAPI):
     # the ~5s cold-build cost (world-model snapshot + paper-module validation).
     # Runs in a daemon thread so it never blocks uvicorn lifespan.
     try:
-        _prewarm_key = _station_cache_key()
-        _prewarm_event: threading.Event | None = None
-        with _STATION_LAUNCHER_CACHE_LOCK:
-            if _prewarm_key not in _STATION_LAUNCHER_REFRESH_IN_FLIGHT:
-                _prewarm_event = threading.Event()
-                _STATION_LAUNCHER_REFRESH_IN_FLIGHT[_prewarm_key] = _prewarm_event
-        if _prewarm_event is not None:
-            threading.Thread(
-                target=_station_launcher_background_refresh,
-                args=(_prewarm_key, _prewarm_event),
-                name="station-launcher-prewarm",
-                daemon=True,
-            ).start()
+        _start_station_launcher_refresh(
+            _station_cache_key(),
+            thread_name="station-launcher-prewarm",
+        )
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning("station launcher prewarm failed to schedule: %s", exc)
 
@@ -4354,20 +4345,34 @@ def _station_attention_brief(world: Dict[str, Any]) -> Dict[str, Any]:
 _STATION_LAUNCHER_PREWARM_WAIT_S = 1.0
 
 
-def _warming_station_launcher_payload() -> Dict[str, Any]:
+def _warming_station_launcher_payload(reason: str) -> Dict[str, Any]:
     """Schema-clean degraded launcher shell returned while prewarm is in flight.
 
     Every field on `StationLauncherSnapshot` has a default factory except
     `generated_at`, so the operator UI tolerates an otherwise-empty packet and
-    will pull the real payload on its next 10s poll once prewarm lands the
-    cache. Avoids racing a duplicate ~30s compute on top of an already-running
-    prewarm thread.
+    can immediately retry once prewarm lands the cache. Avoids racing a
+    duplicate compute on top of an already-running prewarm thread.
     """
+    detail = f"station launcher {reason}; background refresh is in flight"
     return {
         "schema": "station_launcher_v1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "operations": [],
-        "alerts": [],
+        "alerts": [
+            {
+                "id": "station_launcher:warming",
+                "tone": "info",
+                "label": "Station launcher warming",
+                "detail": detail,
+                "command": None,
+            }
+        ],
+        "diagnostics": {
+            "cache": {"status": "warming", "reason": reason},
+            "notes": [
+                "Served a schema-clean warming launcher payload instead of blocking the UI on launcher composition."
+            ],
+        },
     }
 
 
@@ -4559,6 +4564,28 @@ def _compute_root_navigator_handoff_payload(*, cache_key: str | None = None) -> 
     return copy.deepcopy(payload)
 
 
+def _start_station_launcher_refresh(
+    cache_key: str | None = None,
+    *,
+    thread_name: str = "station-launcher-refresh",
+) -> threading.Event:
+    if cache_key is None:
+        cache_key = str(REPO_ROOT.resolve())
+    with _STATION_LAUNCHER_CACHE_LOCK:
+        event = _STATION_LAUNCHER_REFRESH_IN_FLIGHT.get(cache_key)
+        if event is not None:
+            return event
+        event = threading.Event()
+        _STATION_LAUNCHER_REFRESH_IN_FLIGHT[cache_key] = event
+    threading.Thread(
+        target=_station_launcher_background_refresh,
+        args=(cache_key, event),
+        name=thread_name,
+        daemon=True,
+    ).start()
+    return event
+
+
 def _station_launcher_payload() -> Dict[str, Any]:
     """
     [ACTION]
@@ -4598,6 +4625,8 @@ def _station_launcher_payload() -> Dict[str, Any]:
         # Cache empty. If a prewarm/refresh is already building it, wait on
         # that one build rather than racing a duplicate compute.
         wait_event = _STATION_LAUNCHER_REFRESH_IN_FLIGHT.get(cache_key)
+    if wait_event is None:
+        wait_event = _start_station_launcher_refresh(cache_key)
     if wait_event is not None:
         # Bounded wait — first request blocks briefly for the prewarm thread
         # to land the cache. If it doesn't, fall back to a warming shell so
@@ -4616,9 +4645,9 @@ def _station_launcher_payload() -> Dict[str, Any]:
                 "station launcher returned warming shell after %.1fs (prewarm in flight)",
                 elapsed,
             )
-            return _warming_station_launcher_payload()
-    # No cache and no refresh in flight — compute inline and populate.
-    return _compute_station_launcher_payload(cache_key=cache_key)
+            return _warming_station_launcher_payload("miss")
+        logger.info("station launcher returned warming shell after failed refresh")
+        return _warming_station_launcher_payload("unavailable")
 
 
 def _load_system_facts_at_a_glance() -> Dict[str, Any]:
