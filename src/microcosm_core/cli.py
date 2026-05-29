@@ -300,7 +300,7 @@ FIRST_SCREEN_HELP = """First-screen route:
   microcosm proof-lab --out /tmp/microcosm-proof-lab
   microcosm observe <project>     inspect route/work/event/evidence chain
   microcosm serve <project>       open the local observatory
-  microcosm compile --card <project> read cached .microcosm state without rebuilding
+  microcosm compile --card <project> read cached .microcosm state; stale cache exits 1
   microcosm compile <project>     rebuild local .microcosm state after the first-screen check
   microcosm tour <project>        inspect full route cards, endpoint path, and evidence refs
 Boundaries: local-first only; no provider calls, source mutation, release,

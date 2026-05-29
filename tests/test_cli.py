@@ -230,8 +230,8 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
     )
     assert "microcosm serve <project>       open the local observatory" in output
     assert (
-        "microcosm compile --card <project> read cached .microcosm state "
-        "without rebuilding"
+        "microcosm compile --card <project> read cached .microcosm state; "
+        "stale cache exits 1"
     ) in output
     assert (
         "microcosm compile <project>     rebuild local .microcosm state "
