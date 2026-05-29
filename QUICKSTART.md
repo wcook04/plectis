@@ -2,6 +2,9 @@
 
 This is the shortest cold-clone path for a reader who wants to know whether
 Microcosm is runnable, inspectable, and honest before opening the full README.
+After the smoke path passes, use the [README Component Map](README.md#component-map)
+before raw receipts; it names the runtime package, command cards, public
+doctrine, evidence fixtures, source capsules, and validation shell.
 
 ## 1. Install The Local Command
 
