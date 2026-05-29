@@ -38,6 +38,11 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "One-page cold-clone run path and boundary check. |",
         "| [AGENTS.md](AGENTS.md) | "
         "Agent entry contract and public authority membrane. |",
+        "| [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / "
+        "[PRINCIPLES.md](PRINCIPLES.md) / "
+        "[ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: "
+        "authority spine, public-safe source rules, operating principles, "
+        "and rejected failure shapes. |",
         "| [CONTRIBUTING.md](CONTRIBUTING.md) | "
         "Public verification floor, standalone export path, and contribution "
         "boundaries. |",
@@ -72,6 +77,9 @@ def test_readme_opening_call_to_action_prefers_hello_over_compile() -> None:
         "## Public Repo Map"
     )
     assert opening.index("## Public Repo Map") < opening.index(
+        "## Component Map"
+    )
+    assert opening.index("[CONSTITUTION.md](CONSTITUTION.md)") < opening.index(
         "## Component Map"
     )
     assert opening.index("## Component Map") < opening.index(

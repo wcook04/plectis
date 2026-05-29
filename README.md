@@ -23,6 +23,7 @@ Use this map before opening the longer reference body or raw receipt trees:
 |---|---|
 | [QUICKSTART.md](QUICKSTART.md) | One-page cold-clone run path and boundary check. |
 | [AGENTS.md](AGENTS.md) | Agent entry contract and public authority membrane. |
+| [CONSTITUTION.md](CONSTITUTION.md) / [AXIOMS.md](AXIOMS.md) / [PRINCIPLES.md](PRINCIPLES.md) / [ANTI_PRINCIPLES.md](ANTI_PRINCIPLES.md) | Root doctrine: authority spine, public-safe source rules, operating principles, and rejected failure shapes. |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Public verification floor, standalone export path, and contribution boundaries. |
 | [SECURITY.md](SECURITY.md) | Secret-exclusion and vulnerability-reporting boundary. |
 | [.github/workflows/ci.yml](.github/workflows/ci.yml) / [Makefile](Makefile) | GitHub Actions and local command surface; both route through `make ci`. |
