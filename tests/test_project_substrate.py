@@ -384,6 +384,17 @@ def test_project_substrate_runs_on_user_owned_scratch_project(tmp_path: Path) ->
     assert inspected["status"] == "pass"
     assert inspected["payload_boundary_ref"] == "project_python_lens_read_model"
     assert inspected["source_bodies_exported"] is False
+    assert inspected["payload_summary"]["inspect_card_policy"] == (
+        "safe_shape_and_refs_no_source_bodies"
+    )
+    assert inspected["payload_summary"]["object_field_key_counts"]["work_item"] >= 10
+    assert inspected["payload_summary"]["work_item_summary"]["state_history"] == [
+        "created",
+        "selected",
+        "planned",
+        "executed_simulation",
+        "closed",
+    ]
     assert compiled["status"] == "pass"
     assert compiled["headline"] == "repo -> .microcosm"
     assert compiled["selected_route_id"] == "readme_onboarding_route"

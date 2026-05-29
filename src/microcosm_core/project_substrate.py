@@ -2537,6 +2537,104 @@ def list_evidence(
     }
 
 
+def _bounded_string_values(value: object, *, limit: int = 12) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [item for item in value[:limit] if isinstance(item, str)]
+
+
+def _row_ids(value: object, key: str, *, limit: int = 25) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    ids: list[str] = []
+    for row in value:
+        if not isinstance(row, dict):
+            continue
+        row_id = row.get(key)
+        if isinstance(row_id, str) and row_id:
+            ids.append(row_id)
+        if len(ids) >= limit:
+            break
+    return ids
+
+
+def _evidence_payload_summary(payload: dict[str, Any]) -> dict[str, Any]:
+    payload_keys = sorted(payload.keys())
+    list_field_counts = {
+        key: len(value)
+        for key, value in sorted(payload.items())
+        if isinstance(value, list)
+    }
+    object_field_key_counts = {
+        key: len(value)
+        for key, value in sorted(payload.items())
+        if isinstance(value, dict)
+    }
+    count_fields = {
+        key: value
+        for key, value in sorted(payload.items())
+        if key.endswith("_count") and isinstance(value, int)
+    }
+    ref_samples = {
+        key: _bounded_string_values(payload.get(key))
+        for key in [
+            "evidence_refs",
+            "reader_drilldowns",
+            "grounded_refs",
+            "pattern_refs",
+            "standard_pressure_refs",
+        ]
+        if _bounded_string_values(payload.get(key))
+    }
+    summary: dict[str, Any] = {
+        "inspect_card_policy": "safe_shape_and_refs_no_source_bodies",
+        "payload_key_count": len(payload_keys),
+        "payload_keys": payload_keys,
+        "count_fields": count_fields,
+        "list_field_counts": list_field_counts,
+        "object_field_key_counts": object_field_key_counts,
+        "ref_samples": ref_samples,
+    }
+    route_ids = _row_ids(payload.get("routes"), "route_id")
+    if route_ids:
+        summary["route_ids"] = route_ids
+    pattern_ids = _row_ids(payload.get("patterns"), "pattern_id")
+    if pattern_ids:
+        summary["pattern_ids"] = pattern_ids
+    work_item = payload.get("work_item")
+    if isinstance(work_item, dict):
+        state_history = work_item.get("state_history")
+        summary["work_item_summary"] = {
+            "work_id": work_item.get("work_id"),
+            "route_id": work_item.get("route_id"),
+            "status": work_item.get("status"),
+            "transaction_state": work_item.get("transaction_state"),
+            "state_history": [
+                row.get("state")
+                for row in state_history
+                if isinstance(row, dict) and isinstance(row.get("state"), str)
+            ]
+            if isinstance(state_history, list)
+            else [],
+            "evidence_ref_count": len(work_item.get("evidence_refs", []))
+            if isinstance(work_item.get("evidence_refs"), list)
+            else 0,
+            "event_ref_count": len(work_item.get("event_refs", []))
+            if isinstance(work_item.get("event_refs"), list)
+            else 0,
+        }
+    causal_chain = payload.get("causal_chain_proof")
+    if isinstance(causal_chain, dict):
+        summary["causal_chain_summary"] = {
+            "status": causal_chain.get("status"),
+            "route_id": causal_chain.get("route_id"),
+            "selected_work_id": causal_chain.get("selected_work_id"),
+            "evidence_ref_count": causal_chain.get("evidence_ref_count"),
+            "event_ref_count": causal_chain.get("event_ref_count"),
+        }
+    return summary
+
+
 def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
     rel = ref.removeprefix(f"{STATE_DIR}/").rstrip("/")
     path = _state_dir(project) / rel
@@ -3167,6 +3265,7 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
         **_base_payload("microcosm_project_evidence_card_v1", project),
         "evidence_ref": evidence_ref,
         "evidence": {key: payload.get(key) for key in safe_keys if key in payload},
+        "payload_summary": _evidence_payload_summary(payload),
         **_source_body_boundary_row(),
     }
 
