@@ -8,10 +8,14 @@ SMOKE_OUT ?= .microcosm/smoke
 SMOKE_ENV ?= MICROCOSM_RUNTIME_RECEIPT_WRITES=0
 TMPDIR ?= /tmp
 PYTEST_TMP_KEY ?= $(shell $(PYTHON) -c 'import hashlib, os; print(hashlib.sha256(os.getcwd().encode()).hexdigest()[:12])')
-PYTEST_TMP ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
+PYTEST_TMP_KEY := $(PYTEST_TMP_KEY)
+PYTEST_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
 PYTEST_RUN_ID ?= $(shell $(PYTHON) -c 'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))')
-PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest-$(PYTEST_RUN_ID)
+PYTEST_RUN_ID := $(PYTEST_RUN_ID)
+PYTEST_TMP ?= $(PYTEST_TMP_ROOT)/run-$(PYTEST_RUN_ID)
+PYTEST_BASETEMP ?= $(PYTEST_TMP)/pytest
 PYTEST_ENV ?= PYTHONPYCACHEPREFIX=$(PYTEST_TMP)/pycache TMPDIR=$(PYTEST_TMP)/tmp
+PYTEST_KEEP_TMP ?= 0
 PYTEST_ARGS ?=
 .DEFAULT_GOAL := help
 PUBLIC_TESTS ?= \
@@ -49,12 +53,12 @@ install: $(VENV_PYTHON)
 
 test: install
 	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
-	PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS)
+	@status=0; PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PUBLIC_TESTS) $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
 
 test-all: install
 	@printf '%s\n' "Note: make test-all is a broad macro-root drift-detection suite with tracked receipt writes blocked under pytest. Use make ci for the clean public verification floor."
 	@mkdir -p $(PYTEST_TMP)/tmp $(PYTEST_TMP)/pycache
-	PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS)
+	@status=0; PYTHONPATH=src $(PYTEST_ENV) $(VENV_PYTHON) -m pytest --basetemp=$(PYTEST_BASETEMP) $(PYTEST_ARGS) || status=$$?; if [ "$(PYTEST_KEEP_TMP)" != "1" ]; then rm -rf "$(PYTEST_TMP)"; fi; exit $$status
 
 smoke:
 	@mkdir -p $(SMOKE_OUT)
@@ -74,5 +78,5 @@ standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary
 
 clean:
-	rm -rf $(SMOKE_OUT) $(PYTEST_TMP) .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
+	rm -rf $(SMOKE_OUT) $(PYTEST_TMP_ROOT) .microcosm/test-tmp .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +

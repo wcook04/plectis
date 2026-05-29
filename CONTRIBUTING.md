@@ -25,17 +25,20 @@ PYTHONPATH=src python3 -m microcosm_core --version
 PYTHONPATH=src python3 -m microcosm_core stripping-guard
 ```
 
-`make clean` removes the smoke receipt directory and the pytest scratch root
-while leaving the rest of project-local `.microcosm/` state alone.
+`make clean` removes the smoke receipt directory and the shared pytest scratch
+root while leaving the rest of project-local `.microcosm/` state alone.
 
 The test target creates a repository-local `.venv`, installs the test extra
 there, and then runs pytest, so a clean clone does not need pytest preinstalled
 or system-site package writes. If you want to install once up front, use
 `make install`. The Makefile also routes pytest basetemp, Python bytecode
-cache, and `TMPDIR` under `$(TMPDIR)/microcosm-substrate-test-tmp` so broad
-local runs can be cleaned with `make clean` instead of accumulating host temp
-trees. The scratch root stays outside the checkout so tests that inspect git
-ancestry keep their normal cold-clone shape.
+cache, and `TMPDIR` under per-run folders inside
+`$(TMPDIR)/microcosm-substrate-test-tmp` so broad local runs do not share the
+same active basetemp. Each run removes its own scratch folder after pytest
+exits unless `PYTEST_KEEP_TMP=1` is set, and `make clean` removes the shared
+scratch parent if a previous run was interrupted. The scratch root stays outside
+the checkout so tests that inspect git ancestry keep their normal cold-clone
+shape.
 
 For the full macro-root development suite, use `make test-all` from a checkout
 where the sibling macro source paths are present.
@@ -43,7 +46,7 @@ This is a broad drift-detection lane rather than the public release floor: it
 can surface exact-copy or source-freshness failures when macro source changes,
 while pytest keeps tracked source-tree receipts read-only unless a caller
 explicitly opts into receipt writes. It uses the same outside-checkout pytest
-scratch root as `make test`; any generated output that needs to change still
+scratch parent as `make test`; any generated output that needs to change still
 belongs in its owner lane, not disposable temp state.
 The default `make test` path and `make ci` are the standalone public verification floor.
 

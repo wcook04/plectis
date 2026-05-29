@@ -72,6 +72,10 @@ WORK_LEDGER_SESSION_ENV_VARS = (
     "AIW_ACTOR_SESSION_ID",
     "AIW_SESSION_ID",
 )
+SCOPED_COMMIT_MIN_FREE_BYTES_ENV = "AIW_SCOPED_COMMIT_MIN_FREE_BYTES"
+SCOPED_COMMIT_MIN_FREE_BYTES_DEFAULT = 512 * 1024 * 1024
+SCOPED_COMMIT_WRITE_ESTIMATE_FLOOR_BYTES = 64 * 1024 * 1024
+SCOPED_COMMIT_WRITE_AMPLIFICATION = 2
 
 
 class GitMetadataBlockedError(RuntimeError):
@@ -110,6 +114,81 @@ def _run(
             f"stderr: {result.stderr.strip()}"
         )
     return result
+
+
+def _configured_scoped_commit_min_free_bytes() -> int:
+    raw = os.environ.get(SCOPED_COMMIT_MIN_FREE_BYTES_ENV)
+    if not raw:
+        return SCOPED_COMMIT_MIN_FREE_BYTES_DEFAULT
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return SCOPED_COMMIT_MIN_FREE_BYTES_DEFAULT
+
+
+def _path_size_bytes(path: Path) -> int:
+    if not path.exists():
+        return 0
+    if path.is_file():
+        try:
+            return int(path.stat().st_size)
+        except OSError:
+            return 0
+    total = 0
+    for child in path.rglob("*"):
+        if child.is_file():
+            try:
+                total += int(child.stat().st_size)
+            except OSError:
+                continue
+    return total
+
+
+def _scoped_commit_disk_headroom(
+    repo_root: Path,
+    *,
+    operation: str,
+    paths: list[str],
+) -> dict[str, object]:
+    usage = shutil.disk_usage(str(repo_root))
+    estimated_bytes = sum(_path_size_bytes(repo_root / rel) for rel in paths)
+    configured_floor = _configured_scoped_commit_min_free_bytes()
+    required_bytes = max(
+        configured_floor,
+        SCOPED_COMMIT_WRITE_ESTIMATE_FLOOR_BYTES
+        + (estimated_bytes * SCOPED_COMMIT_WRITE_AMPLIFICATION),
+    )
+    return {
+        "schema": "scoped_commit_disk_headroom_v0",
+        "ok": int(usage.free) >= int(required_bytes),
+        "operation": operation,
+        "usage_path": str(repo_root),
+        "free_bytes": int(usage.free),
+        "required_bytes": int(required_bytes),
+        "configured_min_free_bytes": int(configured_floor),
+        "estimated_declared_path_bytes": int(estimated_bytes),
+        "write_amplification": SCOPED_COMMIT_WRITE_AMPLIFICATION,
+        "checked_paths": list(paths),
+    }
+
+
+def _assert_scoped_commit_disk_headroom(
+    repo_root: Path,
+    *,
+    operation: str,
+    paths: list[str],
+) -> None:
+    headroom = _scoped_commit_disk_headroom(repo_root, operation=operation, paths=paths)
+    if bool(headroom.get("ok")):
+        return
+    raise RuntimeError(
+        "scoped-commit: insufficient disk headroom before "
+        f"{operation}; free={headroom.get('free_bytes')}; "
+        f"required={headroom.get('required_bytes')}; "
+        f"usage_path={headroom.get('usage_path')}; "
+        "free disposable scratch space or lower "
+        f"{SCOPED_COMMIT_MIN_FREE_BYTES_ENV} only for an explicitly safe emergency write"
+    )
 
 
 def _git(args: list[str], *, cwd: Path, **kwargs) -> subprocess.CompletedProcess:
@@ -341,6 +420,11 @@ def perform_remote_full_paths_landing(
             "the remote target ref does not match that parent, rerun from an "
             "authorized local Git lane instead of publishing a side branch of main."
         )
+    _assert_scoped_commit_disk_headroom(
+        repo_root,
+        operation="remote full-paths fallback",
+        paths=declared_paths,
+    )
 
     remote_url = _git(["remote", "get-url", remote_name], cwd=repo_root).stdout.strip()
     if not remote_url:
@@ -790,6 +874,15 @@ def perform_scoped_commit(
     declared_paths: list[str] = (
         _normalize_paths(paths) if paths is not None else []
     )
+    if not dry_run:
+        headroom_paths = declared_paths
+        if patch_path is not None:
+            headroom_paths = [str(patch_path)]
+        _assert_scoped_commit_disk_headroom(
+            repo_root,
+            operation="private-index scoped commit",
+            paths=headroom_paths,
+        )
 
     with tempfile.TemporaryDirectory(prefix="scoped_commit_") as tmpdir:
         index_file = Path(tmpdir) / "private_index"

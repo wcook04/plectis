@@ -59,7 +59,7 @@ TASK_LEDGER_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
 ]
-TASK_LEDGER_SOURCE_LINE_COUNT = 14965
+TASK_LEDGER_SOURCE_LINE_COUNT = 15200
 WORK_LEDGER_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
 WORK_LEDGER_SOURCE_MODULE_IDS = [
     "work_ledger_tool_body_import",

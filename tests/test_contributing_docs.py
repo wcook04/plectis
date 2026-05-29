@@ -15,9 +15,14 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert ".venv/bin/python -m pip install -e '.[test]'" in text
     assert ".venv/bin/microcosm hello ." in text
     assert "pytest basetemp, Python bytecode" in text
+    assert "per-run folders inside" in text
     assert "`$(TMPDIR)/microcosm-substrate-test-tmp`" in text
-    assert "cleaned with `make clean`" in text
-    assert "stays outside the checkout" in text
+    assert "do not share the" in text
+    assert "same active basetemp" in text
+    assert "PYTEST_KEEP_TMP=1" in text
+    assert "make clean` removes the shared" in text
+    assert "scratch root stays outside" in text
+    assert "the checkout so tests" in text
     for command in (
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "PYTHONPATH=src python3 -m microcosm_core tour --card .",
@@ -51,7 +56,7 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "tracked source-tree receipts read-only" in text
     assert "explicitly opts into receipt writes" in text
     assert "same outside-checkout pytest" in text
-    assert "scratch root as `make test`" in text
+    assert "scratch parent as `make test`" in text
     assert "any generated output that needs to change still" in text
     assert "belongs in its owner lane" in text
     assert "and `make ci` are the" in text

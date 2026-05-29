@@ -2823,6 +2823,12 @@ def _body_stats(path: Path) -> dict[str, Any]:
     }
 
 
+def _digest_for_existing_format(existing: Any, stats: dict[str, Any]) -> str:
+    if str(existing or "").startswith(BODY_DIGEST_PREFIX):
+        return str(stats["body_digest"])
+    return str(stats["sha256"])
+
+
 def _resolve_source_path(source_ref: str, *, source_root: Path) -> Path | None:
     ref_path = Path(source_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
@@ -2915,7 +2921,9 @@ def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> lis
 
 
 def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
-    if row.get("body_copied") is not True or row.get("body_in_receipt") is True:
+    if row.get("body_in_receipt") is True:
+        return False
+    if row.get("body_copied") is False:
         return False
     classification = str(row.get("classification") or "")
     source_relation = str(row.get("source_to_target_relation") or "")
@@ -2938,7 +2946,13 @@ def _update_source_module_manifest_row(
     target_copies: dict[str, tuple[Path, Path]],
     defects: list[dict[str, Any]],
 ) -> dict[str, Any] | None:
-    material_id = str(row.get("module_id") or "")
+    material_id = str(
+        row.get("module_id")
+        or row.get("material_id")
+        or row.get("source_ref")
+        or row.get("path")
+        or ""
+    )
     source_ref = str(row.get("source_ref") or "")
     target_ref = str(row.get("target_ref") or row.get("path") or "")
     source_path = _resolve_source_path(source_ref, source_root=source_root) if source_ref else None
@@ -2992,19 +3006,15 @@ def _update_source_module_manifest_row(
 
     current_target_digest = _sha256_digest(target_path) if target_path.is_file() else ""
     row_updates = {
-        "source_sha256": stats["sha256"],
-        "target_sha256": stats["sha256"],
+        "body_copied": True,
+        "source_sha256": _digest_for_existing_format(row.get("source_sha256"), stats),
+        "target_sha256": _digest_for_existing_format(row.get("target_sha256"), stats),
         "sha256_match": True,
         "line_count": stats["line_count"],
         "byte_count": stats["byte_count"],
     }
     if "sha256" in row:
-        existing_sha256 = str(row.get("sha256") or "")
-        row_updates["sha256"] = (
-            stats["body_digest"]
-            if existing_sha256.startswith(BODY_DIGEST_PREFIX)
-            else stats["sha256"]
-        )
+        row_updates["sha256"] = _digest_for_existing_format(row.get("sha256"), stats)
     if "anchor_count" in row:
         row_updates["anchor_count"] = len(_strings(row.get("required_anchors")))
 
@@ -3197,12 +3207,13 @@ def refresh_exact_copy_source_modules(
             continue
         updated = False
         for row in _rows(payload, "modules"):
-            material_id = str(row.get("module_id") or "")
+            material_id = str(row.get("module_id") or row.get("material_id") or "")
             if material_filter and material_id not in material_filter:
                 continue
             if not _source_module_row_is_exact_copy(row):
                 continue
-            matched_material_ids.add(material_id)
+            if material_id:
+                matched_material_ids.add(material_id)
             update = _update_source_module_manifest_row(
                 row,
                 manifest_path=manifest_path,
@@ -3220,7 +3231,7 @@ def refresh_exact_copy_source_modules(
                 payload,
             )
 
-    protocol_material_ids = material_filter or matched_material_ids
+    protocol_material_ids = material_filter or set(matched_material_ids)
     for protocol_path in protocol_paths:
         payload = read_json_strict(protocol_path)
         if not isinstance(payload, dict):

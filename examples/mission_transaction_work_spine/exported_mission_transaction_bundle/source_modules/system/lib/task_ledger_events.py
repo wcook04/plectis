@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import tempfile
 import uuid
 from collections import Counter, defaultdict
@@ -57,6 +58,10 @@ TASK_SIGNOFF_PROJECTION_SCHEMA = "task_sign_off_ledger_v2"
 TASK_LEDGER_INTAKE_REQUEST_SCHEMA = "task_ledger_intake_request_v0"
 OPERATOR_AUTHORIZATION_POLICY_SCHEMA = "operator_authorization_policy_v1"
 TaskLedgerProgressCallback = Callable[[Mapping[str, Any]], None]
+TASK_LEDGER_MIN_FREE_BYTES_ENV = "AIW_TASK_LEDGER_MIN_FREE_BYTES"
+TASK_LEDGER_MIN_FREE_BYTES_DEFAULT = 512 * 1024 * 1024
+TASK_LEDGER_WRITE_ESTIMATE_FLOOR_BYTES = 64 * 1024 * 1024
+TASK_LEDGER_WRITE_AMPLIFICATION = 3
 
 
 def _emit_progress(
@@ -74,6 +79,117 @@ def _emit_progress(
     }
     payload.update(fields)
     progress_callback(payload)
+
+
+def _existing_parent(path: Path) -> Path:
+    cursor = path
+    while not cursor.exists() and cursor != cursor.parent:
+        cursor = cursor.parent
+    return cursor
+
+
+def _configured_min_free_bytes() -> int:
+    raw = os.environ.get(TASK_LEDGER_MIN_FREE_BYTES_ENV)
+    if not raw:
+        return TASK_LEDGER_MIN_FREE_BYTES_DEFAULT
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return TASK_LEDGER_MIN_FREE_BYTES_DEFAULT
+
+
+def _rel_path_size(repo_root: Path, rel_path: Path) -> int:
+    path = repo_root / rel_path
+    if not path.exists():
+        return 0
+    if path.is_file():
+        try:
+            return int(path.stat().st_size)
+        except OSError:
+            return 0
+    total = 0
+    for child in path.rglob("*"):
+        if child.is_file():
+            try:
+                total += int(child.stat().st_size)
+            except OSError:
+                continue
+    return total
+
+
+def _current_projection_rel_paths(repo_root: Path) -> list[Path]:
+    rel_paths = [LEDGER_REL, SIGNOFFS_REL]
+    views_root = repo_root / VIEWS_REL
+    if views_root.exists():
+        for path in sorted(views_root.glob("*.json")):
+            try:
+                rel_paths.append(path.relative_to(repo_root))
+            except ValueError:
+                rel_paths.append(VIEWS_REL / path.name)
+    return rel_paths
+
+
+def task_ledger_disk_write_headroom(
+    repo_root: Path,
+    *,
+    operation: str,
+    rel_paths: Sequence[Path] | None = None,
+    min_free_bytes: int | None = None,
+) -> Dict[str, Any]:
+    repo_root = Path(repo_root)
+    rel_path_list = list(rel_paths or [])
+    usage_path = _existing_parent(repo_root / TASK_LEDGER_ROOT_REL)
+    usage = shutil.disk_usage(str(usage_path))
+    existing_bytes = sum(_rel_path_size(repo_root, rel_path) for rel_path in rel_path_list)
+    configured_floor = (
+        _configured_min_free_bytes() if min_free_bytes is None else max(0, int(min_free_bytes))
+    )
+    required_bytes = max(
+        configured_floor,
+        TASK_LEDGER_WRITE_ESTIMATE_FLOOR_BYTES
+        + (existing_bytes * TASK_LEDGER_WRITE_AMPLIFICATION),
+    )
+    return {
+        "schema": "task_ledger_disk_write_headroom_v0",
+        "ok": int(usage.free) >= int(required_bytes),
+        "operation": operation,
+        "usage_path": str(usage_path),
+        "free_bytes": int(usage.free),
+        "required_bytes": int(required_bytes),
+        "configured_min_free_bytes": int(configured_floor),
+        "estimated_existing_write_bytes": int(existing_bytes),
+        "write_amplification": TASK_LEDGER_WRITE_AMPLIFICATION,
+        "checked_paths": [str(path) for path in rel_path_list],
+        "next_step": (
+            "Free disposable scratch space or lower "
+            f"{TASK_LEDGER_MIN_FREE_BYTES_ENV} only for an explicitly safe emergency write."
+        ),
+    }
+
+
+def _emit_disk_headroom_blocked(
+    progress_callback: TaskLedgerProgressCallback | None,
+    headroom: Mapping[str, Any],
+) -> None:
+    _emit_progress(
+        progress_callback,
+        "disk_headroom_blocked",
+        operation=headroom.get("operation"),
+        status="insufficient_disk_headroom",
+        free_bytes=headroom.get("free_bytes"),
+        required_bytes=headroom.get("required_bytes"),
+        usage_path=headroom.get("usage_path"),
+    )
+
+
+def _disk_headroom_block_result(headroom: Mapping[str, Any]) -> Dict[str, Any]:
+    return {
+        "ok": False,
+        "checked": False,
+        "status": "insufficient_disk_headroom",
+        "disk_headroom": dict(headroom),
+        "next_step": headroom.get("next_step"),
+    }
 
 EVENT_ID_RE = re.compile(r"^wie_[A-Za-z0-9_:-]+$")
 
@@ -1059,6 +1175,14 @@ def _write_projection_from_preflight_unlocked(
             "authority_health": health,
         }
     targets = _projection_targets(projection)
+    headroom = task_ledger_disk_write_headroom(
+        repo_root,
+        operation="task_ledger_projection_write",
+        rel_paths=list(targets),
+    )
+    if not bool(headroom.get("ok")):
+        _emit_disk_headroom_blocked(progress_callback, headroom)
+        return _disk_headroom_block_result(headroom)
     _emit_progress(
         progress_callback,
         "projection_write_start",
@@ -1111,6 +1235,33 @@ def append_event_and_rebuild(
             event_type=event.get("event_type"),
             subject_id=event.get("subject_id"),
         )
+        headroom_paths = [EVENTS_REL, EVENTS_AUDIT_REL]
+        if rebuild:
+            headroom_paths.extend(_current_projection_rel_paths(repo_root))
+        headroom = task_ledger_disk_write_headroom(
+            repo_root,
+            operation="append_event_and_rebuild",
+            rel_paths=headroom_paths,
+        )
+        if not bool(headroom.get("ok")):
+            _emit_disk_headroom_blocked(progress_callback, headroom)
+            blocked_result = _disk_headroom_block_result(headroom)
+            blocked_result["task_ledger_mutation_serialization"] = (
+                task_ledger_mutation_serialization_receipt(
+                    event_count=0,
+                    projection_rebuilt=False,
+                    projection_rebuilt_under_same_lock=False,
+                )
+            )
+            _emit_progress(
+                progress_callback,
+                "done",
+                operation="append_event_and_rebuild",
+                status=blocked_result.get("status"),
+                rebuild=bool(rebuild),
+                projection_rebuilt=False,
+            )
+            return blocked_result
         result = _append_event_unlocked(
             repo_root,
             event,
@@ -1203,6 +1354,33 @@ def append_events_and_rebuild(
             operation="append_events_and_rebuild",
             event_count=len(event_list),
         )
+        headroom_paths = [EVENTS_REL, EVENTS_AUDIT_REL]
+        if rebuild:
+            headroom_paths.extend(_current_projection_rel_paths(repo_root))
+        headroom = task_ledger_disk_write_headroom(
+            repo_root,
+            operation="append_events_and_rebuild",
+            rel_paths=headroom_paths,
+        )
+        if not bool(headroom.get("ok")):
+            _emit_disk_headroom_blocked(progress_callback, headroom)
+            blocked_result = _disk_headroom_block_result(headroom)
+            blocked_result["task_ledger_mutation_serialization"] = (
+                task_ledger_mutation_serialization_receipt(
+                    event_count=0,
+                    projection_rebuilt=False,
+                    projection_rebuilt_under_same_lock=False,
+                )
+            )
+            _emit_progress(
+                progress_callback,
+                "done",
+                operation="append_events_and_rebuild",
+                status=blocked_result.get("status"),
+                rebuild=bool(rebuild),
+                projection_rebuilt=False,
+            )
+            return blocked_result
         existing_events = read_jsonl(event_log_path(repo_root))
         normalized_events = [validate_event(repo_root, event) for event in event_list]
         _validate_projected_state_after_candidates(repo_root, existing_events, normalized_events)
@@ -3328,6 +3506,7 @@ def _compaction_governance_packet() -> Dict[str, Any]:
         "proof_signals": [
             "candidate group carries item_ids and evidence",
             "organizer-report exposes counts_by_kind and semantic_conflict_detector",
+            "semantic duplicate detection suppresses explicit hard dependency pairs before grouping",
             "chosen disposition appends an event and preserves source histories",
         ],
         "operator_review_required_for": [
@@ -3361,6 +3540,51 @@ def _semantic_duplicate_tokens(item: Mapping[str, Any]) -> set[str]:
             token = token[:-1]
         tokens.add(token)
     return tokens
+
+
+def _iter_id_values(value: Any) -> Iterator[str]:
+    if isinstance(value, str):
+        candidate = value.strip()
+        if candidate:
+            yield candidate
+        return
+    if isinstance(value, Mapping):
+        candidate = str(value.get("id") or value.get("work_item_id") or "").strip()
+        if candidate:
+            yield candidate
+        return
+    if isinstance(value, Iterable):
+        for item in value:
+            yield from _iter_id_values(item)
+
+
+def _hard_dependency_ids(item: Mapping[str, Any]) -> set[str]:
+    hard_ids: set[str] = set()
+    hard_ids.update(_iter_id_values(item.get("depends_on")))
+
+    contracts = item.get("contracts")
+    if isinstance(contracts, Mapping):
+        hard_ids.update(_iter_id_values(contracts.get("depends_on")))
+
+    dependency_status = item.get("dependency_status")
+    if isinstance(dependency_status, Mapping):
+        for key in ("satisfied_dep_ids", "unsatisfied_dep_ids", "dangling_dep_ids"):
+            hard_ids.update(_iter_id_values(dependency_status.get(key)))
+        for edge_key in ("dependency_states", "upstream_dependency_edges"):
+            for edge in dependency_status.get(edge_key) or []:
+                if not isinstance(edge, Mapping):
+                    continue
+                if str(edge.get("relationship") or "") == "upstream_hard_dependency":
+                    hard_ids.update(_iter_id_values(edge))
+    return hard_ids
+
+
+def _has_hard_dependency_edge(left: Mapping[str, Any], right: Mapping[str, Any]) -> bool:
+    left_id = str(left.get("id") or "").strip()
+    right_id = str(right.get("id") or "").strip()
+    if not left_id or not right_id:
+        return False
+    return right_id in _hard_dependency_ids(left) or left_id in _hard_dependency_ids(right)
 
 
 def _semantic_duplicate_groups(items: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
@@ -3437,6 +3661,8 @@ def _semantic_duplicate_groups(items: Sequence[Mapping[str, Any]]) -> List[Dict[
             overlap = len(shared) / max(1, min(len(left_tokens), len(right_tokens)))
             jaccard = len(shared) / max(1, len(union))
             if overlap < SEMANTIC_DUPLICATE_MIN_OVERLAP or jaccard < SEMANTIC_DUPLICATE_MIN_JACCARD:
+                continue
+            if _has_hard_dependency_edge(left, right):
                 continue
             edges[left_id].add(right_id)
             edges[right_id].add(left_id)
@@ -11420,6 +11646,7 @@ def build_organizer_report(
                 "closed captures and signoff captures are audit-only terminal rows, not merge/retire candidates",
                 "open duplicate groups use exact normalized title + statement + candidate_work_item_type",
                 "semantic duplicate groups use conservative token-overlap evidence and require operator review before merge/retire disposition",
+                "semantic duplicate groups suppress explicit hard depends_on pairs because dependency-linked rows can share release language without being duplicates",
                 "merge and supersede are dispositions represented through supported retire, note, shape, capture, or propagation events unless a future apply-lane event is added",
             ],
             "compaction_governance": compaction_governance,
@@ -11575,6 +11802,14 @@ def _rebuild_projections_unlocked(
             mismatch_count=len(mismatches),
         )
         return {"ok": not mismatches, "checked": True, "mismatches": mismatches}
+    headroom = task_ledger_disk_write_headroom(
+        repo_root,
+        operation="task_ledger_projection_rebuild",
+        rel_paths=list(targets),
+    )
+    if not bool(headroom.get("ok")):
+        _emit_disk_headroom_blocked(progress_callback, headroom)
+        return _disk_headroom_block_result(headroom)
     _emit_progress(
         progress_callback,
         "projection_write_start",

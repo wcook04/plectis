@@ -2151,6 +2151,71 @@ def test_refresh_exact_copy_source_modules_accepts_source_import_class_rows(
         assert row["sha256_match"] is True
 
 
+def test_refresh_exact_copy_source_modules_accepts_legacy_source_import_rows(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    marker_path = public_root / "core/private_state_forbidden_classes.json"
+    marker_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(MICROCOSM_ROOT / "core/private_state_forbidden_classes.json", marker_path)
+    source_root = tmp_path
+    source_ref = "system/lib/legacy_work_landing.py"
+    source = source_root / source_ref
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text("LEGACY = 'refreshed exact copy'\n", encoding="utf-8")
+
+    manifest_path = (
+        public_root / "examples/legacy_work_landing/exported_bundle/source_module_manifest.json"
+    )
+    target_ref = "source_modules/system/lib/legacy_work_landing.py"
+    target = manifest_path.parent / target_ref
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("LEGACY = 'stale copy'\n", encoding="utf-8")
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "legacy_source_module_manifest_v1",
+                "modules": [
+                    {
+                        "source_ref": source_ref,
+                        "path": target_ref,
+                        "source_import_class": "copied_non_secret_macro_body",
+                        "body_in_receipt": False,
+                        "sha256": "stale",
+                        "source_sha256": "sha256:stale",
+                        "target_sha256": "sha256:stale",
+                        "line_count": 1,
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_exact_copy_source_modules(
+        manifest_path.parent,
+        source_root=source_root,
+        write=True,
+        command="pytest",
+    )
+
+    assert result["status"] == "pass"
+    assert result["target_copy_count"] == 1
+    assert result["manifest_row_update_count"] == 1
+    assert target.read_bytes() == source.read_bytes()
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    assert row["body_copied"] is True
+    source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    assert row["source_sha256"] == f"sha256:{source_digest}"
+    assert row["target_sha256"] == f"sha256:{source_digest}"
+    assert row["sha256"] == source_digest
+    assert row["sha256_match"] is True
+
+
 def test_public_safe_macro_proof_body_is_importable_with_verification(
     tmp_path: Path,
 ) -> None:
