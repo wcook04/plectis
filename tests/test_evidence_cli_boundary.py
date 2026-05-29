@@ -61,8 +61,31 @@ def test_cli_evidence_list_preserves_initialized_project_success(
     payload = _payload(capsys)
 
     assert payload["status"] == "pass"
+    assert payload["project_ref"] == project.as_posix()
     assert payload["evidence_count"] == 1
     assert payload["evidence"][0]["evidence_ref"] == ".microcosm/evidence/routes.json"
+
+
+def test_cli_observe_preserves_initialized_project_ref(
+    capsys, tmp_path: Path
+) -> None:
+    project = tmp_path / "ready-project"
+    project.mkdir()
+    (project / "README.md").write_text(
+        "# Ready Project\n\nProject-ref smoke.\n",
+        encoding="utf-8",
+    )
+
+    assert cli.main(["tour", "--card", project.as_posix()]) == 0
+    _payload(capsys)
+
+    assert cli.main(["observe", project.as_posix()]) == 0
+    payload = _payload(capsys)
+
+    assert payload["status"] == "pass"
+    assert payload["project_ref"] == project.as_posix()
+    assert payload["state_ref"] == ".microcosm"
+    assert payload["safe_to_show"]["source_files_mutated"] is False
 
 
 def test_cli_evidence_list_limit_bounds_initialized_project(

@@ -206,6 +206,14 @@ def _base_payload(schema_version: str, project: Path) -> dict[str, Any]:
     }
 
 
+def _project_arg_ref(project_path: str | Path, project: Path) -> str:
+    if isinstance(project_path, Path):
+        raw = project_path.as_posix()
+    else:
+        raw = str(project_path)
+    return raw or project.name
+
+
 def _event(project: Path, span: str, status: str, **fields: Any) -> dict[str, Any]:
     rows = _read_jsonl(_state_dir(project) / EVENT_STREAM)
     event = {
@@ -2408,6 +2416,7 @@ def observe_project(
     return {
         **_base_payload("microcosm_project_observe_result_v1", project),
         **observed,
+        "project_ref": _project_arg_ref(project_path, project),
         "selected_route_id": causal_chain.get("selected_route_id"),
         "state_write_proof": state_write_proof,
         "causal_chain": causal_chain,
@@ -2519,6 +2528,7 @@ def list_evidence(
     returned_rows = rows if limit is None else rows[: max(limit, 0)]
     return {
         **_base_payload("microcosm_project_evidence_list_v1", project),
+        "project_ref": _project_arg_ref(project_path, project),
         "evidence_count": len(rows),
         "returned_evidence_count": len(returned_rows),
         "limit": limit,
