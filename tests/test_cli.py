@@ -574,13 +574,14 @@ def test_cli_status_card_can_overlay_project_route_state(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
+    project_ref = str(project)
 
     assert len(json.dumps(payload, sort_keys=True)) < 11000
-    assert payload["card_command"] == "microcosm status --card <project>"
+    assert payload["card_command"] == f"microcosm status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert "next_commands" not in payload
     assert payload["front_door"]["front_door_status_ref"] == (
-        "microcosm status --card <project>::front_door_status"
+        f"microcosm status --card {project_ref}::front_door_status"
     )
     front_door_status = payload["front_door_status"]
     assert front_door_status["status"] == "pass"
@@ -610,7 +611,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     )
     assert (
         front_door_status["drilldown_blocked_surface_ids_ref"]
-        == "microcosm tour <project>::front_door_status."
+        == f"microcosm tour {project_ref}::front_door_status."
         "drilldown_blocked_surface_ids"
     )
     assert payload["front_door"]["project_state_status"] == "pass"
@@ -625,10 +626,10 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert route_selection_proof["route_id_available_in_state"] is True
     assert route_selection_proof["route_explanation_status"] == "pass"
     assert route_selection_proof["observatory_route_proof_ref"] == (
-        "microcosm serve <project>::first_screen_route_proof"
+        f"microcosm serve {project_ref}::first_screen_route_proof"
     )
     assert payload["front_door"]["route_explanation_command"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        f"microcosm explain {project_ref} readme_onboarding_route"
     )
     route_explanation = payload["front_door"]["route_explanation"]
     assert route_explanation["status"] == "pass"
@@ -639,7 +640,7 @@ def test_cli_status_card_can_overlay_project_route_state(
     assert route_explanation["evidence_ref_count"] >= 1
     assert route_explanation["reader_drilldown_count"] == 4
     assert route_explanation["drilldown_ref"] == (
-        "microcosm explain <project> readme_onboarding_route"
+        f"microcosm explain {project_ref} readme_onboarding_route"
     )
     assert "reader_drilldowns" not in route_explanation
     assert "readme_onboarding_route" in payload["front_door"][
@@ -647,10 +648,10 @@ def test_cli_status_card_can_overlay_project_route_state(
     ]
     assert payload["front_door"]["project_state"]["state_dir_exists"] is True
     assert payload["front_door"]["project_state"]["state_write_result_ref"] == (
-        "microcosm tour --card <project>::state_write_result"
+        f"microcosm tour --card {project_ref}::state_write_result"
     )
     assert payload["front_door"]["project_state"]["state_write_status_ref"] == (
-        "microcosm tour --card <project>::front_door_status."
+        f"microcosm tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert (
@@ -660,15 +661,15 @@ def test_cli_status_card_can_overlay_project_route_state(
     state_write_proof = payload["front_door"]["state_write_proof"]
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        "microcosm tour --card <project>::state_write_result"
+        f"microcosm tour --card {project_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        "microcosm tour --card <project>::front_door_status."
+        f"microcosm tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert state_write_proof["project_state_ref"] == "front_door.project_state"
     assert state_write_proof["observe_ref"] == (
-        "microcosm observe <project>::state_write_proof"
+        f"microcosm observe {project_ref}::state_write_proof"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
     assert state_write_proof["status_card_writes_microcosm_state"] is False
@@ -686,10 +687,11 @@ def test_cli_status_card_can_overlay_project_route_state(
     observatory = payload["front_door"]["observatory"]
     assert observatory["status"] == "pass"
     assert observatory["command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 6"
+        f"microcosm serve {project_ref} --host 127.0.0.1 "
+        "--port 8765 --max-requests 6"
     )
     assert observatory["interactive_command"] == (
-        "microcosm serve <project> --host 127.0.0.1 --port 8765"
+        f"microcosm serve {project_ref} --host 127.0.0.1 --port 8765"
     )
     assert observatory["endpoint"] == "/project/observatory"
     assert observatory["compact_endpoint"] == "/project/observatory-card"
@@ -698,7 +700,13 @@ def test_cli_status_card_can_overlay_project_route_state(
         "/project/explain/readme_onboarding_route"
     )
     assert observatory["first_screen_route_proof_ref"] == (
-        "microcosm serve <project>::first_screen_route_proof"
+        f"microcosm serve {project_ref}::first_screen_route_proof"
+    )
+    assert observatory["project_observe_command"] == (
+        f"microcosm observe {project_ref}"
+    )
+    assert observatory["status_card_ref"] == (
+        f"microcosm status --card {project_ref}"
     )
     assert observatory["source_files_mutated"] is False
     assert observatory["provider_calls_authorized"] is False
@@ -732,14 +740,15 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
 
     assert cli.main(["status", "--card", str(project)]) == 0
     payload = json.loads(capsys.readouterr().out)
+    project_ref = str(project)
 
     assert payload["status"] == "blocked"
-    assert payload["card_command"] == "microcosm status --card <project>"
+    assert payload["card_command"] == f"microcosm status --card {project_ref}"
     assert payload["source_files_mutated"] is False
     assert payload["next_commands"] == [
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm compile <project>",
+        f"microcosm tour --card {project_ref}",
+        f"microcosm status --card {project_ref}",
+        f"microcosm compile {project_ref}",
     ]
     front_door = payload["front_door"]
     project_state = front_door["project_state"]
@@ -748,14 +757,16 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     assert project_state["state_dir_exists"] is False
     assert project_state["existing_state_ref_count"] == 0
     assert project_state["route_count"] == 0
-    assert project_state["recovery_command"] == "microcosm tour --card <project>"
+    assert project_state["recovery_command"] == (
+        f"microcosm tour --card {project_ref}"
+    )
     assert project_state["status_after_recovery_command"] == (
-        "microcosm status --card <project>"
+        f"microcosm status --card {project_ref}"
     )
     assert recovery["status"] == "actionable"
     assert recovery["blocked_surface_id"] == "project_state"
-    assert recovery["primary_command"] == "microcosm tour --card <project>"
-    assert recovery["alternate_command"] == "microcosm compile <project>"
+    assert recovery["primary_command"] == f"microcosm tour --card {project_ref}"
+    assert recovery["alternate_command"] == f"microcosm compile {project_ref}"
     assert recovery["provider_calls_authorized"] is False
     assert recovery["source_files_mutated"] is False
     assert front_door["project_recovery"] == recovery
@@ -767,10 +778,10 @@ def test_cli_status_card_before_tour_exposes_project_recovery(
     assert "project_state" in front_door_status["blocking_surface_ids"]
     assert front_door_status["blocking_surface_details"]["project_state"][
         "primary_recovery_command"
-    ] == "microcosm tour --card <project>"
+    ] == f"microcosm tour --card {project_ref}"
     assert front_door_status["blocking_surface_details"]["project_state"][
         "status_after_recovery_command"
-    ] == "microcosm status --card <project>"
+    ] == f"microcosm status --card {project_ref}"
 
 
 def test_cli_tour_card_relative_external_project_writes_caller_project_state(

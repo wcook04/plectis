@@ -4269,6 +4269,24 @@ def _status_card_front_door_status(card: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _project_command_ref(project_path: str | Path) -> str:
+    text = str(project_path).strip()
+    return text or "<project>"
+
+
+def _replace_project_placeholder(value: Any, project_ref: str) -> Any:
+    if isinstance(value, str):
+        return value.replace("<project>", project_ref)
+    if isinstance(value, list):
+        return [_replace_project_placeholder(item, project_ref) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: _replace_project_placeholder(item, project_ref)
+            for key, item in value.items()
+        }
+    return value
+
+
 def _runtime_status_card(
     status: dict[str, Any],
     project_path: str | Path | None = None,
@@ -4655,17 +4673,23 @@ def _runtime_status_card(
         card["front_door"]["source_open_body_import_floor"].update(defect_summary)
         card["macro_body_import_floor"].update(defect_summary)
     if project_path is not None:
+        project_ref = _project_command_ref(project_path)
         project_overlay = _project_status_overlay(project_path)
         selected_route_id = project_overlay.get("selected_route_id")
-        project_state_summary = _compact_project_status_overlay(project_overlay)
-        card["card_command"] = "microcosm status --card <project>"
+        project_state_summary = _replace_project_placeholder(
+            _compact_project_status_overlay(project_overlay),
+            project_ref,
+        )
+        card["card_command"] = f"microcosm status --card {project_ref}"
+        card["project_ref"] = project_ref
+        card["front_door"]["primary_command"] = f"microcosm tour --card {project_ref}"
         card["front_door"]["project_state"] = project_state_summary
         card["macro_body_import_floor"] = _compact_project_card_body_import_floor(
             body_floor,
             source_body_imports if isinstance(source_body_imports, dict) else {},
             body_floor_defect_preview,
         )
-        card["front_door"]["project_ref"] = project_overlay.get("project_ref")
+        card["front_door"]["project_ref"] = project_ref
         card["front_door"]["project_state_status"] = project_overlay.get("status")
         card["front_door"]["state_dir_exists"] = project_overlay.get(
             "state_dir_exists"
@@ -4688,21 +4712,32 @@ def _runtime_status_card(
         if selected_route_id:
             card["front_door"]["selected_route_id"] = selected_route_id
             card["front_door"]["route_explanation_command"] = (
-                project_overlay.get("route_explanation_command")
+                _replace_project_placeholder(
+                    project_overlay.get("route_explanation_command"),
+                    project_ref,
+                )
             )
-            card["front_door"]["route_explanation"] = project_overlay.get(
-                "route_explanation"
+            card["front_door"]["route_explanation"] = _replace_project_placeholder(
+                project_overlay.get("route_explanation"),
+                project_ref,
             )
-            card["front_door"]["route_selection_proof"] = project_overlay.get(
-                "route_selection_proof"
+            card["front_door"]["route_selection_proof"] = _replace_project_placeholder(
+                project_overlay.get("route_selection_proof"),
+                project_ref,
             )
         state_write_proof = project_overlay.get("state_write_proof")
         if isinstance(state_write_proof, dict):
-            card["front_door"]["state_write_proof"] = (
-                _compact_project_state_write_proof(state_write_proof)
+            card["front_door"]["state_write_proof"] = _replace_project_placeholder(
+                _compact_project_state_write_proof(state_write_proof),
+                project_ref,
             )
-        card["front_door"]["route_selection_rule"] = project_overlay.get(
-            "route_selection_rule"
+        card["front_door"]["route_selection_rule"] = _replace_project_placeholder(
+            project_overlay.get("route_selection_rule"),
+            project_ref,
+        )
+        card["front_door"]["observatory_command"] = _replace_project_placeholder(
+            card["front_door"].get("observatory_command"),
+            project_ref,
         )
         card["source_files_mutated"] = project_overlay.get(
             "source_files_mutated", False
@@ -4745,11 +4780,16 @@ def _runtime_status_card(
         if isinstance(card["front_door"].get("route_selection_proof"), dict)
         else {}
     )
-    bounded_command = (
+    project_ref = str(card.get("project_ref") or "<project>")
+    bounded_command = _replace_project_placeholder(
         card["front_door"].get("observatory_command")
-        or OBSERVATORY_BOUNDED_VALIDATION_COMMAND
+        or OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
+        project_ref,
     )
-    interactive_command = OBSERVATORY_SERVE_COMMAND
+    interactive_command = _replace_project_placeholder(
+        OBSERVATORY_SERVE_COMMAND,
+        project_ref,
+    )
     command = bounded_command
     raw_selected_route_id = card["front_door"].get("selected_route_id")
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
@@ -4776,13 +4816,13 @@ def _runtime_status_card(
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
-        "project_observe_command": "microcosm observe <project>",
+        "project_observe_command": f"microcosm observe {project_ref}",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
             "observatory_route_proof_ref"
         ),
-        "status_card_ref": "microcosm status --card <project>",
+        "status_card_ref": card["card_command"],
         "related_endpoint_count": 9,
         "model_field_count": 13,
         "source_files_mutated": False,
@@ -4809,6 +4849,11 @@ def _runtime_status_card(
     if boundary_status != PASS:
         card["status"] = "blocked"
     card["front_door_status"] = _status_card_front_door_status(card)
+    if card.get("project_ref"):
+        card["front_door_status"] = _replace_project_placeholder(
+            card["front_door_status"],
+            str(card["project_ref"]),
+        )
     card["front_door"]["front_door_status_ref"] = (
         f"{card['card_command']}::front_door_status"
     )

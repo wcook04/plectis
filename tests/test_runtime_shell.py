@@ -851,11 +851,17 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
 
     project_substrate.compile_project(project)
     card = RuntimeShell(MICROCOSM_ROOT).status_card(project)
+    project_ref = str(project)
     project_state = card["front_door"]["project_state"]
     state_write_proof = card["front_door"]["state_write_proof"]
     project_body_floor = card["macro_body_import_floor"]
 
     assert len(json.dumps(card, sort_keys=True)) < 13000
+    assert card["card_command"] == f"microcosm status --card {project_ref}"
+    assert card["project_ref"] == project_ref
+    assert card["front_door"]["primary_command"] == (
+        f"microcosm tour --card {project_ref}"
+    )
     assert project_state["schema_version"] == (
         "microcosm_project_status_overlay_summary_v1"
     )
@@ -883,15 +889,15 @@ def test_runtime_shell_project_status_card_keeps_project_overlay_compact(
     )
     assert state_write_proof["status"] == "pass"
     assert state_write_proof["state_write_result_ref"] == (
-        "microcosm tour --card <project>::state_write_result"
+        f"microcosm tour --card {project_ref}::state_write_result"
     )
     assert state_write_proof["state_write_status_ref"] == (
-        "microcosm tour --card <project>::front_door_status."
+        f"microcosm tour --card {project_ref}::front_door_status."
         "surface_statuses.state_write"
     )
     assert state_write_proof["project_state_ref"] == "front_door.project_state"
     assert state_write_proof["observe_ref"] == (
-        "microcosm observe <project>::state_write_proof"
+        f"microcosm observe {project_ref}::state_write_proof"
     )
     assert state_write_proof["observe_writes_microcosm_state"] is False
     assert state_write_proof["status_card_writes_microcosm_state"] is False
@@ -926,6 +932,7 @@ def test_runtime_shell_project_status_card_before_tour_recovery_is_unambiguous(
     )
 
     card = RuntimeShell(MICROCOSM_ROOT).status_card(project)
+    project_ref = str(project)
     front_door_status = card["front_door_status"]
     details = front_door_status["blocking_surface_details"]
 
@@ -937,21 +944,21 @@ def test_runtime_shell_project_status_card_before_tour_recovery_is_unambiguous(
     ]
     assert card["front_door"]["project_state_status"] == "missing_state"
     assert card["next_commands"] == [
-        "microcosm tour --card <project>",
-        "microcosm status --card <project>",
-        "microcosm compile <project>",
+        f"microcosm tour --card {project_ref}",
+        f"microcosm status --card {project_ref}",
+        f"microcosm compile {project_ref}",
     ]
 
     project_detail = details["project_state"]
     state_write_detail = details["state_write_proof"]
     assert project_detail["primary_recovery_command"] == (
-        "microcosm tour --card <project>"
+        f"microcosm tour --card {project_ref}"
     )
     assert state_write_detail["primary_recovery_command"] == (
-        "microcosm tour --card <project>"
+        f"microcosm tour --card {project_ref}"
     )
     assert state_write_detail["status_after_recovery_command"] == (
-        "microcosm status --card <project>"
+        f"microcosm status --card {project_ref}"
     )
     assert state_write_detail["recovery_ref"] == "front_door.project_state.recovery"
     assert state_write_detail["recovery"] == project_detail["recovery"]

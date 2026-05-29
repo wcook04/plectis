@@ -224,6 +224,28 @@ def _runtime_project_arg(project: str | None) -> str | None:
     return str(path.resolve(strict=False))
 
 
+def _replace_project_placeholder(value, project_ref: str):
+    if isinstance(value, str):
+        return value.replace("<project>", project_ref)
+    if isinstance(value, list):
+        return [_replace_project_placeholder(item, project_ref) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: _replace_project_placeholder(item, project_ref)
+            for key, item in value.items()
+        }
+    return value
+
+
+def _status_card_project_ref(payload: dict) -> str:
+    front_door = payload.get("front_door")
+    front_door_project_ref = (
+        front_door.get("project_ref") if isinstance(front_door, dict) else None
+    )
+    project_ref = payload.get("project_ref") or front_door_project_ref
+    return str(project_ref or "<project>")
+
+
 MICROCOSM_ROOT = resource_root.microcosm_root()
 DEFAULT_PROJECT_REL = "examples/runtime_shell/demo_project"
 PROOF_LAB_BUNDLE_REF = "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
@@ -435,7 +457,11 @@ def _status_card_exit_code(payload: dict) -> int:
         return 1
     if project_recovery.get("status") != "actionable":
         return 1
-    if project_recovery.get("primary_command") != "microcosm tour --card <project>":
+    primary_command = project_recovery.get("primary_command")
+    if not (
+        isinstance(primary_command, str)
+        and primary_command.startswith("microcosm tour --card ")
+    ):
         return 1
     return 0
 
@@ -1005,13 +1031,16 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
     route_selection_proof = front_door.get("route_selection_proof")
     if not isinstance(route_selection_proof, dict):
         route_selection_proof = {}
-    bounded_command = (
+    project_ref = _status_card_project_ref(payload)
+    bounded_command = _replace_project_placeholder(
         front_door.get("observatory_bounded_validation_command")
-        or front_door.get("observatory_command")
+        or front_door.get("observatory_command"),
+        project_ref,
     )
-    interactive_command = (
+    interactive_command = _replace_project_placeholder(
         front_door.get("observatory_interactive_command")
-        or OBSERVATORY_SERVE_COMMAND
+        or OBSERVATORY_SERVE_COMMAND,
+        project_ref,
     )
     raw_selected_route_id = front_door.get("selected_route_id")
     selected_route_id = raw_selected_route_id or "<selected_route_id>"
@@ -1036,13 +1065,14 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
         "endpoint": "/project/observatory",
         "compact_endpoint": "/project/observatory-card",
         "status_card_endpoint": "/project/status",
-        "project_observe_command": "microcosm observe <project>",
+        "project_observe_command": f"microcosm observe {project_ref}",
         "project_observe_endpoint": "/project/observe",
         "route_explanation_endpoint": f"/project/explain/{selected_route_id}",
         "first_screen_route_proof_ref": route_selection_proof.get(
             "observatory_route_proof_ref"
         ),
-        "status_card_ref": "microcosm status --card <project>",
+        "status_card_ref": payload.get("card_command")
+        or f"microcosm status --card {project_ref}",
         "related_endpoint_count": 9,
         "model_field_count": 13,
         "source_files_mutated": False,
@@ -1196,6 +1226,7 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
             observatory,
             [
                 "status",
+                "schema_version",
                 "command",
                 "bounded_validation_command",
                 "interactive_command",
@@ -1208,9 +1239,12 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
                 "project_observe_endpoint",
                 "route_explanation_endpoint",
                 "first_screen_route_proof_ref",
+                "status_card_ref",
                 "model_field_count",
                 "source_files_mutated",
                 "provider_calls_authorized",
+                "release_authorized",
+                "proof_correctness_claim",
             ],
         )
 
@@ -1933,7 +1967,7 @@ def main(argv: list[str] | None = None) -> int:
                 if project_public_root is not None
                 else runtime_shell.RuntimeShell()
             )
-            payload = shell.status_card(runtime_project)
+            payload = shell.status_card(args.project or runtime_project)
             if args.project:
                 payload = _attach_status_card_front_door_refs(payload)
                 payload = _compact_project_status_card_for_cli(payload)
