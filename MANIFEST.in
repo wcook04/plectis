@@ -1,11 +1,13 @@
 include .gitignore
 include AGENTS.md
 include ANTI_PRINCIPLES.md
+include ARCHITECTURE.md
 include AXIOMS.md
 include CONSTITUTION.md
 include CONTRIBUTING.md
 include LICENSE
 include Makefile
+include ORGANS.md
 include PRINCIPLES.md
 include QUICKSTART.md
 include README.md

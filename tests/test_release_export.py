@@ -40,12 +40,14 @@ def _make_release_root(root: Path) -> Path:
         ".gitignore",
         "AGENTS.md",
         "ANTI_PRINCIPLES.md",
+        "ARCHITECTURE.md",
         "AXIOMS.md",
         "CONSTITUTION.md",
         "CONTRIBUTING.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",
+        "ORGANS.md",
         "PRINCIPLES.md",
         "QUICKSTART.md",
         "README.md",
@@ -211,6 +213,8 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert receipt["blocking_codes"] == []
     assert receipt["artifact"]["mode"] == "generated_standalone_folder"
     assert receipt["artifact"]["file_count"] > 0
+    assert (target / "ARCHITECTURE.md").is_file()
+    assert (target / "ORGANS.md").is_file()
     assert (target / "Makefile").is_file()
     assert (target / ".github/workflows/ci.yml").is_file()
     assert (target / "CONTRIBUTING.md").is_file()
@@ -339,6 +343,8 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
         {
             "README.md",
             "AGENTS.md",
+            "ARCHITECTURE.md",
+            "ORGANS.md",
             "MANIFEST.in",
             "pyproject.toml",
             "src",
