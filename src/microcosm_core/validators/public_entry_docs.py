@@ -178,6 +178,53 @@ FORBIDDEN_PHRASES_BY_DOC = {
         "public-safe route",
     ],
 }
+# Positive-overclaim prose scan. The lean refactor enforces PRESENCE of
+# anti-claims but had no check for the ABSENCE of a contradicting positive
+# overclaim, so an affirming sentence could coexist with its own disclaimer and
+# pass. These are AFFIRMATIVE constructions with no honest use in the public
+# entry docs; the anti-claim NOUNS the docs legitimately disclaim ("release
+# readiness", "maturity scores", "whole-system correctness", "private-root
+# equivalence") are deliberately NOT matched, and each pattern is verified not
+# to fire on the live negated/nominal prose. Mirrors the discipline of
+# projections/organ_atlas.OVERCLAIM_PHRASES but tuned for free prose, and is
+# applied to the generated atlas docs too (they are the cold-reader surfaces
+# README routes to but are otherwise outside this validator's REQUIRED_DOCS).
+PUBLIC_ENTRY_OVERCLAIM_PATTERNS = (
+    # release / hosting / publication authority
+    r"\bis (now |fully )?production-ready\b",
+    r"\bis (now |fully )?release-ready\b",
+    r"\bship it\b",
+    r"\b(authorized|cleared|approved) for (hosted )?release\b",
+    r"\bpublish(es|ed)? to pypi\b",
+    r"\bdeploy(s|ed|ing)? (it )?to (the )?(hosted|production)\b",
+    r"\bdeploy the hosted (service|server|app)\b",
+    # provider execution / live access
+    r"\bcalls (your|the) (configured )?(model|provider)\b",
+    r"\bmakes (live )?provider calls\b",
+    r"\bemails (the|you|your|a) \w+",
+    r"\bsends to recipients\b",
+    r"\bcontrols your browser\b",
+    r"\breads your account session\b",
+    # private-root / secret equivalence
+    r"\bis (functionally |effectively )?the private (macro )?root\b",
+    r"\bequals the (private|macro) root\b",
+    r"\bis private-root equivalent\b",
+    r"\bis reproduced here\b",
+    # whole-system proof
+    r"\bproven correct\b",
+    r"\bfully verified\b",
+    r"\bguarantees? correctness\b",
+    r"\bproves the (whole |entire )?(theorem|system)\b",
+    # evidence-class-as-score
+    r"\bquality score\b",
+    r"\bmaturity level\b",
+)
+PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS = (
+    "README.md",
+    "AGENTS.md",
+    "ORGANS.md",
+    "ARCHITECTURE.md",
+)
 CLI_FIRST_SCREEN_HELP_REL = Path("src/microcosm_core/cli.py")
 CLI_FIRST_SCREEN_HELP_COMMAND_ORDER = [
     "microcosm tour --card <project>",
@@ -262,6 +309,35 @@ def _has_registry_route(text: str) -> bool:
         "evidence_class",
     )
     return all(phrase in normalized for phrase in required)
+
+
+def _public_entry_overclaim_hits(
+    doc_text_by_rel: dict[str, str],
+    public_root: Path,
+) -> dict[str, list[str]]:
+    """Scan the cold-reader entry surfaces for affirmative authority overclaims.
+
+    Returns {doc_rel: [matched patterns]}. Empty when clean. Includes the
+    generated atlas docs (ORGANS.md/ARCHITECTURE.md) so an overclaim cannot hide
+    on the surfaces README routes readers to but that are not in REQUIRED_DOCS.
+    """
+    hits: dict[str, list[str]] = {}
+    for rel in PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS:
+        text = doc_text_by_rel.get(rel)
+        if text is None:
+            path = public_root / rel
+            text = path.read_text(encoding="utf-8") if path.is_file() else ""
+        if not text:
+            continue
+        normalized = _normalized_text(text).lower()
+        matched = sorted(
+            pattern
+            for pattern in PUBLIC_ENTRY_OVERCLAIM_PATTERNS
+            if re.search(pattern, normalized)
+        )
+        if matched:
+            hits[rel] = matched
+    return hits
 
 
 def _ordered_code_list_after_heading(text: str, heading: str) -> list[str]:
@@ -827,12 +903,37 @@ def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[s
                 or "public entry inventory" in normalized
             )
         )
-        full_inline = claimed_count == len(expected_organs) and not missing
-        if full_inline:
+        expected_count = len(expected_organs)
+        # A registry_route doc DEFERS enumeration to the registry / ORGANS.md; it
+        # may not partially inline organs nor assert inline coverage it does not
+        # deliver. Detect a self-contained inline coverage assertion ("all N
+        # organs ... enumerated below") so a vacuous "all 47 covered below" while
+        # listing only a handful cannot ride through as a route.
+        section_normalized = _normalized_text(section).lower()
+        inline_coverage_claim = bool(
+            re.search(
+                r"\b(all|every|each)\b[^.]{0,120}\borgans?\b[^.]{0,120}"
+                r"(below|here|enumerat|listed|inline)",
+                section_normalized,
+            )
+        )
+        full_inline = claimed_count == expected_count and not missing
+        # A doc may NOT assert inline coverage it does not deliver, in any mode.
+        # This kills the vacuous "all 47 organs enumerated below" + list-a-handful
+        # bypass while leaving an honest pure route (which makes no such claim)
+        # free to defer per-organ enumeration to the registry / ORGANS.md.
+        false_coverage_claim = inline_coverage_claim and not full_inline
+        if false_coverage_claim:
+            claim_mode = "registry_route" if registry_route_present else "inline_inventory"
+            row_missing = missing
+            status = "blocked"
+        elif full_inline:
             claim_mode = "inline_inventory"
             row_missing = missing
             status = PASS if not duplicates else "blocked"
         elif registry_route_present:
+            # Pure route: enumeration deferred to the registry / ORGANS.md, whose
+            # coverage is proven by the evidence-class registry + atlas gates.
             claim_mode = "registry_route"
             row_missing = []
             status = PASS
@@ -977,6 +1078,9 @@ def validate_public_entry_docs(
             display_root=public_root,
         )
     )
+    public_entry_overclaim_by_doc = _public_entry_overclaim_hits(
+        doc_text_by_rel, public_root
+    )
     blocking_codes: list[str] = []
     if missing_docs:
         blocking_codes.append("MISSING_PUBLIC_ENTRY_DOC")
@@ -998,6 +1102,8 @@ def validate_public_entry_docs(
         blocking_codes.append("CLI_FIRST_SCREEN_HELP_CONTRACT_MISMATCH")
     if scan["blocking_hit_count"]:
         blocking_codes.append("SECRET_EXCLUSION_SCAN_BLOCKED")
+    if public_entry_overclaim_by_doc:
+        blocking_codes.append("PUBLIC_ENTRY_OVERCLAIM")
 
     blocking_codes = sorted(set(blocking_codes))
     status = PASS if not blocking_codes else "blocked"
@@ -1011,6 +1117,7 @@ def validate_public_entry_docs(
         "missing_docs": missing_docs,
         "missing_required_phrases_by_doc": missing_required_phrases_by_doc,
         "forbidden_phrases_by_doc": forbidden_phrases_by_doc,
+        "public_entry_overclaim_by_doc": public_entry_overclaim_by_doc,
         "stale_first_slice_only_phrases": sorted(set(stale_first_slice_only_phrases)),
         "accepted_current_authority_organs": accepted,
         "duplicate_accepted_organs": _duplicates(accepted),

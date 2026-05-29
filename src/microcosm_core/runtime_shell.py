@@ -252,6 +252,22 @@ PUBLIC_SAFE_MACRO_BODY_CLASSES = frozenset(
         "public_macro_receipt_body",
         "public_macro_proof_body",
         "public_standard_body",
+        "public_macro_frontend_body",
+        "public_macro_packet_compiler_body",
+        "public_macro_packet_compiler_test_body",
+    }
+)
+# Source-open code-module body classes that the source-body import lens groups
+# into per-manifest families. Tool, frontend, and packet-compiler module bodies
+# are real copied source files; receipt/proof/pattern/standard bodies are
+# accounted in the floor counts but are not code-module families, so they stay
+# out of the family lens.
+SOURCE_MODULE_LENS_BODY_CLASSES = frozenset(
+    {
+        "public_macro_tool_body",
+        "public_macro_frontend_body",
+        "public_macro_packet_compiler_body",
+        "public_macro_packet_compiler_test_body",
     }
 )
 STATUS_CARD_LATEST_FAMILY_PREVIEW_LIMIT = 3
@@ -2853,6 +2869,8 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
             ref_name = Path(ref).name
             if ref_name.endswith("_source_module_manifest.json"):
                 return display_ref(ref)
+            if ref_name.endswith("_source_bundle_manifest.json"):
+                return display_ref(ref)
             if ref_name == "source_module_manifest.json":
                 return display_ref(ref)
         return ""
@@ -2864,6 +2882,8 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
             return path.parent.name
         if name.endswith("_source_module_manifest.json"):
             return name[: -len("_source_module_manifest.json")]
+        if name.endswith("_source_bundle_manifest.json"):
+            return name[: -len("_source_bundle_manifest.json")]
         if name.endswith(".json"):
             return path.stem
         return ref
@@ -2871,7 +2891,7 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
     for row in imports:
         if row.get("status") != PASS:
             continue
-        if row.get("material_class") != "public_macro_tool_body":
+        if row.get("material_class") not in SOURCE_MODULE_LENS_BODY_CLASSES:
             continue
         if row.get("verification_mode") not in {
             "exact_source_digest_match",
@@ -2893,6 +2913,7 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
             display_ref(ref)
             for ref in _strings(row.get("source_refs"))
             if not Path(ref).name.endswith("_source_module_manifest.json")
+            and not Path(ref).name.endswith("_source_bundle_manifest.json")
             and Path(ref).name != "source_module_manifest.json"
         ]
         if not source_refs:
@@ -3116,10 +3137,89 @@ def _source_module_manifest_body_rows(
     return rows
 
 
+def _child_projection_protocol_body_rows(
+    root: Path,
+    bundle_dir: Path,
+    *,
+    parent_protocol_ref: str,
+) -> list[dict[str, Any]]:
+    """Discover child projection protocols in the same bundle and return their
+    copied_material rows so every child protocol's source bodies flow through the
+    same generic body-import floor as the parent protocol.
+
+    A child protocol declares ``parent_protocol_ref`` back to the parent protocol
+    and a ``source_module_manifest_ref``. The parent floor only reads a single
+    protocol file, so without this, a digest-valid child capsule (e.g. the
+    frontend cockpit source bundle) is invisible to the generic import-map and
+    runtime route. We inject each child protocol's ``source_module_manifest_ref``
+    into every row's ``source_refs`` so the source-body import lens groups the
+    rows into a family keyed by that manifest, exactly as parent-protocol rows
+    are grouped. Body text is never read or copied here — only refs and digests.
+
+    Admission is fail-closed so the generalized membrane never degrades into
+    "any sibling JSON with matching digests counts as source-open authority". A
+    child is ingested only when it (1) carries the projection-import protocol
+    schema, (2) binds to the *exact* expected parent ref (not merely a matching
+    basename), (3) is not flagged body-in-receipt, and (4) resolves a real
+    source-module manifest whose classification and body policy are fail-closed.
+    Each admitted row must additionally carry a source-open code-module class
+    from the explicit allowlist; everything else is rejected.
+    """
+    if not bundle_dir.is_dir():
+        return []
+    parent_name = Path(parent_protocol_ref).name
+    rows: list[dict[str, Any]] = []
+    for protocol_path in sorted(bundle_dir.glob("*_projection_protocol.json")):
+        if protocol_path.name == parent_name:
+            continue
+        protocol = _read_json_if_exists(protocol_path)
+        if protocol.get("schema_version") != "macro_projection_import_protocol_v1":
+            continue
+        # Exact parent binding, not basename: a sibling that points at some other
+        # projection_protocol.json (even with the same filename) is rejected.
+        if str(protocol.get("parent_protocol_ref") or "") != parent_protocol_ref:
+            continue
+        if protocol.get("body_in_receipt") is True:
+            continue
+        manifest_ref = str(protocol.get("source_module_manifest_ref") or "")
+        if not manifest_ref:
+            continue
+        manifest_path = root / manifest_ref
+        if not manifest_path.is_file():
+            continue
+        manifest = _read_json_if_exists(manifest_path)
+        if "source_module_manifest" not in str(manifest.get("schema_version") or ""):
+            continue
+        if manifest.get("classification") != "copied_non_secret_macro_body":
+            continue
+        if manifest.get("body_in_receipt") is True:
+            continue
+        for row in _rows(protocol, "copied_material"):
+            if str(row.get("material_class") or "") not in PUBLIC_SAFE_MACRO_BODY_CLASSES:
+                continue
+            if row.get("body_in_receipt") is True:
+                continue
+            row = dict(row)
+            source_refs = _strings(row.get("source_refs"))
+            if manifest_ref not in source_refs:
+                source_refs = [*source_refs, manifest_ref]
+            row["source_refs"] = source_refs
+            rows.append(row)
+    return rows
+
+
 def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
     protocol = _read_json_if_exists(protocol_path)
     rows = _rows(protocol, "copied_material")
+    rows = [
+        *rows,
+        *_child_projection_protocol_body_rows(
+            root,
+            protocol_path.parent,
+            parent_protocol_ref=MACRO_PROJECTION_PROTOCOL_REF.as_posix(),
+        ),
+    ]
     existing_target_refs = {
         _strip_microcosm_prefix(str(row.get("target_ref") or ""))
         for row in rows
@@ -4427,7 +4527,6 @@ def _runtime_status_card(
         "schema_version": "microcosm_runtime_status_card_v1",
         "status": status.get("status"),
         "posture": status.get("posture"),
-        "scope": "compact_first_screen_status_lens",
         "card_command": "microcosm status --card",
         "full_status_command": "microcosm status",
         "source_files_mutated": (
@@ -4538,7 +4637,6 @@ def _runtime_status_card(
             "lean_compiled_declaration_count": proof_lab.get(
                 "lean_compiled_declaration_count"
             ),
-            "route_ref": proof_lab.get("route_ref"),
             "receipt_ref": proof_lab.get("receipt_ref"),
         },
         "substrate_counts": {
@@ -4620,7 +4718,6 @@ def _runtime_status_card(
             "top_level_status_rule": workingness.get("top_level_status_rule"),
             "command": workingness.get("command"),
             "endpoint": workingness.get("endpoint"),
-            "workingness_map_ref": workingness.get("workingness_map_ref"),
             "completeness_status": workingness.get("completeness_status"),
             "mapped_organ_count": workingness.get("mapped_organ_count"),
             "adapter_backed_organ_count": workingness.get(
@@ -12435,6 +12532,42 @@ class RuntimeShell:
                     "tests/test_runtime_shell.py::test_runtime_shell_repair_loop_lens_uses_payload_boundary",
                 ],
                 "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
+                "projection_status": PASS,
+            },
+            {
+                "map_row_id": "frontend_cockpit_hud_source_modules_to_import_floor",
+                "source_pattern_id": "frontend_cockpit_hud_source_modules_import",
+                "source_authority": (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/"
+                    "frontend_cockpit_source_projection_protocol.json"
+                ),
+                "public_surface": "microcosm authority && microcosm status",
+                "endpoint": "/authority",
+                "public_ref": (
+                    "examples/macro_projection_import_protocol/"
+                    "exported_projection_import_bundle/"
+                    "frontend_cockpit_source_bundle_manifest.json"
+                ),
+                "copied": [
+                    "6 exact macro Station cockpit source bodies (2,301 lines)",
+                    "source/target sha256 digest parity per module",
+                    "child projection protocol bound to the macro import spine via parent_protocol_ref",
+                ],
+                "cleaned": [
+                    "live operator browser and session state",
+                    "private root paths rewritten to relative source refs",
+                ],
+                "omitted": [
+                    "provider payload bodies",
+                    "raw operator voice",
+                    "private frontend runtime dependency and live browser access",
+                ],
+                "validation_refs": [
+                    "tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports",
+                    "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens",
+                ],
+                "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::frontend_cockpit",
                 "projection_status": PASS,
             },
         ]

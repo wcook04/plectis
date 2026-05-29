@@ -439,6 +439,106 @@ def test_public_entry_docs_accepts_registry_routed_spine_without_full_inline_inv
     assert receipt["missing_required_phrases_by_doc"] == {}
 
 
+def test_public_entry_docs_block_registry_route_with_false_inline_coverage(
+    tmp_path: Path,
+) -> None:
+    # Regression (audit HIGH): a registry_route spine that FALSELY asserts full
+    # inline coverage ("all N organs enumerated below") while listing only a
+    # handful must not ride through as a vacuous route. Before the fix this
+    # returned status=pass with missing_organs=[].
+    public_root = _copy_public_entry_tree(tmp_path)
+    accepted = _accepted_organs_from_registry()
+    # AGENTS.md has a bounded spine section (heading -> Concept entry) matching
+    # the validator's own extraction, so the gutted inventory is unambiguous.
+    agents = public_root / "AGENTS.md"
+    original = agents.read_text(encoding="utf-8")
+    section = original.split("## Accepted Public Runtime Spine", 1)[1].split(
+        "## Concept And Mechanism Entry", 1
+    )[0]
+    three = accepted[:3]
+    false_route = (
+        "\n\nThe full public entry inventory routes through "
+        "`core/organ_registry.json` and `core/organ_evidence_classes.json`. "
+        "`accepted_current_authority` is not an evidence-strength claim; read each "
+        "`evidence_class`. This public entry inventory is inventory-only "
+        "route-alignment metadata, not product progress, release readiness. "
+        f"All {len(accepted)} accepted public runtime organs are enumerated below: "
+        f"`{three[0]}`, `{three[1]}`, `{three[2]}`.\n\n"
+    )
+    agents.write_text(original.replace(section, false_route), encoding="utf-8")
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH" in receipt["blocking_codes"]
+    agents_claim = receipt["entry_spine_claims"]["docs"]["AGENTS.md"]
+    assert agents_claim["status"] == "blocked"
+    assert agents_claim["claimed_count"] < len(accepted)
+    assert agents_claim["missing_organs"]
+
+
+@pytest.mark.parametrize(
+    "overclaim_sentence",
+    [
+        "Microcosm is production-ready and authorized for hosted release; ship it to PyPI.",
+        "When you run it, Microcosm calls your configured model provider and emails the reviewer the scorecard.",
+        "This public tree is functionally the private macro root; every secret is reproduced here.",
+        "With all organs accepted, Microcosm is proven correct end-to-end.",
+        "Read the evidence rank as the quality score and overall maturity level.",
+    ],
+)
+def test_public_entry_docs_block_injected_authority_overclaim(
+    tmp_path: Path,
+    overclaim_sentence: str,
+) -> None:
+    # Regression (audit MEDIUM, 5 classes): an affirmative overclaim sentence
+    # coexisting with the mandated anti-claim must block. Before the fix the
+    # validator only checked anti-claim PRESENCE, never positive-claim ABSENCE.
+    public_root = _copy_public_entry_tree(tmp_path)
+    readme = public_root / "README.md"
+    readme.write_text(
+        readme.read_text(encoding="utf-8") + "\n\n" + overclaim_sentence + "\n",
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_ENTRY_OVERCLAIM" in receipt["blocking_codes"]
+    assert "README.md" in receipt["public_entry_overclaim_by_doc"]
+
+
+def test_public_entry_docs_block_overclaim_in_generated_atlas_doc(
+    tmp_path: Path,
+) -> None:
+    # Regression (audit MEDIUM, scope): ORGANS.md/ARCHITECTURE.md are not in
+    # REQUIRED_DOCS but ARE cold-reader surfaces README routes to; an overclaim
+    # injected there must still block.
+    public_root = _copy_public_entry_tree(tmp_path)
+    (public_root / "ORGANS.md").write_text(
+        "# Organ Atlas\n\nThis substrate is proven correct end-to-end.\n",
+        encoding="utf-8",
+    )
+
+    receipt = validate_public_entry_docs(
+        public_root,
+        public_root / "receipts/first_wave/public_entry_docs_validation.json",
+        command="pytest",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "PUBLIC_ENTRY_OVERCLAIM" in receipt["blocking_codes"]
+    assert "ORGANS.md" in receipt["public_entry_overclaim_by_doc"]
+
+
 def test_public_entry_docs_block_entry_packet_route_contract_drift(
     tmp_path: Path,
 ) -> None:

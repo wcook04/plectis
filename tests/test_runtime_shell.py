@@ -3610,9 +3610,9 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     assert lens["command"] == "microcosm projection-import-map"
     assert lens["endpoint"] == "/projection-import-map"
     assert lens["lens_id"] == "public_projection_import_map_lens"
-    assert lens["map_summary"]["row_count"] == 6
+    assert lens["map_summary"]["row_count"] == 7
     assert lens["map_summary"]["stage_count"] == 6
-    assert lens["map_summary"]["validation_ref_count"] == 12
+    assert lens["map_summary"]["validation_ref_count"] == 14
     assert lens["map_summary"]["private_body_export_count"] == 0
     assert lens["map_summary"]["provider_payload_export_count"] == 0
     assert lens["map_summary"]["automated_import_guarantee"] is False
@@ -3622,6 +3622,7 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
         "repository_agent_benchmark_transaction_lab",
         "agent_reliability_replay_gauntlet",
         "formal_math_verifier_trace_repair_loop_compound",
+        "frontend_cockpit_hud_source_modules_import",
     }
     assert all(row["cleaned"] for row in lens["import_rows"])
     assert all(row["omitted"] for row in lens["import_rows"])
@@ -3644,6 +3645,176 @@ def test_runtime_shell_projection_import_map_lens_is_public_safe(tmp_path: Path)
     encoded = json.dumps(lens, sort_keys=True)
     assert "/Users/" not in encoded
     assert "src/ai_workflow" not in encoded
+
+
+def test_runtime_shell_child_projection_protocols_surface_in_source_body_lens() -> None:
+    """Child projection protocols (frontend cockpit, self-comprehension packet
+    compiler) must be discoverable through the generic source-body import lens,
+    not only through their bespoke per-bundle tests.
+
+    Regression guard for the manifest-discovery shape mismatch: a digest-valid
+    child capsule whose manifest the generalized import-map/runtime route cannot
+    see is an under-spent import. If discovery regresses, the frontend family
+    disappears here.
+    """
+    floor = runtime_shell._macro_projection_body_import_floor(MICROCOSM_ROOT)
+    assert floor["status"] == "pass"
+    assert floor["defect_count"] == 0
+
+    lens = floor["source_body_import_lens"]
+    assert lens["status"] == "pass"
+    families = {
+        row["family_id"]: row for row in lens["verified_source_module_families"]
+    }
+
+    frontend = families.get("frontend_cockpit")
+    assert frontend is not None, (
+        "frontend cockpit capsule is undiscoverable in the generic source-body "
+        "lens; the child projection protocol's source_module_manifest_ref is not "
+        "reachable from the generalized import-map/runtime route"
+    )
+    assert frontend["module_count"] == 6
+    assert frontend["manifest_ref"].endswith(
+        "frontend_cockpit_source_bundle_manifest.json"
+    )
+    assert frontend["verification_mode"] == "exact_source_digest_match"
+    assert frontend["body_text_in_receipt"] is False
+    assert any(
+        ref.endswith("system/server/ui/src/navigation/surfaces.ts")
+        for ref in frontend["source_refs"]
+    )
+    # The manifest is provenance, never displayed as one of the source modules.
+    assert all(
+        not ref.endswith("_source_bundle_manifest.json")
+        and not ref.endswith("_source_module_manifest.json")
+        and Path(ref).name != "source_module_manifest.json"
+        for ref in frontend["source_refs"]
+    )
+
+    # Generality, not a frontend special case: a second child protocol surfaces.
+    assert "compression_profiles" in families
+
+    by_class = floor["public_safe_body_material_counts_by_class"]
+    assert by_class.get("public_macro_frontend_body") == 6
+    assert floor["copied_non_secret_macro_body_material_count"] == sum(
+        by_class.values()
+    )
+
+
+def test_runtime_shell_frontend_cockpit_import_holds_authority_ceiling() -> None:
+    """The imported frontend cockpit capsule must surface as refs + digests only:
+    no source body text in the floor surface, and no authority upgrade beyond the
+    omission boundary (no release/publication/provider/private-equivalence claim).
+    """
+    floor = runtime_shell._macro_projection_body_import_floor(MICROCOSM_ROOT)
+    encoded = json.dumps(floor, sort_keys=True)
+
+    # Real TS/TSX source body fragments must never be embedded in the floor.
+    for body_fragment in (
+        "export default function StationTopBar",
+        "export default function AttentionQueue",
+        "export default function SessionInspectorPanel",
+    ):
+        assert body_fragment not in encoded, body_fragment
+
+    lens = floor["source_body_import_lens"]
+    assert lens["body_text_exported_in_status"] is False
+    assert lens["body_text_exported_in_receipts"] is False
+
+    ceiling = floor["authority_ceiling"]
+    assert ceiling["release_authorized"] is False
+    assert ceiling["publication_authorized"] is False
+    assert ceiling["provider_payload_exported"] is False
+    assert ceiling["private_data_equivalence_claim"] is False
+    assert ceiling["live_macro_source_authority"] is False
+
+    # No private host paths leak through the imported frontend refs.
+    frontend = next(
+        row
+        for row in lens["verified_source_module_families"]
+        if row["family_id"] == "frontend_cockpit"
+    )
+    for ref in frontend["source_refs"]:
+        assert "/Users/" not in ref
+        assert "src/ai_workflow" not in ref
+
+
+def test_child_projection_protocol_admission_is_fail_closed(tmp_path: Path) -> None:
+    """Generalized child-protocol discovery must not degrade into "any sibling
+    JSON counts as source-open authority". A child is admitted only with the
+    projection-import schema, an EXACT parent ref (not just a matching
+    basename), and a resolvable fail-closed source-module manifest; admitted
+    rows must carry an allowlisted source-open code-module class.
+    """
+    root = tmp_path
+    bundle = root / "bundle"
+    bundle.mkdir()
+    parent_ref = "bundle/projection_protocol.json"
+
+    def write(name: str, payload: dict) -> None:
+        (bundle / name).write_text(json.dumps(payload), encoding="utf-8")
+
+    # Valid manifest for the one legitimate child.
+    (bundle / "valid_source_module_manifest.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "public_microcosm_source_module_manifest_v1",
+                "classification": "copied_non_secret_macro_body",
+                "receipt_body_policy": "target_body_text_is_never_embedded_in_receipts",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def child(parent: str, manifest: str | None, material_class: str) -> dict:
+        protocol: dict = {
+            "schema_version": "macro_projection_import_protocol_v1",
+            "parent_protocol_ref": parent,
+            "body_in_receipt": False,
+            "copied_material": [
+                {
+                    "material_id": f"{material_class}_row",
+                    "material_class": material_class,
+                    "body_in_receipt": False,
+                    "source_refs": ["system/lib/example.py"],
+                    "target_ref": "examples/bundle/source_modules/system/lib/example.py",
+                }
+            ],
+        }
+        if manifest is not None:
+            protocol["source_module_manifest_ref"] = manifest
+        return protocol
+
+    # Rejected: same basename but a different (wrong) parent path.
+    write(
+        "bogus_parent_source_projection_protocol.json",
+        child("other/projection_protocol.json", "bundle/valid_source_module_manifest.json", "public_macro_tool_body"),
+    )
+    # Rejected: correct parent but the manifest ref does not resolve.
+    write(
+        "missing_manifest_source_projection_protocol.json",
+        child(parent_ref, "bundle/nonexistent_source_module_manifest.json", "public_macro_tool_body"),
+    )
+    # Rejected at row level: correct admission but a non-source-open class.
+    write(
+        "wrong_class_source_projection_protocol.json",
+        child(parent_ref, "bundle/valid_source_module_manifest.json", "private_runtime_body"),
+    )
+    # Admitted: exact parent, resolvable fail-closed manifest, allowlisted class.
+    write(
+        "valid_source_projection_protocol.json",
+        child(parent_ref, "bundle/valid_source_module_manifest.json", "public_macro_tool_body"),
+    )
+
+    rows = runtime_shell._child_projection_protocol_body_rows(
+        root, bundle, parent_protocol_ref=parent_ref
+    )
+
+    material_ids = {row["material_id"] for row in rows}
+    assert material_ids == {"public_macro_tool_body_row"}
+    admitted = rows[0]
+    # The manifest ref is injected so the lens can group the family.
+    assert "bundle/valid_source_module_manifest.json" in admitted["source_refs"]
 
 
 def test_runtime_shell_import_projector_contract_lens_is_public_safe(tmp_path: Path) -> None:
@@ -4939,7 +5110,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
     assert route_cleanup["authority_ceiling"]["route_deletion_authorized"] is False
     assert route_cleanup["authority_ceiling"]["generated_region_hand_edit_authorized"] is False
     assert projection_import_map["schema_version"] == "microcosm_public_projection_import_map_lens_v1"
-    assert projection_import_map["map_summary"]["row_count"] == 6
+    assert projection_import_map["map_summary"]["row_count"] == 7
     assert projection_import_map["authority_ceiling"]["automated_import_guarantee"] is False
     assert import_projector["schema_version"] == "microcosm_public_import_projector_contract_lens_v1"
     assert import_projector["projector_summary"]["row_count"] == 9
