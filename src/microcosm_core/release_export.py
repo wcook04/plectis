@@ -435,7 +435,22 @@ def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None
 
 def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[str, str]]:
     hits: list[dict[str, str]] = []
+    private_needles: list[tuple[str, str, str]] = []
     source_root_text = source_root.as_posix()
+    if source_root_text:
+        private_needles.append(
+            (source_root_text, "<source-root>", "absolute_source_root")
+        )
+    source_parent_text = source_root.parent.as_posix()
+    if source_parent_text and source_parent_text not in {"/", source_root_text}:
+        private_needles.append(
+            (source_parent_text, "<source-parent>", "absolute_source_parent")
+        )
+    home_text = Path.home().as_posix()
+    if home_text and home_text not in {"/", source_root_text, source_parent_text}:
+        private_needles.append(
+            (home_text, "<operator-home>", "operator_home_root")
+        )
     for path in sorted(target.rglob("*")):
         if not path.is_file():
             continue
@@ -443,8 +458,9 @@ def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[s
         text = _read_text_if_small(path)
         if text is None:
             continue
-        if source_root_text and source_root_text in text:
-            hits.append({"path": rel, "needle": "<source-root>", "kind": "absolute_source_root"})
+        for needle, public_needle, kind in private_needles:
+            if needle in text:
+                hits.append({"path": rel, "needle": public_needle, "kind": kind})
         if HOST_TEMP_ROOT_NEEDLE in text and HOST_TEMP_SYNTHETIC_EXAMPLE_NEEDLE not in text:
             hits.append({"path": rel, "needle": HOST_TEMP_ROOT_NEEDLE, "kind": "host_temp_root"})
     return hits

@@ -420,6 +420,34 @@ def test_release_export_generates_clean_standalone_folder_and_receipt(
     assert root.as_posix() not in json.dumps(receipt, sort_keys=True)
 
 
+def test_release_export_blocks_source_parent_private_path_leaks(tmp_path: Path) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    root = _make_release_root(repo / release_export.ARTIFACT_DIR_NAME)
+    leaked_path = repo / "state/private_macro_payload.json"
+    _write(
+        root / "fixtures/leaked_macro_path.json",
+        json.dumps({"source_path": leaked_path.as_posix()}),
+    )
+
+    receipt = release_export.build_release_export(
+        root,
+        tmp_path / "out",
+        force=True,
+        run_smoke=False,
+        command="pytest release export private path leak",
+    )
+
+    assert receipt["status"] == "blocked"
+    assert "RELEASE_EXPORT_PRIVATE_PATH_LEAK" in receipt["blocking_codes"]
+    assert {
+        "path": "fixtures/leaked_macro_path.json",
+        "needle": "<source-parent>",
+        "kind": "absolute_source_parent",
+    } in receipt["exclusion_receipt"]["private_path_hits"]
+    assert repo.as_posix() not in json.dumps(receipt, sort_keys=True)
+
+
 def test_release_export_main_summary_prints_compact_stdout(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
