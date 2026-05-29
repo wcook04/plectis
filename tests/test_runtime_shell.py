@@ -4060,6 +4060,17 @@ def test_runtime_shell_legibility_scorecard_lens_is_public_safe(tmp_path: Path) 
     assert lens["scorecard"]["time_budget_minutes"] == 10
     assert lens["scorecard"]["blocking_gap_count"] == 0
     assert lens["scorecard"]["not_score_based_progress"] is True
+    bounded_observatory_command = (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+        "--max-requests 6"
+    )
+    assert bounded_observatory_command in lens["required_commands"]
+    assert bounded_observatory_command in lens["card_first_entry_path"]["drilldown_after"]
+    checkpoint_commands = {
+        row["checkpoint_id"]: row["command"] for row in lens["checkpoint_rows"]
+    }
+    assert checkpoint_commands["observatory_not_decorative"] == bounded_observatory_command
+    assert "microcosm serve <project>" not in lens["required_commands"]
     assert lens["release_readiness_verdict"] == {
         "schema_version": "microcosm_release_readiness_verdict_v1",
         "public_first_screen_pass": True,

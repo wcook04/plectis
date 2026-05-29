@@ -553,6 +553,13 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     assert payload["required_commands"][:6] == card_first_commands
     assert "microcosm tour <project>" not in payload["required_commands"]
     assert "microcosm authority" not in payload["required_commands"]
+    bounded_observatory_command = (
+        "microcosm serve <project> --host 127.0.0.1 --port 8765 "
+        "--max-requests 6"
+    )
+    assert bounded_observatory_command in payload["required_commands"]
+    assert bounded_observatory_command in payload["card_first_entry_path"]["drilldown_after"]
+    assert "microcosm serve <project>" not in payload["required_commands"]
     first_run = {
         row["question_id"]: row for row in payload["reader_question_rows"]
     }["first_run"]
@@ -568,6 +575,7 @@ def test_cli_legibility_scorecard_smoke(capsys: pytest.CaptureFixture[str]) -> N
     assert checkpoint_commands["authority_ceiling_visible"] == (
         "microcosm authority --card"
     )
+    assert checkpoint_commands["observatory_not_decorative"] == bounded_observatory_command
     assert payload["authority_ceiling"]["release_authorized"] is False
     assert payload["authority_ceiling"]["score_based_progress_authority"] is False
     assert payload["authority_ceiling"]["reader_success_guarantee"] is False

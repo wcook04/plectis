@@ -14902,7 +14902,7 @@ class RuntimeShell:
             {
                 "checkpoint_id": "observatory_not_decorative",
                 "reader_question": "Can I inspect it in a browser without losing the evidence chain?",
-                "command": "microcosm serve <project>",
+                "command": OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
                 "endpoint": "/",
                 "expected_signal": "HTML shows causal chain, route, work, events, evidence, and JSON drilldowns",
                 "evidence_ref": "receipts/runtime_shell/wave039_observatory_legibility.json",
@@ -14955,7 +14955,7 @@ class RuntimeShell:
         required_commands = [
             *card_first_commands,
             PROOF_LAB_FIRST_SCREEN_COMMAND,
-            "microcosm serve <project>",
+            OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
         ]
         required_endpoints = [
             "/tour",
@@ -14974,7 +14974,7 @@ class RuntimeShell:
             "commands": card_first_commands,
             "drilldown_after": [
                 PROOF_LAB_FIRST_SCREEN_COMMAND,
-                "microcosm serve <project>",
+                OBSERVATORY_BOUNDED_VALIDATION_COMMAND,
                 "microcosm evidence inspect <receipt>",
             ],
             "reader_rule": (
