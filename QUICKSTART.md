@@ -97,8 +97,8 @@ cd /tmp/microcosm-substrate-export/microcosm-substrate
 make ci
 ```
 
-This checks standalone install, tests, and smoke after severance. It does not
-authorize release.
+This checks standalone install, tests, and smoke from the exported root. It does
+not authorize release.
 
 ## Boundaries
 
