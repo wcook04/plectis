@@ -199,7 +199,8 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "route/state/proof refs"
     ) in output
     assert (
-        "microcosm first-screen <project> emit the compact JSON first-screen map"
+        "microcosm first-screen --card <project> emit the compact JSON "
+        "first-screen card"
         in output
     )
     assert (
@@ -237,10 +238,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "after the first-screen check"
     ) in output
     assert output.index("microcosm tour --card <project>") < output.index(
-        "microcosm first-screen <project>"
+        "microcosm first-screen --card <project>"
     )
-    assert output.index("microcosm first-screen <project>") < output.index(
-        "microcosm status --card <project>"
+    assert output.index("microcosm first-screen --card <project>") < (
+        output.index("microcosm status --card <project>")
     )
     assert output.index("microcosm status --card <project>") < output.index(
         "microcosm spine --card"

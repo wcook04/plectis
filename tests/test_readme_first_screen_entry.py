@@ -124,12 +124,13 @@ def test_readme_first_screen_starts_with_hello_then_behavior() -> None:
 
     assert "microcosm hello <project>" in section
     assert "microcosm tour --card <project>" in section
+    assert "microcosm first-screen --card <project>" in section
     assert "microcosm first-screen <project>" in section
     assert section.index("microcosm hello <project>") < section.index(
         "microcosm tour --card <project>"
     )
     assert section.index("microcosm tour --card <project>") < section.index(
-        "microcosm first-screen <project>"
+        "microcosm first-screen --card <project>"
     )
     normalized_section = " ".join(section.split())
     assert (
@@ -183,19 +184,23 @@ def test_readme_installed_path_and_browser_surface_reuse_first_screen() -> None:
 
     direct_hello = "PYTHONPATH=src python3 -m microcosm_core hello ."
     direct_tour_card = "PYTHONPATH=src python3 -m microcosm_core tour --card ."
+    direct_first_screen_card = (
+        "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
+    )
     assert direct_hello in direct_path
     assert direct_path.index(direct_hello) < direct_path.index(direct_tour_card)
+    assert direct_first_screen_card in direct_path
     assert "python3 -m microcosm_core.cli" not in direct_path
     assert "microcosm hello ." in installed_path
-    assert "microcosm first-screen ." in installed_path
+    assert "microcosm first-screen --card ." in installed_path
     assert installed_path.index("microcosm hello .") < installed_path.index(
         "microcosm tour --card ."
     )
     assert installed_path.index("microcosm tour --card .") < installed_path.index(
-        "microcosm first-screen ."
+        "microcosm first-screen --card ."
     )
-    assert installed_path.index("microcosm first-screen .") < installed_path.index(
-        "microcosm status --card ."
+    assert installed_path.index("microcosm first-screen --card .") < (
+        installed_path.index("microcosm status --card .")
     )
     assert "microcosm workingness --card" in installed_path
     assert "microcosm evidence list . --limit 25" in installed_path

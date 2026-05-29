@@ -84,8 +84,10 @@ before branching:
 microcosm tour --card <project>
 ```
 
-Use `microcosm first-screen <project>` when you want the same reader map as
-JSON instead of terminal text.
+Use `microcosm first-screen --card <project>` when you want the same reader
+map as compact JSON instead of terminal text. The plain
+`microcosm first-screen <project>` form stays valid for scripts that already
+use it.
 
 After that shared card, branch by reader instead of forcing one README to carry
 every job:
@@ -196,7 +198,7 @@ entry point:
 ```bash
 PYTHONPATH=src python3 -m microcosm_core hello .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
-PYTHONPATH=src python3 -m microcosm_core first-screen .
+PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 PYTHONPATH=src python3 -m microcosm_core status --card .
 PYTHONPATH=src python3 -m microcosm_core proof-lab --out /tmp/microcosm-proof-lab
 PYTHONPATH=src python3 -m microcosm_core observe .
@@ -207,7 +209,7 @@ After the console command is installed, the first-screen path is:
 ```bash
 microcosm hello .
 microcosm tour --card .
-microcosm first-screen .
+microcosm first-screen --card .
 microcosm status --card .
 microcosm workingness --card
 microcosm proof-lab --out /tmp/microcosm-proof-lab
