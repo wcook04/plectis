@@ -286,7 +286,7 @@ PROOF_LAB_FIRST_SCREEN_ANTI_CLAIMS = {
 }
 
 FIRST_SCREEN_HELP = """First-screen route:
-  microcosm hello <project>      print the cold-entry one-screen card
+  microcosm hello <project>      print the cold-entry one-screen card (--card accepted)
   microcosm tour --card <project> build .microcosm and read route/state/proof refs
   microcosm first-screen <project> emit the compact JSON first-screen map
   microcosm status --card <project> read the compressed project/runtime status lens
@@ -583,6 +583,11 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
             "--format",
             choices=("text",),
             default="text",
+            help="accepted for first-screen parity; hello always emits text",
+        )
+        parser.add_argument(
+            "--card",
+            action="store_true",
             help="accepted for first-screen parity; hello always emits text",
         )
         parser.add_argument("project", nargs="?", default="<project>")
@@ -1393,6 +1398,11 @@ def main(argv: list[str] | None = None) -> int:
         choices=TEXT_READER_CHOICES,
         default="all",
         help="focus the terminal projection on one reader branch",
+    )
+    hello_parser.add_argument(
+        "--card",
+        action="store_true",
+        help="accepted for first-screen parity; hello always emits text",
     )
     hello_parser.add_argument("project", nargs="?", default="<project>")
     first_screen_parser = subparsers.add_parser(

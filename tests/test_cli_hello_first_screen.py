@@ -110,6 +110,32 @@ def test_cli_hello_accepts_text_format_alias(
     assert "Open card: microcosm hello ." in output
 
 
+def test_cli_hello_accepts_card_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert cli.main(["hello", "--card", "."]) == 0
+
+    output = capsys.readouterr().out
+
+    assert output.startswith("Microcosm first screen\n")
+    assert "Open card: microcosm hello ." in output
+    assert "First run: microcosm tour --card ." in output
+
+
+def test_cli_hello_help_documents_card_alias(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli.main(["hello", "--help"])
+
+    output = capsys.readouterr().out
+
+    assert excinfo.value.code == 0
+    assert "--card" in output
+    assert "accepted for first-screen parity" in output
+    assert "hello always emits" in output
+
+
 def test_cli_first_screen_json_is_compact_by_default(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
