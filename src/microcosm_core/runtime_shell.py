@@ -3924,7 +3924,6 @@ def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[st
     return {
         "schema_version": "microcosm_tour_card_first_contact_surface_refs_v1",
         "source_ref": "microcosm first-screen <project>::first_contact_surface_refs",
-        "producer_command": "microcosm tour --card <project>",
         "command_refs": {
             "observe": "microcosm observe <project>",
             "status_card": "microcosm status --card <project>",

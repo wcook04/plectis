@@ -2028,7 +2028,10 @@ def test_cli_tour_card_smoke(
     assert payload["observatory"]["first_screen_route_proof_ref"] == (
         "microcosm serve <project>::first_screen_route_proof"
     )
-    assert "microcosm observe <project>" in payload["next_commands"]
+    assert (
+        "microcosm observe examples/runtime_shell/demo_project"
+        in payload["next_commands"]
+    )
     assert payload["status_card"]["command"] == "microcosm status --card <project>"
     assert payload["surface_statuses"]["compile"] == "pass"
     assert payload["surface_statuses"]["state_write"] == "pass"
