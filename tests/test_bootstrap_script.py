@@ -40,6 +40,7 @@ def test_bootstrap_help_is_no_side_effect_public_entry() -> None:
     assert ".microcosm/cold_clone_probe.json" in result.stdout
     assert "Microcosm cold-clone probe passed" in result.stdout
     assert "receipt: <receipt path>" in result.stdout
+    assert "next: README.md#public-repo-map and README.md#component-map" in result.stdout
     assert result.stderr == ""
 
 
@@ -112,6 +113,7 @@ def test_bootstrap_dry_run_reports_command_without_running_probe(tmp_path: Path)
             f"command: {fake_python} -m microcosm_core.cold_clone_probe "
             f"--suite first-wave --emit {receipt}"
         ),
+        "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert not argv_log.exists()
     assert not receipt.exists()
@@ -146,6 +148,7 @@ def test_bootstrap_honors_microcosm_python_override(tmp_path: Path) -> None:
         "Microcosm cold-clone probe passed",
         "suite: first-wave",
         "receipt: receipts/cold_clone_probe_test.json",
+        "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
         "-m",
@@ -179,6 +182,7 @@ def test_bootstrap_default_emit_uses_ignored_local_state(tmp_path: Path) -> None
         "Microcosm cold-clone probe passed",
         "suite: first-wave",
         "receipt: .microcosm/cold_clone_probe.json",
+        "next: README.md#public-repo-map and README.md#component-map",
     ]
     assert argv_log.read_text(encoding="utf-8").splitlines() == [
         "-m",
