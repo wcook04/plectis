@@ -7,6 +7,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_sabotage_scheming_monitor_trace,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -35,6 +38,8 @@ CARD_SCHEMA_VERSION = "agent_sabotage_scheming_monitor_replay_command_card_v1"
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "findings",
     "private_state_scan",
+    "public_agent_execution_trace",
+    "source_open_body_imports",
     "source_refs",
     "projection_receipt_refs",
     "public_regression_fixture_refs",
@@ -46,6 +51,13 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "cold_replay_rows",
     "authority_ceiling",
     "anti_claim",
+)
+SOURCE_OPEN_BODY_SCHEMA = (
+    "agent_sabotage_scheming_monitor_source_open_body_imports_v1"
+)
+SOURCE_OPEN_BODY_IMPORTS = (
+    "microcosm_core.macro_tools.agent_execution_trace::"
+    "build_public_sabotage_scheming_monitor_trace",
 )
 
 INPUT_NAMES = (
@@ -850,6 +862,100 @@ def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, A
     }
 
 
+def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    imported = public_trace.get("status") == PASS
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": str(public_trace.get("status") or ""),
+        "body_material_status": (
+            "public_agent_execution_trace_refactor_landed" if imported else "blocked"
+        ),
+        "body_material_count": int(public_trace.get("span_count") or 0),
+        "body_material_ids": list(SOURCE_OPEN_BODY_IMPORTS),
+        "target_symbols": list(public_trace.get("target_symbols") or []),
+        "trace_digest": (public_trace.get("summary") or {}).get("trace_digest"),
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "live_agent_execution_authorized": False,
+            "live_sabotage_authorized": False,
+            "private_chain_of_thought_export_authorized": False,
+            "harmful_payload_export_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open microcosm_core.macro_tools.agent_execution_trace::"
+            "build_public_sabotage_scheming_monitor_trace for the refactored body "
+            "that recomputes each episode caught verdict and counterfactual "
+            "isolation; receipts carry spans, digests, counts, and findings only."
+        )
+        if imported
+        else "",
+    }
+
+
+def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """Fold the recomputed public trace into organ-level findings.
+
+    The macro builder recomputes each episode's caught verdict from monitor
+    suspicion scores and recomputes whether the counterfactual replay isolates
+    the side task. Any computed-vs-declared mismatch becomes an organ finding.
+    """
+
+    findings: list[dict[str, Any]] = []
+    trace_codes = {
+        str(row.get("error_code") or "")
+        for row in _rows(public_trace.get("audit"), "findings")
+    }
+    for span in public_trace.get("spans", []):
+        if not isinstance(span, dict):
+            continue
+        episode_id = str(span.get("episode_id") or "scheming_episode")
+        if span.get("caught_verdict_matches_declared") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH",
+                    "Recomputed caught verdict from monitor suspicion scores does "
+                    "not match the declared episode caught verdict.",
+                    case_id="public_trace_floor",
+                    subject_id=episode_id,
+                    subject_kind="public_agent_execution_trace",
+                )
+            )
+        if span.get("counterfactual_isolates_scheming") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_SCHEMING_COUNTERFACTUAL_NOT_ISOLATING",
+                    "Counterfactual replay must remove side-task success while "
+                    "preserving main-task success.",
+                    case_id="public_trace_floor",
+                    subject_id=episode_id,
+                    subject_kind="public_agent_execution_trace",
+                )
+            )
+    if "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH" in trace_codes and not any(
+        row["error_code"] == "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH"
+        for row in findings
+    ):
+        findings.append(
+            _finding(
+                "PUBLIC_TRACE_SCHEMING_CAUGHT_VERDICT_MISMATCH",
+                "Recomputed caught verdict from monitor suspicion scores does "
+                "not match the declared episode caught verdict.",
+                case_id="public_trace_floor",
+                subject_id="public_agent_execution_trace",
+                subject_kind="public_agent_execution_trace",
+            )
+        )
+    return {
+        "status": PASS if public_trace.get("status") == PASS and not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -891,6 +997,9 @@ def _build_result(
         payloads["counterfactual_replay"], episode_ids
     )
     cold_replay = validate_cold_replay(payloads["cold_replay"], episode_ids)
+    public_trace = build_public_sabotage_scheming_monitor_trace(input_dir)
+    public_trace_validation = validate_public_trace(public_trace)
+    source_open_body_imports = _source_open_body_import_summary(public_trace)
     negative_payloads = {
         name: payloads[name]
         for name in (Path(item).stem for item in NEGATIVE_INPUT_NAMES)
@@ -905,6 +1014,7 @@ def _build_result(
         monitor_scores,
         counterfactual,
         cold_replay,
+        public_trace_validation,
         negatives,
     )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
@@ -917,6 +1027,7 @@ def _build_result(
         monitor_scores,
         counterfactual,
         cold_replay,
+        public_trace_validation,
         negatives,
     )
     positive_statuses = (
@@ -927,6 +1038,7 @@ def _build_result(
         monitor_scores["status"],
         counterfactual["status"],
         cold_replay["status"],
+        public_trace_validation["status"],
     )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
@@ -953,6 +1065,20 @@ def _build_result(
         "error_codes": error_codes,
         "findings": findings,
         "private_state_scan": private_scan,
+        "public_agent_execution_trace": public_trace,
+        "source_open_body_imports": source_open_body_imports,
+        "source_open_body_imports_status": source_open_body_imports["status"],
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "public_trace_span_count": public_trace.get("span_count"),
+        "public_trace_caught_episode_count": (public_trace.get("summary") or {}).get(
+            "caught_episode_count"
+        ),
+        "public_trace_missed_episode_count": (public_trace.get("summary") or {}).get(
+            "missed_episode_count"
+        ),
+        "public_trace_finding_count": (public_trace.get("summary") or {}).get(
+            "finding_count"
+        ),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
@@ -1005,6 +1131,11 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "authority": "scheming_claims_need_counterfactual_benign_replay",
             },
             {
+                "mechanic_id": "recomputed_caught_verdict_matches_declared",
+                "count": result["public_trace_caught_episode_count"],
+                "authority": "caught_verdict_is_recomputed_from_monitor_suspicion_scores_not_echoed",
+            },
+            {
                 "mechanic_id": "negative_cases_are_admission_boundary",
                 "count": len(result["observed_negative_cases"]),
                 "authority": "live_sabotage_sensitive_exports_and_deployment_claims_are_rejected",
@@ -1017,6 +1148,8 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
         "cold_replay_rows": result["cold_replay_rows"],
         "body_in_receipt": False,
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -1070,7 +1203,16 @@ def _write_receipts(
         "monitor_score_count": result["monitor_score_count"],
         "counterfactual_replay_count": result["counterfactual_replay_count"],
         "cold_replay_pass_count": result["cold_replay_pass_count"],
+        "public_trace_span_count": result["public_trace_span_count"],
+        "public_trace_caught_episode_count": result[
+            "public_trace_caught_episode_count"
+        ],
+        "public_trace_missed_episode_count": result[
+            "public_trace_missed_episode_count"
+        ],
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -1088,6 +1230,9 @@ def _write_receipts(
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_material_status": result["body_material_status"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -1188,6 +1333,16 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             ),
             "cold_replay_pass_count": result.get("cold_replay_pass_count"),
         },
+        "public_trace": {
+            "span_count": result.get("public_trace_span_count"),
+            "caught_episode_count": result.get("public_trace_caught_episode_count"),
+            "missed_episode_count": result.get("public_trace_missed_episode_count"),
+            "finding_count": result.get("public_trace_finding_count"),
+            "source_open_body_imports_status": result.get(
+                "source_open_body_imports_status"
+            ),
+            "body_material_status": result.get("body_material_status"),
+        },
         "validation": {
             "expected_negative_case_count": len(
                 result.get("expected_negative_cases") or []
@@ -1206,6 +1361,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
         "body_floor": {
             "body_in_receipt": result.get("body_in_receipt") is True,
             "private_state_scan_in_card": False,
+            "public_agent_execution_trace_in_card": False,
+            "source_open_body_imports_in_card": False,
         },
         "authority_boundary": {
             "live_agent_execution_authorized": False,

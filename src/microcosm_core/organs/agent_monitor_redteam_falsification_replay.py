@@ -7,6 +7,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+from microcosm_core.macro_tools.agent_execution_trace import (
+    build_public_monitor_redteam_falsification_trace,
+)
 from microcosm_core.private_state_scan import (
     PASS,
     load_forbidden_classes,
@@ -33,6 +36,8 @@ CARD_SCHEMA_VERSION = "agent_monitor_redteam_falsification_replay_command_card_v
 CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "findings",
     "private_state_scan",
+    "public_agent_execution_trace",
+    "source_open_body_imports",
     "authority_ceiling",
     "anti_claim",
     "source_refs",
@@ -41,6 +46,13 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
     "trajectory_cases",
     "monitor_rows",
     "monitor_redteam_board",
+)
+SOURCE_OPEN_BODY_SCHEMA = (
+    "agent_monitor_redteam_falsification_source_open_body_imports_v1"
+)
+SOURCE_OPEN_BODY_IMPORTS = (
+    "microcosm_core.macro_tools.agent_execution_trace::"
+    "build_public_monitor_redteam_falsification_trace",
 )
 
 INPUT_NAMES = (
@@ -639,6 +651,83 @@ def validate_monitor_observations(
     }
 
 
+def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
+    imported = public_trace.get("status") == PASS
+    return {
+        "schema_version": SOURCE_OPEN_BODY_SCHEMA,
+        "status": str(public_trace.get("status") or ""),
+        "body_material_status": (
+            "public_agent_execution_trace_refactor_landed" if imported else "blocked"
+        ),
+        "body_material_count": int(public_trace.get("span_count") or 0),
+        "body_material_ids": list(SOURCE_OPEN_BODY_IMPORTS),
+        "target_symbols": list(public_trace.get("target_symbols") or []),
+        "trace_digest": (public_trace.get("summary") or {}).get("trace_digest"),
+        "body_in_receipt": False,
+        "body_text_in_receipt": False,
+        "body_text_exported_in_receipts": False,
+        "body_text_exported_in_workingness": False,
+        "authority_ceiling": {
+            "monitor_product_performance_claim_authorized": False,
+            "live_agent_traffic_import_authorized": False,
+            "exploit_instruction_export_authorized": False,
+            "release_authorized": False,
+        },
+        "reader_action": (
+            "Open microcosm_core.macro_tools.agent_execution_trace::"
+            "build_public_monitor_redteam_falsification_trace for the refactored "
+            "body that recomputes each coverage label's probe backing and derives "
+            "the monitor verdict from span evidence; receipts carry spans, digests, "
+            "counts, and findings only."
+        )
+        if imported
+        else "",
+    }
+
+
+def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
+    """Fold the recomputed public trace into organ-level findings.
+
+    The macro builder recomputes whether each declared coverage label is backed
+    by an adversarial-probe span and derives the monitor verdict from span
+    evidence. Any computed-vs-declared mismatch becomes an organ finding.
+    """
+
+    findings: list[dict[str, Any]] = []
+    for span in public_trace.get("spans", []):
+        if not isinstance(span, dict):
+            continue
+        observation_id = str(
+            span.get("span_id", "").replace("span:", "") or "monitor_observation"
+        )
+        if span.get("coverage_backed_by_probe") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MONITOR_REDTEAM_COVERAGE_WITHOUT_PROBE_SPAN",
+                    "Declared coverage label is not backed by an adversarial-probe span.",
+                    case_id="public_trace_floor",
+                    subject_id=observation_id,
+                    subject_kind="public_agent_execution_trace",
+                )
+            )
+        if span.get("monitor_verdict_matches_declared") is not True:
+            findings.append(
+                _finding(
+                    "PUBLIC_TRACE_MONITOR_REDTEAM_VERDICT_MISMATCH",
+                    "Monitor verdict derived from span evidence does not match the "
+                    "declared monitor verdict.",
+                    case_id="public_trace_floor",
+                    subject_id=observation_id,
+                    subject_kind="public_agent_execution_trace",
+                )
+            )
+    return {
+        "status": PASS if public_trace.get("status") == PASS and not findings else "blocked",
+        "findings": findings,
+        "observed_negative_cases": {},
+    }
+
+
 def _build_result(
     input_dir: Path,
     *,
@@ -673,10 +762,17 @@ def _build_result(
             if name in payloads
         },
     )
-    observed = _merge_observed(projection, monitor_policy, trajectories, observations)
+    public_trace = build_public_monitor_redteam_falsification_trace(input_dir)
+    public_trace_validation = validate_public_trace(public_trace)
+    source_open_body_imports = _source_open_body_import_summary(public_trace)
+    observed = _merge_observed(
+        projection, monitor_policy, trajectories, observations, public_trace_validation
+    )
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
     missing = sorted(case_id for case_id in expected if case_id not in observed)
-    findings = _merge_findings(projection, monitor_policy, trajectories, observations)
+    findings = _merge_findings(
+        projection, monitor_policy, trajectories, observations, public_trace_validation
+    )
     error_codes = sorted({str(row["error_code"]) for row in findings})
     bundle_manifest = payloads.get("bundle_manifest", {})
     status = (
@@ -687,6 +783,7 @@ def _build_result(
         and monitor_policy["status"] == PASS
         and trajectories["status"] == PASS
         and observations["status"] == PASS
+        and public_trace_validation["status"] == PASS
         else "blocked"
     )
     return {
@@ -705,6 +802,17 @@ def _build_result(
         "error_codes": error_codes,
         "findings": findings,
         "private_state_scan": private_scan,
+        "public_agent_execution_trace": public_trace,
+        "source_open_body_imports": source_open_body_imports,
+        "source_open_body_imports_status": source_open_body_imports["status"],
+        "body_material_status": source_open_body_imports["body_material_status"],
+        "public_trace_span_count": public_trace.get("span_count"),
+        "public_trace_coverage_backed_count": (public_trace.get("summary") or {}).get(
+            "coverage_backed_count"
+        ),
+        "public_trace_finding_count": (public_trace.get("summary") or {}).get(
+            "finding_count"
+        ),
         "authority_ceiling": AUTHORITY_CEILING,
         "anti_claim": ANTI_CLAIM,
         "protocol_id": projection["protocol_id"],
@@ -750,11 +858,18 @@ def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
                 "count": result["escalate_count"] + result["block_count"],
                 "authority": "high_severity_cases_require_escalation_and_mitigation_refs",
             },
+            {
+                "mechanic_id": "recomputed_monitor_verdict_matches_declared",
+                "count": result["public_trace_coverage_backed_count"],
+                "authority": "monitor_verdict_is_derived_from_probe_span_evidence_not_echoed",
+            },
         ],
         "trajectory_cases": result["trajectory_cases"],
         "monitor_rows": result["monitor_rows"],
         "body_in_receipt": False,
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
     }
@@ -806,7 +921,13 @@ def _write_receipts(
         "adversarial_probe_count": result["adversarial_probe_count"],
         "escalate_count": result["escalate_count"],
         "block_count": result["block_count"],
+        "public_trace_span_count": result["public_trace_span_count"],
+        "public_trace_coverage_backed_count": result[
+            "public_trace_coverage_backed_count"
+        ],
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -822,6 +943,9 @@ def _write_receipts(
         "missing_negative_cases": result["missing_negative_cases"],
         "error_codes": result["error_codes"],
         "private_state_scan": result["private_state_scan"],
+        "public_agent_execution_trace": result["public_agent_execution_trace"],
+        "source_open_body_imports": result["source_open_body_imports"],
+        "body_material_status": result["body_material_status"],
         "authority_ceiling": result["authority_ceiling"],
         "anti_claim": result["anti_claim"],
         "receipt_paths": receipt_paths,
@@ -918,6 +1042,15 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "block_count": result.get("block_count"),
             "high_severity_count": result.get("high_severity_count"),
         },
+        "public_trace": {
+            "span_count": result.get("public_trace_span_count"),
+            "coverage_backed_count": result.get("public_trace_coverage_backed_count"),
+            "finding_count": result.get("public_trace_finding_count"),
+            "source_open_body_imports_status": result.get(
+                "source_open_body_imports_status"
+            ),
+            "body_material_status": result.get("body_material_status"),
+        },
         "validation": {
             "expected_negative_case_count": len(
                 result.get("expected_negative_cases") or []
@@ -934,6 +1067,8 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
             "private_state_scan_in_card": False,
             "trajectory_cases_in_card": False,
             "monitor_rows_in_card": False,
+            "public_agent_execution_trace_in_card": False,
+            "source_open_body_imports_in_card": False,
         },
         "authority_boundary": {
             "monitor_product_performance_claim_authorized": False,

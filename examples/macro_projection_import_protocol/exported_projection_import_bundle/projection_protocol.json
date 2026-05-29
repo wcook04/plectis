@@ -179,17 +179,24 @@
       "applied_edits": [
         "replace live session log parsers with deterministic public bundle builders",
         "preserve trace span schema, authority ceiling, and validation surface shape",
-        "bound claim to public trace construction not live browser, provider, or account access"
+        "bound claim to public trace construction not live browser, provider, or account access",
+        "extend deterministic public bundle builders for sabotage, monitor-redteam, and benchmark-integrity replay traces"
       ],
       "body_copied": true,
-      "body_digest": "sha256:cb8a162c7bf56619a15134562571225139fb4520d4a61c9c7e8089a480b3be0b",
+      "body_digest": "sha256:ad72022bdd8056d0f24297d7a56cb93547ebcf59bd9dce688ca7403b5e0318d4",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
           "microcosm-substrate/tests/test_indirect_prompt_injection_information_flow_policy_replay.py::test_public_agent_execution_trace_refactor_builds_prompt_injection_spans",
-          "python -m microcosm_core.macro_tools.agent_execution_trace prompt-injection --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle"
+          "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
+          "microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
+          "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict",
+          "python -m microcosm_core.macro_tools.agent_execution_trace prompt-injection --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle",
+          "python -m microcosm_core.macro_tools.agent_execution_trace sabotage-scheming-monitor --input examples/agent_sabotage_scheming_monitor_replay/exported_sabotage_scheming_monitor_bundle",
+          "python -m microcosm_core.macro_tools.agent_execution_trace monitor-redteam-falsification --input examples/agent_monitor_redteam_falsification_replay/exported_monitor_redteam_falsification_bundle",
+          "python -m microcosm_core.macro_tools.agent_execution_trace benchmark-integrity-anti-gaming --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_anti_gaming_bundle"
         ],
         "source_body_digest": "sha256:127eceb50370589c43be1b56d8bc98f5ddd60ab1ac8c1a3aec1a22586e64ea7a",
         "source_symbol_refs": [
@@ -200,8 +207,8 @@
           "codex/standards/std_agent_execution_trace.json::strict_boundary"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:cb8a162c7bf56619a15134562571225139fb4520d4a61c9c7e8089a480b3be0b",
-        "target_line_count": 2455,
+        "target_body_digest": "sha256:ad72022bdd8056d0f24297d7a56cb93547ebcf59bd9dce688ca7403b5e0318d4",
+        "target_line_count": 3271,
         "target_symbol_refs": [
           "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_computer_use_trace",
@@ -212,13 +219,16 @@
           "microcosm_core.macro_tools.agent_execution_trace::build_public_mcp_tool_authority_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_belief_state_process_reward_trace",
           "microcosm_core.macro_tools.agent_execution_trace::build_public_agentic_vulnerability_patch_proof_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_sabotage_scheming_monitor_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_monitor_redteam_falsification_trace",
+          "microcosm_core.macro_tools.agent_execution_trace::build_public_benchmark_integrity_anti_gaming_trace",
           "microcosm_core.macro_tools.agent_execution_trace::main"
         ],
         "verification_mode": "verified_light_edit_recipe",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 2455,
+      "body_line_count": 3271,
       "claim_ceiling": "public agent-execution trace tool body import only; not live session-log parsing, browser control, provider payload access, account action, source mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -237,7 +247,10 @@
       "target_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
       "validation_refs": [
         "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_computer_use_action_trace_imports_public_agent_execution_trace_refactor",
-        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine"
+        "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_agent_execution_trace_body_import_is_unified_under_macro_projection_spine",
+        "microcosm-substrate/tests/test_agent_sabotage_scheming_monitor_replay.py::test_agent_sabotage_scheming_public_trace_recomputes_caught_verdict",
+        "microcosm-substrate/tests/test_agent_monitor_redteam_falsification_replay.py::test_agent_monitor_redteam_public_trace_recomputes_monitor_verdict",
+        "microcosm-substrate/tests/test_agent_benchmark_integrity_anti_gaming_replay.py::test_agent_benchmark_integrity_public_trace_recomputes_integrity_verdict"
       ]
     },
     {
