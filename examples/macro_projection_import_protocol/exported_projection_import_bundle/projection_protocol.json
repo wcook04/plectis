@@ -1770,24 +1770,24 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
+      "body_digest": "sha256:47eea48a8eb77ed2af6e1f7a184a72431e395a5b7b3ece478889b76488d0a193",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_mission_transaction_work_spine.py::test_mission_transaction_work_spine_imports_task_ledger_control_source_modules",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_task_ledger_control_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
-        "source_line_count": 12270,
+        "source_body_digest": "sha256:47eea48a8eb77ed2af6e1f7a184a72431e395a5b7b3ece478889b76488d0a193",
+        "source_line_count": 12423,
         "source_ref": "system/lib/task_ledger_events.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:94d3a8c3dce34bd6b575921fb738186ab5b4f4fe872f495b1b91c0bf0f5c5e23",
-        "target_line_count": 12270,
+        "target_body_digest": "sha256:47eea48a8eb77ed2af6e1f7a184a72431e395a5b7b3ece478889b76488d0a193",
+        "target_line_count": 12423,
         "target_ref": "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_events.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 12270,
+      "body_line_count": 12423,
       "claim_ceiling": "public Task Ledger control source-module body import only; not live Task Ledger mutation, Work Ledger mutation, Git mutation, private-index commit execution, shared-index mutation, provider calls, credential export, recipient send, release, publication, source mutation, private-root equivalence, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",

@@ -352,10 +352,22 @@ def validate_legibility(
         observatory_reader_sequence = []
     runtime_bridge = model.get("runtime_bridge", {}) if isinstance(model.get("runtime_bridge"), dict) else {}
     tour = model.get("tour", {}) if isinstance(model.get("tour"), dict) else {}
-    source_open_body_import_floor = (
+    model_source_open_body_import_floor = (
         model.get("source_open_body_import_floor", {})
         if isinstance(model.get("source_open_body_import_floor"), dict)
         else {}
+    )
+    tour_source_open_body_import_floor = (
+        tour.get("source_open_body_import_floor", {})
+        if isinstance(tour.get("source_open_body_import_floor"), dict)
+        else {}
+    )
+    source_open_body_import_floor = (
+        model_source_open_body_import_floor
+        if _source_open_body_floor_legible(model_source_open_body_import_floor)
+        else tour_source_open_body_import_floor
+        if _source_open_body_floor_legible(tour_source_open_body_import_floor)
+        else model_source_open_body_import_floor
     )
     authority_map = model.get("authority_map", {}) if isinstance(model.get("authority_map"), dict) else {}
     prediction_lens = (

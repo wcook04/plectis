@@ -2928,7 +2928,10 @@ def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
     classification = str(row.get("classification") or "")
     source_relation = str(row.get("source_to_target_relation") or "")
     source_import_class = str(row.get("source_import_class") or "")
+    copy_mode = str(row.get("copy_mode") or "")
     if classification.startswith("copied_non_secret_macro_"):
+        return True
+    if copy_mode == "exact_file_copy":
         return True
     if source_relation == "exact_copy":
         return True

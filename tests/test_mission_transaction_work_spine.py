@@ -21,6 +21,16 @@ MISSION_BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle"
 )
+
+
+def _bundle_line_count(target_refs: list[str]) -> int:
+    total = 0
+    for target_ref in target_refs:
+        rel_ref = target_ref.removeprefix("microcosm-substrate/")
+        total += len((MICROCOSM_ROOT / rel_ref).read_text(encoding="utf-8").splitlines())
+    return total
+
+
 SOURCE_FAITHFUL_WORK_LANDING_ACTION_IDS = [
     "verify_scoped_commit_landed",
     "ensure_work_ledger_progress_event",
@@ -59,7 +69,7 @@ TASK_LEDGER_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/task_ledger_priority.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/factory/task_ledger_project.py",
 ]
-TASK_LEDGER_SOURCE_LINE_COUNT = 15200
+TASK_LEDGER_SOURCE_LINE_COUNT = _bundle_line_count(TASK_LEDGER_SOURCE_TARGET_REFS)
 WORK_LEDGER_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
 WORK_LEDGER_SOURCE_MODULE_IDS = [
     "work_ledger_tool_body_import",
@@ -79,7 +89,7 @@ WORK_LEDGER_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/system/lib/work_ledger_runtime.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/codex/standards/std_work_ledger.json",
 ]
-WORK_LEDGER_SOURCE_LINE_COUNT = 14440
+WORK_LEDGER_SOURCE_LINE_COUNT = _bundle_line_count(WORK_LEDGER_SOURCE_TARGET_REFS)
 CHECKPOINT_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
 CHECKPOINT_SOURCE_MODULE_IDS = [
     "checkpoint_script_body_import",
@@ -93,7 +103,7 @@ CHECKPOINT_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/checkpoint",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/checkpoint_private_backup.py",
 ]
-CHECKPOINT_SOURCE_LINE_COUNT = 1234
+CHECKPOINT_SOURCE_LINE_COUNT = _bundle_line_count(CHECKPOINT_SOURCE_TARGET_REFS)
 MISSION_CONTROL_SOURCE_IMPORT_STATUS = "public_runtime_import_landed"
 MISSION_CONTROL_SOURCE_MODULE_IDS = [
     "scoped_commit_tool_body_import",
@@ -107,7 +117,7 @@ MISSION_CONTROL_SOURCE_TARGET_REFS = [
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/scoped_commit.py",
     "microcosm-substrate/examples/mission_transaction_work_spine/exported_mission_transaction_bundle/source_modules/tools/meta/control/mission_transaction_preflight.py",
 ]
-MISSION_CONTROL_SOURCE_LINE_COUNT = 1922
+MISSION_CONTROL_SOURCE_LINE_COUNT = _bundle_line_count(MISSION_CONTROL_SOURCE_TARGET_REFS)
 PER_OUTPUT_RECEIPT_FIELD_FLOOR = {
     "receipts/first_wave/mission_transaction_work_spine/dependency_blocked.json": [
         "schema_version",

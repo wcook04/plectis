@@ -267,6 +267,11 @@
         "possible_adapter_leaks"
       ],
       "autonomous_seed_rule": "A low-intensity organizer seed may scan Task Ledger views, cluster work-pressure object classes, patch an owning source/standard/skill/route/seed/paper-module when safe, emit receipts, and propose exact event commands when the event lane is the owner. It must not auto-promote, auto-rerank, auto-retire semantic duplicate groups, execute work from capture_inbox, or treat sorting/classification as success when a patchable owner action exists.",
+      "family_dependency_resolution_rule": {
+        "purpose": "Prevent cap-family pressure from handing future agents a blocked target set without naming the upstream WorkItem that can actually be acted on first.",
+        "rule": "When a family next-action target set is dependency-blocked, the organizer projection must expose resolution_candidate_ids, schedulable_resolution_candidate_ids, dependency_blocked_resolution_candidate_ids, resolution_candidate_edges, and resolution_primary_command. If every target is blocked and at least one schedulable resolution candidate exists, next_family_action.action_type should be resolve_upstream_dependency_first and recommended_first_command should open the schedulable upstream card before the blocked target cards.",
+        "anti_pattern": "Making the next agent open top_actionable_open_ids only to rediscover a common unsatisfied depends_on root that the projection already knows."
+      },
       "report_projection": "tools/meta/factory/task_ledger_apply.py organizer-report projects priority_rubric and priority_cluster_summary from system/lib/task_ledger_events.py."
     },
     "blocked_primary_ambition_preservation": {

@@ -9726,9 +9726,20 @@ def _load_family_action_receipts(repo_root: Path) -> Dict[str, List[Dict[str, An
                     if isinstance(payload.get("source_family_snapshot"), Mapping)
                     else {}
                 ),
+                "applied_dispositions": _family_action_receipt_applied_dispositions(payload),
             }
         )
     return {family_id: rows for family_id, rows in receipts.items()}
+
+
+def _family_action_receipt_applied_dispositions(payload: Mapping[str, Any]) -> List[Dict[str, Any]]:
+    manifest = payload.get("row_disposition_manifest")
+    if not isinstance(manifest, Mapping):
+        return []
+    rows = manifest.get("applied_dispositions")
+    if not isinstance(rows, list):
+        return []
+    return [dict(row) for row in rows if isinstance(row, Mapping)]
 
 
 def _latest_family_action_receipt(
@@ -9777,6 +9788,20 @@ def _family_action_visibility(
     blocked_ids: List[str] = []
     closed_ids: List[str] = []
     explicitly_left_open_ids: List[str] = []
+    receipt_dispositions_by_id: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for receipt in family_action_receipts.get(family_id, []):
+        if not isinstance(receipt, Mapping):
+            continue
+        for disposition in receipt.get("applied_dispositions") or []:
+            if not isinstance(disposition, Mapping):
+                continue
+            subject_id = str(disposition.get("subject_id") or disposition.get("work_item_id") or "").strip()
+            if subject_id:
+                receipt_dispositions_by_id[subject_id].append(dict(disposition))
+
+    def append_unique(values: List[str], value: str) -> None:
+        if value and value not in values:
+            values.append(value)
 
     def has_family_ref(text: str) -> bool:
         text = text.lower()
@@ -9789,6 +9814,28 @@ def _family_action_visibility(
             f"covered by {token}" in text
             or f"covered_by_family_action_receipt:{token}" in text
             for token in coverage_tokens
+        )
+
+    def receipt_disposition_is_covered(dispositions: Sequence[Mapping[str, Any]]) -> bool:
+        return any(
+            has_coverage_marker(_compact_recursive_text(disposition))
+            or "covered_by_family_action_receipt" in _compact_recursive_text(disposition)
+            for disposition in dispositions
+        )
+
+    def receipt_disposition_is_left_open(dispositions: Sequence[Mapping[str, Any]]) -> bool:
+        if receipt_disposition_is_covered(dispositions):
+            return False
+        disposition_text = " ".join(_compact_recursive_text(disposition) for disposition in dispositions)
+        return any(
+            marker in disposition_text
+            for marker in (
+                "not fully closed",
+                "left open intentionally",
+                "still belongs",
+                "not fully covered",
+                "referenced by",
+            )
         )
 
     for row in rows:
@@ -9807,11 +9854,14 @@ def _family_action_visibility(
             _compact_recursive_text(note.get("note"))
             for note in notes
         )
+        receipt_dispositions = receipt_dispositions_by_id.get(row_id, [])
+        receipt_referenced = bool(receipt_dispositions)
+        receipt_covered = receipt_disposition_is_covered(receipt_dispositions)
         propagation_text = _compact_recursive_text(item.get("propagation"))
-        family_referenced = has_family_ref(item_text)
+        family_referenced = has_family_ref(item_text) or receipt_referenced
         family_noted = has_family_ref(note_text)
         family_propagated = has_family_ref(propagation_text)
-        left_open = any(
+        left_open = receipt_disposition_is_left_open(receipt_dispositions) or any(
             marker in note_text
             for marker in (
                 "not fully closed",
@@ -9828,28 +9878,30 @@ def _family_action_visibility(
                 "covered_by_family_action_receipt",
             )
         )
-        covered = family_referenced and not left_open and (
-            family_propagated
-            or has_coverage_marker(note_text)
-            or state in {"done", "propagated", "retired"}
+        covered = receipt_covered or (
+            family_referenced and not left_open and (
+                family_propagated
+                or has_coverage_marker(note_text)
+                or state in {"done", "propagated", "retired"}
+            )
         )
 
         if family_referenced:
-            referenced_ids.append(row_id)
+            append_unique(referenced_ids, row_id)
         if family_noted:
-            noted_ids.append(row_id)
+            append_unique(noted_ids, row_id)
         if family_propagated:
-            propagated_ids.append(row_id)
+            append_unique(propagated_ids, row_id)
         if state == "retired":
-            retired_ids.append(row_id)
+            append_unique(retired_ids, row_id)
         if state == "blocked":
-            blocked_ids.append(row_id)
+            append_unique(blocked_ids, row_id)
         if state in {"done", "propagated", "retired"} or triage_status == "closed_or_signed_off":
-            closed_ids.append(row_id)
+            append_unique(closed_ids, row_id)
         if left_open:
-            explicitly_left_open_ids.append(row_id)
+            append_unique(explicitly_left_open_ids, row_id)
         if covered:
-            covered_ids.append(row_id)
+            append_unique(covered_ids, row_id)
 
     covered_set = set(covered_ids)
     closed_set = set(closed_ids)
@@ -9909,6 +9961,10 @@ def _family_action_visibility(
         "covered_by_family_action_receipt_count": len(covered_ids),
         "row_disposition_reference_count": len(referenced_ids),
         "referenced_but_uncovered_count": len(referenced_but_uncovered_ids),
+        "receipt_disposition_count": sum(len(rows) for rows in receipt_dispositions_by_id.values()),
+        "receipt_disposition_covered_count": len(
+            [row_id for row_id in receipt_dispositions_by_id if row_id in covered_set]
+        ),
         "noted_count": len(noted_ids),
         "propagated_count": len(propagated_ids),
         "retired_count": len(retired_ids),
@@ -9943,6 +9999,7 @@ def _family_target_dependency_status(
     closed_ids: List[str] = []
     unknown_ids: List[str] = []
     unsatisfied_edges: List[Dict[str, Any]] = []
+    blocker_target_ids: Dict[str, set[str]] = {}
 
     for target_id in target_ids:
         item = work_items_by_id.get(target_id)
@@ -9968,6 +10025,8 @@ def _family_target_dependency_status(
 
         if unsatisfied_dep_ids or dangling_dep_ids:
             blocked_ids.append(target_id)
+            for dep_id in unsatisfied_dep_ids + dangling_dep_ids:
+                blocker_target_ids.setdefault(dep_id, set()).add(target_id)
             unsatisfied_edges.append(
                 {
                     "id": target_id,
@@ -9979,6 +10038,74 @@ def _family_target_dependency_status(
 
         schedulable_ids.append(target_id)
 
+    resolution_candidates: List[Dict[str, Any]] = []
+    for dep_id, blocked_targets in blocker_target_ids.items():
+        dependency = work_items_by_id.get(dep_id)
+        if not isinstance(dependency, Mapping):
+            resolution_candidates.append(
+                {
+                    "id": dep_id,
+                    "title": None,
+                    "state": "unknown",
+                    "target_count": len(blocked_targets),
+                    "blocked_target_ids": sorted(blocked_targets),
+                    "schedulable": False,
+                    "unsatisfied_dep_ids": [],
+                    "dangling_dep_ids": [dep_id],
+                }
+            )
+            continue
+
+        dependency_unsatisfied_ids: List[str] = []
+        dependency_dangling_ids: List[str] = []
+        for upstream_id in sorted(_hard_dependency_ids(dependency)):
+            upstream = work_items_by_id.get(upstream_id)
+            if not isinstance(upstream, Mapping):
+                dependency_dangling_ids.append(upstream_id)
+                continue
+            satisfied, _reason = _dependency_is_satisfied(dependency, upstream, upstream_id)
+            if not satisfied:
+                dependency_unsatisfied_ids.append(upstream_id)
+
+        resolution_candidates.append(
+            {
+                "id": dep_id,
+                "title": dependency.get("title"),
+                "state": _item_state(dependency) or "unknown",
+                "target_count": len(blocked_targets),
+                "blocked_target_ids": sorted(blocked_targets),
+                "schedulable": not dependency_unsatisfied_ids and not dependency_dangling_ids,
+                "unsatisfied_dep_ids": dependency_unsatisfied_ids,
+                "dangling_dep_ids": dependency_dangling_ids,
+            }
+        )
+
+    resolution_candidates.sort(
+        key=lambda row: (
+            0 if row.get("schedulable") else 1,
+            -int(row.get("target_count") or 0),
+            str(row.get("id") or ""),
+        )
+    )
+    resolution_candidate_ids = [str(row["id"]) for row in resolution_candidates if row.get("id")]
+    schedulable_resolution_candidate_ids = [
+        str(row["id"])
+        for row in resolution_candidates
+        if row.get("id") and row.get("schedulable")
+    ]
+    dependency_blocked_resolution_candidate_ids = [
+        str(row["id"])
+        for row in resolution_candidates
+        if row.get("id") and not row.get("schedulable")
+    ]
+    resolution_command_ids = schedulable_resolution_candidate_ids or resolution_candidate_ids
+    resolution_primary_command = None
+    if resolution_command_ids:
+        resolution_primary_command = (
+            "./repo-python kernel.py --option-surface task_ledger "
+            f"--band card --ids {','.join(resolution_command_ids[:sample_limit])}"
+        )
+
     return {
         "schema_version": "task_ledger_family_next_action_dependency_status_v0",
         "target_count": len(target_ids),
@@ -9987,9 +10114,19 @@ def _family_target_dependency_status(
         "closed_or_satisfied_target_ids": closed_ids[:sample_limit],
         "unknown_target_ids": unknown_ids[:sample_limit],
         "unsatisfied_dependency_edges": unsatisfied_edges[:sample_limit],
+        "resolution_candidate_ids": resolution_candidate_ids[:sample_limit],
+        "schedulable_resolution_candidate_ids": schedulable_resolution_candidate_ids[:sample_limit],
+        "dependency_blocked_resolution_candidate_ids": dependency_blocked_resolution_candidate_ids[:sample_limit],
+        "resolution_candidate_edges": resolution_candidates[:sample_limit],
+        "resolution_primary_command": resolution_primary_command,
         "dependency_decision_rule": (
             "Prefer schedulable_target_ids for execution, source_patch, or family-action receipt; "
             "dependency_blocked_target_ids must resolve dependency_status before row mutation."
+        ),
+        "resolution_decision_rule": (
+            "When family targets are dependency-blocked, open schedulable_resolution_candidate_ids "
+            "before mutating the blocked target rows; use dependency_blocked_resolution_candidate_ids "
+            "only to continue tracing upstream blockers."
         ),
     }
 
@@ -10022,6 +10159,11 @@ def _family_next_action(
             "./repo-python kernel.py --option-surface task_ledger "
             f"--band card --ids {','.join(target_ids)}"
         )
+    target_dependency_status = _family_target_dependency_status(
+        target_ids,
+        work_items_by_id=work_items_by_id,
+        sample_limit=sample_limit,
+    )
 
     if recommended == "already_dissolved":
         action_type = "verify_receipt_or_retire_family_pressure"
@@ -10034,6 +10176,19 @@ def _family_next_action(
     else:
         action_type = "inspect_owner_surface"
 
+    recommended_first_command = primary_command
+    recommended_first_command_reason = "inspect_target_ids_first"
+    if (
+        target_dependency_status.get("dependency_blocked_target_ids")
+        and not target_dependency_status.get("schedulable_target_ids")
+        and target_dependency_status.get("resolution_primary_command")
+    ):
+        action_type = "resolve_upstream_dependency_first"
+        recommended_first_command = target_dependency_status.get("resolution_primary_command")
+        recommended_first_command_reason = "all_target_ids_are_dependency_blocked"
+    elif target_dependency_status.get("schedulable_target_ids"):
+        recommended_first_command_reason = "target_ids_include_schedulable_work_items"
+
     return {
         "schema_version": "task_ledger_family_next_action_v0",
         "family_id": family_id,
@@ -10041,11 +10196,9 @@ def _family_next_action(
         "recommended_next_family_action": recommended,
         "target_ids": target_ids,
         "primary_command": primary_command,
-        "target_dependency_status": _family_target_dependency_status(
-            target_ids,
-            work_items_by_id=work_items_by_id,
-            sample_limit=sample_limit,
-        ),
+        "recommended_first_command": recommended_first_command,
+        "recommended_first_command_reason": recommended_first_command_reason,
+        "target_dependency_status": target_dependency_status,
         "owner_surface_hint": owner_surface_hint,
         "suggested_action": suggested_action,
         "review_boundary": (

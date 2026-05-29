@@ -124,10 +124,11 @@
       "target_sha256": "252aa6f6468f642b38c877f8a7bc20c6ab5ac5a027f64d9a5c5cfadcc05f363f"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 112996,
+      "byte_count": 113940,
       "copy_mode": "exact_file_copy",
-      "line_count": 1598,
+      "line_count": 1603,
       "material_class": "public_macro_standard_body",
       "module_id": "task_ledger_standard_body",
       "required_anchors": [
@@ -135,10 +136,11 @@
         "\"work_item_spine_contract\""
       ],
       "required_anchors_present": true,
+      "sha256_match": true,
       "source_ref": "codex/standards/std_task_ledger.json",
-      "source_sha256": "e0e0863521efc66a5cebb52dbcce25a42a022fa34c8f6a1fe7829989879e3262",
+      "source_sha256": "33039cb2abdd4ce591b0c9594fd4b631d6faebc4eb0ad763f90c3a0f586a3ee5",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/standards/std_task_ledger.json",
-      "target_sha256": "e0e0863521efc66a5cebb52dbcce25a42a022fa34c8f6a1fe7829989879e3262"
+      "target_sha256": "33039cb2abdd4ce591b0c9594fd4b631d6faebc4eb0ad763f90c3a0f586a3ee5"
     }
   ],
   "organ_id": "voice_to_doctrine_self_improvement_loop",
