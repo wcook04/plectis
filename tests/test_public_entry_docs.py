@@ -94,6 +94,8 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
         "source mutation",
         "private-root equivalence",
         "Receipts are drilldown evidence",
+        "microcosm evidence list . --limit 25",
+        "--limit 0",
     ):
         assert phrase in quickstart
 

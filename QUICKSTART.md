@@ -109,4 +109,5 @@ private-root equivalence, or credential/session export.
 
 Receipts are drilldown evidence. Start with the compact cards; open raw
 receipts only after you know which claim, route, or failure mode you are
-checking.
+checking. Use `microcosm evidence list . --limit 25` for a bounded receipt
+index; use `--limit 0` only when you intentionally want the full list.

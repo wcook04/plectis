@@ -191,7 +191,7 @@ microcosm serve . --host 127.0.0.1 --port 8765 --max-requests 6
 microcosm compile .
 microcosm python-lens .
 microcosm explain . <selected_route_id>
-microcosm evidence list .
+microcosm evidence list . --limit 25
 microcosm tour .
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
@@ -450,7 +450,7 @@ microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765 --max-reques
 microcosm compile /tmp/microcosm-scratch
 microcosm python-lens /tmp/microcosm-scratch
 microcosm explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
-microcosm evidence list /tmp/microcosm-scratch
+microcosm evidence list /tmp/microcosm-scratch --limit 25
 microcosm tour /tmp/microcosm-scratch | tee /tmp/microcosm-scratch-tour.json
 microcosm pattern-route-readiness validate-bundle --input examples/pattern_binding_contract/exported_route_readiness_bundle --out /tmp/microcosm-pattern-route-readiness
 ```
@@ -472,7 +472,7 @@ PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127
 PYTHONPATH=src python3 -m microcosm_core compile /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core python-lens /tmp/microcosm-scratch
 PYTHONPATH=src python3 -m microcosm_core explain /tmp/microcosm-scratch "$MICROCOSM_ROUTE_ID"
-PYTHONPATH=src python3 -m microcosm_core evidence list /tmp/microcosm-scratch
+PYTHONPATH=src python3 -m microcosm_core evidence list /tmp/microcosm-scratch --limit 25
 PYTHONPATH=src python3 -m microcosm_core tour /tmp/microcosm-scratch
 ```
 
@@ -482,11 +482,12 @@ The older organ-adapter demo still exists for internal evidence and regression:
 microcosm status
 microcosm run examples/runtime_shell/demo_project
 microcosm route list
-microcosm evidence list
+microcosm evidence list --limit 25
 ```
 
 Evidence receipts are the black-box recorder, not the cockpit. Start with the
-project loop; open receipts only when you need a drilldown.
+project loop; open receipts only when you need a drilldown. Use `--limit 0`
+only when you intentionally want the full receipt index.
 
 `microcosm tour --card <project>` is the compressed cold-reader route. It
 compiles the project into `.microcosm/`, then emits a compact first-screen
