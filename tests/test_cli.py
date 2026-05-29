@@ -283,6 +283,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "tour",
         "first-screen",
         "authority",
+        "pattern-route-readiness",
         "serve",
         "evidence",
     ]:
@@ -323,6 +324,7 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "show navigation route cleanup evidence",
         "show runtime projection intake board",
         "show public reveal walkthrough board",
+        "validate pattern route-readiness bundle",
     ]:
         assert help_text in output
     for drilldown_command in [

@@ -396,7 +396,7 @@ def _add_public_lens_parsers(subparsers) -> None:
             )
 
 
-ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset()
+ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset({"pattern-route-readiness"})
 
 
 def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
