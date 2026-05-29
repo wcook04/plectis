@@ -17969,7 +17969,7 @@ def _store_code_map_last_good(
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
         tmp_path = path.with_name(f"{path.name}.tmp")
-        tmp_path.write_text(json.dumps(envelope, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        tmp_path.write_text(json.dumps(envelope, separators=(",", ":")) + "\n", encoding="utf-8")
         os.replace(tmp_path, path)
     except Exception as exc:  # noqa: BLE001 - persistent packet cache must never fail the endpoint.
         logger.warning("code map last-good cache write failed: %s", exc)

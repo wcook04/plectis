@@ -9,7 +9,7 @@
       "anchor_count": 6,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 793623,
+      "byte_count": 793620,
       "classification": "copied_non_secret_macro_body",
       "line_count": 18470,
       "material_class": "public_macro_tool_body",
@@ -26,9 +26,9 @@
       "source_open_payload_boundary": "body_in_bundle_source_modules_not_receipt_or_live_runtime_export",
       "source_ref": "system/server/world_model.py",
       "source_role": "Station world-model reducer that composes host-agent dotfile drift, navigation graph drift, and paper-module freshness into the drift_aggregate_v1 attention surface.",
-      "source_sha256": "ce3ebeb04f306d03deeff4fc5269bf7a557bb4c8c024ed1f6d26e786a0dff0b3",
+      "source_sha256": "e6b23675763efb9a58bf0f020f73c3a7e193b6adf592313d24048ea3cc9859c7",
       "target_ref": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/world_model.py",
-      "target_sha256": "ce3ebeb04f306d03deeff4fc5269bf7a557bb4c8c024ed1f6d26e786a0dff0b3"
+      "target_sha256": "e6b23675763efb9a58bf0f020f73c3a7e193b6adf592313d24048ea3cc9859c7"
     },
     {
       "anchor_count": 4,
